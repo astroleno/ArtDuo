@@ -1,0 +1,564 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 导入高端画廊字体 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS 变量定义 - 暗色主题 */
+:root {
+  /* 画廊色彩系统 - 高级灰/深蓝渐变 */
+  --bg-primary: #0f172a;        /* slate-900 美术馆低照明 */
+  --bg-secondary: #1e293b;      /* slate-800 深灰背景 */
+  --bg-tertiary: #334155;       /* slate-700 中灰背景 */
+  --bg-overlay: rgba(15, 23, 42, 0.8); /* 半透明遮罩 */
+
+  /* 画廊强调色 */
+  --accent-primary: #f59e0b;    /* amber-500 画廊金色 */
+  --accent-secondary: #fbbf24;  /* amber-400 柔和金色 */
+  --accent-tertiary: #8b5cf6;   /* purple-500 艺术紫色 */
+  --accent-blue: #3b82f6;       /* blue-500 情绪蓝色 */
+
+  /* 画廊文字色彩 */
+  --text-primary: #ffffff;      /* 主文字 */
+  --text-secondary: #cbd5e1;    /* slate-300 次要文字 */
+  --text-muted: #94a3b8;        /* slate-400 弱化文字 */
+  --text-accent: #f59e0b;       /* amber-500 强调文字 */
+
+  /* 画廊字体系统 */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* 字体大小 */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+  --text-6xl: 3.75rem;   /* 60px */
+
+  /* 间距 */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
+  --spacing-3xl: 4rem;    /* 64px */
+
+  /* 圆角 */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+  /* 动画时长 */
+  --duration-fast: 0.3s;
+  --duration-normal: 0.6s;
+  --duration-slow: 1.2s;
+  --duration-dramatic: 2.0s;
+}
+
+/* 基础样式重置 */
+* {
+  box-sizing: border-box;
+}
+
+/* 只重置特定元素的margin和padding，避免影响Tailwind类 */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, pre, hr {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* 选择文本样式 */
+::selection {
+  background-color: var(--accent-secondary);
+  color: var(--bg-primary);
+}
+
+/* 焦点样式 */
+:focus-visible {
+  outline: 2px solid var(--accent-secondary);
+  outline-offset: 2px;
+}
+
+/* 画廊工具类 */
+.text-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.text-serif {
+  font-family: var(--font-serif);
+}
+
+.text-sans {
+  font-family: var(--font-sans);
+}
+
+/* 画廊质感效果 */
+.gallery-glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gallery-frame {
+  border: 2px solid rgba(245, 158, 11, 0.2);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02));
+}
+
+/* 情绪色彩类 */
+.emotion-lonely { --emotion-color: #3b82f6; }
+.emotion-calm { --emotion-color: #10b981; }
+.emotion-passion { --emotion-color: #ef4444; }
+.emotion-melancholy { --emotion-color: #6366f1; }
+.emotion-joy { --emotion-color: #f59e0b; }
+.emotion-intoxicated { --emotion-color: #a855f7; }
+
+/* 呼吸灯效果 */
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.breathing-light {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* 画廊背景系统 - 材质化、灯光化、仪式化 */
+.gallery-background {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  cursor: none;
+}
+
+.base-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    #0f172a 0%,     /* slate-900 美术馆低照明 */
+    #1e293b 25%,    /* slate-800 深灰背景 */
+    #334155 50%,    /* slate-700 中灰背景 */
+    #1e293b 75%,    /* slate-800 */
+    #0f172a 100%    /* slate-900 */
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 20s ease infinite;
+  z-index: 1;
+}
+
+/* 墙面质感纹理 */
+.texture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    /* 亚麻纹理效果 - 更细腻 */
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.015) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.008) 0%, transparent 50%),
+    /* 纸张肌理 - 更真实 */
+    linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.003) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(255, 255, 255, 0.002) 50%, transparent 60%),
+    /* 墙面颗粒感 */
+    radial-gradient(circle at 60% 30%, rgba(255, 255, 255, 0.005) 0%, transparent 30%),
+    radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.003) 0%, transparent 30%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 15px 15px, 15px 15px, 8px 8px, 8px 8px;
+  z-index: 2;
+}
+
+/* 聚光灯效果 - 模拟画廊射灯 */
+.spotlight-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(255, 255, 255, 0.01) 50%,
+    rgba(255, 255, 255, 0.005) 75%,
+    transparent 100%
+  );
+  z-index: 3;
+  animation: breathe 8s ease-in-out infinite;
+}
+
+/* 动态情绪色彩层 */
+.emotion-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.02) 0%,    /* 默认蓝色 - 孤独感 */
+    rgba(59, 130, 246, 0.01) 50%,
+    transparent 100%
+  );
+  z-index: 4;
+  animation: emotion-breathe 12s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+/* 鼠标跟随光效 */
+.mouse-light {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.01) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+  transition: transform 0.1s ease-out;
+}
+
+.content-layer {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+}
+
+/* 输入框聚焦时的聚光灯效果 */
+.input-focused .spotlight-effect {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(245, 158, 11, 0.08) 0%,    /* 金色聚光 */
+    rgba(245, 158, 11, 0.04) 25%,
+    rgba(245, 158, 11, 0.02) 50%,
+    rgba(245, 158, 11, 0.01) 75%,
+    transparent 100%
+  );
+  animation: breathe 6s ease-in-out infinite;
+}
+
+/* 情绪色彩动画 */
+@keyframes emotion-breathe {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+/* 情绪色彩类 */
+.emotion-lonely .emotion-overlay {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.03) 0%,    /* 冷蓝 */
+    rgba(59, 130, 246, 0.015) 50%,
+    transparent 100%
+  );
+}
+
+.emotion-joy .emotion-overlay {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(245, 158, 11, 0.04) 0%,    /* 金色 */
+    rgba(245, 158, 11, 0.02) 50%,
+    transparent 100%
+  );
+}
+
+.emotion-passion .emotion-overlay {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(239, 68, 68, 0.03) 0%,     /* 红色 */
+    rgba(239, 68, 68, 0.015) 50%,
+    transparent 100%
+  );
+}
+
+.emotion-calm .emotion-overlay {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(16, 185, 129, 0.03) 0%,    /* 绿色 */
+    rgba(16, 185, 129, 0.015) 50%,
+    transparent 100%
+  );
+}
+
+/* 渐变背景动画 */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, 
+    var(--bg-primary), 
+    var(--bg-secondary), 
+    var(--bg-tertiary), 
+    var(--bg-primary)
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* 淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* 滑入动画 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.6s ease-out;
+}
+
+/* 脉冲效果 */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 响应式工具类 */
+@media (max-width: 768px) {
+  :root {
+    --text-4xl: 2rem;     /* 32px */
+    --text-5xl: 2.5rem;   /* 40px */
+    --text-6xl: 3rem;     /* 48px */
+  }
+}
+
+/* 响应式布局类 */
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
+.header-content {
+  padding-left: 2rem;
+}
+
+.input-container {
+  width: 500px !important;
+  max-width: 500px !important;
+  min-width: 500px !important;
+  margin: 0 auto !important;
+}
+
+/* 输入框仪式感 - 展览留言簿质感 */
+.input-container input {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  padding: 16px 20px !important;
+  font-size: 16px !important;
+  color: white !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.input-container input:focus {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 
+    0 0 0 2px rgba(255, 255, 255, 0.1),
+    0 8px 32px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.input-container input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-style: normal !important;
+}
+
+/* 提交按钮 - 极简小圆按钮 */
+.input-container button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 12px !important;
+  transition: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.input-container button:hover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 1024px) {
+  .header-container {
+    padding: 0 3rem;
+  }
+  
+  .header-content {
+    padding-left: 1.5rem;
+  }
+  
+  .input-container {
+    max-width: 70% !important;
+    min-width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 2rem;
+  }
+  
+  .header-content {
+    padding-left: 1rem;
+  }
+  
+  .input-container {
+    max-width: 85% !important;
+    min-width: 300px;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+  
+  .header-content {
+    padding-left: 0.5rem;
+  }
+  
+  .input-container {
+    max-width: 90% !important;
+    min-width: 280px;
+    padding: 0 0.5rem;
+  }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --accent-secondary: #ffff00;
+  }
+}
+
+/* 减少动画模式支持 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
