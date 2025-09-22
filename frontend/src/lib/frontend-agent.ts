@@ -4,7 +4,7 @@
  */
 
 import { frontendLLMClient, OpenAIMessage } from './frontend-llm-client';
-import { frontendMCPClient } from './frontend-mcp-client';
+import { frontendMCPClient, MCPClientError } from './frontend-mcp-client';
 import { localCache } from './local-cache';
 
 // Agent状态定义
@@ -52,6 +52,17 @@ export interface AgentResult {
   analysis: LLMAnalysis;
   source: 'mcp' | 'api' | 'fallback';
   executionTime: number;
+}
+
+class AgentError extends Error {
+  code: string;
+  details?: unknown;
+
+  constructor(code: string, message: string, details?: unknown) {
+    super(message);
+    this.code = code;
+    this.details = details;
+  }
 }
 
 // 前端Agent类
@@ -146,8 +157,22 @@ export class FrontendAgent {
 
     } catch (error) {
       console.error('❌ Agent执行失败:', error);
-      this.updateState('error', { error: error instanceof Error ? error.message : 'Unknown error' });
-      throw error;
+
+      if (error instanceof AgentError) {
+        this.updateState('error', {
+          code: error.code,
+          message: error.message,
+          details: error.details
+        });
+        throw error;
+      }
+
+      const fallbackError = error instanceof Error ? error : new Error('Unknown agent error');
+      this.updateState('error', {
+        code: 'AGENT_UNKNOWN_ERROR',
+        message: fallbackError.message
+      });
+      throw fallbackError;
     }
   }
 
@@ -173,7 +198,7 @@ export class FrontendAgent {
 
     // 检查LLM缓存
     const cachedAnalysis = await localCache.getCachedLLMResponse(analysisPrompt);
-    if (cachedAnalysis) {
+    if (cachedAnalysis && this.isValidAnalysis(cachedAnalysis)) {
       console.log('📦 使用LLM分析缓存');
       return cachedAnalysis;
     }
@@ -209,13 +234,12 @@ export class FrontendAgent {
       console.log('📝 LLM原始文本:', analysisText);
       console.log('📝 LLM原始文本长度:', analysisText.length);
       
-      // 如果LLM返回空内容，使用智能默认分析
-      if (!analysisText || analysisText.trim() === '{}' || analysisText.length < 10) {
-        console.warn('⚠️ LLM返回空内容，使用智能默认分析');
-        const defaultAnalysis = this.generateDefaultAnalysis(emotion, userInput);
-        console.log('🔄 使用默认分析结果:', defaultAnalysis);
-        await localCache.cacheLLMResponse(analysisPrompt, defaultAnalysis);
-        return defaultAnalysis;
+      if (!analysisText || analysisText.trim() === '{}' || analysisText.trim().length < 10) {
+        throw new AgentError(
+          'ANALYSIS_EMPTY',
+          '请更具体地描述你的情绪或场景，以便生成策展分析。',
+          { reason: 'LLM_EMPTY_RESPONSE' }
+        );
       }
       
       // 清理markdown格式的JSON
@@ -230,93 +254,135 @@ export class FrontendAgent {
       console.log('🧹 清理后的文本:', cleanText);
       const analysis = JSON.parse(cleanText);
       console.log('🧠 LLM分析结果:', analysis);
-      
+
+      if (!this.isValidAnalysis(analysis)) {
+        throw new AgentError(
+          'ANALYSIS_EMPTY',
+          '请更具体地描述你的情绪或场景，以便生成策展分析。',
+          { reason: 'INVALID_ANALYSIS', analysis }
+        );
+      }
+
       // 缓存LLM响应
       await localCache.cacheLLMResponse(analysisPrompt, analysis);
-      
+
       return analysis;
 
     } catch (error) {
+      if (error instanceof AgentError) {
+        throw error;
+      }
+
       console.error('❌ LLM分析失败:', error);
       console.error('❌ 错误详情:', error instanceof Error ? error.message : String(error));
-      
-      // 根据情绪生成智能的默认分析结果
-      const defaultAnalysis = this.generateDefaultAnalysis(emotion, userInput);
-      console.log('🔄 使用默认分析结果:', defaultAnalysis);
-      
-      // 缓存默认结果
-      await localCache.cacheLLMResponse(analysisPrompt, defaultAnalysis);
-      
-      return defaultAnalysis;
+
+      throw new AgentError(
+        'LLM_ANALYSIS_FAILED',
+        '分析服务暂时不可用，请稍后再试。',
+        { emotion, userInput, error: error instanceof Error ? error.message : String(error) }
+      );
     }
   }
 
   // Phase 2: 搜索艺术作品
   private async searchArtworks(emotion: string, userInput?: string, analysis?: LLMAnalysis): Promise<Artwork[]> {
+    const enableMCP = process.env.NEXT_PUBLIC_ENABLE_MCP === 'true';
+
+    if (!enableMCP) {
+      console.log('⚙️ MCP 已关闭，使用本地降级数据');
+      return this.getMockArtworks(emotion);
+    }
+
     try {
-      // 首先尝试MCP搜索
-      const isMCPAvailable = await frontendMCPClient.isAvailable();
-      if (isMCPAvailable) {
-        console.log('🔍 使用MCP搜索艺术作品...');
-        const mcpResult = await frontendMCPClient.searchArtworks(emotion, userInput, analysis);
-        if (mcpResult.success && mcpResult.artworks.length > 0) {
-          console.log('✅ MCP搜索成功:', mcpResult.artworks.length, '件作品');
-          return mcpResult.artworks;
-        }
+      console.log('🔍 使用MCP搜索艺术作品...');
+      const mcpResult = await frontendMCPClient.searchArtworks(emotion, userInput, analysis);
+
+      if (!mcpResult.success) {
+        throw new AgentError(
+          'MCP_SEARCH_FAILED',
+          '艺术作品检索服务暂时不可用，请稍后再试。',
+          { source: mcpResult.source }
+        );
       }
 
-      // MCP不可用或失败，使用模拟数据
-      console.log('⚠️ MCP不可用，使用模拟数据');
-      return this.getMockArtworks(emotion);
-      
+      if (!mcpResult.artworks || mcpResult.artworks.length === 0) {
+        throw new AgentError(
+          'MCP_NO_RESULTS',
+          '没有找到匹配的作品，请尝试换一个情绪或补充更多描述。',
+          { totalFound: mcpResult.totalFound }
+        );
+      }
+
+      console.log('✅ MCP搜索成功:', mcpResult.artworks.length, '件作品');
+      return mcpResult.artworks;
+
     } catch (error) {
+      if (error instanceof AgentError) {
+        throw error;
+      }
+
       console.error('搜索艺术作品失败:', error);
+
+      if (error instanceof MCPClientError) {
+        if (error.code === 'MCP_NO_RESULTS') {
+          throw new AgentError('MCP_NO_RESULTS', '没有找到匹配的作品，请尝试换一个情绪或补充更多描述。', {
+            code: error.code,
+            status: error.status,
+            details: error.details
+          });
+        }
+
+        console.warn('⚠️ MCP服务不可用，降级到本地数据');
+        return this.getMockArtworks(emotion);
+      }
+
+      console.warn('⚠️ MCP未知错误，降级到本地数据');
       return this.getMockArtworks(emotion);
     }
   }
 
-  // 获取模拟艺术作品数据
+  // 获取模拟艺术作品数据（MCP关闭或失败时使用）
   private getMockArtworks(emotion: string): Artwork[] {
     const mockArtworks: Artwork[] = [
       {
-        id: '1',
+        id: 'mock-1',
         title: '星夜',
         artist: '文森特·梵高',
         year: '1889',
         medium: '布面油画',
         dimensions: '73.7 × 92.1 cm',
         description: '这幅画展现了梵高内心世界的孤独与渴望，旋转的星空象征着艺术家内心的动荡。',
-        imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop',
+        imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT1567.jpg',
         museum: '纽约现代艺术博物馆',
         license: 'Public Domain'
       },
       {
-        id: '2',
+        id: 'mock-2',
         title: '呐喊',
         artist: '爱德华·蒙克',
         year: '1893',
         medium: '蛋彩画、蜡笔画、纸板',
         dimensions: '91 × 73.5 cm',
-        description: '这幅画表达了现代人内心的焦虑和恐惧，是表现主义艺术的代表作。',
-        imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop',
+        description: '表现主义代表作，表达了现代人内心的焦虑和恐惧。',
+        imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP130155.jpg',
         museum: '挪威国家美术馆',
         license: 'Public Domain'
       },
       {
-        id: '3',
+        id: 'mock-3',
         title: '睡莲',
         artist: '克劳德·莫奈',
         year: '1919',
         medium: '布面油画',
         dimensions: '100 × 200 cm',
         description: '莫奈晚年的代表作，展现了宁静祥和的自然之美。',
-        imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop',
+        imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT1914.jpg',
         museum: '橘园美术馆',
         license: 'Public Domain'
       }
     ];
 
-    console.log('🔍 使用模拟艺术作品:', mockArtworks.length, '件');
+    console.log('🔍 返回降级数据:', mockArtworks.length, '件');
     return mockArtworks;
   }
 
@@ -458,6 +524,19 @@ LLM分析：${JSON.stringify(analysis, null, 2)}
     }
     
     return curve;
+  }
+
+  private isValidAnalysis(data: any): data is LLMAnalysis {
+    if (!data || typeof data !== 'object') {
+      return false;
+    }
+
+    const hasEmotionAnalysis = typeof data.emotion_analysis === 'string' && data.emotion_analysis.trim().length > 0;
+    const hasKeywords = Array.isArray(data.search_keywords) && data.search_keywords.length > 0;
+    const hasStyles = Array.isArray(data.art_styles);
+    const hasStrategy = typeof data.curation_strategy === 'string' && data.curation_strategy.trim().length > 0;
+
+    return hasEmotionAnalysis && hasKeywords && hasStyles && hasStrategy;
   }
 
   // 生成智能的默认分析结果

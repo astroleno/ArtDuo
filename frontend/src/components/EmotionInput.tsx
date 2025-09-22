@@ -119,18 +119,9 @@ export default function EmotionInput({ className = '' }: EmotionInputProps) {
                 {isSubmitting ? (
                   <motion.div
                     key="loading"
-                    initial={{ opacity: 0, rotate: -180 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 180 }}
-                    transition={{ duration: 0.3 }}
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      border: '2px solid #0f172a',
-                      borderTop: '2px solid transparent',
-                      borderRadius: '50%',
-                      animation: 'spin 1s linear infinite'
-                    }}
+                    className="w-5 h-5 border-2 border-text-primary border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                   />
                 ) : (
                   <motion.svg

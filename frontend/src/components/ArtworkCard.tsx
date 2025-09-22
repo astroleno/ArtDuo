@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 import { Artwork } from '@/lib/store';
 
 interface ArtworkCardProps {
@@ -19,7 +20,16 @@ export default function ArtworkCard({
   const [imageError, setImageError] = useState(false);
 
   return (
-    <motion.div
+    <motion.article
+      role="article"
+      aria-label={`Artwork: ${artwork.title} by ${artwork.artist}, ${artwork.year}`}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
       className={`
         group relative
         bg-background-secondary/20
@@ -30,6 +40,7 @@ export default function ArtworkCard({
         hover:bg-background-secondary/40
         hover:shadow-xl
         hover:shadow-accent-secondary/10
+        focus:outline-none focus:ring-2 focus:ring-accent-secondary
         ${className}
       `}
       onClick={onClick}
@@ -63,21 +74,30 @@ export default function ArtworkCard({
         )}
 
         {/* 艺术作品图片 */}
-        <motion.img
-          src={artwork.imageUrl}
-          alt={artwork.title}
+        <motion.div
           className={`
-            w-full h-full object-cover
+            absolute inset-0
             transition-all duration-500
             group-hover:scale-110
             ${imageLoaded ? 'opacity-100' : 'opacity-0'}
           `}
-          onLoad={() => setImageLoaded(true)}
-          onError={() => setImageError(true)}
           initial={{ opacity: 0 }}
           animate={{ opacity: imageLoaded ? 1 : 0 }}
           transition={{ duration: 0.5 }}
-        />
+        >
+          <Image
+            src={artwork.imageUrl}
+            alt={`${artwork.title} by ${artwork.artist}, ${artwork.year}`}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={false}
+            loading="lazy"
+            quality={85}
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageError(true)}
+          />
+        </motion.div>
 
         {/* 悬停遮罩 */}
         <motion.div
@@ -165,6 +185,6 @@ export default function ArtworkCard({
         whileHover={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       />
-    </motion.div>
+    </motion.article>
   );
 }

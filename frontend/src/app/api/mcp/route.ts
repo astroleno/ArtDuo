@@ -1,41 +1,156 @@
 /**
  * MCP代理服务 - 为前端提供MCP调用接口
- * 这是一个轻量级的代理，将前端的MCP请求转发到实际的MCP服务
+ * 真实调用失败时返回明确的错误码，禁止默认mock污染数据
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 
+const MCP_UPSTREAM_URL = process.env.MCP_UPSTREAM_URL;
+const MCP_UPSTREAM_API_KEY = process.env.MCP_UPSTREAM_API_KEY;
+const MCP_REQUEST_TIMEOUT = Number(process.env.MCP_REQUEST_TIMEOUT ?? 20000);
+const NEXT_PUBLIC_MCP_MOCK_ENABLED = process.env.NEXT_PUBLIC_MCP_MOCK_ENABLED === 'true';
+const IS_DEV = process.env.NODE_ENV !== 'production';
+
 export async function POST(request: NextRequest) {
+  let requestBody: any;
+
   try {
-    const body = await request.json();
-    const { method, params } = body;
+    requestBody = await request.json();
+  } catch (error) {
+    console.error('❌ MCP代理解析请求失败:', error);
+    return buildErrorResponse(400, 'MCP_BAD_REQUEST', 'Invalid JSON payload');
+  }
 
-    console.log('🔄 MCP代理请求:', method, params);
+  const { id = '1', method, params } = requestBody ?? {};
 
-    // 这里可以集成真实的MCP服务调用
-    // 目前返回模拟数据
+  if (!method) {
+    return buildErrorResponse(400, 'MCP_METHOD_REQUIRED', 'Missing MCP method', id);
+  }
+
+  const allowMock = NEXT_PUBLIC_MCP_MOCK_ENABLED && IS_DEV;
+
+  if (!allowMock) {
+    try {
+      const upstreamResult = await callUpstream(requestBody);
+      return NextResponse.json(upstreamResult);
+    } catch (error) {
+      if (error instanceof MCPUpstreamError) {
+        console.error('❌ MCP上游错误:', error.message, error.details);
+        return buildErrorResponse(error.status, error.code, error.message, id, error.details);
+      }
+
+      console.error('❌ MCP代理未知错误:', error);
+      return buildErrorResponse(500, 'MCP_PROXY_ERROR', 'Unexpected MCP proxy error', id);
+    }
+  }
+
+  // 仅在允许mock的开发模式下返回模拟数据
+  try {
     const mockResponse = await handleMockMCPCall(method, params);
-
     return NextResponse.json({
       jsonrpc: '2.0',
-      id: body.id || '1',
+      id,
       result: mockResponse
     });
-
   } catch (error) {
-    console.error('❌ MCP代理错误:', error);
-    return NextResponse.json({
-      jsonrpc: '2.0',
-      id: '1',
-      error: {
-        code: -1,
-        message: error instanceof Error ? error.message : 'Unknown error'
-      }
-    }, { status: 500 });
+    console.error('❌ MCP mock处理失败:', error);
+    return buildErrorResponse(500, 'MCP_MOCK_ERROR', 'Mock MCP handler failed', id);
   }
 }
 
-// 处理模拟MCP调用
+class MCPUpstreamError extends Error {
+  status: number;
+  code: string;
+  details?: unknown;
+
+  constructor(status: number, code: string, message: string, details?: unknown) {
+    super(message);
+    this.status = status;
+    this.code = code;
+    this.details = details;
+  }
+}
+
+async function callUpstream(body: any) {
+  if (!MCP_UPSTREAM_URL) {
+    throw new MCPUpstreamError(503, 'MCP_UPSTREAM_UNAVAILABLE', 'MCP upstream URL is not configured');
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), MCP_REQUEST_TIMEOUT);
+
+  try {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json'
+    };
+
+    if (MCP_UPSTREAM_API_KEY) {
+      headers['Authorization'] = `Bearer ${MCP_UPSTREAM_API_KEY}`;
+    }
+
+    const response = await fetch(MCP_UPSTREAM_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      const text = await safeReadText(response);
+      throw new MCPUpstreamError(
+        response.status === 404 ? 502 : response.status,
+        'MCP_UPSTREAM_FAILED',
+        `MCP upstream responded with status ${response.status}`,
+        text
+      );
+    }
+
+    const data = await response.json();
+
+    if (!data || typeof data !== 'object') {
+      throw new MCPUpstreamError(502, 'MCP_UPSTREAM_INVALID', 'MCP upstream returned invalid JSON');
+    }
+
+    return data;
+  } catch (error) {
+    if (error instanceof MCPUpstreamError) {
+      throw error;
+    }
+
+    if ((error as Error).name === 'AbortError') {
+      throw new MCPUpstreamError(504, 'MCP_UPSTREAM_TIMEOUT', 'MCP upstream request timed out');
+    }
+
+    throw new MCPUpstreamError(503, 'MCP_UPSTREAM_UNAVAILABLE', 'Failed to reach MCP upstream', {
+      message: error instanceof Error ? error.message : String(error)
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function buildErrorResponse(status: number, code: string, message: string, id: string | number = '1', details?: unknown) {
+  return NextResponse.json({
+    jsonrpc: '2.0',
+    id,
+    error: {
+      code,
+      message,
+      details
+    }
+  }, { status });
+}
+
+async function safeReadText(response: Response) {
+  try {
+    return await response.text();
+  } catch {
+    return null;
+  }
+}
+
+// 以下为开发模式下的模拟实现（保留以便本地调试）
+
 async function handleMockMCPCall(method: string, params: any): Promise<any> {
   switch (method) {
     case 'search-museum-objects':
@@ -47,57 +162,17 @@ async function handleMockMCPCall(method: string, params: any): Promise<any> {
   }
 }
 
-// 真正的MCP搜索 - 使用自然语言查询
 async function handleSearchObjects(params: any): Promise<string> {
   const { query, llm_analysis } = params;
-  console.log('🔍 MCP自然语言搜索请求:', { query, llm_analysis });
-  
-  // 模拟MCP处理延迟
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // 真正的MCP应该：
-  // 1. 接收自然语言查询
-  // 2. 理解查询意图
-  // 3. 动态生成搜索结果
-  
-  // 构建自然语言查询
-  let naturalLanguageQuery = query;
-  if (llm_analysis) {
-    naturalLanguageQuery = `Find artworks that match: ${llm_analysis.emotion_analysis}. ` +
-                          `Recommended styles: ${llm_analysis.art_styles?.join(', ') || 'any'}. ` +
-                          `Search keywords: ${llm_analysis.search_keywords?.join(', ') || query}`;
-  }
-  
-  console.log('🧠 MCP自然语言查询:', naturalLanguageQuery);
-  
-  // 模拟MCP的智能搜索过程
-  // 这里应该调用真正的MCP服务，比如：
-  // const mcpResponse = await mcpClient.search({
-  //   query: naturalLanguageQuery,
-  //   context: llm_analysis
-  // });
-  
-  // 为了演示，我们模拟MCP的智能搜索结果
-  const searchResults = await simulateMCPSearch(naturalLanguageQuery, llm_analysis);
-  
-  console.log('🎯 MCP智能搜索结果:', searchResults);
+  console.log('🔍 [Mock] MCP搜索请求:', { query, llm_analysis });
+  await new Promise(resolve => setTimeout(resolve, 300));
+  const searchResults = await simulateMCPSearch(query, llm_analysis);
   return `Found ${searchResults.length} objects: ${searchResults.join(', ')}`;
 }
 
-// 模拟MCP的智能搜索算法
 async function simulateMCPSearch(query: string, llmAnalysis?: any): Promise<number[]> {
-  // 这里模拟MCP的智能搜索逻辑
-  // 真正的MCP会：
-  // 1. 分析自然语言查询
-  // 2. 理解情绪和艺术风格
-  // 3. 动态匹配艺术作品
-  
-  console.log('🤖 MCP智能分析查询:', query);
-  
-  // 基于查询内容动态生成结果
-  const queryLower = query.toLowerCase();
-  
-  // 模拟MCP的智能匹配算法
+  const queryLower = (query || '').toLowerCase();
+
   if (queryLower.includes('happiness') || queryLower.includes('joy') || 
       queryLower.includes('积极') || queryLower.includes('快乐') || 
       queryLower.includes('开心') || queryLower.includes('不错')) {
@@ -124,11 +199,9 @@ async function simulateMCPSearch(query: string, llmAnalysis?: any): Promise<numb
     return [501, 502, 503, 504, 505, 506, 507, 508, 509];
   }
   
-  // 默认返回
   return [1, 2, 3, 4, 5, 6, 7, 8, 9];
 }
 
-// 获取艺术作品图片URL
 function getArtworkImageUrl(title: string): string {
   const imageMap: Record<string, string> = {
     '向日葵': 'https://images.metmuseum.org/CRDImages/ep/original/DT28_DT29.jpg',
@@ -154,95 +227,23 @@ function getArtworkImageUrl(title: string): string {
   return imageMap[title] || 'https://images.metmuseum.org/CRDImages/ep/original/DT28_DT29.jpg';
 }
 
-// 模拟获取博物馆对象详情
 async function handleGetObject(params: any): Promise<string> {
   const { objectID } = params;
-  console.log('📋 模拟获取对象详情:', objectID);
-  
-  // 模拟延迟
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
-  // 根据对象ID范围返回不同的作品详情
-  let mockDetails: any;
-  
-  if (objectID >= 101 && objectID <= 109) {
-    // 开心相关的作品
-    const happyArtworks = [
-      { title: '向日葵', artist: '文森特·梵高', description: '充满生命力的向日葵，象征着快乐和希望' },
-      { title: '睡莲', artist: '克劳德·莫奈', description: '宁静的池塘中的睡莲，带来内心的平静与喜悦' },
-      { title: '舞蹈', artist: '亨利·马蒂斯', description: '欢快的舞蹈场景，展现生命的活力' },
-      { title: '春', artist: '桑德罗·波提切利', description: '春天的女神，象征着新生和快乐' },
-      { title: '星夜', artist: '文森特·梵高', description: '旋转的星空，充满动感和生命力' },
-      { title: '日出', artist: '克劳德·莫奈', description: '印象派的经典之作，捕捉光线的变化' },
-      { title: '花园', artist: '皮埃尔-奥古斯特·雷诺阿', description: '色彩斑斓的花园，充满生机' },
-      { title: '节日', artist: '保罗·高更', description: '热带节日的欢庆场景' },
-      { title: '阳光', artist: '爱德华·马奈', description: '明亮的阳光洒在画布上' }
-    ];
-    const index = objectID - 101;
-    const artwork = happyArtworks[index] || happyArtworks[0];
-    mockDetails = {
-      objectID,
-      title: artwork.title,
-      artistDisplayName: artwork.artist,
-      objectDate: '19th-20th century',
-      medium: 'Oil on canvas',
-      dimensions: '100 x 80 cm',
-      culture: 'European',
-      period: 'Modern',
-      description: artwork.description,
-      primaryImage: getArtworkImageUrl(artwork.title)
-    };
-  } else if (objectID >= 201 && objectID <= 209) {
-    // 孤独相关的作品
-    const lonelyArtworks = [
-      { title: '呐喊', artist: '爱德华·蒙克', description: '表现主义代表作，表达内心的孤独和焦虑' },
-      { title: '孤独的树', artist: '卡斯帕·大卫·弗里德里希', description: '荒原上的孤树，象征内心的寂寞' },
-      { title: '夜巡', artist: '伦勃朗', description: '光影中的孤独身影' },
-      { title: '沉思者', artist: '奥古斯特·罗丹', description: '深沉的思考，内心的孤独' },
-      { title: '孤独的街道', artist: '乔治·德·基里科', description: '超现实主义的孤独场景' },
-      { title: '月光', artist: '文森特·梵高', description: '月光下的孤独身影' },
-      { title: '荒原', artist: '卡斯帕·大卫·弗里德里希', description: '无人的荒原，内心的孤独' },
-      { title: '孤独的船', artist: '卡斯帕·大卫·弗里德里希', description: '海上的孤船，象征孤独的旅程' },
-      { title: '夜晚', artist: '爱德华·霍珀', description: '夜晚的孤独场景' }
-    ];
-    const index = objectID - 201;
-    const artwork = lonelyArtworks[index] || lonelyArtworks[0];
-    mockDetails = {
-      objectID,
-      title: artwork.title,
-      artistDisplayName: artwork.artist,
-      objectDate: '19th-20th century',
-      medium: 'Oil on canvas',
-      dimensions: '100 x 80 cm',
-      culture: 'European',
-      period: 'Modern',
-      description: artwork.description,
-      primaryImage: getArtworkImageUrl(artwork.title)
-    };
-  } else {
-    // 默认作品
-    mockDetails = {
-      objectID,
-      title: `艺术作品 ${objectID}`,
-      artistDisplayName: `艺术家 ${objectID}`,
-      objectDate: '19th century',
-      medium: 'Oil on canvas',
-      dimensions: '100 x 80 cm',
-      culture: 'European',
-      period: 'Modern',
-      description: '这是一件优秀的艺术作品',
-      primaryImage: getArtworkImageUrl(`艺术作品 ${objectID}`)
-    };
-  }
-  
-  return JSON.stringify(mockDetails);
-}
+  console.log('📋 [Mock] 获取对象详情:', objectID);
+  await new Promise(resolve => setTimeout(resolve, 200));
 
-// 健康检查端点
-export async function GET() {
-  return NextResponse.json({
-    status: 'healthy',
-    service: 'MCP Proxy',
-    timestamp: new Date().toISOString()
-  });
+  const mockDetails = {
+    objectID,
+    title: `艺术作品 ${objectID}`,
+    artistDisplayName: '未知艺术家',
+    objectDate: '未知年代',
+    medium: '未知材质',
+    dimensions: '未知尺寸',
+    culture: '未知文化',
+    period: '未知时期',
+    description: '这是一件优秀的艺术作品',
+    primaryImage: getArtworkImageUrl('默认')
+  };
+
+  return JSON.stringify(mockDetails);
 }

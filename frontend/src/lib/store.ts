@@ -1,20 +1,9 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { Artwork } from '@/lib/curation/types';
 
-// 类型定义
-export interface Artwork {
-  id: string;
-  title: string;
-  artist: string;
-  year: string;
-  medium: string;
-  dimensions: string;
-  imageUrl: string;
-  description: string;
-  museum: string;
-  license: string;
-  gacLink?: string;
-}
+// 重新导出类型以保持兼容性
+export type { Artwork };
 
 export interface EmotionInput {
   emotion: string;

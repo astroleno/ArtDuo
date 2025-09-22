@@ -1,6 +1,6 @@
 /**
- * 前端LLM客户端 - 直接调用BigModel GLM API
- * 支持浏览器环境下的LLM调用
+ * 前端LLM客户端 - 直接调用 OpenAI 兼容 API
+ * 支持浏览器环境下的 LLM 调用
  */
 
 export interface OpenAIMessage {
@@ -55,27 +55,30 @@ export class FrontendLLMClient {
 
   constructor() {
     // 从环境变量或用户输入获取API密钥
-    this.apiKey = process.env.NEXT_PUBLIC_BIGMODEL_API_KEY || 
-                  (typeof window !== 'undefined' ? localStorage.getItem('user_bigmodel_api_key') : null) || 
-                  '6be0ec1133ba4e9fb16b5ed76ae9f3fc.JEf38PO0DQiorzxl';
-    
+    const envApiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    const storedApiKey = typeof window !== 'undefined'
+      ? (localStorage.getItem('user_openai_api_key') || localStorage.getItem('user_bigmodel_api_key'))
+      : null;
+    this.apiKey = envApiKey || storedApiKey || '';
+
     console.log('🔑 LLM API密钥配置:', {
-      envKey: !!process.env.NEXT_PUBLIC_BIGMODEL_API_KEY,
-      localStorageKey: typeof window !== 'undefined' ? !!localStorage.getItem('user_bigmodel_api_key') : false,
-      usingFallback: !process.env.NEXT_PUBLIC_BIGMODEL_API_KEY && (typeof window === 'undefined' || !localStorage.getItem('user_bigmodel_api_key'))
+      envKey: !!envApiKey,
+      localStorageKey: !!storedApiKey,
+      hasValidApiKey: this.hasValidApiKey()
     });
     
-    this.baseUrl = process.env.NEXT_PUBLIC_BIGMODEL_BASE_URL || 
-                   'https://open.bigmodel.cn/api/paas/v4';
+    this.baseUrl = process.env.NEXT_PUBLIC_OPENAI_BASE_URL || 
+                   'https://api.openai.com/v1';
     
-    this.model = process.env.NEXT_PUBLIC_BIGMODEL_MODEL || 'glm-4.5';
+    this.model = process.env.NEXT_PUBLIC_OPENAI_MODEL || 'gpt-4o-mini';
   }
 
   // 设置用户API密钥
   setApiKey(apiKey: string) {
     this.apiKey = apiKey;
     if (typeof window !== 'undefined') {
-      localStorage.setItem('user_bigmodel_api_key', apiKey);
+      localStorage.setItem('user_openai_api_key', apiKey);
+      localStorage.removeItem('user_bigmodel_api_key');
     }
   }
 
@@ -98,7 +101,7 @@ export class FrontendLLMClient {
     } = options;
 
     if (!this.hasValidApiKey()) {
-      throw new Error('API密钥未设置或无效，请在设置中配置BigModel API密钥');
+      throw new Error('API密钥未设置或无效，请在设置中配置 OpenAI API Key');
     }
 
     try {
@@ -125,12 +128,12 @@ export class FrontendLLMClient {
 
       if (!response.ok) {
         const error = await response.text();
-        throw new Error(`BigModel API error: ${response.status} ${error}`);
+        throw new Error(`OpenAI API error: ${response.status} ${error}`);
       }
 
       return response.json();
     } catch (error) {
-      console.error('❌ BigModel API request failed:', error);
+      console.error('❌ OpenAI API request failed:', error);
       console.error('❌ 错误类型:', error instanceof Error ? error.constructor.name : typeof error);
       console.error('❌ 错误消息:', error instanceof Error ? error.message : String(error));
       
@@ -141,7 +144,7 @@ export class FrontendLLMClient {
         error.message.includes('ENOTFOUND') ||
         error.message.includes('timeout')
       )) {
-        console.warn('⚠️ BigModel API unavailable, using fallback response');
+        console.warn('⚠️ OpenAI API unavailable, using fallback response');
         return this.getFallbackResponse(messages);
       }
       
@@ -161,7 +164,7 @@ export class FrontendLLMClient {
     } = options;
 
     if (!this.hasValidApiKey()) {
-      throw new Error('API密钥未设置或无效，请在设置中配置BigModel API密钥');
+      throw new Error('API密钥未设置或无效，请在设置中配置 OpenAI API Key');
     }
 
     try {
@@ -188,7 +191,7 @@ export class FrontendLLMClient {
 
       if (!response.ok) {
         const error = await response.text();
-        throw new Error(`BigModel API error: ${response.status} ${error}`);
+        throw new Error(`OpenAI API error: ${response.status} ${error}`);
       }
 
       const reader = response.body?.getReader();
@@ -227,7 +230,7 @@ export class FrontendLLMClient {
         reader.releaseLock();
       }
     } catch (error) {
-      console.error('BigModel API stream failed:', error);
+      console.error('OpenAI API stream failed:', error);
       
       // 如果是网络错误或超时，使用降级流式响应
       if (error instanceof Error && (
@@ -236,7 +239,7 @@ export class FrontendLLMClient {
         error.message.includes('ENOTFOUND') ||
         error.message.includes('timeout')
       )) {
-        console.warn('BigModel API unavailable, using fallback stream');
+        console.warn('OpenAI API unavailable, using fallback stream');
         yield* this.getFallbackStream(messages);
         return;
       }
@@ -286,7 +289,7 @@ export class FrontendLLMClient {
 
       return response.choices[0]?.message?.content || '抱歉，我无法回答这个问题。';
     } catch (error) {
-      console.error('BigModel API error:', error);
+      console.error('OpenAI API error:', error);
       return '抱歉，我现在无法回答您的问题，请稍后再试。';
     }
   }
@@ -335,7 +338,7 @@ export class FrontendLLMClient {
         }
       }
     } catch (error) {
-      console.error('BigModel API error:', error);
+      console.error('OpenAI API error:', error);
       yield '抱歉，我现在无法回答您的问题，请稍后再试。';
     }
   }

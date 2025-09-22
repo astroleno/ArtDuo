@@ -31,8 +31,12 @@ export class MetMuseumAPIService implements ArtworkService {
     console.log('🎨 Met Museum API服务 - 搜索作品:', emotion, userInput);
     
     try {
+      // 转换为英文关键词
+      const searchQuery = this.buildSearchQuery(emotion, userInput, llmAnalysis);
+      console.log('🔍 搜索查询:', searchQuery);
+      
       // 搜索作品
-      const searchUrl = `${this.baseUrl}/search?q=${encodeURIComponent(emotion)}&hasImages=true`;
+      const searchUrl = `${this.baseUrl}/search?q=${encodeURIComponent(searchQuery)}&hasImages=true`;
       console.log('📡 搜索URL:', searchUrl);
       
       const searchResponse = await fetch(searchUrl, {
@@ -65,8 +69,9 @@ export class MetMuseumAPIService implements ArtworkService {
         };
       }
       
-      // 获取作品详情
-      const artworks = await this.fetchArtworkDetails(searchData.objectIDs.slice(0, 9));
+      // 获取作品详情 - 平衡速度与数量，获取更多作品
+      const maxResults = Math.min(searchData.objectIDs.length, 50); // 最多获取50个作品
+      const artworks = await this.fetchArtworkDetails(searchData.objectIDs.slice(0, maxResults));
       console.log('✅ 成功获取', artworks.length, '个作品');
       
       return {
@@ -166,5 +171,38 @@ export class MetMuseumAPIService implements ArtworkService {
     }
     
     return curve;
+  }
+
+  private buildSearchQuery(emotion: string, userInput?: string, llmAnalysis?: any): string {
+    // 基于LLM分析结果构建搜索查询，使用英文关键词
+    const emotionMap: { [key: string]: string } = {
+      '孤独': 'lonely solitude isolation',
+      '快乐': 'happy joy cheerful',
+      '悲伤': 'sad melancholy sorrow',
+      '愤怒': 'angry rage fury',
+      '恐惧': 'fear afraid terror',
+      '爱': 'love romantic affection',
+      '希望': 'hope optimistic future',
+      '绝望': 'despair hopeless desperate',
+      '平静': 'peaceful calm serene',
+      '激动': 'excited energetic dynamic',
+      '忧郁': 'melancholy blue sad',
+      '神秘': 'mysterious mystical enigmatic'
+    };
+    
+    let query = emotionMap[emotion] || emotion;
+    
+    if (llmAnalysis?.search_keywords && llmAnalysis.search_keywords.length > 0) {
+      // 使用LLM推荐的关键词
+      query = llmAnalysis.search_keywords.join(' ');
+    }
+    
+    if (userInput && userInput !== emotion) {
+      query += ` ${userInput}`;
+    }
+
+    // 对于Met Museum API，只使用第一个关键词，避免多关键词搜索返回空结果
+    const firstKeyword = query.split(' ')[0];
+    return firstKeyword.trim();
   }
 }

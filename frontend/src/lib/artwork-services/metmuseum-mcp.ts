@@ -47,7 +47,7 @@ export class MetMuseumMCPService implements ArtworkService {
       console.log(`🔍 找到 ${objectIDs.length} 个作品ID，开始获取详情...`);
       
       // 第二步：渐进式获取作品详情（避免并发风暴，按置信度筛选）
-      const artworks = await this.getArtworksWithLimit(objectIDs, emotion, 9);
+      const artworks = await this.getArtworksWithLimit(objectIDs, emotion, 25);
       
       console.log('✅ MCP服务成功获取', artworks.length, '个作品');
       

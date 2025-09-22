@@ -15,8 +15,9 @@ export interface MCPResponse {
   id: string;
   result?: any;
   error?: {
-    code: number;
+    code: number | string;
     message: string;
+    details?: any;
     data?: any;
   };
 }
@@ -41,6 +42,19 @@ export interface MCPSearchResult {
   totalFound: number;
   source: 'mcp' | 'fallback';
   executionTime: number;
+}
+
+export class MCPClientError extends Error {
+  code: string;
+  status?: number;
+  details?: unknown;
+
+  constructor(code: string, message: string, options?: { status?: number; details?: unknown }) {
+    super(message);
+    this.code = code;
+    this.status = options?.status;
+    this.details = options?.details;
+  }
 }
 
 export class FrontendMCPClient {
@@ -97,7 +111,13 @@ export class FrontendMCPClient {
       console.log('📋 找到对象ID:', objectIDs.length, '个');
 
       if (objectIDs.length === 0) {
-        return this.createEmptyResult(startTime);
+        return {
+          success: true,
+          artworks: [],
+          totalFound: 0,
+          source: 'mcp',
+          executionTime: Date.now() - startTime
+        };
       }
 
       // 获取详细信息（限制数量以避免超时）
@@ -117,7 +137,15 @@ export class FrontendMCPClient {
 
     } catch (error) {
       console.error('❌ MCP搜索失败:', error);
-      return this.createEmptyResult(startTime);
+
+      if (error instanceof MCPClientError) {
+        throw error;
+      }
+
+      const message = error instanceof Error ? error.message : String(error);
+      throw new MCPClientError('MCP_SEARCH_FAILED', message, {
+        details: { emotion, userInput, llmAnalysis }
+      });
     }
   }
 
@@ -407,6 +435,9 @@ export class FrontendMCPClient {
       params
     };
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+
     try {
       const response = await fetch(this.mcpServerUrl, {
         method: 'POST',
@@ -414,35 +445,58 @@ export class FrontendMCPClient {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(request),
-        signal: AbortSignal.timeout(this.timeout)
+        signal: controller.signal
       });
 
+      const rawText = await response.text();
+      let payload: any = null;
+
+      if (rawText) {
+        try {
+          payload = JSON.parse(rawText);
+        } catch (parseError) {
+          console.error('❌ MCP响应解析失败:', parseError, rawText);
+        }
+      }
+
       if (!response.ok) {
-        throw new Error(`MCP服务器错误: ${response.status} ${response.statusText}`);
+        const errorCode = payload?.error?.code ?? `HTTP_${response.status}`;
+        throw new MCPClientError(String(errorCode), `MCP服务器错误: ${response.status} ${response.statusText}`, {
+          status: response.status,
+          details: payload ?? rawText
+        });
       }
 
-      const result = await response.json();
-      
-      if (result.error) {
-        throw new Error(`MCP错误: ${result.error.message}`);
+      if (payload?.error) {
+        const errorCode = payload.error.code ?? 'MCP_ERROR';
+        throw new MCPClientError(String(errorCode), payload.error.message || 'MCP返回错误', {
+          status: response.status,
+          details: payload.error.details ?? payload.error.data ?? payload.error
+        });
       }
 
-      return result;
+      if (!payload || typeof payload !== 'object') {
+        throw new MCPClientError('MCP_INVALID_RESPONSE', 'MCP返回了无效的数据', {
+          status: response.status,
+          details: rawText
+        });
+      }
+
+      return payload;
     } catch (error) {
-      console.error('MCP调用失败:', error);
-      throw error;
-    }
-  }
+      if (error instanceof MCPClientError) {
+        throw error;
+      }
 
-  // 创建空结果
-  private createEmptyResult(startTime: number): MCPSearchResult {
-    return {
-      success: false,
-      artworks: [],
-      totalFound: 0,
-      source: 'fallback',
-      executionTime: Date.now() - startTime
-    };
+      if ((error as Error).name === 'AbortError') {
+        throw new MCPClientError('MCP_TIMEOUT', 'MCP请求超时', { status: 504 });
+      }
+
+      console.error('MCP调用失败:', error);
+      throw new MCPClientError('MCP_CALL_FAILED', error instanceof Error ? error.message : String(error));
+    } finally {
+      clearTimeout(timeoutId);
+    }
   }
 }
 

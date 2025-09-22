@@ -1,0 +1,85 @@
+{
+  "timestamp": "2025-09-22T11:02:13.043Z",
+  "duration": 181091,
+  "total": 8,
+  "passed": 8,
+  "failed": 0,
+  "skipped": 0,
+  "phases": {
+    "5": {
+      "total": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "name": "LLM Scoring Infrastructure",
+          "status": "passed",
+          "duration": 111,
+          "capabilities": 3,
+          "scoringEnabled": true,
+          "timestamp": "2025-09-22T10:59:12.125Z"
+        },
+        {
+          "name": "Multi-dimensional Scoring",
+          "status": "passed",
+          "duration": 51,
+          "artworksScored": 3,
+          "dimensions": 4,
+          "timestamp": "2025-09-22T10:59:12.176Z"
+        },
+        {
+          "name": "Confidence Score Validation",
+          "status": "passed",
+          "duration": 29,
+          "emotionsTested": 4,
+          "avgConfidence": 0.8,
+          "timestamp": "2025-09-22T10:59:12.205Z"
+        },
+        {
+          "name": "Scoring Performance Optimization",
+          "status": "passed",
+          "duration": 20,
+          "batchesTested": 3,
+          "avgTimePerArtwork": 0.8805555555555555,
+          "timestamp": "2025-09-22T10:59:12.225Z"
+        },
+        {
+          "name": "Scoring Error Handling",
+          "status": "passed",
+          "duration": 15,
+          "scenariosTested": 4,
+          "properlyHandled": 4,
+          "timestamp": "2025-09-22T10:59:12.240Z"
+        },
+        {
+          "name": "Scoring Consistency",
+          "status": "passed",
+          "duration": 8,
+          "iterations": 3,
+          "avgScore": 7,
+          "standardDeviation": 0,
+          "timestamp": "2025-09-22T10:59:12.248Z"
+        },
+        {
+          "name": "Integration with Artwork Selection",
+          "status": "passed",
+          "duration": 173356,
+          "totalArtworks": 9,
+          "scoredArtworks": 9,
+          "hasDiagnostics": true,
+          "timestamp": "2025-09-22T11:02:05.604Z"
+        },
+        {
+          "name": "Batch Scoring Optimization",
+          "status": "passed",
+          "duration": 7438,
+          "artworksScored": 10,
+          "concurrentRequests": 5,
+          "timeSaved": 0,
+          "timestamp": "2025-09-22T11:02:13.042Z"
+        }
+      ]
+    }
+  }
+}

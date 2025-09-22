@@ -14,6 +14,7 @@ export interface OpenAIResponse {
     message: {
       role: string;
       content: string;
+      reasoning_content?: string;
     };
     finish_reason: string;
   }>;
@@ -51,9 +52,13 @@ export class OpenAIClient {
 
   constructor() {
     // 支持多种API提供商
-    this.apiKey = process.env.OPENAI_API_KEY || process.env.BIGMODEL_API_KEY || '6be0ec1133ba4e9fb16b5ed76ae9f3fc.JEf38PO0DQiorzxl';
-    this.baseUrl = process.env.OPENAI_BASE_URL || process.env.BIGMODEL_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4';
-    this.model = process.env.OPENAI_MODEL || 'glm-4.5';
+    this.apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
+    this.baseUrl = process.env.NEXT_PUBLIC_OPENAI_BASE_URL || process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1';
+    this.model = process.env.NEXT_PUBLIC_OPENAI_MODEL || process.env.OPENAI_MODEL || 'gpt-4o-mini';
+  }
+
+  hasValidApiKey(): boolean {
+    return !!this.apiKey && this.apiKey.length > 10;
   }
 
   async chat(messages: OpenAIMessage[], options: {
@@ -68,6 +73,10 @@ export class OpenAIClient {
       max_tokens = 1024,
       stream = false
     } = options;
+
+    if (!this.hasValidApiKey()) {
+      throw new Error('OpenAI API 密钥未配置或无效');
+    }
 
     try {
       const controller = new AbortController();
@@ -125,6 +134,10 @@ export class OpenAIClient {
       temperature = 0.7,
       max_tokens = 1024
     } = options;
+
+    if (!this.hasValidApiKey()) {
+      throw new Error('OpenAI API 密钥未配置或无效');
+    }
 
     try {
       const controller = new AbortController();

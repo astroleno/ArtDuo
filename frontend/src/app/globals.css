@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 导入高端画廊字体 */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
 /* CSS 变量定义 - 暗色主题 */
 :root {
   /* 画廊色彩系统 - 高级灰/深蓝渐变 */
@@ -25,10 +22,12 @@
   --text-muted: #94a3b8;        /* slate-400 弱化文字 */
   --text-accent: #f59e0b;       /* amber-500 强调文字 */
 
-  /* 画廊字体系统 */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-display: 'Playfair Display', serif;
+  /* 画廊字体系统 - 使用Next.js优化的字体变量 */
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-display: var(--font-playfair), serif;
+  --font-chinese-sans: var(--font-noto-sans), PingFang SC, Microsoft YaHei, sans-serif;
+  --font-chinese-serif: var(--font-noto-serif), SimSun, serif;
 
   /* 字体大小 */
   --text-xs: 0.75rem;    /* 12px */
@@ -561,4 +560,59 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* 字体加载优化 */
+.font-loading {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.font-loaded {
+  opacity: 1;
+}
+
+/* 字体回退优化 */
+body {
+  font-family: var(--font-sans);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-chinese {
+  font-family: var(--font-chinese-sans);
+}
+
+/* 优雅的字体切换 */
+.font-display-heading {
+  font-family: var(--font-display);
+  font-feature-settings: "kern" 1, "liga" 1;
+  letter-spacing: -0.02em;
+}
+
+/* 中英文混排优化 */
+.chinese-english-mix {
+  font-family: var(--font-sans);
+}
+
+.chinese-english-mix .latin {
+  font-family: var(--font-inter);
+}
+
+.chinese-english-mix .chinese {
+  font-family: var(--font-noto-sans);
+}
+
+/* 字体加载状态检测脚本 */
+@supports (font-variation-settings: normal) {
+  body {
+    font-optical-sizing: auto;
+  }
+}
+
+/* 预加载字体显示策略 */
+body {
+  font-display: swap;
 }

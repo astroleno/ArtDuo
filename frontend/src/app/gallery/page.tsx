@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import { Artwork } from '@/lib/curation/types';
 import ArtworkCard from '@/components/ArtworkCard';
 import BreathingLightTrigger from '@/components/BreathingLightTrigger';
 import DialogueOverlay from '@/components/DialogueOverlay';
 import ClientOnly from '@/components/ClientOnly';
+import ImageLightbox from '@/components/ImageLightbox';
+import GalleryLayout, { GalleryLayout as GalleryLayoutType } from '@/components/GalleryLayout';
 
 // 模拟艺术作品数据
 const mockArtworks = [
@@ -150,6 +153,9 @@ function GalleryPageContent() {
   } = useAppStore();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [lightboxArtwork, setLightboxArtwork] = useState<Artwork | null>(null);
+  const [currentArtworkIndex, setCurrentArtworkIndex] = useState(0);
+  const [galleryLayout, setGalleryLayout] = useState<GalleryLayoutType>('grid');
 
   useEffect(() => {
     // 检查是否有情绪输入
@@ -205,33 +211,32 @@ function GalleryPageContent() {
 
   const handleArtworkClick = (artwork: any) => {
     setSelectedArtwork(artwork);
+    const index = artworks.findIndex((a: any) => a.id === artwork.id);
+    if (index !== -1) {
+      setCurrentArtworkIndex(index);
+      setLightboxArtwork(artwork);
+    }
+  };
+
+  const handleNextArtwork = () => {
+    const nextIndex = (currentArtworkIndex + 1) % artworks.length;
+    setCurrentArtworkIndex(nextIndex);
+    setLightboxArtwork(artworks[nextIndex]);
+    setSelectedArtwork(artworks[nextIndex]);
+  };
+
+  const handlePreviousArtwork = () => {
+    const prevIndex = (currentArtworkIndex - 1 + artworks.length) % artworks.length;
+    setCurrentArtworkIndex(prevIndex);
+    setLightboxArtwork(artworks[prevIndex]);
+    setSelectedArtwork(artworks[prevIndex]);
   };
 
   const handleDialogueToggle = () => {
     setIsDialogueOpen(!isDialogueOpen);
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background-primary flex items-center justify-center">
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="w-16 h-16 border-4 border-accent-secondary border-t-transparent rounded-full mx-auto mb-4"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          />
-          <p className="text-text-secondary text-lg">正在为你策展...</p>
-          <p className="text-text-muted text-sm mt-2">基于「{emotionInput.emotion}」的情绪</p>
-        </motion.div>
-      </div>
-    );
-  }
-
+  
   return (
     <div className="min-h-screen bg-background-primary">
       {/* 头部信息 */}
@@ -264,32 +269,19 @@ function GalleryPageContent() {
         </div>
       </motion.div>
 
-      {/* 3×3 网格布局 */}
+      {/* 画廊布局 */}
       <motion.div
         className="max-w-6xl mx-auto px-6 md:px-8 pb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {artworks.map((artwork, index) => (
-            <motion.div
-              key={artwork.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: index * 0.1, 
-                duration: 0.6,
-                ease: 'easeOut'
-              }}
-            >
-              <ArtworkCard
-                artwork={artwork}
-                onClick={() => handleArtworkClick(artwork)}
-              />
-            </motion.div>
-          ))}
-        </div>
+        <GalleryLayout
+          artworks={artworks}
+          layout={galleryLayout}
+          onLayoutChange={setGalleryLayout}
+          onArtworkClick={handleArtworkClick}
+        />
       </motion.div>
 
       {/* 呼吸灯触发点 */}
@@ -314,6 +306,17 @@ function GalleryPageContent() {
           />
         )}
       </AnimatePresence>
+
+      {/* 图片查看器 */}
+      <ImageLightbox
+        artwork={lightboxArtwork}
+        isOpen={lightboxArtwork !== null}
+        onClose={() => setLightboxArtwork(null)}
+        onNext={handleNextArtwork}
+        onPrevious={handlePreviousArtwork}
+        hasNext={artworks.length > 1}
+        hasPrevious={artworks.length > 1}
+      />
     </div>
   );
 }
