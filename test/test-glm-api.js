@@ -1,5 +1,5 @@
 // 测试GLM API是否正常工作
-const { glmOptimizedClient } = require('./frontend/src/lib/glm-optimized-client');
+const { glmOptimizedClient } = require('../frontend/src/lib/glm-optimized-client');
 
 async function testGLMAPI() {
   console.log('🧪 开始测试GLM API...');

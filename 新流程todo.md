@@ -1,94 +1,94 @@
-# 官方 API 聚合流程 TODO
+﻿# 官方 API 聚合流程 TODO
 
 ## 阶段 0：基础配置 ✅ **已完成**
-- [x] `.env` 补全开放接口配置 ✅ **已完成**
-  - [x] `MET_API_BASE=https://collectionapi.metmuseum.org/public/collection/v1` ✅
-  - [x] `RIJKS_API_KEY=YlOP5cOT` ✅ **已配置**
-  - [x] `RIJKS_SEARCH_BASE=https://www.rijksmuseum.nl/api/nl/collection` ✅
-  - [x] `RIJKS_HTTP_BASE=https://id.rijksmuseum.nl` ✅
-  - [x] `RIJKS_IIIF_BASE=https://lh3.googleusercontent.com/iiif` ✅
-- [x] Server 端封装公共 fetch 工具（超时、重试、User-Agent）✅ **已完成**
+- `.env` 补全开放接口配置 ✅ **已完成** （完成）
+  - `MET_API_BASE=https://collectionapi.metmuseum.org/public/collection/v1` ✅ （完成）
+  - `RIJKS_API_KEY=YlOP5cOT` ✅ **已配置** （完成）
+  - `RIJKS_SEARCH_BASE=https://www.rijksmuseum.nl/api/nl/collection` ✅ （完成）
+  - `RIJKS_HTTP_BASE=https://id.rijksmuseum.nl` ✅ （完成）
+  - `RIJKS_IIIF_BASE=https://lh3.googleusercontent.com/iiif` ✅ （完成）
+- Server 端封装公共 fetch 工具（超时、重试、User-Agent）✅ **已完成** （完成）
 
 ## 阶段 1：意图解析（LLM） ✅ **已完成重构**
-- [x] 在 `app/api/curate/route.ts` 中新增 `buildSearchPlan()` ✅ **已实现**
-  - [x] 输入：用户情绪 + 追加描述 ✅ **已实现**
-  - [x] 输出：`{ keywords[], filters: { period, medium, geo, creator, highlight, hasImages }, sources[] }` ✅ **格式已匹配**
-  - [x] 对结果做合法性校验（空数组、空字符串直接提示用户补充输入） ✅ **已实现**
-  - [x] 为 plan 引入 deterministic seed，保证无状态可复现 ✅ **已实现**
+- 在 `app/api/curate/route.ts` 中新增 `buildSearchPlan()` ✅ **已实现** （完成）
+  - 输入：用户情绪 + 追加描述 ✅ **已实现** （完成）
+  - 输出：`{ keywords[], filters: { period, medium, geo, creator, highlight, hasImages }, sources[] }` ✅ **格式已匹配** （完成）
+  - 对结果做合法性校验（空数组、空字符串直接提示用户补充输入） ✅ **已实现** （完成）
+  - 为 plan 引入 deterministic seed，保证无状态可复现 ✅ **已实现** （完成）
 
 ## 阶段 2：Met API 集成
-- [x] 新建 `lib/data-sources/met.ts` ✅ **已完成** (实际在 `lib/artwork-services/metmuseum-api.ts`)
-  - [x] `searchObjects(plan)` → 调用 `/search` ✅
-  - [x] 支持 `q`、`hasImages`、`geoLocation`、`medium`、`dateBegin/dateEnd` ✅
-  - [x] 控制批量分页（限制 objectIDs 数量） ✅
-  - [x] `fetchDetails(objectIDs[])` → 并发 8~12 个 `/objects/{id}` ✅
-- [x] 映射字段到统一 schema（title、artist、dating、medium、image、rights） ✅
-- [x] 标记 `source: 'met'`、`license`、`permalink` ✅
+- 新建 `lib/data-sources/met.ts` ✅ **已完成** (实际在 `lib/artwork-services/metmuseum-api.ts`) （完成）
+  - `searchObjects(plan)` → 调用 `/search` ✅ （完成）
+  - 支持 `q`、`hasImages`、`geoLocation`、`medium`、`dateBegin/dateEnd` ✅ （完成）
+  - 控制批量分页（限制 objectIDs 数量） ✅ （完成）
+  - `fetchDetails(objectIDs[])` → 并发 8~12 个 `/objects/{id}` ✅ （完成）
+- 映射字段到统一 schema（title、artist、dating、medium、image、rights） ✅ （完成）
+- 标记 `source: 'met'`、`license`、`permalink` ✅ （完成）
 
 ## 阶段 3：Rijks API 集成（Search + HTTP + IIIF） ✅ **已完成**
-- [x] 新建 `lib/artwork-services/rijksmuseum-api.ts` ✅ **代码已创建**
-- [x] 测试和验证 Rijks API 功能 ✅ **已完成测试**
-  - [x] `searchCollection(plan)` → 调用 [Search API](https://data.rijksmuseum.nl/docs/)（`imageAvailable=true` 等参数） ✅
-  - [x] 处理分页 `next.id`，限制最大页数 ✅
-  - [x] `resolveLinkedArt(id)` → 通过 HTTP 协商获取 Linked Art JSON ✅
-  - [x] 抽取 `title`, `maker`, `dating`, `materials`, `iiif` 信息 ✅
-  - [x] 生成 IIIF 图像 URL（支持高质量图像） ✅
-- [x] 映射统一 schema，标记 `source: 'rijks'` ✅
-- [x] 集成到 `ArtworkServiceManager` 中 ✅ **代码已集成**
-- [x] 支持多种数据格式：JSON-LD, Turtle, RDF/XML ✅
+- 新建 `lib/artwork-services/rijksmuseum-api.ts` ✅ **代码已创建** （完成）
+- 测试和验证 Rijks API 功能 ✅ **已完成测试** （完成）
+  - `searchCollection(plan)` → 调用 [Search API](https://data.rijksmuseum.nl/docs/)（`imageAvailable=true` 等参数） ✅ （完成）
+  - 处理分页 `next.id`，限制最大页数 ✅ （完成）
+  - `resolveLinkedArt(id)` → 通过 HTTP 协商获取 Linked Art JSON ✅ （完成）
+  - 抽取 `title`, `maker`, `dating`, `materials`, `iiif` 信息 ✅ （完成）
+  - 生成 IIIF 图像 URL（支持高质量图像） ✅ （完成）
+- 映射统一 schema，标记 `source: 'rijks'` ✅ （完成）
+- 集成到 `ArtworkServiceManager` 中 ✅ **代码已集成** （完成）
+- 支持多种数据格式：JSON-LD, Turtle, RDF/XML ✅ （完成）
 
 ## 阶段 4：并发 API 调用与智能聚合 ✅ **已完成验证**
-- [x] 优化 `ArtworkServiceManager` 支持并发调用 ✅ **已验证可行**
-  - [x] 使用 `Promise.allSettled()` 并发调用 Met + Rijks API ✅ **测试通过**
-  - [x] 合并多源结果，避免串行降级 ✅ **测试通过**
-  - [x] 实现智能负载均衡和超时控制 ✅ **测试通过**
-- [ ] 新建 `lib/curation/normalize.ts` ❌ **未完成**
-  - [ ] 定义 `ArtworkSchema`（Zod）验证字段完整性
-  - [ ] 提供 `normalizeMetArtwork()` / `normalizeRijksArtwork()`
-- [ ] 新建 `lib/curation/dedupe.ts` ❌ **未完成**
-  - [ ] 规则：`title + maker` 近似匹配、年份容忍 ±5 年
-  - [ ] 评分优先保留 `hasHighResImage`、`openLicense`
-- [ ] 新建 `lib/curation/rank.ts` ❌ **未完成**
-  - [ ] Scoring：`相关性` × `图像质量` × `许可友好度` × `亮点标记`
-  - [ ] LLM 输出可加权（例如 plan 中的关键词匹配数）
+- 优化 `ArtworkServiceManager` 支持并发调用 ✅ **已验证可行** （完成）
+  - 使用 `Promise.allSettled()` 并发调用 Met + Rijks API ✅ **测试通过** （完成）
+  - 合并多源结果，避免串行降级 ✅ **测试通过** （完成）
+  - 实现智能负载均衡和超时控制 ✅ **测试通过** （完成）
+- 新建 `lib/curation/normalize.ts` ❌ **未完成**
+  - 定义 `ArtworkSchema`（Zod）验证字段完整性
+  - 提供 `normalizeMetArtwork()` / `normalizeRijksArtwork()`
+- 新建 `lib/curation/dedupe.ts` ❌ **未完成**
+  - 规则：`title + maker` 近似匹配、年份容忍 ±5 年
+  - 评分优先保留 `hasHighResImage`、`openLicense`
+- 新建 `lib/curation/rank.ts` ❌ **未完成**
+  - Scoring：`相关性` × `图像质量` × `许可友好度` × `亮点标记`
+  - LLM 输出可加权（例如 plan 中的关键词匹配数）
 
-## 阶段 5：LLM 置信度判断与智能评分 ✅ **已完成并测试通过**
-- [x] 新建 `lib/curation/llm-judge.ts` ✅ **已实现并测试通过**
-  - [x] 实现 `llmJudgeArtwork()` 对每个作品进行多维度评分 ✅ **已实现并测试通过**
-  - [x] 评分维度：情绪契合度、艺术价值、视觉表现力、整体推荐度 ✅ **已实现并测试通过**
-  - [x] 返回置信度分数和详细理由 ✅ **已实现并测试通过**
-- [x] 优化 `app/api/curate/route.ts` 集成 LLM 评分 ✅ **已实现并测试通过**
-  - [x] 在获取作品后调用 LLM 评分 ✅ **已实现并测试通过**
-  - [x] 基于评分结果进行智能排序 ✅ **已实现并测试通过**
-  - [x] 记录评分过程到 diagnostics ✅ **已实现并测试通过**
+## 阶段 5：LLM 置信度判断与智能评分 ✅ **已完成并测试通过（销项）**
+- 新建 `lib/curation/llm-judge.ts` ✅ **已实现并测试通过** （完成）
+  - 实现 `llmJudgeArtwork()` 对每个作品进行多维度评分 ✅ **已实现并测试通过** （完成）
+  - 评分维度：情绪契合度、艺术价值、视觉表现力、整体推荐度 ✅ **已实现并测试通过** （完成）
+  - 返回置信度分数和详细理由 ✅ **已实现并测试通过** （完成）
+- 优化 `app/api/curate/route.ts` 集成 LLM 评分 ✅ **已实现并测试通过** （完成）
+  - 在获取作品后调用 LLM 评分 ✅ **已实现并测试通过** （完成）
+  - 基于评分结果进行智能排序 ✅ **已实现并测试通过** （完成）
+  - 记录评分过程到 diagnostics ✅ **已实现并测试通过** （完成）
 
-## 阶段 6：智能策展选择与情绪曲线 ✅ **已完成并测试通过**
-- [x] 新建 `lib/curation/emotion-curve.ts` ✅ **已实现并测试通过**
-  - [x] 基于实际作品生成动态情绪曲线 ✅ **已实现并测试通过**
-  - [x] 考虑作品间的情绪过渡和节奏 ✅ **已实现并测试通过**
-  - [x] 支持不同情绪类型的曲线模式 ✅ **已实现并测试通过**
-- [x] 新建 `lib/curation/artwork-selector.ts` ✅ **已实现并测试通过**
-  - [x] 根据情绪曲线选择最佳 9 幅画组合 ✅ **已实现并测试通过**
-  - [x] 考虑作品多样性（风格、年代、艺术家） ✅ **已实现并测试通过**
-  - [x] 确保情绪表达的完整性和连贯性 ✅ **已实现并测试通过**
-- [x] 更新 API 响应格式 ✅ **已实现并测试通过**
-  - [x] 返回结构：`{ artworks: ArtworkDTO[], curation: { theme, description, emotionCurve }, diagnostics }` ✅ **已实现并测试通过**
-  - [x] `diagnostics` 中记录来源拆分、去重数量、降级信息 ✅ **已实现并测试通过**
-  - [x] 支持渐进式返回（首批 6~9 张卡片 + 后续详情） ✅ **已实现并测试通过**
+## 阶段 6：智能策展选择与情绪曲线 ✅ **已完成并测试通过（销项）**
+- 新建 `lib/curation/emotion-curve.ts` ✅ **已实现并测试通过** （完成）
+  - 基于实际作品生成动态情绪曲线 ✅ **已实现并测试通过** （完成）
+  - 考虑作品间的情绪过渡和节奏 ✅ **已实现并测试通过** （完成）
+  - 支持不同情绪类型的曲线模式 ✅ **已实现并测试通过** （完成）
+- 新建 `lib/curation/artwork-selector.ts` ✅ **已实现并测试通过** （完成）
+  - 根据情绪曲线选择最佳 9 幅画组合 ✅ **已实现并测试通过** （完成）
+  - 考虑作品多样性（风格、年代、艺术家） ✅ **已实现并测试通过** （完成）
+  - 确保情绪表达的完整性和连贯性 ✅ **已实现并测试通过** （完成）
+- 更新 API 响应格式 ✅ **已实现并测试通过** （完成）
+  - 返回结构：`{ artworks: ArtworkDTO[], curation: { theme, description, emotionCurve }, diagnostics }` ✅ **已实现并测试通过** （完成）
+  - `diagnostics` 中记录来源拆分、去重数量、降级信息 ✅ **已实现并测试通过** （完成）
+  - 支持渐进式返回（首批 6~9 张卡片 + 后续详情） ✅ **已实现并测试通过** （完成）
 
-## 阶段 7：缓存与降级
-- [x] 查询缓存（IndexedDB）：`plan hash -> artworks`，TTL 1~6 小时 ✅ **已完成并测试通过**
-- [ ] 详情缓存：Met `objects` / Rijks Linked Art 默认 24 小时 ❌ **未完成**
-- [x] 失败降级策略 ✅ **已完成并测试通过**
-  - [x] 单源失败 → 返回另一源数据 + `diagnostics` ✅ **已测试通过**
-  - [x] 全部失败 → 返回友好错误提示 ✅ **已测试通过**
+## 阶段 7：缓存与降级 ✅ **已完成并测试通过（部分销项）**
+- 查询缓存（IndexedDB）：`plan hash -> artworks`，TTL 1~6 小时 ✅ **已完成并测试通过** （完成）
+- 详情缓存：Met `objects` / Rijks Linked Art 默认 24 小时 ❌ **未完成**（保留）
+- 失败降级策略 ✅ **已完成并测试通过** （完成）
+  - 单源失败 → 返回另一源数据 + `diagnostics` ✅ **已测试通过** （完成）
+  - 全部失败 → 返回友好错误提示 ✅ **已测试通过** （完成）
 
-## 阶段 8：监控与测试
-- [ ] 打点：LLM latency、Met latency、Rijks latency、去重数量 ❌ **未完成**
-- [ ] 单元测试：`normalize`、`dedupe`、`rank`、`llm-judge` ❌ **未完成**
-- [x] 集成测试：关键情绪（开心/孤独/平静/忧郁/激动/愤怒） ✅ **已完成并测试通过**
-- [x] 性能测试：并发 5~10 请求，确认总耗时 < 6s ✅ **已完成并测试通过**
-- [x] 智能策展测试：验证情绪曲线和作品选择的准确性 ✅ **已完成并测试通过**
+## 阶段 8：监控与测试 ✅ **已完成主要链路（部分销项）**
+- 打点：LLM latency、Met latency、Rijks latency、去重数量 ❌ **未完成**
+- 单元测试：`normalize`、`dedupe`、`rank`、`llm-judge` ❌ **未完成**（保留）
+- 集成测试：关键情绪（开心/孤独/平静/忧郁/激动/愤怒） ✅ **已完成并测试通过** （销项）
+- 性能测试：并发 5~10 请求，确认总耗时 < 6s ✅ **已完成并测试通过** （销项）
+- 智能策展测试：验证情绪曲线和作品选择的准确性 ✅ **已完成并测试通过** （完成）
 
 ---
 

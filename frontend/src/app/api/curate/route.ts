@@ -232,11 +232,17 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
           successCount: explanationResult.successCount,
           failureCount: explanationResult.failureCount,
           explanationTime: explanationTime,
-          explainFromCache: false,
+          // 依据批次统计的缓存命中计数判断是否有来自缓存的数据
+          explainFromCache: (explanationResult.fromCacheCount || 0) > 0,
           explainDegraded: explanationResult.failureCount > 0
         },
         summaryTime: summaryTime,
-        glmKey: glmOptimizedClient.hasValidApiKey() ? 'GLM' : 'None'
+        glmKey: glmOptimizedClient.hasValidApiKey() ? 'GLM' : 'None',
+        providers: {
+          scoringProvider: 'GLM',
+          explanationProvider: glmOptimizedClient.hasValidApiKey() ? 'GLM' : 'OpenAI',
+          summaryProvider: 'OpenAI'
+        }
       }
     };
     

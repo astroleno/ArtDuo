@@ -1,0 +1,2447 @@
+{
+  "meta": {
+    "baseUrl": "http://localhost:3000",
+    "emotion": "joy",
+    "userInput": "bright colors, family, celebration",
+    "timestamp": "2025-09-22T14:46:56.116Z"
+  },
+  "stages": [
+    {
+      "name": "search-plan",
+      "url": "http://localhost:3000/api/curate/test-search-plan",
+      "status": 200,
+      "durationMs": 10968,
+      "body": {
+        "emotion": "joy",
+        "userInput": "bright colors, family, celebration"
+      },
+      "outputSummary": {
+        "keywords": [
+          "celebration",
+          "festival",
+          "dance",
+          "music",
+          "happiness"
+        ],
+        "sources": [
+          "met",
+          "rijks"
+        ]
+      },
+      "raw": {
+        "searchPlan": {
+          "keywords": [
+            "celebration",
+            "festival",
+            "dance",
+            "music",
+            "happiness"
+          ],
+          "filters": {
+            "period": {
+              "start": 1500,
+              "end": 2024
+            },
+            "medium": [
+              "painting",
+              "sculpture",
+              "textile",
+              "ceramic"
+            ],
+            "geo": [
+              "Europe",
+              "Asia",
+              "Americas"
+            ],
+            "creator": [
+              "Rubens",
+              "Fragonard",
+              "Monet",
+              "Matisse"
+            ],
+            "highlight": true,
+            "hasImages": true
+          },
+          "sources": [
+            "met",
+            "rijks"
+          ]
+        },
+        "llmAnalysis": {
+          "emotion_analysis": "这是一个关于\"joy\"情绪的艺术策展",
+          "art_styles": [
+            "baroque",
+            "rococo",
+            "impressionist",
+            "fauvist"
+          ],
+          "search_keywords": [
+            "celebration",
+            "festival",
+            "dance",
+            "music",
+            "happiness"
+          ],
+          "recommended_artists": [
+            "Rubens",
+            "Fragonard",
+            "Monet",
+            "Matisse"
+          ],
+          "curation_strategy": "通过明亮色彩和动态构图展现喜悦情绪"
+        }
+      }
+    },
+    {
+      "name": "search",
+      "url": "http://localhost:3000/api/curate/test-search",
+      "status": 200,
+      "durationMs": 10435,
+      "body": {
+        "emotion": "joy",
+        "userInput": "bright colors, family, celebration"
+      },
+      "outputSummary": {
+        "success": true,
+        "count": 48
+      },
+      "raw": {
+        "success": true,
+        "artworks": [
+          {
+            "id": "338711",
+            "title": "The Peasant Wedding Dance",
+            "artist": "Pieter van der Heyden",
+            "year": "after 1570",
+            "medium": "Engraving; first state of three",
+            "dimensions": "sheet: 14 15/16 x 17 1/16 in. (38 x 43.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP825997.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "310453",
+            "title": "Nkishi (community power figure)",
+            "artist": "Songye artist and nganga (ritual specialist)",
+            "year": "19th–first half of 20th century",
+            "medium": "Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin",
+            "dimensions": "H. 39 × W. 10 1/2 × D. 11 in. (99.1 × 26.7 × 27.9 cm)",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "Songye peoples",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437422",
+            "title": "Charity",
+            "artist": "Guido Reni",
+            "year": "ca. 1630",
+            "medium": "Oil on canvas",
+            "dimensions": "54 x 41 3/4 in. (137.2 x 106 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "284712",
+            "title": "Child with a toy hand grenade in Central Park, N.Y.C.",
+            "artist": "Diane Arbus",
+            "year": "1962",
+            "medium": "Gelatin silver print",
+            "dimensions": "Image: 39.5 x 38.3 cm (15 9/16 x 15 1/16 in.)\r\nSheet: 50.8 x 40.6 cm (20 x 16 in.)",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "282234",
+            "title": "The Refectory of the Imperial Asylum at Vincennes",
+            "artist": "Charles Nègre",
+            "year": "1858–59",
+            "medium": "Salted paper print from glass negative",
+            "dimensions": "34.2 x 42.5 cm (13 7/16 x 16 3/4 in.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ph/original/DP352695.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "23944",
+            "title": "Armor of Emperor Ferdinand I (1503–1564)",
+            "artist": "Kunz Lochner",
+            "year": "dated 1549",
+            "medium": "Steel, brass, leather",
+            "dimensions": "H. 67 in. (170.2 cm); Wt. 52 lb. 14 oz. (24 kg)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/aa/original/DP-12881-007.jpg",
+            "description": "German, Nuremberg",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artist": "未知艺术家",
+            "year": "ca. 332–200 B.C.",
+            "medium": "Papyrus, ink",
+            "dimensions": "Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg",
+            "description": "Early Ptolemaic Period",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "729644",
+            "title": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)",
+            "artist": "José Guadalupe Posada",
+            "year": "ca. 1890–1896",
+            "medium": "Type-metal engraving and letterpress on blue paper",
+            "dimensions": "Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "472562",
+            "title": "The Fieschi Morgan Staurotheke",
+            "artist": "未知艺术家",
+            "year": "early 9th century",
+            "medium": "Gilded silver, gold, enamel worked in cloisonné, and niello",
+            "dimensions": "Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\nlid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\nvessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DT119.jpg",
+            "description": "Byzantine",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "317877",
+            "title": "Processional Cross",
+            "artist": "Northern Highlands artist",
+            "year": "14th–15th century",
+            "medium": "Brass",
+            "dimensions": "H. 10 1/2 × W. 5 × D. 1 in. (26.7 × 12.7 × 2.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg",
+            "description": "Northern Highlands region",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436896",
+            "title": "Portrait of a Woman with a Man at a Casement",
+            "artist": "Fra Filippo Lippi",
+            "year": "ca. 1440",
+            "medium": "Tempera on wood",
+            "dimensions": "25 1/4 x 16 1/2 in. (64.1 x 41.9 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP159891.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436545",
+            "title": "Manuel Osorio Manrique de Zuñiga (1784–1792)",
+            "artist": "Goya (Francisco de Goya y Lucientes)",
+            "year": "1787–88",
+            "medium": "Oil on canvas",
+            "dimensions": "50 x 40 in. (127 x 101.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP287624.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "467639",
+            "title": "The Unicorn Crosses a Stream (from the Unicorn Tapestries)",
+            "artist": "未知艺术家",
+            "year": "1495–1505",
+            "medium": "Wool warp with wool, silk, silver, and gilt wefts",
+            "dimensions": "Overall: 145 x 168in. (368.3 x 426.7cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/cl/original/DP118985.jpg",
+            "description": "French (cartoon)/South Netherlandish (woven)",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "329077",
+            "title": "Head of a ruler",
+            "artist": "未知艺术家",
+            "year": "ca. 2300–2000 BCE",
+            "medium": "Copper alloy",
+            "dimensions": "13 9/16 × 8 3/8 × 9 3/16 in. (34.4 × 21.3 × 23.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/an/original/DT858.jpg",
+            "description": "Early Bronze Age",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "309389",
+            "title": "Urpu (jar)",
+            "artist": "Inca artist(s)",
+            "year": "1400–1535 CE",
+            "medium": "Ceramic, slip",
+            "dimensions": "H. 11 1/2 × W. 9 1/4 × D. 7 1/2 in. (29.2 × 23.5 × 19.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP-24278-001.jpg",
+            "description": "Inca",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435848",
+            "title": "The Birth of the Virgin",
+            "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+            "year": "1467",
+            "medium": "Tempera and oil on wood",
+            "dimensions": "57 x 37 7/8 in. (144.8 x 96.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "453385",
+            "title": "Anthology of Persian Poetry in Oblong Format (Safina)",
+            "artist": "Sultan Muhammad Nur",
+            "year": "dated 905 AH/1499–1500 CE",
+            "medium": "Ink, watercolor, and gold on paper.\r\nBinding: leather",
+            "dimensions": "H. 8 1/4 in. (21 cm)\r\nW. 3 in. (7.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "10956",
+            "title": "Gilbert Stuart",
+            "artist": "Sarah Goodridge",
+            "year": "ca. 1825",
+            "medium": "Watercolor on ivory",
+            "dimensions": "3 21/32 x 2 3/4 in. (9.3 x 7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP162116.jpg",
+            "description": "American",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "206965",
+            "title": "Longcase astronomical regulator",
+            "artist": "Ferdinand Berthoud",
+            "year": "ca. 1768–70",
+            "medium": "Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel",
+            "dimensions": "Overall: 90 1/2 × 21 × 12 3/4 in. (229.9 × 53.3 × 32.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435817",
+            "title": "The Crucifixion with the Virgin and Saint John",
+            "artist": "Hendrick ter Brugghen",
+            "year": "ca. 1624–25",
+            "medium": "Oil on canvas",
+            "dimensions": "61 in. × 40 1/4 in. (154.9 × 102.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP146490.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437798",
+            "title": "The Glorification of the Barbaro Family",
+            "artist": "Giovanni Battista Tiepolo",
+            "year": "ca. 1750",
+            "medium": "Oil on canvas",
+            "dimensions": "Irregular oval, 96 x 183 3/4 in. (243.8 x 466.7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP287646.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "459028",
+            "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "year": "ca. 1485–95",
+            "medium": "Oil on wood; verso: oil and gold on wood",
+            "dimensions": "Overall 4 5/8 x 3 3/8 in. ; recto, painted surface 4 1/8 x 3 1/8 in.; verso, painted surface 4 3/8 x 3 1/8 in.",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "459027",
+            "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "year": "ca. 1485–95",
+            "medium": "Oil on wood; (verso: oil and gold on wood)",
+            "dimensions": "Overall 4 x 2 7/8 in. (10.2 x 7.3 cm); recto and verso, painted surface 3 3/4 x 2 1/2 in. (9.5 x 6.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "544320",
+            "title": "Stela of the Steward Mentuwoser",
+            "artist": "未知艺术家",
+            "year": "ca. 1944 B.C.",
+            "medium": "Limestone, paint",
+            "dimensions": "H. 103 cm (40 9/16 in.); W. 50.5 cm (19 7/8 in.); Th. 8.3 cm (3 1/4 in.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg",
+            "description": "Middle Kingdom",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "477499",
+            "title": "Jaharis Byzantine Lectionary",
+            "artist": "未知艺术家",
+            "year": "ca. 1100",
+            "medium": "Tempera, gold, and ink on parchment; leather binding",
+            "dimensions": "Overall: 14 1/2 x 11 5/8 x 4 7/8 in. (36.8 x 29.6 x 12.4 cm)\r\nfolio: 13 3/4 x 10 5/16 in. (35 x 26.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DP160636.jpg",
+            "description": "Byzantine",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437674",
+            "title": "Madonna and Child",
+            "artist": "Luca Signorelli (Luca d'Egidio di Luca di Ventura)",
+            "year": "ca. 1505–7",
+            "medium": "Oil and gold on wood",
+            "dimensions": "20 1/4 x 18 3/4 in. (51.4 x 47.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-25976-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436504",
+            "title": "The Adoration of the Magi",
+            "artist": "Giotto di Bondone",
+            "year": "possibly ca. 1320",
+            "medium": "Tempera on wood, gold ground",
+            "dimensions": "17 3/4 x 17 1/4 in. (45.1 x 43.8 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-31416-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436516",
+            "title": "The Triumph of Fame; (reverse) Impresa of the Medici Family and Arms of the Medici and Tornabuoni Families",
+            "artist": "Giovanni di ser Giovanni Guidi (called Scheggia)",
+            "year": "ca. 1449",
+            "medium": "Tempera, silver, and gold on wood",
+            "dimensions": "Overall, with engaged frame, diameter 36 1/2 in. (92.7 cm); recto, painted surface, diameter 24 5/8 in. (62.5 cm); verso, painted surface, diameter 29 5/8 in. (75.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP164870.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435864",
+            "title": "A Woman with a Dog",
+            "artist": "Giacomo Ceruti",
+            "year": "1740s",
+            "medium": "Oil on canvas",
+            "dimensions": "38 x 28 1/2 in. (96.5 x 72.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "200668",
+            "title": "Sabine Houdon (1787–1836)",
+            "artist": "Jean Antoine Houdon",
+            "year": "1788",
+            "medium": "White marble on gray marble socle",
+            "dimensions": "Overall, without base (confirmed): H. 10 3/4 x W. 8 7/8 x D. 5 7/8 in., 20lb. (27.3 x 22.5 x 14.9 cm, 9.0719kg); Height with base (confirmed): 13 1/2 in. (34.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "459080",
+            "title": "Erasmus of Rotterdam",
+            "artist": "Hans Holbein the Younger",
+            "year": "ca. 1532",
+            "medium": "Oil on linden panel",
+            "dimensions": "7 1/4 x 5 9/16 in. (18.4 x 14.2 cm); painted surface 6 15/16 x 5 1/2 in. (17.6 x 14 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP164857.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "438688",
+            "title": "Saint Francis",
+            "artist": "Federico Barocci",
+            "year": "ca. 1600–1604",
+            "medium": "Oil on canvas",
+            "dimensions": "35 3/8 x 30 7/8 in. (89.9 x 78.4 cm); with added strips 35 7/8 x 31 3/8 in. (91.1 x 79.7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP104367.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "439844",
+            "title": "Heroic Landscape with Rainbow",
+            "artist": "Joseph Anton Koch",
+            "year": "1824",
+            "medium": "Oil on canvas",
+            "dimensions": "42 3/4 x 37 3/4 in. (108.6 x 95.9 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP224123.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "53162",
+            "title": "Tobatsu Bishamonten",
+            "artist": "未知艺术家",
+            "year": "late 10th–early 11th century",
+            "medium": "Zelkova wood with traces of color",
+            "dimensions": "H. 49 1/4 in. (125.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/as/original/DP-27915-006.jpg",
+            "description": "Japan",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "551897",
+            "title": "Colossal head from a Bes-image",
+            "artist": "未知艺术家",
+            "year": "332–30 BCE",
+            "medium": "Limestone",
+            "dimensions": "H. 39.5 × W. 52 × D. 21.5 cm, 74.4 kg (15 9/16 × 20 1/2 × 8 7/16 in., 164 lb.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/DP152088.jpg",
+            "description": "Ptolemaic Period",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "544740",
+            "title": "Yuny and His Wife Renenutet",
+            "artist": "未知艺术家",
+            "year": "ca. 1294–1279 B.C.",
+            "medium": "Limestone, paint",
+            "dimensions": "H. 84.5 × W. 54.5 × D. 73 cm (33 1/4 × 21 7/16 × 28 3/4 in.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/DT549.jpg",
+            "description": "New Kingdom, Ramesside",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "479486",
+            "title": "Chapel from Notre-Dame-du-Bourg at Langon",
+            "artist": "未知艺术家",
+            "year": "after 1126",
+            "medium": "Limestone",
+            "dimensions": "15 ft. 4 in. × 18 ft. 8 in. × 23 ft. 10 in. (467.4 × 569 × 726.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/cl/original/DP255163.jpg",
+            "description": "French",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "192693",
+            "title": "Cassone with painted front panel depicting the Conquest of Trebizond",
+            "artist": "Apollonio di Giovanni di Tomaso",
+            "year": "after ca. 1461",
+            "medium": "Poplar wood, linen, polychromed and gilded gesso with panel painted in tempera and gold",
+            "dimensions": "H. 39-1/2 x W. 77 x D. 32-7/8 in.  (100.3 x 195.6 x 83.5 cm); Painted surface 15 1/4 x 49 1/2 in. (38.7 x 125.7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP106672.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "438022",
+            "title": "Saint Catherine of Siena Exchanging Her Heart with Christ",
+            "artist": "Giovanni di Paolo (Giovanni di Paolo di Grazia)",
+            "year": "未知年代",
+            "medium": "Tempera and gold on wood",
+            "dimensions": "Overall, with added strips, 11 3/4 x 9 1/2 in. (29.8 x 24.1 cm); painted surface 11 3/8 x 8 7/8 in. (28.9 x 22.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-16827-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "310364",
+            "title": "Vessel with mythological scene",
+            "artist": "Metropolitan Painter",
+            "year": "600–800 CE",
+            "medium": "Ceramic, slip",
+            "dimensions": "H. 5 1/2 × W. 4 × D. 4 3/16 × Diam. 4 1/2 in. (14 × 10.2 × 10.6 × 11.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP-576-001.jpg",
+            "description": "Maya",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "208578",
+            "title": "Benjamin Franklin (1706–1790)",
+            "artist": "Jean Antoine Houdon",
+            "year": "1778",
+            "medium": "Marble",
+            "dimensions": "Overall (weight confirmed): 23 1/8 × 14 1/2 × 11 1/4 in., 87 lb. (58.7 × 36.8 × 28.6 cm, 39.5 kg);\r\nHeight (without base): 17 1/2 in. (44.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DT2883.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "202718",
+            "title": "Saint John the Baptist",
+            "artist": "Juan Martínez Montañés",
+            "year": "ca. 1620–30",
+            "medium": "Polychromed wood with gilding",
+            "dimensions": "Overall (confirmed): H. 60 5/8 x W. 29 5/8 x D. 27 5/8 in. (154 x 75.2 x 70.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP249462.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437423",
+            "title": "The Immaculate Conception",
+            "artist": "Guido Reni",
+            "year": "1627",
+            "medium": "Oil on canvas",
+            "dimensions": "105 1/2 x 73 in. (268 x 185.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1138.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437394",
+            "title": "Aristotle with a Bust of Homer",
+            "artist": "Rembrandt (Rembrandt van Rijn)",
+            "year": "1653",
+            "medium": "Oil on canvas",
+            "dimensions": "56 1/2 x 53 3/4 in. (143.5 x 136.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-30758-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437021",
+            "title": "Head of Christ",
+            "artist": "Master of the Orcagnesque Misericordia",
+            "year": "未知年代",
+            "medium": "Tempera on wood, gold ground",
+            "dimensions": "Overall, with engaged frame, 11 5/8 x 8 1/8 in. (29.5 x 20.6 cm); painted surface 9 5/8 x 6 1/8 in. (24.4 x 15.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-19581-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "477779",
+            "title": "Limestone Head of Joseph",
+            "artist": "未知艺术家",
+            "year": "ca. 1230",
+            "medium": "Limestone with traces of polychromy",
+            "dimensions": "Overall: 6 3/4 x 5 5/16 x 4 1/16 in. (17.1 x 13.5 x 10.3 cm)\r\nht with block: 10 1/4 in. (26.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DP151464.jpg",
+            "description": "French",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "204587",
+            "title": "Emperor Antoninus Pius",
+            "artist": "Antico (Pier Jacopo Alari Bonacolsi)",
+            "year": "1519–24",
+            "medium": "Bronze, partially oil-gilt, silver inlay, on serpentinite socle",
+            "dimensions": "Overall without base (confirmed): H. 25 1/4 x W. 19 3/4 x D. 14 1/4 in. (64.1 x 50.2 x 36.2 cm); Height with base (confirmed): 29 7/8 in. (75.9 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP234101.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "320833",
+            "title": "Mäsqälä qǝddase (liturgical cross)",
+            "artist": "Northern Highlands artist",
+            "year": "13th–14th century",
+            "medium": "Bronze",
+            "dimensions": "H. 12 13/16 × W. 6 11/16 × D. 1 in. (32.5 × 17 × 2.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP-17712-001.jpg",
+            "description": "Northern Highlands region",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          }
+        ],
+        "curation": {
+          "theme": "joy",
+          "description": "这是一个精心策划的艺术展览，展现了\"joy\"这一主题的艺术表达。本次展览汇集了来自Met Museum API的48件精选作品，通过不同风格和时代的艺术作品，深入探索这一情感主题的丰富内涵。",
+          "emotionCurve": [
+            0.8,
+            0.9,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.9,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.9,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.9,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.9,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.7,
+            0.8,
+            0.9,
+            0.8,
+            0.9,
+            0.7
+          ],
+          "totalWorks": 48
+        },
+        "source": "api"
+      }
+    },
+    {
+      "name": "scoring",
+      "url": "http://localhost:3000/api/curate/test-batch-scoring",
+      "status": 200,
+      "durationMs": 13363,
+      "body": {
+        "artworks": [
+          {
+            "id": "338711",
+            "title": "The Peasant Wedding Dance",
+            "artist": "Pieter van der Heyden",
+            "year": "after 1570",
+            "medium": "Engraving; first state of three",
+            "dimensions": "sheet: 14 15/16 x 17 1/16 in. (38 x 43.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP825997.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "310453",
+            "title": "Nkishi (community power figure)",
+            "artist": "Songye artist and nganga (ritual specialist)",
+            "year": "19th–first half of 20th century",
+            "medium": "Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin",
+            "dimensions": "H. 39 × W. 10 1/2 × D. 11 in. (99.1 × 26.7 × 27.9 cm)",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "Songye peoples",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437422",
+            "title": "Charity",
+            "artist": "Guido Reni",
+            "year": "ca. 1630",
+            "medium": "Oil on canvas",
+            "dimensions": "54 x 41 3/4 in. (137.2 x 106 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "284712",
+            "title": "Child with a toy hand grenade in Central Park, N.Y.C.",
+            "artist": "Diane Arbus",
+            "year": "1962",
+            "medium": "Gelatin silver print",
+            "dimensions": "Image: 39.5 x 38.3 cm (15 9/16 x 15 1/16 in.)\r\nSheet: 50.8 x 40.6 cm (20 x 16 in.)",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "282234",
+            "title": "The Refectory of the Imperial Asylum at Vincennes",
+            "artist": "Charles Nègre",
+            "year": "1858–59",
+            "medium": "Salted paper print from glass negative",
+            "dimensions": "34.2 x 42.5 cm (13 7/16 x 16 3/4 in.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ph/original/DP352695.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "23944",
+            "title": "Armor of Emperor Ferdinand I (1503–1564)",
+            "artist": "Kunz Lochner",
+            "year": "dated 1549",
+            "medium": "Steel, brass, leather",
+            "dimensions": "H. 67 in. (170.2 cm); Wt. 52 lb. 14 oz. (24 kg)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/aa/original/DP-12881-007.jpg",
+            "description": "German, Nuremberg",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artist": "未知艺术家",
+            "year": "ca. 332–200 B.C.",
+            "medium": "Papyrus, ink",
+            "dimensions": "Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg",
+            "description": "Early Ptolemaic Period",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "729644",
+            "title": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)",
+            "artist": "José Guadalupe Posada",
+            "year": "ca. 1890–1896",
+            "medium": "Type-metal engraving and letterpress on blue paper",
+            "dimensions": "Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "472562",
+            "title": "The Fieschi Morgan Staurotheke",
+            "artist": "未知艺术家",
+            "year": "early 9th century",
+            "medium": "Gilded silver, gold, enamel worked in cloisonné, and niello",
+            "dimensions": "Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\nlid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\nvessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DT119.jpg",
+            "description": "Byzantine",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "317877",
+            "title": "Processional Cross",
+            "artist": "Northern Highlands artist",
+            "year": "14th–15th century",
+            "medium": "Brass",
+            "dimensions": "H. 10 1/2 × W. 5 × D. 1 in. (26.7 × 12.7 × 2.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg",
+            "description": "Northern Highlands region",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436896",
+            "title": "Portrait of a Woman with a Man at a Casement",
+            "artist": "Fra Filippo Lippi",
+            "year": "ca. 1440",
+            "medium": "Tempera on wood",
+            "dimensions": "25 1/4 x 16 1/2 in. (64.1 x 41.9 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP159891.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436545",
+            "title": "Manuel Osorio Manrique de Zuñiga (1784–1792)",
+            "artist": "Goya (Francisco de Goya y Lucientes)",
+            "year": "1787–88",
+            "medium": "Oil on canvas",
+            "dimensions": "50 x 40 in. (127 x 101.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP287624.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "467639",
+            "title": "The Unicorn Crosses a Stream (from the Unicorn Tapestries)",
+            "artist": "未知艺术家",
+            "year": "1495–1505",
+            "medium": "Wool warp with wool, silk, silver, and gilt wefts",
+            "dimensions": "Overall: 145 x 168in. (368.3 x 426.7cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/cl/original/DP118985.jpg",
+            "description": "French (cartoon)/South Netherlandish (woven)",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "329077",
+            "title": "Head of a ruler",
+            "artist": "未知艺术家",
+            "year": "ca. 2300–2000 BCE",
+            "medium": "Copper alloy",
+            "dimensions": "13 9/16 × 8 3/8 × 9 3/16 in. (34.4 × 21.3 × 23.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/an/original/DT858.jpg",
+            "description": "Early Bronze Age",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "309389",
+            "title": "Urpu (jar)",
+            "artist": "Inca artist(s)",
+            "year": "1400–1535 CE",
+            "medium": "Ceramic, slip",
+            "dimensions": "H. 11 1/2 × W. 9 1/4 × D. 7 1/2 in. (29.2 × 23.5 × 19.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP-24278-001.jpg",
+            "description": "Inca",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435848",
+            "title": "The Birth of the Virgin",
+            "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+            "year": "1467",
+            "medium": "Tempera and oil on wood",
+            "dimensions": "57 x 37 7/8 in. (144.8 x 96.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "453385",
+            "title": "Anthology of Persian Poetry in Oblong Format (Safina)",
+            "artist": "Sultan Muhammad Nur",
+            "year": "dated 905 AH/1499–1500 CE",
+            "medium": "Ink, watercolor, and gold on paper.\r\nBinding: leather",
+            "dimensions": "H. 8 1/4 in. (21 cm)\r\nW. 3 in. (7.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "10956",
+            "title": "Gilbert Stuart",
+            "artist": "Sarah Goodridge",
+            "year": "ca. 1825",
+            "medium": "Watercolor on ivory",
+            "dimensions": "3 21/32 x 2 3/4 in. (9.3 x 7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP162116.jpg",
+            "description": "American",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "206965",
+            "title": "Longcase astronomical regulator",
+            "artist": "Ferdinand Berthoud",
+            "year": "ca. 1768–70",
+            "medium": "Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel",
+            "dimensions": "Overall: 90 1/2 × 21 × 12 3/4 in. (229.9 × 53.3 × 32.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435817",
+            "title": "The Crucifixion with the Virgin and Saint John",
+            "artist": "Hendrick ter Brugghen",
+            "year": "ca. 1624–25",
+            "medium": "Oil on canvas",
+            "dimensions": "61 in. × 40 1/4 in. (154.9 × 102.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP146490.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437798",
+            "title": "The Glorification of the Barbaro Family",
+            "artist": "Giovanni Battista Tiepolo",
+            "year": "ca. 1750",
+            "medium": "Oil on canvas",
+            "dimensions": "Irregular oval, 96 x 183 3/4 in. (243.8 x 466.7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP287646.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "459028",
+            "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "year": "ca. 1485–95",
+            "medium": "Oil on wood; verso: oil and gold on wood",
+            "dimensions": "Overall 4 5/8 x 3 3/8 in. ; recto, painted surface 4 1/8 x 3 1/8 in.; verso, painted surface 4 3/8 x 3 1/8 in.",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "459027",
+            "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "year": "ca. 1485–95",
+            "medium": "Oil on wood; (verso: oil and gold on wood)",
+            "dimensions": "Overall 4 x 2 7/8 in. (10.2 x 7.3 cm); recto and verso, painted surface 3 3/4 x 2 1/2 in. (9.5 x 6.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "544320",
+            "title": "Stela of the Steward Mentuwoser",
+            "artist": "未知艺术家",
+            "year": "ca. 1944 B.C.",
+            "medium": "Limestone, paint",
+            "dimensions": "H. 103 cm (40 9/16 in.); W. 50.5 cm (19 7/8 in.); Th. 8.3 cm (3 1/4 in.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg",
+            "description": "Middle Kingdom",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "477499",
+            "title": "Jaharis Byzantine Lectionary",
+            "artist": "未知艺术家",
+            "year": "ca. 1100",
+            "medium": "Tempera, gold, and ink on parchment; leather binding",
+            "dimensions": "Overall: 14 1/2 x 11 5/8 x 4 7/8 in. (36.8 x 29.6 x 12.4 cm)\r\nfolio: 13 3/4 x 10 5/16 in. (35 x 26.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DP160636.jpg",
+            "description": "Byzantine",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437674",
+            "title": "Madonna and Child",
+            "artist": "Luca Signorelli (Luca d'Egidio di Luca di Ventura)",
+            "year": "ca. 1505–7",
+            "medium": "Oil and gold on wood",
+            "dimensions": "20 1/4 x 18 3/4 in. (51.4 x 47.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-25976-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436504",
+            "title": "The Adoration of the Magi",
+            "artist": "Giotto di Bondone",
+            "year": "possibly ca. 1320",
+            "medium": "Tempera on wood, gold ground",
+            "dimensions": "17 3/4 x 17 1/4 in. (45.1 x 43.8 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-31416-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436516",
+            "title": "The Triumph of Fame; (reverse) Impresa of the Medici Family and Arms of the Medici and Tornabuoni Families",
+            "artist": "Giovanni di ser Giovanni Guidi (called Scheggia)",
+            "year": "ca. 1449",
+            "medium": "Tempera, silver, and gold on wood",
+            "dimensions": "Overall, with engaged frame, diameter 36 1/2 in. (92.7 cm); recto, painted surface, diameter 24 5/8 in. (62.5 cm); verso, painted surface, diameter 29 5/8 in. (75.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP164870.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435864",
+            "title": "A Woman with a Dog",
+            "artist": "Giacomo Ceruti",
+            "year": "1740s",
+            "medium": "Oil on canvas",
+            "dimensions": "38 x 28 1/2 in. (96.5 x 72.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "200668",
+            "title": "Sabine Houdon (1787–1836)",
+            "artist": "Jean Antoine Houdon",
+            "year": "1788",
+            "medium": "White marble on gray marble socle",
+            "dimensions": "Overall, without base (confirmed): H. 10 3/4 x W. 8 7/8 x D. 5 7/8 in., 20lb. (27.3 x 22.5 x 14.9 cm, 9.0719kg); Height with base (confirmed): 13 1/2 in. (34.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          }
+        ],
+        "emotion": "joy",
+        "userInput": "bright colors, family, celebration"
+      },
+      "outputSummary": {},
+      "raw": {
+        "scoredArtworks": [
+          {
+            "artworkId": "338711",
+            "llmScore": {
+              "artworkId": "338711",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "437422",
+            "llmScore": {
+              "artworkId": "437422",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "284712",
+            "llmScore": {
+              "artworkId": "284712",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "282234",
+            "llmScore": {
+              "artworkId": "282234",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "23944",
+            "llmScore": {
+              "artworkId": "23944",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "729644",
+            "llmScore": {
+              "artworkId": "729644",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "436545",
+            "llmScore": {
+              "artworkId": "436545",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "10956",
+            "llmScore": {
+              "artworkId": "10956",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "206965",
+            "llmScore": {
+              "artworkId": "206965",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "435817",
+            "llmScore": {
+              "artworkId": "435817",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "437798",
+            "llmScore": {
+              "artworkId": "437798",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "544320",
+            "llmScore": {
+              "artworkId": "544320",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "437674",
+            "llmScore": {
+              "artworkId": "437674",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "435864",
+            "llmScore": {
+              "artworkId": "435864",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "200668",
+            "llmScore": {
+              "artworkId": "200668",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "310453",
+            "llmScore": {
+              "artworkId": "310453",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "551786",
+            "llmScore": {
+              "artworkId": "551786",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "472562",
+            "llmScore": {
+              "artworkId": "472562",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "317877",
+            "llmScore": {
+              "artworkId": "317877",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "436896",
+            "llmScore": {
+              "artworkId": "436896",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "467639",
+            "llmScore": {
+              "artworkId": "467639",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "329077",
+            "llmScore": {
+              "artworkId": "329077",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "309389",
+            "llmScore": {
+              "artworkId": "309389",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "435848",
+            "llmScore": {
+              "artworkId": "435848",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          },
+          {
+            "artworkId": "453385",
+            "llmScore": {
+              "artworkId": "453385",
+              "emotionFit": 5,
+              "artisticValue": 5,
+              "visualImpact": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3,
+              "reasoning": "评分解析失败，使用默认评分"
+            }
+          }
+        ],
+        "timing": {
+          "duration": 13272
+        },
+        "optimization": {
+          "concurrentRequests": 5,
+          "batchSize": 6,
+          "timeSaved": 0
+        }
+      }
+    },
+    {
+      "name": "selection",
+      "url": "http://localhost:3000/api/curate/test-selection",
+      "status": 200,
+      "durationMs": 186,
+      "body": {
+        "artworks": [
+          {
+            "id": "338711",
+            "title": "The Peasant Wedding Dance",
+            "artist": "Pieter van der Heyden",
+            "year": "after 1570",
+            "medium": "Engraving; first state of three",
+            "dimensions": "sheet: 14 15/16 x 17 1/16 in. (38 x 43.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP825997.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "310453",
+            "title": "Nkishi (community power figure)",
+            "artist": "Songye artist and nganga (ritual specialist)",
+            "year": "19th–first half of 20th century",
+            "medium": "Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin",
+            "dimensions": "H. 39 × W. 10 1/2 × D. 11 in. (99.1 × 26.7 × 27.9 cm)",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "Songye peoples",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437422",
+            "title": "Charity",
+            "artist": "Guido Reni",
+            "year": "ca. 1630",
+            "medium": "Oil on canvas",
+            "dimensions": "54 x 41 3/4 in. (137.2 x 106 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "284712",
+            "title": "Child with a toy hand grenade in Central Park, N.Y.C.",
+            "artist": "Diane Arbus",
+            "year": "1962",
+            "medium": "Gelatin silver print",
+            "dimensions": "Image: 39.5 x 38.3 cm (15 9/16 x 15 1/16 in.)\r\nSheet: 50.8 x 40.6 cm (20 x 16 in.)",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "282234",
+            "title": "The Refectory of the Imperial Asylum at Vincennes",
+            "artist": "Charles Nègre",
+            "year": "1858–59",
+            "medium": "Salted paper print from glass negative",
+            "dimensions": "34.2 x 42.5 cm (13 7/16 x 16 3/4 in.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ph/original/DP352695.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "23944",
+            "title": "Armor of Emperor Ferdinand I (1503–1564)",
+            "artist": "Kunz Lochner",
+            "year": "dated 1549",
+            "medium": "Steel, brass, leather",
+            "dimensions": "H. 67 in. (170.2 cm); Wt. 52 lb. 14 oz. (24 kg)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/aa/original/DP-12881-007.jpg",
+            "description": "German, Nuremberg",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artist": "未知艺术家",
+            "year": "ca. 332–200 B.C.",
+            "medium": "Papyrus, ink",
+            "dimensions": "Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg",
+            "description": "Early Ptolemaic Period",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "729644",
+            "title": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)",
+            "artist": "José Guadalupe Posada",
+            "year": "ca. 1890–1896",
+            "medium": "Type-metal engraving and letterpress on blue paper",
+            "dimensions": "Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "472562",
+            "title": "The Fieschi Morgan Staurotheke",
+            "artist": "未知艺术家",
+            "year": "early 9th century",
+            "medium": "Gilded silver, gold, enamel worked in cloisonné, and niello",
+            "dimensions": "Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\nlid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\nvessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DT119.jpg",
+            "description": "Byzantine",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "317877",
+            "title": "Processional Cross",
+            "artist": "Northern Highlands artist",
+            "year": "14th–15th century",
+            "medium": "Brass",
+            "dimensions": "H. 10 1/2 × W. 5 × D. 1 in. (26.7 × 12.7 × 2.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg",
+            "description": "Northern Highlands region",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436896",
+            "title": "Portrait of a Woman with a Man at a Casement",
+            "artist": "Fra Filippo Lippi",
+            "year": "ca. 1440",
+            "medium": "Tempera on wood",
+            "dimensions": "25 1/4 x 16 1/2 in. (64.1 x 41.9 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP159891.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436545",
+            "title": "Manuel Osorio Manrique de Zuñiga (1784–1792)",
+            "artist": "Goya (Francisco de Goya y Lucientes)",
+            "year": "1787–88",
+            "medium": "Oil on canvas",
+            "dimensions": "50 x 40 in. (127 x 101.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP287624.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "467639",
+            "title": "The Unicorn Crosses a Stream (from the Unicorn Tapestries)",
+            "artist": "未知艺术家",
+            "year": "1495–1505",
+            "medium": "Wool warp with wool, silk, silver, and gilt wefts",
+            "dimensions": "Overall: 145 x 168in. (368.3 x 426.7cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/cl/original/DP118985.jpg",
+            "description": "French (cartoon)/South Netherlandish (woven)",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "329077",
+            "title": "Head of a ruler",
+            "artist": "未知艺术家",
+            "year": "ca. 2300–2000 BCE",
+            "medium": "Copper alloy",
+            "dimensions": "13 9/16 × 8 3/8 × 9 3/16 in. (34.4 × 21.3 × 23.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/an/original/DT858.jpg",
+            "description": "Early Bronze Age",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "309389",
+            "title": "Urpu (jar)",
+            "artist": "Inca artist(s)",
+            "year": "1400–1535 CE",
+            "medium": "Ceramic, slip",
+            "dimensions": "H. 11 1/2 × W. 9 1/4 × D. 7 1/2 in. (29.2 × 23.5 × 19.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP-24278-001.jpg",
+            "description": "Inca",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435848",
+            "title": "The Birth of the Virgin",
+            "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+            "year": "1467",
+            "medium": "Tempera and oil on wood",
+            "dimensions": "57 x 37 7/8 in. (144.8 x 96.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "453385",
+            "title": "Anthology of Persian Poetry in Oblong Format (Safina)",
+            "artist": "Sultan Muhammad Nur",
+            "year": "dated 905 AH/1499–1500 CE",
+            "medium": "Ink, watercolor, and gold on paper.\r\nBinding: leather",
+            "dimensions": "H. 8 1/4 in. (21 cm)\r\nW. 3 in. (7.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "10956",
+            "title": "Gilbert Stuart",
+            "artist": "Sarah Goodridge",
+            "year": "ca. 1825",
+            "medium": "Watercolor on ivory",
+            "dimensions": "3 21/32 x 2 3/4 in. (9.3 x 7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP162116.jpg",
+            "description": "American",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "206965",
+            "title": "Longcase astronomical regulator",
+            "artist": "Ferdinand Berthoud",
+            "year": "ca. 1768–70",
+            "medium": "Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel",
+            "dimensions": "Overall: 90 1/2 × 21 × 12 3/4 in. (229.9 × 53.3 × 32.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435817",
+            "title": "The Crucifixion with the Virgin and Saint John",
+            "artist": "Hendrick ter Brugghen",
+            "year": "ca. 1624–25",
+            "medium": "Oil on canvas",
+            "dimensions": "61 in. × 40 1/4 in. (154.9 × 102.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP146490.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437798",
+            "title": "The Glorification of the Barbaro Family",
+            "artist": "Giovanni Battista Tiepolo",
+            "year": "ca. 1750",
+            "medium": "Oil on canvas",
+            "dimensions": "Irregular oval, 96 x 183 3/4 in. (243.8 x 466.7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP287646.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "459028",
+            "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "year": "ca. 1485–95",
+            "medium": "Oil on wood; verso: oil and gold on wood",
+            "dimensions": "Overall 4 5/8 x 3 3/8 in. ; recto, painted surface 4 1/8 x 3 1/8 in.; verso, painted surface 4 3/8 x 3 1/8 in.",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "459027",
+            "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "year": "ca. 1485–95",
+            "medium": "Oil on wood; (verso: oil and gold on wood)",
+            "dimensions": "Overall 4 x 2 7/8 in. (10.2 x 7.3 cm); recto and verso, painted surface 3 3/4 x 2 1/2 in. (9.5 x 6.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "544320",
+            "title": "Stela of the Steward Mentuwoser",
+            "artist": "未知艺术家",
+            "year": "ca. 1944 B.C.",
+            "medium": "Limestone, paint",
+            "dimensions": "H. 103 cm (40 9/16 in.); W. 50.5 cm (19 7/8 in.); Th. 8.3 cm (3 1/4 in.)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg",
+            "description": "Middle Kingdom",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "477499",
+            "title": "Jaharis Byzantine Lectionary",
+            "artist": "未知艺术家",
+            "year": "ca. 1100",
+            "medium": "Tempera, gold, and ink on parchment; leather binding",
+            "dimensions": "Overall: 14 1/2 x 11 5/8 x 4 7/8 in. (36.8 x 29.6 x 12.4 cm)\r\nfolio: 13 3/4 x 10 5/16 in. (35 x 26.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DP160636.jpg",
+            "description": "Byzantine",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "437674",
+            "title": "Madonna and Child",
+            "artist": "Luca Signorelli (Luca d'Egidio di Luca di Ventura)",
+            "year": "ca. 1505–7",
+            "medium": "Oil and gold on wood",
+            "dimensions": "20 1/4 x 18 3/4 in. (51.4 x 47.6 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-25976-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436504",
+            "title": "The Adoration of the Magi",
+            "artist": "Giotto di Bondone",
+            "year": "possibly ca. 1320",
+            "medium": "Tempera on wood, gold ground",
+            "dimensions": "17 3/4 x 17 1/4 in. (45.1 x 43.8 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-31416-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "436516",
+            "title": "The Triumph of Fame; (reverse) Impresa of the Medici Family and Arms of the Medici and Tornabuoni Families",
+            "artist": "Giovanni di ser Giovanni Guidi (called Scheggia)",
+            "year": "ca. 1449",
+            "medium": "Tempera, silver, and gold on wood",
+            "dimensions": "Overall, with engaged frame, diameter 36 1/2 in. (92.7 cm); recto, painted surface, diameter 24 5/8 in. (62.5 cm); verso, painted surface, diameter 29 5/8 in. (75.2 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP164870.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "435864",
+            "title": "A Woman with a Dog",
+            "artist": "Giacomo Ceruti",
+            "year": "1740s",
+            "medium": "Oil on canvas",
+            "dimensions": "38 x 28 1/2 in. (96.5 x 72.4 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          },
+          {
+            "id": "200668",
+            "title": "Sabine Houdon (1787–1836)",
+            "artist": "Jean Antoine Houdon",
+            "year": "1788",
+            "medium": "White marble on gray marble socle",
+            "dimensions": "Overall, without base (confirmed): H. 10 3/4 x W. 8 7/8 x D. 5 7/8 in., 20lb. (27.3 x 22.5 x 14.9 cm, 9.0719kg); Height with base (confirmed): 13 1/2 in. (34.3 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0"
+          }
+        ],
+        "scores": [],
+        "emotion": "joy",
+        "count": 9
+      },
+      "outputSummary": {
+        "selectedCount": 0
+      },
+      "raw": {
+        "selectedArtworks": [],
+        "selectedScores": [],
+        "selectionReasoning": "符合条件作品数量不足，返回所有作品",
+        "diversityMetrics": {
+          "artistCount": 0,
+          "periodCount": 0,
+          "mediumCount": 0,
+          "avgScore": null,
+          "emotionFit": null
+        }
+      }
+    },
+    {
+      "name": "explanation",
+      "url": "http://localhost:3000/api/curate/test-explanation",
+      "status": 200,
+      "durationMs": 176,
+      "body": {
+        "artworks": [],
+        "emotion": "joy",
+        "userInput": "bright colors, family, celebration",
+        "curationStrategy": "通过明亮色彩和动态构图展现喜悦情绪"
+      },
+      "outputSummary": {
+        "durationMs": 1,
+        "successCount": 0,
+        "failureCount": 0
+      },
+      "raw": {
+        "durationMs": 1,
+        "result": {
+          "explanations": [],
+          "totalProcessed": 0,
+          "successCount": 0,
+          "failureCount": 0,
+          "fromCacheCount": 0,
+          "processingTime": 0
+        }
+      }
+    },
+    {
+      "name": "summary",
+      "url": "http://localhost:3000/api/curate/test-summary",
+      "status": 200,
+      "durationMs": 10387,
+      "body": {
+        "artworks": [],
+        "emotion": "joy",
+        "explanations": [],
+        "userInput": "bright colors, family, celebration"
+      },
+      "outputSummary": {
+        "durationMs": 10268,
+        "length": 37
+      },
+      "raw": {
+        "durationMs": 10268,
+        "summary": "这是一个精心策划的艺术展览，通过精选的作品展现了深刻的情感表达和艺术价值。",
+        "length": 37
+      }
+    },
+    {
+      "name": "curate",
+      "url": "http://localhost:3000/api/curate",
+      "status": 200,
+      "durationMs": 97516,
+      "body": {
+        "emotion": "joy",
+        "userInput": "bright colors, family, celebration"
+      },
+      "outputSummary": {
+        "success": true,
+        "scoredCount": 21,
+        "summaryTime": 10751
+      },
+      "raw": {
+        "success": true,
+        "artworks": [
+          {
+            "id": "310453",
+            "title": "Nkishi (community power figure)",
+            "artist": "Songye artist and nganga (ritual specialist)",
+            "year": "19th–first half of 20th century",
+            "medium": "Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin",
+            "dimensions": "H. 39 × W. 10 1/2 × D. 11 in. (99.1 × 26.7 × 27.9 cm)",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "Songye peoples",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "23944",
+            "title": "Armor of Emperor Ferdinand I (1503–1564)",
+            "artist": "Kunz Lochner",
+            "year": "dated 1549",
+            "medium": "Steel, brass, leather",
+            "dimensions": "H. 67 in. (170.2 cm); Wt. 52 lb. 14 oz. (24 kg)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/aa/original/DP-12881-007.jpg",
+            "description": "German, Nuremberg",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artist": "未知艺术家",
+            "year": "ca. 332–200 B.C.",
+            "medium": "Papyrus, ink",
+            "dimensions": "Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg",
+            "description": "Early Ptolemaic Period",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "472562",
+            "title": "The Fieschi Morgan Staurotheke",
+            "artist": "未知艺术家",
+            "year": "early 9th century",
+            "medium": "Gilded silver, gold, enamel worked in cloisonné, and niello",
+            "dimensions": "Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\nlid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\nvessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/md/original/DT119.jpg",
+            "description": "Byzantine",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "317877",
+            "title": "Processional Cross",
+            "artist": "Northern Highlands artist",
+            "year": "14th–15th century",
+            "medium": "Brass",
+            "dimensions": "H. 10 1/2 × W. 5 × D. 1 in. (26.7 × 12.7 × 2.5 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg",
+            "description": "Northern Highlands region",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "467639",
+            "title": "The Unicorn Crosses a Stream (from the Unicorn Tapestries)",
+            "artist": "未知艺术家",
+            "year": "1495–1505",
+            "medium": "Wool warp with wool, silk, silver, and gilt wefts",
+            "dimensions": "Overall: 145 x 168in. (368.3 x 426.7cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/cl/original/DP118985.jpg",
+            "description": "French (cartoon)/South Netherlandish (woven)",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "309389",
+            "title": "Urpu (jar)",
+            "artist": "Inca artist(s)",
+            "year": "1400–1535 CE",
+            "medium": "Ceramic, slip",
+            "dimensions": "H. 11 1/2 × W. 9 1/4 × D. 7 1/2 in. (29.2 × 23.5 × 19.1 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP-24278-001.jpg",
+            "description": "Inca",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "10956",
+            "title": "Gilbert Stuart",
+            "artist": "Sarah Goodridge",
+            "year": "ca. 1825",
+            "medium": "Watercolor on ivory",
+            "dimensions": "3 21/32 x 2 3/4 in. (9.3 x 7 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP162116.jpg",
+            "description": "American",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          },
+          {
+            "id": "436504",
+            "title": "The Adoration of the Magi",
+            "artist": "Giotto di Bondone",
+            "year": "possibly ca. 1320",
+            "medium": "Tempera on wood, gold ground",
+            "dimensions": "17 3/4 x 17 1/4 in. (45.1 x 43.8 cm)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-31416-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆",
+            "license": "CC0",
+            "llmScore": {
+              "emotionalFit": 5,
+              "artisticValue": 5,
+              "visualExpression": 5,
+              "overallRecommendation": 5,
+              "confidence": 0.3
+            }
+          }
+        ],
+        "curation": {
+          "theme": "joy",
+          "description": "这是一个精心策划的艺术展览，通过精选的作品展现了深刻的情感表达和艺术价值。",
+          "emotionCurve": [
+            0.723176274578121,
+            0.744840112333371,
+            0.7852909620521183,
+            0.8173929381481285,
+            0.8380036755335051,
+            0.8451056516295153,
+            0.8380036755335051,
+            0.8173929381481287,
+            0.7852909620521183,
+            0.744840112333371,
+            0.6999999999999998,
+            0.6551598876666289,
+            0.6147090379478816,
+            0.5826070618518713,
+            0.5619963244664948,
+            0.5548943483704846,
+            0.5619963244664948,
+            0.5826070618518712,
+            0.6147090379478816,
+            0.6551598876666289,
+            0.676823725421879
+          ],
+          "totalWorks": 9
+        },
+        "explanations": [
+          {
+            "artworkId": "310453",
+            "title": "Nkishi (community power figure)",
+            "artist": "Songye artist and nganga (ritual specialist)",
+            "explanation": {
+              "emotionalConnection": "这件作品《Nkishi (community power figure)》通过其艺术表现力，与\"joy\"情绪产生了共鸣。",
+              "artisticAnalysis": "作品展现了Songye artist and nganga (ritual specialist)独特的创作风格，在19th–first half of 20th century年创作，使用了Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin材质。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义，体现了当时的艺术思潮。",
+              "curationReason": "这件作品被选中是因为它完美地体现了\"joy\"这一主题的艺术表达。",
+              "userRelevance": "这件作品与您的输入\"bright colors, family, celebration\"高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.6,
+            "processingTime": 0
+          },
+          {
+            "artworkId": "23944",
+            "title": "Armor of Emperor Ferdinand I (1503–1564)",
+            "artist": "Kunz Lochner",
+            "explanation": {
+              "emotionalConnection": "这件作品《Armor of Emperor Ferdinand I (1503–1564)》通过其艺术表现力，与\"joy\"情绪产生了共鸣。",
+              "artisticAnalysis": "作品展现了Kunz Lochner独特的创作风格，在dated 1549年创作，使用了Steel, brass, leather材质。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义，体现了当时的艺术思潮。",
+              "curationReason": "这件作品被选中是因为它完美地体现了\"joy\"这一主题的艺术表达。",
+              "userRelevance": "这件作品与您的输入\"bright colors, family, celebration\"高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.6,
+            "processingTime": 0
+          },
+          {
+            "artworkId": "551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artist": "未知艺术家",
+            "explanation": {
+              "emotionalConnection": "这件作品《Book of the Dead of the Priest of Horus, Imhotep (Imuthes)》通过其艺术表现力，与\"joy\"情绪产生了共鸣。",
+              "artisticAnalysis": "作品展现了未知艺术家独特的创作风格，在ca. 332–200 B.C.年创作，使用了Papyrus, ink材质。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义，体现了当时的艺术思潮。",
+              "curationReason": "这件作品被选中是因为它完美地体现了\"joy\"这一主题的艺术表达。",
+              "userRelevance": "这件作品与您的输入\"bright colors, family, celebration\"高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.6,
+            "processingTime": 0
+          },
+          {
+            "artworkId": "472562",
+            "title": "The Fieschi Morgan Staurotheke",
+            "artist": "未知艺术家",
+            "explanation": {
+              "emotionalConnection": "这件作品通过其独特的艺术表现力，与您的情感需求产生了深刻的共鸣。",
+              "artisticAnalysis": "作品展现了艺术家独特的创作风格和技法。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义。",
+              "curationReason": "这件作品被选中是因为它完美地体现了策展主题。",
+              "userRelevance": "这件作品与您的输入高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.8,
+            "processingTime": 25725
+          },
+          {
+            "artworkId": "317877",
+            "title": "Processional Cross",
+            "artist": "Northern Highlands artist",
+            "explanation": {
+              "emotionalConnection": "这件作品通过其独特的艺术表现力，与您的情感需求产生了深刻的共鸣。",
+              "artisticAnalysis": "作品展现了艺术家独特的创作风格和技法。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义。",
+              "curationReason": "这件作品被选中是因为它完美地体现了策展主题。",
+              "userRelevance": "这件作品与您的输入高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.8,
+            "processingTime": 22824
+          },
+          {
+            "artworkId": "467639",
+            "title": "The Unicorn Crosses a Stream (from the Unicorn Tapestries)",
+            "artist": "未知艺术家",
+            "explanation": {
+              "emotionalConnection": "这件作品通过其独特的艺术表现力，与您的情感需求产生了深刻的共鸣。",
+              "artisticAnalysis": "作品展现了艺术家独特的创作风格和技法。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义。",
+              "curationReason": "这件作品被选中是因为它完美地体现了策展主题。",
+              "userRelevance": "这件作品与您的输入高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.8,
+            "processingTime": 27088
+          },
+          {
+            "artworkId": "309389",
+            "title": "Urpu (jar)",
+            "artist": "Inca artist(s)",
+            "explanation": {
+              "emotionalConnection": "这件作品通过其独特的艺术表现力，与您的情感需求产生了深刻的共鸣。",
+              "artisticAnalysis": "作品展现了艺术家独特的创作风格和技法。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义。",
+              "curationReason": "这件作品被选中是因为它完美地体现了策展主题。",
+              "userRelevance": "这件作品与您的输入高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.8,
+            "processingTime": 18131
+          },
+          {
+            "artworkId": "10956",
+            "title": "Gilbert Stuart",
+            "artist": "Sarah Goodridge",
+            "explanation": {
+              "emotionalConnection": "这件作品通过其独特的艺术表现力，与您的情感需求产生了深刻的共鸣。",
+              "artisticAnalysis": "作品展现了艺术家独特的创作风格和技法。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义。",
+              "curationReason": "这件作品被选中是因为它完美地体现了策展主题。",
+              "userRelevance": "这件作品与您的输入高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.8,
+            "processingTime": 22602
+          },
+          {
+            "artworkId": "436504",
+            "title": "The Adoration of the Magi",
+            "artist": "Giotto di Bondone",
+            "explanation": {
+              "emotionalConnection": "这件作品通过其独特的艺术表现力，与您的情感需求产生了深刻的共鸣。",
+              "artisticAnalysis": "作品展现了艺术家独特的创作风格和技法。",
+              "historicalContext": "这件作品在其创作时代具有重要的艺术史意义。",
+              "curationReason": "这件作品被选中是因为它完美地体现了策展主题。",
+              "userRelevance": "这件作品与您的输入高度相关，能够满足您的艺术欣赏需求。"
+            },
+            "confidence": 0.8,
+            "processingTime": 18073
+          }
+        ],
+        "serviceInfo": {
+          "current": "Met Museum API",
+          "source": "api",
+          "allServices": [
+            {
+              "name": "Met Museum API",
+              "available": false
+            },
+            {
+              "name": "Rijks Museum API",
+              "available": false
+            }
+          ]
+        },
+        "diagnostics": {
+          "searchPlan": {
+            "keywords": [
+              "celebration",
+              "festival",
+              "dance",
+              "music",
+              "happiness"
+            ],
+            "filters": {
+              "period": {
+                "start": 1500,
+                "end": 2024
+              },
+              "medium": [
+                "painting",
+                "sculpture",
+                "textile",
+                "ceramic"
+              ],
+              "geo": [
+                "Europe",
+                "Asia",
+                "Americas"
+              ],
+              "creator": [
+                "Rubens",
+                "Fragonard",
+                "Monet",
+                "Matisse"
+              ],
+              "highlight": true,
+              "hasImages": true
+            },
+            "sources": [
+              "met",
+              "rijks"
+            ]
+          },
+          "llmAnalysis": {
+            "emotion_analysis": "这是一个关于\"joy\"情绪的艺术策展",
+            "art_styles": [
+              "baroque",
+              "rococo",
+              "impressionist",
+              "fauvist"
+            ],
+            "search_keywords": [
+              "celebration",
+              "festival",
+              "dance",
+              "music",
+              "happiness"
+            ],
+            "recommended_artists": [
+              "Rubens",
+              "Fragonard",
+              "Monet",
+              "Matisse"
+            ],
+            "curation_strategy": "通过明亮色彩和动态构图展现喜悦情绪"
+          },
+          "processingTime": 97150,
+          "planBuildTime": 3394,
+          "deterministicSeed": "1389008095",
+          "coarseCount": 21,
+          "preFilterCount": 21,
+          "scoredCount": 21,
+          "scoringResult": {
+            "totalProcessed": 21,
+            "successCount": 21,
+            "failureCount": 21,
+            "scoringTime": 13405
+          },
+          "llmScoring": true,
+          "scoringSuccess": true,
+          "avgConfidence": 0.29999999999999993,
+          "emotionCurve": {
+            "points": [
+              {
+                "position": 0,
+                "intensity": 0.723176274578121,
+                "artworkId": "436504"
+              },
+              {
+                "position": 0.05,
+                "intensity": 0.744840112333371,
+                "artworkId": "10956"
+              },
+              {
+                "position": 0.1,
+                "intensity": 0.7852909620521183,
+                "artworkId": "309389"
+              },
+              {
+                "position": 0.15,
+                "intensity": 0.8173929381481285,
+                "artworkId": "472562"
+              },
+              {
+                "position": 0.2,
+                "intensity": 0.8380036755335051,
+                "artworkId": "551786"
+              },
+              {
+                "position": 0.25,
+                "intensity": 0.8451056516295153,
+                "artworkId": "310453"
+              },
+              {
+                "position": 0.3,
+                "intensity": 0.8380036755335051,
+                "artworkId": "23944"
+              },
+              {
+                "position": 0.35,
+                "intensity": 0.8173929381481287,
+                "artworkId": "317877"
+              },
+              {
+                "position": 0.4,
+                "intensity": 0.7852909620521183,
+                "artworkId": "467639"
+              },
+              {
+                "position": 0.45,
+                "intensity": 0.744840112333371,
+                "artworkId": "477499"
+              },
+              {
+                "position": 0.5,
+                "intensity": 0.6999999999999998,
+                "artworkId": "435864"
+              },
+              {
+                "position": 0.55,
+                "intensity": 0.6551598876666289,
+                "artworkId": "544740"
+              },
+              {
+                "position": 0.6,
+                "intensity": 0.6147090379478816,
+                "artworkId": "479486"
+              },
+              {
+                "position": 0.65,
+                "intensity": 0.5826070618518713,
+                "artworkId": "208578"
+              },
+              {
+                "position": 0.7,
+                "intensity": 0.5619963244664948,
+                "artworkId": "437423"
+              },
+              {
+                "position": 0.75,
+                "intensity": 0.5548943483704846,
+                "artworkId": "320833"
+              },
+              {
+                "position": 0.8,
+                "intensity": 0.5619963244664948,
+                "artworkId": "437021"
+              },
+              {
+                "position": 0.85,
+                "intensity": 0.5826070618518712,
+                "artworkId": "202718"
+              },
+              {
+                "position": 0.9,
+                "intensity": 0.6147090379478816,
+                "artworkId": "438022"
+              },
+              {
+                "position": 0.95,
+                "intensity": 0.6551598876666289,
+                "artworkId": "438688"
+              },
+              {
+                "position": 1,
+                "intensity": 0.676823725421879,
+                "artworkId": "200668"
+              }
+            ],
+            "description": "这个\"joy\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从55%到85%，创造出丰富的情绪层次。",
+            "generationTime": 1,
+            "curveSource": "Legacy"
+          },
+          "selectionResult": {
+            "selectedCount": 9,
+            "selectionReasoning": "基于多样性原则选择作品，确保风格、时期、材质的平衡",
+            "diversityMetrics": {
+              "artistCount": 7,
+              "periodCount": 5,
+              "mediumCount": 9,
+              "avgScore": 5,
+              "emotionFit": 5
+            },
+            "selectionTime": 3
+          },
+          "explanationResult": {
+            "totalProcessed": 9,
+            "successCount": 6,
+            "failureCount": 3,
+            "explanationTime": 61610,
+            "explainFromCache": false,
+            "explainDegraded": true
+          },
+          "summaryTime": 10751,
+          "glmKey": "GLM",
+          "providers": {
+            "scoringProvider": "GLM",
+            "explanationProvider": "GLM",
+            "summaryProvider": "OpenAI"
+          }
+        }
+      }
+    }
+  ]
+}

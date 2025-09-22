@@ -29,6 +29,8 @@ export interface BatchExplanationResult {
   totalProcessed: number;
   successCount: number;
   failureCount: number;
+  // 新增：缓存命中计数，用于诊断统计
+  fromCacheCount: number;
   processingTime: number;
 }
 
@@ -47,6 +49,7 @@ export async function generateArtworkExplanations(
   const explanations: ArtworkExplanation[] = [];
   let successCount = 0;
   let failureCount = 0;
+  let fromCacheCount = 0;
   
   // 分批处理，避免API限制
   // 控制并发与批次，降低429限流概率
@@ -61,11 +64,32 @@ export async function generateArtworkExplanations(
       try {
         // 轻微抖动（30-80ms）
         await new Promise(r => setTimeout(r, 30 + Math.floor(Math.random() * 50)));
-        // 添加超时控制 + 指数退避重试
+        // 可控的缓存开关（默认关闭）。仅当 EXPLAIN_CACHE_ENABLED === 'true' 时启用。
+        const cacheEnabled = process.env.EXPLAIN_CACHE_ENABLED === 'true';
+        if (cacheEnabled) {
+          const cached = getCachedExplanation(artwork.id, emotion, userInput);
+          if (cached) {
+            console.log(`📦 讲解命中缓存: artwork=${artwork.id}`);
+            fromCacheCount++;
+            successCount++;
+            return cached;
+          }
+        }
+
+        // 添加超时控制 + 指数退避重试（缓存未命中）
         const explanation = await generateWithRetry(
           () => generateSingleArtworkExplanation(artwork, emotion, userInput, curationStrategy),
           [1000, 2000, 4000] // 1s, 2s, 4s
         );
+
+        // 写入缓存（受开关控制）
+        if (cacheEnabled) {
+          try {
+            cacheExplanationFields(explanation, emotion, userInput);
+          } catch (cacheErr) {
+            console.warn('写入讲解缓存失败:', cacheErr);
+          }
+        }
         
         successCount++;
         return explanation;
@@ -93,6 +117,7 @@ export async function generateArtworkExplanations(
     totalProcessed: artworks.length,
     successCount,
     failureCount,
+    fromCacheCount,
     processingTime
   };
 }
@@ -163,10 +188,12 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
     if (glmOptimizedClient.hasValidApiKey()) {
       console.log('🔑 使用GLM客户端生成作品讲解(快速, no thinking)...');
       try {
-        // 首选快速模式（禁用thinking）
+        // 使用可配置的温度与max_tokens（默认回到较高上限，避免质量下降）
+        const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.6;
+        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 1200;
         response = await glmOptimizedClient.quickChat(messages, {
-          temperature: 0.6,
-          max_tokens: 1200
+          temperature,
+          max_tokens: maxTokens
         });
         console.log('✅ GLM讲解生成成功(快速)');
       } catch (glmError) {
@@ -175,9 +202,11 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
       }
     } else {
       console.log('🔑 GLM不可用，使用OpenAI客户端生成作品讲解...');
+      const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.7;
+      const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 2048;
       response = await openaiClient.chat(messages, {
-        temperature: 0.7,
-        max_tokens: 2048
+        temperature,
+        max_tokens: maxTokens
       });
     }
 
@@ -192,23 +221,8 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
       if (jsonMatch) {
         explanationData = JSON.parse(jsonMatch[0]);
       } else {
-        // 快速模式解析失败时，做一次thinking重试
-        if (glmOptimizedClient.hasValidApiKey()) {
-          console.log('🔁 讲解重试(启用thinking)...');
-          const retry = await glmOptimizedClient.deepAnalysis(messages, {
-            temperature: 0.6,
-            max_tokens: 1200
-          });
-          content = retry.choices[0]?.message?.content || '{}';
-          const retryMatch = content.match(/\{[\s\S]*\}/);
-          if (retryMatch) {
-            explanationData = JSON.parse(retryMatch[0]);
-          } else {
-            throw new Error('无法解析讲解结果');
-          }
-        } else {
-          throw new Error('无法解析讲解结果');
-        }
+        // 禁用thinking重试：直接报错由上层退避处理
+        throw new Error('无法解析讲解结果');
       }
     }
 
@@ -232,6 +246,113 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
   } catch (error) {
     console.error('作品讲解生成失败:', error);
     throw error;
+  }
+}
+
+// ===================
+// 本地内存缓存（服务器侧）
+// 键规则：artworkId + emotion + hash(userInput) + 字段
+// TTL：24h
+// ===================
+type ExplanationFieldKey = 'emotionalConnection' | 'artisticAnalysis' | 'historicalContext' | 'curationReason' | 'userRelevance' | 'confidence';
+
+interface ExplanationCacheEntry {
+  value: string | number;
+  expiresAt: number;
+}
+
+const EXPLANATION_CACHE_TTL = 24 * 60 * 60 * 1000; // 24小时
+const explanationCache: Map<string, ExplanationCacheEntry> = new Map();
+
+function stableHash(input: string): string {
+  try {
+    // 简单且稳定的FNV-1a变体哈希（字符串转16进制）
+    let hash = 2166136261;
+    for (let i = 0; i < input.length; i++) {
+      hash ^= input.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return (hash >>> 0).toString(16);
+  } catch {
+    return '0';
+  }
+}
+
+function buildFieldKey(artworkId: string, emotion: string, userInput: string | undefined, field: ExplanationFieldKey): string {
+  const uiHash = stableHash(userInput || '');
+  return `exp:${artworkId}:${emotion}:${uiHash}:${field}`;
+}
+
+function setCache(artworkId: string, emotion: string, userInput: string | undefined, field: ExplanationFieldKey, value: string | number): void {
+  const key = buildFieldKey(artworkId, emotion, userInput, field);
+  explanationCache.set(key, {
+    value,
+    expiresAt: Date.now() + EXPLANATION_CACHE_TTL
+  });
+}
+
+function getCache(artworkId: string, emotion: string, userInput: string | undefined, field: ExplanationFieldKey): string | number | null {
+  const key = buildFieldKey(artworkId, emotion, userInput, field);
+  const entry = explanationCache.get(key);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) {
+    explanationCache.delete(key);
+    return null;
+  }
+  return entry.value;
+}
+
+function cacheExplanationFields(exp: ArtworkExplanation, emotion: string, userInput?: string): void {
+  try {
+    setCache(exp.artworkId, emotion, userInput, 'emotionalConnection', exp.explanation.emotionalConnection);
+    setCache(exp.artworkId, emotion, userInput, 'artisticAnalysis', exp.explanation.artisticAnalysis);
+    setCache(exp.artworkId, emotion, userInput, 'historicalContext', exp.explanation.historicalContext);
+    setCache(exp.artworkId, emotion, userInput, 'curationReason', exp.explanation.curationReason);
+    setCache(exp.artworkId, emotion, userInput, 'userRelevance', exp.explanation.userRelevance);
+    setCache(exp.artworkId, emotion, userInput, 'confidence', exp.confidence);
+  } catch (e) {
+    // 缓存失败不影响主流程
+    console.warn('cacheExplanationFields error:', e);
+  }
+}
+
+function getCachedExplanation(artworkId: string, emotion: string, userInput?: string): ArtworkExplanation | null {
+  try {
+    const emotionalConnection = getCache(artworkId, emotion, userInput, 'emotionalConnection');
+    const artisticAnalysis = getCache(artworkId, emotion, userInput, 'artisticAnalysis');
+    const historicalContext = getCache(artworkId, emotion, userInput, 'historicalContext');
+    const curationReason = getCache(artworkId, emotion, userInput, 'curationReason');
+    const userRelevance = getCache(artworkId, emotion, userInput, 'userRelevance');
+    const confidence = getCache(artworkId, emotion, userInput, 'confidence');
+
+    // 只有在字段都齐全时才返回命中，保证严格JSON字段完整
+    if (
+      emotionalConnection != null &&
+      artisticAnalysis != null &&
+      historicalContext != null &&
+      curationReason != null &&
+      userRelevance != null &&
+      confidence != null
+    ) {
+      return {
+        artworkId,
+        title: '',
+        artist: '',
+        explanation: {
+          emotionalConnection: String(emotionalConnection),
+          artisticAnalysis: String(artisticAnalysis),
+          historicalContext: String(historicalContext),
+          curationReason: String(curationReason),
+          userRelevance: String(userRelevance)
+        },
+        confidence: Number(confidence),
+        processingTime: 0
+      };
+    }
+    return null;
+  } catch (e) {
+    console.warn('getCachedExplanation error:', e);
+    return null;
   }
 }
 

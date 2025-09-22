@@ -75,10 +75,19 @@ export async function batchJudgeArtworksUltraOptimized(
   const preFilteredArtworks = await smartPreFilter(artworks, emotion, userInput, 25);
   console.log(`📊 预筛选结果: ${preFilteredArtworks.length} 件作品 (从 ${artworks.length} 件中筛选)`);
   
-  // 第二步：检查缓存，避免重复评分
-  console.log(`💾 第二步：检查评分缓存...`);
-  const { cachedScores, uncachedArtworks } = await checkScoreCache(preFilteredArtworks, emotion);
-  console.log(`📊 缓存结果: ${cachedScores.length} 件已缓存，${uncachedArtworks.length} 件需要评分`);
+  // 第二步：检查缓存（可控开关，默认关闭）
+  const scoringCacheEnabled = process.env.SCORING_CACHE_ENABLED === 'true';
+  let cachedScores: ArtworkScore[] = [];
+  let uncachedArtworks: Artwork[] = preFilteredArtworks;
+  if (scoringCacheEnabled) {
+    console.log(`💾 第二步：检查评分缓存...`);
+    const r = await checkScoreCache(preFilteredArtworks, emotion);
+    cachedScores = r.cachedScores;
+    uncachedArtworks = r.uncachedArtworks;
+    console.log(`📊 缓存结果: ${cachedScores.length} 件已缓存，${uncachedArtworks.length} 件需要评分`);
+  } else {
+    console.log(`💾 第二步：评分缓存已关闭，全部进入评分：${uncachedArtworks.length}`);
+  }
   
   // 第三步：批量评分未缓存的作品（使用智谱AI批处理API）
   let newScores: ArtworkScore[] = [];
