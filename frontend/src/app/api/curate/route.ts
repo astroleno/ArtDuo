@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     const planBuildTime = Date.now() - startTime;
     console.log(`⏱️ 搜索计划构建耗时: ${planBuildTime}ms`);
 
-    // 第二步：使用LLM分析结果指导MCP搜索（粗选）
+    // 第二步：使用LLM分析结果指导MCP搜索（粗选），优先painting类作品
     console.log('🔍 开始使用LLM指导的智能搜索（粗选）...');
     let artworkResult = await serviceManager.searchArtworks(emotion, userInput, analysisResult);
     
@@ -164,7 +164,8 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
       const response = await openaiClient.chat(curationMessages, {
         model: 'glm-4.5',
         temperature: 0.8,
-        max_tokens: 512
+        max_tokens: 512,
+        thinking: 'disabled' as const
       });
       curationDescription = response.choices[0]?.message?.content || '这是一个精心策划的艺术展览，展现了情感的深度和艺术的魅力。';
     } catch (error) {

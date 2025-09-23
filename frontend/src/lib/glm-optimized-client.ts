@@ -56,6 +56,7 @@ export interface GLMBatchResponse {
 
 export class GLMOptimizedClient {
   private apiKey: string;
+  private defaultModel: string;
   private baseUrl: string = 'https://open.bigmodel.cn/api/paas/v4';
   private batchUrl: string = 'https://open.bigmodel.cn/api/paas/v4/batches';
   private filesUrl: string = 'https://open.bigmodel.cn/api/paas/v4/files';
@@ -63,6 +64,7 @@ export class GLMOptimizedClient {
   constructor() {
     // 优先使用进程环境变量
     let apiKey = process.env.NEXT_PUBLIC_GLM_API_KEY || process.env.GLM_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY || '';
+    let defaultModel = 'glm-4.5';
 
     // 若未取到，则尝试读取 .env.local（仅在Node环境有效）
     if (!apiKey) {
@@ -86,6 +88,9 @@ export class GLMOptimizedClient {
             if (k === 'NEXT_PUBLIC_GLM_API_KEY' || k === 'GLM_API_KEY' || k === 'NEXT_PUBLIC_OPENAI_API_KEY') {
               apiKey = apiKey || v;
             }
+            if (k === 'NEXT_PUBLIC_GLM_MODEL' || k === 'GLM_MODEL') {
+              defaultModel = v || defaultModel;
+            }
           }
         }
       } catch {
@@ -103,6 +108,7 @@ export class GLMOptimizedClient {
         if (fs.existsSync(jsonPath)) {
           const obj = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
           apiKey = obj.NEXT_PUBLIC_GLM_API_KEY || obj.GLM_API_KEY || obj.NEXT_PUBLIC_OPENAI_API_KEY || '';
+          defaultModel = obj.NEXT_PUBLIC_GLM_MODEL || obj.GLM_MODEL || defaultModel;
         }
       } catch {
         // 忽略读取错误
@@ -110,7 +116,11 @@ export class GLMOptimizedClient {
     }
 
     this.apiKey = apiKey || '';
-    console.log('🔑 GLM客户端初始化，API密钥长度:', this.apiKey ? this.apiKey.length : 0);
+    this.defaultModel = defaultModel;
+    console.log('🔑 GLM客户端初始化:', {
+      apiKeyLength: this.apiKey ? this.apiKey.length : 0,
+      defaultModel: this.defaultModel
+    });
   }
 
   hasValidApiKey(): boolean {
@@ -132,7 +142,7 @@ export class GLMOptimizedClient {
     } = {}
   ): Promise<GLMResponse> {
     const {
-      model = 'glm-4.5',
+      model = this.defaultModel,
       temperature = 0.1, // 低温度，快速响应
       max_tokens = 512   // 限制token数量
     } = options;
@@ -159,7 +169,7 @@ export class GLMOptimizedClient {
     } = {}
   ): Promise<GLMResponse> {
     const {
-      model = 'glm-4.5',
+      model = this.defaultModel,
       temperature = 0.3,
       max_tokens = 2048
     } = options;
@@ -187,7 +197,7 @@ export class GLMOptimizedClient {
     } = {}
   ): Promise<GLMResponse> {
     const {
-      model = 'glm-4.5',
+      model = this.defaultModel,
       temperature = 0.3,
       max_tokens = 1024,
       thinking = 'disabled'

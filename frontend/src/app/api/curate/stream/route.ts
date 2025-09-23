@@ -7,18 +7,17 @@ import { ArtworkSelector } from '@/lib/curation/artwork-selector';
 import { generateArtworkExplanations, generateCurationSummary } from '@/lib/curation/artwork-explanation';
 
 /**
- * 策展流式SSE接口
- * 事件顺序：plan → coarse → score(batch) → select → summary → explanation
- * 所有事件均为 data: {type, payload} 的JSON对象
+ * 策展流式SSE接口 - 优化版
+ * 正确事件顺序：
+ * 1. 情绪曲线生成 → emotion_curve
+ * 2. 作品评分选择 → artworks_selected (输出前3件时立即触发讲解)
+ * 3. 策展序言 → introduction
+ * 4. 策展结语 → conclusion
+ * 5. 讲解并发生成 → explanations_batch (3+3+3)
  */
 export async function POST(request: NextRequest) {
-  // 默认关闭流式输出：只有当 CURATE_STREAM_ENABLED === 'true' 才启用
-  if (process.env.CURATE_STREAM_ENABLED !== 'true') {
-    return new Response(JSON.stringify({ error: 'streaming disabled' }), {
-      status: 503,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
+  // 启用流式输出（去掉环境变量限制）
+  console.log('🚀 开始策展流式输出...');
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({
@@ -50,109 +49,114 @@ export async function POST(request: NextRequest) {
         const t0 = Date.now();
         send('start', { emotion, userInput });
 
-        // 1) 计划
+        // 前置准备阶段（不输出）
+        const planStart = Date.now();
+        const seed = generateDeterministicSeed(emotion, userInput);
+        const { searchPlan, llmAnalysis } = await buildSearchPlanUltraOptimized(emotion, userInput, seed);
+        const planTime = Date.now() - planStart;
+        console.log(`🧠 搜索计划完成，耗时: ${planTime}ms`);
+
+        // 作品搜索阶段（不输出）
+        const coarseStart = Date.now();
+        const serviceManager = new ArtworkServiceManager();
+        let artworkResult;
         try {
-          const planStart = Date.now();
-          const seed = generateDeterministicSeed(emotion, userInput);
-          const { searchPlan, llmAnalysis } = await buildSearchPlanUltraOptimized(emotion, userInput, seed);
-          const planTime = Date.now() - planStart;
-          send('plan', { searchPlan, llmAnalysis, seed, durationMs: planTime });
-
-          // 2) 粗选
-          const coarseStart = Date.now();
-          const serviceManager = new ArtworkServiceManager();
-          let artworkResult;
-          try {
-            artworkResult = await serviceManager.searchArtworks(emotion, userInput, llmAnalysis);
-          } catch (svcErr) {
-            // 服务异常时，直接降级到本地回退服务
-            const { FallbackService } = await import('@/lib/artwork-services/fallback-service');
-            const fallback = new FallbackService();
-            artworkResult = await fallback.searchArtworks(emotion, userInput, llmAnalysis);
-          }
-          if (!artworkResult || !artworkResult.success || artworkResult.artworks.length === 0) {
-            const { FallbackService } = await import('@/lib/artwork-services/fallback-service');
-            const fallback = new FallbackService();
-            artworkResult = await fallback.searchArtworks(emotion, userInput, llmAnalysis);
-          }
-          const coarseTime = Date.now() - coarseStart;
-          // 仅发送精简的作品信息，避免负载过大
-          const coarseSample = artworkResult.artworks.slice(0, 5).map(a => ({ id: a.id, title: a.title, artist: a.artist }));
-          send('coarse', { total: artworkResult.artworks.length, source: artworkResult.source, durationMs: coarseTime, sample: coarseSample });
-
-          // 3) 评分（可能较慢，发送阶段进度）
-          const scoreStart = Date.now();
-          // 显示禁用评分缓存以避免“看起来没花时间”的错觉
-          process.env.SCORING_CACHE_ENABLED = 'false';
-          const scoring = await batchJudgeArtworksUltraOptimized(artworkResult.artworks, emotion, userInput, 5);
-          const scoreTime = Date.now() - scoreStart;
-          send('score', {
-            totalProcessed: scoring.totalProcessed,
-            successCount: scoring.successCount,
-            failureCount: scoring.failureCount,
-            durationMs: scoreTime
-          });
-
-          // 4) 曲线与精选
-          const selectStart = Date.now();
-          const curve = EmotionCurveGenerator.generateCurve(artworkResult.artworks, scoring.scores, emotion);
-          const optimized = EmotionCurveGenerator.optimizeCurve(curve);
-          const selection = ArtworkSelector.selectBestArtworks(
-            artworkResult.artworks, scoring.scores, optimized, { targetCount: 9 }
-          );
-          const selectTime = Date.now() - selectStart;
-          const selectedBrief = selection.selectedArtworks.map(a => ({ id: a.id, title: a.title, artist: a.artist }));
-          send('select', {
-            selectedCount: selection.selectedArtworks.length,
-            selectionReasoning: selection.selectionReasoning,
-            diversityMetrics: selection.diversityMetrics,
-            durationMs: selectTime,
-            artworks: selectedBrief
-          });
-
-          // 5) 策展总结（短版仍由现有函数生成全文，前端可截取）
-          const summaryStart = Date.now();
-          const summary = await generateCurationSummary(
-            selection.selectedArtworks,
-            emotion,
-            [],
-            userInput
-          );
-          const summaryTime = Date.now() - summaryStart;
-          send('summary', { summary, durationMs: summaryTime });
-
-          // 6) 讲解（批次内并发，发送聚合结果；如需片段化可后续细化到字段级）
-          const explStart = Date.now();
-          const expl = await generateArtworkExplanations(
-            selection.selectedArtworks,
-            emotion,
-            userInput,
-            llmAnalysis.curation_strategy
-          );
-          const explTime = Date.now() - explStart;
-          const explanationsBrief = expl.explanations.map(e => ({
-            artworkId: e.artworkId,
-            title: e.title,
-            artist: e.artist,
-            confidence: e.confidence
-          }));
-          send('explanation', {
-            totalProcessed: expl.totalProcessed,
-            successCount: expl.successCount,
-            failureCount: expl.failureCount,
-            fromCacheCount: (expl as any).fromCacheCount ?? 0,
-            durationMs: explTime,
-            items: explanationsBrief
-          });
-
-          // 完结
-          send('complete', { elapsedMs: Date.now() - t0 });
-          controller.close();
-        } catch (stepError) {
-          closeWithError('stream_step_failed', { message: stepError instanceof Error ? stepError.message : String(stepError) });
+          artworkResult = await serviceManager.searchArtworks(emotion, userInput, llmAnalysis);
+        } catch (svcErr) {
+          const { FallbackService } = await import('@/lib/artwork-services/fallback-service');
+          const fallback = new FallbackService();
+          artworkResult = await fallback.searchArtworks(emotion, userInput, llmAnalysis);
         }
+        if (!artworkResult || !artworkResult.success || artworkResult.artworks.length === 0) {
+          const { FallbackService } = await import('@/lib/artwork-services/fallback-service');
+          const fallback = new FallbackService();
+          artworkResult = await fallback.searchArtworks(emotion, userInput, llmAnalysis);
+        }
+        const coarseTime = Date.now() - coarseStart;
+        console.log(`🔍 作品搜索完成，耗时: ${coarseTime}ms，获得${artworkResult.artworks.length}件作品`);
+
+        // 作品评分阶段（不输出）
+        const scoreStart = Date.now();
+        process.env.SCORING_CACHE_ENABLED = 'false';
+        const scoring = await batchJudgeArtworksUltraOptimized(artworkResult.artworks, emotion, userInput, 5);
+        const scoreTime = Date.now() - scoreStart;
+        console.log(`🧠 作品评分完成，耗时: ${scoreTime}ms`);
+
+        // 1. 情绪曲线生成 → 流式输出
+        const curveStart = Date.now();
+        const curve = EmotionCurveGenerator.generateCurve(artworkResult.artworks, scoring.scores, emotion);
+        const optimized = EmotionCurveGenerator.optimizeCurve(curve);
+        const curveTime = Date.now() - curveStart;
+        send('emotion_curve', {
+          curve: optimized.map(p => p.intensity),
+          description: EmotionCurveGenerator.generateCurveDescription(optimized, emotion),
+          durationMs: curveTime
+        });
+
+        // 2. 作品选择 → 流式输出（输出前3件时立即触发讲解）
+        const selectStart = Date.now();
+        const selection = ArtworkSelector.selectBestArtworks(
+          artworkResult.artworks, scoring.scores, optimized, { targetCount: 9 }
+        );
+        const selectTime = Date.now() - selectStart;
+        
+        // 输出选定的作品
+        const selectedArtworks = selection.selectedArtworks.map(a => ({
+          id: a.id,
+          title: a.title,
+          artist: a.artist,
+          year: a.year,
+          medium: a.medium,
+          imageUrl: a.imageUrl,
+          description: a.description,
+          museum: a.museum
+        }));
+        send('artworks_selected', {
+          artworks: selectedArtworks,
+          selectionReasoning: selection.selectionReasoning,
+          diversityMetrics: selection.diversityMetrics,
+          durationMs: selectTime
+        });
+
+        // 立即开始讲解并发生成（非阻塞）
+        const explanationPromise = generateExplanationsInBatches(
+          selection.selectedArtworks,
+          emotion,
+          userInput,
+          llmAnalysis.curation_strategy,
+          send
+        );
+
+        // 3. 策展序言生成 → 流式输出
+        const introStart = Date.now();
+        const introduction = await generateCurationIntroduction(
+          selection.selectedArtworks,
+          emotion,
+          userInput,
+          llmAnalysis
+        );
+        const introTime = Date.now() - introStart;
+        send('introduction', { introduction, durationMs: introTime });
+
+        // 4. 策展结语生成 → 流式输出
+        const conclusionStart = Date.now();
+        const conclusion = await generateCurationConclusion(
+          selection.selectedArtworks,
+          emotion,
+          userInput,
+          optimized
+        );
+        const conclusionTime = Date.now() - conclusionStart;
+        send('conclusion', { conclusion, durationMs: conclusionTime });
+
+        // 等待讲解并发生成完成
+        await explanationPromise;
+
+        // 完结
+        send('complete', { elapsedMs: Date.now() - t0 });
+        controller.close();
       } catch (error) {
-        closeWithError('internal_error', { message: error instanceof Error ? error.message : String(error) });
+        closeWithError('stream_step_failed', { message: error instanceof Error ? error.message : String(error) });
       }
     }
   });
@@ -167,6 +171,165 @@ export async function POST(request: NextRequest) {
       'Access-Control-Allow-Headers': 'Content-Type',
     }
   });
+}
+
+/**
+ * 分批并发生成讲解（3+3+3）
+ */
+async function generateExplanationsInBatches(
+  artworks: any[],
+  emotion: string,
+  userInput: string | undefined,
+  curationStrategy: string,
+  send: (type: string, payload: unknown) => void
+) {
+  const batchSize = 3;
+  const batches = [];
+  
+  // 分成3批，每批3件作品
+  for (let i = 0; i < artworks.length; i += batchSize) {
+    batches.push(artworks.slice(i, i + batchSize));
+  }
+  
+  console.log(`🎨 开始分批生成讲解：${batches.length}批，每批${batchSize}件`);
+  
+  // 并发生成所有批次的讲解
+  const batchPromises = batches.map(async (batch, index) => {
+    try {
+      const batchStart = Date.now();
+      const result = await generateArtworkExplanations(
+        batch,
+        emotion,
+        userInput,
+        curationStrategy
+      );
+      const batchTime = Date.now() - batchStart;
+      
+      // 发送这一批的讲解结果
+      send('explanations_batch', {
+        batchIndex: index + 1,
+        batchSize: batch.length,
+        explanations: result.explanations,
+        successCount: result.successCount,
+        failureCount: result.failureCount,
+        durationMs: batchTime
+      });
+      
+      console.log(`✅ 第${index + 1}批讲解完成，耗时: ${batchTime}ms`);
+      return result;
+    } catch (error) {
+      console.error(`❌ 第${index + 1}批讲解失败:`, error);
+      // 发送错误信息
+      send('explanations_batch', {
+        batchIndex: index + 1,
+        batchSize: batch.length,
+        explanations: [],
+        successCount: 0,
+        failureCount: batch.length,
+        error: error instanceof Error ? error.message : String(error),
+        durationMs: 0
+      });
+      return null;
+    }
+  });
+  
+  // 等待所有批次完成
+  await Promise.all(batchPromises);
+  console.log('🎉 所有讲解批次生成完成');
+}
+
+/**
+ * 生成策展序言
+ */
+async function generateCurationIntroduction(
+  artworks: any[],
+  emotion: string,
+  userInput: string | undefined,
+  llmAnalysis: any
+): Promise<string> {
+  const { glmOptimizedClient } = await import('@/lib/glm-optimized-client');
+  
+  const prompt = `为艺术展览生成策展序言（中文，200-300字）。
+
+展览主题：${emotion}
+${userInput ? `用户需求：${userInput}` : ''}
+作品数量：${artworks.length}件
+
+精选作品：
+${artworks.slice(0, 3).map((a, i) => `${i+1}. 《${a.title}》- ${a.artist} (${a.year})`).join('\n')}
+
+策展理念：${llmAnalysis.curation_strategy || '通过精选作品展现情感主题的深度内涵'}
+
+请生成一个富有感染力的策展序言，解释展览的核心理念和作品选择逻辑。`;
+
+  const messages = [
+    {
+      role: 'system' as const,
+      content: '你是一位资深的艺术策展人，擅长撰写富有感染力的展览序言。'
+    },
+    {
+      role: 'user' as const,
+      content: prompt
+    }
+  ];
+
+  try {
+    const response = await glmOptimizedClient.chat(messages, {
+      temperature: 0.8,
+      max_tokens: 400,
+      thinking: 'disabled' as const
+    });
+    
+    return response.choices[0]?.message?.content || `这是一个围绕"${emotion}"主题精心策划的艺术展览，通过${artworks.length}件精选作品，深入探索这一情感主题的丰富内涵和艺术表达。`;
+  } catch (error) {
+    console.error('策展序言生成失败:', error);
+    return `这是一个围绕"${emotion}"主题精心策划的艺术展览，通过${artworks.length}件精选作品，深入探索这一情感主题的丰富内涵和艺术表达。`;
+  }
+}
+
+/**
+ * 生成策展结语
+ */
+async function generateCurationConclusion(
+  artworks: any[],
+  emotion: string,
+  userInput: string | undefined,
+  emotionCurve: any[]
+): Promise<string> {
+  const { glmOptimizedClient } = await import('@/lib/glm-optimized-client');
+  
+  const prompt = `为艺术展览生成策展结语（中文，150-200字）。
+
+展览主题：${emotion}
+${userInput ? `用户需求：${userInput}` : ''}
+作品数量：${artworks.length}件
+情绪曲线：从${emotionCurve[0]?.intensity || 0.5}到${emotionCurve[emotionCurve.length-1]?.intensity || 0.5}的情感变化
+
+请生成一个深刻而富有启发性的策展结语，总结展览的艺术价值和情感体验。`;
+
+  const messages = [
+    {
+      role: 'system' as const,
+      content: '你是一位资深的艺术策展人，擅长撰写深刻而富有启发性的展览结语。'
+    },
+    {
+      role: 'user' as const,
+      content: prompt
+    }
+  ];
+
+  try {
+    const response = await glmOptimizedClient.chat(messages, {
+      temperature: 0.8,
+      max_tokens: 300,
+      thinking: 'disabled' as const
+    });
+    
+    return response.choices[0]?.message?.content || `通过这次展览，我们深入体验了"${emotion}"这一情感主题的丰富层次。每一件作品都是艺术家内心世界的真实写照，共同构成了一幅关于人类情感的深刻画卷。`;
+  } catch (error) {
+    console.error('策展结语生成失败:', error);
+    return `通过这次展览，我们深入体验了"${emotion}"这一情感主题的丰富层次。每一件作品都是艺术家内心世界的真实写照，共同构成了一幅关于人类情感的深刻画卷。`;
+  }
 }
 
 

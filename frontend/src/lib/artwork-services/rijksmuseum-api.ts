@@ -11,13 +11,38 @@ export class RijksMuseumAPIService implements ArtworkService {
   private apiKey: string;
 
   constructor() {
-    // 在Next.js中，客户端环境变量需要NEXT_PUBLIC_前缀
-    this.apiKey = process.env.NEXT_PUBLIC_RIJKS_API_KEY || '';
+    // 尝试从多个来源读取API密钥
+    this.apiKey = this.loadApiKey();
     if (!this.apiKey) {
       console.warn('⚠️ Rijks Museum API 密钥未配置');
-      console.warn('⚠️ 请设置环境变量: NEXT_PUBLIC_RIJKS_API_KEY');
+      console.warn('⚠️ 请设置环境变量: NEXT_PUBLIC_RIJKS_API_KEY 或在 env.local.json 中配置 rijks_api_key');
     }
     console.log('🔑 Rijks API 密钥状态:', this.apiKey ? '已配置' : '未配置');
+  }
+
+  private loadApiKey(): string {
+    // 1. 尝试从环境变量读取
+    let apiKey = process.env.NEXT_PUBLIC_RIJKS_API_KEY || process.env.RIJKS_API_KEY || '';
+    
+    // 2. 尝试从 env.local.json 读取
+    if (!apiKey) {
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const envPath = path.join(process.cwd(), 'env.local.json');
+        if (fs.existsSync(envPath)) {
+          const envData = JSON.parse(fs.readFileSync(envPath, 'utf8'));
+          apiKey = envData.rijks_api_key || '';
+          if (apiKey) {
+            console.log('🔑 从 env.local.json 加载 Rijks API 密钥');
+          }
+        }
+      } catch (error) {
+        console.warn('⚠️ 读取 env.local.json 失败:', error);
+      }
+    }
+    
+    return apiKey;
   }
 
   async isAvailable(): Promise<boolean> {
@@ -29,13 +54,36 @@ export class RijksMuseumAPIService implements ArtworkService {
         return false;
       }
 
-      // 测试API连接 - 使用正确的Search API
+      // 测试API连接 - 直接使用fetch避免fetchClient的错误处理
       const testUrl = `${this.searchBaseUrl}?key=${this.apiKey}&q=test&imgonly=true`;
-      const response = await fetchClient.get(testUrl);
       
-      const isAvailable = response.status >= 200 && response.status < 300;
-      console.log('📡 Rijks Museum API可用性:', isAvailable);
-      return isAvailable;
+      console.log('🌐 测试Rijks API连接:', testUrl);
+      const response = await fetch(testUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'ArtDuo/1.0'
+        },
+        signal: AbortSignal.timeout(8000) // 8秒超时
+      });
+      
+      const isAvailable = response.ok && response.status >= 200 && response.status < 300;
+      console.log(`📡 Rijks Museum API可用性: ${isAvailable} (状态: ${response.status})`);
+      
+      if (isAvailable) {
+        // 验证返回的数据格式
+        try {
+          const data = await response.json();
+          const hasArtObjects = data.artObjects && Array.isArray(data.artObjects);
+          console.log(`📊 Rijks API数据验证: ${hasArtObjects ? '✅' : '❌'} (作品数: ${data.count || 0})`);
+          return hasArtObjects;
+        } catch (jsonError) {
+          console.warn('⚠️ Rijks API返回数据格式异常:', jsonError);
+          return false;
+        }
+      }
+      
+      return false;
     } catch (error) {
       console.error('❌ Rijks Museum API服务检查失败:', error);
       return false;

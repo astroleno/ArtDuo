@@ -8,17 +8,32 @@ import { Artwork } from './types';
  */
 export interface ArtworkExplanation {
   artworkId: string;
-  title: string;
-  artist: string;
-  explanation: {
-    emotionalConnection: string;    // 与用户情绪输入的关联
-    artisticAnalysis: string;       // 艺术分析
-    historicalContext: string;      // 历史背景
-    curationReason: string;         // 策展理由
-    userRelevance: string;          // 与用户输入的相关性
-  };
+  title?: string;
+  artist?: string;
+  
+  // 核心讲解内容
+  emotionalConnection: string;    // 与用户情绪输入的关联
+  artisticAnalysis: string;       // 艺术分析
+  historicalContext: string;      // 历史背景
+  curationReason: string;         // 策展理由
+  userRelevance: string;          // 与用户输入的相关性
+  
+  // 增强版讲解内容（可选）
+  stageNarrative?: string;        // 阶段叙事作用
+  emotionTransition?: string;     // 情绪转换预期
+  viewingGuidance?: string;       // 观看体验建议
+  
   confidence: number;
-  processingTime: number;
+  processingTime?: number;
+  
+  // 兼容旧格式
+  explanation?: {
+    emotionalConnection: string;
+    artisticAnalysis: string;
+    historicalContext: string;
+    curationReason: string;
+    userRelevance: string;
+  };
 }
 
 /**
@@ -190,9 +205,11 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
         // 使用可配置的温度与max_tokens（默认回到较高上限，避免质量下降）
         const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.6;
         const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 1200;
-        response = await glmOptimizedClient.quickChat(messages, {
+        // 使用chat方法以支持thinking参数
+        response = await glmOptimizedClient.chat(messages, {
           temperature,
           max_tokens: maxTokens,
+          thinking: 'disabled' as const,
           response_format: { type: 'json_object' }
         });
         console.log('✅ GLM讲解生成成功(快速)');

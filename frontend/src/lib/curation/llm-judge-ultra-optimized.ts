@@ -70,7 +70,7 @@ export async function batchJudgeArtworksUltraOptimized(
   console.log(`🚀 开始超优化批量LLM评分: ${artworks.length} 件作品`);
   const startTime = Date.now();
   
-  // 第一步：智能预筛选，减少评分工作量
+  // 第一步：智能预筛选，减少评分工作量，优先选择painting类作品
   console.log(`🔍 第一步：智能预筛选...`);
   const preFilteredArtworks = await smartPreFilter(artworks, emotion, userInput, 18);
   console.log(`📊 预筛选结果: ${preFilteredArtworks.length} 件作品 (从 ${artworks.length} 件中筛选)`);
@@ -183,6 +183,9 @@ async function smartPreFilter(
       if (medium.includes(kw) || artist.includes(kw)) score += 0.5;
     }
 
+    // 优先选择painting类作品
+    if (medium.includes('painting') || medium.includes('油画') || medium.includes('canvas')) score += 2.0;
+    
     // 有图/高质量来源
     if (art.image || art.primaryImage || art.webImage) score += 1.0;
     score += sourcePriority[src] ? sourcePriority[src] : 0.2;
@@ -238,7 +241,8 @@ async function batchScoreWithGLM(
       options: {
         temperature: 0.2,
         max_tokens: 200,
-        thinking: 'disabled' as const // 快速评分，不需要深度推理
+        thinking: 'disabled' as const, // 快速评分，不需要深度推理
+        response_format: { type: 'json_object' }
       }
     }));
 
@@ -397,9 +401,10 @@ async function scoreBatchArtworksOptimized(
     ];
 
     // 使用快速模式，禁用thinking
-    const response = await glmOptimizedClient.quickChat(messages, {
+    const response = await glmOptimizedClient.chat(messages, {
       temperature: 0.2,
       max_tokens: 1536,
+      thinking: 'disabled' as const,
       response_format: { type: 'json_object' }
     });
 
