@@ -72,7 +72,7 @@ export async function batchJudgeArtworksUltraOptimized(
   
   // 第一步：智能预筛选，减少评分工作量
   console.log(`🔍 第一步：智能预筛选...`);
-  const preFilteredArtworks = await smartPreFilter(artworks, emotion, userInput, 25);
+  const preFilteredArtworks = await smartPreFilter(artworks, emotion, userInput, 18);
   console.log(`📊 预筛选结果: ${preFilteredArtworks.length} 件作品 (从 ${artworks.length} 件中筛选)`);
   
   // 第二步：检查缓存（可控开关，默认关闭）
@@ -399,7 +399,8 @@ async function scoreBatchArtworksOptimized(
     // 使用快速模式，禁用thinking
     const response = await glmOptimizedClient.quickChat(messages, {
       temperature: 0.2,
-      max_tokens: 1536
+      max_tokens: 1536,
+      response_format: { type: 'json_object' }
     });
 
     const analysisText = response.choices[0]?.message?.content || '{}';

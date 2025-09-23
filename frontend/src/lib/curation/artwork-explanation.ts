@@ -51,10 +51,9 @@ export async function generateArtworkExplanations(
   let failureCount = 0;
   let fromCacheCount = 0;
   
-  // 分批处理，避免API限制
-  // 控制并发与批次，降低429限流概率
-  const batchSize = 3;
-  const maxConcurrent = 3; // 每批最多并发3条
+  // 分批处理并可通过环境变量提升并发，默认并发更激进以缩短总耗时
+  const maxConcurrent = Number(process.env.EXPLAIN_MAX_CONCURRENCY || 9);
+  const batchSize = Math.max(1, Math.min(maxConcurrent, artworks.length));
   for (let i = 0; i < artworks.length; i += batchSize) {
     const batch = artworks.slice(i, i + batchSize);
     console.log(`📝 处理批次 ${Math.floor(i/batchSize) + 1}: ${batch.length} 件作品`);
@@ -103,9 +102,9 @@ export async function generateArtworkExplanations(
     const batchResults: ArtworkExplanation[] = await Promise.all(batchPromises);
     explanations.push(...batchResults);
     
-    // 批次间延迟，避免API限制
+    // 批次间延迟（尽量缩短）
     if (i + batchSize < artworks.length) {
-      await new Promise(resolve => setTimeout(resolve, 120)); // 减小批间间隔
+      await new Promise(resolve => setTimeout(resolve, 10));
     }
   }
   
@@ -193,7 +192,8 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
         const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 1200;
         response = await glmOptimizedClient.quickChat(messages, {
           temperature,
-          max_tokens: maxTokens
+          max_tokens: maxTokens,
+          response_format: { type: 'json_object' }
         });
         console.log('✅ GLM讲解生成成功(快速)');
       } catch (glmError) {

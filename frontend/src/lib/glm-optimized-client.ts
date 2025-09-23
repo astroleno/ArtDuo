@@ -58,6 +58,7 @@ export class GLMOptimizedClient {
   private apiKey: string;
   private baseUrl: string = 'https://open.bigmodel.cn/api/paas/v4';
   private batchUrl: string = 'https://open.bigmodel.cn/api/paas/v4/batches';
+  private filesUrl: string = 'https://open.bigmodel.cn/api/paas/v4/files';
 
   constructor() {
     // 优先使用进程环境变量
@@ -127,6 +128,7 @@ export class GLMOptimizedClient {
       model?: string;
       temperature?: number;
       max_tokens?: number;
+      response_format?: { type: 'json_object' };
     } = {}
   ): Promise<GLMResponse> {
     const {
@@ -139,7 +141,8 @@ export class GLMOptimizedClient {
       model,
       temperature,
       max_tokens,
-      thinking: 'disabled' // 禁用推理，提高速度
+      thinking: 'disabled', // 禁用推理，提高速度
+      response_format: options.response_format
     });
   }
 
@@ -152,6 +155,7 @@ export class GLMOptimizedClient {
       model?: string;
       temperature?: number;
       max_tokens?: number;
+      response_format?: { type: 'json_object' };
     } = {}
   ): Promise<GLMResponse> {
     const {
@@ -164,7 +168,8 @@ export class GLMOptimizedClient {
       model,
       temperature,
       max_tokens,
-      thinking: 'enabled' // 启用推理，提高质量
+      thinking: 'enabled', // 启用推理，提高质量
+      response_format: options.response_format
     });
   }
 
@@ -178,6 +183,7 @@ export class GLMOptimizedClient {
       temperature?: number;
       max_tokens?: number;
       thinking?: 'enabled' | 'disabled';
+      response_format?: { type: 'json_object' };
     } = {}
   ): Promise<GLMResponse> {
     const {
@@ -210,6 +216,11 @@ export class GLMOptimizedClient {
         console.log('🧠 启用thinking模式');
       } else {
         console.log('⚡ 禁用thinking模式，快速响应');
+      }
+
+      // JSON 模式强约束（可选）
+      if (options.response_format?.type === 'json_object') {
+        requestBody.response_format = { type: 'json_object' };
       }
 
       const response = await fetch(`${this.baseUrl}/chat/completions`, {
@@ -312,6 +323,117 @@ export class GLMOptimizedClient {
       console.error('批处理请求失败:', error);
       throw error;
     }
+  }
+
+
+  /**
+   * 真实 Batch API：上传 JSONL → 创建批处理 → 轮询完成 → 下载结果
+   * 参考文档: https://docs.bigmodel.cn/cn/guide/tools/batch
+   */
+  async batchChatViaBigmodelJSONL(jsonlContent: string, endpoint: string = '/v4/chat/completions') {
+    if (!this.hasValidApiKey()) {
+      throw new Error('GLM API 密钥未配置或无效');
+    }
+
+    try {
+      // 1) 上传 JSONL 文件
+      const form = new FormData();
+      form.append('purpose', 'batch');
+      // 将 JSONL 内容作为文件上传
+      const file = new Blob([jsonlContent], { type: 'application/jsonl' });
+      form.append('file', file, 'requests.jsonl');
+
+      const uploadResp = await fetch(this.filesUrl, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${this.apiKey}` },
+        body: form
+      });
+      if (!uploadResp.ok) {
+        const err = await uploadResp.text();
+        throw new Error(`文件上传失败: ${uploadResp.status} ${err}`);
+      }
+      const uploaded = await uploadResp.json();
+      const inputFileId = uploaded.id || uploaded.data?.id;
+      if (!inputFileId) throw new Error('未获取到上传文件ID');
+
+      // 2) 创建 Batch 任务
+      const createResp = await fetch(this.batchUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          input_file_id: inputFileId,
+          endpoint
+        })
+      });
+      if (!createResp.ok) {
+        const err = await createResp.text();
+        throw new Error(`创建Batch失败: ${createResp.status} ${err}`);
+      }
+      const batch = await createResp.json();
+      const batchId = batch.id;
+      if (!batchId) throw new Error('未获取到Batch任务ID');
+
+      // 3) 轮询任务状态直到完成
+      let status = batch.status;
+      let outputFileId: string | undefined;
+      let errorFileId: string | undefined;
+      const start = Date.now();
+      while (status !== 'completed' && status !== 'failed' && status !== 'cancelled' && Date.now() - start < 120000) {
+        await new Promise(r => setTimeout(r, 1500));
+        const getResp = await fetch(`${this.batchUrl}/${batchId}`, {
+          headers: { 'Authorization': `Bearer ${this.apiKey}` }
+        });
+        if (!getResp.ok) break;
+        const info = await getResp.json();
+        status = info.status;
+        outputFileId = info.output_file_id;
+        errorFileId = info.error_file_id;
+      }
+
+      if (status !== 'completed') {
+        throw new Error(`Batch未完成，状态: ${status}`);
+      }
+
+      // 4) 下载结果文件
+      if (!outputFileId) throw new Error('缺少输出文件ID');
+      const dlResp = await fetch(`${this.filesUrl}/${outputFileId}/content`, {
+        headers: { 'Authorization': `Bearer ${this.apiKey}` }
+      });
+      if (!dlResp.ok) {
+        const err = await dlResp.text();
+        throw new Error(`下载结果失败: ${dlResp.status} ${err}`);
+      }
+      const text = await dlResp.text();
+      // 返回 JSONL 文本（调用方解析每行JSON）
+      return { text, errorFileId };
+    } catch (e) {
+      console.error('BigModel Batch 处理失败，回退到并发模拟:', e);
+      throw e;
+    }
+  }
+
+  /**
+   * 基于 Batch API 的批量讲解：传入每条消息构造好的JSONL
+   * 返回解析后的 choices 内容数组（与 batchProcess 返回结构不同）
+   */
+  async batchExplainFromJsonl(jsonl: string): Promise<Array<{ custom_id: string; content: string }>> {
+    const { text } = await this.batchChatViaBigmodelJSONL(jsonl);
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    const results: Array<{ custom_id: string; content: string }> = [];
+    for (const line of lines) {
+      try {
+        const obj = JSON.parse(line);
+        const customId = obj.custom_id || obj.id || '';
+        const content = obj.response?.body?.choices?.[0]?.message?.content || '';
+        results.push({ custom_id: customId, content });
+      } catch {
+        // 忽略无法解析的行
+      }
+    }
+    return results;
   }
 
 

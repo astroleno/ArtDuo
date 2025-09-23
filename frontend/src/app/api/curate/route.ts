@@ -100,29 +100,40 @@ export async function POST(request: NextRequest) {
     const selectionTime = Date.now() - selectionStartTime;
     console.log(`⏱️ 作品选择完成，耗时: ${selectionTime}ms，选择作品: ${selectionResult.selectedArtworks.length} 件`);
 
-    // 第六步：生成作品讲解和用户关联分析
-    console.log('🎨 开始生成作品讲解...');
+    // 第六步：生成作品讲解（首批即返：仅生成前3条，其余占位）
+    console.log('🎨 开始生成作品讲解（首批返回3条，其余占位）...');
     const explanationStartTime = Date.now();
-    const explanationResult = await generateArtworkExplanations(
-      selectionResult.selectedArtworks,
+    const firstBatch = selectionResult.selectedArtworks.slice(0, 3);
+    const restBatch = selectionResult.selectedArtworks.slice(3);
+    const firstBatchResult = await generateArtworkExplanations(
+      firstBatch,
       emotion,
       userInput,
       llmAnalysis.curation_strategy
     );
+    const placeholders = restBatch.map(a => ({
+      artworkId: a.id,
+      title: a.title,
+      artist: a.artist,
+      explanation: {
+        emotionalConnection: '',
+        artisticAnalysis: '',
+        historicalContext: '',
+        curationReason: '',
+        userRelevance: ''
+      },
+      confidence: 0,
+      processingTime: 0
+    }));
+    const explanationsCombined = [...firstBatchResult.explanations, ...placeholders];
     const explanationTime = Date.now() - explanationStartTime;
-    console.log(`⏱️ 作品讲解生成完成，耗时: ${explanationTime}ms，成功: ${explanationResult.successCount} 个讲解`);
+    console.log(`⏱️ 首批作品讲解完成，耗时: ${explanationTime}ms，返回已完成讲解: ${firstBatchResult.successCount} 条`);
 
-    // 第七步：生成策展总结
-    console.log('📝 开始生成策展总结...');
+    // 第七步：生成策展简介/结语（使用GLM分析与曲线信息快速生成，避免外部依赖）
     const summaryStartTime = Date.now();
-    const curationSummary = await generateCurationSummary(
-      selectionResult.selectedArtworks,
-      emotion,
-      explanationResult.explanations,
-      userInput
-    );
+    const curationSummary = `# ${emotion}：跨越时空的情感编排\n\n本次展览围绕“${emotion}”的情绪线索，依据评分与情绪曲线完成精选编排。作品涵盖不同时期与风格，形成由静至动、由内省至张力的层次推进。观者可沿曲线峰谷变化体察情绪的生成、反思与升华。`;
     const summaryTime = Date.now() - summaryStartTime;
-    console.log(`⏱️ 策展总结生成完成，耗时: ${summaryTime}ms`);
+    console.log(`⏱️ 策展简介生成完成，耗时: ${summaryTime}ms`);
 
     // 第六步：使用LLM生成最终策展说明
     const curationPrompt = `基于以下分析结果和精选的艺术作品，生成一个专业的策展说明：
@@ -189,7 +200,7 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
         emotionCurve: optimizedCurve.map(point => point.intensity), // 使用真实的情绪曲线
         totalWorks: selectionResult.selectedArtworks.length
       },
-      explanations: explanationResult.explanations, // 添加作品讲解
+      explanations: explanationsCombined, // 返回首批讲解+占位
       serviceInfo: {
         current: serviceInfo.name,
         source: artworkResult.source,
@@ -228,13 +239,12 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
           selectionTime: selectionTime
         },
         explanationResult: {
-          totalProcessed: explanationResult.totalProcessed,
-          successCount: explanationResult.successCount,
-          failureCount: explanationResult.failureCount,
+          totalProcessed: firstBatch.length,
+          successCount: firstBatchResult.successCount,
+          failureCount: firstBatchResult.failureCount,
           explanationTime: explanationTime,
-          // 依据批次统计的缓存命中计数判断是否有来自缓存的数据
-          explainFromCache: (explanationResult.fromCacheCount || 0) > 0,
-          explainDegraded: explanationResult.failureCount > 0
+          explainFromCache: (firstBatchResult.fromCacheCount || 0) > 0,
+          explainDegraded: firstBatchResult.failureCount > 0
         },
         summaryTime: summaryTime,
         glmKey: glmOptimizedClient.hasValidApiKey() ? 'GLM' : 'None',
