@@ -61,6 +61,17 @@ export interface Artwork {
   museum: string;
   license: string;
   source?: string;
+
+  // 沉浸式体验新增字段
+  briefIntroduction?: string;
+  detailedAnalysis?: {
+    emotionalJourney: string;
+    artisticInsights: string;
+    historicalStory: string;
+    personalConnection: string;
+    viewingExperience: string;
+  };
+  audioScript?: string;
 }
 
 /**

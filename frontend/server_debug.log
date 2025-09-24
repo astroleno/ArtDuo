@@ -1,0 +1,3315 @@
+
+> artduo-frontend@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.3
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.238:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1967ms
+ ○ Compiling /api/curate/llm-stream ...
+ ⚠ ./src/lib/curation/llm-artwork-explanation.ts
+Attempted import error: 'glmClient' is not exported from '@/lib/glm-optimized-client' (imported as 'glmClient').
+
+Import trace for requested module:
+./src/lib/curation/llm-artwork-explanation.ts
+./src/app/api/curate/llm-stream/route.ts
+
+./src/lib/curation/unified-curation-generator.ts
+Attempted import error: 'glmClient' is not exported from '@/lib/glm-optimized-client' (imported as 'glmClient').
+
+Import trace for requested module:
+./src/lib/curation/unified-curation-generator.ts
+./src/app/api/curate/llm-stream/route.ts
+🔑 GLM客户端初始化: { apiKeyLength: 49, defaultModel: 'glm-4.5' }
+🎭 开始LLM个性化流式策展: { emotion: '孤独', userInput: '深夜一个人在城市中漫步' }
+📋 阶段1: 构建个性化搜索计划...
+🚀 开始优化版搜索计划构建: 孤独
+📋 第一步：使用模板构建基础搜索计划...
+🎯 第二步：快速定制搜索计划...
+🎯 快速定制搜索计划: 孤独
+快速定制失败，使用基础计划: Error: OpenAI API 密钥未配置或无效
+    at OpenAIClient.chat (src/lib/openai.ts:78:13)
+    at quickCustomizePlan (src/lib/curation/search-plan-builder-optimized.ts:201:41)
+    at buildSearchPlanOptimized (src/lib/curation/search-plan-builder-optimized.ts:113:33)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:46:75)
+  76 |
+  77 |     if (!this.hasValidApiKey()) {
+> 78 |       throw new Error('OpenAI API 密钥未配置或无效');
+     |             ^
+  79 |     }
+  80 |
+  81 |     try {
+✅ 优化版搜索计划构建完成，耗时: 7ms
+🔍 阶段2: 搜索艺术作品...
+⚠️ Rijks Museum API 密钥未配置
+⚠️ 请设置环境变量: NEXT_PUBLIC_RIJKS_API_KEY 或在 env.local.json 中配置 rijks_api_key
+🔑 Rijks API 密钥状态: 未配置
+[ArtworkServiceManager] 服务初始化顺序: [ 'MetMuseumAPIService', 'RijksMuseumAPIService' ]
+🎨 艺术作品服务管理器 - 开始并发搜索: 孤独 深夜一个人在城市中漫步
+🔍 检查Met Museum API服务可用性...
+📡 Met Museum API可用性: true
+✅ 服务可用: Met Museum API
+🔍 检查Rijks Museum API服务可用性...
+❌ Rijks Museum API 密钥未配置
+⚠️ 服务不可用: Rijks Museum API
+🚀 并发调用 1 个服务
+🔍 调用服务: Met Museum API
+🎨 Met Museum API服务 - 搜索作品: 孤独 深夜一个人在城市中漫步
+🔍 搜索查询: 孤独
+📡 搜索URL: https://collectionapi.metmuseum.org/public/collection/v1/search?q=%E5%AD%A4%E7%8B%AC&hasImages=true
+📡 搜索响应: {
+  total: 127,
+  objectIDs: [
+    551786, 729644, 472562, 317877, 329077, 310453, 437422,
+    206965, 459028, 459027, 544320, 200668, 544740, 854970,
+    435848, 824771, 436102, 192770, 438821,  53660, 437261,
+    460281, 453385, 194191, 452102, 207157, 237451, 817962,
+    450605, 549236, 451725, 438779,  53162, 435997, 712539,
+    435864, 852562, 748565, 838076, 436884, 436885,  39901,
+    437368, 776714, 435897, 436098, 816189, 204587, 439327,
+    197461, 197460, 448280, 437061, 437173, 844492, 383883,
+    485416, 437202, 334030, 811771, 811772, 377933, 687615,
+    436099, 464273, 452032,  76034, 437059, 436838, 430812,
+    850659, 347927, 736196, 437216, 626692, 435621, 759529,
+    822751, 448959, 437868, 822560, 452740, 435702,  40080,
+    488221, 436658, 436803, 888663, 435844,  36225, 764636,
+     39742, 437585, 436529, 228995, 499559, 437878,  60470,
+    437384, 464132,
+    ... 27 more items
+  ]
+}
+🔍 获取作品详情，ID: 551786
+🔍 获取作品详情，ID: 729644
+🔍 获取作品详情，ID: 472562
+🔍 获取作品详情，ID: 317877
+🔍 获取作品详情，ID: 329077
+🔍 获取作品详情，ID: 310453
+🔍 获取作品详情，ID: 437422
+🔍 获取作品详情，ID: 206965
+🔍 获取作品详情，ID: 459028
+🔍 获取作品详情，ID: 459027
+🔍 获取作品详情，ID: 544320
+🔍 获取作品详情，ID: 200668
+🔍 获取作品详情，ID: 544740
+🔍 获取作品详情，ID: 854970
+🔍 获取作品详情，ID: 435848
+🔍 获取作品详情，ID: 824771
+🔍 获取作品详情，ID: 436102
+🔍 获取作品详情，ID: 192770
+🔍 获取作品详情，ID: 438821
+🔍 获取作品详情，ID: 53660
+🔍 获取作品详情，ID: 437261
+🔍 获取作品详情，ID: 460281
+🔍 获取作品详情，ID: 453385
+🔍 获取作品详情，ID: 194191
+🔍 获取作品详情，ID: 452102
+🔍 获取作品详情，ID: 207157
+🔍 获取作品详情，ID: 237451
+🔍 获取作品详情，ID: 817962
+🔍 获取作品详情，ID: 450605
+🔍 获取作品详情，ID: 549236
+🔍 获取作品详情，ID: 451725
+🔍 获取作品详情，ID: 438779
+🔍 获取作品详情，ID: 53162
+🔍 获取作品详情，ID: 435997
+🔍 获取作品详情，ID: 712539
+🔍 获取作品详情，ID: 435864
+🔍 获取作品详情，ID: 852562
+🔍 获取作品详情，ID: 748565
+🔍 获取作品详情，ID: 838076
+🔍 获取作品详情，ID: 436884
+🔍 获取作品详情，ID: 436885
+🔍 获取作品详情，ID: 39901
+🔍 获取作品详情，ID: 437368
+🔍 获取作品详情，ID: 776714
+🔍 获取作品详情，ID: 435897
+🔍 获取作品详情，ID: 436098
+🔍 获取作品详情，ID: 816189
+🔍 获取作品详情，ID: 204587
+🔍 获取作品详情，ID: 439327
+🔍 获取作品详情，ID: 197461
+📸 作品详情获取成功: Book of the Dead of the Priest of Horus, Imhotep (Imuthes) 图片URL: https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg
+📸 作品详情获取成功: Processional Cross 图片URL: https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg
+📸 作品详情获取成功: Nkishi (community power figure) 图片URL: 
+📸 作品详情获取成功: The Prince and the Petitioner 图片URL: https://images.metmuseum.org/CRDImages/is/original/sf45-174-23r.jpg
+获取作品748565详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: "The Concourse of the Birds", Folio 11r from a Mantiq al-Tayr (Language of the Birds) 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP234083.jpg
+📸 作品详情获取成功: The Penitence of Saint Jerome 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg
+📸 作品详情获取成功: Dwarf (one of a pair) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg
+获取作品817962详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: The Crucifixion 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-17230-001.jpg
+📸 作品详情获取成功: Dwarf (one of a pair) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg
+📸 作品详情获取成功: Saint Bridget of Sweden Receiving the Rule of Her Order 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP224276.jpg
+📸 作品详情获取成功: Yuny and His Wife Renenutet 图片URL: https://images.metmuseum.org/CRDImages/eg/original/DT549.jpg
+📸 作品详情获取成功: Emperor Antoninus Pius 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP234101.jpg
+📸 作品详情获取成功: Vegetable #3 图片URL: 
+📸 作品详情获取成功: In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla) 图片URL: https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg
+获取作品854970详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: Head of a ruler 图片URL: https://images.metmuseum.org/CRDImages/an/original/DT858.jpg
+📸 作品详情获取成功: Tobatsu Bishamonten 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP-27915-006.jpg
+📸 作品详情获取成功: ”Abiding nowhere, the awakened mind arises” 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP-17101-002.jpg
+📸 作品详情获取成功: Clock watch with astronomical dial and sundial 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP340434.jpg
+📸 作品详情获取成功: Anthology of Persian Poetry in Oblong Format (Safina) 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg
+📸 作品详情获取成功: Stela of the Steward Mentuwoser 图片URL: https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg
+📸 作品详情获取成功: Holy Family with an Angel 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-15089-001.jpg
+📸 作品详情获取成功: Head of Christ (Ecce Homo) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT229079.jpg
+📸 作品详情获取成功: A Woman with a Dog 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg
+📸 作品详情获取成功: Ten Verses on Oxherding 图片URL: https://images.metmuseum.org/CRDImages/as/original/2015_300_10_Burke_website.jpg
+📸 作品详情获取成功: Stela of Ptahmose 图片URL: https://images.metmuseum.org/CRDImages/eg/original/LC-67_3_EGDP028267.jpg
+📸 作品详情获取成功: Damascus Room 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP240367.jpg
+📸 作品详情获取成功: Scene from a Novella 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT8310.jpg
+📸 作品详情获取成功: Longcase astronomical regulator 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg
+📸 作品详情获取成功: Virgin and Child Enthroned 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-20592-001.jpg
+📸 作品详情获取成功: Charity 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg
+📸 作品详情获取成功: Tabernacle Polyptych with the Madonna and Child and Scenes from the Life of Christ 图片URL: https://images.metmuseum.org/CRDImages/rl/original/SLP1553-1.jpg
+📸 作品详情获取成功: Christ Blessing 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP218061.jpg
+📸 作品详情获取成功: Night-Shining White 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP153705.jpg
+📸 作品详情获取成功: Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck 图片URL: https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg
+📸 作品详情获取成功: Mrs. Burroughs 图片URL: 
+📸 作品详情获取成功: The Fieschi Morgan Staurotheke 图片URL: https://images.metmuseum.org/CRDImages/md/original/DT119.jpg
+📸 作品详情获取成功: A Peasant Family 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg
+📸 作品详情获取成功: Sabine Houdon (1787–1836) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg
+📸 作品详情获取成功: The Birth of the Virgin 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg
+📸 作品详情获取成功: The Storm 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT11964.jpg
+📸 作品详情获取成功: Saint Philip Neri (1515–1595) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-944-001.jpg
+📸 作品详情获取成功: Saint Bernardino of Siena 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP-22143-001.jpg
+📸 作品详情获取成功: Virgin and Child with Four Angels 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg
+📸 作品详情获取成功: The Chess Players 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT226950.jpg
+📸 作品详情获取成功: Ia Orana Maria (Hail Mary) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT1025.jpg
+📸 作品详情获取成功: Marie Antoinette in a Park 图片URL: https://images.metmuseum.org/CRDImages/dp/original/DP-18368-001.jpg
+📸 作品详情获取成功: Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille 图片URL: https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg
+✅ 成功获取 47 个作品
+📊 Met Museum API 返回结果: 47 件作品
+🔍 处理服务结果: Met Museum API
+🔍 结果状态: fulfilled
+🔍 Met Museum API 调用成功，结果: {
+  success: true,
+  result: {
+    success: true,
+    artworks: [
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object]
+    ],
+    curation: {
+      theme: '孤独',
+      description: '这是来自大都会艺术博物馆的47件作品，展现了"孤独"这一主题的艺术表达。',
+      emotionCurve: [Array],
+      totalWorks: 47
+    },
+    source: 'api'
+  },
+  serviceName: 'Met Museum API'
+}
+🔍 Met Museum API 服务结果: {
+  success: true,
+  artworks: [
+    {
+      id: '551786',
+      title: 'Book of the Dead of the Priest of Horus, Imhotep (Imuthes)',
+      artist: '未知艺术家',
+      year: 'ca. 332–200 B.C.',
+      medium: 'Papyrus, ink',
+      dimensions: 'Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg',
+      description: 'Early Ptolemaic Period',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '729644',
+      title: 'In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)',
+      artist: 'José Guadalupe Posada',
+      year: 'ca. 1890–1896',
+      medium: 'Type-metal engraving and letterpress on blue paper',
+      dimensions: 'Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '472562',
+      title: 'The Fieschi Morgan Staurotheke',
+      artist: '未知艺术家',
+      year: 'early 9th century',
+      medium: 'Gilded silver, gold, enamel worked in cloisonné, and niello',
+      dimensions: 'Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\n' +
+        'lid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\n' +
+        'vessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/md/original/DT119.jpg',
+      description: 'Byzantine',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '317877',
+      title: 'Processional Cross',
+      artist: 'Northern Highlands artist',
+      year: '14th–15th century',
+      medium: 'Brass',
+      dimensions: 'H. 10 1/2 × W. 5 × D. 1 in. (26.7 × 12.7 × 2.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg',
+      description: 'Northern Highlands region',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '329077',
+      title: 'Head of a ruler',
+      artist: '未知艺术家',
+      year: 'ca. 2300–2000 BCE',
+      medium: 'Copper alloy',
+      dimensions: '13 9/16 × 8 3/8 × 9 3/16 in. (34.4 × 21.3 × 23.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/an/original/DT858.jpg',
+      description: 'Early Bronze Age',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '310453',
+      title: 'Nkishi (community power figure)',
+      artist: 'Songye artist and nganga (ritual specialist)',
+      year: '19th–first half of 20th century',
+      medium: 'Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin',
+      dimensions: 'H. 39 × W. 10 1/2 × D. 11 in. (99.1 × 26.7 × 27.9 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: 'Songye peoples',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437422',
+      title: 'Charity',
+      artist: 'Guido Reni',
+      year: 'ca. 1630',
+      medium: 'Oil on canvas',
+      dimensions: '54 x 41 3/4 in. (137.2 x 106 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '206965',
+      title: 'Longcase astronomical regulator',
+      artist: 'Ferdinand Berthoud',
+      year: 'ca. 1768–70',
+      medium: 'Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel',
+      dimensions: 'Overall: 90 1/2 × 21 × 12 3/4 in. (229.9 × 53.3 × 32.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '459028',
+      title: 'Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck',
+      artist: 'Jacometto (Jacometto Veneziano)',
+      year: 'ca. 1485–95',
+      medium: 'Oil on wood; verso: oil and gold on wood',
+      dimensions: 'Overall 4 5/8 x 3 3/8 in. ; recto, painted surface 4 1/8 x 3 1/8 in.; verso, painted surface 4 3/8 x 3 1/8 in.',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '459027',
+      title: 'Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille',
+      artist: 'Jacometto (Jacometto Veneziano)',
+      year: 'ca. 1485–95',
+      medium: 'Oil on wood; (verso: oil and gold on wood)',
+      dimensions: 'Overall 4 x 2 7/8 in. (10.2 x 7.3 cm); recto and verso, painted surface 3 3/4 x 2 1/2 in. (9.5 x 6.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '544320',
+      title: 'Stela of the Steward Mentuwoser',
+      artist: '未知艺术家',
+      year: 'ca. 1944 B.C.',
+      medium: 'Limestone, paint',
+      dimensions: 'H. 103 cm (40 9/16 in.); W. 50.5 cm (19 7/8 in.); Th. 8.3 cm (3 1/4 in.)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg',
+      description: 'Middle Kingdom',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '200668',
+      title: 'Sabine Houdon (1787–1836)',
+      artist: 'Jean Antoine Houdon',
+      year: '1788',
+      medium: 'White marble on gray marble socle',
+      dimensions: 'Overall, without base (confirmed): H. 10 3/4 x W. 8 7/8 x D. 5 7/8 in., 20lb. (27.3 x 22.5 x 14.9 cm, 9.0719kg); Height with base (confirmed): 13 1/2 in. (34.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '544740',
+      title: 'Yuny and His Wife Renenutet',
+      artist: '未知艺术家',
+      year: 'ca. 1294–1279 B.C.',
+      medium: 'Limestone, paint',
+      dimensions: 'H. 84.5 × W. 54.5 × D. 73 cm (33 1/4 × 21 7/16 × 28 3/4 in.)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/DT549.jpg',
+      description: 'New Kingdom, Ramesside',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435848',
+      title: 'The Birth of the Virgin',
+      artist: 'Fra Carnevale (Bartolomeo di Giovanni Corradini)',
+      year: '1467',
+      medium: 'Tempera and oil on wood',
+      dimensions: '57 x 37 7/8 in. (144.8 x 96.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '824771',
+      title: 'Marie Antoinette in a Park',
+      artist: 'Elisabeth Louise Vigée Le Brun',
+      year: 'ca. 1780–81',
+      medium: 'Black chalk, stumped, and white chalk; framing lines in black chalk',
+      dimensions: 'Sheet: 23 3/16 × 15 7/8 in. (58.9 × 40.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP-18368-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436102',
+      title: 'Virgin and Child with Four Angels',
+      artist: 'Gerard David',
+      year: 'ca. 1510–15',
+      medium: 'Oil on wood',
+      dimensions: '24 7/8 x 15 3/8 in. (63.2 x 39.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '192770',
+      title: 'Saint Bridget of Sweden Receiving the Rule of Her Order',
+      artist: "Agostino d'Antonio di Duccio",
+      year: '1459',
+      medium: 'Marble',
+      dimensions: 'Overall (confirmed): 16 3/4 × 25 1/8 × 2 3/4 in., 57 lb. (42.5 × 63.8 × 7 cm, 25.9 kg)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP224276.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '438821',
+      title: 'Ia Orana Maria (Hail Mary)',
+      artist: 'Paul Gauguin',
+      year: '1891',
+      medium: 'Oil on canvas',
+      dimensions: '44 3/4 x 34 1/2 in. (113.7 x 87.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT1025.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '53660',
+      title: 'Ten Verses on Oxherding',
+      artist: '未知艺术家',
+      year: '1278',
+      medium: 'Handscroll; ink and color on paper',
+      dimensions: 'Image: 12 1/4 in. × 20 ft. 6 in. (31.1 × 624.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/2015_300_10_Burke_website.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437261',
+      title: 'The Penitence of Saint Jerome',
+      artist: 'Joachim Patinir',
+      year: 'ca. 1515',
+      medium: 'Oil on wood',
+      dimensions: 'Shaped top: central panel, overall, with engaged frame, 46 1/4 x 32 in. (117.5 x 81.3 cm); each wing, overall, with engaged frame, 47 1/2 x 14 in. (120.7 x 35.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '460281',
+      title: 'Tabernacle Polyptych with the Madonna and Child and Scenes from the Life of Christ',
+      artist: '未知艺术家',
+      year: 'ca. 1275–1300',
+      medium: 'Ivory with traces of original gilding and polychromy; silver hinges.',
+      dimensions: 'H. 9.7 cm, w. 13.1 cm (with open wings).',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/SLP1553-1.jpg',
+      description: 'Northern France (?)',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '453385',
+      title: 'Anthology of Persian Poetry in Oblong Format (Safina)',
+      artist: 'Sultan Muhammad Nur',
+      year: 'dated 905 AH/1499–1500 CE',
+      medium: 'Ink, watercolor, and gold on paper.\r\nBinding: leather',
+      dimensions: 'H. 8 1/4 in. (21 cm)\r\nW. 3 in. (7.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '194191',
+      title: 'Clock watch with astronomical dial and sundial',
+      artist: 'Jan Jansen Bockeltz',
+      year: 'ca. 1605–10',
+      medium: 'Case: gilded brass; Dial: gilded brass, silver, and copper; Movement: gilded brass, partly blued steel, and silver',
+      dimensions: 'Overall: 3 1/2 × 2 7/16 × 2 5/16 in. (8.9 × 6.2 × 5.9 cm); Width of back plate: 2 1/8 in. (5.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP340434.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '452102',
+      title: 'Damascus Room',
+      artist: '未知艺术家',
+      year: 'dated 1119 AH/1707 CE',
+      medium: 'Wood (poplar) with gesso relief, gold and tin leaf, glazes and paint; wood (cypress, poplar, and mulberry), mother-of-pearl, marble and other stones, stucco with glass, plaster ceramic tiles, iron, brass',
+      dimensions: 'Overall:\r\n' +
+        '           H. 264 7/16 in. (671.6 cm)\r\n' +
+        '           W. 200 1/2 in. (509.2 cm)\r\n' +
+        '           D. 316 5/8 in. (804.2 cm)\r\n' +
+        'From inside front entrance to back wall:\r\n' +
+        '           H. 316 5/8 in. (804.2 cm)\r\n' +
+        'Fountain:\r\n' +
+        '           H. 4 15/16 in. (12.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP240367.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '207157',
+      title: 'Dwarf (one of a pair)',
+      artist: 'Villeroy',
+      year: 'ca. 1740–45',
+      medium: 'Tin-glazed soft-paste porcelain decorated in polychrome enamels',
+      dimensions: 'Overall (confirmed): 4 5/8 × 2 13/16 × 2 5/8 in. (11.7 × 7.1 × 6.7 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '237451',
+      title: 'Dwarf (one of a pair)',
+      artist: 'Villeroy',
+      year: 'ca. 1740–45',
+      medium: 'Tin-glazed soft-paste porcelain decorated in polychrome enamels',
+      dimensions: 'Overall (confirmed): 4 5/8 x 2 1/8 x 2 15/16 in. (11.7 x 5.4 x 7.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '450605',
+      title: 'The Prince and the Petitioner',
+      artist: 'Vali Jan',
+      year: 'late 16th century',
+      medium: 'Ink and gold on paper',
+      dimensions: 'H. 3 in. (7.6 cm)\r\nW. 4 5/8 in. (11.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/sf45-174-23r.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '549236',
+      title: 'Stela of Ptahmose',
+      artist: '未知艺术家',
+      year: 'ca. 1320–1290 B.C.',
+      medium: 'Limestone',
+      dimensions: 'H. 142.2 cm (56 in)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/LC-67_3_EGDP028267.jpg',
+      description: 'New Kingdom',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '451725',
+      title: '"The Concourse of the Birds", Folio 11r from a Mantiq al-Tayr (Language of the Birds)',
+      artist: 'Habiballah of Sava',
+      year: 'ca. 1600',
+      medium: 'Ink, opaque watercolor, gold, and silver on paper',
+      dimensions: 'Painting: H. 10 in. (25.4 cm)\r\n' +
+        '                W. 4 1/2in. (11.4cm)\r\n' +
+        'Page: H. 13 in. (33 cm)\r\n' +
+        '            W. 8 3/16 in. (20.8 cm)\r\n' +
+        'Mat: H. 19 1/4 in. (48.9 cm)\r\n' +
+        '        W. 14 1/4 in. (36.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP234083.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '438779',
+      title: 'A Peasant Family',
+      artist: 'Antoine Le Nain',
+      year: 'ca. 1640–48',
+      medium: 'Oil on copper',
+      dimensions: '15 x 11 3/4 in. (38.1 x 29.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '53162',
+      title: 'Tobatsu Bishamonten',
+      artist: '未知艺术家',
+      year: 'late 10th–early 11th century',
+      medium: 'Zelkova wood with traces of color',
+      dimensions: 'H. 49 1/4 in. (125.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP-27915-006.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435997',
+      title: 'The Storm',
+      artist: 'Pierre-Auguste Cot',
+      year: '1880',
+      medium: 'Oil on canvas',
+      dimensions: '92 1/4 x 61 3/4 in. (234.3 x 156.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT11964.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '712539',
+      title: 'Saint Philip Neri (1515–1595)',
+      artist: 'Carlo Dolci',
+      year: '1645 or 1646',
+      medium: 'Oil on canvas',
+      dimensions: '17 1/2 × 14 1/4 in. (44.5 × 36.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-944-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435864',
+      title: 'A Woman with a Dog',
+      artist: 'Giacomo Ceruti',
+      year: '1740s',
+      medium: 'Oil on canvas',
+      dimensions: '38 x 28 1/2 in. (96.5 x 72.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '852562',
+      title: 'Mrs. Burroughs',
+      artist: 'LaToya M. Hobbs',
+      year: '2019',
+      medium: 'Woodcut',
+      dimensions: '11 × 15 in. (27.9 × 38.1 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '838076',
+      title: 'Virgin and Child Enthroned',
+      artist: 'Bohemian Painter',
+      year: 'ca. 1345–50',
+      medium: 'Oil(?) and gold on wood',
+      dimensions: '10 3/16 × 7 15/16 × 7/16 in. (25.8 × 20.2 × 1.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-20592-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436884',
+      title: 'The Chess Players',
+      artist: 'Liberale da Verona',
+      year: 'ca. 1475',
+      medium: 'Tempera on wood',
+      dimensions: 'Overall 13 3/4 x 16 1/4 in. (34.9 x 41.3 cm); painted surface 13 1/8 x 15 7/8 in. (33.3 x 40.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT226950.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436885',
+      title: 'Scene from a Novella',
+      artist: 'Liberale da Verona',
+      year: '未知年代',
+      medium: 'Tempera on wood',
+      dimensions: '13 x 16 1/8 in. (33 x 41 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT8310.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '39901',
+      title: 'Night-Shining White',
+      artist: 'Han Gan',
+      year: 'ca. 750',
+      medium: 'Handscroll; ink on paper',
+      dimensions: 'Image: 12 1/8 x 13 3/8 in. (30.8 x 34 cm)\r\n' +
+        'Overall with mounting: 14 in. x 37 ft. 5 1/8 in. (35.4 cm x 11.4 m)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP153705.jpg',
+      description: 'China',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437368',
+      title: 'Holy Family with an Angel',
+      artist: "Raffaellino del Garbo (also known as Raffaelle de' Capponi and Raffaelle de' Carli)",
+      year: 'ca. 1490',
+      medium: 'Tempera on canvas, transferred from wood',
+      dimensions: '22 x 15 in. (55.9 x 38.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-15089-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '776714',
+      title: 'Vegetable #3',
+      artist: 'Li Jin',
+      year: '2015',
+      medium: 'Ink on paper',
+      dimensions: '70 7/8 × 38 5/8 in. (180 × 98.1 cm)\r\n' +
+        'with wooden board: 8 ft. 6 1/2 in. × 39 7/8 in. × 2 5/8 in. (260.4 × 101.3 × 6.7 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: 'China',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435897',
+      title: 'Head of Christ (Ecce Homo)',
+      artist: 'Petrus Christus',
+      year: 'ca. 1445',
+      medium: 'Oil on parchment, laid down on wood',
+      dimensions: 'Overall 5 7/8 x 4 1/4 in. (14.9 x 10.8 cm); parchment 5 3/4 x 4 1/8 in. (14.6 x 10.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT229079.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436098',
+      title: 'The Crucifixion',
+      artist: 'Gerard David',
+      year: 'ca. 1495',
+      medium: 'Oil on wood',
+      dimensions: 'Overall 21 x 15 in. (53.3 x 38.1 cm); painted surface 20 5/8 x 14 3/4 in. (52.5 x 37.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-17230-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '816189',
+      title: '”Abiding nowhere, the awakened mind arises”',
+      artist: 'Musō Soseki',
+      year: 'early to mid-14th century',
+      medium: 'Hanging scroll; ink on paper',
+      dimensions: 'Image: 39 1/16 × 22 5/8 in. (99.2 × 57.4 cm)\r\n' +
+        'Overall with mounting: 71 1/4 × 24 in. (181 × 61 cm)\r\n' +
+        'Overall with knobs: 71 1/4 × 25 13/16 in. (181 × 65.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP-17101-002.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '204587',
+      title: 'Emperor Antoninus Pius',
+      artist: 'Antico (Pier Jacopo Alari Bonacolsi)',
+      year: '1519–24',
+      medium: 'Bronze, partially oil-gilt, silver inlay, on serpentinite socle',
+      dimensions: 'Overall without base (confirmed): H. 25 1/4 x W. 19 3/4 x D. 14 1/4 in. (64.1 x 50.2 x 36.2 cm); Height with base (confirmed): 29 7/8 in. (75.9 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP234101.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '439327',
+      title: 'Christ Blessing',
+      artist: 'Gerard David',
+      year: 'ca. 1500–1505',
+      medium: 'Oil on wood',
+      dimensions: 'Overall, including engaged frame, 4 3/4 x 3 1/2 in. (12.1 x 8.9 cm); painted surface 3 5/8 x 2 3/8 in. (9.2 x 6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP218061.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '197461',
+      title: 'Saint Bernardino of Siena',
+      artist: 'Fulvio Signorini',
+      year: 'ca. 1600',
+      medium: 'Bronze, partially oil-gilt',
+      dimensions: 'Overall (confirmed): 58 1/2 in., 591 lb. (148.6 cm, 268.1 kg)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP-22143-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    }
+  ],
+  curation: {
+    theme: '孤独',
+    description: '这是来自大都会艺术博物馆的47件作品，展现了"孤独"这一主题的艺术表达。',
+    emotionCurve: [
+      0.2, 0.1, 0.3, 0.4, 0.2, 0.1, 0.3, 0.5,
+      0.4, 0.2, 0.1, 0.3, 0.4, 0.2, 0.1, 0.3,
+      0.5, 0.4, 0.2, 0.1, 0.3, 0.4, 0.2, 0.1,
+      0.3, 0.5, 0.4, 0.2, 0.1, 0.3, 0.4, 0.2,
+      0.1, 0.3, 0.5, 0.4, 0.2, 0.1, 0.3, 0.4,
+      0.2, 0.1, 0.3, 0.5, 0.4, 0.2, 0.1
+    ],
+    totalWorks: 47
+  },
+  source: 'api'
+}
+🔍 Met Museum API 作品数组长度: 47
+🔍 Met Museum API 前3个作品: [
+  {
+    id: '551786',
+    title: 'Book of the Dead of the Priest of Horus, Imhotep (Imuthes)',
+    artist: '未知艺术家',
+    year: 'ca. 332–200 B.C.',
+    medium: 'Papyrus, ink',
+    dimensions: 'Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg',
+    description: 'Early Ptolemaic Period',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  },
+  {
+    id: '729644',
+    title: 'In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)',
+    artist: 'José Guadalupe Posada',
+    year: 'ca. 1890–1896',
+    medium: 'Type-metal engraving and letterpress on blue paper',
+    dimensions: 'Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg',
+    description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  },
+  {
+    id: '472562',
+    title: 'The Fieschi Morgan Staurotheke',
+    artist: '未知艺术家',
+    year: 'early 9th century',
+    medium: 'Gilded silver, gold, enamel worked in cloisonné, and niello',
+    dimensions: 'Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\n' +
+      'lid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\n' +
+      'vessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/md/original/DT119.jpg',
+    description: 'Byzantine',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  }
+]
+✅ Met Museum API: 贡献了 47 件作品
+🎉 并发调用完成: 总共获得 47 件作品
+✅ 成功服务: Met Museum API
+🧠 阶段3: LLM评分和智能筛选...
+🚀 开始超优化批量LLM评分: 47 件作品
+🔍 第一步：智能预筛选...
+🔍 智能预筛选(rule): 47 → 18 件作品 (ratio=0.3, min=10, max=40, target=18)
+✅ 智能预筛选完成: 18 件作品 (轻评分排序+比例截取)
+📊 预筛选结果: 18 件作品 (从 47 件中筛选)
+💾 第二步：评分缓存已关闭，全部进入评分：18
+🎯 第三步：使用批处理API评分 18 件作品...
+🎯 使用智谱AI批处理API评分: 18 件作品
+🔑 GLM API密钥检查: 有效
+🚀 开始批处理 18 个请求...
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+✅ 批处理完成: 18 个响应
+✅ 批处理评分完成: 18 个评分
+✅ 超优化批量评分完成: 18 个评分，耗时 8180ms
+🎨 阶段4-5-6: 统一策展生成...
+🎨 开始统一策展生成 (合并456阶段)...
+🧠 [DEBUG] 调用统一策展生成...
+🧠 [DEBUG] 作品数量: 47
+🧠 [DEBUG] 提示词长度: 11029
+❌ [DEBUG] 统一策展生成失败: TypeError: Cannot read properties of undefined (reading 'chat')
+    at UnifiedCurationGenerator.generateUnifiedCuration (src/lib/curation/unified-curation-generator.ts:238:30)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:83:62)
+  236 |       console.log('🧠 [DEBUG] 提示词长度:', prompt.length);
+  237 |       
+> 238 |       const response = await glmClient.chat(messages, {
+      |                              ^
+  239 |         temperature: 0.7,
+  240 |         max_tokens: 4000,
+  241 |         response_format: { type: 'json_object' },
+❌ [DEBUG] 错误详情: {}
+🔄 [DEBUG] 使用基于专业理论的统一策展降级方案
+🖼️ 启动图片预缓存...
+🖼️ 预缓存图片 1/9: Charity
+🖼️ 预缓存图片 2/9: Stela of the Steward Mentuwoser
+🖼️ 预缓存图片 3/9: Virgin and Child with Four Angels
+🖼️ 预缓存图片 4/9: Ia Orana Maria (Hail Mary)
+🖼️ 预缓存图片 5/9: The Penitence of Saint Jerome
+🖼️ 预缓存图片 6/9: A Peasant Family
+🖼️ 预缓存图片 7/9: The Storm
+🖼️ 预缓存图片 8/9: Saint Philip Neri (1515–1595)
+🖼️ 预缓存图片 9/9: A Woman with a Dog
+🧠 阶段7: 启动增强版讲解生成...
+🧠 [DEBUG] 转换后的情绪曲线数据: {
+  hasOverallNarrative: true,
+  hasTransitionLogic: true,
+  emotionJourneyLength: 9,
+  curveType: 'wave'
+}
+🧠 开始分批生成讲解: 3批，每批3个
+🧠 处理第1批讲解 (1-3)
+🧠 批量生成增强版讲解，共3件作品
+🧠 [DEBUG] emotionCurveDesign 状态: 已提供
+🧠 [DEBUG] baseContext keys: [
+  'emotion',
+  'userInput',
+  'curationIntroduction',
+  'curationConclusion',
+  'overallNarrative'
+]
+🧠 生成增强版讲解: Charity
+❌ 增强版讲解生成失败: Charity TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:73:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:273:40)
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:325:68)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:175:9)
+  71 |       ];
+  72 |
+> 73 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  74 |         temperature: 0.6,
+  75 |         max_tokens: 2500,
+  76 |         response_format: { type: 'json_object' },
+❌ LLM个性化流式策展失败: ReferenceError: emotionCurveDesign is not defined
+    at Object.start (src/app/api/curate/llm-stream/route.ts:189:29)
+  187 |             summary: {
+  188 |               totalArtworks: selectedArtworks.length,
+> 189 |               emotionCurve: emotionCurveDesign.curveType,
+      |                             ^
+  190 |               processingPhases: 7
+  191 |             },
+  192 |             timestamp: Date.now()
+ POST /api/curate/llm-stream 200 in 13193ms
+🧠 生成增强版讲解: Stela of the Steward Mentuwoser
+❌ 增强版讲解生成失败: Stela of the Steward Mentuwoser TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:73:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:273:40)
+    at async generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:325:30)
+  71 |       ];
+  72 |
+> 73 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  74 |         temperature: 0.6,
+  75 |         max_tokens: 2500,
+  76 |         response_format: { type: 'json_object' },
+⚠️ 图片预缓存失败: A Peasant Family - Invalid state: Controller is already closed
+⚠️ 图片预缓存失败: Saint Philip Neri (1515–1595) - Invalid state: Controller is already closed
+⚠️ 图片预缓存失败: Ia Orana Maria (Hail Mary) - Invalid state: Controller is already closed
+⚠️ 图片预缓存失败: The Storm - Invalid state: Controller is already closed
+🧠 生成增强版讲解: Virgin and Child with Four Angels
+❌ 增强版讲解生成失败: Virgin and Child with Four Angels TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:73:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:273:40)
+    at async generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:325:30)
+  71 |       ];
+  72 |
+> 73 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  74 |         temperature: 0.6,
+  75 |         max_tokens: 2500,
+  76 |         response_format: { type: 'json_object' },
+✅ 批量增强版讲解生成完成，共3个讲解
+❌ 第1批讲解生成失败: TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:332:18)
+  330 |       
+  331 |       // 流式输出这批讲解
+> 332 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  333 |         event: 'explanations_batch',
+  334 |         data: {
+  335 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:347:18)
+  345 |       
+  346 |       // 发送错误但继续处理其他批次
+> 347 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  348 |         event: 'explanations_error',
+  349 |         data: {
+  350 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ unhandledRejection: TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:347:18)
+  345 |       
+  346 |       // 发送错误但继续处理其他批次
+> 347 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  348 |         event: 'explanations_error',
+  349 |         data: {
+  350 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ unhandledRejection:  TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:347:18)
+  345 |       
+  346 |       // 发送错误但继续处理其他批次
+> 347 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  348 |         event: 'explanations_error',
+  349 |         data: {
+  350 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+⚠️ 图片预缓存失败: A Woman with a Dog - Invalid state: Controller is already closed
+⚠️ 图片预缓存失败: Charity - Invalid state: Controller is already closed
+⚠️ 图片预缓存失败: Stela of the Steward Mentuwoser - Invalid state: Controller is already closed
+⚠️ 图片预缓存失败: The Penitence of Saint Jerome - Invalid state: Controller is already closed
+⚠️ 图片预缓存失败: Virgin and Child with Four Angels - fetch failed
+🖼️ 图片预缓存完成: 0成功, 9失败
+TypeError: Invalid state: Controller is already closed
+    at eval (src/app/api/curate/llm-stream/route.ts:287:16)
+  285 |     
+  286 |     // 流式通知预缓存完成状态
+> 287 |     controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                ^
+  288 |       event: 'image_preload_complete',
+  289 |       data: {
+  290 |         total: artworks.length, {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ unhandledRejection: TypeError: Invalid state: Controller is already closed
+    at eval (src/app/api/curate/llm-stream/route.ts:287:16)
+  285 |     
+  286 |     // 流式通知预缓存完成状态
+> 287 |     controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                ^
+  288 |       event: 'image_preload_complete',
+  289 |       data: {
+  290 |         total: artworks.length, {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ unhandledRejection:  TypeError: Invalid state: Controller is already closed
+    at eval (src/app/api/curate/llm-stream/route.ts:287:16)
+  285 |     
+  286 |     // 流式通知预缓存完成状态
+> 287 |     controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                ^
+  288 |       event: 'image_preload_complete',
+  289 |       data: {
+  290 |         total: artworks.length, {
+  code: 'ERR_INVALID_STATE'
+}
+ ✓ Compiled /api/curate/llm-stream in 32ms
+ ⚠ ./src/lib/curation/llm-artwork-explanation.ts
+Attempted import error: 'glmClient' is not exported from '@/lib/glm-optimized-client' (imported as 'glmClient').
+
+Import trace for requested module:
+./src/lib/curation/llm-artwork-explanation.ts
+./src/app/api/curate/llm-stream/route.ts
+
+./src/lib/curation/unified-curation-generator.ts
+Attempted import error: 'glmClient' is not exported from '@/lib/glm-optimized-client' (imported as 'glmClient').
+
+Import trace for requested module:
+./src/lib/curation/unified-curation-generator.ts
+./src/app/api/curate/llm-stream/route.ts
+🔑 GLM客户端初始化: { apiKeyLength: 49, defaultModel: 'glm-4.5' }
+🎭 开始LLM个性化流式策展: { emotion: '孤独', userInput: '深夜一个人在城市中漫步' }
+📋 阶段1: 构建个性化搜索计划...
+🚀 开始优化版搜索计划构建: 孤独
+📋 第一步：使用模板构建基础搜索计划...
+🎯 第二步：快速定制搜索计划...
+🎯 快速定制搜索计划: 孤独
+快速定制失败，使用基础计划: Error: OpenAI API 密钥未配置或无效
+    at OpenAIClient.chat (src/lib/openai.ts:78:13)
+    at quickCustomizePlan (src/lib/curation/search-plan-builder-optimized.ts:201:41)
+    at buildSearchPlanOptimized (src/lib/curation/search-plan-builder-optimized.ts:113:33)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:46:75)
+  76 |
+  77 |     if (!this.hasValidApiKey()) {
+> 78 |       throw new Error('OpenAI API 密钥未配置或无效');
+     |             ^
+  79 |     }
+  80 |
+  81 |     try {
+✅ 优化版搜索计划构建完成，耗时: 2ms
+🔍 阶段2: 搜索艺术作品...
+⚠️ Rijks Museum API 密钥未配置
+⚠️ 请设置环境变量: NEXT_PUBLIC_RIJKS_API_KEY 或在 env.local.json 中配置 rijks_api_key
+🔑 Rijks API 密钥状态: 未配置
+[ArtworkServiceManager] 服务初始化顺序: [ 'MetMuseumAPIService', 'RijksMuseumAPIService' ]
+🎨 艺术作品服务管理器 - 开始并发搜索: 孤独 深夜一个人在城市中漫步
+🔍 检查Met Museum API服务可用性...
+ ○ Compiling /api/curate/llm-stream ...
+📡 Met Museum API可用性: true
+✅ 服务可用: Met Museum API
+🔍 检查Rijks Museum API服务可用性...
+❌ Rijks Museum API 密钥未配置
+⚠️ 服务不可用: Rijks Museum API
+🚀 并发调用 1 个服务
+🔍 调用服务: Met Museum API
+🎨 Met Museum API服务 - 搜索作品: 孤独 深夜一个人在城市中漫步
+🔍 搜索查询: 孤独
+📡 搜索URL: https://collectionapi.metmuseum.org/public/collection/v1/search?q=%E5%AD%A4%E7%8B%AC&hasImages=true
+📡 搜索响应: {
+  total: 127,
+  objectIDs: [
+    551786, 729644, 472562, 317877, 329077, 310453, 437422,
+    206965, 459028, 459027, 544320, 200668, 544740, 854970,
+    435848, 824771, 436102, 192770, 438821,  53660, 437261,
+    460281, 453385, 194191, 452102, 207157, 237451, 817962,
+    450605, 549236, 451725, 438779,  53162, 435997, 712539,
+    435864, 852562, 748565, 838076, 436884, 436885,  39901,
+    437368, 776714, 435897, 436098, 816189, 204587, 439327,
+    197461, 197460, 448280, 437061, 437173, 844492, 383883,
+    485416, 437202, 334030, 811771, 811772, 377933, 687615,
+    436099, 464273, 452032,  76034, 437059, 436838, 430812,
+    850659, 347927, 736196, 437216, 626692, 435621, 759529,
+    822751, 448959, 437868, 822560, 452740, 435702,  40080,
+    488221, 436658, 436803, 888663, 435844,  36225, 764636,
+     39742, 437585, 436529, 228995, 499559, 437878,  60470,
+    437384, 464132,
+    ... 27 more items
+  ]
+}
+🔍 获取作品详情，ID: 551786
+🔍 获取作品详情，ID: 729644
+🔍 获取作品详情，ID: 472562
+🔍 获取作品详情，ID: 317877
+🔍 获取作品详情，ID: 329077
+🔍 获取作品详情，ID: 310453
+🔍 获取作品详情，ID: 437422
+🔍 获取作品详情，ID: 206965
+🔍 获取作品详情，ID: 459028
+🔍 获取作品详情，ID: 459027
+🔍 获取作品详情，ID: 544320
+🔍 获取作品详情，ID: 200668
+🔍 获取作品详情，ID: 544740
+🔍 获取作品详情，ID: 854970
+🔍 获取作品详情，ID: 435848
+🔍 获取作品详情，ID: 824771
+🔍 获取作品详情，ID: 436102
+🔍 获取作品详情，ID: 192770
+🔍 获取作品详情，ID: 438821
+🔍 获取作品详情，ID: 53660
+🔍 获取作品详情，ID: 437261
+🔍 获取作品详情，ID: 460281
+🔍 获取作品详情，ID: 453385
+🔍 获取作品详情，ID: 194191
+🔍 获取作品详情，ID: 452102
+🔍 获取作品详情，ID: 207157
+🔍 获取作品详情，ID: 237451
+🔍 获取作品详情，ID: 817962
+🔍 获取作品详情，ID: 450605
+🔍 获取作品详情，ID: 549236
+🔍 获取作品详情，ID: 451725
+🔍 获取作品详情，ID: 438779
+🔍 获取作品详情，ID: 53162
+🔍 获取作品详情，ID: 435997
+🔍 获取作品详情，ID: 712539
+🔍 获取作品详情，ID: 435864
+🔍 获取作品详情，ID: 852562
+🔍 获取作品详情，ID: 748565
+🔍 获取作品详情，ID: 838076
+🔍 获取作品详情，ID: 436884
+🔍 获取作品详情，ID: 436885
+🔍 获取作品详情，ID: 39901
+🔍 获取作品详情，ID: 437368
+🔍 获取作品详情，ID: 776714
+🔍 获取作品详情，ID: 435897
+🔍 获取作品详情，ID: 436098
+🔍 获取作品详情，ID: 816189
+🔍 获取作品详情，ID: 204587
+🔍 获取作品详情，ID: 439327
+🔍 获取作品详情，ID: 197461
+📸 作品详情获取成功: Book of the Dead of the Priest of Horus, Imhotep (Imuthes) 图片URL: https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg
+📸 作品详情获取成功: In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla) 图片URL: https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg
+📸 作品详情获取成功: Head of a ruler 图片URL: https://images.metmuseum.org/CRDImages/an/original/DT858.jpg
+📸 作品详情获取成功: Longcase astronomical regulator 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg
+📸 作品详情获取成功: Saint Bernardino of Siena 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP-22143-001.jpg
+📸 作品详情获取成功: Stela of Ptahmose 图片URL: https://images.metmuseum.org/CRDImages/eg/original/LC-67_3_EGDP028267.jpg
+📸 作品详情获取成功: Ten Verses on Oxherding 图片URL: https://images.metmuseum.org/CRDImages/as/original/2015_300_10_Burke_website.jpg
+📸 作品详情获取成功: Saint Bridget of Sweden Receiving the Rule of Her Order 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP224276.jpg
+📸 作品详情获取成功: Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille 图片URL: https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg
+📸 作品详情获取成功: A Woman with a Dog 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg
+📸 作品详情获取成功: Night-Shining White 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP153705.jpg
+📸 作品详情获取成功: Emperor Antoninus Pius 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP234101.jpg
+📸 作品详情获取成功: Dwarf (one of a pair) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg
+📸 作品详情获取成功: Nkishi (community power figure) 图片URL: 
+📸 作品详情获取成功: Processional Cross 图片URL: https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg
+📸 作品详情获取成功: Mrs. Burroughs 图片URL: 
+📸 作品详情获取成功: The Crucifixion 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-17230-001.jpg
+📸 作品详情获取成功: Virgin and Child Enthroned 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-20592-001.jpg
+📸 作品详情获取成功: Tobatsu Bishamonten 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP-27915-006.jpg
+获取作品854970详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+获取作品817962详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: Anthology of Persian Poetry in Oblong Format (Safina) 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg
+📸 作品详情获取成功: "The Concourse of the Birds", Folio 11r from a Mantiq al-Tayr (Language of the Birds) 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP234083.jpg
+📸 作品详情获取成功: Christ Blessing 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP218061.jpg
+📸 作品详情获取成功: Charity 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg
+📸 作品详情获取成功: Vegetable #3 图片URL: 
+📸 作品详情获取成功: The Penitence of Saint Jerome 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg
+📸 作品详情获取成功: Damascus Room 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP240367.jpg
+📸 作品详情获取成功: Stela of the Steward Mentuwoser 图片URL: https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg
+📸 作品详情获取成功: Virgin and Child with Four Angels 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg
+📸 作品详情获取成功: Scene from a Novella 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT8310.jpg
+📸 作品详情获取成功: Holy Family with an Angel 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-15089-001.jpg
+📸 作品详情获取成功: A Peasant Family 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg
+📸 作品详情获取成功: Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck 图片URL: https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg
+📸 作品详情获取成功: The Storm 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT11964.jpg
+📸 作品详情获取成功: Marie Antoinette in a Park 图片URL: https://images.metmuseum.org/CRDImages/dp/original/DP-18368-001.jpg
+📸 作品详情获取成功: Saint Philip Neri (1515–1595) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-944-001.jpg
+📸 作品详情获取成功: The Prince and the Petitioner 图片URL: https://images.metmuseum.org/CRDImages/is/original/sf45-174-23r.jpg
+📸 作品详情获取成功: Ia Orana Maria (Hail Mary) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT1025.jpg
+📸 作品详情获取成功: Sabine Houdon (1787–1836) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg
+📸 作品详情获取成功: Tabernacle Polyptych with the Madonna and Child and Scenes from the Life of Christ 图片URL: https://images.metmuseum.org/CRDImages/rl/original/SLP1553-1.jpg
+📸 作品详情获取成功: ”Abiding nowhere, the awakened mind arises” 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP-17101-002.jpg
+📸 作品详情获取成功: Head of Christ (Ecce Homo) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT229079.jpg
+📸 作品详情获取成功: Yuny and His Wife Renenutet 图片URL: https://images.metmuseum.org/CRDImages/eg/original/DT549.jpg
+📸 作品详情获取成功: The Fieschi Morgan Staurotheke 图片URL: https://images.metmuseum.org/CRDImages/md/original/DT119.jpg
+📸 作品详情获取成功: The Birth of the Virgin 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg
+📸 作品详情获取成功: The Chess Players 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT226950.jpg
+📸 作品详情获取成功: Clock watch with astronomical dial and sundial 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP340434.jpg
+获取作品748565详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: Dwarf (one of a pair) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg
+✅ 成功获取 47 个作品
+📊 Met Museum API 返回结果: 47 件作品
+🔍 处理服务结果: Met Museum API
+🔍 结果状态: fulfilled
+🔍 Met Museum API 调用成功，结果: {
+  success: true,
+  result: {
+    success: true,
+    artworks: [
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object]
+    ],
+    curation: {
+      theme: '孤独',
+      description: '这是来自大都会艺术博物馆的47件作品，展现了"孤独"这一主题的艺术表达。',
+      emotionCurve: [Array],
+      totalWorks: 47
+    },
+    source: 'api'
+  },
+  serviceName: 'Met Museum API'
+}
+🔍 Met Museum API 服务结果: {
+  success: true,
+  artworks: [
+    {
+      id: '551786',
+      title: 'Book of the Dead of the Priest of Horus, Imhotep (Imuthes)',
+      artist: '未知艺术家',
+      year: 'ca. 332–200 B.C.',
+      medium: 'Papyrus, ink',
+      dimensions: 'Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg',
+      description: 'Early Ptolemaic Period',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '729644',
+      title: 'In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)',
+      artist: 'José Guadalupe Posada',
+      year: 'ca. 1890–1896',
+      medium: 'Type-metal engraving and letterpress on blue paper',
+      dimensions: 'Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '472562',
+      title: 'The Fieschi Morgan Staurotheke',
+      artist: '未知艺术家',
+      year: 'early 9th century',
+      medium: 'Gilded silver, gold, enamel worked in cloisonné, and niello',
+      dimensions: 'Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\n' +
+        'lid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\n' +
+        'vessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/md/original/DT119.jpg',
+      description: 'Byzantine',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '317877',
+      title: 'Processional Cross',
+      artist: 'Northern Highlands artist',
+      year: '14th–15th century',
+      medium: 'Brass',
+      dimensions: 'H. 10 1/2 × W. 5 × D. 1 in. (26.7 × 12.7 × 2.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg',
+      description: 'Northern Highlands region',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '329077',
+      title: 'Head of a ruler',
+      artist: '未知艺术家',
+      year: 'ca. 2300–2000 BCE',
+      medium: 'Copper alloy',
+      dimensions: '13 9/16 × 8 3/8 × 9 3/16 in. (34.4 × 21.3 × 23.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/an/original/DT858.jpg',
+      description: 'Early Bronze Age',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '310453',
+      title: 'Nkishi (community power figure)',
+      artist: 'Songye artist and nganga (ritual specialist)',
+      year: '19th–first half of 20th century',
+      medium: 'Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin',
+      dimensions: 'H. 39 × W. 10 1/2 × D. 11 in. (99.1 × 26.7 × 27.9 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: 'Songye peoples',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437422',
+      title: 'Charity',
+      artist: 'Guido Reni',
+      year: 'ca. 1630',
+      medium: 'Oil on canvas',
+      dimensions: '54 x 41 3/4 in. (137.2 x 106 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '206965',
+      title: 'Longcase astronomical regulator',
+      artist: 'Ferdinand Berthoud',
+      year: 'ca. 1768–70',
+      medium: 'Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel',
+      dimensions: 'Overall: 90 1/2 × 21 × 12 3/4 in. (229.9 × 53.3 × 32.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '459028',
+      title: 'Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck',
+      artist: 'Jacometto (Jacometto Veneziano)',
+      year: 'ca. 1485–95',
+      medium: 'Oil on wood; verso: oil and gold on wood',
+      dimensions: 'Overall 4 5/8 x 3 3/8 in. ; recto, painted surface 4 1/8 x 3 1/8 in.; verso, painted surface 4 3/8 x 3 1/8 in.',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '459027',
+      title: 'Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille',
+      artist: 'Jacometto (Jacometto Veneziano)',
+      year: 'ca. 1485–95',
+      medium: 'Oil on wood; (verso: oil and gold on wood)',
+      dimensions: 'Overall 4 x 2 7/8 in. (10.2 x 7.3 cm); recto and verso, painted surface 3 3/4 x 2 1/2 in. (9.5 x 6.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '544320',
+      title: 'Stela of the Steward Mentuwoser',
+      artist: '未知艺术家',
+      year: 'ca. 1944 B.C.',
+      medium: 'Limestone, paint',
+      dimensions: 'H. 103 cm (40 9/16 in.); W. 50.5 cm (19 7/8 in.); Th. 8.3 cm (3 1/4 in.)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg',
+      description: 'Middle Kingdom',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '200668',
+      title: 'Sabine Houdon (1787–1836)',
+      artist: 'Jean Antoine Houdon',
+      year: '1788',
+      medium: 'White marble on gray marble socle',
+      dimensions: 'Overall, without base (confirmed): H. 10 3/4 x W. 8 7/8 x D. 5 7/8 in., 20lb. (27.3 x 22.5 x 14.9 cm, 9.0719kg); Height with base (confirmed): 13 1/2 in. (34.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '544740',
+      title: 'Yuny and His Wife Renenutet',
+      artist: '未知艺术家',
+      year: 'ca. 1294–1279 B.C.',
+      medium: 'Limestone, paint',
+      dimensions: 'H. 84.5 × W. 54.5 × D. 73 cm (33 1/4 × 21 7/16 × 28 3/4 in.)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/DT549.jpg',
+      description: 'New Kingdom, Ramesside',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435848',
+      title: 'The Birth of the Virgin',
+      artist: 'Fra Carnevale (Bartolomeo di Giovanni Corradini)',
+      year: '1467',
+      medium: 'Tempera and oil on wood',
+      dimensions: '57 x 37 7/8 in. (144.8 x 96.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '824771',
+      title: 'Marie Antoinette in a Park',
+      artist: 'Elisabeth Louise Vigée Le Brun',
+      year: 'ca. 1780–81',
+      medium: 'Black chalk, stumped, and white chalk; framing lines in black chalk',
+      dimensions: 'Sheet: 23 3/16 × 15 7/8 in. (58.9 × 40.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP-18368-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436102',
+      title: 'Virgin and Child with Four Angels',
+      artist: 'Gerard David',
+      year: 'ca. 1510–15',
+      medium: 'Oil on wood',
+      dimensions: '24 7/8 x 15 3/8 in. (63.2 x 39.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '192770',
+      title: 'Saint Bridget of Sweden Receiving the Rule of Her Order',
+      artist: "Agostino d'Antonio di Duccio",
+      year: '1459',
+      medium: 'Marble',
+      dimensions: 'Overall (confirmed): 16 3/4 × 25 1/8 × 2 3/4 in., 57 lb. (42.5 × 63.8 × 7 cm, 25.9 kg)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP224276.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '438821',
+      title: 'Ia Orana Maria (Hail Mary)',
+      artist: 'Paul Gauguin',
+      year: '1891',
+      medium: 'Oil on canvas',
+      dimensions: '44 3/4 x 34 1/2 in. (113.7 x 87.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT1025.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '53660',
+      title: 'Ten Verses on Oxherding',
+      artist: '未知艺术家',
+      year: '1278',
+      medium: 'Handscroll; ink and color on paper',
+      dimensions: 'Image: 12 1/4 in. × 20 ft. 6 in. (31.1 × 624.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/2015_300_10_Burke_website.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437261',
+      title: 'The Penitence of Saint Jerome',
+      artist: 'Joachim Patinir',
+      year: 'ca. 1515',
+      medium: 'Oil on wood',
+      dimensions: 'Shaped top: central panel, overall, with engaged frame, 46 1/4 x 32 in. (117.5 x 81.3 cm); each wing, overall, with engaged frame, 47 1/2 x 14 in. (120.7 x 35.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '460281',
+      title: 'Tabernacle Polyptych with the Madonna and Child and Scenes from the Life of Christ',
+      artist: '未知艺术家',
+      year: 'ca. 1275–1300',
+      medium: 'Ivory with traces of original gilding and polychromy; silver hinges.',
+      dimensions: 'H. 9.7 cm, w. 13.1 cm (with open wings).',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/SLP1553-1.jpg',
+      description: 'Northern France (?)',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '453385',
+      title: 'Anthology of Persian Poetry in Oblong Format (Safina)',
+      artist: 'Sultan Muhammad Nur',
+      year: 'dated 905 AH/1499–1500 CE',
+      medium: 'Ink, watercolor, and gold on paper.\r\nBinding: leather',
+      dimensions: 'H. 8 1/4 in. (21 cm)\r\nW. 3 in. (7.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '194191',
+      title: 'Clock watch with astronomical dial and sundial',
+      artist: 'Jan Jansen Bockeltz',
+      year: 'ca. 1605–10',
+      medium: 'Case: gilded brass; Dial: gilded brass, silver, and copper; Movement: gilded brass, partly blued steel, and silver',
+      dimensions: 'Overall: 3 1/2 × 2 7/16 × 2 5/16 in. (8.9 × 6.2 × 5.9 cm); Width of back plate: 2 1/8 in. (5.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP340434.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '452102',
+      title: 'Damascus Room',
+      artist: '未知艺术家',
+      year: 'dated 1119 AH/1707 CE',
+      medium: 'Wood (poplar) with gesso relief, gold and tin leaf, glazes and paint; wood (cypress, poplar, and mulberry), mother-of-pearl, marble and other stones, stucco with glass, plaster ceramic tiles, iron, brass',
+      dimensions: 'Overall:\r\n' +
+        '           H. 264 7/16 in. (671.6 cm)\r\n' +
+        '           W. 200 1/2 in. (509.2 cm)\r\n' +
+        '           D. 316 5/8 in. (804.2 cm)\r\n' +
+        'From inside front entrance to back wall:\r\n' +
+        '           H. 316 5/8 in. (804.2 cm)\r\n' +
+        'Fountain:\r\n' +
+        '           H. 4 15/16 in. (12.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP240367.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '207157',
+      title: 'Dwarf (one of a pair)',
+      artist: 'Villeroy',
+      year: 'ca. 1740–45',
+      medium: 'Tin-glazed soft-paste porcelain decorated in polychrome enamels',
+      dimensions: 'Overall (confirmed): 4 5/8 × 2 13/16 × 2 5/8 in. (11.7 × 7.1 × 6.7 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '237451',
+      title: 'Dwarf (one of a pair)',
+      artist: 'Villeroy',
+      year: 'ca. 1740–45',
+      medium: 'Tin-glazed soft-paste porcelain decorated in polychrome enamels',
+      dimensions: 'Overall (confirmed): 4 5/8 x 2 1/8 x 2 15/16 in. (11.7 x 5.4 x 7.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '450605',
+      title: 'The Prince and the Petitioner',
+      artist: 'Vali Jan',
+      year: 'late 16th century',
+      medium: 'Ink and gold on paper',
+      dimensions: 'H. 3 in. (7.6 cm)\r\nW. 4 5/8 in. (11.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/sf45-174-23r.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '549236',
+      title: 'Stela of Ptahmose',
+      artist: '未知艺术家',
+      year: 'ca. 1320–1290 B.C.',
+      medium: 'Limestone',
+      dimensions: 'H. 142.2 cm (56 in)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/LC-67_3_EGDP028267.jpg',
+      description: 'New Kingdom',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '451725',
+      title: '"The Concourse of the Birds", Folio 11r from a Mantiq al-Tayr (Language of the Birds)',
+      artist: 'Habiballah of Sava',
+      year: 'ca. 1600',
+      medium: 'Ink, opaque watercolor, gold, and silver on paper',
+      dimensions: 'Painting: H. 10 in. (25.4 cm)\r\n' +
+        '                W. 4 1/2in. (11.4cm)\r\n' +
+        'Page: H. 13 in. (33 cm)\r\n' +
+        '            W. 8 3/16 in. (20.8 cm)\r\n' +
+        'Mat: H. 19 1/4 in. (48.9 cm)\r\n' +
+        '        W. 14 1/4 in. (36.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP234083.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '438779',
+      title: 'A Peasant Family',
+      artist: 'Antoine Le Nain',
+      year: 'ca. 1640–48',
+      medium: 'Oil on copper',
+      dimensions: '15 x 11 3/4 in. (38.1 x 29.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '53162',
+      title: 'Tobatsu Bishamonten',
+      artist: '未知艺术家',
+      year: 'late 10th–early 11th century',
+      medium: 'Zelkova wood with traces of color',
+      dimensions: 'H. 49 1/4 in. (125.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP-27915-006.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435997',
+      title: 'The Storm',
+      artist: 'Pierre-Auguste Cot',
+      year: '1880',
+      medium: 'Oil on canvas',
+      dimensions: '92 1/4 x 61 3/4 in. (234.3 x 156.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT11964.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '712539',
+      title: 'Saint Philip Neri (1515–1595)',
+      artist: 'Carlo Dolci',
+      year: '1645 or 1646',
+      medium: 'Oil on canvas',
+      dimensions: '17 1/2 × 14 1/4 in. (44.5 × 36.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-944-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435864',
+      title: 'A Woman with a Dog',
+      artist: 'Giacomo Ceruti',
+      year: '1740s',
+      medium: 'Oil on canvas',
+      dimensions: '38 x 28 1/2 in. (96.5 x 72.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '852562',
+      title: 'Mrs. Burroughs',
+      artist: 'LaToya M. Hobbs',
+      year: '2019',
+      medium: 'Woodcut',
+      dimensions: '11 × 15 in. (27.9 × 38.1 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '838076',
+      title: 'Virgin and Child Enthroned',
+      artist: 'Bohemian Painter',
+      year: 'ca. 1345–50',
+      medium: 'Oil(?) and gold on wood',
+      dimensions: '10 3/16 × 7 15/16 × 7/16 in. (25.8 × 20.2 × 1.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-20592-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436884',
+      title: 'The Chess Players',
+      artist: 'Liberale da Verona',
+      year: 'ca. 1475',
+      medium: 'Tempera on wood',
+      dimensions: 'Overall 13 3/4 x 16 1/4 in. (34.9 x 41.3 cm); painted surface 13 1/8 x 15 7/8 in. (33.3 x 40.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT226950.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436885',
+      title: 'Scene from a Novella',
+      artist: 'Liberale da Verona',
+      year: '未知年代',
+      medium: 'Tempera on wood',
+      dimensions: '13 x 16 1/8 in. (33 x 41 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT8310.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '39901',
+      title: 'Night-Shining White',
+      artist: 'Han Gan',
+      year: 'ca. 750',
+      medium: 'Handscroll; ink on paper',
+      dimensions: 'Image: 12 1/8 x 13 3/8 in. (30.8 x 34 cm)\r\n' +
+        'Overall with mounting: 14 in. x 37 ft. 5 1/8 in. (35.4 cm x 11.4 m)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP153705.jpg',
+      description: 'China',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437368',
+      title: 'Holy Family with an Angel',
+      artist: "Raffaellino del Garbo (also known as Raffaelle de' Capponi and Raffaelle de' Carli)",
+      year: 'ca. 1490',
+      medium: 'Tempera on canvas, transferred from wood',
+      dimensions: '22 x 15 in. (55.9 x 38.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-15089-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '776714',
+      title: 'Vegetable #3',
+      artist: 'Li Jin',
+      year: '2015',
+      medium: 'Ink on paper',
+      dimensions: '70 7/8 × 38 5/8 in. (180 × 98.1 cm)\r\n' +
+        'with wooden board: 8 ft. 6 1/2 in. × 39 7/8 in. × 2 5/8 in. (260.4 × 101.3 × 6.7 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: 'China',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435897',
+      title: 'Head of Christ (Ecce Homo)',
+      artist: 'Petrus Christus',
+      year: 'ca. 1445',
+      medium: 'Oil on parchment, laid down on wood',
+      dimensions: 'Overall 5 7/8 x 4 1/4 in. (14.9 x 10.8 cm); parchment 5 3/4 x 4 1/8 in. (14.6 x 10.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT229079.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436098',
+      title: 'The Crucifixion',
+      artist: 'Gerard David',
+      year: 'ca. 1495',
+      medium: 'Oil on wood',
+      dimensions: 'Overall 21 x 15 in. (53.3 x 38.1 cm); painted surface 20 5/8 x 14 3/4 in. (52.5 x 37.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-17230-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '816189',
+      title: '”Abiding nowhere, the awakened mind arises”',
+      artist: 'Musō Soseki',
+      year: 'early to mid-14th century',
+      medium: 'Hanging scroll; ink on paper',
+      dimensions: 'Image: 39 1/16 × 22 5/8 in. (99.2 × 57.4 cm)\r\n' +
+        'Overall with mounting: 71 1/4 × 24 in. (181 × 61 cm)\r\n' +
+        'Overall with knobs: 71 1/4 × 25 13/16 in. (181 × 65.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP-17101-002.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '204587',
+      title: 'Emperor Antoninus Pius',
+      artist: 'Antico (Pier Jacopo Alari Bonacolsi)',
+      year: '1519–24',
+      medium: 'Bronze, partially oil-gilt, silver inlay, on serpentinite socle',
+      dimensions: 'Overall without base (confirmed): H. 25 1/4 x W. 19 3/4 x D. 14 1/4 in. (64.1 x 50.2 x 36.2 cm); Height with base (confirmed): 29 7/8 in. (75.9 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP234101.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '439327',
+      title: 'Christ Blessing',
+      artist: 'Gerard David',
+      year: 'ca. 1500–1505',
+      medium: 'Oil on wood',
+      dimensions: 'Overall, including engaged frame, 4 3/4 x 3 1/2 in. (12.1 x 8.9 cm); painted surface 3 5/8 x 2 3/8 in. (9.2 x 6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP218061.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '197461',
+      title: 'Saint Bernardino of Siena',
+      artist: 'Fulvio Signorini',
+      year: 'ca. 1600',
+      medium: 'Bronze, partially oil-gilt',
+      dimensions: 'Overall (confirmed): 58 1/2 in., 591 lb. (148.6 cm, 268.1 kg)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP-22143-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    }
+  ],
+  curation: {
+    theme: '孤独',
+    description: '这是来自大都会艺术博物馆的47件作品，展现了"孤独"这一主题的艺术表达。',
+    emotionCurve: [
+      0.2, 0.1, 0.3, 0.4, 0.2, 0.1, 0.3, 0.5,
+      0.4, 0.2, 0.1, 0.3, 0.4, 0.2, 0.1, 0.3,
+      0.5, 0.4, 0.2, 0.1, 0.3, 0.4, 0.2, 0.1,
+      0.3, 0.5, 0.4, 0.2, 0.1, 0.3, 0.4, 0.2,
+      0.1, 0.3, 0.5, 0.4, 0.2, 0.1, 0.3, 0.4,
+      0.2, 0.1, 0.3, 0.5, 0.4, 0.2, 0.1
+    ],
+    totalWorks: 47
+  },
+  source: 'api'
+}
+🔍 Met Museum API 作品数组长度: 47
+🔍 Met Museum API 前3个作品: [
+  {
+    id: '551786',
+    title: 'Book of the Dead of the Priest of Horus, Imhotep (Imuthes)',
+    artist: '未知艺术家',
+    year: 'ca. 332–200 B.C.',
+    medium: 'Papyrus, ink',
+    dimensions: 'Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg',
+    description: 'Early Ptolemaic Period',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  },
+  {
+    id: '729644',
+    title: 'In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)',
+    artist: 'José Guadalupe Posada',
+    year: 'ca. 1890–1896',
+    medium: 'Type-metal engraving and letterpress on blue paper',
+    dimensions: 'Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg',
+    description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  },
+  {
+    id: '472562',
+    title: 'The Fieschi Morgan Staurotheke',
+    artist: '未知艺术家',
+    year: 'early 9th century',
+    medium: 'Gilded silver, gold, enamel worked in cloisonné, and niello',
+    dimensions: 'Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\n' +
+      'lid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\n' +
+      'vessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/md/original/DT119.jpg',
+    description: 'Byzantine',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  }
+]
+✅ Met Museum API: 贡献了 47 件作品
+🎉 并发调用完成: 总共获得 47 件作品
+✅ 成功服务: Met Museum API
+🧠 阶段3: LLM评分和智能筛选...
+🚀 开始超优化批量LLM评分: 47 件作品
+🔍 第一步：智能预筛选...
+🔍 智能预筛选(rule): 47 → 18 件作品 (ratio=0.3, min=10, max=40, target=18)
+✅ 智能预筛选完成: 18 件作品 (轻评分排序+比例截取)
+📊 预筛选结果: 18 件作品 (从 47 件中筛选)
+💾 第二步：评分缓存已关闭，全部进入评分：18
+🎯 第三步：使用批处理API评分 18 件作品...
+🎯 使用智谱AI批处理API评分: 18 件作品
+🔑 GLM API密钥检查: 有效
+🚀 开始批处理 18 个请求...
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+✅ 批处理完成: 18 个响应
+✅ 批处理评分完成: 18 个评分
+✅ 超优化批量评分完成: 18 个评分，耗时 9393ms
+🎨 阶段4-5-6: 统一策展生成...
+🎨 开始统一策展生成 (合并456阶段)...
+🧠 [DEBUG] 调用统一策展生成...
+🧠 [DEBUG] 作品数量: 47
+🧠 [DEBUG] 提示词长度: 11029
+❌ [DEBUG] 统一策展生成失败: TypeError: Cannot read properties of undefined (reading 'chat')
+    at UnifiedCurationGenerator.generateUnifiedCuration (src/lib/curation/unified-curation-generator.ts:238:30)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:83:62)
+  236 |       console.log('🧠 [DEBUG] 提示词长度:', prompt.length);
+  237 |       
+> 238 |       const response = await glmClient.chat(messages, {
+      |                              ^
+  239 |         temperature: 0.7,
+  240 |         max_tokens: 4000,
+  241 |         response_format: { type: 'json_object' },
+❌ [DEBUG] 错误详情: {}
+🔄 [DEBUG] 使用基于专业理论的统一策展降级方案
+🖼️ 启动图片预缓存...
+🖼️ 预缓存图片 1/9: Charity
+🖼️ 预缓存图片 2/9: Stela of the Steward Mentuwoser
+🖼️ 预缓存图片 3/9: Virgin and Child with Four Angels
+🖼️ 预缓存图片 4/9: Ia Orana Maria (Hail Mary)
+🖼️ 预缓存图片 5/9: The Penitence of Saint Jerome
+🖼️ 预缓存图片 6/9: A Peasant Family
+🖼️ 预缓存图片 7/9: The Storm
+🖼️ 预缓存图片 8/9: Saint Philip Neri (1515–1595)
+🖼️ 预缓存图片 9/9: A Woman with a Dog
+🧠 阶段7: 启动增强版讲解生成...
+🧠 [DEBUG] 转换后的情绪曲线数据: {
+  hasOverallNarrative: true,
+  hasTransitionLogic: true,
+  emotionJourneyLength: 9,
+  curveType: 'wave'
+}
+🧠 开始分批生成讲解: 3批，每批3个
+🧠 处理第1批讲解 (1-3)
+🧠 批量生成增强版讲解，共3件作品
+🧠 [DEBUG] emotionCurveDesign 状态: 已提供
+🧠 [DEBUG] baseContext keys: [
+  'emotion',
+  'userInput',
+  'curationIntroduction',
+  'curationConclusion',
+  'overallNarrative'
+]
+🧠 生成增强版讲解: Charity
+❌ 增强版讲解生成失败: Charity TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:73:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:273:40)
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:338:68)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:175:9)
+  71 |       ];
+  72 |
+> 73 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  74 |         temperature: 0.6,
+  75 |         max_tokens: 2500,
+  76 |         response_format: { type: 'json_object' },
+ POST /api/curate/llm-stream 200 in 14516ms
+🧠 生成增强版讲解: Stela of the Steward Mentuwoser
+❌ 增强版讲解生成失败: Stela of the Steward Mentuwoser TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:73:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:273:40)
+    at async generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:338:30)
+  71 |       ];
+  72 |
+> 73 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  74 |         temperature: 0.6,
+  75 |         max_tokens: 2500,
+  76 |         response_format: { type: 'json_object' },
+🧠 生成增强版讲解: Virgin and Child with Four Angels
+❌ 增强版讲解生成失败: Virgin and Child with Four Angels TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:73:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:273:40)
+    at async generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:338:30)
+  71 |       ];
+  72 |
+> 73 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  74 |         temperature: 0.6,
+  75 |         max_tokens: 2500,
+  76 |         response_format: { type: 'json_object' },
+✅ 批量增强版讲解生成完成，共3个讲解
+❌ 第1批讲解生成失败: TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:345:18)
+  343 |       
+  344 |       // 流式输出这批讲解
+> 345 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  346 |         event: 'explanations_batch',
+  347 |         data: {
+  348 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:360:18)
+  358 |       
+  359 |       // 发送错误但继续处理其他批次
+> 360 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  361 |         event: 'explanations_error',
+  362 |         data: {
+  363 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ unhandledRejection: TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:360:18)
+  358 |       
+  359 |       // 发送错误但继续处理其他批次
+> 360 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  361 |         event: 'explanations_error',
+  362 |         data: {
+  363 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ unhandledRejection:  TypeError: Invalid state: Controller is already closed
+    at generateExplanationsInBatches (src/app/api/curate/llm-stream/route.ts:360:18)
+  358 |       
+  359 |       // 发送错误但继续处理其他批次
+> 360 |       controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+      |                  ^
+  361 |         event: 'explanations_error',
+  362 |         data: {
+  363 |           batchIndex: batchIndex + 1, {
+  code: 'ERR_INVALID_STATE'
+}
+✅ 图片预缓存成功: The Penitence of Saint Jerome
+✅ 图片预缓存成功: Stela of the Steward Mentuwoser
+✅ 图片预缓存成功: A Peasant Family
+✅ 图片预缓存成功: Ia Orana Maria (Hail Mary)
+✅ 图片预缓存成功: Charity
+✅ 图片预缓存成功: Saint Philip Neri (1515–1595)
+✅ 图片预缓存成功: A Woman with a Dog
+✅ 图片预缓存成功: The Storm
+✅ 图片预缓存成功: Virgin and Child with Four Angels
+🖼️ 图片预缓存完成: 9成功, 0失败
+🖼️ 预缓存完成通知未发送 (stream已关闭)
+ ✓ Compiled /api/curate/llm-stream in 18ms
+ ⚠ ./src/lib/curation/llm-artwork-explanation.ts
+Attempted import error: 'glmClient' is not exported from '@/lib/glm-optimized-client' (imported as 'glmClient').
+
+Import trace for requested module:
+./src/lib/curation/llm-artwork-explanation.ts
+./src/app/api/curate/llm-stream/route.ts
+
+./src/lib/curation/unified-curation-generator.ts
+Attempted import error: 'glmClient' is not exported from '@/lib/glm-optimized-client' (imported as 'glmClient').
+
+Import trace for requested module:
+./src/lib/curation/unified-curation-generator.ts
+./src/app/api/curate/llm-stream/route.ts
+🔑 GLM客户端初始化: { apiKeyLength: 49, defaultModel: 'glm-4.5' }
+🎭 开始LLM个性化流式策展: { emotion: '孤独', userInput: '深夜一个人在城市中漫步' }
+📋 阶段1: 构建个性化搜索计划...
+🚀 开始优化版搜索计划构建: 孤独
+📋 第一步：使用模板构建基础搜索计划...
+🎯 第二步：快速定制搜索计划...
+🎯 快速定制搜索计划: 孤独
+快速定制失败，使用基础计划: Error: OpenAI API 密钥未配置或无效
+    at OpenAIClient.chat (src/lib/openai.ts:78:13)
+    at quickCustomizePlan (src/lib/curation/search-plan-builder-optimized.ts:201:41)
+    at buildSearchPlanOptimized (src/lib/curation/search-plan-builder-optimized.ts:113:33)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:46:75)
+  76 |
+  77 |     if (!this.hasValidApiKey()) {
+> 78 |       throw new Error('OpenAI API 密钥未配置或无效');
+     |             ^
+  79 |     }
+  80 |
+  81 |     try {
+✅ 优化版搜索计划构建完成，耗时: 5ms
+🔍 阶段2: 搜索艺术作品...
+⚠️ Rijks Museum API 密钥未配置
+⚠️ 请设置环境变量: NEXT_PUBLIC_RIJKS_API_KEY 或在 env.local.json 中配置 rijks_api_key
+🔑 Rijks API 密钥状态: 未配置
+[ArtworkServiceManager] 服务初始化顺序: [ 'MetMuseumAPIService', 'RijksMuseumAPIService' ]
+🎨 艺术作品服务管理器 - 开始并发搜索: 孤独 深夜一个人在城市中漫步
+🔍 检查Met Museum API服务可用性...
+ ○ Compiling /api/curate/llm-stream ...
+📡 Met Museum API可用性: true
+✅ 服务可用: Met Museum API
+🔍 检查Rijks Museum API服务可用性...
+❌ Rijks Museum API 密钥未配置
+⚠️ 服务不可用: Rijks Museum API
+🚀 并发调用 1 个服务
+🔍 调用服务: Met Museum API
+🎨 Met Museum API服务 - 搜索作品: 孤独 深夜一个人在城市中漫步
+🔍 搜索查询: 孤独
+📡 搜索URL: https://collectionapi.metmuseum.org/public/collection/v1/search?q=%E5%AD%A4%E7%8B%AC&hasImages=true
+📡 搜索响应: {
+  total: 127,
+  objectIDs: [
+    551786, 729644, 472562, 317877, 329077, 310453, 437422,
+    206965, 459028, 459027, 544320, 200668, 544740, 854970,
+    435848, 824771, 436102, 192770, 438821,  53660, 437261,
+    460281, 453385, 194191, 452102, 207157, 237451, 817962,
+    450605, 549236, 451725, 438779,  53162, 435997, 712539,
+    435864, 852562, 748565, 838076, 436884, 436885,  39901,
+    437368, 776714, 435897, 436098, 816189, 204587, 439327,
+    197461, 197460, 448280, 437061, 437173, 844492, 383883,
+    485416, 437202, 334030, 811771, 811772, 377933, 687615,
+    436099, 464273, 452032,  76034, 437059, 436838, 430812,
+    850659, 347927, 736196, 437216, 626692, 435621, 759529,
+    822751, 448959, 437868, 822560, 452740, 435702,  40080,
+    488221, 436658, 436803, 888663, 435844,  36225, 764636,
+     39742, 437585, 436529, 228995, 499559, 437878,  60470,
+    437384, 464132,
+    ... 27 more items
+  ]
+}
+🔍 获取作品详情，ID: 551786
+🔍 获取作品详情，ID: 729644
+🔍 获取作品详情，ID: 472562
+🔍 获取作品详情，ID: 317877
+🔍 获取作品详情，ID: 329077
+🔍 获取作品详情，ID: 310453
+🔍 获取作品详情，ID: 437422
+🔍 获取作品详情，ID: 206965
+🔍 获取作品详情，ID: 459028
+🔍 获取作品详情，ID: 459027
+🔍 获取作品详情，ID: 544320
+🔍 获取作品详情，ID: 200668
+🔍 获取作品详情，ID: 544740
+🔍 获取作品详情，ID: 854970
+🔍 获取作品详情，ID: 435848
+🔍 获取作品详情，ID: 824771
+🔍 获取作品详情，ID: 436102
+🔍 获取作品详情，ID: 192770
+🔍 获取作品详情，ID: 438821
+🔍 获取作品详情，ID: 53660
+🔍 获取作品详情，ID: 437261
+🔍 获取作品详情，ID: 460281
+🔍 获取作品详情，ID: 453385
+🔍 获取作品详情，ID: 194191
+🔍 获取作品详情，ID: 452102
+🔍 获取作品详情，ID: 207157
+🔍 获取作品详情，ID: 237451
+🔍 获取作品详情，ID: 817962
+🔍 获取作品详情，ID: 450605
+🔍 获取作品详情，ID: 549236
+🔍 获取作品详情，ID: 451725
+🔍 获取作品详情，ID: 438779
+🔍 获取作品详情，ID: 53162
+🔍 获取作品详情，ID: 435997
+🔍 获取作品详情，ID: 712539
+🔍 获取作品详情，ID: 435864
+🔍 获取作品详情，ID: 852562
+🔍 获取作品详情，ID: 748565
+🔍 获取作品详情，ID: 838076
+🔍 获取作品详情，ID: 436884
+🔍 获取作品详情，ID: 436885
+🔍 获取作品详情，ID: 39901
+🔍 获取作品详情，ID: 437368
+🔍 获取作品详情，ID: 776714
+🔍 获取作品详情，ID: 435897
+🔍 获取作品详情，ID: 436098
+🔍 获取作品详情，ID: 816189
+🔍 获取作品详情，ID: 204587
+🔍 获取作品详情，ID: 439327
+🔍 获取作品详情，ID: 197461
+📸 作品详情获取成功: In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla) 图片URL: https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg
+📸 作品详情获取成功: Nkishi (community power figure) 图片URL: 
+📸 作品详情获取成功: A Peasant Family 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg
+📸 作品详情获取成功: Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck 图片URL: https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg
+📸 作品详情获取成功: Book of the Dead of the Priest of Horus, Imhotep (Imuthes) 图片URL: https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg
+获取作品748565详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: Emperor Antoninus Pius 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP234101.jpg
+📸 作品详情获取成功: Dwarf (one of a pair) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg
+📸 作品详情获取成功: Stela of the Steward Mentuwoser 图片URL: https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg
+📸 作品详情获取成功: Yuny and His Wife Renenutet 图片URL: https://images.metmuseum.org/CRDImages/eg/original/DT549.jpg
+📸 作品详情获取成功: Tobatsu Bishamonten 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP-27915-006.jpg
+📸 作品详情获取成功: Christ Blessing 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP218061.jpg
+📸 作品详情获取成功: Clock watch with astronomical dial and sundial 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP340434.jpg
+📸 作品详情获取成功: Tabernacle Polyptych with the Madonna and Child and Scenes from the Life of Christ 图片URL: https://images.metmuseum.org/CRDImages/rl/original/SLP1553-1.jpg
+📸 作品详情获取成功: Saint Bernardino of Siena 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP-22143-001.jpg
+📸 作品详情获取成功: Head of a ruler 图片URL: https://images.metmuseum.org/CRDImages/an/original/DT858.jpg
+📸 作品详情获取成功: Mrs. Burroughs 图片URL: 
+📸 作品详情获取成功: Marie Antoinette in a Park 图片URL: https://images.metmuseum.org/CRDImages/dp/original/DP-18368-001.jpg
+📸 作品详情获取成功: ”Abiding nowhere, the awakened mind arises” 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP-17101-002.jpg
+📸 作品详情获取成功: Anthology of Persian Poetry in Oblong Format (Safina) 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg
+📸 作品详情获取成功: Saint Philip Neri (1515–1595) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-944-001.jpg
+📸 作品详情获取成功: Saint Bridget of Sweden Receiving the Rule of Her Order 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP224276.jpg
+📸 作品详情获取成功: Longcase astronomical regulator 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg
+📸 作品详情获取成功: Ten Verses on Oxherding 图片URL: https://images.metmuseum.org/CRDImages/as/original/2015_300_10_Burke_website.jpg
+📸 作品详情获取成功: Sabine Houdon (1787–1836) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg
+📸 作品详情获取成功: A Woman with a Dog 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg
+📸 作品详情获取成功: Night-Shining White 图片URL: https://images.metmuseum.org/CRDImages/as/original/DP153705.jpg
+获取作品854970详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: Head of Christ (Ecce Homo) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT229079.jpg
+📸 作品详情获取成功: Charity 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg
+📸 作品详情获取成功: The Crucifixion 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-17230-001.jpg
+📸 作品详情获取成功: The Chess Players 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT226950.jpg
+📸 作品详情获取成功: "The Concourse of the Birds", Folio 11r from a Mantiq al-Tayr (Language of the Birds) 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP234083.jpg
+📸 作品详情获取成功: Virgin and Child with Four Angels 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg
+📸 作品详情获取成功: Holy Family with an Angel 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-15089-001.jpg
+📸 作品详情获取成功: The Birth of the Virgin 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg
+📸 作品详情获取成功: Damascus Room 图片URL: https://images.metmuseum.org/CRDImages/is/original/DP240367.jpg
+📸 作品详情获取成功: The Fieschi Morgan Staurotheke 图片URL: https://images.metmuseum.org/CRDImages/md/original/DT119.jpg
+📸 作品详情获取成功: Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille 图片URL: https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg
+📸 作品详情获取成功: Ia Orana Maria (Hail Mary) 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT1025.jpg
+📸 作品详情获取成功: Processional Cross 图片URL: https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg
+📸 作品详情获取成功: The Penitence of Saint Jerome 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg
+📸 作品详情获取成功: Dwarf (one of a pair) 图片URL: https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg
+📸 作品详情获取成功: Virgin and Child Enthroned 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DP-20592-001.jpg
+获取作品817962详情失败: Error: 作品详情API响应错误: 404 Not Found
+    at eval (src/lib/artwork-services/metmuseum-api.ts:108:17)
+    at async MetMuseumAPIService.fetchArtworkDetails (src/lib/artwork-services/metmuseum-api.ts:140:22)
+    at async MetMuseumAPIService.searchArtworks (src/lib/artwork-services/metmuseum-api.ts:74:24)
+    at async eval (src/lib/artwork-services/artwork-service-manager.ts:59:24)
+    at async ArtworkServiceManager.searchArtworks (src/lib/artwork-services/artwork-service-manager.ts:68:21)
+    at async Object.start (src/app/api/curate/llm-stream/route.ts:56:30)
+  106 |         
+  107 |         if (!detailResponse.ok) {
+> 108 |           throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+      |                 ^
+  109 |         }
+  110 |         
+  111 |         const detail = await detailResponse.json();
+📸 作品详情获取成功: Stela of Ptahmose 图片URL: https://images.metmuseum.org/CRDImages/eg/original/LC-67_3_EGDP028267.jpg
+📸 作品详情获取成功: Vegetable #3 图片URL: 
+📸 作品详情获取成功: The Storm 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT11964.jpg
+📸 作品详情获取成功: The Prince and the Petitioner 图片URL: https://images.metmuseum.org/CRDImages/is/original/sf45-174-23r.jpg
+📸 作品详情获取成功: Scene from a Novella 图片URL: https://images.metmuseum.org/CRDImages/ep/original/DT8310.jpg
+✅ 成功获取 47 个作品
+📊 Met Museum API 返回结果: 47 件作品
+🔍 处理服务结果: Met Museum API
+🔍 结果状态: fulfilled
+🔍 Met Museum API 调用成功，结果: {
+  success: true,
+  result: {
+    success: true,
+    artworks: [
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object]
+    ],
+    curation: {
+      theme: '孤独',
+      description: '这是来自大都会艺术博物馆的47件作品，展现了"孤独"这一主题的艺术表达。',
+      emotionCurve: [Array],
+      totalWorks: 47
+    },
+    source: 'api'
+  },
+  serviceName: 'Met Museum API'
+}
+🔍 Met Museum API 服务结果: {
+  success: true,
+  artworks: [
+    {
+      id: '551786',
+      title: 'Book of the Dead of the Priest of Horus, Imhotep (Imuthes)',
+      artist: '未知艺术家',
+      year: 'ca. 332–200 B.C.',
+      medium: 'Papyrus, ink',
+      dimensions: 'Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg',
+      description: 'Early Ptolemaic Period',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '729644',
+      title: 'In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)',
+      artist: 'José Guadalupe Posada',
+      year: 'ca. 1890–1896',
+      medium: 'Type-metal engraving and letterpress on blue paper',
+      dimensions: 'Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '472562',
+      title: 'The Fieschi Morgan Staurotheke',
+      artist: '未知艺术家',
+      year: 'early 9th century',
+      medium: 'Gilded silver, gold, enamel worked in cloisonné, and niello',
+      dimensions: 'Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\n' +
+        'lid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\n' +
+        'vessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/md/original/DT119.jpg',
+      description: 'Byzantine',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '317877',
+      title: 'Processional Cross',
+      artist: 'Northern Highlands artist',
+      year: '14th–15th century',
+      medium: 'Brass',
+      dimensions: 'H. 10 1/2 × W. 5 × D. 1 in. (26.7 × 12.7 × 2.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg',
+      description: 'Northern Highlands region',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '329077',
+      title: 'Head of a ruler',
+      artist: '未知艺术家',
+      year: 'ca. 2300–2000 BCE',
+      medium: 'Copper alloy',
+      dimensions: '13 9/16 × 8 3/8 × 9 3/16 in. (34.4 × 21.3 × 23.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/an/original/DT858.jpg',
+      description: 'Early Bronze Age',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '310453',
+      title: 'Nkishi (community power figure)',
+      artist: 'Songye artist and nganga (ritual specialist)',
+      year: '19th–first half of 20th century',
+      medium: 'Wood, copper, brass, iron, fiber, snakeskin, leather, fur, feathers, mud, resin',
+      dimensions: 'H. 39 × W. 10 1/2 × D. 11 in. (99.1 × 26.7 × 27.9 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: 'Songye peoples',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437422',
+      title: 'Charity',
+      artist: 'Guido Reni',
+      year: 'ca. 1630',
+      medium: 'Oil on canvas',
+      dimensions: '54 x 41 3/4 in. (137.2 x 106 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '206965',
+      title: 'Longcase astronomical regulator',
+      artist: 'Ferdinand Berthoud',
+      year: 'ca. 1768–70',
+      medium: 'Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel',
+      dimensions: 'Overall: 90 1/2 × 21 × 12 3/4 in. (229.9 × 53.3 × 32.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '459028',
+      title: 'Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck',
+      artist: 'Jacometto (Jacometto Veneziano)',
+      year: 'ca. 1485–95',
+      medium: 'Oil on wood; verso: oil and gold on wood',
+      dimensions: 'Overall 4 5/8 x 3 3/8 in. ; recto, painted surface 4 1/8 x 3 1/8 in.; verso, painted surface 4 3/8 x 3 1/8 in.',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '459027',
+      title: 'Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille',
+      artist: 'Jacometto (Jacometto Veneziano)',
+      year: 'ca. 1485–95',
+      medium: 'Oil on wood; (verso: oil and gold on wood)',
+      dimensions: 'Overall 4 x 2 7/8 in. (10.2 x 7.3 cm); recto and verso, painted surface 3 3/4 x 2 1/2 in. (9.5 x 6.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '544320',
+      title: 'Stela of the Steward Mentuwoser',
+      artist: '未知艺术家',
+      year: 'ca. 1944 B.C.',
+      medium: 'Limestone, paint',
+      dimensions: 'H. 103 cm (40 9/16 in.); W. 50.5 cm (19 7/8 in.); Th. 8.3 cm (3 1/4 in.)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg',
+      description: 'Middle Kingdom',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '200668',
+      title: 'Sabine Houdon (1787–1836)',
+      artist: 'Jean Antoine Houdon',
+      year: '1788',
+      medium: 'White marble on gray marble socle',
+      dimensions: 'Overall, without base (confirmed): H. 10 3/4 x W. 8 7/8 x D. 5 7/8 in., 20lb. (27.3 x 22.5 x 14.9 cm, 9.0719kg); Height with base (confirmed): 13 1/2 in. (34.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '544740',
+      title: 'Yuny and His Wife Renenutet',
+      artist: '未知艺术家',
+      year: 'ca. 1294–1279 B.C.',
+      medium: 'Limestone, paint',
+      dimensions: 'H. 84.5 × W. 54.5 × D. 73 cm (33 1/4 × 21 7/16 × 28 3/4 in.)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/DT549.jpg',
+      description: 'New Kingdom, Ramesside',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435848',
+      title: 'The Birth of the Virgin',
+      artist: 'Fra Carnevale (Bartolomeo di Giovanni Corradini)',
+      year: '1467',
+      medium: 'Tempera and oil on wood',
+      dimensions: '57 x 37 7/8 in. (144.8 x 96.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '824771',
+      title: 'Marie Antoinette in a Park',
+      artist: 'Elisabeth Louise Vigée Le Brun',
+      year: 'ca. 1780–81',
+      medium: 'Black chalk, stumped, and white chalk; framing lines in black chalk',
+      dimensions: 'Sheet: 23 3/16 × 15 7/8 in. (58.9 × 40.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP-18368-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436102',
+      title: 'Virgin and Child with Four Angels',
+      artist: 'Gerard David',
+      year: 'ca. 1510–15',
+      medium: 'Oil on wood',
+      dimensions: '24 7/8 x 15 3/8 in. (63.2 x 39.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '192770',
+      title: 'Saint Bridget of Sweden Receiving the Rule of Her Order',
+      artist: "Agostino d'Antonio di Duccio",
+      year: '1459',
+      medium: 'Marble',
+      dimensions: 'Overall (confirmed): 16 3/4 × 25 1/8 × 2 3/4 in., 57 lb. (42.5 × 63.8 × 7 cm, 25.9 kg)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP224276.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '438821',
+      title: 'Ia Orana Maria (Hail Mary)',
+      artist: 'Paul Gauguin',
+      year: '1891',
+      medium: 'Oil on canvas',
+      dimensions: '44 3/4 x 34 1/2 in. (113.7 x 87.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT1025.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '53660',
+      title: 'Ten Verses on Oxherding',
+      artist: '未知艺术家',
+      year: '1278',
+      medium: 'Handscroll; ink and color on paper',
+      dimensions: 'Image: 12 1/4 in. × 20 ft. 6 in. (31.1 × 624.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/2015_300_10_Burke_website.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437261',
+      title: 'The Penitence of Saint Jerome',
+      artist: 'Joachim Patinir',
+      year: 'ca. 1515',
+      medium: 'Oil on wood',
+      dimensions: 'Shaped top: central panel, overall, with engaged frame, 46 1/4 x 32 in. (117.5 x 81.3 cm); each wing, overall, with engaged frame, 47 1/2 x 14 in. (120.7 x 35.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '460281',
+      title: 'Tabernacle Polyptych with the Madonna and Child and Scenes from the Life of Christ',
+      artist: '未知艺术家',
+      year: 'ca. 1275–1300',
+      medium: 'Ivory with traces of original gilding and polychromy; silver hinges.',
+      dimensions: 'H. 9.7 cm, w. 13.1 cm (with open wings).',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/rl/original/SLP1553-1.jpg',
+      description: 'Northern France (?)',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '453385',
+      title: 'Anthology of Persian Poetry in Oblong Format (Safina)',
+      artist: 'Sultan Muhammad Nur',
+      year: 'dated 905 AH/1499–1500 CE',
+      medium: 'Ink, watercolor, and gold on paper.\r\nBinding: leather',
+      dimensions: 'H. 8 1/4 in. (21 cm)\r\nW. 3 in. (7.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP235838.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '194191',
+      title: 'Clock watch with astronomical dial and sundial',
+      artist: 'Jan Jansen Bockeltz',
+      year: 'ca. 1605–10',
+      medium: 'Case: gilded brass; Dial: gilded brass, silver, and copper; Movement: gilded brass, partly blued steel, and silver',
+      dimensions: 'Overall: 3 1/2 × 2 7/16 × 2 5/16 in. (8.9 × 6.2 × 5.9 cm); Width of back plate: 2 1/8 in. (5.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP340434.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '452102',
+      title: 'Damascus Room',
+      artist: '未知艺术家',
+      year: 'dated 1119 AH/1707 CE',
+      medium: 'Wood (poplar) with gesso relief, gold and tin leaf, glazes and paint; wood (cypress, poplar, and mulberry), mother-of-pearl, marble and other stones, stucco with glass, plaster ceramic tiles, iron, brass',
+      dimensions: 'Overall:\r\n' +
+        '           H. 264 7/16 in. (671.6 cm)\r\n' +
+        '           W. 200 1/2 in. (509.2 cm)\r\n' +
+        '           D. 316 5/8 in. (804.2 cm)\r\n' +
+        'From inside front entrance to back wall:\r\n' +
+        '           H. 316 5/8 in. (804.2 cm)\r\n' +
+        'Fountain:\r\n' +
+        '           H. 4 15/16 in. (12.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP240367.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '207157',
+      title: 'Dwarf (one of a pair)',
+      artist: 'Villeroy',
+      year: 'ca. 1740–45',
+      medium: 'Tin-glazed soft-paste porcelain decorated in polychrome enamels',
+      dimensions: 'Overall (confirmed): 4 5/8 × 2 13/16 × 2 5/8 in. (11.7 × 7.1 × 6.7 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '237451',
+      title: 'Dwarf (one of a pair)',
+      artist: 'Villeroy',
+      year: 'ca. 1740–45',
+      medium: 'Tin-glazed soft-paste porcelain decorated in polychrome enamels',
+      dimensions: 'Overall (confirmed): 4 5/8 x 2 1/8 x 2 15/16 in. (11.7 x 5.4 x 7.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP223292.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '450605',
+      title: 'The Prince and the Petitioner',
+      artist: 'Vali Jan',
+      year: 'late 16th century',
+      medium: 'Ink and gold on paper',
+      dimensions: 'H. 3 in. (7.6 cm)\r\nW. 4 5/8 in. (11.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/sf45-174-23r.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '549236',
+      title: 'Stela of Ptahmose',
+      artist: '未知艺术家',
+      year: 'ca. 1320–1290 B.C.',
+      medium: 'Limestone',
+      dimensions: 'H. 142.2 cm (56 in)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/LC-67_3_EGDP028267.jpg',
+      description: 'New Kingdom',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '451725',
+      title: '"The Concourse of the Birds", Folio 11r from a Mantiq al-Tayr (Language of the Birds)',
+      artist: 'Habiballah of Sava',
+      year: 'ca. 1600',
+      medium: 'Ink, opaque watercolor, gold, and silver on paper',
+      dimensions: 'Painting: H. 10 in. (25.4 cm)\r\n' +
+        '                W. 4 1/2in. (11.4cm)\r\n' +
+        'Page: H. 13 in. (33 cm)\r\n' +
+        '            W. 8 3/16 in. (20.8 cm)\r\n' +
+        'Mat: H. 19 1/4 in. (48.9 cm)\r\n' +
+        '        W. 14 1/4 in. (36.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/is/original/DP234083.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '438779',
+      title: 'A Peasant Family',
+      artist: 'Antoine Le Nain',
+      year: 'ca. 1640–48',
+      medium: 'Oil on copper',
+      dimensions: '15 x 11 3/4 in. (38.1 x 29.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '53162',
+      title: 'Tobatsu Bishamonten',
+      artist: '未知艺术家',
+      year: 'late 10th–early 11th century',
+      medium: 'Zelkova wood with traces of color',
+      dimensions: 'H. 49 1/4 in. (125.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP-27915-006.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435997',
+      title: 'The Storm',
+      artist: 'Pierre-Auguste Cot',
+      year: '1880',
+      medium: 'Oil on canvas',
+      dimensions: '92 1/4 x 61 3/4 in. (234.3 x 156.8 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT11964.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '712539',
+      title: 'Saint Philip Neri (1515–1595)',
+      artist: 'Carlo Dolci',
+      year: '1645 or 1646',
+      medium: 'Oil on canvas',
+      dimensions: '17 1/2 × 14 1/4 in. (44.5 × 36.2 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-944-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435864',
+      title: 'A Woman with a Dog',
+      artist: 'Giacomo Ceruti',
+      year: '1740s',
+      medium: 'Oil on canvas',
+      dimensions: '38 x 28 1/2 in. (96.5 x 72.4 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-29214-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '852562',
+      title: 'Mrs. Burroughs',
+      artist: 'LaToya M. Hobbs',
+      year: '2019',
+      medium: 'Woodcut',
+      dimensions: '11 × 15 in. (27.9 × 38.1 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '838076',
+      title: 'Virgin and Child Enthroned',
+      artist: 'Bohemian Painter',
+      year: 'ca. 1345–50',
+      medium: 'Oil(?) and gold on wood',
+      dimensions: '10 3/16 × 7 15/16 × 7/16 in. (25.8 × 20.2 × 1.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-20592-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436884',
+      title: 'The Chess Players',
+      artist: 'Liberale da Verona',
+      year: 'ca. 1475',
+      medium: 'Tempera on wood',
+      dimensions: 'Overall 13 3/4 x 16 1/4 in. (34.9 x 41.3 cm); painted surface 13 1/8 x 15 7/8 in. (33.3 x 40.3 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT226950.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436885',
+      title: 'Scene from a Novella',
+      artist: 'Liberale da Verona',
+      year: '未知年代',
+      medium: 'Tempera on wood',
+      dimensions: '13 x 16 1/8 in. (33 x 41 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT8310.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '39901',
+      title: 'Night-Shining White',
+      artist: 'Han Gan',
+      year: 'ca. 750',
+      medium: 'Handscroll; ink on paper',
+      dimensions: 'Image: 12 1/8 x 13 3/8 in. (30.8 x 34 cm)\r\n' +
+        'Overall with mounting: 14 in. x 37 ft. 5 1/8 in. (35.4 cm x 11.4 m)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP153705.jpg',
+      description: 'China',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '437368',
+      title: 'Holy Family with an Angel',
+      artist: "Raffaellino del Garbo (also known as Raffaelle de' Capponi and Raffaelle de' Carli)",
+      year: 'ca. 1490',
+      medium: 'Tempera on canvas, transferred from wood',
+      dimensions: '22 x 15 in. (55.9 x 38.1 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-15089-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '776714',
+      title: 'Vegetable #3',
+      artist: 'Li Jin',
+      year: '2015',
+      medium: 'Ink on paper',
+      dimensions: '70 7/8 × 38 5/8 in. (180 × 98.1 cm)\r\n' +
+        'with wooden board: 8 ft. 6 1/2 in. × 39 7/8 in. × 2 5/8 in. (260.4 × 101.3 × 6.7 cm)',
+      imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80',
+      description: 'China',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '435897',
+      title: 'Head of Christ (Ecce Homo)',
+      artist: 'Petrus Christus',
+      year: 'ca. 1445',
+      medium: 'Oil on parchment, laid down on wood',
+      dimensions: 'Overall 5 7/8 x 4 1/4 in. (14.9 x 10.8 cm); parchment 5 3/4 x 4 1/8 in. (14.6 x 10.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT229079.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '436098',
+      title: 'The Crucifixion',
+      artist: 'Gerard David',
+      year: 'ca. 1495',
+      medium: 'Oil on wood',
+      dimensions: 'Overall 21 x 15 in. (53.3 x 38.1 cm); painted surface 20 5/8 x 14 3/4 in. (52.5 x 37.5 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-17230-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '816189',
+      title: '”Abiding nowhere, the awakened mind arises”',
+      artist: 'Musō Soseki',
+      year: 'early to mid-14th century',
+      medium: 'Hanging scroll; ink on paper',
+      dimensions: 'Image: 39 1/16 × 22 5/8 in. (99.2 × 57.4 cm)\r\n' +
+        'Overall with mounting: 71 1/4 × 24 in. (181 × 61 cm)\r\n' +
+        'Overall with knobs: 71 1/4 × 25 13/16 in. (181 × 65.6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP-17101-002.jpg',
+      description: 'Japan',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '204587',
+      title: 'Emperor Antoninus Pius',
+      artist: 'Antico (Pier Jacopo Alari Bonacolsi)',
+      year: '1519–24',
+      medium: 'Bronze, partially oil-gilt, silver inlay, on serpentinite socle',
+      dimensions: 'Overall without base (confirmed): H. 25 1/4 x W. 19 3/4 x D. 14 1/4 in. (64.1 x 50.2 x 36.2 cm); Height with base (confirmed): 29 7/8 in. (75.9 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP234101.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '439327',
+      title: 'Christ Blessing',
+      artist: 'Gerard David',
+      year: 'ca. 1500–1505',
+      medium: 'Oil on wood',
+      dimensions: 'Overall, including engaged frame, 4 3/4 x 3 1/2 in. (12.1 x 8.9 cm); painted surface 3 5/8 x 2 3/8 in. (9.2 x 6 cm)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP218061.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    },
+    {
+      id: '197461',
+      title: 'Saint Bernardino of Siena',
+      artist: 'Fulvio Signorini',
+      year: 'ca. 1600',
+      medium: 'Bronze, partially oil-gilt',
+      dimensions: 'Overall (confirmed): 58 1/2 in., 591 lb. (148.6 cm, 268.1 kg)',
+      imageUrl: 'https://images.metmuseum.org/CRDImages/es/original/DP-22143-001.jpg',
+      description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+      museum: '大都会艺术博物馆',
+      license: 'CC0'
+    }
+  ],
+  curation: {
+    theme: '孤独',
+    description: '这是来自大都会艺术博物馆的47件作品，展现了"孤独"这一主题的艺术表达。',
+    emotionCurve: [
+      0.2, 0.1, 0.3, 0.4, 0.2, 0.1, 0.3, 0.5,
+      0.4, 0.2, 0.1, 0.3, 0.4, 0.2, 0.1, 0.3,
+      0.5, 0.4, 0.2, 0.1, 0.3, 0.4, 0.2, 0.1,
+      0.3, 0.5, 0.4, 0.2, 0.1, 0.3, 0.4, 0.2,
+      0.1, 0.3, 0.5, 0.4, 0.2, 0.1, 0.3, 0.4,
+      0.2, 0.1, 0.3, 0.5, 0.4, 0.2, 0.1
+    ],
+    totalWorks: 47
+  },
+  source: 'api'
+}
+🔍 Met Museum API 作品数组长度: 47
+🔍 Met Museum API 前3个作品: [
+  {
+    id: '551786',
+    title: 'Book of the Dead of the Priest of Horus, Imhotep (Imuthes)',
+    artist: '未知艺术家',
+    year: 'ca. 332–200 B.C.',
+    medium: 'Papyrus, ink',
+    dimensions: 'Approximate measurements (framed): L. 21.9 m (71 ft. 10 3/16 in); H. 35 cm (1 ft. 1 3/4 in.). Length previously estimated at 63 ft. (19.2 m).',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg',
+    description: 'Early Ptolemaic Period',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  },
+  {
+    id: '729644',
+    title: 'In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)',
+    artist: 'José Guadalupe Posada',
+    year: 'ca. 1890–1896',
+    medium: 'Type-metal engraving and letterpress on blue paper',
+    dimensions: 'Sheet: 15 3/4 × 11 13/16 in. (40 × 30 cm)',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg',
+    description: '这是一件来自大都会艺术博物馆的珍贵作品。',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  },
+  {
+    id: '472562',
+    title: 'The Fieschi Morgan Staurotheke',
+    artist: '未知艺术家',
+    year: 'early 9th century',
+    medium: 'Gilded silver, gold, enamel worked in cloisonné, and niello',
+    dimensions: 'Overall (with lid): 1 1/16 x 4 1/16 x 2 13/16 in. (2.7 x 10.3 x 7.1 cm)\r\n' +
+      'lid only: 2 13/16 x 3 7/8 x 1/8 in. (7.1 x 9.8 x 0.3 cm)\r\n' +
+      'vessel only: 7/8 x 2 15/16 x 4 in. (2.2 x 7.5 x 10.1 cm)',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/md/original/DT119.jpg',
+    description: 'Byzantine',
+    museum: '大都会艺术博物馆',
+    license: 'CC0'
+  }
+]
+✅ Met Museum API: 贡献了 47 件作品
+🎉 并发调用完成: 总共获得 47 件作品
+✅ 成功服务: Met Museum API
+🧠 阶段3: LLM评分和智能筛选...
+🚀 开始超优化批量LLM评分: 47 件作品
+🔍 第一步：智能预筛选...
+🔍 智能预筛选(rule): 47 → 18 件作品 (ratio=0.3, min=10, max=40, target=18)
+✅ 智能预筛选完成: 18 件作品 (轻评分排序+比例截取)
+📊 预筛选结果: 18 件作品 (从 47 件中筛选)
+💾 第二步：评分缓存已关闭，全部进入评分：18
+🎯 第三步：使用批处理API评分 18 件作品...
+🎯 使用智谱AI批处理API评分: 18 件作品
+🔑 GLM API密钥检查: 有效
+🚀 开始批处理 18 个请求...
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+🔑 GLM API密钥检查: 有效
+⚡ 禁用thinking模式，快速响应
+✅ 批处理完成: 18 个响应
+✅ 批处理评分完成: 18 个评分
+✅ 超优化批量评分完成: 18 个评分，耗时 15583ms
+🎨 阶段4-5-6: 统一策展生成...
+🎨 开始统一策展生成 (合并456阶段)...
+🧠 [DEBUG] 调用统一策展生成...
+🧠 [DEBUG] 作品数量: 47
+🧠 [DEBUG] 提示词长度: 11029
+❌ [DEBUG] 统一策展生成失败: TypeError: Cannot read properties of undefined (reading 'chat')
+    at UnifiedCurationGenerator.generateUnifiedCuration (src/lib/curation/unified-curation-generator.ts:238:30)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:83:62)
+  236 |       console.log('🧠 [DEBUG] 提示词长度:', prompt.length);
+  237 |       
+> 238 |       const response = await glmClient.chat(messages, {
+      |                              ^
+  239 |         temperature: 0.7,
+  240 |         max_tokens: 4000,
+  241 |         response_format: { type: 'json_object' },
+❌ [DEBUG] 错误详情: {}
+🔄 [DEBUG] 使用基于专业理论的统一策展降级方案
+🖼️ 启动图片预缓存...
+🖼️ 预缓存图片 1/9: Charity
+🖼️ 预缓存图片 2/9: Stela of the Steward Mentuwoser
+🖼️ 预缓存图片 3/9: Virgin and Child with Four Angels
+🖼️ 预缓存图片 4/9: Ia Orana Maria (Hail Mary)
+🖼️ 预缓存图片 5/9: The Penitence of Saint Jerome
+🖼️ 预缓存图片 6/9: A Peasant Family
+🖼️ 预缓存图片 7/9: The Storm
+🖼️ 预缓存图片 8/9: Saint Philip Neri (1515–1595)
+🖼️ 预缓存图片 9/9: A Woman with a Dog
+🧠 阶段7: 启动增强版讲解生成...
+🧠 [DEBUG] 转换后的情绪曲线数据: {
+  hasOverallNarrative: true,
+  hasTransitionLogic: true,
+  emotionJourneyLength: 9,
+  curveType: 'wave'
+}
+🧠 后台启动讲解生成...
+🧠 [后台] 开始生成两级讲解体系...
+🧠 批量生成增强版讲解，共9件作品
+🧠 [DEBUG] emotionCurveDesign 状态: 已提供
+🧠 [DEBUG] baseContext keys: [
+  'emotion',
+  'userInput',
+  'curationIntroduction',
+  'curationConclusion',
+  'overallNarrative'
+]
+🧠 生成增强版讲解: Charity
+❌ 增强版讲解生成失败: Charity TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:64)
+    at Object.start (src/app/api/curate/llm-stream/route.ts:190:9)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+ POST /api/curate/llm-stream 200 in 19793ms
+🧠 生成增强版讲解: Stela of the Steward Mentuwoser
+❌ 增强版讲解生成失败: Stela of the Steward Mentuwoser TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+🧠 生成增强版讲解: Virgin and Child with Four Angels
+❌ 增强版讲解生成失败: Virgin and Child with Four Angels TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+🧠 生成增强版讲解: Ia Orana Maria (Hail Mary)
+❌ 增强版讲解生成失败: Ia Orana Maria (Hail Mary) TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+🧠 生成增强版讲解: The Penitence of Saint Jerome
+❌ 增强版讲解生成失败: The Penitence of Saint Jerome TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+✅ 图片预缓存成功: Charity
+✅ 图片预缓存成功: A Peasant Family
+✅ 图片预缓存成功: Stela of the Steward Mentuwoser
+✅ 图片预缓存成功: Saint Philip Neri (1515–1595)
+✅ 图片预缓存成功: The Storm
+✅ 图片预缓存成功: The Penitence of Saint Jerome
+✅ 图片预缓存成功: Virgin and Child with Four Angels
+🧠 生成增强版讲解: A Peasant Family
+❌ 增强版讲解生成失败: A Peasant Family TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+✅ 图片预缓存成功: A Woman with a Dog
+🧠 生成增强版讲解: The Storm
+❌ 增强版讲解生成失败: The Storm TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+✅ 图片预缓存成功: Ia Orana Maria (Hail Mary)
+🖼️ 图片预缓存完成: 9成功, 0失败
+🖼️ 预缓存完成通知未发送 (stream已关闭)
+🧠 生成增强版讲解: Saint Philip Neri (1515–1595)
+❌ 增强版讲解生成失败: Saint Philip Neri (1515–1595) TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+🧠 生成增强版讲解: A Woman with a Dog
+❌ 增强版讲解生成失败: A Woman with a Dog TypeError: Cannot read properties of undefined (reading 'chat')
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanation (src/lib/curation/llm-artwork-explanation.ts:95:30)
+    at LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch (src/lib/curation/llm-artwork-explanation.ts:313:40)
+    at async generateExplanationsInBackground (src/app/api/curate/llm-stream/route.ts:326:26)
+  93 |       ];
+  94 |
+> 95 |       const response = await glmClient.chat(messages, {
+     |                              ^
+  96 |         temperature: 0.6,
+  97 |         max_tokens: 2500,
+  98 |         response_format: { type: 'json_object' },
+✅ 批量增强版讲解生成完成，共9个讲解
+✅ [后台] 讲解生成完成: 9个作品
+ ✓ Compiled /api/curate/llm-stream in 10ms

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ArtworkServiceManager } from '@/lib/artwork-services/artwork-service-manager';
 import { buildSearchPlanOptimized } from '@/lib/curation/search-plan-builder-optimized';
 import { batchJudgeArtworksUltraOptimized } from '@/lib/curation/llm-judge-ultra-optimized';
-import { LLMEmotionCurveGenerator } from '@/lib/curation/llm-emotion-curve';
+import { UnifiedCurationGenerator } from '@/lib/curation/unified-curation-generator';
 import { LLMEnhancedExplanationGenerator } from '@/lib/curation/llm-artwork-explanation';
 import { glmClient } from '@/lib/glm-optimized-client';
 
@@ -73,45 +73,34 @@ export async function POST(request: NextRequest) {
         );
         const scores = batchResult.scores;
         
-        // 阶段4: LLM个性化情绪曲线设计
-        console.log('🎨 阶段4: 生成个性化情绪曲线...');
+        // 阶段4-5-6: 统一策展生成 (合并请求)
+        console.log('🎨 阶段4-5-6: 统一策展生成...');
         controller.enqueue(encoder.encode(`data: ${JSON.stringify({
           event: 'phase',
-          data: { phase: 4, description: '设计个性化情绪曲线', timestamp: Date.now() }
+          data: { phase: 4, description: '统一策展生成 (情绪曲线+作品排序+序言结语)', timestamp: Date.now() }
         })}\n\n`));
         
-        const emotionCurveDesign = await LLMEmotionCurveGenerator.generatePersonalizedCurve(
+        const unifiedResult = await UnifiedCurationGenerator.generateUnifiedCuration(
           emotion,
           userInput || '',
-          9 // 目标作品数量
+          searchResult.artworks,
+          scores
         );
         
         // 流式输出: 情绪曲线设计
         controller.enqueue(encoder.encode(`data: ${JSON.stringify({
           event: 'emotion_curve',
           data: {
-            design: emotionCurveDesign,
+            design: unifiedResult.emotionCurve,
             timestamp: Date.now()
           }
         })}\n\n`));
         
-        // 阶段5: LLM智能作品排序
-        console.log('🎯 阶段5: LLM智能作品排序...');
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({
-          event: 'phase',
-          data: { phase: 5, description: 'LLM智能作品排序', timestamp: Date.now() }
-        })}\n\n`));
-        
-        const orderedArtworks = await LLMEmotionCurveGenerator.intelligentArtworkOrdering(
-          emotionCurveDesign,
-          searchResult.artworks,
-          scores,
-          emotion,
-          userInput || ''
-        );
-        
-        // 选取前9件作品
-        const selectedArtworks = orderedArtworks.slice(0, 9);
+        // 根据统一结果重新排序作品
+        const selectedArtworks = unifiedResult.artworkOrdering.orderedArtworks
+          .map(artworkId => searchResult.artworks.find(a => a.id === artworkId))
+          .filter(artwork => artwork !== undefined)
+          .slice(0, 9);
         
         // 流式输出: 选定作品
         controller.enqueue(encoder.encode(`data: ${JSON.stringify({
@@ -120,33 +109,25 @@ export async function POST(request: NextRequest) {
             artworks: selectedArtworks,
             totalFound: searchResult.artworks.length,
             source: searchResult.source,
+            orderingReasons: unifiedResult.artworkOrdering.matchingReasons,
             timestamp: Date.now()
           }
         })}\n\n`));
-        
-        // 阶段6: 生成策展序言和结语
-        console.log('📝 阶段6: 生成策展序言和结语...');
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({
-          event: 'phase',
-          data: { phase: 6, description: '生成策展序言和结语', timestamp: Date.now() }
-        })}\n\n`));
-        
-        // 并行生成序言和结语
-        const [introduction, conclusion] = await Promise.all([
-          generateCurationIntroduction(emotion, userInput, emotionCurveDesign, selectedArtworks),
-          generateCurationConclusion(emotion, userInput, emotionCurveDesign, selectedArtworks)
-        ]);
+
+        // 启动图片预缓存（非阻塞）
+        console.log('🖼️ 启动图片预缓存...');
+        preloadArtworkImages(selectedArtworks, controller, encoder);
         
         // 流式输出: 序言
         controller.enqueue(encoder.encode(`data: ${JSON.stringify({
           event: 'introduction',
-          data: { content: introduction, timestamp: Date.now() }
+          data: { content: unifiedResult.curationTexts.introduction, timestamp: Date.now() }
         })}\n\n`));
         
         // 流式输出: 结语
         controller.enqueue(encoder.encode(`data: ${JSON.stringify({
           event: 'conclusion',
-          data: { content: conclusion, timestamp: Date.now() }
+          data: { content: unifiedResult.curationTexts.conclusion, timestamp: Date.now() }
         })}\n\n`));
         
         // 阶段7: 启动增强版讲解生成（并发进行）
@@ -160,32 +141,57 @@ export async function POST(request: NextRequest) {
         const baseExplanationContext = {
           emotion,
           userInput: userInput || '',
-          curationIntroduction: introduction,
-          curationConclusion: conclusion,
-          overallNarrative: emotionCurveDesign.overallNarrative
+          curationIntroduction: unifiedResult.curationTexts.introduction,
+          curationConclusion: unifiedResult.curationTexts.conclusion,
+          overallNarrative: unifiedResult.emotionCurve.overallNarrative
         };
         
-        // 并发生成讲解，分批返回
-        generateExplanationsInBatches(
-          selectedArtworks,
-          baseExplanationContext,
-          emotionCurveDesign,
-          controller,
-          encoder
-        );
+        // 转换情绪曲线格式以兼容讲解生成
+        const emotionCurveForExplanation = {
+          curveType: unifiedResult.emotionCurve.curveType === 'guided_journey' ? 'complex' : 
+                    unifiedResult.emotionCurve.curveType === 'sandbox_discovery' ? 'peak' : 'wave',
+          totalStages: unifiedResult.emotionCurve.totalStages,
+          overallNarrative: unifiedResult.emotionCurve.overallNarrative,
+          transitionLogic: unifiedResult.emotionCurve.designPhilosophy,
+          colorPalette: unifiedResult.emotionCurve.colorPalette,
+          emotionJourney: unifiedResult.emotionCurve.emotionJourney.map(stage => ({
+            stage: stage.stage,
+            stageName: stage.stageName,
+            intensity: stage.intensity,
+            description: stage.description,
+            artworkRequirement: stage.artworkRequirement,
+            visualMood: stage.visualAtmosphere
+          }))
+        };
         
-        // 完成信号
+        console.log('🧠 [DEBUG] 转换后的情绪曲线数据:', {
+          hasOverallNarrative: !!emotionCurveForExplanation.overallNarrative,
+          hasTransitionLogic: !!emotionCurveForExplanation.transitionLogic,
+          emotionJourneyLength: emotionCurveForExplanation.emotionJourney.length,
+          curveType: emotionCurveForExplanation.curveType
+        });
+
+        // 完成456流式输出，发送完成信号
         controller.enqueue(encoder.encode(`data: ${JSON.stringify({
           event: 'complete',
           data: {
             summary: {
               totalArtworks: selectedArtworks.length,
-              emotionCurve: emotionCurveDesign.curveType,
-              processingPhases: 7
+              emotionCurve: emotionCurveForExplanation.curveType,
+              processingPhases: 6,
+              message: "策展完成，作品讲解将在后台生成"
             },
             timestamp: Date.now()
           }
         })}\n\n`));
+        
+        // 在后台异步生成讲解，不阻塞流式响应
+        console.log('🧠 后台启动讲解生成...');
+        generateExplanationsInBackground(
+          selectedArtworks,
+          baseExplanationContext,
+          emotionCurveForExplanation
+        );
         
       } catch (error) {
         console.error('❌ LLM个性化流式策展失败:', error);
@@ -209,107 +215,135 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * 生成策展序言
+ * 图片预缓存函数 - 提升沉浸式体验
  */
-async function generateCurationIntroduction(
-  emotion: string,
-  userInput: string,
-  curveDesign: any,
-  artworks: any[]
-): Promise<string> {
-  const prompt = `为个性化艺术策展生成序言（中文）。
+async function preloadArtworkImages(
+  artworks: any[],
+  controller: ReadableStreamDefaultController,
+  encoder: TextEncoder
+) {
+  const imagePreloadPromises = artworks.map(async (artwork, index) => {
+    try {
+      console.log(`🖼️ 预缓存图片 ${index + 1}/9: ${artwork.title}`);
+      
+      // 使用fetch预加载图片（获取部分数据以触发浏览器缓存）
+      const response = await fetch(artwork.imageUrl, {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; ArtDuo-Preloader/1.0)',
+          'Range': 'bytes=0-1023' // 只下载前1KB来触发缓存
+        }
+      });
 
-用户情绪：${emotion}
-用户描述：${userInput}
-情绪旅程：${curveDesign.overallNarrative}
-转换逻辑：${curveDesign.transitionLogic}
-作品数量：${artworks.length}
-
-请生成一段150-200字的策展序言，要求：
-1. 直接回应用户的情绪状态和具体情境
-2. 预告这次艺术旅程将如何帮助用户
-3. 语言温暖而专业，避免空洞的艺术术语
-4. 建立用户与艺术作品之间的情感桥梁
-
-直接返回序言内容，不要包含其他格式。`;
-
-  try {
-    const response = await glmClient.chat([
-      {
-        role: 'system',
-        content: '你是一位富有同理心的艺术策展人，擅长用温暖的语言连接艺术与人心。'
-      },
-      {
-        role: 'user',
-        content: prompt
+      if (response.ok) {
+        // 流式通知图片预缓存状态
+        try {
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+            event: 'image_preload_progress',
+            data: {
+              artworkId: artwork.id,
+              artworkIndex: index,
+              status: 'loaded',
+              title: artwork.title,
+              imageUrl: artwork.imageUrl,
+              contentLength: response.headers.get('content-length'),
+              timestamp: Date.now()
+            }
+          })}\n\n`));
+        } catch (e) {
+          // Stream已关闭，忽略通知
+        }
+        
+        console.log(`✅ 图片预缓存成功: ${artwork.title}`);
+        return { artworkId: artwork.id, status: 'success', size: response.headers.get('content-length') };
+      } else {
+        throw new Error(`HTTP ${response.status}`);
       }
-    ], {
-      temperature: 0.7,
-      max_tokens: 500,
-      thinking: 'disabled'
-    });
+    } catch (error) {
+      console.warn(`⚠️ 图片预缓存失败: ${artwork.title} - ${error.message}`);
+      
+      // 流式通知预缓存失败（不影响整体流程）
+      try {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+          event: 'image_preload_progress',
+          data: {
+            artworkId: artwork.id,
+            artworkIndex: index,
+            status: 'failed',
+            title: artwork.title,
+            imageUrl: artwork.imageUrl,
+            error: error.message,
+            timestamp: Date.now()
+          }
+        })}\n\n`));
+      } catch (e) {
+        // Stream已关闭，忽略通知
+      }
+      
+      return { artworkId: artwork.id, status: 'failed', error: error.message };
+    }
+  });
 
-    return response.choices[0]?.message?.content || '欢迎开启这场艺术情绪之旅。';
+  // 并发执行所有预缓存，但不阻塞主流程
+  Promise.allSettled(imagePreloadPromises).then(results => {
+    const successful = results.filter(r => r.status === 'fulfilled' && r.value.status === 'success').length;
+    const failed = results.length - successful;
+    
+    console.log(`🖼️ 图片预缓存完成: ${successful}成功, ${failed}失败`);
+    
+    // 检查controller是否仍然可用
+    try {
+      // 流式通知预缓存完成状态
+      controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+        event: 'image_preload_complete',
+        data: {
+          total: artworks.length,
+          successful,
+          failed,
+          timestamp: Date.now()
+        }
+      })}\n\n`));
+    } catch (error) {
+      console.log('🖼️ 预缓存完成通知未发送 (stream已关闭)');
+    }
+  });
+}
+
+// 序言和结语生成已合并到统一策展生成器中
+
+/**
+ * 后台生成两级讲解体系
+ */
+async function generateExplanationsInBackground(
+  artworks: any[],
+  baseContext: any,
+  emotionCurveDesign: any
+) {
+  console.log('🧠 [后台] 开始生成两级讲解体系...');
+  
+  try {
+    // 生成两级讲解：简略 + 详细
+    const explanations = await LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch(
+      artworks,
+      baseContext,
+      emotionCurveDesign
+    );
+    
+    console.log(`✅ [后台] 讲解生成完成: ${explanations.length}个作品`);
+    // 这里可以将结果保存到缓存或数据库，供前端API调用
+    
   } catch (error) {
-    console.error('❌ 序言生成失败:', error);
-    return `在"${emotion}"的情绪中，让我们通过艺术的力量，寻找内心的共鸣与慰藉。这${artworks.length}件精选作品，将陪伴您走过这段情绪旅程。`;
+    console.error('❌ [后台] 讲解生成失败:', error);
   }
 }
 
 /**
- * 生成策展结语
- */
-async function generateCurationConclusion(
-  emotion: string,
-  userInput: string,
-  curveDesign: any,
-  artworks: any[]
-): Promise<string> {
-  const prompt = `为个性化艺术策展生成结语（中文）。
-
-用户情绪：${emotion}
-用户描述：${userInput}
-情绪旅程：${curveDesign.overallNarrative}
-转换逻辑：${curveDesign.transitionLogic}
-
-请生成一段120-150字的策展结语，要求：
-1. 总结这次艺术旅程的意义
-2. 回应用户最初的情绪状态，展现转化的可能
-3. 给用户以启发和力量
-4. 语言富有诗意但不失真诚
-
-直接返回结语内容，不要包含其他格式。`;
-
-  try {
-    const response = await glmClient.chat([
-      {
-        role: 'system',
-        content: '你是一位富有同理心的艺术策展人，擅长用启发性的语言为艺术体验画下句号。'
-      },
-      {
-        role: 'user',
-        content: prompt
-      }
-    ], {
-      temperature: 0.8,
-      max_tokens: 400,
-      thinking: 'disabled'
-    });
-
-    return response.choices[0]?.message?.content || '艺术的力量在于它能够触动我们内心最柔软的部分，愿这次旅程为您带来内心的平静与力量。';
-  } catch (error) {
-    console.error('❌ 结语生成失败:', error);
-    return '通过艺术的陪伴，我们学会了与自己的情绪和解。愿这些作品中的美好，能够在您心中留下温暖的印记。';
-  }
-}
-
-/**
- * 分批生成增强版讲解
+ * 分批生成增强版讲解 (已弃用，改为后台生成)
  */
 async function generateExplanationsInBatches(
   artworks: any[],
   baseContext: any,
-  curveDesign: any,
+  emotionCurveForExplanation: any,
   controller: ReadableStreamDefaultController,
   encoder: TextEncoder
 ) {
@@ -327,11 +361,11 @@ async function generateExplanationsInBatches(
       console.log(`🧠 处理第${batchIndex + 1}批讲解 (${startIndex + 1}-${endIndex})`);
       
       // 为这批作品生成增强版讲解
-      const explanations = await LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch(
-        batchArtworks,
-        baseContext,
-        curveDesign
-      );
+        const explanations = await LLMEnhancedExplanationGenerator.generateEnhancedExplanationsBatch(
+          batchArtworks,
+          baseContext,
+          emotionCurveForExplanation
+        );
       
       // 流式输出这批讲解
       controller.enqueue(encoder.encode(`data: ${JSON.stringify({

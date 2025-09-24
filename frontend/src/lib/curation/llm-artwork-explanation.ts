@@ -1,5 +1,25 @@
 // LLM驱动的增强版作品讲解生成器
 import { Artwork, ArtworkExplanation } from './types';
+
+/**
+ * 两级讲解结构
+ */
+export interface TwoTierExplanation extends ArtworkExplanation {
+  // 简略讲解 (画廊主界面显示)
+  briefIntroduction: string;  // 1-2句话的简短介绍
+  
+  // 详细讲解 (点击展开查看)
+  detailedAnalysis: {
+    emotionalJourney: string;    // 情绪旅程描述
+    artisticInsights: string;    // 艺术洞察
+    historicalStory: string;     // 历史故事
+    personalConnection: string;  // 个人连接
+    viewingExperience: string;   // 观看体验建议
+  };
+  
+  // 语音播放相关
+  audioScript?: string;  // 优化后的语音播放文本
+}
 import { glmClient } from '@/lib/glm-optimized-client';
 import { LLMEmotionCurveDesign } from './llm-emotion-curve';
 
@@ -50,19 +70,21 @@ export class LLMEnhancedExplanationGenerator {
   ): Promise<ArtworkExplanation> {
     console.log(`🧠 生成增强版讲解: ${artwork.title}`);
     
-    const prompt = this.buildEnhancedPrompt(artwork, context);
+    const prompt = this.buildNaturalPrompt(artwork, context);
     
     try {
       const messages = [
         {
           role: 'system' as const,
-          content: `你是一位专业的艺术策展人和讲解员，擅长将艺术作品与用户的情绪体验深度关联。你能够：
-1. 理解整个策展的情绪脉络和叙事逻辑
-2. 将单件作品置于完整的情绪旅程中解读
-3. 建立作品与用户具体情境的深层连接
-4. 使用具体而生动的语言，避免空洞的艺术术语
+          content: `你是一位温暖、富有共情力的艺术导览员。你的特质：
+- 善于倾听和理解每位观者的情绪状态
+- 用朋友般的语调分享艺术的故事和感动
+- 避免冰冷的学术用语，让艺术变得亲近温暖
+- 能够将艺术作品与观者的生活体验自然连接
 
-请始终返回有效的JSON格式。`
+你的目标是让每位观者在艺术面前感到被理解、被陪伴，而不是被教育。
+
+请始终返回有效的JSON格式，让每句话都充满人情味。`
         },
         {
           role: 'user' as const,
@@ -89,18 +111,30 @@ export class LLMEnhancedExplanationGenerator {
         explanationData = this.getFallbackExplanation(artwork, context);
       }
 
-      const explanation: ArtworkExplanation = {
+      const explanation: TwoTierExplanation = {
         artworkId: artwork.id,
-        emotionalConnection: explanationData.emotionalConnection || '与情绪的基本关联',
-        artisticAnalysis: explanationData.artisticAnalysis || '艺术技法分析',
-        historicalContext: explanationData.historicalContext || '历史背景信息',
-        curationReason: explanationData.curationReason || '策展选择理由',
-        userRelevance: explanationData.userRelevance || '与用户情境的关联',
-        confidence: Math.max(0, Math.min(1, explanationData.confidence || 0.7)),
+        // 保持原有字段兼容性
+        emotionalConnection: explanationData.detailedAnalysis?.emotionalJourney || explanationData.emotionalConnection || '与情绪的基本关联',
+        artisticAnalysis: explanationData.detailedAnalysis?.artisticInsights || explanationData.artisticAnalysis || '艺术技法分析',
+        historicalContext: explanationData.detailedAnalysis?.historicalStory || explanationData.historicalContext || '历史背景信息',
+        curationReason: explanationData.detailedAnalysis?.personalConnection || explanationData.curationReason || '策展选择理由',
+        userRelevance: explanationData.detailedAnalysis?.personalConnection || explanationData.userRelevance || '与用户情境的关联',
+        confidence: Math.max(0, Math.min(1, explanationData.confidence || 0.8)),
         // 新增字段
         stageNarrative: explanationData.stageNarrative || '',
         emotionTransition: explanationData.emotionTransition || '',
-        viewingGuidance: explanationData.viewingGuidance || ''
+        viewingGuidance: explanationData.detailedAnalysis?.viewingExperience || explanationData.viewingGuidance || '',
+        
+        // 两级讲解新字段
+        briefIntroduction: explanationData.briefIntroduction || '这是一件值得细细品味的作品。',
+        detailedAnalysis: {
+          emotionalJourney: explanationData.detailedAnalysis?.emotionalJourney || '这件作品与您的情绪产生共鸣',
+          artisticInsights: explanationData.detailedAnalysis?.artisticInsights || '艺术家运用了独特的技法',
+          historicalStory: explanationData.detailedAnalysis?.historicalStory || '这件作品承载着时代的记忆',
+          personalConnection: explanationData.detailedAnalysis?.personalConnection || '这件作品能够带来个人启发',
+          viewingExperience: explanationData.detailedAnalysis?.viewingExperience || '建议您静静观看，感受作品的力量'
+        },
+        audioScript: explanationData.audioScript || this.generateAudioScript(explanationData)
       };
 
       console.log(`✅ 增强版讲解生成完成: ${artwork.title}`);
@@ -115,7 +149,7 @@ export class LLMEnhancedExplanationGenerator {
   /**
    * 构建增强版提示词
    */
-  private static buildEnhancedPrompt(
+  private static buildNaturalPrompt(
     artwork: Artwork, 
     context: EnhancedExplanationContext
   ): string {
@@ -123,79 +157,72 @@ export class LLMEnhancedExplanationGenerator {
     
     let positionDescription = '';
     if (artworkPosition.isOpening) {
-      positionDescription = `这是策展的开篇作品（第${artworkPosition.index + 1}/${artworkPosition.total}件）`;
+      positionDescription = `这是开启情绪旅程的第一件作品`;
     } else if (artworkPosition.isClosing) {
-      positionDescription = `这是策展的收尾作品（第${artworkPosition.index + 1}/${artworkPosition.total}件）`;
+      positionDescription = `这是完成情绪转化的最后一件作品`;
     } else if (artworkPosition.isMidpoint) {
-      positionDescription = `这是策展的中心转折作品（第${artworkPosition.index + 1}/${artworkPosition.total}件）`;
+      positionDescription = `这是情绪转化的关键转折点`;
     } else {
-      positionDescription = `这是策展中的第${artworkPosition.index + 1}件作品（共${artworkPosition.total}件）`;
+      positionDescription = `这是情绪旅程中的第${artworkPosition.index + 1}站`;
     }
 
-    return `为艺术作品生成深度个性化讲解（中文）。
+    return `你是一位温暖而富有洞察力的艺术导览员，正在为一位特殊的观者介绍这件作品。
 
-## 作品信息
-- 标题：${artwork.title}
-- 艺术家：${artwork.artist}
-- 创作年代：${artwork.year}
-- 材质：${artwork.medium}
-- 描述：${artwork.description || '暂无描述'}
-- 收藏机构：${artwork.museum}
+## 这位观者的状态
+他们现在感受到"${context.emotion}"，具体来说：${context.userInput}
 
-## 用户情境
-- 核心情绪：${context.emotion}
-- 具体描述：${context.userInput}
-
-## 策展上下文
+## 这件作品
+《${artwork.title}》by ${artwork.artist} (${artwork.year})
+${artwork.description ? `作品描述：${artwork.description}` : ''}
 ${positionDescription}
-${context.curationIntroduction ? `策展序言：${context.curationIntroduction}` : ''}
-${context.curationConclusion ? `策展结语：${context.curationConclusion}` : ''}
-${context.overallNarrative ? `整体叙事：${context.overallNarrative}` : ''}
 
-## 情绪曲线设计
-${artworkStageInfo ? `
-当前阶段：${artworkStageInfo.stageName}
-阶段描述：${artworkStageInfo.stageDescription}
-情绪强度：${(artworkStageInfo.expectedIntensity * 100).toFixed(0)}%
-作品要求：${artworkStageInfo.artworkRequirement}
-` : ''}
+## 你的任务
+请为这位观者创作两层讲解：
 
-${context.emotionCurveDesign ? `
-整体情绪旅程：${context.emotionCurveDesign.overallNarrative}
-转换逻辑：${context.emotionCurveDesign.transitionLogic}
-` : ''}
+**第一层 - 初见印象 (briefIntroduction)**
+就像在真实画廊中，观者刚走到作品前，你轻声说出的第一句话。要自然、温暖，能立刻建立情感连接。1-2句话即可。
 
-## 生成要求
+**第二层 - 深度对话 (detailedAnalysis)**
+当观者表现出兴趣，愿意深入了解时，你会分享的故事和洞察：
 
-请深度分析这件作品在整个情绪旅程中的作用，生成个性化讲解：
+- **emotionalJourney**: 这件作品如何陪伴观者的情绪变化？像朋友般的理解和共鸣
+- **artisticInsights**: 艺术家的创作故事和技巧，用生动的语言讲述，不要教科书式的分析
+- **historicalStory**: 这件作品背后的时代故事，让历史变得生动有趣
+- **personalConnection**: 基于观者的具体情况，这件作品能带来什么个人启发？
+- **viewingExperience**: 建议观者如何观看这件作品，像朋友的贴心提醒
 
-1. **情绪关联**：这件作品如何与用户的"${context.emotion}"和"${context.userInput}"产生深层共鸣？
-2. **艺术分析**：从技法、构图、色彩、材质等角度，分析作品的表现力
-3. **历史背景**：作品的创作背景、时代特征、艺术史地位
-4. **策展理由**：为什么选择这件作品放在这个位置？它如何服务于整体叙事？
-5. **用户相关性**：结合用户的具体情境，这件作品能给用户什么启发或慰藉？
-6. **阶段叙事**：这件作品在情绪旅程中承担什么角色？
-7. **情绪转换**：观看这件作品后，用户的情绪状态预期如何变化？
-8. **观看指导**：建议用户如何观看和体验这件作品？
+**语音播放版本 (audioScript)**
+将上述内容整合为适合语音播放的连贯讲解，自然流畅，就像真人在身边轻声讲述。
 
-## 写作要求
-- 使用具体而生动的语言，避免空洞的艺术术语
-- 每个维度80-150字，深入而不冗长
-- 建立作品与用户情境的具体连接，不要泛泛而谈
-- 体现这件作品在整个情绪旅程中的独特价值
+## 写作风格
+- 像朋友对话，不是学术讲座
+- 用温暖、理解的语调，特别考虑观者的"${context.emotion}"情绪
+- 避免艺术术语堆砌，用生动的比喻和故事
+- 让每句话都有温度和共鸣
 
-返回JSON格式：
+请返回JSON格式：
 {
-  "emotionalConnection": "情绪关联分析",
-  "artisticAnalysis": "艺术技法分析", 
-  "historicalContext": "历史背景阐述",
-  "curationReason": "策展选择理由",
-  "userRelevance": "用户情境关联",
-  "stageNarrative": "阶段叙事作用",
-  "emotionTransition": "情绪转换预期",
-  "viewingGuidance": "观看体验建议",
-  "confidence": 0.85
+  "briefIntroduction": "初见时的温暖问候",
+  "detailedAnalysis": {
+    "emotionalJourney": "情绪陪伴的故事",
+    "artisticInsights": "艺术家的创作故事",
+    "historicalStory": "时代背景的生动讲述",
+    "personalConnection": "给观者的个人启发",
+    "viewingExperience": "观看建议"
+  },
+  "audioScript": "适合语音播放的连贯讲解",
+  "confidence": 0.9
 }`;
+  }
+
+  /**
+   * 生成音频播放脚本
+   */
+  private static generateAudioScript(explanationData: any): string {
+    const brief = explanationData.briefIntroduction || '';
+    const detailed = explanationData.detailedAnalysis || {};
+    
+    return `${brief} ${detailed.emotionalJourney || ''} ${detailed.artisticInsights || ''} ${detailed.viewingExperience || ''}`.trim();
   }
 
   /**
@@ -204,7 +231,9 @@ ${context.emotionCurveDesign ? `
   private static getFallbackExplanation(
     artwork: Artwork, 
     context: EnhancedExplanationContext
-  ): ArtworkExplanation {
+  ): TwoTierExplanation {
+    const briefIntro = `这是${artwork.artist}的作品《${artwork.title}》，它似乎在对您的"${context.emotion}"轻声诉说着什么。`;
+    
     return {
       artworkId: artwork.id,
       emotionalConnection: `${artwork.title}通过其${artwork.medium}的表现形式，与"${context.emotion}"产生共鸣`,
@@ -215,7 +244,18 @@ ${context.emotionCurveDesign ? `
       confidence: 0.6,
       stageNarrative: `这件作品在情绪旅程中起到重要的连接作用`,
       emotionTransition: `观看后用户的情绪状态将得到调节和升华`,
-      viewingGuidance: `建议静心观看，感受作品的色彩、构图和情绪表达`
+      viewingGuidance: `建议静心观看，感受作品的色彩、构图和情绪表达`,
+      
+      // 两级讲解
+      briefIntroduction: briefIntro,
+      detailedAnalysis: {
+        emotionalJourney: `在您感受"${context.emotion}"的时刻，这件作品就像一位理解您的朋友。`,
+        artisticInsights: `${artwork.artist}在创作这件作品时，运用了${artwork.medium}的独特表现力。`,
+        historicalStory: `${artwork.year}年，当这件作品诞生时，世界正经历着独特的时代变迁。`,
+        personalConnection: `每个人在面对这件作品时都会有不同的感受，对您来说，它可能正好回应了内心的某种需要。`,
+        viewingExperience: `不妨先从整体感受开始，然后慢慢关注细节，让作品与您的心境自然对话。`
+      },
+      audioScript: `${briefIntro} 在您感受"${context.emotion}"的时刻，这件作品就像一位理解您的朋友。${artwork.artist}在创作时运用了独特的表现力，让我们一起静静感受它想要传达的温暖。`
     };
   }
 
@@ -228,6 +268,8 @@ ${context.emotionCurveDesign ? `
     emotionCurveDesign?: LLMEmotionCurveDesign
   ): Promise<ArtworkExplanation[]> {
     console.log(`🧠 批量生成增强版讲解，共${artworks.length}件作品`);
+    console.log('🧠 [DEBUG] emotionCurveDesign 状态:', emotionCurveDesign ? '已提供' : '未提供');
+    console.log('🧠 [DEBUG] baseContext keys:', Object.keys(baseContext));
     
     const explanations: ArtworkExplanation[] = [];
     const total = artworks.length;
@@ -264,7 +306,7 @@ ${context.emotionCurveDesign ? `
         ...baseContext,
         artworkPosition,
         artworkStageInfo,
-        emotionCurveDesign
+        ...(emotionCurveDesign && { emotionCurveDesign })
       };
       
       try {

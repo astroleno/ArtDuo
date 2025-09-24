@@ -10,14 +10,18 @@
   },
   "dependencies": {
     "@chatui/core": "^3.3.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.16",
     "gsap": "^3.13.0",
     "lucide-react": "^0.544.0",
     "metmuseum-mcp": "^0.9.5",
-    "zod": "^3.23.8",
     "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "zod": "^3.23.8",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

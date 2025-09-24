@@ -1,0 +1,74 @@
+/* 调试用边框和背景 - 仅用于开发环境 */
+/* .debug * {
+  outline: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.debug-debug * {
+  outline: 1px solid rgba(0, 255, 0, 0.3);
+} */
+
+/* 布局调试工具类 */
+.debug-border {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.debug-bg {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.debug-flex {
+  border: 2px solid rgba(0, 255, 0, 0.3);
+}
+
+.debug-grid {
+  border: 2px solid rgba(0, 0, 255, 0.3);
+}
+
+/* 响应式调试 */
+.debug-responsive::before {
+  content: 'xs';
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 9999;
+}
+
+@media (min-width: 768px) {
+  .debug-responsive::before {
+    content: 'md';
+  }
+}
+
+@media (min-width: 1024px) {
+  .debug-responsive::before {
+    content: 'lg';
+  }
+}
+
+@media (min-width: 1280px) {
+  .debug-responsive::before {
+    content: 'xl';
+  }
+}
+
+/* Tailwind类名调试 */
+.debug-tailwind-classes {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: monospace;
+  max-width: 300px;
+  z-index: 9999;
+  max-height: 200px;
+  overflow-y: auto;
+}

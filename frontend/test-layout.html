@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沉浸式画廊布局测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .main-container {
+            position: relative;
+            min-height: 100vh;
+            background-color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .back-button {
+            padding: 0.5rem 1rem;
+            color: #cbd5e1;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-button:hover {
+            color: #f59e0b;
+        }
+
+        .header-title {
+            color: #cbd5e1;
+            font-size: 0.875rem;
+        }
+
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .progress-indicator {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .progress-dots {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-dot {
+            width: 0.375rem;
+            height: 0.375rem;
+            border-radius: 9999px;
+            background-color: #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            width: 1.5rem;
+            background-color: #f59e0b;
+        }
+
+        .progress-dot.completed {
+            background-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .progress-text {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .artwork-container {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 4/3;
+            position: relative;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            background-color: rgba(30, 41, 59, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .artwork-display {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e293b, #4c1d95, #1e293b);
+        }
+
+        .artwork-content {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .artwork-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .artwork-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .artwork-artist {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.25rem;
+        }
+
+        .artwork-details {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .artwork-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            color: #ffffff;
+            font-size: 0.875rem;
+        }
+
+        .description {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .description-text {
+            color: #ffffff;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-button {
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-button {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .detail-button:hover {
+            background-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .audio-button {
+            background-color: rgba(30, 41, 59, 0.5);
+            color: #ffffff;
+        }
+
+        .audio-button:hover {
+            background-color: rgba(30, 41, 59, 0.8);
+        }
+
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(30, 41, 59, 0.4);
+            color: #cbd5e1;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(8px);
+            z-index: 30;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(30, 41, 59, 0.8);
+            color: #f59e0b;
+        }
+
+        .nav-button.left {
+            left: 1rem;
+        }
+
+        .nav-button.right {
+            right: 1rem;
+        }
+
+        .details-panel {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(30, 41, 59, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(30, 41, 59, 0.2);
+            text-align: left;
+            display: none;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .detail-section {
+            margin-bottom: 1rem;
+        }
+
+        .detail-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .detail-content {
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            padding-left: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .artwork-container {
+                max-width: 100%;
+                margin: 0 1rem 2rem;
+            }
+
+            .nav-button {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .nav-button.left {
+                left: 0.5rem;
+            }
+
+            .nav-button.right {
+                right: 0.5rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .description-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <button class="back-button">← 返回</button>
+            <div class="header-title">沉浸式展览 <span style="opacity: 0.6;">预览模式</span></div>
+        </div>
+
+        <div class="content-area">
+            <div class="progress-indicator">
+                <div class="progress-dots">
+                    <div class="progress-dot active" id="dot1"></div>
+                    <div class="progress-dot" id="dot2"></div>
+                </div>
+                <div class="progress-text">1 / 2</div>
+            </div>
+
+            <div class="artwork-container">
+                <div class="artwork-display">
+                    <div class="artwork-content">
+                        <div class="artwork-emoji">🌌</div>
+                        <h2 class="artwork-title">星夜</h2>
+                        <p class="artwork-artist">文森特·梵高</p>
+                        <p class="artwork-details">1889 · 布面油画</p>
+                    </div>
+                </div>
+                <div class="artwork-label">
+                    <div style="font-weight: 500;">星夜</div>
+                    <div style="opacity: 0.8;">文森特·梵高, 1889</div>
+                </div>
+            </div>
+
+            <div class="description">
+                <div class="description-text">
+                    在这旋转的星空下，梵高将他内心的 turmoil 转化为永恒的美。每一笔都在诉说着人类对无限的向往。
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="control-button detail-button" onclick="toggleDetails()">
+                    深入了解
+                </button>
+                <button class="control-button audio-button">
+                    🔊 讲解
+                </button>
+            </div>
+
+            <div class="details-panel" id="detailsPanel">
+                <div class="details-grid">
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span>💙</span>
+                            <div>情绪陪伴</div>
+                        </div>
+                        <div class="detail-content">
+                            当您凝视这幅画时，是否感受到内心的某种共鸣？那些旋转的星云像是我们思绪的具象化，turbulent yet beautiful。
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span>🎨</span>
+                            <div>艺术洞察</div>
+                        </div>
+                        <div class="detail-content">
+                            梵高用厚重的颜料和独特的笔触创造出了动感，每一笔都充满力量。这不仅是技法，更是情感的直接流露。
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span>📖</span>
+                            <div>历史故事</div>
+                        </div>
+                        <div class="detail-content">
+                            1889年，梵高在圣雷米精神病院创作了这幅画。在精神痛苦中，他创造出了这幅充满希望的作品。
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span>✨</span>
+                            <div>个人启发</div>
+                        </div>
+                        <div class="detail-content">
+                            也许您此刻的心情也像这星空一样复杂，但请记住，正如黑暗衬托出星星的光芒，困难中也蕴含着美。
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section" style="margin-top: 1.5rem;">
+                    <div class="detail-title">
+                        <span>👁️</span>
+                        <div>观看建议</div>
+                    </div>
+                    <div class="detail-content">
+                        建议您先远观整体，再近看细节。注意那些旋转的笔触，感受梵高创作时的情感状态。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="nav-button left" onclick="previousArtwork()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"></path>
+            </svg>
+        </button>
+
+        <button class="nav-button right" onclick="nextArtwork()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        let currentArtwork = 0;
+        const totalArtworks = 2;
+
+        const artworks = [
+            {
+                title: '星夜',
+                artist: '文森特·梵高',
+                year: '1889',
+                medium: '布面油画',
+                emoji: '🌌',
+                description: '在这旋转的星空下，梵高将他内心的 turmoil 转化为永恒的美。每一笔都在诉说着人类对无限的向往。'
+            },
+            {
+                title: '蒙娜丽莎',
+                artist: '列奥纳多·达·芬奇',
+                year: '1503',
+                medium: '木板油画',
+                emoji: '🎭',
+                description: '她的微笑穿越了五个世纪，依然在诉说着人性的神秘与复杂。'
+            }
+        ];
+
+        function updateArtwork() {
+            const artwork = artworks[currentArtwork];
+
+            // 更新作品内容
+            document.querySelector('.artwork-emoji').textContent = artwork.emoji;
+            document.querySelector('.artwork-title').textContent = artwork.title;
+            document.querySelector('.artwork-artist').textContent = artwork.artist;
+            document.querySelector('.artwork-details').textContent = `${artwork.year} · ${artwork.medium}`;
+            document.querySelector('.description-text').textContent = artwork.description;
+
+            // 更新标签
+            document.querySelector('.artwork-label div:first-child').textContent = artwork.title;
+            document.querySelector('.artwork-label div:last-child').textContent = `${artwork.artist}, ${artwork.year}`;
+
+            // 更新进度指示器
+            document.getElementById('dot1').className = currentArtwork === 0 ? 'progress-dot active' : 'progress-dot completed';
+            document.getElementById('dot2').className = currentArtwork === 1 ? 'progress-dot active' : 'progress-dot';
+            document.querySelector('.progress-text').textContent = `${currentArtwork + 1} / ${totalArtworks}`;
+
+            // 隐藏详情面板
+            document.getElementById('detailsPanel').style.display = 'none';
+        }
+
+        function nextArtwork() {
+            currentArtwork = (currentArtwork + 1) % totalArtworks;
+            updateArtwork();
+        }
+
+        function previousArtwork() {
+            currentArtwork = (currentArtwork - 1 + totalArtworks) % totalArtworks;
+            updateArtwork();
+        }
+
+        function toggleDetails() {
+            const panel = document.getElementById('detailsPanel');
+            const button = document.querySelector('.detail-button');
+
+            if (panel.style.display === 'none' || panel.style.display === '') {
+                panel.style.display = 'block';
+                button.textContent = '收起详情';
+            } else {
+                panel.style.display = 'none';
+                button.textContent = '深入了解';
+            }
+        }
+
+        // 键盘导航
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') previousArtwork();
+            if (e.key === 'ArrowRight') nextArtwork();
+            if (e.key === 'Escape') {
+                document.getElementById('detailsPanel').style.display = 'none';
+                document.querySelector('.detail-button').textContent = '深入了解';
+            }
+        });
+    </script>
+</body>
+</html>
