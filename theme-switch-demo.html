@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主题切换演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 浅色主题变量 */
+            --bg-primary: #f5f5f4;
+            --bg-secondary: #e7e5e4;
+            --bg-tertiary: #d6d3d1;
+            --text-primary: #1c1917;
+            --text-secondary: #57534e;
+            --text-tertiary: #78716c;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(0, 0, 0, 0.12);
+            --btn-primary: #1c1917;
+            --btn-text: #f5f5f4;
+            --ripple-color: #000000;
+        }
+
+        [data-theme="dark"] {
+            /* 深色主题变量 */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #808080;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --btn-primary: #ffffff;
+            --btn-text: #1a1a1a;
+            --ripple-color: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .demo-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .demo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .demo-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .demo-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            color: var(--btn-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        /* 改进的主题扩散效果 */
+        .theme-ripple {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--ripple-color);
+            mix-blend-mode: multiply;
+            clip-path: circle(0 at calc(100% - 3.5rem) 3.5rem);
+            transition: clip-path 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.85;
+        }
+
+        .theme-ripple.active {
+            clip-path: circle(150vh at calc(100% - 3.5rem) 3.5rem);
+        }
+
+        /* 主题过渡层 */
+        .theme-transition-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 998;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* 颜色指示器 */
+        .color-indicators {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .color-indicator {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: 2px solid var(--card-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .color-indicator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .info-panel {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 300px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-panel h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-panel p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .test-buttons {
+            position: fixed;
+            top: 6rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .test-btn {
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .test-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>主题切换效果演示</h1>
+            <p>展示"扩散到哪儿哪儿就立即变色"的视觉效果</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="demo-card">
+                <h3>技术原理</h3>
+                <p>使用CSS混合模式(mix-blend-mode)和clip-path实现圆形扩散效果。在扩散过程中，被覆盖的区域会立即变成新主题的颜色。</p>
+            </div>
+
+            <div class="demo-card">
+                <h3>核心特性</h3>
+                <p>1. 实时颜色混合<br>2. 圆形扩散动画<br>3. 平滑过渡效果<br>4. 主题变量自动切换</p>
+            </div>
+
+            <div class="demo-card">
+                <h3>实现方式</h3>
+                <p>1. 创建固定定位的扩散层<br>2. 使用clip-path控制显示区域<br>3. mix-blend-mode实现颜色混合<br>4. JavaScript控制动画时序</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="theme-toggle" title="切换主题">
+        <span id="theme-icon">●</span>
+    </button>
+
+    <!-- 测试按钮 -->
+    <div class="test-buttons">
+        <button class="test-btn" onclick="testFastToggle()">快速切换</button>
+        <button class="test-btn" onclick="testContinuousToggle()">连续切换</button>
+    </div>
+
+    <!-- 颜色指示器 -->
+    <div class="color-indicators">
+        <div class="color-indicator" title="背景色"></div>
+        <div class="color-indicator" title="文本色"></div>
+    </div>
+
+    <!-- 信息面板 -->
+    <div class="info-panel">
+        <h4><span class="status-indicator"></span>当前状态</h4>
+        <p id="status-info">点击右上角按钮切换主题</p>
+    </div>
+
+    <script>
+        class ThemeDemo {
+            constructor() {
+                this.themeToggle = document.getElementById('theme-toggle');
+                this.themeIcon = document.getElementById('theme-icon');
+                this.statusInfo = document.getElementById('status-info');
+                this.isTransitioning = false;
+                this.currentTheme = 'light';
+
+                this.init();
+            }
+
+            init() {
+                this.themeToggle.addEventListener('click', () => {
+                    if (!this.isTransitioning) {
+                        this.toggleTheme();
+                    }
+                });
+
+                // 初始化主题
+                this.initTheme();
+            }
+
+            initTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                const currentTheme = savedTheme || systemTheme;
+
+                this.setTheme(currentTheme);
+            }
+
+            toggleTheme() {
+                const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+                this.currentTheme = newTheme;
+
+                this.updateStatus('正在切换主题...');
+                this.createAdvancedRippleEffect(newTheme);
+            }
+
+            createAdvancedRippleEffect(targetTheme) {
+                this.isTransitioning = true;
+
+                // 创建过渡层
+                const transitionLayer = document.createElement('div');
+                transitionLayer.className = 'theme-transition-layer';
+                document.body.appendChild(transitionLayer);
+
+                // 创建扩散蒙版
+                const ripple = document.createElement('div');
+                ripple.className = 'theme-ripple';
+
+                // 根据目标主题设置扩散蒙版颜色
+                const rippleColor = targetTheme === 'dark' ? '#000000' : '#FFFFFF';
+                ripple.style.background = rippleColor;
+                document.body.appendChild(ripple);
+
+                // 强制重排
+                ripple.offsetHeight;
+
+                // 开始扩散动画
+                requestAnimationFrame(() => {
+                    // 立即切换主题 - 这是关键！
+                    this.setTheme(targetTheme);
+
+                    // 同时激活扩散动画
+                    ripple.classList.add('active');
+
+                    // 立即显示过渡层以增强效果
+                    transitionLayer.style.opacity = '0.2';
+
+                    this.updateStatus(`切换到${targetTheme === 'dark' ? '深色' : '浅色'}主题...`);
+                });
+
+                // 动画完成后清理
+                setTimeout(() => {
+                    transitionLayer.style.opacity = '0';
+                    this.updateStatus('主题切换完成');
+
+                    setTimeout(() => {
+                        ripple.remove();
+                        transitionLayer.remove();
+                        this.isTransitioning = false;
+
+                        setTimeout(() => {
+                            this.updateStatus('点击右上角按钮切换主题');
+                        }, 1000);
+                    }, 300);
+                }, 1500);
+            }
+
+            setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                // 更新图标
+                this.themeIcon.textContent = theme === 'dark' ? '○' : '●';
+
+                // 更新状态
+                this.currentTheme = theme;
+            }
+
+            updateStatus(message) {
+                this.statusInfo.textContent = message;
+            }
+        }
+
+        // 测试函数
+        let testInterval;
+
+        function testFastToggle() {
+            if (testInterval) {
+                clearInterval(testInterval);
+                testInterval = null;
+                return;
+            }
+
+            testInterval = setInterval(() => {
+                document.getElementById('theme-toggle').click();
+            }, 500);
+        }
+
+        function testContinuousToggle() {
+            if (testInterval) {
+                clearInterval(testInterval);
+                testInterval = null;
+                return;
+            }
+
+            let count = 0;
+            testInterval = setInterval(() => {
+                document.getElementById('theme-toggle').click();
+                count++;
+                if (count >= 5) {
+                    clearInterval(testInterval);
+                    testInterval = null;
+                }
+            }, 2000);
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            new ThemeDemo();
+        });
+    </script>
+</body>
+</html>

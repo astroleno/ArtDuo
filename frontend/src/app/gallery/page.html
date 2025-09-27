@@ -11,12 +11,51 @@
             box-sizing: border-box;
         }
 
+        :root {
+            /* 浅色主题变量 */
+            --bg-primary: #f5f5f4;
+            --bg-secondary: #e7e5e4;
+            --bg-tertiary: #d6d3d1;
+            --text-primary: #1c1917;
+            --text-secondary: #57534e;
+            --text-tertiary: #78716c;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(0, 0, 0, 0.12);
+            --btn-primary: linear-gradient(135deg, #1c1917 0%, #44403c 100%);
+            --btn-text: #f5f5f4;
+            --input-bg: rgba(255, 255, 255, 0.8);
+            --input-border: rgba(0, 0, 0, 0.1);
+            --modal-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: transparent;
+            --footer-text: #1c1917;
+        }
+
+        [data-theme="dark"] {
+            /* 深色主题变量 */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #808080;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --btn-primary: linear-gradient(135deg, #1c1917 0%, #44403c 100%);
+            --btn-text: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --input-border: rgba(255, 255, 255, 0.2);
+            --modal-bg: #2d2d2d;
+            --footer-bg: transparent;
+            --footer-text: #d6d3d1;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(to bottom, #f5f5f4, #e7e5e4, #d6d3d1);
-            color: #1c1917;
+            background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary), var(--bg-tertiary));
+            color: var(--text-primary);
             overflow-x: hidden;
             min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -35,14 +74,16 @@
             font-size: 1.6875rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: #1c1917;
+            color: var(--text-primary);
             letter-spacing: 0.02em;
+            transition: color 0.3s ease;
         }
 
         .header p {
             font-size: 1.03125rem;
-            color: #57534e;
+            color: var(--text-secondary);
             margin-bottom: 2rem;
+            transition: color 0.3s ease;
         }
 
         .gallery-grid {
@@ -53,19 +94,19 @@
         }
 
         .artwork-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             border-radius: 0;
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
-            border: 1px solid rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--card-border);
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
         }
 
         .artwork-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.25);
-            background: rgba(255, 255, 255, 1);
+            background: var(--card-bg);
         }
 
         .artwork-image {
@@ -82,25 +123,29 @@
             font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: #1c1917;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
 
         .artwork-artist {
             font-size: 0.75rem;
-            color: #57534e;
+            color: var(--text-secondary);
             margin-bottom: 0.25rem;
+            transition: color 0.3s ease;
         }
 
         .artwork-year {
             font-size: 0.625rem;
-            color: #78716c;
+            color: var(--text-tertiary);
             margin-bottom: 1rem;
+            transition: color 0.3s ease;
         }
 
         .artwork-description {
             font-size: 0.625rem;
             line-height: 1.6;
-            color: #44403c;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .breathing-trigger {
@@ -110,14 +155,15 @@
             width: 4rem;
             height: 4rem;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1c1917 0%, #44403c 100%);
+            background: var(--btn-primary);
             border: none;
-            color: #f5f5f4;
+            color: var(--btn-text);
             font-size: 1.5rem;
             cursor: pointer;
             animation: breathing 2s ease-in-out infinite;
             box-shadow: 0 4px 20px rgba(28, 25, 23, 0.4);
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
         @keyframes breathing {
@@ -142,15 +188,16 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--modal-bg);
             padding: 2rem;
             border-radius: 0;
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--card-border);
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
+            transition: background 0.3s ease;
         }
 
         .modal-close {
@@ -159,14 +206,14 @@
             right: 1rem;
             background: none;
             border: none;
-            color: #57534e;
+            color: var(--text-secondary);
             font-size: 1.5rem;
             cursor: pointer;
             transition: color 0.3s ease;
         }
 
         .modal-close:hover {
-            color: #1c1917;
+            color: var(--text-primary);
         }
 
         .loading {
@@ -175,17 +222,19 @@
             justify-content: center;
             min-height: 50vh;
             font-size: 1.2rem;
-            color: #57534e;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .spinner {
             width: 3rem;
             height: 3rem;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-top: 3px solid #1c1917;
+            border: 3px solid var(--card-border);
+            border-top: 3px solid var(--text-primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-right: 1rem;
+            transition: border-color 0.3s ease;
         }
 
         @keyframes spin {
@@ -196,11 +245,14 @@
 
         .footer {
             padding: 1rem 0;
-            position: relative;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             z-index: 10;
-            background-color: transparent;
-            color: #1c1917;
-            margin-top: auto;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .footer-content {
@@ -216,6 +268,33 @@
             letter-spacing: 0.05em;
             opacity: 0.7;
         }
+
+        /* 主题切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 1.7rem;
+            height: 1.7rem;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
 
         @media (max-width: 768px) {
             .gallery-grid {
@@ -256,9 +335,11 @@
         </div>
     </footer>
 
-    <button class="breathing-trigger" id="breathing-trigger" title="AI对话">
-        💬
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="theme-toggle" title="切换主题">
+        <span id="theme-icon">●</span>
     </button>
+
 
     <div id="modal" class="modal">
         <div class="modal-content">
@@ -270,117 +351,17 @@
     </div>
 
     <script>
-        // 艺术作品数据
-        const artworks = [
-            {
-                id: '1',
-                title: '星夜',
-                artist: '文森特·梵高',
-                year: '1889',
-                medium: '布面油画',
-                dimensions: '73.7 × 92.1 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-                description: '这幅画描绘了一个充满动感的夜空，展现了艺术家内心的情感波动。',
-                museum: '纽约现代艺术博物馆',
-                license: 'CC0',
-            },
-            {
-                id: '2',
-                title: '蒙娜丽莎',
-                artist: '列奥纳多·达·芬奇',
-                year: '1503-1519',
-                medium: '木板油画',
-                dimensions: '77 × 53 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
-                description: '世界上最著名的肖像画之一，以其神秘的微笑而闻名。',
-                museum: '卢浮宫',
-                license: 'CC0',
-            },
-            {
-                id: '3',
-                title: '呐喊',
-                artist: '爱德华·蒙克',
-                year: '1893',
-                medium: '纸板蛋彩画',
-                dimensions: '91 × 73.5 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
-                description: '表现主义代表作，表达了现代人的焦虑和孤独。',
-                museum: '挪威国家美术馆',
-                license: 'CC0',
-            },
-            {
-                id: '4',
-                title: '向日葵',
-                artist: '文森特·梵高',
-                year: '1888',
-                medium: '布面油画',
-                dimensions: '92 × 73 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-                description: '梵高最著名的静物画之一，展现了生命的活力和希望。',
-                museum: '伦敦国家美术馆',
-                license: 'CC0',
-            },
-            {
-                id: '5',
-                title: '格尔尼卡',
-                artist: '巴勃罗·毕加索',
-                year: '1937',
-                medium: '布面油画',
-                dimensions: '349.3 × 776.6 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-                description: '反战主题的杰作，表达了艺术家对战争的愤怒和悲痛。',
-                museum: '索菲亚王后国家艺术中心',
-                license: 'CC0',
-            },
-            {
-                id: '6',
-                title: '睡莲',
-                artist: '克劳德·莫奈',
-                year: '1919',
-                medium: '布面油画',
-                dimensions: '100 × 200 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-                description: '印象派大师的晚期作品，展现了光影变化的魅力。',
-                museum: '橘园美术馆',
-                license: 'CC0',
-            },
-            {
-                id: '7',
-                title: '最后的晚餐',
-                artist: '列奥纳多·达·芬奇',
-                year: '1495-1498',
-                medium: '壁画',
-                dimensions: '460 × 880 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-                description: '文艺复兴时期的杰作，描绘了耶稣与门徒的最后晚餐。',
-                museum: '圣玛丽亚感恩教堂',
-                license: 'CC0',
-            },
-            {
-                id: '8',
-                title: '创世纪',
-                artist: '米开朗基罗',
-                year: '1508-1512',
-                medium: '壁画',
-                dimensions: '14 × 40 m',
-                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-                description: '西斯廷教堂的天顶画，展现了上帝创造亚当的经典场景。',
-                museum: '梵蒂冈西斯廷教堂',
-                license: 'CC0',
-            },
-            {
-                id: '9',
-                title: '夜巡',
-                artist: '伦勃朗',
-                year: '1642',
-                medium: '布面油画',
-                dimensions: '363 × 437 cm',
-                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-                description: '荷兰黄金时代的杰作，展现了光影大师的精湛技艺。',
-                museum: '阿姆斯特丹国家博物馆',
-                license: 'CC0',
-            }
-        ];
+        // 策展数据存储
+        let curationData = {
+            emotion: '',
+            userInput: '',
+            artworks: [],
+            introduction: '',
+            conclusion: '',
+            explanations: [],
+            emotionCurve: null,
+            isComplete: false
+        };
 
         class GalleryPage {
             constructor() {
@@ -389,35 +370,181 @@
                 this.modal = document.getElementById('modal');
                 this.modalBody = document.getElementById('modal-body');
                 this.modalClose = document.getElementById('modal-close');
-                this.breathingTrigger = document.getElementById('breathing-trigger');
                 this.emotionTitle = document.getElementById('emotion-title');
+                this.themeToggle = document.getElementById('theme-toggle');
+                this.themeIcon = document.getElementById('theme-icon');
                 this.selectedArtwork = null;
+                this.eventSource = null;
+
+                // 加载文本配置 - 简化为4个用户可见阶段
+                this.loadingTexts = {
+                    'analyzing': '正在分析您的情绪...',
+                    'curating': '正在设计策展方案...',
+                    'intro': '正在生成策展序言...',
+                    'complete': '策展完成，准备进入沉浸式体验...'
+                };
 
                 this.init();
             }
 
             init() {
-                this.renderArtworks();
                 this.setupEventListeners();
                 this.checkEmotionFromUrl();
-
-                // 模拟加载过程
-                setTimeout(() => {
-                    this.loading.style.display = 'none';
-                    this.galleryGrid.style.display = 'grid';
-                }, 1500);
+                this.initTheme();
+                this.startCuration();
             }
 
             checkEmotionFromUrl() {
                 const urlParams = new URLSearchParams(window.location.search);
                 const emotion = urlParams.get('emotion');
+                const userInput = urlParams.get('userInput') || '';
+                
                 if (emotion) {
-                    this.emotionTitle.textContent = `情绪展览：${emotion}`;
+                    // 检查是否已经有策展数据，避免重复分析
+                    const savedData = localStorage.getItem('curationData');
+                    if (savedData) {
+                        const data = JSON.parse(savedData);
+                        if (data.emotion === emotion && data.isComplete) {
+                            // 如果已有完整策展数据，直接跳转到沉浸式页面
+                            console.log('发现已有策展数据，直接跳转');
+                            window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(emotion)}`;
+                            return;
+                        }
+                    }
+                    
+                    curationData.emotion = emotion;
+                    curationData.userInput = userInput;
+                    this.updateLoadingText(`正在为"${emotion}"策展...`);
+                } else {
+                    // 如果没有情绪参数，显示默认内容
+                    this.showDefaultContent();
+                }
+            }
+
+            async startCuration() {
+                if (!curationData.emotion) {
+                    this.showDefaultContent();
+                    return;
+                }
+
+                try {
+                    this.updateLoadingText('analyzing');
+                    await this.callCurationAPI();
+                } catch (error) {
+                    console.error('策展失败:', error);
+                    this.showError('策展失败，请稍后重试');
+                }
+            }
+
+            async callCurationAPI() {
+                const response = await fetch('/api/curate/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        emotion: curationData.emotion,
+                        userInput: curationData.userInput
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                this.handleCurationEvent(data);
+                            } catch (e) {
+                                console.warn('解析SSE数据失败:', e);
+                            }
+                        }
+                    }
+                }
+            }
+
+            handleCurationEvent(data) {
+                console.log('收到策展事件:', data);
+                
+                switch (data.type) {
+                    case 'emotion_curve':
+                        this.updateLoadingText('curating');
+                        curationData.emotionCurve = data.payload;
+                        break;
+                    
+                    case 'artworks_selected':
+                        this.updateLoadingText('curating');
+                        curationData.artworks = data.payload?.artworks || [];
+                        console.log('收到艺术作品:', curationData.artworks.length, '件');
+                        this.renderArtworks();
+                        break;
+                    
+                    case 'introduction':
+                        curationData.introduction = data.payload?.introduction || '';
+                        this.updateLoadingText('complete');
+                        // 序言生成完成后，直接跳转到沉浸式页面
+                        this.navigateToImmersiveAfterIntro();
+                        break;
+                    
+                    case 'conclusion':
+                        curationData.conclusion = data.payload?.conclusion || '';
+                        if (this.backgroundCuration) {
+                            // 后台更新localStorage
+                            curationData.lastUpdate = Date.now();
+                            localStorage.setItem('curationData', JSON.stringify(curationData));
+                            console.log('后台更新结语:', curationData.conclusion);
+                        } else {
+                            this.updateLoadingText('正在完成策展...');
+                        }
+                        break;
+                    
+                    case 'explanations_batch':
+                        const explanations = data.payload?.explanations || [];
+                        curationData.explanations.push(...explanations);
+                        if (this.backgroundCuration) {
+                            // 后台更新localStorage
+                            curationData.lastUpdate = Date.now();
+                            localStorage.setItem('curationData', JSON.stringify(curationData));
+                            console.log('后台更新讲解:', explanations.length, '个');
+                        } else {
+                            this.updateLoadingText(`正在生成作品讲解... (${curationData.explanations.length}/${curationData.artworks.length})`);
+                        }
+                        break;
+                    
+                    case 'complete':
+                        curationData.isComplete = true;
+                        if (this.backgroundCuration) {
+                            // 后台完成策展
+                            curationData.lastUpdate = Date.now();
+                            localStorage.setItem('curationData', JSON.stringify(curationData));
+                            console.log('后台策展完成');
+                        } else {
+                            this.finishCuration();
+                        }
+                        break;
+                    
+                    case 'error':
+                        throw new Error(data.payload?.message || '策展过程出错');
                 }
             }
 
             renderArtworks() {
-                this.galleryGrid.innerHTML = artworks.map(artwork => `
+                if (!curationData.artworks.length) return;
+                
+                console.log('渲染艺术作品:', curationData.artworks.length, '件');
+                this.galleryGrid.innerHTML = curationData.artworks.map(artwork => `
                     <div class="artwork-card" data-id="${artwork.id}">
                         <img src="${artwork.imageUrl}" alt="${artwork.title}" class="artwork-image">
                         <div class="artwork-info">
@@ -428,6 +555,10 @@
                         </div>
                     </div>
                 `).join('');
+                
+                // 显示画廊网格，隐藏加载状态
+                this.loading.style.display = 'none';
+                this.galleryGrid.style.display = 'grid';
             }
 
             setupEventListeners() {
@@ -452,13 +583,10 @@
                     }
                 });
 
-                // Breathing trigger
-                this.breathingTrigger.addEventListener('click', () => {
-                    this.showModal(`
-                        <h2>AI 艺术助手</h2>
-                        <p>我是你的AI艺术助手，可以为你介绍艺术作品、分析艺术风格，或者与你讨论艺术相关的话题。</p>
-                        <p>选择一个艺术作品，我可以为你提供详细的解读和分析。</p>
-                    `);
+
+                // Theme toggle
+                this.themeToggle.addEventListener('click', () => {
+                    this.toggleTheme();
                 });
 
                 // ESC key to close modal
@@ -470,9 +598,12 @@
             }
 
             showArtworkDetails(artworkId) {
-                const artwork = artworks.find(a => a.id === artworkId);
+                const artwork = curationData.artworks.find(a => a.id === artworkId);
                 if (!artwork) return;
 
+                // 查找对应的讲解
+                const explanation = curationData.explanations.find(exp => exp.artworkId === artworkId);
+                
                 this.selectedArtwork = artwork;
                 this.modalBody.innerHTML = `
                     <h2>${artwork.title}</h2>
@@ -480,10 +611,13 @@
                         <p><strong>艺术家：</strong>${artwork.artist}</p>
                         <p><strong>创作年代：</strong>${artwork.year}</p>
                         <p><strong>媒介：</strong>${artwork.medium}</p>
-                        <p><strong>尺寸：</strong>${artwork.dimensions}</p>
                         <p><strong>收藏机构：</strong>${artwork.museum}</p>
                     </div>
                     <p style="line-height: 1.6; margin-bottom: 1rem;">${artwork.description}</p>
+                    ${explanation ? `<div style="background: var(--card-bg); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; border: 1px solid var(--card-border);">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">策展解读</h4>
+                        <p style="line-height: 1.6; color: var(--text-secondary);">${explanation.explanation}</p>
+                    </div>` : ''}
                     <div style="text-align: center; margin-top: 1.5rem;">
                         <button onclick="window.location.href='/gallery/immersive'" style="
                             background: linear-gradient(135deg, #1c1917 0%, #44403c 100%);
@@ -500,9 +634,345 @@
                 this.modal.style.display = 'block';
             }
 
+            updateLoadingText(stage) {
+                const loadingSpan = this.loading.querySelector('span');
+                const progressFill = this.loading.querySelector('.progress-fill');
+                
+                if (loadingSpan) {
+                    // 如果传入的是预定义的阶段，使用对应的文本
+                    if (typeof stage === 'string' && this.loadingTexts[stage]) {
+                        loadingSpan.textContent = this.loadingTexts[stage];
+                        // 更新进度条
+                        this.updateProgress(stage);
+                    } else {
+                        // 否则直接使用传入的文本
+                        loadingSpan.textContent = stage;
+                    }
+                }
+            }
+
+            updateProgress(stage) {
+                const progressFill = this.loading.querySelector('.progress-fill');
+                if (!progressFill) return;
+
+                // 根据阶段设置进度 - 简化为4个阶段
+                const progressMap = {
+                    'analyzing': 25,
+                    'curating': 60,
+                    'intro': 85,
+                    'complete': 100
+                };
+
+                const progress = progressMap[stage] || 0;
+                progressFill.style.width = `${progress}%`;
+            }
+
+            finishCuration() {
+                curationData.isComplete = true;
+                this.loading.style.display = 'none';
+                this.galleryGrid.style.display = 'grid';
+                
+                // 保存策展数据到localStorage
+                localStorage.setItem('curationData', JSON.stringify(curationData));
+                
+                // 显示策展序言，然后自动跳转到沉浸式页面
+                if (curationData.introduction) {
+                    this.showCurationIntroductionAndNavigate();
+                } else {
+                    // 如果没有序言，直接跳转
+                    this.navigateToImmersive();
+                }
+                
+                // 添加策展结语按钮
+                this.addCurationConclusionButton();
+            }
+
+            addCurationConclusionButton() {
+                if (!curationData.conclusion) return;
+                
+                const conclusionButton = document.createElement('button');
+                conclusionButton.innerHTML = '查看策展结语';
+                conclusionButton.style.cssText = `
+                    position: fixed;
+                    bottom: 2rem;
+                    left: 2rem;
+                    background: var(--btn-primary);
+                    color: var(--btn-text);
+                    border: none;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 0;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
+                    z-index: 1000;
+                `;
+                conclusionButton.onmouseover = () => {
+                    conclusionButton.style.transform = 'translateY(-2px)';
+                    conclusionButton.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+                };
+                conclusionButton.onmouseout = () => {
+                    conclusionButton.style.transform = 'translateY(0)';
+                    conclusionButton.style.boxShadow = 'none';
+                };
+                conclusionButton.onclick = () => this.showCurationConclusion();
+                
+                document.body.appendChild(conclusionButton);
+            }
+
+            showCurationConclusion() {
+                const conclusionModal = document.createElement('div');
+                conclusionModal.className = 'modal';
+                conclusionModal.style.display = 'block';
+                conclusionModal.innerHTML = `
+                    <div class="modal-content" style="max-width: 600px;">
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">&times;</button>
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <h2 style="color: var(--text-primary); margin-bottom: 0.5rem;">策展结语</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">情绪展览：${curationData.emotion}</p>
+                        </div>
+                        <div style="line-height: 1.8; color: var(--text-primary); margin-bottom: 2rem;">
+                            ${curationData.conclusion}
+                        </div>
+                        <div style="text-align: center;">
+                            <button onclick="this.closest('.modal').remove()" style="
+                                background: var(--btn-primary);
+                                color: var(--btn-text);
+                                border: none;
+                                padding: 0.75rem 2rem;
+                                border-radius: 0;
+                                cursor: pointer;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">关闭</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(conclusionModal);
+            }
+
+            addImmersiveButton() {
+                const immersiveButton = document.createElement('button');
+                immersiveButton.innerHTML = '沉浸式体验';
+                immersiveButton.style.cssText = `
+                    position: fixed;
+                    bottom: 2rem;
+                    right: 2rem;
+                    background: var(--btn-primary);
+                    color: var(--btn-text);
+                    border: none;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 0;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
+                    z-index: 1000;
+                `;
+                immersiveButton.onmouseover = () => {
+                    immersiveButton.style.transform = 'translateY(-2px)';
+                    immersiveButton.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+                };
+                immersiveButton.onmouseout = () => {
+                    immersiveButton.style.transform = 'translateY(0)';
+                    immersiveButton.style.boxShadow = 'none';
+                };
+                immersiveButton.onclick = () => {
+                    window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(curationData.emotion)}`;
+                };
+                
+                document.body.appendChild(immersiveButton);
+            }
+
+            showCurationIntroductionAndNavigate() {
+                const introModal = document.createElement('div');
+                introModal.className = 'modal';
+                introModal.style.display = 'block';
+                introModal.innerHTML = `
+                    <div class="modal-content" style="max-width: 600px;">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <h2 style="color: var(--text-primary); margin-bottom: 0.5rem;">策展序言</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">情绪展览：${curationData.emotion}</p>
+                        </div>
+                        <div style="line-height: 1.8; color: var(--text-primary); margin-bottom: 2rem;">
+                            ${curationData.introduction}
+                        </div>
+                        <div style="text-align: center;">
+                            <button onclick="window.location.href='/gallery/immersive?emotion=${encodeURIComponent(curationData.emotion)}'" style="
+                                background: var(--btn-primary);
+                                color: var(--btn-text);
+                                border: none;
+                                padding: 0.75rem 2rem;
+                                border-radius: 0;
+                                cursor: pointer;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">开始沉浸式观展</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(introModal);
+            }
+
+            navigateToImmersive() {
+                // 延迟跳转，让用户看到策展完成
+                setTimeout(() => {
+                    window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(curationData.emotion)}`;
+                }, 1000);
+            }
+
+            navigateToImmersiveAfterIntro() {
+                // 保存当前策展数据，添加时间戳
+                curationData.lastUpdate = Date.now();
+                localStorage.setItem('curationData', JSON.stringify(curationData));
+                
+                // 显示序言并跳转
+                this.showCurationIntroductionAndNavigate();
+                
+                // 继续监听后续策展事件，更新localStorage
+                this.continueBackgroundCuration();
+            }
+
+            continueBackgroundCuration() {
+                // 标记已经开始后台策展
+                this.backgroundCuration = true;
+                console.log('开始后台策展更新...');
+            }
+
+            startNavigationTimer() {
+                let secondsLeft = 15;
+                this.updateLoadingText(`即将进入沉浸式体验... ${secondsLeft}秒`);
+                
+                // 创建倒计时指示器
+                this.createCountdownIndicator();
+                
+                const countdown = setInterval(() => {
+                    secondsLeft--;
+                    this.updateLoadingText(`即将进入沉浸式体验... ${secondsLeft}秒`);
+                    this.updateCountdownIndicator(secondsLeft);
+                    
+                    if (secondsLeft <= 0) {
+                        clearInterval(countdown);
+                        this.hideCountdownIndicator();
+                        this.navigateToImmersiveAfterIntro();
+                    }
+                }, 1000);
+            }
+
+            createCountdownIndicator() {
+                // 创建倒计时指示器
+                this.countdownIndicator = document.createElement('div');
+                this.countdownIndicator.className = 'countdown-indicator';
+                this.countdownIndicator.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: var(--card-bg);
+                    border: 2px solid var(--card-border);
+                    border-radius: 50%;
+                    width: 120px;
+                    height: 120px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: var(--text-primary);
+                    z-index: 1000;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                `;
+                this.countdownIndicator.textContent = '15';
+                document.body.appendChild(this.countdownIndicator);
+            }
+
+            updateCountdownIndicator(secondsLeft) {
+                if (this.countdownIndicator) {
+                    this.countdownIndicator.textContent = secondsLeft;
+                    // 根据剩余时间改变颜色
+                    if (secondsLeft <= 5) {
+                        this.countdownIndicator.style.color = '#ef4444';
+                        this.countdownIndicator.style.borderColor = '#ef4444';
+                    } else if (secondsLeft <= 10) {
+                        this.countdownIndicator.style.color = '#f59e0b';
+                        this.countdownIndicator.style.borderColor = '#f59e0b';
+                    }
+                }
+            }
+
+            hideCountdownIndicator() {
+                if (this.countdownIndicator) {
+                    this.countdownIndicator.remove();
+                    this.countdownIndicator = null;
+                }
+            }
+
+            showDefaultContent() {
+                this.loading.style.display = 'none';
+                this.galleryGrid.style.display = 'grid';
+                this.galleryGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                        <h2 style="color: var(--text-primary); margin-bottom: 1rem;">欢迎来到 ArtDuo</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">请输入你的情绪，开始个性化的艺术策展之旅</p>
+                        <button onclick="window.location.href='/'" style="
+                            background: var(--btn-primary);
+                            color: var(--btn-text);
+                            border: none;
+                            padding: 0.75rem 2rem;
+                            border-radius: 0;
+                            cursor: pointer;
+                            font-size: 1rem;
+                            transition: all 0.3s ease;
+                        " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">开始策展</button>
+                    </div>
+                `;
+            }
+
+            showError(message) {
+                this.loading.style.display = 'none';
+                this.galleryGrid.style.display = 'grid';
+                this.galleryGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                        <h2 style="color: #ef4444; margin-bottom: 1rem;">策展失败</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">${message}</p>
+                        <button onclick="window.location.reload()" style="
+                            background: var(--btn-primary);
+                            color: var(--btn-text);
+                            border: none;
+                            padding: 0.75rem 2rem;
+                            border-radius: 0;
+                            cursor: pointer;
+                            font-size: 1rem;
+                            transition: all 0.3s ease;
+                        " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">重试</button>
+                    </div>
+                `;
+            }
+
             showModal(content) {
                 this.modalBody.innerHTML = content;
                 this.modal.style.display = 'block';
+            }
+
+            initTheme() {
+                // 检查本地存储的主题设置
+                const savedTheme = localStorage.getItem('theme');
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                const currentTheme = savedTheme || systemTheme;
+                
+                this.setTheme(currentTheme);
+            }
+
+            toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                this.setTheme(newTheme);
+            }
+
+            setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                
+                // 更新图标
+                this.themeIcon.textContent = theme === 'dark' ? '○' : '●';
             }
         }
 
