@@ -34,6 +34,7 @@ export interface LLMAnalysis {
   };
   medium_suggestion?: string[];
   geo_suggestion?: string[];
+  subtitle?: string;
 }
 
 /**

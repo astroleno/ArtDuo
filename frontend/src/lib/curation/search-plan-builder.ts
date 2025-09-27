@@ -77,7 +77,8 @@ function buildSearchPlanPrompt(emotion: string, userInput?: string): string {
     "end": 2000
   },
   "medium_suggestion": ["油画", "水彩"],
-  "geo_suggestion": ["欧洲", "美国"]
+  "geo_suggestion": ["欧洲", "美国"],
+  "subtitle": "基于情绪分析生成的副标题，简洁有力，体现情绪主题"
 }
 
 注意：只返回JSON，不要包含任何解释文字。`;

@@ -174,7 +174,7 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * 分批并发生成讲解（3+3+3）
+ * 分批并发生成讲解（小批次快速返回）
  */
 async function generateExplanationsInBatches(
   artworks: any[],
@@ -183,58 +183,102 @@ async function generateExplanationsInBatches(
   curationStrategy: string,
   send: (type: string, payload: unknown) => void
 ) {
-  const batchSize = 3;
+  const batchSize = 2; // 固定小批次，快速返回
   const batches = [];
   
-  // 分成3批，每批3件作品
+  // 分成小批次，每批2件作品
   for (let i = 0; i < artworks.length; i += batchSize) {
     batches.push(artworks.slice(i, i + batchSize));
   }
   
-  console.log(`🎨 开始分批生成讲解：${batches.length}批，每批${batchSize}件`);
+  console.log(`🎨 开始分批生成讲解：${batches.length}批，每批${batchSize}件，总计${artworks.length}件作品`);
   
-  // 并发生成所有批次的讲解
-  const batchPromises = batches.map(async (batch, index) => {
+  // 优先处理第一批，快速返回给用户
+  const firstBatch = batches[0];
+  if (firstBatch) {
     try {
-      const batchStart = Date.now();
-      const result = await generateArtworkExplanations(
-        batch,
+      console.log('🚀 优先处理第一批讲解，快速返回...');
+      const firstBatchStart = Date.now();
+      const firstResult = await generateArtworkExplanations(
+        firstBatch,
         emotion,
         userInput,
         curationStrategy
       );
-      const batchTime = Date.now() - batchStart;
+      const firstBatchTime = Date.now() - firstBatchStart;
       
-      // 发送这一批的讲解结果
+      // 立即发送第一批结果
       send('explanations_batch', {
-        batchIndex: index + 1,
-        batchSize: batch.length,
-        explanations: result.explanations,
-        successCount: result.successCount,
-        failureCount: result.failureCount,
-        durationMs: batchTime
+        batchIndex: 1,
+        batchSize: firstBatch.length,
+        explanations: firstResult.explanations,
+        successCount: firstResult.successCount,
+        failureCount: firstResult.failureCount,
+        durationMs: firstBatchTime,
+        isFirstBatch: true // 标记为第一批
       });
       
-      console.log(`✅ 第${index + 1}批讲解完成，耗时: ${batchTime}ms`);
-      return result;
+      console.log(`✅ 第一批讲解完成，耗时: ${firstBatchTime}ms，用户可开始浏览`);
     } catch (error) {
-      console.error(`❌ 第${index + 1}批讲解失败:`, error);
-      // 发送错误信息
+      console.error('❌ 第一批讲解失败:', error);
       send('explanations_batch', {
-        batchIndex: index + 1,
-        batchSize: batch.length,
+        batchIndex: 1,
+        batchSize: firstBatch.length,
         explanations: [],
         successCount: 0,
-        failureCount: batch.length,
+        failureCount: firstBatch.length,
         error: error instanceof Error ? error.message : String(error),
-        durationMs: 0
+        durationMs: 0,
+        isFirstBatch: true
       });
-      return null;
     }
-  });
+  }
   
-  // 等待所有批次完成
-  await Promise.all(batchPromises);
+  // 并发生成剩余批次的讲解
+  const remainingBatches = batches.slice(1);
+  if (remainingBatches.length > 0) {
+    const batchPromises = remainingBatches.map(async (batch, index) => {
+      try {
+        const batchStart = Date.now();
+        const result = await generateArtworkExplanations(
+          batch,
+          emotion,
+          userInput,
+          curationStrategy
+        );
+        const batchTime = Date.now() - batchStart;
+        
+        // 发送这一批的讲解结果
+        send('explanations_batch', {
+          batchIndex: index + 2, // 从第2批开始
+          batchSize: batch.length,
+          explanations: result.explanations,
+          successCount: result.successCount,
+          failureCount: result.failureCount,
+          durationMs: batchTime
+        });
+        
+        console.log(`✅ 第${index + 2}批讲解完成，耗时: ${batchTime}ms`);
+        return result;
+      } catch (error) {
+        console.error(`❌ 第${index + 2}批讲解失败:`, error);
+        send('explanations_batch', {
+          batchIndex: index + 2,
+          batchSize: batch.length,
+          explanations: [],
+          successCount: 0,
+          failureCount: batch.length,
+          error: error instanceof Error ? error.message : String(error),
+          durationMs: 0
+        });
+        return null;
+      }
+    });
+    
+    // 等待剩余批次完成
+    await Promise.all(batchPromises);
+  }
+  
   console.log('🎉 所有讲解批次生成完成');
 }
 

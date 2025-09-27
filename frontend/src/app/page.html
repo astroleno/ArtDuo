@@ -438,6 +438,17 @@
                 }
             }
 
+            async generateSubtitleAndNavigate(emotion) {
+                try {
+                    // 先跳转到gallery页面进行策展，然后自动跳转到immersive
+                    window.location.href = `/gallery?emotion=${encodeURIComponent(emotion)}&autoImmersive=true`;
+                } catch (error) {
+                    console.error('跳转失败:', error);
+                    // 如果出错，直接跳转到沉浸式页面
+                    window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(emotion)}`;
+                }
+            }
+
             async submitEmotion() {
                 const emotion = this.emotionInput.value.trim();
 
@@ -451,7 +462,8 @@
                 }
 
                 // Navigate directly to immersive gallery with emotion parameter
-                window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(emotion)}`;
+                // 先调用LLM生成副标题，然后跳转
+                this.generateSubtitleAndNavigate(emotion);
             }
         }
 

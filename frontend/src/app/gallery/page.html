@@ -375,6 +375,7 @@
                 this.themeIcon = document.getElementById('theme-icon');
                 this.selectedArtwork = null;
                 this.eventSource = null;
+                this.autoImmersive = false;
 
                 // 加载文本配置 - 简化为4个用户可见阶段
                 this.loadingTexts = {
@@ -410,6 +411,13 @@
                             window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(emotion)}`;
                             return;
                         }
+                    }
+                    
+                    // 检查是否有自动跳转到immersive的参数
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const autoImmersive = urlParams.get('autoImmersive');
+                    if (autoImmersive === 'true') {
+                        this.autoImmersive = true;
                     }
                     
                     curationData.emotion = emotion;
@@ -512,14 +520,23 @@
                     
                     case 'explanations_batch':
                         const explanations = data.payload?.explanations || [];
+                        const isFirstBatch = data.payload?.isFirstBatch || false;
                         curationData.explanations.push(...explanations);
+                        
                         if (this.backgroundCuration) {
                             // 后台更新localStorage
                             curationData.lastUpdate = Date.now();
                             localStorage.setItem('curationData', JSON.stringify(curationData));
-                            console.log('后台更新讲解:', explanations.length, '个');
+                            console.log('后台更新讲解:', explanations.length, '个', isFirstBatch ? '(第一批)' : '');
                         } else {
-                            this.updateLoadingText(`正在生成作品讲解... (${curationData.explanations.length}/${curationData.artworks.length})`);
+                            if (isFirstBatch) {
+                                // 第一批完成，用户可开始浏览
+                                this.updateLoadingText('第一批讲解完成，可以开始浏览了！');
+                                console.log('✅ 第一批讲解完成，用户可开始浏览');
+                            } else {
+                                // 后续批次
+                                this.updateLoadingText(`正在生成作品讲解... (${curationData.explanations.length}/${curationData.artworks.length})`);
+                            }
                         }
                         break;
                     
@@ -674,6 +691,15 @@
                 
                 // 保存策展数据到localStorage
                 localStorage.setItem('curationData', JSON.stringify(curationData));
+                
+                // 检查是否需要自动跳转到immersive
+                if (this.autoImmersive) {
+                    // 自动跳转到沉浸式页面
+                    setTimeout(() => {
+                        window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(curationData.emotion)}`;
+                    }, 1000);
+                    return;
+                }
                 
                 // 显示策展序言，然后自动跳转到沉浸式页面
                 if (curationData.introduction) {

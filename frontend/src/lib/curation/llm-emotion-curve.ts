@@ -1,7 +1,7 @@
 // LLM驱动的个性化情绪曲线生成器
 import { Artwork } from './types';
 import { ArtworkScore } from './llm-judge-ultra-optimized';
-import { glmClient } from '@/lib/glm-optimized-client';
+import { glmOptimizedClient } from '@/lib/glm-optimized-client';
 import { EmotionPoint } from './emotion-curve';
 
 /**
@@ -21,6 +21,7 @@ export interface LLMEmotionCurveDesign {
   overallNarrative: string;
   transitionLogic: string;
   colorPalette: string[];
+  recommendedArtworkCount: number; // LLM推荐的作品数量
 }
 
 /**
@@ -30,11 +31,12 @@ export class LLMEmotionCurveGenerator {
   
   /**
    * 基于用户输入生成个性化情绪曲线设计
+   * 现在由LLM智能决定需要多少个作品
    */
   static async generatePersonalizedCurve(
     emotion: string,
     userInput: string,
-    artworkCount: number = 9
+    maxArtworkCount: number = 12
   ): Promise<LLMEmotionCurveDesign> {
     console.log(`🧠 开始LLM个性化情绪曲线生成: ${emotion}`);
     
@@ -42,21 +44,28 @@ export class LLMEmotionCurveGenerator {
 
 用户情绪：${emotion}
 用户描述：${userInput}
-作品数量：${artworkCount}
+最大作品数量：${maxArtworkCount}
 
-请深度分析用户的情绪状态和具体情境，设计一条能够引导用户情绪转化的艺术观展曲线。
+请深度分析用户的情绪状态和具体情境，智能决定需要多少个艺术作品来完整表达这个情绪旅程，然后设计相应的情绪曲线。
 
 设计要求：
 1. 基于用户的具体情境，不要使用模板化的情绪处理
-2. 考虑艺术作品的观展顺序如何影响情绪体验
-3. 设计合理的情绪起伏，避免单调或过于剧烈
-4. 每个阶段都要有明确的艺术作品要求和情绪目标
-5. 整体要形成一个有意义的情绪旅程
+2. 智能判断需要多少个作品（建议6-12个，根据情绪复杂度决定）
+3. 考虑艺术作品的观展顺序如何影响情绪体验
+4. 设计合理的情绪起伏，避免单调或过于剧烈
+5. 每个阶段都要有明确的艺术作品要求和情绪目标
+6. 整体要形成一个有意义的情绪旅程
+
+作品数量判断原则：
+- 简单情绪（快乐、平静）：6-8个作品
+- 中等复杂度情绪：8-10个作品  
+- 复杂情绪（焦虑、抑郁、矛盾）：10-12个作品
+- 深度疗愈主题：可能需要更多作品
 
 返回JSON格式：
 {
   "curveType": "complex",
-  "totalStages": ${artworkCount},
+  "totalStages": 8,
   "emotionJourney": [
     {
       "stage": 1,
@@ -69,7 +78,8 @@ export class LLMEmotionCurveGenerator {
   ],
   "overallNarrative": "整个情绪旅程的叙事逻辑",
   "transitionLogic": "情绪转换的心理学原理",
-  "colorPalette": ["#color1", "#color2", "#color3"]
+  "colorPalette": ["#color1", "#color2", "#color3"],
+  "recommendedArtworkCount": 8
 }`;
 
     try {
@@ -86,9 +96,9 @@ export class LLMEmotionCurveGenerator {
 
       console.log('🧠 [DEBUG] 开始调用LLM生成情绪曲线设计...');
       console.log('🧠 [DEBUG] 提示词长度:', prompt.length);
-      console.log('🧠 [DEBUG] GLM客户端可用性:', glmClient.hasValidApiKey());
+      console.log('🧠 [DEBUG] GLM客户端可用性:', glmOptimizedClient.hasValidApiKey());
       
-      const response = await glmClient.chat(messages, {
+      const response = await glmOptimizedClient.chat(messages, {
         temperature: 0.7,
         max_tokens: 3000,
         response_format: { type: 'json_object' },
@@ -106,11 +116,11 @@ export class LLMEmotionCurveGenerator {
       } catch (error) {
         console.error('❌ LLM情绪曲线设计解析失败:', error);
         // 返回默认设计
-        curveDesign = this.getDefaultCurveDesign(emotion, userInput, artworkCount);
+        curveDesign = this.getDefaultCurveDesign(emotion, userInput, maxArtworkCount);
       }
 
       // 验证和修正设计
-      curveDesign = this.validateAndFixCurveDesign(curveDesign, artworkCount);
+      curveDesign = this.validateAndFixCurveDesign(curveDesign, maxArtworkCount);
       
       console.log('✅ LLM情绪曲线设计生成完成:', curveDesign.overallNarrative);
       return curveDesign;
@@ -119,7 +129,7 @@ export class LLMEmotionCurveGenerator {
       console.error('❌ [DEBUG] LLM情绪曲线生成失败:', error);
       console.error('❌ [DEBUG] 错误详情:', JSON.stringify(error, null, 2));
       console.log('🔄 [DEBUG] 使用降级方案生成情绪曲线');
-      return this.getDefaultCurveDesign(emotion, userInput, artworkCount);
+      return this.getDefaultCurveDesign(emotion, userInput, maxArtworkCount);
     }
   }
 
@@ -217,7 +227,7 @@ ${artworkInfo.map(art =>
         }
       ];
 
-      const response = await glmClient.chat(messages, {
+      const response = await glmOptimizedClient.chat(messages, {
         temperature: 0.3,
         max_tokens: 2000,
         response_format: { type: 'json_object' },
@@ -270,22 +280,37 @@ ${artworkInfo.map(art =>
   private static getDefaultCurveDesign(
     emotion: string, 
     userInput: string, 
-    artworkCount: number
+    maxArtworkCount: number
   ): LLMEmotionCurveDesign {
+    // 根据情绪复杂度智能决定作品数量
+    const complexEmotions = ['复杂', '深度', '矛盾', '纠结', '焦虑', '抑郁', '愤怒', '痛苦'];
+    const simpleEmotions = ['简单', '轻松', '快乐', '平静', '满足', '愉悦'];
+    
+    const isComplex = complexEmotions.some(e => emotion.includes(e) || userInput.includes(e));
+    const isSimple = simpleEmotions.some(e => emotion.includes(e) || userInput.includes(e));
+    
+    let recommendedCount = 9; // 默认
+    if (isComplex) {
+      recommendedCount = Math.min(12, maxArtworkCount);
+    } else if (isSimple) {
+      recommendedCount = Math.min(6, maxArtworkCount);
+    }
+    
     return {
       curveType: 'wave',
-      totalStages: artworkCount,
-      emotionJourney: Array.from({ length: artworkCount }, (_, i) => ({
+      totalStages: recommendedCount,
+      emotionJourney: Array.from({ length: recommendedCount }, (_, i) => ({
         stage: i + 1,
         stageName: `阶段${i + 1}`,
-        intensity: 0.3 + Math.sin(i / artworkCount * Math.PI) * 0.4,
+        intensity: 0.3 + Math.sin(i / recommendedCount * Math.PI) * 0.4,
         description: `${emotion}情绪的第${i + 1}个阶段`,
         artworkRequirement: '符合当前情绪阶段的艺术作品',
         visualMood: '平静而深沉'
       })),
       overallNarrative: `通过艺术作品引导${emotion}情绪的转化过程`,
       transitionLogic: '渐进式情绪调节',
-      colorPalette: ['#4A5568', '#718096', '#A0AEC0']
+      colorPalette: ['#4A5568', '#718096', '#A0AEC0'],
+      recommendedArtworkCount: recommendedCount
     };
   }
 
@@ -294,13 +319,22 @@ ${artworkInfo.map(art =>
    */
   private static validateAndFixCurveDesign(
     design: LLMEmotionCurveDesign, 
-    expectedCount: number
+    maxCount: number
   ): LLMEmotionCurveDesign {
-    // 确保阶段数量正确
-    if (design.emotionJourney.length !== expectedCount) {
+    // 确保推荐作品数量存在且合理
+    if (!design.recommendedArtworkCount || design.recommendedArtworkCount <= 0) {
+      design.recommendedArtworkCount = Math.min(design.totalStages || 9, maxCount);
+    }
+    
+    // 确保推荐数量不超过最大值
+    design.recommendedArtworkCount = Math.min(design.recommendedArtworkCount, maxCount);
+    
+    // 确保阶段数量与推荐数量一致
+    const targetCount = design.recommendedArtworkCount;
+    if (design.emotionJourney.length !== targetCount) {
       const journey = design.emotionJourney;
-      if (journey.length > expectedCount) {
-        design.emotionJourney = journey.slice(0, expectedCount);
+      if (journey.length > targetCount) {
+        design.emotionJourney = journey.slice(0, targetCount);
       } else {
         // 补充缺失的阶段
         const lastStage = journey[journey.length - 1] || {
@@ -312,7 +346,7 @@ ${artworkInfo.map(art =>
           visualMood: '平和'
         };
         
-        for (let i = journey.length; i < expectedCount; i++) {
+        for (let i = journey.length; i < targetCount; i++) {
           design.emotionJourney.push({
             ...lastStage,
             stage: i + 1,
@@ -321,12 +355,16 @@ ${artworkInfo.map(art =>
         }
       }
     }
+    
+    // 更新totalStages以匹配实际阶段数
+    design.totalStages = design.emotionJourney.length;
 
     // 确保强度值在合理范围内
     design.emotionJourney.forEach(stage => {
       stage.intensity = Math.max(0, Math.min(1, stage.intensity));
     });
 
+    console.log(`✅ 情绪曲线设计验证完成: 推荐${design.recommendedArtworkCount}个作品，共${design.totalStages}个阶段`);
     return design;
   }
 }
