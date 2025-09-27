@@ -2,13 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS 变量定义 - 暗色主题 */
+/* CSS 变量定义 - 日间/夜间主题切换 */
 :root {
-  /* 画廊色彩系统 - 高级灰/深蓝渐变 */
-  --bg-primary: #0f172a;        /* slate-900 美术馆低照明 */
-  --bg-secondary: #1e293b;      /* slate-800 深灰背景 */
-  --bg-tertiary: #334155;       /* slate-700 中灰背景 */
-  --bg-overlay: rgba(15, 23, 42, 0.8); /* 半透明遮罩 */
+  /* 日间模式 - 沉浸式画廊风格 */
+  --bg-primary: #f5f5f4;        /* stone-100 日间主背景 */
+  --bg-secondary: #e7e5e4;      /* stone-200 日间次背景 */
+  --bg-tertiary: #d6d3d1;       /* stone-300 日间第三背景 */
+  --bg-overlay: rgba(255, 255, 255, 0.8); /* 日间半透明遮罩 */
+
+  /* 夜间模式 - 美术馆风格 */
+  --bg-primary-dark: #0f172a;   /* slate-900 夜间主背景 */
+  --bg-secondary-dark: #1e293b; /* slate-800 夜间次背景 */
+  --bg-tertiary-dark: #334155; /* slate-700 夜间第三背景 */
+  --bg-overlay-dark: rgba(15, 23, 42, 0.8); /* 夜间半透明遮罩 */
 
   /* 画廊强调色 */
   --accent-primary: #f59e0b;    /* amber-500 画廊金色 */
@@ -16,11 +22,16 @@
   --accent-tertiary: #8b5cf6;   /* purple-500 艺术紫色 */
   --accent-blue: #3b82f6;       /* blue-500 情绪蓝色 */
 
-  /* 画廊文字色彩 */
-  --text-primary: #ffffff;      /* 主文字 */
-  --text-secondary: #cbd5e1;    /* slate-300 次要文字 */
-  --text-muted: #94a3b8;        /* slate-400 弱化文字 */
+  /* 日间模式文字色彩 */
+  --text-primary: #1c1917;      /* stone-900 日间主文字 */
+  --text-secondary: #57534e;    /* stone-600 日间次要文字 */
+  --text-muted: #78716c;        /* stone-500 日间弱化文字 */
   --text-accent: #f59e0b;       /* amber-500 强调文字 */
+
+  /* 夜间模式文字色彩 */
+  --text-primary-dark: #ffffff; /* 夜间主文字 */
+  --text-secondary-dark: #cbd5e1; /* slate-300 夜间次要文字 */
+  --text-muted-dark: #94a3b8;   /* slate-400 夜间弱化文字 */
 
   /* 画廊字体系统 - 使用Next.js优化的字体变量 */
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
@@ -74,6 +85,22 @@
   box-sizing: border-box;
 }
 
+/* 确保backdrop-filter在所有浏览器中正常工作 */
+.backdrop-blur-strong {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+.backdrop-blur-medium {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.backdrop-blur-weak {
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
 /* 只重置特定元素的margin和padding，避免影响Tailwind类 */
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, pre, hr {
   margin: 0;
@@ -92,6 +119,27 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
+}
+
+/* 主题切换类 */
+.theme-light {
+  --bg-primary: #f5f5f4;
+  --bg-secondary: #e7e5e4;
+  --bg-tertiary: #d6d3d1;
+  --bg-overlay: rgba(255, 255, 255, 0.8);
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #78716c;
+}
+
+.theme-dark {
+  --bg-primary: var(--bg-primary-dark);
+  --bg-secondary: var(--bg-secondary-dark);
+  --bg-tertiary: var(--bg-tertiary-dark);
+  --bg-overlay: var(--bg-overlay-dark);
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --text-muted: var(--text-muted-dark);
 }
 
 /* 滚动条样式 */
@@ -192,15 +240,26 @@ body {
   right: 0;
   bottom: 0;
   background: linear-gradient(135deg, 
+    #f5f5f4 0%,     /* stone-100 日间主背景 */
+    #e7e5e4 25%,    /* stone-200 日间次背景 */
+    #d6d3d1 50%,    /* stone-300 日间第三背景 */
+    #e7e5e4 75%,    /* stone-200 */
+    #f5f5f4 100%    /* stone-100 */
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 20s ease infinite;
+  z-index: 1;
+}
+
+/* 夜间模式背景 */
+.theme-dark .base-gradient {
+  background: linear-gradient(135deg, 
     #0f172a 0%,     /* slate-900 美术馆低照明 */
     #1e293b 25%,    /* slate-800 深灰背景 */
     #334155 50%,    /* slate-700 中灰背景 */
     #1e293b 75%,    /* slate-800 */
     #0f172a 100%    /* slate-900 */
   );
-  background-size: 400% 400%;
-  animation: gradient-shift 20s ease infinite;
-  z-index: 1;
 }
 
 /* 墙面质感纹理 */
@@ -450,12 +509,12 @@ body {
   width: 100% !important;
   max-width: 100% !important;
   min-width: 100% !important;
-  background: rgba(255, 255, 255, 0.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
   border-radius: 16px !important;
   padding: 16px 20px !important;
   font-size: 16px !important;
-  color: white !important;
+  color: #1c1917 !important;
   backdrop-filter: blur(10px) !important;
   transition: all 0.3s ease !important;
   box-shadow: 
@@ -464,16 +523,16 @@ body {
 }
 
 .input-container input:focus {
-  border-color: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
   box-shadow: 
-    0 0 0 2px rgba(255, 255, 255, 0.1),
-    0 8px 32px rgba(255, 255, 255, 0.1),
+    0 0 0 2px rgba(245, 158, 11, 0.1),
+    0 8px 32px rgba(245, 158, 11, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
 }
 
 .input-container input::placeholder {
-  color: rgba(255, 255, 255, 0.4) !important;
+  color: rgba(87, 83, 78, 0.6) !important;
   font-style: normal !important;
 }
 

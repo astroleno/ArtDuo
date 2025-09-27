@@ -5,7 +5,7 @@ console.log('NEXT_PUBLIC_GLM_URL:', process.env.NEXT_PUBLIC_GLM_URL || '未设�
 console.log('NEXT_PUBLIC_RIJKS_API_KEY:', process.env.NEXT_PUBLIC_RIJKS_API_KEY ? '已设置' : '未设置');
 
 // 测试GLM客户端
-const { glmOptimizedClient } = require('./src/lib/glm-optimized-client');
+const { glmOptimizedClient } = require('../frontend/src/lib/glm-optimized-client');
 console.log('\n=== GLM客户端测试 ===');
 console.log('GLM客户端API密钥状态:', glmOptimizedClient.hasValidApiKey());
 

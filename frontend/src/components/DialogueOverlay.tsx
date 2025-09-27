@@ -163,22 +163,26 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
       >
         {/* 背景遮罩 */}
         <motion.div
-          className="absolute inset-0 bg-background-primary/80 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/60 backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
+          style={{
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)'
+          }}
         />
 
         {/* 对话窗口 */}
         <motion.div
           className="
             relative w-full max-w-2xl h-[600px] md:h-[700px]
-            bg-background-secondary/90
-            backdrop-blur-xl
-            rounded-2xl
-            border border-accent-secondary/20
-            shadow-2xl
+            bg-white/95
+            backdrop-blur-2xl
+            rounded-3xl
+            border border-white/20
+            shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_0_1px_rgba(255,255,255,0.1)]
             flex flex-col
             overflow-hidden
           "
@@ -188,16 +192,16 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
           transition={{ duration: 0.3, ease: 'easeOut' }}
         >
           {/* 头部 */}
-          <div className="flex items-center justify-between p-4 md:p-6 border-b border-text-muted/20">
+          <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200/50 bg-gradient-to-b from-white/60 to-transparent">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-accent-secondary/20 flex items-center justify-center">
-                <Bot className="w-5 h-5 text-accent-secondary" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 flex items-center justify-center shadow-lg">
+                <Bot className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="text-text-primary font-medium">
+                <h3 className="text-gray-900 font-medium">
                   {artwork ? `《${artwork.title}》助手` : '艺术策展助手'}
                 </h3>
-                <p className="text-text-muted text-sm">
+                <p className="text-gray-600 text-sm">
                   {artwork ? `${artwork.artist} · ${artwork.year}` : 'AI 艺术顾问'}
                 </p>
               </div>
@@ -207,10 +211,11 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
               onClick={onClose}
               className="
                 w-8 h-8 rounded-full
-                bg-background-tertiary/50
+                bg-gray-100/80 hover:bg-gray-200/80
                 flex items-center justify-center
-                text-text-muted hover:text-text-primary
-                transition-colors duration-200
+                text-gray-600 hover:text-gray-900
+                transition-all duration-200
+                shadow-sm hover:shadow-md
               "
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -232,25 +237,25 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
                 <div className={`flex items-start space-x-3 max-w-[80%] ${message.user ? 'flex-row-reverse space-x-reverse' : ''}`}>
                   {/* 头像 */}
                   <div className={`
-                    w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
-                    ${message.user 
-                      ? 'bg-accent-secondary/20' 
-                      : 'bg-accent-tertiary/20'
+                    w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm
+                    ${message.user
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white'
+                      : 'bg-gray-200/60 text-gray-600'
                     }
                   `}>
                     {message.user ? (
-                      <User className="w-4 h-4 text-accent-secondary" />
+                      <User className="w-4 h-4 text-white" />
                     ) : (
-                      <Bot className="w-4 h-4 text-accent-tertiary" />
+                      <Bot className="w-4 h-4 text-gray-600" />
                     )}
                   </div>
 
                   {/* 消息内容 */}
                   <div className={`
-                    px-4 py-3 rounded-2xl
-                    ${message.user 
-                      ? 'bg-accent-secondary text-background-primary' 
-                      : 'bg-background-tertiary/50 text-text-primary'
+                    px-4 py-3 rounded-2xl shadow-sm
+                    ${message.user
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-amber-200/20'
+                      : 'bg-gray-100/80 text-gray-900 border border-gray-200/50'
                     }
                   `}>
                     <p className="text-sm leading-relaxed">{message.content.text}</p>
@@ -268,14 +273,14 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
                 transition={{ duration: 0.3 }}
               >
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 rounded-full bg-accent-tertiary/20 flex items-center justify-center">
-                    <Bot className="w-4 h-4 text-accent-tertiary" />
+                  <div className="w-8 h-8 rounded-full bg-gray-200/60 flex items-center justify-center">
+                    <Bot className="w-4 h-4 text-gray-600" />
                   </div>
-                  <div className="bg-background-tertiary/50 px-4 py-3 rounded-2xl">
+                  <div className="bg-gray-100/80 px-4 py-3 rounded-2xl border border-gray-200/50 shadow-sm">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-text-muted rounded-full animate-bounce" />
-                      <div className="w-2 h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                      <div className="w-2 h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                     </div>
                   </div>
                 </div>
@@ -286,7 +291,7 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
           </div>
 
           {/* 输入区域 */}
-          <div className="p-4 md:p-6 border-t border-text-muted/20">
+          <div className="p-4 md:p-6 border-t border-gray-200/50 bg-gradient-to-t from-white/60 to-transparent">
             <div className="flex items-center space-x-3">
               <div className="flex-1 relative">
                 <input
@@ -297,13 +302,14 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
                   placeholder="输入你的问题..."
                   className="
                     w-full px-4 py-3
-                    bg-background-tertiary/50
-                    border border-text-muted/30
+                    bg-white/90
+                    border border-gray-300/50
                     rounded-xl
-                    text-text-primary
-                    placeholder-text-muted
-                    focus:outline-none focus:border-accent-secondary
-                    transition-colors duration-200
+                    text-gray-900
+                    placeholder-gray-500
+                    focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500
+                    transition-all duration-200
+                    shadow-sm focus:shadow-md
                   "
                   disabled={isTyping}
                 />
@@ -314,13 +320,14 @@ export default function DialogueOverlay({ onClose, artwork }: DialogueOverlayPro
                 disabled={!inputValue.trim() || isTyping}
                 className="
                   w-12 h-12
-                  bg-accent-secondary
-                  text-background-primary
+                  bg-gradient-to-r from-amber-500 to-amber-600
+                  text-white
                   rounded-xl
                   flex items-center justify-center
                   disabled:opacity-50 disabled:cursor-not-allowed
-                  hover:bg-accent-primary
-                  transition-colors duration-200
+                  hover:from-amber-600 hover:to-amber-700
+                  transition-all duration-200
+                  shadow-lg hover:shadow-xl
                 "
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

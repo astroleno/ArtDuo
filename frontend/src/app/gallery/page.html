@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtDuo - 情绪展览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(to bottom, #1a1a1a, #2d2d2d, #1a1a1a);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header {
+            padding: 2rem 0;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #ffffff;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding-bottom: 4rem;
+        }
+
+        .artwork-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .artwork-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .artwork-info {
+            padding: 1.5rem;
+        }
+
+        .artwork-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .artwork-artist {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            margin-bottom: 0.25rem;
+        }
+
+        .artwork-year {
+            font-size: 0.8rem;
+            color: #808080;
+            margin-bottom: 1rem;
+        }
+
+        .artwork-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        .breathing-trigger {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            animation: breathing 2s ease-in-out infinite;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+        }
+
+        @keyframes breathing {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2d2d2d;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            font-size: 1.2rem;
+            color: #a0a0a0;
+        }
+
+        .spinner {
+            width: 3rem;
+            height: 3rem;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="back-button">← 返回</a>
+            <h1 class="title" id="emotion-title">情绪展览：探索艺术</h1>
+            <p class="subtitle">为你精心策展的艺术作品</p>
+        </header>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <span>加载中...</span>
+        </div>
+
+        <div id="gallery-grid" class="gallery-grid" style="display: none;">
+            <!-- Artwork cards will be dynamically generated -->
+        </div>
+    </div>
+
+    <button class="breathing-trigger" id="breathing-trigger" title="AI对话">
+        💬
+    </button>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div id="modal-body">
+                <!-- Modal content will be dynamically generated -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 艺术作品数据
+        const artworks = [
+            {
+                id: '1',
+                title: '星夜',
+                artist: '文森特·梵高',
+                year: '1889',
+                medium: '布面油画',
+                dimensions: '73.7 × 92.1 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+                description: '这幅画描绘了一个充满动感的夜空，展现了艺术家内心的情感波动。',
+                museum: '纽约现代艺术博物馆',
+                license: 'CC0',
+            },
+            {
+                id: '2',
+                title: '蒙娜丽莎',
+                artist: '列奥纳多·达·芬奇',
+                year: '1503-1519',
+                medium: '木板油画',
+                dimensions: '77 × 53 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+                description: '世界上最著名的肖像画之一，以其神秘的微笑而闻名。',
+                museum: '卢浮宫',
+                license: 'CC0',
+            },
+            {
+                id: '3',
+                title: '呐喊',
+                artist: '爱德华·蒙克',
+                year: '1893',
+                medium: '纸板蛋彩画',
+                dimensions: '91 × 73.5 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+                description: '表现主义代表作，表达了现代人的焦虑和孤独。',
+                museum: '挪威国家美术馆',
+                license: 'CC0',
+            },
+            {
+                id: '4',
+                title: '向日葵',
+                artist: '文森特·梵高',
+                year: '1888',
+                medium: '布面油画',
+                dimensions: '92 × 73 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+                description: '梵高最著名的静物画之一，展现了生命的活力和希望。',
+                museum: '伦敦国家美术馆',
+                license: 'CC0',
+            },
+            {
+                id: '5',
+                title: '格尔尼卡',
+                artist: '巴勃罗·毕加索',
+                year: '1937',
+                medium: '布面油画',
+                dimensions: '349.3 × 776.6 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+                description: '反战主题的杰作，表达了艺术家对战争的愤怒和悲痛。',
+                museum: '索菲亚王后国家艺术中心',
+                license: 'CC0',
+            },
+            {
+                id: '6',
+                title: '睡莲',
+                artist: '克劳德·莫奈',
+                year: '1919',
+                medium: '布面油画',
+                dimensions: '100 × 200 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+                description: '印象派大师的晚期作品，展现了光影变化的魅力。',
+                museum: '橘园美术馆',
+                license: 'CC0',
+            },
+            {
+                id: '7',
+                title: '最后的晚餐',
+                artist: '列奥纳多·达·芬奇',
+                year: '1495-1498',
+                medium: '壁画',
+                dimensions: '460 × 880 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+                description: '文艺复兴时期的杰作，描绘了耶稣与门徒的最后晚餐。',
+                museum: '圣玛丽亚感恩教堂',
+                license: 'CC0',
+            },
+            {
+                id: '8',
+                title: '创世纪',
+                artist: '米开朗基罗',
+                year: '1508-1512',
+                medium: '壁画',
+                dimensions: '14 × 40 m',
+                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+                description: '西斯廷教堂的天顶画，展现了上帝创造亚当的经典场景。',
+                museum: '梵蒂冈西斯廷教堂',
+                license: 'CC0',
+            },
+            {
+                id: '9',
+                title: '夜巡',
+                artist: '伦勃朗',
+                year: '1642',
+                medium: '布面油画',
+                dimensions: '363 × 437 cm',
+                imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+                description: '荷兰黄金时代的杰作，展现了光影大师的精湛技艺。',
+                museum: '阿姆斯特丹国家博物馆',
+                license: 'CC0',
+            }
+        ];
+
+        class GalleryPage {
+            constructor() {
+                this.loading = document.getElementById('loading');
+                this.galleryGrid = document.getElementById('gallery-grid');
+                this.modal = document.getElementById('modal');
+                this.modalBody = document.getElementById('modal-body');
+                this.modalClose = document.getElementById('modal-close');
+                this.breathingTrigger = document.getElementById('breathing-trigger');
+                this.emotionTitle = document.getElementById('emotion-title');
+                this.selectedArtwork = null;
+
+                this.init();
+            }
+
+            init() {
+                this.renderArtworks();
+                this.setupEventListeners();
+                this.checkEmotionFromUrl();
+
+                // 模拟加载过程
+                setTimeout(() => {
+                    this.loading.style.display = 'none';
+                    this.galleryGrid.style.display = 'grid';
+                }, 1500);
+            }
+
+            checkEmotionFromUrl() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const emotion = urlParams.get('emotion');
+                if (emotion) {
+                    this.emotionTitle.textContent = `情绪展览：${emotion}`;
+                }
+            }
+
+            renderArtworks() {
+                this.galleryGrid.innerHTML = artworks.map(artwork => `
+                    <div class="artwork-card" data-id="${artwork.id}">
+                        <img src="${artwork.imageUrl}" alt="${artwork.title}" class="artwork-image">
+                        <div class="artwork-info">
+                            <h3 class="artwork-title">${artwork.title}</h3>
+                            <p class="artwork-artist">${artwork.artist}</p>
+                            <p class="artwork-year">${artwork.year}</p>
+                            <p class="artwork-description">${artwork.description}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            setupEventListeners() {
+                // Artwork card clicks
+                this.galleryGrid.addEventListener('click', (e) => {
+                    const card = e.target.closest('.artwork-card');
+                    if (card) {
+                        const artworkId = card.dataset.id;
+                        this.showArtworkDetails(artworkId);
+                    }
+                });
+
+                // Modal close
+                this.modalClose.addEventListener('click', () => {
+                    this.modal.style.display = 'none';
+                });
+
+                // Modal background click
+                this.modal.addEventListener('click', (e) => {
+                    if (e.target === this.modal) {
+                        this.modal.style.display = 'none';
+                    }
+                });
+
+                // Breathing trigger
+                this.breathingTrigger.addEventListener('click', () => {
+                    this.showModal(`
+                        <h2>AI 艺术助手</h2>
+                        <p>我是你的AI艺术助手，可以为你介绍艺术作品、分析艺术风格，或者与你讨论艺术相关的话题。</p>
+                        <p>选择一个艺术作品，我可以为你提供详细的解读和分析。</p>
+                    `);
+                });
+
+                // ESC key to close modal
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        this.modal.style.display = 'none';
+                    }
+                });
+            }
+
+            showArtworkDetails(artworkId) {
+                const artwork = artworks.find(a => a.id === artworkId);
+                if (!artwork) return;
+
+                this.selectedArtwork = artwork;
+                this.modalBody.innerHTML = `
+                    <h2>${artwork.title}</h2>
+                    <div style="margin: 1rem 0;">
+                        <p><strong>艺术家：</strong>${artwork.artist}</p>
+                        <p><strong>创作年代：</strong>${artwork.year}</p>
+                        <p><strong>媒介：</strong>${artwork.medium}</p>
+                        <p><strong>尺寸：</strong>${artwork.dimensions}</p>
+                        <p><strong>收藏机构：</strong>${artwork.museum}</p>
+                    </div>
+                    <p style="line-height: 1.6; margin-bottom: 1rem;">${artwork.description}</p>
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <button onclick="window.location.href='/gallery/immersive'" style="
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: white;
+                            border: none;
+                            padding: 0.75rem 1.5rem;
+                            border-radius: 0.5rem;
+                            cursor: pointer;
+                            font-size: 1rem;
+                        ">沉浸式欣赏</button>
+                    </div>
+                `;
+                this.modal.style.display = 'block';
+            }
+
+            showModal(content) {
+                this.modalBody.innerHTML = content;
+                this.modal.style.display = 'block';
+            }
+        }
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            new GalleryPage();
+        });
+    </script>
+</body>
+</html>
