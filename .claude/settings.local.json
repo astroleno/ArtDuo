@@ -5,7 +5,10 @@
       "Bash(npm run dev:*)",
       "Bash(curl:*)",
       "Bash(pkill:*)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(lsof:*)",
+      "Bash(PORT=3001 npm run dev)",
+      "Bash(npm start)"
     ],
     "deny": [],
     "ask": []

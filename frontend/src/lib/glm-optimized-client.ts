@@ -283,7 +283,7 @@ export class GLMOptimizedClient {
       const promises = requests.map(async (req) => {
         try {
           const response = await this.chat(req.messages, {
-            model: req.options?.model || 'glm-4.5',
+            model: req.options?.model || this.defaultModel,
             temperature: req.options?.temperature || 0.3,
             max_tokens: req.options?.max_tokens || 1024,
             thinking: req.options?.thinking || 'disabled'

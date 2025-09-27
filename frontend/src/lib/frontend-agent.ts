@@ -217,7 +217,7 @@ export class FrontendAgent {
     try {
       console.log('🔗 开始调用LLM API...');
       const response = await frontendLLMClient.chat(messages, {
-        model: 'glm-4.5',
+        model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
         temperature: 0.7,
         max_tokens: 800
       });
@@ -426,7 +426,7 @@ export class FrontendAgent {
         ];
 
         const response = await frontendLLMClient.chat(messages, {
-          model: 'glm-4.5',
+          model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
           temperature: 0.5,
           max_tokens: 300
         });
@@ -481,7 +481,7 @@ LLM分析：${JSON.stringify(analysis, null, 2)}
 
     try {
       const response = await frontendLLMClient.chat(messages, {
-        model: 'glm-4.5',
+        model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
         temperature: 0.8,
         max_tokens: 512
       });

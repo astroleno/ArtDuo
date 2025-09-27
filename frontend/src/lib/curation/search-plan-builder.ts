@@ -99,7 +99,7 @@ async function callLLMForAnalysis(prompt: string, deterministicSeed?: string): P
   ];
 
   const options: any = {
-    model: 'glm-4.5',
+    model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
     temperature: 0.1,
     max_tokens: 4096
   };

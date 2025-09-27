@@ -4,7 +4,7 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    // 读取 HTML 文件
+    // 读取画廊 HTML 文件
     const htmlPath = path.join(process.cwd(), 'src/app/gallery/page.html');
     const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
 
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error serving gallery HTML:', error);
+    console.error('Error serving HTML:', error);
     return NextResponse.json(
       { error: 'Failed to load gallery page' },
       { status: 500 }

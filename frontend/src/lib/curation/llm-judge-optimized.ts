@@ -149,7 +149,7 @@ ${userInput ? `用户要求：${userInput}` : ''}
     ];
 
     const response = await openaiClient.chat(messages, {
-      model: 'glm-4.5',
+      model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
       temperature: 0.1,
       max_tokens: 512 // 减少token数量，提高速度
     });
@@ -289,7 +289,7 @@ async function scoreBatchArtworksOptimized(
     ];
 
     const response = await openaiClient.chat(messages, {
-      model: 'glm-4.5',
+      model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
       temperature: 0.2, // 降低温度，提高一致性
       max_tokens: 2048 // 减少token数量，提高速度
     });

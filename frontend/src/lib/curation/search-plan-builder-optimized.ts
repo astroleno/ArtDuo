@@ -199,7 +199,7 @@ async function quickCustomizePlan(
     ];
 
     const response = await openaiClient.chat(messages, {
-      model: 'glm-4.5',
+      model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
       temperature: 0.3,
       max_tokens: 512 // 减少token数量，提高速度
     });

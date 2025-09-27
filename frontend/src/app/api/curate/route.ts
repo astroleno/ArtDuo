@@ -162,7 +162,7 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
     let curationDescription = '';
     try {
       const response = await openaiClient.chat(curationMessages, {
-        model: 'glm-4.5',
+        model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
         temperature: 0.8,
         max_tokens: 512,
         thinking: 'disabled' as const

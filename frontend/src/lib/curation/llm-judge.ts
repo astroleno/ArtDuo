@@ -51,7 +51,7 @@ export async function llmJudgeArtwork(
 
   try {
     const response = await openaiClient.chat(messages, {
-      model: 'glm-4.5',
+      model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
       temperature: 0.3,
       max_tokens: 2048
     });
@@ -231,7 +231,7 @@ async function smartFilterArtworks(
 
     console.log(`📝 发送智能筛选请求到LLM...`);
     const response = await openaiClient.chat(messages, {
-      model: 'glm-4.5',
+      model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
       temperature: 0.1,  // 降低温度，提高一致性
       max_tokens: 6144   // 增加token数量以处理更多作品
     });
@@ -340,7 +340,7 @@ async function scoreBatchArtworks(
 
     console.log(`📤 发送批量评分请求到LLM...`);
     const response = await openaiClient.chat(messages, {
-      model: 'glm-4.5',
+      model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
       temperature: 0.1,  // 降低温度提高一致性
       max_tokens: 7168   // 进一步提升 token 上限
     });
