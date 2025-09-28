@@ -4,10 +4,31 @@ import { Artwork, ArtworkService, ArtworkServiceResponse, CurationInfo } from '.
 export class MetMuseumAPIService implements ArtworkService {
   private serviceName = 'MetMuseumAPI';
   private baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1';
+  private lastRequestTime = 0;
+  private minRequestInterval = 100; // 最小请求间隔100ms，确保不超过80请求/秒
+  
+  /**
+   * 请求频率控制 - 确保不超过Met Museum API的80请求/秒限制
+   */
+  private async rateLimit(): Promise<void> {
+    const now = Date.now();
+    const timeSinceLastRequest = now - this.lastRequestTime;
+    
+    if (timeSinceLastRequest < this.minRequestInterval) {
+      const delay = this.minRequestInterval - timeSinceLastRequest;
+      console.log(`⏱️ Met Museum API频率控制: 等待${delay}ms`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+    
+    this.lastRequestTime = Date.now();
+  }
   
   async isAvailable(): Promise<boolean> {
     try {
       console.log('🔍 检查Met Museum API服务可用性...');
+      
+      // 应用频率控制
+      await this.rateLimit();
       
       // 测试API连接
       const response = await fetch(`${this.baseUrl}/search?q=test&hasImages=true`, {
@@ -15,7 +36,8 @@ export class MetMuseumAPIService implements ArtworkService {
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'ArtDuo/1.0'
-        }
+        },
+        signal: AbortSignal.timeout(5000) // 5秒超时，快速失败
       });
       
       const isAvailable = response.ok;
@@ -31,6 +53,9 @@ export class MetMuseumAPIService implements ArtworkService {
     console.log('🎨 Met Museum API服务 - 搜索作品:', emotion, userInput);
     
     try {
+      // 应用频率控制
+      await this.rateLimit();
+      
       // 转换为英文关键词
       const searchQuery = this.buildSearchQuery(emotion, userInput, llmAnalysis);
       console.log('🔍 搜索查询:', searchQuery);
@@ -44,7 +69,8 @@ export class MetMuseumAPIService implements ArtworkService {
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'ArtDuo/1.0'
-        }
+        },
+        signal: AbortSignal.timeout(5000) // 5秒超时，快速失败
       });
       
       if (!searchResponse.ok) {
@@ -92,8 +118,13 @@ export class MetMuseumAPIService implements ArtworkService {
   }
 
   private async fetchArtworkDetails(objectIDs: number[]): Promise<Artwork[]> {
-    const artworkPromises = objectIDs.map(async (id: number) => {
+    const artworkPromises = objectIDs.map(async (id: number, index: number) => {
       try {
+        // 为每个请求添加频率控制
+        if (index > 0) {
+          await this.rateLimit();
+        }
+        
         console.log('🔍 获取作品详情，ID:', id);
         
         const detailResponse = await fetch(`${this.baseUrl}/objects/${id}`, {

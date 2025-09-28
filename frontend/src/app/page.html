@@ -440,8 +440,8 @@
 
             async generateSubtitleAndNavigate(emotion) {
                 try {
-                    // 先跳转到gallery页面进行策展，然后自动跳转到immersive
-                    window.location.href = `/gallery?emotion=${encodeURIComponent(emotion)}&autoImmersive=true`;
+                    // 直接跳转到沉浸式页面，让策展在后台进行
+                    window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(emotion)}`;
                 } catch (error) {
                     console.error('跳转失败:', error);
                     // 如果出错，直接跳转到沉浸式页面

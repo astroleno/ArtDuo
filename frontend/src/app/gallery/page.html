@@ -501,9 +501,9 @@
                     
                     case 'introduction':
                         curationData.introduction = data.payload?.introduction || '';
-                        this.updateLoadingText('complete');
-                        // 序言生成完成后，直接跳转到沉浸式页面
-                        this.navigateToImmersiveAfterIntro();
+                        this.updateLoadingText('序言生成完成');
+                        // 显示序言流式输出，然后跳转到沉浸式页面
+                        this.showIntroductionStreaming();
                         break;
                     
                     case 'conclusion':
@@ -843,6 +843,89 @@
                 setTimeout(() => {
                     window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(curationData.emotion)}`;
                 }, 1000);
+            }
+
+            showIntroductionStreaming() {
+                // 创建序言流式输出容器
+                const introContainer = document.createElement('div');
+                introContainer.className = 'modal';
+                introContainer.style.display = 'block';
+                introContainer.innerHTML = `
+                    <div class="modal-content" style="max-width: 600px;">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <h2 style="color: var(--text-primary); margin-bottom: 0.5rem;">策展序言</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">情绪展览：${curationData.emotion}</p>
+                        </div>
+                        <div id="introduction-text" style="line-height: 1.8; color: var(--text-primary); margin-bottom: 2rem; min-height: 120px;">
+                            <div style="display: flex; align-items: center; justify-content: center; height: 120px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div class="loading-spinner" style="width: 20px; height: 20px; border: 2px solid var(--text-tertiary); border-top: 2px solid var(--text-primary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                    <span style="color: var(--text-secondary);">正在生成序言...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="introduction-actions" style="text-align: center; display: none;">
+                            <button onclick="window.location.href='/gallery/immersive?emotion=${encodeURIComponent(curationData.emotion)}'" style="
+                                background: var(--btn-primary);
+                                color: var(--btn-text);
+                                border: none;
+                                padding: 0.75rem 2rem;
+                                border-radius: 0;
+                                cursor: pointer;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            ">进入沉浸式体验</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(introContainer);
+                
+                // 模拟流式输出序言
+                this.streamIntroductionText(curationData.introduction);
+                
+                // 继续监听后续策展事件，更新localStorage
+                this.continueBackgroundCuration();
+            }
+
+            streamIntroductionText(introduction) {
+                const textElement = document.getElementById('introduction-text');
+                const actionsElement = document.getElementById('introduction-actions');
+                
+                if (!textElement || !introduction) {
+                    // 如果没有序言，直接显示并跳转
+                    this.showCurationIntroductionAndNavigate();
+                    return;
+                }
+                
+                // 清空加载状态
+                textElement.innerHTML = '';
+                
+                // 模拟逐字输出
+                let currentText = '';
+                let index = 0;
+                const words = introduction.split('');
+                
+                const typeWriter = () => {
+                    if (index < words.length) {
+                        currentText += words[index];
+                        textElement.innerHTML = currentText + '<span style="opacity: 0.5;">|</span>';
+                        index++;
+                        setTimeout(typeWriter, 30); // 30ms间隔，模拟打字效果
+                    } else {
+                        // 完成输出，显示操作按钮
+                        textElement.innerHTML = currentText;
+                        actionsElement.style.display = 'block';
+                        
+                        // 3秒后自动跳转
+                        setTimeout(() => {
+                            window.location.href = `/gallery/immersive?emotion=${encodeURIComponent(curationData.emotion)}`;
+                        }, 3000);
+                    }
+                };
+                
+                // 开始打字效果
+                setTimeout(typeWriter, 500);
             }
 
             navigateToImmersiveAfterIntro() {

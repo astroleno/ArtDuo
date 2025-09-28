@@ -186,8 +186,21 @@ export class RijksMuseumAPIService implements ArtworkService {
       const searchUrl = `${this.searchBaseUrl}?key=${this.apiKey}&q=${encodeURIComponent(query)}&imgonly=true`;
       console.log('📡 搜索URL:', searchUrl);
 
-      const response = await fetchClient.get(searchUrl);
-      const data = response.data;
+      // 直接使用fetch，避免fetchClient的重试机制可能的问题
+      const response = await fetch(searchUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'ArtDuo/1.0'
+        },
+        signal: AbortSignal.timeout(10000) // 10秒超时
+      });
+
+      if (!response.ok) {
+        throw new Error(`Rijks API搜索失败: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
       console.log('📡 搜索响应:', data);
       console.log('📡 搜索响应数据量:', data.count || 0);
       console.log('📡 搜索响应作品数组长度:', data.artObjects ? data.artObjects.length : 0);

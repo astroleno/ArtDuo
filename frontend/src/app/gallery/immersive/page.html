@@ -1250,12 +1250,105 @@
                         startBackgroundLoading();
                     }
                 } else {
-                    // 如果没有保存的数据，显示默认内容
-                    console.log('没有找到策展数据，使用默认数据');
-                    updateImmersiveGallery();
+                    // 如果没有保存的数据，启动策展流程
+                    console.log('没有找到策展数据，启动策展流程');
+                    await startCurationProcess();
                 }
             } catch (error) {
                 console.error('加载策展数据失败:', error);
+                // 如果出错，启动策展流程
+                await startCurationProcess();
+            }
+        }
+
+        async function startCurationProcess() {
+            try {
+                console.log('🚀 启动策展流程...');
+                
+                // 显示加载状态
+                document.getElementById('emotion-text').textContent = '正在策展中...';
+                
+                // 启动策展流式输出
+                const response = await fetch('/api/curate/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        emotion: curationData.emotion,
+                        userInput: curationData.userInput || ''
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`策展请求失败: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                handleCurationEvent(data);
+                            } catch (e) {
+                                console.warn('解析策展数据失败:', e);
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('策展流程失败:', error);
+                // 显示默认内容
+                updateImmersiveGallery();
+            }
+        }
+
+        function handleCurationEvent(data) {
+            console.log('收到策展事件:', data);
+            
+            switch (data.type) {
+                case 'emotion_curve':
+                    curationData.emotionCurve = data.payload;
+                    break;
+                
+                case 'artworks_selected':
+                    curationData.artworks = data.payload?.artworks || [];
+                    console.log('收到艺术作品:', curationData.artworks.length, '件');
+                    updateImmersiveGallery();
+                    break;
+                
+                case 'introduction':
+                    curationData.introduction = data.payload?.introduction || '';
+                    console.log('收到序言:', curationData.introduction);
+                    updateImmersiveGallery();
+                    break;
+                
+                case 'conclusion':
+                    curationData.conclusion = data.payload?.conclusion || '';
+                    console.log('收到结语:', curationData.conclusion);
+                    break;
+                
+                case 'explanations_batch':
+                    const explanations = data.payload?.explanations || [];
+                    curationData.explanations.push(...explanations);
+                    console.log('收到讲解:', explanations.length, '个');
+                    break;
+                
+                case 'complete':
+                    curationData.isComplete = true;
+                    curationData.lastUpdate = Date.now();
+                    localStorage.setItem('curationData', JSON.stringify(curationData));
+                    console.log('策展完成');
+                    break;
             }
         }
 
