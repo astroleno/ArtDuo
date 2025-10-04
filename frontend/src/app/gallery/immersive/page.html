@@ -1144,6 +1144,22 @@
             const artwork = artworks.find(a => a.id === artworkId);
             if (!artwork) return;
 
+            // 从已接收的讲解中注入简介与详情
+            const exp = (curationData.explanations || []).find(e => e.artworkId === artworkId);
+            const introText = (() => {
+                if (exp && exp.explanation && exp.explanation.emotionalConnection) {
+                    const txt = String(exp.explanation.emotionalConnection).trim();
+                    const firstSentence = txt.split(/。|\.|!|！|\?|？/)[0] || txt;
+                    return firstSentence.length > 0 ? firstSentence : txt;
+                }
+                return artwork.description || '这件作品的简介即将生成。';
+            })();
+            const detailText = (() => {
+                // 详情优先取统一“details”承载字段（当前复用 artisticAnalysis 作为详情容器）
+                const d = exp?.explanation?.artisticAnalysis || '';
+                return d || '';
+            })();
+
             // 创建弹窗HTML
             const modalHTML = `
                 <div class="artwork-details-modal" id="artwork-details-modal">
@@ -1160,23 +1176,11 @@
                             <p><strong>收藏地：</strong>${artwork.museum}</p>
                             
                             <h3>作品简介</h3>
-                            <p>${artwork.description}</p>
+                            <p>${introText}</p>
                             
-                            ${artwork.detailedAnalysis ? `
-                                <h3>情感旅程</h3>
-                                <p>${artwork.detailedAnalysis.emotionalJourney}</p>
-                                
-                                <h3>艺术洞察</h3>
-                                <p>${artwork.detailedAnalysis.artisticInsights}</p>
-                                
-                                <h3>历史故事</h3>
-                                <p>${artwork.detailedAnalysis.historicalStory}</p>
-                                
-                                <h3>个人连接</h3>
-                                <p>${artwork.detailedAnalysis.personalConnection}</p>
-                                
-                                <h3>观展体验</h3>
-                                <p>${artwork.detailedAnalysis.viewingExperience}</p>
+                            ${exp && detailText ? `
+                                <h3>详情</h3>
+                                <p>${detailText}</p>
                             ` : ''}
                         </div>
                     </div>

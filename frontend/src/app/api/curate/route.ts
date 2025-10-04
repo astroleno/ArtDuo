@@ -11,10 +11,85 @@ import { glmOptimizedClient } from '@/lib/glm-optimized-client';
 
 // 注意：mock数据已移至 FallbackService 组件中
 
+async function safeParseBody(request: NextRequest): Promise<{ emotion?: string; userInput?: string }> {
+  // 多策略：优先 clone().json() → clone().text() → arrayBuffer
+  // 同时记录关键日志，便于定位Dev环境下的解析问题
+  try {
+    const ct = request.headers.get('content-type') || '';
+    console.log('📥 safeParseBody Content-Type:', ct);
+
+    try {
+      const j = await request.clone().json();
+      if (j && (j.emotion || j.userInput)) {
+        console.log('📥 safeParseBody via json(): ok');
+        return j;
+      }
+    } catch (e) {
+      console.log('ℹ️ safeParseBody json() failed');
+    }
+
+    try {
+      const t = await request.clone().text();
+      if (t) {
+        console.log('📥 safeParseBody via text(): length', t.length);
+        try {
+          const j2 = JSON.parse(t);
+          if (j2 && (j2.emotion || j2.userInput)) {
+            console.log('📥 safeParseBody text()→JSON ok');
+            return j2;
+          }
+        } catch {
+          const params = new URLSearchParams(t);
+          const emotion = params.get('emotion') || undefined;
+          const userInput = params.get('userInput') || undefined;
+          if (emotion || userInput) {
+            console.log('📥 safeParseBody text()→form ok');
+            return { emotion, userInput };
+          }
+        }
+      }
+    } catch (e) {
+      console.log('ℹ️ safeParseBody text() failed');
+    }
+
+    try {
+      const buf = await request.arrayBuffer();
+      if (buf && buf.byteLength > 0) {
+        const raw = new TextDecoder('utf-8').decode(buf);
+        console.log('📥 safeParseBody via arrayBuffer(): bytes', buf.byteLength);
+        try {
+          const j3 = JSON.parse(raw);
+          if (j3 && (j3.emotion || j3.userInput)) return j3;
+        } catch {
+          const params = new URLSearchParams(raw);
+          const emotion = params.get('emotion') || undefined;
+          const userInput = params.get('userInput') || undefined;
+          if (emotion || userInput) return { emotion, userInput };
+        }
+      }
+    } catch (e) {
+      console.log('ℹ️ safeParseBody arrayBuffer() failed');
+    }
+
+    return {};
+  } catch (e) {
+    console.log('❌ safeParseBody unexpected error', e);
+    return {};
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { emotion, userInput } = body;
+    const body = await safeParseBody(request);
+    let { emotion, userInput } = body;
+    // 兼容：当POST解析不到body时，退化到URL参数
+    if (!emotion) {
+      try {
+        const url = new URL(request.url);
+        emotion = url.searchParams.get('emotion') || emotion;
+        userInput = url.searchParams.get('userInput') || userInput;
+      } catch {}
+    }
     console.log('🎨 ArtDuo API调用开始 - 用户情绪:', emotion, '用户输入:', userInput);
 
     if (!emotion) {
@@ -100,11 +175,12 @@ export async function POST(request: NextRequest) {
     const selectionTime = Date.now() - selectionStartTime;
     console.log(`⏱️ 作品选择完成，耗时: ${selectionTime}ms，选择作品: ${selectionResult.selectedArtworks.length} 件`);
 
-    // 第六步：生成作品讲解（首批即返：仅生成前3条，其余占位）
-    console.log('🎨 开始生成作品讲解（首批返回3条，其余占位）...');
+    // 第六步：生成作品讲解（首批即返：可配置数量，其余占位）
+    const firstExplainCount = Number(process.env.FIRST_EXPLANATIONS_COUNT || 2);
+    console.log(`🎨 开始生成作品讲解（首批返回${firstExplainCount}条，其余占位）...`);
     const explanationStartTime = Date.now();
-    const firstBatch = selectionResult.selectedArtworks.slice(0, 3);
-    const restBatch = selectionResult.selectedArtworks.slice(3);
+    const firstBatch = selectionResult.selectedArtworks.slice(0, firstExplainCount);
+    const restBatch = selectionResult.selectedArtworks.slice(firstExplainCount);
     const firstBatchResult = await generateArtworkExplanations(
       firstBatch,
       emotion,
@@ -128,6 +204,9 @@ export async function POST(request: NextRequest) {
     const explanationsCombined = [...firstBatchResult.explanations, ...placeholders];
     const explanationTime = Date.now() - explanationStartTime;
     console.log(`⏱️ 首批作品讲解完成，耗时: ${explanationTime}ms，返回已完成讲解: ${firstBatchResult.successCount} 条`);
+
+    // 不再在返回层做映射，要求上游LLM直接产出 introduction/detail（见 artwork-explanation.ts）
+    const explanationsNormalized = explanationsCombined;
 
     // 第七步：生成策展简介/结语（使用GLM分析与曲线信息快速生成，避免外部依赖）
     const summaryStartTime = Date.now();
@@ -164,8 +243,7 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
       const response = await openaiClient.chat(curationMessages, {
         model: process.env.NEXT_PUBLIC_GLM_MODEL || 'glm-4.5',
         temperature: 0.8,
-        max_tokens: 512,
-        thinking: 'disabled' as const
+        max_tokens: 512
       });
       curationDescription = response.choices[0]?.message?.content || '这是一个精心策划的艺术展览，展现了情感的深度和艺术的魅力。';
     } catch (error) {
@@ -201,7 +279,7 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
         emotionCurve: optimizedCurve.map(point => point.intensity), // 使用真实的情绪曲线
         totalWorks: selectionResult.selectedArtworks.length
       },
-      explanations: explanationsCombined, // 返回首批讲解+占位
+      explanations: explanationsNormalized, // 返回首批讲解+占位，并保证 introduction/detail 可用
       serviceInfo: {
         current: serviceInfo.name,
         source: artworkResult.source,
@@ -266,6 +344,20 @@ LLM分析结果: ${JSON.stringify(analysisResult, null, 2)}
       { status: 500 }
     );
   }
+}
+
+// 便于测试：支持 GET /api/curate?emotion=calm&userInput=...
+export async function GET(request: NextRequest) {
+  const url = new URL(request.url);
+  const emotion = url.searchParams.get('emotion') || undefined;
+  const userInput = url.searchParams.get('userInput') || undefined;
+  // 将 GET 转发为内部 POST 逻辑
+  // 通过构造一个假的 Request Body 对象
+  const fakeReq = {
+    json: async () => ({ emotion, userInput }),
+    text: async () => `emotion=${emotion || ''}&userInput=${userInput || ''}`
+  } as unknown as NextRequest;
+  return POST(fakeReq);
 }
 
 // 注意：选择函数已移至各个服务组件中

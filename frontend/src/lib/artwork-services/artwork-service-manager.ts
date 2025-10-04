@@ -27,33 +27,12 @@ export class ArtworkServiceManager {
   }
 
   async searchArtworks(emotion: string, userInput?: string, llmAnalysis?: any): Promise<ArtworkServiceResponse> {
-    console.log('🎨 艺术作品服务管理器 - 开始并发搜索:', emotion, userInput);
-    
-    // 过滤出可用的服务
-    const availableServices: { service: ArtworkService; name: string }[] = [];
-    for (const service of this.services) {
-      const serviceName = this.getServiceName(service);
-      try {
-        const isAvailable = await service.isAvailable();
-        if (isAvailable) {
-          console.log(`✅ 服务可用: ${serviceName}`);
-          availableServices.push({ service, name: serviceName });
-        } else {
-          console.log(`⚠️ 服务不可用: ${serviceName}`);
-        }
-      } catch (error) {
-        console.error(`❌ 服务检查失败: ${serviceName}`, error);
-      }
-    }
+    console.log('🎨 艺术作品服务管理器 - 开始并发搜索(无前置门禁):', emotion, userInput);
 
-    if (availableServices.length === 0) {
-      console.error('❌ 没有可用的服务');
-      throw new Error('所有艺术作品服务都不可用');
-    }
-
-    // 并发调用所有可用服务
-    console.log(`🚀 并发调用 ${availableServices.length} 个服务`);
-    const servicePromises = availableServices.map(async ({ service, name }) => {
+    // 直接并发调用所有服务，失败的在结果阶段过滤，避免可用性抖动影响体验
+    console.log(`🚀 并发调用 ${this.services.length} 个服务（跳过前置可用性门禁）`);
+    const servicePromises = this.services.map(async (service) => {
+      const name = this.getServiceName(service);
       try {
         console.log(`🔍 调用服务: ${name}`);
         const result = await service.searchArtworks(emotion, userInput, llmAnalysis);
@@ -73,7 +52,7 @@ export class ArtworkServiceManager {
     const failedServices = [];
 
     results.forEach((result, index) => {
-      const serviceName = availableServices[index].name;
+      const serviceName = this.getServiceName(this.services[index]);
       console.log(`🔍 处理服务结果: ${serviceName}`);
       console.log(`🔍 结果状态: ${result.status}`);
       
@@ -113,10 +92,12 @@ export class ArtworkServiceManager {
       console.log(`❌ 失败服务: ${failedServices.join(', ')}`);
     }
 
-    // 记录当前使用的服务（使用第一个成功的服务）
-    this.currentServiceIndex = this.services.findIndex(service => 
-      this.getServiceName(service) === successfulServices[0]
-    );
+    // 记录当前使用的服务（使用第一个成功的服务，如无成功则保持原值）
+    if (successfulServices.length > 0) {
+      this.currentServiceIndex = this.services.findIndex(service => 
+        this.getServiceName(service) === successfulServices[0]
+      );
+    }
 
     // 生成合并后的策展信息
     const mergedCuration = this.generateMergedCuration(emotion, allArtworks, successfulServices);

@@ -173,6 +173,20 @@ export async function POST(request: NextRequest) {
   });
 }
 
+// 便于测试：支持 GET /api/curate/stream?emotion=...&userInput=...
+export async function GET(request: NextRequest) {
+  // 构造一个带有 json() 的轻量请求对象，复用 POST 流程
+  const url = new URL(request.url);
+  const emotion = url.searchParams.get('emotion') || '';
+  const userInput = url.searchParams.get('userInput') || '';
+
+  const fake = {
+    json: async () => ({ emotion, userInput })
+  } as unknown as NextRequest;
+
+  return POST(fake);
+}
+
 /**
  * 分批并发生成讲解（小批次快速返回）
  */
@@ -207,11 +221,14 @@ async function generateExplanationsInBatches(
       );
       const firstBatchTime = Date.now() - firstBatchStart;
       
+      // 不做SSE层映射，要求上游LLM直接产出 introduction/detail（见 artwork-explanation.ts）
+      const explanationsNormalized = firstResult.explanations;
+
       // 立即发送第一批结果
       send('explanations_batch', {
         batchIndex: 1,
         batchSize: firstBatch.length,
-        explanations: firstResult.explanations,
+        explanations: explanationsNormalized,
         successCount: firstResult.successCount,
         failureCount: firstResult.failureCount,
         durationMs: firstBatchTime,
@@ -248,11 +265,14 @@ async function generateExplanationsInBatches(
         );
         const batchTime = Date.now() - batchStart;
         
+        // 不做SSE层映射，要求上游LLM直接产出 introduction/detail
+        const explanationsNormalized = result.explanations;
+
         // 发送这一批的讲解结果
         send('explanations_batch', {
           batchIndex: index + 2, // 从第2批开始
           batchSize: batch.length,
-          explanations: result.explanations,
+          explanations: explanationsNormalized,
           successCount: result.successCount,
           failureCount: result.failureCount,
           durationMs: batchTime

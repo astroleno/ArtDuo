@@ -64,7 +64,7 @@ export class GLMOptimizedClient {
   constructor() {
     // 优先使用进程环境变量
     let apiKey = process.env.NEXT_PUBLIC_GLM_API_KEY || process.env.GLM_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY || '';
-    let defaultModel = 'glm-4.5';
+    let defaultModel = 'glm-4.5-air'; // 默认使用 glm-4.5-air
 
     // 若未取到，则尝试读取 .env.local（仅在Node环境有效）
     if (!apiKey) {
@@ -98,21 +98,26 @@ export class GLMOptimizedClient {
       }
     }
 
-    // 若仍未取到，则尝试 env.local.json 兜底
-    if (!apiKey) {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const fs = require('fs');
-        const path = require('path');
-        const jsonPath = path.resolve(process.cwd(), 'env.local.json');
-        if (fs.existsSync(jsonPath)) {
-          const obj = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+    // 尝试从 env.local.json 读取配置（无论API key是否存在）
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const fs = require('fs');
+      const path = require('path');
+      const jsonPath = path.resolve(process.cwd(), 'env.local.json');
+      if (fs.existsSync(jsonPath)) {
+        const obj = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+        // 如果API key还没获取到，尝试从JSON读取
+        if (!apiKey) {
           apiKey = obj.NEXT_PUBLIC_GLM_API_KEY || obj.GLM_API_KEY || obj.NEXT_PUBLIC_OPENAI_API_KEY || '';
-          defaultModel = obj.NEXT_PUBLIC_GLM_MODEL || obj.GLM_MODEL || defaultModel;
         }
-      } catch {
-        // 忽略读取错误
+        // 总是尝试从JSON读取模型配置
+        const jsonModel = obj.NEXT_PUBLIC_GLM_MODEL || obj.GLM_MODEL;
+        if (jsonModel) {
+          defaultModel = jsonModel;
+        }
       }
+    } catch {
+      // 忽略读取错误
     }
 
     this.apiKey = apiKey || '';

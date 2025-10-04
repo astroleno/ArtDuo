@@ -29,12 +29,23 @@ export class RijksMuseumAPIService implements ArtworkService {
       try {
         const fs = require('fs');
         const path = require('path');
-        const envPath = path.join(process.cwd(), 'env.local.json');
-        if (fs.existsSync(envPath)) {
-          const envData = JSON.parse(fs.readFileSync(envPath, 'utf8'));
-          apiKey = envData.rijks_api_key || '';
-          if (apiKey) {
-            console.log('🔑 从 env.local.json 加载 Rijks API 密钥');
+        // 依次尝试多个常见路径，兼容不同运行cwd
+        const candidatePaths = [
+          path.join(process.cwd(), 'env.local.json'),
+          path.join(process.cwd(), 'frontend', 'env.local.json'),
+          path.resolve('env.local.json'),
+          path.resolve('frontend', 'env.local.json')
+        ];
+        for (const p of candidatePaths) {
+          if (fs.existsSync(p)) {
+            try {
+              const envData = JSON.parse(fs.readFileSync(p, 'utf8'));
+              apiKey = envData.NEXT_PUBLIC_RIJKS_API_KEY || envData.rijks_api_key || '';
+              console.log(`🔑 尝试从文件加载 Rijks API 密钥: ${p} -> ${apiKey ? '已找到' : '未找到'}`);
+              if (apiKey) break;
+            } catch (e) {
+              console.warn('⚠️ 解析 env.local.json 失败:', p, e);
+            }
           }
         }
       } catch (error) {
@@ -64,10 +75,11 @@ export class RijksMuseumAPIService implements ArtworkService {
           'Accept': 'application/json',
           'User-Agent': 'ArtDuo/1.0'
         },
-        signal: AbortSignal.timeout(8000) // 8秒超时
+        // 放宽超时，避免网络抖动导致误判
+        signal: AbortSignal.timeout(15000) // 15秒超时
       });
       
-      const isAvailable = response.ok && response.status >= 200 && response.status < 300;
+      const isAvailable = response.status >= 200 && response.status < 300;
       console.log(`📡 Rijks Museum API可用性: ${isAvailable} (状态: ${response.status})`);
       
       if (isAvailable) {
@@ -76,10 +88,12 @@ export class RijksMuseumAPIService implements ArtworkService {
           const data = await response.json();
           const hasArtObjects = data.artObjects && Array.isArray(data.artObjects);
           console.log(`📊 Rijks API数据验证: ${hasArtObjects ? '✅' : '❌'} (作品数: ${data.count || 0})`);
-          return hasArtObjects;
+          // 只要响应成功就认为可用，具体作品为空不影响“可用性”
+          return true;
         } catch (jsonError) {
           console.warn('⚠️ Rijks API返回数据格式异常:', jsonError);
-          return false;
+          // 返回200但解析失败也视为可用，避免频繁误判
+          return true;
         }
       }
       
@@ -105,10 +119,10 @@ export class RijksMuseumAPIService implements ArtworkService {
 
       // 第一步：调用Search API获取作品ID列表
       console.log('🔍 开始搜索Rijks作品，查询:', searchQuery);
-      const searchResults = await this.searchCollection(searchQuery);
-      console.log('🔍 搜索结果:', searchResults.length, '个作品ID');
+      const searchIds = await this.searchCollection(searchQuery);
+      console.log('🔍 搜索结果:', searchIds.length, '个作品ID');
       
-      if (!searchResults || searchResults.length === 0) {
+      if (!searchIds || searchIds.length === 0) {
         console.log('⚠️ Rijks API搜索没有找到作品');
         return {
           success: false,
@@ -123,19 +137,26 @@ export class RijksMuseumAPIService implements ArtworkService {
         };
       }
 
-      // 第二步：获取作品详细信息
-      // 由于详情API有问题，我们直接使用搜索API返回的数据
-      const artworks = await this.fetchArtworkDetailsFromSearch(searchResults.slice(0, 25));
-      console.log('✅ 成功获取', artworks.length, '个作品');
+      // 第二步：获取作品详细信息（主路径）
+      const artworks = await this.fetchArtworkDetailsFromSearch(searchIds.slice(0, 25));
+      console.log('✅ 详情路径获取', artworks.length, '个作品');
+
+      // 兜底：如果详情路径为0，则直接用搜索列表构建最简作品（基于 webImage/headerImage）
+      let finalArtworks: Artwork[] = artworks;
+      if (finalArtworks.length === 0) {
+        console.log('🔁 详情为空，使用搜索结果直接构建作品条目');
+        finalArtworks = await this.buildArtworksDirectlyFromSearch(searchIds.slice(0, 25));
+        console.log('✅ 搜索直构获取', finalArtworks.length, '个作品');
+      }
 
       return {
         success: true,
-        artworks,
+        artworks: finalArtworks,
         curation: {
           theme: emotion,
-          description: `这是来自荷兰国家博物馆的${artworks.length}件作品，展现了"${emotion}"这一主题的艺术表达。`,
-          emotionCurve: this.generateEmotionCurve(emotion, artworks),
-          totalWorks: artworks.length
+          description: `这是来自荷兰国家博物馆的${finalArtworks.length}件作品，展现了"${emotion}"这一主题的艺术表达。`,
+          emotionCurve: this.generateEmotionCurve(emotion, finalArtworks),
+          totalWorks: finalArtworks.length
         },
         source: 'rijks'
       };
@@ -145,6 +166,50 @@ export class RijksMuseumAPIService implements ArtworkService {
       console.error('❌ 错误堆栈:', error instanceof Error ? error.stack : 'No stack');
       throw error;
     }
+  }
+
+  // 直接基于搜索结果构建作品（不依赖详情接口）
+  private async buildArtworksDirectlyFromSearch(objectIds: string[]): Promise<Artwork[]> {
+    const results: Artwork[] = [];
+    for (const id of objectIds) {
+      try {
+        const detailUrl = `${this.searchBaseUrl}/${id}?key=${this.apiKey}`;
+        const resp = await fetch(detailUrl, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json', 'User-Agent': 'ArtDuo/1.0' },
+          signal: AbortSignal.timeout(10000)
+        });
+        if (!resp.ok) {
+          console.warn('⚠️ 直构细节获取失败，跳过ID:', id, resp.status, resp.statusText);
+          continue;
+        }
+        const data = await resp.json();
+        if (data && data.artObject) {
+          const ao = data.artObject;
+          const imageUrl = ao.webImage?.url || ao.headerImage?.url || '';
+          if (!imageUrl) {
+            console.warn('⚠️ 无图片，跳过ID:', id);
+            continue;
+          }
+          const artwork: Artwork = {
+            id,
+            title: ao.title || '未知作品',
+            artist: ao.principalOrFirstMaker || '未知艺术家',
+            year: ao.dating?.presentingDate || '未知年代',
+            medium: ao.materials?.[0] || ao.techniques?.[0] || '未知材质',
+            dimensions: ao.dimensions?.[0]?.value ? `${ao.dimensions[0].value} ${ao.dimensions[0].unit || ''}` : '未知尺寸',
+            imageUrl,
+            description: ao.plaqueDescriptionDutch || ao.plaqueDescriptionEnglish || '这是一件来自荷兰国家博物馆的珍贵作品。',
+            museum: '荷兰国家博物馆',
+            license: 'Rijksmuseum API',
+          };
+          results.push(artwork);
+        }
+      } catch (e) {
+        console.warn('⚠️ 直构获取异常，跳过ID:', id, e instanceof Error ? e.message : String(e));
+      }
+    }
+    return results;
   }
 
   private buildSearchQuery(emotion: string, userInput?: string, llmAnalysis?: any): string {
@@ -183,7 +248,8 @@ export class RijksMuseumAPIService implements ArtworkService {
   private async searchCollection(query: string): Promise<string[]> {
     try {
       // 使用正确的 Rijks API 搜索格式
-      const searchUrl = `${this.searchBaseUrl}?key=${this.apiKey}&q=${encodeURIComponent(query)}&imgonly=true`;
+      // 提升每次返回数量，优先取有图结果
+      const searchUrl = `${this.searchBaseUrl}?key=${this.apiKey}&q=${encodeURIComponent(query)}&imgonly=true&ps=20`;
       console.log('📡 搜索URL:', searchUrl);
 
       // 直接使用fetch，避免fetchClient的重试机制可能的问题
@@ -206,7 +272,7 @@ export class RijksMuseumAPIService implements ArtworkService {
       console.log('📡 搜索响应作品数组长度:', data.artObjects ? data.artObjects.length : 0);
 
       // 提取作品ID列表
-      const objectIds: string[] = [];
+      let objectIds: string[] = [];
       if (data.artObjects && Array.isArray(data.artObjects)) {
         data.artObjects.forEach((artObject: any) => {
           if (artObject.objectNumber) {
@@ -217,6 +283,30 @@ export class RijksMuseumAPIService implements ArtworkService {
 
       console.log('📋 找到作品ID:', objectIds.length, '个');
       console.log('📋 作品ID列表:', objectIds.slice(0, 5)); // 显示前5个ID
+      // 若首轮为空，进行一次宽松降级：仅 imgonly=true，不带查询词
+      if (objectIds.length === 0) {
+        const fallbackUrl = `${this.searchBaseUrl}?key=${this.apiKey}&imgonly=true&ps=20`;
+        console.log('🔁 宽松降级重试，无查询词:', fallbackUrl);
+        const fbResp = await fetch(fallbackUrl, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json', 'User-Agent': 'ArtDuo/1.0' },
+          signal: AbortSignal.timeout(10000)
+        });
+        if (fbResp.ok) {
+          const fbData = await fbResp.json();
+          if (fbData.artObjects && Array.isArray(fbData.artObjects)) {
+            objectIds = fbData.artObjects
+              .filter((o: any) => !!o.objectNumber)
+              .map((o: any) => o.objectNumber)
+              .slice(0, 20);
+            console.log('🔁 降级重试命中作品ID:', objectIds.length);
+          } else {
+            console.log('🔁 降级重试返回无 artObjects');
+          }
+        } else {
+          console.log('🔁 降级重试响应失败:', fbResp.status, fbResp.statusText);
+        }
+      }
       return objectIds;
     } catch (error) {
       console.error('❌ 搜索作品失败:', error);

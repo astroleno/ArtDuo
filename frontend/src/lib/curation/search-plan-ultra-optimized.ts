@@ -92,10 +92,17 @@ export async function buildSearchPlanUltraOptimized(
       const customizedKeywords = await generateKeywordsWithOpenAI(emotion, userInput);
       finalKeywords = customizedKeywords.length > 0 ? customizedKeywords : getPreciseKeywords(emotion);
     }
-    console.log(`✅ 快速LLM生成关键词: ${finalKeywords.join(', ')}`);
+    // 强制标准化为英文检索关键词（剔除非ASCII，补全英文默认词）
+    const englishKeywords = normalizeKeywordsToEnglish(emotion, finalKeywords);
+    // 同时加入荷兰语的简短情绪关键词，提升 Rijks 命中率
+    const dutchKeywords = getDutchEmotionKeywords(emotion);
+    finalKeywords = Array.from(new Set([...englishKeywords, ...dutchKeywords])).slice(0, 8);
+    console.log(`✅ 检索关键词(英+荷): ${finalKeywords.join(', ')}`);
   } catch (error) {
     console.warn('快速LLM关键词生成失败，使用精确关键词:', error);
-    finalKeywords = getPreciseKeywords(emotion);
+    const englishKeywords = normalizeKeywordsToEnglish(emotion, getPreciseKeywords(emotion));
+    const dutchKeywords = getDutchEmotionKeywords(emotion);
+    finalKeywords = Array.from(new Set([...englishKeywords, ...dutchKeywords])).slice(0, 8);
   }
   
   // 第三步：构建搜索计划
@@ -306,4 +313,32 @@ export function getSearchPlanStats(plan: SearchPlan): {
     sourceCount: plan.sources.length,
     estimatedSearchTime: plan.keywords.length * 200 // 每个关键词约200ms
   };
+}
+
+// 将关键词标准化为英文（ASCII），并在必要时补充默认英文关键词
+function normalizeKeywordsToEnglish(emotion: string, keywords: string[]): string[] {
+  try {
+    const ascii = keywords
+      .map(k => k.normalize('NFKD').replace(/[^ -]/g, ''))
+      .map(k => k.replace(/\s+/g, ' ').trim())
+      .filter(k => k.length > 0);
+    const base = ascii.length > 0 ? ascii : getPreciseKeywords(emotion);
+    // 去重并限制数量
+    const uniq = Array.from(new Set(base.map(k => k.toLowerCase())));
+    return uniq.slice(0, 5);
+  } catch {
+    return getPreciseKeywords(emotion);
+  }
+}
+
+// 为常见情绪加入荷兰语的简短关键词，提高 Rijks 检索命中
+function getDutchEmotionKeywords(emotion: string): string[] {
+  const map: Record<string, string[]> = {
+    joy: ['vreugde', 'blij', 'feest'],
+    melancholy: ['melancholisch', 'somber', 'verdriet'],
+    calm: ['rustig', 'sereen', 'stilte'],
+    lonely: ['eenzaam', 'verlaten'],
+    passion: ['passie', 'hartstocht']
+  };
+  return map[emotion] || [];
 }
