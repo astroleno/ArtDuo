@@ -53,6 +53,27 @@ export interface BatchExplanationResult {
 }
 
 /**
+ * 更严格的英文检测函数
+ */
+function needsChineseConversion(text: string): boolean {
+  if (!text) return false;
+
+  // 检测连续英文单词（降低到2个字母）
+  const hasEnglishWords = /[A-Za-z]{2,}/.test(text);
+
+  // 检测常见英文句式结构和介词
+  const hasEnglishPatterns = /\b(the|and|or|but|in|on|at|to|for|of|with|by|is|are|was|were|has|have|will|would|could|should)\b/i.test(text);
+
+  // 检测英文标点符号组合
+  const hasEnglishPunctuation = /[A-Za-z]+[,.!?][A-Za-z]/.test(text);
+
+  // 检测以英文开头的句子
+  const hasEnglishStart = /^[A-Za-z]/.test(text.trim());
+
+  return hasEnglishWords || hasEnglishPatterns || hasEnglishPunctuation || hasEnglishStart;
+}
+
+/**
  * 为策展作品生成讲解和用户关联分析
  */
 export async function generateArtworkExplanations(
@@ -153,23 +174,49 @@ async function generateSingleArtworkExplanation(
   // 预翻译标题为中文译名（括号保留原文），仅当检测到显著英文时触发
   async function translateTitleIfEnglish(title: string | undefined): Promise<string> {
     const t = title || '';
-    if (!/[A-Za-z]{3,}/.test(t)) return t;
-    const titlePrompt = `将以下作品标题翻译为中文，先给出中文译名或音译，再在括号内保留原文：\n${t}`;
+    if (!needsChineseConversion(t)) {
+      console.log('✅ 标题无需翻译:', t);
+      return t;
+    }
+    console.log('🔄 预翻译英文标题:', t);
+    const titlePrompt = `请将艺术作品标题翻译为中文。要求：1. 先给出中文译名 2. 在括号内保留英文原文 3. 不要添加其他解释文字。
+
+示例：
+输入：Mona Lisa
+输出：蒙娜丽莎（Mona Lisa）
+
+输入：The Starry Night
+输出：星夜（The Starry Night）
+
+现在请翻译：${t}`;
     try {
+      let result;
       if (glmOptimizedClient.hasValidApiKey()) {
         const r = await glmOptimizedClient.chat([
-          { role: 'system' as const, content: '你是专业中文译者，擅长艺术作品标题翻译。' },
+          { role: 'system' as const, content: '你是专业的艺术作品翻译专家，请严格按照用户要求的格式输出翻译结果。' },
           { role: 'user' as const, content: titlePrompt }
-        ], { temperature: 0.2, max_tokens: 60, thinking: 'disabled' as const });
-        return (r.choices[0]?.message?.content || t).trim();
+        ], { temperature: 0.1, max_tokens: 100, thinking: 'disabled' as const });
+        result = (r.choices[0]?.message?.content || t).trim();
       } else {
         const r = await openaiClient.chat([
-          { role: 'system' as const, content: '你是专业中文译者，擅长艺术作品标题翻译。' },
+          { role: 'system' as const, content: '你是专业的艺术作品翻译专家，请严格按照用户要求的格式输出翻译结果。' },
           { role: 'user' as const, content: titlePrompt }
-        ], { temperature: 0.2, max_tokens: 60 });
-        return (r.choices[0]?.message?.content || t).trim();
+        ], { temperature: 0.1, max_tokens: 100 });
+        result = (r.choices[0]?.message?.content || t).trim();
       }
-    } catch {
+
+      // 清理结果，移除可能的markdown标记
+      result = result.replace(/^[\s\n]*|[\s\n]*$/g, '');
+
+      if (result && result !== t) {
+        console.log('✅ 标题预翻译完成:', result);
+        return result;
+      } else {
+        console.warn('⚠️ 标题翻译返回空或相同结果，使用原文');
+        return t;
+      }
+    } catch (error) {
+      console.error('❌ 标题预翻译失败:', error);
       return t;
     }
   }
@@ -290,27 +337,40 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
       parsed.details = parts.join('\n\n');
     }
 
+  
   // 二次中文化：若仍包含英文，调用LLM将文本改写为纯中文（保留专名中文译名或音译+括号原文）
-  const needChinese = (t: string) => /[A-Za-z]{3,}/.test(t || '');
   async function enforceChinese(text: string): Promise<string> {
-    if (!needChinese(text)) return text;
+    console.log('🔍 检测文本是否需要中文化:', text.slice(0, 50));
+
+    if (!needsChineseConversion(text)) {
+      console.log('✅ 文本已是中文，无需转换');
+      return text;
+    }
+
+    console.log('🔄 执行中文化处理...');
     const chPrompt = `将以下文本完整改写为中文，不得出现英文字母；如需保留专名，请给出中文译名或音译，并在括号中保留原文。\n文本：${text}`;
     try {
+      let result;
       if (glmOptimizedClient.hasValidApiKey()) {
         const r = await glmOptimizedClient.chat([
           { role: 'system' as const, content: '你是专业中文编辑，负责将任何内容改写为地道中文。' },
           { role: 'user' as const, content: chPrompt }
         ], { temperature: 0.2, max_tokens: 200, thinking: 'disabled' as const });
-        return r.choices[0]?.message?.content?.trim() || text;
+        result = r.choices[0]?.message?.content?.trim() || text;
       } else {
         const r = await openaiClient.chat([
           { role: 'system' as const, content: '你是专业中文编辑，负责将任何内容改写为地道中文。' },
           { role: 'user' as const, content: chPrompt }
         ], { temperature: 0.2, max_tokens: 200 });
-        return r.choices[0]?.message?.content?.trim() || text;
+        result = r.choices[0]?.message?.content?.trim() || text;
       }
-    } catch {
-      return text;
+
+      console.log('✅ 中文化完成:', result.slice(0, 50));
+      return result;
+    } catch (error) {
+      console.error('❌ 中文化处理失败:', error);
+      // 返回一个基础的中文版本而不是原英文
+      return `（中文化处理失败）${text}`;
     }
   }
 
@@ -320,39 +380,57 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
   // 标题中文化（仅作用于简介首句的标题部分，不改动后续句式）
   try {
     const title = artwork.title || '';
-    const hasAscii = /[A-Za-z]{3,}/.test(title);
+    const hasAscii = needsChineseConversion(title);
     if (title && hasAscii) {
-      const titlePrompt = `将以下作品标题翻译为中文，保留音译或通用译名，并在括号中保留原文：\n${title}`;
+      console.log('🔄 翻译英文标题:', title);
+      const titlePrompt = `请将艺术作品标题翻译为中文。要求：1. 先给出中文译名 2. 在括号内保留英文原文 3. 不要添加其他解释文字。
+
+示例：
+输入：Mona Lisa
+输出：蒙娜丽莎（Mona Lisa）
+
+现在请翻译：${title}`;
       let cnTitle = '';
       try {
         if (glmOptimizedClient.hasValidApiKey()) {
           const r = await glmOptimizedClient.chat([
-            { role: 'system' as const, content: '你是专业中文译者，擅长艺术作品标题翻译。' },
+            { role: 'system' as const, content: '你是专业的艺术作品翻译专家，请严格按照用户要求的格式输出翻译结果。' },
             { role: 'user' as const, content: titlePrompt }
-          ], { temperature: 0.2, max_tokens: 60, thinking: 'disabled' as const });
+          ], { temperature: 0.1, max_tokens: 100, thinking: 'disabled' as const });
           cnTitle = (r.choices[0]?.message?.content || '').trim();
         } else {
           const r = await openaiClient.chat([
-            { role: 'system' as const, content: '你是专业中文译者，擅长艺术作品标题翻译。' },
+            { role: 'system' as const, content: '你是专业的艺术作品翻译专家，请严格按照用户要求的格式输出翻译结果。' },
             { role: 'user' as const, content: titlePrompt }
-          ], { temperature: 0.2, max_tokens: 60 });
+          ], { temperature: 0.1, max_tokens: 100 });
           cnTitle = (r.choices[0]?.message?.content || '').trim();
         }
-      } catch {}
+        // 清理结果，移除可能的markdown标记
+        cnTitle = cnTitle.replace(/^[\s\n]*|[\s\n]*$/g, '');
+      } catch (titleError) {
+        console.error('❌ 标题翻译失败:', titleError);
+      }
 
-      if (cnTitle) {
+      if (cnTitle && cnTitle !== title) {
+        console.log('✅ 标题翻译完成:', cnTitle);
         // 将简介中可能出现的原题名替换为 中文译名（原文） 的形式
         const safeCn = cnTitle.replace(/\s+/g, '');
         const pattern = new RegExp(title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
         if (pattern.test(parsed.intro)) {
           parsed.intro = parsed.intro.replace(pattern, `${safeCn}（${title}）`);
         } else {
-          // 若简介未直接包含原题名，则在开头补一个“中文题名（原文）”
+          // 若简介未直接包含原题名，则在开头补一个"中文题名（原文）"
           parsed.intro = `${safeCn}（${title}）—— ${parsed.intro}`;
         }
+      } else {
+        console.warn('⚠️ 标题翻译返回空或相同结果，跳过处理');
       }
+    } else {
+      console.log('✅ 标题无需翻译:', title);
     }
-  } catch {}
+  } catch (error) {
+    console.error('❌ 标题中文化处理失败:', error);
+  }
 
   const processingTime = Date.now() - startTime;
   
@@ -473,7 +551,7 @@ function getCachedExplanation(artworkId: string, emotion: string, userInput?: st
       userRelevance != null &&
       confidence != null
     ) {
-      return {
+      const cachedResult = {
         artworkId,
         title: '',
         artist: '',
@@ -492,6 +570,28 @@ function getCachedExplanation(artworkId: string, emotion: string, userInput?: st
         confidence: Number(confidence),
         processingTime: 0
       };
+
+      // 检查缓存内容是否包含英文，如果是则清除缓存并重新生成
+      const hasEnglish = needsChineseConversion(
+        cachedResult.explanation?.emotionalConnection +
+        cachedResult.explanation?.artisticAnalysis +
+        cachedResult.explanation?.historicalContext +
+        cachedResult.explanation?.curationReason +
+        cachedResult.explanation?.userRelevance
+      );
+
+      if (hasEnglish) {
+        console.log('🔄 缓存内容包含英文，清除缓存并重新生成');
+        // 清除相关缓存项
+        const fields: ExplanationFieldKey[] = ['emotionalConnection', 'artisticAnalysis', 'historicalContext', 'curationReason', 'userRelevance', 'confidence'];
+        fields.forEach(field => {
+          const key = buildFieldKey(artworkId, emotion, userInput, field);
+          explanationCache.delete(key);
+        });
+        return null;
+      }
+
+      return cachedResult;
     }
     return null;
   } catch (e) {

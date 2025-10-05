@@ -2,6 +2,7 @@
 // 基于官方文档: https://data.rijksmuseum.nl/docs/
 import { Artwork, ArtworkService, ArtworkServiceResponse, CurationInfo } from './types';
 import { fetchClient } from '@/lib/utils/fetch-client';
+import { artworkCache } from '../cache/artwork-cache';
 
 export class RijksMuseumAPIService implements ArtworkService {
   private serviceName = 'RijksMuseumAPI';
@@ -106,7 +107,7 @@ export class RijksMuseumAPIService implements ArtworkService {
 
   async searchArtworks(emotion: string, userInput?: string, llmAnalysis?: any): Promise<ArtworkServiceResponse> {
     console.log('🎨 Rijks Museum API服务 - 搜索作品:', emotion, userInput);
-    
+
     if (!this.apiKey) {
       throw new Error('Rijks Museum API 密钥未配置');
     }
@@ -116,6 +117,13 @@ export class RijksMuseumAPIService implements ArtworkService {
       const searchQuery = this.buildSearchQuery(emotion, userInput, llmAnalysis);
       console.log('🔍 搜索查询:', searchQuery);
       console.log('🔍 原始情绪:', emotion);
+
+      // 检查缓存
+      const cachedResult = artworkCache.getRijksSearchResult(searchQuery);
+      if (cachedResult) {
+        console.log('📦 使用缓存的Rijks搜索结果:', searchQuery);
+        return cachedResult;
+      }
 
       // 第一步：调用Search API获取作品ID列表
       console.log('🔍 开始搜索Rijks作品，查询:', searchQuery);
@@ -149,7 +157,7 @@ export class RijksMuseumAPIService implements ArtworkService {
         console.log('✅ 搜索直构获取', finalArtworks.length, '个作品');
       }
 
-      return {
+      const result = {
         success: true,
         artworks: finalArtworks,
         curation: {
@@ -160,6 +168,12 @@ export class RijksMuseumAPIService implements ArtworkService {
         },
         source: 'rijks'
       };
+
+      // 缓存搜索结果
+      artworkCache.cacheRijksSearchResult(searchQuery, result);
+      console.log('💾 缓存Rijks搜索结果:', searchQuery);
+
+      return result;
     } catch (error) {
       console.error('❌ Rijks Museum API服务调用失败:', error);
       console.error('❌ 错误详情:', error instanceof Error ? error.message : String(error));

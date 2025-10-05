@@ -214,7 +214,7 @@ export class GLMOptimizedClient {
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60秒超时，增加容错
 
       const requestBody: any = {
         model,
@@ -237,6 +237,9 @@ export class GLMOptimizedClient {
       if (options.response_format?.type === 'json_object') {
         requestBody.response_format = { type: 'json_object' };
       }
+
+      // 调试：打印请求体
+      console.log('🔍 GLM API 请求体:', JSON.stringify(requestBody, null, 2));
 
       const response = await fetch(`${this.baseUrl}/chat/completions`, {
         method: 'POST',

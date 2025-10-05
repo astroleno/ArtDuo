@@ -1,5 +1,6 @@
 // Met Museum API 服务组件
 import { Artwork, ArtworkService, ArtworkServiceResponse, CurationInfo } from './types';
+import { artworkCache } from '../cache/artwork-cache';
 
 export class MetMuseumAPIService implements ArtworkService {
   private serviceName = 'MetMuseumAPI';
@@ -51,19 +52,26 @@ export class MetMuseumAPIService implements ArtworkService {
 
   async searchArtworks(emotion: string, userInput?: string, llmAnalysis?: any): Promise<ArtworkServiceResponse> {
     console.log('🎨 Met Museum API服务 - 搜索作品:', emotion, userInput);
-    
+
     try {
-      // 应用频率控制
-      await this.rateLimit();
-      
       // 转换为英文关键词
       const searchQuery = this.buildSearchQuery(emotion, userInput, llmAnalysis);
       console.log('🔍 搜索查询:', searchQuery);
-      
+
+      // 检查缓存
+      const cachedResult = artworkCache.getMetSearchResult(searchQuery);
+      if (cachedResult) {
+        console.log('📦 使用缓存的搜索结果:', searchQuery);
+        return cachedResult;
+      }
+
+      // 应用频率控制
+      await this.rateLimit();
+
       // 搜索作品
       const searchUrl = `${this.baseUrl}/search?q=${encodeURIComponent(searchQuery)}&hasImages=true`;
       console.log('📡 搜索URL:', searchUrl);
-      
+
       const searchResponse = await fetch(searchUrl, {
         method: 'GET',
         headers: {
@@ -72,11 +80,11 @@ export class MetMuseumAPIService implements ArtworkService {
         },
         signal: AbortSignal.timeout(5000) // 5秒超时，快速失败
       });
-      
+
       if (!searchResponse.ok) {
         throw new Error(`搜索API响应错误: ${searchResponse.status} ${searchResponse.statusText}`);
       }
-      
+
       const searchData = await searchResponse.json();
       console.log('📡 搜索响应:', searchData);
       
@@ -99,8 +107,8 @@ export class MetMuseumAPIService implements ArtworkService {
       const maxResults = Math.min(searchData.objectIDs.length, 50); // 最多获取50个作品
       const artworks = await this.fetchArtworkDetails(searchData.objectIDs.slice(0, maxResults));
       console.log('✅ 成功获取', artworks.length, '个作品');
-      
-      return {
+
+      const result = {
         success: true,
         artworks,
         curation: {
@@ -111,6 +119,12 @@ export class MetMuseumAPIService implements ArtworkService {
         },
         source: 'api'
       };
+
+      // 缓存搜索结果
+      artworkCache.cacheMetSearchResult(searchQuery, result);
+      console.log('💾 缓存搜索结果:', searchQuery);
+
+      return result;
     } catch (error) {
       console.error('❌ Met Museum API服务调用失败:', error);
       throw error;
@@ -118,58 +132,99 @@ export class MetMuseumAPIService implements ArtworkService {
   }
 
   private async fetchArtworkDetails(objectIDs: number[]): Promise<Artwork[]> {
-    const artworkPromises = objectIDs.map(async (id: number, index: number) => {
-      try {
-        // 为每个请求添加频率控制
-        if (index > 0) {
-          await this.rateLimit();
-        }
-        
-        console.log('🔍 获取作品详情，ID:', id);
-        
-        const detailResponse = await fetch(`${this.baseUrl}/objects/${id}`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'User-Agent': 'ArtDuo/1.0'
+    const batchSize = 5; // 并发请求数量
+    const batches = [];
+
+    // 将请求分批
+    for (let i = 0; i < objectIDs.length; i += batchSize) {
+      batches.push(objectIDs.slice(i, i + batchSize));
+    }
+
+    console.log(`📦 分${batches.length}批获取作品详情，每批最多${batchSize}个请求`);
+
+    const allArtworks: Artwork[] = [];
+
+    for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+      const batch = batches[batchIndex];
+      console.log(`🎯 处理第${batchIndex + 1}/${batches.length}批: ${batch.length}件作品`);
+
+      // 批内并发执行
+      const batchPromises = batch.map(async (id: number) => {
+        try {
+          const idStr = id.toString();
+
+          // 检查缓存
+          const cachedDetail = artworkCache.getMetArtworkDetail(idStr);
+          if (cachedDetail) {
+            console.log('📦 使用缓存的作品详情:', id, cachedDetail.title);
+            return cachedDetail;
           }
-        });
-        
-        if (!detailResponse.ok) {
-          throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+
+          console.log('🔍 获取作品详情，ID:', id);
+
+          const detailResponse = await fetch(`${this.baseUrl}/objects/${id}`, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'User-Agent': 'ArtDuo/1.0'
+            },
+            signal: AbortSignal.timeout(10000) // 10秒超时
+          });
+
+          if (!detailResponse.ok) {
+            throw new Error(`作品详情API响应错误: ${detailResponse.status} ${detailResponse.statusText}`);
+          }
+
+          const detail = await detailResponse.json();
+          console.log('📸 作品详情获取成功:', detail.title, '图片URL:', detail.primaryImage);
+
+          // 处理图片URL
+          let imageUrl = detail.primaryImage;
+          if (!imageUrl || imageUrl === '') {
+            imageUrl = detail.additionalImages && detail.additionalImages.length > 0
+              ? detail.additionalImages[0]
+              : 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80';
+          }
+
+          const artwork = {
+            id: detail.objectID.toString(),
+            title: detail.title || '未知作品',
+            artist: detail.artistDisplayName || '未知艺术家',
+            year: detail.objectDate || '未知年代',
+            medium: detail.medium || '未知材质',
+            dimensions: detail.dimensions || '未知尺寸',
+            imageUrl: imageUrl,
+            description: detail.culture || detail.period || '这是一件来自大都会艺术博物馆的珍贵作品。',
+            museum: '大都会艺术博物馆',
+            license: 'CC0'
+          };
+
+          // 缓存作品详情
+          artworkCache.cacheMetArtworkDetail(idStr, artwork);
+          console.log('💾 缓存作品详情:', id, artwork.title);
+
+          return artwork;
+        } catch (error) {
+          console.error(`获取作品${id}详情失败:`, error);
+          return null;
         }
-        
-        const detail = await detailResponse.json();
-        console.log('📸 作品详情获取成功:', detail.title, '图片URL:', detail.primaryImage);
-        
-        // 处理图片URL
-        let imageUrl = detail.primaryImage;
-        if (!imageUrl || imageUrl === '') {
-          imageUrl = detail.additionalImages && detail.additionalImages.length > 0 
-            ? detail.additionalImages[0] 
-            : 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80';
-        }
-        
-        return {
-          id: detail.objectID.toString(),
-          title: detail.title || '未知作品',
-          artist: detail.artistDisplayName || '未知艺术家',
-          year: detail.objectDate || '未知年代',
-          medium: detail.medium || '未知材质',
-          dimensions: detail.dimensions || '未知尺寸',
-          imageUrl: imageUrl,
-          description: detail.culture || detail.period || '这是一件来自大都会艺术博物馆的珍贵作品。',
-          museum: '大都会艺术博物馆',
-          license: 'CC0'
-        };
-      } catch (error) {
-        console.error(`获取作品${id}详情失败:`, error);
-        return null;
+      });
+
+      // 等待当前批次完成
+      const batchResults = await Promise.all(batchPromises);
+      const validArtworks = batchResults.filter(artwork => artwork !== null) as Artwork[];
+      allArtworks.push(...validArtworks);
+
+      console.log(`✅ 批次${batchIndex + 1}完成: ${validArtworks.length}件作品`);
+
+      // 批次间添加适当的延迟（比原来的100ms短，因为我们现在并发请求）
+      if (batchIndex < batches.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 50)); // 50ms批间延迟
       }
-    });
-    
-    const artworks = await Promise.all(artworkPromises);
-    return artworks.filter(artwork => artwork !== null) as Artwork[];
+    }
+
+    console.log(`✅ 所有批次完成: 总共获取${allArtworks.length}件作品`);
+    return allArtworks;
   }
 
   private generateEmotionCurve(emotion: string, artworks: Artwork[]): number[] {

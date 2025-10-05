@@ -1,7 +1,7 @@
 {
   "name": "artduo-test-suite",
   "version": "1.0.0",
-  "description": "Comprehensive test suite for ArtDuo phases 1-8",
+  "description": "Comprehensive test suite for ArtDuo phases 1-8 and workflow testing",
   "main": "index.js",
   "scripts": {
     "test": "node test-runner.js",
@@ -14,14 +14,28 @@
     "test:phase7": "node test-runner.js --phase 7",
     "test:phase8": "node test-runner.js --phase 8",
     "test:performance": "node test-runner.js --performance",
-    "test:all": "node test-runner.js --all"
+    "test:all": "node test-runner.js --all",
+    "workflow": "node run-workflow-test.js",
+    "workflow:all": "node run-workflow-test.js",
+    "workflow:quick": "node run-workflow-test.js --quick",
+    "workflow:errors": "node run-workflow-test.js --errors",
+    "workflow:list": "node run-workflow-test.js --list-scenarios",
+    "workflow:emotions": "node run-workflow-test.js --list-errors",
+    "workflow:joy": "node run-workflow-test.js --emotion joy",
+    "workflow:nostalgia": "node run-workflow-test.js --emotion nostalgia",
+    "workflow:get": "node run-workflow-test.js --method GET",
+    "workflow:post": "node run-workflow-test.js --method POST"
   },
   "dependencies": {
     "axios": "^1.6.0",
     "chalk": "^4.1.2",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "commander": "^11.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0"
+  },
+  "bin": {
+    "artduo-test": "./run-workflow-test.js"
   }
 }

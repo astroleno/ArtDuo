@@ -8,7 +8,18 @@
       "Bash(open:*)",
       "Bash(lsof:*)",
       "Bash(PORT=3001 npm run dev)",
-      "Bash(npm start)"
+      "Bash(npm start)",
+      "Bash(chmod:*)",
+      "Bash(node run-test.js)",
+      "Bash(node:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(PORT=3002 npm run dev)",
+      "Bash(npx tsx:*)",
+      "Bash(npm run)",
+      "Read(//Users/aitoshuu/Documents/GitHub/**)",
+      "Bash(kill:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

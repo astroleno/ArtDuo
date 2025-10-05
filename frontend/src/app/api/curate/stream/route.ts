@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
-import { ArtworkServiceManager } from '@/lib/artwork-services';
+import { ArtworkServiceManager } from '@/lib/artwork-services/artwork-service-manager';
 import { buildSearchPlanUltraOptimized, generateDeterministicSeed } from '@/lib/curation/search-plan-ultra-optimized';
-import { batchJudgeArtworksUltraOptimized } from '@/lib/curation/llm-judge-ultra-optimized';
+import { batchJudgeArtworksEnhanced } from '@/lib/curation/llm-judge-enhanced';
 import { EmotionCurveGenerator } from '@/lib/curation/emotion-curve';
 import { ArtworkSelector } from '@/lib/curation/artwork-selector';
 import { generateArtworkExplanations, generateCurationSummary } from '@/lib/curation/artwork-explanation';
@@ -56,31 +56,35 @@ export async function POST(request: NextRequest) {
         const planTime = Date.now() - planStart;
         console.log(`🧠 搜索计划完成，耗时: ${planTime}ms`);
 
-        // 作品搜索阶段（不输出）
+        // 作品搜索阶段（使用正常的ArtworkServiceManager，优先尝试外部API）
+        console.log('🎯 执行正常搜索：尝试外部API获取真实作品数据');
         const coarseStart = Date.now();
-        const serviceManager = new ArtworkServiceManager();
-        let artworkResult;
-        try {
-          artworkResult = await serviceManager.searchArtworks(emotion, userInput, llmAnalysis);
-        } catch (svcErr) {
-          const { FallbackService } = await import('@/lib/artwork-services/fallback-service');
-          const fallback = new FallbackService();
-          artworkResult = await fallback.searchArtworks(emotion, userInput, llmAnalysis);
-        }
-        if (!artworkResult || !artworkResult.success || artworkResult.artworks.length === 0) {
-          const { FallbackService } = await import('@/lib/artwork-services/fallback-service');
-          const fallback = new FallbackService();
-          artworkResult = await fallback.searchArtworks(emotion, userInput, llmAnalysis);
-        }
+        const artworkServiceManager = new ArtworkServiceManager();
+        const artworkResult = await artworkServiceManager.searchArtworks(emotion, userInput, llmAnalysis);
         const coarseTime = Date.now() - coarseStart;
         console.log(`🔍 作品搜索完成，耗时: ${coarseTime}ms，获得${artworkResult.artworks.length}件作品`);
 
         // 作品评分阶段（不输出）
         const scoreStart = Date.now();
         process.env.SCORING_CACHE_ENABLED = 'false';
-        const scoring = await batchJudgeArtworksUltraOptimized(artworkResult.artworks, emotion, userInput, 5);
+        const scoring = await batchJudgeArtworksEnhanced(artworkResult.artworks, emotion, userInput, {
+          maxConcurrent: 1, // 单线顺序处理，glm-4.5-air很快，不需要并发
+          strategy: 'ai_first', // 优先使用AI评分，失败则降级
+          retryConfig: {
+            maxRetries: 1, // 减少重试，单线处理更稳定
+            baseDelay: 1000,
+            maxDelay: 3000,
+            timeoutMs: 30000
+          },
+          fallbackConfig: {
+            enableRuleBasedScoring: true,
+            enableDefaultScoring: true,
+            minConfidenceThreshold: 0.2,
+            maxFailureRate: 0.8
+          }
+        });
         const scoreTime = Date.now() - scoreStart;
-        console.log(`🧠 作品评分完成，耗时: ${scoreTime}ms`);
+        console.log(`🧠 作品评分完成，耗时: ${scoreTime}ms，降级使用: ${scoring.fallbackUsed ? '是' : '否'}，重试: ${scoring.retryAttempts}次`);
 
         // 1. 情绪曲线生成 → 流式输出
         const curveStart = Date.now();
