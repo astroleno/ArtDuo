@@ -1,0 +1,227 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2025-01-15",
+  "description": "多语言艺术情绪分类体系 - 支持中英荷三语检索",
+  "languages": ["zh-CN", "en", "nl"],
+  "emotions": {
+    "joy": {
+      "id": "joy",
+      "name_cn": "快乐",
+      "name_en": "Joy",
+      "name_nl": "Vreugde",
+      "keywords_cn": ["快乐", "喜悦", "高兴", "欢欣", "愉快"],
+      "keywords_en": ["joy", "happiness", "cheerful", "delight", "glee", "jubilation", "celebration"],
+      "keywords_nl": ["vreugde", "geluk", "blijdschap", "vrolijkheid", "plezier"],
+      "art_themes": ["festive", "celebration", "triumph"]
+    },
+    "serenity": {
+      "id": "serenity",
+      "name_cn": "宁静",
+      "name_en": "Serenity",
+      "name_nl": "Sereniteit",
+      "keywords_cn": ["宁静", "平静", "安宁", "恬淡", "静谧"],
+      "keywords_en": ["serenity", "calm", "peaceful", "tranquil", "placid", "stillness"],
+      "keywords_nl": ["rust", "kalmte", "sereen", "vredig", "stilte"],
+      "art_themes": ["pastoral", "landscape", "harmony"]
+    },
+    "contentment": {
+      "id": "contentment",
+      "name_cn": "满足",
+      "name_en": "Contentment",
+      "name_nl": "Tevredenheid",
+      "keywords_cn": ["满足", "知足", "满意", "安然"],
+      "keywords_en": ["contentment", "satisfaction", "fulfilled", "at ease"],
+      "keywords_nl": ["tevredenheid", "voldoening", "vervuld"],
+      "art_themes": ["repose", "ease", "comfort"]
+    },
+    "love": {
+      "id": "love",
+      "name_cn": "爱",
+      "name_en": "Love",
+      "name_nl": "Liefde",
+      "keywords_cn": ["爱", "情感", "温情", "眷恋"],
+      "keywords_en": ["love", "affection", "warmth", "devotion", "romance"],
+      "keywords_nl": ["liefde", "genegenheid", "warmte", "toewijding"],
+      "art_themes": ["embrace", "lovers", "passion", "tender"]
+    },
+    "hope": {
+      "id": "hope",
+      "name_cn": "希望",
+      "name_en": "Hope",
+      "name_nl": "Hoop",
+      "keywords_cn": ["希望", "期许", "盼望", "希冀"],
+      "keywords_en": ["hope", "aspiration", "promise", "looking forward"],
+      "keywords_nl": ["hoop", "verwachting", "verlangen"],
+      "art_themes": ["dawn", "spring", "rebirth", "light"]
+    },
+    "awe": {
+      "id": "awe",
+      "name_cn": "敬畏",
+      "name_en": "Awe",
+      "name_nl": "Ontzag",
+      "keywords_cn": ["敬畏", "崇高", "宏伟", "震撼"],
+      "keywords_en": ["awe", "sublime", "grand", "overwhelmed", "majestic"],
+      "keywords_nl": ["ontzag", "eerbied", "grootsheid", "subliem"],
+      "art_themes": ["mountain", "cathedral", "divine", "vastness"]
+    },
+    "wonder": {
+      "id": "wonder",
+      "name_cn": "惊奇",
+      "name_en": "Wonder",
+      "name_nl": "Verwondering",
+      "keywords_cn": ["惊奇", "奇观", "诧异", "神迹"],
+      "keywords_en": ["wonder", "marvel", "astonishment", "miracle", "amazement"],
+      "keywords_nl": ["verwondering", "verbazing", "wonder"],
+      "art_themes": ["exotic", "fantastical", "discovery"]
+    },
+    "nostalgia": {
+      "id": "nostalgia",
+      "name_cn": "怀旧",
+      "name_en": "Nostalgia",
+      "name_nl": "Nostalgie",
+      "keywords_cn": ["怀旧", "旧时", "回忆", "复古"],
+      "keywords_en": ["nostalgia", "retro", "memory", "yesteryear", "reminiscence"],
+      "keywords_nl": ["nostalgie", "herinneringen", "verleden", "weemoed"],
+      "art_themes": ["romanticism", "pastoral", "ruins", "antiquity"]
+    },
+    "melancholy": {
+      "id": "melancholy",
+      "name_cn": "忧郁",
+      "name_en": "Melancholy",
+      "name_nl": "Melancholie",
+      "keywords_cn": ["忧郁", "郁结", "惆怅", "低回"],
+      "keywords_en": ["melancholy", "blue", "pensive", "downcast", "wistful"],
+      "keywords_nl": ["melancholie", "somberheid", "weemoed", "droefgeestig"],
+      "art_themes": ["symbolism", "nocturne", "twilight", "autumn"]
+    },
+    "sadness": {
+      "id": "sadness",
+      "name_cn": "悲伤",
+      "name_en": "Sadness",
+      "name_nl": "Verdriet",
+      "keywords_cn": ["悲伤", "哀愁", "伤感", "凄楚"],
+      "keywords_en": ["sadness", "sorrow", "lament", "grief", "mourning"],
+      "keywords_nl": ["verdriet", "droefheid", "rouw", "leed"],
+      "art_themes": ["weeping", "loss", "mourning", "tears"]
+    },
+    "loneliness": {
+      "id": "loneliness",
+      "name_cn": "孤独",
+      "name_en": "Loneliness",
+      "name_nl": "Eenzaamheid",
+      "keywords_cn": ["孤独", "独处", "寂寞", "孤身"],
+      "keywords_en": ["loneliness", "solitude", "lonesome", "alone", "isolation"],
+      "keywords_nl": ["eenzaamheid", "verlatenheid", "alleen", "isolement"],
+      "art_themes": ["solitary figure", "empty room", "wasteland", "single"]
+    },
+    "grief": {
+      "id": "grief",
+      "name_cn": "哀恸",
+      "name_en": "Grief",
+      "name_nl": "Rouw",
+      "keywords_cn": ["哀恸", "丧痛", "悲恸", "痛悼"],
+      "keywords_en": ["grief", "mourning", "bereavement", "lamentation"],
+      "keywords_nl": ["rouw", "verdriet", "treuren"],
+      "art_themes": ["funeral", "memorial", "death", "black"]
+    },
+    "anxiety": {
+      "id": "anxiety",
+      "name_cn": "焦虑",
+      "name_en": "Anxiety",
+      "name_nl": "Angst",
+      "keywords_cn": ["焦虑", "不安", "紧张", "烦躁"],
+      "keywords_en": ["anxiety", "unease", "nervous", "restless", "worry"],
+      "keywords_nl": ["angst", "onrust", "bezorgdheid", "spanning"],
+      "art_themes": ["agitation", "turmoil", "storm", "chaos"]
+    },
+    "fear": {
+      "id": "fear",
+      "name_cn": "恐惧",
+      "name_en": "Fear",
+      "name_nl": "Vrees",
+      "keywords_cn": ["恐惧", "惊惧", "害怕", "慌张"],
+      "keywords_en": ["fear", "fright", "scared", "panic", "terror"],
+      "keywords_nl": ["vrees", "angst", "schrik", "paniek"],
+      "art_themes": ["danger", "threat", "shadow", "darkness", "nightmare"]
+    },
+    "anger": {
+      "id": "anger",
+      "name_cn": "愤怒",
+      "name_en": "Anger",
+      "name_nl": "Woede",
+      "keywords_cn": ["愤怒", "恼火", "怒意", "震怒"],
+      "keywords_en": ["anger", "rage", "fury", "wrath", "outrage"],
+      "keywords_nl": ["woede", "toorn", "gramschap", "boosheid"],
+      "art_themes": ["fire", "red", "battle", "violence"]
+    },
+    "contemplation": {
+      "id": "contemplation",
+      "name_cn": "沉思",
+      "name_en": "Contemplation",
+      "name_nl": "Overpeinzing",
+      "keywords_cn": ["沉思", "冥想", "反思", "凝望"],
+      "keywords_en": ["contemplation", "meditation", "reflection", "pensive", "introspection"],
+      "keywords_nl": ["overpeinzing", "meditatie", "bezinning", "contemplatie"],
+      "art_themes": ["thinker", "philosopher", "study", "reading"]
+    },
+    "mystery": {
+      "id": "mystery",
+      "name_cn": "神秘",
+      "name_en": "Mystery",
+      "name_nl": "Mysterie",
+      "keywords_cn": ["神秘", "谜样", "玄秘", "深邃"],
+      "keywords_en": ["mystery", "enigma", "mysterious", "cryptic", "occult"],
+      "keywords_nl": ["mysterie", "geheim", "raadsel", "mysterieus"],
+      "art_themes": ["veil", "hidden", "shadow", "arcane", "ethereal"]
+    },
+    "tranquility": {
+      "id": "tranquility",
+      "name_cn": "静好",
+      "name_en": "Tranquility",
+      "name_nl": "Rust",
+      "keywords_cn": ["静好", "寂静", "恬静", "安谧"],
+      "keywords_en": ["tranquility", "stillness", "peace", "serene", "quiet"],
+      "keywords_nl": ["rust", "stilte", "kalmte", "vrede"],
+      "art_themes": ["water", "reflection", "silence", "zen"]
+    },
+    "desire": {
+      "id": "desire",
+      "name_cn": "欲望",
+      "name_en": "Desire",
+      "name_nl": "Verlangen",
+      "keywords_cn": ["欲望", "渴求", "欲念", "冲动"],
+      "keywords_en": ["desire", "longing", "craving", "passion", "yearning"],
+      "keywords_nl": ["verlangen", "begeerte", "passie"],
+      "art_themes": ["temptation", "hunger", "passion"]
+    },
+    "curiosity": {
+      "id": "curiosity",
+      "name_cn": "好奇",
+      "name_en": "Curiosity",
+      "name_nl": "Nieuwsgierigheid",
+      "keywords_cn": ["好奇", "探求", "求知", "想看"],
+      "keywords_en": ["curiosity", "inquisitive", "wonder", "exploration"],
+      "keywords_nl": ["nieuwsgierigheid", "onderzoek", "exploratie"],
+      "art_themes": ["discovery", "investigation", "seeking"]
+    }
+  },
+  "search_strategy": {
+    "met_museum": {
+      "language": "en",
+      "keyword_fields": ["keywords_en", "art_themes"],
+      "combination_strategy": "emotion + theme"
+    },
+    "rijksmuseum": {
+      "language": ["nl", "en"],
+      "keyword_fields": ["keywords_nl", "keywords_en", "art_themes"],
+      "combination_strategy": "parallel search and merge",
+      "notes": "搜索荷兰语和英文关键词，合并去重"
+    }
+  },
+  "usage_notes": {
+    "phase1": "先实现核心10种情绪的三语支持",
+    "phase2": "扩展到30种常用情绪",
+    "phase3": "完整65种情绪（需补充剩余情绪的荷兰语翻译）",
+    "dutch_translation": "荷兰语翻译建议使用专业艺术词典或咨询荷兰语母语者"
+  }
+}

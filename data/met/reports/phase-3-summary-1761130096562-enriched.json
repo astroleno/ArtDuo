@@ -1,0 +1,363 @@
+{
+  "phase": 3,
+  "generated_at": "2025-10-22T10:48:16.501Z",
+  "total_emotions": 22,
+  "total_artworks": 2992,
+  "total_with_description": 2928,
+  "avg_per_emotion": 136,
+  "avg_description_coverage": 0.979,
+  "emotions": [
+    {
+      "emotion_id": "boredom",
+      "emotion_index": 44,
+      "emotion_cn": "无聊",
+      "emotion_en": "Boredom",
+      "artworks": 13,
+      "withDescription": 13,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T05:09:31.150Z",
+        "attempted": 0,
+        "updated": 0,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "apathy",
+      "emotion_index": 45,
+      "emotion_cn": "冷漠",
+      "emotion_en": "Apathy",
+      "artworks": 122,
+      "withDescription": 121,
+      "descriptionCoverage": 0.992,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T05:11:07.191Z",
+        "attempted": 1,
+        "updated": 0,
+        "skipped_no_url": 0,
+        "fetch_failed": 1
+      }
+    },
+    {
+      "emotion_id": "confusion",
+      "emotion_index": 46,
+      "emotion_cn": "困惑",
+      "emotion_en": "Confusion",
+      "artworks": 131,
+      "withDescription": 127,
+      "descriptionCoverage": 0.969,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T05:11:49.191Z",
+        "attempted": 4,
+        "updated": 0,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "tension",
+      "emotion_index": 47,
+      "emotion_cn": "紧张感",
+      "emotion_en": "Tension",
+      "artworks": 120,
+      "withDescription": 116,
+      "descriptionCoverage": 0.967,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T05:12:13.462Z",
+        "attempted": 4,
+        "updated": 0,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "drama",
+      "emotion_index": 48,
+      "emotion_cn": "戏剧性",
+      "emotion_en": "Drama",
+      "artworks": 166,
+      "withDescription": 162,
+      "descriptionCoverage": 0.976,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T05:24:58.286Z",
+        "attempted": 166,
+        "updated": 162,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "fatigue",
+      "emotion_index": 49,
+      "emotion_cn": "疲惫",
+      "emotion_en": "Fatigue",
+      "artworks": 139,
+      "withDescription": 139,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T05:31:27.181Z",
+        "attempted": 139,
+        "updated": 139,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "despair",
+      "emotion_index": 50,
+      "emotion_cn": "绝望",
+      "emotion_en": "Despair",
+      "artworks": 145,
+      "withDescription": 143,
+      "descriptionCoverage": 0.986,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T06:08:35.912Z",
+        "attempted": 145,
+        "updated": 143,
+        "skipped_no_url": 0,
+        "fetch_failed": 1
+      }
+    },
+    {
+      "emotion_id": "courage",
+      "emotion_index": 51,
+      "emotion_cn": "勇气",
+      "emotion_en": "Courage",
+      "artworks": 145,
+      "withDescription": 143,
+      "descriptionCoverage": 0.986,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T06:19:06.598Z",
+        "attempted": 145,
+        "updated": 143,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "hope_loss",
+      "emotion_index": 52,
+      "emotion_cn": "希望与失落",
+      "emotion_en": "Hope and Loss",
+      "artworks": 97,
+      "withDescription": 93,
+      "descriptionCoverage": 0.959,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T06:39:13.529Z",
+        "attempted": 97,
+        "updated": 93,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "mysticism",
+      "emotion_index": 53,
+      "emotion_cn": "神秘主义",
+      "emotion_en": "Mysticism",
+      "artworks": 155,
+      "withDescription": 152,
+      "descriptionCoverage": 0.981,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T07:08:51.301Z",
+        "attempted": 155,
+        "updated": 152,
+        "skipped_no_url": 0,
+        "fetch_failed": 1
+      }
+    },
+    {
+      "emotion_id": "yearning",
+      "emotion_index": 54,
+      "emotion_cn": "眷恋",
+      "emotion_en": "Yearning",
+      "artworks": 124,
+      "withDescription": 119,
+      "descriptionCoverage": 0.96,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T07:29:45.104Z",
+        "attempted": 124,
+        "updated": 119,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "desolation",
+      "emotion_index": 55,
+      "emotion_cn": "荒凉",
+      "emotion_en": "Desolation",
+      "artworks": 162,
+      "withDescription": 162,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T08:04:37.126Z",
+        "attempted": 162,
+        "updated": 162,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "patience",
+      "emotion_index": 56,
+      "emotion_cn": "耐心",
+      "emotion_en": "Patience",
+      "artworks": 154,
+      "withDescription": 144,
+      "descriptionCoverage": 0.935,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T08:24:05.981Z",
+        "attempted": 154,
+        "updated": 144,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "mortality",
+      "emotion_index": 57,
+      "emotion_cn": "无常",
+      "emotion_en": "Mortality",
+      "artworks": 167,
+      "withDescription": 166,
+      "descriptionCoverage": 0.994,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T08:58:51.624Z",
+        "attempted": 167,
+        "updated": 166,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "innocence",
+      "emotion_index": 58,
+      "emotion_cn": "纯真",
+      "emotion_en": "Innocence",
+      "artworks": 154,
+      "withDescription": 153,
+      "descriptionCoverage": 0.994,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T09:07:57.611Z",
+        "attempted": 154,
+        "updated": 153,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "devotion",
+      "emotion_index": 59,
+      "emotion_cn": "虔诚",
+      "emotion_en": "Devotion",
+      "artworks": 177,
+      "withDescription": 175,
+      "descriptionCoverage": 0.989,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T09:36:02.669Z",
+        "attempted": 177,
+        "updated": 175,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "maturity",
+      "emotion_index": 60,
+      "emotion_cn": "成熟",
+      "emotion_en": "Maturity",
+      "artworks": 158,
+      "withDescription": 158,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T09:42:20.234Z",
+        "attempted": 158,
+        "updated": 158,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "silence",
+      "emotion_index": 61,
+      "emotion_cn": "静默",
+      "emotion_en": "Silence",
+      "artworks": 135,
+      "withDescription": 134,
+      "descriptionCoverage": 0.993,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T09:58:42.290Z",
+        "attempted": 135,
+        "updated": 134,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "curiosity_deep",
+      "emotion_index": 62,
+      "emotion_cn": "求知",
+      "emotion_en": "Inquiry",
+      "artworks": 146,
+      "withDescription": 144,
+      "descriptionCoverage": 0.986,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T10:08:29.117Z",
+        "attempted": 146,
+        "updated": 144,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "awe_nature",
+      "emotion_index": 63,
+      "emotion_cn": "自然的敬畏",
+      "emotion_en": "Natural Awe",
+      "artworks": 122,
+      "withDescription": 122,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T10:31:46.673Z",
+        "attempted": 122,
+        "updated": 122,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "longing",
+      "emotion_index": 64,
+      "emotion_cn": "渴望",
+      "emotion_en": "Longing",
+      "artworks": 143,
+      "withDescription": 126,
+      "descriptionCoverage": 0.881,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T10:43:47.215Z",
+        "attempted": 143,
+        "updated": 126,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "tranquility_deep",
+      "emotion_index": 65,
+      "emotion_cn": "静好",
+      "emotion_en": "Tranquility",
+      "artworks": 117,
+      "withDescription": 116,
+      "descriptionCoverage": 0.991,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T10:47:42.121Z",
+        "attempted": 117,
+        "updated": 116,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    }
+  ]
+}

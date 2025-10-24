@@ -1,0 +1,848 @@
+# ArtDuo Comprehensive Workflow Test Report
+
+Generated: 2025-10-10T13:58:46.795Z
+
+## Executive Summary
+
+- **Total Tests:** 2
+- **Passed:** 2
+- **Failed:** 0
+- **Success Rate:** 100%
+- **Test Duration:** 148s
+
+## Performance Overview
+
+
+- **Average Duration:** 73856ms
+- **Min Duration:** 73738ms
+- **Max Duration:** 73973ms
+
+
+## Quality Scores
+
+- **emotionCurveQuality:** 100%
+- **artworkQuality:** 100%
+- **explanationQuality:** 81%
+
+## Test Scenario Results
+
+### Main Scenarios
+
+| Scenario | Status | Duration | Issues |
+|----------|--------|----------|---------|
+| Simple Emotion - Joy | ✅ | 73973ms | 0 issues |
+| Complex Emotion with User Input | ✅ | 73738ms | 0 issues |
+
+### Error Scenarios
+
+| Scenario | Status | Expected Error | Received Error |
+|----------|--------|----------------|----------------|
+
+
+## Detailed Results
+
+<details>
+<summary>Click to expand detailed test results</summary>
+
+```json
+{
+  "startTime": "2025-10-10T13:56:19.077Z",
+  "scenarios": [
+    {
+      "name": "Simple Emotion - Joy",
+      "description": "Basic workflow with simple positive emotion",
+      "emotion": "joy",
+      "userInput": "",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 120000,
+        "planDuration": 30000,
+        "searchDuration": 45000,
+        "scoringDuration": 60000
+      },
+      "startTime": "2025-10-10T13:56:19.081Z",
+      "passed": true,
+      "performance": {
+        "totalDuration": 73973,
+        "steps": {
+          "emotionCurve": 1,
+          "artworkSelection": 2,
+          "introduction": 4931,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 23534,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 23283,
+              "count": 2
+            }
+          ],
+          "conclusion": 18802,
+          "totalExplanationTime": 46817
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            27099
+          ],
+          "artworks_selected": [
+            27100
+          ],
+          "introduction": [
+            32031
+          ],
+          "explanations_batch": [
+            50829,
+            73931
+          ],
+          "conclusion": [
+            50837
+          ],
+          "complete": [
+            73931
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 87
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "explanations_batch": 2,
+            "conclusion": 1,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "joy",
+            "userInput": ""
+          },
+          "timestamp": 1760104579120
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.7070231117150763,
+              0.7140050771913016,
+              0.7278870772606765,
+              0.7415240046923713,
+              0.7547960176777839,
+              0.7675864812895874,
+              0.7797829924736647,
+              0.79127836785119,
+              0.8019715856500153,
+              0.8117686734876371,
+              0.8205835342038726,
+              0.8283387024857981,
+              0.834966025635706,
+              0.8404072624994612,
+              0.844614595291859,
+              0.8475510498210403,
+              0.8491908204190185,
+              0.8495194967228189,
+              0.8485341903132658,
+              0.846243560098514,
+              0.8426677362192531,
+              0.8378381431443072,
+              0.8317972235112728,
+              0.8245980651390935,
+              0.8163039344903985,
+              0.806987720683554,
+              0.79673129494047,
+              0.7856247910993589,
+              0.7737658135153241,
+              0.7612585793097785,
+              0.7482130025066321,
+              0.7347437281039011,
+              0.7209691245693405,
+              0.7070102436140943,
+              0.6929897563859058,
+              0.6790308754306595,
+              0.6652562718960988,
+              0.6517869974933678,
+              0.6387414206902217,
+              0.6262341864846758,
+              0.6143752089006411,
+              0.6032687050595301,
+              0.5930122793164462,
+              0.5836960655096014,
+              0.5754019348609063,
+              0.5682027764887271,
+              0.5621618568556926,
+              0.5573322637807469,
+              0.553756439901486,
+              0.5514658096867342,
+              0.550480503277181,
+              0.5508091795809813,
+              0.5524489501789597,
+              0.5553854047081408,
+              0.5595927375005387,
+              0.565033974364294,
+              0.5716612975142018,
+              0.5794164657961273,
+              0.5882313265123625,
+              0.5980284143499845,
+              0.6087216321488098,
+              0.620217007526335,
+              0.6324135187104124,
+              0.6452039823222159,
+              0.6584759953076285,
+              0.6721129227393233,
+              0.6859949228086983,
+              0.6929768882849237
+            ],
+            "description": "这个\"joy\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从55%到85%，创造出丰富的情绪层次。",
+            "durationMs": 1
+          },
+          "timestamp": 1760104606219
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "year": "ca. 1874",
+                "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 4,
+              "periodCount": 1,
+              "mediumCount": 2,
+              "avgScore": 6.126250000000001,
+              "emotionFit": 5
+            },
+            "durationMs": 2
+          },
+          "timestamp": 1760104606220
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n",
+            "durationMs": 4931
+          },
+          "timestamp": 1760104611151
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "在\"喜悦\"的心情下，《圣阿德雷斯的花园》(",
+                "artisticAnalysis": "艺术家Claude Monet，创作于1867，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"喜悦\"的心情下，《圣阿德雷斯的花园》(",
+                  "artisticAnalysis": "艺术家Claude Monet，创作于1867，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"喜悦\"的心情下，《圣阿德雷斯的花园》(",
+                  "detail": "艺术家Claude Monet，创作于1867，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 23113,
+                "introduction": "在\"喜悦\"的心情下，《圣阿德雷斯的花园》(",
+                "detail": "艺术家Claude Monet，创作于1867，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              },
+              {
+                "artworkId": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "emotionalConnection": "在\"喜悦\"的心情下，《舞台上的芭蕾排练》(The Rehearsal of the Ballet Onstage)展现出",
+                "artisticAnalysis": "艺术家Edgar Degas，创作于ca. 1874，采用Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"喜悦\"的心情下，《舞台上的芭蕾排练》(The Rehearsal of the Ballet Onstage)展现出",
+                  "artisticAnalysis": "艺术家Edgar Degas，创作于ca. 1874，采用Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"喜悦\"的心情下，《舞台上的芭蕾排练》(The Rehearsal of the Ballet Onstage)展现出",
+                  "detail": "艺术家Edgar Degas，创作于ca. 1874，采用Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 23256,
+                "introduction": "在\"喜悦\"的心情下，《舞台上的芭蕾排练》(The Rehearsal of the Ballet Onstage)展现出",
+                "detail": "艺术家Edgar Degas，创作于ca. 1874，采用Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 23534,
+            "isFirstBatch": true
+          },
+          "timestamp": 1760104629949
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "通过这次展览，我们深入体验了\"joy\"这一情感主题的丰富层次。每一件作品都是艺术家内心世界的真实写照，共同构成了一幅关于人类情感的深刻画卷。",
+            "durationMs": 18802
+          },
+          "timestamp": 1760104629957
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "卡耶博特1893年描绘小热内维利埃花园菊花的油画，洋溢着欢愉气息。",
+                "artisticAnalysis": "卡耶",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "卡耶博特1893年描绘小热内维利埃花园菊花的油画，洋溢着欢愉气息。",
+                  "artisticAnalysis": "卡耶",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "卡耶博特1893年描绘小热内维利埃花园菊花的油画，洋溢着欢愉气息。",
+                  "detail": "卡耶"
+                },
+                "confidence": 0.8,
+                "processingTime": 16047,
+                "introduction": "卡耶博特1893年描绘小热内维利埃花园菊花的油画，洋溢着欢愉气息。",
+                "detail": "卡耶"
+              },
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "在\"joy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家朱尔斯·杜普雷（Jules Dupré），创作于一八三六年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"joy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家朱尔斯·杜普雷（Jules Dupré），创作于一八三六年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"joy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家朱尔斯·杜普雷（Jules Dupré），创作于一八三六年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的"
+                },
+                "confidence": 0.8,
+                "processingTime": 23116,
+                "introduction": "在\"joy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家朱尔斯·杜普雷（Jules Dupré），创作于一八三六年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 23283
+          },
+          "timestamp": 1760104653051
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 73932
+          },
+          "timestamp": 1760104653051
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-10T13:57:33.055Z",
+      "totalDuration": 73974
+    },
+    {
+      "name": "Complex Emotion with User Input",
+      "description": "Workflow with detailed user requirements",
+      "emotion": "nostalgia",
+      "userInput": "我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 150000,
+        "planDuration": 35000,
+        "searchDuration": 50000,
+        "scoringDuration": 70000
+      },
+      "startTime": "2025-10-10T13:57:33.055Z",
+      "passed": true,
+      "performance": {
+        "totalDuration": 73738,
+        "steps": {
+          "emotionCurve": 1,
+          "artworkSelection": 1,
+          "introduction": 4174,
+          "conclusion": 2788,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 26404,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 18483,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 44887
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            28831
+          ],
+          "artworks_selected": [
+            28832
+          ],
+          "introduction": [
+            33036
+          ],
+          "conclusion": [
+            35788
+          ],
+          "explanations_batch": [
+            55232,
+            73720
+          ],
+          "complete": [
+            73721
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 75
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 2,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "nostalgia",
+            "userInput": "我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感"
+          },
+          "timestamp": 1760104653069
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.6130779178722395,
+              0.6553670687597813,
+              0.7328320420286601,
+              0.7016554856476542,
+              0.6986511226463324,
+              0.6616677879408174,
+              0.6135181085055096,
+              0.5534862256509437,
+              0.6124719374742525,
+              0.6123669842003462,
+              0.6603782464928913,
+              0.5953944839943127,
+              0.5969019845848894,
+              0.515774700459814,
+              0.5592105125487336,
+              0.5915777877635312,
+              0.690223810268309,
+              0.6280475950388306,
+              0.6513244397195691,
+              0.5655648361334414,
+              0.5817558296309858,
+              0.5658566402942315,
+              0.5777694801891928,
+              0.6227812115227969,
+              0.5728755781499859,
+              0.6309007771698568,
+              0.6123827824547544,
+              0.6799869207552277,
+              0.6238292893393297,
+              0.6566422695660691,
+              0.6692960787322715,
+              0.7218456353974633,
+              0.7370076666023886,
+              0.7247892639856733,
+              0.6667658303628858,
+              0.6660095828656387,
+              0.6815291990555066,
+              0.7433583444239461,
+              0.6492479831244183,
+              0.6095826858550814,
+              0.5637311220647409,
+              0.5901443542028667,
+              0.6102981607166563,
+              0.6575375615198402,
+              0.7017225148721312,
+              0.7082887815226989,
+              0.706804425496332,
+              0.6959148710753126,
+              0.7101494487170311,
+              0.7267545046803475,
+              0.7226133268620308,
+              0.6978316549294954,
+              0.6957179973854788,
+              0.6967186671162399,
+              0.7011158922007749,
+              0.6628851220583604,
+              0.6873252951040678,
+              0.6712211275073697,
+              0.7081410764704459,
+              0.6755988346379321,
+              0.6768850996928165,
+              0.6804234856542938,
+              0.7023935469125835,
+              0.7276002742120714,
+              0.7090761147528175,
+              0.7179169901994684,
+              0.718460073998152,
+              0.7302652579267885
+            ],
+            "description": "这个\"nostalgia\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从52%到74%，创造出丰富的情绪层次。",
+            "durationMs": 1
+          },
+          "timestamp": 1760104681900
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; (verso: oil and gold on wood)",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "year": "1467",
+                "medium": "Tempera and oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 4,
+              "periodCount": 3,
+              "mediumCount": 3,
+              "avgScore": 6.034166666666668,
+              "emotionFit": 5
+            },
+            "durationMs": 1
+          },
+          "timestamp": 1760104681901
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n**《怀旧：时光的回响》**\n\n在这场名为\"nostalgia\"的展览中，我们邀请您踏上一段穿越时光的情感之旅。这些精心挑选的艺术作品，如同一面面镜子，映照出人类共",
+            "durationMs": 4174
+          },
+          "timestamp": 1760104686105
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n",
+            "durationMs": 2788
+          },
+          "timestamp": 1760104688857
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "一幅可能描绘圣塞孔多修女的肖像画，展现文艺复兴时期的怀旧之美。",
+                "artisticAnalysis": "这幅画作展现了文艺复兴时期艺术家对人物情感的细腻捕捉，尽管主题是一位可能的女修士，但作品本身唤起了观者对过去时光的怀念与珍视。艺术家通过细腻的笔触和温暖的色调，营造出一种超越时代的怀旧氛围，与观者内心深处的童年记忆产生共鸣。从艺术史角度看，Jacometto作为威尼斯画派的重要代表，其作品融合了北方文艺复兴的写实性与意大利的人文主义精神，画作背面的灰彩场景更是增添了历史层次",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "一幅可能描绘圣塞孔多修女的肖像画，展现文艺复兴时期的怀旧之美。",
+                  "artisticAnalysis": "这幅画作展现了文艺复兴时期艺术家对人物情感的细腻捕捉，尽管主题是一位可能的女修士，但作品本身唤起了观者对过去时光的怀念与珍视。艺术家通过细腻的笔触和温暖的色调，营造出一种超越时代的怀旧氛围，与观者内心深处的童年记忆产生共鸣。从艺术史角度看，Jacometto作为威尼斯画派的重要代表，其作品融合了北方文艺复兴的写实性与意大利的人文主义精神，画作背面的灰彩场景更是增添了历史层次",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "一幅可能描绘圣塞孔多修女的肖像画，展现文艺复兴时期的怀旧之美。",
+                  "detail": "这幅画作展现了文艺复兴时期艺术家对人物情感的细腻捕捉，尽管主题是一位可能的女修士，但作品本身唤起了观者对过去时光的怀念与珍视。艺术家通过细腻的笔触和温暖的色调，营造出一种超越时代的怀旧氛围，与观者内心深处的童年记忆产生共鸣。从艺术史角度看，Jacometto作为威尼斯画派的重要代表，其作品融合了北方文艺复兴的写实性与意大利的人文主义精神，画作背面的灰彩场景更是增添了历史层次"
+                },
+                "confidence": 0.8,
+                "processingTime": 20352,
+                "introduction": "一幅可能描绘圣塞孔多修女的肖像画，展现文艺复兴时期的怀旧之美。",
+                "detail": "这幅画作展现了文艺复兴时期艺术家对人物情感的细腻捕捉，尽管主题是一位可能的女修士，但作品本身唤起了观者对过去时光的怀念与珍视。艺术家通过细腻的笔触和温暖的色调，营造出一种超越时代的怀旧氛围，与观者内心深处的童年记忆产生共鸣。从艺术史角度看，Jacometto作为威尼斯画派的重要代表，其作品融合了北方文艺复兴的写实性与意大利的人文主义精神，画作背面的灰彩场景更是增添了历史层次"
+              },
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "在\"nostalgia\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家Gustave Caillebotte，创作于1893，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"nostalgia\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家Gustave Caillebotte，创作于1893，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"nostalgia\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家Gustave Caillebotte，创作于1893，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 26361,
+                "introduction": "在\"nostalgia\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家Gustave Caillebotte，创作于1893，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 26404,
+            "isFirstBatch": true
+          },
+          "timestamp": 1760104708301
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "在\"nostalgia\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"nostalgia\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"nostalgia\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 18419,
+                "introduction": "在\"nostalgia\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              },
+              {
+                "artworkId": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "emotionalConnection": "文艺复兴温暖家庭场景，唤起纯真怀旧之情。",
+                "artisticAnalysis": "法国 (Fra)",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "文艺复兴温暖家庭场景，唤起纯真怀旧之情。",
+                  "artisticAnalysis": "法国 (Fra)",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "文艺复兴温暖家庭场景，唤起纯真怀旧之情。",
+                  "detail": "法国 (Fra)"
+                },
+                "confidence": 0.8,
+                "processingTime": 18310,
+                "introduction": "文艺复兴温暖家庭场景，唤起纯真怀旧之情。",
+                "detail": "法国 (Fra)"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 18483
+          },
+          "timestamp": 1760104726789
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 73717
+          },
+          "timestamp": 1760104726790
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-10T13:58:46.794Z",
+      "totalDuration": 73739
+    }
+  ],
+  "errorScenarios": [],
+  "summary": {
+    "totalTests": 2,
+    "passedTests": 2,
+    "failedTests": 0,
+    "successRate": 100,
+    "performance": {
+      "averageDuration": 73856,
+      "minDuration": 73738,
+      "maxDuration": 73973,
+      "totalSamples": 2
+    },
+    "quality": {
+      "emotionCurveQuality": 100,
+      "artworkQuality": 100,
+      "explanationQuality": 81
+    },
+    "testDuration": 147718
+  },
+  "config": {
+    "baseUrl": "http://localhost:3000",
+    "endpoint": "/api/curate/stream",
+    "testResultsDir": "./test-results",
+    "logLevel": "info",
+    "timeout": 300000,
+    "retryAttempts": 2,
+    "retryDelay": 1000
+  },
+  "generatedAt": "2025-10-10T13:58:46.795Z"
+}
+```
+
+</details>
+
+## Recommendations
+
+- All tests passed! System is performing as expected.

@@ -1,0 +1,64 @@
+{
+  "startTime": "2025-10-08T11:34:06.390Z",
+  "scenarios": [],
+  "errorScenarios": [
+    {
+      "name": "Missing Emotion",
+      "description": "Test error handling when emotion is missing",
+      "emotion": "",
+      "userInput": "Some input",
+      "method": "POST",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-08T11:34:06.392Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-08T11:34:06.405Z"
+    },
+    {
+      "name": "Empty Request Body",
+      "description": "Test error handling with empty request",
+      "emotion": null,
+      "userInput": null,
+      "method": "POST",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-08T11:34:06.405Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-08T11:34:06.407Z"
+    },
+    {
+      "name": "GET without Emotion",
+      "description": "Test GET method without emotion parameter",
+      "emotion": "",
+      "userInput": "",
+      "method": "GET",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-08T11:34:06.407Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-08T11:34:06.411Z"
+    }
+  ],
+  "summary": {
+    "totalTests": 3,
+    "passedTests": 0,
+    "failedTests": 3,
+    "successRate": 0,
+    "performance": null,
+    "quality": null,
+    "testDuration": 21
+  },
+  "config": {
+    "baseUrl": "http://localhost:3000",
+    "endpoint": "/api/curate/stream",
+    "testResultsDir": "./test-results",
+    "logLevel": "info",
+    "timeout": 300000,
+    "retryAttempts": 2,
+    "retryDelay": 1000
+  },
+  "generatedAt": "2025-10-08T11:34:06.411Z"
+}

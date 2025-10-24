@@ -1,0 +1,598 @@
+{
+  "startTime": "2025-10-07T03:31:01.423Z",
+  "input": {
+    "emotion": "今天感觉不错,逛了一天街",
+    "userInput": ""
+  },
+  "config": {
+    "baseUrl": "http://localhost:3001",
+    "endpoint": "/api/curate/stream",
+    "timeout": 300000,
+    "testInput": {
+      "emotion": "今天感觉不错,逛了一天街",
+      "userInput": ""
+    }
+  },
+  "performance": {
+    "totalDuration": 193175,
+    "steps": {
+      "emotionCurve": 1,
+      "artworkSelection": 3,
+      "introduction": 4334,
+      "conclusion": 3503,
+      "explanations": [
+        {
+          "batchIndex": 1,
+          "duration": 20585,
+          "count": 2,
+          "isFirstBatch": true
+        },
+        {
+          "batchIndex": 5,
+          "duration": 17865,
+          "count": 1
+        },
+        {
+          "batchIndex": 2,
+          "duration": 50487,
+          "count": 2
+        },
+        {
+          "batchIndex": 3,
+          "duration": 51085,
+          "count": 2
+        },
+        {
+          "batchIndex": 4,
+          "duration": 118912,
+          "count": 2
+        }
+      ],
+      "totalExplanationTime": 258934
+    },
+    "eventTiming": {
+      "start": [
+        0
+      ],
+      "emotion_curve": [
+        53507
+      ],
+      "artworks_selected": [
+        53512
+      ],
+      "introduction": [
+        57837
+      ],
+      "conclusion": [
+        61335
+      ],
+      "explanations_batch": [
+        74085,
+        91949,
+        124570,
+        125167,
+        192997
+      ],
+      "complete": [
+        192997
+      ]
+    },
+    "summary": {
+      "stepCount": 6,
+      "avgEventInterval": 19299.7
+    }
+  },
+  "validation": {
+    "passed": true,
+    "issues": [],
+    "scores": {},
+    "details": {
+      "eventCounts": {
+        "start": 1,
+        "emotion_curve": 1,
+        "artworks_selected": 1,
+        "introduction": 1,
+        "conclusion": 1,
+        "explanations_batch": 5,
+        "complete": 1
+      }
+    },
+    "summary": {
+      "inputEmotion": "今天感觉不错,逛了一天街",
+      "emotionCurve": {
+        "points": 20,
+        "range": [
+          0.43790497677836765,
+          0.6212759700355269
+        ],
+        "average": 0.5076965873650884,
+        "duration": 1
+      },
+      "artworks": {
+        "count": 9,
+        "selectionTime": 3,
+        "selectionReasoning": "基于多样性原则选择作品，确保风格、时期、材质的平衡",
+        "diversityMetrics": {
+          "artistCount": 7,
+          "periodCount": 4,
+          "mediumCount": 7,
+          "avgScore": 5.727222222222223,
+          "emotionFit": 5
+        }
+      },
+      "explanations": {
+        "batchCount": 5,
+        "totalExplanations": 9,
+        "batches": [
+          {
+            "batchIndex": 1,
+            "count": 2,
+            "duration": 20585,
+            "isFirstBatch": true
+          },
+          {
+            "batchIndex": 5,
+            "count": 1,
+            "duration": 17865
+          },
+          {
+            "batchIndex": 2,
+            "count": 2,
+            "duration": 50487
+          },
+          {
+            "batchIndex": 3,
+            "count": 2,
+            "duration": 51085
+          },
+          {
+            "batchIndex": 4,
+            "count": 2,
+            "duration": 118912
+          }
+        ]
+      },
+      "introduction": {
+        "length": 0
+      },
+      "conclusion": {
+        "length": 0
+      }
+    }
+  },
+  "events": [
+    {
+      "type": "start",
+      "payload": {
+        "emotion": "今天感觉不错,逛了一天街",
+        "userInput": ""
+      },
+      "timestamp": 1759807861599
+    },
+    {
+      "type": "emotion_curve",
+      "payload": {
+        "curve": [
+          0.45810892901115935,
+          0.4668025496422316,
+          0.4956758488765047,
+          0.5374146096163699,
+          0.5426520360329713,
+          0.5068561168980189,
+          0.5084050543755013,
+          0.490014441449931,
+          0.5734052205596818,
+          0.6212759700355269,
+          0.6173006773401689,
+          0.5532747335027968,
+          0.4765781293870906,
+          0.4982874252363063,
+          0.46774436021390026,
+          0.4533714006426664,
+          0.43790497677836765,
+          0.4684691323719859,
+          0.4824626479814646,
+          0.49792748734912384
+        ],
+        "description": "这个\"今天感觉不错,逛了一天街\"情绪曲线展现了情感的动态变化：整体保持稳定的情绪强度，平均强度为51%，营造出持续而深刻的情绪体验。",
+        "durationMs": 1
+      },
+      "timestamp": 1759807915106
+    },
+    {
+      "type": "artworks_selected",
+      "payload": {
+        "artworks": [
+          {
+            "id": "SK-A-3580",
+            "title": "De Singelbrug bij de Paleisstraat in Amsterdam",
+            "artist": "George Hendrik Breitner",
+            "year": "1898",
+            "medium": "olieverf",
+            "imageUrl": "https://lh3.googleusercontent.com/Bawo7r1nPZV6sJ4OHZJHdKV_4Ky59vquAR7KoUXcNZgx9fqTaOW-QaOM9qoyYhOTAopzjt9OIfW06RMwa-9eJW9KjQw=s0",
+            "description": "Breitner maakte vaak zelf foto’s als voorbereiding op zijn schilderijen. Ook van dit schilderij is een aantal van zulke voorstudies bekend. De manier waarop de vrouw recht op ons af loopt en de afsnijding van het beeld doen heel fotografisch aan. Aanvankelijk was hier een dienstmeid geschilderd, maar na een negatieve kritiek vond de kunsthandel die zijn schilderijen verkocht het maar beter dat Breitner er een dame van maakte. ",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "SK-A-3584",
+            "title": "Meisje in witte kimono",
+            "artist": "George Hendrik Breitner",
+            "year": "1894",
+            "medium": "olieverf",
+            "imageUrl": "https://lh3.googleusercontent.com/0bgOiMrBM2GuhW_pNeQW711GuB3kD7Gq7AILGHaJGeWKa1Fu1hUJGpOjvSpiP_XpgRlC4jVmH0Z1233PEPMJTfNRR7Q=s0",
+            "description": "Geïnspireerd door Japanse prenten schilderde Breitner omstreeks 1894 minstens twaalf schilderijen van een meisje in kimono. Zij heeft steeds een andere houding en de kimono verschilt van kleur. De blikvanger hier is de geborduurde witzijden kimono met de rood afgezette mouwen en oranjekleurige ceintuur. Het dromerige meisje is de zestienjarige Geesje Kwak, een hoedenverkoopster en een van Breitners vaste modellen.",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "BK-16676",
+            "title": "Bureau",
+            "artist": "Abraham Roentgen",
+            "year": "ca. 1758 - ca. 1760",
+            "medium": "hout",
+            "imageUrl": "https://lh4.ggpht.com/FeheHnW8-KOx-prHRCvly8ReF9WKysmPJDEd99EEVDViH1DvYytyDpkjnkeyqqj85WNbrkXFaoFe0jBKB9DdNJApLQ=s0",
+            "description": "Het bureau heeft een groot aantal verborgen vakken en laden en herbergt zelfs een uitklapbare knielbank. Het is gemaakt voor Johann Philipp von Walderdorff, aartsbisschop en keurvorst van Trier, en is bovenin versierd met diens portret en wapen. Het bureau is het rijkste pronkstuk dat ooit is gemaakt door Abraham Roentgen, de beroemdste Duitse meubelmaker van zijn tijd.  ",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "BK-17040-A",
+            "title": "Tafelstuk",
+            "artist": "Wenzel Jamnitzer",
+            "year": "1549",
+            "medium": "zilver",
+            "imageUrl": "https://lh6.ggpht.com/9ulJVSDjPC6uiOPm-0Lj44cicGWRmukCmE98Ut3EAn6BhQeo76QZe_YIGiMTTX9rr4k3nqPymTmhrGjZDohEIR5ZrQ=s0",
+            "description": "Deze schaal werd bij feestelijke gelegenheden op tafel gezet. Er werd niets opgelegd, daar was hij te mooi voor. De pronkschaal is in 1549 gemaakt door de toen wereldberoemde zilversmid Wenzel Jamnitzer, in opdracht van de stad Neurenberg. Jamnitzer heeft onwaarschijnlijk knap werk geleverd in een nieuwe techniek. Alle twijgjes en bloemetjes, die op het eerste gezicht gewoon gedroogd lijken, zijn stuk voor stuk in zilver gegoten.",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "BK-AM-33-C",
+            "title": "Isabella van Bourbon & Pleurants",
+            "artist": "Borman werkplaats, Renier van Thienen (I)",
+            "year": "ca. 1475 - ca. 1476",
+            "medium": "brons",
+            "imageUrl": "https://lh5.ggpht.com/EHhJDrv4IB_89m9w9VlcYRYHYOuvU72iwD11oZ1HL3J5QcCMfmAD48CVxAtUwts9RT55W4lWSPI19wb1lSRZ9zecKMA=s0",
+            "description": "In 1465 overleed Isabella van Bourbon, de vrouw van Karel de Stoute, hertog van Bourgondië en heerser over Vlaanderen, Holland, Zeeland, Brabant en Limburg. Hij liet voor haar een praalgraf maken in de Michielsabdij in Antwerpen. Om deze tombe stonden 24 beeldjes van rouwende familieleden en voorouders, zogenoemde pleurants. Ze symboliseerden het belang van de Bourgondische dynastie. Deze tien zijn de enige die bewaard zijn gebleven.",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "BK-AM-33-F",
+            "title": "Isabella van Bourbon & Pleurants",
+            "artist": "Borman werkplaats, Renier van Thienen (I)",
+            "year": "ca. 1475 - ca. 1476",
+            "medium": "brons",
+            "imageUrl": "https://lh3.ggpht.com/3bzg_jUPUnsPxCugY78L5mF-nOg9_l_7rMGkHVfTK0wUFU0J2kfZ_vMLT65F6nRDm5Ck7hy9iQoYCiWC2V1Becaj15E=s0",
+            "description": "In 1465 overleed Isabella van Bourbon, de vrouw van Karel de Stoute, hertog van Bourgondië en heerser over Vlaanderen, Holland, Zeeland, Brabant en Limburg. Hij liet voor haar een praalgraf maken in de Michielsabdij in Antwerpen. Om deze tombe stonden 24 beeldjes van rouwende familieleden en voorouders, zogenoemde pleurants. Ze symboliseerden het belang van de Bourgondische dynastie. Deze tien zijn de enige die bewaard zijn gebleven. ",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "BK-NM-3888",
+            "title": "Maria met het Christuskind",
+            "artist": "Adriaen van Wesel",
+            "year": "ca. 1470 - ca. 1480",
+            "medium": "eikenhout",
+            "imageUrl": "https://lh6.ggpht.com/w51qt-qW6i-7WJL4SJzFLw1JQAa0lx0Kem6vI0TgQv9fFVDzLaq70UV3SmAQfdN4AhcnnspmU7eG1zaQxOu_z2z5caY=s0",
+            "description": "这是一件来自荷兰国家博物馆的珍贵作品。",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "SK-A-1718",
+            "title": "Winterlandschap met schaatsers",
+            "artist": "Hendrick Avercamp",
+            "year": "ca. 1608",
+            "medium": "paneel",
+            "imageUrl": "https://lh3.googleusercontent.com/1pTfYJlLwVTifKj4PlsWPyAg4PcIVBAiVvB8sameSnmm7HRd056abNUIRq33rgry7u9t-ju-eHOnbfqQpK4q_8IwzIXZ4WgrqZW9l7U=s0",
+            "description": "Hendrick Avercamp maakte van het winterlandschap een zelfstandig onderwerp. Typerend voor zijn vroege landschappen is de hoge horizon. Deze stelde Avercamp in staat veel aandacht te besteden aan de tientallen figuurtjes op het ijs. Vanuit een vogelvluchtperspectief gaf hij veel amusante details weer, zoals het vrijende paartje en de poepende figuren links en de plassende man middenachter.",
+            "museum": "荷兰国家博物馆"
+          },
+          {
+            "id": "SK-A-4",
+            "title": "De bedreigde zwaan",
+            "artist": "Jan Asselijn",
+            "year": "ca. 1650",
+            "medium": "doek",
+            "imageUrl": "https://lh3.googleusercontent.com/tm1DbZrAP0uBM-OJhLwvKir1Le5LglRF_bvbaNi6m-F_pIyttsWQz040soRY9pWA9PgNEYFA_fBkg_keYixRXCAjz9Q=s0",
+            "description": "Met wijd uitgespreide vleugels en een gekromde hals verdedigt de zwaan haar eieren tegen een naderbij zwemmende hond. Door de vogel vanuit een laag gezichtspunt weer te geven, is zijn kracht benadrukt. \r\nDe teksten op het schilderij zijn van later datum en hebben een politieke betekenis. Zij verwijzen naar de machtige bestuurder Johan de Witt, die de staat tegen vele vijanden verdedigde. ",
+            "museum": "荷兰国家博物馆"
+          }
+        ],
+        "selectionReasoning": "基于多样性原则选择作品，确保风格、时期、材质的平衡",
+        "diversityMetrics": {
+          "artistCount": 7,
+          "periodCount": 4,
+          "mediumCount": 7,
+          "avgScore": 5.727222222222223,
+          "emotionFit": 5
+        },
+        "durationMs": 3
+      },
+      "timestamp": 1759807915111
+    },
+    {
+      "type": "introduction",
+      "payload": {
+        "introduction": "\n**今天感觉不错，逛了一天街**\n\n漫步于城市街头，我们捕捉着无数转瞬即逝的瞬间，感受着情绪的起伏与交织。本次展览以日常生活中的漫步为线索，通过九件精选作品，展现情绪的深度与多样性。\n\nBreitner的阿姆斯特丹街景画作，捕捉了城市生活的脉搏与律动；而他笔下的少女形象，则静静诉说着内心世界的微妙变化。Roentgen的精致家具，则如",
+        "durationMs": 4334
+      },
+      "timestamp": 1759807919436
+    },
+    {
+      "type": "conclusion",
+      "payload": {
+        "conclusion": "\n",
+        "durationMs": 3503
+      },
+      "timestamp": 1759807922934
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 1,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "SK-A-3580",
+            "title": "De Singelbrug bij de Paleisstraat in Amsterdam",
+            "artist": "George Hendrik Breitner",
+            "emotionalConnection": "漫步在布雷特纳（Breitner",
+            "artisticAnalysis": "这位荷兰印象派大师以独特的摄影式构图，将Singel桥上的女子定格为直直向你走来的瞬间，画面的截断感正是逛街时那种不断遇见新景致的体验。1898年正值欧洲现代艺术转型期，Breitner巧妙地将摄影的视角融入油画，让日常街景焕发艺术光彩。 当你心情愉悦地逛了一整天街，站在这幅画前，你会发现那些明亮的色彩与流动的光影，恰似你今日收获的种种惊喜。画中女子最初是女仆，后改为女士的故事，暗示着平凡生活中的不凡蜕变——正如你今天的逛街经历，看似寻常却充满发现的乐趣。Breitner用油彩捕捉的城市活力，与你在街头漫步时的感受何其相似。 建议你特别注意女子自信的步伐和画家对砖石街道的细腻描绘，这些细节正是城市生活的精髓。在荷兰国家博物馆收藏的这幅作品中，你会发现百年前人们的逛街体验与你今日的感受竟如此相通，艺术让我们跨越时空，在平凡日常中发现永恒之美。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "漫步在布雷特纳（Breitner",
+              "artisticAnalysis": "这位荷兰印象派大师以独特的摄影式构图，将Singel桥上的女子定格为直直向你走来的瞬间，画面的截断感正是逛街时那种不断遇见新景致的体验。1898年正值欧洲现代艺术转型期，Breitner巧妙地将摄影的视角融入油画，让日常街景焕发艺术光彩。 当你心情愉悦地逛了一整天街，站在这幅画前，你会发现那些明亮的色彩与流动的光影，恰似你今日收获的种种惊喜。画中女子最初是女仆，后改为女士的故事，暗示着平凡生活中的不凡蜕变——正如你今天的逛街经历，看似寻常却充满发现的乐趣。Breitner用油彩捕捉的城市活力，与你在街头漫步时的感受何其相似。 建议你特别注意女子自信的步伐和画家对砖石街道的细腻描绘，这些细节正是城市生活的精髓。在荷兰国家博物馆收藏的这幅作品中，你会发现百年前人们的逛街体验与你今日的感受竟如此相通，艺术让我们跨越时空，在平凡日常中发现永恒之美。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "漫步在布雷特纳（Breitner",
+              "detail": "这位荷兰印象派大师以独特的摄影式构图，将Singel桥上的女子定格为直直向你走来的瞬间，画面的截断感正是逛街时那种不断遇见新景致的体验。1898年正值欧洲现代艺术转型期，Breitner巧妙地将摄影的视角融入油画，让日常街景焕发艺术光彩。 当你心情愉悦地逛了一整天街，站在这幅画前，你会发现那些明亮的色彩与流动的光影，恰似你今日收获的种种惊喜。画中女子最初是女仆，后改为女士的故事，暗示着平凡生活中的不凡蜕变——正如你今天的逛街经历，看似寻常却充满发现的乐趣。Breitner用油彩捕捉的城市活力，与你在街头漫步时的感受何其相似。 建议你特别注意女子自信的步伐和画家对砖石街道的细腻描绘，这些细节正是城市生活的精髓。在荷兰国家博物馆收藏的这幅作品中，你会发现百年前人们的逛街体验与你今日的感受竟如此相通，艺术让我们跨越时空，在平凡日常中发现永恒之美。"
+            },
+            "confidence": 0.8,
+            "processingTime": 20418
+          },
+          {
+            "artworkId": "SK-A-3584",
+            "title": "Meisje in witte kimono",
+            "artist": "George Hendrik Breitner",
+            "emotionalConnection": "在\"今天感觉不错,逛了一天街",
+            "artisticAnalysis": "在1894年那个欧洲艺术界正沉浸在\"日本主义\"热潮的年代，布雷特纳",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在\"今天感觉不错,逛了一天街",
+              "artisticAnalysis": "在1894年那个欧洲艺术界正沉浸在\"日本主义\"热潮的年代，布雷特纳",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在\"今天感觉不错,逛了一天街",
+              "detail": "在1894年那个欧洲艺术界正沉浸在\"日本主义\"热潮的年代，布雷特纳"
+            },
+            "confidence": 0.8,
+            "processingTime": 20518
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 20585,
+        "isFirstBatch": true
+      },
+      "timestamp": 1759807935684
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 5,
+        "batchSize": 1,
+        "explanations": [
+          {
+            "artworkId": "SK-A-4",
+            "title": "De bedreigde zwaan",
+            "artist": "Jan Asselijn",
+            "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，De bedreigde zwaan展现出特别的艺术魅力和情感深度。",
+            "artisticAnalysis": "漫步在荷兰国家博物馆，当您带着一天逛街后的愉悦心情邂逅这幅《受威胁的天鹅》，仿佛是17世纪荷兰黄金时代与您今日美好心情的奇妙相遇。1650年的荷兰，正摆脱西班牙统治不久，海上贸易如日中天，艺术市场繁荣非凡，正是这种蓬勃向上的精神，让Asselijn笔下的天鹅如此充满力量。 从低视角展现的天鹅，翅膀如盾牌般展开，脖颈优雅弯曲，坚定地守护着它的蛋。这不正像您今天保护自己一天的美好收获吗？那些精心挑选的物品、享受的美食、发现的惊喜，都是值得珍视的\"蛋\"。天鹅面对狗的威胁毫不退缩的姿态，与您逛街后获得的自信和满足感形成完美呼应。 注意画家如何通过低角度构图强化天鹅的威严，水面的波光与天鹅洁白的羽毛形成视觉韵律。虽然后期添加的文字赋予了作品政治含义，但最初的动物描绘本身就充满了情感张力。就像您今天在城市中发现的美好一样，无需过多解释，纯粹的感受就足够动人。 在快节奏的现代生活中，这幅17世纪的画作提醒我们，无论时代如何变迁，保护自己珍视之物、勇敢面对挑战的本能始终如一。您今天逛街时的心情，正是对生活热爱的最佳证明，与这幅画中天鹅守护生命的力量遥相呼应。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，De bedreigde zwaan展现出特别的艺术魅力和情感深度。",
+              "artisticAnalysis": "漫步在荷兰国家博物馆，当您带着一天逛街后的愉悦心情邂逅这幅《受威胁的天鹅》，仿佛是17世纪荷兰黄金时代与您今日美好心情的奇妙相遇。1650年的荷兰，正摆脱西班牙统治不久，海上贸易如日中天，艺术市场繁荣非凡，正是这种蓬勃向上的精神，让Asselijn笔下的天鹅如此充满力量。 从低视角展现的天鹅，翅膀如盾牌般展开，脖颈优雅弯曲，坚定地守护着它的蛋。这不正像您今天保护自己一天的美好收获吗？那些精心挑选的物品、享受的美食、发现的惊喜，都是值得珍视的\"蛋\"。天鹅面对狗的威胁毫不退缩的姿态，与您逛街后获得的自信和满足感形成完美呼应。 注意画家如何通过低角度构图强化天鹅的威严，水面的波光与天鹅洁白的羽毛形成视觉韵律。虽然后期添加的文字赋予了作品政治含义，但最初的动物描绘本身就充满了情感张力。就像您今天在城市中发现的美好一样，无需过多解释，纯粹的感受就足够动人。 在快节奏的现代生活中，这幅17世纪的画作提醒我们，无论时代如何变迁，保护自己珍视之物、勇敢面对挑战的本能始终如一。您今天逛街时的心情，正是对生活热爱的最佳证明，与这幅画中天鹅守护生命的力量遥相呼应。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在\"今天感觉不错,逛了一天街\"的心情下，De bedreigde zwaan展现出特别的艺术魅力和情感深度。",
+              "detail": "漫步在荷兰国家博物馆，当您带着一天逛街后的愉悦心情邂逅这幅《受威胁的天鹅》，仿佛是17世纪荷兰黄金时代与您今日美好心情的奇妙相遇。1650年的荷兰，正摆脱西班牙统治不久，海上贸易如日中天，艺术市场繁荣非凡，正是这种蓬勃向上的精神，让Asselijn笔下的天鹅如此充满力量。 从低视角展现的天鹅，翅膀如盾牌般展开，脖颈优雅弯曲，坚定地守护着它的蛋。这不正像您今天保护自己一天的美好收获吗？那些精心挑选的物品、享受的美食、发现的惊喜，都是值得珍视的\"蛋\"。天鹅面对狗的威胁毫不退缩的姿态，与您逛街后获得的自信和满足感形成完美呼应。 注意画家如何通过低角度构图强化天鹅的威严，水面的波光与天鹅洁白的羽毛形成视觉韵律。虽然后期添加的文字赋予了作品政治含义，但最初的动物描绘本身就充满了情感张力。就像您今天在城市中发现的美好一样，无需过多解释，纯粹的感受就足够动人。 在快节奏的现代生活中，这幅17世纪的画作提醒我们，无论时代如何变迁，保护自己珍视之物、勇敢面对挑战的本能始终如一。您今天逛街时的心情，正是对生活热爱的最佳证明，与这幅画中天鹅守护生命的力量遥相呼应。"
+            },
+            "confidence": 0.8,
+            "processingTime": 17807
+          }
+        ],
+        "successCount": 1,
+        "failureCount": 0,
+        "durationMs": 17865
+      },
+      "timestamp": 1759807953548
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 2,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "BK-16676",
+            "title": "Bureau",
+            "artist": "Abraham Roentgen",
+            "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，Bureau展现出特别的艺术魅力和情感深度。",
+            "artisticAnalysis": "漫步在荷兰国家博物馆的展厅中，这件Roentgen在1758年左右创作的《Bureau》就像一位老友，正等待着与心情愉悦的你分享它迷人的秘密。在那个洛可可艺术盛行的年代，这件为Trier大主教打造的办公桌不仅是权力的象征，更是人类创造力的极致展现。 想象一下，当你疲惫地逛街一天，偶然发现这件作品时，那些隐藏的抽屉和折叠跪凳所带来的惊喜，不正是购物时发现心仪物品的喜悦翻版吗？Roentgen这位18世纪德国最杰出的家具制作大师，将木材的温润与机械的精妙完美融合，正如你今天将城市喧嚣与内心宁静巧妙平衡。 当你轻抚这件被历史尘埃覆盖的艺术品，请特别注意它顶部的大主教肖像和纹章，以及那些需要耐心探索的秘密空间。它们提醒我们，生活就像这件复杂的办公桌，表面之下总有不为人知的惊喜等待着被发现。就像你今天逛街的收获一样，真正的美好往往藏在细节中，需要我们带着开放的心去发现。 在这个愉悦的时刻，让这件作品成为你美好一天的延续，感受艺术与生活之间那微妙的共鸣。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，Bureau展现出特别的艺术魅力和情感深度。",
+              "artisticAnalysis": "漫步在荷兰国家博物馆的展厅中，这件Roentgen在1758年左右创作的《Bureau》就像一位老友，正等待着与心情愉悦的你分享它迷人的秘密。在那个洛可可艺术盛行的年代，这件为Trier大主教打造的办公桌不仅是权力的象征，更是人类创造力的极致展现。 想象一下，当你疲惫地逛街一天，偶然发现这件作品时，那些隐藏的抽屉和折叠跪凳所带来的惊喜，不正是购物时发现心仪物品的喜悦翻版吗？Roentgen这位18世纪德国最杰出的家具制作大师，将木材的温润与机械的精妙完美融合，正如你今天将城市喧嚣与内心宁静巧妙平衡。 当你轻抚这件被历史尘埃覆盖的艺术品，请特别注意它顶部的大主教肖像和纹章，以及那些需要耐心探索的秘密空间。它们提醒我们，生活就像这件复杂的办公桌，表面之下总有不为人知的惊喜等待着被发现。就像你今天逛街的收获一样，真正的美好往往藏在细节中，需要我们带着开放的心去发现。 在这个愉悦的时刻，让这件作品成为你美好一天的延续，感受艺术与生活之间那微妙的共鸣。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在\"今天感觉不错,逛了一天街\"的心情下，Bureau展现出特别的艺术魅力和情感深度。",
+              "detail": "漫步在荷兰国家博物馆的展厅中，这件Roentgen在1758年左右创作的《Bureau》就像一位老友，正等待着与心情愉悦的你分享它迷人的秘密。在那个洛可可艺术盛行的年代，这件为Trier大主教打造的办公桌不仅是权力的象征，更是人类创造力的极致展现。 想象一下，当你疲惫地逛街一天，偶然发现这件作品时，那些隐藏的抽屉和折叠跪凳所带来的惊喜，不正是购物时发现心仪物品的喜悦翻版吗？Roentgen这位18世纪德国最杰出的家具制作大师，将木材的温润与机械的精妙完美融合，正如你今天将城市喧嚣与内心宁静巧妙平衡。 当你轻抚这件被历史尘埃覆盖的艺术品，请特别注意它顶部的大主教肖像和纹章，以及那些需要耐心探索的秘密空间。它们提醒我们，生活就像这件复杂的办公桌，表面之下总有不为人知的惊喜等待着被发现。就像你今天逛街的收获一样，真正的美好往往藏在细节中，需要我们带着开放的心去发现。 在这个愉悦的时刻，让这件作品成为你美好一天的延续，感受艺术与生活之间那微妙的共鸣。"
+            },
+            "confidence": 0.8,
+            "processingTime": 19219
+          },
+          {
+            "artworkId": "BK-17040-A",
+            "title": "Tafelstuk",
+            "artist": "Wenzel Jamnitzer",
+            "emotionalConnection": "漫步于城市街道，发现美好事物的愉悦心情，与欣赏这件文艺复兴时期的银盘有着奇妙的共鸣。",
+            "artisticAnalysis": "一五四九年的欧洲，正值文艺复兴盛期，艺术与科学蓬勃发展，而文策尔·雅姆尼策尔（Wenzel Jamnitzer）正是这一时代最具创新精神的金属艺术家之一。这件被称为《餐桌作品》（",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "漫步于城市街道，发现美好事物的愉悦心情，与欣赏这件文艺复兴时期的银盘有着奇妙的共鸣。",
+              "artisticAnalysis": "一五四九年的欧洲，正值文艺复兴盛期，艺术与科学蓬勃发展，而文策尔·雅姆尼策尔（Wenzel Jamnitzer）正是这一时代最具创新精神的金属艺术家之一。这件被称为《餐桌作品》（",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "漫步于城市街道，发现美好事物的愉悦心情，与欣赏这件文艺复兴时期的银盘有着奇妙的共鸣。",
+              "detail": "一五四九年的欧洲，正值文艺复兴盛期，艺术与科学蓬勃发展，而文策尔·雅姆尼策尔（Wenzel Jamnitzer）正是这一时代最具创新精神的金属艺术家之一。这件被称为《餐桌作品》（"
+            },
+            "confidence": 0.8,
+            "processingTime": 27812
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 50487
+      },
+      "timestamp": 1759807986169
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 3,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "BK-AM-33-C",
+            "title": "Isabella van Bourbon & Pleurants",
+            "artist": "Borman werkplaats, Renier van Thienen (I)",
+            "emotionalConnection": "今天心情不错，漫步街头后与这件青铜雕塑相遇，真是奇妙的缘分。",
+            "artisticAnalysis": "这些哀悼者形象创作于1475-1476年，正值勃艮第公国的黄金时代，当时欧洲正从哥特式向文艺复兴过渡，艺术家们开始以",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "今天心情不错，漫步街头后与这件青铜雕塑相遇，真是奇妙的缘分。",
+              "artisticAnalysis": "这些哀悼者形象创作于1475-1476年，正值勃艮第公国的黄金时代，当时欧洲正从哥特式向文艺复兴过渡，艺术家们开始以",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "今天心情不错，漫步街头后与这件青铜雕塑相遇，真是奇妙的缘分。",
+              "detail": "这些哀悼者形象创作于1475-1476年，正值勃艮第公国的黄金时代，当时欧洲正从哥特式向文艺复兴过渡，艺术家们开始以"
+            },
+            "confidence": 0.8,
+            "processingTime": 18750
+          },
+          {
+            "artworkId": "BK-AM-33-F",
+            "title": "Isabella van Bourbon & Pleurants",
+            "artist": "Borman werkplaats, Renier van Thienen (I)",
+            "emotionalConnection": "当你今天心情愉悦地逛完街，站在这些几百年前的哀悼者雕像前，一种奇妙的情感对话便开始了。",
+            "artisticAnalysis": "1475年的勃艮第公国正经历着文化黄金时代，Borman工作室的这件青铜作品代表了当时金属雕塑的巅峰技艺。这些哀悼者原是环绕在勃艮第公爵夫人陵墓周围的二十四座雕像之一，象征着王朝的延续与荣耀。 青铜材质的光泽在灯光下流转，每一道褶皱、每一个手势都展现出艺术家对情感的细腻捕捉。虽然主题是悲伤，但正是这种强烈的情感表达与你今天的愉悦心情形成了有趣的对话。当你轻松地穿梭在现代街道时，这些凝固的悲伤表情提醒着我们情感的丰富性和生命的多面性。 建议你细细观察每个哀悼者独特的哀伤姿态——从低头沉思到掩面哭泣，每一个细节都讲述着不同的故事。这些雕像不仅是历史的见证，更是对人类情感的永恒探索。在你享受今天美好时刻的同时，这些几百年前的哀悼者以一种奇妙的方式提醒我们：正是对生命有限性的认知，让我们更加珍视当下的每一分快乐。这种跨越时空的情感共鸣，或许正是艺术最迷人的力量。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "当你今天心情愉悦地逛完街，站在这些几百年前的哀悼者雕像前，一种奇妙的情感对话便开始了。",
+              "artisticAnalysis": "1475年的勃艮第公国正经历着文化黄金时代，Borman工作室的这件青铜作品代表了当时金属雕塑的巅峰技艺。这些哀悼者原是环绕在勃艮第公爵夫人陵墓周围的二十四座雕像之一，象征着王朝的延续与荣耀。 青铜材质的光泽在灯光下流转，每一道褶皱、每一个手势都展现出艺术家对情感的细腻捕捉。虽然主题是悲伤，但正是这种强烈的情感表达与你今天的愉悦心情形成了有趣的对话。当你轻松地穿梭在现代街道时，这些凝固的悲伤表情提醒着我们情感的丰富性和生命的多面性。 建议你细细观察每个哀悼者独特的哀伤姿态——从低头沉思到掩面哭泣，每一个细节都讲述着不同的故事。这些雕像不仅是历史的见证，更是对人类情感的永恒探索。在你享受今天美好时刻的同时，这些几百年前的哀悼者以一种奇妙的方式提醒我们：正是对生命有限性的认知，让我们更加珍视当下的每一分快乐。这种跨越时空的情感共鸣，或许正是艺术最迷人的力量。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "当你今天心情愉悦地逛完街，站在这些几百年前的哀悼者雕像前，一种奇妙的情感对话便开始了。",
+              "detail": "1475年的勃艮第公国正经历着文化黄金时代，Borman工作室的这件青铜作品代表了当时金属雕塑的巅峰技艺。这些哀悼者原是环绕在勃艮第公爵夫人陵墓周围的二十四座雕像之一，象征着王朝的延续与荣耀。 青铜材质的光泽在灯光下流转，每一道褶皱、每一个手势都展现出艺术家对情感的细腻捕捉。虽然主题是悲伤，但正是这种强烈的情感表达与你今天的愉悦心情形成了有趣的对话。当你轻松地穿梭在现代街道时，这些凝固的悲伤表情提醒着我们情感的丰富性和生命的多面性。 建议你细细观察每个哀悼者独特的哀伤姿态——从低头沉思到掩面哭泣，每一个细节都讲述着不同的故事。这些雕像不仅是历史的见证，更是对人类情感的永恒探索。在你享受今天美好时刻的同时，这些几百年前的哀悼者以一种奇妙的方式提醒我们：正是对生命有限性的认知，让我们更加珍视当下的每一分快乐。这种跨越时空的情感共鸣，或许正是艺术最迷人的力量。"
+            },
+            "confidence": 0.8,
+            "processingTime": 19822
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 51085
+      },
+      "timestamp": 1759807986766
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 4,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "BK-NM-3888",
+            "title": "Maria met het Christuskind",
+            "artist": "Adriaen van Wesel",
+            "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，Maria met het Christuskind展现出特别的艺术魅力和情感深度。",
+            "artisticAnalysis": "在您\"今天感觉不错,逛了一天街\"的愉悦心境下，这件十五世纪末的《Maria met het Christuskind》恰好能为您带来一份穿越时空的温暖共鸣。1470-1480年正值尼德兰文艺复兴的黄金时期，一个商业繁荣、艺术创新的时代，范·韦塞尔正是这一过渡期的杰出代表。他用橡木雕刻这件作品，不仅展示了当时精湛的木雕工艺，更体现了宗教艺术向人性化、生活化转变的趋势。 您今天逛街的愉悦心情，与这件作品中玛利亚与圣婴之间那种自然而亲密的情感有着微妙的呼应。注意看玛利亚温柔的眼神和姿态，她并非高高在上的圣像，而是一位充满母爱的普通母亲，这种生活化的处理正是尼德兰艺术的精髓。就像您今天在街头巷尾发现的美妙事物，艺术家也在日常中发现并捕捉了这份神圣的温情。 建议您仔细观察作品中的细节处理——玛利亚衣褶的流动感，圣婴肉体的圆润感，以及背景可能包含的生活元素。这些细节不仅是技术的展示，更是艺术家对生活细节的热爱，与您今天逛街时欣赏橱窗、感受城市脉动的体验有着本质上的相似。 这件作品提醒我们，愉悦和发现美的能力是人类共通的本能。无论是十五世纪的工匠，还是今天的您，都在平凡的生活中寻找并珍视那些值得驻足的美好瞬间。在博物馆的静谧中，这件橡木雕刻仿佛在诉说着：生活的美好，无论何时何地，都值得我们去发现和欣赏。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，Maria met het Christuskind展现出特别的艺术魅力和情感深度。",
+              "artisticAnalysis": "在您\"今天感觉不错,逛了一天街\"的愉悦心境下，这件十五世纪末的《Maria met het Christuskind》恰好能为您带来一份穿越时空的温暖共鸣。1470-1480年正值尼德兰文艺复兴的黄金时期，一个商业繁荣、艺术创新的时代，范·韦塞尔正是这一过渡期的杰出代表。他用橡木雕刻这件作品，不仅展示了当时精湛的木雕工艺，更体现了宗教艺术向人性化、生活化转变的趋势。 您今天逛街的愉悦心情，与这件作品中玛利亚与圣婴之间那种自然而亲密的情感有着微妙的呼应。注意看玛利亚温柔的眼神和姿态，她并非高高在上的圣像，而是一位充满母爱的普通母亲，这种生活化的处理正是尼德兰艺术的精髓。就像您今天在街头巷尾发现的美妙事物，艺术家也在日常中发现并捕捉了这份神圣的温情。 建议您仔细观察作品中的细节处理——玛利亚衣褶的流动感，圣婴肉体的圆润感，以及背景可能包含的生活元素。这些细节不仅是技术的展示，更是艺术家对生活细节的热爱，与您今天逛街时欣赏橱窗、感受城市脉动的体验有着本质上的相似。 这件作品提醒我们，愉悦和发现美的能力是人类共通的本能。无论是十五世纪的工匠，还是今天的您，都在平凡的生活中寻找并珍视那些值得驻足的美好瞬间。在博物馆的静谧中，这件橡木雕刻仿佛在诉说着：生活的美好，无论何时何地，都值得我们去发现和欣赏。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在\"今天感觉不错,逛了一天街\"的心情下，Maria met het Christuskind展现出特别的艺术魅力和情感深度。",
+              "detail": "在您\"今天感觉不错,逛了一天街\"的愉悦心境下，这件十五世纪末的《Maria met het Christuskind》恰好能为您带来一份穿越时空的温暖共鸣。1470-1480年正值尼德兰文艺复兴的黄金时期，一个商业繁荣、艺术创新的时代，范·韦塞尔正是这一过渡期的杰出代表。他用橡木雕刻这件作品，不仅展示了当时精湛的木雕工艺，更体现了宗教艺术向人性化、生活化转变的趋势。 您今天逛街的愉悦心情，与这件作品中玛利亚与圣婴之间那种自然而亲密的情感有着微妙的呼应。注意看玛利亚温柔的眼神和姿态，她并非高高在上的圣像，而是一位充满母爱的普通母亲，这种生活化的处理正是尼德兰艺术的精髓。就像您今天在街头巷尾发现的美妙事物，艺术家也在日常中发现并捕捉了这份神圣的温情。 建议您仔细观察作品中的细节处理——玛利亚衣褶的流动感，圣婴肉体的圆润感，以及背景可能包含的生活元素。这些细节不仅是技术的展示，更是艺术家对生活细节的热爱，与您今天逛街时欣赏橱窗、感受城市脉动的体验有着本质上的相似。 这件作品提醒我们，愉悦和发现美的能力是人类共通的本能。无论是十五世纪的工匠，还是今天的您，都在平凡的生活中寻找并珍视那些值得驻足的美好瞬间。在博物馆的静谧中，这件橡木雕刻仿佛在诉说着：生活的美好，无论何时何地，都值得我们去发现和欣赏。"
+            },
+            "confidence": 0.8,
+            "processingTime": 21665
+          },
+          {
+            "artworkId": "SK-A-1718",
+            "title": "Winterlandschap met schaatsers",
+            "artist": "Hendrick Avercamp",
+            "emotionalConnection": "在这阳光明媚的逛街日之后，阿韦坎普的《冬景中的滑冰者》恰如一场跨越时空的视觉漫步。",
+            "artisticAnalysis": "创作于1608年的荷兰黄金时代，这幅作品不仅记录了人们冰上嬉戏的欢乐，更凝固了一个社会对日常生活的热爱。那年，荷兰正经历着独立战争的阵痛与海上贸易的崛起，阿韦坎普这位被称为\"哑巴画家\"的天才，用他敏锐的视角将普通市民的冬日活动提升为艺术。 从高处俯瞰的冰面上，数十个小人物如音符般跳跃：亲热的情侣、嬉戏的孩童、甚至连排泄的细节都不避讳——这种对生活",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在这阳光明媚的逛街日之后，阿韦坎普的《冬景中的滑冰者》恰如一场跨越时空的视觉漫步。",
+              "artisticAnalysis": "创作于1608年的荷兰黄金时代，这幅作品不仅记录了人们冰上嬉戏的欢乐，更凝固了一个社会对日常生活的热爱。那年，荷兰正经历着独立战争的阵痛与海上贸易的崛起，阿韦坎普这位被称为\"哑巴画家\"的天才，用他敏锐的视角将普通市民的冬日活动提升为艺术。 从高处俯瞰的冰面上，数十个小人物如音符般跳跃：亲热的情侣、嬉戏的孩童、甚至连排泄的细节都不避讳——这种对生活",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在这阳光明媚的逛街日之后，阿韦坎普的《冬景中的滑冰者》恰如一场跨越时空的视觉漫步。",
+              "detail": "创作于1608年的荷兰黄金时代，这幅作品不仅记录了人们冰上嬉戏的欢乐，更凝固了一个社会对日常生活的热爱。那年，荷兰正经历着独立战争的阵痛与海上贸易的崛起，阿韦坎普这位被称为\"哑巴画家\"的天才，用他敏锐的视角将普通市民的冬日活动提升为艺术。 从高处俯瞰的冰面上，数十个小人物如音符般跳跃：亲热的情侣、嬉戏的孩童、甚至连排泄的细节都不避讳——这种对生活"
+            },
+            "confidence": 0.8,
+            "processingTime": 18469
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 118912
+      },
+      "timestamp": 1759808054596
+    },
+    {
+      "type": "complete",
+      "payload": {
+        "elapsedMs": 193011
+      },
+      "timestamp": 1759808054596
+    }
+  ],
+  "error": null,
+  "success": true,
+  "endTime": "2025-10-07T03:34:14.600Z",
+  "totalDuration": 193176,
+  "generatedAt": "2025-10-07T03:34:14.601Z",
+  "environment": {
+    "nodeVersion": "v22.20.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  }
+}

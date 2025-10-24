@@ -1,0 +1,2185 @@
+{
+  "version": "2.1.0",
+  "part": "phase1-core",
+  "last_updated": "2025-10-20 (fixed v2.1.1)",
+  "languages": [
+    "zh-CN",
+    "en",
+    "nl"
+  ],
+  "emotions": {
+    "joy": {
+      "id": "joy",
+      "index": 1,
+      "phase": 1,
+      "name_cn": "快乐",
+      "name_en": "Joy",
+      "name_nl": "Vreugde",
+      "keywords_cn": [
+        "快乐",
+        "喜悦",
+        "高兴",
+        "欢欣",
+        "愉快"
+      ],
+      "keywords_en": [
+        "joy",
+        "happiness",
+        "cheerful",
+        "delight",
+        "glee",
+        "jubilation",
+        "celebration"
+      ],
+      "keywords_nl": [
+        "vreugde",
+        "geluk",
+        "blijdschap",
+        "vrolijkheid",
+        "feest"
+      ],
+      "art_themes": [
+        "banquet",
+        "birth",
+        "celebration",
+        "dance",
+        "embrace",
+        "festival",
+        "festive",
+        "harvest",
+        "reunion",
+        "triumph",
+        "wedding"
+      ]
+    },
+    "serenity": {
+      "id": "serenity",
+      "index": 2,
+      "phase": 1,
+      "name_cn": "宁静",
+      "name_en": "Serenity",
+      "name_nl": "Sereniteit",
+      "keywords_cn": [
+        "宁静",
+        "平静",
+        "安宁",
+        "恬淡",
+        "静谧"
+      ],
+      "keywords_en": [
+        "serenity",
+        "calm",
+        "peaceful",
+        "tranquil",
+        "placid",
+        "stillness"
+      ],
+      "keywords_nl": [
+        "rust",
+        "kalmte",
+        "sereen",
+        "vredig",
+        "stilte"
+      ],
+      "art_themes": [
+        "pastoral",
+        "landscape",
+        "harmony",
+        "still water",
+        "horizon"
+      ]
+    },
+    "contentment": {
+      "id": "contentment",
+      "index": 3,
+      "phase": 1,
+      "name_cn": "满足",
+      "name_en": "Contentment",
+      "name_nl": "Tevredenheid",
+      "keywords_cn": [
+        "满足",
+        "知足",
+        "满意",
+        "安然"
+      ],
+      "keywords_en": [
+        "contentment",
+        "satisfaction",
+        "fulfilled",
+        "at ease",
+        "repose"
+      ],
+      "keywords_nl": [
+        "tevredenheid",
+        "voldoening",
+        "vervuld",
+        "berusting"
+      ],
+      "art_themes": [
+        "repose",
+        "ease",
+        "comfort",
+        "domestic",
+        "hearth"
+      ]
+    },
+    "love": {
+      "id": "love",
+      "index": 4,
+      "phase": 1,
+      "name_cn": "爱",
+      "name_en": "Love",
+      "name_nl": "Liefde",
+      "keywords_cn": [
+        "爱",
+        "情感",
+        "温情",
+        "眷恋"
+      ],
+      "keywords_en": [
+        "love",
+        "affection",
+        "warmth",
+        "devotion",
+        "romance"
+      ],
+      "keywords_nl": [
+        "liefde",
+        "genegenheid",
+        "toewijding",
+        "tederheid",
+        "romantiek"
+      ],
+      "art_themes": [
+        "embrace",
+        "lovers",
+        "kiss",
+        "marriage",
+        "mother and child"
+      ]
+    },
+    "hope": {
+      "id": "hope",
+      "index": 5,
+      "phase": 1,
+      "name_cn": "希望",
+      "name_en": "Hope",
+      "name_nl": "Hoop",
+      "keywords_cn": [
+        "希望",
+        "期许",
+        "盼望",
+        "希冀"
+      ],
+      "keywords_en": [
+        "hope",
+        "aspiration",
+        "promise",
+        "renewal",
+        "looking forward"
+      ],
+      "keywords_nl": [
+        "hoop",
+        "verwachting",
+        "belofte",
+        "vernieuwing"
+      ],
+      "art_themes": [
+        "dawn",
+        "spring",
+        "rebirth",
+        "light",
+        "ascension"
+      ]
+    },
+    "awe": {
+      "id": "awe",
+      "index": 6,
+      "phase": 1,
+      "name_cn": "敬畏",
+      "name_en": "Awe",
+      "name_nl": "Ontzag",
+      "keywords_cn": [
+        "敬畏",
+        "崇高",
+        "宏伟",
+        "震撼"
+      ],
+      "keywords_en": [
+        "awe",
+        "sublime",
+        "grand",
+        "overwhelmed",
+        "majestic"
+      ],
+      "keywords_nl": [
+        "ontzag",
+        "subliem",
+        "verhevenheid",
+        "grootsheid"
+      ],
+      "art_themes": [
+        "mountain",
+        "cathedral",
+        "divine",
+        "cosmos",
+        "vastness"
+      ]
+    },
+    "wonder": {
+      "id": "wonder",
+      "index": 7,
+      "phase": 1,
+      "name_cn": "惊奇",
+      "name_en": "Wonder",
+      "name_nl": "Verwondering",
+      "keywords_cn": [
+        "惊奇",
+        "奇观",
+        "诧异",
+        "神迹"
+      ],
+      "keywords_en": [
+        "wonder",
+        "marvel",
+        "astonishment",
+        "miracle",
+        "amazement"
+      ],
+      "keywords_nl": [
+        "verwondering",
+        "verbazing",
+        "wonder",
+        "mirakel"
+      ],
+      "art_themes": [
+        "exotic",
+        "fantastical",
+        "discovery",
+        "cabinet of curiosities"
+      ]
+    },
+    "nostalgia": {
+      "id": "nostalgia",
+      "index": 8,
+      "phase": 1,
+      "name_cn": "怀旧",
+      "name_en": "Nostalgia",
+      "name_nl": "Nostalgie",
+      "keywords_cn": [
+        "怀旧",
+        "旧时",
+        "回忆",
+        "复古"
+      ],
+      "keywords_en": [
+        "nostalgia",
+        "retro",
+        "memory",
+        "yesteryear",
+        "reminiscence"
+      ],
+      "keywords_nl": [
+        "nostalgie",
+        "herinnering",
+        "verleden",
+        "weemoed"
+      ],
+      "art_themes": [
+        "romanticism",
+        "pastoral",
+        "ruins",
+        "antiquity",
+        "old town"
+      ]
+    },
+    "melancholy": {
+      "id": "melancholy",
+      "index": 9,
+      "phase": 1,
+      "name_cn": "忧郁",
+      "name_en": "Melancholy",
+      "name_nl": "Melancholie",
+      "keywords_cn": [
+        "忧郁",
+        "郁结",
+        "惆怅",
+        "低回"
+      ],
+      "keywords_en": [
+        "melancholy",
+        "blue",
+        "pensive",
+        "downcast",
+        "wistful"
+      ],
+      "keywords_nl": [
+        "melancholie",
+        "weemoed",
+        "droefgeestig",
+        "somberheid"
+      ],
+      "art_themes": [
+        "symbolism",
+        "nocturne",
+        "twilight",
+        "autumn",
+        "rain"
+      ]
+    },
+    "sadness": {
+      "id": "sadness",
+      "index": 10,
+      "phase": 1,
+      "name_cn": "悲伤",
+      "name_en": "Sadness",
+      "name_nl": "Verdriet",
+      "keywords_cn": [
+        "悲伤",
+        "哀愁",
+        "伤感",
+        "凄楚"
+      ],
+      "keywords_en": [
+        "grief",
+        "mourning",
+        "weeping",
+        "lamentation",
+        "funeral",
+        "tears",
+        "farewell",
+        "loss",
+        "widow",
+        "orphan",
+        "death"
+      ],
+      "keywords_nl": [
+        "verdriet",
+        "droefheid",
+        "rouw",
+        "smart"
+      ],
+      "art_themes": [
+        "pietà",
+        "lamentation of christ",
+        "deposition",
+        "entombment",
+        "widow",
+        "orphan",
+        "farewell",
+        "funeral",
+        "tears",
+        "loss"
+      ]
+    },
+    "loneliness": {
+      "id": "loneliness",
+      "index": 11,
+      "phase": 1,
+      "name_cn": "孤独",
+      "name_en": "Loneliness",
+      "name_nl": "Eenzaamheid",
+      "keywords_cn": [
+        "孤独",
+        "独处",
+        "寂寞",
+        "孤身"
+      ],
+      "keywords_en": [
+        "loneliness",
+        "solitude",
+        "lonesome",
+        "alone",
+        "isolation"
+      ],
+      "keywords_nl": [
+        "eenzaamheid",
+        "verlatenheid",
+        "alleen",
+        "isolement"
+      ],
+      "art_themes": [
+        "solitary figure",
+        "empty room",
+        "wasteland",
+        "single figure"
+      ]
+    },
+    "grief": {
+      "id": "grief",
+      "index": 12,
+      "phase": 1,
+      "name_cn": "哀恸",
+      "name_en": "Grief",
+      "name_nl": "Rouw",
+      "keywords_cn": [
+        "哀恸",
+        "丧痛",
+        "悲恸",
+        "痛悼"
+      ],
+      "keywords_en": [
+        "grief",
+        "mourning",
+        "bereavement",
+        "lamentation",
+        "tears",
+        "loss"
+      ],
+      "keywords_nl": [
+        "rouw",
+        "treurnis",
+        "verlies",
+        "dodenrouw"
+      ],
+      "art_themes": [
+        "funeral",
+        "pietà",
+        "lamentation of christ",
+        "memorial",
+        "grave",
+        "black"
+      ]
+    },
+    "anxiety": {
+      "id": "anxiety",
+      "index": 13,
+      "phase": 1,
+      "name_cn": "焦虑",
+      "name_en": "Anxiety",
+      "name_nl": "Angst",
+      "keywords_cn": [
+        "焦虑",
+        "不安",
+        "紧张",
+        "烦躁"
+      ],
+      "keywords_en": [
+        "turmoil",
+        "chaos",
+        "storm",
+        "tempest",
+        "fear",
+        "panic",
+        "despair",
+        "agitation",
+        "nightmare",
+        "apparition",
+        "premonition"
+      ],
+      "keywords_nl": [
+        "angst",
+        "onrust",
+        "bezorgdheid",
+        "spanning"
+      ],
+      "art_themes": [
+        "shipwreck",
+        "tempest scene",
+        "last judgment",
+        "hell",
+        "battle",
+        "martyrdom",
+        "plague",
+        "crowd",
+        "storm"
+      ]
+    },
+    "fear": {
+      "id": "fear",
+      "index": 14,
+      "phase": 1,
+      "name_cn": "恐惧",
+      "name_en": "Fear",
+      "name_nl": "Vrees",
+      "keywords_cn": [
+        "恐惧",
+        "惊惧",
+        "害怕",
+        "慌张"
+      ],
+      "keywords_en": [
+        "fear",
+        "fright",
+        "scared",
+        "panic",
+        "terror"
+      ],
+      "keywords_nl": [
+        "vrees",
+        "angst",
+        "schrik",
+        "paniek",
+        "terreur"
+      ],
+      "art_themes": [
+        "danger",
+        "threat",
+        "shadow",
+        "darkness",
+        "nightmare"
+      ]
+    },
+    "anger": {
+      "id": "anger",
+      "index": 15,
+      "phase": 1,
+      "name_cn": "愤怒",
+      "name_en": "Anger",
+      "name_nl": "Woede",
+      "keywords_cn": [
+        "愤怒",
+        "恼火",
+        "怒意",
+        "震怒"
+      ],
+      "keywords_en": [
+        "anger",
+        "rage",
+        "fury",
+        "wrath",
+        "outrage"
+      ],
+      "keywords_nl": [
+        "woede",
+        "toorn",
+        "boosheid",
+        "gramschap"
+      ],
+      "art_themes": [
+        "fire",
+        "red",
+        "battle",
+        "violence",
+        "uprising"
+      ]
+    },
+    "contemplation": {
+      "id": "contemplation",
+      "index": 16,
+      "phase": 1,
+      "name_cn": "沉思",
+      "name_en": "Contemplation",
+      "name_nl": "Overpeinzing",
+      "keywords_cn": [
+        "沉思",
+        "冥想",
+        "反思",
+        "凝望"
+      ],
+      "keywords_en": [
+        "contemplation",
+        "meditation",
+        "reflection",
+        "pensive",
+        "introspection"
+      ],
+      "keywords_nl": [
+        "overpeinzing",
+        "contemplatie",
+        "bezinning",
+        "meditatie"
+      ],
+      "art_themes": [
+        "thinker",
+        "philosopher",
+        "study",
+        "reading",
+        "desk"
+      ]
+    },
+    "mystery": {
+      "id": "mystery",
+      "index": 17,
+      "phase": 1,
+      "name_cn": "神秘",
+      "name_en": "Mystery",
+      "name_nl": "Mysterie",
+      "keywords_cn": [
+        "神秘",
+        "谜样",
+        "玄秘",
+        "深邃"
+      ],
+      "keywords_en": [
+        "apparition",
+        "cryptic",
+        "enigma",
+        "mask",
+        "mysterious",
+        "mystery",
+        "occult",
+        "oracle",
+        "prophecy",
+        "veil",
+        "vision"
+      ],
+      "keywords_nl": [
+        "mysterie",
+        "geheim",
+        "raadsel",
+        "occult"
+      ],
+      "art_themes": [
+        "allegory",
+        "annunciation",
+        "arcane",
+        "dream",
+        "ethereal",
+        "hidden",
+        "revelation",
+        "shadow",
+        "symbol",
+        "veil"
+      ]
+    },
+    "desire": {
+      "id": "desire",
+      "index": 18,
+      "phase": 1,
+      "name_cn": "欲望",
+      "name_en": "Desire",
+      "name_nl": "Verlangen",
+      "keywords_cn": [
+        "欲望",
+        "渴求",
+        "欲念",
+        "冲动"
+      ],
+      "keywords_en": [
+        "desire",
+        "longing",
+        "craving",
+        "passion",
+        "yearning"
+      ],
+      "keywords_nl": [
+        "verlangen",
+        "begeerte",
+        "lust",
+        "passie"
+      ],
+      "art_themes": [
+        "temptation",
+        "passion",
+        "hunger",
+        "apple",
+        "gaze"
+      ]
+    },
+    "curiosity": {
+      "id": "curiosity",
+      "index": 19,
+      "phase": 1,
+      "name_cn": "好奇",
+      "name_en": "Curiosity",
+      "name_nl": "Nieuwsgierigheid",
+      "keywords_cn": [
+        "好奇",
+        "探求",
+        "求知",
+        "想看"
+      ],
+      "keywords_en": [
+        "curiosity",
+        "inquisitive",
+        "interest",
+        "exploration",
+        "discovery"
+      ],
+      "keywords_nl": [
+        "nieuwsgierigheid",
+        "onderzoek",
+        "verkenning",
+        "interesse"
+      ],
+      "art_themes": [
+        "discovery",
+        "investigation",
+        "map",
+        "specimen",
+        "cabinet"
+      ]
+    },
+    "compassion": {
+      "id": "compassion",
+      "index": 20,
+      "phase": 2,
+      "name_cn": "怜悯",
+      "name_en": "Compassion",
+      "name_nl": "Mededogen",
+      "keywords_cn": [
+        "怜悯",
+        "同情",
+        "慈悲",
+        "体恤"
+      ],
+      "keywords_en": [
+        "compassion",
+        "mercy",
+        "pity",
+        "empathy",
+        "charity"
+      ],
+      "keywords_nl": [
+        "mededogen",
+        "barmhartigheid",
+        "medegevoel",
+        "liefdadigheid"
+      ],
+      "art_themes": [
+        "charity",
+        "benevolence",
+        "saint",
+        "mercy"
+      ]
+    },
+    "tenderness": {
+      "id": "tenderness",
+      "index": 21,
+      "phase": 2,
+      "name_cn": "温柔",
+      "name_en": "Tenderness",
+      "name_nl": "Tederheid",
+      "keywords_cn": [
+        "温柔",
+        "柔和",
+        "抚触",
+        "细腻"
+      ],
+      "keywords_en": [
+        "tenderness",
+        "gentle",
+        "softness",
+        "caress",
+        "delicate"
+      ],
+      "keywords_nl": [
+        "tederheid",
+        "zachtheid",
+        "liefkozing",
+        "gevoeligheid"
+      ],
+      "art_themes": [
+        "mother and child",
+        "intimate",
+        "touch",
+        "skin"
+      ]
+    },
+    "admiration": {
+      "id": "admiration",
+      "index": 22,
+      "phase": 2,
+      "name_cn": "钦慕",
+      "name_en": "Admiration",
+      "name_nl": "Bewondering",
+      "keywords_cn": [
+        "钦慕",
+        "敬佩",
+        "仰慕",
+        "景仰"
+      ],
+      "keywords_en": [
+        "admiration",
+        "esteem",
+        "veneration",
+        "respect"
+      ],
+      "keywords_nl": [
+        "bewondering",
+        "eerbied",
+        "respect",
+        "verering"
+      ],
+      "art_themes": [
+        "portrait",
+        "hero",
+        "tribute",
+        "monument"
+      ]
+    },
+    "gratitude": {
+      "id": "gratitude",
+      "index": 23,
+      "phase": 2,
+      "name_cn": "感恩",
+      "name_en": "Gratitude",
+      "name_nl": "Dankbaarheid",
+      "keywords_cn": [
+        "感恩",
+        "感谢",
+        "欣慰",
+        "福泽"
+      ],
+      "keywords_en": [
+        "gratitude",
+        "thankful",
+        "appreciation",
+        "blessing"
+      ],
+      "keywords_nl": [
+        "dankbaarheid",
+        "erkenning",
+        "zegen",
+        "waardering"
+      ],
+      "art_themes": [
+        "offering",
+        "devotion",
+        "thanksgiving",
+        "altar"
+      ]
+    },
+    "pride": {
+      "id": "pride",
+      "index": 24,
+      "phase": 2,
+      "name_cn": "自豪",
+      "name_en": "Pride",
+      "name_nl": "Trots",
+      "keywords_cn": [
+        "自豪",
+        "骄傲",
+        "荣耀",
+        "尊严"
+      ],
+      "keywords_en": [
+        "pride",
+        "dignity",
+        "honor",
+        "triumph"
+      ],
+      "keywords_nl": [
+        "trots",
+        "eer",
+        "waardigheid",
+        "zege"
+      ],
+      "art_themes": [
+        "victory",
+        "hero",
+        "banner",
+        "crowning"
+      ]
+    },
+    "euphoria": {
+      "id": "euphoria",
+      "index": 25,
+      "phase": 2,
+      "name_cn": "欣快",
+      "name_en": "Euphoria",
+      "name_nl": "Euforie",
+      "keywords_cn": [
+        "欣快",
+        "亢奋",
+        "喜极",
+        "欢腾"
+      ],
+      "keywords_en": [
+        "euphoria",
+        "elation",
+        "exaltation",
+        "rapture",
+        "ecstasy"
+      ],
+      "keywords_nl": [
+        "euforie",
+        "verheffing",
+        "extase",
+        "opgetogenheid"
+      ],
+      "art_themes": [
+        "ecstasy",
+        "triumph",
+        "ascension",
+        "light"
+      ]
+    },
+    "inspiration": {
+      "id": "inspiration",
+      "index": 26,
+      "phase": 2,
+      "name_cn": "灵感",
+      "name_en": "Inspiration",
+      "name_nl": "Inspiratie",
+      "keywords_cn": [
+        "灵感",
+        "启发",
+        "神来",
+        "创造"
+      ],
+      "keywords_en": [
+        "inspiration",
+        "muse",
+        "spark",
+        "creative",
+        "idea"
+      ],
+      "keywords_nl": [
+        "inspiratie",
+        "muze",
+        "schepping",
+        "idee"
+      ],
+      "art_themes": [
+        "artist",
+        "studio",
+        "light",
+        "creation"
+      ]
+    },
+    "relief": {
+      "id": "relief",
+      "index": 27,
+      "phase": 2,
+      "name_cn": "释然",
+      "name_en": "Relief",
+      "name_nl": "Verlichting",
+      "keywords_cn": [
+        "宽慰",
+        "释然",
+        "松一口气",
+        "安抚"
+      ],
+      "keywords_en": [
+        "relief",
+        "soothe",
+        "unburdened",
+        "released"
+      ],
+      "keywords_nl": [
+        "verlichting",
+        "opluchting",
+        "rust",
+        "ontlasting"
+      ],
+      "art_themes": [
+        "rest",
+        "refuge",
+        "sanctuary",
+        "open sky"
+      ]
+    },
+    "optimism": {
+      "id": "optimism",
+      "index": 28,
+      "phase": 2,
+      "name_cn": "乐观",
+      "name_en": "Optimism",
+      "name_nl": "Optimisme",
+      "keywords_cn": [
+        "乐观",
+        "积极",
+        "向上",
+        "开朗"
+      ],
+      "keywords_en": [
+        "optimism",
+        "positive",
+        "bright",
+        "hopeful"
+      ],
+      "keywords_nl": [
+        "optimisme",
+        "positief",
+        "opgewekt",
+        "hoopvol"
+      ],
+      "art_themes": [
+        "light",
+        "spring",
+        "child",
+        "garden"
+      ]
+    },
+    "regret": {
+      "id": "regret",
+      "index": 29,
+      "phase": 2,
+      "name_cn": "遗憾",
+      "name_en": "Regret",
+      "name_nl": "Spijt",
+      "keywords_cn": [
+        "遗憾",
+        "后悔",
+        "懊悔",
+        "惋惜"
+      ],
+      "keywords_en": [
+        "regret",
+        "remorse",
+        "repent",
+        "if only"
+      ],
+      "keywords_nl": [
+        "spijt",
+        "berouw",
+        "wroeging",
+        "weemoed"
+      ],
+      "art_themes": [
+        "looking back",
+        "mirror",
+        "farewell",
+        "shadow"
+      ]
+    },
+    "shame": {
+      "id": "shame",
+      "index": 30,
+      "phase": 2,
+      "name_cn": "羞耻",
+      "name_en": "Shame",
+      "name_nl": "Schaamte",
+      "keywords_cn": [
+        "羞耻",
+        "耻辱",
+        "羞愧",
+        "侮辱"
+      ],
+      "keywords_en": [
+        "shame",
+        "disgrace",
+        "ashamed",
+        "humiliation"
+      ],
+      "keywords_nl": [
+        "schaamte",
+        "vernedering",
+        "beschaamd",
+        "eerloosheid"
+      ],
+      "art_themes": [
+        "covering face",
+        "fallen",
+        "nakedness"
+      ]
+    },
+    "envy": {
+      "id": "envy",
+      "index": 31,
+      "phase": 2,
+      "name_cn": "羡慕",
+      "name_en": "Envy",
+      "name_nl": "Afgunst",
+      "keywords_cn": [
+        "羡慕",
+        "眼红",
+        "觊觎",
+        "嫉心"
+      ],
+      "keywords_en": [
+        "envy",
+        "covet",
+        "green-eyed",
+        "begrudge"
+      ],
+      "keywords_nl": [
+        "afgunst",
+        "jaloersheid",
+        "nijd",
+        "afgunstigheid"
+      ],
+      "art_themes": [
+        "comparison",
+        "mirror",
+        "green",
+        "rivalry"
+      ]
+    },
+    "jealousy": {
+      "id": "jealousy",
+      "index": 32,
+      "phase": 2,
+      "name_cn": "嫉妒",
+      "name_en": "Jealousy",
+      "name_nl": "Jaloezie",
+      "keywords_cn": [
+        "嫉妒",
+        "吃醋",
+        "占有",
+        "妒意"
+      ],
+      "keywords_en": [
+        "jealousy",
+        "possessive",
+        "rivalry",
+        "resent"
+      ],
+      "keywords_nl": [
+        "jaloezie",
+        "bezitterigheid",
+        "rivaliteit",
+        "wrok"
+      ],
+      "art_themes": [
+        "triangle",
+        "betrayal",
+        "love",
+        "conflict"
+      ]
+    },
+    "frustration": {
+      "id": "frustration",
+      "index": 33,
+      "phase": 2,
+      "name_cn": "挫败",
+      "name_en": "Frustration",
+      "name_nl": "Frustratie",
+      "keywords_cn": [
+        "挫败",
+        "受阻",
+        "困扰",
+        "烦恼"
+      ],
+      "keywords_en": [
+        "frustration",
+        "struggle",
+        "obstacle",
+        "blocked",
+        "barrier",
+        "imprisoned",
+        "entangled",
+        "captivity"
+      ],
+      "keywords_nl": [
+        "frustratie",
+        "tegenwerking",
+        "teleurstelling",
+        "onmacht"
+      ],
+      "art_themes": [
+        "obstacle",
+        "barrier",
+        "struggle",
+        "gate",
+        "chains",
+        "binding"
+      ]
+    },
+    "disgust": {
+      "id": "disgust",
+      "index": 34,
+      "phase": 2,
+      "name_cn": "厌恶",
+      "name_en": "Disgust",
+      "name_nl": "Walging",
+      "keywords_cn": [
+        "厌恶",
+        "反感",
+        "作呕",
+        "嫌恶"
+      ],
+      "keywords_en": [
+        "disgust",
+        "revulsion",
+        "repulsed",
+        "nausea"
+      ],
+      "keywords_nl": [
+        "walging",
+        "afkeer",
+        "weerzin",
+        "afschuw"
+      ],
+      "art_themes": [
+        "grotesque",
+        "decay",
+        "corruption",
+        "disease"
+      ]
+    },
+    "determination": {
+      "id": "determination",
+      "index": 35,
+      "phase": 2,
+      "name_cn": "决心",
+      "name_en": "Determination",
+      "name_nl": "Vastberadenheid",
+      "keywords_cn": [
+        "决心",
+        "毅力",
+        "坚定",
+        "韧性"
+      ],
+      "keywords_en": [
+        "determination",
+        "resolve",
+        "steadfast",
+        "grit"
+      ],
+      "keywords_nl": [
+        "vastberadenheid",
+        "doorzettingsvermogen",
+        "wilskracht",
+        "standvastigheid"
+      ],
+      "art_themes": [
+        "strength",
+        "march",
+        "labor",
+        "battle"
+      ]
+    },
+    "ambition": {
+      "id": "ambition",
+      "index": 36,
+      "phase": 2,
+      "name_cn": "野心",
+      "name_en": "Ambition",
+      "name_nl": "Ambitie",
+      "keywords_cn": [
+        "野心",
+        "抱负",
+        "进取",
+        "图强"
+      ],
+      "keywords_en": [
+        "ambition",
+        "aspire",
+        "drive",
+        "striving"
+      ],
+      "keywords_nl": [
+        "ambitie",
+        "streven",
+        "drang",
+        "wil"
+      ],
+      "art_themes": [
+        "ascent",
+        "achievement",
+        "mountain",
+        "conquest"
+      ]
+    },
+    "resilience": {
+      "id": "resilience",
+      "index": 37,
+      "phase": 2,
+      "name_cn": "复原力",
+      "name_en": "Resilience",
+      "name_nl": "Veerkracht",
+      "keywords_cn": [
+        "坚韧",
+        "复原",
+        "承受",
+        "回弹"
+      ],
+      "keywords_en": [
+        "resilience",
+        "endure",
+        "recover",
+        "persevere"
+      ],
+      "keywords_nl": [
+        "veerkracht",
+        "doorzettingsvermogen",
+        "herstel",
+        "standvastigheid"
+      ],
+      "art_themes": [
+        "survival",
+        "phoenix",
+        "rebirth",
+        "nature"
+      ]
+    },
+    "spirituality": {
+      "id": "spirituality",
+      "index": 38,
+      "phase": 2,
+      "name_cn": "灵性",
+      "name_en": "Spirituality",
+      "name_nl": "Spiritualiteit",
+      "keywords_cn": [
+        "灵性",
+        "神圣",
+        "虔敬",
+        "灵光"
+      ],
+      "keywords_en": [
+        "spirituality",
+        "sacred",
+        "divine",
+        "numinous"
+      ],
+      "keywords_nl": [
+        "spiritualiteit",
+        "heilig",
+        "goddelijke",
+        "devotie"
+      ],
+      "art_themes": [
+        "divine",
+        "halo",
+        "saint",
+        "prayer"
+      ]
+    },
+    "reverence": {
+      "id": "reverence",
+      "index": 39,
+      "phase": 2,
+      "name_cn": "敬礼",
+      "name_en": "Reverence",
+      "name_nl": "Eerbied",
+      "keywords_cn": [
+        "敬礼",
+        "崇敬",
+        "膜拜",
+        "敬畏"
+      ],
+      "keywords_en": [
+        "reverence",
+        "worship",
+        "homage",
+        "piety"
+      ],
+      "keywords_nl": [
+        "eerbied",
+        "verering",
+        "aanbidding",
+        "vroomheid"
+      ],
+      "art_themes": [
+        "altar",
+        "temple",
+        "kneeling",
+        "devotion"
+      ]
+    },
+    "playfulness": {
+      "id": "playfulness",
+      "index": 40,
+      "phase": 2,
+      "name_cn": "玩心",
+      "name_en": "Playfulness",
+      "name_nl": "Speelsheid",
+      "keywords_cn": [
+        "玩心",
+        "嬉戏",
+        "轻松",
+        "异想"
+      ],
+      "keywords_en": [
+        "playfulness",
+        "frolic",
+        "whimsy",
+        "lighthearted"
+      ],
+      "keywords_nl": [
+        "speelsheid",
+        "grilligheid",
+        "luchtigheid",
+        "pret"
+      ],
+      "art_themes": [
+        "children",
+        "game",
+        "dance",
+        "carnival"
+      ]
+    },
+    "sensuality": {
+      "id": "sensuality",
+      "index": 41,
+      "phase": 2,
+      "name_cn": "感官",
+      "name_en": "Sensuality",
+      "name_nl": "Sensualiteit",
+      "keywords_cn": [
+        "感官",
+        "撩人",
+        "触感",
+        "情欲"
+      ],
+      "keywords_en": [
+        "sensuality",
+        "tactile",
+        "erotic",
+        "luscious"
+      ],
+      "keywords_nl": [
+        "sensualiteit",
+        "tastbaar",
+        "erotisch",
+        "zinnelijkheid"
+      ],
+      "art_themes": [
+        "flesh",
+        "nude",
+        "texture",
+        "touch"
+      ]
+    },
+    "focus": {
+      "id": "focus",
+      "index": 42,
+      "phase": 2,
+      "name_cn": "专注",
+      "name_en": "Focus",
+      "name_nl": "Concentratie",
+      "keywords_cn": [
+        "专注",
+        "凝神",
+        "聚焦",
+        "凝视"
+      ],
+      "keywords_en": [
+        "focus",
+        "concentration",
+        "intent",
+        "attention"
+      ],
+      "keywords_nl": [
+        "concentratie",
+        "aandacht",
+        "gerichtheid",
+        "focus"
+      ],
+      "art_themes": [
+        "study",
+        "reading",
+        "craft",
+        "writing"
+      ]
+    },
+    "surprise": {
+      "id": "surprise",
+      "index": 43,
+      "phase": 2,
+      "name_cn": "惊讶",
+      "name_en": "Surprise",
+      "name_nl": "Verwondering",
+      "keywords_cn": [
+        "惊讶",
+        "吃惊",
+        "意外",
+        "骤然"
+      ],
+      "keywords_en": [
+        "surprise",
+        "startle",
+        "unexpected",
+        "sudden"
+      ],
+      "keywords_nl": [
+        "verwondering",
+        "verrassing",
+        "verbazing",
+        "ontsteltenis"
+      ],
+      "art_themes": [
+        "revelation",
+        "epiphany",
+        "shock",
+        "discovery"
+      ]
+    },
+    "boredom": {
+      "id": "boredom",
+      "index": 44,
+      "phase": 3,
+      "name_cn": "无聊",
+      "name_en": "Boredom",
+      "name_nl": "Verveling",
+      "keywords_cn": [
+        "无聊",
+        "乏味",
+        "单调",
+        "枯燥"
+      ],
+      "keywords_en": [
+        "boredom",
+        "tedium",
+        "monotony",
+        "ennui"
+      ],
+      "keywords_nl": [
+        "verveling",
+        "eentonigheid",
+        "sleur",
+        "vermoeidheid"
+      ],
+      "art_themes": [
+        "interior",
+        "waiting",
+        "idle",
+        "window"
+      ]
+    },
+    "apathy": {
+      "id": "apathy",
+      "index": 45,
+      "phase": 3,
+      "name_cn": "冷漠",
+      "name_en": "Apathy",
+      "name_nl": "Onverschilligheid",
+      "keywords_cn": [
+        "冷漠",
+        "淡然",
+        "无动于衷",
+        "超然"
+      ],
+      "keywords_en": [
+        "apathy",
+        "indifference",
+        "unmoved",
+        "detached"
+      ],
+      "keywords_nl": [
+        "onverschilligheid",
+        "afstandelijkheid",
+        "ongevoeligheid"
+      ],
+      "art_themes": [
+        "blank face",
+        "stoic",
+        "void",
+        "distance"
+      ]
+    },
+    "confusion": {
+      "id": "confusion",
+      "index": 46,
+      "phase": 3,
+      "name_cn": "困惑",
+      "name_en": "Confusion",
+      "name_nl": "Verwarring",
+      "keywords_cn": [
+        "困惑",
+        "迷惘",
+        "不解",
+        "茫然"
+      ],
+      "keywords_en": [
+        "confusion",
+        "bewildered",
+        "puzzled",
+        "lost"
+      ],
+      "keywords_nl": [
+        "verwarring",
+        "raadsel",
+        "verdwaald",
+        "onbegrip"
+      ],
+      "art_themes": [
+        "maze",
+        "labyrinth",
+        "fog",
+        "intersection"
+      ]
+    },
+    "tension": {
+      "id": "tension",
+      "index": 47,
+      "phase": 3,
+      "name_cn": "紧张感",
+      "name_en": "Tension",
+      "name_nl": "Spanning",
+      "keywords_cn": [
+        "紧张",
+        "拉扯",
+        "压力",
+        "绷紧"
+      ],
+      "keywords_en": [
+        "tension",
+        "strain",
+        "stress",
+        "conflict"
+      ],
+      "keywords_nl": [
+        "spanning",
+        "druk",
+        "strijd",
+        "onrust"
+      ],
+      "art_themes": [
+        "conflict",
+        "clash",
+        "battle",
+        "rope"
+      ]
+    },
+    "drama": {
+      "id": "drama",
+      "index": 48,
+      "phase": 3,
+      "name_cn": "戏剧性",
+      "name_en": "Drama",
+      "name_nl": "Drama",
+      "keywords_cn": [
+        "戏剧性",
+        "冲突",
+        "对峙",
+        "夸张"
+      ],
+      "keywords_en": [
+        "drama",
+        "dramatic",
+        "theatrical",
+        "conflict"
+      ],
+      "keywords_nl": [
+        "drama",
+        "toneel",
+        "theatraal",
+        "conflict"
+      ],
+      "art_themes": [
+        "contrast",
+        "spotlight",
+        "gesture",
+        "stage"
+      ]
+    },
+    "fatigue": {
+      "id": "fatigue",
+      "index": 49,
+      "phase": 3,
+      "name_cn": "疲惫",
+      "name_en": "Fatigue",
+      "name_nl": "Vermoeidheid",
+      "keywords_cn": [
+        "疲惫",
+        "困倦",
+        "劳累",
+        "倦怠"
+      ],
+      "keywords_en": [
+        "fatigue",
+        "tired",
+        "weary",
+        "exhausted"
+      ],
+      "keywords_nl": [
+        "vermoeidheid",
+        "uitputting",
+        "moeheid"
+      ],
+      "art_themes": [
+        "sleep",
+        "rest",
+        "repose",
+        "bed"
+      ]
+    },
+    "despair": {
+      "id": "despair",
+      "index": 50,
+      "phase": 3,
+      "name_cn": "绝望",
+      "name_en": "Despair",
+      "name_nl": "Wanhoop",
+      "keywords_cn": [
+        "绝望",
+        "崩溃",
+        "无助",
+        "痛苦"
+      ],
+      "keywords_en": [
+        "despair",
+        "hopelessness",
+        "anguish",
+        "agony"
+      ],
+      "keywords_nl": [
+        "wanhoop",
+        "radeloosheid",
+        "smart",
+        "pijn"
+      ],
+      "art_themes": [
+        "darkness",
+        "prison",
+        "storm",
+        "ruin"
+      ]
+    },
+    "courage": {
+      "id": "courage",
+      "index": 51,
+      "phase": 3,
+      "name_cn": "勇气",
+      "name_en": "Courage",
+      "name_nl": "Moed",
+      "keywords_cn": [
+        "勇气",
+        "无畏",
+        "英勇",
+        "胆量"
+      ],
+      "keywords_en": [
+        "bravery",
+        "courage",
+        "valiant",
+        "bold"
+      ],
+      "keywords_nl": [
+        "moed",
+        "dapperheid",
+        "heldhaftigheid",
+        "onverschrokkenheid"
+      ],
+      "art_themes": [
+        "battle",
+        "armor",
+        "warrior",
+        "lion"
+      ]
+    },
+    "hope_loss": {
+      "id": "hope_loss",
+      "index": 52,
+      "phase": 3,
+      "name_cn": "希望与失落",
+      "name_en": "Hope and Loss",
+      "name_nl": "Hoop en Verlies",
+      "keywords_cn": [
+        "希望",
+        "失落",
+        "重生",
+        "破碎"
+      ],
+      "keywords_en": [
+        "hope",
+        "loss",
+        "renewal",
+        "broken"
+      ],
+      "keywords_nl": [
+        "hoop",
+        "verlies",
+        "herstel",
+        "breuk"
+      ],
+      "art_themes": [
+        "rebirth",
+        "ruins",
+        "dawn",
+        "cross"
+      ]
+    },
+    "mysticism": {
+      "id": "mysticism",
+      "index": 53,
+      "phase": 3,
+      "name_cn": "神秘主义",
+      "name_en": "Mysticism",
+      "name_nl": "Mystiek",
+      "keywords_cn": [
+        "神秘主义",
+        "玄学",
+        "灵光",
+        "秘仪"
+      ],
+      "keywords_en": [
+        "mysticism",
+        "vision",
+        "spirit",
+        "occult"
+      ],
+      "keywords_nl": [
+        "mystiek",
+        "visioen",
+        "geest",
+        "esoterisch"
+      ],
+      "art_themes": [
+        "vision",
+        "halo",
+        "revelation",
+        "light"
+      ]
+    },
+    "yearning": {
+      "id": "yearning",
+      "index": 54,
+      "phase": 3,
+      "name_cn": "眷恋",
+      "name_en": "Yearning",
+      "name_nl": "Verlangen",
+      "keywords_cn": [
+        "眷恋",
+        "思念",
+        "怀念",
+        "牵挂"
+      ],
+      "keywords_en": [
+        "yearning",
+        "homesick",
+        "ache",
+        "miss"
+      ],
+      "keywords_nl": [
+        "verlangen",
+        "heimwee",
+        "weemoed",
+        "hunkering"
+      ],
+      "art_themes": [
+        "separation",
+        "distance",
+        "window",
+        "letter"
+      ]
+    },
+    "desolation": {
+      "id": "desolation",
+      "index": 55,
+      "phase": 3,
+      "name_cn": "荒凉",
+      "name_en": "Desolation",
+      "name_nl": "Verlatenheid",
+      "keywords_cn": [
+        "荒凉",
+        "废墟",
+        "空无",
+        "孤立"
+      ],
+      "keywords_en": [
+        "desolation",
+        "ruin",
+        "emptiness",
+        "abandonment"
+      ],
+      "keywords_nl": [
+        "verlatenheid",
+        "leegte",
+        "verval",
+        "ruïne"
+      ],
+      "art_themes": [
+        "ruins",
+        "barren",
+        "field",
+        "dust"
+      ]
+    },
+    "patience": {
+      "id": "patience",
+      "index": 56,
+      "phase": 3,
+      "name_cn": "耐心",
+      "name_en": "Patience",
+      "name_nl": "Geduld",
+      "keywords_cn": [
+        "耐心",
+        "等待",
+        "持守",
+        "沉稳"
+      ],
+      "keywords_en": [
+        "patience",
+        "waiting",
+        "steadiness",
+        "endurance"
+      ],
+      "keywords_nl": [
+        "geduld",
+        "afwachting",
+        "volharding"
+      ],
+      "art_themes": [
+        "waiting",
+        "clock",
+        "thread",
+        "loom"
+      ]
+    },
+    "mortality": {
+      "id": "mortality",
+      "index": 57,
+      "phase": 3,
+      "name_cn": "无常",
+      "name_en": "Mortality",
+      "name_nl": "Sterfelijkheid",
+      "keywords_cn": [
+        "无常",
+        "死亡",
+        "轮回",
+        "衰败"
+      ],
+      "keywords_en": [
+        "mortality",
+        "death",
+        "transience",
+        "decay"
+      ],
+      "keywords_nl": [
+        "sterfelijkheid",
+        "vergankelijkheid",
+        "dood"
+      ],
+      "art_themes": [
+        "skull",
+        "hourglass",
+        "vanitas",
+        "grave"
+      ]
+    },
+    "innocence": {
+      "id": "innocence",
+      "index": 58,
+      "phase": 3,
+      "name_cn": "纯真",
+      "name_en": "Innocence",
+      "name_nl": "Onschuld",
+      "keywords_cn": [
+        "纯真",
+        "天真",
+        "无邪",
+        "清白"
+      ],
+      "keywords_en": [
+        "innocence",
+        "purity",
+        "naive",
+        "chaste"
+      ],
+      "keywords_nl": [
+        "onschuld",
+        "zuiverheid",
+        "kinderlijk",
+        "reinheid"
+      ],
+      "art_themes": [
+        "child",
+        "white",
+        "garden",
+        "lamb"
+      ]
+    },
+    "devotion": {
+      "id": "devotion",
+      "index": 59,
+      "phase": 3,
+      "name_cn": "虔诚",
+      "name_en": "Devotion",
+      "name_nl": "Devotie",
+      "keywords_cn": [
+        "虔诚",
+        "祈祷",
+        "奉献",
+        "专注"
+      ],
+      "keywords_en": [
+        "devotion",
+        "faith",
+        "piety",
+        "dedication"
+      ],
+      "keywords_nl": [
+        "devotie",
+        "vroomheid",
+        "toewijding",
+        "aanbidding"
+      ],
+      "art_themes": [
+        "prayer",
+        "kneeling",
+        "saint",
+        "light"
+      ]
+    },
+    "maturity": {
+      "id": "maturity",
+      "index": 60,
+      "phase": 3,
+      "name_cn": "成熟",
+      "name_en": "Maturity",
+      "name_nl": "Rijpheid",
+      "keywords_cn": [
+        "成熟",
+        "稳重",
+        "经验",
+        "智慧"
+      ],
+      "keywords_en": [
+        "maturity",
+        "wisdom",
+        "growth",
+        "balance"
+      ],
+      "keywords_nl": [
+        "rijpheid",
+        "wijsheid",
+        "groei",
+        "evenwicht"
+      ],
+      "art_themes": [
+        "tree",
+        "harvest",
+        "fruit",
+        "autumn"
+      ]
+    },
+    "silence": {
+      "id": "silence",
+      "index": 61,
+      "phase": 3,
+      "name_cn": "静默",
+      "name_en": "Silence",
+      "name_nl": "Stilte",
+      "keywords_cn": [
+        "静默",
+        "无声",
+        "沉默",
+        "空白"
+      ],
+      "keywords_en": [
+        "silence",
+        "hush",
+        "quiet",
+        "mute"
+      ],
+      "keywords_nl": [
+        "stilte",
+        "zwijgen",
+        "rust",
+        "verstilling"
+      ],
+      "art_themes": [
+        "night",
+        "snow",
+        "room",
+        "shadow"
+      ]
+    },
+    "curiosity_deep": {
+      "id": "curiosity_deep",
+      "index": 62,
+      "phase": 3,
+      "name_cn": "求知",
+      "name_en": "Inquiry",
+      "name_nl": "Onderzoek",
+      "keywords_cn": [
+        "求知",
+        "探索",
+        "好奇心",
+        "观察"
+      ],
+      "keywords_en": [
+        "inquiry",
+        "curiosity",
+        "research",
+        "study"
+      ],
+      "keywords_nl": [
+        "onderzoek",
+        "nieuwsgierigheid",
+        "studie",
+        "verkenning"
+      ],
+      "art_themes": [
+        "book",
+        "instrument",
+        "map",
+        "laboratory"
+      ]
+    },
+    "awe_nature": {
+      "id": "awe_nature",
+      "index": 63,
+      "phase": 3,
+      "name_cn": "自然的敬畏",
+      "name_en": "Natural Awe",
+      "name_nl": "Natuurontzag",
+      "keywords_cn": [
+        "自然",
+        "敬畏",
+        "风暴",
+        "山川"
+      ],
+      "keywords_en": [
+        "nature",
+        "awe",
+        "sublime",
+        "storm"
+      ],
+      "keywords_nl": [
+        "natuur",
+        "ontzag",
+        "schoonheid",
+        "verhevenheid"
+      ],
+      "art_themes": [
+        "mountain",
+        "sea",
+        "sky",
+        "lightning"
+      ]
+    },
+    "longing": {
+      "id": "longing",
+      "index": 64,
+      "phase": 3,
+      "name_cn": "渴望",
+      "name_en": "Longing",
+      "name_nl": "Verlangen",
+      "keywords_cn": [
+        "渴望",
+        "向往",
+        "思慕",
+        "心念"
+      ],
+      "keywords_en": [
+        "longing",
+        "yearn",
+        "pining",
+        "ache"
+      ],
+      "keywords_nl": [
+        "verlangen",
+        "hunkering",
+        "verlangen naar",
+        "heimwee"
+      ],
+      "art_themes": [
+        "horizon",
+        "window",
+        "distance",
+        "sea"
+      ]
+    },
+    "tranquility_deep": {
+      "id": "tranquility_deep",
+      "index": 65,
+      "phase": 3,
+      "name_cn": "静好",
+      "name_en": "Tranquility",
+      "name_nl": "Rust",
+      "keywords_cn": [
+        "静好",
+        "寂静",
+        "恬静",
+        "安谧"
+      ],
+      "keywords_en": [
+        "tranquility",
+        "stillness",
+        "peace",
+        "serene",
+        "quiet"
+      ],
+      "keywords_nl": [
+        "rust",
+        "stilte",
+        "kalmte",
+        "sereen",
+        "vrede"
+      ],
+      "art_themes": [
+        "reflection",
+        "water",
+        "silence",
+        "zen",
+        "pond"
+      ]
+    }
+  }
+}

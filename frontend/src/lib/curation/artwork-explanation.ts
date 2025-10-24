@@ -223,36 +223,53 @@ async function generateSingleArtworkExplanation(
 
   const displayTitle = await translateTitleIfEnglish(artwork.title);
   
-  const prompt = `为艺术作品生成讲解与用户关联分析。请用简体中文回答。
+  // 使用优化的情感语境分析提示词
+  const prompt = `请以艺术史学家的专业视角，为"${emotion}"情绪的用户深度解读这件作品。
 
-写作约束：
-1) 使用客观第三人称，不使用“你/您的/我们/我/这件作品/它”等代词；
-2) 句子短而具体，优先使用作品名称、材质、年代、地点等实体名；
-3) 避免空洞形容词与模板化句式，禁止重复“产生共鸣/独特的创作风格/重要的艺术史意义”等套话；
-4) 第一行必须以“简介：”开头，后一句（≤40字），直接给出核心亮点/观看提示；
-5) 随后输出“详情：”开头的一段到两段自由文本，不要使用小标题，不要使用列表，不要输出JSON；
-6) 严禁出现英文句式；如遇英文标题或专名，需给出中文译名或音译后加括号保留原文，如“农民婚礼舞（The Peasant Wedding Dance）”；
+**用户情境**：
+用户现在的情绪是"${emotion}"${userInput ? `，用户的想法是："${userInput}"` : ''}。请站在用户的角度思考：为什么在这个心情下，这件作品特别值得一看？
 
-作品信息：
-- 标题：${displayTitle}
-- 艺术家：${artwork.artist}
-- 创作年代：${artwork.year}
-- 材质：${artwork.medium}
-- 描述：${artwork.description || '暂无描述'}
-- 收藏机构：${artwork.museum}
+**作品背景**：
+标题：《${displayTitle}》
+创作者：${artwork.artist}
+创作年代：${artwork.year}（这个年代发生了什么？）
+材质技法：${artwork.medium}（这种技法有什么特点？）
+历史背景：${artwork.description || '需要结合时代背景分析'}
+收藏机构：${artwork.museum}
 
-用户情绪输入：${emotion}
-${userInput ? `用户补充：${userInput}` : ''}
-${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
+**请从以下角度深度分析**：
 
-输出格式：
-简介：一句话（≤40字）
-详情：不超过两段自由文本，每段80–120字；内容可合并涵盖情绪关联、艺术分析、历史背景、策展理由、用户相关性。`;
+1. **时代语境**：
+   - ${artwork.year}年是什么时代？这个时代的艺术特点和社会背景
+   - 艺术家${artwork.artist}的创作风格和历史地位
+   - 这件作品在艺术史上的意义
+
+2. **情感密码**：
+   - 作品如何表达"${emotion}"相关的情感？
+   - 色彩、构图、题材如何与用户心情对话？
+   - 为什么在"${emotion}"的心情下看这件作品会有特殊感受？
+
+3. **观看之道**：
+   - 建议用户从哪些角度欣赏这件作品？
+   - 哪些细节特别值得注意？
+   - 如何在欣赏中获得情感慰藉或启发？
+
+4. **生命共鸣**：
+   - 这件作品与"${userInput || emotion}"这种生活情感有什么关联？
+   - 能给用户带来什么样的思考或感动？
+
+**写作要求**：
+- 用温暖、专业的语调，像一位懂艺术的朋友在娓娓道来
+- 避免空洞的形容词，要用具体的作品细节和背景故事
+- 总长度400-600字，让用户有深度阅读的收获
+- 让讲解既有学术深度又充满人情味
+
+请直接输出讲解文本，不需要JSON格式或小标题。`;
 
   const messages = [
     {
       role: 'system' as const,
-      content: '你是一位专业的艺术策展人和艺术史专家，擅长深入分析艺术作品与用户情感需求的关联。请提供专业、生动、易懂的讲解。'
+      content: '你是一位资深的艺术史学家的策展人，擅长深度解读艺术作品的时代背景、情感密码和生命共鸣。你的讲解既有学术深度又充满人情味，能帮助用户在特定心情下与作品建立深刻的连接。'
     },
     {
       role: 'user' as const,
@@ -267,14 +284,14 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
     if (glmOptimizedClient.hasValidApiKey()) {
       console.log('🔑 使用GLM客户端生成作品讲解(快速, no thinking)...');
       try {
-        // 使用可配置的温度与max_tokens（默认回到较高上限，避免质量下降）
-        const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.6;
-        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 300;
+        // 优化：增加token限制以支持深度分析内容
+        const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.8;
+        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 1200;
         // 使用chat方法以支持thinking参数
         response = await glmOptimizedClient.chat(messages, {
           temperature,
           max_tokens: maxTokens,
-          thinking: 'disabled' as const
+          thinking: 'enabled' as const
         });
         console.log('✅ GLM讲解生成成功(快速)');
       } catch (glmError) {
@@ -283,8 +300,8 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
       }
     } else {
       console.log('🔑 GLM不可用，使用OpenAI客户端生成作品讲解...');
-      const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.7;
-      const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 300;
+      const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.8;
+      const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 1200;
       response = await openaiClient.chat(messages, {
         temperature,
         max_tokens: maxTokens
@@ -319,21 +336,25 @@ ${curationStrategy ? `策展总结/编排要点：${curationStrategy}` : ''}
       }
     }
     console.log('📝 LLM原始讲解(前200):', (content || '').slice(0, 200));
-    let parsed = parseFreeformExplanation(content);
-    // 兜底：如果解析仍为空，则用作品元信息+情绪合成简短文案
+
+    // 优化：智能解析自由形式的深度讲解内容
+    let parsed = parseEnhancedExplanation(content);
+
+    // 兜底：如果解析失败，则用作品元信息+情绪合成简短文案
     if (!parsed.intro || parsed.intro.trim().length === 0) {
       const safeTitle = displayTitle || artwork.title || '此作';
-      parsed.intro = `${safeTitle}呈现${emotion}气质的视觉线索与观看重点。`;
+      parsed.intro = `在"${emotion}"的心情下，${safeTitle}展现出特别的艺术魅力和情感深度。`;
     }
     if (!parsed.details || parsed.details.trim().length === 0) {
       const parts: string[] = [];
-      const metaA = artwork.artist ? `${artwork.artist}` : '';
-      const metaY = artwork.year ? `${artwork.year}` : '';
-      const metaM = artwork.medium ? `${artwork.medium}` : '';
-      const metaLine = [metaA, metaY, metaM].filter(Boolean).join(' · ');
-      if (metaLine) parts.push(`${metaLine}。`);
+      const metaA = artwork.artist ? `艺术家${artwork.artist}` : '';
+      const metaY = artwork.year ? `创作于${artwork.year}` : '';
+      const metaM = artwork.medium ? `采用${artwork.medium}技法` : '';
+      if (metaA || metaY || metaM) {
+        parts.push([metaA, metaY, metaM].filter(Boolean).join('，') + '。');
+      }
       if (artwork.description) parts.push(artwork.description);
-      if (parts.length === 0) parts.push('作品在构图、材质与光线中蕴含细腻节奏，可从主体与背景的关系进入。');
+      if (parts.length === 0) parts.push('作品通过独特的视觉语言和艺术表现，为观众提供了丰富的审美体验和思考空间。');
       parsed.details = parts.join('\n\n');
     }
 
@@ -605,8 +626,8 @@ async function generateWithRetry<T>(fn: () => Promise<T>, delaysMs: number[]): P
   let lastError: unknown;
   for (let attempt = 0; attempt <= delaysMs.length; attempt++) {
     try {
-      // 外围超时保护（30s）
-      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('讲解生成超时')), 30000));
+      // 外围超时保护（15s，减少超时时间）
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('讲解生成超时')), 15000));
       // 竞速：函数 vs 超时
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return await Promise.race([fn(), timeout]) as any as T;
@@ -637,7 +658,64 @@ async function generateWithRetry<T>(fn: () => Promise<T>, delaysMs: number[]): P
   throw lastError instanceof Error ? lastError : new Error('讲解生成失败');
 }
 
-// 宽松解析：从Markdown小标题中提取五段内容，缺失则用简短自然语句补齐
+// 增强解析：处理自由形式的深度讲解内容
+function parseEnhancedExplanation(content: string): { intro: string; details: string } {
+  const text = (content || '').trim();
+
+  // 首先尝试匹配原有的"简介："和"详情："格式
+  const introMatch = text.match(/简介：\s*(.+)/);
+  const detailsMatch = text.match(/详情：\s*([\s\S]+)/);
+
+  if (introMatch && detailsMatch) {
+    // 保留原有解析逻辑
+    let intro = (introMatch?.[1] || '').trim().slice(0, 80);
+    let detailsRaw = (detailsMatch?.[1] || '').trim();
+    const paras = detailsRaw.split(/\n{2,}/).map(s => s.trim()).filter(Boolean).slice(0, 2);
+    const details = paras.join('\n\n');
+    return { intro, details };
+  }
+
+  // 新的智能解析逻辑：将长文本分为简介和详情
+  const lines = text.split(/\n+/).map(s => s.trim()).filter(Boolean);
+  const all = lines.join(' ');
+
+  // 尝试按句子分割
+  const sentences = all.split(/。|\.|!|！|\?|？/).map(s => s.trim()).filter(s => s.length > 0);
+
+  if (sentences.length === 0) {
+    return { intro: '', details: '' };
+  }
+
+  // 简介取前1-2句话，控制在60字以内
+  let intro = '';
+  let introLength = 0;
+  for (let i = 0; i < Math.min(2, sentences.length); i++) {
+    const sentence = sentences[i];
+    if (introLength + sentence.length <= 60) {
+      intro += (intro ? '' : '') + sentence + '。';
+      introLength += sentence.length + 1;
+    } else {
+      break;
+    }
+  }
+
+  // 详情取剩余内容
+  const introEndIndex = all.indexOf(intro);
+  let details = introEndIndex >= 0 ? all.substring(introEndIndex + intro.length).trim() : all;
+
+  // 如果没有详情，则用全部内容作为详情
+  if (!details) {
+    details = all;
+  }
+
+  // 清理格式，保留最多两段
+  const detailsParagraphs = details.split(/\n{2,}/).map(s => s.trim()).filter(Boolean).slice(0, 2);
+  const cleanDetails = detailsParagraphs.join('\n\n');
+
+  return { intro: intro.trim(), details: cleanDetails || details };
+}
+
+// 宽松解析：从Markdown小标题中提取五段内容，缺失则用简短自然语句补齐（保留作为备用）
 function parseFreeformExplanation(content: string): { intro: string; details: string } {
   const text = (content || '').trim();
   const introMatch = text.match(/简介：\s*(.+)/);

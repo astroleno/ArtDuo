@@ -1,0 +1,2421 @@
+{
+  "summary": {
+    "total_emotions": 19,
+    "english_total": 17583,
+    "dutch_total": 33712,
+    "dutch_wins": 12,
+    "english_wins": 7,
+    "ties": 0
+  },
+  "details": [
+    {
+      "emotion_id": "joy",
+      "emotion_cn": "快乐",
+      "emotion_en": "Joy",
+      "emotion_nl": "Vreugde",
+      "phase": 1,
+      "english": {
+        "total": 138,
+        "keywords": [
+          {
+            "keyword": "joy",
+            "count": 81,
+            "sample": [
+              {
+                "title": "Portrait of a Married Couple, Likely Isaac Abrahamsz Massa and Beatrix van der Laen",
+                "artist": "Frans Hals"
+              },
+              {
+                "title": "Banquet at the Crossbowmen’s Guild in Celebration of the Treaty of Münster",
+                "artist": "Bartholomeus van der Helst"
+              },
+              {
+                "title": "Reclame voor 'Johnson's Electric Solvo', uit de catalogus 'Proper Treatment of Floor, Woodwork and Furniture' gepubliceerd door S.C. Johnson & Son",
+                "artist": "anonymous, Wright & Joys Co."
+              }
+            ]
+          },
+          {
+            "keyword": "happiness",
+            "count": 31,
+            "sample": [
+              {
+                "title": "Man en vrouw in een interieur",
+                "artist": "Hugo Struck"
+              },
+              {
+                "title": "Fotoreproductie van een tekening van een scene uit Das Lied von der Glocke van Friedrich Schiller, door A. Müller",
+                "artist": "Friedrich Bruckmann"
+              },
+              {
+                "title": "Titelpagina voor: P.J. Kasteleijn, Proeve over de kunst om altijd vrolijk te zijn. In vier zangen. Amsterdam, 1780",
+                "artist": "Cornelis Bogerts"
+              }
+            ]
+          },
+          {
+            "keyword": "cheerful",
+            "count": 26,
+            "sample": [
+              {
+                "title": "Portrait of a Member of the Van der Mersch Family",
+                "artist": "Cornelis Troost"
+              },
+              {
+                "title": "Cheering words",
+                "artist": "Robert Banks & Son"
+              },
+              {
+                "title": "Vrijwilligers en matrozen aan de waterkant in Shanghai voor het diamanten jubileum van Victoria van het Verenigd Koninkrijk",
+                "artist": "W.R. Kahler"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 819,
+        "keywords": [
+          {
+            "keyword": "vreugde",
+            "count": 427,
+            "sample": [
+              {
+                "title": "Algemeen steuncomite te Amsterdam, 1914",
+                "artist": "M. Vreugde"
+              },
+              {
+                "title": "Doos horend bij een zilveren penning",
+                "artist": "M. Vreugde"
+              },
+              {
+                "title": "Vreugde",
+                "artist": "Heinrich Aldegrever"
+              }
+            ]
+          },
+          {
+            "keyword": "geluk",
+            "count": 312,
+            "sample": [
+              {
+                "title": "Geluk",
+                "artist": "Hendrik Johannes Haverman"
+              },
+              {
+                "title": "Geluk",
+                "artist": "Erich Wichmann"
+              },
+              {
+                "title": "Geluk",
+                "artist": "Hendrik Johannes Haverman"
+              }
+            ]
+          },
+          {
+            "keyword": "blijdschap",
+            "count": 80,
+            "sample": [
+              {
+                "title": "De ontmoeting van Joachim en Anna",
+                "artist": "Meester van Joachim en Anna"
+              },
+              {
+                "title": "Blijdschap",
+                "artist": "Pieter van den Berge"
+              },
+              {
+                "title": "Vreest niet, want ik verkondig u grote blijdschap",
+                "artist": "Pieter Holstein"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 681,
+        "difference_percent": "493.5",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "serenity",
+      "emotion_cn": "宁静",
+      "emotion_en": "Serenity",
+      "emotion_nl": "Sereniteit",
+      "phase": 1,
+      "english": {
+        "total": 1102,
+        "keywords": [
+          {
+            "keyword": "serenity",
+            "count": 6,
+            "sample": [
+              {
+                "title": "The Garden of Serenity",
+                "artist": "Song Bolu"
+              },
+              {
+                "title": "Berglandschap met herders",
+                "artist": "Pierre François Laurent"
+              },
+              {
+                "title": "Tetsugakudō in Nakano Ward, no. 55",
+                "artist": "Koizumi Kishio"
+              }
+            ]
+          },
+          {
+            "keyword": "calm",
+            "count": 72,
+            "sample": [
+              {
+                "title": "A Calm (Ships in the Harbor by Calm Weather)",
+                "artist": "Jan Claesz. Rietschoof"
+              },
+              {
+                "title": "Calm Sea",
+                "artist": "Hendrick Jacobsz. Dubbels"
+              },
+              {
+                "title": "A Calm at Sea",
+                "artist": "Willem van de Velde (II)"
+              }
+            ]
+          },
+          {
+            "keyword": "peaceful",
+            "count": 1024,
+            "sample": [
+              {
+                "title": "Banquet at the Crossbowmen’s Guild in Celebration of the Treaty of Münster",
+                "artist": "Bartholomeus van der Helst"
+              },
+              {
+                "title": "Self-portrait",
+                "artist": "Rembrandt van Rijn"
+              },
+              {
+                "title": "Portrait of a Woman, Probably Maria Trip (1619-1683)",
+                "artist": "Rembrandt van Rijn"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 3837,
+        "keywords": [
+          {
+            "keyword": "rust",
+            "count": 3821,
+            "sample": [
+              {
+                "title": "Guanyin",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Portret van Andries de Graeff",
+                "artist": "Artus Quellinus (I)"
+              },
+              {
+                "title": "Portret van een vrouw, waarschijnlijk Maria Trip",
+                "artist": "Rembrandt van Rijn"
+              }
+            ]
+          },
+          {
+            "keyword": "kalmte",
+            "count": 13,
+            "sample": [
+              {
+                "title": "Lot maant de menigte tot kalmte",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Lot maant de menigte tot kalmte",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Lot maant de menigte tot kalmte",
+                "artist": "Hans Collaert (I)"
+              }
+            ]
+          },
+          {
+            "keyword": "sereen",
+            "count": 3,
+            "sample": [
+              {
+                "title": "Berglandschap met herders",
+                "artist": "Pierre François Laurent"
+              },
+              {
+                "title": "Tetsugakudō in de Nakano-wijk, nr. 55",
+                "artist": "Koizumi Kishio"
+              },
+              {
+                "title": "Bodhisattva Amoghapasha Lokeshvara",
+                "artist": "anoniem"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 2735,
+        "difference_percent": "248.2",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "contentment",
+      "emotion_cn": "满足",
+      "emotion_en": "Contentment",
+      "emotion_nl": "Tevredenheid",
+      "phase": 1,
+      "english": {
+        "total": 141,
+        "keywords": [
+          {
+            "keyword": "contentment",
+            "count": 106,
+            "sample": [
+              {
+                "title": "Dolls’ house of Petronella Oortman",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Portret van Eli Content met sculpturen",
+                "artist": "Vincent Samuel Mentzel"
+              },
+              {
+                "title": "Table of contents, part 2",
+                "artist": "Koizumi Kishio"
+              }
+            ]
+          },
+          {
+            "keyword": "satisfaction",
+            "count": 11,
+            "sample": [
+              {
+                "title": "Man laat afgietsel maken van zijn gezicht",
+                "artist": "Honoré Daumier"
+              },
+              {
+                "title": "Kinderdeugden",
+                "artist": "Jan Schuitemaker"
+              },
+              {
+                "title": "Kinderdeugden",
+                "artist": "Jan Schuitemaker"
+              }
+            ]
+          },
+          {
+            "keyword": "fulfilled",
+            "count": 24,
+            "sample": [
+              {
+                "title": "Jefta offert zijn dochter",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Jefta offert zijn dochter",
+                "artist": "Nicolaes Ryckmans"
+              },
+              {
+                "title": "Jefta offert zijn dochter",
+                "artist": "Nicolaes Ryckmans"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 246,
+        "keywords": [
+          {
+            "keyword": "tevredenheid",
+            "count": 91,
+            "sample": [
+              {
+                "title": "Een tevredene",
+                "artist": "Willem van Konijnenburg"
+              },
+              {
+                "title": "Personificatie van tevredenheid",
+                "artist": "Arnold Houbraken"
+              },
+              {
+                "title": "De tevreden schilder",
+                "artist": "Johan Braakensiek"
+              }
+            ]
+          },
+          {
+            "keyword": "voldoening",
+            "count": 110,
+            "sample": [
+              {
+                "title": "Jongens wil je vreugd vermeeren, Wild in deze print studeeren, Want het is van Tetjeroen, Die een yder kon voldoen",
+                "artist": "De erven de weduwe J. Ratelband en J. Bouwer"
+              },
+              {
+                "title": "[Jongens wil je vreugd vermeeren, Wild in deze print studeeren, Want het is van Tetjeroen, Die een yder kon voldoen]",
+                "artist": "De erven de weduwe J. Ratelband en J. Bouwer"
+              },
+              {
+                "title": "Jongens wil je vreugd vermeeren, Wild in deze print studeeren, Want het is van Tetjeroen, Die een yder kon voldoen",
+                "artist": "J. Ratelband en J. Bouwer"
+              }
+            ]
+          },
+          {
+            "keyword": "vervuld",
+            "count": 45,
+            "sample": [
+              {
+                "title": "Bloesems belofte wordt nu in oogsten vervuld, september",
+                "artist": "Willem Arondéus"
+              },
+              {
+                "title": "Het oog wordt niet verzadigd van zien, noch de oren vervuld van horen",
+                "artist": "Pieter Holstein"
+              },
+              {
+                "title": "Mevrouw Ziesenis in de rol van Fedra",
+                "artist": "Johannes Jelgerhuis"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 105,
+        "difference_percent": "74.5",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "love",
+      "emotion_cn": "爱",
+      "emotion_en": "Love",
+      "emotion_nl": "Liefde",
+      "phase": 1,
+      "english": {
+        "total": 2383,
+        "keywords": [
+          {
+            "keyword": "love",
+            "count": 1780,
+            "sample": [
+              {
+                "title": "Seated Cupid",
+                "artist": "Étienne-Maurice Falconet"
+              },
+              {
+                "title": "Portrait of a Married Couple, Likely Isaac Abrahamsz Massa and Beatrix van der Laen",
+                "artist": "Frans Hals"
+              },
+              {
+                "title": "Winter Landscape with Ice Skaters",
+                "artist": "Hendrick Avercamp"
+              }
+            ]
+          },
+          {
+            "keyword": "affection",
+            "count": 598,
+            "sample": [
+              {
+                "title": "Fotoreproductie van het schilderij Affection van George Augustus Holmes",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Fantasie-uniform en bewapening voor vrouwelijke grenadier",
+                "artist": "E. Morisseau"
+              },
+              {
+                "title": "Uitvouwbare bladzijde met negen afbeeldingen van een waterdruppel op verschillenden oppervlakten",
+                "artist": "Antoine Elie Chevalley"
+              }
+            ]
+          },
+          {
+            "keyword": "warmth",
+            "count": 5,
+            "sample": [
+              {
+                "title": "Brown Tea Bowl",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Meadow with Cows by the Water",
+                "artist": "Willem Maris"
+              },
+              {
+                "title": "Holy is the Heart of a Woman",
+                "artist": "Anton Heyboer"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 1709,
+        "keywords": [
+          {
+            "keyword": "liefde",
+            "count": 1655,
+            "sample": [
+              {
+                "title": "Het zieke kind",
+                "artist": "Gabriël Metsu"
+              },
+              {
+                "title": "Isaak en Rebekka, bekend als ‘Het Joodse bruidje’",
+                "artist": "Rembrandt van Rijn"
+              },
+              {
+                "title": "Zittende Amor",
+                "artist": "Étienne-Maurice Falconet"
+              }
+            ]
+          },
+          {
+            "keyword": "genegenheid",
+            "count": 25,
+            "sample": [
+              {
+                "title": "Die genegen is om te vaaren, / Moet hem komen hier verklaaren",
+                "artist": "Barend Koene (III)"
+              },
+              {
+                "title": "Staande voorover genegen man op de rug gezien",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Man staat op het punt de wereld in een nest te leggen",
+                "artist": "Jan Luyken"
+              }
+            ]
+          },
+          {
+            "keyword": "toewijding",
+            "count": 29,
+            "sample": [
+              {
+                "title": "Gastvrijheid, waardering, geduld en toewijding",
+                "artist": "Charles Beurlier"
+              },
+              {
+                "title": "Allegorie op de toewijding aan Frankrijk",
+                "artist": "Pierre Antoine Demachy"
+              },
+              {
+                "title": "Gastvrijheid, waardering, geduld en toewijding",
+                "artist": "Charles Beurlier"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": -674,
+        "difference_percent": "-28.3",
+        "winner": "english"
+      }
+    },
+    {
+      "emotion_id": "hope",
+      "emotion_cn": "希望",
+      "emotion_en": "Hope",
+      "emotion_nl": "Hoop",
+      "phase": 1,
+      "english": {
+        "total": 1914,
+        "keywords": [
+          {
+            "keyword": "hope",
+            "count": 1857,
+            "sample": [
+              {
+                "title": "Woman Reading a Letter",
+                "artist": "Johannes Vermeer"
+              },
+              {
+                "title": "The Merry Family",
+                "artist": "Jan Havicksz. Steen"
+              },
+              {
+                "title": "A Mother Delousing her Child’s Hair, Known as ‘A Mother’s Duty’",
+                "artist": "Pieter de Hooch"
+              }
+            ]
+          },
+          {
+            "keyword": "aspiration",
+            "count": 12,
+            "sample": [
+              {
+                "title": "Nog een aspirant voor het eeremetaal",
+                "artist": "Johan Braakensiek"
+              },
+              {
+                "title": "Geslaagde aspiranten van de Ambachtsschool van het jaar 1930",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Zittende jonge vrouw",
+                "artist": "Aristide Louis"
+              }
+            ]
+          },
+          {
+            "keyword": "promise",
+            "count": 45,
+            "sample": [
+              {
+                "title": "Fishing for Souls",
+                "artist": "Adriaen Pietersz van de Venne"
+              },
+              {
+                "title": "Vier mannen bij een tafel",
+                "artist": "Jan de Visscher"
+              },
+              {
+                "title": "Vier mannen bij een tafel",
+                "artist": "Jan de Visscher"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 1999,
+        "keywords": [
+          {
+            "keyword": "hoop",
+            "count": 1808,
+            "sample": [
+              {
+                "title": "Een moeder die het haar van haar kind reinigt, bekend als ‘Moedertaak’",
+                "artist": "Pieter de Hooch"
+              },
+              {
+                "title": "Italiaans landschap met tekenaar",
+                "artist": "Jan Both"
+              },
+              {
+                "title": "Brieflezende vrouw",
+                "artist": "Johannes Vermeer"
+              }
+            ]
+          },
+          {
+            "keyword": "verwachting",
+            "count": 137,
+            "sample": [
+              {
+                "title": "De ontmoeting van Joachim en Anna",
+                "artist": "Meester van Joachim en Anna"
+              },
+              {
+                "title": "Verwachting",
+                "artist": "Richard Nicolaüs Roland Holst"
+              },
+              {
+                "title": "Verwachting",
+                "artist": "William Nelson Gardiner"
+              }
+            ]
+          },
+          {
+            "keyword": "belofte",
+            "count": 54,
+            "sample": [
+              {
+                "title": "De beloften der troonrede",
+                "artist": "Johan Braakensiek"
+              },
+              {
+                "title": "Allegorie op de belofte van liefde",
+                "artist": "Melchior Küsel (I)"
+              },
+              {
+                "title": "Bloesems belofte wordt nu in oogsten vervuld, september",
+                "artist": "Willem Arondéus"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 85,
+        "difference_percent": "4.4",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "awe",
+      "emotion_cn": "敬畏",
+      "emotion_en": "Awe",
+      "emotion_nl": "Ontzag",
+      "phase": 1,
+      "english": {
+        "total": 3619,
+        "keywords": [
+          {
+            "keyword": "awe",
+            "count": 7,
+            "sample": [
+              {
+                "title": "Gezicht op Loch Awe",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Gezicht op Loch Awe",
+                "artist": "Philip Gilbert Hamerton"
+              },
+              {
+                "title": "Gezicht op Loch Awe met de Ben Cruachan in Schotland",
+                "artist": "David Young Cameron"
+              }
+            ]
+          },
+          {
+            "keyword": "sublime",
+            "count": 45,
+            "sample": [
+              {
+                "title": "Verheven Porte in Istanboel",
+                "artist": "Sébah & Joaillier"
+              },
+              {
+                "title": "Portret van Adam Elsheimer",
+                "artist": "Wenceslaus Hollar"
+              },
+              {
+                "title": "Zelfportret van Wenzel Hollar",
+                "artist": "Wenceslaus Hollar"
+              }
+            ]
+          },
+          {
+            "keyword": "grand",
+            "count": 3567,
+            "sample": [
+              {
+                "title": "Horloge van goud",
+                "artist": "Grand"
+              },
+              {
+                "title": "Lambrizering, onderdeel van een betimmering",
+                "artist": "Napoleon le Grand"
+              },
+              {
+                "title": "Haardombouw, onderdeel van een betimmering",
+                "artist": "Napoleon le Grand"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 105,
+        "keywords": [
+          {
+            "keyword": "ontzag",
+            "count": 22,
+            "sample": [
+              {
+                "title": "Portret van een lid van de familie Van der Mersch",
+                "artist": "Cornelis Troost"
+              },
+              {
+                "title": "Hans Willem, baron van Aylva (1635-91). Generaal-majoor, genoemd 'de ontzaglijke generaal'",
+                "artist": "Hendrick de Valk"
+              },
+              {
+                "title": "Offer van Noach",
+                "artist": "Reinier Vinkeles (I)"
+              }
+            ]
+          },
+          {
+            "keyword": "subliem",
+            "count": 3,
+            "sample": [
+              {
+                "title": "Hoofd van Catharina Wilhelmina Schweickhardt op medaillon aan lint en bloemen",
+                "artist": "Willem Bilderdijk"
+              },
+              {
+                "title": "Portret van Heinrich Wilhelm Ernst",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Portret van Heinrich Wilhelm Ernst",
+                "artist": "anoniem"
+              }
+            ]
+          },
+          {
+            "keyword": "verhevenheid",
+            "count": 80,
+            "sample": [
+              {
+                "title": "Verheven Porte in Istanboel",
+                "artist": "Sébah & Joaillier"
+              },
+              {
+                "title": "Verheven, onnavolgbaar schoon [(...)]",
+                "artist": "Albertus Willem Sijthoff"
+              },
+              {
+                "title": "Amsterdam tot stad verheven, ca. 1335",
+                "artist": "Willem Steelink (I)"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": -3514,
+        "difference_percent": "-97.1",
+        "winner": "english"
+      }
+    },
+    {
+      "emotion_id": "wonder",
+      "emotion_cn": "惊奇",
+      "emotion_en": "Wonder",
+      "emotion_nl": "Verwondering",
+      "phase": 1,
+      "english": {
+        "total": 1010,
+        "keywords": [
+          {
+            "keyword": "wonder",
+            "count": 965,
+            "sample": [
+              {
+                "title": "Table ornament",
+                "artist": "Wenzel Jamnitzer"
+              },
+              {
+                "title": "Self-portrait",
+                "artist": "Johan Gregor van der Schardt"
+              },
+              {
+                "title": "The Merry Family",
+                "artist": "Jan Havicksz. Steen"
+              }
+            ]
+          },
+          {
+            "keyword": "marvel",
+            "count": 8,
+            "sample": [
+              {
+                "title": "Portret van dichter Andrew Marvell",
+                "artist": "Giovanni Battista Cipriani"
+              },
+              {
+                "title": "John Bull tegenover de Spaanse koning Ferdinand VII",
+                "artist": "Robert Isaac Cruikshank"
+              },
+              {
+                "title": "Schutter nabij het Sint-Joriskklooster in Wadi Qelt, Westelijke Jordaanoever",
+                "artist": "anonymous"
+              }
+            ]
+          },
+          {
+            "keyword": "astonishment",
+            "count": 37,
+            "sample": [
+              {
+                "title": "Nicholas Nickleby in gevecht met Wackford Squeers en zijn familie",
+                "artist": "Hablot Knight Browne"
+              },
+              {
+                "title": "Spotprent op prinses Caroline, 1817",
+                "artist": "George Cruikshank"
+              },
+              {
+                "title": "Wijzen uit het Oosten volgen de ster",
+                "artist": "Michiel le Blon"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 1146,
+        "keywords": [
+          {
+            "keyword": "verwondering",
+            "count": 186,
+            "sample": [
+              {
+                "title": "Portret van Michiel de Ruyter",
+                "artist": "Rombout Verhulst"
+              },
+              {
+                "title": "Licurgus verwond door Alcander bij oproer",
+                "artist": "Gilles Demarteau"
+              },
+              {
+                "title": "Mevrouw de Florville in verwondering",
+                "artist": "Reinier Vinkeles (I)"
+              }
+            ]
+          },
+          {
+            "keyword": "verbazing",
+            "count": 67,
+            "sample": [
+              {
+                "title": "Bewondering en verbazing",
+                "artist": "Jean Audran"
+              },
+              {
+                "title": "De vijf zinne en vier dwazen, zullen uw verstand verbazen",
+                "artist": "Johan Noman"
+              },
+              {
+                "title": "Vier voorhoofden van een man bij nadenken, woede, huilen en verbazing",
+                "artist": "Nicola Tonger"
+              }
+            ]
+          },
+          {
+            "keyword": "wonder",
+            "count": 893,
+            "sample": [
+              {
+                "title": "Zelfportret van Pieter Christoffel Wonder",
+                "artist": "Pieter Christoffel Wonder"
+              },
+              {
+                "title": "Zelfportret van Pieter Christoffel Wonder",
+                "artist": "Pieter Christoffel Wonder"
+              },
+              {
+                "title": "Portret van Pieter Christoffel Wonder",
+                "artist": "onbekend, Pieter Christoffel Wonder"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 136,
+        "difference_percent": "13.5",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "nostalgia",
+      "emotion_cn": "怀旧",
+      "emotion_en": "Nostalgia",
+      "emotion_nl": "Nostalgie",
+      "phase": 1,
+      "english": {
+        "total": 645,
+        "keywords": [
+          {
+            "keyword": "nostalgia",
+            "count": 2,
+            "sample": [
+              {
+                "title": "Advertisement for the Antwerp Printing Shop De Vos & Van der Groen",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Blooming Clover",
+                "artist": "Jac van Looij"
+              }
+            ]
+          },
+          {
+            "keyword": "retro",
+            "count": 2,
+            "sample": [
+              {
+                "title": "Justitia valt van een steigerend paard",
+                "artist": "Johann Theodor de Bry"
+              },
+              {
+                "title": "La Mode, 11 Janvier 1834, Pl. 349 : Coiffure ornée de diamants (...)",
+                "artist": "Georges Jacques Gatine"
+              }
+            ]
+          },
+          {
+            "keyword": "memory",
+            "count": 641,
+            "sample": [
+              {
+                "title": "Memorial",
+                "artist": "John Wilson and Son"
+              },
+              {
+                "title": "Memory",
+                "artist": "Jan Verkade"
+              },
+              {
+                "title": "Memorial tablet",
+                "artist": "Master of the Spes Nostra"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 1430,
+        "keywords": [
+          {
+            "keyword": "nostalgie",
+            "count": 3,
+            "sample": [
+              {
+                "title": "Mannen nagajuban met muzikanten",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Reclame voor de Antwerpse drukkerij De Vos & Van der Groen",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Klaverbloemen",
+                "artist": "Jac van Looij"
+              }
+            ]
+          },
+          {
+            "keyword": "herinnering",
+            "count": 1264,
+            "sample": [
+              {
+                "title": "Twee toiletkoffers",
+                "artist": "André-Charles Boulle"
+              },
+              {
+                "title": "Twee toiletkoffers",
+                "artist": "André-Charles Boulle"
+              },
+              {
+                "title": "Herinnering",
+                "artist": "Richard Nicolaüs Roland Holst"
+              }
+            ]
+          },
+          {
+            "keyword": "verleden",
+            "count": 163,
+            "sample": [
+              {
+                "title": "Maria Magdalena",
+                "artist": "Jan van Scorel"
+              },
+              {
+                "title": "Nederlandse koopman, wellicht Andreas Everardus van Braam Houckgeest",
+                "artist": "Chitqua"
+              },
+              {
+                "title": "Het heden, het verleden",
+                "artist": "Harrie A. Gerritz"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 785,
+        "difference_percent": "121.7",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "melancholy",
+      "emotion_cn": "忧郁",
+      "emotion_en": "Melancholy",
+      "emotion_nl": "Melancholie",
+      "phase": 1,
+      "english": {
+        "total": 565,
+        "keywords": [
+          {
+            "keyword": "melancholy",
+            "count": 34,
+            "sample": [
+              {
+                "title": "Melancholie",
+                "artist": "Hans Sebald Beham"
+              },
+              {
+                "title": "Melancholie",
+                "artist": "Hans Sebald Beham"
+              },
+              {
+                "title": "Melancholie",
+                "artist": "Albrecht Dürer"
+              }
+            ]
+          },
+          {
+            "keyword": "blue",
+            "count": 525,
+            "sample": [
+              {
+                "title": "Blue Parrot",
+                "artist": "Meissener Porzellan Manufaktur"
+              },
+              {
+                "title": "Portrait of a Girl Dressed in Blue",
+                "artist": "Johannes Verspronck"
+              },
+              {
+                "title": "Woman Reading a Letter",
+                "artist": "Johannes Vermeer"
+              }
+            ]
+          },
+          {
+            "keyword": "pensive",
+            "count": 6,
+            "sample": [
+              {
+                "title": "Portret van een onbekend meisje",
+                "artist": "Byrne & Co."
+              },
+              {
+                "title": "Collection consacrée aux modes d'hommes et de femmes, 1783-1813, No. 170 : La pensive Euphrosin (...)",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Fotoreproductie van een gravure van een peinzende vrouw door Marcantonio Raimondi",
+                "artist": "Benjamin Delessert"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 38,
+        "keywords": [
+          {
+            "keyword": "melancholie",
+            "count": 27,
+            "sample": [
+              {
+                "title": "Melancholie",
+                "artist": "Jozef Israëls"
+              },
+              {
+                "title": "Melancholie",
+                "artist": "Giovanni Benedetto Castiglione"
+              },
+              {
+                "title": "Melancholie",
+                "artist": "Parmigianino"
+              }
+            ]
+          },
+          {
+            "keyword": "weemoed",
+            "count": 9,
+            "sample": [
+              {
+                "title": "Landschap met een sluis",
+                "artist": "Louis Adolphe Jacobs"
+              },
+              {
+                "title": "Landschap met een sluis",
+                "artist": "Louis Adolphe Jacobs"
+              },
+              {
+                "title": "De beker van het najaar is met weemoed gevuld, october",
+                "artist": "Willem Arondéus"
+              }
+            ]
+          },
+          {
+            "keyword": "droefgeestig",
+            "count": 2,
+            "sample": [
+              {
+                "title": "Droefgeestigheid",
+                "artist": "Raphaël Sadeler (I)"
+              },
+              {
+                "title": "Heraclitus",
+                "artist": "Hendrick ter Brugghen"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": -527,
+        "difference_percent": "-93.3",
+        "winner": "english"
+      }
+    },
+    {
+      "emotion_id": "sadness",
+      "emotion_cn": "悲伤",
+      "emotion_en": "Sadness",
+      "emotion_nl": "Verdriet",
+      "phase": 1,
+      "english": {
+        "total": 516,
+        "keywords": [
+          {
+            "keyword": "sadness",
+            "count": 67,
+            "sample": [
+              {
+                "title": "Lichaamssmart",
+                "artist": "Pieter van den Berge"
+              },
+              {
+                "title": "Treurende figuren",
+                "artist": "Emil Orlik"
+              },
+              {
+                "title": "Hond bij de grafkist van de herder",
+                "artist": "Benjamin Phelps Gibbon"
+              }
+            ]
+          },
+          {
+            "keyword": "sorrow",
+            "count": 240,
+            "sample": [
+              {
+                "title": "Man of Sorrows",
+                "artist": "Guido Reni"
+              },
+              {
+                "title": "Domenichino, Sorrow",
+                "artist": "Philip Henry Delamotte"
+              },
+              {
+                "title": "Christ as the Man of Sorrows, Fragment",
+                "artist": "anonymous"
+              }
+            ]
+          },
+          {
+            "keyword": "lament",
+            "count": 209,
+            "sample": [
+              {
+                "title": "Roemer with a poem to Constantijn Huygens",
+                "artist": "anonymous"
+              },
+              {
+                "title": "The Lamentation",
+                "artist": "Master Arnt of Kalkar"
+              },
+              {
+                "title": "The Lamentation",
+                "artist": "Meester Tilman"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 378,
+        "keywords": [
+          {
+            "keyword": "verdriet",
+            "count": 134,
+            "sample": [
+              {
+                "title": "Verdriet",
+                "artist": "Samuel Jessurun de Mesquita"
+              },
+              {
+                "title": "Verdriet",
+                "artist": "Samuel Jessurun de Mesquita"
+              },
+              {
+                "title": "Verdriet",
+                "artist": "Samuel Jessurun de Mesquita"
+              }
+            ]
+          },
+          {
+            "keyword": "droefheid",
+            "count": 26,
+            "sample": [
+              {
+                "title": "Geveinsde droefheid",
+                "artist": "Benjamin Martini"
+              },
+              {
+                "title": "Geveinsde droefheid",
+                "artist": "Benjamin Martini"
+              },
+              {
+                "title": "Geveinsde droefheid",
+                "artist": "Benjamin Martini"
+              }
+            ]
+          },
+          {
+            "keyword": "rouw",
+            "count": 218,
+            "sample": [
+              {
+                "title": "Hertog van Wellington",
+                "artist": "Peter Rouw"
+              },
+              {
+                "title": "Vrouw in de rouw",
+                "artist": "Jean Baptiste Madou"
+              },
+              {
+                "title": "Rouwen van laken",
+                "artist": "Frans de Bakker"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": -138,
+        "difference_percent": "-26.7",
+        "winner": "english"
+      }
+    },
+    {
+      "emotion_id": "loneliness",
+      "emotion_cn": "孤独",
+      "emotion_en": "Loneliness",
+      "emotion_nl": "Eenzaamheid",
+      "phase": 1,
+      "english": {
+        "total": 46,
+        "keywords": [
+          {
+            "keyword": "loneliness",
+            "count": 14,
+            "sample": [
+              {
+                "title": "Omslag met bloemen en titel",
+                "artist": "Jeanne Bieruma Oosting"
+              },
+              {
+                "title": "Homme quittent un bordel",
+                "artist": "Jeanne Bieruma Oosting"
+              },
+              {
+                "title": "Fotoreproductie van een schilderij van Napoleon op Sint-Helena door Paul Delaroche",
+                "artist": "Robert Jefferson Bingham"
+              }
+            ]
+          },
+          {
+            "keyword": "solitude",
+            "count": 31,
+            "sample": [
+              {
+                "title": "Jours de solitude",
+                "artist": "Octave Pirmez"
+              },
+              {
+                "title": "Jours de solitude",
+                "artist": "Octave Pirmez"
+              },
+              {
+                "title": "Jours de solitude",
+                "artist": "Octave Pirmez"
+              }
+            ]
+          },
+          {
+            "keyword": "lonesome",
+            "count": 1,
+            "sample": [
+              {
+                "title": "The Lonesome Bay",
+                "artist": "Arthur Hawksley"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 2729,
+        "keywords": [
+          {
+            "keyword": "eenzaamheid",
+            "count": 70,
+            "sample": [
+              {
+                "title": "Mijn Eenzaamheid",
+                "artist": "G.A. Baum"
+              },
+              {
+                "title": "De eenzame",
+                "artist": "Dick Ket"
+              },
+              {
+                "title": "Eenzame boom",
+                "artist": "Henri Verstijnen"
+              }
+            ]
+          },
+          {
+            "keyword": "verlatenheid",
+            "count": 1045,
+            "sample": [
+              {
+                "title": "Gezicht op het atelier van Charles Verlat",
+                "artist": "Charles Verlat"
+              },
+              {
+                "title": "Houthakker aangevallen door een beer",
+                "artist": "Charles Verlat"
+              },
+              {
+                "title": "Gezicht op het atelier van Charles Verlat",
+                "artist": "Charles Verlat"
+              }
+            ]
+          },
+          {
+            "keyword": "alleen",
+            "count": 1614,
+            "sample": [
+              {
+                "title": "Portret van een meisje in het blauw",
+                "artist": "Johannes Verspronck"
+              },
+              {
+                "title": "Javaanse hoffunctionarissen",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Javaanse hoffunctionarissen",
+                "artist": "anoniem"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 2683,
+        "difference_percent": "5832.6",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "grief",
+      "emotion_cn": "哀恸",
+      "emotion_en": "Grief",
+      "emotion_nl": "Rouw",
+      "phase": 1,
+      "english": {
+        "total": 732,
+        "keywords": [
+          {
+            "keyword": "grief",
+            "count": 44,
+            "sample": [
+              {
+                "title": "Grief, Irene Portrait",
+                "artist": "Erwin Olaf"
+              },
+              {
+                "title": "The grief of Johanna of Castile",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Sarah",
+                "artist": "Erwin Olaf"
+              }
+            ]
+          },
+          {
+            "keyword": "mourning",
+            "count": 688,
+            "sample": [
+              {
+                "title": "Weepers from the tomb of Isabella of Bourbon",
+                "artist": "Borman workshop, Renier van Thienen (I)"
+              },
+              {
+                "title": "The Mourning Widow",
+                "artist": "Diederik Franciscus Jamin"
+              },
+              {
+                "title": "Mourning Virgin, from a Calvary",
+                "artist": "anonymous"
+              }
+            ]
+          },
+          {
+            "keyword": "bereavement",
+            "count": 0,
+            "sample": []
+          }
+        ]
+      },
+      "dutch": {
+        "total": 16532,
+        "keywords": [
+          {
+            "keyword": "rouw",
+            "count": 218,
+            "sample": [
+              {
+                "title": "Hertog van Wellington",
+                "artist": "Peter Rouw"
+              },
+              {
+                "title": "Vrouw in de rouw",
+                "artist": "Jean Baptiste Madou"
+              },
+              {
+                "title": "Rouwen van laken",
+                "artist": "Frans de Bakker"
+              }
+            ]
+          },
+          {
+            "keyword": "treurnis",
+            "count": 1,
+            "sample": [
+              {
+                "title": "De dood van de eerstgeborene van de farao",
+                "artist": "Lourens Alma Tadema"
+              }
+            ]
+          },
+          {
+            "keyword": "verlies",
+            "count": 16313,
+            "sample": [
+              {
+                "title": "Portret van een meisje in het blauw",
+                "artist": "Johannes Verspronck"
+              },
+              {
+                "title": "Kast",
+                "artist": "Herman Doomer"
+              },
+              {
+                "title": "Klok en kruithoorn",
+                "artist": "anoniem"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 15800,
+        "difference_percent": "2158.5",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "anxiety",
+      "emotion_cn": "焦虑",
+      "emotion_en": "Anxiety",
+      "emotion_nl": "Angst",
+      "phase": 1,
+      "english": {
+        "total": 105,
+        "keywords": [
+          {
+            "keyword": "anxiety",
+            "count": 8,
+            "sample": [
+              {
+                "title": "Man schrift van grote haring vastgehouden door vissersvrouw",
+                "artist": "Jeremias Adriaan Adolf Schill"
+              },
+              {
+                "title": "Fotoreproductie van een prent, voorstellende Christus toont zijn volgelingen lelies",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Fotoreproductie van een prent, voorstellende Christus toont zijn volgelingen lelies",
+                "artist": "anonymous"
+              }
+            ]
+          },
+          {
+            "keyword": "unease",
+            "count": 0,
+            "sample": []
+          },
+          {
+            "keyword": "nervous",
+            "count": 97,
+            "sample": [
+              {
+                "title": "Mécanisme de la physionomie humaine ou analyse électro-physiologique de l'expression des passions (Atlas)",
+                "artist": "Guillaume Benjamin Amand Duchenne"
+              },
+              {
+                "title": "Portret van een proefpersoon tijdens elektrostimulatie: 'un vieillard'",
+                "artist": "Guillaume Benjamin Amand Duchenne"
+              },
+              {
+                "title": "Portret van een proefpersoon: 'un vieillard'",
+                "artist": "Guillaume Benjamin Amand Duchenne"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 247,
+        "keywords": [
+          {
+            "keyword": "angst",
+            "count": 87,
+            "sample": [
+              {
+                "title": "Angst",
+                "artist": "Odilon Redon"
+              },
+              {
+                "title": "Angst",
+                "artist": "Jean Audran"
+              },
+              {
+                "title": "Angst",
+                "artist": "Aat Verhoog"
+              }
+            ]
+          },
+          {
+            "keyword": "onrust",
+            "count": 110,
+            "sample": [
+              {
+                "title": "Gezicht op Onrust",
+                "artist": "Jacob van der Schley"
+              },
+              {
+                "title": "Onrust in de Nederlanden",
+                "artist": "Johannes Michiel Lageman"
+              },
+              {
+                "title": "Een onrustige droom",
+                "artist": "Albert Quantin"
+              }
+            ]
+          },
+          {
+            "keyword": "bezorgdheid",
+            "count": 50,
+            "sample": [
+              {
+                "title": "Het zieke kind",
+                "artist": "Gabriël Metsu"
+              },
+              {
+                "title": "De Slag bij Waterloo",
+                "artist": "Jan Willem Pieneman"
+              },
+              {
+                "title": "Bezorgde vrouw in een landschap",
+                "artist": "Pierre Alexandre Aveline"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 142,
+        "difference_percent": "135.2",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "fear",
+      "emotion_cn": "恐惧",
+      "emotion_en": "Fear",
+      "emotion_nl": "Vrees",
+      "phase": 1,
+      "english": {
+        "total": 89,
+        "keywords": [
+          {
+            "keyword": "fear",
+            "count": 66,
+            "sample": [
+              {
+                "title": "Echtpaar in bed met paraplu",
+                "artist": "Roddo Y. Young"
+              },
+              {
+                "title": "Ex libris van Marjorie P. Edwards",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Gezicht op een menigte mensen met kikkerhoofden voor het Stadhuis op de Dam",
+                "artist": "anonymous"
+              }
+            ]
+          },
+          {
+            "keyword": "fright",
+            "count": 20,
+            "sample": [
+              {
+                "title": "Lodewijk XVIII en Lodewijk Anton van Bourbon schrikken van drie visioenen",
+                "artist": "George Cruikshank"
+              },
+              {
+                "title": "Twee mannen met een geschrokken gelaatsuitdrukking",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Consternatie om de gewonde Belton",
+                "artist": "Noach van der Meer (II)"
+              }
+            ]
+          },
+          {
+            "keyword": "scared",
+            "count": 3,
+            "sample": [
+              {
+                "title": "Scaring out the witch",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Saint Christopher at the cross",
+                "artist": "Frederick Hollyer"
+              },
+              {
+                "title": "Gezicht op het eiland en de manege in Neurenberg",
+                "artist": "Johann Adam Delsenbach"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 346,
+        "keywords": [
+          {
+            "keyword": "vrees",
+            "count": 65,
+            "sample": [
+              {
+                "title": "Vrees",
+                "artist": "Pieter van den Berge"
+              },
+              {
+                "title": "Vrees",
+                "artist": "Philips Galle"
+              },
+              {
+                "title": "Vrees",
+                "artist": "Enea Vico"
+              }
+            ]
+          },
+          {
+            "keyword": "angst",
+            "count": 87,
+            "sample": [
+              {
+                "title": "Angst",
+                "artist": "Odilon Redon"
+              },
+              {
+                "title": "Angst",
+                "artist": "Jean Audran"
+              },
+              {
+                "title": "Angst",
+                "artist": "Aat Verhoog"
+              }
+            ]
+          },
+          {
+            "keyword": "schrik",
+            "count": 194,
+            "sample": [
+              {
+                "title": "Vierkante man",
+                "artist": "Karel Appel"
+              },
+              {
+                "title": "De Schrik Te Pakken Hebben",
+                "artist": "Karel Wetselaar"
+              },
+              {
+                "title": "Twee mannen schrikken van een spook",
+                "artist": "anoniem"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 257,
+        "difference_percent": "288.8",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "anger",
+      "emotion_cn": "愤怒",
+      "emotion_en": "Anger",
+      "emotion_nl": "Woede",
+      "phase": 1,
+      "english": {
+        "total": 699,
+        "keywords": [
+          {
+            "keyword": "anger",
+            "count": 428,
+            "sample": [
+              {
+                "title": "Inzegening van het huwelijk van koningin Wilhelmina en prins Hendrik, 1901",
+                "artist": "L. Angerer"
+              },
+              {
+                "title": "Fotoreproductie van een tekening van een interieur met stervende mensen en kinderen met honger",
+                "artist": "Ludwig Angerer"
+              },
+              {
+                "title": "Fotoreproductie van een tekening van een soldaat die vanaf zijn paard afscheid neemt van een vrouw met een kind in haar armen",
+                "artist": "Ludwig Angerer"
+              }
+            ]
+          },
+          {
+            "keyword": "rage",
+            "count": 161,
+            "sample": [
+              {
+                "title": "Children of the Sea",
+                "artist": "Jozef Israëls"
+              },
+              {
+                "title": "Flower pyramid",
+                "artist": "De Metaale Pot"
+              },
+              {
+                "title": "Flower pyramid",
+                "artist": "De Metaale Pot"
+              }
+            ]
+          },
+          {
+            "keyword": "fury",
+            "count": 110,
+            "sample": [
+              {
+                "title": "Franse Furie te Antwerpen, 1583",
+                "artist": "anonymous"
+              },
+              {
+                "title": "De Franse Furie te Antwerpen, 1583",
+                "artist": "Jan Frederik Christiaan Reckleben"
+              },
+              {
+                "title": "Franse Furie te Antwerpen, 1583",
+                "artist": "Jan Frederik Christiaan Reckleben"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 371,
+        "keywords": [
+          {
+            "keyword": "woede",
+            "count": 245,
+            "sample": [
+              {
+                "title": "Landschap met vier bomen",
+                "artist": "Monogrammist WO"
+              },
+              {
+                "title": "De Slag bij Waterloo",
+                "artist": "Jan Willem Pieneman"
+              },
+              {
+                "title": "De Nachtwacht",
+                "artist": "Rembrandt van Rijn"
+              }
+            ]
+          },
+          {
+            "keyword": "toorn",
+            "count": 95,
+            "sample": [
+              {
+                "title": "Zelfportret van Dirk van der Toorn",
+                "artist": "Dirk van der Toorn"
+              },
+              {
+                "title": "Toorn",
+                "artist": "Pieter Jalhea Furnius"
+              },
+              {
+                "title": "Toorn",
+                "artist": "Pieter van der Heyden"
+              }
+            ]
+          },
+          {
+            "keyword": "boosheid",
+            "count": 31,
+            "sample": [
+              {
+                "title": "Boosheid",
+                "artist": "anoniem"
+              },
+              {
+                "title": "Vier portretten van een man met gezichtsuitdrukkingen van vastberadenheid, verontwaardiging, ingehouden boosheid en uitbarstende woede",
+                "artist": "Nicola Tonger"
+              },
+              {
+                "title": "Vier portretten van een man met gezichtsuitdrukkingen van vastberadenheid, verontwaardiging, ingehouden boosheid en uitbarstende woede",
+                "artist": "Nicola Tonger"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": -328,
+        "difference_percent": "-46.9",
+        "winner": "english"
+      }
+    },
+    {
+      "emotion_id": "contemplation",
+      "emotion_cn": "沉思",
+      "emotion_en": "Contemplation",
+      "emotion_nl": "Overpeinzing",
+      "phase": 1,
+      "english": {
+        "total": 793,
+        "keywords": [
+          {
+            "keyword": "contemplation",
+            "count": 196,
+            "sample": [
+              {
+                "title": "Contemplerende Maagd Maria",
+                "artist": "Edouard Girardet"
+              },
+              {
+                "title": "Mediterende filosoof",
+                "artist": "Giuseppe Longhi"
+              },
+              {
+                "title": "Overpeinzende filosoof",
+                "artist": "Louis Surugue"
+              }
+            ]
+          },
+          {
+            "keyword": "meditation",
+            "count": 244,
+            "sample": [
+              {
+                "title": "Méditation / Meditation",
+                "artist": "Achille Devéria"
+              },
+              {
+                "title": "'Meditation'",
+                "artist": "Jozef Israëls"
+              },
+              {
+                "title": "Democritus mediterend",
+                "artist": "Jonas Umbach"
+              }
+            ]
+          },
+          {
+            "keyword": "reflection",
+            "count": 353,
+            "sample": [
+              {
+                "title": "Guanyin",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Still Life with a Gilt Cup",
+                "artist": "Willem Claesz Heda"
+              },
+              {
+                "title": "Fishing for Souls",
+                "artist": "Adriaen Pietersz van de Venne"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 44,
+        "keywords": [
+          {
+            "keyword": "overpeinzing",
+            "count": 28,
+            "sample": [
+              {
+                "title": "'Overpeinzing'",
+                "artist": "Jozef Israëls"
+              },
+              {
+                "title": "Eenzame overpeinzingen",
+                "artist": "Robert Brichet"
+              },
+              {
+                "title": "Overpeinzende man",
+                "artist": "Daniel Nikolaus Chodowiecki"
+              }
+            ]
+          },
+          {
+            "keyword": "contemplatie",
+            "count": 10,
+            "sample": [
+              {
+                "title": "Contemplatie",
+                "artist": "Frans Stamkart"
+              },
+              {
+                "title": "H. Catharina in contemplatie",
+                "artist": "Matthys van den Bergh"
+              },
+              {
+                "title": "Fotoreproductie van het schilderij Contemplatie door Guido Reni, in de collectie van de Galleria Corsini te Rome",
+                "artist": "anoniem"
+              }
+            ]
+          },
+          {
+            "keyword": "bezinning",
+            "count": 6,
+            "sample": [
+              {
+                "title": "Omslag voor het jaarverslag 1912 van de 'Afdeeling voortgezet & hooger bouwkunst-onderricht' van het Genootschap Architectura et Amicitia",
+                "artist": "Walter van Diedenhoven"
+              },
+              {
+                "title": "Omslag voor het prospectus van de 'Afdeeling voortgezet & hooger bouwkunst-onderricht' van het Genootschap Architectura et Amicitia",
+                "artist": "Walter van Diedenhoven"
+              },
+              {
+                "title": "Omslag voor het jaarverslag 1912 van de 'Afdeeling voortgezet & hooger bouwkunst-onderricht' van het Genootschap Architectura et Amicitia",
+                "artist": "Walter van Diedenhoven"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": -749,
+        "difference_percent": "-94.5",
+        "winner": "english"
+      }
+    },
+    {
+      "emotion_id": "mystery",
+      "emotion_cn": "神秘",
+      "emotion_en": "Mystery",
+      "emotion_nl": "Mysterie",
+      "phase": 1,
+      "english": {
+        "total": 175,
+        "keywords": [
+          {
+            "keyword": "mystery",
+            "count": 82,
+            "sample": [
+              {
+                "title": "Vijftien mysteries van de rozenkrans",
+                "artist": "Adriaen Collaert"
+              },
+              {
+                "title": "WATER: Het mysterie der dingen...",
+                "artist": "Hans Landsaat"
+              },
+              {
+                "title": "Vijf droevige mysteries",
+                "artist": "Antonie Wierix (II)"
+              }
+            ]
+          },
+          {
+            "keyword": "enigma",
+            "count": 11,
+            "sample": [
+              {
+                "title": "Enigma",
+                "artist": "Odilon Redon"
+              },
+              {
+                "title": "Raadselspel, ca. 1765",
+                "artist": "Willem Breebaart"
+              },
+              {
+                "title": "Raadselspel, ca. 1765",
+                "artist": "Willem Breebaart"
+              }
+            ]
+          },
+          {
+            "keyword": "mysterious",
+            "count": 82,
+            "sample": [
+              {
+                "title": "Vijftien mysteries van de rozenkrans",
+                "artist": "Adriaen Collaert"
+              },
+              {
+                "title": "WATER: Het mysterie der dingen...",
+                "artist": "Hans Landsaat"
+              },
+              {
+                "title": "Vijf droevige mysteries",
+                "artist": "Antonie Wierix (II)"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 350,
+        "keywords": [
+          {
+            "keyword": "mysterie",
+            "count": 74,
+            "sample": [
+              {
+                "title": "Vijftien mysteries van de rozenkrans",
+                "artist": "Adriaen Collaert"
+              },
+              {
+                "title": "Vijf blijde mysteries",
+                "artist": "Antonie Wierix (II)"
+              },
+              {
+                "title": "Vijf droevige mysteries",
+                "artist": "Antonie Wierix (II)"
+              }
+            ]
+          },
+          {
+            "keyword": "geheim",
+            "count": 234,
+            "sample": [
+              {
+                "title": "Zilverkast",
+                "artist": "Jan Adolf Hillebrand"
+              },
+              {
+                "title": "Preussischer Schreib-Kalender für Damen",
+                "artist": "Königliche Geheime Ober-Hofbuchdruckerei"
+              },
+              {
+                "title": "Vertellen van een geheim",
+                "artist": "Noach van der Meer (II)"
+              }
+            ]
+          },
+          {
+            "keyword": "raadsel",
+            "count": 42,
+            "sample": [
+              {
+                "title": "Adolf en Catharina Croeser, bekend als ‘De burgemeester van Delft en zijn dochter’",
+                "artist": "Jan Havicksz. Steen"
+              },
+              {
+                "title": "Raadsels",
+                "artist": "Marcel Vagné & Zonen"
+              },
+              {
+                "title": "Gekalligrafeerd raadsel",
+                "artist": "Jan Brandes"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 175,
+        "difference_percent": "100.0",
+        "winner": "dutch"
+      }
+    },
+    {
+      "emotion_id": "desire",
+      "emotion_cn": "欲望",
+      "emotion_en": "Desire",
+      "emotion_nl": "Verlangen",
+      "phase": 1,
+      "english": {
+        "total": 2587,
+        "keywords": [
+          {
+            "keyword": "desire",
+            "count": 1145,
+            "sample": [
+              {
+                "title": "Dessin authentique du retable en argent doré que l'abbé Wibald fit faire pour l'abbaye de Stavelot (1130-1158) / notice acc. d'un fac-simile par Désiré van de Casteele",
+                "artist": "Désiré van de Casteele"
+              },
+              {
+                "title": "Desire",
+                "artist": "Ger Ladage"
+              },
+              {
+                "title": "Sculptuur 'Jason' door Alfred-Désiré Lanson",
+                "artist": "Goupil & Cie."
+              }
+            ]
+          },
+          {
+            "keyword": "longing",
+            "count": 1441,
+            "sample": [
+              {
+                "title": "Portrait of Jacob Cornelisz van Oostsanen",
+                "artist": "Jacob Cornelisz van Oostsanen"
+              },
+              {
+                "title": "Italian Landscape with a Draughtsman",
+                "artist": "Jan Both"
+              },
+              {
+                "title": "Italian Landscape with Umbrella Pines",
+                "artist": "Hendrik Voogd"
+              }
+            ]
+          },
+          {
+            "keyword": "craving",
+            "count": 1,
+            "sample": [
+              {
+                "title": "Portrait of the Singer Yvette Guilbert on Stage",
+                "artist": "Henri de Toulouse-Lautrec"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 820,
+        "keywords": [
+          {
+            "keyword": "verlangen",
+            "count": 285,
+            "sample": [
+              {
+                "title": "Verlangen",
+                "artist": "Jean Audran"
+              },
+              {
+                "title": "Verlangen",
+                "artist": "Alexandre Jean Noël"
+              },
+              {
+                "title": "Verlangen",
+                "artist": "Barthélémy Joseph Fulcran Roger"
+              }
+            ]
+          },
+          {
+            "keyword": "begeerte",
+            "count": 60,
+            "sample": [
+              {
+                "title": "Begeerte",
+                "artist": "Raphaël Sadeler (I)"
+              },
+              {
+                "title": "Proces volgt Blinde Begeerte",
+                "artist": "Hendrick Goltzius"
+              },
+              {
+                "title": "Proces volgt Blinde Begeerte",
+                "artist": "Hendrick Goltzius"
+              }
+            ]
+          },
+          {
+            "keyword": "lust",
+            "count": 475,
+            "sample": [
+              {
+                "title": "De buitenpartij",
+                "artist": "Dirck Hals"
+              },
+              {
+                "title": "Lust",
+                "artist": "Heinrich Aldegrever"
+              },
+              {
+                "title": "Lust",
+                "artist": "Heinrich Aldegrever"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": -1767,
+        "difference_percent": "-68.3",
+        "winner": "english"
+      }
+    },
+    {
+      "emotion_id": "curiosity",
+      "emotion_cn": "好奇",
+      "emotion_en": "Curiosity",
+      "emotion_nl": "Nieuwsgierigheid",
+      "phase": 1,
+      "english": {
+        "total": 324,
+        "keywords": [
+          {
+            "keyword": "curiosity",
+            "count": 109,
+            "sample": [
+              {
+                "title": "Hidden Curiosity",
+                "artist": "Erwin Olaf"
+              },
+              {
+                "title": "Old Curiosity Shop, London",
+                "artist": "anonymous"
+              },
+              {
+                "title": "London.-The Old Curiosity Shop",
+                "artist": "anonymous"
+              }
+            ]
+          },
+          {
+            "keyword": "inquisitive",
+            "count": 81,
+            "sample": [
+              {
+                "title": "Nieuwsgierig meisje",
+                "artist": "Imagerie d'Epinal - Pellerin"
+              },
+              {
+                "title": "Zwarte Beertjes (Little Black Bears) Series",
+                "artist": "Dick Bruna"
+              },
+              {
+                "title": "Zwarte Beertjes (Little Black Bears) Series",
+                "artist": "Dick Bruna"
+              }
+            ]
+          },
+          {
+            "keyword": "interest",
+            "count": 134,
+            "sample": [
+              {
+                "title": "Portrait of William I, Prince of Orange",
+                "artist": "Adriaen Thomasz. Key"
+              },
+              {
+                "title": "Chest with nine porcelain bottles",
+                "artist": "anonymous"
+              },
+              {
+                "title": "Flower pyramid",
+                "artist": "De Metaale Pot"
+              }
+            ]
+          }
+        ]
+      },
+      "dutch": {
+        "total": 566,
+        "keywords": [
+          {
+            "keyword": "nieuwsgierigheid",
+            "count": 132,
+            "sample": [
+              {
+                "title": "Nieuwsgierigheid",
+                "artist": "Noël Le Mire"
+              },
+              {
+                "title": "De Nieuwsgierigheid",
+                "artist": "Giuseppe Maria Mitelli"
+              },
+              {
+                "title": "Nieuwsgierig meisje",
+                "artist": "Imagerie d'Epinal - Pellerin"
+              }
+            ]
+          },
+          {
+            "keyword": "onderzoek",
+            "count": 385,
+            "sample": [
+              {
+                "title": "Portret van Jacob Cornelisz van Oostsanen",
+                "artist": "Jacob Cornelisz. van Oostsanen"
+              },
+              {
+                "title": "De Nachtwacht",
+                "artist": "Rembrandt van Rijn"
+              },
+              {
+                "title": "Onderzoek",
+                "artist": "Hans Landsaat"
+              }
+            ]
+          },
+          {
+            "keyword": "verkenning",
+            "count": 49,
+            "sample": [
+              {
+                "title": "Op verkenning",
+                "artist": "Monogrammist G.J."
+              },
+              {
+                "title": "Een verkenning in de sneeuw",
+                "artist": "Petrus Johannes Arendzen"
+              },
+              {
+                "title": "De ruiters op verkenning",
+                "artist": "Christiaan Wilhelmus Moorrees"
+              }
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "difference": 242,
+        "difference_percent": "74.7",
+        "winner": "dutch"
+      }
+    }
+  ],
+  "test_date": "2025-10-20T08:22:38.524Z"
+}

@@ -1,0 +1,4248 @@
+{
+  "timestamp": "2025-10-24T15:32:20.385Z",
+  "summary": {
+    "totalArtworks": 8824,
+    "qualityDistribution": {
+      "total": 8824,
+      "excellent": 2135,
+      "good": 6669,
+      "basic": 20,
+      "minimal": 0
+    },
+    "averageQualityScore": 0.81,
+    "noDescriptionCount": 255,
+    "noDescriptionPercentage": 2.89
+  },
+  "qualityLevels": {
+    "excellent": {
+      "description": "完整信息",
+      "criteria": [
+        "hasDescription",
+        "hasTags",
+        "hasArtist",
+        "hasMedium",
+        "hasCulture"
+      ],
+      "weight": 1
+    },
+    "good": {
+      "description": "基础信息完整",
+      "criteria": [
+        "hasTitle",
+        "hasArtist",
+        "hasMedium"
+      ],
+      "weight": 0.9
+    },
+    "basic": {
+      "description": "仅基础信息",
+      "criteria": [
+        "hasTitle",
+        "hasArtist"
+      ],
+      "weight": 0.7
+    },
+    "minimal": {
+      "description": "仅标题",
+      "criteria": [
+        "hasTitle"
+      ],
+      "weight": 0.5
+    }
+  },
+  "noDescriptionArtworks": [
+    {
+      "id": "met-14580",
+      "title": "Admiral Dewey",
+      "artist": "P. A. E.",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Admiral Dewey | P. A. E. | Signature: | Men Profiles Admirals | Bronze | American | Gift of the Dewey Reception Committee, 1899",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-5152",
+      "title": "Medallion of the Marquis de Lafayette",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Medallion of the Marquis de Lafayette | Pierre Jean David d'Angers | Men Profiles Marquis de Lafayette | Bronze | Gift of William H. Huntington, 1883",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-4966",
+      "title": "Medallion of the Marquis de Lafayette",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Medallion of the Marquis de Lafayette | Pierre Jean David d'Angers | Men Profiles Marquis de Lafayette | Bronze | Gift of William H. Huntington, 1883",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-230975",
+      "title": "Marie-Jean-Antoine-Nicolas de Caritat, marquis de Condorcet",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Marie-Jean-Antoine-Nicolas de Caritat, marquis de Condorcet | Pierre Jean David d'Angers | Men Profiles | Bronze | Gift of Joseph G. Reinis, 2003",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188430",
+      "title": "Edgar Quinet (1803–1875), French poet and political writer",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Edgar Quinet (1803–1875), French poet and political writer | Pierre Jean David d'Angers | Men Profiles Poets | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188424",
+      "title": "Alphonse Milbert, Advocate",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Alphonse Milbert, Advocate | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188427",
+      "title": "François Marie Granet (1777–1849)",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "François Marie Granet (1777–1849) | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188412",
+      "title": "Louis Boulanger (1806–1867), French historical painter",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Louis Boulanger (1806–1867), French historical painter | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188410",
+      "title": "Theodore Le Breton (1803–1883), French workman-poet",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Theodore Le Breton (1803–1883), French workman-poet | Pierre Jean David d'Angers | Men Profiles Poets | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188444",
+      "title": "George Canning (1770–1827), British conservative statesman",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "George Canning (1770–1827), British conservative statesman | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188469",
+      "title": "Evariste Boulay-Paty (1804–1864), French poet",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Evariste Boulay-Paty (1804–1864), French poet | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188455",
+      "title": "Judith Pasta (1798–1865), Italian singer",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Judith Pasta (1798–1865), Italian singer | Pierre Jean David d'Angers | Profiles Women | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188471",
+      "title": "Armand Carrel (1800–1836), French publicist",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Armand Carrel (1800–1836), French publicist | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188458",
+      "title": "Gioachino Rossini (1792–1868), Italian composer",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Gioachino Rossini (1792–1868), Italian composer | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188433",
+      "title": "Hughes Bernard Maret, Duc de Bassano (1763–1839)",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Hughes Bernard Maret, Duc de Bassano (1763–1839) | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-210294",
+      "title": "Georges Louis DuVernoy (1777–1855), French naturalist",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Georges Louis DuVernoy (1777–1855), French naturalist | Pierre Jean David d'Angers | Men Profiles | Bronze, cast - single | Gift of S.P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188453",
+      "title": "Victor Cousin (1792–1867), French philosopher",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Victor Cousin (1792–1867), French philosopher | Pierre Jean David d'Angers | Men Profiles Philosophers | Bronze, cast - single | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-188448",
+      "title": "Adèle Hugo (née Foucher, wife of Victor Hugo) (d. 1868)",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Adèle Hugo (née Foucher, wife of Victor Hugo) (d. 1868) | Pierre Jean David d'Angers | Profiles Women | Bronze, brown patina, hollow cast | Gift of Samuel P. Avery, 1898",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-231796",
+      "title": "Eugène F.-M.-J. Devéria (1805–1865), painter",
+      "artist": "Pierre Jean David d'Angers",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Eugène F.-M.-J. Devéria (1805–1865), painter | Pierre Jean David d'Angers | Men Profiles | Bronze | Gift of Joseph G. Reinis, 2006",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-68821",
+      "title": "Panel",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Panel | Unknown Artist | Human Figures Landscapes | Silk;  on silk;  lined with silk;  silk tassels | China | Qing dynasty (1644–1911) | Bequest of William Christian Paul, 1929",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-205599",
+      "title": "Storm shade (one of a pair)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Storm shade (one of a pair) | Unknown Artist | Glass | Bequest of Irwin Untermyer, 1973",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-205598",
+      "title": "Storm shade (one of a pair)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Storm shade (one of a pair) | Unknown Artist | Glass | Bequest of Irwin Untermyer, 1973",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-78192",
+      "title": "The Spiritual Master Padmasambhava",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Spiritual Master Padmasambhava | Unknown Artist | Buddhism | Copper alloy with copper and silver inlay | Western Tibet or Ladakh | Zimmerman Family Collection, Purchase, Lila Acheson Wallace, The Vincent Astor Foundation, Eliot C. Nolen, T. Rowe Price Services, Inc. and Sir Joseph Hotung Gifts; Seymour and The Miriam and Ira D. Wallach Foundation Funds, 2012",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-197810",
+      "title": "Length of furnishing fabric",
+      "artist": "Camille Pernon",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Length of furnishing fabric | Camille Pernon | Flowers | Woven silk | Rogers Fund, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-38332",
+      "title": "Seated Avalokiteshvara, the Buddha of Infinite Compassion",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Seated Avalokiteshvara, the Buddha of Infinite Compassion | Unknown Artist | Buddhism Avalokiteshvara | Gilt copper alloy | Tibet or Mongolia | Gift of Florence and Herbert Irving, 2015",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-250567",
+      "title": "Compass or divider, fragment",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Compass or divider, fragment | Unknown Artist | Bronze | Rogers Fund, 1917",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-188834",
+      "title": "Portable compass dial",
+      "artist": "Johann Klocksperger",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Portable compass dial | Johann Klocksperger | Brass, silver-plated | Gift of Mrs. Stephen D. Tucker, 1903",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-191253",
+      "title": "Compass dial",
+      "artist": "Paulo Contarini",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Compass dial | Paulo Contarini | Wood; paper, ink, paint; metal | Gift of Giovanni Danieli, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-187405",
+      "title": "Pair of compasses",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Pair of compasses | Unknown Artist | Steel | Gift of R. Stuyvesant, 1891",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-187403",
+      "title": "Pair of compasses",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Pair of compasses | Unknown Artist | Steel | Gift of R. Stuyvesant, 1891",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-187404",
+      "title": "Pair of compasses",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Pair of compasses | Unknown Artist | Steel | Gift of R. Stuyvesant, 1891",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-187402",
+      "title": "Pair of stone mason's compasses",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Pair of stone mason's compasses | Unknown Artist | Steel | Gift of R. Stuyvesant, 1891",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-5268",
+      "title": "Figure of Mrs. Catherine Macaulay",
+      "artist": "Chelsea Factory",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Figure of Mrs. Catherine Macaulay | Chelsea Factory | Inscription: | Books Portraits Women | Porcelain | British | Fletcher Fund, 1944",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-222221",
+      "title": "\"Dites Merci\"",
+      "artist": "Lecler, Père et Fils",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "\"Dites Merci\" | Lecler, Père et Fils | Human Figures | Cotton | Gift of Carolyn Wicker, 1928",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-197552",
+      "title": "Puzzle jug",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Puzzle jug | Unknown Artist | Salt-glazed stoneware | Gift of Carleton Macy, 1934",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-199570",
+      "title": "Puzzle jug",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Puzzle jug | Unknown Artist | Flowers | Salt-glazed stoneware | Gift of Mrs. Russell S. Carter, 1945",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-199515",
+      "title": "Puzzle jug",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Puzzle jug | Unknown Artist | Tin-glazed earthenware (delftware) | Gift of Mrs. Russell S. Carter, 1945",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-195872",
+      "title": "Puzzle or \"surprise\" goblet",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Puzzle or \"surprise\" goblet | Unknown Artist | Glass | Munsey Fund, 1927",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-334267",
+      "title": "Male figure in classical costume",
+      "artist": "Gustave Doré",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Male figure in classical costume | Gustave Doré | Contemplation Men Women | Graphite | Gift of Katherine Ticknor Heintzelman, 1966",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-356509",
+      "title": "The Thoughtful Captain",
+      "artist": "Johann Gottfried Schadow",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "The Thoughtful Captain | Johann Gottfried Schadow | Soldiers Contemplation Men | Lithograph | Clifford A. Furst Bequest, by exchange, 1992",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-488101",
+      "title": "Negro Standing",
+      "artist": "Hugh Mesibov",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Negro Standing | Hugh Mesibov | Contemplation Men | Pen and ink and graphite on paper | Gift of Pennsylvania W. P. A., 1943",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-37399",
+      "title": "Reliquary with Contents",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Reliquary with Contents | Unknown Artist | Gandhara | Schist | Pakistan (ancient region of Gandhara) | Gift of Mr. and Mrs. Alvin N. Haas, 1987",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-61129",
+      "title": "Harness Trapping",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Harness Trapping | Unknown Artist | Bronze, (with high tin content) | China | Gift of Edward B. Bruce, 1924",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-237213",
+      "title": "Jug with cover",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Jug with cover | Unknown Artist | Glass, pewter | Munsey Fund, 1927",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-47150",
+      "title": "Covered censer In form of Shishi",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Covered censer In form of Shishi | Unknown Artist | Mythical Creatures Censers | White porcelain, boldly chiseled (Hirado ware) | Japan | Edo period (1615–1868) | Gift of Mrs. V. Everit Macy, 1923",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-394689",
+      "title": "Chinese Curiosities",
+      "artist": "John Ingram",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Chinese Curiosities | John Ingram | Boys Women Parrots Flowers Vases | Etching and engraving | Harris Brisbane Dick Fund, 1953",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-485528",
+      "title": "Study for \"The Riot\"",
+      "artist": "Umberto Boccioni",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Study for \"The Riot\" | Umberto Boccioni | Graphite on paper | Bequest of Lydia Winston Malbin, 1989",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-394689",
+      "title": "Chinese Curiosities",
+      "artist": "John Ingram",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Chinese Curiosities | John Ingram | Boys Women Parrots Flowers Vases | Etching and engraving | Harris Brisbane Dick Fund, 1953",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-502065",
+      "title": "Takumbo",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Takumbo | Unknown Artist | Bamboo, fiber | Philippine | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-286379",
+      "title": "[The Artist's Wife and Daughter]",
+      "artist": "Louis-Désiré Blanquart-Évrard",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "[The Artist's Wife and Daughter] | Louis-Désiré Blanquart-Évrard | Portraits Women | Salted paper print from paper negative | Gilman Collection, Museum Purchase, 2005",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-544280",
+      "title": "Long-bladed axe",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture"
+      ],
+      "searchText": "Long-bladed axe | Unknown Artist | Copper, wood | Middle Kingdom–Early New Kingdom | Rogers Fund, 1929",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-7930",
+      "title": "Sugar Barrel",
+      "artist": "Joseph Long Lehn",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Sugar Barrel | Joseph Long Lehn | Oak | American | Gift of Mrs. Robert W. de Forest, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502129",
+      "title": "Nijugo Gen",
+      "artist": "Asano Tōshichi",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Nijugo Gen | Asano Tōshichi | Wood, silk strings | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502572",
+      "title": "Gogenkin",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Gogenkin | Unknown Artist | Wood, silk | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502571",
+      "title": "Yokin",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Yokin | Unknown Artist | Wood, lacquer, metal | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502123",
+      "title": "Yokin",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Yokin | Unknown Artist | wood, metal | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502117",
+      "title": "Ichigen-kin (一絃琴)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Ichigen-kin (一絃琴) | Unknown Artist | Wood, bamboo | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-70218",
+      "title": "Empress's Robe (Long Pao)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Empress's Robe (Long Pao) | Unknown Artist | Dragons | Silk | China | Qing dynasty (1644–1911) | Bequest of Mrs. James W. Gerard, 1956",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-70217",
+      "title": "Empress's Robe (Long Pao)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Empress's Robe (Long Pao) | Unknown Artist | Dragons | Silk | China | Qing dynasty (1644–1911) | Bequest of Mrs. James W. Gerard, 1956",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-500535",
+      "title": "Shichigenkin ( 七弦琴)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Shichigenkin ( 七弦琴) | Unknown Artist | Wood, silk string, rope, mother-of-pearl | Japanese | Museum Accession",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502621",
+      "title": "Ichigen-kin (一絃琴)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Ichigen-kin (一絃琴) | Unknown Artist | wood, whale bone, silk | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-500670",
+      "title": "Han Goto",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Han Goto | Unknown Artist | Wood, silk, ivory, metal | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502118",
+      "title": "Sangenkin ( 三弦琴 )",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Sangenkin ( 三弦琴 ) | Unknown Artist | Wood, bamboo, ivory, silk strings | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-196409",
+      "title": "Descent from the Cross",
+      "artist": "Jean Goujon",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Descent from the Cross | Jean Goujon | Christ Mary Magdalene Saint John the Evangelist Virgin Mary Cross Descent from the Cross Ladders | Alabaster with traces of gilding | Fletcher Fund, 1929",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-469915",
+      "title": "Roundel with Agony in the Garden",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Roundel with Agony in the Garden | Unknown Artist | Sleeping Men Christ Agony in the Garden | Colorless glass, vitreous paint and silver stain | Netherlandish | The Cloisters Collection, 1988",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-466485",
+      "title": "Glass Fragment",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Glass Fragment | Unknown Artist | Colorless glass | French | Gift of Dr. Bashford Dean, 1923",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-775447",
+      "title": "Canivet or Devotional with Sacred Heart",
+      "artist": "Anonymous, Flemish, 18th century",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Canivet or Devotional with Sacred Heart | Anonymous, Flemish, 18th century | Vellum, rose-colored paper, watercolor | Gift of Mrs. Richard Riddell, 1981",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-198681",
+      "title": "Faith",
+      "artist": "Ralph Wood the Elder",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Faith | Ralph Wood the Elder | Women Cross | Lead-glazed earthenware | Gift of Mrs. Francis P. Garvan, 1940",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-106947",
+      "title": "Cape",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Cape | Unknown Artist | silk | American | Gift of Yale School of Drama, 1983",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-55420",
+      "title": "Scene from a Drama",
+      "artist": "Utagawa Toyokuni I",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Scene from a Drama | Utagawa Toyokuni I | Men Women Actors | Woodblock print; ink and color on paper | Japan | Edo period (1615–1868) | Rogers Fund, 1922",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-55421",
+      "title": "Scene from a Drama",
+      "artist": "Utagawa Toyokuni I",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Scene from a Drama | Utagawa Toyokuni I | Men Women | Woodblock print; ink and color on paper | Japan | Edo period (1615–1868) | Rogers Fund, 1922",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-36704",
+      "title": "Scene From the Drama \"Hatsu-tori Kuruma Genji\"",
+      "artist": "Torii Kiyomasu I",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Scene From the Drama \"Hatsu-tori Kuruma Genji\" | Torii Kiyomasu I | Human Figures Flowers Actors | Woodblock print; ink and color on paper | Japan | Edo period (1615–1868) | Rogers Fund, 1918",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-1037",
+      "title": "Bull's Eye Windowpane",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Bull's Eye Windowpane | Unknown Artist | Free-blown green glass | American | Rogers Fund, 1910",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-464684",
+      "title": "Head of a Crozier with Saint Michael Slaying the Dragon",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Head of a Crozier with Saint Michael Slaying the Dragon | Unknown Artist | Dragons | Champlevé enamel, copper-gilt, glass paste | French | Gift of J. Pierpont Morgan, 1917",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-477330",
+      "title": "Pot",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Pot | Unknown Artist | Earthenware, slip decoration, glazed interior | Roman | Rogers Fund, 1925",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-246450",
+      "title": "Bone counter or gaming piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Bone counter or gaming piece | Unknown Artist | Games | Ivory or bone | Roman or later | Late Antique or Byzantine | Purchase, 1896",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-246452",
+      "title": "Bone disk or button",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Bone disk or button | Unknown Artist | Ivory or bone | Roman | Purchase, 1896",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-251120",
+      "title": "Bronze shallow bowl",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Bronze shallow bowl | Unknown Artist | Bronze | Etruscan or Roman | Hellenistic or Imperial | Rogers Fund, 1921",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-251998",
+      "title": "Steatite scaraboid seal",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Steatite scaraboid seal | Unknown Artist | Steatite | Minoan | Middle Minoan II | Bequest of Richard B. Seager, 1926",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-251999",
+      "title": "Steatite seal in the form of a double-axe",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Steatite seal in the form of a double-axe | Unknown Artist | Steatite | Minoan | Middle Minoan I-II | Bequest of Richard B. Seager, 1926",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-243888",
+      "title": "Chlorite necklace with 36 biconical beads",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Chlorite necklace with 36 biconical beads | Unknown Artist | Chlorite | Cypriot | Late Bronze or Early Iron Age | The Cesnola Collection, Purchased by subscription, 1874–76",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-244536",
+      "title": "Button with concentric bands",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Button with concentric bands | Unknown Artist | Bronze | The Cesnola Collection, Purchased by subscription, 1874–76",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-244572",
+      "title": "Plate with concentric circles incised",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Plate with concentric circles incised | Unknown Artist | Bronze | The Cesnola Collection, Purchased by subscription, 1874–76",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-251457",
+      "title": "Terracotta dish",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Terracotta dish | Unknown Artist | Terracotta | Roman | Purchase, 1924",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-251748",
+      "title": "Bone plaque with a hole at one end",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Bone plaque with a hole at one end | Unknown Artist | Ivory | Greek, Laconian | Archaic | Gift of A. J. B. Wace, 1924",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-243883",
+      "title": "Chlorite spindle whorl",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Chlorite spindle whorl | Unknown Artist | Chlorite | Cypriot | Late Cypriot III | The Cesnola Collection, Purchased by subscription, 1874–76",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-239962",
+      "title": "Juglet",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Juglet | Unknown Artist | Terracotta | Cypriot | Cypro-Archaic I | The Cesnola Collection, Purchased by subscription, 1874–76",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-468710",
+      "title": "Belt Buckle with Struggling Animals",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Belt Buckle with Struggling Animals | Unknown Artist | Animals | Copper alloy, with gilding | Visigothic | Gift of Mr. and Mrs. John Klejman, 1966",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14575",
+      "title": "The Union League of Philadelphia to General George L. Meade",
+      "artist": "Anthony Paquet",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Union League of Philadelphia to General George L. Meade | Anthony Paquet | Signature: | Men Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-231172",
+      "title": "The Mourning Virgin (from a Calvary group)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Mourning Virgin (from a Calvary group) | Unknown Artist | Christ Virgin Mary Crucifixion | Wood, polychromed and gilded; glass; silver | Ecuadoran | Gift of Loretta Hines Howard, 1964",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-117535",
+      "title": "Mourning veil",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning veil | Unknown Artist | silk | American | Gift of Roi White, 1984",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-123100",
+      "title": "Mourning shawl",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning shawl | Unknown Artist | silk, wool | British | Gift of Madeline H. Farnsworth, 1980",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-80526",
+      "title": "Mourning dress",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning dress | Unknown Artist | silk | American | Gift of Richard Martin, 1994",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-113353",
+      "title": "Mourning bonnet",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning bonnet | Unknown Artist | silk | American | Gift of Mrs. H. C. Adler, 1947",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-117560",
+      "title": "Mourning veil",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning veil | Unknown Artist | silk | American | Gift of Mr. Alfred M. F. Kiddle, 1940",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-120415",
+      "title": "Mourning fan",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning fan | Unknown Artist | leather, cotton | probably American | Gift of Barbara K. Morrill (Mrs. James P.), 1976",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-139875",
+      "title": "Mourning dress",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning dress | Unknown Artist | silk | American | Purchase, Judith and Ira Sommer Gift, 2008",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-107007",
+      "title": "Mourning dress",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning dress | Unknown Artist | silk, jet | American | Gift of The New York Historical Society, 1979",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-114145",
+      "title": "Mourning hat",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning hat | Unknown Artist | silk, cotton | American | Gift of Mrs. Phillip H. Gray, 1950",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-94547",
+      "title": "Mourning jewelry",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning jewelry | Unknown Artist | gold, glass, hair | American | Gift of Miriam W. Coletti, 1993",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-103986",
+      "title": "Mourning coat",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning coat | Unknown Artist | [no medium available] | American | Gift of Mrs. Edgar V. Anderson, 1944",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-104525",
+      "title": "Mourning ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning ring | Unknown Artist | metal, imitation leather | British | Gift of Miss Mary Turlay Robinson, 1946",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-5259",
+      "title": "Mourning Ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Ring | Unknown Artist | George Washington Men Portraits | Gold, enamel | Gift of William H. Huntington, 1883",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-472319",
+      "title": "Mourning Woman",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Mourning Woman | Unknown Artist | Sadness Women | stone, traces of paint | French | The Cloisters Collection, 1925",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-196883",
+      "title": "Mourning Madonna",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Madonna | Unknown Artist | Madonna | Stone | Gift of Mrs. Robert W. de Forest, 1931",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-5261",
+      "title": "Mourning Ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Ring | Unknown Artist | Gold, jet, glass, hair | Gift of Mrs. Morgan Grinnell, 1932",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-5262",
+      "title": "Mourning Ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Ring | Unknown Artist | Gold, jet, glass, hair | Gift of Mrs. Morgan Grinnell, 1932",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-366536",
+      "title": "Hope",
+      "artist": "Master F. P.",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "culture",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Hope | Master F. P. | Female Nudes Pegasus | Etching | Harris Brisbane Dick Fund, 1927",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-15245",
+      "title": "Hope",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Hope | Unknown Artist | Women Ships | Watercolor on ivory | American | Gift of Gloria Manney, 2006",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-12909",
+      "title": "Hope",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Hope | Unknown Artist | Women | Watercolor on ivory in a gold and pearl ring | American | Gift of Mrs. Morgan Grinnell, 1932",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-380392",
+      "title": "Hope",
+      "artist": "Hans Ulrich Jegli",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Hope | Hans Ulrich Jegli | Female Nudes | Pen and brown ink, brush and brownish gray wash | Purchase, Jean A. Bonna Gift, 2007",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-366536",
+      "title": "Hope",
+      "artist": "Master F. P.",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "culture",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Hope | Master F. P. | Female Nudes Pegasus | Etching | Harris Brisbane Dick Fund, 1927",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-15245",
+      "title": "Hope",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Hope | Unknown Artist | Women Ships | Watercolor on ivory | American | Gift of Gloria Manney, 2006",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-12909",
+      "title": "Hope",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Hope | Unknown Artist | Women | Watercolor on ivory in a gold and pearl ring | American | Gift of Mrs. Morgan Grinnell, 1932",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-380392",
+      "title": "Hope",
+      "artist": "Hans Ulrich Jegli",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Hope | Hans Ulrich Jegli | Female Nudes | Pen and brown ink, brush and brownish gray wash | Purchase, Jean A. Bonna Gift, 2007",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-472246",
+      "title": "Double Capital",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Double Capital | Unknown Artist | Marble | French | The Cloisters Collection, 1925",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-339664",
+      "title": "A Muse of Poetry",
+      "artist": "Pierre Puvis de Chavannes",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "A Muse of Poetry | Pierre Puvis de Chavannes | Poetry Muses | Graphite and chalk on paper | Fletcher Fund, 1935",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-7703",
+      "title": "Soup Tureen",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Soup Tureen | Unknown Artist | Battles Horses | Silver | Chinese, for American market | Purchase, Robert G. Goelet Gift, 1967",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-915529",
+      "title": "Peace Restored by the Genius of Happiness",
+      "artist": "George Wilson",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Peace Restored by the Genius of Happiness | George Wilson | Stipple engraving | Harris Brisbane Dick Fund, 1938",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-3209",
+      "title": "Dish",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Dish | Unknown Artist | Musical Instruments Men Musicians | Tin-glazed earthenware | Mexican | Gift of Mrs. Robert W. de Forest, 1911",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-3208",
+      "title": "Dish",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Dish | Unknown Artist | Men Drums | Tin-glazed earthenware | Mexican | Gift of Mrs. Robert W. de Forest, 1911",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-1019",
+      "title": "Bride Box",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Bride Box | Unknown Artist | Women Trees | Cedar | American | Gift of Mrs. Robert W. de Forest, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-544280",
+      "title": "Long-bladed axe",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture"
+      ],
+      "searchText": "Long-bladed axe | Unknown Artist | Copper, wood | Middle Kingdom–Early New Kingdom | Rogers Fund, 1929",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-7930",
+      "title": "Sugar Barrel",
+      "artist": "Joseph Long Lehn",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Sugar Barrel | Joseph Long Lehn | Oak | American | Gift of Mrs. Robert W. de Forest, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502129",
+      "title": "Nijugo Gen",
+      "artist": "Asano Tōshichi",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Nijugo Gen | Asano Tōshichi | Wood, silk strings | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502572",
+      "title": "Gogenkin",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Gogenkin | Unknown Artist | Wood, silk | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502571",
+      "title": "Yokin",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Yokin | Unknown Artist | Wood, lacquer, metal | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502123",
+      "title": "Yokin",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Yokin | Unknown Artist | wood, metal | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502117",
+      "title": "Ichigen-kin (一絃琴)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Ichigen-kin (一絃琴) | Unknown Artist | Wood, bamboo | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-70218",
+      "title": "Empress's Robe (Long Pao)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Empress's Robe (Long Pao) | Unknown Artist | Dragons | Silk | China | Qing dynasty (1644–1911) | Bequest of Mrs. James W. Gerard, 1956",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-70217",
+      "title": "Empress's Robe (Long Pao)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Empress's Robe (Long Pao) | Unknown Artist | Dragons | Silk | China | Qing dynasty (1644–1911) | Bequest of Mrs. James W. Gerard, 1956",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-500535",
+      "title": "Shichigenkin ( 七弦琴)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Shichigenkin ( 七弦琴) | Unknown Artist | Wood, silk string, rope, mother-of-pearl | Japanese | Museum Accession",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502621",
+      "title": "Ichigen-kin (一絃琴)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Ichigen-kin (一絃琴) | Unknown Artist | wood, whale bone, silk | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-500670",
+      "title": "Han Goto",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Han Goto | Unknown Artist | Wood, silk, ivory, metal | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-502118",
+      "title": "Sangenkin ( 三弦琴 )",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Sangenkin ( 三弦琴 ) | Unknown Artist | Wood, bamboo, ivory, silk strings | Japanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-560",
+      "title": "Bookcase",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Bookcase | Unknown Artist | Oak, pine | American | Sansbury-Mills Fund, 1977",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-3788",
+      "title": "Footstool",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Footstool | Unknown Artist | Pine | American | Gift of Mrs. Robert W. de Forest, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-2053",
+      "title": "Steps",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Steps | Unknown Artist | Pine | American | Gift of Mrs. Russell Sage, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-2052",
+      "title": "Steps",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Steps | Unknown Artist | Pine | American | Gift of Mrs. Russell Sage, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-546268",
+      "title": "Ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture"
+      ],
+      "searchText": "Ring | Unknown Artist | Blue faience | Third Intermediate Period | Rogers Fund, 1944",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-188829",
+      "title": "Death mask of Napoleon I",
+      "artist": "Francesco Antommarchi",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Death mask of Napoleon I | Francesco Antommarchi | Masks Napoleon I | Bronze | Gift of Mrs. Robert W. de Forest, 1903",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-62515",
+      "title": "Rubbing of a Scene from the Ramayana",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Rubbing of a Scene from the Ramayana | Unknown Artist | Bow and Arrow | Ink on paper | Cambodia | Gift of Mr. Jean Laur, Curator of Angkor, 1959",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-468660",
+      "title": "Mystic Chase of the Unicorn",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Mystic Chase of the Unicorn | Unknown Artist | Unicorns Angels Virgin Mary | Brass | German | Gift of Irwin Untermyer, 1964",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-248218",
+      "title": "Agate intaglio: Uterine symbol",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Agate intaglio: Uterine symbol | Unknown Artist | Agate | Roman | Imperial | Gift of Miss Helen Miller Gould, 1910",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-78192",
+      "title": "The Spiritual Master Padmasambhava",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Spiritual Master Padmasambhava | Unknown Artist | Buddhism | Copper alloy with copper and silver inlay | Western Tibet or Ladakh | Zimmerman Family Collection, Purchase, Lila Acheson Wallace, The Vincent Astor Foundation, Eliot C. Nolen, T. Rowe Price Services, Inc. and Sir Joseph Hotung Gifts; Seymour and The Miriam and Ira D. Wallach Foundation Funds, 2012",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-198044",
+      "title": "The Hon. Lieutenant-General Alexander Leslie (1731–1794)",
+      "artist": "James Tassie",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "The Hon. Lieutenant-General Alexander Leslie (1731–1794) | James Tassie | Men Profiles Generals | Glass paste | Gift of Mrs. J. Insley Blair, 1938",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-692531",
+      "title": "[29 Glass Stereographs]",
+      "artist": "Various",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "[29 Glass Stereographs] | Various | Glass stereographs with applied color | Bequest of Herbert Mitchell, 2008",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-1483",
+      "title": "Trivet",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Trivet | Unknown Artist | Iron | Gift of Mrs. Frederick S. Wait, 1921",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-14557",
+      "title": "Benjamin Franklin",
+      "artist": "Joseph H. Merriam",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Benjamin Franklin | Joseph H. Merriam | Signature: | Benjamin Franklin Profiles | Copper | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14546",
+      "title": "Washington and Franklin",
+      "artist": "Joseph H. Merriam",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Washington and Franklin | Joseph H. Merriam | Signature: | Benjamin Franklin George Washington Profiles | White metal | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14552",
+      "title": "Benjamin Franklin",
+      "artist": "Joseph H. Merriam",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Benjamin Franklin | Joseph H. Merriam | Signature: | Benjamin Franklin Profiles | White metal | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14545",
+      "title": "Award of National Export Exposition",
+      "artist": "Augustus C. Frank",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Award of National Export Exposition | Augustus C. Frank | Signature: | Benjamin Franklin Men | White metal | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14568",
+      "title": "Inauguration of the Washington Cabinet of Medals",
+      "artist": "Anthony Paquet",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Inauguration of the Washington Cabinet of Medals | Anthony Paquet | George Washington Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14573",
+      "title": "George Washington",
+      "artist": "F. C. Key & Sons",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "George Washington | F. C. Key & Sons | Signature: | George Washington Portraits | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14612",
+      "title": "Centennial of Washington's Inauguration",
+      "artist": "Charles Cushing Wright",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Centennial of Washington's Inauguration | Charles Cushing Wright | Signature: | George Washington Profiles | White metal | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14609",
+      "title": "Philadelphia Sanitary Fair",
+      "artist": "Anthony Paquet",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Philadelphia Sanitary Fair | Anthony Paquet | Signature: | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-14613",
+      "title": "Washington and Franklin",
+      "artist": "Joseph H. Merriam",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Washington and Franklin | Joseph H. Merriam | George Washington Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14576",
+      "title": "President Lincoln's Inauguration Medal",
+      "artist": "Salathiel Ellis",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "President Lincoln's Inauguration Medal | Salathiel Ellis | Signature: | Abraham Lincoln Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14572",
+      "title": "Masonic Centennial Memorial of Washington's Death",
+      "artist": "Robert Sneider",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Masonic Centennial Memorial of Washington's Death | Robert Sneider | Signature: | George Washington Men Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14620",
+      "title": "Louisiana to General Zachary Taylor",
+      "artist": "Charles Cushing Wright",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Louisiana to General Zachary Taylor | Charles Cushing Wright | Signature: | Men Horses Trees Flags | Bronze | American | Gift of Mr. and Mrs. Frederick S. Wait, 1908",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14680",
+      "title": "Henry Clay",
+      "artist": "Charles Cushing Wright",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Henry Clay | Charles Cushing Wright | Signature: | Men Portraits Profiles | Bronze | American | Gift of Mr. and Mrs. Frederick S. Wait, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14735",
+      "title": "George Washington",
+      "artist": "Anthony Paquet",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "George Washington | Anthony Paquet | George Washington Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1908",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14616",
+      "title": "U.S. Mint Oath of Allegiance",
+      "artist": "Anthony Paquet",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "U.S. Mint Oath of Allegiance | Anthony Paquet | Signature: | George Washington Men Portraits Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14575",
+      "title": "The Union League of Philadelphia to General George L. Meade",
+      "artist": "Anthony Paquet",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Union League of Philadelphia to General George L. Meade | Anthony Paquet | Signature: | Men Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14679",
+      "title": "New York City to Col. James Duncan",
+      "artist": "Charles Cushing Wright",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "New York City to Col. James Duncan | Charles Cushing Wright | Signature: | Men Portraits Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14681",
+      "title": "New York State to Louisiana to Lieutenant-Colonel Bliss",
+      "artist": "Charles Cushing Wright",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "New York State to Louisiana to Lieutenant-Colonel Bliss | Charles Cushing Wright | Signature: | Men Portraits Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14744",
+      "title": "The \"Old Sugar House,\" Rose St., New York",
+      "artist": "Emil Sigel",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The \"Old Sugar House,\" Rose St., New York | Emil Sigel | Buildings | Copper | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14731",
+      "title": "Centennial of the Founding of Cazenovia, New York",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Centennial of the Founding of Cazenovia, New York | Unknown Artist | Men Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14539",
+      "title": "Inauguration Medal of President Garfield",
+      "artist": "Charles E. Barber",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Inauguration Medal of President Garfield | Charles E. Barber | Signature: | Men Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14614",
+      "title": "Inauguration of the Washington Cabinet of Medals",
+      "artist": "Anthony Paquet",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Inauguration of the Washington Cabinet of Medals | Anthony Paquet | George Washington Men Profiles | Bronze | American | Gift of Mr. and Mrs. F.S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14618",
+      "title": "Yale University Bicentennial",
+      "artist": "Bela Lyon Pratt",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Yale University Bicentennial | Bela Lyon Pratt | Signature: B.L. PRATTInscription: | Men Women Carriages | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14649",
+      "title": "Washington's Tomb",
+      "artist": "Joseph H. Merriam",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Washington's Tomb | Joseph H. Merriam | Signature: | George Washington Profiles | White metal | American | Gift of Mr. and Mrs. F. S. Wait, 1908",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-9905",
+      "title": "Award of the Franklin Institute, Philadelphia",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Award of the Franklin Institute, Philadelphia | Unknown Artist | Men Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14730",
+      "title": "Centennial of Washington's Inauguration",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Centennial of Washington's Inauguration | Unknown Artist | George Washington Profiles | White metal | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14728",
+      "title": "Centennial of Washington's Inauguration",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Centennial of Washington's Inauguration | Unknown Artist | George Washington Profiles | White metal | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14550",
+      "title": "The \"John Horn\" Medal",
+      "artist": "Charles E. Barber",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The \"John Horn\" Medal | Charles E. Barber | Signature: C. BARBERInscription: | Men Portraits Profiles | Bronze | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-14619",
+      "title": "Prescribed by the New York City to the Mexican Volunteers",
+      "artist": "Charles Cushing Wright",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Prescribed by the New York City to the Mexican Volunteers | Charles Cushing Wright | Signature: | Silver | American | Gift of Mr. and Mrs. F. S. Wait, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-250579",
+      "title": "Terracotta statuette of Eros playing a lyre",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Terracotta statuette of Eros playing a lyre | Unknown Artist | Musical Instruments Eros | Terracotta | Greek | Hellenistic | Rogers Fund, 1917",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-380408",
+      "title": "Acorn King: A Man Astride a Cow",
+      "artist": "Johannes Brandenberg",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Acorn King: A Man Astride a Cow | Johannes Brandenberg | Men Cows | Pen and black ink | Purchase, Jean A. Bonna Gift, 2007",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-837719",
+      "title": "Allegory of Pride",
+      "artist": "Lambert Cornelisz",
+      "qualityLevel": "good",
+      "qualityScore": 0.4444444444444444,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period",
+        "creditline"
+      ],
+      "searchText": "Allegory of Pride | Lambert Cornelisz | Engraving",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-82616",
+      "title": "The Pride of Women: Ruffs",
+      "artist": "Maerten de Vos",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "The Pride of Women: Ruffs | Maerten de Vos | Satire Skeletons Men Women Fashion | engraved paper | Dutch | Purchase, Irene Lewisohn Trust Gift, 2001",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-41016",
+      "title": "Seal",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Seal | Unknown Artist | Animals | Green jade | China | Song dynasty (960–1279) | Rogers Fund, 1919",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-199116",
+      "title": "Relief",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Relief | Unknown Artist | Profiles Women | Marble | Gift of Francis Neilson, 1942",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-61579",
+      "title": "Relief",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Relief | Unknown Artist | Mud, papier-mâché | China | Rogers Fund, 1930",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-546029",
+      "title": "Relief Fragment",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "culture"
+      ],
+      "searchText": "Relief Fragment | Unknown Artist | Men Owls | limestone | New Kingdom | Gift of Mrs. Morton C. Nichols, 1950",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-552856",
+      "title": "Two-sided relief",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture"
+      ],
+      "searchText": "Two-sided relief | Unknown Artist | Limestone | Late Period | Gift of Mrs. Morton C. Nichols, 1950",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-572003",
+      "title": "Jar, goat relief",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "dimensions"
+      ],
+      "searchText": "Jar, goat relief | Unknown Artist | Goats | Faience | Ptolemaic Period | Rogers Fund, 1941",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-7869",
+      "title": "Spur",
+      "artist": "Paul Revere, III",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Spur | Paul Revere, III | Silver | American | Bequest of Alphonso T. Clearwater, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-7868",
+      "title": "Spur",
+      "artist": "Paul Revere, III",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Spur | Paul Revere, III | Silver | American | Bequest of Alphonso T. Clearwater, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-7803",
+      "title": "Spoon",
+      "artist": "Paul Revere, III",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Spoon | Paul Revere, III | Silver | American | Bequest of Alphonso T. Clearwater, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-115",
+      "title": "Andiron",
+      "artist": "Revere and Son",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Andiron | Revere and Son | Brass, iron | American | The Sylmaris Collection, Gift of George Coe Graves, 1930",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-114",
+      "title": "Andiron",
+      "artist": "Revere and Son",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Andiron | Revere and Son | Brass, iron | American | The Sylmaris Collection, Gift of George Coe Graves, 1930",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-8735",
+      "title": "Tongs",
+      "artist": "Paul Revere, III",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Tongs | Paul Revere, III | Silver | American | Bequest of Alphonso T. Clearwater, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-8737",
+      "title": "Tongs",
+      "artist": "Paul Revere, III",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Tongs | Paul Revere, III | Silver | American | Bequest of Alphonso T. Clearwater, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-8736",
+      "title": "Tongs",
+      "artist": "Paul Revere, III",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Tongs | Paul Revere, III | Silver | American | Bequest of Alphonso T. Clearwater, 1933",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-78192",
+      "title": "The Spiritual Master Padmasambhava",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Spiritual Master Padmasambhava | Unknown Artist | Buddhism | Copper alloy with copper and silver inlay | Western Tibet or Ladakh | Zimmerman Family Collection, Purchase, Lila Acheson Wallace, The Vincent Astor Foundation, Eliot C. Nolen, T. Rowe Price Services, Inc. and Sir Joseph Hotung Gifts; Seymour and The Miriam and Ira D. Wallach Foundation Funds, 2012",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-39118",
+      "title": "Vajravarahi Dancing on a Corpse",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Vajravarahi Dancing on a Corpse | Unknown Artist | Dancing Buddhism | Copper alloy | Eastern India | late Pala dynasty | Samuel Eilenberg Collection, Gift of Samuel Eilenberg, 1987",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-231172",
+      "title": "The Mourning Virgin (from a Calvary group)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Mourning Virgin (from a Calvary group) | Unknown Artist | Christ Virgin Mary Crucifixion | Wood, polychromed and gilded; glass; silver | Ecuadoran | Gift of Loretta Hines Howard, 1964",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-117535",
+      "title": "Mourning veil",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning veil | Unknown Artist | silk | American | Gift of Roi White, 1984",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-123100",
+      "title": "Mourning shawl",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning shawl | Unknown Artist | silk, wool | British | Gift of Madeline H. Farnsworth, 1980",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-80526",
+      "title": "Mourning dress",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning dress | Unknown Artist | silk | American | Gift of Richard Martin, 1994",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-113353",
+      "title": "Mourning bonnet",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning bonnet | Unknown Artist | silk | American | Gift of Mrs. H. C. Adler, 1947",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-117560",
+      "title": "Mourning veil",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning veil | Unknown Artist | silk | American | Gift of Mr. Alfred M. F. Kiddle, 1940",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-120415",
+      "title": "Mourning fan",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning fan | Unknown Artist | leather, cotton | probably American | Gift of Barbara K. Morrill (Mrs. James P.), 1976",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-139875",
+      "title": "Mourning dress",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning dress | Unknown Artist | silk | American | Purchase, Judith and Ira Sommer Gift, 2008",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-107007",
+      "title": "Mourning dress",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning dress | Unknown Artist | silk, jet | American | Gift of The New York Historical Society, 1979",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-114145",
+      "title": "Mourning hat",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning hat | Unknown Artist | silk, cotton | American | Gift of Mrs. Phillip H. Gray, 1950",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-94547",
+      "title": "Mourning jewelry",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning jewelry | Unknown Artist | gold, glass, hair | American | Gift of Miriam W. Coletti, 1993",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-103986",
+      "title": "Mourning coat",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning coat | Unknown Artist | [no medium available] | American | Gift of Mrs. Edgar V. Anderson, 1944",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-104525",
+      "title": "Mourning ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Mourning ring | Unknown Artist | metal, imitation leather | British | Gift of Miss Mary Turlay Robinson, 1946",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-5259",
+      "title": "Mourning Ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Ring | Unknown Artist | George Washington Men Portraits | Gold, enamel | Gift of William H. Huntington, 1883",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-472319",
+      "title": "Mourning Woman",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Mourning Woman | Unknown Artist | Sadness Women | stone, traces of paint | French | The Cloisters Collection, 1925",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-196883",
+      "title": "Mourning Madonna",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Madonna | Unknown Artist | Madonna | Stone | Gift of Mrs. Robert W. de Forest, 1931",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-5261",
+      "title": "Mourning Ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Ring | Unknown Artist | Gold, jet, glass, hair | Gift of Mrs. Morgan Grinnell, 1932",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-5262",
+      "title": "Mourning Ring",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Mourning Ring | Unknown Artist | Gold, jet, glass, hair | Gift of Mrs. Morgan Grinnell, 1932",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-223468",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Piece | Unknown Artist | Silk | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-223198",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Piece | Unknown Artist | Flowers | Silk and metal thread | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-223608",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Piece | Unknown Artist | Hemp and wool | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-223978",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Piece | Unknown Artist | Flowers Leaves | Silk | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-223463",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Piece | Unknown Artist | Flowers | Silk | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-223739",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Piece | Unknown Artist | Flowers Leaves | Silk | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-223783",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Piece | Unknown Artist | Flowers | Silk and metal thread | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-191506",
+      "title": "Stool",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Stool | Unknown Artist | Oak | Gift of Mrs. Russell Sage, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-226016",
+      "title": "Piece",
+      "artist": "Unknown Artist",
+      "qualityLevel": "basic",
+      "qualityScore": 0.3333333333333333,
+      "missingFields": [
+        "description",
+        "tags",
+        "medium",
+        "culture",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Piece | Unknown Artist | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词",
+        "缺少媒介信息，建议补充"
+      ]
+    },
+    {
+      "id": "met-224296",
+      "title": "Sampler",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Sampler | Unknown Artist | Silk on linen | Gift of The United Piece Dye Works, 1936",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-811936",
+      "title": "Serene Weather",
+      "artist": "Joseph Vernet",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Serene Weather | Joseph Vernet | Engraving | Harris Brisbane Dick Fund, 1953",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-812367",
+      "title": "The Calm",
+      "artist": "Joseph Vernet",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "The Calm | Joseph Vernet | Engraving | Harris Brisbane Dick Fund, 1953",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-501111",
+      "title": "Tab'l Shamee",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Tab'l Shamee | Unknown Artist | Metal, skin | Egyptian | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-460211",
+      "title": "Dish (coppa)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Dish (coppa) | Unknown Artist | Men Women Cupid | Maiolica (tin-glazed earthenware) | Italian, Urbino and Gubbio | Robert Lehman Collection, 1975",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-195830",
+      "title": "Beaker",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Beaker | Unknown Artist | Eagles Coat of Arms | Glass | Munsey Fund, 1927",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-193250",
+      "title": "Royal Arms of George I",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Royal Arms of George I | Unknown Artist | Unicorns Lions Coat of Arms | Limewood | Rogers Fund, 1916",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-191186",
+      "title": "The Disgrace of Noah",
+      "artist": "Peter Flötner",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "The Disgrace of Noah | Peter Flötner | Noah | Gilt bronze | Rogers Fund, 1909",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-506718",
+      "title": "Bow",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "period",
+        "dimensions"
+      ],
+      "searchText": "Bow | Unknown Artist | Wood, hair | French | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-78192",
+      "title": "The Spiritual Master Padmasambhava",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "The Spiritual Master Padmasambhava | Unknown Artist | Buddhism | Copper alloy with copper and silver inlay | Western Tibet or Ladakh | Zimmerman Family Collection, Purchase, Lila Acheson Wallace, The Vincent Astor Foundation, Eliot C. Nolen, T. Rowe Price Services, Inc. and Sir Joseph Hotung Gifts; Seymour and The Miriam and Ira D. Wallach Foundation Funds, 2012",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-550967",
+      "title": "Plaque with a sacred bull",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture"
+      ],
+      "searchText": "Plaque with a sacred bull | Unknown Artist | Faience | Late Period | Purchase, Edward S. Harkness Gift, 1926",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-666465",
+      "title": "Bowl with sacred lily",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Bowl with sacred lily | Unknown Artist | Jade (nephrite) | China | Qing dynasty (1644–1911) | Gift of Florence and Herbert Irving, 2015",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-775447",
+      "title": "Canivet or Devotional with Sacred Heart",
+      "artist": "Anonymous, Flemish, 18th century",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Canivet or Devotional with Sacred Heart | Anonymous, Flemish, 18th century | Vellum, rose-colored paper, watercolor | Gift of Mrs. Richard Riddell, 1981",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-358722",
+      "title": "The Virgin of the Sacred Heart",
+      "artist": "Théodore Gericault",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "The Virgin of the Sacred Heart | Théodore Gericault | Angels Virgin Mary Cross | Graphite | Gift of Jill Newhouse and Mrs. Corrine Cuéllar, 2002",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-382444",
+      "title": "The Sacred Monogram and the Wounds of Christ",
+      "artist": "Anonymous, German, 15th century",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "The Sacred Monogram and the Wounds of Christ | Anonymous, German, 15th century | Woodcut | Bequest of James C. McGuire, 1931",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-207526",
+      "title": "Nymph surprised by Cupid",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Nymph surprised by Cupid | Unknown Artist | Cupid Nymphs | Limewood | Gift of Ruth Blumka, in honor of Ashton Hawkins, 1985",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-195872",
+      "title": "Puzzle or \"surprise\" goblet",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Puzzle or \"surprise\" goblet | Unknown Artist | Glass | Munsey Fund, 1927",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-631226",
+      "title": "Shell pestle/polisher",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Shell pestle/polisher | Unknown Artist | Spondylus shell (aragonite) | Cycladic | Early Cycladic II | Anonymous Gift, 2013",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-631230",
+      "title": "Shell pestle/polisher",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Shell pestle/polisher | Unknown Artist | Spondylus shell (aragonite) | Cycladic | Early Cycladic II | Anonymous Gift, 2013",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-631232",
+      "title": "Marble bowl",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Marble bowl | Unknown Artist | Marble, traces of red pigment on interior | Cycladic | Early Cycladic II | Anonymous Gift, 2013",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-501126",
+      "title": "Variable Tension Drum",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Variable Tension Drum | Unknown Artist | polychrome, wood, hide | Congolese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-501071",
+      "title": "Variable Tension Drum",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Variable Tension Drum | Unknown Artist | Wood, hide, fabric, shell. | possibly Sudanese | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-500802",
+      "title": "Gopīyantra",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Gopīyantra | Unknown Artist | Wood and skin | Indian | The Crosby Brown Collection of Musical Instruments, 1889",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-319572",
+      "title": "Collar (Ingqosha)",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Collar (Ingqosha) | Unknown Artist | Sinew, glass beads, button | Xhosa or Mfengu peoples | Gift of James J. and Gladys W. Strain, 2005",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-65667",
+      "title": "Rug",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "period"
+      ],
+      "searchText": "Rug | Unknown Artist | Silk pile, wrapped metal on cotton warp and weft | China | Gift of William M. Emery, 1963",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-5268",
+      "title": "Figure of Mrs. Catherine Macaulay",
+      "artist": "Chelsea Factory",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "period"
+      ],
+      "searchText": "Figure of Mrs. Catherine Macaulay | Chelsea Factory | Inscription: | Books Portraits Women | Porcelain | British | Fletcher Fund, 1944",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-592",
+      "title": "Bottle",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "culture",
+        "period"
+      ],
+      "searchText": "Bottle | Unknown Artist | Birds Flowers | Non-lead glass with enamel decoration, pewter | Gift of Frederick W. Hunter, 1914",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    },
+    {
+      "id": "met-568065",
+      "title": "Statue wig fragment, inlays missing",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.6666666666666666,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture"
+      ],
+      "searchText": "Statue wig fragment, inlays missing | Unknown Artist | Faience | New Kingdom, Ramesside | Gift of Ernst E. Kofler, 1965",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-247637",
+      "title": "Terracotta carinated bridge-spouted jug",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.7777777777777778,
+      "missingFields": [
+        "description",
+        "tags"
+      ],
+      "searchText": "Terracotta carinated bridge-spouted jug | Unknown Artist | Terracotta | Minoan | Middle Minoan II | Gift of American Exploration Society, 1907",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-7529",
+      "title": "Skewer Holder",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.5555555555555556,
+      "missingFields": [
+        "description",
+        "tags",
+        "culture",
+        "period"
+      ],
+      "searchText": "Skewer Holder | Unknown Artist | Iron | Gift of Miss Alice Porter, 1927",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本",
+        "缺少标签，建议从标题和描述中提取关键词"
+      ]
+    },
+    {
+      "id": "met-256661",
+      "title": "Bronze statuette of bull",
+      "artist": "Unknown Artist",
+      "qualityLevel": "good",
+      "qualityScore": 0.8888888888888888,
+      "missingFields": [
+        "description"
+      ],
+      "searchText": "Bronze statuette of bull | Unknown Artist | Bulls | Bronze | Roman | Imperial | Museum Accession",
+      "recommendations": [
+        "缺少描述，建议使用现有字段生成综合搜索文本"
+      ]
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "为无描述作品生成综合搜索文本",
+      "实现数据质量权重调整机制",
+      "优先选择excellent和good级别的作品"
+    ],
+    "longTerm": [
+      "人工或AI补全缺失的描述信息",
+      "建立数据质量监控机制",
+      "定期更新和优化数据质量"
+    ]
+  }
+}

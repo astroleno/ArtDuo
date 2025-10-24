@@ -1,0 +1,328 @@
+# ArtDuo - AI驱动的个性化艺术策展平台
+# .gitignore 文件
+
+# ===========================================
+# 依赖和包管理
+# ===========================================
+# Node.js 依赖
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 包管理器锁文件（保留一个，忽略其他的）
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ===========================================
+# 环境配置和敏感信息
+# ===========================================
+# 环境变量文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+# 但保留示例文件
+!.env.example
+
+# API密钥和配置
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+config.json
+
+# ===========================================
+# 构建和编译输出
+# ===========================================
+# Next.js 构建输出
+.next/
+out/
+build/
+dist/
+
+# Vite 构建输出
+.vite/
+
+# TypeScript 编译输出
+*.tsbuildinfo
+.tscache/
+
+# ===========================================
+# 开发工具和IDE
+# ===========================================
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Cursor
+.cursor/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ===========================================
+# 操作系统文件
+# ===========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===========================================
+# 日志文件
+# ===========================================
+# 应用日志
+*.log
+logs/
+log/
+server*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# 系统日志
+*.syslog
+*.log.*
+
+# ===========================================
+# 缓存和临时文件
+# ===========================================
+# 各种缓存
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+*.tmp
+*.temp
+
+# 浏览器缓存
+.sass-cache/
+.connect.lock
+.nyc_output
+.grunt
+.bower_components
+
+# ===========================================
+# 测试和覆盖率
+# ===========================================
+# 测试覆盖率报告
+coverage/
+*.lcov
+.nyc_output
+
+# Jest
+.jest/
+
+# ===========================================
+# 数据文件（项目特定）
+# ===========================================
+# 大型数据文件（如果不需要版本控制）
+# data/met/artworks/*.json
+# data/met/embeddings/*.json
+# data/met/indexes/*.hnsw
+
+# 临时数据文件
+*.csv.tmp
+*.json.tmp
+temp_data/
+
+# ===========================================
+# 部署和CI/CD
+# ===========================================
+# Vercel
+.vercel
+
+# Netlify
+.netlify
+
+# 部署脚本生成的临时文件
+deploy/
+deployment/
+
+# ===========================================
+# 数据库和存储
+# ===========================================
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# 其他数据库文件
+*.mdb
+*.accdb
+
+# ===========================================
+# 媒体文件（可选）
+# ===========================================
+# 如果不需要版本控制大型媒体文件
+# *.mp4
+# *.avi
+# *.mov
+# *.wmv
+# *.flv
+# *.webm
+
+# 图片文件（如果很大）
+# *.psd
+# *.ai
+# *.sketch
+
+# ===========================================
+# 文档和报告（可选）
+# ===========================================
+# 自动生成的文档
+docs/generated/
+api-docs/
+
+# 临时文档
+*.tmp.md
+temp_notes.md
+
+# ===========================================
+# 备份文件
+# ===========================================
+# 各种备份文件
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*~
+
+# ===========================================
+# 特定于项目的忽略规则
+# ===========================================
+# ArtDuo 项目特定忽略
+
+# 向量索引文件（如果很大）
+# data/met/indexes/*.hnsw
+
+# 嵌入向量文件（如果很大）
+# data/met/embeddings/*.json
+
+# 处理过程中的临时文件
+data/processing/
+data/temp/
+
+# 测试数据
+test-data/
+test_artworks/
+
+# 性能分析文件
+*.cpuprofile
+*.heapprofile
+*.heapsnapshot
+
+# 调试文件
+debug/
+debug_*.json
+
+# 用户上传的文件
+uploads/
+user_uploads/
+
+# ===========================================
+# 安全相关
+# ===========================================
+# 证书文件
+*.crt
+*.cer
+*.der
+*.p7b
+*.p7c
+*.p12
+*.pfx
+
+# SSH密钥
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# ===========================================
+# 其他
+# ===========================================
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 可执行文件
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 临时目录
+tmp/
+temp/

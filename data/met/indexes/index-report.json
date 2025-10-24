@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-10-24T16:25:07.321Z",
+  "indexConfig": {
+    "vectorSize": 384,
+    "maxElements": 10000,
+    "M": 16,
+    "efConstruction": 200
+  },
+  "fullIndex": {
+    "indexSize": "N/A",
+    "performance": {
+      "avgSearchTime": 0.2,
+      "queriesPerSecond": 5000
+    }
+  },
+  "emotionIndexes": [
+    {
+      "emotion": "joy",
+      "count": 45,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/joy.hnsw"
+    },
+    {
+      "emotion": "sadness",
+      "count": 59,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/sadness.hnsw"
+    },
+    {
+      "emotion": "love",
+      "count": 201,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/love.hnsw"
+    },
+    {
+      "emotion": "fear",
+      "count": 30,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/fear.hnsw"
+    },
+    {
+      "emotion": "anger",
+      "count": 275,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/anger.hnsw"
+    },
+    {
+      "emotion": "surprise",
+      "count": 45,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/surprise.hnsw"
+    },
+    {
+      "emotion": "disgust",
+      "count": 1,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/disgust.hnsw"
+    },
+    {
+      "emotion": "contemplation",
+      "count": 28,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/contemplation.hnsw"
+    },
+    {
+      "emotion": "awe",
+      "count": 31,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/awe.hnsw"
+    },
+    {
+      "emotion": "peace",
+      "count": 39,
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/met/indexes/by-emotion/peace.hnsw"
+    }
+  ],
+  "recommendations": [
+    "索引构建完成，可以开始集成到检索系统",
+    "建议在检索时优先使用情绪分类索引",
+    "全量索引作为备用方案",
+    "考虑实现索引缓存机制"
+  ]
+}

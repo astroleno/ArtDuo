@@ -263,37 +263,48 @@ async function attemptAIScoring(
 }
 
 /**
- * 批量GLM评分调用
+ * 批量GLM评分调用 - 优化版
  */
 async function batchScoreWithGLM(
   artworks: Artwork[],
   emotion: string,
   userInput?: string,
-  timeoutMs: number = 45000
+  timeoutMs: number = 60000
 ): Promise<{ scores: ArtworkScore[], failureCount: number }> {
-  const batchSize = 20; // 单线处理，可以用更大批次提高效率
-  const batches = [];
+  // 优化：根据作品数量动态分批，最多3批，移除token限制
+  let batches: Artwork[][];
 
-  for (let i = 0; i < artworks.length; i += batchSize) {
-    batches.push(artworks.slice(i, i + batchSize));
+  if (artworks.length <= 15) {
+    batches = [artworks]; // 单批处理
+    console.log(`🎯 单批评分：${artworks.length} 件作品`);
+  } else if (artworks.length <= 30) {
+    const mid = Math.ceil(artworks.length / 2);
+    batches = [artworks.slice(0, mid), artworks.slice(mid)];
+    console.log(`📦 分2批评分：${mid} + ${artworks.length - mid} 件作品`);
+  } else {
+    const third = Math.ceil(artworks.length / 3);
+    batches = [
+      artworks.slice(0, third),
+      artworks.slice(third, third * 2),
+      artworks.slice(third * 2)
+    ];
+    console.log(`📦 分3批评分：${third}, ${third}, ${artworks.length - third * 2} 件作品`);
   }
-
-  console.log(`📦 分${batches.length}个批次进行评分，每批最多${batchSize}件作品`);
 
   const allScores: ArtworkScore[] = [];
   let failureCount = 0;
 
-  for (let i = 0; i < batches.length; i++) {
-    const batch = batches[i];
-    console.log(`🎯 处理第${i + 1}/${batches.length}批: ${batch.length}件作品`);
+  // 并行处理所有批次（而不是串行）
+  const batchPromises = batches.map(async (batch, index) => {
+    console.log(`🚀 处理第${index + 1}批：${batch.length} 件作品`);
 
     try {
-      const prompt = generateScoringPrompt(batch, emotion, userInput);
+      const prompt = generateOptimizedScoringPrompt(batch, emotion, userInput);
 
       const response = await glmOptimizedClient.chat([
         {
           role: 'system' as const,
-          content: '你是一个专业的艺术作品评分专家。请严格按照指定的JSON格式返回评分结果。'
+          content: '你是专业的艺术作品评分专家，请根据用户情绪为作品打分。'
         },
         {
           role: 'user' as const,
@@ -302,8 +313,8 @@ async function batchScoreWithGLM(
       ], {
         model: 'glm-4.5-air',
         temperature: 0.3,
-        max_tokens: 2000,
-        thinking: 'disabled'
+        // 移除max_tokens限制，让LLM充分输出
+        thinking: 'enabled'
       });
 
       if (response?.choices?.[0]?.message?.content) {
@@ -313,7 +324,6 @@ async function batchScoreWithGLM(
         // 尝试解析JSON响应
         let parsed;
         try {
-          // 清理可能的markdown标记
           const cleanJson = raw.replace(/```json\n?|\n?```/g, '').trim();
           parsed = JSON.parse(cleanJson);
         } catch (parseError) {
@@ -323,33 +333,39 @@ async function batchScoreWithGLM(
 
         if (parsed && parsed.scores && Array.isArray(parsed.scores)) {
           const batchScores = parsed.scores.map(item => ({
-            artworkId: item.artwork_id,
-            emotionFit: item.emotion_fit,
-            artisticValue: item.artistic_value,
-            visualImpact: item.visual_impact,
-            overallRecommendation: item.overall_recommendation,
+            artworkId: item.artwork_id || item.artworkId,
+            emotionFit: item.emotion_fit || item.emotionFit,
+            artisticValue: item.artistic_value || item.artisticValue,
+            visualImpact: item.visual_impact || item.visualImpact,
+            overallRecommendation: item.overall_recommendation || item.overallRecommendation,
             confidence: item.confidence,
             reasoning: item.reasoning
           })).filter(score => score.artworkId && batch.some(art => art.id === score.artworkId));
 
-          allScores.push(...batchScores);
-          console.log(`✅ 批次${i + 1}成功: ${batchScores.length}件作品`);
+          console.log(`✅ 第${index + 1}批完成：${batchScores.length} 件作品`);
+          return { scores: batchScores, failureCount: 0 };
         } else {
-          console.log(`❌ 批次${i + 1}响应格式错误`);
-          failureCount += batch.length;
+          console.log(`❌ 第${index + 1}批响应格式错误`);
+          return { scores: [], failureCount: batch.length };
         }
       } else {
-        console.log(`❌ 批次${i + 1}无有效响应`);
-        failureCount += batch.length;
+        console.log(`❌ 第${index + 1}批无有效响应`);
+        return { scores: [], failureCount: batch.length };
       }
 
     } catch (error) {
-      console.log(`❌ 批次${i + 1}处理失败:`, error.message);
-      failureCount += batch.length;
+      console.log(`❌ 第${index + 1}批处理失败:`, error.message);
+      return { scores: [], failureCount: batch.length };
     }
+  });
 
-    // 单线处理，不需要批次间延迟
-  }
+  // 等待所有批次完成
+  const results = await Promise.all(batchPromises);
+
+  results.forEach(result => {
+    allScores.push(...result.scores);
+    failureCount += result.failureCount;
+  });
 
   return { scores: allScores, failureCount };
 }
@@ -554,7 +570,52 @@ async function smartPreFilter(artworks: Artwork[], emotion: string, userInput?: 
 }
 
 /**
- * 生成评分提示词
+ * 生成优化的评分提示词
+ */
+function generateOptimizedScoringPrompt(artworks: Artwork[], emotion: string, userInput?: string): string {
+  return `请为以下艺术作品评分，用户当前情绪是"${emotion}"${userInput ? `，用户想法："${userInput}"` : ''}。
+
+评分标准：
+1. **情绪契合度** (0-10分)：作品与"${emotion}"情绪的匹配程度
+2. **艺术价值** (0-10分)：作品的艺术技法、创新性、历史地位
+3. **视觉表现力** (0-10分)：作品的视觉冲击力和表现力
+4. **整体推荐度** (0-10分)：综合以上因素的整体推荐程度
+
+作品列表：
+${artworks.map((art, index) => `
+${index + 1}. 作品ID: ${art.id}
+   标题: ${art.title}
+   艺术家: ${art.artist}
+   年代: ${art.year}
+   材质: ${art.medium}
+   描述: ${art.description || '暂无描述'}
+   图片: ${art.imageUrl ? '有' : '无'}
+`).join('')}
+
+请以JSON格式返回评分结果，格式如下：
+{
+  "scores": [
+    {
+      "artworkId": "作品ID",
+      "emotionFit": 情绪契合度分数,
+      "artisticValue": 艺术价值分数,
+      "visualImpact": 视觉表现力分数,
+      "overallRecommendation": 整体推荐度分数,
+      "confidence": 置信度(0-1),
+      "reasoning": "评分理由（简短说明）"
+    }
+  ]
+}
+
+请确保：
+1. 每件作品都要评分
+2. 分数为0-10的整数或小数
+3. 评分理由要结合作品特点和用户情绪
+4. JSON格式必须正确`;
+}
+
+/**
+ * 生成评分提示词（原版保留作为备用）
  */
 function generateScoringPrompt(artworks: Artwork[], emotion: string, userInput?: string): string {
   const artworkList = artworks.map((art, index) =>

@@ -166,6 +166,11 @@ ArtDuo/
 
 ## 🔧 开发指南
 
+### 项目配置
+- **环境变量**：复制 `.env.example` 到 `.env.local` 并配置API密钥
+- **Git配置**：项目已配置完整的 `.gitignore` 文件，自动忽略敏感文件和构建产物
+- **代码规范**：使用 TypeScript 进行类型检查，遵循 ESLint 配置
+
 ### 代码规范
 - 使用 TypeScript 进行类型检查
 - 遵循 ESLint 和 Prettier 配置

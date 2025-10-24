@@ -1,0 +1,646 @@
+{
+  "startTime": "2025-10-06T18:25:41.407Z",
+  "input": {
+    "emotion": "今天感觉不错,逛了一天街",
+    "userInput": ""
+  },
+  "config": {
+    "baseUrl": "http://localhost:3001",
+    "endpoint": "/api/curate/stream",
+    "timeout": 300000,
+    "testInput": {
+      "emotion": "今天感觉不错,逛了一天街",
+      "userInput": ""
+    }
+  },
+  "performance": {
+    "totalDuration": 150937,
+    "steps": {
+      "emotionCurve": 2,
+      "artworkSelection": 1,
+      "introduction": 7155,
+      "conclusion": 4753,
+      "explanations": [
+        {
+          "batchIndex": 1,
+          "duration": 51846,
+          "count": 2,
+          "isFirstBatch": true
+        },
+        {
+          "batchIndex": 3,
+          "duration": 22913,
+          "count": 2
+        },
+        {
+          "batchIndex": 5,
+          "duration": 24128,
+          "count": 1
+        },
+        {
+          "batchIndex": 2,
+          "duration": 26160,
+          "count": 2
+        },
+        {
+          "batchIndex": 4,
+          "duration": 27445,
+          "count": 2
+        }
+      ],
+      "totalExplanationTime": 152492
+    },
+    "eventTiming": {
+      "start": [
+        0
+      ],
+      "emotion_curve": [
+        71601
+      ],
+      "artworks_selected": [
+        71602
+      ],
+      "introduction": [
+        78756
+      ],
+      "conclusion": [
+        83508
+      ],
+      "explanations_batch": [
+        123447,
+        146360,
+        147574,
+        149606,
+        150892
+      ],
+      "complete": [
+        150892
+      ]
+    },
+    "summary": {
+      "stepCount": 6,
+      "avgEventInterval": 15089.2
+    }
+  },
+  "validation": {
+    "passed": true,
+    "issues": [],
+    "scores": {},
+    "details": {
+      "eventCounts": {
+        "start": 1,
+        "emotion_curve": 1,
+        "artworks_selected": 1,
+        "introduction": 1,
+        "conclusion": 1,
+        "explanations_batch": 5,
+        "complete": 1
+      }
+    },
+    "summary": {
+      "inputEmotion": "今天感觉不错,逛了一天街",
+      "emotionCurve": {
+        "points": 68,
+        "range": [
+          0.4902521706168636,
+          0.7575565146993926
+        ],
+        "average": 0.6568135792402102,
+        "duration": 2
+      },
+      "artworks": {
+        "count": 9,
+        "selectionTime": 1,
+        "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+        "diversityMetrics": {
+          "artistCount": 9,
+          "periodCount": 3,
+          "mediumCount": 6,
+          "avgScore": 6.051481481481482,
+          "emotionFit": 5
+        }
+      },
+      "explanations": {
+        "batchCount": 5,
+        "totalExplanations": 9,
+        "batches": [
+          {
+            "batchIndex": 1,
+            "count": 2,
+            "duration": 51846,
+            "isFirstBatch": true
+          },
+          {
+            "batchIndex": 3,
+            "count": 2,
+            "duration": 22913
+          },
+          {
+            "batchIndex": 5,
+            "count": 1,
+            "duration": 24128
+          },
+          {
+            "batchIndex": 2,
+            "count": 2,
+            "duration": 26160
+          },
+          {
+            "batchIndex": 4,
+            "count": 2,
+            "duration": 27445
+          }
+        ]
+      },
+      "introduction": {
+        "length": 0
+      },
+      "conclusion": {
+        "length": 0
+      }
+    }
+  },
+  "events": [
+    {
+      "type": "start",
+      "payload": {
+        "emotion": "今天感觉不错,逛了一天街",
+        "userInput": ""
+      },
+      "timestamp": 1759775141451
+    },
+    {
+      "type": "emotion_curve",
+      "payload": {
+        "curve": [
+          0.6576629607674308,
+          0.6678354896924649,
+          0.7151275139708723,
+          0.7209376966880909,
+          0.7145332426161662,
+          0.6377850921689067,
+          0.5725420933455222,
+          0.497071472094817,
+          0.549021728302494,
+          0.5491608097533641,
+          0.6588910950458607,
+          0.5961745844240475,
+          0.5806511181485446,
+          0.4902521706168636,
+          0.5766760696386332,
+          0.6264316938735118,
+          0.7014689833416483,
+          0.6143625084569501,
+          0.6399714417806689,
+          0.5796142815105187,
+          0.5866516495813354,
+          0.5565645678643442,
+          0.539512960652529,
+          0.6181471339530313,
+          0.5863826191291279,
+          0.6639526545056248,
+          0.6848298898921833,
+          0.7365251977101819,
+          0.6433177430045666,
+          0.6184427414848483,
+          0.6286302583048894,
+          0.6984189334602903,
+          0.7103433336007727,
+          0.6781389982202651,
+          0.6110923646336183,
+          0.6206837209279344,
+          0.6300856613576001,
+          0.7182517259786948,
+          0.6280234969134038,
+          0.6285167080974864,
+          0.5520561180843013,
+          0.5564972351796995,
+          0.5767329835061575,
+          0.6534716410634919,
+          0.7042854441977888,
+          0.6648627752507155,
+          0.6791769780192304,
+          0.6942018029109955,
+          0.718619807335933,
+          0.7081850661753343,
+          0.7272067709533215,
+          0.7432614538160637,
+          0.7575565146993926,
+          0.721342455686122,
+          0.716729411858401,
+          0.7127580158337813,
+          0.7356049264460139,
+          0.7387960358600578,
+          0.7300958236010114,
+          0.7025513234544168,
+          0.6888280247618702,
+          0.6719134185774372,
+          0.6949288852532467,
+          0.7053995916560646,
+          0.7277104042787063,
+          0.743076217263563,
+          0.7524716480339531,
+          0.7523182090671263
+        ],
+        "description": "这个\"今天感觉不错,逛了一天街\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从49%到76%，创造出丰富的情绪层次。",
+        "durationMs": 2
+      },
+      "timestamp": 1759775213052
+    },
+    {
+      "type": "artworks_selected",
+      "payload": {
+        "artworks": [
+          {
+            "id": "459027",
+            "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "year": "ca. 1485–95",
+            "medium": "Oil on wood; (verso: oil and gold on wood)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "436155",
+            "title": "The Rehearsal of the Ballet Onstage",
+            "artist": "Edgar Degas",
+            "year": "ca. 1874",
+            "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "436241",
+            "title": "Cows Crossing a Ford",
+            "artist": "Jules Dupré",
+            "year": "1836",
+            "medium": "Oil on canvas",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "436102",
+            "title": "Virgin and Child with Four Angels",
+            "artist": "Gerard David",
+            "year": "ca. 1510–15",
+            "medium": "Oil on wood",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "437133",
+            "title": "Garden at Sainte-Adresse",
+            "artist": "Claude Monet",
+            "year": "1867",
+            "medium": "Oil on canvas",
+            "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "438779",
+            "title": "A Peasant Family",
+            "artist": "Antoine Le Nain",
+            "year": "ca. 1640–48",
+            "medium": "Oil on copper",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "435848",
+            "title": "The Birth of the Virgin",
+            "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+            "year": "1467",
+            "medium": "Tempera and oil on wood",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "437261",
+            "title": "The Penitence of Saint Jerome",
+            "artist": "Joachim Patinir",
+            "year": "ca. 1515",
+            "medium": "Oil on wood",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "671456",
+            "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+            "artist": "Gustave Caillebotte",
+            "year": "1893",
+            "medium": "Oil on canvas",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          }
+        ],
+        "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+        "diversityMetrics": {
+          "artistCount": 9,
+          "periodCount": 3,
+          "mediumCount": 6,
+          "avgScore": 6.051481481481482,
+          "emotionFit": 5
+        },
+        "durationMs": 1
+      },
+      "timestamp": 1759775213053
+    },
+    {
+      "type": "introduction",
+      "payload": {
+        "introduction": "\n",
+        "durationMs": 7155
+      },
+      "timestamp": 1759775220207
+    },
+    {
+      "type": "conclusion",
+      "payload": {
+        "conclusion": "\n在\"今天感觉不错，逛了一天街\"的展览中，九件作品如散落的珍珠，串联起城市漫游中的诗意瞬间。观众的情绪轨迹从略带沉思的0.657跃升至明亮的0.",
+        "durationMs": 4753
+      },
+      "timestamp": 1759775224959
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 1,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "459027",
+            "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+            "artist": "Jacometto (Jacometto Veneziano)",
+            "emotionalConnection": "今天心情愉悦，漫步",
+            "artisticAnalysis": "创作于1485-95年间，正值文艺复兴早期，人文主义思想在意大利城邦悄然兴起。艺术家虽不如提香那般声名显赫，却以细腻的笔触捕捉了这位可能是圣塞孔多修女的女性形象。她直视观者的眼神中透露出内在的坚定与平静，仿佛穿越五百年的时光与今天的你对话。 正面肖像构图的简洁与平衡，与你逛街后内心和谐的状态形成微妙共鸣。注意她面部的细腻刻画——微扬的嘴角和坚定的眼神，展现出一种超越时代的自信与从容。这种对个体内心世界的关注，正是文艺复兴时期艺术革命的核心。 翻转作品背面的grisaille（灰色单色画）场景，你会发现另一个维度的艺术体验。精致的细节和虔诚",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "今天心情愉悦，漫步",
+              "artisticAnalysis": "创作于1485-95年间，正值文艺复兴早期，人文主义思想在意大利城邦悄然兴起。艺术家虽不如提香那般声名显赫，却以细腻的笔触捕捉了这位可能是圣塞孔多修女的女性形象。她直视观者的眼神中透露出内在的坚定与平静，仿佛穿越五百年的时光与今天的你对话。 正面肖像构图的简洁与平衡，与你逛街后内心和谐的状态形成微妙共鸣。注意她面部的细腻刻画——微扬的嘴角和坚定的眼神，展现出一种超越时代的自信与从容。这种对个体内心世界的关注，正是文艺复兴时期艺术革命的核心。 翻转作品背面的grisaille（灰色单色画）场景，你会发现另一个维度的艺术体验。精致的细节和虔诚",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "今天心情愉悦，漫步",
+              "detail": "创作于1485-95年间，正值文艺复兴早期，人文主义思想在意大利城邦悄然兴起。艺术家虽不如提香那般声名显赫，却以细腻的笔触捕捉了这位可能是圣塞孔多修女的女性形象。她直视观者的眼神中透露出内在的坚定与平静，仿佛穿越五百年的时光与今天的你对话。 正面肖像构图的简洁与平衡，与你逛街后内心和谐的状态形成微妙共鸣。注意她面部的细腻刻画——微扬的嘴角和坚定的眼神，展现出一种超越时代的自信与从容。这种对个体内心世界的关注，正是文艺复兴时期艺术革命的核心。 翻转作品背面的grisaille（灰色单色画）场景，你会发现另一个维度的艺术体验。精致的细节和虔诚"
+            },
+            "confidence": 0.8,
+            "processingTime": 29609
+          },
+          {
+            "artworkId": "436155",
+            "title": "The Rehearsal of the Ballet Onstage",
+            "artist": "Edgar Degas",
+            "emotionalConnection": "德加的《舞台上的芭蕾排练》创作于187。",
+            "artisticAnalysis": "德加的《舞台上的芭蕾排练》创作于187",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "德加的《舞台上的芭蕾排练》创作于187。",
+              "artisticAnalysis": "德加的《舞台上的芭蕾排练》创作于187",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "德加的《舞台上的芭蕾排练》创作于187。",
+              "detail": "德加的《舞台上的芭蕾排练》创作于187"
+            },
+            "confidence": 0.8,
+            "processingTime": 20767
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 51846,
+        "isFirstBatch": true
+      },
+      "timestamp": 1759775264898
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 3,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "437133",
+            "title": "Garden at Sainte-Adresse",
+            "artist": "Claude Monet",
+            "emotionalConnection": "漫步在莫奈1867年的《Garden at Sainte-Adresse》前，就像是你今天逛街心情的完美延续。",
+            "artisticAnalysis": "那个年代，印象派正悄然破土而出，莫奈正用颠覆传统的色彩解放艺术，而你恰好站在了这个艺术革命的前夜。 画中花园的明亮蓝与鲜红，恰似你购物袋里那些令人心情愉悦的色彩。莫奈大胆的笔触和跳跃的光线，完美捕捉了夏日午后的悠闲时光——就像你今天在街头巷尾感受的那份自在。注意看前景中那几个身着白色衣物的人物，他们姿态轻松，正享受着海风的吹拂，这不正是你逛了一天后，坐在咖啡馆小憩时的惬意写照吗？ 当你凝视这幅画，不妨特别留意莫奈如何处理海面与天空的交界，那细微的色彩变化正是印象派的精髓所在。这提醒我们，生活中的美好往往藏在这些看似平凡的瞬间里，就像你今天不经意间发现的那家小店或那片风景。 这幅作品与你的奇妙共鸣在于，它让我们明白：真正的幸福不在于宏大的叙事，而在于对日常之美的敏感与珍视——这正是你今天逛街时最宝贵的收获。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "漫步在莫奈1867年的《Garden at Sainte-Adresse》前，就像是你今天逛街心情的完美延续。",
+              "artisticAnalysis": "那个年代，印象派正悄然破土而出，莫奈正用颠覆传统的色彩解放艺术，而你恰好站在了这个艺术革命的前夜。 画中花园的明亮蓝与鲜红，恰似你购物袋里那些令人心情愉悦的色彩。莫奈大胆的笔触和跳跃的光线，完美捕捉了夏日午后的悠闲时光——就像你今天在街头巷尾感受的那份自在。注意看前景中那几个身着白色衣物的人物，他们姿态轻松，正享受着海风的吹拂，这不正是你逛了一天后，坐在咖啡馆小憩时的惬意写照吗？ 当你凝视这幅画，不妨特别留意莫奈如何处理海面与天空的交界，那细微的色彩变化正是印象派的精髓所在。这提醒我们，生活中的美好往往藏在这些看似平凡的瞬间里，就像你今天不经意间发现的那家小店或那片风景。 这幅作品与你的奇妙共鸣在于，它让我们明白：真正的幸福不在于宏大的叙事，而在于对日常之美的敏感与珍视——这正是你今天逛街时最宝贵的收获。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "漫步在莫奈1867年的《Garden at Sainte-Adresse》前，就像是你今天逛街心情的完美延续。",
+              "detail": "那个年代，印象派正悄然破土而出，莫奈正用颠覆传统的色彩解放艺术，而你恰好站在了这个艺术革命的前夜。 画中花园的明亮蓝与鲜红，恰似你购物袋里那些令人心情愉悦的色彩。莫奈大胆的笔触和跳跃的光线，完美捕捉了夏日午后的悠闲时光——就像你今天在街头巷尾感受的那份自在。注意看前景中那几个身着白色衣物的人物，他们姿态轻松，正享受着海风的吹拂，这不正是你逛了一天后，坐在咖啡馆小憩时的惬意写照吗？ 当你凝视这幅画，不妨特别留意莫奈如何处理海面与天空的交界，那细微的色彩变化正是印象派的精髓所在。这提醒我们，生活中的美好往往藏在这些看似平凡的瞬间里，就像你今天不经意间发现的那家小店或那片风景。 这幅作品与你的奇妙共鸣在于，它让我们明白：真正的幸福不在于宏大的叙事，而在于对日常之美的敏感与珍视——这正是你今天逛街时最宝贵的收获。"
+            },
+            "confidence": 0.8,
+            "processingTime": 18036
+          },
+          {
+            "artworkId": "438779",
+            "title": "A Peasant Family",
+            "artist": "Antoine Le Nain",
+            "emotionalConnection": "在您愉悦的逛街心情下，勒南的《农民家庭（（A Peasant Family）》如同一面温润的镜子，映照出您今天所捕捉的生活之美。",
+            "artisticAnalysis": "1640年代的法国正值动荡时期，投石党运动的阴影笼罩，而勒南兄弟却以铜板油画这一精致技法，将目光投向了平凡农民家庭的日常。这种选择本身就如同您今天的好心情一样，是对生活本质的温柔肯定。 画中农民家庭围坐的场景，或许让您想起今天逛街时街头巷尾的温馨互动。铜板特有的光泽感赋予画面一种内敛的温暖，恰如您一天漫步城市后内心的满足。勒南笔下人物的朴实神情与自然姿态，没有矫揉造作的成分，就像您今天无目的逛街时偶然发现的那些不加修饰的美好瞬间。 建议您留意画面中人物之间的微妙互动——眼神的交汇、手势的自然摆放，这些都是勒南捕捉生活气息的精髓。当您在都市的喧嚣中度过一天后，这幅17世纪的作品能提供一个宁静的视角，让您重新思考简单生活的价值。 勒南用艺术告诉我们，无论时代如何变迁，人类对家庭、温暖和日常幸福的追求始终不变。今天您逛街时感受到的愉悦，与几百年前农民家庭共享的平凡喜悦，在本质上有着奇妙的共鸣。这种跨越时空的情感连接，正是艺术给予我们最珍贵的礼物。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在您愉悦的逛街心情下，勒南的《农民家庭（（A Peasant Family）》如同一面温润的镜子，映照出您今天所捕捉的生活之美。",
+              "artisticAnalysis": "1640年代的法国正值动荡时期，投石党运动的阴影笼罩，而勒南兄弟却以铜板油画这一精致技法，将目光投向了平凡农民家庭的日常。这种选择本身就如同您今天的好心情一样，是对生活本质的温柔肯定。 画中农民家庭围坐的场景，或许让您想起今天逛街时街头巷尾的温馨互动。铜板特有的光泽感赋予画面一种内敛的温暖，恰如您一天漫步城市后内心的满足。勒南笔下人物的朴实神情与自然姿态，没有矫揉造作的成分，就像您今天无目的逛街时偶然发现的那些不加修饰的美好瞬间。 建议您留意画面中人物之间的微妙互动——眼神的交汇、手势的自然摆放，这些都是勒南捕捉生活气息的精髓。当您在都市的喧嚣中度过一天后，这幅17世纪的作品能提供一个宁静的视角，让您重新思考简单生活的价值。 勒南用艺术告诉我们，无论时代如何变迁，人类对家庭、温暖和日常幸福的追求始终不变。今天您逛街时感受到的愉悦，与几百年前农民家庭共享的平凡喜悦，在本质上有着奇妙的共鸣。这种跨越时空的情感连接，正是艺术给予我们最珍贵的礼物。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在您愉悦的逛街心情下，勒南的《农民家庭（（A Peasant Family）》如同一面温润的镜子，映照出您今天所捕捉的生活之美。",
+              "detail": "1640年代的法国正值动荡时期，投石党运动的阴影笼罩，而勒南兄弟却以铜板油画这一精致技法，将目光投向了平凡农民家庭的日常。这种选择本身就如同您今天的好心情一样，是对生活本质的温柔肯定。 画中农民家庭围坐的场景，或许让您想起今天逛街时街头巷尾的温馨互动。铜板特有的光泽感赋予画面一种内敛的温暖，恰如您一天漫步城市后内心的满足。勒南笔下人物的朴实神情与自然姿态，没有矫揉造作的成分，就像您今天无目的逛街时偶然发现的那些不加修饰的美好瞬间。 建议您留意画面中人物之间的微妙互动——眼神的交汇、手势的自然摆放，这些都是勒南捕捉生活气息的精髓。当您在都市的喧嚣中度过一天后，这幅17世纪的作品能提供一个宁静的视角，让您重新思考简单生活的价值。 勒南用艺术告诉我们，无论时代如何变迁，人类对家庭、温暖和日常幸福的追求始终不变。今天您逛街时感受到的愉悦，与几百年前农民家庭共享的平凡喜悦，在本质上有着奇妙的共鸣。这种跨越时空的情感连接，正是艺术给予我们最珍贵的礼物。"
+            },
+            "confidence": 0.8,
+            "processingTime": 22835
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 22913
+      },
+      "timestamp": 1759775287811
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 5,
+        "batchSize": 1,
+        "explanations": [
+          {
+            "artworkId": "671456",
+            "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+            "artist": "Gustave Caillebotte",
+            "emotionalConnection": "当你在繁华都市漫步一天后，凝视这幅1893年创作的花园画作，会发现它与你的心情不谋而合。",
+            "artisticAnalysis": "卡耶博特创作于\"美好年代\"的这幅作品，正是巴黎中产阶级追求闲暇生活的见证——那年世博会刚展示了现代文明的进步，而艺术家正用画笔记录自然与城市间的诗意栖居。 卡耶博特作为印象派中的\"异类\"，将精确的透视与印象派的光影完美融合。画中盛开的菊花以丰富的色彩层次铺展，仿佛阳光正透过花瓣洒在你的视网膜上。那精心安排的透视路径，唤起了你逛街时的视觉体验，从喧嚣街道到宁静花园的情绪转换在此刻完成。 注意花园中光线如何在叶片间嬉戏，那不仅是卡耶博特对自然的忠实记录，更是他对生活细微之处的敏感捕捉。当你",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "当你在繁华都市漫步一天后，凝视这幅1893年创作的花园画作，会发现它与你的心情不谋而合。",
+              "artisticAnalysis": "卡耶博特创作于\"美好年代\"的这幅作品，正是巴黎中产阶级追求闲暇生活的见证——那年世博会刚展示了现代文明的进步，而艺术家正用画笔记录自然与城市间的诗意栖居。 卡耶博特作为印象派中的\"异类\"，将精确的透视与印象派的光影完美融合。画中盛开的菊花以丰富的色彩层次铺展，仿佛阳光正透过花瓣洒在你的视网膜上。那精心安排的透视路径，唤起了你逛街时的视觉体验，从喧嚣街道到宁静花园的情绪转换在此刻完成。 注意花园中光线如何在叶片间嬉戏，那不仅是卡耶博特对自然的忠实记录，更是他对生活细微之处的敏感捕捉。当你",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "当你在繁华都市漫步一天后，凝视这幅1893年创作的花园画作，会发现它与你的心情不谋而合。",
+              "detail": "卡耶博特创作于\"美好年代\"的这幅作品，正是巴黎中产阶级追求闲暇生活的见证——那年世博会刚展示了现代文明的进步，而艺术家正用画笔记录自然与城市间的诗意栖居。 卡耶博特作为印象派中的\"异类\"，将精确的透视与印象派的光影完美融合。画中盛开的菊花以丰富的色彩层次铺展，仿佛阳光正透过花瓣洒在你的视网膜上。那精心安排的透视路径，唤起了你逛街时的视觉体验，从喧嚣街道到宁静花园的情绪转换在此刻完成。 注意花园中光线如何在叶片间嬉戏，那不仅是卡耶博特对自然的忠实记录，更是他对生活细微之处的敏感捕捉。当你"
+            },
+            "confidence": 0.8,
+            "processingTime": 24086
+          }
+        ],
+        "successCount": 1,
+        "failureCount": 0,
+        "durationMs": 24128
+      },
+      "timestamp": 1759775289025
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 2,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "436241",
+            "title": "Cows Crossing a Ford",
+            "artist": "Jules Dupré",
+            "emotionalConnection": "在\"今天感觉不错,逛",
+            "artisticAnalysis": "在您心情愉悦",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在\"今天感觉不错,逛",
+              "artisticAnalysis": "在您心情愉悦",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在\"今天感觉不错,逛",
+              "detail": "在您心情愉悦"
+            },
+            "confidence": 0.8,
+            "processingTime": 26127
+          },
+          {
+            "artworkId": "436102",
+            "title": "Virgin and Child with Four Angels",
+            "artist": "Gerard David",
+            "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，圣母子与四天使（Virgin and Child with Four Angels）展现出特别的艺术魅力和情感深度。",
+            "artisticAnalysis": "漫步在布鲁日画派大师杰拉德·戴维（Gerard David）约1510",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，圣母子与四天使（Virgin and Child with Four Angels）展现出特别的艺术魅力和情感深度。",
+              "artisticAnalysis": "漫步在布鲁日画派大师杰拉德·戴维（Gerard David）约1510",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在\"今天感觉不错,逛了一天街\"的心情下，圣母子与四天使（Virgin and Child with Four Angels）展现出特别的艺术魅力和情感深度。",
+              "detail": "漫步在布鲁日画派大师杰拉德·戴维（Gerard David）约1510"
+            },
+            "confidence": 0.8,
+            "processingTime": 24026
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 26160
+      },
+      "timestamp": 1759775291057
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 4,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "435848",
+            "title": "The Birth of the Virgin",
+            "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+            "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，《圣母诞生》(The Birth of the Virgin)展现出特别的艺术魅力和情感深度。",
+            "artisticAnalysis": "漫步了一天，带着愉悦的心情驻足在Fra Carnevale的《圣母诞生》前，你会发现这幅146年的作品仿佛是为今天的好心情量身定制。作为文艺复兴早期的杰作，它融合了蛋彩的明亮与油画的细腻，恰如你今日购物体验中既有即时满足又有回味绵长的双重愉悦。 画面中，柔和的光线洒在精心构建的室内空间，每一处细节都透露着艺术家对日常生活的深情凝视。注意看那些精致的家具装饰和人物姿态，它们不是刻板的宗教符号，而是充满人情味的场景，如同你今天走过的街道，平凡中见不凡。Fra Carnevale作为可能师从于菲利普·利皮的画家，将透视法的精确与情感的温度完美结合，这种平衡感恰如你逛街后身心俱得的和谐。 当你凝视这幅画，不妨留意画面中那些微妙的色彩过渡与光影变化，它们会唤起一种平静而持久的愉悦，与逛街时的即时欢愉形成美妙呼应。在六百年的历史长河中，这件作品见证过无数像你一样心情美好的观众，而你今天的欣赏，也为它增添了新的生命故事。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "在\"今天感觉不错,逛了一天街\"的心情下，《圣母诞生》(The Birth of the Virgin)展现出特别的艺术魅力和情感深度。",
+              "artisticAnalysis": "漫步了一天，带着愉悦的心情驻足在Fra Carnevale的《圣母诞生》前，你会发现这幅146年的作品仿佛是为今天的好心情量身定制。作为文艺复兴早期的杰作，它融合了蛋彩的明亮与油画的细腻，恰如你今日购物体验中既有即时满足又有回味绵长的双重愉悦。 画面中，柔和的光线洒在精心构建的室内空间，每一处细节都透露着艺术家对日常生活的深情凝视。注意看那些精致的家具装饰和人物姿态，它们不是刻板的宗教符号，而是充满人情味的场景，如同你今天走过的街道，平凡中见不凡。Fra Carnevale作为可能师从于菲利普·利皮的画家，将透视法的精确与情感的温度完美结合，这种平衡感恰如你逛街后身心俱得的和谐。 当你凝视这幅画，不妨留意画面中那些微妙的色彩过渡与光影变化，它们会唤起一种平静而持久的愉悦，与逛街时的即时欢愉形成美妙呼应。在六百年的历史长河中，这件作品见证过无数像你一样心情美好的观众，而你今天的欣赏，也为它增添了新的生命故事。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "在\"今天感觉不错,逛了一天街\"的心情下，《圣母诞生》(The Birth of the Virgin)展现出特别的艺术魅力和情感深度。",
+              "detail": "漫步了一天，带着愉悦的心情驻足在Fra Carnevale的《圣母诞生》前，你会发现这幅146年的作品仿佛是为今天的好心情量身定制。作为文艺复兴早期的杰作，它融合了蛋彩的明亮与油画的细腻，恰如你今日购物体验中既有即时满足又有回味绵长的双重愉悦。 画面中，柔和的光线洒在精心构建的室内空间，每一处细节都透露着艺术家对日常生活的深情凝视。注意看那些精致的家具装饰和人物姿态，它们不是刻板的宗教符号，而是充满人情味的场景，如同你今天走过的街道，平凡中见不凡。Fra Carnevale作为可能师从于菲利普·利皮的画家，将透视法的精确与情感的温度完美结合，这种平衡感恰如你逛街后身心俱得的和谐。 当你凝视这幅画，不妨留意画面中那些微妙的色彩过渡与光影变化，它们会唤起一种平静而持久的愉悦，与逛街时的即时欢愉形成美妙呼应。在六百年的历史长河中，这件作品见证过无数像你一样心情美好的观众，而你今天的欣赏，也为它增添了新的生命故事。"
+            },
+            "confidence": 0.8,
+            "processingTime": 25547
+          },
+          {
+            "artworkId": "437261",
+            "title": "The Penitence of Saint Jerome",
+            "artist": "Joachim Patinir",
+            "emotionalConnection": "漫步一天后，你的心境正如同Patinir在1515年创作的这幅《圣杰罗姆的忏悔》中那开阔的风景——既充满活力，又蕴含沉思。",
+            "artisticAnalysis": "1515年的欧洲正处于文艺复兴与宗教改革的十字路口，人文主义的曙光正照亮中世纪的阴影，而Patinir，这位被尊为\"风景画之父\"的佛兰德斯大师，正以他独特的\"世界风景\"风格，将宗教故事融入壮阔的自然图景中。 当你\"感觉不错\"地欣赏这幅作品时，会发现Patinir的油画技法在木板上呈现出令人惊叹的层次感：远处蔚蓝的山脉如黛，中间绿色的河谷蜿蜒流淌，近处的岩石纹理清晰可辨。这种由近及远的视觉旅程，恰似你一天逛街的体验——从繁华街市到静谧角落，不断变换的视野带来丰富的感官享受。画中那位小小的圣杰罗姆在荒野中忏悔，他的孤独与周围生机勃勃的自然形成微妙对比，正如我们心情愉悦时，内心仍会自然浮现的某些思考。 建议你先沉浸于作品整体的宏大构图，感受Patinir如何通过色彩创造出空间深度；然后聚焦于前景中圣杰罗姆的细节，注意他虔诚的姿态与周围环境的互动。这种从宏观到微观的欣赏方式，会让你联想到一天逛街时不断发现新视角的愉悦。 这幅作品提醒我们，即使是最平凡的日常行走，也是一场精神与感官的双重旅程。圣杰罗姆在广阔自然中的忏悔姿态，与你一天的城市漫步形成奇妙共鸣——外在的探索与内在的反思总是相伴而行，让",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "漫步一天后，你的心境正如同Patinir在1515年创作的这幅《圣杰罗姆的忏悔》中那开阔的风景——既充满活力，又蕴含沉思。",
+              "artisticAnalysis": "1515年的欧洲正处于文艺复兴与宗教改革的十字路口，人文主义的曙光正照亮中世纪的阴影，而Patinir，这位被尊为\"风景画之父\"的佛兰德斯大师，正以他独特的\"世界风景\"风格，将宗教故事融入壮阔的自然图景中。 当你\"感觉不错\"地欣赏这幅作品时，会发现Patinir的油画技法在木板上呈现出令人惊叹的层次感：远处蔚蓝的山脉如黛，中间绿色的河谷蜿蜒流淌，近处的岩石纹理清晰可辨。这种由近及远的视觉旅程，恰似你一天逛街的体验——从繁华街市到静谧角落，不断变换的视野带来丰富的感官享受。画中那位小小的圣杰罗姆在荒野中忏悔，他的孤独与周围生机勃勃的自然形成微妙对比，正如我们心情愉悦时，内心仍会自然浮现的某些思考。 建议你先沉浸于作品整体的宏大构图，感受Patinir如何通过色彩创造出空间深度；然后聚焦于前景中圣杰罗姆的细节，注意他虔诚的姿态与周围环境的互动。这种从宏观到微观的欣赏方式，会让你联想到一天逛街时不断发现新视角的愉悦。 这幅作品提醒我们，即使是最平凡的日常行走，也是一场精神与感官的双重旅程。圣杰罗姆在广阔自然中的忏悔姿态，与你一天的城市漫步形成奇妙共鸣——外在的探索与内在的反思总是相伴而行，让",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "漫步一天后，你的心境正如同Patinir在1515年创作的这幅《圣杰罗姆的忏悔》中那开阔的风景——既充满活力，又蕴含沉思。",
+              "detail": "1515年的欧洲正处于文艺复兴与宗教改革的十字路口，人文主义的曙光正照亮中世纪的阴影，而Patinir，这位被尊为\"风景画之父\"的佛兰德斯大师，正以他独特的\"世界风景\"风格，将宗教故事融入壮阔的自然图景中。 当你\"感觉不错\"地欣赏这幅作品时，会发现Patinir的油画技法在木板上呈现出令人惊叹的层次感：远处蔚蓝的山脉如黛，中间绿色的河谷蜿蜒流淌，近处的岩石纹理清晰可辨。这种由近及远的视觉旅程，恰似你一天逛街的体验——从繁华街市到静谧角落，不断变换的视野带来丰富的感官享受。画中那位小小的圣杰罗姆在荒野中忏悔，他的孤独与周围生机勃勃的自然形成微妙对比，正如我们心情愉悦时，内心仍会自然浮现的某些思考。 建议你先沉浸于作品整体的宏大构图，感受Patinir如何通过色彩创造出空间深度；然后聚焦于前景中圣杰罗姆的细节，注意他虔诚的姿态与周围环境的互动。这种从宏观到微观的欣赏方式，会让你联想到一天逛街时不断发现新视角的愉悦。 这幅作品提醒我们，即使是最平凡的日常行走，也是一场精神与感官的双重旅程。圣杰罗姆在广阔自然中的忏悔姿态，与你一天的城市漫步形成奇妙共鸣——外在的探索与内在的反思总是相伴而行，让"
+            },
+            "confidence": 0.8,
+            "processingTime": 27393
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 27445
+      },
+      "timestamp": 1759775292343
+    },
+    {
+      "type": "complete",
+      "payload": {
+        "elapsedMs": 150895
+      },
+      "timestamp": 1759775292343
+    }
+  ],
+  "error": null,
+  "success": true,
+  "endTime": "2025-10-06T18:28:12.345Z",
+  "totalDuration": 150937,
+  "generatedAt": "2025-10-06T18:28:12.346Z",
+  "environment": {
+    "nodeVersion": "v22.20.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  }
+}

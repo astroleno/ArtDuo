@@ -1,0 +1,514 @@
+{
+  "phase": 3,
+  "total_emotions": 22,
+  "total_artworks": 2992,
+  "avg_per_emotion": "136.0",
+  "emotions": [
+    {
+      "emotion_id": "boredom",
+      "emotion_cn": "无聊",
+      "artworks_count": 13,
+      "metadata": {
+        "emotion_index": 44,
+        "collected_at": "2025-10-21T02:32:19.785Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 22,
+        "total_details_fetched": 22,
+        "total_valid_artworks": 13,
+        "validation": {
+          "totalArtworks": 13,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 1,
+          "keywordCoverage": 0.077,
+          "withImage": 13,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2
+        }
+      }
+    },
+    {
+      "emotion_id": "apathy",
+      "emotion_cn": "冷漠",
+      "artworks_count": 122,
+      "metadata": {
+        "emotion_index": 45,
+        "collected_at": "2025-10-21T02:32:36.516Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 449,
+        "total_details_fetched": 164,
+        "total_valid_artworks": 122,
+        "validation": {
+          "totalArtworks": 122,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 24,
+          "keywordCoverage": 0.197,
+          "withImage": 122,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.73
+        }
+      }
+    },
+    {
+      "emotion_id": "confusion",
+      "emotion_cn": "困惑",
+      "artworks_count": 131,
+      "metadata": {
+        "emotion_index": 46,
+        "collected_at": "2025-10-21T02:35:27.883Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 6834,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 131,
+        "validation": {
+          "totalArtworks": 131,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 3,
+          "keywordCoverage": 0.023,
+          "withImage": 131,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 1.9
+        }
+      }
+    },
+    {
+      "emotion_id": "tension",
+      "emotion_cn": "紧张感",
+      "artworks_count": 120,
+      "metadata": {
+        "emotion_index": 47,
+        "collected_at": "2025-10-21T02:38:20.459Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 1076,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 120,
+        "validation": {
+          "totalArtworks": 120,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 8,
+          "keywordCoverage": 0.067,
+          "withImage": 120,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.19
+        }
+      }
+    },
+    {
+      "emotion_id": "drama",
+      "emotion_cn": "戏剧性",
+      "artworks_count": 166,
+      "metadata": {
+        "emotion_index": 48,
+        "collected_at": "2025-10-21T02:42:15.826Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 3627,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 166,
+        "validation": {
+          "totalArtworks": 166,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 60,
+          "keywordCoverage": 0.361,
+          "withImage": 166,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.52
+        }
+      }
+    },
+    {
+      "emotion_id": "fatigue",
+      "emotion_cn": "疲惫",
+      "artworks_count": 139,
+      "metadata": {
+        "emotion_index": 49,
+        "collected_at": "2025-10-21T02:45:06.052Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 606,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 139,
+        "validation": {
+          "totalArtworks": 139,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 35,
+          "keywordCoverage": 0.252,
+          "withImage": 139,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 1.63
+        }
+      }
+    },
+    {
+      "emotion_id": "despair",
+      "emotion_cn": "绝望",
+      "artworks_count": 145,
+      "metadata": {
+        "emotion_index": 50,
+        "collected_at": "2025-10-21T02:47:53.781Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 348,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 145,
+        "validation": {
+          "totalArtworks": 145,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 28,
+          "keywordCoverage": 0.193,
+          "withImage": 145,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.12
+        }
+      }
+    },
+    {
+      "emotion_id": "courage",
+      "emotion_cn": "勇气",
+      "artworks_count": 145,
+      "metadata": {
+        "emotion_index": 51,
+        "collected_at": "2025-10-21T02:50:30.921Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 2146,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 145,
+        "validation": {
+          "totalArtworks": 145,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 18,
+          "keywordCoverage": 0.124,
+          "withImage": 145,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.23
+        }
+      }
+    },
+    {
+      "emotion_id": "hope_loss",
+      "emotion_cn": "希望与失落",
+      "artworks_count": 97,
+      "metadata": {
+        "emotion_index": 52,
+        "collected_at": "2025-10-21T02:53:18.761Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 4348,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 97,
+        "validation": {
+          "totalArtworks": 97,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 39,
+          "keywordCoverage": 0.402,
+          "withImage": 97,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 1.81
+        }
+      }
+    },
+    {
+      "emotion_id": "mysticism",
+      "emotion_cn": "神秘主义",
+      "artworks_count": 155,
+      "metadata": {
+        "emotion_index": 53,
+        "collected_at": "2025-10-21T02:56:02.337Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 5679,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 155,
+        "validation": {
+          "totalArtworks": 155,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 52,
+          "keywordCoverage": 0.335,
+          "withImage": 155,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 3.82
+        }
+      }
+    },
+    {
+      "emotion_id": "yearning",
+      "emotion_cn": "眷恋",
+      "artworks_count": 124,
+      "metadata": {
+        "emotion_index": 54,
+        "collected_at": "2025-10-21T02:58:51.154Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 7591,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 124,
+        "validation": {
+          "totalArtworks": 124,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 24,
+          "keywordCoverage": 0.194,
+          "withImage": 124,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.61
+        }
+      }
+    },
+    {
+      "emotion_id": "desolation",
+      "emotion_cn": "荒凉",
+      "artworks_count": 162,
+      "metadata": {
+        "emotion_index": 55,
+        "collected_at": "2025-10-21T03:01:35.628Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 3154,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 162,
+        "validation": {
+          "totalArtworks": 162,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 92,
+          "keywordCoverage": 0.568,
+          "withImage": 162,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 1.98
+        }
+      }
+    },
+    {
+      "emotion_id": "patience",
+      "emotion_cn": "耐心",
+      "artworks_count": 154,
+      "metadata": {
+        "emotion_index": 56,
+        "collected_at": "2025-10-21T03:04:18.836Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 1481,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 154,
+        "validation": {
+          "totalArtworks": 154,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 22,
+          "keywordCoverage": 0.143,
+          "withImage": 154,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.56
+        }
+      }
+    },
+    {
+      "emotion_id": "mortality",
+      "emotion_cn": "无常",
+      "artworks_count": 167,
+      "metadata": {
+        "emotion_index": 57,
+        "collected_at": "2025-10-21T03:07:04.148Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 24183,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 167,
+        "validation": {
+          "totalArtworks": 167,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 86,
+          "keywordCoverage": 0.515,
+          "withImage": 167,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 1.39
+        }
+      }
+    },
+    {
+      "emotion_id": "innocence",
+      "emotion_cn": "纯真",
+      "artworks_count": 154,
+      "metadata": {
+        "emotion_index": 58,
+        "collected_at": "2025-10-21T03:09:50.800Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 991,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 154,
+        "validation": {
+          "totalArtworks": 154,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 43,
+          "keywordCoverage": 0.279,
+          "withImage": 154,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 3.23
+        }
+      }
+    },
+    {
+      "emotion_id": "devotion",
+      "emotion_cn": "虔诚",
+      "artworks_count": 177,
+      "metadata": {
+        "emotion_index": 59,
+        "collected_at": "2025-10-21T03:12:37.009Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 6342,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 177,
+        "validation": {
+          "totalArtworks": 177,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 30,
+          "keywordCoverage": 0.169,
+          "withImage": 177,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.63
+        }
+      }
+    },
+    {
+      "emotion_id": "maturity",
+      "emotion_cn": "成熟",
+      "artworks_count": 158,
+      "metadata": {
+        "emotion_index": 60,
+        "collected_at": "2025-10-21T03:15:23.126Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 2641,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 158,
+        "validation": {
+          "totalArtworks": 158,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 38,
+          "keywordCoverage": 0.241,
+          "withImage": 158,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 3.28
+        }
+      }
+    },
+    {
+      "emotion_id": "silence",
+      "emotion_cn": "静默",
+      "artworks_count": 135,
+      "metadata": {
+        "emotion_index": 61,
+        "collected_at": "2025-10-21T03:18:05.124Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 788,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 135,
+        "validation": {
+          "totalArtworks": 135,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 9,
+          "keywordCoverage": 0.067,
+          "withImage": 135,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 3
+        }
+      }
+    },
+    {
+      "emotion_id": "curiosity_deep",
+      "emotion_cn": "求知",
+      "artworks_count": 146,
+      "metadata": {
+        "emotion_index": 62,
+        "collected_at": "2025-10-21T03:20:51.334Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 51088,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 146,
+        "validation": {
+          "totalArtworks": 146,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 7,
+          "keywordCoverage": 0.048,
+          "withImage": 146,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 2.15
+        }
+      }
+    },
+    {
+      "emotion_id": "awe_nature",
+      "emotion_cn": "自然的敬畏",
+      "artworks_count": 122,
+      "metadata": {
+        "emotion_index": 63,
+        "collected_at": "2025-10-21T03:23:39.624Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 9505,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 122,
+        "validation": {
+          "totalArtworks": 122,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 9,
+          "keywordCoverage": 0.074,
+          "withImage": 122,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 4.07
+        }
+      }
+    },
+    {
+      "emotion_id": "longing",
+      "emotion_cn": "渴望",
+      "artworks_count": 143,
+      "metadata": {
+        "emotion_index": 64,
+        "collected_at": "2025-10-21T03:26:19.376Z",
+        "total_keywords_searched": 4,
+        "total_objects_found": 14488,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 143,
+        "validation": {
+          "totalArtworks": 143,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 6,
+          "keywordCoverage": 0.042,
+          "withImage": 143,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 4.12
+        }
+      }
+    },
+    {
+      "emotion_id": "tranquility_deep",
+      "emotion_cn": "静好",
+      "artworks_count": 117,
+      "metadata": {
+        "emotion_index": 65,
+        "collected_at": "2025-10-21T03:29:11.441Z",
+        "total_keywords_searched": 5,
+        "total_objects_found": 6823,
+        "total_details_fetched": 200,
+        "total_valid_artworks": 117,
+        "validation": {
+          "totalArtworks": 117,
+          "withDescription": 0,
+          "descriptionCoverage": 0,
+          "withKeywordMatch": 5,
+          "keywordCoverage": 0.043,
+          "withImage": 117,
+          "imageCoverage": 1,
+          "avgAdditionalImages": 1.68
+        }
+      }
+    }
+  ]
+}

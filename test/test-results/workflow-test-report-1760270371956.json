@@ -1,0 +1,1970 @@
+{
+  "startTime": "2025-10-12T11:44:16.206Z",
+  "scenarios": [
+    {
+      "name": "Simple Emotion - Joy",
+      "description": "Basic workflow with simple positive emotion",
+      "emotion": "joy",
+      "userInput": "",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 120000,
+        "planDuration": 30000,
+        "searchDuration": 45000,
+        "scoringDuration": 60000
+      },
+      "startTime": "2025-10-12T11:44:16.227Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 231025,
+        "steps": {
+          "emotionCurve": 2,
+          "artworkSelection": 1,
+          "introduction": 5240,
+          "conclusion": 4718,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 127485,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 26175,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 153660
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            77116
+          ],
+          "artworks_selected": [
+            77117
+          ],
+          "introduction": [
+            82355
+          ],
+          "conclusion": [
+            87073
+          ],
+          "explanations_batch": [
+            204601,
+            230777
+          ],
+          "complete": [
+            230777
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 100
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 2,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "joy",
+            "userInput": ""
+          },
+          "timestamp": 1760269456472
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.7070231117150763,
+              0.7140050771913016,
+              0.7278870772606765,
+              0.7415240046923713,
+              0.7547960176777839,
+              0.7675864812895874,
+              0.7797829924736647,
+              0.79127836785119,
+              0.8019715856500153,
+              0.8117686734876371,
+              0.8205835342038726,
+              0.8283387024857981,
+              0.834966025635706,
+              0.8404072624994612,
+              0.844614595291859,
+              0.8475510498210403,
+              0.8491908204190185,
+              0.8495194967228189,
+              0.8485341903132658,
+              0.846243560098514,
+              0.8426677362192531,
+              0.8378381431443072,
+              0.8317972235112728,
+              0.8245980651390935,
+              0.8163039344903985,
+              0.806987720683554,
+              0.79673129494047,
+              0.7856247910993589,
+              0.7737658135153241,
+              0.7612585793097785,
+              0.7482130025066321,
+              0.7347437281039011,
+              0.7209691245693405,
+              0.7070102436140943,
+              0.6929897563859058,
+              0.6790308754306595,
+              0.6652562718960988,
+              0.6517869974933678,
+              0.6387414206902217,
+              0.6262341864846758,
+              0.6143752089006411,
+              0.6032687050595301,
+              0.5930122793164462,
+              0.5836960655096014,
+              0.5754019348609063,
+              0.5682027764887271,
+              0.5621618568556926,
+              0.5573322637807469,
+              0.553756439901486,
+              0.5514658096867342,
+              0.550480503277181,
+              0.5508091795809813,
+              0.5524489501789597,
+              0.5553854047081408,
+              0.5595927375005387,
+              0.565033974364294,
+              0.5716612975142018,
+              0.5794164657961273,
+              0.5882313265123625,
+              0.5980284143499845,
+              0.6087216321488098,
+              0.620217007526335,
+              0.6324135187104124,
+              0.6452039823222159,
+              0.6584759953076285,
+              0.6721129227393233,
+              0.6859949228086983,
+              0.6929768882849237
+            ],
+            "description": "这个\"joy\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从55%到85%，创造出丰富的情绪层次。",
+            "durationMs": 2
+          },
+          "timestamp": 1760269533588
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "year": "ca. 1874",
+                "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 4,
+              "periodCount": 1,
+              "mediumCount": 2,
+              "avgScore": 6.126250000000001,
+              "emotionFit": 5
+            },
+            "durationMs": 1
+          },
+          "timestamp": 1760269533589
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n# 策展序言：Joy\n\n喜悦，如同阳光穿透云层，照亮心灵的每一个角落。本次展览\"Joy\"聚焦于三位印象派大师如何通过独特的艺术语言捕捉生命中的欢愉瞬间。莫奈在《Garden at Sainte-Adresse》中以明亮色彩描绘的海岸风光，展现了自然与人类和谐共生的纯粹喜悦；德加《The Rehearsal of the Ballet Onstage》中舞者动态的构图，传递出",
+            "durationMs": 5240
+          },
+          "timestamp": 1760269538827
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n",
+            "durationMs": 4718
+          },
+          "timestamp": 1760269543545
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "莫奈1867年描绘的圣阿德雷斯花园，展现明亮色彩与愉悦氛围。",
+                "artisticAnalysis": "这幅作品是莫奈早期印象派的代表作，以明亮色彩和轻松笔触捕捉夏日花园的欢乐氛围。从历史角度看，它创作于印象派风格形成的关键时期，预示了莫奈对传统绘画的突破；在策展上，它常被用来展示印象派对日常场景和自然光线的创新表现，对后世艺术产生了深远影响。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "莫奈1867年描绘的圣阿德雷斯花园，展现明亮色彩与愉悦氛围。",
+                  "artisticAnalysis": "这幅作品是莫奈早期印象派的代表作，以明亮色彩和轻松笔触捕捉夏日花园的欢乐氛围。从历史角度看，它创作于印象派风格形成的关键时期，预示了莫奈对传统绘画的突破；在策展上，它常被用来展示印象派对日常场景和自然光线的创新表现，对后世艺术产生了深远影响。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "莫奈1867年描绘的圣阿德雷斯花园，展现明亮色彩与愉悦氛围。",
+                  "detail": "这幅作品是莫奈早期印象派的代表作，以明亮色彩和轻松笔触捕捉夏日花园的欢乐氛围。从历史角度看，它创作于印象派风格形成的关键时期，预示了莫奈对传统绘画的突破；在策展上，它常被用来展示印象派对日常场景和自然光线的创新表现，对后世艺术产生了深远影响。"
+                },
+                "confidence": 0.8,
+                "processingTime": 19426,
+                "introduction": "莫奈1867年描绘的圣阿德雷斯花园，展现明亮色彩与愉悦氛围。",
+                "detail": "这幅作品是莫奈早期印象派的代表作，以明亮色彩和轻松笔触捕捉夏日花园的欢乐氛围。从历史角度看，它创作于印象派风格形成的关键时期，预示了莫奈对传统绘画的突破；在策展上，它常被用来展示印象派对日常场景和自然光线的创新表现，对后世艺术产生了深远影响。"
+              },
+              {
+                "artworkId": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Rehearsal of the Ballet Onstage》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127485,
+            "isFirstBatch": true
+          },
+          "timestamp": 1760269661073
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "在\"joy\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家古斯塔夫·卡耶博特（Gustave Caillebotte），创作于一八九三年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"joy\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家古斯塔夫·卡耶博特（Gustave Caillebotte），创作于一八九三年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"joy\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家古斯塔夫·卡耶博特（Gustave Caillebotte），创作于一八九三年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵"
+                },
+                "confidence": 0.8,
+                "processingTime": 26101,
+                "introduction": "在\"joy\"的心情下，Chrysanthemums in the Garden at Petit-Gennevilliers展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家古斯塔夫·卡耶博特（Gustave Caillebotte），创作于一八九三年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵"
+              },
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "杜普雷描绘牛群涉水渡河的田园喜悦，展现自然与生命的和谐。",
+                "artisticAnalysis": "朱尔斯·杜普雷作为巴比松画派代表，这幅1836年的作品展现了他对自然景色的细腻观察与热爱。画中牛群涉水的场景洋溢着朴实的喜悦，体现了画家对乡村生活的深情。杜普雷通过光影变化和色彩运用，将平凡的乡村瞬间转化为充满诗意的艺术表达，反映了19世纪法国艺术家对自然主义的追求。这幅作品不仅是巴比松画派风格的典型代表，也记录了",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "杜普雷描绘牛群涉水渡河的田园喜悦，展现自然与生命的和谐。",
+                  "artisticAnalysis": "朱尔斯·杜普雷作为巴比松画派代表，这幅1836年的作品展现了他对自然景色的细腻观察与热爱。画中牛群涉水的场景洋溢着朴实的喜悦，体现了画家对乡村生活的深情。杜普雷通过光影变化和色彩运用，将平凡的乡村瞬间转化为充满诗意的艺术表达，反映了19世纪法国艺术家对自然主义的追求。这幅作品不仅是巴比松画派风格的典型代表，也记录了",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "杜普雷描绘牛群涉水渡河的田园喜悦，展现自然与生命的和谐。",
+                  "detail": "朱尔斯·杜普雷作为巴比松画派代表，这幅1836年的作品展现了他对自然景色的细腻观察与热爱。画中牛群涉水的场景洋溢着朴实的喜悦，体现了画家对乡村生活的深情。杜普雷通过光影变化和色彩运用，将平凡的乡村瞬间转化为充满诗意的艺术表达，反映了19世纪法国艺术家对自然主义的追求。这幅作品不仅是巴比松画派风格的典型代表，也记录了"
+                },
+                "confidence": 0.8,
+                "processingTime": 22684,
+                "introduction": "杜普雷描绘牛群涉水渡河的田园喜悦，展现自然与生命的和谐。",
+                "detail": "朱尔斯·杜普雷作为巴比松画派代表，这幅1836年的作品展现了他对自然景色的细腻观察与热爱。画中牛群涉水的场景洋溢着朴实的喜悦，体现了画家对乡村生活的深情。杜普雷通过光影变化和色彩运用，将平凡的乡村瞬间转化为充满诗意的艺术表达，反映了19世纪法国艺术家对自然主义的追求。这幅作品不仅是巴比松画派风格的典型代表，也记录了"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 26175
+          },
+          "timestamp": 1760269687249
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 230794
+          },
+          "timestamp": 1760269687249
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-12T11:48:07.252Z",
+      "totalDuration": 231025
+    },
+    {
+      "name": "Complex Emotion with User Input",
+      "description": "Workflow with detailed user requirements",
+      "emotion": "nostalgia",
+      "userInput": "我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 150000,
+        "planDuration": 35000,
+        "searchDuration": 50000,
+        "scoringDuration": 70000
+      },
+      "startTime": "2025-10-12T11:48:07.252Z",
+      "passed": true,
+      "performance": {
+        "totalDuration": 145744,
+        "steps": {
+          "emotionCurve": 1,
+          "artworkSelection": 2,
+          "introduction": 5085,
+          "conclusion": 6620,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 26576,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 83860,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 110436
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            35282
+          ],
+          "artworks_selected": [
+            35282
+          ],
+          "introduction": [
+            40368
+          ],
+          "conclusion": [
+            46984
+          ],
+          "explanations_batch": [
+            61858,
+            145723
+          ],
+          "complete": [
+            145723
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 100
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 2,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "nostalgia",
+            "userInput": "我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感"
+          },
+          "timestamp": 1760269687271
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.6345103052682033,
+              0.6357608319807557,
+              0.705372605956295,
+              0.6950312245760571,
+              0.6925341394666297,
+              0.6243508380679267,
+              0.5606320148513753,
+              0.4963544107640567,
+              0.540390995634268,
+              0.5070488664397844,
+              0.5801698387097435,
+              0.5230997520399613,
+              0.546300149412274,
+              0.49119944023414375,
+              0.5785458294538145,
+              0.6203943487662887,
+              0.684005365338855,
+              0.5837315749928801,
+              0.592192159481447,
+              0.5373611756776256,
+              0.5513695634432763,
+              0.5856734663195349,
+              0.5827829834139364,
+              0.6614588559539224,
+              0.5798498728082615,
+              0.6262235478605839,
+              0.6198071102492455,
+              0.7041781279546395,
+              0.6309651034505686,
+              0.623493547172349,
+              0.5931254895863645,
+              0.6584885815846838,
+              0.6877514229379557,
+              0.7090649241714916,
+              0.6681254083583995,
+              0.6373623264991689,
+              0.6204883677075853,
+              0.663942258756195,
+              0.6001022302322657,
+              0.6108918826912463,
+              0.554078153354317,
+              0.5524300345877304,
+              0.5536111055773957,
+              0.6110667216976183,
+              0.6813098344715801,
+              0.6925597986564965,
+              0.7239039756753493,
+              0.7126884296689996,
+              0.7009219760999296,
+              0.7110072919271376,
+              0.7116500262656721,
+              0.6823465268929215,
+              0.6488750833624742,
+              0.6707997357858618,
+              0.7088774275524304,
+              0.7038655131783492,
+              0.7185932392420763,
+              0.7184493815363874,
+              0.7278697294239582,
+              0.7094650784968434,
+              0.6837244993984681,
+              0.6741111125060594,
+              0.6686752472909813,
+              0.6627990148136563,
+              0.6581516079280643,
+              0.678141376479552,
+              0.6976179028961337,
+              0.7319146855792005
+            ],
+            "description": "这个\"nostalgia\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从49%到73%，创造出丰富的情绪层次。",
+            "durationMs": 1
+          },
+          "timestamp": 1760269722553
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "436102",
+                "title": "Virgin and Child with Four Angels",
+                "artist": "Gerard David",
+                "year": "ca. 1510–15",
+                "medium": "Oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "year": "1887–88",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP375450_cropped.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "year": "1467",
+                "medium": "Tempera and oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "438003",
+                "title": "Camille Monet (1847–1879) on a Garden Bench",
+                "artist": "Claude Monet",
+                "year": "1873",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 4,
+              "periodCount": 3,
+              "mediumCount": 3,
+              "avgScore": 6.105,
+              "emotionFit": 5
+            },
+            "durationMs": 2
+          },
+          "timestamp": 1760269722553
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n# Nostalgia 怀旧：时光的温柔回响\n\n在时光的长河中，nostalgia如同一缕温暖的阳光，照亮我们记忆深处最纯真的角落。本次展览精选四件艺术杰作，带领观众穿越时空，重温那些被岁月温柔包裹的童年记忆与家庭温情。\n\n从Gerard David《圣母圣子与四天使》中的神圣母爱，到Georges Seurat《马戏团表演》中喧嚣却温暖的市井生活，再到Fra Carnevale《圣母诞生》中生命的喜悦，每一",
+            "durationMs": 5085
+          },
+          "timestamp": 1760269727639
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n",
+            "durationMs": 6620
+          },
+          "timestamp": 1760269734255
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "436102",
+                "title": "Virgin and Child with Four Angels",
+                "artist": "Gerard David",
+                "emotionalConnection": "圣母与圣婴的天伦之乐，传递温暖纯真的怀旧情感。",
+                "artisticAnalysis": "作为早期尼德兰文艺复兴大师杰拉德·大卫的代表作，这幅作品通过细腻笔触和温暖色调，成功捕捉了母子间亲密无间的情感，唤起观者对童年纯真时光的怀念。圣母怀抱圣婴的形象象征着无条件的爱与保护，四天使的环绕增添了神圣而温馨的氛围，使这幅宗教题材作品超越了单纯的信仰表达，成为对家庭温暖与童年纯真的艺术诠释，完美契合您对怀旧情感与家庭记忆的追寻。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "圣母与圣婴的天伦之乐，传递温暖纯真的怀旧情感。",
+                  "artisticAnalysis": "作为早期尼德兰文艺复兴大师杰拉德·大卫的代表作，这幅作品通过细腻笔触和温暖色调，成功捕捉了母子间亲密无间的情感，唤起观者对童年纯真时光的怀念。圣母怀抱圣婴的形象象征着无条件的爱与保护，四天使的环绕增添了神圣而温馨的氛围，使这幅宗教题材作品超越了单纯的信仰表达，成为对家庭温暖与童年纯真的艺术诠释，完美契合您对怀旧情感与家庭记忆的追寻。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "圣母与圣婴的天伦之乐，传递温暖纯真的怀旧情感。",
+                  "detail": "作为早期尼德兰文艺复兴大师杰拉德·大卫的代表作，这幅作品通过细腻笔触和温暖色调，成功捕捉了母子间亲密无间的情感，唤起观者对童年纯真时光的怀念。圣母怀抱圣婴的形象象征着无条件的爱与保护，四天使的环绕增添了神圣而温馨的氛围，使这幅宗教题材作品超越了单纯的信仰表达，成为对家庭温暖与童年纯真的艺术诠释，完美契合您对怀旧情感与家庭记忆的追寻。"
+                },
+                "confidence": 0.8,
+                "processingTime": 26512,
+                "introduction": "圣母与圣婴的天伦之乐，传递温暖纯真的怀旧情感。",
+                "detail": "作为早期尼德兰文艺复兴大师杰拉德·大卫的代表作，这幅作品通过细腻笔触和温暖色调，成功捕捉了母子间亲密无间的情感，唤起观者对童年纯真时光的怀念。圣母怀抱圣婴的形象象征着无条件的爱与保护，四天使的环绕增添了神圣而温馨的氛围，使这幅宗教题材作品超越了单纯的信仰表达，成为对家庭温暖与童年纯真的艺术诠释，完美契合您对怀旧情感与家庭记忆的追寻。"
+              },
+              {
+                "artworkId": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "emotionalConnection": "在\"nostalgia\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"nostalgia\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"nostalgia\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 26246,
+                "introduction": "在\"nostalgia\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 26576,
+            "isFirstBatch": true
+          },
+          "timestamp": 1760269749129
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "emotionalConnection": "文艺复兴时期温馨家庭场景，传递新生命诞生的喜悦与祝福。",
+                "artisticAnalysis": "这幅蛋彩油画作品以细腻笔触描绘圣母玛利亚诞生的神圣时刻，画面中家庭成员的喜悦表情与温馨互动唤起观者对纯真童年与家庭温暖的怀旧情感。弗拉·卡内瓦尔（Fra Carnevale）巧妙融合透视法与细腻人物刻画，使宗教题材作品成为永恒家庭。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "文艺复兴时期温馨家庭场景，传递新生命诞生的喜悦与祝福。",
+                  "artisticAnalysis": "这幅蛋彩油画作品以细腻笔触描绘圣母玛利亚诞生的神圣时刻，画面中家庭成员的喜悦表情与温馨互动唤起观者对纯真童年与家庭温暖的怀旧情感。弗拉·卡内瓦尔（Fra Carnevale）巧妙融合透视法与细腻人物刻画，使宗教题材作品成为永恒家庭。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "文艺复兴时期温馨家庭场景，传递新生命诞生的喜悦与祝福。",
+                  "detail": "这幅蛋彩油画作品以细腻笔触描绘圣母玛利亚诞生的神圣时刻，画面中家庭成员的喜悦表情与温馨互动唤起观者对纯真童年与家庭温暖的怀旧情感。弗拉·卡内瓦尔（Fra Carnevale）巧妙融合透视法与细腻人物刻画，使宗教题材作品成为永恒家庭。"
+                },
+                "confidence": 0.8,
+                "processingTime": 20594,
+                "introduction": "文艺复兴时期温馨家庭场景，传递新生命诞生的喜悦与祝福。",
+                "detail": "这幅蛋彩油画作品以细腻笔触描绘圣母玛利亚诞生的神圣时刻，画面中家庭成员的喜悦表情与温馨互动唤起观者对纯真童年与家庭温暖的怀旧情感。弗拉·卡内瓦尔（Fra Carnevale）巧妙融合透视法与细腻人物刻画，使宗教题材作品成为永恒家庭。"
+              },
+              {
+                "artworkId": "438003",
+                "title": "Camille Monet (1847–1879) on a Garden Bench",
+                "artist": "Claude Monet",
+                "emotionalConnection": "莫奈笔下妻子卡米尔在花园长椅上的温馨瞬间，捕捉家庭时光的静谧与怀旧。",
+                "artisticAnalysis": "这幅创作于1873年的作品正值莫奈印象派风格成熟期，画中卡米尔坐在花园长椅上，阳光透过树叶洒在她身上，柔和的光影处理展现了莫奈对光线变化的敏锐捕捉。作为艺术家私人生活的记录，这幅画超越了简单的肖像，成为对家庭温馨时光的艺术定格，唤起观者对纯真岁月的怀念。从策展角度看，这幅作品体现了莫奈如何将日常生活场景转化为艺术表达，反映了19世纪中产阶级家庭生活的美学理想，与您寻求的童年回忆和温暖家庭时光产生共鸣，那些看似平凡的日常片段，恰恰构成了最珍贵的记忆。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "莫奈笔下妻子卡米尔在花园长椅上的温馨瞬间，捕捉家庭时光的静谧与怀旧。",
+                  "artisticAnalysis": "这幅创作于1873年的作品正值莫奈印象派风格成熟期，画中卡米尔坐在花园长椅上，阳光透过树叶洒在她身上，柔和的光影处理展现了莫奈对光线变化的敏锐捕捉。作为艺术家私人生活的记录，这幅画超越了简单的肖像，成为对家庭温馨时光的艺术定格，唤起观者对纯真岁月的怀念。从策展角度看，这幅作品体现了莫奈如何将日常生活场景转化为艺术表达，反映了19世纪中产阶级家庭生活的美学理想，与您寻求的童年回忆和温暖家庭时光产生共鸣，那些看似平凡的日常片段，恰恰构成了最珍贵的记忆。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "莫奈笔下妻子卡米尔在花园长椅上的温馨瞬间，捕捉家庭时光的静谧与怀旧。",
+                  "detail": "这幅创作于1873年的作品正值莫奈印象派风格成熟期，画中卡米尔坐在花园长椅上，阳光透过树叶洒在她身上，柔和的光影处理展现了莫奈对光线变化的敏锐捕捉。作为艺术家私人生活的记录，这幅画超越了简单的肖像，成为对家庭温馨时光的艺术定格，唤起观者对纯真岁月的怀念。从策展角度看，这幅作品体现了莫奈如何将日常生活场景转化为艺术表达，反映了19世纪中产阶级家庭生活的美学理想，与您寻求的童年回忆和温暖家庭时光产生共鸣，那些看似平凡的日常片段，恰恰构成了最珍贵的记忆。"
+                },
+                "confidence": 0.8,
+                "processingTime": 24197,
+                "introduction": "莫奈笔下妻子卡米尔在花园长椅上的温馨瞬间，捕捉家庭时光的静谧与怀旧。",
+                "detail": "这幅创作于1873年的作品正值莫奈印象派风格成熟期，画中卡米尔坐在花园长椅上，阳光透过树叶洒在她身上，柔和的光影处理展现了莫奈对光线变化的敏锐捕捉。作为艺术家私人生活的记录，这幅画超越了简单的肖像，成为对家庭温馨时光的艺术定格，唤起观者对纯真岁月的怀念。从策展角度看，这幅作品体现了莫奈如何将日常生活场景转化为艺术表达，反映了19世纪中产阶级家庭生活的美学理想，与您寻求的童年回忆和温暖家庭时光产生共鸣，那些看似平凡的日常片段，恰恰构成了最珍贵的记忆。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 83860
+          },
+          "timestamp": 1760269832994
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 145719
+          },
+          "timestamp": 1760269832994
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-12T11:50:32.998Z",
+      "totalDuration": 145746
+    },
+    {
+      "name": "Negative Emotion Processing",
+      "description": "Testing workflow with complex negative emotion",
+      "emotion": "melancholy",
+      "userInput": "寻找一些能够表达内心深处忧伤和思考的作品",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 140000,
+        "planDuration": 32000,
+        "searchDuration": 48000,
+        "scoringDuration": 65000
+      },
+      "startTime": "2025-10-12T11:50:32.998Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 242868,
+        "steps": {
+          "emotionCurve": 1,
+          "artworkSelection": 1,
+          "introduction": 6726,
+          "conclusion": 4373,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 127319,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 79068,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 206387
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            36442
+          ],
+          "artworks_selected": [
+            36443
+          ],
+          "introduction": [
+            43168
+          ],
+          "conclusion": [
+            47538
+          ],
+          "explanations_batch": [
+            163762,
+            242826
+          ],
+          "complete": [
+            242826
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 75
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 2,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "melancholy",
+            "userInput": "寻找一些能够表达内心深处忧伤和思考的作品"
+          },
+          "timestamp": 1760269833039
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.6355223880597014,
+              0.6310447761194029,
+              0.6220895522388059,
+              0.6131343283582089,
+              0.6041791044776119,
+              0.5952238805970149,
+              0.5862686567164179,
+              0.5773134328358208,
+              0.5683582089552238,
+              0.5594029850746268,
+              0.5504477611940298,
+              0.5414925373134328,
+              0.5325373134328358,
+              0.5235820895522387,
+              0.5146268656716417,
+              0.5056716417910447,
+              0.49671641791044774,
+              0.48776119402985074,
+              0.47880597014925375,
+              0.46985074626865675,
+              0.4608955223880597,
+              0.4519402985074626,
+              0.4429850746268656,
+              0.4340298507462686,
+              0.4250746268656716,
+              0.4161194029850746,
+              0.40835820895522384,
+              0.40656716417910443,
+              0.4107462686567163,
+              0.4197014925373134,
+              0.4286567164179104,
+              0.4376119402985074,
+              0.44656716417910447,
+              0.45552238805970147,
+              0.46447761194029846,
+              0.47343283582089546,
+              0.48238805970149246,
+              0.49134328358208945,
+              0.5002985074626866,
+              0.5092537313432834,
+              0.5182089552238806,
+              0.5271641791044775,
+              0.5361194029850745,
+              0.5450746268656717,
+              0.5540298507462686,
+              0.5629850746268656,
+              0.5719402985074626,
+              0.5808955223880596,
+              0.5898507462686566,
+              0.5988059701492537,
+              0.6077611940298507,
+              0.6167164179104477,
+              0.6256716417910447,
+              0.6346268656716417,
+              0.6435820895522387,
+              0.6525373134328358,
+              0.6614925373134328,
+              0.6704477611940298,
+              0.6794029850746268,
+              0.6883582089552238,
+              0.6973134328358208,
+              0.7062686567164178,
+              0.7152238805970148,
+              0.7241791044776119,
+              0.7331343283582089,
+              0.7420895522388059,
+              0.7510447761194029,
+              0.7555223880597014
+            ],
+            "description": "这个\"melancholy\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从41%到76%，创造出丰富的情绪层次。",
+            "durationMs": 1
+          },
+          "timestamp": 1760269869481
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "year": "ca. 1874",
+                "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 4,
+              "periodCount": 1,
+              "mediumCount": 2,
+              "avgScore": 6.126250000000001,
+              "emotionFit": 5
+            },
+            "durationMs": 1
+          },
+          "timestamp": 1760269869482
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n",
+            "durationMs": 6726
+          },
+          "timestamp": 1760269876207
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n",
+            "durationMs": 4373
+          },
+          "timestamp": 1760269880577
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "莫奈的花园风景中，光影交织下的宁静与淡淡的忧伤。",
+                "artisticAnalysis": "这幅创作于1867年的作品展现了莫奈对光影与色彩的敏锐捕捉。画面中，鲜艳的花园与远处海天一色的背景形成鲜明对比，暗示着生命与无常的思考。莫奈在此时期正经历个人生活的挑战，作品中的平静表面下可能隐藏着艺术家内心的忧郁情绪。作为印象派早期代表作，它不仅展示了莫奈对户外光线的革命性处理，也为后来的艺术发展",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "莫奈的花园风景中，光影交织下的宁静与淡淡的忧伤。",
+                  "artisticAnalysis": "这幅创作于1867年的作品展现了莫奈对光影与色彩的敏锐捕捉。画面中，鲜艳的花园与远处海天一色的背景形成鲜明对比，暗示着生命与无常的思考。莫奈在此时期正经历个人生活的挑战，作品中的平静表面下可能隐藏着艺术家内心的忧郁情绪。作为印象派早期代表作，它不仅展示了莫奈对户外光线的革命性处理，也为后来的艺术发展",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "莫奈的花园风景中，光影交织下的宁静与淡淡的忧伤。",
+                  "detail": "这幅创作于1867年的作品展现了莫奈对光影与色彩的敏锐捕捉。画面中，鲜艳的花园与远处海天一色的背景形成鲜明对比，暗示着生命与无常的思考。莫奈在此时期正经历个人生活的挑战，作品中的平静表面下可能隐藏着艺术家内心的忧郁情绪。作为印象派早期代表作，它不仅展示了莫奈对户外光线的革命性处理，也为后来的艺术发展"
+                },
+                "confidence": 0.8,
+                "processingTime": 20549,
+                "introduction": "莫奈的花园风景中，光影交织下的宁静与淡淡的忧伤。",
+                "detail": "这幅创作于1867年的作品展现了莫奈对光影与色彩的敏锐捕捉。画面中，鲜艳的花园与远处海天一色的背景形成鲜明对比，暗示着生命与无常的思考。莫奈在此时期正经历个人生活的挑战，作品中的平静表面下可能隐藏着艺术家内心的忧郁情绪。作为印象派早期代表作，它不仅展示了莫奈对户外光线的革命性处理，也为后来的艺术发展"
+              },
+              {
+                "artworkId": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Rehearsal of the Ballet Onstage》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127319,
+            "isFirstBatch": true
+          },
+          "timestamp": 1760269996801
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "在1893年的深秋。",
+                "artisticAnalysis": "在1893年的深秋",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在1893年的深秋。",
+                  "artisticAnalysis": "在1893年的深秋",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在1893年的深秋。",
+                  "detail": "在1893年的深秋"
+                },
+                "confidence": 0.8,
+                "processingTime": 15511,
+                "introduction": "在1893年的深秋。",
+                "detail": "在1893年的深秋"
+              },
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "在\"melancholy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"melancholy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"melancholy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 29071,
+                "introduction": "在\"melancholy\"的心情下，Cows Crossing a Ford展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家Jules Dupré，创作于1836，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 79068
+          },
+          "timestamp": 1760270075865
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 242827
+          },
+          "timestamp": 1760270075865
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-12T11:54:35.867Z",
+      "totalDuration": 242869
+    },
+    {
+      "name": "GET Method Test",
+      "description": "Testing GET method with query parameters",
+      "emotion": "peace",
+      "userInput": "宁静祥和的作品",
+      "method": "GET",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 120000,
+        "planDuration": 30000,
+        "searchDuration": 45000,
+        "scoringDuration": 60000
+      },
+      "startTime": "2025-10-12T11:54:35.867Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 206690,
+        "steps": {
+          "emotionCurve": 2,
+          "artworkSelection": 1,
+          "introduction": 16347,
+          "conclusion": 5577,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 27516,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 124375,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 151891
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            54786
+          ],
+          "artworks_selected": [
+            54786
+          ],
+          "introduction": [
+            71119
+          ],
+          "conclusion": [
+            76696
+          ],
+          "explanations_batch": [
+            82288,
+            206665
+          ],
+          "complete": [
+            206665
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 87
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 2,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "peace",
+            "userInput": "宁静祥和的作品"
+          },
+          "timestamp": 1760270075891
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.5524513537964317,
+              0.6228519295417508,
+              0.7063119969172381,
+              0.7168001914408216,
+              0.6794368093577825,
+              0.601202839887543,
+              0.5347231964047204,
+              0.46276511400713866,
+              0.5334982725798274,
+              0.5202657727161749,
+              0.6077276969376401,
+              0.5404032776880457,
+              0.5294025601190637,
+              0.4843897113652121,
+              0.5879157713396733,
+              0.6626745487726093,
+              0.7036886570011406,
+              0.6132822236138057,
+              0.6180718506460986,
+              0.5591563804460874,
+              0.5514975197901344,
+              0.5604223459971348,
+              0.5516931125483321,
+              0.618504342858131,
+              0.5297229738124166,
+              0.6147380620685562,
+              0.6061105675498947,
+              0.701440960263228,
+              0.6156015731547874,
+              0.6293497287068787,
+              0.6052789807353139,
+              0.6638916626907087,
+              0.6552103632794405,
+              0.6820790569025461,
+              0.6364671279381908,
+              0.6518242419116408,
+              0.6209012763347354,
+              0.6787423347721839,
+              0.5926315410985522,
+              0.6144897802630175,
+              0.5262940253832157,
+              0.5539133422018904,
+              0.564607773899225,
+              0.6498763414863822,
+              0.6975745676405442,
+              0.6698840918701858,
+              0.6941880300061678,
+              0.6862969077858034,
+              0.6815383815119332,
+              0.685208502798971,
+              0.6859199733093639,
+              0.7137455343379725,
+              0.7009445089757658,
+              0.7152482973784338,
+              0.7084437796203562,
+              0.6856676891550496,
+              0.691222630714503,
+              0.6963604168947098,
+              0.7053155925321312,
+              0.7230933345259462,
+              0.7188058885834526,
+              0.7276377920908427,
+              0.7124337659726,
+              0.7062083066106163,
+              0.6764675513735637,
+              0.6708343889104226,
+              0.6600870293316355,
+              0.6772580909509823
+            ],
+            "description": "这个\"peace\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从46%到73%，创造出丰富的情绪层次。",
+            "durationMs": 2
+          },
+          "timestamp": 1760270130677
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "year": "1467",
+                "medium": "Tempera and oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "year": "1887–88",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP375450_cropped.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; verso: oil and gold on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 4,
+              "periodCount": 3,
+              "mediumCount": 3,
+              "avgScore": 6.034166666666668,
+              "emotionFit": 5
+            },
+            "durationMs": 1
+          },
+          "timestamp": 1760270130677
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n",
+            "durationMs": 16347
+          },
+          "timestamp": 1760270147010
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n在这场名为\"peace\"的静谧之旅中，四件作品如同四段递进的心曲，引领观者从初识的微澜(0.55)走向内心的澄澈(0.68)。艺术家们以各自独特的语言，在画布、空间与时间的交织中，编织出一幅幅超越喧嚣的精神图景。这些作品不仅是视觉的盛宴，",
+            "durationMs": 5577
+          },
+          "timestamp": 1760270152587
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "emotionalConnection": "在\"peace\"的心情下，The Birth of the Virgin展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家Fra Carnevale (Bartolomeo di Giovanni Corradini)，创作于1467，采用Tempera and oil on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"peace\"的心情下，The Birth of the Virgin展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家Fra Carnevale (Bartolomeo di Giovanni Corradini)，创作于1467，采用Tempera and oil on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"peace\"的心情下，The Birth of the Virgin展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家Fra Carnevale (Bartolomeo di Giovanni Corradini)，创作于1467，采用Tempera and oil on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 27484,
+                "introduction": "在\"peace\"的心情下，The Birth of the Virgin展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家Fra Carnevale (Bartolomeo di Giovanni Corradini)，创作于1467，采用Tempera and oil on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              },
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "卡耶博特笔下的花园菊花，展现宁静祥和的印象派意境。",
+                "artisticAnalysis": "这幅创作于1893年的油画体现了卡耶博特对自然景观的独特视角。作为印象派画家，他运用细腻的笔触和柔和",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "卡耶博特笔下的花园菊花，展现宁静祥和的印象派意境。",
+                  "artisticAnalysis": "这幅创作于1893年的油画体现了卡耶博特对自然景观的独特视角。作为印象派画家，他运用细腻的笔触和柔和",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "卡耶博特笔下的花园菊花，展现宁静祥和的印象派意境。",
+                  "detail": "这幅创作于1893年的油画体现了卡耶博特对自然景观的独特视角。作为印象派画家，他运用细腻的笔触和柔和"
+                },
+                "confidence": 0.8,
+                "processingTime": 22166,
+                "introduction": "卡耶博特笔下的花园菊花，展现宁静祥和的印象派意境。",
+                "detail": "这幅创作于1893年的油画体现了卡耶博特对自然景观的独特视角。作为印象派画家，他运用细腻的笔触和柔和"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 27516,
+            "isFirstBatch": true
+          },
+          "timestamp": 1760270158179
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "emotionalConnection": "在\"peace\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"peace\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"peace\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 27115,
+                "introduction": "在\"peace\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家Georges Seurat，创作于1887–88，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              },
+              {
+                "artworkId": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "在\"peace\"的心情下，Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家Jacometto (Jacometto Veneziano)，创作于ca. 1485–95，采用Oil on wood; verso: oil and gold on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"peace\"的心情下，Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家Jacometto (Jacometto Veneziano)，创作于ca. 1485–95，采用Oil on wood; verso: oil and gold on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"peace\"的心情下，Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家Jacometto (Jacometto Veneziano)，创作于ca. 1485–95，采用Oil on wood; verso: oil and gold on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 29502,
+                "introduction": "在\"peace\"的心情下，Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家Jacometto (Jacometto Veneziano)，创作于ca. 1485–95，采用Oil on wood; verso: oil and gold on wood技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 124375
+          },
+          "timestamp": 1760270282556
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 206667
+          },
+          "timestamp": 1760270282556
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-12T11:58:02.557Z",
+      "totalDuration": 206690
+    },
+    {
+      "name": "Minimal Input Test",
+      "description": "Testing with minimal emotion input",
+      "emotion": "calm",
+      "userInput": "",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 100000,
+        "planDuration": 25000,
+        "searchDuration": 40000,
+        "scoringDuration": 50000
+      },
+      "startTime": "2025-10-12T11:58:02.557Z",
+      "passed": true,
+      "performance": {
+        "totalDuration": 89385,
+        "steps": {
+          "emotionCurve": 2,
+          "artworkSelection": 1,
+          "introduction": 7972,
+          "conclusion": 4225,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 25133,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 25111,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 50244
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            39121
+          ],
+          "artworks_selected": [
+            39121
+          ],
+          "introduction": [
+            47091
+          ],
+          "conclusion": [
+            51316
+          ],
+          "explanations_batch": [
+            64251,
+            89362
+          ],
+          "complete": [
+            89362
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 87
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 2,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "calm",
+            "userInput": ""
+          },
+          "timestamp": 1760270282580
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.6969757391420666,
+              0.6865384777412803,
+              0.6885515536201409,
+              0.6894049740202401,
+              0.7210118830028303,
+              0.6948861591008217,
+              0.7591010476687821,
+              0.7842700788955206,
+              0.7633233892202789,
+              0.7508100898306246,
+              0.6616825745007426,
+              0.6271601640963683,
+              0.6341997763630854,
+              0.6999710257582846,
+              0.7197809696820675,
+              0.7377158489468765,
+              0.6683154162967132,
+              0.6705214850783902,
+              0.659607995115717,
+              0.7101155432415428,
+              0.7792485990862775,
+              0.7391530496968755,
+              0.7623255984018211,
+              0.7320437360183445,
+              0.7827899917477712,
+              0.713025020735829,
+              0.7237705845246544,
+              0.6934818734449126,
+              0.7526472151536098,
+              0.7617375159206926,
+              0.7758948872741258,
+              0.7148736082926082,
+              0.6552981532643695,
+              0.6382737813336844,
+              0.720029132902722,
+              0.7607797477113469,
+              0.7978131823352624,
+              0.7155798759366537,
+              0.6957637835082936,
+              0.6565789082822376,
+              0.6980491049716459,
+              0.7228896356378905,
+              0.7146733114601718,
+              0.6738707516021574,
+              0.6892764943305725,
+              0.66492813036727,
+              0.7161903500440528,
+              0.6906867919868677,
+              0.7215519805703029,
+              0.7206227941283224,
+              0.7544736523059644,
+              0.7143452239209812,
+              0.673867775930821,
+              0.6223733977855564,
+              0.6636239215630033,
+              0.6493452441602249,
+              0.6971545346001714,
+              0.68272253018228,
+              0.7496281632568996,
+              0.7234494812779454,
+              0.7402837059621857,
+              0.7592370621412,
+              0.7714403880523829,
+              0.7812211299678223,
+              0.7327981391186201,
+              0.7521232723189559,
+              0.727593377194459,
+              0.75963656069392
+            ],
+            "description": "这个\"calm\"情绪曲线展现了情感的动态变化：整体保持稳定的情绪强度，平均强度为71%，营造出持续而深刻的情绪体验。",
+            "durationMs": 2
+          },
+          "timestamp": 1760270321701
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "438816",
+                "title": "The Forest in Winter at Sunset",
+                "artist": "Théodore Rousseau",
+                "year": "ca. 1846–67",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-31520-001.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "435997",
+                "title": "The Storm",
+                "artist": "Pierre-Auguste Cot",
+                "year": "1880",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT11964.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "year": "1887–88",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP375450_cropped.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437422",
+                "title": "Charity",
+                "artist": "Guido Reni",
+                "year": "ca. 1630",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 4,
+              "periodCount": 3,
+              "mediumCount": 1,
+              "avgScore": 6.034166666666668,
+              "emotionFit": 5
+            },
+            "durationMs": 1
+          },
+          "timestamp": 1760270321701
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n# 平静之境：Calm艺术展\n\n在喧嚣纷扰的当代世界中，\"平静\"成为一种珍贵的内在状态。本次\"Calm\"展览精选三幅杰作，通过柔和色彩",
+            "durationMs": 7972
+          },
+          "timestamp": 1760270329671
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n",
+            "durationMs": 4225
+          },
+          "timestamp": 1760270333896
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "438816",
+                "title": "The Forest in Winter at Sunset",
+                "artist": "Théodore Rousseau",
+                "emotionalConnection": "在\"平静\"的心情下，《冬日森林日落》(The Forest in Winter at Sunset)展现出特别的艺术魅力和情感",
+                "artisticAnalysis": "艺术家Théodore Rousseau，创作于ca. 1846–67，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"平静\"的心情下，《冬日森林日落》(The Forest in Winter at Sunset)展现出特别的艺术魅力和情感",
+                  "artisticAnalysis": "艺术家Théodore Rousseau，创作于ca. 1846–67，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"平静\"的心情下，《冬日森林日落》(The Forest in Winter at Sunset)展现出特别的艺术魅力和情感",
+                  "detail": "艺术家Théodore Rousseau，创作于ca. 1846–67，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 25082,
+                "introduction": "在\"平静\"的心情下，《冬日森林日落》(The Forest in Winter at Sunset)展现出特别的艺术魅力和情感",
+                "detail": "艺术家Théodore Rousseau，创作于ca. 1846–67，采用Oil on canvas技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              },
+              {
+                "artworkId": "435997",
+                "title": "The Storm",
+                "artist": "Pierre-Auguste Cot",
+                "emotionalConnection": "风暴（TheStorm）（The Storm）—— 科特经典之作，描绘风暴中的情侣，情感与自然的完美交融。",
+                "artisticAnalysis": "这幅作品巧妙捕捉了平静中的紧张与",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "风暴（TheStorm）（The Storm）—— 科特经典之作，描绘风暴中的情侣，情感与自然的完美交融。",
+                  "artisticAnalysis": "这幅作品巧妙捕捉了平静中的紧张与",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "风暴（TheStorm）（The Storm）—— 科特经典之作，描绘风暴中的情侣，情感与自然的完美交融。",
+                  "detail": "这幅作品巧妙捕捉了平静中的紧张与"
+                },
+                "confidence": 0.8,
+                "processingTime": 20898,
+                "introduction": "风暴（TheStorm）（The Storm）—— 科特经典之作，描绘风暴中的情侣，情感与自然的完美交融。",
+                "detail": "这幅作品巧妙捕捉了平静中的紧张与"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 25133,
+            "isFirstBatch": true
+          },
+          "timestamp": 1760270346831
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "emotionalConnection": "在\"calm\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家乔治·修拉（Georges Seurat），创作于1887-88年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"calm\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家乔治·修拉（Georges Seurat），创作于1887-88年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"calm\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家乔治·修拉（Georges Seurat），创作于1887-88年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+                },
+                "confidence": 0.8,
+                "processingTime": 23492,
+                "introduction": "在\"calm\"的心情下，Circus Sideshow (Parade de cirque)展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家乔治·修拉（Georges Seurat），创作于1887-88年，采用布面油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+              },
+              {
+                "artworkId": "437422",
+                "title": "Charity",
+                "artist": "Guido Reni",
+                "emotionalConnection": "在\"平静\"（calm）的心情下，查丽蒂（Charity）展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "艺术家圭多·雷尼（Guido Reni），创作于约1630年（ca. 1630），采用油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆（The Metropolitan Museum of Art）的",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"平静\"（calm）的心情下，查丽蒂（Charity）展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "艺术家圭多·雷尼（Guido Reni），创作于约1630年（ca. 1630），采用油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆（The Metropolitan Museum of Art）的",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"平静\"（calm）的心情下，查丽蒂（Charity）展现出特别的艺术魅力和情感深度。",
+                  "detail": "艺术家圭多·雷尼（Guido Reni），创作于约1630年（ca. 1630），采用油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆（The Metropolitan Museum of Art）的"
+                },
+                "confidence": 0.8,
+                "processingTime": 25044,
+                "introduction": "在\"平静\"（calm）的心情下，查丽蒂（Charity）展现出特别的艺术魅力和情感深度。",
+                "detail": "艺术家圭多·雷尼（Guido Reni），创作于约1630年（ca. 1630），采用油画（Oil on canvas）技法。\n\n这是一件来自大都会艺术博物馆（The Metropolitan Museum of Art）的"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 25111
+          },
+          "timestamp": 1760270371942
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 89363
+          },
+          "timestamp": 1760270371942
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-12T11:59:31.942Z",
+      "totalDuration": 89385
+    }
+  ],
+  "errorScenarios": [
+    {
+      "name": "Missing Emotion",
+      "description": "Test error handling when emotion is missing",
+      "emotion": "",
+      "userInput": "Some input",
+      "method": "POST",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-12T11:59:31.943Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-12T11:59:31.948Z"
+    },
+    {
+      "name": "Empty Request Body",
+      "description": "Test error handling with empty request",
+      "emotion": null,
+      "userInput": null,
+      "method": "POST",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-12T11:59:31.948Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-12T11:59:31.951Z"
+    },
+    {
+      "name": "GET without Emotion",
+      "description": "Test GET method without emotion parameter",
+      "emotion": "",
+      "userInput": "",
+      "method": "GET",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-12T11:59:31.952Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-12T11:59:31.955Z"
+    }
+  ],
+  "summary": {
+    "totalTests": 8,
+    "passedTests": 2,
+    "failedTests": 6,
+    "successRate": 25,
+    "performance": {
+      "averageDuration": 183142,
+      "minDuration": 89385,
+      "maxDuration": 242868,
+      "totalSamples": 5
+    },
+    "quality": {
+      "emotionCurveQuality": 100,
+      "artworkQuality": 100,
+      "explanationQuality": 90
+    },
+    "testDuration": 915750
+  },
+  "config": {
+    "baseUrl": "http://localhost:3000",
+    "endpoint": "/api/curate/stream",
+    "testResultsDir": "./test-results",
+    "logLevel": "info",
+    "timeout": 300000,
+    "retryAttempts": 2,
+    "retryDelay": 1000
+  },
+  "generatedAt": "2025-10-12T11:59:31.956Z"
+}

@@ -1,0 +1,3080 @@
+# ArtDuo Comprehensive Workflow Test Report
+
+Generated: 2025-10-08T12:24:54.001Z
+
+## Executive Summary
+
+- **Total Tests:** 8
+- **Passed:** 0
+- **Failed:** 8
+- **Success Rate:** 0%
+- **Test Duration:** 1521s
+
+## Performance Overview
+
+
+- **Average Duration:** 304233ms
+- **Min Duration:** 269985ms
+- **Max Duration:** 334808ms
+
+
+## Quality Scores
+
+- **emotionCurveQuality:** 100%
+- **artworkQuality:** 100%
+- **explanationQuality:** 100%
+
+## Test Scenario Results
+
+### Main Scenarios
+
+| Scenario | Status | Duration | Issues |
+|----------|--------|----------|---------|
+| Simple Emotion - Joy | ❌ | 334808ms | 0 issues |
+| Complex Emotion with User Input | ❌ | 269985ms | 0 issues |
+| Negative Emotion Processing | ❌ | 302493ms | 0 issues |
+| GET Method Test | ❌ | 305968ms | 0 issues |
+| Minimal Input Test | ❌ | 307911ms | 0 issues |
+
+### Error Scenarios
+
+| Scenario | Status | Expected Error | Received Error |
+|----------|--------|----------------|----------------|
+| Missing Emotion | ❌ | Missing required field: emotion | Expected error but got successful response |
+| Empty Request Body | ❌ | Missing required field: emotion | Expected error but got successful response |
+| GET without Emotion | ❌ | Missing required field: emotion | Expected error but got successful response |
+
+## Detailed Results
+
+<details>
+<summary>Click to expand detailed test results</summary>
+
+```json
+{
+  "startTime": "2025-10-08T11:59:32.823Z",
+  "scenarios": [
+    {
+      "name": "Simple Emotion - Joy",
+      "description": "Basic workflow with simple positive emotion",
+      "emotion": "joy",
+      "userInput": "",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 120000,
+        "planDuration": 30000,
+        "searchDuration": 45000,
+        "scoringDuration": 60000
+      },
+      "startTime": "2025-10-08T11:59:32.825Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 334808,
+        "steps": {
+          "emotionCurve": 2,
+          "introduction": 8827,
+          "conclusion": 6078,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 127536,
+              "count": 2
+            },
+            {
+              "batchIndex": 4,
+              "duration": 92622,
+              "count": 2
+            },
+            {
+              "batchIndex": 5,
+              "duration": 127146,
+              "count": 1
+            },
+            {
+              "batchIndex": 3,
+              "duration": 127296,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 127427,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 602027
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            79808
+          ],
+          "artworks_selected": [
+            79809
+          ],
+          "introduction": [
+            88635
+          ],
+          "conclusion": [
+            94712
+          ],
+          "explanations_batch": [
+            207344,
+            299965,
+            334489,
+            334638,
+            334769
+          ],
+          "complete": [
+            334769
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 100
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 5,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "joy",
+            "userInput": ""
+          },
+          "timestamp": 1759924772863
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.7070231117150763,
+              0.7140050771913016,
+              0.7278870772606765,
+              0.7415240046923713,
+              0.7547960176777839,
+              0.7675864812895874,
+              0.7797829924736647,
+              0.79127836785119,
+              0.8019715856500153,
+              0.8117686734876371,
+              0.8205835342038726,
+              0.8283387024857981,
+              0.834966025635706,
+              0.8404072624994612,
+              0.844614595291859,
+              0.8475510498210403,
+              0.8491908204190185,
+              0.8495194967228189,
+              0.8485341903132658,
+              0.846243560098514,
+              0.8426677362192531,
+              0.8378381431443072,
+              0.8317972235112728,
+              0.8245980651390935,
+              0.8163039344903985,
+              0.806987720683554,
+              0.79673129494047,
+              0.7856247910993589,
+              0.7737658135153241,
+              0.7612585793097785,
+              0.7482130025066321,
+              0.7347437281039011,
+              0.7209691245693405,
+              0.7070102436140943,
+              0.6929897563859058,
+              0.6790308754306595,
+              0.6652562718960988,
+              0.6517869974933678,
+              0.6387414206902217,
+              0.6262341864846758,
+              0.6143752089006411,
+              0.6032687050595301,
+              0.5930122793164462,
+              0.5836960655096014,
+              0.5754019348609063,
+              0.5682027764887271,
+              0.5621618568556926,
+              0.5573322637807469,
+              0.553756439901486,
+              0.5514658096867342,
+              0.550480503277181,
+              0.5508091795809813,
+              0.5524489501789597,
+              0.5553854047081408,
+              0.5595927375005387,
+              0.565033974364294,
+              0.5716612975142018,
+              0.5794164657961273,
+              0.5882313265123625,
+              0.5980284143499845,
+              0.6087216321488098,
+              0.620217007526335,
+              0.6324135187104124,
+              0.6452039823222159,
+              0.6584759953076285,
+              0.6721129227393233,
+              0.6859949228086983,
+              0.6929768882849237
+            ],
+            "description": "这个\"joy\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从55%到85%，创造出丰富的情绪层次。",
+            "durationMs": 2
+          },
+          "timestamp": 1759924852671
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "year": "ca. 1874",
+                "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437422",
+                "title": "Charity",
+                "artist": "Guido Reni",
+                "year": "ca. 1630",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "year": "1887–88",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP375450_cropped.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; (verso: oil and gold on wood)",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; verso: oil and gold on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "year": "1467",
+                "medium": "Tempera and oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 8,
+              "periodCount": 4,
+              "mediumCount": 5,
+              "avgScore": 6.060925925925926,
+              "emotionFit": 5
+            },
+            "durationMs": 0
+          },
+          "timestamp": 1759924852672
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n",
+            "durationMs": 8827
+          },
+          "timestamp": 1759924861498
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n《Joy》展览如一场情感的低语，九件作品编织成喜悦的微妙光谱。从初始的70.7%到终末的69.3%，看似细微的0.14%变化，实则揭示了喜悦并非恒",
+            "durationMs": 6078
+          },
+          "timestamp": 1759924867575
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "《Garden at Sainte-Adresse》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Garden at Sainte-Adresse》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Garden at Sainte-Adresse》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Rehearsal of the Ballet Onstage》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127536,
+            "isFirstBatch": true
+          },
+          "timestamp": 1759924980207
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 4,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "在这充满喜悦的时刻，这幅文艺复兴时期的肖像画仿佛为你的心情增添了一抹温暖的色彩。",
+                "artisticAnalysis": "1485至1495年间，欧洲正沐浴在文艺复兴的辉煌中，人文主义精神蓬勃发展，艺术从宗教象征转向对人类真实情感的关注。Jacometto作为威尼斯画派的重要代表，虽不及提香那样声名显赫，却以细腻的心理刻画和对人物内在精神的捕捉而独树一帜。 画中女子那若隐若现的微笑，不是张扬的喜悦，而是一种源自内心的宁静满足。文艺复兴时期的肖像画往往试图捕捉人物的精神状态，而这位艺术家通过微妙的眼神和嘴角弧度，传达出一种平和而持久的喜悦。这种喜悦不同于当下的欢欣雀跃，更像是一种经过生活沉淀后的从容与安心。 当你沉浸在喜悦中欣赏这幅作品时，不妨注意女子服饰的精细纹理和背景的处理细节。威尼斯画派以其丰富的色彩运用著称，即使描绘宗教人物，也常通过温暖色调传达情感。背面的灰彩绘画虽然单色，但其细腻的明暗变化展现了艺术家对光影的精妙掌控，如同人生喜悦的不同层次。 这幅作品提醒我们，喜悦可以多种形式存在——可以是当下的欢愉，也可以是内心的平静与满足。画中女子的虔诚与安宁，或许正映射出你在喜悦时刻对生活的热爱与感恩。在快节奏的今天，这种持久的内心喜悦尤为珍贵，它教会我们，真正的快乐源于对生活的热爱和对内心平静的珍视。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在这充满喜悦的时刻，这幅文艺复兴时期的肖像画仿佛为你的心情增添了一抹温暖的色彩。",
+                  "artisticAnalysis": "1485至1495年间，欧洲正沐浴在文艺复兴的辉煌中，人文主义精神蓬勃发展，艺术从宗教象征转向对人类真实情感的关注。Jacometto作为威尼斯画派的重要代表，虽不及提香那样声名显赫，却以细腻的心理刻画和对人物内在精神的捕捉而独树一帜。 画中女子那若隐若现的微笑，不是张扬的喜悦，而是一种源自内心的宁静满足。文艺复兴时期的肖像画往往试图捕捉人物的精神状态，而这位艺术家通过微妙的眼神和嘴角弧度，传达出一种平和而持久的喜悦。这种喜悦不同于当下的欢欣雀跃，更像是一种经过生活沉淀后的从容与安心。 当你沉浸在喜悦中欣赏这幅作品时，不妨注意女子服饰的精细纹理和背景的处理细节。威尼斯画派以其丰富的色彩运用著称，即使描绘宗教人物，也常通过温暖色调传达情感。背面的灰彩绘画虽然单色，但其细腻的明暗变化展现了艺术家对光影的精妙掌控，如同人生喜悦的不同层次。 这幅作品提醒我们，喜悦可以多种形式存在——可以是当下的欢愉，也可以是内心的平静与满足。画中女子的虔诚与安宁，或许正映射出你在喜悦时刻对生活的热爱与感恩。在快节奏的今天，这种持久的内心喜悦尤为珍贵，它教会我们，真正的快乐源于对生活的热爱和对内心平静的珍视。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在这充满喜悦的时刻，这幅文艺复兴时期的肖像画仿佛为你的心情增添了一抹温暖的色彩。",
+                  "detail": "1485至1495年间，欧洲正沐浴在文艺复兴的辉煌中，人文主义精神蓬勃发展，艺术从宗教象征转向对人类真实情感的关注。Jacometto作为威尼斯画派的重要代表，虽不及提香那样声名显赫，却以细腻的心理刻画和对人物内在精神的捕捉而独树一帜。 画中女子那若隐若现的微笑，不是张扬的喜悦，而是一种源自内心的宁静满足。文艺复兴时期的肖像画往往试图捕捉人物的精神状态，而这位艺术家通过微妙的眼神和嘴角弧度，传达出一种平和而持久的喜悦。这种喜悦不同于当下的欢欣雀跃，更像是一种经过生活沉淀后的从容与安心。 当你沉浸在喜悦中欣赏这幅作品时，不妨注意女子服饰的精细纹理和背景的处理细节。威尼斯画派以其丰富的色彩运用著称，即使描绘宗教人物，也常通过温暖色调传达情感。背面的灰彩绘画虽然单色，但其细腻的明暗变化展现了艺术家对光影的精妙掌控，如同人生喜悦的不同层次。 这幅作品提醒我们，喜悦可以多种形式存在——可以是当下的欢愉，也可以是内心的平静与满足。画中女子的虔诚与安宁，或许正映射出你在喜悦时刻对生活的热爱与感恩。在快节奏的今天，这种持久的内心喜悦尤为珍贵，它教会我们，真正的快乐源于对生活的热爱和对内心平静的珍视。"
+                },
+                "confidence": 0.8,
+                "processingTime": 29448,
+                "introduction": "在这充满喜悦的时刻，这幅文艺复兴时期的肖像画仿佛为你的心情增添了一抹温暖的色彩。",
+                "detail": "1485至1495年间，欧洲正沐浴在文艺复兴的辉煌中，人文主义精神蓬勃发展，艺术从宗教象征转向对人类真实情感的关注。Jacometto作为威尼斯画派的重要代表，虽不及提香那样声名显赫，却以细腻的心理刻画和对人物内在精神的捕捉而独树一帜。 画中女子那若隐若现的微笑，不是张扬的喜悦，而是一种源自内心的宁静满足。文艺复兴时期的肖像画往往试图捕捉人物的精神状态，而这位艺术家通过微妙的眼神和嘴角弧度，传达出一种平和而持久的喜悦。这种喜悦不同于当下的欢欣雀跃，更像是一种经过生活沉淀后的从容与安心。 当你沉浸在喜悦中欣赏这幅作品时，不妨注意女子服饰的精细纹理和背景的处理细节。威尼斯画派以其丰富的色彩运用著称，即使描绘宗教人物，也常通过温暖色调传达情感。背面的灰彩绘画虽然单色，但其细腻的明暗变化展现了艺术家对光影的精妙掌控，如同人生喜悦的不同层次。 这幅作品提醒我们，喜悦可以多种形式存在——可以是当下的欢愉，也可以是内心的平静与满足。画中女子的虔诚与安宁，或许正映射出你在喜悦时刻对生活的热爱与感恩。在快节奏的今天，这种持久的内心喜悦尤为珍贵，它教会我们，真正的快乐源于对生活的热爱和对内心平静的珍视。"
+              },
+              {
+                "artworkId": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "在这充满喜悦的时刻，让我为您推荐这件来自文艺复兴盛期的珍品。",
+                "artisticAnalysis": "1485年至1495年间，威尼斯正处于黄金时代，贸易繁荣、文化昌盛，人们热衷于通过肖像画彰显个人身份与社会地位。Jacometto Veneziano作为威尼斯画派的代表画家，以细腻的笔触和精准的心理刻画著称。 这幅肖像画中的男子（可能是威尼斯贵族Alvise Contarini）身着华服，眼神中透露出自信与满足，与您此刻的喜悦心境完美共鸣。画家巧妙运用温暖的色调和柔和的光影，营造出一种内敛而持久的愉悦感。尤为值得注意的是画背面的金色装饰，描绘了一只被系住的鹿，象征着人类对自由的渴望与现实的约束，这种对比恰恰提醒我们，真正的喜悦来自于对生活本真的欣赏与把握。 当您沉浸在喜悦中欣赏此作时，不妨关注人物嘴角那抹几乎难以察觉的微笑，以及衣褶中流动的光影。这些细节展现了文艺复兴时期艺术家对生命本身的热爱与尊重，这种跨越时空的共鸣，正是艺术最珍贵的礼物。在快节奏的现代生活中，这幅作品提醒我们：喜悦不仅是当下的感受，更是人类共通的情感体验，它连接着过去与现在，将我们与那些曾在喜悦中生活的灵魂紧紧相连。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在这充满喜悦的时刻，让我为您推荐这件来自文艺复兴盛期的珍品。",
+                  "artisticAnalysis": "1485年至1495年间，威尼斯正处于黄金时代，贸易繁荣、文化昌盛，人们热衷于通过肖像画彰显个人身份与社会地位。Jacometto Veneziano作为威尼斯画派的代表画家，以细腻的笔触和精准的心理刻画著称。 这幅肖像画中的男子（可能是威尼斯贵族Alvise Contarini）身着华服，眼神中透露出自信与满足，与您此刻的喜悦心境完美共鸣。画家巧妙运用温暖的色调和柔和的光影，营造出一种内敛而持久的愉悦感。尤为值得注意的是画背面的金色装饰，描绘了一只被系住的鹿，象征着人类对自由的渴望与现实的约束，这种对比恰恰提醒我们，真正的喜悦来自于对生活本真的欣赏与把握。 当您沉浸在喜悦中欣赏此作时，不妨关注人物嘴角那抹几乎难以察觉的微笑，以及衣褶中流动的光影。这些细节展现了文艺复兴时期艺术家对生命本身的热爱与尊重，这种跨越时空的共鸣，正是艺术最珍贵的礼物。在快节奏的现代生活中，这幅作品提醒我们：喜悦不仅是当下的感受，更是人类共通的情感体验，它连接着过去与现在，将我们与那些曾在喜悦中生活的灵魂紧紧相连。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在这充满喜悦的时刻，让我为您推荐这件来自文艺复兴盛期的珍品。",
+                  "detail": "1485年至1495年间，威尼斯正处于黄金时代，贸易繁荣、文化昌盛，人们热衷于通过肖像画彰显个人身份与社会地位。Jacometto Veneziano作为威尼斯画派的代表画家，以细腻的笔触和精准的心理刻画著称。 这幅肖像画中的男子（可能是威尼斯贵族Alvise Contarini）身着华服，眼神中透露出自信与满足，与您此刻的喜悦心境完美共鸣。画家巧妙运用温暖的色调和柔和的光影，营造出一种内敛而持久的愉悦感。尤为值得注意的是画背面的金色装饰，描绘了一只被系住的鹿，象征着人类对自由的渴望与现实的约束，这种对比恰恰提醒我们，真正的喜悦来自于对生活本真的欣赏与把握。 当您沉浸在喜悦中欣赏此作时，不妨关注人物嘴角那抹几乎难以察觉的微笑，以及衣褶中流动的光影。这些细节展现了文艺复兴时期艺术家对生命本身的热爱与尊重，这种跨越时空的共鸣，正是艺术最珍贵的礼物。在快节奏的现代生活中，这幅作品提醒我们：喜悦不仅是当下的感受，更是人类共通的情感体验，它连接着过去与现在，将我们与那些曾在喜悦中生活的灵魂紧紧相连。"
+                },
+                "confidence": 0.8,
+                "processingTime": 28203,
+                "introduction": "在这充满喜悦的时刻，让我为您推荐这件来自文艺复兴盛期的珍品。",
+                "detail": "1485年至1495年间，威尼斯正处于黄金时代，贸易繁荣、文化昌盛，人们热衷于通过肖像画彰显个人身份与社会地位。Jacometto Veneziano作为威尼斯画派的代表画家，以细腻的笔触和精准的心理刻画著称。 这幅肖像画中的男子（可能是威尼斯贵族Alvise Contarini）身着华服，眼神中透露出自信与满足，与您此刻的喜悦心境完美共鸣。画家巧妙运用温暖的色调和柔和的光影，营造出一种内敛而持久的愉悦感。尤为值得注意的是画背面的金色装饰，描绘了一只被系住的鹿，象征着人类对自由的渴望与现实的约束，这种对比恰恰提醒我们，真正的喜悦来自于对生活本真的欣赏与把握。 当您沉浸在喜悦中欣赏此作时，不妨关注人物嘴角那抹几乎难以察觉的微笑，以及衣褶中流动的光影。这些细节展现了文艺复兴时期艺术家对生命本身的热爱与尊重，这种跨越时空的共鸣，正是艺术最珍贵的礼物。在快节奏的现代生活中，这幅作品提醒我们：喜悦不仅是当下的感受，更是人类共通的情感体验，它连接着过去与现在，将我们与那些曾在喜悦中生活的灵魂紧紧相连。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 92622
+          },
+          "timestamp": 1759925072828
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 5,
+            "batchSize": 1,
+            "explanations": [
+              {
+                "artworkId": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "emotionalConnection": "《The Birth of the Virgin》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Fra Carnevale (Bartolomeo di Giovanni Corradini)在1467年运用独特技法创作了这件Tempera and oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于古典艺术时期，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《The Birth of the Virgin》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Fra Carnevale (Bartolomeo di Giovanni Corradini)在1467年运用独特技法创作了这件Tempera and oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于古典艺术时期，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Birth of the Virgin》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Fra Carnevale (Bartolomeo di Giovanni Corradini)在1467年运用独特技法创作了这件Tempera and oil on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 1,
+            "durationMs": 127146
+          },
+          "timestamp": 1759925107352
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 3,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437422",
+                "title": "Charity",
+                "artist": "Guido Reni",
+                "emotionalConnection": "《Charity》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Guido Reni在ca. 1630年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Charity》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Guido Reni在ca. 1630年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Charity》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Guido Reni在ca. 1630年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "emotionalConnection": "《Circus Sideshow (Parade de cirque)》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Georges Seurat在1887–88年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Circus Sideshow (Parade de cirque)》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Georges Seurat在1887–88年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Circus Sideshow (Parade de cirque)》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Georges Seurat在1887–88年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127296
+          },
+          "timestamp": 1759925107501
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "《Cows Crossing a Ford》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Cows Crossing a Ford》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过欢快明亮的色彩和动态构图完美地诠释了\"joy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"joy\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Cows Crossing a Ford》通过欢快明亮的色彩和动态构图，与\"joy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127427
+          },
+          "timestamp": 1759925107632
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 334770
+          },
+          "timestamp": 1759925107632
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-08T12:05:07.634Z",
+      "totalDuration": 334809
+    },
+    {
+      "name": "Complex Emotion with User Input",
+      "description": "Workflow with detailed user requirements",
+      "emotion": "nostalgia",
+      "userInput": "我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 150000,
+        "planDuration": 35000,
+        "searchDuration": 50000,
+        "scoringDuration": 70000
+      },
+      "startTime": "2025-10-08T12:05:07.634Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 269985,
+        "steps": {
+          "emotionCurve": 2,
+          "introduction": 12488,
+          "conclusion": 7095,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 87952,
+              "count": 2
+            },
+            {
+              "batchIndex": 5,
+              "duration": 23332,
+              "count": 1
+            },
+            {
+              "batchIndex": 4,
+              "duration": 127398,
+              "count": 2
+            },
+            {
+              "batchIndex": 3,
+              "duration": 127435,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 127458,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 493575
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            54570
+          ],
+          "artworks_selected": [
+            54572
+          ],
+          "introduction": [
+            67055
+          ],
+          "conclusion": [
+            74151
+          ],
+          "explanations_batch": [
+            142520,
+            165853,
+            269918,
+            269955,
+            269978
+          ],
+          "complete": [
+            269978
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 100
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 5,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "nostalgia",
+            "userInput": "我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感"
+          },
+          "timestamp": 1759925107640
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.596754804347378,
+              0.6152920008261751,
+              0.7182332084490168,
+              0.7168729630196196,
+              0.7342637034426392,
+              0.6578820791294379,
+              0.5938453218649353,
+              0.5480631439243481,
+              0.6137789138875264,
+              0.5986397528040172,
+              0.636439878256475,
+              0.5334727086368664,
+              0.5533013519580328,
+              0.5055862316716283,
+              0.5945544405307572,
+              0.6593654446545876,
+              0.7186677950342014,
+              0.6655968754144742,
+              0.668189230114725,
+              0.5792704813873348,
+              0.5896095751111269,
+              0.562117007810765,
+              0.5567543981244917,
+              0.5908023695222763,
+              0.5588500507546303,
+              0.6546258579471196,
+              0.6697115952846798,
+              0.7134860429955513,
+              0.6195105125473278,
+              0.6019390266533006,
+              0.5869274083985517,
+              0.650556199150892,
+              0.661263045095917,
+              0.6785657955653845,
+              0.6232177088723166,
+              0.641757135774519,
+              0.6462373029305223,
+              0.7231027381131319,
+              0.6315990576610099,
+              0.6391875498577994,
+              0.5631624217535441,
+              0.5743766156915538,
+              0.5526300561893173,
+              0.6300439457846481,
+              0.69901096089359,
+              0.6800564704524206,
+              0.6940906033313143,
+              0.6889577000557997,
+              0.7182189730120414,
+              0.7218507940435906,
+              0.7320392825977381,
+              0.7356861327894908,
+              0.7141890539858387,
+              0.6962969976527745,
+              0.6703655562787172,
+              0.6675278309259755,
+              0.6986139210188398,
+              0.7292759601914169,
+              0.7146671242829606,
+              0.7141525080392238,
+              0.6942591613061119,
+              0.6962574576821168,
+              0.6798039093291055,
+              0.6858840308698572,
+              0.6857788529288568,
+              0.7042315610629943,
+              0.6927349747116587,
+              0.7194215111172184
+            ],
+            "description": "这个\"nostalgia\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从51%到74%，创造出丰富的情绪层次。",
+            "durationMs": 2
+          },
+          "timestamp": 1759925162210
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "438003",
+                "title": "Camille Monet (1847–1879) on a Garden Bench",
+                "artist": "Claude Monet",
+                "year": "1873",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; (verso: oil and gold on wood)",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; verso: oil and gold on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "year": "1467",
+                "medium": "Tempera and oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436102",
+                "title": "Virgin and Child with Four Angels",
+                "artist": "Gerard David",
+                "year": "ca. 1510–15",
+                "medium": "Oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437261",
+                "title": "The Penitence of Saint Jerome",
+                "artist": "Joachim Patinir",
+                "year": "ca. 1515",
+                "medium": "Oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于多样性原则选择作品，确保风格、时期、材质的平衡",
+            "diversityMetrics": {
+              "artistCount": 7,
+              "periodCount": 3,
+              "mediumCount": 5,
+              "avgScore": 6.092407407407408,
+              "emotionFit": 5
+            },
+            "durationMs": 0
+          },
+          "timestamp": 1759925162212
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n# 《nostalgia》策展序言\n\n时光如水，记忆如画。本次\"nostalgia\"展览邀您踏上一段穿越时光的艺术之旅，重温那些纯真而温暖的童年片段。我们精心挑选的九件艺术珍品，如同打开记忆之门的钥匙，引领您重返那个简单而美好的年代。莫奈笔下的花园景致与家人肖像，捕捉了时光凝固的瞬间，唤起我们对",
+            "durationMs": 12488
+          },
+          "timestamp": 1759925174695
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n",
+            "durationMs": 7095
+          },
+          "timestamp": 1759925181791
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "在1867年的巴黎，这座城市正经历着奥斯曼男爵的大规模改造，工业化浪潮席卷而来。",
+                "artisticAnalysis": "正是在这个变革的时代，莫奈创作了《圣阿德雷斯花园》(Garden at Sainte-Adresse)，这幅作品宛如一剂怀旧良药，为身处怀旧(nostalgia)情绪的你",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在1867年的巴黎，这座城市正经历着奥斯曼男爵的大规模改造，工业化浪潮席卷而来。",
+                  "artisticAnalysis": "正是在这个变革的时代，莫奈创作了《圣阿德雷斯花园》(Garden at Sainte-Adresse)，这幅作品宛如一剂怀旧良药，为身处怀旧(nostalgia)情绪的你",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在1867年的巴黎，这座城市正经历着奥斯曼男爵的大规模改造，工业化浪潮席卷而来。",
+                  "detail": "正是在这个变革的时代，莫奈创作了《圣阿德雷斯花园》(Garden at Sainte-Adresse)，这幅作品宛如一剂怀旧良药，为身处怀旧(nostalgia)情绪的你"
+                },
+                "confidence": 0.8,
+                "processingTime": 29167,
+                "introduction": "在1867年的巴黎，这座城市正经历着奥斯曼男爵的大规模改造，工业化浪潮席卷而来。",
+                "detail": "正是在这个变革的时代，莫奈创作了《圣阿德雷斯花园》(Garden at Sainte-Adresse)，这幅作品宛如一剂怀旧良药，为身处怀旧(nostalgia)情绪的你"
+              },
+              {
+                "artworkId": "438003",
+                "title": "Camille Monet (1847–1879) on a Garden Bench",
+                "artist": "Claude Monet",
+                "emotionalConnection": "这幅莫奈创作于1873年的《花园长椅上的卡米尔·莫奈》，如同一个时光胶囊，完美契合你此刻怀旧的思绪。",
+                "artisticAnalysis": "在印象派方兴未艾的年代，莫奈正以革命性的笔触捕捉光影的瞬间流动，而这幅作品正是他艺术成熟期的杰作，也是他对家庭温暖的深情凝视。 画中，卡米尔坐在花园长椅上，阳光透过树叶在她身上投下斑驳的光影，莫奈以他标志性的碎点技法，将这一平凡家庭时刻升华为永恒。那柔和的绿色调和温暖的白色，营造出一种宁静祥和的氛围，仿佛你能感受到那个午后的微风和花香。莫奈对细节的舍弃与对整体氛围的把握，恰恰呼应了童年记忆中那些被时间模糊却依然温暖的片段。 当你凝视这幅画，不妨注意卡米尔姿态的自然与放松，以及她与周围环境和谐相处的状态。这种亲密与平和，正是我们怀念的童年家庭时光的核心。莫奈让我们明白，真正的美往往存在于日常生活的细微之处，就像那些我们曾经习以为常却如今怀念的家庭瞬间。 这幅作品不仅是一段艺术史的见证，更是一面情感之镜，它提醒我们，那些看似普通的日子，恰恰是最珍贵的宝藏。在怀旧的旅程中，莫奈用他的画笔告诉我们：温暖与纯真，从未真正离去，它们只是化作记忆中的光影，等待我们重新发现。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "这幅莫奈创作于1873年的《花园长椅上的卡米尔·莫奈》，如同一个时光胶囊，完美契合你此刻怀旧的思绪。",
+                  "artisticAnalysis": "在印象派方兴未艾的年代，莫奈正以革命性的笔触捕捉光影的瞬间流动，而这幅作品正是他艺术成熟期的杰作，也是他对家庭温暖的深情凝视。 画中，卡米尔坐在花园长椅上，阳光透过树叶在她身上投下斑驳的光影，莫奈以他标志性的碎点技法，将这一平凡家庭时刻升华为永恒。那柔和的绿色调和温暖的白色，营造出一种宁静祥和的氛围，仿佛你能感受到那个午后的微风和花香。莫奈对细节的舍弃与对整体氛围的把握，恰恰呼应了童年记忆中那些被时间模糊却依然温暖的片段。 当你凝视这幅画，不妨注意卡米尔姿态的自然与放松，以及她与周围环境和谐相处的状态。这种亲密与平和，正是我们怀念的童年家庭时光的核心。莫奈让我们明白，真正的美往往存在于日常生活的细微之处，就像那些我们曾经习以为常却如今怀念的家庭瞬间。 这幅作品不仅是一段艺术史的见证，更是一面情感之镜，它提醒我们，那些看似普通的日子，恰恰是最珍贵的宝藏。在怀旧的旅程中，莫奈用他的画笔告诉我们：温暖与纯真，从未真正离去，它们只是化作记忆中的光影，等待我们重新发现。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "这幅莫奈创作于1873年的《花园长椅上的卡米尔·莫奈》，如同一个时光胶囊，完美契合你此刻怀旧的思绪。",
+                  "detail": "在印象派方兴未艾的年代，莫奈正以革命性的笔触捕捉光影的瞬间流动，而这幅作品正是他艺术成熟期的杰作，也是他对家庭温暖的深情凝视。 画中，卡米尔坐在花园长椅上，阳光透过树叶在她身上投下斑驳的光影，莫奈以他标志性的碎点技法，将这一平凡家庭时刻升华为永恒。那柔和的绿色调和温暖的白色，营造出一种宁静祥和的氛围，仿佛你能感受到那个午后的微风和花香。莫奈对细节的舍弃与对整体氛围的把握，恰恰呼应了童年记忆中那些被时间模糊却依然温暖的片段。 当你凝视这幅画，不妨注意卡米尔姿态的自然与放松，以及她与周围环境和谐相处的状态。这种亲密与平和，正是我们怀念的童年家庭时光的核心。莫奈让我们明白，真正的美往往存在于日常生活的细微之处，就像那些我们曾经习以为常却如今怀念的家庭瞬间。 这幅作品不仅是一段艺术史的见证，更是一面情感之镜，它提醒我们，那些看似普通的日子，恰恰是最珍贵的宝藏。在怀旧的旅程中，莫奈用他的画笔告诉我们：温暖与纯真，从未真正离去，它们只是化作记忆中的光影，等待我们重新发现。"
+                },
+                "confidence": 0.8,
+                "processingTime": 24720,
+                "introduction": "这幅莫奈创作于1873年的《花园长椅上的卡米尔·莫奈》，如同一个时光胶囊，完美契合你此刻怀旧的思绪。",
+                "detail": "在印象派方兴未艾的年代，莫奈正以革命性的笔触捕捉光影的瞬间流动，而这幅作品正是他艺术成熟期的杰作，也是他对家庭温暖的深情凝视。 画中，卡米尔坐在花园长椅上，阳光透过树叶在她身上投下斑驳的光影，莫奈以他标志性的碎点技法，将这一平凡家庭时刻升华为永恒。那柔和的绿色调和温暖的白色，营造出一种宁静祥和的氛围，仿佛你能感受到那个午后的微风和花香。莫奈对细节的舍弃与对整体氛围的把握，恰恰呼应了童年记忆中那些被时间模糊却依然温暖的片段。 当你凝视这幅画，不妨注意卡米尔姿态的自然与放松，以及她与周围环境和谐相处的状态。这种亲密与平和，正是我们怀念的童年家庭时光的核心。莫奈让我们明白，真正的美往往存在于日常生活的细微之处，就像那些我们曾经习以为常却如今怀念的家庭瞬间。 这幅作品不仅是一段艺术史的见证，更是一面情感之镜，它提醒我们，那些看似普通的日子，恰恰是最珍贵的宝藏。在怀旧的旅程中，莫奈用他的画笔告诉我们：温暖与纯真，从未真正离去，它们只是化作记忆中的光影，等待我们重新发现。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 87952,
+            "isFirstBatch": true
+          },
+          "timestamp": 1759925250160
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 5,
+            "batchSize": 1,
+            "explanations": [
+              {
+                "artworkId": "437261",
+                "title": "The Penitence of Saint Jerome",
+                "artist": "Joachim Patinir",
+                "emotionalConnection": "1515年的欧洲正处在一个微妙的历史转折点，文艺复兴的思潮悄然改变了人们对世界的看法。",
+                "artisticAnalysis": "作为佛兰德风景画先驱的Joachim Patinir，正是将这种新视角带入艺术的大师。他的《圣杰罗姆的忏悔》表面上描绘这位教父在荒野中苦修的场景，但真正令人心动的，是那片如梦似幻的广袤风景——远处的山脉蜿蜒，近处的河流清澈，树影婆娑中透着一种难以言喻的宁静。 当你沉浸在nostalgia的情绪中凝视这幅作品，会发现Patinir笔下的自然景象唤起了一种对纯真时光的怀念。那片未经打扰的荒野，多像我们记忆中未被世俗侵扰的童年。画面左侧的岩石和树木构成了一个安全的\"庇护所\"，正如家庭是我们最初的心灵港湾。而画面中央的小径，则暗示着成长过程中的探索与回归。 这位艺术家开创的\"世界风景\"风格，将宗教人物置于宏大的自然背景中，暗示着人类与自然的永恒联系。在1515年这个地理大发现的时代，人们开始重新思考人与自然的关系，而这种思考，恰如我们在怀旧时对纯真时光的重新审视。 当你凝视这幅作品时，不妨注意Patinir如何用细腻的笔触描绘光影变化，如何通过色彩的层次创造出空间的深度。这些技术细节背后，是艺术家对简单生活的向往，也是我们在nostalgia情绪中追寻的温暖记忆。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "1515年的欧洲正处在一个微妙的历史转折点，文艺复兴的思潮悄然改变了人们对世界的看法。",
+                  "artisticAnalysis": "作为佛兰德风景画先驱的Joachim Patinir，正是将这种新视角带入艺术的大师。他的《圣杰罗姆的忏悔》表面上描绘这位教父在荒野中苦修的场景，但真正令人心动的，是那片如梦似幻的广袤风景——远处的山脉蜿蜒，近处的河流清澈，树影婆娑中透着一种难以言喻的宁静。 当你沉浸在nostalgia的情绪中凝视这幅作品，会发现Patinir笔下的自然景象唤起了一种对纯真时光的怀念。那片未经打扰的荒野，多像我们记忆中未被世俗侵扰的童年。画面左侧的岩石和树木构成了一个安全的\"庇护所\"，正如家庭是我们最初的心灵港湾。而画面中央的小径，则暗示着成长过程中的探索与回归。 这位艺术家开创的\"世界风景\"风格，将宗教人物置于宏大的自然背景中，暗示着人类与自然的永恒联系。在1515年这个地理大发现的时代，人们开始重新思考人与自然的关系，而这种思考，恰如我们在怀旧时对纯真时光的重新审视。 当你凝视这幅作品时，不妨注意Patinir如何用细腻的笔触描绘光影变化，如何通过色彩的层次创造出空间的深度。这些技术细节背后，是艺术家对简单生活的向往，也是我们在nostalgia情绪中追寻的温暖记忆。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "1515年的欧洲正处在一个微妙的历史转折点，文艺复兴的思潮悄然改变了人们对世界的看法。",
+                  "detail": "作为佛兰德风景画先驱的Joachim Patinir，正是将这种新视角带入艺术的大师。他的《圣杰罗姆的忏悔》表面上描绘这位教父在荒野中苦修的场景，但真正令人心动的，是那片如梦似幻的广袤风景——远处的山脉蜿蜒，近处的河流清澈，树影婆娑中透着一种难以言喻的宁静。 当你沉浸在nostalgia的情绪中凝视这幅作品，会发现Patinir笔下的自然景象唤起了一种对纯真时光的怀念。那片未经打扰的荒野，多像我们记忆中未被世俗侵扰的童年。画面左侧的岩石和树木构成了一个安全的\"庇护所\"，正如家庭是我们最初的心灵港湾。而画面中央的小径，则暗示着成长过程中的探索与回归。 这位艺术家开创的\"世界风景\"风格，将宗教人物置于宏大的自然背景中，暗示着人类与自然的永恒联系。在1515年这个地理大发现的时代，人们开始重新思考人与自然的关系，而这种思考，恰如我们在怀旧时对纯真时光的重新审视。 当你凝视这幅作品时，不妨注意Patinir如何用细腻的笔触描绘光影变化，如何通过色彩的层次创造出空间的深度。这些技术细节背后，是艺术家对简单生活的向往，也是我们在nostalgia情绪中追寻的温暖记忆。"
+                },
+                "confidence": 0.8,
+                "processingTime": 23278,
+                "introduction": "1515年的欧洲正处在一个微妙的历史转折点，文艺复兴的思潮悄然改变了人们对世界的看法。",
+                "detail": "作为佛兰德风景画先驱的Joachim Patinir，正是将这种新视角带入艺术的大师。他的《圣杰罗姆的忏悔》表面上描绘这位教父在荒野中苦修的场景，但真正令人心动的，是那片如梦似幻的广袤风景——远处的山脉蜿蜒，近处的河流清澈，树影婆娑中透着一种难以言喻的宁静。 当你沉浸在nostalgia的情绪中凝视这幅作品，会发现Patinir笔下的自然景象唤起了一种对纯真时光的怀念。那片未经打扰的荒野，多像我们记忆中未被世俗侵扰的童年。画面左侧的岩石和树木构成了一个安全的\"庇护所\"，正如家庭是我们最初的心灵港湾。而画面中央的小径，则暗示着成长过程中的探索与回归。 这位艺术家开创的\"世界风景\"风格，将宗教人物置于宏大的自然背景中，暗示着人类与自然的永恒联系。在1515年这个地理大发现的时代，人们开始重新思考人与自然的关系，而这种思考，恰如我们在怀旧时对纯真时光的重新审视。 当你凝视这幅作品时，不妨注意Patinir如何用细腻的笔触描绘光影变化，如何通过色彩的层次创造出空间的深度。这些技术细节背后，是艺术家对简单生活的向往，也是我们在nostalgia情绪中追寻的温暖记忆。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 0,
+            "durationMs": 23332
+          },
+          "timestamp": 1759925273493
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 4,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "emotionalConnection": "在这怀旧的时光里，Fra Carnevale的《圣母诞生》恰如一封来自15世纪的家书，轻轻抚慰你思念童年的心。",
+                "artisticAnalysis": "一四六七年，文艺复兴的春风刚刚吹拂意大利，人文主义悄然萌芽，艺术家们开始从宗教题材中发掘人性的温度。这幅作品正是这一时代的缩影，弗拉·卡内瓦尔（Fra Carnevale）将神圣家庭日常化，让圣安妮",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在这怀旧的时光里，Fra Carnevale的《圣母诞生》恰如一封来自15世纪的家书，轻轻抚慰你思念童年的心。",
+                  "artisticAnalysis": "一四六七年，文艺复兴的春风刚刚吹拂意大利，人文主义悄然萌芽，艺术家们开始从宗教题材中发掘人性的温度。这幅作品正是这一时代的缩影，弗拉·卡内瓦尔（Fra Carnevale）将神圣家庭日常化，让圣安妮",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在这怀旧的时光里，Fra Carnevale的《圣母诞生》恰如一封来自15世纪的家书，轻轻抚慰你思念童年的心。",
+                  "detail": "一四六七年，文艺复兴的春风刚刚吹拂意大利，人文主义悄然萌芽，艺术家们开始从宗教题材中发掘人性的温度。这幅作品正是这一时代的缩影，弗拉·卡内瓦尔（Fra Carnevale）将神圣家庭日常化，让圣安妮"
+                },
+                "confidence": 0.8,
+                "processingTime": 27785,
+                "introduction": "在这怀旧的时光里，Fra Carnevale的《圣母诞生》恰如一封来自15世纪的家书，轻轻抚慰你思念童年的心。",
+                "detail": "一四六七年，文艺复兴的春风刚刚吹拂意大利，人文主义悄然萌芽，艺术家们开始从宗教题材中发掘人性的温度。这幅作品正是这一时代的缩影，弗拉·卡内瓦尔（Fra Carnevale）将神圣家庭日常化，让圣安妮"
+              },
+              {
+                "artworkId": "436102",
+                "title": "Virgin and Child with Four Angels",
+                "artist": "Gerard David",
+                "emotionalConnection": "《Virgin and Child with Four Angels》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Gerard David在ca. 1510–15年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Virgin and Child with Four Angels》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Gerard David在ca. 1510–15年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Virgin and Child with Four Angels》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Gerard David在ca. 1510–15年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127398
+          },
+          "timestamp": 1759925377558
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 3,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127435
+          },
+          "timestamp": 1759925377595
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "《Cows Crossing a Ford》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Cows Crossing a Ford》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"nostalgia\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"我想要寻找一些关于童年回忆和温暖家庭时光的艺术作品，希望能感受到那种纯真和怀旧的情感\"在情感表达上高度契合，能够满足您对\"nostalgia\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Cows Crossing a Ford》通过独特的艺术表现力，与\"nostalgia\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127458
+          },
+          "timestamp": 1759925377618
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 269978
+          },
+          "timestamp": 1759925377618
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-08T12:09:37.620Z",
+      "totalDuration": 269986
+    },
+    {
+      "name": "Negative Emotion Processing",
+      "description": "Testing workflow with complex negative emotion",
+      "emotion": "melancholy",
+      "userInput": "寻找一些能够表达内心深处忧伤和思考的作品",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 140000,
+        "planDuration": 32000,
+        "searchDuration": 48000,
+        "scoringDuration": 65000
+      },
+      "startTime": "2025-10-08T12:09:37.620Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 302493,
+        "steps": {
+          "artworkSelection": 1,
+          "introduction": 8658,
+          "conclusion": 7572,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 127349,
+              "count": 2
+            },
+            {
+              "batchIndex": 3,
+              "duration": 127426,
+              "count": 2
+            },
+            {
+              "batchIndex": 5,
+              "duration": 127439,
+              "count": 1
+            },
+            {
+              "batchIndex": 4,
+              "duration": 127474,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 127590,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 637278
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            47551
+          ],
+          "artworks_selected": [
+            47552
+          ],
+          "introduction": [
+            56208
+          ],
+          "conclusion": [
+            63779
+          ],
+          "explanations_batch": [
+            174898,
+            302324,
+            302337,
+            302371,
+            302488
+          ],
+          "complete": [
+            302488
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 100
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 5,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "melancholy",
+            "userInput": "寻找一些能够表达内心深处忧伤和思考的作品"
+          },
+          "timestamp": 1759925377625
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.6355223880597014,
+              0.6310447761194029,
+              0.6220895522388059,
+              0.6131343283582089,
+              0.6041791044776119,
+              0.5952238805970149,
+              0.5862686567164179,
+              0.5773134328358208,
+              0.5683582089552238,
+              0.5594029850746268,
+              0.5504477611940298,
+              0.5414925373134328,
+              0.5325373134328358,
+              0.5235820895522387,
+              0.5146268656716417,
+              0.5056716417910447,
+              0.49671641791044774,
+              0.48776119402985074,
+              0.47880597014925375,
+              0.46985074626865675,
+              0.4608955223880597,
+              0.4519402985074626,
+              0.4429850746268656,
+              0.4340298507462686,
+              0.4250746268656716,
+              0.4161194029850746,
+              0.40835820895522384,
+              0.40656716417910443,
+              0.4107462686567163,
+              0.4197014925373134,
+              0.4286567164179104,
+              0.4376119402985074,
+              0.44656716417910447,
+              0.45552238805970147,
+              0.46447761194029846,
+              0.47343283582089546,
+              0.48238805970149246,
+              0.49134328358208945,
+              0.5002985074626866,
+              0.5092537313432834,
+              0.5182089552238806,
+              0.5271641791044775,
+              0.5361194029850745,
+              0.5450746268656717,
+              0.5540298507462686,
+              0.5629850746268656,
+              0.5719402985074626,
+              0.5808955223880596,
+              0.5898507462686566,
+              0.5988059701492537,
+              0.6077611940298507,
+              0.6167164179104477,
+              0.6256716417910447,
+              0.6346268656716417,
+              0.6435820895522387,
+              0.6525373134328358,
+              0.6614925373134328,
+              0.6704477611940298,
+              0.6794029850746268,
+              0.6883582089552238,
+              0.6973134328358208,
+              0.7062686567164178,
+              0.7152238805970148,
+              0.7241791044776119,
+              0.7331343283582089,
+              0.7420895522388059,
+              0.7510447761194029,
+              0.7555223880597014
+            ],
+            "description": "这个\"melancholy\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从41%到76%，创造出丰富的情绪层次。",
+            "durationMs": 0
+          },
+          "timestamp": 1759925425176
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "year": "ca. 1874",
+                "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437422",
+                "title": "Charity",
+                "artist": "Guido Reni",
+                "year": "ca. 1630",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "year": "1887–88",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP375450_cropped.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; (verso: oil and gold on wood)",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; verso: oil and gold on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "year": "1467",
+                "medium": "Tempera and oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 8,
+              "periodCount": 4,
+              "mediumCount": 5,
+              "avgScore": 6.060925925925926,
+              "emotionFit": 5
+            },
+            "durationMs": 1
+          },
+          "timestamp": 1759925425177
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n**忧郁：心灵的低语**\n\n在人类情感的谱系",
+            "durationMs": 8658
+          },
+          "timestamp": 1759925433833
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n",
+            "durationMs": 7572
+          },
+          "timestamp": 1759925441404
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "《Garden at Sainte-Adresse》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Garden at Sainte-Adresse》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Garden at Sainte-Adresse》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Rehearsal of the Ballet Onstage》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127349,
+            "isFirstBatch": true
+          },
+          "timestamp": 1759925552523
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 3,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437422",
+                "title": "Charity",
+                "artist": "Guido Reni",
+                "emotionalConnection": "《Charity》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Guido Reni在ca. 1630年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Charity》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Guido Reni在ca. 1630年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Charity》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Guido Reni在ca. 1630年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "emotionalConnection": "《Circus Sideshow (Parade de cirque)》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Georges Seurat在1887–88年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Circus Sideshow (Parade de cirque)》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Georges Seurat在1887–88年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Circus Sideshow (Parade de cirque)》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Georges Seurat在1887–88年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127426
+          },
+          "timestamp": 1759925679949
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 5,
+            "batchSize": 1,
+            "explanations": [
+              {
+                "artworkId": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "emotionalConnection": "《The Birth of the Virgin》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Fra Carnevale (Bartolomeo di Giovanni Corradini)在1467年运用独特技法创作了这件Tempera and oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于古典艺术时期，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《The Birth of the Virgin》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Fra Carnevale (Bartolomeo di Giovanni Corradini)在1467年运用独特技法创作了这件Tempera and oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于古典艺术时期，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Birth of the Virgin》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Fra Carnevale (Bartolomeo di Giovanni Corradini)在1467年运用独特技法创作了这件Tempera and oil on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 1,
+            "durationMs": 127439
+          },
+          "timestamp": 1759925679962
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 4,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "在这段1485至1495年间，威尼斯正经历着黄金时代的尾声，繁荣的商业背后是政治动荡的阴影。",
+                "artisticAnalysis": "雅科梅托（Jacometto）作为威尼斯画派的代表人物，以细腻的心理刻画闻名，他笔下的肖像不仅仅是外表的复制，更是",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在这段1485至1495年间，威尼斯正经历着黄金时代的尾声，繁荣的商业背后是政治动荡的阴影。",
+                  "artisticAnalysis": "雅科梅托（Jacometto）作为威尼斯画派的代表人物，以细腻的心理刻画闻名，他笔下的肖像不仅仅是外表的复制，更是",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在这段1485至1495年间，威尼斯正经历着黄金时代的尾声，繁荣的商业背后是政治动荡的阴影。",
+                  "detail": "雅科梅托（Jacometto）作为威尼斯画派的代表人物，以细腻的心理刻画闻名，他笔下的肖像不仅仅是外表的复制，更是"
+                },
+                "confidence": 0.8,
+                "processingTime": 27902,
+                "introduction": "在这段1485至1495年间，威尼斯正经历着黄金时代的尾声，繁荣的商业背后是政治动荡的阴影。",
+                "detail": "雅科梅托（Jacometto）作为威尼斯画派的代表人物，以细腻的心理刻画闻名，他笔下的肖像不仅仅是外表的复制，更是"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127474
+          },
+          "timestamp": 1759925679996
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Chrysanthemums in the Garden at Petit-Gennevilliers》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Gustave Caillebotte在1893年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "《Cows Crossing a Ford》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Cows Crossing a Ford》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过深沉内敛的色调和富有表现力的构图完美地诠释了\"melancholy\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"寻找一些能够表达内心深处忧伤和思考的作品\"在情感表达上高度契合，能够满足您对\"melancholy\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Cows Crossing a Ford》通过深沉内敛的色调和富有表现力的构图，与\"melancholy\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127590
+          },
+          "timestamp": 1759925680113
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 302489
+          },
+          "timestamp": 1759925680113
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-08T12:14:40.114Z",
+      "totalDuration": 302494
+    },
+    {
+      "name": "GET Method Test",
+      "description": "Testing GET method with query parameters",
+      "emotion": "peace",
+      "userInput": "宁静祥和的作品",
+      "method": "GET",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 120000,
+        "planDuration": 30000,
+        "searchDuration": 45000,
+        "scoringDuration": 60000
+      },
+      "startTime": "2025-10-08T12:14:40.114Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 305968,
+        "steps": {
+          "emotionCurve": 1,
+          "introduction": 9364,
+          "conclusion": 5790,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 127288,
+              "count": 2
+            },
+            {
+              "batchIndex": 5,
+              "duration": 92072,
+              "count": 1
+            },
+            {
+              "batchIndex": 4,
+              "duration": 127328,
+              "count": 2
+            },
+            {
+              "batchIndex": 3,
+              "duration": 127427,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 127430,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 601545
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            51240
+          ],
+          "artworks_selected": [
+            51240
+          ],
+          "introduction": [
+            60607
+          ],
+          "conclusion": [
+            66394
+          ],
+          "explanations_batch": [
+            178529,
+            270602,
+            305857,
+            305955,
+            305958
+          ],
+          "complete": [
+            305958
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 100
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 5,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "peace",
+            "userInput": "宁静祥和的作品"
+          },
+          "timestamp": 1759925680122
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.6081727214635847,
+              0.6461727259553186,
+              0.7301594982585363,
+              0.6920167285583863,
+              0.6902485320555979,
+              0.6167955786399432,
+              0.5682520463393826,
+              0.4772281569703525,
+              0.541322389597163,
+              0.5542506992530886,
+              0.6324640809223133,
+              0.5932756379138617,
+              0.5593817525445869,
+              0.48822015786621903,
+              0.5386835990837898,
+              0.6431497941298595,
+              0.7199545215240667,
+              0.6504171056645013,
+              0.6141913025733617,
+              0.5521989271634753,
+              0.529415567765598,
+              0.5347054480547438,
+              0.5152249463939138,
+              0.6142966976004745,
+              0.582376067897641,
+              0.688162691773082,
+              0.6805369616480684,
+              0.71760075395414,
+              0.6480047580261071,
+              0.6626783651312579,
+              0.6946096513518155,
+              0.7378057636512811,
+              0.7022149087491858,
+              0.6601901080554301,
+              0.5818891667756912,
+              0.6155791851694629,
+              0.629203031837674,
+              0.7003436706700313,
+              0.6089143356384631,
+              0.597112906217392,
+              0.5654145593680361,
+              0.5931606741205241,
+              0.6286384586438211,
+              0.6836505422714815,
+              0.7418130368386723,
+              0.7197639290470512,
+              0.7002119595064172,
+              0.7090556566492919,
+              0.7233365345524335,
+              0.7249753767431395,
+              0.7171464816141664,
+              0.7082185570275912,
+              0.7090573965370979,
+              0.6981511963601195,
+              0.7131625210221779,
+              0.7368197647620698,
+              0.7233292125611613,
+              0.71237146491208,
+              0.7096593960900859,
+              0.7343966534947771,
+              0.7080322006017502,
+              0.691852229339776,
+              0.7010959555957627,
+              0.7197472030886193,
+              0.7281051085891829,
+              0.6841727740348507,
+              0.6811389678059313,
+              0.658851263234918
+            ],
+            "description": "这个\"peace\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从48%到74%，创造出丰富的情绪层次。",
+            "durationMs": 1
+          },
+          "timestamp": 1759925731362
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436102",
+                "title": "Virgin and Child with Four Angels",
+                "artist": "Gerard David",
+                "year": "ca. 1510–15",
+                "medium": "Oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-1410-001.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "year": "ca. 1874",
+                "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; verso: oil and gold on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; (verso: oil and gold on wood)",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "839045",
+                "title": "The Net Mender (Garnbinderen)",
+                "artist": "Christian Krohg",
+                "year": "1879",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP-19488-001.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "438779",
+                "title": "A Peasant Family",
+                "artist": "Antoine Le Nain",
+                "year": "ca. 1640–48",
+                "medium": "Oil on copper",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP131218.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437261",
+                "title": "The Penitence of Saint Jerome",
+                "artist": "Joachim Patinir",
+                "year": "ca. 1515",
+                "medium": "Oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 8,
+              "periodCount": 3,
+              "mediumCount": 6,
+              "avgScore": 6.051481481481482,
+              "emotionFit": 5
+            },
+            "durationMs": 0
+          },
+          "timestamp": 1759925731362
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n",
+            "durationMs": 9364
+          },
+          "timestamp": 1759925740729
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n在这场名为\"peace\"的",
+            "durationMs": 5790
+          },
+          "timestamp": 1759925746516
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "在\"和平\"（peace）的心情下，\"牛群涉水\"（Cows Crossing a Ford）展现出特别的艺术魅力和情感深度。",
+                "artisticAnalysis": "站在您此刻寻求宁静的心情面前，Dupré的《Cows Crossing a Ford》如同一首视觉的田园诗，恰如其分地呼应着您对祥和的渴望。创作于1836年的这幅作品，诞生于法国七月王朝的相对稳定时期，那是浪漫主义与写实主义交汇的年代，艺术家们开始走出画室，直面自然的呼吸。 Dupré作为巴比松画派的代表人物，特别擅长捕捉自然中的微妙光影。在这幅作品中，他运用厚重的油彩技法，让牛群棕色的剪影与水面反射的阳光形成温暖而柔和的对比。牛群有序地涉水而行，它们缓慢而坚定的步伐，与河流的流畅线条形成一种自然的韵律，仿佛时间的流动在这里变得舒缓而从容。 当您沉浸在\"peace\"的情绪中欣赏这幅画时，不妨特别留意水面如何反射天空的光芒，以及牛群在水中行走时水波的涟漪。这些细节透露出艺术家对自然观察的细腻，也提醒我们生活中那些被忽视的平静时刻。这幅作品不仅仅是风景的再现，更是对生命和谐状态的赞歌，它告诉我们，即使在最简单的日常中，也能找到内心的安宁与和谐。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在\"和平\"（peace）的心情下，\"牛群涉水\"（Cows Crossing a Ford）展现出特别的艺术魅力和情感深度。",
+                  "artisticAnalysis": "站在您此刻寻求宁静的心情面前，Dupré的《Cows Crossing a Ford》如同一首视觉的田园诗，恰如其分地呼应着您对祥和的渴望。创作于1836年的这幅作品，诞生于法国七月王朝的相对稳定时期，那是浪漫主义与写实主义交汇的年代，艺术家们开始走出画室，直面自然的呼吸。 Dupré作为巴比松画派的代表人物，特别擅长捕捉自然中的微妙光影。在这幅作品中，他运用厚重的油彩技法，让牛群棕色的剪影与水面反射的阳光形成温暖而柔和的对比。牛群有序地涉水而行，它们缓慢而坚定的步伐，与河流的流畅线条形成一种自然的韵律，仿佛时间的流动在这里变得舒缓而从容。 当您沉浸在\"peace\"的情绪中欣赏这幅画时，不妨特别留意水面如何反射天空的光芒，以及牛群在水中行走时水波的涟漪。这些细节透露出艺术家对自然观察的细腻，也提醒我们生活中那些被忽视的平静时刻。这幅作品不仅仅是风景的再现，更是对生命和谐状态的赞歌，它告诉我们，即使在最简单的日常中，也能找到内心的安宁与和谐。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在\"和平\"（peace）的心情下，\"牛群涉水\"（Cows Crossing a Ford）展现出特别的艺术魅力和情感深度。",
+                  "detail": "站在您此刻寻求宁静的心情面前，Dupré的《Cows Crossing a Ford》如同一首视觉的田园诗，恰如其分地呼应着您对祥和的渴望。创作于1836年的这幅作品，诞生于法国七月王朝的相对稳定时期，那是浪漫主义与写实主义交汇的年代，艺术家们开始走出画室，直面自然的呼吸。 Dupré作为巴比松画派的代表人物，特别擅长捕捉自然中的微妙光影。在这幅作品中，他运用厚重的油彩技法，让牛群棕色的剪影与水面反射的阳光形成温暖而柔和的对比。牛群有序地涉水而行，它们缓慢而坚定的步伐，与河流的流畅线条形成一种自然的韵律，仿佛时间的流动在这里变得舒缓而从容。 当您沉浸在\"peace\"的情绪中欣赏这幅画时，不妨特别留意水面如何反射天空的光芒，以及牛群在水中行走时水波的涟漪。这些细节透露出艺术家对自然观察的细腻，也提醒我们生活中那些被忽视的平静时刻。这幅作品不仅仅是风景的再现，更是对生命和谐状态的赞歌，它告诉我们，即使在最简单的日常中，也能找到内心的安宁与和谐。"
+                },
+                "confidence": 0.8,
+                "processingTime": 29454,
+                "introduction": "在\"和平\"（peace）的心情下，\"牛群涉水\"（Cows Crossing a Ford）展现出特别的艺术魅力和情感深度。",
+                "detail": "站在您此刻寻求宁静的心情面前，Dupré的《Cows Crossing a Ford》如同一首视觉的田园诗，恰如其分地呼应着您对祥和的渴望。创作于1836年的这幅作品，诞生于法国七月王朝的相对稳定时期，那是浪漫主义与写实主义交汇的年代，艺术家们开始走出画室，直面自然的呼吸。 Dupré作为巴比松画派的代表人物，特别擅长捕捉自然中的微妙光影。在这幅作品中，他运用厚重的油彩技法，让牛群棕色的剪影与水面反射的阳光形成温暖而柔和的对比。牛群有序地涉水而行，它们缓慢而坚定的步伐，与河流的流畅线条形成一种自然的韵律，仿佛时间的流动在这里变得舒缓而从容。 当您沉浸在\"peace\"的情绪中欣赏这幅画时，不妨特别留意水面如何反射天空的光芒，以及牛群在水中行走时水波的涟漪。这些细节透露出艺术家对自然观察的细腻，也提醒我们生活中那些被忽视的平静时刻。这幅作品不仅仅是风景的再现，更是对生命和谐状态的赞歌，它告诉我们，即使在最简单的日常中，也能找到内心的安宁与和谐。"
+              },
+              {
+                "artworkId": "436102",
+                "title": "Virgin and Child with Four Angels",
+                "artist": "Gerard David",
+                "emotionalConnection": "《Virgin and Child with Four Angels》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Gerard David在ca. 1510–15年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Virgin and Child with Four Angels》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Gerard David在ca. 1510–15年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Virgin and Child with Four Angels》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Gerard David在ca. 1510–15年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127288,
+            "isFirstBatch": true
+          },
+          "timestamp": 1759925858651
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 5,
+            "batchSize": 1,
+            "explanations": [
+              {
+                "artworkId": "437261",
+                "title": "The Penitence of Saint Jerome",
+                "artist": "Joachim Patinir",
+                "emotionalConnection": "在1515年的欧洲，文艺复兴的春风正拂过北方大陆，人文主义与宗教信仰交织成一幅复杂而丰富的时代画卷。",
+                "artisticAnalysis": "Joachim Patinir，这位被尊为\"风景画之父\"的佛兰德大师，正以他独特的视角将宗教题材与壮阔自然完美融合。在这幅《圣杰罗姆的忏悔》中，Patinir用油彩在木板上铺展了一片心灵净土——远处的蓝绿色山脉如屏风般环绕，近处的岩石纹理细腻入微，一条蜿蜒小径引领观者目光，而那位忏悔的圣徒只是画中一个微小却坚定的存在。 当你处于\"peace\"的心境，这幅作品恰似一剂良药。Patinir以近乎科学的精准描绘自然，却又赋予其诗意与灵性，这种理性与感性的平衡恰如内心的宁静。画面中的柔和色调——褐色的岩石、碧绿的植被、天蓝色的天空——共同营造出一种令人心安的氛围。圣杰罗姆虽在荒野中，却展现出一种内在的平和，这种在孤独中寻得安宁的意境，正是我们在纷扰世界中渴望的心灵状态。 不妨将目光停留在那棵孤独却挺拔的树上，它如同精神支柱，见证着忏悔与救赎。Patinir的风景不只是背景，更是心灵的镜像，提醒我们：真正的宁静并非来自外部环境的完美，而是源于内心的和谐与自省。这幅作品如同一扇窗，让我们在喧嚣之外，找到属于自己的那片寂静天地。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在1515年的欧洲，文艺复兴的春风正拂过北方大陆，人文主义与宗教信仰交织成一幅复杂而丰富的时代画卷。",
+                  "artisticAnalysis": "Joachim Patinir，这位被尊为\"风景画之父\"的佛兰德大师，正以他独特的视角将宗教题材与壮阔自然完美融合。在这幅《圣杰罗姆的忏悔》中，Patinir用油彩在木板上铺展了一片心灵净土——远处的蓝绿色山脉如屏风般环绕，近处的岩石纹理细腻入微，一条蜿蜒小径引领观者目光，而那位忏悔的圣徒只是画中一个微小却坚定的存在。 当你处于\"peace\"的心境，这幅作品恰似一剂良药。Patinir以近乎科学的精准描绘自然，却又赋予其诗意与灵性，这种理性与感性的平衡恰如内心的宁静。画面中的柔和色调——褐色的岩石、碧绿的植被、天蓝色的天空——共同营造出一种令人心安的氛围。圣杰罗姆虽在荒野中，却展现出一种内在的平和，这种在孤独中寻得安宁的意境，正是我们在纷扰世界中渴望的心灵状态。 不妨将目光停留在那棵孤独却挺拔的树上，它如同精神支柱，见证着忏悔与救赎。Patinir的风景不只是背景，更是心灵的镜像，提醒我们：真正的宁静并非来自外部环境的完美，而是源于内心的和谐与自省。这幅作品如同一扇窗，让我们在喧嚣之外，找到属于自己的那片寂静天地。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在1515年的欧洲，文艺复兴的春风正拂过北方大陆，人文主义与宗教信仰交织成一幅复杂而丰富的时代画卷。",
+                  "detail": "Joachim Patinir，这位被尊为\"风景画之父\"的佛兰德大师，正以他独特的视角将宗教题材与壮阔自然完美融合。在这幅《圣杰罗姆的忏悔》中，Patinir用油彩在木板上铺展了一片心灵净土——远处的蓝绿色山脉如屏风般环绕，近处的岩石纹理细腻入微，一条蜿蜒小径引领观者目光，而那位忏悔的圣徒只是画中一个微小却坚定的存在。 当你处于\"peace\"的心境，这幅作品恰似一剂良药。Patinir以近乎科学的精准描绘自然，却又赋予其诗意与灵性，这种理性与感性的平衡恰如内心的宁静。画面中的柔和色调——褐色的岩石、碧绿的植被、天蓝色的天空——共同营造出一种令人心安的氛围。圣杰罗姆虽在荒野中，却展现出一种内在的平和，这种在孤独中寻得安宁的意境，正是我们在纷扰世界中渴望的心灵状态。 不妨将目光停留在那棵孤独却挺拔的树上，它如同精神支柱，见证着忏悔与救赎。Patinir的风景不只是背景，更是心灵的镜像，提醒我们：真正的宁静并非来自外部环境的完美，而是源于内心的和谐与自省。这幅作品如同一扇窗，让我们在喧嚣之外，找到属于自己的那片寂静天地。"
+                },
+                "confidence": 0.8,
+                "processingTime": 28625,
+                "introduction": "在1515年的欧洲，文艺复兴的春风正拂过北方大陆，人文主义与宗教信仰交织成一幅复杂而丰富的时代画卷。",
+                "detail": "Joachim Patinir，这位被尊为\"风景画之父\"的佛兰德大师，正以他独特的视角将宗教题材与壮阔自然完美融合。在这幅《圣杰罗姆的忏悔》中，Patinir用油彩在木板上铺展了一片心灵净土——远处的蓝绿色山脉如屏风般环绕，近处的岩石纹理细腻入微，一条蜿蜒小径引领观者目光，而那位忏悔的圣徒只是画中一个微小却坚定的存在。 当你处于\"peace\"的心境，这幅作品恰似一剂良药。Patinir以近乎科学的精准描绘自然，却又赋予其诗意与灵性，这种理性与感性的平衡恰如内心的宁静。画面中的柔和色调——褐色的岩石、碧绿的植被、天蓝色的天空——共同营造出一种令人心安的氛围。圣杰罗姆虽在荒野中，却展现出一种内在的平和，这种在孤独中寻得安宁的意境，正是我们在纷扰世界中渴望的心灵状态。 不妨将目光停留在那棵孤独却挺拔的树上，它如同精神支柱，见证着忏悔与救赎。Patinir的风景不只是背景，更是心灵的镜像，提醒我们：真正的宁静并非来自外部环境的完美，而是源于内心的和谐与自省。这幅作品如同一扇窗，让我们在喧嚣之外，找到属于自己的那片寂静天地。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 0,
+            "durationMs": 92072
+          },
+          "timestamp": 1759925950724
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 4,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "839045",
+                "title": "The Net Mender (Garnbinderen)",
+                "artist": "Christian Krohg",
+                "emotionalConnection": "《The Net Mender (Garnbinderen)》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Christian Krohg在1879年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《The Net Mender (Garnbinderen)》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Christian Krohg在1879年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Net Mender (Garnbinderen)》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Christian Krohg在1879年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "438779",
+                "title": "A Peasant Family",
+                "artist": "Antoine Le Nain",
+                "emotionalConnection": "《A Peasant Family》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Antoine Le Nain在ca. 1640–48年运用油画技法创作了这件Oil on copper作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《A Peasant Family》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Antoine Le Nain在ca. 1640–48年运用油画技法创作了这件Oil on copper作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《A Peasant Family》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Antoine Le Nain在ca. 1640–48年运用油画技法创作了这件Oil on copper作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127328
+          },
+          "timestamp": 1759925985979
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 3,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "在这幅创作于15世纪末威尼斯的肖像画前，您会发现一个与当下喧嚣世界截然不同的精神港湾。",
+                "artisticAnalysis": "1485-95年的欧洲正处于文艺复兴的黎明时分，威尼斯作为连接东西方的贸易中心，在财富积累中孕育出独特的艺术氛围。Jacometto Veneziano这位威尼斯画派的杰出代表，将佛兰德式的细腻油画技法与意大利的人文关怀完美融合，创造出这件令人静心沉思的作品。 画面中的女性，可能是一位来自San Secondo修道院的修女，她的目光温和而坚定，仿佛在凝视某个超越尘世的维度。画家以近乎科学般的精确捕捉了她面部的每一处细节——从额头微妙的起伏到眼角的细纹，再到嘴唇柔和的曲线，这些细节共同构建了一种内在的平静力量。作品使用的木板油画技法使色彩呈现出特别的温润质感，与修女素净的服饰相得益彰，营造出一种超越时空的宁静氛围。 当您处于\"peace\"的心境中欣赏这件作品时，不妨将注意力集中在人物的眼神交流上，感受那份跨越六个世纪的平静与专注。背面的灰色调场景，以油彩和金箔精心绘制，象征着精神世界的纯净与超脱，与正面肖像形成完美的呼应。 在这个快节奏的时代，这幅文艺复兴时期的肖像画提醒我们，真正的宁静并非来自外部环境的安静，而是源于内心的平衡与自省。修女的形象邀请我们暂时放下纷扰，进入一种沉思的状态，这正是这幅作品能在您此刻给予的最珍贵的礼物。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在这幅创作于15世纪末威尼斯的肖像画前，您会发现一个与当下喧嚣世界截然不同的精神港湾。",
+                  "artisticAnalysis": "1485-95年的欧洲正处于文艺复兴的黎明时分，威尼斯作为连接东西方的贸易中心，在财富积累中孕育出独特的艺术氛围。Jacometto Veneziano这位威尼斯画派的杰出代表，将佛兰德式的细腻油画技法与意大利的人文关怀完美融合，创造出这件令人静心沉思的作品。 画面中的女性，可能是一位来自San Secondo修道院的修女，她的目光温和而坚定，仿佛在凝视某个超越尘世的维度。画家以近乎科学般的精确捕捉了她面部的每一处细节——从额头微妙的起伏到眼角的细纹，再到嘴唇柔和的曲线，这些细节共同构建了一种内在的平静力量。作品使用的木板油画技法使色彩呈现出特别的温润质感，与修女素净的服饰相得益彰，营造出一种超越时空的宁静氛围。 当您处于\"peace\"的心境中欣赏这件作品时，不妨将注意力集中在人物的眼神交流上，感受那份跨越六个世纪的平静与专注。背面的灰色调场景，以油彩和金箔精心绘制，象征着精神世界的纯净与超脱，与正面肖像形成完美的呼应。 在这个快节奏的时代，这幅文艺复兴时期的肖像画提醒我们，真正的宁静并非来自外部环境的安静，而是源于内心的平衡与自省。修女的形象邀请我们暂时放下纷扰，进入一种沉思的状态，这正是这幅作品能在您此刻给予的最珍贵的礼物。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在这幅创作于15世纪末威尼斯的肖像画前，您会发现一个与当下喧嚣世界截然不同的精神港湾。",
+                  "detail": "1485-95年的欧洲正处于文艺复兴的黎明时分，威尼斯作为连接东西方的贸易中心，在财富积累中孕育出独特的艺术氛围。Jacometto Veneziano这位威尼斯画派的杰出代表，将佛兰德式的细腻油画技法与意大利的人文关怀完美融合，创造出这件令人静心沉思的作品。 画面中的女性，可能是一位来自San Secondo修道院的修女，她的目光温和而坚定，仿佛在凝视某个超越尘世的维度。画家以近乎科学般的精确捕捉了她面部的每一处细节——从额头微妙的起伏到眼角的细纹，再到嘴唇柔和的曲线，这些细节共同构建了一种内在的平静力量。作品使用的木板油画技法使色彩呈现出特别的温润质感，与修女素净的服饰相得益彰，营造出一种超越时空的宁静氛围。 当您处于\"peace\"的心境中欣赏这件作品时，不妨将注意力集中在人物的眼神交流上，感受那份跨越六个世纪的平静与专注。背面的灰色调场景，以油彩和金箔精心绘制，象征着精神世界的纯净与超脱，与正面肖像形成完美的呼应。 在这个快节奏的时代，这幅文艺复兴时期的肖像画提醒我们，真正的宁静并非来自外部环境的安静，而是源于内心的平衡与自省。修女的形象邀请我们暂时放下纷扰，进入一种沉思的状态，这正是这幅作品能在您此刻给予的最珍贵的礼物。"
+                },
+                "confidence": 0.8,
+                "processingTime": 28650,
+                "introduction": "在这幅创作于15世纪末威尼斯的肖像画前，您会发现一个与当下喧嚣世界截然不同的精神港湾。",
+                "detail": "1485-95年的欧洲正处于文艺复兴的黎明时分，威尼斯作为连接东西方的贸易中心，在财富积累中孕育出独特的艺术氛围。Jacometto Veneziano这位威尼斯画派的杰出代表，将佛兰德式的细腻油画技法与意大利的人文关怀完美融合，创造出这件令人静心沉思的作品。 画面中的女性，可能是一位来自San Secondo修道院的修女，她的目光温和而坚定，仿佛在凝视某个超越尘世的维度。画家以近乎科学般的精确捕捉了她面部的每一处细节——从额头微妙的起伏到眼角的细纹，再到嘴唇柔和的曲线，这些细节共同构建了一种内在的平静力量。作品使用的木板油画技法使色彩呈现出特别的温润质感，与修女素净的服饰相得益彰，营造出一种超越时空的宁静氛围。 当您处于\"peace\"的心境中欣赏这件作品时，不妨将注意力集中在人物的眼神交流上，感受那份跨越六个世纪的平静与专注。背面的灰色调场景，以油彩和金箔精心绘制，象征着精神世界的纯净与超脱，与正面肖像形成完美的呼应。 在这个快节奏的时代，这幅文艺复兴时期的肖像画提醒我们，真正的宁静并非来自外部环境的安静，而是源于内心的平衡与自省。修女的形象邀请我们暂时放下纷扰，进入一种沉思的状态，这正是这幅作品能在您此刻给予的最珍贵的礼物。"
+              },
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "《Garden at Sainte-Adresse》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Garden at Sainte-Adresse》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Garden at Sainte-Adresse》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Claude Monet在1867年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127427
+          },
+          "timestamp": 1759925986077
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《The Rehearsal of the Ballet Onstage》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Rehearsal of the Ballet Onstage》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Edgar Degas在ca. 1874年运用油画技法创作了这件Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。",
+                "explanation": {
+                  "emotionalConnection": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过独特的艺术表现力完美地诠释了\"peace\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您的描述\"宁静祥和的作品\"在情感表达上高度契合，能够满足您对\"peace\"情绪的艺术探索需求。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过独特的艺术表现力，与\"peace\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 2,
+            "durationMs": 127430
+          },
+          "timestamp": 1759925986080
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 305959
+          },
+          "timestamp": 1759925986080
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-08T12:19:46.082Z",
+      "totalDuration": 305968
+    },
+    {
+      "name": "Minimal Input Test",
+      "description": "Testing with minimal emotion input",
+      "emotion": "calm",
+      "userInput": "",
+      "method": "POST",
+      "expectedEvents": [
+        "start",
+        "emotion_curve",
+        "artworks_selected",
+        "introduction",
+        "conclusion",
+        "explanations_batch",
+        "complete"
+      ],
+      "performanceThresholds": {
+        "totalDuration": 100000,
+        "planDuration": 25000,
+        "searchDuration": 40000,
+        "scoringDuration": 50000
+      },
+      "startTime": "2025-10-08T12:19:46.082Z",
+      "passed": false,
+      "performance": {
+        "totalDuration": 307911,
+        "steps": {
+          "emotionCurve": 2,
+          "introduction": 14167,
+          "conclusion": 6266,
+          "explanations": [
+            {
+              "batchIndex": 1,
+              "duration": 123313,
+              "count": 2
+            },
+            {
+              "batchIndex": 4,
+              "duration": 127339,
+              "count": 2
+            },
+            {
+              "batchIndex": 2,
+              "duration": 127411,
+              "count": 2
+            },
+            {
+              "batchIndex": 5,
+              "duration": 127421,
+              "count": 1
+            },
+            {
+              "batchIndex": 3,
+              "duration": 127426,
+              "count": 2
+            }
+          ],
+          "totalExplanationTime": 632910
+        },
+        "eventTiming": {
+          "start": [
+            0
+          ],
+          "emotion_curve": [
+            57169
+          ],
+          "artworks_selected": [
+            57169
+          ],
+          "introduction": [
+            71338
+          ],
+          "conclusion": [
+            77603
+          ],
+          "explanations_batch": [
+            180481,
+            307820,
+            307892,
+            307901,
+            307906
+          ],
+          "complete": [
+            307906
+          ]
+        }
+      },
+      "validation": {
+        "passed": true,
+        "issues": [],
+        "scores": {
+          "emotionCurveQuality": 100,
+          "artworkQuality": 100,
+          "explanationQuality": 100
+        },
+        "details": {
+          "eventCounts": {
+            "start": 1,
+            "emotion_curve": 1,
+            "artworks_selected": 1,
+            "introduction": 1,
+            "conclusion": 1,
+            "explanations_batch": 5,
+            "complete": 1
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "start",
+          "payload": {
+            "emotion": "calm",
+            "userInput": ""
+          },
+          "timestamp": 1759925986087
+        },
+        {
+          "type": "emotion_curve",
+          "payload": {
+            "curve": [
+              0.6268029012298679,
+              0.6824980045792879,
+              0.7656621593898706,
+              0.7743782125407761,
+              0.7569765308798252,
+              0.724083866849231,
+              0.6777774532349999,
+              0.642751105778077,
+              0.5955111663377335,
+              0.6211595077349412,
+              0.6883723979961008,
+              0.7069656807377963,
+              0.7722433528230858,
+              0.7516824432739279,
+              0.79976130932458,
+              0.7380521205859205,
+              0.7058250941644449,
+              0.7071094585680487,
+              0.7288196884902848,
+              0.7366923075447088,
+              0.7288912505105426,
+              0.6913777068376143,
+              0.646501854766465,
+              0.6220157967023437,
+              0.641553400609106,
+              0.7069941527629763,
+              0.7184633504583693,
+              0.721600106868539,
+              0.7130336280260202,
+              0.7548980214536977,
+              0.7732391775616967,
+              0.7198741721306713,
+              0.6748249466379881,
+              0.6767501917115278,
+              0.6786009754657348,
+              0.6275938416317516,
+              0.6312843640206363,
+              0.6537378239151673,
+              0.7505396566310392,
+              0.710587822016662,
+              0.6781344964661891,
+              0.6701180013168959,
+              0.6757476222322724,
+              0.7735490637301204,
+              0.7612775369284693,
+              0.7679766411608192,
+              0.7101783331424424,
+              0.6973641007314617,
+              0.7273424375301745,
+              0.7364571535330361,
+              0.7532596461520008,
+              0.693175861400236,
+              0.7063440875052652,
+              0.7080721516486289,
+              0.7441597093966696,
+              0.765134155019056,
+              0.7587709536154694,
+              0.7394954110680922,
+              0.6824457826801328,
+              0.6456880393368509,
+              0.6470150183216908,
+              0.636024008390009,
+              0.6778545277055436,
+              0.6596420597938472,
+              0.6561833438339657,
+              0.6249330819443214,
+              0.673359749675361,
+              0.7149229512768628
+            ],
+            "description": "这个\"calm\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从60%到80%，创造出丰富的情绪层次。",
+            "durationMs": 2
+          },
+          "timestamp": 1759926043256
+        },
+        {
+          "type": "artworks_selected",
+          "payload": {
+            "artworks": [
+              {
+                "id": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "year": "ca. 1874",
+                "medium": "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "year": "1887–88",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP375450_cropped.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "year": "1893",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437261",
+                "title": "The Penitence of Saint Jerome",
+                "artist": "Joachim Patinir",
+                "year": "ca. 1515",
+                "medium": "Oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT5549.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "year": "1867",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "year": "1836",
+                "medium": "Oil on canvas",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; (verso: oil and gold on wood)",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221483.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "year": "1467",
+                "medium": "Tempera and oil on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP109484.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              },
+              {
+                "id": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "year": "ca. 1485–95",
+                "medium": "Oil on wood; verso: oil and gold on wood",
+                "imageUrl": "https://images.metmuseum.org/CRDImages/rl/original/DP221485.jpg",
+                "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+                "museum": "大都会艺术博物馆"
+              }
+            ],
+            "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+            "diversityMetrics": {
+              "artistCount": 8,
+              "periodCount": 3,
+              "mediumCount": 6,
+              "avgScore": 6.060925925925926,
+              "emotionFit": 5
+            },
+            "durationMs": 0
+          },
+          "timestamp": 1759926043256
+        },
+        {
+          "type": "introduction",
+          "payload": {
+            "introduction": "\n",
+            "durationMs": 14167
+          },
+          "timestamp": 1759926057425
+        },
+        {
+          "type": "conclusion",
+          "payload": {
+            "conclusion": "\n在\"calm\"的旅程中，九件作品如涟漪般漾开，引领我们穿越从内省",
+            "durationMs": 6266
+          },
+          "timestamp": 1759926063690
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 1,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "436155",
+                "title": "The Rehearsal of the Ballet Onstage",
+                "artist": "Edgar Degas",
+                "emotionalConnection": "在这平静如水的时刻，德加的《芭蕾舞台排练》如同一面澄澈的镜子，映照出1874年那个变革时代里艺术与生活的交织。",
+                "artisticAnalysis": "那时的巴黎，印象派正在悄然颠覆传统，而德加，这位不愿被标签化的\"现实主义者\"，正用他独特的混合技法——油彩、水彩与粉彩在纸上的交融，捕捉着芭蕾舞者最真实而非浪漫化的瞬间。 你此刻的平静，恰能感知德加画中那种内敛的专注。那些身着粉色舞裙的舞者，或舒展肢体，或小憩沉思，她们的疲惫与专注构成了一种无言的诗意。德加从高处俯视的视角，让整个排练厅如同一个微型世界，地板上的木纹、墙面的镜面、舞者投下的阴影，都成为他平静观察的对象。 当你静静凝视，不妨注意画面左侧那个倚墙而立的舞者，她微微低垂的头和放松的肩颈，透露出排练间隙的短暂宁静。这种对日常瞬间的捕捉，正是德加给予我们的启示：平静并非来自外界的喧嚣，而是源于对平凡之美的敏感与珍视。在快节奏的生活中，德加提醒我们，停下来，观察那些被忽略的日常，或许就能发现生命中最持久的平静与诗意。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在这平静如水的时刻，德加的《芭蕾舞台排练》如同一面澄澈的镜子，映照出1874年那个变革时代里艺术与生活的交织。",
+                  "artisticAnalysis": "那时的巴黎，印象派正在悄然颠覆传统，而德加，这位不愿被标签化的\"现实主义者\"，正用他独特的混合技法——油彩、水彩与粉彩在纸上的交融，捕捉着芭蕾舞者最真实而非浪漫化的瞬间。 你此刻的平静，恰能感知德加画中那种内敛的专注。那些身着粉色舞裙的舞者，或舒展肢体，或小憩沉思，她们的疲惫与专注构成了一种无言的诗意。德加从高处俯视的视角，让整个排练厅如同一个微型世界，地板上的木纹、墙面的镜面、舞者投下的阴影，都成为他平静观察的对象。 当你静静凝视，不妨注意画面左侧那个倚墙而立的舞者，她微微低垂的头和放松的肩颈，透露出排练间隙的短暂宁静。这种对日常瞬间的捕捉，正是德加给予我们的启示：平静并非来自外界的喧嚣，而是源于对平凡之美的敏感与珍视。在快节奏的生活中，德加提醒我们，停下来，观察那些被忽略的日常，或许就能发现生命中最持久的平静与诗意。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在这平静如水的时刻，德加的《芭蕾舞台排练》如同一面澄澈的镜子，映照出1874年那个变革时代里艺术与生活的交织。",
+                  "detail": "那时的巴黎，印象派正在悄然颠覆传统，而德加，这位不愿被标签化的\"现实主义者\"，正用他独特的混合技法——油彩、水彩与粉彩在纸上的交融，捕捉着芭蕾舞者最真实而非浪漫化的瞬间。 你此刻的平静，恰能感知德加画中那种内敛的专注。那些身着粉色舞裙的舞者，或舒展肢体，或小憩沉思，她们的疲惫与专注构成了一种无言的诗意。德加从高处俯视的视角，让整个排练厅如同一个微型世界，地板上的木纹、墙面的镜面、舞者投下的阴影，都成为他平静观察的对象。 当你静静凝视，不妨注意画面左侧那个倚墙而立的舞者，她微微低垂的头和放松的肩颈，透露出排练间隙的短暂宁静。这种对日常瞬间的捕捉，正是德加给予我们的启示：平静并非来自外界的喧嚣，而是源于对平凡之美的敏感与珍视。在快节奏的生活中，德加提醒我们，停下来，观察那些被忽略的日常，或许就能发现生命中最持久的平静与诗意。"
+                },
+                "confidence": 0.8,
+                "processingTime": 26015,
+                "introduction": "在这平静如水的时刻，德加的《芭蕾舞台排练》如同一面澄澈的镜子，映照出1874年那个变革时代里艺术与生活的交织。",
+                "detail": "那时的巴黎，印象派正在悄然颠覆传统，而德加，这位不愿被标签化的\"现实主义者\"，正用他独特的混合技法——油彩、水彩与粉彩在纸上的交融，捕捉着芭蕾舞者最真实而非浪漫化的瞬间。 你此刻的平静，恰能感知德加画中那种内敛的专注。那些身着粉色舞裙的舞者，或舒展肢体，或小憩沉思，她们的疲惫与专注构成了一种无言的诗意。德加从高处俯视的视角，让整个排练厅如同一个微型世界，地板上的木纹、墙面的镜面、舞者投下的阴影，都成为他平静观察的对象。 当你静静凝视，不妨注意画面左侧那个倚墙而立的舞者，她微微低垂的头和放松的肩颈，透露出排练间隙的短暂宁静。这种对日常瞬间的捕捉，正是德加给予我们的启示：平静并非来自外界的喧嚣，而是源于对平凡之美的敏感与珍视。在快节奏的生活中，德加提醒我们，停下来，观察那些被忽略的日常，或许就能发现生命中最持久的平静与诗意。"
+              },
+              {
+                "artworkId": "437654",
+                "title": "Circus Sideshow (Parade de cirque)",
+                "artist": "Georges Seurat",
+                "emotionalConnection": "当您以平静的心境驻足于《马戏团侧景》前，这幅1888年修拉创作的杰作将为您打开一扇独特的观察之窗。",
+                "artisticAnalysis": "19世纪末的巴黎，正是印象派风起云涌之际，而修拉却以他革命性的点彩技法，在喧嚣中寻找着永恒的静谧。 修拉将马戏团这一热闹场景转化为一种近乎冥想的视觉体验。他用无数微小而精确的色点，如同音符般排列，创造出一种奇妙的和谐感。当您处于平静状态时，这些色彩点会在您眼中自然融合，形成如梦境般的柔和光泽。画面中，表演者和观众被安排在水平延展的构图中，节奏舒缓，正如平静呼吸的韵律。 特别值得关注的是画面左侧那个静静站立的小丑，他注视着远方，仿佛是喧嚣中的一处沉思角落。这提醒我们，即使在最热闹的时刻，内心仍可保持一份宁静。修拉教会我们，真正的平静并非远离喧嚣，而是在其中找到属于自己的节奏和位置。 此刻，您与修拉共享着一种艺术家的平和视角——从平凡生活中发现诗意，从色彩与形式的和谐中获得心灵的慰藉。这种跨越时空的共鸣，正是艺术给予我们最珍贵的礼物。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "当您以平静的心境驻足于《马戏团侧景》前，这幅1888年修拉创作的杰作将为您打开一扇独特的观察之窗。",
+                  "artisticAnalysis": "19世纪末的巴黎，正是印象派风起云涌之际，而修拉却以他革命性的点彩技法，在喧嚣中寻找着永恒的静谧。 修拉将马戏团这一热闹场景转化为一种近乎冥想的视觉体验。他用无数微小而精确的色点，如同音符般排列，创造出一种奇妙的和谐感。当您处于平静状态时，这些色彩点会在您眼中自然融合，形成如梦境般的柔和光泽。画面中，表演者和观众被安排在水平延展的构图中，节奏舒缓，正如平静呼吸的韵律。 特别值得关注的是画面左侧那个静静站立的小丑，他注视着远方，仿佛是喧嚣中的一处沉思角落。这提醒我们，即使在最热闹的时刻，内心仍可保持一份宁静。修拉教会我们，真正的平静并非远离喧嚣，而是在其中找到属于自己的节奏和位置。 此刻，您与修拉共享着一种艺术家的平和视角——从平凡生活中发现诗意，从色彩与形式的和谐中获得心灵的慰藉。这种跨越时空的共鸣，正是艺术给予我们最珍贵的礼物。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "当您以平静的心境驻足于《马戏团侧景》前，这幅1888年修拉创作的杰作将为您打开一扇独特的观察之窗。",
+                  "detail": "19世纪末的巴黎，正是印象派风起云涌之际，而修拉却以他革命性的点彩技法，在喧嚣中寻找着永恒的静谧。 修拉将马戏团这一热闹场景转化为一种近乎冥想的视觉体验。他用无数微小而精确的色点，如同音符般排列，创造出一种奇妙的和谐感。当您处于平静状态时，这些色彩点会在您眼中自然融合，形成如梦境般的柔和光泽。画面中，表演者和观众被安排在水平延展的构图中，节奏舒缓，正如平静呼吸的韵律。 特别值得关注的是画面左侧那个静静站立的小丑，他注视着远方，仿佛是喧嚣中的一处沉思角落。这提醒我们，即使在最热闹的时刻，内心仍可保持一份宁静。修拉教会我们，真正的平静并非远离喧嚣，而是在其中找到属于自己的节奏和位置。 此刻，您与修拉共享着一种艺术家的平和视角——从平凡生活中发现诗意，从色彩与形式的和谐中获得心灵的慰藉。这种跨越时空的共鸣，正是艺术给予我们最珍贵的礼物。"
+                },
+                "confidence": 0.8,
+                "processingTime": 27688,
+                "introduction": "当您以平静的心境驻足于《马戏团侧景》前，这幅1888年修拉创作的杰作将为您打开一扇独特的观察之窗。",
+                "detail": "19世纪末的巴黎，正是印象派风起云涌之际，而修拉却以他革命性的点彩技法，在喧嚣中寻找着永恒的静谧。 修拉将马戏团这一热闹场景转化为一种近乎冥想的视觉体验。他用无数微小而精确的色点，如同音符般排列，创造出一种奇妙的和谐感。当您处于平静状态时，这些色彩点会在您眼中自然融合，形成如梦境般的柔和光泽。画面中，表演者和观众被安排在水平延展的构图中，节奏舒缓，正如平静呼吸的韵律。 特别值得关注的是画面左侧那个静静站立的小丑，他注视着远方，仿佛是喧嚣中的一处沉思角落。这提醒我们，即使在最热闹的时刻，内心仍可保持一份宁静。修拉教会我们，真正的平静并非远离喧嚣，而是在其中找到属于自己的节奏和位置。 此刻，您与修拉共享着一种艺术家的平和视角——从平凡生活中发现诗意，从色彩与形式的和谐中获得心灵的慰藉。这种跨越时空的共鸣，正是艺术给予我们最珍贵的礼物。"
+              }
+            ],
+            "successCount": 2,
+            "failureCount": 0,
+            "durationMs": 123313,
+            "isFirstBatch": true
+          },
+          "timestamp": 1759926166568
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 4,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "459027",
+                "title": "Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Portrait of a Woman, Possibly a Nun of San Secondo; (verso) Scene in Grisaille》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; (verso: oil and gold on wood)作品，展现了艺术家独特的创作风格和技法特点。"
+              },
+              {
+                "artworkId": "435848",
+                "title": "The Birth of the Virgin",
+                "artist": "Fra Carnevale (Bartolomeo di Giovanni Corradini)",
+                "emotionalConnection": "在1467年的文艺复兴早期，意大利正从哥特式的神秘主义逐渐走向人文主义的理性光辉，恰如您此刻平静的心境。",
+                "artisticAnalysis": "Fra Carnevale这幅《圣母诞生》诞生于这样一个微妙的转折点，艺术家将宗教题材以建筑般的精确与温柔的叙事完美融合。他曾在多纳泰罗工作室学习，将雕塑的空间感带入绘画，创造出既神圣又亲切的氛围。 当您处于平静的心境欣赏这幅作品时，会特别注意到画面中那巧妙的建筑框架，如同一道和谐的光环围绕圣母床榻，这种秩序感与您的平静形成共鸣。画家使用的蛋彩与油彩混合技法，呈现出一种柔和的珍珠光泽，墙壁的淡蓝与床幔的粉红交织出宁静的色调，仿佛一首无声的赞美诗。 建议您先欣赏画面左下角的侍女们，她们姿态各异却神情安详，尤其是那位正准备为婴儿圣母擦拭身体的女子，她的手指轻柔，动作克制，完美诠释了平静中的关怀。再注意画面中央的光线处理，仿佛来自天堂的光芒自然洒落，不张扬却充满力量。 在这纷扰的世界中，这幅作品提醒我们，平静不是无所作为，而是一种内在的秩序与和谐。圣母的诞生象征着希望与纯净，正如您此刻的心境，能够在这喧嚣的世界中找到内心的宁静，这本身就是一种生命的智慧与力量。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在1467年的文艺复兴早期，意大利正从哥特式的神秘主义逐渐走向人文主义的理性光辉，恰如您此刻平静的心境。",
+                  "artisticAnalysis": "Fra Carnevale这幅《圣母诞生》诞生于这样一个微妙的转折点，艺术家将宗教题材以建筑般的精确与温柔的叙事完美融合。他曾在多纳泰罗工作室学习，将雕塑的空间感带入绘画，创造出既神圣又亲切的氛围。 当您处于平静的心境欣赏这幅作品时，会特别注意到画面中那巧妙的建筑框架，如同一道和谐的光环围绕圣母床榻，这种秩序感与您的平静形成共鸣。画家使用的蛋彩与油彩混合技法，呈现出一种柔和的珍珠光泽，墙壁的淡蓝与床幔的粉红交织出宁静的色调，仿佛一首无声的赞美诗。 建议您先欣赏画面左下角的侍女们，她们姿态各异却神情安详，尤其是那位正准备为婴儿圣母擦拭身体的女子，她的手指轻柔，动作克制，完美诠释了平静中的关怀。再注意画面中央的光线处理，仿佛来自天堂的光芒自然洒落，不张扬却充满力量。 在这纷扰的世界中，这幅作品提醒我们，平静不是无所作为，而是一种内在的秩序与和谐。圣母的诞生象征着希望与纯净，正如您此刻的心境，能够在这喧嚣的世界中找到内心的宁静，这本身就是一种生命的智慧与力量。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在1467年的文艺复兴早期，意大利正从哥特式的神秘主义逐渐走向人文主义的理性光辉，恰如您此刻平静的心境。",
+                  "detail": "Fra Carnevale这幅《圣母诞生》诞生于这样一个微妙的转折点，艺术家将宗教题材以建筑般的精确与温柔的叙事完美融合。他曾在多纳泰罗工作室学习，将雕塑的空间感带入绘画，创造出既神圣又亲切的氛围。 当您处于平静的心境欣赏这幅作品时，会特别注意到画面中那巧妙的建筑框架，如同一道和谐的光环围绕圣母床榻，这种秩序感与您的平静形成共鸣。画家使用的蛋彩与油彩混合技法，呈现出一种柔和的珍珠光泽，墙壁的淡蓝与床幔的粉红交织出宁静的色调，仿佛一首无声的赞美诗。 建议您先欣赏画面左下角的侍女们，她们姿态各异却神情安详，尤其是那位正准备为婴儿圣母擦拭身体的女子，她的手指轻柔，动作克制，完美诠释了平静中的关怀。再注意画面中央的光线处理，仿佛来自天堂的光芒自然洒落，不张扬却充满力量。 在这纷扰的世界中，这幅作品提醒我们，平静不是无所作为，而是一种内在的秩序与和谐。圣母的诞生象征着希望与纯净，正如您此刻的心境，能够在这喧嚣的世界中找到内心的宁静，这本身就是一种生命的智慧与力量。"
+                },
+                "confidence": 0.8,
+                "processingTime": 24543,
+                "introduction": "在1467年的文艺复兴早期，意大利正从哥特式的神秘主义逐渐走向人文主义的理性光辉，恰如您此刻平静的心境。",
+                "detail": "Fra Carnevale这幅《圣母诞生》诞生于这样一个微妙的转折点，艺术家将宗教题材以建筑般的精确与温柔的叙事完美融合。他曾在多纳泰罗工作室学习，将雕塑的空间感带入绘画，创造出既神圣又亲切的氛围。 当您处于平静的心境欣赏这幅作品时，会特别注意到画面中那巧妙的建筑框架，如同一道和谐的光环围绕圣母床榻，这种秩序感与您的平静形成共鸣。画家使用的蛋彩与油彩混合技法，呈现出一种柔和的珍珠光泽，墙壁的淡蓝与床幔的粉红交织出宁静的色调，仿佛一首无声的赞美诗。 建议您先欣赏画面左下角的侍女们，她们姿态各异却神情安详，尤其是那位正准备为婴儿圣母擦拭身体的女子，她的手指轻柔，动作克制，完美诠释了平静中的关怀。再注意画面中央的光线处理，仿佛来自天堂的光芒自然洒落，不张扬却充满力量。 在这纷扰的世界中，这幅作品提醒我们，平静不是无所作为，而是一种内在的秩序与和谐。圣母的诞生象征着希望与纯净，正如您此刻的心境，能够在这喧嚣的世界中找到内心的宁静，这本身就是一种生命的智慧与力量。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127339
+          },
+          "timestamp": 1759926293907
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 2,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "671456",
+                "title": "Chrysanthemums in the Garden at Petit-Gennevilliers",
+                "artist": "Gustave Caillebotte",
+                "emotionalConnection": "在1893年这个印象派走向成熟、巴黎社会经历微妙变革的年份，卡耶博特以他独特的视角捕捉了小热内维利耶花园中菊花的静谧之美。",
+                "artisticAnalysis": "作为印象派中的\"异类\"，卡耶博特融合了写实主义的精确与印象派对光色的敏感，这幅作品正是他艺术理念的完美体现——不是对自然的简单模仿，而是对心灵与自然对话的忠实记录。 当您处于平静心境时，这幅作品尤其能触动心弦。卡耶博特用柔和的色调描绘了秋日花园的宁静，菊花从白色到深紫色的渐变，如同呼吸般舒缓的节奏，与您当下的心境形成美妙的共鸣。画面中花卉的排列既有自然的随机性，又保持着微妙的秩序，正如平静状态下我们的思维——清晰而不紧绷。 建议您留意艺术家对光线处理的手法：阳光透过花瓣的微妙变化，以及阴影在地面上的柔和过渡。这些细节展现了卡耶博特对自然的细腻观察，也提醒我们即使在最平凡的场景中，美也无处不在。当您凝视这幅作品时，不妨思考卡耶博特为何选择菊花作为主题——这种在东方文化中象征长寿与沉思的花朵，在19世纪末的欧洲代表着对自然的敬畏与对生活的热爱。 在当今快节奏的世界里，这幅画作如同一扇通往宁静的窗口，邀请我们暂时放下焦虑，像卡耶博特一样，在花园的平凡之美中找到内心的平静与力量。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在1893年这个印象派走向成熟、巴黎社会经历微妙变革的年份，卡耶博特以他独特的视角捕捉了小热内维利耶花园中菊花的静谧之美。",
+                  "artisticAnalysis": "作为印象派中的\"异类\"，卡耶博特融合了写实主义的精确与印象派对光色的敏感，这幅作品正是他艺术理念的完美体现——不是对自然的简单模仿，而是对心灵与自然对话的忠实记录。 当您处于平静心境时，这幅作品尤其能触动心弦。卡耶博特用柔和的色调描绘了秋日花园的宁静，菊花从白色到深紫色的渐变，如同呼吸般舒缓的节奏，与您当下的心境形成美妙的共鸣。画面中花卉的排列既有自然的随机性，又保持着微妙的秩序，正如平静状态下我们的思维——清晰而不紧绷。 建议您留意艺术家对光线处理的手法：阳光透过花瓣的微妙变化，以及阴影在地面上的柔和过渡。这些细节展现了卡耶博特对自然的细腻观察，也提醒我们即使在最平凡的场景中，美也无处不在。当您凝视这幅作品时，不妨思考卡耶博特为何选择菊花作为主题——这种在东方文化中象征长寿与沉思的花朵，在19世纪末的欧洲代表着对自然的敬畏与对生活的热爱。 在当今快节奏的世界里，这幅画作如同一扇通往宁静的窗口，邀请我们暂时放下焦虑，像卡耶博特一样，在花园的平凡之美中找到内心的平静与力量。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在1893年这个印象派走向成熟、巴黎社会经历微妙变革的年份，卡耶博特以他独特的视角捕捉了小热内维利耶花园中菊花的静谧之美。",
+                  "detail": "作为印象派中的\"异类\"，卡耶博特融合了写实主义的精确与印象派对光色的敏感，这幅作品正是他艺术理念的完美体现——不是对自然的简单模仿，而是对心灵与自然对话的忠实记录。 当您处于平静心境时，这幅作品尤其能触动心弦。卡耶博特用柔和的色调描绘了秋日花园的宁静，菊花从白色到深紫色的渐变，如同呼吸般舒缓的节奏，与您当下的心境形成美妙的共鸣。画面中花卉的排列既有自然的随机性，又保持着微妙的秩序，正如平静状态下我们的思维——清晰而不紧绷。 建议您留意艺术家对光线处理的手法：阳光透过花瓣的微妙变化，以及阴影在地面上的柔和过渡。这些细节展现了卡耶博特对自然的细腻观察，也提醒我们即使在最平凡的场景中，美也无处不在。当您凝视这幅作品时，不妨思考卡耶博特为何选择菊花作为主题——这种在东方文化中象征长寿与沉思的花朵，在19世纪末的欧洲代表着对自然的敬畏与对生活的热爱。 在当今快节奏的世界里，这幅画作如同一扇通往宁静的窗口，邀请我们暂时放下焦虑，像卡耶博特一样，在花园的平凡之美中找到内心的平静与力量。"
+                },
+                "confidence": 0.8,
+                "processingTime": 29230,
+                "introduction": "在1893年这个印象派走向成熟、巴黎社会经历微妙变革的年份，卡耶博特以他独特的视角捕捉了小热内维利耶花园中菊花的静谧之美。",
+                "detail": "作为印象派中的\"异类\"，卡耶博特融合了写实主义的精确与印象派对光色的敏感，这幅作品正是他艺术理念的完美体现——不是对自然的简单模仿，而是对心灵与自然对话的忠实记录。 当您处于平静心境时，这幅作品尤其能触动心弦。卡耶博特用柔和的色调描绘了秋日花园的宁静，菊花从白色到深紫色的渐变，如同呼吸般舒缓的节奏，与您当下的心境形成美妙的共鸣。画面中花卉的排列既有自然的随机性，又保持着微妙的秩序，正如平静状态下我们的思维——清晰而不紧绷。 建议您留意艺术家对光线处理的手法：阳光透过花瓣的微妙变化，以及阴影在地面上的柔和过渡。这些细节展现了卡耶博特对自然的细腻观察，也提醒我们即使在最平凡的场景中，美也无处不在。当您凝视这幅作品时，不妨思考卡耶博特为何选择菊花作为主题——这种在东方文化中象征长寿与沉思的花朵，在19世纪末的欧洲代表着对自然的敬畏与对生活的热爱。 在当今快节奏的世界里，这幅画作如同一扇通往宁静的窗口，邀请我们暂时放下焦虑，像卡耶博特一样，在花园的平凡之美中找到内心的平静与力量。"
+              },
+              {
+                "artworkId": "437261",
+                "title": "The Penitence of Saint Jerome",
+                "artist": "Joachim Patinir",
+                "emotionalConnection": "《The Penitence of Saint Jerome》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Joachim Patinir在ca. 1515年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《The Penitence of Saint Jerome》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Joachim Patinir在ca. 1515年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《The Penitence of Saint Jerome》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Joachim Patinir在ca. 1515年运用油画技法创作了这件Oil on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127411
+          },
+          "timestamp": 1759926293979
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 5,
+            "batchSize": 1,
+            "explanations": [
+              {
+                "artworkId": "459028",
+                "title": "Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck",
+                "artist": "Jacometto (Jacometto Veneziano)",
+                "emotionalConnection": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于当代艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Portrait of Alvise Contarini(?); (verso) A Tethered Roebuck》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jacometto (Jacometto Veneziano)在ca. 1485–95年运用油画技法创作了这件Oil on wood; verso: oil and gold on wood作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 0,
+            "failureCount": 1,
+            "durationMs": 127421
+          },
+          "timestamp": 1759926293988
+        },
+        {
+          "type": "explanations_batch",
+          "payload": {
+            "batchIndex": 3,
+            "batchSize": 2,
+            "explanations": [
+              {
+                "artworkId": "437133",
+                "title": "Garden at Sainte-Adresse",
+                "artist": "Claude Monet",
+                "emotionalConnection": "在这片1867年的《圣阿德雷兹花园》中，莫奈以他标志性的光感笔触，为您当下的平静心境提供了一个完美的视觉栖息地。",
+                "artisticAnalysis": "那年，法国正处于相对繁荣的拿破仑三世统治时期，而莫奈正站在印象派革命的门槛上，用崭新的目光捕捉世界的瞬间。 画面中，湛蓝如洗的天空与翠绿葱郁的花园形成和谐的对话，中景处几处红顶建筑点缀其间，远处的海天一色开阔而宁静。莫奈特别精心安排了前景的花卉，每一朵都栩栩如生，色彩过渡自然流畅，没有学院派的刻意雕琢，只有对自然的真诚热爱。这种近乎透明的纯净感，正是平静心灵的完美镜像。 建议您先让目光徜徉在画面的整体和谐中，然后慢慢聚焦于那些微妙的色彩变化——莫奈如何用同色系的微妙差异创造出空间深度。注意观察人物在花园中的悠闲姿态，他们并非画面的主角，却是这幅和谐乐章的温柔注脚。 在平静的状态下欣赏这幅作品，您会感受到莫奈对日常之美的敏锐捕捉。这幅创作于他艺术生涯早期的作品，展现了他对简单而美好的生活的向往，这种向往穿越时空，与我们内心的平静产生共鸣。也许，在这样一个宁静的时刻，您会思考那些能让心灵栖息的花园，无论是在画布上，还是在生活中。",
+                "historicalContext": "",
+                "curationReason": "",
+                "userRelevance": "",
+                "explanation": {
+                  "emotionalConnection": "在这片1867年的《圣阿德雷兹花园》中，莫奈以他标志性的光感笔触，为您当下的平静心境提供了一个完美的视觉栖息地。",
+                  "artisticAnalysis": "那年，法国正处于相对繁荣的拿破仑三世统治时期，而莫奈正站在印象派革命的门槛上，用崭新的目光捕捉世界的瞬间。 画面中，湛蓝如洗的天空与翠绿葱郁的花园形成和谐的对话，中景处几处红顶建筑点缀其间，远处的海天一色开阔而宁静。莫奈特别精心安排了前景的花卉，每一朵都栩栩如生，色彩过渡自然流畅，没有学院派的刻意雕琢，只有对自然的真诚热爱。这种近乎透明的纯净感，正是平静心灵的完美镜像。 建议您先让目光徜徉在画面的整体和谐中，然后慢慢聚焦于那些微妙的色彩变化——莫奈如何用同色系的微妙差异创造出空间深度。注意观察人物在花园中的悠闲姿态，他们并非画面的主角，却是这幅和谐乐章的温柔注脚。 在平静的状态下欣赏这幅作品，您会感受到莫奈对日常之美的敏锐捕捉。这幅创作于他艺术生涯早期的作品，展现了他对简单而美好的生活的向往，这种向往穿越时空，与我们内心的平静产生共鸣。也许，在这样一个宁静的时刻，您会思考那些能让心灵栖息的花园，无论是在画布上，还是在生活中。",
+                  "historicalContext": "",
+                  "curationReason": "",
+                  "userRelevance": "",
+                  "introduction": "在这片1867年的《圣阿德雷兹花园》中，莫奈以他标志性的光感笔触，为您当下的平静心境提供了一个完美的视觉栖息地。",
+                  "detail": "那年，法国正处于相对繁荣的拿破仑三世统治时期，而莫奈正站在印象派革命的门槛上，用崭新的目光捕捉世界的瞬间。 画面中，湛蓝如洗的天空与翠绿葱郁的花园形成和谐的对话，中景处几处红顶建筑点缀其间，远处的海天一色开阔而宁静。莫奈特别精心安排了前景的花卉，每一朵都栩栩如生，色彩过渡自然流畅，没有学院派的刻意雕琢，只有对自然的真诚热爱。这种近乎透明的纯净感，正是平静心灵的完美镜像。 建议您先让目光徜徉在画面的整体和谐中，然后慢慢聚焦于那些微妙的色彩变化——莫奈如何用同色系的微妙差异创造出空间深度。注意观察人物在花园中的悠闲姿态，他们并非画面的主角，却是这幅和谐乐章的温柔注脚。 在平静的状态下欣赏这幅作品，您会感受到莫奈对日常之美的敏锐捕捉。这幅创作于他艺术生涯早期的作品，展现了他对简单而美好的生活的向往，这种向往穿越时空，与我们内心的平静产生共鸣。也许，在这样一个宁静的时刻，您会思考那些能让心灵栖息的花园，无论是在画布上，还是在生活中。"
+                },
+                "confidence": 0.8,
+                "processingTime": 27508,
+                "introduction": "在这片1867年的《圣阿德雷兹花园》中，莫奈以他标志性的光感笔触，为您当下的平静心境提供了一个完美的视觉栖息地。",
+                "detail": "那年，法国正处于相对繁荣的拿破仑三世统治时期，而莫奈正站在印象派革命的门槛上，用崭新的目光捕捉世界的瞬间。 画面中，湛蓝如洗的天空与翠绿葱郁的花园形成和谐的对话，中景处几处红顶建筑点缀其间，远处的海天一色开阔而宁静。莫奈特别精心安排了前景的花卉，每一朵都栩栩如生，色彩过渡自然流畅，没有学院派的刻意雕琢，只有对自然的真诚热爱。这种近乎透明的纯净感，正是平静心灵的完美镜像。 建议您先让目光徜徉在画面的整体和谐中，然后慢慢聚焦于那些微妙的色彩变化——莫奈如何用同色系的微妙差异创造出空间深度。注意观察人物在花园中的悠闲姿态，他们并非画面的主角，却是这幅和谐乐章的温柔注脚。 在平静的状态下欣赏这幅作品，您会感受到莫奈对日常之美的敏锐捕捉。这幅创作于他艺术生涯早期的作品，展现了他对简单而美好的生活的向往，这种向往穿越时空，与我们内心的平静产生共鸣。也许，在这样一个宁静的时刻，您会思考那些能让心灵栖息的花园，无论是在画布上，还是在生活中。"
+              },
+              {
+                "artworkId": "436241",
+                "title": "Cows Crossing a Ford",
+                "artist": "Jules Dupré",
+                "emotionalConnection": "《Cows Crossing a Ford》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。",
+                "explanation": {
+                  "emotionalConnection": "《Cows Crossing a Ford》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                  "artisticAnalysis": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。",
+                  "historicalContext": "这件作品创作于19世纪艺术，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。",
+                  "curationReason": "这件作品被选中是因为它通过柔和平衡的色彩和宁静的构图完美地诠释了\"calm\"这一策展主题，为观众提供了深刻的情感体验。",
+                  "userRelevance": "这件作品与您对\"calm\"情绪的需求高度匹配，提供了丰富的艺术体验。"
+                },
+                "confidence": 0.7,
+                "processingTime": 0,
+                "introduction": "《Cows Crossing a Ford》通过柔和平衡的色彩和宁静的构图，与\"calm\"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。",
+                "detail": "Jules Dupré在1836年运用油画技法创作了这件Oil on canvas作品，展现了艺术家独特的创作风格和技法特点。"
+              }
+            ],
+            "successCount": 1,
+            "failureCount": 1,
+            "durationMs": 127426
+          },
+          "timestamp": 1759926293993
+        },
+        {
+          "type": "complete",
+          "payload": {
+            "elapsedMs": 307907
+          },
+          "timestamp": 1759926293993
+        }
+      ],
+      "error": null,
+      "endTime": "2025-10-08T12:24:53.993Z",
+      "totalDuration": 307911
+    }
+  ],
+  "errorScenarios": [
+    {
+      "name": "Missing Emotion",
+      "description": "Test error handling when emotion is missing",
+      "emotion": "",
+      "userInput": "Some input",
+      "method": "POST",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-08T12:24:53.994Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-08T12:24:53.997Z"
+    },
+    {
+      "name": "Empty Request Body",
+      "description": "Test error handling with empty request",
+      "emotion": null,
+      "userInput": null,
+      "method": "POST",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-08T12:24:53.997Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-08T12:24:53.998Z"
+    },
+    {
+      "name": "GET without Emotion",
+      "description": "Test GET method without emotion parameter",
+      "emotion": "",
+      "userInput": "",
+      "method": "GET",
+      "expectedError": "Missing required field: emotion",
+      "startTime": "2025-10-08T12:24:53.998Z",
+      "passed": false,
+      "error": null,
+      "receivedError": "Expected error but got successful response",
+      "endTime": "2025-10-08T12:24:54.000Z"
+    }
+  ],
+  "summary": {
+    "totalTests": 8,
+    "passedTests": 0,
+    "failedTests": 8,
+    "successRate": 0,
+    "performance": {
+      "averageDuration": 304233,
+      "minDuration": 269985,
+      "maxDuration": 334808,
+      "totalSamples": 5
+    },
+    "quality": {
+      "emotionCurveQuality": 100,
+      "artworkQuality": 100,
+      "explanationQuality": 100
+    },
+    "testDuration": 1521178
+  },
+  "config": {
+    "baseUrl": "http://localhost:3000",
+    "endpoint": "/api/curate/stream",
+    "testResultsDir": "./test-results",
+    "logLevel": "info",
+    "timeout": 300000,
+    "retryAttempts": 2,
+    "retryDelay": 1000
+  },
+  "generatedAt": "2025-10-08T12:24:54.001Z"
+}
+```
+
+</details>
+
+## Recommendations
+
+- Consider optimizing workflow to reduce average duration below 2 minutes
+- Investigate scenarios with unusually high duration
+- Address 5 failing test scenarios

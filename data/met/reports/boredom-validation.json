@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2025-10-22T05:09:31.150Z",
+  "summary": {
+    "totalArtworks": 13,
+    "withDescription": 13,
+    "descriptionCoverage": 1,
+    "withKeywordMatch": 3,
+    "keywordCoverage": 0.231,
+    "withImage": 13,
+    "imageCoverage": 1,
+    "avgAdditionalImages": 2
+  },
+  "sampleIssues": {
+    "missingDescriptionIDs": [],
+    "missingImageIDs": [],
+    "weakKeywordMatchIDs": [
+      "met-36186",
+      "met-437654",
+      "met-435702",
+      "met-437060",
+      "met-394395",
+      "met-854370",
+      "met-355965",
+      "met-423442",
+      "met-665273",
+      "met-437487"
+    ]
+  },
+  "totals": {
+    "missingDescription": 0,
+    "missingImage": 0,
+    "weakKeywordMatch": 10
+  }
+}

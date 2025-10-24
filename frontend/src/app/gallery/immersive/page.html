@@ -1243,24 +1243,34 @@
                 const savedData = localStorage.getItem('curationData');
                 if (savedData) {
                     const data = JSON.parse(savedData);
-                    curationData = { ...curationData, ...data };
-                    console.log('加载策展数据:', curationData);
-                    
-                    // 直接显示画廊（前言已集成到轮播中）
-                    updateImmersiveGallery();
-                    
-                    // 如果策展数据不完整，继续监听后续数据
-                    if (!curationData.isComplete) {
-                        startBackgroundLoading();
+
+                    // 检查缓存数据是否匹配当前的 emotion
+                    if (data.emotion === curationData.emotion && data.artworks && data.artworks.length > 0) {
+                        curationData = { ...curationData, ...data };
+                        console.log('✅ 使用缓存的策展数据:', curationData);
+
+                        // 直接显示画廊（前言已集成到轮播中）
+                        updateImmersiveGallery();
+
+                        // 如果策展数据不完整，继续监听后续数据
+                        if (!curationData.isComplete) {
+                            startBackgroundLoading();
+                        }
+                    } else {
+                        // 缓存数据不匹配或不完整，清除并启动新的策展流程
+                        console.log('🔄 缓存数据不匹配或不完整，清除并重新策展');
+                        localStorage.removeItem('curationData');
+                        await startCurationProcess();
                     }
                 } else {
                     // 如果没有保存的数据，启动策展流程
-                    console.log('没有找到策展数据，启动策展流程');
+                    console.log('🚀 没有找到策展数据，启动策展流程');
                     await startCurationProcess();
                 }
             } catch (error) {
-                console.error('加载策展数据失败:', error);
-                // 如果出错，启动策展流程
+                console.error('❌ 加载策展数据失败:', error);
+                // 如果出错，清除缓存并启动策展流程
+                localStorage.removeItem('curationData');
                 await startCurationProcess();
             }
         }
@@ -1310,9 +1320,10 @@
                     }
                 }
             } catch (error) {
-                console.error('策展流程失败:', error);
-                // 显示默认内容
-                updateImmersiveGallery();
+                console.error('❌ 策展流程失败:', error);
+                // 显示错误信息
+                document.getElementById('emotion-text').textContent = '策展失败，请刷新重试';
+                // 不再回退到 mock 数据，让用户知道发生了错误
             }
         }
 
@@ -1411,51 +1422,25 @@
         function updateImmersiveGallery() {
             console.log('updateImmersiveGallery 被调用，策展数据:', curationData);
             if (curationData.artworks && curationData.artworks.length > 0) {
-                console.log('使用真实策展数据，作品数量:', curationData.artworks.length);
-                
+                console.log('✅ 使用真实策展数据，作品数量:', curationData.artworks.length);
+
                 // 更新artworks数组
                 artworks.length = 0;
                 artworks.push(...curationData.artworks);
-                
+
                 // 如果画廊已存在，销毁它
                 if (window.immersiveGallery) {
                     window.immersiveGallery.destroy();
                 }
-                
+
                 // 初始化画廊
                 window.immersiveGallery = new ImmersiveGallery();
-                
-                console.log('沉浸式画廊已更新，作品数量:', artworks.length);
+
+                console.log('✅ 沉浸式画廊已更新，作品数量:', artworks.length);
             } else {
-                console.log('策展数据未准备好，使用默认数据');
-                // 如果没有策展数据，使用默认数据
-                artworks = [
-                    {
-                        id: 'starry-night',
-                        title: '星夜',
-                        artist: '文森特·梵高',
-                        year: '1889',
-                        medium: '布面油画',
-                        dimensions: '73.7 × 92.1 cm',
-                        imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1400&h=1050&fit=crop',
-                        description: '梵高在圣雷米疗养院摹写内心的夜色，将旋转星轨与温暖乡镇叠合成起伏的节奏。',
-                        museum: '现代艺术博物馆 · MoMA'
-                    },
-                    {
-                        id: 'mona-lisa',
-                        title: '蒙娜丽莎',
-                        artist: '列奥纳多·达·芬奇',
-                        year: '1503',
-                        medium: '木板油画',
-                        dimensions: '77 × 53 cm',
-                        imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&h=1050&fit=crop',
-                        description: '晕涂法柔化了光影，神秘的目光与微笑牵引观者进入静默而细腻的对话。',
-                        museum: '卢浮宫'
-                    }
-                ];
-                
-                // 初始化画廊
-                window.immersiveGallery = new ImmersiveGallery();
+                console.log('⏳ 策展数据未准备好，等待API返回...');
+                // 不再使用 mock 数据，而是显示加载状态
+                // 保持页面等待状态，直到真实数据到达
             }
         }
     </script>

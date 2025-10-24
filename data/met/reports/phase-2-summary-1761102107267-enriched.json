@@ -1,0 +1,395 @@
+{
+  "phase": 2,
+  "generated_at": "2025-10-22T03:01:47.208Z",
+  "total_emotions": 24,
+  "total_artworks": 3320,
+  "total_with_description": 3243,
+  "avg_per_emotion": 138.3,
+  "avg_description_coverage": 0.977,
+  "emotions": [
+    {
+      "emotion_id": "compassion",
+      "emotion_index": 20,
+      "emotion_cn": "怜悯",
+      "emotion_en": "Compassion",
+      "artworks": 182,
+      "withDescription": 173,
+      "descriptionCoverage": 0.951,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:10:05.056Z",
+        "attempted": 182,
+        "updated": 173,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "tenderness",
+      "emotion_index": 21,
+      "emotion_cn": "温柔",
+      "emotion_en": "Tenderness",
+      "artworks": 133,
+      "withDescription": 130,
+      "descriptionCoverage": 0.977,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:13:29.295Z",
+        "attempted": 133,
+        "updated": 130,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "admiration",
+      "emotion_index": 22,
+      "emotion_cn": "钦慕",
+      "emotion_en": "Admiration",
+      "artworks": 146,
+      "withDescription": 146,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:17:10.708Z",
+        "attempted": 146,
+        "updated": 146,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "gratitude",
+      "emotion_index": 23,
+      "emotion_cn": "感恩",
+      "emotion_en": "Gratitude",
+      "artworks": 143,
+      "withDescription": 143,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:20:30.066Z",
+        "attempted": 143,
+        "updated": 143,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "pride",
+      "emotion_index": 24,
+      "emotion_cn": "自豪",
+      "emotion_en": "Pride",
+      "artworks": 100,
+      "withDescription": 97,
+      "descriptionCoverage": 0.97,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:22:51.559Z",
+        "attempted": 100,
+        "updated": 97,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "euphoria",
+      "emotion_index": 25,
+      "emotion_cn": "欣快",
+      "emotion_en": "Euphoria",
+      "artworks": 140,
+      "withDescription": 140,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:26:03.670Z",
+        "attempted": 140,
+        "updated": 140,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "inspiration",
+      "emotion_index": 26,
+      "emotion_cn": "灵感",
+      "emotion_en": "Inspiration",
+      "artworks": 135,
+      "withDescription": 134,
+      "descriptionCoverage": 0.993,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:29:13.454Z",
+        "attempted": 135,
+        "updated": 134,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "relief",
+      "emotion_index": 27,
+      "emotion_cn": "释然",
+      "emotion_en": "Relief",
+      "artworks": 125,
+      "withDescription": 120,
+      "descriptionCoverage": 0.96,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:32:06.280Z",
+        "attempted": 125,
+        "updated": 120,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "optimism",
+      "emotion_index": 28,
+      "emotion_cn": "乐观",
+      "emotion_en": "Optimism",
+      "artworks": 149,
+      "withDescription": 148,
+      "descriptionCoverage": 0.993,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:35:36.288Z",
+        "attempted": 149,
+        "updated": 148,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "regret",
+      "emotion_index": 29,
+      "emotion_cn": "遗憾",
+      "emotion_en": "Regret",
+      "artworks": 149,
+      "withDescription": 149,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:38:50.608Z",
+        "attempted": 149,
+        "updated": 149,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "shame",
+      "emotion_index": 30,
+      "emotion_cn": "羞耻",
+      "emotion_en": "Shame",
+      "artworks": 122,
+      "withDescription": 117,
+      "descriptionCoverage": 0.959,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:41:30.143Z",
+        "attempted": 122,
+        "updated": 117,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "envy",
+      "emotion_index": 31,
+      "emotion_cn": "羡慕",
+      "emotion_en": "Envy",
+      "artworks": 174,
+      "withDescription": 173,
+      "descriptionCoverage": 0.994,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:45:30.463Z",
+        "attempted": 174,
+        "updated": 173,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "jealousy",
+      "emotion_index": 32,
+      "emotion_cn": "嫉妒",
+      "emotion_en": "Jealousy",
+      "artworks": 146,
+      "withDescription": 146,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:48:47.455Z",
+        "attempted": 146,
+        "updated": 146,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "frustration",
+      "emotion_index": 33,
+      "emotion_cn": "挫败",
+      "emotion_en": "Frustration",
+      "artworks": 141,
+      "withDescription": 140,
+      "descriptionCoverage": 0.993,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:51:54.667Z",
+        "attempted": 141,
+        "updated": 140,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "disgust",
+      "emotion_index": 34,
+      "emotion_cn": "厌恶",
+      "emotion_en": "Disgust",
+      "artworks": 31,
+      "withDescription": 31,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T15:52:37.362Z",
+        "attempted": 31,
+        "updated": 31,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "determination",
+      "emotion_index": 35,
+      "emotion_cn": "决心",
+      "emotion_en": "Determination",
+      "artworks": 165,
+      "withDescription": 164,
+      "descriptionCoverage": 0.994,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T17:14:12.330Z",
+        "attempted": 165,
+        "updated": 164,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "ambition",
+      "emotion_index": 36,
+      "emotion_cn": "野心",
+      "emotion_en": "Ambition",
+      "artworks": 158,
+      "withDescription": 158,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T20:03:27.080Z",
+        "attempted": 158,
+        "updated": 158,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "resilience",
+      "emotion_index": 37,
+      "emotion_cn": "复原力",
+      "emotion_en": "Resilience",
+      "artworks": 110,
+      "withDescription": 110,
+      "descriptionCoverage": 1,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T21:08:08.010Z",
+        "attempted": 110,
+        "updated": 110,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "spirituality",
+      "emotion_index": 38,
+      "emotion_cn": "灵性",
+      "emotion_en": "Spirituality",
+      "artworks": 144,
+      "withDescription": 138,
+      "descriptionCoverage": 0.958,
+      "enrichment": {
+        "description_enriched_at": "2025-10-21T22:51:46.735Z",
+        "attempted": 144,
+        "updated": 138,
+        "skipped_no_url": 0,
+        "fetch_failed": 1
+      }
+    },
+    {
+      "emotion_id": "reverence",
+      "emotion_index": 39,
+      "emotion_cn": "敬礼",
+      "emotion_en": "Reverence",
+      "artworks": 186,
+      "withDescription": 176,
+      "descriptionCoverage": 0.946,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T00:13:15.289Z",
+        "attempted": 186,
+        "updated": 176,
+        "skipped_no_url": 0,
+        "fetch_failed": 1
+      }
+    },
+    {
+      "emotion_id": "playfulness",
+      "emotion_index": 40,
+      "emotion_cn": "玩心",
+      "emotion_en": "Playfulness",
+      "artworks": 139,
+      "withDescription": 137,
+      "descriptionCoverage": 0.986,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T00:15:59.548Z",
+        "attempted": 139,
+        "updated": 137,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "sensuality",
+      "emotion_index": 41,
+      "emotion_cn": "感官",
+      "emotion_en": "Sensuality",
+      "artworks": 118,
+      "withDescription": 108,
+      "descriptionCoverage": 0.915,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T00:18:20.640Z",
+        "attempted": 118,
+        "updated": 108,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "focus",
+      "emotion_index": 42,
+      "emotion_cn": "专注",
+      "emotion_en": "Focus",
+      "artworks": 143,
+      "withDescription": 130,
+      "descriptionCoverage": 0.909,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T00:21:14.676Z",
+        "attempted": 143,
+        "updated": 130,
+        "skipped_no_url": 0,
+        "fetch_failed": 0
+      }
+    },
+    {
+      "emotion_id": "surprise",
+      "emotion_index": 43,
+      "emotion_cn": "惊讶",
+      "emotion_en": "Surprise",
+      "artworks": 141,
+      "withDescription": 135,
+      "descriptionCoverage": 0.957,
+      "enrichment": {
+        "description_enriched_at": "2025-10-22T01:28:50.395Z",
+        "attempted": 141,
+        "updated": 135,
+        "skipped_no_url": 0,
+        "fetch_failed": 4
+      }
+    }
+  ]
+}

@@ -461,34 +461,46 @@ export class GLMOptimizedClient {
   async generateOptimizedKeywords(emotion: string, userInput?: string): Promise<string[]> {
     // 增加一些随机性，避免过于固定
     const randomSeed = Math.random();
-    const temperature = 0.3 + (randomSeed * 0.2); // 0.3-0.5的温度范围
-    
+    const temperature = 0.6 + (randomSeed * 0.3); // 0.6-0.9的温度范围，增加创造性
+
     const messages: GLMMessage[] = [
       {
         role: 'system',
-        content: '你是一个专业的艺术策展人，擅长生成多样化的艺术搜索关键词。请生成5个不同的关键词，用逗号分隔。'
+        content: '你是一个专业的艺术策展人，擅长生成多样化的艺术搜索关键词。请严格按照要求生成5个不同的英文艺术关键词，用逗号分隔。关键词要涵盖不同风格、时期、技法、情感等维度。不要重复输入内容。'
       },
       {
         role: 'user',
-        content: `为情绪"${emotion}"生成5个多样化的艺术搜索关键词，包括不同风格、时期、技法等。${userInput ? `用户补充：${userInput}` : ''}`
+        content: `为情绪"${emotion}"生成5个多样化的英文艺术搜索关键词，包括不同风格、时期、技法等。${userInput ? `用户补充：${userInput}` : ''}
+
+示例格式：impressionism, portrait, oil painting, renaissance, emotion`
       }
     ];
 
     try {
       const response = await this.quickChat(messages, {
         temperature: temperature, // 使用动态温度
-        max_tokens: 150
+        max_tokens: 100
       });
 
       const content = response.choices[0]?.message?.content || '';
-      const keywords = content.split(',').map(k => k.trim()).filter(k => k.length > 0);
-      
-      // 如果生成的关键词太少，补充一些默认关键词
-      if (keywords.length < 3) {
+      console.log('🔍 GLM关键词原始响应:', content);
+
+      // 更严格的解析逻辑
+      let keywords = content.split(',')
+        .map(k => k.trim().replace(/[，、]/g, ',')) // 处理中文逗号
+        .filter(k => k.length > 0 && k.length < 50 && !k.includes('\n')) // 过滤无效内容
+        .filter(k => !k.toLowerCase().includes(emotion.toLowerCase())) // 移除包含情绪词的无效关键词
+        .slice(0, 5);
+
+      console.log('🔍 解析后的关键词:', keywords);
+
+      // 如果关键词质量不高，使用默认关键词
+      if (keywords.length < 3 || keywords.some(k => k.length < 3)) {
+        console.log('🔄 关键词质量不足，使用默认关键词');
         const defaultKeywords = this.getDefaultKeywords(emotion);
-        keywords.push(...defaultKeywords.slice(0, 5 - keywords.length));
+        keywords = defaultKeywords.slice(0, 5);
       }
-      
+
       return keywords.slice(0, 5); // 确保最多5个关键词
     } catch (error) {
       console.error('关键词生成失败:', error);
@@ -540,15 +552,32 @@ export class GLMOptimizedClient {
    * 获取默认关键词
    */
   private getDefaultKeywords(emotion: string): string[] {
-    const keywordMap: { [key: string]: string[] } = {
-      'joy': ['celebration', 'festival', 'dance', 'music', 'happiness'],
-      'melancholy': ['sadness', 'contemplation', 'loneliness', 'reflection', 'blue'],
-      'calm': ['peaceful', 'serene', 'tranquil', 'meditation', 'nature'],
-      'lonely': ['isolation', 'solitude', 'abandonment', 'deserted', 'empty'],
-      'passion': ['love', 'desire', 'romance', 'intensity', 'drama']
-    };
+    // 智能分析情绪，返回更相关的艺术关键词
+    const emotionLower = emotion.toLowerCase();
 
-    return keywordMap[emotion] || [emotion];
+    // 检测情绪关键词
+    if (emotionLower.includes('开心') || emotionLower.includes('不错') || emotionLower.includes('高兴') || emotionLower.includes('快乐')) {
+      return ['impressionism', 'celebration', 'vibrant', 'joyful', 'colorful'];
+    }
+    if (emotionLower.includes('难过') || emotionLower.includes('伤心') || emotionLower.includes('失落')) {
+      return ['melancholy', 'contemplation', 'introspective', 'somber', 'emotional'];
+    }
+    if (emotionLower.includes('平静') || emotionLower.includes('安静') || emotionLower.includes('宁静')) {
+      return ['landscape', 'peaceful', 'serene', 'minimalist', 'tranquil'];
+    }
+    if (emotionLower.includes('累') || emotionLower.includes('疲惫')) {
+      return ['impressionism', 'soft', 'gentle', 'calm', 'restful'];
+    }
+    if (emotionLower.includes('逛街') || emotionLower.includes('购物')) {
+      return ['urban', 'modern', 'fashion', 'contemporary', 'cityscape'];
+    }
+
+    // 通用艺术关键词
+    const defaultKeywords = [
+      'impressionism', 'portrait', 'landscape', 'abstract', 'contemporary'
+    ];
+
+    return defaultKeywords;
   }
 }
 

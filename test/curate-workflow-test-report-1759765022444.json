@@ -1,0 +1,639 @@
+{
+  "startTime": "2025-10-06T15:34:08.270Z",
+  "input": {
+    "emotion": "今天感觉不错,逛了一天街",
+    "userInput": ""
+  },
+  "config": {
+    "baseUrl": "http://localhost:3004",
+    "endpoint": "/api/curate/stream",
+    "timeout": 300000,
+    "testInput": {
+      "emotion": "今天感觉不错,逛了一天街",
+      "userInput": ""
+    }
+  },
+  "performance": {
+    "totalDuration": 174170,
+    "steps": {
+      "emotionCurve": 25,
+      "artworkSelection": 6,
+      "introduction": 7302,
+      "conclusion": 7778,
+      "explanations": [
+        {
+          "batchIndex": 1,
+          "duration": 24803,
+          "count": 2,
+          "isFirstBatch": true
+        },
+        {
+          "batchIndex": 2,
+          "duration": 19919,
+          "count": 2
+        },
+        {
+          "batchIndex": 3,
+          "duration": 19959,
+          "count": 2
+        },
+        {
+          "batchIndex": 5,
+          "duration": 23907,
+          "count": 1
+        },
+        {
+          "batchIndex": 4,
+          "duration": 23931,
+          "count": 2
+        }
+      ],
+      "totalExplanationTime": 112519
+    },
+    "eventTiming": {
+      "start": [
+        0
+      ],
+      "emotion_curve": [
+        124056
+      ],
+      "artworks_selected": [
+        124058
+      ],
+      "introduction": [
+        131353
+      ],
+      "conclusion": [
+        139129
+      ],
+      "explanations_batch": [
+        148852,
+        168771,
+        168809,
+        172760,
+        172783
+      ],
+      "complete": [
+        172783
+      ]
+    },
+    "summary": {
+      "stepCount": 6,
+      "avgEventInterval": 17278.3
+    }
+  },
+  "validation": {
+    "passed": true,
+    "issues": [],
+    "scores": {},
+    "details": {
+      "eventCounts": {
+        "start": 1,
+        "emotion_curve": 1,
+        "artworks_selected": 1,
+        "introduction": 1,
+        "conclusion": 1,
+        "explanations_batch": 5,
+        "complete": 1
+      }
+    },
+    "summary": {
+      "inputEmotion": "今天感觉不错,逛了一天街",
+      "emotionCurve": {
+        "points": 61,
+        "range": [
+          0.4569383857452577,
+          0.7436398702934609
+        ],
+        "average": 0.6457106492858774,
+        "duration": 25
+      },
+      "artworks": {
+        "count": 9,
+        "selectionTime": 6,
+        "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+        "diversityMetrics": {
+          "artistCount": 6,
+          "periodCount": 4,
+          "mediumCount": 9,
+          "avgScore": 5.739814814814816,
+          "emotionFit": 5
+        }
+      },
+      "explanations": {
+        "batchCount": 5,
+        "totalExplanations": 9,
+        "batches": [
+          {
+            "batchIndex": 1,
+            "count": 2,
+            "duration": 24803,
+            "isFirstBatch": true
+          },
+          {
+            "batchIndex": 2,
+            "count": 2,
+            "duration": 19919
+          },
+          {
+            "batchIndex": 3,
+            "count": 2,
+            "duration": 19959
+          },
+          {
+            "batchIndex": 5,
+            "count": 1,
+            "duration": 23907
+          },
+          {
+            "batchIndex": 4,
+            "count": 2,
+            "duration": 23931
+          }
+        ]
+      },
+      "introduction": {
+        "length": 0
+      },
+      "conclusion": {
+        "length": 0
+      }
+    }
+  },
+  "events": [
+    {
+      "type": "start",
+      "payload": {
+        "emotion": "今天感觉不错,逛了一天街",
+        "userInput": ""
+      },
+      "timestamp": 1759764849655
+    },
+    {
+      "type": "emotion_curve",
+      "payload": {
+        "curve": [
+          0.4569383857452577,
+          0.47452282659307193,
+          0.4950202698376889,
+          0.509262182530916,
+          0.5232871384919074,
+          0.5312614318049173,
+          0.5214658719701727,
+          0.4945182843064013,
+          0.48875970695674426,
+          0.4904825221570996,
+          0.5138033545855157,
+          0.5179247324327124,
+          0.5708326364313362,
+          0.6285128063284291,
+          0.6718058192527258,
+          0.707706201559204,
+          0.6950827997429311,
+          0.6298769718558116,
+          0.5692505376745799,
+          0.5934374505769386,
+          0.658594997130589,
+          0.6956412656239417,
+          0.6269871023653918,
+          0.5764017421191974,
+          0.5654206384495764,
+          0.6324239904311365,
+          0.6695871854038224,
+          0.7097459393605053,
+          0.6814536385360473,
+          0.730939681406399,
+          0.703233668936481,
+          0.7133673283136863,
+          0.6920470777701867,
+          0.7012436861996972,
+          0.7251391236258843,
+          0.7289866936146355,
+          0.6774859525920219,
+          0.6522159980683236,
+          0.6518587176673164,
+          0.6841225745495404,
+          0.7085488160669534,
+          0.6777155818395858,
+          0.6991025722387478,
+          0.6671800616898084,
+          0.6765030455663674,
+          0.6604100646961126,
+          0.6830698844322516,
+          0.7042733979393964,
+          0.7293196960989,
+          0.7302080502991889,
+          0.7436398702934609,
+          0.7261084120640978,
+          0.7351929977099171,
+          0.7302473302111006,
+          0.7435552907336987,
+          0.7339259899980138,
+          0.7063598435916559,
+          0.692484248004604,
+          0.6728931841701703,
+          0.6994455013362387,
+          0.7075168344595133
+        ],
+        "description": "这个\"今天感觉不错,逛了一天街\"情绪曲线展现了情感的动态变化：情绪强度有适度的起伏变化，从46%到74%，创造出丰富的情绪层次。",
+        "durationMs": 25
+      },
+      "timestamp": 1759764973711
+    },
+    {
+      "type": "artworks_selected",
+      "payload": {
+        "artworks": [
+          {
+            "id": "469887",
+            "title": "Martyrdom of Saint Lawrence",
+            "artist": "未知艺术家",
+            "year": "ca. 1180",
+            "medium": "Pot-metal glass, vitreous paint",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/cl/original/DP102842.jpg",
+            "description": "British",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artist": "未知艺术家",
+            "year": "ca. 332–200 B.C.",
+            "medium": "Papyrus, ink",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg",
+            "description": "Early Ptolemaic Period",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "361509",
+            "title": "Weceslaus Hollar",
+            "artist": "Wenceslaus Hollar",
+            "year": "1649",
+            "medium": "Etching; second state of five",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP823395.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "317877",
+            "title": "Processional Cross",
+            "artist": "Northern Highlands artist",
+            "year": "14th–15th century",
+            "medium": "Brass",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ao/original/DP100984.jpg",
+            "description": "Northern Highlands region",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "338711",
+            "title": "The Peasant Wedding Dance",
+            "artist": "Pieter van der Heyden",
+            "year": "after 1570",
+            "medium": "Engraving; first state of three",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP825997.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "398746",
+            "title": "Self-Portrait, from \"Image de divers hommes: The true effigies of the most eminent Painters\"",
+            "artist": "Wenceslaus Hollar",
+            "year": "17th century",
+            "medium": "Etching; third state of five",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP828157.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "361300",
+            "title": "Stefano della Bella",
+            "artist": "Wenceslaus Hollar",
+            "year": "1649",
+            "medium": "Etching; second state of five (NH)",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP823394.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "729644",
+            "title": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)",
+            "artist": "José Guadalupe Posada",
+            "year": "ca. 1890–1896",
+            "medium": "Type-metal engraving and letterpress on blue paper",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          },
+          {
+            "id": "437056",
+            "title": "Tommaso di Folco Portinari (1428–1501); Maria Portinari (Maria Maddalena Baroncelli, born 1456)",
+            "artist": "Hans Memling",
+            "year": "ca. 1470",
+            "medium": "Oil on wood",
+            "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DT28_DT29.jpg",
+            "description": "这是一件来自大都会艺术博物馆的珍贵作品。",
+            "museum": "大都会艺术博物馆"
+          }
+        ],
+        "selectionReasoning": "基于情绪曲线选择最能体现情绪强度的作品",
+        "diversityMetrics": {
+          "artistCount": 6,
+          "periodCount": 4,
+          "mediumCount": 9,
+          "avgScore": 5.739814814814816,
+          "emotionFit": 5
+        },
+        "durationMs": 6
+      },
+      "timestamp": 1759764973713
+    },
+    {
+      "type": "introduction",
+      "payload": {
+        "introduction": "\n**策展序言**\n\n\"今天感觉不错,逛了一天街\"——这不仅是一句随口的日常感叹，更是我们穿越时空的情感旅程。本次展览精选九件跨越千年的艺术瑰宝，如同城市漫步中的意外发现，串联起人类情感的永恒共鸣。从古埃及《亡者之书》对",
+        "durationMs": 7302
+      },
+      "timestamp": 1759764981008
+    },
+    {
+      "type": "conclusion",
+      "payload": {
+        "conclusion": "\n**策展结语**\n\n\"今天感觉不错,逛了一天街\"不仅是一次城市漫游，更是一场心灵的微旅行。九件作品如散",
+        "durationMs": 7778
+      },
+      "timestamp": 1759764988784
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 1,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "469887",
+            "title": "Martyrdom of Saint Lawrence",
+            "artist": "未知艺术家",
+            "emotionalConnection": "Martyrdom of Saint Lawrence呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "未知艺术家 · ca. 1180 · Pot-metal glass, vitreous paint。\n\nBritish",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "Martyrdom of Saint Lawrence呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "未知艺术家 · ca. 1180 · Pot-metal glass, vitreous paint。\n\nBritish",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "Martyrdom of Saint Lawrence呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "未知艺术家 · ca. 1180 · Pot-metal glass, vitreous paint。\n\nBritish"
+            },
+            "confidence": 0.8,
+            "processingTime": 24736
+          },
+          {
+            "artworkId": "551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artist": "未知艺术家",
+            "emotionalConnection": "《荷鲁斯神官伊姆霍特普(",
+            "artisticAnalysis": "未知艺术家 · ca. 332–200 B.C. · Papyrus, ink。\n\nEarly Ptolemaic Period",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "《荷鲁斯神官伊姆霍特普(",
+              "artisticAnalysis": "未知艺术家 · ca. 332–200 B.C. · Papyrus, ink。\n\nEarly Ptolemaic Period",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "《荷鲁斯神官伊姆霍特普(",
+              "detail": "未知艺术家 · ca. 332–200 B.C. · Papyrus, ink。\n\nEarly Ptolemaic Period"
+            },
+            "confidence": 0.8,
+            "processingTime": 22514
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 24803,
+        "isFirstBatch": true
+      },
+      "timestamp": 1759764998507
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 2,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "361509",
+            "title": "Weceslaus Hollar",
+            "artist": "Wenceslaus Hollar",
+            "emotionalConnection": "Weceslaus Hollar呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "Wenceslaus Hollar · 1649 · Etching; second state of five。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "Weceslaus Hollar呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "Wenceslaus Hollar · 1649 · Etching; second state of five。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "Weceslaus Hollar呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "Wenceslaus Hollar · 1649 · Etching; second state of five。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+            },
+            "confidence": 0.8,
+            "processingTime": 19864
+          },
+          {
+            "artworkId": "317877",
+            "title": "Processional Cross",
+            "artist": "Northern Highlands artist",
+            "emotionalConnection": "Processional Cross呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "Northern Highlands artist · 14th–15th century · Brass。\n\nNorthern Highlands region",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "Processional Cross呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "Northern Highlands artist · 14th–15th century · Brass。\n\nNorthern Highlands region",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "Processional Cross呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "Northern Highlands artist · 14th–15th century · Brass。\n\nNorthern Highlands region"
+            },
+            "confidence": 0.8,
+            "processingTime": 18523
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 19919
+      },
+      "timestamp": 1759765018426
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 3,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "338711",
+            "title": "The Peasant Wedding Dance",
+            "artist": "Pieter van der Heyden",
+            "emotionalConnection": "The Peasant Wedding Dance呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "Pieter van der Heyden · after 1570 · Engraving; first state of three。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "The Peasant Wedding Dance呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "Pieter van der Heyden · after 1570 · Engraving; first state of three。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "The Peasant Wedding Dance呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "Pieter van der Heyden · after 1570 · Engraving; first state of three。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+            },
+            "confidence": 0.8,
+            "processingTime": 19041
+          },
+          {
+            "artworkId": "398746",
+            "title": "Self-Portrait, from \"Image de divers hommes: The true effigies of the most eminent Painters\"",
+            "artist": "Wenceslaus Hollar",
+            "emotionalConnection": "Self-Portrait, from \"Image de divers hommes: The true effigies of the most eminent Painters\"呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "Wenceslaus Hollar · 17th century · Etching; third state of five。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "Self-Portrait, from \"Image de divers hommes: The true effigies of the most eminent Painters\"呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "Wenceslaus Hollar · 17th century · Etching; third state of five。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "Self-Portrait, from \"Image de divers hommes: The true effigies of the most eminent Painters\"呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "Wenceslaus Hollar · 17th century · Etching; third state of five。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+            },
+            "confidence": 0.8,
+            "processingTime": 19908
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 19959
+      },
+      "timestamp": 1759765018464
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 5,
+        "batchSize": 1,
+        "explanations": [
+          {
+            "artworkId": "437056",
+            "title": "Tommaso di Folco Portinari (1428–1501); Maria Portinari (Maria Maddalena Baroncelli, born 1456)",
+            "artist": "Hans Memling",
+            "emotionalConnection": "Tommaso di Folco Portinari (1428–1501); Maria Portinari (Maria Maddalena Baroncelli, born 1456)呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "汉斯·梅",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "Tommaso di Folco Portinari (1428–1501); Maria Portinari (Maria Maddalena Baroncelli, born 1456)呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "汉斯·梅",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "Tommaso di Folco Portinari (1428–1501); Maria Portinari (Maria Maddalena Baroncelli, born 1456)呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "汉斯·梅"
+            },
+            "confidence": 0.8,
+            "processingTime": 23858
+          }
+        ],
+        "successCount": 1,
+        "failureCount": 0,
+        "durationMs": 23907
+      },
+      "timestamp": 1759765022415
+    },
+    {
+      "type": "explanations_batch",
+      "payload": {
+        "batchIndex": 4,
+        "batchSize": 2,
+        "explanations": [
+          {
+            "artworkId": "361300",
+            "title": "Stefano della Bella",
+            "artist": "Wenceslaus Hollar",
+            "emotionalConnection": "Stefano della Bella呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "Wenceslaus Hollar · 1649 · Etching; second state of five (NH)。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "Stefano della Bella呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "Wenceslaus Hollar · 1649 · Etching; second state of five (NH)。\n\n这是一件来自大都会艺术博物馆的珍贵作品。",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "Stefano della Bella呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "Wenceslaus Hollar · 1649 · Etching; second state of five (NH)。\n\n这是一件来自大都会艺术博物馆的珍贵作品。"
+            },
+            "confidence": 0.8,
+            "processingTime": 22299
+          },
+          {
+            "artworkId": "729644",
+            "title": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)",
+            "artist": "José Guadalupe Posada",
+            "emotionalConnection": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+            "artisticAnalysis": "何",
+            "historicalContext": "",
+            "curationReason": "",
+            "userRelevance": "",
+            "explanation": {
+              "emotionalConnection": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "artisticAnalysis": "何",
+              "historicalContext": "",
+              "curationReason": "",
+              "userRelevance": "",
+              "introduction": "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)呈现今天感觉不错,逛了一天街气质的视觉线索与观看重点。",
+              "detail": "何"
+            },
+            "confidence": 0.8,
+            "processingTime": 23869
+          }
+        ],
+        "successCount": 2,
+        "failureCount": 0,
+        "durationMs": 23931
+      },
+      "timestamp": 1759765022438
+    },
+    {
+      "type": "complete",
+      "payload": {
+        "elapsedMs": 172803
+      },
+      "timestamp": 1759765022438
+    }
+  ],
+  "error": null,
+  "success": true,
+  "endTime": "2025-10-06T15:37:02.443Z",
+  "totalDuration": 174171,
+  "generatedAt": "2025-10-06T15:37:02.444Z",
+  "environment": {
+    "nodeVersion": "v22.20.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  }
+}

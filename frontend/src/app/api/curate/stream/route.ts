@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { ArtworkServiceManager } from '@/lib/artwork-services/artwork-service-manager';
 import { buildSearchPlanUltraOptimized, generateDeterministicSeed } from '@/lib/curation/search-plan-ultra-optimized';
-import { batchJudgeArtworksEnhanced } from '@/lib/curation/llm-judge-enhanced';
+import { batchJudgeArtworksUltraOptimized } from '@/lib/curation/llm-judge-ultra-optimized';
 import { EmotionCurveGenerator } from '@/lib/curation/emotion-curve';
 import { ArtworkSelector } from '@/lib/curation/artwork-selector';
 import { generateArtworkExplanations, generateCurationSummary } from '@/lib/curation/artwork-explanation';
@@ -16,6 +16,26 @@ import { generateArtworkExplanations, generateCurationSummary } from '@/lib/cura
  * 5. 讲解并发生成 → explanations_batch (3+3+3)
  */
 export async function POST(request: NextRequest) {
+  // 先验证请求参数
+  let body, emotion, userInput;
+  try {
+    body = await request.json().catch(() => ({}));
+    emotion = body.emotion;
+    userInput = body.userInput;
+    
+    if (!emotion) {
+      return new Response(JSON.stringify({ error: 'Missing required field: emotion' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Invalid JSON in request body' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   // 启用流式输出（去掉环境变量限制）
   console.log('🚀 开始策展流式输出...');
   const encoder = new TextEncoder();
@@ -24,11 +44,23 @@ export async function POST(request: NextRequest) {
     async start(controller) {
       const send = (type: string, payload: unknown) => {
         try {
+          // 检查控制器状态，避免在已关闭的控制器上操作
+          if (controller.desiredSize === null) {
+            console.warn('⚠️ 控制器已关闭，跳过发送:', type);
+            return;
+          }
           const data = JSON.stringify({ type, payload });
           controller.enqueue(encoder.encode(`data: ${data}\n\n`));
         } catch (err) {
+          console.error('❌ 发送数据失败:', err);
           // 序列化失败也要安全关闭
-          controller.enqueue(encoder.encode(`data: {"type":"error","payload":{"message":"serialize_failed"}}\n\n`));
+          try {
+            if (controller.desiredSize !== null) {
+              controller.enqueue(encoder.encode(`data: {"type":"error","payload":{"message":"serialize_failed"}}\n\n`));
+            }
+          } catch (closeErr) {
+            console.error('❌ 关闭控制器失败:', closeErr);
+          }
         }
       };
 
@@ -38,14 +70,7 @@ export async function POST(request: NextRequest) {
       };
 
       try {
-        const body = await request.json().catch(() => ({}));
-        const emotion: string = body.emotion;
-        const userInput: string | undefined = body.userInput;
-        if (!emotion) {
-          closeWithError('Missing required field: emotion');
-          return;
-        }
-
+        // 使用已验证的参数
         const t0 = Date.now();
         send('start', { emotion, userInput });
 
@@ -64,25 +89,10 @@ export async function POST(request: NextRequest) {
         const coarseTime = Date.now() - coarseStart;
         console.log(`🔍 作品搜索完成，耗时: ${coarseTime}ms，获得${artworkResult.artworks.length}件作品`);
 
-        // 作品评分阶段（不输出）
+        // 作品评分阶段（优化：启用并发，移除token限制）
         const scoreStart = Date.now();
         process.env.SCORING_CACHE_ENABLED = 'false';
-        const scoring = await batchJudgeArtworksEnhanced(artworkResult.artworks, emotion, userInput, {
-          maxConcurrent: 1, // 单线顺序处理，glm-4.5-air很快，不需要并发
-          strategy: 'ai_first', // 优先使用AI评分，失败则降级
-          retryConfig: {
-            maxRetries: 1, // 减少重试，单线处理更稳定
-            baseDelay: 1000,
-            maxDelay: 3000,
-            timeoutMs: 30000
-          },
-          fallbackConfig: {
-            enableRuleBasedScoring: true,
-            enableDefaultScoring: true,
-            minConfidenceThreshold: 0.2,
-            maxFailureRate: 0.8
-          }
-        });
+        const scoring = await batchJudgeArtworksUltraOptimized(artworkResult.artworks, emotion, userInput, 5);
         const scoreTime = Date.now() - scoreStart;
         console.log(`🧠 作品评分完成，耗时: ${scoreTime}ms，降级使用: ${scoring.fallbackUsed ? '是' : '否'}，重试: ${scoring.retryAttempts}次`);
 
@@ -99,8 +109,9 @@ export async function POST(request: NextRequest) {
 
         // 2. 作品选择 → 流式输出（输出前3件时立即触发讲解）
         const selectStart = Date.now();
+        const targetCount = Number(process.env.TARGET_ARTWORK_COUNT || 9);
         const selection = ArtworkSelector.selectBestArtworks(
-          artworkResult.artworks, scoring.scores, optimized, { targetCount: 9 }
+          artworkResult.artworks, scoring.scores, optimized, { targetCount }
         );
         const selectTime = Date.now() - selectStart;
         
@@ -184,6 +195,14 @@ export async function GET(request: NextRequest) {
   const emotion = url.searchParams.get('emotion') || '';
   const userInput = url.searchParams.get('userInput') || '';
 
+  // 验证必需参数
+  if (!emotion) {
+    return new Response(JSON.stringify({ error: 'Missing required field: emotion' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   const fake = {
     json: async () => ({ emotion, userInput })
   } as unknown as NextRequest;
@@ -225,8 +244,12 @@ async function generateExplanationsInBatches(
       );
       const firstBatchTime = Date.now() - firstBatchStart;
       
-      // 不做SSE层映射，要求上游LLM直接产出 introduction/detail（见 artwork-explanation.ts）
-      const explanationsNormalized = firstResult.explanations;
+      // 将 introduction/detail 扁平化到顶层，便于下游验证和消费
+      const explanationsNormalized = firstResult.explanations.map((exp) => ({
+        ...exp,
+        introduction: (exp as any).introduction || exp.explanation?.introduction || exp.emotionalConnection || '',
+        detail: (exp as any).detail || exp.explanation?.detail || exp.artisticAnalysis || ''
+      }));
 
       // 立即发送第一批结果
       send('explanations_batch', {
@@ -269,8 +292,12 @@ async function generateExplanationsInBatches(
         );
         const batchTime = Date.now() - batchStart;
         
-        // 不做SSE层映射，要求上游LLM直接产出 introduction/detail
-        const explanationsNormalized = result.explanations;
+        // 将 introduction/detail 扁平化到顶层，便于下游验证和消费
+        const explanationsNormalized = result.explanations.map((exp) => ({
+          ...exp,
+          introduction: (exp as any).introduction || exp.explanation?.introduction || exp.emotionalConnection || '',
+          detail: (exp as any).detail || exp.explanation?.detail || exp.artisticAnalysis || ''
+        }));
 
         // 发送这一批的讲解结果
         send('explanations_batch', {

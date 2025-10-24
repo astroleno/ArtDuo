@@ -255,7 +255,25 @@ async function batchScoreWithGLM(
     for (const result of results) {
       if (result.response && result.response.status_code === 200) {
         try {
-          const raw = JSON.parse(result.response.body.choices[0]?.message?.content || '{}');
+          const content = result.response.body.choices[0]?.message?.content || '';
+          console.log('🔍 GLM评分返回内容:', content.slice(0, 200));
+          
+          // 尝试解析JSON，如果失败则使用默认值
+          let raw: any = {};
+          try {
+            raw = JSON.parse(content);
+          } catch (parseError) {
+            console.warn('⚠️ JSON解析失败，使用默认评分:', parseError);
+            // 如果JSON解析失败，创建一个默认的评分对象
+            raw = {
+              artwork_id: result.custom_id.replace('score_', ''),
+              emotion_fit: 5,
+              artistic_quality: 5,
+              curation_relevance: 5,
+              overall_score: 5
+            };
+          }
+          
           const artworkId = result.custom_id.replace('score_', '');
 
           // 支持直接对象或包含scores数组
