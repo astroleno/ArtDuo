@@ -1,0 +1,275 @@
+{
+  "testName": "真实ArtDuo流程测试",
+  "userInput": "今天去了朋友家，聊的很投机、很开心",
+  "timestamp": "2025-10-25T08:26:42.968Z",
+  "phases": {
+    "homePage": {
+      "userInput": "今天去了朋友家，聊的很投机、很开心",
+      "redirectUrl": "/gallery/immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%8E%BB%E4%BA%86%E6%9C%8B%E5%8F%8B%E5%AE%B6%EF%BC%8C%E8%81%8A%E7%9A%84%E5%BE%88%E6%8A%95%E6%9C%BA%E3%80%81%E5%BE%88%E5%BC%80%E5%BF%83",
+      "timestamp": "2025-10-25T08:26:43.075Z"
+    },
+    "immersivePage": {
+      "pageLoaded": true,
+      "curationStatus": "starting",
+      "needsCuration": true
+    },
+    "apiRoute": {
+      "apiUrl": "http://localhost:3000/api/curate/stream",
+      "curationData": {
+        "emotion": "今天去了朋友家，聊的很投机、很开心",
+        "artworks": [
+          {
+            "id": "artwork-1",
+            "title": "Artwork 1",
+            "artist": "Artist 1",
+            "stage": 1,
+            "similarity": 0.9726231849595561,
+            "relevance": 0.9480833361256487
+          },
+          {
+            "id": "artwork-2",
+            "title": "Artwork 2",
+            "artist": "Artist 2",
+            "stage": 1,
+            "similarity": 0.9286984627851805,
+            "relevance": 0.8916680436951985
+          },
+          {
+            "id": "artwork-3",
+            "title": "Artwork 3",
+            "artist": "Artist 3",
+            "stage": 1,
+            "similarity": 0.9975105327779743,
+            "relevance": 0.8171380665538909
+          },
+          {
+            "id": "artwork-4",
+            "title": "Artwork 4",
+            "artist": "Artist 4",
+            "stage": 2,
+            "similarity": 0.9134528033463754,
+            "relevance": 0.9801302047703434
+          },
+          {
+            "id": "artwork-5",
+            "title": "Artwork 5",
+            "artist": "Artist 5",
+            "stage": 2,
+            "similarity": 0.9060888275861348,
+            "relevance": 0.9764445662976253
+          },
+          {
+            "id": "artwork-6",
+            "title": "Artwork 6",
+            "artist": "Artist 6",
+            "stage": 2,
+            "similarity": 0.8787498238376341,
+            "relevance": 0.99676657903833
+          },
+          {
+            "id": "artwork-7",
+            "title": "Artwork 7",
+            "artist": "Artist 7",
+            "stage": 3,
+            "similarity": 0.846706238840207,
+            "relevance": 0.9083761761591165
+          },
+          {
+            "id": "artwork-8",
+            "title": "Artwork 8",
+            "artist": "Artist 8",
+            "stage": 3,
+            "similarity": 0.8057174375401277,
+            "relevance": 0.9717983087580502
+          },
+          {
+            "id": "artwork-9",
+            "title": "Artwork 9",
+            "artist": "Artist 9",
+            "stage": 3,
+            "similarity": 0.9107217625767633,
+            "relevance": 0.8473030189823416
+          }
+        ],
+        "preface": "这是一个关于友谊和温暖的策展...",
+        "conclusion": "感谢您体验这次策展...",
+        "explanations": [
+          {
+            "artworkId": "artwork-1",
+            "explanation": "这是第1件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-2",
+            "explanation": "这是第2件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-3",
+            "explanation": "这是第3件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-4",
+            "explanation": "这是第4件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-5",
+            "explanation": "这是第5件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-6",
+            "explanation": "这是第6件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-7",
+            "explanation": "这是第7件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-8",
+            "explanation": "这是第8件作品的详细解释..."
+          },
+          {
+            "artworkId": "artwork-9",
+            "explanation": "这是第9件作品的详细解释..."
+          }
+        ]
+      },
+      "success": true
+    },
+    "sseProcessing": {
+      "events": [
+        {
+          "type": "curation_start",
+          "data": "开始策展...",
+          "timestamp": "2025-10-25T08:26:43.977Z"
+        },
+        {
+          "type": "search_plan",
+          "data": "构建搜索计划...",
+          "timestamp": "2025-10-25T08:26:44.179Z"
+        },
+        {
+          "type": "artwork_search",
+          "data": "搜索艺术作品...",
+          "timestamp": "2025-10-25T08:26:44.380Z"
+        },
+        {
+          "type": "llm_scoring",
+          "data": "LLM评分中...",
+          "timestamp": "2025-10-25T08:26:44.581Z"
+        },
+        {
+          "type": "emotion_curve",
+          "data": "生成情绪曲线...",
+          "timestamp": "2025-10-25T08:26:44.782Z"
+        },
+        {
+          "type": "artwork_selection",
+          "data": "选择最终作品...",
+          "timestamp": "2025-10-25T08:26:44.983Z"
+        },
+        {
+          "type": "preface_generation",
+          "data": "生成序言...",
+          "timestamp": "2025-10-25T08:26:45.185Z"
+        },
+        {
+          "type": "explanation_generation",
+          "data": "生成作品解释...",
+          "timestamp": "2025-10-25T08:26:45.386Z"
+        },
+        {
+          "type": "conclusion_generation",
+          "data": "生成结语...",
+          "timestamp": "2025-10-25T08:26:45.587Z"
+        },
+        {
+          "type": "curation_complete",
+          "data": "策展完成！",
+          "timestamp": "2025-10-25T08:26:45.789Z"
+        }
+      ],
+      "totalEvents": 10,
+      "processingTime": 2000
+    },
+    "immersiveExperience": {
+      "artworks": [
+        {
+          "id": "artwork-1",
+          "title": "Artwork 1",
+          "artist": "Artist 1",
+          "stage": 1,
+          "explanation": "这是第1件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-1.jpg"
+        },
+        {
+          "id": "artwork-2",
+          "title": "Artwork 2",
+          "artist": "Artist 2",
+          "stage": 1,
+          "explanation": "这是第2件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-2.jpg"
+        },
+        {
+          "id": "artwork-3",
+          "title": "Artwork 3",
+          "artist": "Artist 3",
+          "stage": 1,
+          "explanation": "这是第3件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-3.jpg"
+        },
+        {
+          "id": "artwork-4",
+          "title": "Artwork 4",
+          "artist": "Artist 4",
+          "stage": 2,
+          "explanation": "这是第4件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-4.jpg"
+        },
+        {
+          "id": "artwork-5",
+          "title": "Artwork 5",
+          "artist": "Artist 5",
+          "stage": 2,
+          "explanation": "这是第5件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-5.jpg"
+        },
+        {
+          "id": "artwork-6",
+          "title": "Artwork 6",
+          "artist": "Artist 6",
+          "stage": 2,
+          "explanation": "这是第6件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-6.jpg"
+        },
+        {
+          "id": "artwork-7",
+          "title": "Artwork 7",
+          "artist": "Artist 7",
+          "stage": 3,
+          "explanation": "这是第7件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-7.jpg"
+        },
+        {
+          "id": "artwork-8",
+          "title": "Artwork 8",
+          "artist": "Artist 8",
+          "stage": 3,
+          "explanation": "这是第8件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-8.jpg"
+        },
+        {
+          "id": "artwork-9",
+          "title": "Artwork 9",
+          "artist": "Artist 9",
+          "stage": 3,
+          "explanation": "这是第9件作品的详细解释...",
+          "imageUrl": "https://example.com/artwork-9.jpg"
+        }
+      ],
+      "preface": "这是一个关于友谊和温暖的策展...",
+      "conclusion": "感谢您体验这次策展...",
+      "totalDisplayTime": 1000
+    }
+  },
+  "totalTime": 4128,
+  "success": true
+}

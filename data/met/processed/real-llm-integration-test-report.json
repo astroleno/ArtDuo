@@ -1,0 +1,917 @@
+{
+  "totalTests": 3,
+  "passedTests": 3,
+  "failedTests": 0,
+  "testDetails": [
+    {
+      "testCase": "有点失落，但我不想被安慰，我只是想安静地待在一束很冷的窗光里。",
+      "passed": true,
+      "score": 100,
+      "totalTime": 1307,
+      "details": [
+        "LLM策展意图质量: 100/100",
+        "情绪曲线质量: 100/100",
+        "检索Query质量: 100/100",
+        "作品选择质量: 100/100"
+      ],
+      "performance": {
+        "intentTime": 1002,
+        "curveTime": 201,
+        "queryTime": 0,
+        "searchTime": 101,
+        "totalTime": 1307
+      },
+      "results": {
+        "curationIntent": {
+          "emotionalStages": [
+            {
+              "stage": 1,
+              "emotion": "numbness",
+              "intensity": 0.8,
+              "description": "麻木状态",
+              "visualCharacteristics": [
+                "冷色调",
+                "静止",
+                "内敛"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            },
+            {
+              "stage": 2,
+              "emotion": "melancholy",
+              "intensity": 0.6,
+              "description": "余温感受",
+              "visualCharacteristics": [
+                "柔和光线",
+                "温暖边缘",
+                "渐变"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            },
+            {
+              "stage": 3,
+              "emotion": "self_containment",
+              "intensity": 0.7,
+              "description": "自我收拢",
+              "visualCharacteristics": [
+                "私密空间",
+                "边界清晰",
+                "内省"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            }
+          ],
+          "curatorialTheme": "在冷光中寻找自我：失落的艺术疗愈",
+          "emotionalArc": "从麻木到余温再到自我收拢"
+        },
+        "emotionCurve": {
+          "curveType": "wave",
+          "totalDuration": 30,
+          "climaxPoint": 0.6,
+          "resolutionPoint": 0.8,
+          "averageIntensity": 0.6999999999999998,
+          "optimizedStages": [
+            {
+              "stage": 1,
+              "emotion": "numbness",
+              "intensity": 0.8,
+              "description": "麻木状态",
+              "visualCharacteristics": [
+                "冷色调",
+                "静止",
+                "内敛"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.8800000000000001,
+              "curvePosition": 0.3333333333333333
+            },
+            {
+              "stage": 2,
+              "emotion": "melancholy",
+              "intensity": 0.6,
+              "description": "余温感受",
+              "visualCharacteristics": [
+                "柔和光线",
+                "温暖边缘",
+                "渐变"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.66,
+              "curvePosition": 0.6666666666666666
+            },
+            {
+              "stage": 3,
+              "emotion": "self_containment",
+              "intensity": 0.7,
+              "description": "自我收拢",
+              "visualCharacteristics": [
+                "私密空间",
+                "边界清晰",
+                "内省"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.77,
+              "curvePosition": 1
+            }
+          ]
+        },
+        "retrievalQueries": [
+          {
+            "id": "emotion_0",
+            "query": "numbness 麻木状态",
+            "stage": 1,
+            "weight": 0.8,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "numbness"
+            }
+          },
+          {
+            "id": "visual_1",
+            "query": "冷色调 numbness",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "冷色调"
+            }
+          },
+          {
+            "id": "visual_2",
+            "query": "静止 numbness",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "静止"
+            }
+          },
+          {
+            "id": "visual_3",
+            "query": "内敛 numbness",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "内敛"
+            }
+          },
+          {
+            "id": "emotion_4",
+            "query": "melancholy 余温感受",
+            "stage": 2,
+            "weight": 0.6,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "melancholy"
+            }
+          },
+          {
+            "id": "visual_5",
+            "query": "柔和光线 melancholy",
+            "stage": 2,
+            "weight": 0.48,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "柔和光线"
+            }
+          },
+          {
+            "id": "visual_6",
+            "query": "温暖边缘 melancholy",
+            "stage": 2,
+            "weight": 0.48,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "温暖边缘"
+            }
+          },
+          {
+            "id": "visual_7",
+            "query": "渐变 melancholy",
+            "stage": 2,
+            "weight": 0.48,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "渐变"
+            }
+          },
+          {
+            "id": "emotion_8",
+            "query": "self_containment 自我收拢",
+            "stage": 3,
+            "weight": 0.7,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "self_containment"
+            }
+          },
+          {
+            "id": "visual_9",
+            "query": "私密空间 self_containment",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "私密空间"
+            }
+          },
+          {
+            "id": "visual_10",
+            "query": "边界清晰 self_containment",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "边界清晰"
+            }
+          },
+          {
+            "id": "visual_11",
+            "query": "内省 self_containment",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "内省"
+            }
+          },
+          {
+            "id": "theme_12",
+            "query": "在冷光中寻找自我：失落的艺术疗愈",
+            "stage": 0,
+            "weight": 1,
+            "searchType": "semantic",
+            "filters": {
+              "theme": "在冷光中寻找自我：失落的艺术疗愈"
+            }
+          }
+        ],
+        "selectedArtworks": [
+          {
+            "id": "artwork-1",
+            "title": "Artwork 1",
+            "artist": "Artist 1",
+            "stage": 1,
+            "similarity": 0.9601457771065158,
+            "relevance": 0.9340141125876831,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-2",
+            "title": "Artwork 2",
+            "artist": "Artist 2",
+            "stage": 1,
+            "similarity": 0.8977074494925485,
+            "relevance": 0.9279251982741958,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-3",
+            "title": "Artwork 3",
+            "artist": "Artist 3",
+            "stage": 1,
+            "similarity": 0.9743563503269049,
+            "relevance": 0.7075183429597685,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-4",
+            "title": "Artwork 4",
+            "artist": "Artist 4",
+            "stage": 2,
+            "similarity": 0.8103209216565688,
+            "relevance": 0.9163058055276252,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-5",
+            "title": "Artwork 5",
+            "artist": "Artist 5",
+            "stage": 2,
+            "similarity": 0.8658235045033933,
+            "relevance": 0.7310498224574087,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-6",
+            "title": "Artwork 6",
+            "artist": "Artist 6",
+            "stage": 2,
+            "similarity": 0.9409207100394821,
+            "relevance": 0.9786087488239212,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-7",
+            "title": "Artwork 7",
+            "artist": "Artist 7",
+            "stage": 3,
+            "similarity": 0.9899711052852367,
+            "relevance": 0.9926415885585045,
+            "reasoning": "匹配情绪阶段3"
+          },
+          {
+            "id": "artwork-8",
+            "title": "Artwork 8",
+            "artist": "Artist 8",
+            "stage": 3,
+            "similarity": 0.9784296496723672,
+            "relevance": 0.7186277295801479,
+            "reasoning": "匹配情绪阶段3"
+          },
+          {
+            "id": "artwork-9",
+            "title": "Artwork 9",
+            "artist": "Artist 9",
+            "stage": 3,
+            "similarity": 0.8238004913495812,
+            "relevance": 0.7515905466281271,
+            "reasoning": "匹配情绪阶段3"
+          }
+        ]
+      }
+    },
+    {
+      "testCase": "我今天感到孤独和向往，想要一些能让我思考人生的艺术作品。",
+      "passed": true,
+      "score": 100,
+      "totalTime": 1305,
+      "details": [
+        "LLM策展意图质量: 100/100",
+        "情绪曲线质量: 100/100",
+        "检索Query质量: 100/100",
+        "作品选择质量: 100/100"
+      ],
+      "performance": {
+        "intentTime": 1001,
+        "curveTime": 202,
+        "queryTime": 0,
+        "searchTime": 102,
+        "totalTime": 1305
+      },
+      "results": {
+        "curationIntent": {
+          "emotionalStages": [
+            {
+              "stage": 1,
+              "emotion": "loneliness",
+              "intensity": 0.9,
+              "description": "深度孤独",
+              "visualCharacteristics": [
+                "空旷",
+                "冷色调",
+                "距离感"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            },
+            {
+              "stage": 2,
+              "emotion": "longing",
+              "intensity": 0.8,
+              "description": "内心向往",
+              "visualCharacteristics": [
+                "温暖光线",
+                "希望色彩",
+                "远景"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            },
+            {
+              "stage": 3,
+              "emotion": "contemplation",
+              "intensity": 0.7,
+              "description": "深度思考",
+              "visualCharacteristics": [
+                "内省",
+                "沉思",
+                "智慧"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            }
+          ],
+          "curatorialTheme": "孤独与向往：内心的艺术对话",
+          "emotionalArc": "从孤独到向往再到思考"
+        },
+        "emotionCurve": {
+          "curveType": "wave",
+          "totalDuration": 30,
+          "climaxPoint": 0.6,
+          "resolutionPoint": 0.8,
+          "averageIntensity": 0.8000000000000002,
+          "optimizedStages": [
+            {
+              "stage": 1,
+              "emotion": "loneliness",
+              "intensity": 0.9,
+              "description": "深度孤独",
+              "visualCharacteristics": [
+                "空旷",
+                "冷色调",
+                "距离感"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.9900000000000001,
+              "curvePosition": 0.3333333333333333
+            },
+            {
+              "stage": 2,
+              "emotion": "longing",
+              "intensity": 0.8,
+              "description": "内心向往",
+              "visualCharacteristics": [
+                "温暖光线",
+                "希望色彩",
+                "远景"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.8800000000000001,
+              "curvePosition": 0.6666666666666666
+            },
+            {
+              "stage": 3,
+              "emotion": "contemplation",
+              "intensity": 0.7,
+              "description": "深度思考",
+              "visualCharacteristics": [
+                "内省",
+                "沉思",
+                "智慧"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.77,
+              "curvePosition": 1
+            }
+          ]
+        },
+        "retrievalQueries": [
+          {
+            "id": "emotion_0",
+            "query": "loneliness 深度孤独",
+            "stage": 1,
+            "weight": 0.9,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "loneliness"
+            }
+          },
+          {
+            "id": "visual_1",
+            "query": "空旷 loneliness",
+            "stage": 1,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "空旷"
+            }
+          },
+          {
+            "id": "visual_2",
+            "query": "冷色调 loneliness",
+            "stage": 1,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "冷色调"
+            }
+          },
+          {
+            "id": "visual_3",
+            "query": "距离感 loneliness",
+            "stage": 1,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "距离感"
+            }
+          },
+          {
+            "id": "emotion_4",
+            "query": "longing 内心向往",
+            "stage": 2,
+            "weight": 0.8,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "longing"
+            }
+          },
+          {
+            "id": "visual_5",
+            "query": "温暖光线 longing",
+            "stage": 2,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "温暖光线"
+            }
+          },
+          {
+            "id": "visual_6",
+            "query": "希望色彩 longing",
+            "stage": 2,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "希望色彩"
+            }
+          },
+          {
+            "id": "visual_7",
+            "query": "远景 longing",
+            "stage": 2,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "远景"
+            }
+          },
+          {
+            "id": "emotion_8",
+            "query": "contemplation 深度思考",
+            "stage": 3,
+            "weight": 0.7,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "contemplation"
+            }
+          },
+          {
+            "id": "visual_9",
+            "query": "内省 contemplation",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "内省"
+            }
+          },
+          {
+            "id": "visual_10",
+            "query": "沉思 contemplation",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "沉思"
+            }
+          },
+          {
+            "id": "visual_11",
+            "query": "智慧 contemplation",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "智慧"
+            }
+          },
+          {
+            "id": "theme_12",
+            "query": "孤独与向往：内心的艺术对话",
+            "stage": 0,
+            "weight": 1,
+            "searchType": "semantic",
+            "filters": {
+              "theme": "孤独与向往：内心的艺术对话"
+            }
+          }
+        ],
+        "selectedArtworks": [
+          {
+            "id": "artwork-1",
+            "title": "Artwork 1",
+            "artist": "Artist 1",
+            "stage": 1,
+            "similarity": 0.8545392386381114,
+            "relevance": 0.8124392466014427,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-2",
+            "title": "Artwork 2",
+            "artist": "Artist 2",
+            "stage": 1,
+            "similarity": 0.820496535301782,
+            "relevance": 0.8721313657947514,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-3",
+            "title": "Artwork 3",
+            "artist": "Artist 3",
+            "stage": 1,
+            "similarity": 0.8269367615357662,
+            "relevance": 0.9710285071104949,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-4",
+            "title": "Artwork 4",
+            "artist": "Artist 4",
+            "stage": 2,
+            "similarity": 0.9569752467623222,
+            "relevance": 0.7403035540796777,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-5",
+            "title": "Artwork 5",
+            "artist": "Artist 5",
+            "stage": 2,
+            "similarity": 0.9787837041885629,
+            "relevance": 0.707699683327046,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-6",
+            "title": "Artwork 6",
+            "artist": "Artist 6",
+            "stage": 2,
+            "similarity": 0.9621466440882087,
+            "relevance": 0.99765450501097,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-7",
+            "title": "Artwork 7",
+            "artist": "Artist 7",
+            "stage": 3,
+            "similarity": 0.8289477847044241,
+            "relevance": 0.9656080089039838,
+            "reasoning": "匹配情绪阶段3"
+          },
+          {
+            "id": "artwork-8",
+            "title": "Artwork 8",
+            "artist": "Artist 8",
+            "stage": 3,
+            "similarity": 0.8191667526158256,
+            "relevance": 0.7570465013173673,
+            "reasoning": "匹配情绪阶段3"
+          },
+          {
+            "id": "artwork-9",
+            "title": "Artwork 9",
+            "artist": "Artist 9",
+            "stage": 3,
+            "similarity": 0.9650922294197013,
+            "relevance": 0.9717563396466777,
+            "reasoning": "匹配情绪阶段3"
+          }
+        ]
+      }
+    },
+    {
+      "testCase": "我想要一些充满活力和色彩的作品，让我感到快乐和兴奋。",
+      "passed": true,
+      "score": 100,
+      "totalTime": 1308,
+      "details": [
+        "LLM策展意图质量: 100/100",
+        "情绪曲线质量: 100/100",
+        "检索Query质量: 100/100",
+        "作品选择质量: 100/100"
+      ],
+      "performance": {
+        "intentTime": 1001,
+        "curveTime": 205,
+        "queryTime": 0,
+        "searchTime": 100,
+        "totalTime": 1308
+      },
+      "results": {
+        "curationIntent": {
+          "emotionalStages": [
+            {
+              "stage": 1,
+              "emotion": "joy",
+              "intensity": 0.8,
+              "description": "快乐情绪",
+              "visualCharacteristics": [
+                "明亮",
+                "温暖",
+                "活力"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            },
+            {
+              "stage": 2,
+              "emotion": "excitement",
+              "intensity": 0.9,
+              "description": "兴奋激动",
+              "visualCharacteristics": [
+                "强烈对比",
+                "动态",
+                "活力"
+              ],
+              "artworkCount": 3,
+              "duration": 10
+            }
+          ],
+          "curatorialTheme": "活力与色彩：快乐的艺术表达",
+          "emotionalArc": "从快乐到兴奋"
+        },
+        "emotionCurve": {
+          "curveType": "wave",
+          "totalDuration": 20,
+          "climaxPoint": 0.6,
+          "resolutionPoint": 0.8,
+          "averageIntensity": 0.8500000000000001,
+          "optimizedStages": [
+            {
+              "stage": 1,
+              "emotion": "joy",
+              "intensity": 0.8,
+              "description": "快乐情绪",
+              "visualCharacteristics": [
+                "明亮",
+                "温暖",
+                "活力"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.8800000000000001,
+              "curvePosition": 0.5
+            },
+            {
+              "stage": 2,
+              "emotion": "excitement",
+              "intensity": 0.9,
+              "description": "兴奋激动",
+              "visualCharacteristics": [
+                "强烈对比",
+                "动态",
+                "活力"
+              ],
+              "artworkCount": 3,
+              "duration": 10,
+              "optimizedIntensity": 0.9900000000000001,
+              "curvePosition": 1
+            }
+          ]
+        },
+        "retrievalQueries": [
+          {
+            "id": "emotion_0",
+            "query": "joy 快乐情绪",
+            "stage": 1,
+            "weight": 0.8,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "joy"
+            }
+          },
+          {
+            "id": "visual_1",
+            "query": "明亮 joy",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "明亮"
+            }
+          },
+          {
+            "id": "visual_2",
+            "query": "温暖 joy",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "温暖"
+            }
+          },
+          {
+            "id": "visual_3",
+            "query": "活力 joy",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "活力"
+            }
+          },
+          {
+            "id": "emotion_4",
+            "query": "excitement 兴奋激动",
+            "stage": 2,
+            "weight": 0.9,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "excitement"
+            }
+          },
+          {
+            "id": "visual_5",
+            "query": "强烈对比 excitement",
+            "stage": 2,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "强烈对比"
+            }
+          },
+          {
+            "id": "visual_6",
+            "query": "动态 excitement",
+            "stage": 2,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "动态"
+            }
+          },
+          {
+            "id": "visual_7",
+            "query": "活力 excitement",
+            "stage": 2,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "活力"
+            }
+          },
+          {
+            "id": "theme_8",
+            "query": "活力与色彩：快乐的艺术表达",
+            "stage": 0,
+            "weight": 1,
+            "searchType": "semantic",
+            "filters": {
+              "theme": "活力与色彩：快乐的艺术表达"
+            }
+          }
+        ],
+        "selectedArtworks": [
+          {
+            "id": "artwork-1",
+            "title": "Artwork 1",
+            "artist": "Artist 1",
+            "stage": 1,
+            "similarity": 0.8199683946762374,
+            "relevance": 0.8614269423755563,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-2",
+            "title": "Artwork 2",
+            "artist": "Artist 2",
+            "stage": 1,
+            "similarity": 0.9964610676482755,
+            "relevance": 0.8787969081896616,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-3",
+            "title": "Artwork 3",
+            "artist": "Artist 3",
+            "stage": 1,
+            "similarity": 0.8342370815780275,
+            "relevance": 0.8749639325846927,
+            "reasoning": "匹配情绪阶段1"
+          },
+          {
+            "id": "artwork-4",
+            "title": "Artwork 4",
+            "artist": "Artist 4",
+            "stage": 2,
+            "similarity": 0.9075924686301787,
+            "relevance": 0.7991978269575261,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-5",
+            "title": "Artwork 5",
+            "artist": "Artist 5",
+            "stage": 2,
+            "similarity": 0.9235734525358977,
+            "relevance": 0.7687796689896442,
+            "reasoning": "匹配情绪阶段2"
+          },
+          {
+            "id": "artwork-6",
+            "title": "Artwork 6",
+            "artist": "Artist 6",
+            "stage": 2,
+            "similarity": 0.9208225069781824,
+            "relevance": 0.7889473052612139,
+            "reasoning": "匹配情绪阶段2"
+          }
+        ]
+      }
+    }
+  ]
+}

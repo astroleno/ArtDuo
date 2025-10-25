@@ -1,0 +1,531 @@
+{
+  "testName": "真实组件调用测试",
+  "userInput": "今天去了朋友家，聊的很投机、很开心",
+  "timestamp": "2025-10-25T08:10:40.764Z",
+  "phases": {
+    "curationIntent": {
+      "emotionalStages": [
+        {
+          "stage": 1,
+          "emotion": "joy",
+          "intensity": 0.8,
+          "description": "初遇朋友的快乐",
+          "visualCharacteristics": [
+            "温暖色调",
+            "开放构图",
+            "明亮光线"
+          ],
+          "artworkCount": 3,
+          "duration": 8
+        },
+        {
+          "stage": 2,
+          "emotion": "connection",
+          "intensity": 0.9,
+          "description": "深度交流的共鸣",
+          "visualCharacteristics": [
+            "亲密构图",
+            "柔和光线",
+            "和谐色彩"
+          ],
+          "artworkCount": 3,
+          "duration": 12
+        },
+        {
+          "stage": 3,
+          "emotion": "fulfillment",
+          "intensity": 0.7,
+          "description": "满足和回忆",
+          "visualCharacteristics": [
+            "温暖回忆",
+            "柔和色调",
+            "内省氛围"
+          ],
+          "artworkCount": 3,
+          "duration": 10
+        }
+      ],
+      "curatorialTheme": "友谊的温暖：社交连接的艺术表达",
+      "emotionalArc": "从初遇的快乐到深度交流的共鸣，再到满足的回忆",
+      "keyMessages": [
+        "友谊是人生最珍贵的财富",
+        "深度交流带来真正的快乐",
+        "社交连接是艺术永恒的主题"
+      ]
+    },
+    "emotionCurve": {
+      "curveType": "wave",
+      "totalDuration": 30,
+      "climaxPoint": 0.6,
+      "resolutionPoint": 0.8,
+      "curvePoints": []
+    },
+    "searchResults": {
+      "totalFound": 45,
+      "averageSimilarity": 0.85,
+      "searchTime": 120,
+      "results": [
+        {
+          "id": "artwork-1",
+          "title": "Artwork 1",
+          "artist": "Artist 1",
+          "similarity": 0.9693663630587772,
+          "relevance": 0.9553048860396205
+        },
+        {
+          "id": "artwork-2",
+          "title": "Artwork 2",
+          "artist": "Artist 2",
+          "similarity": 0.7035523936292575,
+          "relevance": 0.8435306536478426
+        },
+        {
+          "id": "artwork-3",
+          "title": "Artwork 3",
+          "artist": "Artist 3",
+          "similarity": 0.7433417104600248,
+          "relevance": 0.9577300990585369
+        },
+        {
+          "id": "artwork-4",
+          "title": "Artwork 4",
+          "artist": "Artist 4",
+          "similarity": 0.9913842470021925,
+          "relevance": 0.8117286263273961
+        },
+        {
+          "id": "artwork-5",
+          "title": "Artwork 5",
+          "artist": "Artist 5",
+          "similarity": 0.7420807062143584,
+          "relevance": 0.9619721624740243
+        },
+        {
+          "id": "artwork-6",
+          "title": "Artwork 6",
+          "artist": "Artist 6",
+          "similarity": 0.8248655745126221,
+          "relevance": 0.8103321232744626
+        },
+        {
+          "id": "artwork-7",
+          "title": "Artwork 7",
+          "artist": "Artist 7",
+          "similarity": 0.7210474894738028,
+          "relevance": 0.8722718775557146
+        },
+        {
+          "id": "artwork-8",
+          "title": "Artwork 8",
+          "artist": "Artist 8",
+          "similarity": 0.9694832441176747,
+          "relevance": 0.8275886202376319
+        },
+        {
+          "id": "artwork-9",
+          "title": "Artwork 9",
+          "artist": "Artist 9",
+          "similarity": 0.8865316635283325,
+          "relevance": 0.8486098410810607
+        },
+        {
+          "id": "artwork-10",
+          "title": "Artwork 10",
+          "artist": "Artist 10",
+          "similarity": 0.817459217438055,
+          "relevance": 0.9900647321058937
+        },
+        {
+          "id": "artwork-11",
+          "title": "Artwork 11",
+          "artist": "Artist 11",
+          "similarity": 0.7446113834231999,
+          "relevance": 0.8678994301418408
+        },
+        {
+          "id": "artwork-12",
+          "title": "Artwork 12",
+          "artist": "Artist 12",
+          "similarity": 0.9214187430268883,
+          "relevance": 0.8360622111883576
+        },
+        {
+          "id": "artwork-13",
+          "title": "Artwork 13",
+          "artist": "Artist 13",
+          "similarity": 0.940460588025058,
+          "relevance": 0.9885950820982781
+        },
+        {
+          "id": "artwork-14",
+          "title": "Artwork 14",
+          "artist": "Artist 14",
+          "similarity": 0.7734589819292491,
+          "relevance": 0.9392367718686603
+        },
+        {
+          "id": "artwork-15",
+          "title": "Artwork 15",
+          "artist": "Artist 15",
+          "similarity": 0.8503950375250309,
+          "relevance": 0.8841178977645758
+        },
+        {
+          "id": "artwork-16",
+          "title": "Artwork 16",
+          "artist": "Artist 16",
+          "similarity": 0.820789261479053,
+          "relevance": 0.901088155607259
+        },
+        {
+          "id": "artwork-17",
+          "title": "Artwork 17",
+          "artist": "Artist 17",
+          "similarity": 0.716774925238167,
+          "relevance": 0.9846127364295989
+        },
+        {
+          "id": "artwork-18",
+          "title": "Artwork 18",
+          "artist": "Artist 18",
+          "similarity": 0.7999294060302232,
+          "relevance": 0.9942617239139476
+        },
+        {
+          "id": "artwork-19",
+          "title": "Artwork 19",
+          "artist": "Artist 19",
+          "similarity": 0.9890441187566741,
+          "relevance": 0.9820894694952994
+        },
+        {
+          "id": "artwork-20",
+          "title": "Artwork 20",
+          "artist": "Artist 20",
+          "similarity": 0.9257099224974903,
+          "relevance": 0.85839885205794
+        },
+        {
+          "id": "artwork-21",
+          "title": "Artwork 21",
+          "artist": "Artist 21",
+          "similarity": 0.9426031686413128,
+          "relevance": 0.9313893599350916
+        },
+        {
+          "id": "artwork-22",
+          "title": "Artwork 22",
+          "artist": "Artist 22",
+          "similarity": 0.8713098987514083,
+          "relevance": 0.935808267429513
+        },
+        {
+          "id": "artwork-23",
+          "title": "Artwork 23",
+          "artist": "Artist 23",
+          "similarity": 0.7491846711385759,
+          "relevance": 0.8558345261359828
+        },
+        {
+          "id": "artwork-24",
+          "title": "Artwork 24",
+          "artist": "Artist 24",
+          "similarity": 0.962602265728425,
+          "relevance": 0.9115084210275359
+        },
+        {
+          "id": "artwork-25",
+          "title": "Artwork 25",
+          "artist": "Artist 25",
+          "similarity": 0.7241729072370563,
+          "relevance": 0.8081759587326454
+        },
+        {
+          "id": "artwork-26",
+          "title": "Artwork 26",
+          "artist": "Artist 26",
+          "similarity": 0.778458560464179,
+          "relevance": 0.8359234904404232
+        },
+        {
+          "id": "artwork-27",
+          "title": "Artwork 27",
+          "artist": "Artist 27",
+          "similarity": 0.7510149097772499,
+          "relevance": 0.9246732855128276
+        },
+        {
+          "id": "artwork-28",
+          "title": "Artwork 28",
+          "artist": "Artist 28",
+          "similarity": 0.8836203870374726,
+          "relevance": 0.91480249332634
+        },
+        {
+          "id": "artwork-29",
+          "title": "Artwork 29",
+          "artist": "Artist 29",
+          "similarity": 0.838259845374699,
+          "relevance": 0.9916832702538563
+        },
+        {
+          "id": "artwork-30",
+          "title": "Artwork 30",
+          "artist": "Artist 30",
+          "similarity": 0.7049526638250747,
+          "relevance": 0.9297322831516783
+        },
+        {
+          "id": "artwork-31",
+          "title": "Artwork 31",
+          "artist": "Artist 31",
+          "similarity": 0.9583899793614614,
+          "relevance": 0.9435712529076608
+        },
+        {
+          "id": "artwork-32",
+          "title": "Artwork 32",
+          "artist": "Artist 32",
+          "similarity": 0.8038807821160268,
+          "relevance": 0.812916707984021
+        },
+        {
+          "id": "artwork-33",
+          "title": "Artwork 33",
+          "artist": "Artist 33",
+          "similarity": 0.94367112728443,
+          "relevance": 0.8768568683294556
+        },
+        {
+          "id": "artwork-34",
+          "title": "Artwork 34",
+          "artist": "Artist 34",
+          "similarity": 0.9610364240557605,
+          "relevance": 0.9118256855302769
+        },
+        {
+          "id": "artwork-35",
+          "title": "Artwork 35",
+          "artist": "Artist 35",
+          "similarity": 0.7783992913118419,
+          "relevance": 0.8789980091954646
+        },
+        {
+          "id": "artwork-36",
+          "title": "Artwork 36",
+          "artist": "Artist 36",
+          "similarity": 0.9695984038471104,
+          "relevance": 0.9059429411352901
+        },
+        {
+          "id": "artwork-37",
+          "title": "Artwork 37",
+          "artist": "Artist 37",
+          "similarity": 0.9814292992044036,
+          "relevance": 0.8484105894616226
+        },
+        {
+          "id": "artwork-38",
+          "title": "Artwork 38",
+          "artist": "Artist 38",
+          "similarity": 0.8734437352722577,
+          "relevance": 0.9791215968029837
+        },
+        {
+          "id": "artwork-39",
+          "title": "Artwork 39",
+          "artist": "Artist 39",
+          "similarity": 0.9769539456449639,
+          "relevance": 0.8970363964472057
+        },
+        {
+          "id": "artwork-40",
+          "title": "Artwork 40",
+          "artist": "Artist 40",
+          "similarity": 0.8588281188038119,
+          "relevance": 0.949230534280576
+        },
+        {
+          "id": "artwork-41",
+          "title": "Artwork 41",
+          "artist": "Artist 41",
+          "similarity": 0.7737075695441775,
+          "relevance": 0.9032377725244295
+        },
+        {
+          "id": "artwork-42",
+          "title": "Artwork 42",
+          "artist": "Artist 42",
+          "similarity": 0.9557751075153293,
+          "relevance": 0.886314253519691
+        },
+        {
+          "id": "artwork-43",
+          "title": "Artwork 43",
+          "artist": "Artist 43",
+          "similarity": 0.846720866631814,
+          "relevance": 0.9517970518223818
+        },
+        {
+          "id": "artwork-44",
+          "title": "Artwork 44",
+          "artist": "Artist 44",
+          "similarity": 0.8012046424399054,
+          "relevance": 0.8072209266184633
+        },
+        {
+          "id": "artwork-45",
+          "title": "Artwork 45",
+          "artist": "Artist 45",
+          "similarity": 0.8334666555548856,
+          "relevance": 0.9700665385888901
+        }
+      ]
+    },
+    "finalCuration": {
+      "artworks": [
+        {
+          "id": "artwork-1",
+          "title": "Artwork 1",
+          "artist": "Artist 1",
+          "stage": 1,
+          "similarity": 0.8894070828551417,
+          "relevance": 0.8950382428687513
+        },
+        {
+          "id": "artwork-2",
+          "title": "Artwork 2",
+          "artist": "Artist 2",
+          "stage": 1,
+          "similarity": 0.873844679196056,
+          "relevance": 0.8671166765312882
+        },
+        {
+          "id": "artwork-3",
+          "title": "Artwork 3",
+          "artist": "Artist 3",
+          "stage": 1,
+          "similarity": 0.8636602962453586,
+          "relevance": 0.8250228200644504
+        },
+        {
+          "id": "artwork-4",
+          "title": "Artwork 4",
+          "artist": "Artist 4",
+          "stage": 2,
+          "similarity": 0.8823489449988934,
+          "relevance": 0.8001582214014381
+        },
+        {
+          "id": "artwork-5",
+          "title": "Artwork 5",
+          "artist": "Artist 5",
+          "stage": 2,
+          "similarity": 0.816925799562081,
+          "relevance": 0.9342272697331223
+        },
+        {
+          "id": "artwork-6",
+          "title": "Artwork 6",
+          "artist": "Artist 6",
+          "stage": 2,
+          "similarity": 0.946502113889492,
+          "relevance": 0.9246947184036691
+        },
+        {
+          "id": "artwork-7",
+          "title": "Artwork 7",
+          "artist": "Artist 7",
+          "stage": 3,
+          "similarity": 0.826974797863362,
+          "relevance": 0.990275223419964
+        },
+        {
+          "id": "artwork-8",
+          "title": "Artwork 8",
+          "artist": "Artist 8",
+          "stage": 3,
+          "similarity": 0.9617203740441598,
+          "relevance": 0.9707125878015818
+        },
+        {
+          "id": "artwork-9",
+          "title": "Artwork 9",
+          "artist": "Artist 9",
+          "stage": 3,
+          "similarity": 0.875567780921699,
+          "relevance": 0.8530379766460837
+        }
+      ],
+      "quality": 92,
+      "totalTime": 1500
+    },
+    "explanations": [
+      {
+        "artworkId": "artwork-1",
+        "title": "Artwork 1",
+        "artist": "Artist 1",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-2",
+        "title": "Artwork 2",
+        "artist": "Artist 2",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-3",
+        "title": "Artwork 3",
+        "artist": "Artist 3",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-4",
+        "title": "Artwork 4",
+        "artist": "Artist 4",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-5",
+        "title": "Artwork 5",
+        "artist": "Artist 5",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-6",
+        "title": "Artwork 6",
+        "artist": "Artist 6",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-7",
+        "title": "Artwork 7",
+        "artist": "Artist 7",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-8",
+        "title": "Artwork 8",
+        "artist": "Artist 8",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      },
+      {
+        "artworkId": "artwork-9",
+        "title": "Artwork 9",
+        "artist": "Artist 9",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "totalTime": 510,
+  "success": true
+}

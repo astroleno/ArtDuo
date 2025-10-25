@@ -1,22 +1,28 @@
 import { NextRequest } from 'next/server';
-import { ArtworkServiceManager } from '@/lib/artwork-services/artwork-service-manager';
-import { buildSearchPlanUltraOptimized, generateDeterministicSeed } from '@/lib/curation/search-plan-ultra-optimized';
-import { batchJudgeArtworksUltraOptimized } from '@/lib/curation/llm-judge-ultra-optimized';
+import { realLLMCurationIntentGenerator } from '@/lib/curation/real-llm-curation-intent';
 import { EmotionCurveGenerator } from '@/lib/curation/emotion-curve';
-import { ArtworkSelector } from '@/lib/curation/artwork-selector';
-import { generateArtworkExplanations, generateCurationSummary } from '@/lib/curation/artwork-explanation';
+import { jsVectorSearchService } from '@/lib/vector-search/js-vector-search';
+import { generateArtworkExplanations } from '@/lib/curation/artwork-explanation';
 
 /**
- * 策展流式SSE接口 - 优化版
- * 正确事件顺序：
- * 1. 情绪曲线生成 → emotion_curve
- * 2. 作品评分选择 → artworks_selected (输出前3件时立即触发讲解)
- * 3. 策展序言 → introduction
- * 4. 策展结语 → conclusion
- * 5. 讲解并发生成 → explanations_batch (3+3+3)
+ * 优化后的策展流式SSE接口
+ * 按照正确的策展顺序：
+ * 1. LLM策展规划+情绪曲线设计 (10s)
+ * 2. 向量检索+作品匹配 (1s) 
+ * 3. 序言+结语生成 (5s)
+ * 4. 作品解释批次生成 (10s)
+ * 
+ * SSE事件顺序：
+ * 1. preface_chunk（序言）
+ * 2. artwork_batch_chunk for [1,2]
+ * 3. artwork_batch_chunk for [3,4]
+ * 4. artwork_batch_chunk for [5,6]
+ * 5. artwork_batch_chunk for [7,8]
+ * 6. artwork_batch_chunk for [9]
+ * 7. closing_chunk（结语）
  */
 export async function POST(request: NextRequest) {
-  // 先验证请求参数
+  // 验证请求参数
   let body, emotion, userInput;
   try {
     body = await request.json().catch(() => ({}));
@@ -36,15 +42,13 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  // 启用流式输出（去掉环境变量限制）
-  console.log('🚀 开始策展流式输出...');
+  console.log('🚀 开始优化后的策展流式输出...');
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({
     async start(controller) {
       const send = (type: string, payload: unknown) => {
         try {
-          // 检查控制器状态，避免在已关闭的控制器上操作
           if (controller.desiredSize === null) {
             console.warn('⚠️ 控制器已关闭，跳过发送:', type);
             return;
@@ -53,7 +57,6 @@ export async function POST(request: NextRequest) {
           controller.enqueue(encoder.encode(`data: ${data}\n\n`));
         } catch (err) {
           console.error('❌ 发送数据失败:', err);
-          // 序列化失败也要安全关闭
           try {
             if (controller.desiredSize !== null) {
               controller.enqueue(encoder.encode(`data: {"type":"error","payload":{"message":"serialize_failed"}}\n\n`));
@@ -70,108 +73,103 @@ export async function POST(request: NextRequest) {
       };
 
       try {
-        // 使用已验证的参数
         const t0 = Date.now();
         send('start', { emotion, userInput });
 
-        // 前置准备阶段（不输出）
-        const planStart = Date.now();
-        const seed = generateDeterministicSeed(emotion, userInput);
-        const { searchPlan, llmAnalysis } = await buildSearchPlanUltraOptimized(emotion, userInput, seed);
-        const planTime = Date.now() - planStart;
-        console.log(`🧠 搜索计划完成，耗时: ${planTime}ms`);
-
-        // 作品搜索阶段（使用正常的ArtworkServiceManager，优先尝试外部API）
-        console.log('🎯 执行正常搜索：尝试外部API获取真实作品数据');
-        const coarseStart = Date.now();
-        const artworkServiceManager = new ArtworkServiceManager();
-        const artworkResult = await artworkServiceManager.searchArtworks(emotion, userInput, llmAnalysis);
-        const coarseTime = Date.now() - coarseStart;
-        console.log(`🔍 作品搜索完成，耗时: ${coarseTime}ms，获得${artworkResult.artworks.length}件作品`);
-
-        // 作品评分阶段（优化：启用并发，移除token限制）
-        const scoreStart = Date.now();
-        process.env.SCORING_CACHE_ENABLED = 'false';
-        const scoring = await batchJudgeArtworksUltraOptimized(artworkResult.artworks, emotion, userInput, 5);
-        const scoreTime = Date.now() - scoreStart;
-        console.log(`🧠 作品评分完成，耗时: ${scoreTime}ms，降级使用: ${scoring.fallbackUsed ? '是' : '否'}，重试: ${scoring.retryAttempts}次`);
-
-        // 1. 情绪曲线生成 → 流式输出
-        const curveStart = Date.now();
-        const curve = EmotionCurveGenerator.generateCurve(artworkResult.artworks, scoring.scores, emotion);
-        const optimized = EmotionCurveGenerator.optimizeCurve(curve);
-        const curveTime = Date.now() - curveStart;
-        send('emotion_curve', {
-          curve: optimized.map(p => p.intensity),
-          description: EmotionCurveGenerator.generateCurveDescription(optimized, emotion),
-          durationMs: curveTime
+        // Phase A · 规划层（后端角度）
+        console.log('🧠 Phase A: 开始LLM策展规划...');
+        
+        // Step 1: LLM策展规划（单次调用）
+        const curationStart = Date.now();
+        const curationIntent = await realLLMCurationIntentGenerator.generateCurationIntent(userInput || emotion);
+        const curationTime = Date.now() - curationStart;
+        console.log(`✅ LLM策展规划完成，耗时: ${curationTime}ms`);
+        
+        send('curation_intent', {
+          curatorialTheme: curationIntent.curatorialTheme,
+          emotionalArc: curationIntent.emotionalArc,
+          emotionalStages: curationIntent.emotionalStages,
+          durationMs: curationTime
         });
 
-        // 2. 作品选择 → 流式输出（输出前3件时立即触发讲解）
-        const selectStart = Date.now();
-        const targetCount = Number(process.env.TARGET_ARTWORK_COUNT || 9);
-        const selection = ArtworkSelector.selectBestArtworks(
-          artworkResult.artworks, scoring.scores, optimized, { targetCount }
+        // Step 2: 情绪曲线设计
+        const curveStart = Date.now();
+        const emotionCurve = EmotionCurveGenerator.generateCurve(
+          [], // 空作品数组，只生成曲线
+          [], // 空评分数组
+          curationIntent.emotionalStages[0]?.emotion || 'joy',
+          {
+            curveType: 'wave',
+            totalPoints: curationIntent.emotionalStages.length,
+            intensity: 0.8,
+            variation: 0.3
+          }
         );
-        const selectTime = Date.now() - selectStart;
-        
-        // 输出选定的作品
-        const selectedArtworks = selection.selectedArtworks.map(a => ({
-          id: a.id,
-          title: a.title,
-          artist: a.artist,
-          year: a.year,
-          medium: a.medium,
-          imageUrl: a.imageUrl,
-          description: a.description,
-          museum: a.museum
-        }));
+        const curveTime = Date.now() - curveStart;
+        console.log(`✅ 情绪曲线设计完成，耗时: ${curveTime}ms`);
+
+        // Step 3: 检索引擎（向量库 + 本地DB）
+        const searchStart = Date.now();
+        const searchQueries = generateSearchQueries(curationIntent);
+        // 使用第一个查询进行搜索
+        const searchQuery = searchQueries[0]?.query || curationIntent.curatorialTheme;
+        // 使用纯JavaScript向量搜索
+        const searchResults = await jsVectorSearchService.search(searchQuery, 30);
+        const searchTime = Date.now() - searchStart;
+        console.log(`✅ 向量检索完成，耗时: ${searchTime}ms，获得${searchResults.length}件作品`);
+
+        // Step 4: 选择最终作品
+        const selectionStart = Date.now();
+        const selectedArtworks = selectFinalArtworks(searchResults, curationIntent, emotionCurve);
+        const selectionTime = Date.now() - selectionStart;
+        console.log(`✅ 作品选择完成，耗时: ${selectionTime}ms，选择${selectedArtworks.length}件作品`);
+
+        // 发送作品选择结果
         send('artworks_selected', {
           artworks: selectedArtworks,
-          selectionReasoning: selection.selectionReasoning,
-          diversityMetrics: selection.diversityMetrics,
-          durationMs: selectTime
+          totalCount: selectedArtworks.length,
+          durationMs: selectionTime
         });
 
-        // 立即开始讲解并发生成（非阻塞）
-        const explanationPromise = generateExplanationsInBatches(
-          selection.selectedArtworks,
-          emotion,
-          userInput,
-          llmAnalysis.curation_strategy,
-          send
-        );
+        // Phase B · 叙述层（SSE阶段）
+        console.log('📝 Phase B: 开始叙述层处理...');
 
-        // 3. 策展序言生成 → 流式输出
-        const introStart = Date.now();
-        const introduction = await generateCurationIntroduction(
-          selection.selectedArtworks,
-          emotion,
-          userInput,
-          llmAnalysis
-        );
-        const introTime = Date.now() - introStart;
-        send('introduction', { introduction, durationMs: introTime });
+        // 生成序言+结语（一次LLM调用）
+        const narrationStart = Date.now();
+        const { preface, conclusion } = await generateNarration(selectedArtworks, curationIntent);
+        const narrationTime = Date.now() - narrationStart;
+        console.log(`✅ 序言+结语生成完成，耗时: ${narrationTime}ms`);
 
-        // 4. 策展结语生成 → 流式输出
-        const conclusionStart = Date.now();
-        const conclusion = await generateCurationConclusion(
-          selection.selectedArtworks,
-          emotion,
-          userInput,
-          optimized
-        );
-        const conclusionTime = Date.now() - conclusionStart;
-        send('conclusion', { conclusion, durationMs: conclusionTime });
+        // 1. 序言流式输出
+        send('preface_chunk', {
+          content: preface,
+          durationMs: narrationTime
+        });
 
-        // 等待讲解并发生成完成
-        await explanationPromise;
+        // 2. 作品解释批次生成（2-2-2模式）
+        const explanationStart = Date.now();
+        await generateExplanationsInBatches(selectedArtworks, curationIntent, send);
+        const explanationTime = Date.now() - explanationStart;
+        console.log(`✅ 作品解释生成完成，耗时: ${explanationTime}ms`);
+
+        // 3. 结语流式输出
+        send('closing_chunk', {
+          content: conclusion,
+          durationMs: narrationTime
+        });
 
         // 完结
-        send('complete', { elapsedMs: Date.now() - t0 });
+        send('complete', { 
+          elapsedMs: Date.now() - t0,
+          totalArtworks: selectedArtworks.length,
+          totalPhases: 2
+        });
         controller.close();
+
       } catch (error) {
-        closeWithError('stream_step_failed', { message: error instanceof Error ? error.message : String(error) });
+        closeWithError('stream_step_failed', { 
+          message: error instanceof Error ? error.message : String(error) 
+        });
       }
     }
   });
@@ -188,14 +186,218 @@ export async function POST(request: NextRequest) {
   });
 }
 
+/**
+ * 生成检索查询
+ */
+function generateSearchQueries(curationIntent: any) {
+  const queries = [];
+  
+  curationIntent.emotionalStages.forEach((stage: any, index: number) => {
+    // 基础情绪Query
+    queries.push({
+      query: `${stage.emotion} ${stage.description}`,
+      weight: stage.intensity,
+      filters: { emotion: stage.emotion }
+    });
+    
+    // 视觉特征Query
+    stage.visualCharacteristics.forEach((characteristic: string) => {
+      queries.push({
+        query: `${characteristic} ${stage.emotion}`,
+        weight: stage.intensity * 0.8,
+        filters: { visual: characteristic }
+      });
+    });
+  });
+  
+  // 添加整体主题Query
+  queries.push({
+    query: curationIntent.curatorialTheme,
+    weight: 1.0,
+    filters: { theme: curationIntent.curatorialTheme }
+  });
+  
+  return queries;
+}
+
+/**
+ * 选择最终作品
+ */
+function selectFinalArtworks(searchResults: any, curationIntent: any, emotionCurve: any[]) {
+  // 收集所有作品
+  const allArtworks = Array.isArray(searchResults) ? searchResults : searchResults.results?.flatMap((result: any) => 
+    result.artworks?.map((artwork: any) => ({
+      ...artwork,
+      queryId: result.queryId
+    })) || []
+  ) || [];
+
+  // 去重并按相关性排序
+  const uniqueArtworks = deduplicateAndRankArtworks(allArtworks);
+  
+  // 选择最终作品（6-12件）
+  const targetCount = Math.min(12, Math.max(6, uniqueArtworks.length));
+  const selectedArtworks = uniqueArtworks.slice(0, targetCount);
+
+  // 为每件作品分配情绪阶段
+  return selectedArtworks.map((artwork: any, index: number) => ({
+    ...artwork,
+    position: index + 1,
+    stage: Math.floor(index / (targetCount / curationIntent.emotionalStages.length)) + 1,
+    emotionalImpact: artwork.relevance * 0.9 + Math.random() * 0.1
+  }));
+}
+
+/**
+ * 去重并排序作品
+ */
+function deduplicateAndRankArtworks(artworks: any[]) {
+  const uniqueMap = new Map();
+  
+  artworks.forEach(artwork => {
+    const existing = uniqueMap.get(artwork.id);
+    if (!existing || artwork.relevance > existing.relevance) {
+      uniqueMap.set(artwork.id, artwork);
+    }
+  });
+
+  return Array.from(uniqueMap.values())
+    .sort((a, b) => b.relevance - a.relevance);
+}
+
+/**
+ * 生成序言+结语（一次LLM调用）
+ */
+async function generateNarration(artworks: any[], curationIntent: any) {
+  const { glmOptimizedClient } = await import('@/lib/glm-optimized-client');
+  
+  const prompt = `为艺术展览生成序言和结语（中文）。
+
+展览主题：${curationIntent.curatorialTheme}
+情绪弧线：${curationIntent.emotionalArc}
+作品数量：${artworks.length}件
+
+请生成：
+1. 序言（200-300字）：解释展览的核心理念和作品选择逻辑
+2. 结语（150-200字）：总结展览的艺术价值和情感体验
+
+请以JSON格式输出：
+{
+  "preface": "序言内容",
+  "conclusion": "结语内容"
+}`;
+
+  const messages = [
+    {
+      role: 'system' as const,
+      content: '你是一位资深的艺术策展人，擅长撰写富有感染力的展览序言和深刻而富有启发性的展览结语。'
+    },
+    {
+      role: 'user' as const,
+      content: prompt
+    }
+  ];
+
+  try {
+    const response = await glmOptimizedClient.chat(messages, {
+      temperature: 0.8,
+      max_tokens: 800,
+      thinking: 'disabled' as const
+    });
+    
+    const content = response.choices[0]?.message?.content || '';
+    
+    // 尝试解析JSON
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      return {
+        preface: parsed.preface || '这是一个精心策划的艺术展览...',
+        conclusion: parsed.conclusion || '通过这次展览，我们深入体验了情感主题的丰富层次...'
+      };
+    }
+    
+    // 如果解析失败，返回默认内容
+    return {
+      preface: '这是一个精心策划的艺术展览，通过精选作品展现情感主题的深度内涵。',
+      conclusion: '通过这次展览，我们深入体验了情感主题的丰富层次，每一件作品都是艺术家内心世界的真实写照。'
+    };
+    
+  } catch (error) {
+    console.error('序言+结语生成失败:', error);
+    return {
+      preface: '这是一个精心策划的艺术展览，通过精选作品展现情感主题的深度内涵。',
+      conclusion: '通过这次展览，我们深入体验了情感主题的丰富层次，每一件作品都是艺术家内心世界的真实写照。'
+    };
+  }
+}
+
+/**
+ * 分批并发生成讲解（2-2-2模式）
+ */
+async function generateExplanationsInBatches(
+  artworks: any[],
+  curationIntent: any,
+  send: (type: string, payload: unknown) => void
+) {
+  const batchSize = 2; // 固定小批次，快速返回
+  const batches = [];
+  
+  // 分成小批次，每批2件作品
+  for (let i = 0; i < artworks.length; i += batchSize) {
+    batches.push(artworks.slice(i, i + batchSize));
+  }
+  
+  console.log(`🎨 开始分批生成讲解：${batches.length}批，每批${batchSize}件，总计${artworks.length}件作品`);
+  
+  // 处理每个批次
+  for (let i = 0; i < batches.length; i++) {
+    const batch = batches[i];
+    try {
+      const batchStart = Date.now();
+      const result = await generateArtworkExplanations(
+        batch,
+        curationIntent.emotionalStages[0]?.emotion || 'joy',
+        curationIntent.curatorialTheme,
+        curationIntent.curatorialTheme
+      );
+      const batchTime = Date.now() - batchStart;
+      
+      // 发送这一批的讲解结果
+      send('artwork_batch_chunk', {
+        batchIndex: i + 1,
+        batchSize: batch.length,
+        explanations: result.explanations,
+        successCount: result.successCount,
+        failureCount: result.failureCount,
+        durationMs: batchTime
+      });
+      
+      console.log(`✅ 第${i + 1}批讲解完成，耗时: ${batchTime}ms`);
+      
+    } catch (error) {
+      console.error(`❌ 第${i + 1}批讲解失败:`, error);
+      send('artwork_batch_chunk', {
+        batchIndex: i + 1,
+        batchSize: batch.length,
+        explanations: [],
+        successCount: 0,
+        failureCount: batch.length,
+        error: error instanceof Error ? error.message : String(error),
+        durationMs: 0
+      });
+    }
+  }
+  
+  console.log('🎉 所有讲解批次生成完成');
+}
+
 // 便于测试：支持 GET /api/curate/stream?emotion=...&userInput=...
 export async function GET(request: NextRequest) {
-  // 构造一个带有 json() 的轻量请求对象，复用 POST 流程
   const url = new URL(request.url);
   const emotion = url.searchParams.get('emotion') || '';
   const userInput = url.searchParams.get('userInput') || '';
 
-  // 验证必需参数
   if (!emotion) {
     return new Response(JSON.stringify({ error: 'Missing required field: emotion' }), {
       status: 400,
@@ -211,220 +413,107 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * 分批并发生成讲解（小批次快速返回）
+ * 模拟搜索函数 - 暂时替代hnswlib-node
  */
-async function generateExplanationsInBatches(
-  artworks: any[],
-  emotion: string,
-  userInput: string | undefined,
-  curationStrategy: string,
-  send: (type: string, payload: unknown) => void
-) {
-  const batchSize = 2; // 固定小批次，快速返回
-  const batches = [];
+async function mockSearch(query: string) {
+  // 模拟一些艺术作品数据，根据查询内容智能选择
+  console.log(`🔍 模拟搜索查询: "${query}"`);
   
-  // 分成小批次，每批2件作品
-  for (let i = 0; i < artworks.length; i += batchSize) {
-    batches.push(artworks.slice(i, i + batchSize));
-  }
-  
-  console.log(`🎨 开始分批生成讲解：${batches.length}批，每批${batchSize}件，总计${artworks.length}件作品`);
-  
-  // 优先处理第一批，快速返回给用户
-  const firstBatch = batches[0];
-  if (firstBatch) {
-    try {
-      console.log('🚀 优先处理第一批讲解，快速返回...');
-      const firstBatchStart = Date.now();
-      const firstResult = await generateArtworkExplanations(
-        firstBatch,
-        emotion,
-        userInput,
-        curationStrategy
-      );
-      const firstBatchTime = Date.now() - firstBatchStart;
-      
-      // 将 introduction/detail 扁平化到顶层，便于下游验证和消费
-      const explanationsNormalized = firstResult.explanations.map((exp) => ({
-        ...exp,
-        introduction: (exp as any).introduction || exp.explanation?.introduction || exp.emotionalConnection || '',
-        detail: (exp as any).detail || exp.explanation?.detail || exp.artisticAnalysis || ''
-      }));
-
-      // 立即发送第一批结果
-      send('explanations_batch', {
-        batchIndex: 1,
-        batchSize: firstBatch.length,
-        explanations: explanationsNormalized,
-        successCount: firstResult.successCount,
-        failureCount: firstResult.failureCount,
-        durationMs: firstBatchTime,
-        isFirstBatch: true // 标记为第一批
-      });
-      
-      console.log(`✅ 第一批讲解完成，耗时: ${firstBatchTime}ms，用户可开始浏览`);
-    } catch (error) {
-      console.error('❌ 第一批讲解失败:', error);
-      send('explanations_batch', {
-        batchIndex: 1,
-        batchSize: firstBatch.length,
-        explanations: [],
-        successCount: 0,
-        failureCount: firstBatch.length,
-        error: error instanceof Error ? error.message : String(error),
-        durationMs: 0,
-        isFirstBatch: true
-      });
-    }
-  }
-  
-  // 并发生成剩余批次的讲解
-  const remainingBatches = batches.slice(1);
-  if (remainingBatches.length > 0) {
-    const batchPromises = remainingBatches.map(async (batch, index) => {
-      try {
-        const batchStart = Date.now();
-        const result = await generateArtworkExplanations(
-          batch,
-          emotion,
-          userInput,
-          curationStrategy
-        );
-        const batchTime = Date.now() - batchStart;
-        
-        // 将 introduction/detail 扁平化到顶层，便于下游验证和消费
-        const explanationsNormalized = result.explanations.map((exp) => ({
-          ...exp,
-          introduction: (exp as any).introduction || exp.explanation?.introduction || exp.emotionalConnection || '',
-          detail: (exp as any).detail || exp.explanation?.detail || exp.artisticAnalysis || ''
-        }));
-
-        // 发送这一批的讲解结果
-        send('explanations_batch', {
-          batchIndex: index + 2, // 从第2批开始
-          batchSize: batch.length,
-          explanations: explanationsNormalized,
-          successCount: result.successCount,
-          failureCount: result.failureCount,
-          durationMs: batchTime
-        });
-        
-        console.log(`✅ 第${index + 2}批讲解完成，耗时: ${batchTime}ms`);
-        return result;
-      } catch (error) {
-        console.error(`❌ 第${index + 2}批讲解失败:`, error);
-        send('explanations_batch', {
-          batchIndex: index + 2,
-          batchSize: batch.length,
-          explanations: [],
-          successCount: 0,
-          failureCount: batch.length,
-          error: error instanceof Error ? error.message : String(error),
-          durationMs: 0
-        });
-        return null;
-      }
-    });
-    
-    // 等待剩余批次完成
-    await Promise.all(batchPromises);
-  }
-  
-  console.log('🎉 所有讲解批次生成完成');
-}
-
-/**
- * 生成策展序言
- */
-async function generateCurationIntroduction(
-  artworks: any[],
-  emotion: string,
-  userInput: string | undefined,
-  llmAnalysis: any
-): Promise<string> {
-  const { glmOptimizedClient } = await import('@/lib/glm-optimized-client');
-  
-  const prompt = `为艺术展览生成策展序言（中文，200-300字）。
-
-展览主题：${emotion}
-${userInput ? `用户需求：${userInput}` : ''}
-作品数量：${artworks.length}件
-
-精选作品：
-${artworks.slice(0, 3).map((a, i) => `${i+1}. 《${a.title}》- ${a.artist} (${a.year})`).join('\n')}
-
-策展理念：${llmAnalysis.curation_strategy || '通过精选作品展现情感主题的深度内涵'}
-
-请生成一个富有感染力的策展序言，解释展览的核心理念和作品选择逻辑。`;
-
-  const messages = [
+  const mockArtworks = [
     {
-      role: 'system' as const,
-      content: '你是一位资深的艺术策展人，擅长撰写富有感染力的展览序言。'
+      id: "437133",
+      title: "Garden at Sainte-Adresse",
+      artist: "Claude Monet",
+      year: "1867",
+      medium: "Oil on canvas",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
+      museum: "大都会艺术博物馆"
     },
     {
-      role: 'user' as const,
-      content: prompt
-    }
-  ];
-
-  try {
-    const response = await glmOptimizedClient.chat(messages, {
-      temperature: 0.8,
-      max_tokens: 400,
-      thinking: 'disabled' as const
-    });
-    
-    return response.choices[0]?.message?.content || `这是一个围绕"${emotion}"主题精心策划的艺术展览，通过${artworks.length}件精选作品，深入探索这一情感主题的丰富内涵和艺术表达。`;
-  } catch (error) {
-    console.error('策展序言生成失败:', error);
-    return `这是一个围绕"${emotion}"主题精心策划的艺术展览，通过${artworks.length}件精选作品，深入探索这一情感主题的丰富内涵和艺术表达。`;
-  }
-}
-
-/**
- * 生成策展结语
- */
-async function generateCurationConclusion(
-  artworks: any[],
-  emotion: string,
-  userInput: string | undefined,
-  emotionCurve: any[]
-): Promise<string> {
-  const { glmOptimizedClient } = await import('@/lib/glm-optimized-client');
-  
-  const prompt = `为艺术展览生成策展结语（中文，150-200字）。
-
-展览主题：${emotion}
-${userInput ? `用户需求：${userInput}` : ''}
-作品数量：${artworks.length}件
-情绪曲线：从${emotionCurve[0]?.intensity || 0.5}到${emotionCurve[emotionCurve.length-1]?.intensity || 0.5}的情感变化
-
-请生成一个深刻而富有启发性的策展结语，总结展览的艺术价值和情感体验。`;
-
-  const messages = [
-    {
-      role: 'system' as const,
-      content: '你是一位资深的艺术策展人，擅长撰写深刻而富有启发性的展览结语。'
+      id: "729644",
+      title: "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)",
+      artist: "José Guadalupe Posada",
+      year: "ca. 1890–1896",
+      medium: "Type-metal engraving and letterpress on blue paper",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg",
+      museum: "大都会艺术博物馆"
     },
     {
-      role: 'user' as const,
-      content: prompt
+      id: "436155",
+      title: "The Rehearsal of the Ballet Onstage",
+      artist: "Edgar Degas",
+      year: "ca. 1874",
+      medium: "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
+      museum: "大都会艺术博物馆"
+    },
+    {
+      id: "671456",
+      title: "Chrysanthemums in the Garden at Petit-Gennevilliers",
+      artist: "Gustave Caillebotte",
+      year: "1893",
+      medium: "Oil on canvas",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
+      museum: "大都会艺术博物馆"
+    },
+    {
+      id: "436241",
+      title: "Cows Crossing a Ford",
+      artist: "Jules Dupré",
+      year: "1836",
+      medium: "Oil on canvas",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
+      museum: "大都会艺术博物馆"
+    },
+    {
+      id: "437422",
+      title: "Charity",
+      artist: "Guido Reni",
+      year: "ca. 1630",
+      medium: "Oil on canvas",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
+      museum: "大都会艺术博物馆"
+    },
+    {
+      id: "206965",
+      title: "Longcase astronomical regulator",
+      artist: "Ferdinand Berthoud",
+      year: "ca. 1768–70",
+      medium: "Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg",
+      museum: "大都会艺术博物馆"
+    },
+    {
+      id: "544320",
+      title: "Stela of the Steward Mentuwoser",
+      artist: "未知艺术家",
+      year: "ca. 1944 B.C.",
+      medium: "Limestone, paint",
+      description: "Middle Kingdom",
+      imageUrl: "https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg",
+      museum: "大都会艺术博物馆"
+    },
+    {
+      id: "200668",
+      title: "Sabine Houdon (1787–1836)",
+      artist: "Jean Antoine Houdon",
+      year: "1788",
+      medium: "White marble on gray marble socle",
+      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
+      imageUrl: "https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg",
+      museum: "大都会艺术博物馆"
     }
   ];
-
-  try {
-    const response = await glmOptimizedClient.chat(messages, {
-      temperature: 0.8,
-      max_tokens: 300,
-      thinking: 'disabled' as const
-    });
-    
-    return response.choices[0]?.message?.content || `通过这次展览，我们深入体验了"${emotion}"这一情感主题的丰富层次。每一件作品都是艺术家内心世界的真实写照，共同构成了一幅关于人类情感的深刻画卷。`;
-  } catch (error) {
-    console.error('策展结语生成失败:', error);
-    return `通过这次展览，我们深入体验了"${emotion}"这一情感主题的丰富层次。每一件作品都是艺术家内心世界的真实写照，共同构成了一幅关于人类情感的深刻画卷。`;
-  }
+  
+  // 模拟搜索延迟
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  return mockArtworks;
 }
-
-

@@ -195,7 +195,7 @@ async function generateSingleArtworkExplanation(
         const r = await glmOptimizedClient.chat([
           { role: 'system' as const, content: '你是专业的艺术作品翻译专家，请严格按照用户要求的格式输出翻译结果。' },
           { role: 'user' as const, content: titlePrompt }
-        ], { temperature: 0.1, max_tokens: 100, thinking: 'disabled' as const });
+        ], { temperature: 0.1, max_tokens: 500, thinking: 'disabled' as const });
         result = (r.choices[0]?.message?.content || t).trim();
       } else {
         const r = await openaiClient.chat([
@@ -261,7 +261,7 @@ async function generateSingleArtworkExplanation(
 **写作要求**：
 - 用温暖、专业的语调，像一位懂艺术的朋友在娓娓道来
 - 避免空洞的形容词，要用具体的作品细节和背景故事
-- 总长度400-600字，让用户有深度阅读的收获
+- 总长度150-200字，简洁明了
 - 让讲解既有学术深度又充满人情味
 
 请直接输出讲解文本，不需要JSON格式或小标题。`;
@@ -286,12 +286,12 @@ async function generateSingleArtworkExplanation(
       try {
         // 优化：增加token限制以支持深度分析内容
         const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.8;
-        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 1200;
+        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 200;
         // 使用chat方法以支持thinking参数
         response = await glmOptimizedClient.chat(messages, {
           temperature,
           max_tokens: maxTokens,
-          thinking: 'enabled' as const
+          thinking: 'disabled' as const
         });
         console.log('✅ GLM讲解生成成功(快速)');
       } catch (glmError) {
@@ -395,10 +395,13 @@ async function generateSingleArtworkExplanation(
     }
   }
 
-  parsed.intro = await enforceChinese(parsed.intro);
-  parsed.details = await enforceChinese(parsed.details);
+  // 暂时禁用中文化处理，直接使用LLM输出
+  // parsed.intro = await enforceChinese(parsed.intro);
+  // parsed.details = await enforceChinese(parsed.details);
 
   // 标题中文化（仅作用于简介首句的标题部分，不改动后续句式）
+  // 暂时禁用标题翻译，直接使用英文标题
+  /*
   try {
     const title = artwork.title || '';
     const hasAscii = needsChineseConversion(title);
@@ -417,7 +420,7 @@ async function generateSingleArtworkExplanation(
           const r = await glmOptimizedClient.chat([
             { role: 'system' as const, content: '你是专业的艺术作品翻译专家，请严格按照用户要求的格式输出翻译结果。' },
             { role: 'user' as const, content: titlePrompt }
-          ], { temperature: 0.1, max_tokens: 100, thinking: 'disabled' as const });
+          ], { temperature: 0.1, max_tokens: 500, thinking: 'disabled' as const });
           cnTitle = (r.choices[0]?.message?.content || '').trim();
         } else {
           const r = await openaiClient.chat([
@@ -452,6 +455,7 @@ async function generateSingleArtworkExplanation(
   } catch (error) {
     console.error('❌ 标题中文化处理失败:', error);
   }
+  */
 
   const processingTime = Date.now() - startTime;
   
@@ -626,7 +630,7 @@ async function generateWithRetry<T>(fn: () => Promise<T>, delaysMs: number[]): P
   let lastError: unknown;
   for (let attempt = 0; attempt <= delaysMs.length; attempt++) {
     try {
-      // 外围超时保护（15s，减少超时时间）
+      // 外围超时保护（15s，给LLM足够时间）
       const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('讲解生成超时')), 15000));
       // 竞速：函数 vs 超时
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

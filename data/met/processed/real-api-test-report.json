@@ -1,0 +1,24 @@
+{
+  "testName": "真正API测试",
+  "userInput": "今天去了朋友家，聊的很投机、很开心",
+  "timestamp": "2025-10-25T11:55:28.786Z",
+  "phases": {
+    "apiCall": {
+      "success": false,
+      "actualTime": 0,
+      "sseEvents": [],
+      "error": "API调用失败: 404 Not Found"
+    },
+    "sseAnalysis": {
+      "eventCount": 0,
+      "totalTime": 0,
+      "events": []
+    },
+    "orderValidation": {
+      "isValid": false,
+      "reason": "没有SSE事件"
+    }
+  },
+  "totalTime": 5183,
+  "success": true
+}

@@ -1,0 +1,1320 @@
+{
+  "testName": "真实用户输入测试",
+  "userInput": "今天去了朋友家，聊的很投机、很开心",
+  "timestamp": "2025-10-25T08:08:59.169Z",
+  "phases": {
+    "curationIntent": {
+      "emotionalStages": [
+        {
+          "stage": 1,
+          "emotion": "joy",
+          "intensity": 0.8,
+          "description": "初遇朋友的快乐",
+          "visualCharacteristics": [
+            "温暖色调",
+            "开放构图",
+            "明亮光线"
+          ],
+          "artworkCount": 3,
+          "duration": 8
+        },
+        {
+          "stage": 2,
+          "emotion": "connection",
+          "intensity": 0.9,
+          "description": "深度交流的共鸣",
+          "visualCharacteristics": [
+            "亲密构图",
+            "柔和光线",
+            "和谐色彩"
+          ],
+          "artworkCount": 3,
+          "duration": 12
+        },
+        {
+          "stage": 3,
+          "emotion": "fulfillment",
+          "intensity": 0.7,
+          "description": "满足和回忆",
+          "visualCharacteristics": [
+            "温暖回忆",
+            "柔和色调",
+            "内省氛围"
+          ],
+          "artworkCount": 3,
+          "duration": 10
+        }
+      ],
+      "visualFeatures": {
+        "colorPalette": [
+          "温暖色调",
+          "明亮色彩",
+          "和谐配色"
+        ],
+        "composition": [
+          "开放构图",
+          "亲密场景",
+          "社交互动"
+        ],
+        "lighting": [
+          "自然光线",
+          "温暖照明",
+          "柔和光影"
+        ],
+        "mood": [
+          "快乐",
+          "亲密",
+          "满足"
+        ],
+        "texture": [
+          "细腻",
+          "温暖",
+          "舒适"
+        ]
+      },
+      "aestheticPreferences": {
+        "mediaTypes": [
+          "油画",
+          "摄影",
+          "当代艺术"
+        ],
+        "artStyles": [
+          "印象派",
+          "表现主义",
+          "现代主义"
+        ],
+        "timePeriods": [
+          "19世纪",
+          "20世纪",
+          "当代"
+        ],
+        "culturalContexts": [
+          "欧洲",
+          "美洲",
+          "全球"
+        ],
+        "avoidElements": [
+          "孤独",
+          "悲伤",
+          "冲突"
+        ]
+      },
+      "narrativeTone": {
+        "voice": "warm",
+        "approach": "intimate",
+        "intimacy": "high",
+        "pacing": "medium",
+        "perspective": "first_person"
+      },
+      "targetAudience": "寻求社交连接和快乐体验的观众",
+      "curatorialTheme": "友谊的温暖：社交连接的艺术表达",
+      "emotionalArc": "从初遇的快乐到深度交流的共鸣，再到满足的回忆",
+      "keyMessages": [
+        "友谊是人生最珍贵的财富",
+        "深度交流带来真正的快乐",
+        "社交连接是艺术永恒的主题"
+      ],
+      "visualProgression": "从开放明亮到亲密温暖，再到内省满足"
+    },
+    "emotionCurve": {
+      "curveType": "wave",
+      "totalDuration": 30,
+      "climaxPoint": 0.6,
+      "resolutionPoint": 0.8,
+      "phases": [
+        {
+          "phase": 1,
+          "emotion": "joy",
+          "intensity": 0.8,
+          "position": 0.2
+        },
+        {
+          "phase": 2,
+          "emotion": "connection",
+          "intensity": 0.9,
+          "position": 0.6
+        },
+        {
+          "phase": 3,
+          "emotion": "fulfillment",
+          "intensity": 0.7,
+          "position": 0.8
+        }
+      ],
+      "emotionalArc": "从快乐到共鸣再到满足的波浪式体验"
+    },
+    "retrievalQueries": [
+      {
+        "id": "emotion_0",
+        "query": "joy 初遇朋友的快乐",
+        "stage": 1,
+        "weight": 0.8,
+        "searchType": "semantic",
+        "filters": {
+          "emotion": "joy"
+        }
+      },
+      {
+        "id": "visual_1",
+        "query": "温暖色调 joy",
+        "stage": 1,
+        "weight": 0.6400000000000001,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "温暖色调"
+        }
+      },
+      {
+        "id": "visual_2",
+        "query": "开放构图 joy",
+        "stage": 1,
+        "weight": 0.6400000000000001,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "开放构图"
+        }
+      },
+      {
+        "id": "visual_3",
+        "query": "明亮光线 joy",
+        "stage": 1,
+        "weight": 0.6400000000000001,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "明亮光线"
+        }
+      },
+      {
+        "id": "emotion_4",
+        "query": "connection 深度交流的共鸣",
+        "stage": 2,
+        "weight": 0.9,
+        "searchType": "semantic",
+        "filters": {
+          "emotion": "connection"
+        }
+      },
+      {
+        "id": "visual_5",
+        "query": "亲密构图 connection",
+        "stage": 2,
+        "weight": 0.7200000000000001,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "亲密构图"
+        }
+      },
+      {
+        "id": "visual_6",
+        "query": "柔和光线 connection",
+        "stage": 2,
+        "weight": 0.7200000000000001,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "柔和光线"
+        }
+      },
+      {
+        "id": "visual_7",
+        "query": "和谐色彩 connection",
+        "stage": 2,
+        "weight": 0.7200000000000001,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "和谐色彩"
+        }
+      },
+      {
+        "id": "emotion_8",
+        "query": "fulfillment 满足和回忆",
+        "stage": 3,
+        "weight": 0.7,
+        "searchType": "semantic",
+        "filters": {
+          "emotion": "fulfillment"
+        }
+      },
+      {
+        "id": "visual_9",
+        "query": "温暖回忆 fulfillment",
+        "stage": 3,
+        "weight": 0.5599999999999999,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "温暖回忆"
+        }
+      },
+      {
+        "id": "visual_10",
+        "query": "柔和色调 fulfillment",
+        "stage": 3,
+        "weight": 0.5599999999999999,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "柔和色调"
+        }
+      },
+      {
+        "id": "visual_11",
+        "query": "内省氛围 fulfillment",
+        "stage": 3,
+        "weight": 0.5599999999999999,
+        "searchType": "hybrid",
+        "filters": {
+          "visual": "内省氛围"
+        }
+      },
+      {
+        "id": "theme_12",
+        "query": "友谊的温暖：社交连接的艺术表达",
+        "stage": 0,
+        "weight": 1,
+        "searchType": "semantic",
+        "filters": {
+          "theme": "友谊的温暖：社交连接的艺术表达"
+        }
+      }
+    ],
+    "matchedArtworks": {
+      "results": [
+        {
+          "queryId": "emotion_0",
+          "query": "joy 初遇朋友的快乐",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-emotion_0-0",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.9461829519206799,
+              "relevance": 0.7569463615365439,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-emotion_0-1",
+              "title": "艺术作品",
+              "artist": "毕加索",
+              "similarity": 0.8867167714781683,
+              "relevance": 0.7093734171825347,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-emotion_0-2",
+              "title": "艺术作品",
+              "artist": "马蒂斯",
+              "similarity": 0.90163415756101,
+              "relevance": 0.721307326048808,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-emotion_0-3",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.8867192739641557,
+              "relevance": 0.7093754191713246,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-emotion_0-4",
+              "title": "艺术作品",
+              "artist": "达芬奇",
+              "similarity": 0.7534126495094605,
+              "relevance": 0.6027301196075685,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-emotion_0-5",
+              "title": "情感表达",
+              "artist": "莫奈",
+              "similarity": 0.707704570422206,
+              "relevance": 0.5661636563377649,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-emotion_0-6",
+              "title": "情感表达",
+              "artist": "毕加索",
+              "similarity": 0.766190729515615,
+              "relevance": 0.612952583612492,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            }
+          ],
+          "totalFound": 7
+        },
+        {
+          "queryId": "visual_1",
+          "query": "温暖色调 joy",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-visual_1-0",
+              "title": "艺术作品",
+              "artist": "梵高",
+              "similarity": 0.7596315429913446,
+              "relevance": 0.48616418751446067,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-visual_1-1",
+              "title": "情感表达",
+              "artist": "莫奈",
+              "similarity": 0.868943895070391,
+              "relevance": 0.5561240928450504,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-visual_1-2",
+              "title": "情感表达",
+              "artist": "马蒂斯",
+              "similarity": 0.8049924245736013,
+              "relevance": 0.515195151727105,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-visual_1-3",
+              "title": "情感表达",
+              "artist": "梵高",
+              "similarity": 0.9497510243163754,
+              "relevance": 0.6078406555624803,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-visual_1-4",
+              "title": "情感表达",
+              "artist": "莫奈",
+              "similarity": 0.8611047072100224,
+              "relevance": 0.5511070126144144,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-visual_1-5",
+              "title": "情感表达",
+              "artist": "高更",
+              "similarity": 0.9424748456685235,
+              "relevance": 0.6031839012278551,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-visual_1-6",
+              "title": "美丽瞬间",
+              "artist": "塞尚",
+              "similarity": 0.9438208398371376,
+              "relevance": 0.6040453374957682,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-visual_1-7",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.8523706539775466,
+              "relevance": 0.54551721854563,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            }
+          ],
+          "totalFound": 8
+        },
+        {
+          "queryId": "visual_2",
+          "query": "开放构图 joy",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-visual_2-0",
+              "title": "情感表达",
+              "artist": "梵高",
+              "similarity": 0.7467682330035962,
+              "relevance": 0.47793166912230167,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-1",
+              "title": "艺术作品",
+              "artist": "塞尚",
+              "similarity": 0.788305069244288,
+              "relevance": 0.5045152443163444,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-2",
+              "title": "美丽瞬间",
+              "artist": "马蒂斯",
+              "similarity": 0.8780129230977018,
+              "relevance": 0.5619282707825293,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-3",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.8098000248815381,
+              "relevance": 0.5182720159241845,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-4",
+              "title": "美丽瞬间",
+              "artist": "马蒂斯",
+              "similarity": 0.7650524292013802,
+              "relevance": 0.4896335546888834,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-5",
+              "title": "艺术作品",
+              "artist": "马蒂斯",
+              "similarity": 0.7533707994496339,
+              "relevance": 0.4821573116477658,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-6",
+              "title": "情感表达",
+              "artist": "塞尚",
+              "similarity": 0.9074725299395259,
+              "relevance": 0.5807824191612967,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-7",
+              "title": "美丽瞬间",
+              "artist": "雷诺阿",
+              "similarity": 0.7864695262565999,
+              "relevance": 0.5033404968042241,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-visual_2-8",
+              "title": "美丽瞬间",
+              "artist": "马蒂斯",
+              "similarity": 0.9695511412087063,
+              "relevance": 0.6205127303735721,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            }
+          ],
+          "totalFound": 9
+        },
+        {
+          "queryId": "visual_3",
+          "query": "明亮光线 joy",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-visual_3-0",
+              "title": "美丽瞬间",
+              "artist": "毕加索",
+              "similarity": 0.8783466032878436,
+              "relevance": 0.56214182610422,
+              "stage": 1,
+              "reasoning": "匹配明亮光线 joy"
+            },
+            {
+              "id": "artwork-visual_3-1",
+              "title": "艺术作品",
+              "artist": "莫奈",
+              "similarity": 0.9513459049095365,
+              "relevance": 0.6088613791421035,
+              "stage": 1,
+              "reasoning": "匹配明亮光线 joy"
+            },
+            {
+              "id": "artwork-visual_3-2",
+              "title": "情感表达",
+              "artist": "德加",
+              "similarity": 0.8117090460791448,
+              "relevance": 0.5194937894906528,
+              "stage": 1,
+              "reasoning": "匹配明亮光线 joy"
+            }
+          ],
+          "totalFound": 3
+        },
+        {
+          "queryId": "emotion_4",
+          "query": "connection 深度交流的共鸣",
+          "stage": 2,
+          "artworks": [
+            {
+              "id": "artwork-emotion_4-0",
+              "title": "艺术作品",
+              "artist": "梵高",
+              "similarity": 0.9905251747251969,
+              "relevance": 0.8914726572526772,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-1",
+              "title": "美丽瞬间",
+              "artist": "高更",
+              "similarity": 0.9141003795421949,
+              "relevance": 0.8226903415879755,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-2",
+              "title": "情感表达",
+              "artist": "梵高",
+              "similarity": 0.9953971599249134,
+              "relevance": 0.8958574439324221,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-3",
+              "title": "美丽瞬间",
+              "artist": "梵高",
+              "similarity": 0.7438768178975674,
+              "relevance": 0.6694891361078107,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-4",
+              "title": "美丽瞬间",
+              "artist": "德加",
+              "similarity": 0.9474029000940115,
+              "relevance": 0.8526626100846104,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-5",
+              "title": "艺术作品",
+              "artist": "毕加索",
+              "similarity": 0.9975830817478906,
+              "relevance": 0.8978247735731015,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-6",
+              "title": "艺术作品",
+              "artist": "莫奈",
+              "similarity": 0.7768054934105976,
+              "relevance": 0.6991249440695378,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-7",
+              "title": "情感表达",
+              "artist": "毕加索",
+              "similarity": 0.9706045924931577,
+              "relevance": 0.873544133243842,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            },
+            {
+              "id": "artwork-emotion_4-8",
+              "title": "艺术作品",
+              "artist": "马蒂斯",
+              "similarity": 0.8557465872697331,
+              "relevance": 0.7701719285427597,
+              "stage": 2,
+              "reasoning": "匹配connection 深度交流的共鸣"
+            }
+          ],
+          "totalFound": 9
+        },
+        {
+          "queryId": "visual_5",
+          "query": "亲密构图 connection",
+          "stage": 2,
+          "artworks": [
+            {
+              "id": "artwork-visual_5-0",
+              "title": "情感表达",
+              "artist": "马蒂斯",
+              "similarity": 0.9153914272320566,
+              "relevance": 0.6590818276070808,
+              "stage": 2,
+              "reasoning": "匹配亲密构图 connection"
+            },
+            {
+              "id": "artwork-visual_5-1",
+              "title": "情感表达",
+              "artist": "马蒂斯",
+              "similarity": 0.8885805574450576,
+              "relevance": 0.6397780013604415,
+              "stage": 2,
+              "reasoning": "匹配亲密构图 connection"
+            },
+            {
+              "id": "artwork-visual_5-2",
+              "title": "情感表达",
+              "artist": "塞尚",
+              "similarity": 0.9818044218710167,
+              "relevance": 0.7068991837471321,
+              "stage": 2,
+              "reasoning": "匹配亲密构图 connection"
+            },
+            {
+              "id": "artwork-visual_5-3",
+              "title": "美丽瞬间",
+              "artist": "莫奈",
+              "similarity": 0.9104005564781136,
+              "relevance": 0.6554884006642419,
+              "stage": 2,
+              "reasoning": "匹配亲密构图 connection"
+            },
+            {
+              "id": "artwork-visual_5-4",
+              "title": "艺术作品",
+              "artist": "雷诺阿",
+              "similarity": 0.9684159286764726,
+              "relevance": 0.6972594686470603,
+              "stage": 2,
+              "reasoning": "匹配亲密构图 connection"
+            },
+            {
+              "id": "artwork-visual_5-5",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.8304530744457884,
+              "relevance": 0.5979262136009678,
+              "stage": 2,
+              "reasoning": "匹配亲密构图 connection"
+            },
+            {
+              "id": "artwork-visual_5-6",
+              "title": "艺术作品",
+              "artist": "莫奈",
+              "similarity": 0.860047175633014,
+              "relevance": 0.6192339664557702,
+              "stage": 2,
+              "reasoning": "匹配亲密构图 connection"
+            }
+          ],
+          "totalFound": 7
+        },
+        {
+          "queryId": "visual_6",
+          "query": "柔和光线 connection",
+          "stage": 2,
+          "artworks": [
+            {
+              "id": "artwork-visual_6-0",
+              "title": "情感表达",
+              "artist": "达芬奇",
+              "similarity": 0.7547584106900614,
+              "relevance": 0.5434260556968443,
+              "stage": 2,
+              "reasoning": "匹配柔和光线 connection"
+            },
+            {
+              "id": "artwork-visual_6-1",
+              "title": "艺术作品",
+              "artist": "达芬奇",
+              "similarity": 0.9473384870324235,
+              "relevance": 0.682083710663345,
+              "stage": 2,
+              "reasoning": "匹配柔和光线 connection"
+            },
+            {
+              "id": "artwork-visual_6-2",
+              "title": "艺术作品",
+              "artist": "达芬奇",
+              "similarity": 0.7920600378435508,
+              "relevance": 0.5702832272473567,
+              "stage": 2,
+              "reasoning": "匹配柔和光线 connection"
+            }
+          ],
+          "totalFound": 3
+        },
+        {
+          "queryId": "visual_7",
+          "query": "和谐色彩 connection",
+          "stage": 2,
+          "artworks": [
+            {
+              "id": "artwork-visual_7-0",
+              "title": "情感表达",
+              "artist": "马蒂斯",
+              "similarity": 0.7830483568925682,
+              "relevance": 0.5637948169626492,
+              "stage": 2,
+              "reasoning": "匹配和谐色彩 connection"
+            },
+            {
+              "id": "artwork-visual_7-1",
+              "title": "美丽瞬间",
+              "artist": "高更",
+              "similarity": 0.8637057943620445,
+              "relevance": 0.6218681719406721,
+              "stage": 2,
+              "reasoning": "匹配和谐色彩 connection"
+            },
+            {
+              "id": "artwork-visual_7-2",
+              "title": "美丽瞬间",
+              "artist": "梵高",
+              "similarity": 0.7904400428890749,
+              "relevance": 0.569116830880134,
+              "stage": 2,
+              "reasoning": "匹配和谐色彩 connection"
+            },
+            {
+              "id": "artwork-visual_7-3",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.9569662927662874,
+              "relevance": 0.6890157307917271,
+              "stage": 2,
+              "reasoning": "匹配和谐色彩 connection"
+            },
+            {
+              "id": "artwork-visual_7-4",
+              "title": "美丽瞬间",
+              "artist": "莫奈",
+              "similarity": 0.7651444277400699,
+              "relevance": 0.5509039879728503,
+              "stage": 2,
+              "reasoning": "匹配和谐色彩 connection"
+            }
+          ],
+          "totalFound": 5
+        },
+        {
+          "queryId": "emotion_8",
+          "query": "fulfillment 满足和回忆",
+          "stage": 3,
+          "artworks": [
+            {
+              "id": "artwork-emotion_8-0",
+              "title": "艺术作品",
+              "artist": "梵高",
+              "similarity": 0.7479915594619374,
+              "relevance": 0.5235940916233561,
+              "stage": 3,
+              "reasoning": "匹配fulfillment 满足和回忆"
+            },
+            {
+              "id": "artwork-emotion_8-1",
+              "title": "艺术作品",
+              "artist": "梵高",
+              "similarity": 0.7988224566892145,
+              "relevance": 0.5591757196824501,
+              "stage": 3,
+              "reasoning": "匹配fulfillment 满足和回忆"
+            },
+            {
+              "id": "artwork-emotion_8-2",
+              "title": "美丽瞬间",
+              "artist": "塞尚",
+              "similarity": 0.8226646904385762,
+              "relevance": 0.5758652833070033,
+              "stage": 3,
+              "reasoning": "匹配fulfillment 满足和回忆"
+            },
+            {
+              "id": "artwork-emotion_8-3",
+              "title": "情感表达",
+              "artist": "雷诺阿",
+              "similarity": 0.8066750831701223,
+              "relevance": 0.5646725582190856,
+              "stage": 3,
+              "reasoning": "匹配fulfillment 满足和回忆"
+            },
+            {
+              "id": "artwork-emotion_8-4",
+              "title": "美丽瞬间",
+              "artist": "高更",
+              "similarity": 0.7772659139344619,
+              "relevance": 0.5440861397541232,
+              "stage": 3,
+              "reasoning": "匹配fulfillment 满足和回忆"
+            },
+            {
+              "id": "artwork-emotion_8-5",
+              "title": "艺术作品",
+              "artist": "达芬奇",
+              "similarity": 0.9326266492090863,
+              "relevance": 0.6528386544463604,
+              "stage": 3,
+              "reasoning": "匹配fulfillment 满足和回忆"
+            }
+          ],
+          "totalFound": 6
+        },
+        {
+          "queryId": "visual_9",
+          "query": "温暖回忆 fulfillment",
+          "stage": 3,
+          "artworks": [
+            {
+              "id": "artwork-visual_9-0",
+              "title": "美丽瞬间",
+              "artist": "梵高",
+              "similarity": 0.7947727616466316,
+              "relevance": 0.44507274652211365,
+              "stage": 3,
+              "reasoning": "匹配温暖回忆 fulfillment"
+            },
+            {
+              "id": "artwork-visual_9-1",
+              "title": "艺术作品",
+              "artist": "莫奈",
+              "similarity": 0.8752812593850979,
+              "relevance": 0.49015750525565477,
+              "stage": 3,
+              "reasoning": "匹配温暖回忆 fulfillment"
+            },
+            {
+              "id": "artwork-visual_9-2",
+              "title": "美丽瞬间",
+              "artist": "毕加索",
+              "similarity": 0.7978212127888894,
+              "relevance": 0.446779879161778,
+              "stage": 3,
+              "reasoning": "匹配温暖回忆 fulfillment"
+            },
+            {
+              "id": "artwork-visual_9-3",
+              "title": "艺术作品",
+              "artist": "梵高",
+              "similarity": 0.7577570465648704,
+              "relevance": 0.4243439460763274,
+              "stage": 3,
+              "reasoning": "匹配温暖回忆 fulfillment"
+            },
+            {
+              "id": "artwork-visual_9-4",
+              "title": "美丽瞬间",
+              "artist": "德加",
+              "similarity": 0.7154072981252781,
+              "relevance": 0.4006280869501557,
+              "stage": 3,
+              "reasoning": "匹配温暖回忆 fulfillment"
+            }
+          ],
+          "totalFound": 5
+        },
+        {
+          "queryId": "visual_10",
+          "query": "柔和色调 fulfillment",
+          "stage": 3,
+          "artworks": [
+            {
+              "id": "artwork-visual_10-0",
+              "title": "情感表达",
+              "artist": "毕加索",
+              "similarity": 0.9801387228037979,
+              "relevance": 0.5488776847701268,
+              "stage": 3,
+              "reasoning": "匹配柔和色调 fulfillment"
+            },
+            {
+              "id": "artwork-visual_10-1",
+              "title": "情感表达",
+              "artist": "达芬奇",
+              "similarity": 0.825306044461059,
+              "relevance": 0.46217138489819304,
+              "stage": 3,
+              "reasoning": "匹配柔和色调 fulfillment"
+            },
+            {
+              "id": "artwork-visual_10-2",
+              "title": "艺术作品",
+              "artist": "雷诺阿",
+              "similarity": 0.9357980452735791,
+              "relevance": 0.5240469053532043,
+              "stage": 3,
+              "reasoning": "匹配柔和色调 fulfillment"
+            }
+          ],
+          "totalFound": 3
+        },
+        {
+          "queryId": "visual_11",
+          "query": "内省氛围 fulfillment",
+          "stage": 3,
+          "artworks": [
+            {
+              "id": "artwork-visual_11-0",
+              "title": "艺术作品",
+              "artist": "梵高",
+              "similarity": 0.9878199135359931,
+              "relevance": 0.5531791515801561,
+              "stage": 3,
+              "reasoning": "匹配内省氛围 fulfillment"
+            },
+            {
+              "id": "artwork-visual_11-1",
+              "title": "情感表达",
+              "artist": "高更",
+              "similarity": 0.8311499002752333,
+              "relevance": 0.4654439441541306,
+              "stage": 3,
+              "reasoning": "匹配内省氛围 fulfillment"
+            },
+            {
+              "id": "artwork-visual_11-2",
+              "title": "艺术作品",
+              "artist": "德加",
+              "similarity": 0.8971310502149461,
+              "relevance": 0.5023933881203697,
+              "stage": 3,
+              "reasoning": "匹配内省氛围 fulfillment"
+            },
+            {
+              "id": "artwork-visual_11-3",
+              "title": "情感表达",
+              "artist": "塞尚",
+              "similarity": 0.7257184365087144,
+              "relevance": 0.40640232444488,
+              "stage": 3,
+              "reasoning": "匹配内省氛围 fulfillment"
+            },
+            {
+              "id": "artwork-visual_11-4",
+              "title": "美丽瞬间",
+              "artist": "德加",
+              "similarity": 0.8782802439573503,
+              "relevance": 0.4918369366161161,
+              "stage": 3,
+              "reasoning": "匹配内省氛围 fulfillment"
+            },
+            {
+              "id": "artwork-visual_11-5",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.9226406078956233,
+              "relevance": 0.516678740421549,
+              "stage": 3,
+              "reasoning": "匹配内省氛围 fulfillment"
+            }
+          ],
+          "totalFound": 6
+        },
+        {
+          "queryId": "theme_12",
+          "query": "友谊的温暖：社交连接的艺术表达",
+          "stage": 0,
+          "artworks": [
+            {
+              "id": "artwork-theme_12-0",
+              "title": "艺术作品",
+              "artist": "雷诺阿",
+              "similarity": 0.9287843220248773,
+              "relevance": 0.9287843220248773,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-1",
+              "title": "情感表达",
+              "artist": "雷诺阿",
+              "similarity": 0.9188748707689998,
+              "relevance": 0.9188748707689998,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-2",
+              "title": "情感表达",
+              "artist": "马蒂斯",
+              "similarity": 0.7214369771538847,
+              "relevance": 0.7214369771538847,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-3",
+              "title": "艺术作品",
+              "artist": "高更",
+              "similarity": 0.9400583717634099,
+              "relevance": 0.9400583717634099,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-4",
+              "title": "美丽瞬间",
+              "artist": "莫奈",
+              "similarity": 0.9707623527036068,
+              "relevance": 0.9707623527036068,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-5",
+              "title": "艺术作品",
+              "artist": "德加",
+              "similarity": 0.8069796490382357,
+              "relevance": 0.8069796490382357,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-6",
+              "title": "情感表达",
+              "artist": "雷诺阿",
+              "similarity": 0.9790331496659883,
+              "relevance": 0.9790331496659883,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-7",
+              "title": "美丽瞬间",
+              "artist": "梵高",
+              "similarity": 0.7736725470799068,
+              "relevance": 0.7736725470799068,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-theme_12-8",
+              "title": "美丽瞬间",
+              "artist": "马蒂斯",
+              "similarity": 0.9552280880582288,
+              "relevance": 0.9552280880582288,
+              "stage": 0,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            }
+          ],
+          "totalFound": 9
+        }
+      ],
+      "totalFound": 80,
+      "averageSimilarity": 0.8610543959034528,
+      "searchTime": 75,
+      "totalQueries": 13
+    },
+    "selectedArtworks": [
+      {
+        "id": "artwork-theme_12-6",
+        "title": "情感表达",
+        "artist": "雷诺阿",
+        "similarity": 0.9790331496659883,
+        "relevance": 0.9790331496659883,
+        "stage": 1,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "theme_12",
+        "position": 1,
+        "emotionalImpact": 0.8852423356906536
+      },
+      {
+        "id": "artwork-theme_12-4",
+        "title": "美丽瞬间",
+        "artist": "莫奈",
+        "similarity": 0.9707623527036068,
+        "relevance": 0.9707623527036068,
+        "stage": 1,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "theme_12",
+        "position": 2,
+        "emotionalImpact": 0.9734485933237027
+      },
+      {
+        "id": "artwork-theme_12-8",
+        "title": "美丽瞬间",
+        "artist": "马蒂斯",
+        "similarity": 0.9552280880582288,
+        "relevance": 0.9552280880582288,
+        "stage": 1,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "theme_12",
+        "position": 3,
+        "emotionalImpact": 0.8850077574180257
+      },
+      {
+        "id": "artwork-theme_12-3",
+        "title": "艺术作品",
+        "artist": "高更",
+        "similarity": 0.9400583717634099,
+        "relevance": 0.9400583717634099,
+        "stage": 2,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "theme_12",
+        "position": 4,
+        "emotionalImpact": 0.8525879079078109
+      },
+      {
+        "id": "artwork-theme_12-0",
+        "title": "艺术作品",
+        "artist": "雷诺阿",
+        "similarity": 0.9287843220248773,
+        "relevance": 0.9287843220248773,
+        "stage": 2,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "theme_12",
+        "position": 5,
+        "emotionalImpact": 0.9131825734139571
+      },
+      {
+        "id": "artwork-theme_12-1",
+        "title": "情感表达",
+        "artist": "雷诺阿",
+        "similarity": 0.9188748707689998,
+        "relevance": 0.9188748707689998,
+        "stage": 2,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "theme_12",
+        "position": 6,
+        "emotionalImpact": 0.9123607026268856
+      },
+      {
+        "id": "artwork-emotion_4-5",
+        "title": "艺术作品",
+        "artist": "毕加索",
+        "similarity": 0.9975830817478906,
+        "relevance": 0.8978247735731015,
+        "stage": 3,
+        "reasoning": "匹配connection 深度交流的共鸣",
+        "queryId": "emotion_4",
+        "position": 7,
+        "emotionalImpact": 0.8084240773592442
+      },
+      {
+        "id": "artwork-emotion_4-2",
+        "title": "情感表达",
+        "artist": "梵高",
+        "similarity": 0.9953971599249134,
+        "relevance": 0.8958574439324221,
+        "stage": 3,
+        "reasoning": "匹配connection 深度交流的共鸣",
+        "queryId": "emotion_4",
+        "position": 8,
+        "emotionalImpact": 0.8103859437183126
+      },
+      {
+        "id": "artwork-emotion_4-0",
+        "title": "艺术作品",
+        "artist": "梵高",
+        "similarity": 0.9905251747251969,
+        "relevance": 0.8914726572526772,
+        "stage": 3,
+        "reasoning": "匹配connection 深度交流的共鸣",
+        "queryId": "emotion_4",
+        "position": 9,
+        "emotionalImpact": 0.8560901104761522
+      }
+    ],
+    "artworkExplanations": [
+      {
+        "artworkId": "artwork-theme_12-6",
+        "title": "情感表达",
+        "artist": "雷诺阿",
+        "stage": 1,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段\"joy\"中，它通过温暖色调，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8852423356906536
+      },
+      {
+        "artworkId": "artwork-theme_12-4",
+        "title": "美丽瞬间",
+        "artist": "莫奈",
+        "stage": 1,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段\"joy\"中，它通过温暖色调，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.9734485933237027
+      },
+      {
+        "artworkId": "artwork-theme_12-8",
+        "title": "美丽瞬间",
+        "artist": "马蒂斯",
+        "stage": 1,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段\"joy\"中，它通过温暖色调，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8850077574180257
+      },
+      {
+        "artworkId": "artwork-theme_12-3",
+        "title": "艺术作品",
+        "artist": "高更",
+        "stage": 2,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段\"connection\"中，它通过亲密构图，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8525879079078109
+      },
+      {
+        "artworkId": "artwork-theme_12-0",
+        "title": "艺术作品",
+        "artist": "雷诺阿",
+        "stage": 2,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段\"connection\"中，它通过亲密构图，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.9131825734139571
+      },
+      {
+        "artworkId": "artwork-theme_12-1",
+        "title": "情感表达",
+        "artist": "雷诺阿",
+        "stage": 2,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段\"connection\"中，它通过亲密构图，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.9123607026268856
+      },
+      {
+        "artworkId": "artwork-emotion_4-5",
+        "title": "艺术作品",
+        "artist": "毕加索",
+        "stage": 3,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段\"fulfillment\"中，它通过温暖回忆，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8084240773592442
+      },
+      {
+        "artworkId": "artwork-emotion_4-2",
+        "title": "情感表达",
+        "artist": "梵高",
+        "stage": 3,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段\"fulfillment\"中，它通过温暖回忆，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8103859437183126
+      },
+      {
+        "artworkId": "artwork-emotion_4-0",
+        "title": "艺术作品",
+        "artist": "梵高",
+        "stage": 3,
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段\"fulfillment\"中，它通过温暖回忆，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8560901104761522
+      }
+    ],
+    "curationSummary": {
+      "theme": "友谊的温暖：社交连接的艺术表达",
+      "emotionalArc": "从初遇的快乐到深度交流的共鸣，再到满足的回忆",
+      "totalArtworks": 9,
+      "totalDuration": 30,
+      "keyMessages": [
+        "友谊是人生最珍贵的财富",
+        "深度交流带来真正的快乐",
+        "社交连接是艺术永恒的主题"
+      ],
+      "visualProgression": "从开放明亮到亲密温暖，再到内省满足",
+      "targetAudience": "寻求社交连接和快乐体验的观众",
+      "curatorialStatement": "\"友谊的温暖：社交连接的艺术表达\"：这次策展通过9件作品，为寻求社交连接和快乐体验的观众创造了一个warm而intimate的艺术体验空间。"
+    }
+  },
+  "totalTime": 1789,
+  "success": true
+}

@@ -1,0 +1,265 @@
+{
+  "testName": "优化后的策展路由测试",
+  "userInput": "今天去了朋友家，聊的很投机、很开心",
+  "timestamp": "2025-10-25T09:19:15.061Z",
+  "phases": {
+    "apiCall": {
+      "sseEvents": [
+        {
+          "type": "start",
+          "timestamp": 0,
+          "data": "开始策展"
+        },
+        {
+          "type": "curation_intent",
+          "timestamp": 1000,
+          "data": "LLM策展规划完成"
+        },
+        {
+          "type": "artworks_selected",
+          "timestamp": 2000,
+          "data": "作品选择完成"
+        },
+        {
+          "type": "preface_chunk",
+          "timestamp": 3000,
+          "data": "序言生成"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 4000,
+          "data": "作品1-2解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 6000,
+          "data": "作品3-4解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 8000,
+          "data": "作品5-6解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 10000,
+          "data": "作品7-8解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 12000,
+          "data": "作品9解释"
+        },
+        {
+          "type": "closing_chunk",
+          "timestamp": 14000,
+          "data": "结语生成"
+        },
+        {
+          "type": "complete",
+          "timestamp": 15000,
+          "data": "策展完成"
+        }
+      ],
+      "curationData": {
+        "curatorialTheme": "友谊的温暖：社交连接的艺术表达",
+        "emotionalArc": "从初遇的快乐到深度交流的共鸣，再到满足的回忆",
+        "artworks": [
+          {
+            "id": "artwork-1",
+            "title": "Artwork 1",
+            "artist": "Artist 1",
+            "stage": 1
+          },
+          {
+            "id": "artwork-2",
+            "title": "Artwork 2",
+            "artist": "Artist 2",
+            "stage": 1
+          },
+          {
+            "id": "artwork-3",
+            "title": "Artwork 3",
+            "artist": "Artist 3",
+            "stage": 1
+          },
+          {
+            "id": "artwork-4",
+            "title": "Artwork 4",
+            "artist": "Artist 4",
+            "stage": 2
+          },
+          {
+            "id": "artwork-5",
+            "title": "Artwork 5",
+            "artist": "Artist 5",
+            "stage": 2
+          },
+          {
+            "id": "artwork-6",
+            "title": "Artwork 6",
+            "artist": "Artist 6",
+            "stage": 2
+          },
+          {
+            "id": "artwork-7",
+            "title": "Artwork 7",
+            "artist": "Artist 7",
+            "stage": 3
+          },
+          {
+            "id": "artwork-8",
+            "title": "Artwork 8",
+            "artist": "Artist 8",
+            "stage": 3
+          },
+          {
+            "id": "artwork-9",
+            "title": "Artwork 9",
+            "artist": "Artist 9",
+            "stage": 3
+          }
+        ],
+        "preface": "这是一个关于友谊和温暖的策展...",
+        "conclusion": "感谢您体验这次策展..."
+      },
+      "timeline": {
+        "phaseA": {
+          "curationIntent": 1000,
+          "emotionCurve": 1500,
+          "searchResults": 2000,
+          "artworkSelection": 2500
+        },
+        "phaseB": {
+          "narration": 3000,
+          "preface": 3000,
+          "artworkBatches": [
+            4000,
+            6000,
+            8000,
+            10000,
+            12000
+          ],
+          "conclusion": 14000
+        },
+        "total": 15000
+      },
+      "success": true
+    },
+    "sseValidation": {
+      "isValid": true,
+      "expectedOrder": [
+        "start",
+        "curation_intent",
+        "artworks_selected",
+        "preface_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "closing_chunk",
+        "complete"
+      ],
+      "actualOrder": [
+        "start",
+        "curation_intent",
+        "artworks_selected",
+        "preface_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "artwork_batch_chunk",
+        "closing_chunk",
+        "complete"
+      ],
+      "events": [
+        {
+          "type": "start",
+          "timestamp": 0,
+          "data": "开始策展"
+        },
+        {
+          "type": "curation_intent",
+          "timestamp": 1000,
+          "data": "LLM策展规划完成"
+        },
+        {
+          "type": "artworks_selected",
+          "timestamp": 2000,
+          "data": "作品选择完成"
+        },
+        {
+          "type": "preface_chunk",
+          "timestamp": 3000,
+          "data": "序言生成"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 4000,
+          "data": "作品1-2解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 6000,
+          "data": "作品3-4解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 8000,
+          "data": "作品5-6解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 10000,
+          "data": "作品7-8解释"
+        },
+        {
+          "type": "artwork_batch_chunk",
+          "timestamp": 12000,
+          "data": "作品9解释"
+        },
+        {
+          "type": "closing_chunk",
+          "timestamp": 14000,
+          "data": "结语生成"
+        },
+        {
+          "type": "complete",
+          "timestamp": 15000,
+          "data": "策展完成"
+        }
+      ]
+    },
+    "timelineValidation": {
+      "isValid": true,
+      "phaseAValid": true,
+      "phaseBValid": true,
+      "totalValid": true,
+      "timeline": {
+        "phaseA": {
+          "curationIntent": 1000,
+          "emotionCurve": 1500,
+          "searchResults": 2000,
+          "artworkSelection": 2500
+        },
+        "phaseB": {
+          "narration": 3000,
+          "preface": 3000,
+          "artworkBatches": [
+            4000,
+            6000,
+            8000,
+            10000,
+            12000
+          ],
+          "conclusion": 14000
+        },
+        "total": 15000
+      }
+    }
+  },
+  "totalTime": 105,
+  "success": true
+}

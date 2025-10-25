@@ -1,0 +1,626 @@
+{
+  "testName": "真正GLM API调用测试",
+  "userInput": "今天去了朋友家，聊的很投机、很开心",
+  "timestamp": "2025-10-25T08:17:07.117Z",
+  "phases": {
+    "llmResponse": {
+      "content": "\n```json\n{\n  \"exhibition_intent\": {\n    \"title\": \"温暖共鸣：友谊的私语\",\n    \"emotional_phase\": \"愉悦满足期\",\n    \"core_emotions\": [\n      \"温暖\",\n      \"亲密\",\n      \"满足\",\n      \"放松\",\n      \"连接感\"\n    ],\n    \"visual_characteristics\": {\n      \"color_palette\": [\n        \"暖黄色调\",\n        \"柔和的橙色\",\n        \"米色系\",\n        \"淡褐色\",\n        \"温暖的灰色\"\n      ],\n      \"lighting\": \"柔和的自然光与温暖室内光混合\",\n      \"composition\": \"亲密对话场景，半开放式空间\",\n      \"texture_elements\": \"柔软织物、木质家具、生活痕迹\",\n      \"atmosphere\": \"舒适而不私密，明亮而不刺眼\"\n    },\n    \"aesthetic_preferences\": {\n      \"style\": \"温暖现实主义\",\n      \"mood\": \"亲切自然，不做作\",\n      \"focus\": \"真实的人际互动与情感流动\",\n      \"appreciation\": \"生活美学中的温暖瞬间\"\n    },\n    \"narrative_tone\": {\n      \"voice\": \"温和而真诚\",\n      \"perspective\": \"第一人称分享式\",\n      \"emotion\": \"感恩与满足\",\n      \"pace\": \"舒缓而有节奏\"\n    },\n    \"thematic_elements\": [\n      \"友谊的价值\",\n      \"深度对话的力量\",\n      \"日常生活中的治愈时刻\",\n      \"社交连接的情感滋养\",\n      \"私人空间中的情感流动\"\n    ],\n    \"target_experience\": \"创造一个能够唤起温暖回忆、促进情感共鸣的空间，让观众感受到人际连接带来的愉悦与满足，同时反思友谊在自己生活中的重要性\"\n  }\n}\n```",
+      "apiTime": 13499,
+      "usage": {
+        "completion_tokens": 705,
+        "prompt_tokens": 75,
+        "prompt_tokens_details": {
+          "cached_tokens": 7
+        },
+        "total_tokens": 780
+      },
+      "model": "glm-4.5-air"
+    },
+    "curationIntent": {
+      "emotionalStages": [
+        {
+          "stage": 1,
+          "emotion": "joy",
+          "intensity": 0.8,
+          "description": "初遇朋友的快乐",
+          "visualCharacteristics": [
+            "温暖色调",
+            "开放构图",
+            "明亮光线"
+          ],
+          "artworkCount": 3,
+          "duration": 8
+        }
+      ],
+      "curatorialTheme": "友谊的温暖：社交连接的艺术表达",
+      "emotionalArc": "从初遇的快乐到深度交流的共鸣，再到满足的回忆",
+      "keyMessages": [
+        "友谊是人生最珍贵的财富",
+        "深度交流带来真正的快乐",
+        "社交连接是艺术永恒的主题"
+      ]
+    },
+    "emotionCurve": {
+      "curveType": "wave",
+      "totalDuration": 8,
+      "climaxPoint": 0.6,
+      "resolutionPoint": 0.8,
+      "averageIntensity": 0.8,
+      "stages": [
+        {
+          "stage": 1,
+          "emotion": "joy",
+          "intensity": 0.8,
+          "description": "初遇朋友的快乐",
+          "visualCharacteristics": [
+            "温暖色调",
+            "开放构图",
+            "明亮光线"
+          ],
+          "artworkCount": 3,
+          "duration": 8,
+          "curvePosition": 1
+        }
+      ]
+    },
+    "searchQueries": [
+      {
+        "query": "joy 初遇朋友的快乐",
+        "weight": 0.8,
+        "filters": {
+          "emotion": "joy"
+        }
+      },
+      {
+        "query": "温暖色调 joy",
+        "weight": 0.6400000000000001,
+        "filters": {
+          "visual": "温暖色调"
+        }
+      },
+      {
+        "query": "开放构图 joy",
+        "weight": 0.6400000000000001,
+        "filters": {
+          "visual": "开放构图"
+        }
+      },
+      {
+        "query": "明亮光线 joy",
+        "weight": 0.6400000000000001,
+        "filters": {
+          "visual": "明亮光线"
+        }
+      },
+      {
+        "query": "友谊的温暖：社交连接的艺术表达",
+        "weight": 1,
+        "filters": {
+          "theme": "友谊的温暖：社交连接的艺术表达"
+        }
+      }
+    ],
+    "searchResults": {
+      "results": [
+        {
+          "queryId": "joy 初遇朋友的快乐",
+          "query": "joy 初遇朋友的快乐",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-joy-初遇朋友的快乐-0",
+              "title": "艺术作品",
+              "artist": "高更",
+              "similarity": 0.8965248140963156,
+              "relevance": 0.7172198512770525,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-joy-初遇朋友的快乐-1",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.7464011006749158,
+              "relevance": 0.5971208805399327,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-joy-初遇朋友的快乐-2",
+              "title": "情感表达",
+              "artist": "达芬奇",
+              "similarity": 0.8557266067331462,
+              "relevance": 0.684581285386517,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-joy-初遇朋友的快乐-3",
+              "title": "美丽瞬间",
+              "artist": "塞尚",
+              "similarity": 0.9939604973113044,
+              "relevance": 0.7951683978490436,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-joy-初遇朋友的快乐-4",
+              "title": "艺术作品",
+              "artist": "雷诺阿",
+              "similarity": 0.9465912047909835,
+              "relevance": 0.7572729638327869,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-joy-初遇朋友的快乐-5",
+              "title": "艺术作品",
+              "artist": "梵高",
+              "similarity": 0.9984605369491448,
+              "relevance": 0.7987684295593159,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-joy-初遇朋友的快乐-6",
+              "title": "艺术作品",
+              "artist": "达芬奇",
+              "similarity": 0.9863936466292952,
+              "relevance": 0.7891149173034362,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            },
+            {
+              "id": "artwork-joy-初遇朋友的快乐-7",
+              "title": "艺术作品",
+              "artist": "塞尚",
+              "similarity": 0.7970887807753009,
+              "relevance": 0.6376710246202407,
+              "stage": 1,
+              "reasoning": "匹配joy 初遇朋友的快乐"
+            }
+          ],
+          "totalFound": 8
+        },
+        {
+          "queryId": "温暖色调 joy",
+          "query": "温暖色调 joy",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-温暖色调-joy-0",
+              "title": "美丽瞬间",
+              "artist": "莫奈",
+              "similarity": 0.8185789775439352,
+              "relevance": 0.5238905456281187,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-温暖色调-joy-1",
+              "title": "艺术作品",
+              "artist": "毕加索",
+              "similarity": 0.7747471796560216,
+              "relevance": 0.49583819497985393,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-温暖色调-joy-2",
+              "title": "美丽瞬间",
+              "artist": "莫奈",
+              "similarity": 0.8400526309717139,
+              "relevance": 0.537633683821897,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-温暖色调-joy-3",
+              "title": "艺术作品",
+              "artist": "高更",
+              "similarity": 0.746285723478076,
+              "relevance": 0.47762286302596874,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            },
+            {
+              "id": "artwork-温暖色调-joy-4",
+              "title": "情感表达",
+              "artist": "达芬奇",
+              "similarity": 0.858265496097788,
+              "relevance": 0.5492899175025845,
+              "stage": 1,
+              "reasoning": "匹配温暖色调 joy"
+            }
+          ],
+          "totalFound": 5
+        },
+        {
+          "queryId": "开放构图 joy",
+          "query": "开放构图 joy",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-开放构图-joy-0",
+              "title": "情感表达",
+              "artist": "梵高",
+              "similarity": 0.8216344791716806,
+              "relevance": 0.5258460666698758,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-开放构图-joy-1",
+              "title": "美丽瞬间",
+              "artist": "达芬奇",
+              "similarity": 0.7138907940312893,
+              "relevance": 0.45689010818002523,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-开放构图-joy-2",
+              "title": "艺术作品",
+              "artist": "塞尚",
+              "similarity": 0.9031464524486474,
+              "relevance": 0.5780137295671345,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-开放构图-joy-3",
+              "title": "美丽瞬间",
+              "artist": "马蒂斯",
+              "similarity": 0.8452318188560906,
+              "relevance": 0.540948364067898,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-开放构图-joy-4",
+              "title": "情感表达",
+              "artist": "达芬奇",
+              "similarity": 0.7802475021680356,
+              "relevance": 0.4993584013875429,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-开放构图-joy-5",
+              "title": "美丽瞬间",
+              "artist": "莫奈",
+              "similarity": 0.9266968776550883,
+              "relevance": 0.5930860016992566,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            },
+            {
+              "id": "artwork-开放构图-joy-6",
+              "title": "情感表达",
+              "artist": "毕加索",
+              "similarity": 0.9520145762662728,
+              "relevance": 0.6092893288104148,
+              "stage": 1,
+              "reasoning": "匹配开放构图 joy"
+            }
+          ],
+          "totalFound": 7
+        },
+        {
+          "queryId": "明亮光线 joy",
+          "query": "明亮光线 joy",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-明亮光线-joy-0",
+              "title": "艺术作品",
+              "artist": "马蒂斯",
+              "similarity": 0.9501075490819807,
+              "relevance": 0.6080688314124678,
+              "stage": 1,
+              "reasoning": "匹配明亮光线 joy"
+            },
+            {
+              "id": "artwork-明亮光线-joy-1",
+              "title": "艺术作品",
+              "artist": "毕加索",
+              "similarity": 0.809286952473412,
+              "relevance": 0.5179436495829838,
+              "stage": 1,
+              "reasoning": "匹配明亮光线 joy"
+            },
+            {
+              "id": "artwork-明亮光线-joy-2",
+              "title": "情感表达",
+              "artist": "雷诺阿",
+              "similarity": 0.8987066480901085,
+              "relevance": 0.5751722547776695,
+              "stage": 1,
+              "reasoning": "匹配明亮光线 joy"
+            }
+          ],
+          "totalFound": 3
+        },
+        {
+          "queryId": "友谊的温暖：社交连接的艺术表达",
+          "query": "友谊的温暖：社交连接的艺术表达",
+          "stage": 1,
+          "artworks": [
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-0",
+              "title": "情感表达",
+              "artist": "梵高",
+              "similarity": 0.8676991541519423,
+              "relevance": 0.8676991541519423,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-1",
+              "title": "艺术作品",
+              "artist": "马蒂斯",
+              "similarity": 0.8793189786765112,
+              "relevance": 0.8793189786765112,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-2",
+              "title": "美丽瞬间",
+              "artist": "德加",
+              "similarity": 0.8297253452403718,
+              "relevance": 0.8297253452403718,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-3",
+              "title": "美丽瞬间",
+              "artist": "马蒂斯",
+              "similarity": 0.9554789373982664,
+              "relevance": 0.9554789373982664,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-4",
+              "title": "美丽瞬间",
+              "artist": "雷诺阿",
+              "similarity": 0.8475904495025395,
+              "relevance": 0.8475904495025395,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-5",
+              "title": "艺术作品",
+              "artist": "塞尚",
+              "similarity": 0.8158735912172532,
+              "relevance": 0.8158735912172532,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-6",
+              "title": "情感表达",
+              "artist": "达芬奇",
+              "similarity": 0.9031879228210986,
+              "relevance": 0.9031879228210986,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-7",
+              "title": "美丽瞬间",
+              "artist": "莫奈",
+              "similarity": 0.7377684909243898,
+              "relevance": 0.7377684909243898,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            },
+            {
+              "id": "artwork-友谊的温暖：社交连接的艺术表达-8",
+              "title": "情感表达",
+              "artist": "莫奈",
+              "similarity": 0.8816684487131632,
+              "relevance": 0.8816684487131632,
+              "stage": 1,
+              "reasoning": "匹配友谊的温暖：社交连接的艺术表达"
+            }
+          ],
+          "totalFound": 9
+        }
+      ],
+      "totalFound": 32,
+      "averageSimilarity": 0.8618235051436276,
+      "searchTime": 0,
+      "totalQueries": 5
+    },
+    "selectedArtworks": [
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-3",
+        "title": "美丽瞬间",
+        "artist": "马蒂斯",
+        "similarity": 0.9554789373982664,
+        "relevance": 0.9554789373982664,
+        "stage": 1,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 1,
+        "emotionalImpact": 0.9441174198344314
+      },
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-6",
+        "title": "情感表达",
+        "artist": "达芬奇",
+        "similarity": 0.9031879228210986,
+        "relevance": 0.9031879228210986,
+        "stage": 1,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 2,
+        "emotionalImpact": 0.8424893793064971
+      },
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-8",
+        "title": "情感表达",
+        "artist": "莫奈",
+        "similarity": 0.8816684487131632,
+        "relevance": 0.8816684487131632,
+        "stage": 1,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 3,
+        "emotionalImpact": 0.8077612011675218
+      },
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-1",
+        "title": "艺术作品",
+        "artist": "马蒂斯",
+        "similarity": 0.8793189786765112,
+        "relevance": 0.8793189786765112,
+        "stage": 2,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 4,
+        "emotionalImpact": 0.7977209743180131
+      },
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-0",
+        "title": "情感表达",
+        "artist": "梵高",
+        "similarity": 0.8676991541519423,
+        "relevance": 0.8676991541519423,
+        "stage": 2,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 5,
+        "emotionalImpact": 0.8587921803915582
+      },
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-4",
+        "title": "美丽瞬间",
+        "artist": "雷诺阿",
+        "similarity": 0.8475904495025395,
+        "relevance": 0.8475904495025395,
+        "stage": 2,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 6,
+        "emotionalImpact": 0.7821444526612803
+      },
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-2",
+        "title": "美丽瞬间",
+        "artist": "德加",
+        "similarity": 0.8297253452403718,
+        "relevance": 0.8297253452403718,
+        "stage": 3,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 7,
+        "emotionalImpact": 0.8072446757047728
+      },
+      {
+        "id": "artwork-友谊的温暖：社交连接的艺术表达-5",
+        "title": "艺术作品",
+        "artist": "塞尚",
+        "similarity": 0.8158735912172532,
+        "relevance": 0.8158735912172532,
+        "stage": 3,
+        "reasoning": "匹配友谊的温暖：社交连接的艺术表达",
+        "queryId": "友谊的温暖：社交连接的艺术表达",
+        "position": 8,
+        "emotionalImpact": 0.778661506900775
+      },
+      {
+        "id": "artwork-joy-初遇朋友的快乐-5",
+        "title": "艺术作品",
+        "artist": "梵高",
+        "similarity": 0.9984605369491448,
+        "relevance": 0.7987684295593159,
+        "stage": 3,
+        "reasoning": "匹配joy 初遇朋友的快乐",
+        "queryId": "joy 初遇朋友的快乐",
+        "position": 9,
+        "emotionalImpact": 0.7925253807062627
+      }
+    ],
+    "explanations": [
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-3",
+        "title": "美丽瞬间",
+        "artist": "马蒂斯",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.9441174198344314
+      },
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-6",
+        "title": "情感表达",
+        "artist": "达芬奇",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8424893793064971
+      },
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-8",
+        "title": "情感表达",
+        "artist": "莫奈",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第1阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8077612011675218
+      },
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-1",
+        "title": "艺术作品",
+        "artist": "马蒂斯",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.7977209743180131
+      },
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-0",
+        "title": "情感表达",
+        "artist": "梵高",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8587921803915582
+      },
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-4",
+        "title": "美丽瞬间",
+        "artist": "雷诺阿",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第2阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.7821444526612803
+      },
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-2",
+        "title": "美丽瞬间",
+        "artist": "德加",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.8072446757047728
+      },
+      {
+        "artworkId": "artwork-友谊的温暖：社交连接的艺术表达-5",
+        "title": "艺术作品",
+        "artist": "塞尚",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.778661506900775
+      },
+      {
+        "artworkId": "artwork-joy-初遇朋友的快乐-5",
+        "title": "艺术作品",
+        "artist": "梵高",
+        "explanation": "这件作品完美诠释了策展主题\"友谊的温暖：社交连接的艺术表达\"。在情绪曲线的第3阶段中，它通过独特的艺术表现，展现了从初遇的快乐到深度交流的共鸣，再到满足的回忆的深度。友谊是人生最珍贵的财富，这正是我们希望通过艺术传达的核心信息。",
+        "confidence": 0.9,
+        "emotionalImpact": 0.7925253807062627
+      }
+    ]
+  },
+  "totalTime": 13667,
+  "success": true
+}

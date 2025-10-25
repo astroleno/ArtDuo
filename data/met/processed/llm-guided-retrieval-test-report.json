@@ -1,0 +1,3391 @@
+{
+  "totalTests": 3,
+  "passedTests": 2,
+  "failedTests": 1,
+  "testDetails": [
+    {
+      "testCase": "有点失落，但我不想被安慰，我只是想安静地待在一束很冷的窗光里。",
+      "passed": true,
+      "score": 92,
+      "totalTime": 583,
+      "details": [
+        "策展意图质量: 100/100",
+        "检索Query质量: 100/100",
+        "检索结果质量: 60/100",
+        "最终策展质量: 100/100"
+      ],
+      "performance": {
+        "intentTime": 301,
+        "queryTime": 1,
+        "searchTime": 74,
+        "composeTime": 206,
+        "totalTime": 583
+      },
+      "results": {
+        "curationIntent": {
+          "emotionalStages": [
+            {
+              "stage": 1,
+              "emotion": "numbness",
+              "intensity": 0.8,
+              "description": "麻木状态",
+              "visualCharacteristics": [
+                "冷色调",
+                "静止",
+                "内敛"
+              ]
+            },
+            {
+              "stage": 2,
+              "emotion": "melancholy",
+              "intensity": 0.6,
+              "description": "余温感受",
+              "visualCharacteristics": [
+                "柔和光线",
+                "温暖边缘",
+                "渐变"
+              ]
+            },
+            {
+              "stage": 3,
+              "emotion": "self_containment",
+              "intensity": 0.7,
+              "description": "自我收拢",
+              "visualCharacteristics": [
+                "私密空间",
+                "边界清晰",
+                "内省"
+              ]
+            }
+          ],
+          "visualFeatures": {
+            "colorPalette": [
+              "冷色调",
+              "低饱和",
+              "蓝色系"
+            ],
+            "composition": [],
+            "lighting": [
+              "自然光",
+              "窗边光线",
+              "柔和光线"
+            ],
+            "mood": [
+              "宁静",
+              "内省",
+              "平和"
+            ]
+          },
+          "aestheticPreferences": {
+            "mediaTypes": [
+              "摄影",
+              "油画"
+            ],
+            "artStyles": [
+              "现代主义",
+              "表现主义"
+            ],
+            "timePeriods": [
+              "19世纪",
+              "20世纪",
+              "当代"
+            ],
+            "culturalContexts": [
+              "欧洲",
+              "美洲",
+              "亚洲"
+            ],
+            "avoidElements": [
+              "宗教象征",
+              "过于明亮",
+              "商业元素"
+            ]
+          },
+          "narrativeTone": {
+            "voice": "quiet",
+            "approach": "non_intrusive",
+            "intimacy": "high",
+            "pacing": "slow"
+          },
+          "targetAudience": "寻求情感共鸣的观众",
+          "curatorialTheme": "在冷光中寻找自我：失落的艺术疗愈"
+        },
+        "retrievalQueries": [
+          {
+            "id": "emotion_0",
+            "query": "numbness 麻木状态",
+            "stage": 1,
+            "weight": 0.8,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "numbness"
+            }
+          },
+          {
+            "id": "visual_1",
+            "query": "冷色调 numbness",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "冷色调"
+            }
+          },
+          {
+            "id": "visual_2",
+            "query": "静止 numbness",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "静止"
+            }
+          },
+          {
+            "id": "visual_3",
+            "query": "内敛 numbness",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "内敛"
+            }
+          },
+          {
+            "id": "emotion_4",
+            "query": "melancholy 余温感受",
+            "stage": 2,
+            "weight": 0.6,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "melancholy"
+            }
+          },
+          {
+            "id": "visual_5",
+            "query": "柔和光线 melancholy",
+            "stage": 2,
+            "weight": 0.48,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "柔和光线"
+            }
+          },
+          {
+            "id": "visual_6",
+            "query": "温暖边缘 melancholy",
+            "stage": 2,
+            "weight": 0.48,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "温暖边缘"
+            }
+          },
+          {
+            "id": "visual_7",
+            "query": "渐变 melancholy",
+            "stage": 2,
+            "weight": 0.48,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "渐变"
+            }
+          },
+          {
+            "id": "emotion_8",
+            "query": "self_containment 自我收拢",
+            "stage": 3,
+            "weight": 0.7,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "self_containment"
+            }
+          },
+          {
+            "id": "visual_9",
+            "query": "私密空间 self_containment",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "私密空间"
+            }
+          },
+          {
+            "id": "visual_10",
+            "query": "边界清晰 self_containment",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "边界清晰"
+            }
+          },
+          {
+            "id": "visual_11",
+            "query": "内省 self_containment",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "内省"
+            }
+          },
+          {
+            "id": "theme_12",
+            "query": "在冷光中寻找自我：失落的艺术疗愈",
+            "stage": 0,
+            "weight": 1,
+            "searchType": "semantic",
+            "filters": {
+              "theme": "在冷光中寻找自我：失落的艺术疗愈"
+            }
+          }
+        ],
+        "retrievalResults": {
+          "results": [
+            {
+              "queryId": "emotion_0",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_0-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8840895052005878,
+                  "relevance": 0.6421128764947782,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.972734742178199,
+                  "relevance": 0.7031774374376512,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9273206005770929,
+                  "relevance": 0.6486616715582256,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.919147925695324,
+                  "relevance": 0.7209450523089007,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9003179810517646,
+                  "relevance": 0.7611086800522174,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7640272721889891,
+                  "relevance": 0.5951285773557538,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.8132286828857177,
+                  "relevance": 0.7440163757301715,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.7035801287532228,
+                  "relevance": 0.7018020051751306,
+                  "reasoning": "匹配numbness 麻木状态"
+                },
+                {
+                  "id": "artwork-emotion_0-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.8235782738632296,
+                  "relevance": 0.6695981371576999,
+                  "reasoning": "匹配numbness 麻木状态"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 8.454211084136226
+            },
+            {
+              "queryId": "visual_1",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_1-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7761451888525857,
+                  "relevance": 0.4981011087660765,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.752506787186563,
+                  "relevance": 0.5589479749733933,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7011892107511203,
+                  "relevance": 0.6245750688474924,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.912498988102195,
+                  "relevance": 0.4573783719596275,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7313421358470868,
+                  "relevance": 0.5849608450504035,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7299443498741112,
+                  "relevance": 0.5618480962092188,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.8030712074191902,
+                  "relevance": 0.5442927685103813,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.7411805971574903,
+                  "relevance": 0.4911964478678428,
+                  "reasoning": "匹配冷色调 numbness"
+                },
+                {
+                  "id": "artwork-visual_1-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7339954983083063,
+                  "relevance": 0.5139958217793213,
+                  "reasoning": "匹配冷色调 numbness"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 14.202374971509268
+            },
+            {
+              "queryId": "visual_2",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_2-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9266545437710634,
+                  "relevance": 0.44818110400909944,
+                  "reasoning": "匹配静止 numbness"
+                },
+                {
+                  "id": "artwork-visual_2-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.784929163546152,
+                  "relevance": 0.6108228203081978,
+                  "reasoning": "匹配静止 numbness"
+                },
+                {
+                  "id": "artwork-visual_2-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7151932698099334,
+                  "relevance": 0.4647412360675709,
+                  "reasoning": "匹配静止 numbness"
+                },
+                {
+                  "id": "artwork-visual_2-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8610656706376405,
+                  "relevance": 0.6299066183861103,
+                  "reasoning": "匹配静止 numbness"
+                },
+                {
+                  "id": "artwork-visual_2-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9950377166578743,
+                  "relevance": 0.5276626523281569,
+                  "reasoning": "匹配静止 numbness"
+                }
+              ],
+              "totalFound": 5,
+              "searchTime": 13.159811799706747
+            },
+            {
+              "queryId": "visual_3",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_3-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8656176472079835,
+                  "relevance": 0.5575236280908025,
+                  "reasoning": "匹配内敛 numbness"
+                },
+                {
+                  "id": "artwork-visual_3-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8184188656054316,
+                  "relevance": 0.6067457155595642,
+                  "reasoning": "匹配内敛 numbness"
+                },
+                {
+                  "id": "artwork-visual_3-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8053450799438436,
+                  "relevance": 0.5040748539451995,
+                  "reasoning": "匹配内敛 numbness"
+                },
+                {
+                  "id": "artwork-visual_3-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9206461555427179,
+                  "relevance": 0.46752936379844295,
+                  "reasoning": "匹配内敛 numbness"
+                },
+                {
+                  "id": "artwork-visual_3-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.8095202796930472,
+                  "relevance": 0.5347428559815934,
+                  "reasoning": "匹配内敛 numbness"
+                }
+              ],
+              "totalFound": 5,
+              "searchTime": 10.78253356196609
+            },
+            {
+              "queryId": "emotion_4",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_4-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7345676983811539,
+                  "relevance": 0.5079404163652331,
+                  "reasoning": "匹配melancholy 余温感受"
+                },
+                {
+                  "id": "artwork-emotion_4-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.748842285445834,
+                  "relevance": 0.5410616320107795,
+                  "reasoning": "匹配melancholy 余温感受"
+                },
+                {
+                  "id": "artwork-emotion_4-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7765069640409862,
+                  "relevance": 0.42760013376387224,
+                  "reasoning": "匹配melancholy 余温感受"
+                }
+              ],
+              "totalFound": 3,
+              "searchTime": 5.640699099183961
+            },
+            {
+              "queryId": "visual_5",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_5-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7361495691020616,
+                  "relevance": 0.3459146841600927,
+                  "reasoning": "匹配柔和光线 melancholy"
+                },
+                {
+                  "id": "artwork-visual_5-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9690596789414252,
+                  "relevance": 0.46293431998886797,
+                  "reasoning": "匹配柔和光线 melancholy"
+                },
+                {
+                  "id": "artwork-visual_5-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.785096739512893,
+                  "relevance": 0.3556191709820753,
+                  "reasoning": "匹配柔和光线 melancholy"
+                },
+                {
+                  "id": "artwork-visual_5-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8273704538314476,
+                  "relevance": 0.4359025611737345,
+                  "reasoning": "匹配柔和光线 melancholy"
+                }
+              ],
+              "totalFound": 4,
+              "searchTime": 10.989168009122192
+            },
+            {
+              "queryId": "visual_6",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_6-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8726337259119001,
+                  "relevance": 0.35186168916752764,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8848644640253338,
+                  "relevance": 0.44691368183318086,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8850817836365508,
+                  "relevance": 0.3490984378740491,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8257982450536264,
+                  "relevance": 0.4154341039239154,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7489492348863805,
+                  "relevance": 0.4202373137086888,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7342062340869473,
+                  "relevance": 0.4570123507859867,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.7722563851246302,
+                  "relevance": 0.41092456803866007,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.8406978399369467,
+                  "relevance": 0.37441491035524627,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                },
+                {
+                  "id": "artwork-visual_6-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.8952345110752644,
+                  "relevance": 0.36137767659346276,
+                  "reasoning": "匹配温暖边缘 melancholy"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 9.918069794716937
+            },
+            {
+              "queryId": "visual_7",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_7-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7686750570669513,
+                  "relevance": 0.39102090205043216,
+                  "reasoning": "匹配渐变 melancholy"
+                },
+                {
+                  "id": "artwork-visual_7-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7501822153472887,
+                  "relevance": 0.440637495944359,
+                  "reasoning": "匹配渐变 melancholy"
+                },
+                {
+                  "id": "artwork-visual_7-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.829382753197315,
+                  "relevance": 0.36400244917596264,
+                  "reasoning": "匹配渐变 melancholy"
+                },
+                {
+                  "id": "artwork-visual_7-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9611249746920043,
+                  "relevance": 0.381103919452796,
+                  "reasoning": "匹配渐变 melancholy"
+                },
+                {
+                  "id": "artwork-visual_7-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7297843071989921,
+                  "relevance": 0.35948839834829427,
+                  "reasoning": "匹配渐变 melancholy"
+                },
+                {
+                  "id": "artwork-visual_7-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.8725461711534057,
+                  "relevance": 0.4354139105995899,
+                  "reasoning": "匹配渐变 melancholy"
+                },
+                {
+                  "id": "artwork-visual_7-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.8522591579367556,
+                  "relevance": 0.3422625371074165,
+                  "reasoning": "匹配渐变 melancholy"
+                }
+              ],
+              "totalFound": 7,
+              "searchTime": 7.981043786848534
+            },
+            {
+              "queryId": "emotion_8",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_8-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8700024801009295,
+                  "relevance": 0.5586629448538778,
+                  "reasoning": "匹配self_containment 自我收拢"
+                },
+                {
+                  "id": "artwork-emotion_8-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.745686419915927,
+                  "relevance": 0.6477909873171589,
+                  "reasoning": "匹配self_containment 自我收拢"
+                },
+                {
+                  "id": "artwork-emotion_8-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8308117461892752,
+                  "relevance": 0.5067497091133752,
+                  "reasoning": "匹配self_containment 自我收拢"
+                },
+                {
+                  "id": "artwork-emotion_8-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9634980537557596,
+                  "relevance": 0.6030964926359277,
+                  "reasoning": "匹配self_containment 自我收拢"
+                }
+              ],
+              "totalFound": 4,
+              "searchTime": 14.897076582309428
+            },
+            {
+              "queryId": "visual_9",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_9-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8450131614520335,
+                  "relevance": 0.4812587117433711,
+                  "reasoning": "匹配私密空间 self_containment"
+                },
+                {
+                  "id": "artwork-visual_9-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8361763428250926,
+                  "relevance": 0.44266097976813373,
+                  "reasoning": "匹配私密空间 self_containment"
+                },
+                {
+                  "id": "artwork-visual_9-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9982731144179086,
+                  "relevance": 0.4403692774849023,
+                  "reasoning": "匹配私密空间 self_containment"
+                }
+              ],
+              "totalFound": 3,
+              "searchTime": 9.798410897580567
+            },
+            {
+              "queryId": "visual_10",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_10-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.985472038689136,
+                  "relevance": 0.5138534165502969,
+                  "reasoning": "匹配边界清晰 self_containment"
+                },
+                {
+                  "id": "artwork-visual_10-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9352827851120104,
+                  "relevance": 0.4225013330448825,
+                  "reasoning": "匹配边界清晰 self_containment"
+                },
+                {
+                  "id": "artwork-visual_10-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9445191578119218,
+                  "relevance": 0.4580166832511934,
+                  "reasoning": "匹配边界清晰 self_containment"
+                },
+                {
+                  "id": "artwork-visual_10-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8657645305520115,
+                  "relevance": 0.5506725520893614,
+                  "reasoning": "匹配边界清晰 self_containment"
+                },
+                {
+                  "id": "artwork-visual_10-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9505404113016427,
+                  "relevance": 0.3983164298470978,
+                  "reasoning": "匹配边界清晰 self_containment"
+                }
+              ],
+              "totalFound": 5,
+              "searchTime": 10.691222314980111
+            },
+            {
+              "queryId": "visual_11",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_11-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9090147127741272,
+                  "relevance": 0.4450063111556689,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7210236174192698,
+                  "relevance": 0.4161356004359661,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8512661708709873,
+                  "relevance": 0.44407652400900166,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9448698086750902,
+                  "relevance": 0.46895380236758505,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7737646319817629,
+                  "relevance": 0.5029016415086358,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.9080709751005547,
+                  "relevance": 0.45733117112101357,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.8487527254411878,
+                  "relevance": 0.43218642297291043,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.8731360130607129,
+                  "relevance": 0.45897520680542203,
+                  "reasoning": "匹配内省 self_containment"
+                },
+                {
+                  "id": "artwork-visual_11-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.9901420953893284,
+                  "relevance": 0.4563793296579251,
+                  "reasoning": "匹配内省 self_containment"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 11.03856332182752
+            },
+            {
+              "queryId": "theme_12",
+              "stage": 0,
+              "artworks": [
+                {
+                  "id": "artwork-theme_12-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.926116328522614,
+                  "relevance": 0.7943203455150154,
+                  "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈"
+                },
+                {
+                  "id": "artwork-theme_12-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8903406810325655,
+                  "relevance": 0.830801234797543,
+                  "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈"
+                },
+                {
+                  "id": "artwork-theme_12-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7712501624470626,
+                  "relevance": 0.8456002540099727,
+                  "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈"
+                },
+                {
+                  "id": "artwork-theme_12-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8503620893795535,
+                  "relevance": 0.952286404449183,
+                  "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈"
+                },
+                {
+                  "id": "artwork-theme_12-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7785784272533055,
+                  "relevance": 0.8074104122714298,
+                  "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈"
+                },
+                {
+                  "id": "artwork-theme_12-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.9350328497818686,
+                  "relevance": 0.717311356666191,
+                  "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈"
+                },
+                {
+                  "id": "artwork-theme_12-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.7968488305246564,
+                  "relevance": 0.9027402380540333,
+                  "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈"
+                }
+              ],
+              "totalFound": 7,
+              "searchTime": 14.366388397217737
+            }
+          ],
+          "totalArtworks": 79,
+          "totalQueries": 13
+        },
+        "finalComposition": {
+          "emotionalArc": "从第0阶段的undefined到第1阶段的numbness",
+          "totalArtworks": 12,
+          "selectedArtworks": [
+            {
+              "id": "artwork-theme_12-3",
+              "title": "Artwork 4",
+              "artist": "Artist 4",
+              "stage": 0,
+              "position": 1,
+              "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈",
+              "emotionalImpact": 0.952286404449183
+            },
+            {
+              "id": "artwork-theme_12-6",
+              "title": "Artwork 7",
+              "artist": "Artist 7",
+              "stage": 0,
+              "position": 2,
+              "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈",
+              "emotionalImpact": 0.9027402380540333
+            },
+            {
+              "id": "artwork-theme_12-2",
+              "title": "Artwork 3",
+              "artist": "Artist 3",
+              "stage": 0,
+              "position": 3,
+              "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈",
+              "emotionalImpact": 0.8456002540099727
+            },
+            {
+              "id": "artwork-theme_12-1",
+              "title": "Artwork 2",
+              "artist": "Artist 2",
+              "stage": 0,
+              "position": 4,
+              "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈",
+              "emotionalImpact": 0.830801234797543
+            },
+            {
+              "id": "artwork-theme_12-4",
+              "title": "Artwork 5",
+              "artist": "Artist 5",
+              "stage": 0,
+              "position": 5,
+              "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈",
+              "emotionalImpact": 0.8074104122714298
+            },
+            {
+              "id": "artwork-theme_12-0",
+              "title": "Artwork 1",
+              "artist": "Artist 1",
+              "stage": 0,
+              "position": 6,
+              "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈",
+              "emotionalImpact": 0.7943203455150154
+            },
+            {
+              "id": "artwork-emotion_0-4",
+              "title": "Artwork 5",
+              "artist": "Artist 5",
+              "stage": 1,
+              "position": 7,
+              "reasoning": "匹配numbness 麻木状态",
+              "emotionalImpact": 0.7611086800522174
+            },
+            {
+              "id": "artwork-emotion_0-6",
+              "title": "Artwork 7",
+              "artist": "Artist 7",
+              "stage": 1,
+              "position": 8,
+              "reasoning": "匹配numbness 麻木状态",
+              "emotionalImpact": 0.7440163757301715
+            },
+            {
+              "id": "artwork-emotion_0-3",
+              "title": "Artwork 4",
+              "artist": "Artist 4",
+              "stage": 1,
+              "position": 9,
+              "reasoning": "匹配numbness 麻木状态",
+              "emotionalImpact": 0.7209450523089007
+            },
+            {
+              "id": "artwork-theme_12-5",
+              "title": "Artwork 6",
+              "artist": "Artist 6",
+              "stage": 0,
+              "position": 10,
+              "reasoning": "匹配在冷光中寻找自我：失落的艺术疗愈",
+              "emotionalImpact": 0.717311356666191
+            },
+            {
+              "id": "artwork-emotion_0-1",
+              "title": "Artwork 2",
+              "artist": "Artist 2",
+              "stage": 1,
+              "position": 11,
+              "reasoning": "匹配numbness 麻木状态",
+              "emotionalImpact": 0.7031774374376512
+            },
+            {
+              "id": "artwork-emotion_0-7",
+              "title": "Artwork 8",
+              "artist": "Artist 8",
+              "stage": 1,
+              "position": 12,
+              "reasoning": "匹配numbness 麻木状态",
+              "emotionalImpact": 0.7018020051751306
+            }
+          ],
+          "narrativeFlow": "通过12件精心挑选的作品，展现了一个从麻木状态到自我收拢的完整情绪旅程",
+          "visualProgression": "视觉上从冷色调逐渐过渡到蓝色系，营造出层次丰富的情感氛围",
+          "curatorialStatement": "\"在冷光中寻找自我：失落的艺术疗愈\"：这次策展通过12件作品，为寻求情感共鸣的观众创造了一个quiet而non_intrusive的艺术体验空间。"
+        }
+      }
+    },
+    {
+      "testCase": "我今天感到孤独和向往，想要一些能让我思考人生的艺术作品。",
+      "passed": false,
+      "score": 68,
+      "totalTime": 574,
+      "details": [
+        "策展意图质量: 40/100",
+        "检索Query质量: 100/100",
+        "检索结果质量: 60/100",
+        "最终策展质量: 100/100"
+      ],
+      "performance": {
+        "intentTime": 301,
+        "queryTime": 0,
+        "searchTime": 70,
+        "composeTime": 202,
+        "totalTime": 574
+      },
+      "results": {
+        "curationIntent": {
+          "emotionalStages": [
+            {
+              "stage": 1,
+              "emotion": "loneliness",
+              "intensity": 0.9,
+              "description": "深度孤独",
+              "visualCharacteristics": [
+                "空旷",
+                "冷色调",
+                "距离感"
+              ]
+            },
+            {
+              "stage": 2,
+              "emotion": "longing",
+              "intensity": 0.8,
+              "description": "内心向往",
+              "visualCharacteristics": [
+                "温暖光线",
+                "希望色彩",
+                "远景"
+              ]
+            },
+            {
+              "stage": 3,
+              "emotion": "contemplation",
+              "intensity": 0.7,
+              "description": "深度思考",
+              "visualCharacteristics": [
+                "内省",
+                "沉思",
+                "智慧"
+              ]
+            }
+          ],
+          "visualFeatures": {
+            "colorPalette": [],
+            "composition": [],
+            "lighting": [],
+            "mood": []
+          },
+          "aestheticPreferences": {
+            "mediaTypes": [
+              "摄影",
+              "油画"
+            ],
+            "artStyles": [
+              "现代主义",
+              "表现主义"
+            ],
+            "timePeriods": [
+              "19世纪",
+              "20世纪",
+              "当代"
+            ],
+            "culturalContexts": [
+              "欧洲",
+              "美洲",
+              "亚洲"
+            ],
+            "avoidElements": [
+              "宗教象征",
+              "过于明亮",
+              "商业元素"
+            ]
+          },
+          "narrativeTone": {
+            "voice": "passionate",
+            "approach": "direct",
+            "intimacy": "high",
+            "pacing": "fast"
+          },
+          "targetAudience": "寻求情感共鸣的观众",
+          "curatorialTheme": "孤独与向往：内心的艺术对话"
+        },
+        "retrievalQueries": [
+          {
+            "id": "emotion_0",
+            "query": "loneliness 深度孤独",
+            "stage": 1,
+            "weight": 0.9,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "loneliness"
+            }
+          },
+          {
+            "id": "visual_1",
+            "query": "空旷 loneliness",
+            "stage": 1,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "空旷"
+            }
+          },
+          {
+            "id": "visual_2",
+            "query": "冷色调 loneliness",
+            "stage": 1,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "冷色调"
+            }
+          },
+          {
+            "id": "visual_3",
+            "query": "距离感 loneliness",
+            "stage": 1,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "距离感"
+            }
+          },
+          {
+            "id": "emotion_4",
+            "query": "longing 内心向往",
+            "stage": 2,
+            "weight": 0.8,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "longing"
+            }
+          },
+          {
+            "id": "visual_5",
+            "query": "温暖光线 longing",
+            "stage": 2,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "温暖光线"
+            }
+          },
+          {
+            "id": "visual_6",
+            "query": "希望色彩 longing",
+            "stage": 2,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "希望色彩"
+            }
+          },
+          {
+            "id": "visual_7",
+            "query": "远景 longing",
+            "stage": 2,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "远景"
+            }
+          },
+          {
+            "id": "emotion_8",
+            "query": "contemplation 深度思考",
+            "stage": 3,
+            "weight": 0.7,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "contemplation"
+            }
+          },
+          {
+            "id": "visual_9",
+            "query": "内省 contemplation",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "内省"
+            }
+          },
+          {
+            "id": "visual_10",
+            "query": "沉思 contemplation",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "沉思"
+            }
+          },
+          {
+            "id": "visual_11",
+            "query": "智慧 contemplation",
+            "stage": 3,
+            "weight": 0.5599999999999999,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "智慧"
+            }
+          },
+          {
+            "id": "theme_12",
+            "query": "孤独与向往：内心的艺术对话",
+            "stage": 0,
+            "weight": 1,
+            "searchType": "semantic",
+            "filters": {
+              "theme": "孤独与向往：内心的艺术对话"
+            }
+          }
+        ],
+        "retrievalResults": {
+          "results": [
+            {
+              "queryId": "emotion_0",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_0-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9797004786951051,
+                  "relevance": 0.7432278462836961,
+                  "reasoning": "匹配loneliness 深度孤独"
+                },
+                {
+                  "id": "artwork-emotion_0-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9535084259201538,
+                  "relevance": 0.657780743674875,
+                  "reasoning": "匹配loneliness 深度孤独"
+                },
+                {
+                  "id": "artwork-emotion_0-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8792791493662271,
+                  "relevance": 0.867584175511914,
+                  "reasoning": "匹配loneliness 深度孤独"
+                },
+                {
+                  "id": "artwork-emotion_0-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.97229101311814,
+                  "relevance": 0.7067325581831336,
+                  "reasoning": "匹配loneliness 深度孤独"
+                }
+              ],
+              "totalFound": 4,
+              "searchTime": 11.97705346035528
+            },
+            {
+              "queryId": "visual_1",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_1-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8598329385616676,
+                  "relevance": 0.5936059830207884,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8170820536671645,
+                  "relevance": 0.6797579001888687,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9560684350989876,
+                  "relevance": 0.7062020017580736,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.859877100208793,
+                  "relevance": 0.6058949434989284,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9687406093798154,
+                  "relevance": 0.6727110505424523,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.740776336252459,
+                  "relevance": 0.700130909350006,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.7661908012020815,
+                  "relevance": 0.5604028792235577,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.8363154789812502,
+                  "relevance": 0.6286734775853844,
+                  "reasoning": "匹配空旷 loneliness"
+                },
+                {
+                  "id": "artwork-visual_1-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7445423277427747,
+                  "relevance": 0.5284658831124318,
+                  "reasoning": "匹配空旷 loneliness"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 12.77767418837501
+            },
+            {
+              "queryId": "visual_2",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_2-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9260003746082991,
+                  "relevance": 0.6131539963705558,
+                  "reasoning": "匹配冷色调 loneliness"
+                },
+                {
+                  "id": "artwork-visual_2-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8482305735316872,
+                  "relevance": 0.6695352432544489,
+                  "reasoning": "匹配冷色调 loneliness"
+                },
+                {
+                  "id": "artwork-visual_2-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7364318601818616,
+                  "relevance": 0.5538473707635277,
+                  "reasoning": "匹配冷色调 loneliness"
+                },
+                {
+                  "id": "artwork-visual_2-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9030862284786484,
+                  "relevance": 0.5972872631443812,
+                  "reasoning": "匹配冷色调 loneliness"
+                },
+                {
+                  "id": "artwork-visual_2-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9813989235067753,
+                  "relevance": 0.6217642557420309,
+                  "reasoning": "匹配冷色调 loneliness"
+                },
+                {
+                  "id": "artwork-visual_2-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.8476572879164529,
+                  "relevance": 0.5889293950245533,
+                  "reasoning": "匹配冷色调 loneliness"
+                },
+                {
+                  "id": "artwork-visual_2-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9361449655843793,
+                  "relevance": 0.646965414484934,
+                  "reasoning": "匹配冷色调 loneliness"
+                }
+              ],
+              "totalFound": 7,
+              "searchTime": 10.971537792015768
+            },
+            {
+              "queryId": "visual_3",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_3-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9553639963046183,
+                  "relevance": 0.5869310397429631,
+                  "reasoning": "匹配距离感 loneliness"
+                },
+                {
+                  "id": "artwork-visual_3-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.929986244423654,
+                  "relevance": 0.6400585763632867,
+                  "reasoning": "匹配距离感 loneliness"
+                },
+                {
+                  "id": "artwork-visual_3-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7502020947409024,
+                  "relevance": 0.6158409591608962,
+                  "reasoning": "匹配距离感 loneliness"
+                },
+                {
+                  "id": "artwork-visual_3-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.7051761149698113,
+                  "relevance": 0.5193020987317475,
+                  "reasoning": "匹配距离感 loneliness"
+                },
+                {
+                  "id": "artwork-visual_3-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.8940116418209374,
+                  "relevance": 0.5109002401331604,
+                  "reasoning": "匹配距离感 loneliness"
+                },
+                {
+                  "id": "artwork-visual_3-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.8672909905277105,
+                  "relevance": 0.6024705005262293,
+                  "reasoning": "匹配距离感 loneliness"
+                },
+                {
+                  "id": "artwork-visual_3-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.8007956864960004,
+                  "relevance": 0.6717367144561597,
+                  "reasoning": "匹配距离感 loneliness"
+                }
+              ],
+              "totalFound": 7,
+              "searchTime": 7.173102681668235
+            },
+            {
+              "queryId": "emotion_4",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_4-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9979286561106463,
+                  "relevance": 0.658295145512679,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8115425868608446,
+                  "relevance": 0.6416978944269511,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8081787227213579,
+                  "relevance": 0.7094395135421909,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9773528642397076,
+                  "relevance": 0.7440243353883326,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.8735983873863574,
+                  "relevance": 0.7885672231849155,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.9476393852044999,
+                  "relevance": 0.6314776351262988,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9775629443640191,
+                  "relevance": 0.6438924877640037,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.9116509677710662,
+                  "relevance": 0.6550952682496306,
+                  "reasoning": "匹配longing 内心向往"
+                },
+                {
+                  "id": "artwork-emotion_4-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7829250904569651,
+                  "relevance": 0.6838598248021868,
+                  "reasoning": "匹配longing 内心向往"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 8.508483893527632
+            },
+            {
+              "queryId": "visual_5",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_5-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7612427258847156,
+                  "relevance": 0.6295499892447657,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7888643939321284,
+                  "relevance": 0.4747796006001968,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7084297693315195,
+                  "relevance": 0.6175782495699388,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9665055402905265,
+                  "relevance": 0.494474919962265,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.880169961853229,
+                  "relevance": 0.5756833127556751,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7000346971018979,
+                  "relevance": 0.5063801553187431,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.7721513308939898,
+                  "relevance": 0.49341153640680613,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.9930742137658464,
+                  "relevance": 0.5531840505582812,
+                  "reasoning": "匹配温暖光线 longing"
+                },
+                {
+                  "id": "artwork-visual_5-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7405723928540104,
+                  "relevance": 0.5250283687191345,
+                  "reasoning": "匹配温暖光线 longing"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 14.191654545233689
+            },
+            {
+              "queryId": "visual_6",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_6-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9081894305834446,
+                  "relevance": 0.49956292981840655,
+                  "reasoning": "匹配希望色彩 longing"
+                },
+                {
+                  "id": "artwork-visual_6-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.751284082044477,
+                  "relevance": 0.5878327674968161,
+                  "reasoning": "匹配希望色彩 longing"
+                },
+                {
+                  "id": "artwork-visual_6-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8821123734353,
+                  "relevance": 0.5203947125878862,
+                  "reasoning": "匹配希望色彩 longing"
+                },
+                {
+                  "id": "artwork-visual_6-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8771616730091116,
+                  "relevance": 0.5550680269077457,
+                  "reasoning": "匹配希望色彩 longing"
+                }
+              ],
+              "totalFound": 4,
+              "searchTime": 14.3734800354725
+            },
+            {
+              "queryId": "visual_7",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_7-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9233192041524637,
+                  "relevance": 0.6064658060738787,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8873803000296445,
+                  "relevance": 0.6355300227388784,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9442180529523749,
+                  "relevance": 0.5505539085998957,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9750053774249856,
+                  "relevance": 0.4811943734583977,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9224490576281719,
+                  "relevance": 0.5150141247026192,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7112689230241761,
+                  "relevance": 0.4974906631617543,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9312866169821633,
+                  "relevance": 0.48090484662293154,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.9182379125692498,
+                  "relevance": 0.5308485869984073,
+                  "reasoning": "匹配远景 longing"
+                },
+                {
+                  "id": "artwork-visual_7-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7324636273083789,
+                  "relevance": 0.47814134293417865,
+                  "reasoning": "匹配远景 longing"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 7.174901981754749
+            },
+            {
+              "queryId": "emotion_8",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_8-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.907868384888742,
+                  "relevance": 0.606663465910906,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8123896495476789,
+                  "relevance": 0.6440302784729119,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7247255475653033,
+                  "relevance": 0.665708706283815,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8325552950911391,
+                  "relevance": 0.6382135076526261,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7604603872849559,
+                  "relevance": 0.6131420557585974,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.910132661673952,
+                  "relevance": 0.5998385026204321,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.7064489316950224,
+                  "relevance": 0.6827152940501052,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.975989080165085,
+                  "relevance": 0.6222732533820851,
+                  "reasoning": "匹配contemplation 深度思考"
+                },
+                {
+                  "id": "artwork-emotion_8-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.9722732771538007,
+                  "relevance": 0.5474516669054349,
+                  "reasoning": "匹配contemplation 深度思考"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 6.001412533164585
+            },
+            {
+              "queryId": "visual_9",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_9-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8663655411003186,
+                  "relevance": 0.5160849045572079,
+                  "reasoning": "匹配内省 contemplation"
+                },
+                {
+                  "id": "artwork-visual_9-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7037687254833076,
+                  "relevance": 0.44939101137059606,
+                  "reasoning": "匹配内省 contemplation"
+                },
+                {
+                  "id": "artwork-visual_9-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8207277727207665,
+                  "relevance": 0.5174180820127254,
+                  "reasoning": "匹配内省 contemplation"
+                },
+                {
+                  "id": "artwork-visual_9-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8117950271095047,
+                  "relevance": 0.3988585798249595,
+                  "reasoning": "匹配内省 contemplation"
+                }
+              ],
+              "totalFound": 4,
+              "searchTime": 7.192240269100305
+            },
+            {
+              "queryId": "visual_10",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_10-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7550760963617138,
+                  "relevance": 0.4764849576030825,
+                  "reasoning": "匹配沉思 contemplation"
+                },
+                {
+                  "id": "artwork-visual_10-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8306731375533103,
+                  "relevance": 0.45836295159500734,
+                  "reasoning": "匹配沉思 contemplation"
+                },
+                {
+                  "id": "artwork-visual_10-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8966534737477898,
+                  "relevance": 0.4196139479581082,
+                  "reasoning": "匹配沉思 contemplation"
+                },
+                {
+                  "id": "artwork-visual_10-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.7155209602176954,
+                  "relevance": 0.41671632023437594,
+                  "reasoning": "匹配沉思 contemplation"
+                },
+                {
+                  "id": "artwork-visual_10-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9567843896615058,
+                  "relevance": 0.5220134273992758,
+                  "reasoning": "匹配沉思 contemplation"
+                }
+              ],
+              "totalFound": 5,
+              "searchTime": 10.701124132321256
+            },
+            {
+              "queryId": "visual_11",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_11-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9200755755967304,
+                  "relevance": 0.43240747409374897,
+                  "reasoning": "匹配智慧 contemplation"
+                },
+                {
+                  "id": "artwork-visual_11-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7571302907477453,
+                  "relevance": 0.5090846840726095,
+                  "reasoning": "匹配智慧 contemplation"
+                },
+                {
+                  "id": "artwork-visual_11-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9536235459302342,
+                  "relevance": 0.43938392429861345,
+                  "reasoning": "匹配智慧 contemplation"
+                },
+                {
+                  "id": "artwork-visual_11-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.7988754784727644,
+                  "relevance": 0.45123151469782835,
+                  "reasoning": "匹配智慧 contemplation"
+                }
+              ],
+              "totalFound": 4,
+              "searchTime": 7.756499389920075
+            },
+            {
+              "queryId": "theme_12",
+              "stage": 0,
+              "artworks": [
+                {
+                  "id": "artwork-theme_12-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.751376205066685,
+                  "relevance": 0.745673859937078,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                },
+                {
+                  "id": "artwork-theme_12-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9806853730230434,
+                  "relevance": 0.7202011052877357,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                },
+                {
+                  "id": "artwork-theme_12-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7462382024805817,
+                  "relevance": 0.9312974673359564,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                },
+                {
+                  "id": "artwork-theme_12-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8145300929756667,
+                  "relevance": 0.8263678363330947,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                },
+                {
+                  "id": "artwork-theme_12-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.8299476048749869,
+                  "relevance": 0.9794476599317519,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                },
+                {
+                  "id": "artwork-theme_12-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7043788497099279,
+                  "relevance": 0.8104553592689441,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                },
+                {
+                  "id": "artwork-theme_12-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9893844485819965,
+                  "relevance": 0.9158347868281405,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                },
+                {
+                  "id": "artwork-theme_12-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.7648824027045295,
+                  "relevance": 0.7323120034135937,
+                  "reasoning": "匹配孤独与向往：内心的艺术对话"
+                }
+              ],
+              "totalFound": 8,
+              "searchTime": 13.85924613191701
+            }
+          ],
+          "totalArtworks": 88,
+          "totalQueries": 13
+        },
+        "finalComposition": {
+          "emotionalArc": "从第0阶段的undefined到第2阶段的longing",
+          "totalArtworks": 12,
+          "selectedArtworks": [
+            {
+              "id": "artwork-theme_12-4",
+              "title": "Artwork 5",
+              "artist": "Artist 5",
+              "stage": 0,
+              "position": 1,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.9794476599317519
+            },
+            {
+              "id": "artwork-theme_12-2",
+              "title": "Artwork 3",
+              "artist": "Artist 3",
+              "stage": 0,
+              "position": 2,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.9312974673359564
+            },
+            {
+              "id": "artwork-theme_12-6",
+              "title": "Artwork 7",
+              "artist": "Artist 7",
+              "stage": 0,
+              "position": 3,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.9158347868281405
+            },
+            {
+              "id": "artwork-emotion_0-2",
+              "title": "Artwork 3",
+              "artist": "Artist 3",
+              "stage": 1,
+              "position": 4,
+              "reasoning": "匹配loneliness 深度孤独",
+              "emotionalImpact": 0.867584175511914
+            },
+            {
+              "id": "artwork-theme_12-3",
+              "title": "Artwork 4",
+              "artist": "Artist 4",
+              "stage": 0,
+              "position": 5,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.8263678363330947
+            },
+            {
+              "id": "artwork-theme_12-5",
+              "title": "Artwork 6",
+              "artist": "Artist 6",
+              "stage": 0,
+              "position": 6,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.8104553592689441
+            },
+            {
+              "id": "artwork-emotion_4-4",
+              "title": "Artwork 5",
+              "artist": "Artist 5",
+              "stage": 2,
+              "position": 7,
+              "reasoning": "匹配longing 内心向往",
+              "emotionalImpact": 0.7885672231849155
+            },
+            {
+              "id": "artwork-theme_12-0",
+              "title": "Artwork 1",
+              "artist": "Artist 1",
+              "stage": 0,
+              "position": 8,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.745673859937078
+            },
+            {
+              "id": "artwork-emotion_4-3",
+              "title": "Artwork 4",
+              "artist": "Artist 4",
+              "stage": 2,
+              "position": 9,
+              "reasoning": "匹配longing 内心向往",
+              "emotionalImpact": 0.7440243353883326
+            },
+            {
+              "id": "artwork-emotion_0-0",
+              "title": "Artwork 1",
+              "artist": "Artist 1",
+              "stage": 1,
+              "position": 10,
+              "reasoning": "匹配loneliness 深度孤独",
+              "emotionalImpact": 0.7432278462836961
+            },
+            {
+              "id": "artwork-theme_12-7",
+              "title": "Artwork 8",
+              "artist": "Artist 8",
+              "stage": 0,
+              "position": 11,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.7323120034135937
+            },
+            {
+              "id": "artwork-theme_12-1",
+              "title": "Artwork 2",
+              "artist": "Artist 2",
+              "stage": 0,
+              "position": 12,
+              "reasoning": "匹配孤独与向往：内心的艺术对话",
+              "emotionalImpact": 0.7202011052877357
+            }
+          ],
+          "narrativeFlow": "通过12件精心挑选的作品，展现了一个从深度孤独到深度思考的完整情绪旅程",
+          "visualProgression": "视觉上从冷色调逐渐过渡到暖色调，营造出层次丰富的情感氛围",
+          "curatorialStatement": "\"孤独与向往：内心的艺术对话\"：这次策展通过12件作品，为寻求情感共鸣的观众创造了一个passionate而direct的艺术体验空间。"
+        }
+      }
+    },
+    {
+      "testCase": "我想要一些充满活力和色彩的作品，让我感到快乐和兴奋。",
+      "passed": true,
+      "score": 76,
+      "totalTime": 571,
+      "details": [
+        "策展意图质量: 60/100",
+        "检索Query质量: 100/100",
+        "检索结果质量: 60/100",
+        "最终策展质量: 100/100"
+      ],
+      "performance": {
+        "intentTime": 301,
+        "queryTime": 0,
+        "searchTime": 69,
+        "composeTime": 201,
+        "totalTime": 571
+      },
+      "results": {
+        "curationIntent": {
+          "emotionalStages": [
+            {
+              "stage": 1,
+              "emotion": "joy",
+              "intensity": 0.8,
+              "description": "开场快乐",
+              "visualCharacteristics": [
+                "明亮",
+                "温暖",
+                "开放"
+              ]
+            },
+            {
+              "stage": 2,
+              "emotion": "excitement",
+              "intensity": 0.9,
+              "description": "兴奋激动",
+              "visualCharacteristics": [
+                "强烈对比",
+                "动态",
+                "活力"
+              ]
+            },
+            {
+              "stage": 3,
+              "emotion": "energy",
+              "intensity": 0.8,
+              "description": "活力四射",
+              "visualCharacteristics": [
+                "明亮色彩",
+                "高饱和",
+                "活力"
+              ]
+            }
+          ],
+          "visualFeatures": {
+            "colorPalette": [
+              "暖色调",
+              "高饱和",
+              "明亮色彩"
+            ],
+            "composition": [],
+            "lighting": [],
+            "mood": []
+          },
+          "aestheticPreferences": {
+            "mediaTypes": [
+              "摄影",
+              "油画"
+            ],
+            "artStyles": [
+              "现代主义",
+              "表现主义"
+            ],
+            "timePeriods": [
+              "19世纪",
+              "20世纪",
+              "当代"
+            ],
+            "culturalContexts": [
+              "欧洲",
+              "美洲",
+              "亚洲"
+            ],
+            "avoidElements": [
+              "宗教象征",
+              "过于明亮",
+              "商业元素"
+            ]
+          },
+          "narrativeTone": {
+            "voice": "passionate",
+            "approach": "direct",
+            "intimacy": "high",
+            "pacing": "fast"
+          },
+          "targetAudience": "寻求情感共鸣的观众",
+          "curatorialTheme": "活力与色彩：快乐的艺术表达"
+        },
+        "retrievalQueries": [
+          {
+            "id": "emotion_0",
+            "query": "joy 开场快乐",
+            "stage": 1,
+            "weight": 0.8,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "joy"
+            }
+          },
+          {
+            "id": "visual_1",
+            "query": "明亮 joy",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "明亮"
+            }
+          },
+          {
+            "id": "visual_2",
+            "query": "温暖 joy",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "温暖"
+            }
+          },
+          {
+            "id": "visual_3",
+            "query": "开放 joy",
+            "stage": 1,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "开放"
+            }
+          },
+          {
+            "id": "emotion_4",
+            "query": "excitement 兴奋激动",
+            "stage": 2,
+            "weight": 0.9,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "excitement"
+            }
+          },
+          {
+            "id": "visual_5",
+            "query": "强烈对比 excitement",
+            "stage": 2,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "强烈对比"
+            }
+          },
+          {
+            "id": "visual_6",
+            "query": "动态 excitement",
+            "stage": 2,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "动态"
+            }
+          },
+          {
+            "id": "visual_7",
+            "query": "活力 excitement",
+            "stage": 2,
+            "weight": 0.7200000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "活力"
+            }
+          },
+          {
+            "id": "emotion_8",
+            "query": "energy 活力四射",
+            "stage": 3,
+            "weight": 0.8,
+            "searchType": "semantic",
+            "filters": {
+              "emotion": "energy"
+            }
+          },
+          {
+            "id": "visual_9",
+            "query": "明亮色彩 energy",
+            "stage": 3,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "明亮色彩"
+            }
+          },
+          {
+            "id": "visual_10",
+            "query": "高饱和 energy",
+            "stage": 3,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "高饱和"
+            }
+          },
+          {
+            "id": "visual_11",
+            "query": "活力 energy",
+            "stage": 3,
+            "weight": 0.6400000000000001,
+            "searchType": "hybrid",
+            "filters": {
+              "visual": "活力"
+            }
+          },
+          {
+            "id": "theme_12",
+            "query": "活力与色彩：快乐的艺术表达",
+            "stage": 0,
+            "weight": 1,
+            "searchType": "semantic",
+            "filters": {
+              "theme": "活力与色彩：快乐的艺术表达"
+            }
+          }
+        ],
+        "retrievalResults": {
+          "results": [
+            {
+              "queryId": "emotion_0",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_0-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9250885260196492,
+                  "relevance": 0.5822944543754986,
+                  "reasoning": "匹配joy 开场快乐"
+                },
+                {
+                  "id": "artwork-emotion_0-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9508482339585953,
+                  "relevance": 0.7840104346597955,
+                  "reasoning": "匹配joy 开场快乐"
+                },
+                {
+                  "id": "artwork-emotion_0-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8173493753457477,
+                  "relevance": 0.7410340966042821,
+                  "reasoning": "匹配joy 开场快乐"
+                },
+                {
+                  "id": "artwork-emotion_0-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8196072374233871,
+                  "relevance": 0.7641483639311828,
+                  "reasoning": "匹配joy 开场快乐"
+                },
+                {
+                  "id": "artwork-emotion_0-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7041493678949361,
+                  "relevance": 0.6678527162889007,
+                  "reasoning": "匹配joy 开场快乐"
+                },
+                {
+                  "id": "artwork-emotion_0-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7709688292902631,
+                  "relevance": 0.5972563669333332,
+                  "reasoning": "匹配joy 开场快乐"
+                }
+              ],
+              "totalFound": 6,
+              "searchTime": 9.680229932461017
+            },
+            {
+              "queryId": "visual_1",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_1-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7106995510589545,
+                  "relevance": 0.46244210672650915,
+                  "reasoning": "匹配明亮 joy"
+                },
+                {
+                  "id": "artwork-visual_1-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9638114922905843,
+                  "relevance": 0.5754805303500528,
+                  "reasoning": "匹配明亮 joy"
+                },
+                {
+                  "id": "artwork-visual_1-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7158527948021036,
+                  "relevance": 0.5857469957926208,
+                  "reasoning": "匹配明亮 joy"
+                },
+                {
+                  "id": "artwork-visual_1-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.7274812225298251,
+                  "relevance": 0.4912782501071572,
+                  "reasoning": "匹配明亮 joy"
+                },
+                {
+                  "id": "artwork-visual_1-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.8817016974729932,
+                  "relevance": 0.4516939617098266,
+                  "reasoning": "匹配明亮 joy"
+                }
+              ],
+              "totalFound": 5,
+              "searchTime": 8.613041358178911
+            },
+            {
+              "queryId": "visual_2",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_2-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9644151263489504,
+                  "relevance": 0.543606184785461,
+                  "reasoning": "匹配温暖 joy"
+                },
+                {
+                  "id": "artwork-visual_2-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9799905576114039,
+                  "relevance": 0.5567258073138309,
+                  "reasoning": "匹配温暖 joy"
+                },
+                {
+                  "id": "artwork-visual_2-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7140922348173969,
+                  "relevance": 0.6326698856457765,
+                  "reasoning": "匹配温暖 joy"
+                },
+                {
+                  "id": "artwork-visual_2-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8385197000643018,
+                  "relevance": 0.6164995890247553,
+                  "reasoning": "匹配温暖 joy"
+                },
+                {
+                  "id": "artwork-visual_2-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9629584240234143,
+                  "relevance": 0.570741927451906,
+                  "reasoning": "匹配温暖 joy"
+                },
+                {
+                  "id": "artwork-visual_2-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7313659077044934,
+                  "relevance": 0.47816110002902734,
+                  "reasoning": "匹配温暖 joy"
+                }
+              ],
+              "totalFound": 6,
+              "searchTime": 13.015191553954757
+            },
+            {
+              "queryId": "visual_3",
+              "stage": 1,
+              "artworks": [
+                {
+                  "id": "artwork-visual_3-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9956823680346938,
+                  "relevance": 0.6348193846912782,
+                  "reasoning": "匹配开放 joy"
+                },
+                {
+                  "id": "artwork-visual_3-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.970363338843151,
+                  "relevance": 0.5770069511794368,
+                  "reasoning": "匹配开放 joy"
+                },
+                {
+                  "id": "artwork-visual_3-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7189279325168428,
+                  "relevance": 0.5124866313225431,
+                  "reasoning": "匹配开放 joy"
+                },
+                {
+                  "id": "artwork-visual_3-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8246045655857551,
+                  "relevance": 0.49970618015837326,
+                  "reasoning": "匹配开放 joy"
+                },
+                {
+                  "id": "artwork-visual_3-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.8610545512003397,
+                  "relevance": 0.5535793744342944,
+                  "reasoning": "匹配开放 joy"
+                },
+                {
+                  "id": "artwork-visual_3-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.842622762376761,
+                  "relevance": 0.5919228734892654,
+                  "reasoning": "匹配开放 joy"
+                }
+              ],
+              "totalFound": 6,
+              "searchTime": 7.222667926541573
+            },
+            {
+              "queryId": "emotion_4",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_4-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8701440461916745,
+                  "relevance": 0.7170992722312312,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8973483713009537,
+                  "relevance": 0.7230039980133173,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7644995371712585,
+                  "relevance": 0.6663407661370617,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9311580233624027,
+                  "relevance": 0.8990643577888267,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.8258854171222927,
+                  "relevance": 0.7643480596451201,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.9754267452806266,
+                  "relevance": 0.8940925343057483,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9645282843413361,
+                  "relevance": 0.6334001214805961,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.7258444770093251,
+                  "relevance": 0.7598915000120481,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.830255365652895,
+                  "relevance": 0.7485754306173859,
+                  "reasoning": "匹配excitement 兴奋激动"
+                },
+                {
+                  "id": "artwork-emotion_4-9",
+                  "title": "Artwork 10",
+                  "artist": "Artist 10",
+                  "similarity": 0.8741399364297998,
+                  "relevance": 0.6795873969903153,
+                  "reasoning": "匹配excitement 兴奋激动"
+                }
+              ],
+              "totalFound": 10,
+              "searchTime": 13.547209954485133
+            },
+            {
+              "queryId": "visual_5",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_5-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.7111814171202001,
+                  "relevance": 0.65736753931933,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7091448568991643,
+                  "relevance": 0.6849792867622607,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9143104101521023,
+                  "relevance": 0.5047487708824115,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9152407290906887,
+                  "relevance": 0.5255410827963565,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7691220133769421,
+                  "relevance": 0.529675956192982,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.8420050632751134,
+                  "relevance": 0.6499992316582234,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9530471091799833,
+                  "relevance": 0.6231078978877663,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.7791316067696952,
+                  "relevance": 0.5335833130486162,
+                  "reasoning": "匹配强烈对比 excitement"
+                },
+                {
+                  "id": "artwork-visual_5-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7993611527959795,
+                  "relevance": 0.673212989974161,
+                  "reasoning": "匹配强烈对比 excitement"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 6.646593466337862
+            },
+            {
+              "queryId": "visual_6",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_6-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8662325937035378,
+                  "relevance": 0.557517257348026,
+                  "reasoning": "匹配动态 excitement"
+                },
+                {
+                  "id": "artwork-visual_6-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7614852616682081,
+                  "relevance": 0.6887486468699454,
+                  "reasoning": "匹配动态 excitement"
+                },
+                {
+                  "id": "artwork-visual_6-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7615161367224397,
+                  "relevance": 0.5839273572762637,
+                  "reasoning": "匹配动态 excitement"
+                },
+                {
+                  "id": "artwork-visual_6-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.7923950603389313,
+                  "relevance": 0.516704429925982,
+                  "reasoning": "匹配动态 excitement"
+                },
+                {
+                  "id": "artwork-visual_6-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.789652087167509,
+                  "relevance": 0.6524011210790455,
+                  "reasoning": "匹配动态 excitement"
+                },
+                {
+                  "id": "artwork-visual_6-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.7763084757821611,
+                  "relevance": 0.6533025607305543,
+                  "reasoning": "匹配动态 excitement"
+                },
+                {
+                  "id": "artwork-visual_6-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.7699685617846341,
+                  "relevance": 0.5757997021231124,
+                  "reasoning": "匹配动态 excitement"
+                }
+              ],
+              "totalFound": 7,
+              "searchTime": 10.315711380561554
+            },
+            {
+              "queryId": "visual_7",
+              "stage": 2,
+              "artworks": [
+                {
+                  "id": "artwork-visual_7-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9556179950196864,
+                  "relevance": 0.6292737310002456,
+                  "reasoning": "匹配活力 excitement"
+                },
+                {
+                  "id": "artwork-visual_7-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7353521697848255,
+                  "relevance": 0.5170713148564907,
+                  "reasoning": "匹配活力 excitement"
+                },
+                {
+                  "id": "artwork-visual_7-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8793609809616997,
+                  "relevance": 0.6765125088641635,
+                  "reasoning": "匹配活力 excitement"
+                },
+                {
+                  "id": "artwork-visual_7-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.8375699326565951,
+                  "relevance": 0.5243984603932681,
+                  "reasoning": "匹配活力 excitement"
+                },
+                {
+                  "id": "artwork-visual_7-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.7731704589761413,
+                  "relevance": 0.6610861659044354,
+                  "reasoning": "匹配活力 excitement"
+                },
+                {
+                  "id": "artwork-visual_7-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.8017810996429394,
+                  "relevance": 0.6584945017772739,
+                  "reasoning": "匹配活力 excitement"
+                }
+              ],
+              "totalFound": 6,
+              "searchTime": 12.086422837624685
+            },
+            {
+              "queryId": "emotion_8",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-emotion_8-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.817264392029095,
+                  "relevance": 0.6074039537820316,
+                  "reasoning": "匹配energy 活力四射"
+                },
+                {
+                  "id": "artwork-emotion_8-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8944981676717294,
+                  "relevance": 0.7315710580814596,
+                  "reasoning": "匹配energy 活力四射"
+                },
+                {
+                  "id": "artwork-emotion_8-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.8859257059622292,
+                  "relevance": 0.6795801259002695,
+                  "reasoning": "匹配energy 活力四射"
+                }
+              ],
+              "totalFound": 3,
+              "searchTime": 11.935211795783232
+            },
+            {
+              "queryId": "visual_9",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_9-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8262082053944453,
+                  "relevance": 0.5342328788444555,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.7015193853545618,
+                  "relevance": 0.4614530651301813,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7963757488782948,
+                  "relevance": 0.5945746575060412,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.9632166306223893,
+                  "relevance": 0.4728987963275952,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9168974568229915,
+                  "relevance": 0.4757827241277561,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.9870764878903913,
+                  "relevance": 0.6287178908311525,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9794282406335002,
+                  "relevance": 0.6167998046511745,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.7873386361492062,
+                  "relevance": 0.6378508759775477,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7805943709874188,
+                  "relevance": 0.6073608420152498,
+                  "reasoning": "匹配明亮色彩 energy"
+                },
+                {
+                  "id": "artwork-visual_9-9",
+                  "title": "Artwork 10",
+                  "artist": "Artist 10",
+                  "similarity": 0.9840586442753012,
+                  "relevance": 0.5480736535287485,
+                  "reasoning": "匹配明亮色彩 energy"
+                }
+              ],
+              "totalFound": 10,
+              "searchTime": 14.416381744758777
+            },
+            {
+              "queryId": "visual_10",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_10-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.8361154020991589,
+                  "relevance": 0.5344335634914684,
+                  "reasoning": "匹配高饱和 energy"
+                },
+                {
+                  "id": "artwork-visual_10-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.8867132042020307,
+                  "relevance": 0.47930327086177305,
+                  "reasoning": "匹配高饱和 energy"
+                },
+                {
+                  "id": "artwork-visual_10-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9746434460446965,
+                  "relevance": 0.48531867856988514,
+                  "reasoning": "匹配高饱和 energy"
+                }
+              ],
+              "totalFound": 3,
+              "searchTime": 13.531023273141798
+            },
+            {
+              "queryId": "visual_11",
+              "stage": 3,
+              "artworks": [
+                {
+                  "id": "artwork-visual_11-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9547836339310419,
+                  "relevance": 0.5203389623932502,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9307915148197518,
+                  "relevance": 0.4940522751120897,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.7148598298272095,
+                  "relevance": 0.6181837575847108,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-3",
+                  "title": "Artwork 4",
+                  "artist": "Artist 4",
+                  "similarity": 0.7402301954210943,
+                  "relevance": 0.6267024044070253,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-4",
+                  "title": "Artwork 5",
+                  "artist": "Artist 5",
+                  "similarity": 0.9891070924670845,
+                  "relevance": 0.5977653703125924,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-5",
+                  "title": "Artwork 6",
+                  "artist": "Artist 6",
+                  "similarity": 0.9288249354358595,
+                  "relevance": 0.4787246896123338,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-6",
+                  "title": "Artwork 7",
+                  "artist": "Artist 7",
+                  "similarity": 0.9805571682089713,
+                  "relevance": 0.6085867477811483,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-7",
+                  "title": "Artwork 8",
+                  "artist": "Artist 8",
+                  "similarity": 0.9782500682428712,
+                  "relevance": 0.6153150915337271,
+                  "reasoning": "匹配活力 energy"
+                },
+                {
+                  "id": "artwork-visual_11-8",
+                  "title": "Artwork 9",
+                  "artist": "Artist 9",
+                  "similarity": 0.7218194173139958,
+                  "relevance": 0.4974320117570847,
+                  "reasoning": "匹配活力 energy"
+                }
+              ],
+              "totalFound": 9,
+              "searchTime": 9.317752411565616
+            },
+            {
+              "queryId": "theme_12",
+              "stage": 0,
+              "artworks": [
+                {
+                  "id": "artwork-theme_12-0",
+                  "title": "Artwork 1",
+                  "artist": "Artist 1",
+                  "similarity": 0.9964564623750156,
+                  "relevance": 0.7162886936394266,
+                  "reasoning": "匹配活力与色彩：快乐的艺术表达"
+                },
+                {
+                  "id": "artwork-theme_12-1",
+                  "title": "Artwork 2",
+                  "artist": "Artist 2",
+                  "similarity": 0.9607999152842169,
+                  "relevance": 0.8724598616715182,
+                  "reasoning": "匹配活力与色彩：快乐的艺术表达"
+                },
+                {
+                  "id": "artwork-theme_12-2",
+                  "title": "Artwork 3",
+                  "artist": "Artist 3",
+                  "similarity": 0.9900758884171623,
+                  "relevance": 0.9783429462692301,
+                  "reasoning": "匹配活力与色彩：快乐的艺术表达"
+                }
+              ],
+              "totalFound": 3,
+              "searchTime": 8.958910521765766
+            }
+          ],
+          "totalArtworks": 83,
+          "totalQueries": 13
+        },
+        "finalComposition": {
+          "emotionalArc": "从第0阶段的undefined到第3阶段的energy",
+          "totalArtworks": 12,
+          "selectedArtworks": [
+            {
+              "id": "artwork-theme_12-2",
+              "title": "Artwork 3",
+              "artist": "Artist 3",
+              "stage": 0,
+              "position": 1,
+              "reasoning": "匹配活力与色彩：快乐的艺术表达",
+              "emotionalImpact": 0.9783429462692301
+            },
+            {
+              "id": "artwork-emotion_4-3",
+              "title": "Artwork 4",
+              "artist": "Artist 4",
+              "stage": 2,
+              "position": 2,
+              "reasoning": "匹配excitement 兴奋激动",
+              "emotionalImpact": 0.8990643577888267
+            },
+            {
+              "id": "artwork-emotion_4-5",
+              "title": "Artwork 6",
+              "artist": "Artist 6",
+              "stage": 2,
+              "position": 3,
+              "reasoning": "匹配excitement 兴奋激动",
+              "emotionalImpact": 0.8940925343057483
+            },
+            {
+              "id": "artwork-theme_12-1",
+              "title": "Artwork 2",
+              "artist": "Artist 2",
+              "stage": 0,
+              "position": 4,
+              "reasoning": "匹配活力与色彩：快乐的艺术表达",
+              "emotionalImpact": 0.8724598616715182
+            },
+            {
+              "id": "artwork-emotion_0-1",
+              "title": "Artwork 2",
+              "artist": "Artist 2",
+              "stage": 1,
+              "position": 5,
+              "reasoning": "匹配joy 开场快乐",
+              "emotionalImpact": 0.7840104346597955
+            },
+            {
+              "id": "artwork-emotion_4-4",
+              "title": "Artwork 5",
+              "artist": "Artist 5",
+              "stage": 2,
+              "position": 6,
+              "reasoning": "匹配excitement 兴奋激动",
+              "emotionalImpact": 0.7643480596451201
+            },
+            {
+              "id": "artwork-emotion_0-3",
+              "title": "Artwork 4",
+              "artist": "Artist 4",
+              "stage": 1,
+              "position": 7,
+              "reasoning": "匹配joy 开场快乐",
+              "emotionalImpact": 0.7641483639311828
+            },
+            {
+              "id": "artwork-emotion_4-7",
+              "title": "Artwork 8",
+              "artist": "Artist 8",
+              "stage": 2,
+              "position": 8,
+              "reasoning": "匹配excitement 兴奋激动",
+              "emotionalImpact": 0.7598915000120481
+            },
+            {
+              "id": "artwork-emotion_4-8",
+              "title": "Artwork 9",
+              "artist": "Artist 9",
+              "stage": 2,
+              "position": 9,
+              "reasoning": "匹配excitement 兴奋激动",
+              "emotionalImpact": 0.7485754306173859
+            },
+            {
+              "id": "artwork-emotion_0-2",
+              "title": "Artwork 3",
+              "artist": "Artist 3",
+              "stage": 1,
+              "position": 10,
+              "reasoning": "匹配joy 开场快乐",
+              "emotionalImpact": 0.7410340966042821
+            },
+            {
+              "id": "artwork-emotion_8-1",
+              "title": "Artwork 2",
+              "artist": "Artist 2",
+              "stage": 3,
+              "position": 11,
+              "reasoning": "匹配energy 活力四射",
+              "emotionalImpact": 0.7315710580814596
+            },
+            {
+              "id": "artwork-emotion_4-1",
+              "title": "Artwork 2",
+              "artist": "Artist 2",
+              "stage": 2,
+              "position": 12,
+              "reasoning": "匹配excitement 兴奋激动",
+              "emotionalImpact": 0.7230039980133173
+            }
+          ],
+          "narrativeFlow": "通过12件精心挑选的作品，展现了一个从开场快乐到活力四射的完整情绪旅程",
+          "visualProgression": "视觉上从暖色调逐渐过渡到明亮色彩，营造出层次丰富的情感氛围",
+          "curatorialStatement": "\"活力与色彩：快乐的艺术表达\"：这次策展通过12件作品，为寻求情感共鸣的观众创造了一个passionate而direct的艺术体验空间。"
+        }
+      }
+    }
+  ]
+}
