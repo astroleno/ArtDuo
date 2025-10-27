@@ -1,37 +1,44 @@
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:551 Navigation indicators rendered: 
-                    <span class="indicator active" data-index="0" role="button" tabindex="0" aria-label="跳转到第 1 幅画"></span>
-                
-                    <span class="indicator " data-index="1" role="button" tabindex="0" aria-label="跳转到第 2 幅画"></span>
-                
-                    <span class="indicator " data-index="2" role="button" tabindex="0" aria-label="跳转到第 3 幅画"></span>
-                
-                    <span class="indicator " data-index="3" role="button" tabindex="0" aria-label="跳转到第 4 幅画"></span>
-                
-                    <span class="indicator " data-index="4" role="button" tabindex="0" aria-label="跳转到第 5 幅画"></span>
-                
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:708 Switched to slide: 0
-content.js:1286 [AeScape] 准备初始化悬浮球
-content.js:33 [AeScape] 悬浮球系统初始化开始
-content.js:146 [AeScape] URL检查: http://localhost:3002/gallery/immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83, 应排除: false
-content.js:1328 [AeScape] 内容脚本已加载
-content.js:157 [AeScape] 用户设置检查: false
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:708 Switched to slide: 1
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:708 Switched to slide: 2
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:708 Switched to slide: 3
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:708 Switched to slide: 4
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:557 Key pressed: ArrowRight
-immersive?emotion=%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83:567 Going to next slide
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1265 🔄 缓存数据不匹配或不完整，清除并重新策展
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1284 🚀 启动策展流程...
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1029 页面加载完成，等待策展数据...
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1335 收到策展事件: {type: 'start', payload: {…}}
+content.js:76 Feature is disabled
+immersive?emotion=%E…F%BC%8C%E5%9B%A0…:1 Uncaught (in promise) {name: 'i', httpError: false, httpStatus: 200, httpStatusText: '', code: 403, …}
+immersive?emotion=%E…F%BC%8C%E5%9B%A0…:1 Uncaught (in promise) {name: 'i', httpError: false, httpStatus: 200, httpStatusText: '', code: 403, …}
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1335 收到策展事件: {type: 'curation_intent', payload: {…}}
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1340 收到策展意图: {curatorialTheme: '情绪的艺术表达', emotionalArc: '从探索到理解', emotionalStages: Array(1), durationMs: 55133}
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1444 updateImmersiveGallery 被调用，策展数据: {emotion: '今天感觉很烦恼，因为发给别人消息半天没回复，等待总是让人焦虑的', userInput: '', artworks: Array(0), introduction: '', conclusion: '', …}
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1462 ⏳ 策展数据未准备好，等待API返回...
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1335 收到策展事件: {type: 'artworks_selected', payload: {…}}
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1350 收到艺术作品: 9 件
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1444 updateImmersiveGallery 被调用，策展数据: {emotion: '今天感觉很烦恼，因为发给别人消息半天没回复，等待总是让人焦虑的', userInput: '', artworks: Array(9), introduction: '', conclusion: '', …}
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1446 ✅ 使用真实策展数据，作品数量: 9
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:789 复杂情绪主题，选择 9 件作品
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:789 复杂情绪主题，选择 9 件作品
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:746 Navigation indicators rendered: 
+                        <span class="indicator active" data-index="0" role="button" tabindex="0" aria-label="第 1 幅画"></span>
+                    
+                        <span class="indicator " data-index="1" role="button" tabindex="0" aria-label="第 2 幅画"></span>
+                    
+                        <span class="indicator " data-index="2" role="button" tabindex="0" aria-label="第 3 幅画"></span>
+                    
+                        <span class="indicator " data-index="3" role="button" tabindex="0" aria-label="第 4 幅画"></span>
+                    
+                        <span class="indicator " data-index="4" role="button" tabindex="0" aria-label="第 5 幅画"></span>
+                    
+                        <span class="indicator " data-index="5" role="button" tabindex="0" aria-label="第 6 幅画"></span>
+                    
+                        <span class="indicator " data-index="6" role="button" tabindex="0" aria-label="第 7 幅画"></span>
+                    
+                        <span class="indicator " data-index="7" role="button" tabindex="0" aria-label="第 8 幅画"></span>
+                    
+                        <span class="indicator " data-index="8" role="button" tabindex="0" aria-label="第 9 幅画"></span>
+                    
+inspector.js:7 Image URL being set: https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80
+inspector.js:7 Image URL being set: https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:789 复杂情绪主题，选择 9 件作品
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:956 Switched to slide: 0 of 9
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1460 ✅ 沉浸式画廊已更新，作品数量: 9
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1072 图片加载成功: 200668
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1072 图片加载成功: 437133
+immersive?emotion=%E4%BB%8A%E5%A4%A9%E6%84%9F%E8%A7%89%E5%BE%88%E7%83%A6%E6%81%BC%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E6%B6%88%E6%81%AF%E5%8D%8A%E5%A4%A9%E6%B2%A1%E5%9B%9E%E5%A4%8D%EF%BC%8C%E7%AD%89%E5%BE%85%E6%80%BB%E6%98%AF%E8%AE%A9%E4%BA%BA%E7%84%A6%E8%99%91%E7%9A%84:1072 图片加载成功: 671456

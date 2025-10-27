@@ -617,6 +617,9 @@
     <script>
         // 画作数据 - 从策展数据动态加载
         let artworks = [];
+        
+        // 确保artworks数组在全局作用域中可访问
+        window.artworks = artworks;
 
         class ImmersiveGallery {
             constructor() {
@@ -755,7 +758,7 @@
                 // 优先从情绪曲线设计获取推荐的作品数量
                 if (curationData.emotionCurve && curationData.emotionCurve.recommendedArtworkCount) {
                     const recommendedCount = curationData.emotionCurve.recommendedArtworkCount;
-                    const actualCount = Math.min(recommendedCount, artworks.length);
+                    const actualCount = Math.min(recommendedCount, window.artworks.length);
                     console.log('使用情绪曲线设计推荐的作品数量:', recommendedCount, '实际可用:', actualCount);
                     return actualCount;
                 }
@@ -765,7 +768,7 @@
                     const journeyLength = curationData.emotionCurve.emotionJourney.length;
                     if (journeyLength > 0) {
                         console.log('使用情绪曲线旅程长度:', journeyLength);
-                        return Math.min(journeyLength, artworks.length);
+                        return Math.min(journeyLength, window.artworks.length);
                     }
                 }
                 
@@ -782,13 +785,13 @@
                 
                 let optimalCount;
                 if (isComplex) {
-                    optimalCount = Math.min(12, artworks.length); // 复杂主题需要更多作品
+                    optimalCount = Math.min(12, window.artworks.length); // 复杂主题需要更多作品
                     console.log('复杂情绪主题，选择', optimalCount, '件作品');
                 } else if (isSimple) {
-                    optimalCount = Math.min(6, artworks.length); // 简单主题可以更少
+                    optimalCount = Math.min(6, window.artworks.length); // 简单主题可以更少
                     console.log('简单情绪主题，选择', optimalCount, '件作品');
                 } else {
-                    optimalCount = Math.min(9, artworks.length); // 默认9件
+                    optimalCount = Math.min(9, window.artworks.length); // 默认9件
                     console.log('默认主题，选择', optimalCount, '件作品');
                 }
                 
@@ -943,8 +946,8 @@
                 });
                 
                 // 智能预加载相邻图片
-                if (artworks.length > 0) {
-                    preloadImages(artworks, this.currentIndex);
+                if (window.artworks.length > 0) {
+                    preloadImages(window.artworks, this.currentIndex);
                 }
 
                 // 添加页面切换动画效果
@@ -1081,7 +1084,7 @@
         function preloadImages(artworks, currentIndex) {
             const preloadRange = 2; // 预加载当前图片前后2张
             const startIndex = Math.max(0, currentIndex - preloadRange);
-            const endIndex = Math.min(artworks.length - 1, currentIndex + preloadRange);
+            const endIndex = Math.min(window.artworks.length - 1, currentIndex + preloadRange);
             
             for (let i = startIndex; i <= endIndex; i++) {
                 if (i !== currentIndex && !imageCache.has(artworks[i].id)) {
@@ -1136,12 +1139,13 @@
             conclusion: '',
             explanations: [],
             emotionCurve: null,
+            curationIntent: null,
             isComplete: false
         };
 
         // 详情弹窗功能
         function showArtworkDetails(artworkId) {
-            const artwork = artworks.find(a => a.id === artworkId);
+            const artwork = window.artworks.find(a => a.id === artworkId);
             if (!artwork) return;
 
             // 从已接收的讲解中注入简介与详情
@@ -1331,6 +1335,12 @@
             console.log('收到策展事件:', data);
             
             switch (data.type) {
+                case 'curation_intent':
+                    curationData.curationIntent = data.payload;
+                    console.log('收到策展意图:', curationData.curationIntent);
+                    updateImmersiveGallery();
+                    break;
+                
                 case 'emotion_curve':
                     curationData.emotionCurve = data.payload;
                     break;
@@ -1350,6 +1360,17 @@
                 case 'conclusion':
                     curationData.conclusion = data.payload?.conclusion || '';
                     console.log('收到结语:', curationData.conclusion);
+                    break;
+                
+                case 'artwork_batch_chunk':
+                    const batchExplanations = data.payload?.explanations || [];
+                    if (batchExplanations.length > 0) {
+                        curationData.explanations.push(...batchExplanations);
+                        console.log('收到批次讲解:', batchExplanations.length, '个');
+                        updateImmersiveGallery();
+                    } else {
+                        console.warn('批次讲解为空:', data.payload);
+                    }
                     break;
                 
                 case 'explanations_batch':
@@ -1424,9 +1445,9 @@
             if (curationData.artworks && curationData.artworks.length > 0) {
                 console.log('✅ 使用真实策展数据，作品数量:', curationData.artworks.length);
 
-                // 更新artworks数组
-                artworks.length = 0;
-                artworks.push(...curationData.artworks);
+                // 更新全局artworks数组
+                window.artworks.length = 0;
+                window.artworks.push(...curationData.artworks);
 
                 // 如果画廊已存在，销毁它
                 if (window.immersiveGallery) {
@@ -1436,7 +1457,7 @@
                 // 初始化画廊
                 window.immersiveGallery = new ImmersiveGallery();
 
-                console.log('✅ 沉浸式画廊已更新，作品数量:', artworks.length);
+                console.log('✅ 沉浸式画廊已更新，作品数量:', window.artworks.length);
             } else {
                 console.log('⏳ 策展数据未准备好，等待API返回...');
                 // 不再使用 mock 数据，而是显示加载状态

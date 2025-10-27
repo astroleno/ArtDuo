@@ -1,5 +1,6 @@
 // 作品讲解和用户关联分析系统
 import { glmOptimizedClient } from '@/lib/glm-optimized-client';
+import { validateArtworkExplanation } from '@/lib/curation/artwork-explanation-schema';
 import { openaiClient } from '@/lib/openai';
 import { Artwork } from './types';
 
@@ -80,7 +81,9 @@ export async function generateArtworkExplanations(
   artworks: Artwork[],
   emotion: string,
   userInput?: string,
-  curationStrategy?: string
+  curationStrategy?: string,
+  emotionCurve?: any,
+  emotionalStages?: any[]
 ): Promise<BatchExplanationResult> {
   console.log(`🎨 开始生成作品讲解: ${artworks.length} 件作品`);
   const startTime = Date.now();
@@ -90,8 +93,8 @@ export async function generateArtworkExplanations(
   let failureCount = 0;
   let fromCacheCount = 0;
   
-  // 分批处理并可通过环境变量提升并发，默认并发更激进以缩短总耗时
-  const maxConcurrent = Number(process.env.EXPLAIN_MAX_CONCURRENCY || 9);
+  // 降低并发以避免429错误
+  const maxConcurrent = Number(process.env.EXPLAIN_MAX_CONCURRENCY || 2);
   const batchSize = Math.max(1, Math.min(maxConcurrent, artworks.length));
   for (let i = 0; i < artworks.length; i += batchSize) {
     const batch = artworks.slice(i, i + batchSize);
@@ -116,7 +119,7 @@ export async function generateArtworkExplanations(
 
         // 添加超时控制 + 指数退避重试（缓存未命中）
         const explanation = await generateWithRetry(
-          () => generateSingleArtworkExplanation(artwork, emotion, userInput, curationStrategy),
+          () => generateSingleArtworkExplanation(artwork, emotion, userInput, curationStrategy, emotionCurve, emotionalStages),
           [1000, 2000, 4000] // 1s, 2s, 4s
         );
 
@@ -167,7 +170,9 @@ async function generateSingleArtworkExplanation(
   artwork: Artwork,
   emotion: string,
   userInput?: string,
-  curationStrategy?: string
+  curationStrategy?: string,
+  emotionCurve?: any,
+  emotionalStages?: any[]
 ): Promise<ArtworkExplanation> {
   const startTime = Date.now();
   
@@ -221,55 +226,32 @@ async function generateSingleArtworkExplanation(
     }
   }
 
-  const displayTitle = await translateTitleIfEnglish(artwork.title);
+  // 直接使用原标题，不进行翻译
+  const displayTitle = artwork.title || '未知作品';
   
-  // 使用优化的情感语境分析提示词
-  const prompt = `请以艺术史学家的专业视角，为"${emotion}"情绪的用户深度解读这件作品。
+  // 获取当前作品的情绪阶段信息
+  const currentStage = emotionalStages?.find(stage => stage.stage === artwork.stage) || emotionalStages?.[0];
+  const stageIntensity = currentStage?.intensity || 0.5;
+  const stageEmotion = currentStage?.emotion || emotion;
+  const stageDescription = currentStage?.description || '';
 
-**用户情境**：
-用户现在的情绪是"${emotion}"${userInput ? `，用户的想法是："${userInput}"` : ''}。请站在用户的角度思考：为什么在这个心情下，这件作品特别值得一看？
+  // 简化的讲解提示词
+  const prompt = `为"${emotion}"情绪的用户解读这件作品。
 
-**作品背景**：
-标题：《${displayTitle}》
-创作者：${artwork.artist}
-创作年代：${artwork.year}（这个年代发生了什么？）
-材质技法：${artwork.medium}（这种技法有什么特点？）
-历史背景：${artwork.description || '需要结合时代背景分析'}
-收藏机构：${artwork.museum}
+作品：《${displayTitle}》- ${artwork.artist} (${artwork.year})
+用户情绪：${emotion}${userInput ? `，想法："${userInput}"` : ''}
+当前阶段：${stageEmotion}（强度：${stageIntensity}）
 
-**请从以下角度深度分析**：
+请输出两段文本：
+1. 简介（≤40字）：共情用户情绪+介绍作品，让用户感受到"我懂你的感受，这件作品适合你"
+2. 详情（150-200字）：从艺术史、情感表达、视觉元素、生活共鸣等角度分析
 
-1. **时代语境**：
-   - ${artwork.year}年是什么时代？这个时代的艺术特点和社会背景
-   - 艺术家${artwork.artist}的创作风格和历史地位
-   - 这件作品在艺术史上的意义
-
-2. **情感密码**：
-   - 作品如何表达"${emotion}"相关的情感？
-   - 色彩、构图、题材如何与用户心情对话？
-   - 为什么在"${emotion}"的心情下看这件作品会有特殊感受？
-
-3. **观看之道**：
-   - 建议用户从哪些角度欣赏这件作品？
-   - 哪些细节特别值得注意？
-   - 如何在欣赏中获得情感慰藉或启发？
-
-4. **生命共鸣**：
-   - 这件作品与"${userInput || emotion}"这种生活情感有什么关联？
-   - 能给用户带来什么样的思考或感动？
-
-**写作要求**：
-- 用温暖、专业的语调，像一位懂艺术的朋友在娓娓道来
-- 避免空洞的形容词，要用具体的作品细节和背景故事
-- 总长度150-200字，简洁明了
-- 让讲解既有学术深度又充满人情味
-
-请直接输出讲解文本，不需要JSON格式或小标题。`;
+直接输出文本，不要格式标记。`;
 
   const messages = [
     {
       role: 'system' as const,
-      content: '你是一位资深的艺术史学家的策展人，擅长深度解读艺术作品的时代背景、情感密码和生命共鸣。你的讲解既有学术深度又充满人情味，能帮助用户在特定心情下与作品建立深刻的连接。'
+      content: '你是专业策展人，请用中文简洁表达。'
     },
     {
       role: 'user' as const,
@@ -286,7 +268,7 @@ async function generateSingleArtworkExplanation(
       try {
         // 优化：增加token限制以支持深度分析内容
         const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.8;
-        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 200;
+        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 600;
         // 使用chat方法以支持thinking参数
         response = await glmOptimizedClient.chat(messages, {
           temperature,
@@ -758,8 +740,18 @@ function createFallbackExplanation(
     'lonely': '空旷冷峻的构图和孤独的氛围',
     'passion': '强烈对比的色彩和充满激情的笔触'
   };
+
+  // 根据情绪生成视觉特征分析
+  const visualAnalysis = {
+    'joy': '作品运用明亮温暖的色调，构图充满活力，笔触流畅有力，整体营造出积极向上的视觉氛围',
+    'melancholy': '作品采用深沉内敛的色调，构图富有层次感，笔触细腻而富有表现力，营造出沉思的氛围',
+    'calm': '作品色彩柔和平衡，构图简洁宁静，笔触细腻温和，整体传达出平和安详的视觉感受',
+    'lonely': '作品构图空旷简洁，色调偏冷，笔触细腻而克制，营造出孤独而深刻的视觉氛围',
+    'passion': '作品色彩对比强烈，构图充满张力，笔触奔放有力，整体传达出强烈的情感冲击力'
+  };
   
   const emotionStyle = emotionDescriptions[emotion as keyof typeof emotionDescriptions] || '独特的艺术表现力';
+  const visualStyle = visualAnalysis[emotion as keyof typeof visualAnalysis] || '独特的视觉表现力';
   
   // 根据材质和年代生成更具体的分析
   const mediumAnalysis = artwork.medium.includes('Oil') ? '油画技法' : 
@@ -776,13 +768,13 @@ function createFallbackExplanation(
     title: artwork.title,
     artist: artwork.artist,
     emotionalConnection: `《${artwork.title}》通过${emotionStyle}，与"${emotion}"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。`,
-    artisticAnalysis: `${artwork.artist}在${artwork.year}年运用${mediumAnalysis}创作了这件${artwork.medium}作品，展现了艺术家独特的创作风格和技法特点。`,
+    artisticAnalysis: `${artwork.artist}在${artwork.year}年运用${mediumAnalysis}创作了这件${artwork.medium}作品，展现了艺术家独特的创作风格和技法特点。${visualStyle}，为观众提供了丰富的视觉体验。`,
     historicalContext: `这件作品创作于${periodContext}，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。`,
     curationReason: `这件作品被选中是因为它通过${emotionStyle}完美地诠释了"${emotion}"这一策展主题，为观众提供了深刻的情感体验。`,
     userRelevance: userInput ? `这件作品与您的描述"${userInput}"在情感表达上高度契合，能够满足您对"${emotion}"情绪的艺术探索需求。` : `这件作品与您对"${emotion}"情绪的需求高度匹配，提供了丰富的艺术体验。`,
     explanation: {
       emotionalConnection: `《${artwork.title}》通过${emotionStyle}，与"${emotion}"情绪产生深刻共鸣。作品在视觉表现上直接呼应了这种情感状态。`,
-      artisticAnalysis: `${artwork.artist}在${artwork.year}年运用${mediumAnalysis}创作了这件${artwork.medium}作品，展现了艺术家独特的创作风格和技法特点。`,
+      artisticAnalysis: `${artwork.artist}在${artwork.year}年运用${mediumAnalysis}创作了这件${artwork.medium}作品，展现了艺术家独特的创作风格和技法特点。${visualStyle}，为观众提供了丰富的视觉体验。`,
       historicalContext: `这件作品创作于${periodContext}，体现了当时的社会文化背景和艺术发展趋势，具有重要的历史价值。`,
       curationReason: `这件作品被选中是因为它通过${emotionStyle}完美地诠释了"${emotion}"这一策展主题，为观众提供了深刻的情感体验。`,
       userRelevance: userInput ? `这件作品与您的描述"${userInput}"在情感表达上高度契合，能够满足您对"${emotion}"情绪的艺术探索需求。` : `这件作品与您对"${emotion}"情绪的需求高度匹配，提供了丰富的艺术体验。`

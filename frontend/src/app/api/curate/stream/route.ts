@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { realLLMCurationIntentGenerator } from '@/lib/curation/real-llm-curation-intent';
+import { realLLMCurationIntentGenerator } from '@/lib/curation/real-llm-curation-intent-fixed';
 import { EmotionCurveGenerator } from '@/lib/curation/emotion-curve';
 import { jsVectorSearchService } from '@/lib/vector-search/js-vector-search';
 import { generateArtworkExplanations } from '@/lib/curation/artwork-explanation';
@@ -92,21 +92,31 @@ export async function POST(request: NextRequest) {
           durationMs: curationTime
         });
 
-        // Step 2: 情绪曲线设计
+        // Step 2: 情绪曲线设计（使用LLM生成的信息）
         const curveStart = Date.now();
+        
+        // 使用LLM生成的情绪曲线信息
+        const llmEmotionCurve = curationIntent.emotionCurve;
+        console.log('📊 LLM生成的情绪曲线信息:', llmEmotionCurve);
+        
+        // 基于LLM阶段信息生成情绪曲线
         const emotionCurve = EmotionCurveGenerator.generateCurve(
           [], // 空作品数组，只生成曲线
           [], // 空评分数组
           curationIntent.emotionalStages[0]?.emotion || 'joy',
           {
-            curveType: 'wave',
+            curveType: llmEmotionCurve.curveType || 'wave',
             totalPoints: curationIntent.emotionalStages.length,
-            intensity: 0.8,
-            variation: 0.3
+            intensity: curationIntent.emotionalStages[0]?.intensity || 0.8,
+            variation: 0.3,
+            // 使用LLM生成的阶段强度信息
+            stageIntensities: curationIntent.emotionalStages.map(stage => stage.intensity),
+            stageEmotions: curationIntent.emotionalStages.map(stage => stage.emotion)
           }
         );
         const curveTime = Date.now() - curveStart;
         console.log(`✅ 情绪曲线设计完成，耗时: ${curveTime}ms`);
+        console.log('📈 生成的情绪曲线:', emotionCurve);
 
         // Step 3: 检索引擎（向量库 + 本地DB）
         const searchStart = Date.now();
@@ -148,7 +158,7 @@ export async function POST(request: NextRequest) {
 
         // 2. 作品解释批次生成（2-2-2模式）
         const explanationStart = Date.now();
-        await generateExplanationsInBatches(selectedArtworks, curationIntent, send);
+        await generateExplanationsInBatches(selectedArtworks, curationIntent, emotionCurve, send);
         const explanationTime = Date.now() - explanationStart;
         console.log(`✅ 作品解释生成完成，耗时: ${explanationTime}ms`);
 
@@ -338,6 +348,7 @@ async function generateNarration(artworks: any[], curationIntent: any) {
 async function generateExplanationsInBatches(
   artworks: any[],
   curationIntent: any,
+  emotionCurve: any,
   send: (type: string, payload: unknown) => void
 ) {
   const batchSize = 2; // 固定小批次，快速返回
@@ -359,7 +370,9 @@ async function generateExplanationsInBatches(
         batch,
         curationIntent.emotionalStages[0]?.emotion || 'joy',
         curationIntent.curatorialTheme,
-        curationIntent.curatorialTheme
+        curationIntent.curatorialTheme,
+        emotionCurve,
+        curationIntent.emotionalStages
       );
       const batchTime = Date.now() - batchStart;
       

@@ -19,6 +19,8 @@ export interface EmotionCurveConfig {
   curveType: 'linear' | 'wave' | 'peak' | 'valley' | 'custom';
   intensity: number;   // 整体强度 (0-1)
   variation: number;   // 变化幅度 (0-1)
+  stageIntensities?: number[];  // LLM生成的阶段强度
+  stageEmotions?: string[];     // LLM生成的阶段情绪
 }
 
 /**
@@ -59,25 +61,68 @@ export class EmotionCurveGenerator {
 
     let curve: EmotionPoint[];
     
-    switch (defaultConfig.curveType) {
-      case 'linear':
-        curve = this.generateLinearCurve(defaultConfig);
-        break;
-      case 'wave':
-        curve = this.generateWaveCurve(defaultConfig);
-        break;
-      case 'peak':
-        curve = this.generatePeakCurve(defaultConfig);
-        break;
-      case 'valley':
-        curve = this.generateValleyCurve(defaultConfig);
-        break;
-      default:
-        curve = this.generateCustomCurve(artworks, scores, defaultConfig);
+    // 如果有LLM生成的阶段信息，使用LLM阶段生成曲线
+    if (defaultConfig.stageIntensities && defaultConfig.stageEmotions) {
+      console.log('🎯 使用LLM生成的阶段信息生成情绪曲线');
+      console.log('📊 阶段强度:', defaultConfig.stageIntensities);
+      console.log('📊 阶段情绪:', defaultConfig.stageEmotions);
+      curve = this.generateLLMStageCurve(defaultConfig);
+    } else {
+      // 使用传统方法生成曲线
+      switch (defaultConfig.curveType) {
+        case 'linear':
+          curve = this.generateLinearCurve(defaultConfig);
+          break;
+        case 'wave':
+          curve = this.generateWaveCurve(defaultConfig);
+          break;
+        case 'peak':
+          curve = this.generatePeakCurve(defaultConfig);
+          break;
+        case 'valley':
+          curve = this.generateValleyCurve(defaultConfig);
+          break;
+        default:
+          curve = this.generateCustomCurve(artworks, scores, defaultConfig);
+      }
     }
 
     // 将作品分配到曲线点
     return this.assignArtworksToCurve(artworks, scores, curve);
+  }
+
+  /**
+   * 基于LLM阶段信息生成情绪曲线
+   */
+  private static generateLLMStageCurve(config: EmotionCurveConfig): EmotionPoint[] {
+    const { stageIntensities, stageEmotions, totalPoints } = config;
+    
+    if (!stageIntensities || !stageEmotions || stageIntensities.length === 0) {
+      console.log('⚠️ LLM阶段信息不完整，使用默认曲线');
+      return this.generateLinearCurve(config);
+    }
+    
+    const curve: EmotionPoint[] = [];
+    const stageCount = stageIntensities.length;
+    
+    console.log(`🎯 生成LLM阶段曲线，阶段数: ${stageCount}`);
+    
+    // 为每个阶段生成曲线点
+    for (let i = 0; i < stageCount; i++) {
+      const position = i / (stageCount - 1); // 0 到 1 的位置
+      const intensity = stageIntensities[i];
+      const emotion = stageEmotions[i];
+      
+      curve.push({
+        position,
+        intensity,
+        // 可以在这里添加更多LLM生成的信息
+      });
+      
+      console.log(`📊 阶段 ${i + 1}: 位置=${position.toFixed(2)}, 强度=${intensity}, 情绪=${emotion}`);
+    }
+    
+    return curve;
   }
 
   /**

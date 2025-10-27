@@ -206,14 +206,51 @@ export class JSVectorSearchService {
       // 基于标题、艺术家、描述等生成特征向量
       const text = `${artwork.title} ${artwork.artist} ${artwork.description}`.toLowerCase();
       
-      // 简单的特征提取
-      for (let i = 0; i < text.length && i < 384; i++) {
-        vector[i] = text.charCodeAt(i) / 128.0 - 1; // 归一化到[-1, 1]
+      // 改进的特征提取：使用词频和语义特征
+      const words = text.split(/\s+/);
+      const wordFreq: Record<string, number> = {};
+      
+      // 计算词频
+      words.forEach(word => {
+        if (word.length > 2) { // 过滤短词
+          wordFreq[word] = (wordFreq[word] || 0) + 1;
+        }
+      });
+      
+      // 基于词频生成向量
+      let vectorIndex = 0;
+      for (const [word, freq] of Object.entries(wordFreq)) {
+        if (vectorIndex < 384) {
+          // 使用词频和词长度作为特征
+          vector[vectorIndex] = Math.min(freq / 10, 1) * (word.length / 20);
+          vectorIndex++;
+        }
       }
       
-      // 添加一些随机性
-      for (let i = 0; i < 384; i++) {
-        vector[i] += (Math.random() - 0.5) * 0.1;
+      // 添加情绪相关特征
+      const emotionKeywords = ['happy', 'joy', 'beautiful', 'light', 'bright', 'colorful', 'nature', 'garden', 'peaceful'];
+      emotionKeywords.forEach((keyword, index) => {
+        if (text.includes(keyword) && vectorIndex < 384) {
+          vector[vectorIndex] = 0.8; // 高权重
+          vectorIndex++;
+        }
+      });
+      
+      // 添加艺术风格特征
+      const styleKeywords = ['impressionist', 'classical', 'modern', 'contemporary', 'sculpture', 'painting'];
+      styleKeywords.forEach((keyword, index) => {
+        if (text.includes(keyword) && vectorIndex < 384) {
+          vector[vectorIndex] = 0.6; // 中等权重
+          vectorIndex++;
+        }
+      });
+      
+      // 归一化向量
+      const magnitude = Math.sqrt(vector.reduce((sum, val) => sum + val * val, 0));
+      if (magnitude > 0) {
+        for (let i = 0; i < vector.length; i++) {
+          vector[i] = vector[i] / magnitude;
+        }
       }
       
       return vector;
