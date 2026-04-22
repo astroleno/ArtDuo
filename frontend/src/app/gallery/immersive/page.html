@@ -359,6 +359,10 @@
             margin-bottom: 0.5rem;
             color: var(--text-primary);
             transition: color 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
 
         .artwork-artist {
@@ -668,8 +672,10 @@
                 
                 // 2. 艺术作品页面（由情绪曲线设计决定数量）
                 const maxArtworks = this.getOptimalArtworkCount();
+                console.log('🎨 renderSlides: maxArtworks =', maxArtworks, 'window.artworks.length =', window.artworks.length);
                 for (let i = 0; i < maxArtworks; i++) {
-                    const artwork = artworks[i];
+                    const artwork = window.artworks[i];
+                    console.log(`🎨 渲染作品 ${i}:`, artwork);
                     slidesHTML += `
                         <div class="carousel-slide">
                             <div class="artwork-image-container">
@@ -755,47 +761,21 @@
             }
 
             getOptimalArtworkCount() {
-                // 优先从情绪曲线设计获取推荐的作品数量
-                if (curationData.emotionCurve && curationData.emotionCurve.recommendedArtworkCount) {
-                    const recommendedCount = curationData.emotionCurve.recommendedArtworkCount;
-                    const actualCount = Math.min(recommendedCount, window.artworks.length);
-                    console.log('使用情绪曲线设计推荐的作品数量:', recommendedCount, '实际可用:', actualCount);
-                    return actualCount;
+                // 优先使用策展数据中的作品数量
+                if (curationData.artworks && curationData.artworks.length > 0) {
+                    console.log('使用策展数据中的作品数量:', curationData.artworks.length);
+                    return curationData.artworks.length;
                 }
                 
-                // 如果没有推荐数量，使用情绪旅程长度
-                if (curationData.emotionCurve && curationData.emotionCurve.emotionJourney) {
-                    const journeyLength = curationData.emotionCurve.emotionJourney.length;
-                    if (journeyLength > 0) {
-                        console.log('使用情绪曲线旅程长度:', journeyLength);
-                        return Math.min(journeyLength, window.artworks.length);
-                    }
+                // 如果没有策展数据，使用window.artworks
+                if (window.artworks && window.artworks.length > 0) {
+                    console.log('使用window.artworks中的作品数量:', window.artworks.length);
+                    return window.artworks.length;
                 }
                 
-                // 最后降级：根据情绪复杂度智能判断
-                const emotion = curationData.emotion || '';
-                const userInput = curationData.userInput || '';
-                
-                // 复杂情绪主题需要更多作品
-                const complexEmotions = ['复杂', '深度', '矛盾', '纠结', '焦虑', '抑郁', '愤怒', '痛苦'];
-                const simpleEmotions = ['简单', '轻松', '快乐', '平静', '满足', '愉悦'];
-                
-                const isComplex = complexEmotions.some(e => emotion.includes(e) || userInput.includes(e));
-                const isSimple = simpleEmotions.some(e => emotion.includes(e) || userInput.includes(e));
-                
-                let optimalCount;
-                if (isComplex) {
-                    optimalCount = Math.min(12, window.artworks.length); // 复杂主题需要更多作品
-                    console.log('复杂情绪主题，选择', optimalCount, '件作品');
-                } else if (isSimple) {
-                    optimalCount = Math.min(6, window.artworks.length); // 简单主题可以更少
-                    console.log('简单情绪主题，选择', optimalCount, '件作品');
-                } else {
-                    optimalCount = Math.min(9, window.artworks.length); // 默认9件
-                    console.log('默认主题，选择', optimalCount, '件作品');
-                }
-                
-                return optimalCount;
+                // 如果都没有，返回0
+                console.log('没有可用的作品数据');
+                return 0;
             }
 
             setupEventListeners() {
@@ -1050,21 +1030,63 @@
         const maxConcurrentLoads = 3;
         let currentLoads = 0;
 
-        // 备用图片列表
-        const FALLBACK_IMAGES = [
-            'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=800&h=600&fit=crop'
-        ];
+        // 不再使用硬编码fallback图片
 
-        // 图片错误处理
+        // 图片错误处理 - 尝试多种URL模式
         function handleImageError(img, artworkId) {
             console.warn(`图片加载失败: ${artworkId}`, img.src);
             
-            const randomFallback = FALLBACK_IMAGES[Math.floor(Math.random() * FALLBACK_IMAGES.length)];
-            img.src = randomFallback;
-            img.style.opacity = '0.7';
-            img.title = '图片加载失败，显示备用图片';
+            // 检查是否已经尝试过所有模式
+            if (!img.dataset.retryCount) {
+                img.dataset.retryCount = '0';
+            }
+            
+            const retryCount = parseInt(img.dataset.retryCount);
+            const maxRetries = 5; // 最多尝试5种URL模式
+            
+            if (retryCount < maxRetries) {
+                // 尝试下一个URL模式
+                const numericId = artworkId.replace('met-', '');
+                const patterns = [
+                    `https://images.metmuseum.org/CRDImages/dp/original/DP${numericId}.jpg`,
+                    `https://images.metmuseum.org/CRDImages/ep/original/DT${numericId}.jpg`,
+                    `https://images.metmuseum.org/CRDImages/es/original/DP${numericId}.jpg`,
+                    `https://images.metmuseum.org/CRDImages/eg/original/DP${numericId}.jpg`,
+                    `https://images.metmuseum.org/CRDImages/ao/original/DP${numericId}.jpg`
+                ];
+                
+                const nextPattern = patterns[retryCount + 1];
+                if (nextPattern) {
+                    console.log(`🔄 尝试下一个URL模式: ${nextPattern}`);
+                    img.dataset.retryCount = (retryCount + 1).toString();
+                    img.src = nextPattern;
+                    return; // 重新尝试加载
+                }
+            }
+            
+            // 如果所有模式都失败了，显示错误状态
+            console.error(`❌ 所有URL模式都失败: ${artworkId}`);
+            img.style.opacity = '0.3';
+            img.title = `图片加载失败: ${img.src}`;
+            img.alt = `图片加载失败 - ${artworkId}`;
+            
+            // 显示简单的错误提示
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 12px;
+                text-align: center;
+                z-index: 10;
+            `;
+            errorDiv.textContent = '图片加载失败';
+            img.parentNode.appendChild(errorDiv);
         }
 
         // 图片加载成功处理
@@ -1316,9 +1338,10 @@
                         if (line.startsWith('data: ')) {
                             try {
                                 const data = JSON.parse(line.slice(6));
+                                console.log('📥 收到SSE数据:', data.type, data.payload);
                                 handleCurationEvent(data);
                             } catch (e) {
-                                console.warn('解析策展数据失败:', e);
+                                console.warn('解析策展数据失败:', e, '原始数据:', line);
                             }
                         }
                     }
@@ -1348,6 +1371,7 @@
                 case 'artworks_selected':
                     curationData.artworks = data.payload?.artworks || [];
                     console.log('收到艺术作品:', curationData.artworks.length, '件');
+                    console.log('艺术作品详情:', curationData.artworks);
                     updateImmersiveGallery();
                     break;
                 
@@ -1362,6 +1386,13 @@
                     console.log('收到结语:', curationData.conclusion);
                     break;
                 
+                case 'preface_chunk':
+                    curationData.introduction = data.payload?.content || '';
+                    console.log('✅ 收到序言事件，内容长度:', curationData.introduction.length);
+                    console.log('序言内容:', curationData.introduction);
+                    updateImmersiveGallery();
+                    break;
+                
                 case 'artwork_batch_chunk':
                     const batchExplanations = data.payload?.explanations || [];
                     if (batchExplanations.length > 0) {
@@ -1371,6 +1402,13 @@
                     } else {
                         console.warn('批次讲解为空:', data.payload);
                     }
+                    break;
+                
+                case 'closing_chunk':
+                    curationData.conclusion = data.payload?.content || '';
+                    console.log('✅ 收到结语事件，内容长度:', curationData.conclusion.length);
+                    console.log('结语内容:', curationData.conclusion);
+                    updateImmersiveGallery();
                     break;
                 
                 case 'explanations_batch':
@@ -1442,12 +1480,27 @@
 
         function updateImmersiveGallery() {
             console.log('updateImmersiveGallery 被调用，策展数据:', curationData);
+            
+            // 更新序言和结语 - 需要重新渲染画廊
+            if (curationData.introduction || curationData.conclusion) {
+                console.log('✅ 序言或结语已更新，重新渲染画廊');
+                // 如果画廊已存在，重新渲染以更新序言和结语
+                if (window.immersiveGallery) {
+                    window.immersiveGallery.renderSlides();
+                }
+            }
+            
+            // 更新作品数据
             if (curationData.artworks && curationData.artworks.length > 0) {
                 console.log('✅ 使用真实策展数据，作品数量:', curationData.artworks.length);
 
                 // 更新全局artworks数组
+                console.log('🔄 更新前 window.artworks 长度:', window.artworks.length);
+                console.log('🔄 更新前 window.artworks 内容:', window.artworks);
                 window.artworks.length = 0;
                 window.artworks.push(...curationData.artworks);
+                console.log('🔄 更新后 window.artworks 长度:', window.artworks.length);
+                console.log('🔄 更新后 window.artworks 内容:', window.artworks);
 
                 // 如果画廊已存在，销毁它
                 if (window.immersiveGallery) {
@@ -1462,6 +1515,12 @@
                 console.log('⏳ 策展数据未准备好，等待API返回...');
                 // 不再使用 mock 数据，而是显示加载状态
                 // 保持页面等待状态，直到真实数据到达
+            }
+            
+            // 更新讲解数据
+            if (curationData.explanations && curationData.explanations.length > 0) {
+                console.log('✅ 讲解数据已更新，数量:', curationData.explanations.length);
+                // 这里可以添加讲解数据的显示逻辑
             }
         }
     </script>

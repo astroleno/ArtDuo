@@ -268,7 +268,7 @@ async function generateSingleArtworkExplanation(
       try {
         // 优化：增加token限制以支持深度分析内容
         const temperature = process.env.EXPLAIN_TEMPERATURE ? Number(process.env.EXPLAIN_TEMPERATURE) : 0.8;
-        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 600;
+        const maxTokens = process.env.EXPLAIN_MAX_TOKENS ? Number(process.env.EXPLAIN_MAX_TOKENS) : 800;
         // 使用chat方法以支持thinking参数
         response = await glmOptimizedClient.chat(messages, {
           temperature,

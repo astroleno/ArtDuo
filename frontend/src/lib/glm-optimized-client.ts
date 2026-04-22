@@ -214,7 +214,7 @@ export class GLMOptimizedClient {
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60秒超时，增加容错
+      const timeoutId = setTimeout(() => controller.abort(), 180000); // 180秒超时，增加容错
 
       const requestBody: any = {
         model,

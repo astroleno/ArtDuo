@@ -217,6 +217,10 @@ function cleanAndEnhanceArtwork(artwork) {
     enhanced: true,
     enhancedSearchText,
     searchTextLength: enhancedSearchText.length,
+    // 确保保留图片URL字段
+    imageUrl: artwork.imageUrl || null,
+    imageThumbnail: artwork.imageThumbnail || null,
+    additionalImages: artwork.additionalImages || [],
     dataQuality: {
       level: qualityLevel,
       weight: qualityWeight,
@@ -224,7 +228,8 @@ function cleanAndEnhanceArtwork(artwork) {
       hasTags: !!(artwork.tags && artwork.tags.length > 0),
       hasArtist: !!(artwork.artist && artwork.artist.trim().length > 0),
       hasMedium: !!(artwork.medium && artwork.medium.trim().length > 0),
-      hasCulture: !!(artwork.culture && artwork.culture.trim().length > 0)
+      hasCulture: !!(artwork.culture && artwork.culture.trim().length > 0),
+      hasImageUrl: !!(artwork.imageUrl && artwork.imageUrl.trim().length > 0)
     },
     recommendations,
     processedAt: new Date().toISOString()

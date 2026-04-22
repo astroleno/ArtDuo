@@ -5,7 +5,7 @@
 
 import { glmOptimizedClient } from '@/lib/glm-optimized-client';
 import { EmotionCurveGenerator } from '@/lib/curation/emotion-curve';
-import { validateCurationIntent } from '@/lib/curation/curation-intent-schema';
+import { validateCurationIntent } from '@/lib/curation/curation-intent-schema-simplified';
 import { z } from 'zod';
 
 /**
@@ -18,24 +18,16 @@ export interface RealLLMCurationIntent {
     stage: number;
     emotion: string;
     intensity: number;
-    description: string;
-    visualCharacteristics: string[];
     artworkCount: number;
     keywords: string[];
   }>;
   visualFeatures: {
     colorPalette: string[];
-    composition: string[];
-    lighting: string[];
     mood: string[];
-    texture: string[];
   };
   aestheticPreferences: {
     mediaTypes: string[];
     artStyles: string[];
-    timePeriods: string[];
-    culturalContexts: string[];
-    avoidElements: string[];
   };
   narrativeTone: {
     voice: string;
@@ -43,22 +35,6 @@ export interface RealLLMCurationIntent {
     intimacy: string;
     pacing: string;
     perspective: string;
-  };
-  targetAudience: string;
-  keyMessages: string[];
-  visualProgression: string;
-  emotionCurve: {
-    curveType: string;
-    totalDuration: number;
-    peakPoints: Array<{
-      time: number;
-      intensity: number;
-      description: string;
-    }>;
-    transitionPoints: Array<{
-      time: number;
-      description: string;
-    }>;
   };
 }
 
@@ -89,7 +65,9 @@ export class RealLLMCurationIntentGenerator {
         }
       ], {
         temperature: 0.7,
-        max_tokens: 4096
+        max_tokens: 4096,
+        thinking: 'disabled',
+        response_format: { type: 'json_object' }
       });
 
       // 解析LLM响应
@@ -128,60 +106,21 @@ export class RealLLMCurationIntentGenerator {
    * 构建策展意图提示词
    */
   private buildCurationIntentPrompt(userInput: string): string {
-    return `用户说："${userInput}"
+    return `用户："${userInput}"
 
-请分析用户情绪并生成策展方案，输出JSON格式：
-
+输出JSON：
 {
-  "curatorialTheme": "策展主题",
-  "emotionalArc": "情绪弧线描述",
+  "curatorialTheme": "主题",
+  "emotionalArc": "弧线",
   "emotionalStages": [
-    {
-      "stage": 1,
-      "emotion": "情绪名称",
-      "intensity": 0.7,
-      "description": "阶段描述",
-      "visualCharacteristics": ["视觉特征1", "视觉特征2"],
-      "artworkCount": 3,
-      "keywords": ["关键词1", "关键词2"]
-    }
+    {"stage": 1, "emotion": "情绪", "intensity": 0.7, "artworkCount": 3, "keywords": ["关键词"]}
   ],
-  "visualFeatures": {
-    "colorPalette": ["色彩1", "色彩2"],
-    "composition": ["构图1", "构图2"],
-    "lighting": ["光线1", "光线2"],
-    "mood": ["氛围1", "氛围2"],
-    "texture": ["质感1", "质感2"]
-  },
-  "aestheticPreferences": {
-    "mediaTypes": ["油画", "摄影"],
-    "artStyles": ["印象派", "现代主义"],
-    "timePeriods": ["19世纪", "20世纪"],
-    "culturalContexts": ["西方", "现代"],
-    "avoidElements": []
-  },
-  "narrativeTone": {
-    "voice": "温和",
-    "approach": "引导",
-    "intimacy": "亲近",
-    "pacing": "舒缓",
-    "perspective": "第一人称"
-  },
-  "targetAudience": "寻求情感共鸣的用户",
-  "keyMessages": ["核心信息1", "核心信息2"],
-  "visualProgression": "视觉进程描述",
-  "emotionCurve": {
-    "curveType": "linear",
-    "totalDuration": 30,
-    "peakPoints": [{"time": 0.5, "intensity": 0.8, "description": "情感高峰"}],
-    "transitionPoints": [{"time": 0.3, "description": "情绪转换"}]
-  }
+  "visualFeatures": {"colorPalette": ["色彩"], "mood": ["氛围"]},
+  "aestheticPreferences": {"mediaTypes": ["媒介"], "artStyles": ["风格"]},
+  "narrativeTone": {"voice": "语调", "approach": "方法", "intimacy": "程度", "pacing": "节奏", "perspective": "视角"}
 }
 
-要求：
-- 生成3-5个情绪阶段
-- 总作品数量6-12件
-- 输出完整JSON格式`;
+要求：3-5个阶段，6-12件作品，完整JSON`;
   }
 
   /**
@@ -195,7 +134,12 @@ export class RealLLMCurationIntentGenerator {
         let jsonStr = jsonMatch[0];
         
         // 尝试修复常见的JSON格式问题
+        console.log('🔧 修复前JSON长度:', jsonStr.length);
+        console.log('🔧 修复前JSON片段:', jsonStr.substring(240, 280));
         jsonStr = this.fixJSONFormat(jsonStr);
+        console.log('🔧 修复后JSON长度:', jsonStr.length);
+        console.log('🔧 修复后JSON片段:', jsonStr.substring(240, 280));
+        console.log('🔧 完整修复后JSON:', jsonStr);
         
         try {
           const parsed = JSON.parse(jsonStr);
@@ -210,13 +154,13 @@ export class RealLLMCurationIntentGenerator {
           
           return this.validateAndNormalizeIntent(parsed);
         } catch (jsonError) {
-          console.error('❌ JSON解析失败，尝试从文本提取:', jsonError);
-          return this.extractIntentFromText(content);
+          console.error('❌ JSON解析失败:', jsonError);
+          throw new Error('JSON解析失败');
         }
       }
 
-      // 如果没有找到JSON，尝试从文本中提取信息
-      return this.extractIntentFromText(content);
+      // 如果没有找到JSON，直接抛出错误
+      throw new Error('LLM响应中没有找到有效的JSON格式');
 
     } catch (error) {
       console.error('❌ 解析LLM响应失败:', error);
@@ -231,8 +175,8 @@ export class RealLLMCurationIntentGenerator {
     // 移除可能的markdown代码块标记
     jsonStr = jsonStr.replace(/```json\s*/, '').replace(/```\s*$/, '');
     
-    // 处理不完整的字段值
-    // 如果字段值没有闭合引号，尝试修复
+    // 处理不完整的字段值 - 更全面的修复
+    // 修复 emotion 字段
     jsonStr = jsonStr.replace(/"emotion":\s*"([^"]*?)(?=\s*[,}\]])/g, (match, value) => {
       if (!value.endsWith('"')) {
         return `"emotion": "${value}"`;
@@ -240,42 +184,38 @@ export class RealLLMCurationIntentGenerator {
       return match;
     });
     
-    // 处理不完整的字符串值
-    jsonStr = jsonStr.replace(/"description":\s*"([^"]*?)(?=\s*[,}\]])/g, (match, value) => {
-      if (!value.endsWith('"')) {
-        return `"description": "${value}"`;
-      }
-      return match;
-    });
+    // 修复没有值的 emotion 字段
+    jsonStr = jsonStr.replace(/"emotion":\s*$/gm, '"emotion": "未知情绪"');
     
-    // 处理不完整的数组
-    jsonStr = jsonStr.replace(/"visualCharacteristics":\s*\[([^\]]*?)(?=\s*[,}\]])/g, (match, value) => {
-      if (!value.endsWith(']')) {
-        // 尝试修复数组内容
-        const items = value.split(',').map(item => item.trim()).filter(item => item);
-        const fixedItems = items.map(item => {
-          if (!item.startsWith('"')) item = `"${item}`;
-          if (!item.endsWith('"')) item = `${item}"`;
-          return item;
-        });
-        return `"visualCharacteristics": [${fixedItems.join(', ')}]`;
-      }
-      return match;
-    });
+    // 修复 intensity 字段
+    jsonStr = jsonStr.replace(/"intensity":\s*$/gm, '"intensity": 0.5');
     
-    // 处理不完整的keywords数组
-    jsonStr = jsonStr.replace(/"keywords":\s*\[([^\]]*?)(?=\s*[,}\]])/g, (match, value) => {
-      if (!value.endsWith(']')) {
-        const items = value.split(',').map(item => item.trim()).filter(item => item);
-        const fixedItems = items.map(item => {
-          if (!item.startsWith('"')) item = `"${item}`;
-          if (!item.endsWith('"')) item = `${item}"`;
-          return item;
-        });
-        return `"keywords": [${fixedItems.join(', ')}]`;
-      }
-      return match;
-    });
+    // 修复截断的 intensity 字段 - 处理 "intensity": 后面没有值的情况
+    jsonStr = jsonStr.replace(/"intensity":\s*$/gm, '"intensity": 0.5');
+    
+    // 修复 artworkCount 字段
+    jsonStr = jsonStr.replace(/"artworkCount":\s*$/gm, '"artworkCount": 2');
+    
+    // 移除所有错误的修复逻辑 - LLM输出已经是正确的
+    
+    // 修复不完整的对象 - 添加缺失的字段
+    // 修复只有 stage, emotion, intensity 的对象
+    jsonStr = jsonStr.replace(/"stage":\s*(\d+),?\s*"emotion":\s*"([^"]*)",?\s*"intensity":\s*([0-9.]+),?\s*}/g, 
+      (match, stage, emotion, intensity) => {
+        return `{"stage": ${stage}, "emotion": "${emotion}", "intensity": ${intensity}, "artworkCount": 2, "keywords": ["关键词"]}`;
+      });
+    
+    // 修复只有 stage, emotion 的对象
+    jsonStr = jsonStr.replace(/"stage":\s*(\d+),?\s*"emotion":\s*"([^"]*)",?\s*}/g, 
+      (match, stage, emotion) => {
+        return `{"stage": ${stage}, "emotion": "${emotion}", "intensity": 0.5, "artworkCount": 2, "keywords": ["关键词"]}`;
+      });
+    
+    // 修复只有 stage 的对象
+    jsonStr = jsonStr.replace(/"stage":\s*(\d+),?\s*}/g, 
+      (match, stage) => {
+        return `{"stage": ${stage}, "emotion": "未知情绪", "intensity": 0.5, "artworkCount": 2, "keywords": ["关键词"]}`;
+      });
     
     // 如果emotionalStages数组没有闭合，尝试修复
     if (jsonStr.includes('"emotionalStages": [') && !jsonStr.includes(']')) {
@@ -315,8 +255,7 @@ export class RealLLMCurationIntentGenerator {
       // 使用情绪曲线生成器优化情绪阶段
       const emotionCurve = await this.generateEmotionCurve(intent, userInput);
       
-      // 更新策展意图中的情绪曲线信息
-      intent.emotionCurve = emotionCurve;
+      // 情绪曲线已生成，无需更新intent
       
       // 根据情绪曲线调整作品数量分配
       intent.emotionalStages = this.adjustArtworkCounts(intent.emotionalStages, emotionCurve);
@@ -336,14 +275,29 @@ export class RealLLMCurationIntentGenerator {
     intent: RealLLMCurationIntent, 
     userInput: string
   ): Promise<any> {
-    // 使用现有的情绪曲线生成器
+    // 提取LLM生成的阶段信息
+    const stageEmotions = intent.emotionalStages.map(stage => stage.emotion);
+    const stageIntensities = intent.emotionalStages.map(stage => stage.intensity);
+    
+    console.log('🎯 使用LLM阶段信息生成情绪曲线');
+    console.log('📊 阶段情绪:', stageEmotions);
+    console.log('📊 阶段强度:', stageIntensities);
+    
+    // 使用情绪曲线生成器的LLM阶段模式
     const curveConfig = {
       emotion: intent.emotionalStages[0]?.emotion || 'contemplation',
       intensity: intent.emotionalStages[0]?.intensity || 0.7,
-      curveType: 'linear' as 'linear' | 'wave' | 'peak' | 'valley' | 'custom'
+      curveType: 'custom' as 'linear' | 'wave' | 'peak' | 'valley' | 'custom',
+      stageIntensities: stageIntensities,
+      stageEmotions: stageEmotions,
+      totalPoints: intent.emotionalStages.length
     };
 
-    return await EmotionCurveGenerator.generateCurve([], [], 'joy', curveConfig);
+    // 生成基于LLM阶段的情绪曲线骨架
+    const curve = EmotionCurveGenerator.generateCurve([], [], intent.emotionalStages[0]?.emotion || 'contemplation', curveConfig);
+    
+    console.log('✅ 情绪曲线生成完成:', curve);
+    return curve;
   }
 
   /**
@@ -390,17 +344,11 @@ export class RealLLMCurationIntentGenerator {
       emotionalStages: data.emotionalStages,
       visualFeatures: data.visualFeatures || {
         colorPalette: [],
-        composition: [],
-        lighting: [],
-        mood: [],
-        texture: []
+        mood: []
       },
       aestheticPreferences: data.aestheticPreferences || {
         mediaTypes: [],
-        artStyles: [],
-        timePeriods: [],
-        culturalContexts: [],
-        avoidElements: []
+        artStyles: []
       },
       narrativeTone: data.narrativeTone || {
         voice: '温和',
@@ -408,15 +356,6 @@ export class RealLLMCurationIntentGenerator {
         intimacy: '亲近',
         pacing: '舒缓',
         perspective: '第一人称'
-      },
-      targetAudience: data.targetAudience || '寻求情感共鸣的用户',
-      keyMessages: data.keyMessages || [],
-      visualProgression: data.visualProgression || '',
-      emotionCurve: data.emotionCurve || {
-        curveType: 'linear',
-        totalDuration: 30,
-        peakPoints: [],
-        transitionPoints: []
       }
     };
   }

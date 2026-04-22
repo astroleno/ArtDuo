@@ -78,184 +78,150 @@ export class JSVectorSearchService {
   }
 
   /**
-   * 加载艺术作品数据
+   * 加载艺术作品数据 - 使用分离架构（只加载检索必要字段）
    */
   private async loadArtworks(): Promise<void> {
-    // 模拟从本地数据加载艺术作品
-    this.artworks = [
-      {
-        id: "437133",
-        title: "Garden at Sainte-Adresse",
-        artist: "Claude Monet",
-        year: "1867",
-        medium: "Oil on canvas",
-        description: "A beautiful garden scene by Monet, capturing the essence of nature and light.",
-        imageUrl: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
-        museum: "大都会艺术博物馆",
+    try {
+      console.log('📚 加载分离的艺术作品检索数据...');
+      
+      // 在服务器端使用文件系统读取
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      // 加载检索数据（轻量级，只包含检索必要字段）
+      const searchDataPath = path.join(process.cwd(), 'public', 'data', 'artworks-search.json');
+      const searchFileContent = fs.readFileSync(searchDataPath, 'utf-8');
+      const searchData = JSON.parse(searchFileContent);
+      
+      console.log(`📚 成功加载 ${searchData.length} 件检索数据`);
+      
+      // 转换为搜索服务需要的格式（只包含检索必要字段）
+      this.artworks = searchData.map((artwork: any) => ({
+        id: artwork.id,
+        title: artwork.title,
+        artist: artwork.artist,
+        year: artwork.year,
+        medium: artwork.medium,
+        description: artwork.description,
+        searchText: artwork.searchText,
+        museum: '大都会艺术博物馆',
         score: 0,
-        quality: 'excellent'
-      },
-      {
-        id: "729644",
-        title: "In proof of true love, a watercarrier skeleton arguing with a woman",
-        artist: "José Guadalupe Posada",
-        year: "ca. 1890–1896",
-        medium: "Type-metal engraving and letterpress on blue paper",
-        description: "A dramatic scene showing the complexity of human relationships.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'good'
-      },
-      {
-        id: "436155",
-        title: "The Rehearsal of the Ballet Onstage",
-        artist: "Edgar Degas",
-        year: "ca. 1874",
-        medium: "Oil colors freely mixed with turpentine",
-        description: "Capturing the grace and movement of ballet dancers in rehearsal.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'excellent'
-      },
-      {
-        id: "671456",
-        title: "Chrysanthemums in the Garden at Petit-Gennevilliers",
-        artist: "Gustave Caillebotte",
-        year: "1893",
-        medium: "Oil on canvas",
-        description: "A peaceful garden scene with chrysanthemums, showing the beauty of nature.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'good'
-      },
-      {
-        id: "436241",
-        title: "Cows Crossing a Ford",
-        artist: "Jules Dupré",
-        year: "1836",
-        medium: "Oil on canvas",
-        description: "A pastoral scene of cows crossing a ford, representing rural life.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'basic'
-      },
-      {
-        id: "437422",
-        title: "Charity",
-        artist: "Guido Reni",
-        year: "ca. 1630",
-        medium: "Oil on canvas",
-        description: "A classical representation of charity, showing compassion and care.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'excellent'
-      },
-      {
-        id: "206965",
-        title: "Longcase astronomical regulator",
-        artist: "Ferdinand Berthoud",
-        year: "ca. 1768–70",
-        medium: "Case: oak veneered with ebony and brass",
-        description: "A precision astronomical clock, representing scientific advancement.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'good'
-      },
-      {
-        id: "544320",
-        title: "Stela of the Steward Mentuwoser",
-        artist: "未知艺术家",
-        year: "ca. 1944 B.C.",
-        medium: "Limestone, paint",
-        description: "An ancient Egyptian stela, representing historical significance.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'basic'
-      },
-      {
-        id: "200668",
-        title: "Sabine Houdon (1787–1836)",
-        artist: "Jean Antoine Houdon",
-        year: "1788",
-        medium: "White marble on gray marble socle",
-        description: "A marble sculpture, representing classical beauty and craftsmanship.",
-        imageUrl: "https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg",
-        museum: "大都会艺术博物馆",
-        score: 0,
-        quality: 'excellent'
-      }
-    ];
+        quality: this.mapQualityLevel(artwork.qualityLevel),
+        qualityWeight: artwork.qualityWeight
+        // 注意：不包含imageUrl，图片URL通过独立服务获取
+      }));
+      
+      console.log(`✅ 检索数据转换完成，共 ${this.artworks.length} 件`);
+    } catch (error) {
+      console.error('❌ 加载检索数据失败:', error);
+      throw new Error('无法加载艺术作品检索数据，请检查数据文件');
+    }
   }
+
+  /**
+   * 生成Met图片URL - 智能尝试多种URL模式
+   */
+  private generateImageUrl(artworkId: string): string {
+    // 从artworkId中提取数字ID
+    const numericId = artworkId.replace('met-', '');
+    
+    // 基于作品ID的特征选择最可能的URL模式
+    // 根据Met博物馆的URL规律，不同作品类型使用不同的前缀
+    
+    // 尝试多种URL模式，按可能性排序
+    const patterns = [
+      // 最常见的模式
+      `https://images.metmuseum.org/CRDImages/dp/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ep/original/DT${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/es/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/eg/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ao/original/DP${numericId}.jpg`,
+      // 其他可能的模式
+      `https://images.metmuseum.org/CRDImages/aa/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ad/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ag/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ah/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ai/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/aj/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ak/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/al/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/am/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/an/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ap/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/aq/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ar/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/as/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/at/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/au/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/av/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/aw/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ax/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/ay/original/DP${numericId}.jpg`,
+      `https://images.metmuseum.org/CRDImages/az/original/DP${numericId}.jpg`
+    ];
+    
+    // 返回第一个模式作为默认URL
+    // 前端会通过图片加载失败事件来尝试其他模式
+    return patterns[0];
+  }
+
+  /**
+   * 映射质量等级
+   */
+  private mapQualityLevel(qualityLevel: string): 'excellent' | 'good' | 'basic' | 'minimal' {
+    switch (qualityLevel) {
+      case 'excellent': return 'excellent';
+      case 'good': return 'good';
+      case 'basic': return 'basic';
+      case 'minimal': return 'minimal';
+      default: return 'basic';
+    }
+  }
+
 
   /**
    * 生成向量嵌入
    */
   private async generateVectors(): Promise<void> {
-    // 为每件作品生成模拟向量嵌入
-    this.vectors = this.artworks.map(artwork => {
-      // 基于作品特征生成模拟向量
-      const vector = new Array(384).fill(0);
+    try {
+      console.log('🧮 加载真实向量嵌入数据...');
       
-      // 基于标题、艺术家、描述等生成特征向量
-      const text = `${artwork.title} ${artwork.artist} ${artwork.description}`.toLowerCase();
+      // 在服务器端使用文件系统读取
+      const fs = await import('fs');
+      const path = await import('path');
       
-      // 改进的特征提取：使用词频和语义特征
-      const words = text.split(/\s+/);
-      const wordFreq: Record<string, number> = {};
+      // 构建向量数据文件路径
+      const embeddingsPath = path.join(process.cwd(), 'public', 'data', 'artworks-embeddings.json');
       
-      // 计算词频
-      words.forEach(word => {
-        if (word.length > 2) { // 过滤短词
-          wordFreq[word] = (wordFreq[word] || 0) + 1;
+      // 读取文件内容
+      const fileContent = fs.readFileSync(embeddingsPath, 'utf-8');
+      const embeddingsData = JSON.parse(fileContent);
+      
+      console.log(`🧮 成功加载 ${embeddingsData.length} 个向量嵌入`);
+      
+      // 创建向量映射
+      const vectorMap = new Map();
+      embeddingsData.forEach((item: any) => {
+        vectorMap.set(item.id, item.vector);
+      });
+      
+      // 为每个艺术作品分配对应的向量
+      this.vectors = this.artworks.map(artwork => {
+        const vector = vectorMap.get(artwork.id);
+        if (vector && Array.isArray(vector)) {
+          return vector;
+        } else {
+          throw new Error(`未找到作品 ${artwork.id} 的向量数据`);
         }
       });
       
-      // 基于词频生成向量
-      let vectorIndex = 0;
-      for (const [word, freq] of Object.entries(wordFreq)) {
-        if (vectorIndex < 384) {
-          // 使用词频和词长度作为特征
-          vector[vectorIndex] = Math.min(freq / 10, 1) * (word.length / 20);
-          vectorIndex++;
-        }
-      }
-      
-      // 添加情绪相关特征
-      const emotionKeywords = ['happy', 'joy', 'beautiful', 'light', 'bright', 'colorful', 'nature', 'garden', 'peaceful'];
-      emotionKeywords.forEach((keyword, index) => {
-        if (text.includes(keyword) && vectorIndex < 384) {
-          vector[vectorIndex] = 0.8; // 高权重
-          vectorIndex++;
-        }
-      });
-      
-      // 添加艺术风格特征
-      const styleKeywords = ['impressionist', 'classical', 'modern', 'contemporary', 'sculpture', 'painting'];
-      styleKeywords.forEach((keyword, index) => {
-        if (text.includes(keyword) && vectorIndex < 384) {
-          vector[vectorIndex] = 0.6; // 中等权重
-          vectorIndex++;
-        }
-      });
-      
-      // 归一化向量
-      const magnitude = Math.sqrt(vector.reduce((sum, val) => sum + val * val, 0));
-      if (magnitude > 0) {
-        for (let i = 0; i < vector.length; i++) {
-          vector[i] = vector[i] / magnitude;
-        }
-      }
-      
-      return vector;
-    });
+      console.log(`✅ 向量嵌入数据加载完成，共 ${this.vectors.length} 个向量`);
+    } catch (error) {
+      console.error('❌ 加载向量数据失败:', error);
+      throw new Error('无法加载向量嵌入数据，请检查数据文件');
+    }
   }
+
 
   /**
    * 搜索相似作品

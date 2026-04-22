@@ -8,14 +8,7 @@ export const curationIntentSchema = {
   required: [
     "curatorialTheme",
     "emotionalArc", 
-    "emotionalStages",
-    "visualFeatures",
-    "aestheticPreferences",
-    "narrativeTone",
-    "targetAudience",
-    "keyMessages",
-    "visualProgression",
-    "emotionCurve"
+    "emotionalStages"
   ],
   properties: {
     curatorialTheme: {

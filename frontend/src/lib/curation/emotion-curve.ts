@@ -41,15 +41,19 @@ export class EmotionCurveGenerator {
     console.log(`🎭 输入作品数量: ${artworks.length}`);
     console.log(`🎭 输入评分数量: ${scores.length}`);
     
-    // 如果没有作品，返回空曲线
+    // 如果没有作品但有LLM阶段信息，仍然可以生成曲线
     if (!artworks || artworks.length === 0) {
-      console.log('⚠️ 没有作品数据，返回空情绪曲线');
-      return [];
+      if (config?.stageIntensities && config?.stageEmotions) {
+        console.log('🎯 没有作品数据，但使用LLM阶段信息生成情绪曲线');
+      } else {
+        console.log('⚠️ 没有作品数据且无LLM阶段信息，返回空情绪曲线');
+        return [];
+      }
     }
     
     const defaultConfig: EmotionCurveConfig = {
       emotion,
-      totalPoints: artworks.length,
+      totalPoints: artworks.length > 0 ? artworks.length : (config?.totalPoints || 3),
       curveType: this.detectCurveType(emotion),
       intensity: 0.7,
       variation: 0.3,
@@ -57,7 +61,7 @@ export class EmotionCurveGenerator {
     };
     
     console.log(`🔧 情绪曲线配置:`, defaultConfig);
-    console.log(`🔧 实际作品ID列表:`, artworks.map(a => a.id));
+    console.log(`🔧 实际作品ID列表:`, artworks.length > 0 ? artworks.map(a => a.id) : []);
 
     let curve: EmotionPoint[];
     

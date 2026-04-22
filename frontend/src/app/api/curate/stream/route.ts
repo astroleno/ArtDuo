@@ -3,23 +3,16 @@ import { realLLMCurationIntentGenerator } from '@/lib/curation/real-llm-curation
 import { EmotionCurveGenerator } from '@/lib/curation/emotion-curve';
 import { jsVectorSearchService } from '@/lib/vector-search/js-vector-search';
 import { generateArtworkExplanations } from '@/lib/curation/artwork-explanation';
+import { ImageService } from '@/lib/image-service';
+import fs from 'fs';
+import path from 'path';
 
 /**
- * 优化后的策展流式SSE接口
- * 按照正确的策展顺序：
- * 1. LLM策展规划+情绪曲线设计 (10s)
- * 2. 向量检索+作品匹配 (1s) 
- * 3. 序言+结语生成 (5s)
- * 4. 作品解释批次生成 (10s)
- * 
- * SSE事件顺序：
- * 1. preface_chunk（序言）
- * 2. artwork_batch_chunk for [1,2]
- * 3. artwork_batch_chunk for [3,4]
- * 4. artwork_batch_chunk for [5,6]
- * 5. artwork_batch_chunk for [7,8]
- * 6. artwork_batch_chunk for [9]
- * 7. closing_chunk（结语）
+ * 增强版策展流式SSE接口
+ * 使用分离的数据架构：
+ * 1. 向量检索 → 获取作品ID列表
+ * 2. 图片服务 → 根据ID获取图片URL
+ * 3. 元数据服务 → 根据ID获取完整信息
  */
 export async function POST(request: NextRequest) {
   // 验证请求参数
@@ -42,103 +35,134 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  console.log('🚀 开始优化后的策展流式输出...');
+  console.log('🚀 开始增强版策展流式输出...');
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({
     async start(controller) {
       const send = (type: string, payload: unknown) => {
-        try {
-          if (controller.desiredSize === null) {
-            console.warn('⚠️ 控制器已关闭，跳过发送:', type);
-            return;
-          }
-          const data = JSON.stringify({ type, payload });
-          controller.enqueue(encoder.encode(`data: ${data}\n\n`));
-        } catch (err) {
-          console.error('❌ 发送数据失败:', err);
-          try {
-            if (controller.desiredSize !== null) {
-              controller.enqueue(encoder.encode(`data: {"type":"error","payload":{"message":"serialize_failed"}}\n\n`));
-            }
-          } catch (closeErr) {
-            console.error('❌ 关闭控制器失败:', closeErr);
-          }
-        }
+        const data = `data: ${JSON.stringify({ type, payload })}\n\n`;
+        console.log(`📤 发送SSE事件: ${type}`, payload);
+        controller.enqueue(encoder.encode(data));
       };
 
-      const closeWithError = (message: string, details?: unknown) => {
-        send('error', { message, details });
+      const closeWithError = (type: string, payload: unknown) => {
+        send(type, payload);
         controller.close();
       };
 
       try {
         const t0 = Date.now();
-        send('start', { emotion, userInput });
 
-        // Phase A · 规划层（后端角度）
-        console.log('🧠 Phase A: 开始LLM策展规划...');
-        
-        // Step 1: LLM策展规划（单次调用）
+        // Phase A · 规划层
+        console.log('📋 Phase A: 开始规划层处理...');
+
+        // Step 1: LLM策展规划
         const curationStart = Date.now();
-        const curationIntent = await realLLMCurationIntentGenerator.generateCurationIntent(userInput || emotion);
+        const curationIntent = await realLLMCurationIntentGenerator.generateCurationIntent(emotion, userInput);
         const curationTime = Date.now() - curationStart;
         console.log(`✅ LLM策展规划完成，耗时: ${curationTime}ms`);
-        
-        send('curation_intent', {
-          curatorialTheme: curationIntent.curatorialTheme,
-          emotionalArc: curationIntent.emotionalArc,
-          emotionalStages: curationIntent.emotionalStages,
-          durationMs: curationTime
-        });
+        console.log('📊 策展意图:', curationIntent);
 
-        // Step 2: 情绪曲线设计（使用LLM生成的信息）
+        // Step 2: 情绪曲线设计
         const curveStart = Date.now();
+        const stageIntensities = curationIntent.emotionalStages.map(stage => stage.intensity);
+        const stageEmotions = curationIntent.emotionalStages.map(stage => stage.emotion);
         
-        // 使用LLM生成的情绪曲线信息
-        const llmEmotionCurve = curationIntent.emotionCurve;
-        console.log('📊 LLM生成的情绪曲线信息:', llmEmotionCurve);
+        console.log('📊 准备生成情绪曲线:');
+        console.log('📊 阶段强度:', stageIntensities);
+        console.log('📊 阶段情绪:', stageEmotions);
         
-        // 基于LLM阶段信息生成情绪曲线
         const emotionCurve = EmotionCurveGenerator.generateCurve(
           [], // 空作品数组，只生成曲线
           [], // 空评分数组
           curationIntent.emotionalStages[0]?.emotion || 'joy',
           {
-            curveType: llmEmotionCurve.curveType || 'wave',
+            curveType: 'custom',
             totalPoints: curationIntent.emotionalStages.length,
             intensity: curationIntent.emotionalStages[0]?.intensity || 0.8,
             variation: 0.3,
-            // 使用LLM生成的阶段强度信息
-            stageIntensities: curationIntent.emotionalStages.map(stage => stage.intensity),
-            stageEmotions: curationIntent.emotionalStages.map(stage => stage.emotion)
+            stageIntensities: stageIntensities,
+            stageEmotions: stageEmotions
           }
         );
         const curveTime = Date.now() - curveStart;
         console.log(`✅ 情绪曲线设计完成，耗时: ${curveTime}ms`);
-        console.log('📈 生成的情绪曲线:', emotionCurve);
 
-        // Step 3: 检索引擎（向量库 + 本地DB）
+        // Step 3: 向量检索
         const searchStart = Date.now();
         const searchQueries = generateSearchQueries(curationIntent);
-        // 使用第一个查询进行搜索
-        const searchQuery = searchQueries[0]?.query || curationIntent.curatorialTheme;
-        // 使用纯JavaScript向量搜索
-        const searchResults = await jsVectorSearchService.search(searchQuery, 30);
+        console.log('🔍 生成的搜索查询:', searchQueries);
+        
+        // 使用多个查询进行搜索，提高匹配精度
+        let allSearchResults = [];
+        for (const query of searchQueries) {
+          const results = await jsVectorSearchService.search(query.query, 15);
+          // 为每个结果添加查询来源信息
+          const enrichedResults = results.map(result => ({
+            ...result,
+            queryId: query.queryId,
+            queryWeight: query.weight
+          }));
+          allSearchResults.push(...enrichedResults);
+        }
+        
+        // 去重并按相似度排序
+        const uniqueResults = deduplicateAndRankArtworks(allSearchResults);
+        const searchResults = uniqueResults.slice(0, 30);
+        
         const searchTime = Date.now() - searchStart;
         console.log(`✅ 向量检索完成，耗时: ${searchTime}ms，获得${searchResults.length}件作品`);
+        console.log('🔍 检索结果示例:', searchResults.slice(0, 3).map(r => ({ id: r.id, title: r.title, similarity: r.similarity })));
 
-        // Step 4: 选择最终作品
+        // Step 4: 选择最终作品ID
         const selectionStart = Date.now();
-        const selectedArtworks = selectFinalArtworks(searchResults, curationIntent, emotionCurve);
+        const selectedArtworkIds = selectFinalArtworkIds(searchResults, curationIntent);
         const selectionTime = Date.now() - selectionStart;
-        console.log(`✅ 作品选择完成，耗时: ${selectionTime}ms，选择${selectedArtworks.length}件作品`);
+        console.log(`✅ 作品ID选择完成，耗时: ${selectionTime}ms，选择${selectedArtworkIds.length}件作品`);
+
+        // Step 5: 加载图片和元数据服务
+        const serviceStart = Date.now();
+        const imageService = new ImageService();
+        await imageService.initialize();
+        
+        // 加载元数据
+        const metadataPath = path.join(process.cwd(), 'public', 'data', 'artworks-metadata.json');
+        const metadataData = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+        const metadataMap = new Map(metadataData.map((item: any) => [item.id, item]));
+        
+        const serviceTime = Date.now() - serviceStart;
+        console.log(`✅ 服务加载完成，耗时: ${serviceTime}ms`);
+
+        // Step 6: 组装最终作品数据
+        const assemblyStart = Date.now();
+        const selectedArtworks = selectedArtworkIds.map((artworkId: string, index: number) => {
+          const metadata = metadataMap.get(artworkId);
+          const imageData = imageService.getImageData(artworkId);
+          
+          return {
+            id: artworkId,
+            title: metadata?.title || '未知标题',
+            artist: metadata?.artist || '未知艺术家',
+            year: metadata?.year || '未知年代',
+            medium: metadata?.medium || '未知媒介',
+            description: metadata?.description || '',
+            imageUrl: imageData?.primary || null,
+            imageThumbnail: imageData?.thumbnail || null,
+            additionalImages: imageData?.additionalImages || [],
+            position: index + 1,
+            stage: Math.floor(index / (selectedArtworkIds.length / curationIntent.emotionalStages.length)) + 1,
+            emotion: metadata?.emotion || null
+          };
+        });
+        const assemblyTime = Date.now() - assemblyStart;
+        console.log(`✅ 作品数据组装完成，耗时: ${assemblyTime}ms`);
 
         // 发送作品选择结果
         send('artworks_selected', {
           artworks: selectedArtworks,
           totalCount: selectedArtworks.length,
-          durationMs: selectionTime
+          durationMs: selectionTime + serviceTime + assemblyTime
         });
 
         // Phase B · 叙述层（SSE阶段）
@@ -151,10 +175,12 @@ export async function POST(request: NextRequest) {
         console.log(`✅ 序言+结语生成完成，耗时: ${narrationTime}ms`);
 
         // 1. 序言流式输出
+        console.log('📝 发送序言事件，内容长度:', preface.length);
         send('preface_chunk', {
           content: preface,
           durationMs: narrationTime
         });
+        console.log('✅ 序言事件已发送');
 
         // 2. 作品解释批次生成（2-2-2模式）
         const explanationStart = Date.now();
@@ -163,10 +189,12 @@ export async function POST(request: NextRequest) {
         console.log(`✅ 作品解释生成完成，耗时: ${explanationTime}ms`);
 
         // 3. 结语流式输出
+        console.log('📝 发送结语事件，内容长度:', conclusion.length);
         send('closing_chunk', {
           content: conclusion,
           durationMs: narrationTime
         });
+        console.log('✅ 结语事件已发送');
 
         // 完结
         send('complete', { 
@@ -189,107 +217,202 @@ export async function POST(request: NextRequest) {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    }
+    },
   });
 }
 
 /**
- * 生成检索查询
+ * 生成搜索查询
  */
 function generateSearchQueries(curationIntent: any) {
   const queries = [];
   
-  curationIntent.emotionalStages.forEach((stage: any, index: number) => {
-    // 基础情绪Query
+  // 主查询：策展主题
+  if (curationIntent.curatorialTheme) {
     queries.push({
-      query: `${stage.emotion} ${stage.description}`,
-      weight: stage.intensity,
-      filters: { emotion: stage.emotion }
+      queryId: 'main',
+      query: curationIntent.curatorialTheme,
+      weight: 1.0
     });
-    
-    // 视觉特征Query
-    stage.visualCharacteristics.forEach((characteristic: string) => {
+  }
+  
+  // 情绪弧线查询
+  if (curationIntent.emotionalArc) {
+    queries.push({
+      queryId: 'arc',
+      query: curationIntent.emotionalArc,
+      weight: 0.9
+    });
+  }
+  
+  // 阶段查询：每个情绪阶段的关键词
+  curationIntent.emotionalStages.forEach((stage: any, index: number) => {
+    if (stage.keywords && stage.keywords.length > 0) {
+      // 为每个阶段创建多个查询变体
       queries.push({
-        query: `${characteristic} ${stage.emotion}`,
-        weight: stage.intensity * 0.8,
-        filters: { visual: characteristic }
+        queryId: `stage_${stage.stage}_keywords`,
+        query: stage.keywords.join(' '),
+        weight: 0.8
       });
-    });
+      
+      // 情绪名称查询
+      queries.push({
+        queryId: `stage_${stage.stage}_emotion`,
+        query: stage.emotion,
+        weight: 0.7
+      });
+      
+      // 组合查询：情绪+关键词
+      queries.push({
+        queryId: `stage_${stage.stage}_combined`,
+        query: `${stage.emotion} ${stage.keywords.join(' ')}`,
+        weight: 0.9
+      });
+    }
   });
   
-  // 添加整体主题Query
+  // 视觉特征查询
+  if (curationIntent.visualFeatures) {
+    if (curationIntent.visualFeatures.colorPalette) {
+      queries.push({
+        queryId: 'colors',
+        query: curationIntent.visualFeatures.colorPalette.join(' '),
+        weight: 0.6
+      });
+    }
+    if (curationIntent.visualFeatures.mood) {
+      queries.push({
+        queryId: 'mood',
+        query: curationIntent.visualFeatures.mood.join(' '),
+        weight: 0.7
+      });
+    }
+  }
+  
+  // 艺术风格查询
+  if (curationIntent.aestheticPreferences?.artStyles) {
+    queries.push({
+      queryId: 'styles',
+      query: curationIntent.aestheticPreferences.artStyles.join(' '),
+      weight: 0.5
+    });
+  }
+  
+  // 绘画优先查询
   queries.push({
-    query: curationIntent.curatorialTheme,
-    weight: 1.0,
-    filters: { theme: curationIntent.curatorialTheme }
+    queryId: 'painting_priority',
+    query: 'painting oil canvas watercolor acrylic tempera fresco',
+    weight: 0.8
   });
   
   return queries;
 }
 
 /**
- * 选择最终作品
+ * 选择最终作品ID
  */
-function selectFinalArtworks(searchResults: any, curationIntent: any, emotionCurve: any[]) {
-  // 收集所有作品
-  const allArtworks = Array.isArray(searchResults) ? searchResults : searchResults.results?.flatMap((result: any) => 
-    result.artworks?.map((artwork: any) => ({
-      ...artwork,
-      queryId: result.queryId
-    })) || []
-  ) || [];
-
+function selectFinalArtworkIds(searchResults: any[], curationIntent: any) {
   // 去重并按相关性排序
-  const uniqueArtworks = deduplicateAndRankArtworks(allArtworks);
+  const uniqueArtworks = deduplicateAndRankArtworks(searchResults);
   
-  // 选择最终作品（6-12件）
-  const targetCount = Math.min(12, Math.max(6, uniqueArtworks.length));
-  const selectedArtworks = uniqueArtworks.slice(0, targetCount);
-
-  // 为每件作品分配情绪阶段
-  return selectedArtworks.map((artwork: any, index: number) => ({
-    ...artwork,
-    position: index + 1,
-    stage: Math.floor(index / (targetCount / curationIntent.emotionalStages.length)) + 1,
-    emotionalImpact: artwork.relevance * 0.9 + Math.random() * 0.1
-  }));
+  // 计算每个阶段需要的作品数量
+  const totalStages = curationIntent.emotionalStages.length;
+  const totalArtworks = Math.min(12, Math.max(6, uniqueArtworks.length));
+  const artworksPerStage = Math.floor(totalArtworks / totalStages);
+  const remainingArtworks = totalArtworks % totalStages;
+  
+  console.log(`📊 作品分配: 总作品${totalArtworks}件, ${totalStages}个阶段, 每阶段${artworksPerStage}件`);
+  
+  // 按阶段分配作品
+  const selectedArtworks = [];
+  let currentIndex = 0;
+  
+  curationIntent.emotionalStages.forEach((stage: any, stageIndex: number) => {
+    const stageArtworkCount = artworksPerStage + (stageIndex < remainingArtworks ? 1 : 0);
+    const stageArtworks = uniqueArtworks.slice(currentIndex, currentIndex + stageArtworkCount);
+    
+    console.log(`📊 阶段${stage.stage} (${stage.emotion}): 分配${stageArtworkCount}件作品`);
+    console.log(`📊 阶段${stage.stage}作品:`, stageArtworks.map(a => ({ id: a.id, title: a.title, similarity: a.similarity })));
+    
+    selectedArtworks.push(...stageArtworks);
+    currentIndex += stageArtworkCount;
+  });
+  
+  // 如果还有剩余作品，按相似度添加
+  if (currentIndex < uniqueArtworks.length && selectedArtworks.length < totalArtworks) {
+    const remaining = uniqueArtworks.slice(currentIndex, totalArtworks - selectedArtworks.length + currentIndex);
+    selectedArtworks.push(...remaining);
+  }
+  
+  console.log(`✅ 最终选择${selectedArtworks.length}件作品`);
+  return selectedArtworks.map((artwork: any) => artwork.id);
 }
 
 /**
  * 去重并排序作品
  */
 function deduplicateAndRankArtworks(artworks: any[]) {
-  const uniqueMap = new Map();
-  
-  artworks.forEach(artwork => {
-    const existing = uniqueMap.get(artwork.id);
-    if (!existing || artwork.relevance > existing.relevance) {
-      uniqueMap.set(artwork.id, artwork);
-    }
+  const seen = new Set();
+  const unique = artworks.filter(artwork => {
+    if (seen.has(artwork.id)) return false;
+    seen.add(artwork.id);
+    return true;
   });
-
-  return Array.from(uniqueMap.values())
-    .sort((a, b) => b.relevance - a.relevance);
+  
+  // 按相似度和绘画优先排序
+  return unique.sort((a, b) => {
+    // 绘画作品优先
+    const aIsPainting = isPainting(a);
+    const bIsPainting = isPainting(b);
+    
+    if (aIsPainting && !bIsPainting) return -1;
+    if (!aIsPainting && bIsPainting) return 1;
+    
+    // 同类型按相似度排序
+    return (b.similarity || 0) - (a.similarity || 0);
+  });
 }
 
 /**
- * 生成序言+结语（一次LLM调用）
+ * 判断是否为绘画作品
+ */
+function isPainting(artwork: any) {
+  const medium = (artwork.medium || '').toLowerCase();
+  const paintingKeywords = [
+    'oil', 'canvas', 'watercolor', 'acrylic', 'tempera', 'fresco',
+    'painting', 'paint', 'gouache', 'pastel', 'ink', 'brush'
+  ];
+  
+  return paintingKeywords.some(keyword => medium.includes(keyword));
+}
+
+/**
+ * 生成序言和结语
  */
 async function generateNarration(artworks: any[], curationIntent: any) {
   const { glmOptimizedClient } = await import('@/lib/glm-optimized-client');
   
-  const prompt = `为艺术展览生成序言和结语（中文）。
+  const prompt = `作为世界级艺术策展人，请为以下展览撰写序言和结语：
 
-展览主题：${curationIntent.curatorialTheme}
+【展览信息】
+策展主题：${curationIntent.curatorialTheme}
 情绪弧线：${curationIntent.emotionalArc}
 作品数量：${artworks.length}件
+视觉特征：${curationIntent.visualFeatures?.colorPalette?.join('、') || ''}色调，${curationIntent.visualFeatures?.mood?.join('、') || ''}氛围
+叙事语调：${curationIntent.narrativeTone?.voice || ''}，${curationIntent.narrativeTone?.approach || ''}
 
-请生成：
-1. 序言（200-300字）：解释展览的核心理念和作品选择逻辑
-2. 结语（150-200字）：总结展览的艺术价值和情感体验
+【要求】
+序言（300-400字）：
+- 以诗意而深刻的方式开场，营造沉浸式氛围
+- 深入阐释策展理念和情感内核
+- 引导观众进入特定的心理状态
+- 体现艺术与情感的深度对话
+
+结语（200-250字）：
+- 升华展览主题，引发哲学思考
+- 连接个人体验与普遍人性
+- 留下深刻印象和思考空间
+- 以诗意语言收尾
 
 请以JSON格式输出：
 {
@@ -300,7 +423,7 @@ async function generateNarration(artworks: any[], curationIntent: any) {
   const messages = [
     {
       role: 'system' as const,
-      content: '你是一位资深的艺术策展人，擅长撰写富有感染力的展览序言和深刻而富有启发性的展览结语。'
+      content: '你是一位世界级的艺术策展人，拥有20年策展经验，擅长撰写深刻、诗意、富有哲学思辨的展览序言和结语。你的文字具有文学性和艺术性，能够触动观众内心，引发深度思考。'
     },
     {
       role: 'user' as const,
@@ -309,36 +432,77 @@ async function generateNarration(artworks: any[], curationIntent: any) {
   ];
 
   try {
+    console.log('🎭 开始生成序言和结语...');
     const response = await glmOptimizedClient.chat(messages, {
-      temperature: 0.8,
-      max_tokens: 800,
+      temperature: 0.9,
+      max_tokens: 1200,
       thinking: 'disabled' as const
     });
     
     const content = response.choices[0]?.message?.content || '';
+    console.log('📝 LLM原始序言+结语输出:', content);
     
     // 尝试解析JSON
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
-      const parsed = JSON.parse(jsonMatch[0]);
+      try {
+        const parsed = JSON.parse(jsonMatch[0]);
+        console.log('✅ 序言+结语JSON解析成功:', parsed);
+        return {
+          preface: parsed.preface || '这是一个精心策划的艺术展览...',
+          conclusion: parsed.conclusion || '通过这次展览，我们深入体验了情感主题的丰富层次...'
+        };
+      } catch (parseError) {
+        console.error('❌ JSON解析失败:', parseError);
+        console.log('📝 原始内容:', content);
+      }
+    }
+    
+    // 如果解析失败，尝试直接提取文本
+    console.log('⚠️ JSON解析失败，尝试直接提取文本...');
+    const prefaceMatch = content.match(/序言[：:]\s*(.+?)(?=结语|$)/s);
+    const conclusionMatch = content.match(/结语[：:]\s*(.+?)$/s);
+    
+    if (prefaceMatch && conclusionMatch) {
+      console.log('✅ 直接提取序言+结语成功');
       return {
-        preface: parsed.preface || '这是一个精心策划的艺术展览...',
-        conclusion: parsed.conclusion || '通过这次展览，我们深入体验了情感主题的丰富层次...'
+        preface: prefaceMatch[1].trim(),
+        conclusion: conclusionMatch[1].trim()
       };
     }
     
-    // 如果解析失败，返回默认内容
-    return {
-      preface: '这是一个精心策划的艺术展览，通过精选作品展现情感主题的深度内涵。',
-      conclusion: '通过这次展览，我们深入体验了情感主题的丰富层次，每一件作品都是艺术家内心世界的真实写照。'
-    };
+    // 最后尝试：如果LLM没有按格式输出，使用内容作为序言
+    console.log('⚠️ 所有解析方法失败，使用原始内容作为序言');
+    console.log('📝 原始内容长度:', content.length);
+    console.log('📝 原始内容前200字符:', content.substring(0, 200));
+    
+    // 尝试提取序言和结语文本（兜底提取，避免与上文变量同名）
+    const prefaceMatch2 = content.match(/序言[：:]\s*(.+?)(?=结语|$)/s);
+    const conclusionMatch2 = content.match(/结语[：:]\s*(.+?)$/s);
+    
+    if (prefaceMatch2) {
+      console.log('✅ 找到序言文本(兜底)');
+      return {
+        preface: prefaceMatch2[1].trim(),
+        conclusion: conclusionMatch2 ? conclusionMatch2[1].trim() : '通过这次展览，我们深入体验了情感主题的丰富层次。'
+      };
+    }
+    
+    // 如果还是找不到，使用整个内容作为序言
+    const cleanContent = content.replace(/^[\s\S]*?(?=序言|结语|展览|艺术|等待|焦虑)/, '').trim();
+    if (cleanContent.length > 50) {
+      return {
+        preface: cleanContent.substring(0, 400),
+        conclusion: '通过这次展览，我们深入体验了情感主题的丰富层次。'
+      };
+    }
+    
+    // 如果都失败，抛出错误而不是返回默认内容
+    throw new Error('无法解析LLM输出的序言和结语');
     
   } catch (error) {
-    console.error('序言+结语生成失败:', error);
-    return {
-      preface: '这是一个精心策划的艺术展览，通过精选作品展现情感主题的深度内涵。',
-      conclusion: '通过这次展览，我们深入体验了情感主题的丰富层次，每一件作品都是艺术家内心世界的真实写照。'
-    };
+    console.error('❌ 序言+结语生成失败:', error);
+    throw error;
   }
 }
 
@@ -351,17 +515,15 @@ async function generateExplanationsInBatches(
   emotionCurve: any,
   send: (type: string, payload: unknown) => void
 ) {
-  const batchSize = 2; // 固定小批次，快速返回
+  const batchSize = 2;
   const batches = [];
   
-  // 分成小批次，每批2件作品
   for (let i = 0; i < artworks.length; i += batchSize) {
     batches.push(artworks.slice(i, i + batchSize));
   }
   
   console.log(`🎨 开始分批生成讲解：${batches.length}批，每批${batchSize}件，总计${artworks.length}件作品`);
   
-  // 处理每个批次
   for (let i = 0; i < batches.length; i++) {
     const batch = batches[i];
     try {
@@ -371,162 +533,30 @@ async function generateExplanationsInBatches(
         curationIntent.emotionalStages[0]?.emotion || 'joy',
         curationIntent.curatorialTheme,
         curationIntent.curatorialTheme,
-        emotionCurve,
-        curationIntent.emotionalStages
+        emotionCurve
       );
       const batchTime = Date.now() - batchStart;
       
-      // 发送这一批的讲解结果
+      console.log(`✅ 批次${i + 1}讲解生成完成，耗时: ${batchTime}ms`);
+      
+      // 与前端沉浸画廊对齐：前端读取 payload.explanations
+      // result 为 BatchExplanationResult，包含 explanations 等统计字段
       send('artwork_batch_chunk', {
         batchIndex: i + 1,
-        batchSize: batch.length,
+        totalBatches: batches.length,
         explanations: result.explanations,
         successCount: result.successCount,
         failureCount: result.failureCount,
+        fromCacheCount: result.fromCacheCount,
         durationMs: batchTime
       });
       
-      console.log(`✅ 第${i + 1}批讲解完成，耗时: ${batchTime}ms`);
-      
     } catch (error) {
-      console.error(`❌ 第${i + 1}批讲解失败:`, error);
-      send('artwork_batch_chunk', {
+      console.error(`❌ 批次${i + 1}讲解生成失败:`, error);
+      send('artwork_batch_error', {
         batchIndex: i + 1,
-        batchSize: batch.length,
-        explanations: [],
-        successCount: 0,
-        failureCount: batch.length,
-        error: error instanceof Error ? error.message : String(error),
-        durationMs: 0
+        error: error instanceof Error ? error.message : String(error)
       });
     }
   }
-  
-  console.log('🎉 所有讲解批次生成完成');
-}
-
-// 便于测试：支持 GET /api/curate/stream?emotion=...&userInput=...
-export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
-  const emotion = url.searchParams.get('emotion') || '';
-  const userInput = url.searchParams.get('userInput') || '';
-
-  if (!emotion) {
-    return new Response(JSON.stringify({ error: 'Missing required field: emotion' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-
-  const fake = {
-    json: async () => ({ emotion, userInput })
-  } as unknown as NextRequest;
-
-  return POST(fake);
-}
-
-/**
- * 模拟搜索函数 - 暂时替代hnswlib-node
- */
-async function mockSearch(query: string) {
-  // 模拟一些艺术作品数据，根据查询内容智能选择
-  console.log(`🔍 模拟搜索查询: "${query}"`);
-  
-  const mockArtworks = [
-    {
-      id: "437133",
-      title: "Garden at Sainte-Adresse",
-      artist: "Claude Monet",
-      year: "1867",
-      medium: "Oil on canvas",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop&auto=format&q=80",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "729644",
-      title: "In proof of true love, a watercarrier skeleton arguing with a woman (Posada); two skeleton angels in upper corners (Manilla)",
-      artist: "José Guadalupe Posada",
-      year: "ca. 1890–1896",
-      medium: "Type-metal engraving and letterpress on blue paper",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.metmuseum.org/CRDImages/dp/original/DP865112.jpg",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "436155",
-      title: "The Rehearsal of the Ballet Onstage",
-      artist: "Edgar Degas",
-      year: "ca. 1874",
-      medium: "Oil colors freely mixed with turpentine, with traces of watercolor and pastel over pen-and-ink drawing on cream-colored wove paper, laid down on bristol board and mounted on canvas",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DT1565.jpg",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "671456",
-      title: "Chrysanthemums in the Garden at Petit-Gennevilliers",
-      artist: "Gustave Caillebotte",
-      year: "1893",
-      medium: "Oil on canvas",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DP341200.jpg",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "436241",
-      title: "Cows Crossing a Ford",
-      artist: "Jules Dupré",
-      year: "1836",
-      medium: "Oil on canvas",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DP232030.jpg",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "437422",
-      title: "Charity",
-      artist: "Guido Reni",
-      year: "ca. 1630",
-      medium: "Oil on canvas",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.metmuseum.org/CRDImages/ep/original/DT10776.jpg",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "206965",
-      title: "Longcase astronomical regulator",
-      artist: "Ferdinand Berthoud",
-      year: "ca. 1768–70",
-      medium: "Case: oak veneered with ebony and brass, with gilt-bronze mounts; Dial: white enamel; Movement: gilded brass and steel",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.metmuseum.org/CRDImages/es/original/DP336058.jpg",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "544320",
-      title: "Stela of the Steward Mentuwoser",
-      artist: "未知艺术家",
-      year: "ca. 1944 B.C.",
-      medium: "Limestone, paint",
-      description: "Middle Kingdom",
-      imageUrl: "https://images.metmuseum.org/CRDImages/eg/original/DP322064.jpg",
-      museum: "大都会艺术博物馆"
-    },
-    {
-      id: "200668",
-      title: "Sabine Houdon (1787–1836)",
-      artist: "Jean Antoine Houdon",
-      year: "1788",
-      medium: "White marble on gray marble socle",
-      description: "这是一件来自大都会艺术博物馆的珍贵作品。",
-      imageUrl: "https://images.metmuseum.org/CRDImages/es/original/DP242660.jpg",
-      museum: "大都会艺术博物馆"
-    }
-  ];
-  
-  // 模拟搜索延迟
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
-  return mockArtworks;
 }
