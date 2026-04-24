@@ -36,6 +36,7 @@ function resolveConfigPath(theme, configFile) {
 function normalizeConfig(rawConfig) {
   return {
     theme: rawConfig.theme,
+    template: Boolean(rawConfig.template),
     promoteIds: setOf(rawConfig.promoteIds || []),
     holdIds: setOf(rawConfig.holdIds || []),
     rejectDuplicateIds: setOf(rawConfig.rejectDuplicateIds || []),
@@ -64,9 +65,11 @@ function loadThemeConfig(theme, configFile) {
   };
 }
 
-function buildConfigTemplate(queue, theme) {
+function buildConfigTemplate(queue, theme, sourceFile) {
   return {
     theme,
+    template: true,
+    sourceFile,
     promoteIds: [],
     holdIds: [],
     rejectDuplicateIds: [],
@@ -82,11 +85,42 @@ function buildConfigTemplate(queue, theme) {
   };
 }
 
-function writeConfigTemplate(templatePath, queue, theme) {
+function writeConfigTemplate(templatePath, queue, theme, sourceFile) {
   const resolvedPath = path.resolve(templatePath);
   ensureDir(path.dirname(resolvedPath));
-  fs.writeFileSync(resolvedPath, `${JSON.stringify(buildConfigTemplate(queue, theme), null, 2)}\n`);
+  fs.writeFileSync(resolvedPath, `${JSON.stringify(buildConfigTemplate(queue, theme, sourceFile), null, 2)}\n`);
   return resolvedPath;
+}
+
+function collectUnassignedRecords(queue, config) {
+  const assignedIds = new Set([
+    ...config.promoteIds,
+    ...config.holdIds,
+    ...config.rejectDuplicateIds,
+    ...config.rejectWeakDisplayIds,
+    ...config.rejectOutOfScopeIds,
+    ...config.rejectWeakEmotionIds,
+  ]);
+
+  return queue.filter(record => !assignedIds.has(String(record.sourceArtworkId)));
+}
+
+function assertConfigReady(queue, config, configPath, theme) {
+  const unassignedRecords = collectUnassignedRecords(queue, config);
+  if (!config.template && unassignedRecords.length === 0) {
+    return;
+  }
+
+  const sample = unassignedRecords
+    .slice(0, 5)
+    .map(record => `${record.sourceArtworkId}:${record.metadata?.title || 'Untitled'}`)
+    .join(', ');
+  const templateHint = config.template
+    ? `Config ${configPath} is still marked as a template. Fill its decision buckets before running the review pass.`
+    : `Config ${configPath} is missing decisions for ${unassignedRecords.length} records.`;
+  const sampleHint = sample ? ` Missing sample ids: ${sample}.` : '';
+
+  throw new Error(`${templateHint}${sampleHint} Theme: ${theme}.`);
 }
 
 function buildDecision(config, theme, record, decisionOwner, decisionAt) {
@@ -239,12 +273,13 @@ const queuePath = path.resolve(options.input);
 const queue = readJsonFile(queuePath);
 
 if (options.writeConfigTemplate) {
-  const templatePath = writeConfigTemplate(options.writeConfigTemplate, queue, options.theme);
+  const templatePath = writeConfigTemplate(options.writeConfigTemplate, queue, options.theme, queuePath);
   console.log(`Review config template written: ${templatePath}`);
   process.exit(0);
 }
 
 const { path: configPath, config: themeConfig } = loadThemeConfig(options.theme, options.configFile);
+assertConfigReady(queue, themeConfig, configPath, options.theme);
 const decisions = queue.map(record => {
   const decision = buildDecision(themeConfig, options.theme, record, options.decisionOwner, decisionAt);
   decision.runId = reviewRunId;
