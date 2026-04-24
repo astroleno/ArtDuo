@@ -1,0 +1,143 @@
+{
+  "id": "bg-024",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_56_35.png",
+    "suggested_filename": "bg-monumental-stone-gallery-minimal-024.png",
+    "local_public_path": "/artduo-gallery/bg-monumental-stone-gallery-minimal-024.png",
+    "label_cn": "浅石材中庭展墙",
+    "asset_group": "monumental-stone-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "monumental minimal",
+      "institutional classic",
+      "clean symmetry"
+    ],
+    "materials": [
+      "stone",
+      "plaster",
+      "polished concrete"
+    ],
+    "lighting": [
+      "soft skylight",
+      "neutral ambient"
+    ],
+    "mood": [
+      "calm",
+      "formal"
+    ],
+    "palette": [
+      "off-white",
+      "light beige",
+      "gray stone"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "flat presentation wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "clarity",
+      "stability",
+      "serenity"
+    ],
+    "art_styles": [
+      "monumental minimal",
+      "institutional classic",
+      "clean symmetry"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "warm_neutral",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "grid",
+      "open_space"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "excellent",
+    "visual_busyness": 0.18
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.24,
+        "y": 0.2,
+        "width": 0.53,
+        "height": 0.55
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "dissolve",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "match-cut",
+      "dissolve",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "浅石材中庭展墙 monumental-stone-gallery stone monumental gallery minimal calm formal off-white light beige gray stone",
+    "search_terms": [
+      "monumental-stone-gallery",
+      "stone",
+      "monumental",
+      "gallery",
+      "minimal",
+      "clarity",
+      "stability",
+      "serenity",
+      "off-white",
+      "light-beige",
+      "gray-stone",
+      "gallery-interior"
+    ],
+    "embedding_text": "浅石材中庭展墙; monumental-stone-gallery; scene_type=gallery_interior; mood=calm, formal; palette=off-white, light beige, gray stone; materials=stone, plaster, polished concrete"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.93
+}

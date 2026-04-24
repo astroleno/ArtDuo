@@ -1,0 +1,142 @@
+{
+  "id": "bg-044",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_18_42.png",
+    "suggested_filename": "bg-art-deco-grand-wall-gold-trim-044.png",
+    "local_public_path": "/artduo-gallery/bg-art-deco-grand-wall-gold-trim-044.png",
+    "label_cn": "装饰艺术展墙",
+    "asset_group": "art-deco-grand-wall",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "editorial_space",
+    "styles": [
+      "art deco",
+      "luxury interior",
+      "cinematic"
+    ],
+    "materials": [
+      "veneer wood",
+      "brass",
+      "marble"
+    ],
+    "lighting": [
+      "wall sconces",
+      "ceiling cove lighting",
+      "warm spotlights"
+    ],
+    "mood": [
+      "glamorous",
+      "formal",
+      "dramatic"
+    ],
+    "palette": [
+      "espresso",
+      "champagne",
+      "ivory"
+    ],
+    "composition": [
+      "ornamental central panel",
+      "symmetrical sconces",
+      "reflective floor"
+    ],
+    "negative_space_level": "medium",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "luxury",
+      "theater",
+      "prestige"
+    ],
+    "art_styles": [
+      "art deco",
+      "luxury interior",
+      "cinematic"
+    ],
+    "artwork_palette_modes": [
+      "warm-neutral",
+      "high-contrast"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.49
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.17,
+        "y": 0.19,
+        "width": 0.66,
+        "height": 0.48
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "medium",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "装饰艺术展墙 art-deco-grand-wall art-deco grand gold-trim lobby glamorous formal dramatic espresso champagne ivory",
+    "search_terms": [
+      "art-deco-grand-wall",
+      "art-deco",
+      "grand",
+      "gold-trim",
+      "lobby",
+      "luxury",
+      "theater",
+      "prestige",
+      "espresso",
+      "champagne",
+      "ivory",
+      "editorial-space"
+    ],
+    "embedding_text": "装饰艺术展墙; art-deco-grand-wall; scene_type=editorial_space; mood=glamorous, formal, dramatic; palette=espresso, champagne, ivory; materials=veneer wood, brass, marble"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.92
+}

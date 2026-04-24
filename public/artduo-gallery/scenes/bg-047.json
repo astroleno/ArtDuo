@@ -1,0 +1,143 @@
+{
+  "id": "bg-047",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_24_27.png",
+    "suggested_filename": "bg-daylit-scandinavian-gallery-light-wood-047.png",
+    "local_public_path": "/artduo-gallery/bg-daylit-scandinavian-gallery-light-wood-047.png",
+    "label_cn": "天光浅木展厅",
+    "asset_group": "daylit-scandinavian-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "scandinavian minimal",
+      "daylit gallery",
+      "soft natural"
+    ],
+    "materials": [
+      "plaster",
+      "light wood",
+      "oak floor"
+    ],
+    "lighting": [
+      "skylight daylight",
+      "track lights"
+    ],
+    "mood": [
+      "airy",
+      "peaceful",
+      "welcoming"
+    ],
+    "palette": [
+      "cream",
+      "blonde wood",
+      "soft beige"
+    ],
+    "composition": [
+      "large centered wall",
+      "bench along base",
+      "side door frames"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "openness",
+      "calm",
+      "freshness"
+    ],
+    "art_styles": [
+      "scandinavian minimal",
+      "daylit gallery",
+      "soft natural"
+    ],
+    "artwork_palette_modes": [
+      "light-neutral",
+      "pastel-friendly"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero",
+      "triptych"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.29
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.18,
+        "y": 0.18,
+        "width": 0.64,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "window-lit",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "lateral-pan"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "天光浅木展厅 daylit-scandinavian-gallery daylit light-wood scandinavian gallery airy peaceful welcoming cream blonde wood soft beige",
+    "search_terms": [
+      "daylit-scandinavian-gallery",
+      "daylit",
+      "light-wood",
+      "scandinavian",
+      "gallery",
+      "openness",
+      "calm",
+      "freshness",
+      "cream",
+      "blonde-wood",
+      "soft-beige",
+      "gallery-interior"
+    ],
+    "embedding_text": "天光浅木展厅; daylit-scandinavian-gallery; scene_type=gallery_interior; mood=airy, peaceful, welcoming; palette=cream, blonde wood, soft beige; materials=plaster, light wood, oak floor"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.95
+}

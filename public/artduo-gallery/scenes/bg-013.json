@@ -1,0 +1,148 @@
+{
+  "id": "bg-013",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_44_48.png",
+    "suggested_filename": "bg-gold-classical-gallery-champagne-wall-013.png",
+    "local_public_path": "/artduo-gallery/bg-gold-classical-gallery-champagne-wall-013.png",
+    "label_cn": "金色古典主展墙",
+    "asset_group": "gold-classical-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "classical",
+      "refined",
+      "luminous"
+    ],
+    "materials": [
+      "plaster",
+      "stone",
+      "oak floor"
+    ],
+    "lighting": [
+      "spotlights",
+      "warm ambient",
+      "soft wash"
+    ],
+    "mood": [
+      "elegant",
+      "warm",
+      "formal"
+    ],
+    "palette": [
+      "champagne",
+      "cream",
+      "gold",
+      "oak"
+    ],
+    "composition": [
+      "centered",
+      "framed wall",
+      "symmetrical"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "flat",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "refined",
+      "warmth",
+      "calm"
+    ],
+    "art_styles": [
+      "classical",
+      "refined",
+      "luminous"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "golden",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "hero-work",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "excellent",
+    "visual_busyness": 0.26
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.16,
+        "y": 0.14,
+        "width": 0.68,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "金色古典主展墙 gold-classical-gallery champagne-wall classical luminous gallery elegant warm formal champagne cream gold oak",
+    "search_terms": [
+      "gold-classical-gallery",
+      "champagne-wall",
+      "classical",
+      "luminous",
+      "gallery",
+      "refined",
+      "warmth",
+      "calm",
+      "champagne",
+      "cream",
+      "gold",
+      "oak",
+      "gallery-interior"
+    ],
+    "embedding_text": "金色古典主展墙; gold-classical-gallery; scene_type=gallery_interior; mood=elegant, warm, formal; palette=champagne, cream, gold, oak; materials=plaster, stone, oak floor"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.95
+}

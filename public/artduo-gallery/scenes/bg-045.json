@@ -1,0 +1,142 @@
+{
+  "id": "bg-045",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_18_46.png",
+    "suggested_filename": "bg-brutalist-concrete-hall-minimal-045.png",
+    "local_public_path": "/artduo-gallery/bg-brutalist-concrete-hall-minimal-045.png",
+    "label_cn": "清水混凝土展墙",
+    "asset_group": "brutalist-concrete-hall",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "brutalist",
+      "minimal museum",
+      "industrial calm"
+    ],
+    "materials": [
+      "board-formed concrete",
+      "polished concrete"
+    ],
+    "lighting": [
+      "linear skylight",
+      "ceiling spotlights"
+    ],
+    "mood": [
+      "monastic",
+      "cool",
+      "focused"
+    ],
+    "palette": [
+      "concrete-gray",
+      "ash",
+      "graphite"
+    ],
+    "composition": [
+      "broad central wall",
+      "open side passages",
+      "low contrast depth"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "deep",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "focus",
+      "stillness",
+      "gravity"
+    ],
+    "art_styles": [
+      "brutalist",
+      "minimal museum",
+      "industrial calm"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "cool-muted",
+      "monochrome-friendly"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "grid"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.31
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.15,
+        "y": 0.25,
+        "width": 0.69,
+        "height": 0.51
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "depth-push",
+      "match-cut"
+    ],
+    "exit_families": [
+      "dissolve",
+      "scale-focus",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "清水混凝土展墙 brutalist-concrete-hall brutalist concrete minimal hall monastic cool focused concrete-gray ash graphite",
+    "search_terms": [
+      "brutalist-concrete-hall",
+      "brutalist",
+      "concrete",
+      "minimal",
+      "hall",
+      "focus",
+      "stillness",
+      "gravity",
+      "concrete-gray",
+      "ash",
+      "graphite",
+      "museum-hall"
+    ],
+    "embedding_text": "清水混凝土展墙; brutalist-concrete-hall; scene_type=museum_hall; mood=monastic, cool, focused; palette=concrete-gray, ash, graphite; materials=board-formed concrete, polished concrete"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.95
+}

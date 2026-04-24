@@ -1,0 +1,30 @@
+[
+  {
+    "code": "manifest_unavailable",
+    "message": "Release manifest is temporarily unavailable.",
+    "retryable": true,
+    "details": {
+      "phase": "v0.1",
+      "owner": "api"
+    }
+  },
+  {
+    "code": "background_scene_missing",
+    "message": "No compatible background scene was found for the requested exhibition unit.",
+    "retryable": false,
+    "details": {
+      "phase": "v0.1",
+      "owner": "web"
+    }
+  },
+  {
+    "code": "collector_rate_limited",
+    "message": "The MET collector is being rate limited. Retry the batch later.",
+    "retryable": true,
+    "details": {
+      "phase": "preflight",
+      "owner": "pipeline",
+      "source": "met"
+    }
+  }
+]

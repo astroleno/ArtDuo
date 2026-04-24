@@ -1,0 +1,144 @@
+{
+  "id": "bg-026",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_56_43.png",
+    "suggested_filename": "bg-rotunda-stone-chamber-dramatic-026.png",
+    "local_public_path": "/artduo-gallery/bg-rotunda-stone-chamber-dramatic-026.png",
+    "label_cn": "圆厅石壁展区",
+    "asset_group": "rotunda-stone-chamber",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "architectural_space",
+    "styles": [
+      "classical rotunda",
+      "dramatic stone",
+      "formal grandeur"
+    ],
+    "materials": [
+      "stone",
+      "marble",
+      "decorative plaster"
+    ],
+    "lighting": [
+      "top spotlight",
+      "low ambient"
+    ],
+    "mood": [
+      "dramatic",
+      "solemn"
+    ],
+    "palette": [
+      "taupe",
+      "charcoal",
+      "marble white",
+      "umber"
+    ],
+    "composition": [
+      "centered",
+      "radial enclosure",
+      "spotlit wall"
+    ],
+    "negative_space_level": "medium",
+    "space_depth": "deep",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "awe",
+      "focus",
+      "gravity"
+    ],
+    "art_styles": [
+      "classical rotunda",
+      "dramatic stone",
+      "formal grandeur"
+    ],
+    "artwork_palette_modes": [
+      "earthy",
+      "neutral",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single_subject",
+      "monumental"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.46
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.29,
+        "y": 0.28,
+        "width": 0.42,
+        "height": 0.44
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "medium",
+    "depth_strategy": "layered-room",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "depth-push",
+      "fade",
+      "light-swell"
+    ],
+    "exit_families": [
+      "match-cut",
+      "dissolve",
+      "scale-focus"
+    ],
+    "transition_tempo": "medium",
+    "transition_intensity": "dramatic",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "圆厅石壁展区 rotunda-stone-chamber rotunda stone dramatic classical dramatic solemn taupe charcoal marble white umber",
+    "search_terms": [
+      "rotunda-stone-chamber",
+      "rotunda",
+      "stone",
+      "dramatic",
+      "classical",
+      "awe",
+      "focus",
+      "gravity",
+      "taupe",
+      "charcoal",
+      "marble-white",
+      "umber",
+      "architectural-space"
+    ],
+    "embedding_text": "圆厅石壁展区; rotunda-stone-chamber; scene_type=architectural_space; mood=dramatic, solemn; palette=taupe, charcoal, marble white, umber; materials=stone, marble, decorative plaster"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": true
+  },
+  "confidence": 0.82
+}

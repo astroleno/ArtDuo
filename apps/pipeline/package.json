@@ -1,0 +1,11 @@
+{
+  "name": "@artduo/pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"console.log('preflight: @artduo/pipeline scaffold ready')\"",
+    "typecheck": "node -e \"console.log('preflight: @artduo/pipeline scaffold ready')\"",
+    "met:probe": "node ../../scripts/collect/met-probe.js",
+    "met:batch": "node ../../scripts/collect/met-batch.js"
+  }
+}

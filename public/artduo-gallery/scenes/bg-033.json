@@ -1,0 +1,144 @@
+{
+  "id": "bg-033",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_01_07.png",
+    "suggested_filename": "bg-ornate-wood-gallery-wood-paneled-033.png",
+    "local_public_path": "/artduo-gallery/bg-ornate-wood-gallery-wood-paneled-033.png",
+    "label_cn": "深木古典画廊",
+    "asset_group": "ornate-wood-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "classical",
+      "luxury",
+      "panelled"
+    ],
+    "materials": [
+      "dark wood",
+      "velvet",
+      "parquet"
+    ],
+    "lighting": [
+      "warm sconces",
+      "soft spotlights"
+    ],
+    "mood": [
+      "intimate",
+      "rich",
+      "formal"
+    ],
+    "palette": [
+      "walnut",
+      "olive",
+      "gold",
+      "burgundy"
+    ],
+    "composition": [
+      "centered",
+      "frontal",
+      "symmetrical"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "flat",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "elegant",
+      "warm",
+      "refined"
+    ],
+    "art_styles": [
+      "classical",
+      "luxury",
+      "panelled"
+    ],
+    "artwork_palette_modes": [
+      "warm-rich",
+      "classic-muted"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "hero-work"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.46
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.18,
+        "y": 0.19,
+        "width": 0.64,
+        "height": 0.53
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "scale-focus",
+      "light-swell"
+    ],
+    "exit_families": [
+      "match-cut",
+      "dissolve",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "深木古典画廊 ornate-wood-gallery ornate wood-paneled green-wall velvet-bench intimate rich formal walnut olive gold burgundy",
+    "search_terms": [
+      "ornate-wood-gallery",
+      "ornate",
+      "wood-paneled",
+      "green-wall",
+      "velvet-bench",
+      "elegant",
+      "warm",
+      "refined",
+      "walnut",
+      "olive",
+      "gold",
+      "burgundy",
+      "gallery-interior"
+    ],
+    "embedding_text": "深木古典画廊; ornate-wood-gallery; scene_type=gallery_interior; mood=intimate, rich, formal; palette=walnut, olive, gold, burgundy; materials=dark wood, velvet, parquet"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.95
+}

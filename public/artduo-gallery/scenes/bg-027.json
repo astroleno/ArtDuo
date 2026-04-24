@@ -1,0 +1,144 @@
+{
+  "id": "bg-027",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_58_27.png",
+    "suggested_filename": "bg-brutalist-minimal-gallery-concrete-027.png",
+    "local_public_path": "/artduo-gallery/bg-brutalist-minimal-gallery-concrete-027.png",
+    "label_cn": "极简混凝土展墙",
+    "asset_group": "brutalist-minimal-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "brutalist minimal",
+      "contemporary gallery",
+      "clean restraint"
+    ],
+    "materials": [
+      "concrete",
+      "plaster",
+      "dark stone"
+    ],
+    "lighting": [
+      "linear cove light",
+      "soft diffuse light"
+    ],
+    "mood": [
+      "focused",
+      "cool"
+    ],
+    "palette": [
+      "light gray",
+      "concrete",
+      "charcoal",
+      "off-white"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "flat monolith wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "clarity",
+      "focus",
+      "calm"
+    ],
+    "art_styles": [
+      "brutalist minimal",
+      "contemporary gallery",
+      "clean restraint"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "monochrome",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "grid",
+      "open_space"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "left-center"
+    ],
+    "mobile_crop_tolerance": "excellent",
+    "visual_busyness": 0.16
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.18,
+        "y": 0.18,
+        "width": 0.64,
+        "height": 0.5
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "dissolve",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "match-cut",
+      "lateral-pan",
+      "dissolve"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "极简混凝土展墙 brutalist-minimal-gallery brutalist minimal concrete gray focused cool light gray concrete charcoal off-white",
+    "search_terms": [
+      "brutalist-minimal-gallery",
+      "brutalist",
+      "minimal",
+      "concrete",
+      "gray",
+      "clarity",
+      "focus",
+      "calm",
+      "light-gray",
+      "charcoal",
+      "off-white",
+      "gallery-interior"
+    ],
+    "embedding_text": "极简混凝土展墙; brutalist-minimal-gallery; scene_type=gallery_interior; mood=focused, cool; palette=light gray, concrete, charcoal, off-white; materials=concrete, plaster, dark stone"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.94
+}

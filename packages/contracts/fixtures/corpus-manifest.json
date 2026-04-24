@@ -1,0 +1,46 @@
+{
+  "release": {
+    "corpusVersion": "2026-04-24-a",
+    "backgroundCatalogVersion": "2026-04-24-a",
+    "contractsVersion": "0.1.0",
+    "createdAt": "2026-04-24T10:00:00.000Z"
+  },
+  "shards": {
+    "metadata": [
+      {
+        "id": "metadata-01",
+        "url": "./artworks.json",
+        "checksum": "sha256:fixture-artworks-metadata-v0-1",
+        "sizeBytes": 4096,
+        "recordCount": 3
+      }
+    ],
+    "search": [
+      {
+        "id": "search-01",
+        "url": "./artworks.json",
+        "checksum": "sha256:fixture-artworks-search-v0-1",
+        "sizeBytes": 4096,
+        "recordCount": 3
+      }
+    ],
+    "mediaIndex": [
+      {
+        "id": "media-01",
+        "url": "./artworks.json",
+        "checksum": "sha256:fixture-artworks-media-v0-1",
+        "sizeBytes": 4096,
+        "recordCount": 3
+      }
+    ],
+    "backgroundScenes": [
+      {
+        "id": "background-scenes-01",
+        "url": "./background-scenes.json",
+        "checksum": "sha256:fixture-background-scenes-v0-1",
+        "sizeBytes": 4096,
+        "recordCount": 3
+      }
+    ]
+  }
+}

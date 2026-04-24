@@ -1,0 +1,142 @@
+{
+  "id": "bg-046",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_18_49.png",
+    "suggested_filename": "bg-futuristic-white-chamber-curved-046.png",
+    "local_public_path": "/artduo-gallery/bg-futuristic-white-chamber-curved-046.png",
+    "label_cn": "未来白舱展壁",
+    "asset_group": "futuristic-white-chamber",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "architectural_space",
+    "styles": [
+      "futuristic minimal",
+      "smooth parametric",
+      "immersive"
+    ],
+    "materials": [
+      "lacquered panels",
+      "gloss floor",
+      "integrated light diffusers"
+    ],
+    "lighting": [
+      "perimeter glow",
+      "ring cove lighting",
+      "soft ambient"
+    ],
+    "mood": [
+      "clean",
+      "immersive",
+      "elevated"
+    ],
+    "palette": [
+      "white",
+      "soft gray",
+      "black accent"
+    ],
+    "composition": [
+      "rounded panoramic wall",
+      "central bench",
+      "symmetrical envelope"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "clarity",
+      "futurism",
+      "calm"
+    ],
+    "art_styles": [
+      "futuristic minimal",
+      "smooth parametric",
+      "immersive"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "high-key",
+      "cool-clean"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero"
+    ],
+    "artwork_orientation_modes": [
+      "landscape"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "left-center"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.27
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.13,
+        "y": 0.2,
+        "width": 0.73,
+        "height": 0.52
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "depth-push",
+      "match-cut"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "未来白舱展壁 futuristic-white-chamber futuristic white curved chamber clean immersive elevated white soft gray black accent",
+    "search_terms": [
+      "futuristic-white-chamber",
+      "futuristic",
+      "white",
+      "curved",
+      "chamber",
+      "clarity",
+      "futurism",
+      "calm",
+      "soft-gray",
+      "black-accent",
+      "architectural-space"
+    ],
+    "embedding_text": "未来白舱展壁; futuristic-white-chamber; scene_type=architectural_space; mood=clean, immersive, elevated; palette=white, soft gray, black accent; materials=lacquered panels, gloss floor, integrated light diffusers"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.91
+}

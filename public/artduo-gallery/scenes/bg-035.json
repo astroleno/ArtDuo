@@ -1,0 +1,145 @@
+{
+  "id": "bg-035",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_04_59.png",
+    "suggested_filename": "bg-celestial-rotunda-gallery-cream-wall-035.png",
+    "local_public_path": "/artduo-gallery/bg-celestial-rotunda-gallery-cream-wall-035.png",
+    "label_cn": "星穹圆厅展墙",
+    "asset_group": "celestial-rotunda-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "neoclassical",
+      "celestial",
+      "grand"
+    ],
+    "materials": [
+      "marble",
+      "plaster",
+      "metal trim"
+    ],
+    "lighting": [
+      "skylight",
+      "soft spotlight",
+      "ambient glow"
+    ],
+    "mood": [
+      "majestic",
+      "luminous",
+      "curated"
+    ],
+    "palette": [
+      "ivory",
+      "navy",
+      "gold",
+      "cool gray"
+    ],
+    "composition": [
+      "centered",
+      "frontal",
+      "circular symmetry"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "majestic",
+      "inspired",
+      "serene"
+    ],
+    "art_styles": [
+      "neoclassical",
+      "celestial",
+      "grand"
+    ],
+    "artwork_palette_modes": [
+      "neutral-luxe",
+      "cool-warm-balance"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-work"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "bottom",
+      "top"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.42
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.2,
+        "y": 0.26,
+        "width": 0.6,
+        "height": 0.48
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "layered-room",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "星穹圆厅展墙 celestial-rotunda-gallery celestial rotunda cream-wall oculus majestic luminous curated ivory navy gold cool gray",
+    "search_terms": [
+      "celestial-rotunda-gallery",
+      "celestial",
+      "rotunda",
+      "cream-wall",
+      "oculus",
+      "majestic",
+      "inspired",
+      "serene",
+      "ivory",
+      "navy",
+      "gold",
+      "cool-gray",
+      "museum-hall"
+    ],
+    "embedding_text": "星穹圆厅展墙; celestial-rotunda-gallery; scene_type=museum_hall; mood=majestic, luminous, curated; palette=ivory, navy, gold, cool gray; materials=marble, plaster, metal trim"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.92
+}

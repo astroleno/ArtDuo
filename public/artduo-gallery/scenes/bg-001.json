@@ -1,0 +1,147 @@
+{
+  "id": "bg-001",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 20_34_27.png",
+    "suggested_filename": "bg-skylit-warm-gallery-plaster-wall-001.png",
+    "local_public_path": "/artduo-gallery/bg-skylit-warm-gallery-plaster-wall-001.png",
+    "label_cn": "天光暖木留白展墙",
+    "asset_group": "skylit-warm-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "warm minimalism",
+      "daylit gallery",
+      "soft natural"
+    ],
+    "materials": [
+      "lime plaster",
+      "light wood",
+      "oak floor",
+      "ceramic"
+    ],
+    "lighting": [
+      "skylight daylight",
+      "track lights",
+      "warm ambient"
+    ],
+    "mood": [
+      "serene",
+      "airy",
+      "refined"
+    ],
+    "palette": [
+      "cream",
+      "blonde wood",
+      "sand",
+      "warm beige"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "hero wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "serenity",
+      "openness",
+      "contentment"
+    ],
+    "art_styles": [
+      "warm minimalism",
+      "daylit gallery",
+      "soft natural"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "earthy",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.23
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.2,
+        "y": 0.19,
+        "width": 0.62,
+        "height": 0.55
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "window-lit",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "天光暖木留白展墙 skylit-warm-gallery skylight warm-wood plaster-wall hero-wall serene airy refined cream blonde wood sand warm beige",
+    "search_terms": [
+      "skylit-warm-gallery",
+      "skylight",
+      "warm-wood",
+      "plaster-wall",
+      "hero-wall",
+      "serenity",
+      "openness",
+      "contentment",
+      "cream",
+      "blonde-wood",
+      "warm-beige",
+      "gallery-interior"
+    ],
+    "embedding_text": "天光暖木留白展墙; skylit-warm-gallery; scene_type=gallery_interior; mood=serene, airy, refined; palette=cream, blonde wood, sand, warm beige; materials=lime plaster, light wood, oak floor, ceramic"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.96
+}

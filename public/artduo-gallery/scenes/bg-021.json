@@ -1,0 +1,144 @@
+{
+  "id": "bg-021",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_50_14.png",
+    "suggested_filename": "bg-grand-classical-hall-arched-021.png",
+    "local_public_path": "/artduo-gallery/bg-grand-classical-hall-arched-021.png",
+    "label_cn": "古典穹顶展厅墙",
+    "asset_group": "grand-classical-hall",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "neoclassical",
+      "formal symmetry",
+      "museum calm"
+    ],
+    "materials": [
+      "stone",
+      "plaster",
+      "parquet wood"
+    ],
+    "lighting": [
+      "warm ambient",
+      "soft skylight"
+    ],
+    "mood": [
+      "solemn",
+      "contemplative"
+    ],
+    "palette": [
+      "sand",
+      "beige",
+      "honey oak",
+      "stone gray"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "large wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "deep",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "serenity",
+      "awe",
+      "stability"
+    ],
+    "art_styles": [
+      "neoclassical",
+      "formal symmetry",
+      "museum calm"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "earthy",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.34
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.26,
+        "y": 0.32,
+        "width": 0.48,
+        "height": 0.35
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "layered-room",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "古典穹顶展厅墙 grand-classical-hall classical arched museum beige solemn contemplative sand beige honey oak stone gray",
+    "search_terms": [
+      "grand-classical-hall",
+      "classical",
+      "arched",
+      "museum",
+      "beige",
+      "serenity",
+      "awe",
+      "stability",
+      "sand",
+      "honey-oak",
+      "stone-gray",
+      "museum-hall"
+    ],
+    "embedding_text": "古典穹顶展厅墙; grand-classical-hall; scene_type=museum_hall; mood=solemn, contemplative; palette=sand, beige, honey oak, stone gray; materials=stone, plaster, parquet wood"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.89
+}

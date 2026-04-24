@@ -1,0 +1,143 @@
+{
+  "id": "bg-042",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_06_12.png",
+    "suggested_filename": "bg-minimal-museum-partition-gray-042.png",
+    "local_public_path": "/artduo-gallery/bg-minimal-museum-partition-gray-042.png",
+    "label_cn": "极简灰厅主墙",
+    "asset_group": "minimal-museum-partition",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "minimalism",
+      "contemporary museum",
+      "monolithic"
+    ],
+    "materials": [
+      "plaster",
+      "stone",
+      "concrete"
+    ],
+    "lighting": [
+      "track spotlights",
+      "cove lighting",
+      "floor glow"
+    ],
+    "mood": [
+      "serious",
+      "calm",
+      "refined"
+    ],
+    "palette": [
+      "charcoal",
+      "greige",
+      "stone"
+    ],
+    "composition": [
+      "central partition wall",
+      "symmetrical columns",
+      "deep side aisles"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "deep",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "focus",
+      "calm",
+      "prestige"
+    ],
+    "art_styles": [
+      "minimalism",
+      "contemporary museum",
+      "monolithic"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "cool-muted"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.38
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.25,
+        "y": 0.19,
+        "width": 0.49,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "depth-push",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "极简灰厅主墙 minimal-museum-partition minimal gray museum partition serious calm refined charcoal greige stone",
+    "search_terms": [
+      "minimal-museum-partition",
+      "minimal",
+      "gray",
+      "museum",
+      "partition",
+      "focus",
+      "calm",
+      "prestige",
+      "charcoal",
+      "greige",
+      "stone",
+      "museum-hall"
+    ],
+    "embedding_text": "极简灰厅主墙; minimal-museum-partition; scene_type=museum_hall; mood=serious, calm, refined; palette=charcoal, greige, stone; materials=plaster, stone, concrete"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.95
+}

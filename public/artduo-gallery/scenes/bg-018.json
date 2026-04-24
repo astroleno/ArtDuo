@@ -1,0 +1,146 @@
+{
+  "id": "bg-018",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_45_12.png",
+    "suggested_filename": "bg-graphic-editorial-gallery-navy-panel-018.png",
+    "local_public_path": "/artduo-gallery/bg-graphic-editorial-gallery-navy-panel-018.png",
+    "label_cn": "几何蓝红编辑展墙",
+    "asset_group": "graphic-editorial-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "editorial_space",
+    "styles": [
+      "graphic modern",
+      "editorial",
+      "memphis-adjacent"
+    ],
+    "materials": [
+      "painted plaster",
+      "gloss floor",
+      "metal bench"
+    ],
+    "lighting": [
+      "track spotlights",
+      "daylight"
+    ],
+    "mood": [
+      "playful",
+      "bold",
+      "clean"
+    ],
+    "palette": [
+      "navy",
+      "cream",
+      "coral",
+      "red"
+    ],
+    "composition": [
+      "centered",
+      "graphic frame",
+      "asymmetrical accents"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "playfulness",
+      "confidence",
+      "novelty"
+    ],
+    "art_styles": [
+      "graphic modern",
+      "editorial",
+      "memphis-adjacent"
+    ],
+    "artwork_palette_modes": [
+      "high_contrast",
+      "color-pop-friendly",
+      "neutral"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single_subject",
+      "open_space"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "left-center"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.48
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.19,
+        "y": 0.18,
+        "width": 0.62,
+        "height": 0.56
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "match-cut",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "lateral-pan",
+      "light-swell"
+    ],
+    "transition_tempo": "medium",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "几何蓝红编辑展墙 graphic-editorial-gallery navy-panel coral-accent memphis-adjacent editorial playful bold clean navy cream coral red",
+    "search_terms": [
+      "graphic-editorial-gallery",
+      "navy-panel",
+      "coral-accent",
+      "memphis-adjacent",
+      "editorial",
+      "playfulness",
+      "confidence",
+      "novelty",
+      "navy",
+      "cream",
+      "coral",
+      "red",
+      "editorial-space"
+    ],
+    "embedding_text": "几何蓝红编辑展墙; graphic-editorial-gallery; scene_type=editorial_space; mood=playful, bold, clean; palette=navy, cream, coral, red; materials=painted plaster, gloss floor, metal bench"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.91
+}

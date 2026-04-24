@@ -1,0 +1,142 @@
+{
+  "id": "bg-030",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_58_38.png",
+    "suggested_filename": "bg-futurist-white-gallery-curved-030.png",
+    "local_public_path": "/artduo-gallery/bg-futurist-white-gallery-curved-030.png",
+    "label_cn": "未来白盒展厅",
+    "asset_group": "futurist-white-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "architectural_space",
+    "styles": [
+      "futurist minimal",
+      "soft sci-fi",
+      "clean showroom"
+    ],
+    "materials": [
+      "glossy composite",
+      "resin",
+      "polished stone"
+    ],
+    "lighting": [
+      "integrated glow",
+      "cool diffuse light"
+    ],
+    "mood": [
+      "pure",
+      "calm"
+    ],
+    "palette": [
+      "white",
+      "ivory",
+      "soft gray"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "curved enclosure"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "clarity",
+      "wonder",
+      "serenity"
+    ],
+    "art_styles": [
+      "futurist minimal",
+      "soft sci-fi",
+      "clean showroom"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "monochrome",
+      "pastel_soft"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "excellent",
+    "visual_busyness": 0.14
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.18,
+        "y": 0.29,
+        "width": 0.65,
+        "height": 0.46
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "未来白盒展厅 futurist-white-gallery futurist white curved glossy pure calm white ivory soft gray",
+    "search_terms": [
+      "futurist-white-gallery",
+      "futurist",
+      "white",
+      "curved",
+      "glossy",
+      "clarity",
+      "wonder",
+      "serenity",
+      "ivory",
+      "soft-gray",
+      "architectural-space"
+    ],
+    "embedding_text": "未来白盒展厅; futurist-white-gallery; scene_type=architectural_space; mood=pure, calm; palette=white, ivory, soft gray; materials=glossy composite, resin, polished stone"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.92
+}

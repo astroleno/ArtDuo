@@ -1,0 +1,146 @@
+{
+  "id": "bg-020",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_50_10.png",
+    "suggested_filename": "bg-palatial-red-gallery-carmine-wall-020.png",
+    "local_public_path": "/artduo-gallery/bg-palatial-red-gallery-carmine-wall-020.png",
+    "label_cn": "朱红鎏金宫廷展墙",
+    "asset_group": "palatial-red-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "baroque",
+      "luxury",
+      "ornate"
+    ],
+    "materials": [
+      "gilded wood",
+      "marble",
+      "parquet",
+      "velvet"
+    ],
+    "lighting": [
+      "warm ambient",
+      "ceiling glow"
+    ],
+    "mood": [
+      "opulent",
+      "dramatic",
+      "formal"
+    ],
+    "palette": [
+      "carmine",
+      "gold",
+      "black",
+      "walnut"
+    ],
+    "composition": [
+      "centered",
+      "framed wall",
+      "symmetrical"
+    ],
+    "negative_space_level": "medium",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "awe",
+      "prestige",
+      "drama"
+    ],
+    "art_styles": [
+      "baroque",
+      "luxury",
+      "ornate"
+    ],
+    "artwork_palette_modes": [
+      "warm-rich",
+      "high_contrast",
+      "jewel-tone"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "hero-work",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.52
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.2,
+        "y": 0.16,
+        "width": 0.6,
+        "height": 0.54
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "medium",
+    "transition_intensity": "dramatic",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "朱红鎏金宫廷展墙 palatial-red-gallery carmine-wall gilded baroque gallery opulent dramatic formal carmine gold black walnut",
+    "search_terms": [
+      "palatial-red-gallery",
+      "carmine-wall",
+      "gilded",
+      "baroque",
+      "gallery",
+      "awe",
+      "prestige",
+      "drama",
+      "carmine",
+      "gold",
+      "black",
+      "walnut",
+      "museum-hall"
+    ],
+    "embedding_text": "朱红鎏金宫廷展墙; palatial-red-gallery; scene_type=museum_hall; mood=opulent, dramatic, formal; palette=carmine, gold, black, walnut; materials=gilded wood, marble, parquet, velvet"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.91
+}

@@ -1,0 +1,145 @@
+{
+  "id": "bg-050",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_24_36.png",
+    "suggested_filename": "bg-playful-editorial-geometry-pastel-050.png",
+    "local_public_path": "/artduo-gallery/bg-playful-editorial-geometry-pastel-050.png",
+    "label_cn": "糖果几何展墙",
+    "asset_group": "playful-editorial-geometry",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "editorial_space",
+    "styles": [
+      "playful modern",
+      "editorial set",
+      "memphis-adjacent"
+    ],
+    "materials": [
+      "painted plaster",
+      "terrazzo",
+      "composite stone"
+    ],
+    "lighting": [
+      "track spotlights",
+      "base glow",
+      "accent wall light"
+    ],
+    "mood": [
+      "cheerful",
+      "stylized",
+      "lighthearted"
+    ],
+    "palette": [
+      "cream",
+      "coral",
+      "navy",
+      "pink"
+    ],
+    "composition": [
+      "rounded central panel",
+      "graphic side volumes",
+      "decor planter right"
+    ],
+    "negative_space_level": "medium",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "playfulness",
+      "optimism",
+      "novelty"
+    ],
+    "art_styles": [
+      "playful modern",
+      "editorial set",
+      "memphis-adjacent"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "pastel-friendly",
+      "color-pop-friendly"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.55
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.22,
+        "y": 0.18,
+        "width": 0.59,
+        "height": 0.53
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "match-cut",
+      "light-swell"
+    ],
+    "exit_families": [
+      "dissolve",
+      "lateral-pan",
+      "scale-focus"
+    ],
+    "transition_tempo": "medium",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "糖果几何展墙 playful-editorial-geometry playful pastel geometry editorial cheerful stylized lighthearted cream coral navy pink",
+    "search_terms": [
+      "playful-editorial-geometry",
+      "playful",
+      "pastel",
+      "geometry",
+      "editorial",
+      "playfulness",
+      "optimism",
+      "novelty",
+      "cream",
+      "coral",
+      "navy",
+      "pink",
+      "editorial-space"
+    ],
+    "embedding_text": "糖果几何展墙; playful-editorial-geometry; scene_type=editorial_space; mood=cheerful, stylized, lighthearted; palette=cream, coral, navy, pink; materials=painted plaster, terrazzo, composite stone"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.89
+}

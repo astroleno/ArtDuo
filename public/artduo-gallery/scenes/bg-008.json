@@ -1,0 +1,145 @@
+{
+  "id": "bg-008",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_44_26.png",
+    "suggested_filename": "bg-classical-museum-color-terracotta-008.png",
+    "local_public_path": "/artduo-gallery/bg-classical-museum-color-terracotta-008.png",
+    "label_cn": "赤陶古典博物馆厅",
+    "asset_group": "classical-museum-color",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "classical museum",
+      "warm elegance",
+      "heritage gallery"
+    ],
+    "materials": [
+      "painted wall panel",
+      "stone",
+      "upholstery",
+      "ornamental plaster"
+    ],
+    "lighting": [
+      "ceiling track light",
+      "warm ambient"
+    ],
+    "mood": [
+      "warm",
+      "inviting",
+      "refined"
+    ],
+    "palette": [
+      "terracotta",
+      "rose brown",
+      "sand",
+      "bronze"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "hero wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "warmth",
+      "comfort",
+      "focus"
+    ],
+    "art_styles": [
+      "classical museum",
+      "warm elegance",
+      "heritage gallery"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "earthy",
+      "muted"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "formal",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.23
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.14,
+        "y": 0.15,
+        "width": 0.72,
+        "height": 0.56
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "赤陶古典博物馆厅 classical-museum-color terracotta classical museum-hall warm-wall warm inviting refined terracotta rose brown sand bronze",
+    "search_terms": [
+      "classical-museum-color",
+      "terracotta",
+      "classical",
+      "museum-hall",
+      "warm-wall",
+      "warmth",
+      "comfort",
+      "focus",
+      "rose-brown",
+      "sand",
+      "bronze"
+    ],
+    "embedding_text": "赤陶古典博物馆厅; classical-museum-color; scene_type=museum_hall; mood=warm, inviting, refined; palette=terracotta, rose brown, sand, bronze; materials=painted wall panel, stone, upholstery, ornamental plaster"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.93
+}

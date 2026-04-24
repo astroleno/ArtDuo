@@ -1,0 +1,147 @@
+{
+  "id": "bg-016",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_45_06.png",
+    "suggested_filename": "bg-terracotta-arcade-gallery-arched-openings-016.png",
+    "local_public_path": "/artduo-gallery/bg-terracotta-arcade-gallery-arched-openings-016.png",
+    "label_cn": "陶粉拱廊庭院展墙",
+    "asset_group": "terracotta-arcade-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "architectural_space",
+    "styles": [
+      "mediterranean",
+      "earthy",
+      "daylit"
+    ],
+    "materials": [
+      "lime plaster",
+      "stone",
+      "tile"
+    ],
+    "lighting": [
+      "warm daylight",
+      "soft shadow",
+      "track light"
+    ],
+    "mood": [
+      "warm",
+      "open",
+      "restful"
+    ],
+    "palette": [
+      "terracotta",
+      "sand",
+      "peach",
+      "stone"
+    ],
+    "composition": [
+      "centered",
+      "arched side openings",
+      "symmetrical"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "warmth",
+      "contentment",
+      "serenity"
+    ],
+    "art_styles": [
+      "mediterranean",
+      "earthy",
+      "daylit"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "earthy",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.27
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.22,
+        "y": 0.16,
+        "width": 0.56,
+        "height": 0.6
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "window-lit",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "陶粉拱廊庭院展墙 terracotta-arcade-gallery arched-openings sunlit mediterranean gallery warm open restful terracotta sand peach stone",
+    "search_terms": [
+      "terracotta-arcade-gallery",
+      "arched-openings",
+      "sunlit",
+      "mediterranean",
+      "gallery",
+      "warmth",
+      "contentment",
+      "serenity",
+      "terracotta",
+      "sand",
+      "peach",
+      "stone",
+      "architectural-space"
+    ],
+    "embedding_text": "陶粉拱廊庭院展墙; terracotta-arcade-gallery; scene_type=architectural_space; mood=warm, open, restful; palette=terracotta, sand, peach, stone; materials=lime plaster, stone, tile"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.93
+}

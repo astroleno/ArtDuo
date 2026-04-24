@@ -1,0 +1,274 @@
+[
+  {
+    "id": "bg-014",
+    "asset": {
+      "original_filename": "ChatGPT Image 2026年4月23日 00_44_50.png",
+      "suggested_filename": "bg-framed-classical-gallery-light-cream-014.png",
+      "local_public_path": "/artduo-gallery/bg-framed-classical-gallery-light-cream-014.png",
+      "label_cn": "浅金框景古典展墙",
+      "asset_group": "framed-classical-gallery",
+      "metadata_version": "2026-04-23-vlm-draft"
+    },
+    "image_info": {
+      "width": 1672,
+      "height": 941,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape"
+    },
+    "visual_profile": {
+      "scene_type": "gallery_interior",
+      "styles": ["classical", "bright", "refined"],
+      "materials": ["plaster", "stone base", "oak floor"],
+      "lighting": ["spotlight wash", "warm ambient"],
+      "mood": ["elegant", "airy", "calm"],
+      "palette": ["ivory", "cream", "beige", "light oak"],
+      "composition": ["centered", "framed wall", "symmetrical"],
+      "negative_space_level": "high",
+      "space_depth": "flat",
+      "focal_density": "low",
+      "reference_inference": []
+    },
+    "curation_profile": {
+      "emotion_ids": ["calm", "refined", "light"],
+      "art_styles": ["classical", "bright", "refined"],
+      "artwork_palette_modes": ["neutral-classic", "pastel", "high_contrast"],
+      "artwork_composition_modes": ["centered", "hero-work", "single_subject"],
+      "artwork_orientation_modes": ["landscape", "portrait"]
+    },
+    "ui_profile": {
+      "overlay_readability": "high",
+      "safe_text_zones": ["center", "left-center", "right-center", "top"],
+      "mobile_crop_tolerance": "excellent",
+      "visual_busyness": 0.23
+    },
+    "stage_profile": {
+      "primary_mount_zone": {
+        "shape": "rect",
+        "rect": {
+          "x": 0.17,
+          "y": 0.15,
+          "width": 0.66,
+          "height": 0.56
+        }
+      },
+      "preferred_artwork_scale": "large",
+      "wall_visibility": "high",
+      "depth_strategy": "flat-wall",
+      "dominant_axis": "center"
+    },
+    "transition_profile": {
+      "entry_families": ["fade", "light-swell", "scale-focus"],
+      "exit_families": ["dissolve", "match-cut", "lateral-pan"],
+      "transition_tempo": "slow",
+      "transition_intensity": "soft",
+      "implementation_hint": "auto"
+    },
+    "retrieval_profile": {
+      "search_text": "浅金框景古典展墙 framed-classical-gallery light-cream framed-wall classical gallery elegant airy calm ivory cream beige light oak",
+      "search_terms": [
+        "framed-classical-gallery",
+        "light-cream",
+        "framed-wall",
+        "classical",
+        "gallery",
+        "calm",
+        "refined",
+        "light",
+        "ivory",
+        "cream",
+        "beige",
+        "light-oak",
+        "gallery-interior"
+      ],
+      "embedding_text": "浅金框景古典展墙; framed-classical-gallery; scene_type=gallery_interior; mood=elegant, airy, calm; palette=ivory, cream, beige, light oak; materials=plaster, stone base, oak floor"
+    },
+    "parse_meta": {
+      "parsed_by": "hybrid",
+      "parser_model": "multi-agent-image-review-manual-normalization",
+      "parsed_at": "2026-04-23",
+      "needs_review": false
+    },
+    "confidence": 0.96
+  },
+  {
+    "id": "bg-026",
+    "asset": {
+      "original_filename": "ChatGPT Image 2026年4月23日 00_56_43.png",
+      "suggested_filename": "bg-rotunda-stone-chamber-dramatic-026.png",
+      "local_public_path": "/artduo-gallery/bg-rotunda-stone-chamber-dramatic-026.png",
+      "label_cn": "圆厅石壁展区",
+      "asset_group": "rotunda-stone-chamber",
+      "metadata_version": "2026-04-23-vlm-draft"
+    },
+    "image_info": {
+      "width": 1672,
+      "height": 941,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape"
+    },
+    "visual_profile": {
+      "scene_type": "architectural_space",
+      "styles": ["classical rotunda", "dramatic stone", "formal grandeur"],
+      "materials": ["stone", "marble", "decorative plaster"],
+      "lighting": ["top spotlight", "low ambient"],
+      "mood": ["dramatic", "solemn"],
+      "palette": ["taupe", "charcoal", "marble white", "umber"],
+      "composition": ["centered", "radial enclosure", "spotlit wall"],
+      "negative_space_level": "medium",
+      "space_depth": "deep",
+      "focal_density": "medium",
+      "reference_inference": []
+    },
+    "curation_profile": {
+      "emotion_ids": ["awe", "focus", "gravity"],
+      "art_styles": ["classical rotunda", "dramatic stone", "formal grandeur"],
+      "artwork_palette_modes": ["earthy", "neutral", "low_saturation"],
+      "artwork_composition_modes": ["centered", "single_subject", "monumental"],
+      "artwork_orientation_modes": ["landscape", "portrait"]
+    },
+    "ui_profile": {
+      "overlay_readability": "medium",
+      "safe_text_zones": ["center", "bottom"],
+      "mobile_crop_tolerance": "fair",
+      "visual_busyness": 0.46
+    },
+    "stage_profile": {
+      "primary_mount_zone": {
+        "shape": "rect",
+        "rect": {
+          "x": 0.29,
+          "y": 0.28,
+          "width": 0.42,
+          "height": 0.44
+        }
+      },
+      "preferred_artwork_scale": "large",
+      "wall_visibility": "medium",
+      "depth_strategy": "layered-room",
+      "dominant_axis": "center"
+    },
+    "transition_profile": {
+      "entry_families": ["depth-push", "fade", "light-swell"],
+      "exit_families": ["match-cut", "dissolve", "scale-focus"],
+      "transition_tempo": "medium",
+      "transition_intensity": "dramatic",
+      "implementation_hint": "auto"
+    },
+    "retrieval_profile": {
+      "search_text": "圆厅石壁展区 rotunda-stone-chamber rotunda stone dramatic classical dramatic solemn taupe charcoal marble white umber",
+      "search_terms": [
+        "rotunda-stone-chamber",
+        "rotunda",
+        "stone",
+        "dramatic",
+        "classical",
+        "awe",
+        "focus",
+        "gravity",
+        "taupe",
+        "charcoal",
+        "marble-white",
+        "umber",
+        "architectural-space"
+      ],
+      "embedding_text": "圆厅石壁展区; rotunda-stone-chamber; scene_type=architectural_space; mood=dramatic, solemn; palette=taupe, charcoal, marble white, umber; materials=stone, marble, decorative plaster"
+    },
+    "parse_meta": {
+      "parsed_by": "hybrid",
+      "parser_model": "multi-agent-image-review-manual-normalization",
+      "parsed_at": "2026-04-23",
+      "needs_review": true
+    },
+    "confidence": 0.82
+  },
+  {
+    "id": "bg-041",
+    "asset": {
+      "original_filename": "ChatGPT Image 2026年4月23日 01_06_09.png",
+      "suggested_filename": "bg-classical-gallery-wall-warm-brown-041.png",
+      "local_public_path": "/artduo-gallery/bg-classical-gallery-wall-warm-brown-041.png",
+      "label_cn": "古典暖棕展墙",
+      "asset_group": "classical-gallery-wall",
+      "metadata_version": "2026-04-23-vlm-draft"
+    },
+    "image_info": {
+      "width": 1672,
+      "height": 941,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape"
+    },
+    "visual_profile": {
+      "scene_type": "gallery_interior",
+      "styles": ["classical", "warm gallery", "heritage interior"],
+      "materials": ["plaster", "dark wood", "parquet"],
+      "lighting": ["track spotlights", "warm ambient"],
+      "mood": ["quiet", "elegant", "intimate"],
+      "palette": ["umber", "beige", "walnut"],
+      "composition": ["centered wall", "framed side arches", "low bench offset-left"],
+      "negative_space_level": "high",
+      "space_depth": "layered",
+      "focal_density": "low",
+      "reference_inference": []
+    },
+    "curation_profile": {
+      "emotion_ids": ["calm", "heritage", "warmth"],
+      "art_styles": ["classical", "warm gallery", "heritage interior"],
+      "artwork_palette_modes": ["warm-neutral", "earthy-muted"],
+      "artwork_composition_modes": ["centered", "single-hero"],
+      "artwork_orientation_modes": ["landscape", "portrait"]
+    },
+    "ui_profile": {
+      "overlay_readability": "high",
+      "safe_text_zones": ["center", "right-center", "top"],
+      "mobile_crop_tolerance": "fair",
+      "visual_busyness": 0.33
+    },
+    "stage_profile": {
+      "primary_mount_zone": {
+        "shape": "rect",
+        "rect": {
+          "x": 0.16,
+          "y": 0.15,
+          "width": 0.67,
+          "height": 0.61
+        }
+      },
+      "preferred_artwork_scale": "large",
+      "wall_visibility": "high",
+      "depth_strategy": "flat-wall",
+      "dominant_axis": "center"
+    },
+    "transition_profile": {
+      "entry_families": ["fade", "light-swell", "scale-focus"],
+      "exit_families": ["dissolve", "match-cut", "depth-push"],
+      "transition_tempo": "slow",
+      "transition_intensity": "soft",
+      "implementation_hint": "auto"
+    },
+    "retrieval_profile": {
+      "search_text": "古典暖棕展墙 classical-gallery-wall classical warm-brown arched gallery quiet elegant intimate umber beige walnut",
+      "search_terms": [
+        "classical-gallery-wall",
+        "classical",
+        "warm-brown",
+        "arched",
+        "gallery",
+        "calm",
+        "heritage",
+        "warmth",
+        "umber",
+        "beige",
+        "walnut",
+        "gallery-interior"
+      ],
+      "embedding_text": "古典暖棕展墙; classical-gallery-wall; scene_type=gallery_interior; mood=quiet, elegant, intimate; palette=umber, beige, walnut; materials=plaster, dark wood, parquet"
+    },
+    "parse_meta": {
+      "parsed_by": "hybrid",
+      "parser_model": "multi-agent-image-review-manual-normalization",
+      "parsed_at": "2026-04-23",
+      "needs_review": false
+    },
+    "confidence": 0.94
+  }
+]

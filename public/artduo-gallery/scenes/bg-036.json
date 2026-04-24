@@ -1,0 +1,144 @@
+{
+  "id": "bg-036",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_05_04.png",
+    "suggested_filename": "bg-earthen-cave-gallery-warm-light-036.png",
+    "local_public_path": "/artduo-gallery/bg-earthen-cave-gallery-warm-light-036.png",
+    "label_cn": "土岩洞壁展厅",
+    "asset_group": "earthen-cave-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "architectural_space",
+    "styles": [
+      "organic",
+      "wabi",
+      "monolithic"
+    ],
+    "materials": [
+      "rammed earth",
+      "stone",
+      "plaster"
+    ],
+    "lighting": [
+      "warm cove light",
+      "dim spotlight"
+    ],
+    "mood": [
+      "grounded",
+      "meditative",
+      "warm"
+    ],
+    "palette": [
+      "sand",
+      "ochre",
+      "clay",
+      "stone"
+    ],
+    "composition": [
+      "centered",
+      "frontal",
+      "arched"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "calm",
+      "grounded",
+      "sacred"
+    ],
+    "art_styles": [
+      "organic",
+      "wabi",
+      "monolithic"
+    ],
+    "artwork_palette_modes": [
+      "earthy-neutral",
+      "warm-monochrome"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-work"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.36
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.2,
+        "y": 0.2,
+        "width": 0.6,
+        "height": 0.54
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "layered-room",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "dissolve",
+      "light-swell"
+    ],
+    "exit_families": [
+      "match-cut",
+      "dissolve",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "土岩洞壁展厅 earthen-cave-gallery earthen cave-wall warm-light stone-bench grounded meditative warm sand ochre clay stone",
+    "search_terms": [
+      "earthen-cave-gallery",
+      "earthen",
+      "cave-wall",
+      "warm-light",
+      "stone-bench",
+      "calm",
+      "grounded",
+      "sacred",
+      "sand",
+      "ochre",
+      "clay",
+      "stone",
+      "architectural-space"
+    ],
+    "embedding_text": "土岩洞壁展厅; earthen-cave-gallery; scene_type=architectural_space; mood=grounded, meditative, warm; palette=sand, ochre, clay, stone; materials=rammed earth, stone, plaster"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.91
+}

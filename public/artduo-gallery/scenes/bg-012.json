@@ -1,0 +1,148 @@
+{
+  "id": "bg-012",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_44_44.png",
+    "suggested_filename": "bg-minimal-white-partition-gallery-black-bench-012.png",
+    "local_public_path": "/artduo-gallery/bg-minimal-white-partition-gallery-black-bench-012.png",
+    "label_cn": "白幕极简白盒展墙",
+    "asset_group": "minimal-white-partition-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "minimal",
+      "contemporary",
+      "white cube"
+    ],
+    "materials": [
+      "painted wall",
+      "concrete",
+      "black metal"
+    ],
+    "lighting": [
+      "track light",
+      "cove light",
+      "soft wash"
+    ],
+    "mood": [
+      "calm",
+      "focused",
+      "neutral"
+    ],
+    "palette": [
+      "white",
+      "light gray",
+      "charcoal",
+      "off-white"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "monolith wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "deep",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "calm",
+      "clarity",
+      "focus"
+    ],
+    "art_styles": [
+      "minimal",
+      "contemporary",
+      "white cube"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "high_contrast",
+      "monochrome"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "minimal"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "excellent",
+    "visual_busyness": 0.15
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.13,
+        "y": 0.11,
+        "width": 0.74,
+        "height": 0.63
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "scale-focus",
+      "light-swell"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "白幕极简白盒展墙 minimal-white-partition-gallery white-partition black-bench concrete gallery calm focused neutral white light gray charcoal off-white",
+    "search_terms": [
+      "minimal-white-partition-gallery",
+      "white-partition",
+      "black-bench",
+      "concrete",
+      "gallery",
+      "calm",
+      "clarity",
+      "focus",
+      "white",
+      "light-gray",
+      "charcoal",
+      "off-white",
+      "gallery-interior"
+    ],
+    "embedding_text": "白幕极简白盒展墙; minimal-white-partition-gallery; scene_type=gallery_interior; mood=calm, focused, neutral; palette=white, light gray, charcoal, off-white; materials=painted wall, concrete, black metal"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.96
+}

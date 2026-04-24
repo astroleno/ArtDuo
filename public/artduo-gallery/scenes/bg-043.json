@@ -1,0 +1,142 @@
+{
+  "id": "bg-043",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_18_39.png",
+    "suggested_filename": "bg-wabi-zen-display-wall-wabi-sabi-043.png",
+    "local_public_path": "/artduo-gallery/bg-wabi-zen-display-wall-wabi-sabi-043.png",
+    "label_cn": "侘寂木框展墙",
+    "asset_group": "wabi-zen-display-wall",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "architectural_space",
+    "styles": [
+      "wabi-sabi",
+      "zen minimal",
+      "natural interior"
+    ],
+    "materials": [
+      "lime plaster",
+      "light wood",
+      "stone tile"
+    ],
+    "lighting": [
+      "concealed cove lighting",
+      "warm ambient"
+    ],
+    "mood": [
+      "serene",
+      "balanced",
+      "soft"
+    ],
+    "palette": [
+      "sand",
+      "oak",
+      "taupe"
+    ],
+    "composition": [
+      "centered inset wall",
+      "decor alcoves sides",
+      "low platform base"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "serenity",
+      "restraint",
+      "warmth"
+    ],
+    "art_styles": [
+      "wabi-sabi",
+      "zen minimal",
+      "natural interior"
+    ],
+    "artwork_palette_modes": [
+      "warm-neutral",
+      "ink-earth"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.28
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.19,
+        "y": 0.17,
+        "width": 0.62,
+        "height": 0.62
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "match-cut"
+    ],
+    "exit_families": [
+      "dissolve",
+      "depth-push",
+      "scale-focus"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "侘寂木框展墙 wabi-zen-display-wall wabi-sabi wood-frame zen beige serene balanced soft sand oak taupe",
+    "search_terms": [
+      "wabi-zen-display-wall",
+      "wabi-sabi",
+      "wood-frame",
+      "zen",
+      "beige",
+      "serenity",
+      "restraint",
+      "warmth",
+      "sand",
+      "oak",
+      "taupe",
+      "architectural-space"
+    ],
+    "embedding_text": "侘寂木框展墙; wabi-zen-display-wall; scene_type=architectural_space; mood=serene, balanced, soft; palette=sand, oak, taupe; materials=lime plaster, light wood, stone tile"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.93
+}

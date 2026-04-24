@@ -1,0 +1,145 @@
+{
+  "id": "bg-023",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_56_30.png",
+    "suggested_filename": "bg-arched-museum-wall-classical-023.png",
+    "local_public_path": "/artduo-gallery/bg-arched-museum-wall-classical-023.png",
+    "label_cn": "古典拱厅主展墙",
+    "asset_group": "arched-museum-wall",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "classical revival",
+      "museum symmetry",
+      "soft monumental"
+    ],
+    "materials": [
+      "stone",
+      "plaster",
+      "wood floor"
+    ],
+    "lighting": [
+      "diffused skylight",
+      "warm ambient"
+    ],
+    "mood": [
+      "quiet",
+      "reverent"
+    ],
+    "palette": [
+      "ivory",
+      "cream",
+      "taupe",
+      "oak"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "framed wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "deep",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "serenity",
+      "awe",
+      "focus"
+    ],
+    "art_styles": [
+      "classical revival",
+      "museum symmetry",
+      "soft monumental"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "muted_classic",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single_subject",
+      "open_space"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.31
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.26,
+        "y": 0.24,
+        "width": 0.47,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "layered-room",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "scale-focus",
+      "light-swell"
+    ],
+    "exit_families": [
+      "match-cut",
+      "depth-push",
+      "dissolve"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "古典拱厅主展墙 arched-museum-wall classical arched hall bench quiet reverent ivory cream taupe oak",
+    "search_terms": [
+      "arched-museum-wall",
+      "classical",
+      "arched",
+      "hall",
+      "bench",
+      "serenity",
+      "awe",
+      "focus",
+      "ivory",
+      "cream",
+      "taupe",
+      "oak",
+      "museum-hall"
+    ],
+    "embedding_text": "古典拱厅主展墙; arched-museum-wall; scene_type=museum_hall; mood=quiet, reverent; palette=ivory, cream, taupe, oak; materials=stone, plaster, wood floor"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.9
+}

@@ -1,9 +1,28 @@
 {
+  "name": "artduo",
+  "private": true,
+  "packageManager": "pnpm@8.15.1",
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @artduo/contracts test",
+    "preflight:check": "pnpm build && pnpm test",
+    "collect:met:test": "node scripts/collect/met-collect.js --test",
+    "collect:met:phase": "node scripts/collect/met-collect.js --phase",
+    "collect:met:emotion": "node scripts/collect/met-collect.js --emotion",
+    "collect:met:probe": "pnpm --filter @artduo/pipeline met:probe",
+    "collect:met:batch": "pnpm --filter @artduo/pipeline met:batch"
+  },
   "dependencies": {
     "@xenova/transformers": "^2.17.2",
     "cheerio": "^1.1.2",
     "commander": "^14.0.1",
     "hnswlib-node": "^3.0.0",
     "natural": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }

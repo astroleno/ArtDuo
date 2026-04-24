@@ -1,0 +1,147 @@
+{
+  "id": "bg-011",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_44_40.png",
+    "suggested_filename": "bg-warm-wood-zen-gallery-sunlit-wall-011.png",
+    "local_public_path": "/artduo-gallery/bg-warm-wood-zen-gallery-sunlit-wall-011.png",
+    "label_cn": "暖木日影留白展墙",
+    "asset_group": "warm-wood-zen-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "warm minimalism",
+      "zen interior",
+      "daylit gallery"
+    ],
+    "materials": [
+      "oak wood",
+      "lime plaster",
+      "stone tile"
+    ],
+    "lighting": [
+      "soft daylight",
+      "warm ambient",
+      "spotlight wash"
+    ],
+    "mood": [
+      "serene",
+      "sunlit",
+      "contemplative"
+    ],
+    "palette": [
+      "sand",
+      "oak",
+      "cream",
+      "warm beige"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "sunlit wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "serenity",
+      "warmth",
+      "contentment"
+    ],
+    "art_styles": [
+      "warm minimalism",
+      "zen interior",
+      "daylit gallery"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "earthy",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.24
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.16,
+        "y": 0.14,
+        "width": 0.68,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "window-lit",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "暖木日影留白展墙 warm-wood-zen-gallery sunlit-wall oak-frame zen gallery serene sunlit contemplative sand oak cream warm beige",
+    "search_terms": [
+      "warm-wood-zen-gallery",
+      "sunlit-wall",
+      "oak-frame",
+      "zen",
+      "gallery",
+      "serenity",
+      "warmth",
+      "contentment",
+      "sand",
+      "oak",
+      "cream",
+      "warm-beige",
+      "gallery-interior"
+    ],
+    "embedding_text": "暖木日影留白展墙; warm-wood-zen-gallery; scene_type=gallery_interior; mood=serene, sunlit, contemplative; palette=sand, oak, cream, warm beige; materials=oak wood, lime plaster, stone tile"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.94
+}

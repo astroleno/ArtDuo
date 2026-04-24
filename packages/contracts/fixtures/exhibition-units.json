@@ -1,0 +1,50 @@
+[
+  {
+    "unitId": "unit-opening-014",
+    "artworkId": "met-687396",
+    "backgroundSceneId": "bg-014",
+    "order": 0,
+    "role": "opening",
+    "displayMode": "static-frame",
+    "transitionOut": {
+      "family": "dissolve",
+      "durationMs": 1200,
+      "intensity": "soft",
+      "implementationHint": "css"
+    }
+  },
+  {
+    "unitId": "unit-focus-026",
+    "artworkId": "met-199500",
+    "backgroundSceneId": "bg-026",
+    "order": 1,
+    "role": "focus",
+    "displayMode": "director-focus",
+    "transitionIn": {
+      "family": "dissolve",
+      "durationMs": 1200,
+      "intensity": "soft",
+      "implementationHint": "css"
+    },
+    "transitionOut": {
+      "family": "depth-push",
+      "durationMs": 1600,
+      "intensity": "moderate",
+      "implementationHint": "motion"
+    }
+  },
+  {
+    "unitId": "unit-closing-041",
+    "artworkId": "met-4293",
+    "backgroundSceneId": "bg-041",
+    "order": 2,
+    "role": "closing",
+    "displayMode": "static-frame",
+    "transitionIn": {
+      "family": "depth-push",
+      "durationMs": 1600,
+      "intensity": "moderate",
+      "implementationHint": "motion"
+    }
+  }
+]

@@ -1,0 +1,141 @@
+{
+  "id": "bg-049",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_24_33.png",
+    "suggested_filename": "bg-gothic-arch-niche-stone-049.png",
+    "local_public_path": "/artduo-gallery/bg-gothic-arch-niche-stone-049.png",
+    "label_cn": "哥特拱龛展墙",
+    "asset_group": "gothic-arch-niche",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "architectural_space",
+    "styles": [
+      "gothic revival",
+      "sacral interior",
+      "historic stone"
+    ],
+    "materials": [
+      "stone",
+      "plaster",
+      "slate floor"
+    ],
+    "lighting": [
+      "soft spotlights",
+      "ambient window spill"
+    ],
+    "mood": [
+      "reverent",
+      "solemn",
+      "majestic"
+    ],
+    "palette": [
+      "stone-gray",
+      "ivory",
+      "charcoal"
+    ],
+    "composition": [
+      "arched niche wall",
+      "symmetrical columns",
+      "narrow side windows"
+    ],
+    "negative_space_level": "medium",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "reverence",
+      "gravity",
+      "timelessness"
+    ],
+    "art_styles": [
+      "gothic revival",
+      "sacral interior",
+      "historic stone"
+    ],
+    "artwork_palette_modes": [
+      "neutral",
+      "muted-classic"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero"
+    ],
+    "artwork_orientation_modes": [
+      "portrait",
+      "landscape"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "poor",
+    "visual_busyness": 0.46
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.24,
+        "y": 0.18,
+        "width": 0.52,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "layered-room",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "depth-push"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "scale-focus"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "哥特拱龛展墙 gothic-arch-niche gothic arch stone niche reverent solemn majestic stone-gray ivory charcoal",
+    "search_terms": [
+      "gothic-arch-niche",
+      "gothic",
+      "arch",
+      "stone",
+      "niche",
+      "reverence",
+      "gravity",
+      "timelessness",
+      "stone-gray",
+      "ivory",
+      "charcoal",
+      "architectural-space"
+    ],
+    "embedding_text": "哥特拱龛展墙; gothic-arch-niche; scene_type=architectural_space; mood=reverent, solemn, majestic; palette=stone-gray, ivory, charcoal; materials=stone, plaster, slate floor"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.93
+}

@@ -1,0 +1,147 @@
+{
+  "id": "bg-002",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_43_59.png",
+    "suggested_filename": "bg-industrial-gallery-concrete-002.png",
+    "local_public_path": "/artduo-gallery/bg-industrial-gallery-concrete-002.png",
+    "label_cn": "工业灰墙极简展厅",
+    "asset_group": "industrial-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "industrial minimalism",
+      "contemporary gallery",
+      "brutalist clean"
+    ],
+    "materials": [
+      "concrete",
+      "plaster",
+      "polished cement",
+      "black metal"
+    ],
+    "lighting": [
+      "track spotlight",
+      "cool ambient"
+    ],
+    "mood": [
+      "focused",
+      "neutral",
+      "quiet"
+    ],
+    "palette": [
+      "light gray",
+      "charcoal",
+      "concrete",
+      "off-white"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "large negative space"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "deep",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "contemplation",
+      "clarity",
+      "calm"
+    ],
+    "art_styles": [
+      "industrial minimalism",
+      "contemporary gallery",
+      "brutalist clean"
+    ],
+    "artwork_palette_modes": [
+      "cool_neutral",
+      "monochrome",
+      "muted"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "minimal"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.19
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.16,
+        "y": 0.15,
+        "width": 0.68,
+        "height": 0.56
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "scale-focus",
+      "depth-push"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "工业灰墙极简展厅 industrial-gallery industrial concrete blank-wall minimal-gallery focused neutral quiet light gray charcoal concrete off-white",
+    "search_terms": [
+      "industrial-gallery",
+      "industrial",
+      "concrete",
+      "blank-wall",
+      "minimal-gallery",
+      "contemplation",
+      "clarity",
+      "calm",
+      "light-gray",
+      "charcoal",
+      "off-white",
+      "gallery-interior"
+    ],
+    "embedding_text": "工业灰墙极简展厅; industrial-gallery; scene_type=gallery_interior; mood=focused, neutral, quiet; palette=light gray, charcoal, concrete, off-white; materials=concrete, plaster, polished cement, black metal"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.92
+}

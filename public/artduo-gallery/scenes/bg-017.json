@@ -1,0 +1,147 @@
+{
+  "id": "bg-017",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_45_09.png",
+    "suggested_filename": "bg-gothic-dark-gallery-aubergine-wall-017.png",
+    "local_public_path": "/artduo-gallery/bg-gothic-dark-gallery-aubergine-wall-017.png",
+    "label_cn": "哥特紫黑剧场展厅",
+    "asset_group": "gothic-dark-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "gothic revival",
+      "dramatic",
+      "theatrical"
+    ],
+    "materials": [
+      "dark wood",
+      "velvet",
+      "black stone"
+    ],
+    "lighting": [
+      "sconces",
+      "spotlights",
+      "low ambient"
+    ],
+    "mood": [
+      "dramatic",
+      "solemn",
+      "intimate"
+    ],
+    "palette": [
+      "aubergine",
+      "charcoal",
+      "black",
+      "warm gold"
+    ],
+    "composition": [
+      "centered",
+      "arched frame",
+      "symmetrical"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "mystery",
+      "reverence",
+      "drama"
+    ],
+    "art_styles": [
+      "gothic revival",
+      "dramatic",
+      "theatrical"
+    ],
+    "artwork_palette_modes": [
+      "dark-rich",
+      "high_contrast",
+      "muted"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single_subject",
+      "formal"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.43
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.24,
+        "y": 0.17,
+        "width": 0.52,
+        "height": 0.6
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "depth-push"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "scale-focus"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "哥特紫黑剧场展厅 gothic-dark-gallery aubergine-wall black-arches dramatic gallery dramatic solemn intimate aubergine charcoal black warm gold",
+    "search_terms": [
+      "gothic-dark-gallery",
+      "aubergine-wall",
+      "black-arches",
+      "dramatic",
+      "gallery",
+      "mystery",
+      "reverence",
+      "drama",
+      "aubergine",
+      "charcoal",
+      "black",
+      "warm-gold",
+      "museum-hall"
+    ],
+    "embedding_text": "哥特紫黑剧场展厅; gothic-dark-gallery; scene_type=museum_hall; mood=dramatic, solemn, intimate; palette=aubergine, charcoal, black, warm gold; materials=dark wood, velvet, black stone"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.93
+}

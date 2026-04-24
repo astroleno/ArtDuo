@@ -1,0 +1,145 @@
+{
+  "id": "bg-028",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_58_32.png",
+    "suggested_filename": "bg-zen-editorial-alcove-wood-028.png",
+    "local_public_path": "/artduo-gallery/bg-zen-editorial-alcove-wood-028.png",
+    "label_cn": "侘寂木作展墙",
+    "asset_group": "zen-editorial-alcove",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "editorial_space",
+    "styles": [
+      "japanese minimal",
+      "wabi-sabi",
+      "editorial calm"
+    ],
+    "materials": [
+      "wood",
+      "plaster",
+      "stone"
+    ],
+    "lighting": [
+      "warm indirect light",
+      "soft ambient"
+    ],
+    "mood": [
+      "tranquil",
+      "grounded"
+    ],
+    "palette": [
+      "beige",
+      "oak",
+      "stone",
+      "warm brown"
+    ],
+    "composition": [
+      "centered",
+      "alcove framing",
+      "balanced asymmetry"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "serenity",
+      "contentment",
+      "warmth"
+    ],
+    "art_styles": [
+      "japanese minimal",
+      "wabi-sabi",
+      "editorial calm"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "earthy",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.29
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.19,
+        "y": 0.16,
+        "width": 0.61,
+        "height": 0.54
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "layered-room",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "侘寂木作展墙 zen-editorial-alcove zen wood wabi-sabi alcove tranquil grounded beige oak stone warm brown",
+    "search_terms": [
+      "zen-editorial-alcove",
+      "zen",
+      "wood",
+      "wabi-sabi",
+      "alcove",
+      "serenity",
+      "contentment",
+      "warmth",
+      "beige",
+      "oak",
+      "stone",
+      "warm-brown",
+      "editorial-space"
+    ],
+    "embedding_text": "侘寂木作展墙; zen-editorial-alcove; scene_type=editorial_space; mood=tranquil, grounded; palette=beige, oak, stone, warm brown; materials=wood, plaster, stone"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.87
+}

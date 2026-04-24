@@ -1,0 +1,147 @@
+{
+  "id": "bg-004",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_44_09.png",
+    "suggested_filename": "bg-warm-wood-gallery-plaster-wall-004.png",
+    "local_public_path": "/artduo-gallery/bg-warm-wood-gallery-plaster-wall-004.png",
+    "label_cn": "暖木留白静谧展厅",
+    "asset_group": "warm-wood-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "warm minimalism",
+      "zen interior",
+      "museum calm"
+    ],
+    "materials": [
+      "oak wood",
+      "lime plaster",
+      "stone tile",
+      "ceramic"
+    ],
+    "lighting": [
+      "soft daylight",
+      "warm ambient"
+    ],
+    "mood": [
+      "serene",
+      "grounded",
+      "contemplative"
+    ],
+    "palette": [
+      "sand",
+      "oak",
+      "cream",
+      "warm beige"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "large negative space"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "serenity",
+      "contentment",
+      "hope"
+    ],
+    "art_styles": [
+      "warm minimalism",
+      "zen interior",
+      "museum calm"
+    ],
+    "artwork_palette_modes": [
+      "warm_neutral",
+      "earthy",
+      "low_saturation"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "open_space",
+      "single_subject"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.21
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.15,
+        "y": 0.13,
+        "width": 0.66,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "暖木留白静谧展厅 warm-wood-gallery warm-wood plaster-wall zen-gallery soft-daylight serene grounded contemplative sand oak cream warm beige",
+    "search_terms": [
+      "warm-wood-gallery",
+      "warm-wood",
+      "plaster-wall",
+      "zen-gallery",
+      "soft-daylight",
+      "serenity",
+      "contentment",
+      "hope",
+      "sand",
+      "oak",
+      "cream",
+      "warm-beige",
+      "gallery-interior"
+    ],
+    "embedding_text": "暖木留白静谧展厅; warm-wood-gallery; scene_type=gallery_interior; mood=serene, grounded, contemplative; palette=sand, oak, cream, warm beige; materials=oak wood, lime plaster, stone tile, ceramic"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.95
+}

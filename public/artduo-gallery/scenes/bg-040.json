@@ -1,0 +1,146 @@
+{
+  "id": "bg-040",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_06_05.png",
+    "suggested_filename": "bg-modern-windowed-gallery-white-wall-040.png",
+    "local_public_path": "/artduo-gallery/bg-modern-windowed-gallery-white-wall-040.png",
+    "label_cn": "通透现代白厅",
+    "asset_group": "modern-windowed-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "minimal",
+      "contemporary",
+      "architectural"
+    ],
+    "materials": [
+      "painted wall",
+      "concrete",
+      "glass"
+    ],
+    "lighting": [
+      "track lights",
+      "daylight",
+      "soft wash"
+    ],
+    "mood": [
+      "clean",
+      "open",
+      "quiet"
+    ],
+    "palette": [
+      "white",
+      "light gray",
+      "soft beige",
+      "green accent"
+    ],
+    "composition": [
+      "centered",
+      "frontal",
+      "slightly offset"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "calm",
+      "clear",
+      "open"
+    ],
+    "art_styles": [
+      "minimal",
+      "contemporary",
+      "architectural"
+    ],
+    "artwork_palette_modes": [
+      "any",
+      "high-contrast",
+      "muted-neutral"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-work"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.18
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.18,
+        "y": 0.17,
+        "width": 0.68,
+        "height": 0.58
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "window-lit",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "通透现代白厅 modern-windowed-gallery modern white-wall windowed minimal clean open quiet white light gray soft beige green accent",
+    "search_terms": [
+      "modern-windowed-gallery",
+      "modern",
+      "white-wall",
+      "windowed",
+      "minimal",
+      "calm",
+      "clear",
+      "open",
+      "white",
+      "light-gray",
+      "soft-beige",
+      "green-accent",
+      "gallery-interior"
+    ],
+    "embedding_text": "通透现代白厅; modern-windowed-gallery; scene_type=gallery_interior; mood=clean, open, quiet; palette=white, light gray, soft beige, green accent; materials=painted wall, concrete, glass"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.97
+}

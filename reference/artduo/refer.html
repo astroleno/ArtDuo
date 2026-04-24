@@ -1,0 +1,265 @@
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
+
+// --- 名画数据 ---
+const ARTWORK_DATABASE = [
+  {
+    id: 1,
+    title: "The Fighting Temeraire",
+    artist: "J.M.W. Turner",
+    year: "1839",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Turner%2C_J._M._W._-_The_Fighting_Temeraire_tugged_to_her_last_Berth_to_be_broken_up%2C_1838.jpg/1280px-Turner%2C_J._M._W._-_The_Fighting_Temeraire_tugged_to_her_last_Berth_to_be_broken_up%2C_1838.jpg",
+    description: "特拉法加海战中的战舰特梅雷尔号被拖去拆解，象征着帆船时代的结束。透纳用夕阳隐喻了辉煌时代的落幕。"
+  },
+  {
+    id: 2,
+    title: "Sunflowers",
+    artist: "Vincent van Gogh",
+    year: "1888",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/800px-Vincent_Willem_van_Gogh_127.jpg",
+    description: "梵高标志性的向日葵系列。黄色对他而言象征着幸福，这幅画充满了生命力与色彩的强烈张力。"
+  },
+  {
+    id: 3,
+    title: "The Water Lily Pond",
+    artist: "Claude Monet",
+    year: "1899",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Claude_Monet_-_The_Water_Lilies_-_Setting_Sun_-_Google_Art_Project.jpg/1280px-Claude_Monet_-_The_Water_Lilies_-_Setting_Sun_-_Google_Art_Project.jpg",
+    description: "莫奈吉维尼花园中的睡莲池。他在此处不仅种植花草，更是在“种植”光线与倒影。"
+  },
+  {
+    id: 4,
+    title: "Whistlejacket",
+    artist: "George Stubbs",
+    year: "1762",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Whistlejacket_by_George_Stubbs_edit.jpg/1024px-Whistlejacket_by_George_Stubbs_edit.jpg",
+    description: "一幅巨大的纯种赛马肖像。背景的大胆留白是这幅画最现代的地方，将焦点完全集中在马的力量美上。"
+  },
+  {
+    id: 5,
+    title: "Lady Agnew of Lochnaw",
+    artist: "John Singer Sargent",
+    year: "1892",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/John_Singer_Sargent_-_Lady_Agnew_of_Lochnaw_-_Google_Art_Project.jpg/800px-John_Singer_Sargent_-_Lady_Agnew_of_Lochnaw_-_Google_Art_Project.jpg",
+    description: "萨金特最著名的肖像画之一。她直视观众的自信眼神在维多利亚时代晚期是极其罕见且大胆的。"
+  }
+];
+
+// --- 光束粒子效果 (Light Beam Dust) ---
+const LightBeamParticles = ({ artContainerRef }) => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let particles = [];
+    const particleCount = 60;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+
+    // 粒子只在画作区域内及其上方光锥中显示
+    const isInLightBeam = (x, y) => {
+      if (!artContainerRef.current) return false;
+      const rect = artContainerRef.current.getBoundingClientRect();
+      
+      // 光束从画作上方延伸
+      const beamTopY = 0; // 从屏幕顶部开始
+      const beamBottomY = rect.bottom;
+      const beamCenterX = rect.left + rect.width / 2;
+      
+      const topWidthHalf = 80; // 光源顶部宽度
+      const bottomWidthHalf = rect.width / 2 + 50; // 光束底部在画作宽度基础上延伸
+      
+      const progress = (y - beamTopY) / (beamBottomY - beamTopY);
+      if (progress < 0 || progress > 1) return false;
+
+      const currentLimit = topWidthHalf + (bottomWidthHalf - topWidthHalf) * progress;
+      return Math.abs(x - beamCenterX) < currentLimit;
+    };
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        // 主要在画作上方和左侧区域生成，模拟从光源处飘落
+        const rect = artContainerRef.current ? artContainerRef.current.getBoundingClientRect() : { left: 0, top: 0, width: canvas.width, height: canvas.height };
+        this.x = rect.left + Math.random() * rect.width * 1.2 - rect.width * 0.1; 
+        this.y = Math.random() * rect.top * 0.8; // 从画布顶部以上生成
+        this.size = Math.random() * 1.2;
+        this.vx = (Math.random() - 0.5) * 0.15; 
+        this.vy = 0.05 + Math.random() * 0.2;   
+        this.baseAlpha = 0.3 + Math.random() * 0.7; 
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.y > canvas.height * 0.9) this.reset(); // 超出屏幕底部重置
+      }
+      draw(ctx) {
+        if (isInLightBeam(this.x, this.y)) {
+             const distFromCenter = Math.abs(this.x - (artContainerRef.current.getBoundingClientRect().left + artContainerRef.current.getBoundingClientRect().width / 2));
+             const beamFade = 1 - (distFromCenter / 400); 
+             ctx.beginPath();
+             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+             ctx.fillStyle = `rgba(255, 255, 240, ${this.baseAlpha * beamFade})`;
+             ctx.fill();
+        }
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) { particles.push(new Particle()); }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(ctx); });
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [artContainerRef]); // 依赖 artContainerRef 确保获取到最新的 DOM 元素
+
+  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-30 mix-blend-screen" />;
+};
+
+// --- 主应用 ---
+export default function GalleryWithIES() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const artContainerRef = useRef(null); // 用于传递给粒子组件
+
+  const currentArt = ARTWORK_DATABASE[currentIndex];
+
+  const changeArt = useCallback((direction) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => {
+        if (direction === 'next') return (prev + 1) % ARTWORK_DATABASE.length;
+        return (prev - 1 + ARTWORK_DATABASE.length) % ARTWORK_DATABASE.length;
+      });
+      setIsTransitioning(false);
+    }, 500); 
+  }, [isTransitioning]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') changeArt('prev');
+      if (e.key === 'ArrowRight') changeArt('next');
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [changeArt]);
+
+  return (
+    <div className="relative w-full h-screen overflow-hidden bg-[#111316] font-serif select-none flex items-center justify-center">
+      
+      {/* --- IES 灯光层 (更聚焦，亮度更高) --- */}
+      {/* 顶部光源点 (Source) - 更集中 */}
+      <div className="absolute top-[-50px] left-1/2 -translate-x-1/2 w-[180px] h-[90px] bg-white blur-[50px] opacity-40 pointer-events-none z-10"></div>
+
+      {/* 主光束 (Main Beam) - 更窄、更亮，覆盖左侧画作区域 */}
+      <div className="absolute top-0 left-[20%] w-[500px] h-full pointer-events-none z-0">
+          {/* 中心强光 */}
+          <div className="w-full h-full bg-gradient-to-b from-[rgba(255,255,255,0.25)] via-[rgba(255,255,255,0.08)] to-transparent blur-2xl"></div>
+          {/* 极细的核心光柱 */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[150px] h-[80%] bg-gradient-to-b from-[rgba(255,255,255,0.15)] to-transparent blur-xl"></div>
+      </div>
+
+      {/* 墙面漫反射 (Wall Wash) - 扇形光斑，更亮更明显 */}
+      <div 
+        className="absolute top-[-30%] left-1/2 -translate-x-1/2 w-[150vh] h-[150vh] pointer-events-none z-0 opacity-40 mix-blend-screen"
+        style={{
+            background: 'conic-gradient(from 180deg at 50% 0%, transparent 150deg, rgba(255,250,245,1) 180deg, transparent 210deg)',
+            filter: 'blur(100px)'
+        }}
+      ></div>
+
+      {/* 2. 粒子层 (现在依赖画作位置) */}
+      <LightBeamParticles artContainerRef={artContainerRef} />
+
+      {/* 3. 核心展示区 - 左右分栏布局 */}
+      <div className="relative z-20 w-full h-full flex items-center justify-center gap-20">
+        
+        {/* 左侧：画作展示 */}
+        <div ref={artContainerRef} className={`relative transition-all duration-700 ease-out ${isTransitioning ? 'opacity-0 scale-95 blur-sm' : 'opacity-100 scale-100 blur-0'}`}>
+            <div className="relative group">
+                {/* 投影：更自然地落在下方和右侧 */}
+                <div className="absolute -bottom-10 left-10 right-0 h-[40px] bg-black/60 blur-[30px] rounded-[100%]"></div>
+                
+                <img 
+                    src={currentArt.url} 
+                    alt={currentArt.title} 
+                    className="max-h-[65vh] max-w-[50vw] object-contain relative z-10"
+                    style={{ 
+                        boxShadow: '0 20px 60px rgba(0,0,0,0.8)',
+                        filter: 'brightness(1.05)',
+                        // 给图片本身增加 IES 光照效果：左上角亮，右下角暗
+                        maskImage: 'linear-gradient(to bottom right, black 60%, transparent 100%)',
+                        WebkitMaskImage: 'linear-gradient(to bottom right, black 60%, transparent 100%)',
+                        // 叠加一个渐变，模拟光线从左上方打过来
+                        backgroundImage: 'linear-gradient(to top left, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.1) 100%)',
+                        backgroundSize: 'cover',
+                        backgroundBlendMode: 'overlay' // 叠加模式，让光线与画作融合
+                    }} 
+                    draggable={false}
+                />
+            </div>
+        </div>
+
+        {/* 右侧：信息标签 - 独立于画作，固定位置 */}
+        <div className="relative z-40 group/label">
+            <div className="bg-[#fdfbf7] shadow-2xl transition-all duration-500 ease-out overflow-hidden origin-top-left
+                w-[180px] h-[100px] hover:w-[320px] hover:h-[260px] hover:p-6 p-4 cursor-help
+                border-l-4 border-transparent hover:border-[#d4af37]"
+            >
+                {/* 默认显示状态 */}
+                <div className="flex flex-col justify-start h-full group-hover/label:h-auto transition-all">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/label:text-gray-500 group-hover/label:mb-1">
+                        {currentArt.artist}
+                    </p>
+                    <h3 className="text-xl font-serif italic text-gray-800 leading-snug group-hover/label:text-3xl group-hover/label:mb-3">
+                        {currentArt.title}
+                    </h3>
+                </div>
+
+                {/* 悬停展开内容 (Details) */}
+                <div className="opacity-0 group-hover/label:opacity-100 transition-opacity duration-500 delay-100">
+                     <p className="text-xs leading-relaxed text-gray-700 text-justify font-sans mb-3">
+                        {currentArt.description}
+                     </p>
+                     <div className="flex justify-between items-center border-t border-gray-200 pt-2">
+                        <span className="text-[10px] font-mono text-gray-400">{currentArt.year}</span>
+                        <Info size={12} className="text-gray-400" />
+                     </div>
+                </div>
+                {/* 指示器小圆点 */}
+                <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#d4af37] rounded-full opacity-0 group-hover/label:opacity-100 transition-opacity"></div>
+            </div>
+        </div>
+      </div>
+
+      {/* 4. 导航按钮 (左右边缘) */}
+      <div className="absolute inset-y-0 left-0 w-24 flex items-center justify-center group cursor-pointer z-30" onClick={() => changeArt('prev')}>
+         <ChevronLeft size={40} className="text-white/10 group-hover:text-white/60 transition-all transform group-hover:-translate-x-1" />
+      </div>
+      <div className="absolute inset-y-0 right-0 w-24 flex items-center justify-center group cursor-pointer z-30" onClick={() => changeArt('next')}>
+         <ChevronRight size={40} className="text-white/10 group-hover:text-white/60 transition-all transform group-hover:translate-x-1" />
+      </div>
+
+      {/* 胶片噪点 (Noise) - 增加暗部质感 */}
+      <div className="absolute inset-0 opacity-[0.07] pointer-events-none mix-blend-overlay" 
+           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
+      </div>
+
+    </div>
+  );
+}

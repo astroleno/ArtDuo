@@ -1,0 +1,142 @@
+{
+  "id": "bg-041",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_06_09.png",
+    "suggested_filename": "bg-classical-gallery-wall-warm-brown-041.png",
+    "local_public_path": "/artduo-gallery/bg-classical-gallery-wall-warm-brown-041.png",
+    "label_cn": "古典暖棕展墙",
+    "asset_group": "classical-gallery-wall",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "classical",
+      "warm gallery",
+      "heritage interior"
+    ],
+    "materials": [
+      "plaster",
+      "dark wood",
+      "parquet"
+    ],
+    "lighting": [
+      "track spotlights",
+      "warm ambient"
+    ],
+    "mood": [
+      "quiet",
+      "elegant",
+      "intimate"
+    ],
+    "palette": [
+      "umber",
+      "beige",
+      "walnut"
+    ],
+    "composition": [
+      "centered wall",
+      "framed side arches",
+      "low bench offset-left"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "calm",
+      "heritage",
+      "warmth"
+    ],
+    "art_styles": [
+      "classical",
+      "warm gallery",
+      "heritage interior"
+    ],
+    "artwork_palette_modes": [
+      "warm-neutral",
+      "earthy-muted"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-hero"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.33
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.16,
+        "y": 0.15,
+        "width": 0.67,
+        "height": 0.61
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "古典暖棕展墙 classical-gallery-wall classical warm-brown arched gallery quiet elegant intimate umber beige walnut",
+    "search_terms": [
+      "classical-gallery-wall",
+      "classical",
+      "warm-brown",
+      "arched",
+      "gallery",
+      "calm",
+      "heritage",
+      "warmth",
+      "umber",
+      "beige",
+      "walnut",
+      "gallery-interior"
+    ],
+    "embedding_text": "古典暖棕展墙; classical-gallery-wall; scene_type=gallery_interior; mood=quiet, elegant, intimate; palette=umber, beige, walnut; materials=plaster, dark wood, parquet"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.94
+}

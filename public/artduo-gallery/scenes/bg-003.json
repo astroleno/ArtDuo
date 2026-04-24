@@ -1,0 +1,146 @@
+{
+  "id": "bg-003",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 00_44_04.png",
+    "suggested_filename": "bg-ornate-museum-emerald-003.png",
+    "local_public_path": "/artduo-gallery/bg-ornate-museum-emerald-003.png",
+    "label_cn": "墨绿鎏金华丽展厅",
+    "asset_group": "ornate-museum",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "art deco",
+      "luxury museum",
+      "ornate classic"
+    ],
+    "materials": [
+      "marble",
+      "velvet",
+      "gilded metal",
+      "painted panel"
+    ],
+    "lighting": [
+      "wall sconce glow",
+      "ceiling spotlight",
+      "warm ambient"
+    ],
+    "mood": [
+      "dramatic",
+      "opulent",
+      "ceremonial"
+    ],
+    "palette": [
+      "emerald",
+      "black",
+      "gold",
+      "dark bronze"
+    ],
+    "composition": [
+      "centered",
+      "symmetrical",
+      "hero wall"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "awe",
+      "luxury",
+      "focus"
+    ],
+    "art_styles": [
+      "art deco",
+      "luxury museum",
+      "ornate classic"
+    ],
+    "artwork_palette_modes": [
+      "jewel-tone",
+      "dark-rich",
+      "gold-accented"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single_subject",
+      "formal"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "top",
+      "bottom"
+    ],
+    "mobile_crop_tolerance": "good",
+    "visual_busyness": 0.34
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.2,
+        "y": 0.12,
+        "width": 0.6,
+        "height": 0.59
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "flat-wall",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "light-swell",
+      "fade",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "moderate",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "墨绿鎏金华丽展厅 ornate-museum emerald gilded ornate museum-hall dramatic opulent ceremonial emerald black gold dark bronze",
+    "search_terms": [
+      "ornate-museum",
+      "emerald",
+      "gilded",
+      "ornate",
+      "museum-hall",
+      "awe",
+      "luxury",
+      "focus",
+      "black",
+      "gold",
+      "dark-bronze"
+    ],
+    "embedding_text": "墨绿鎏金华丽展厅; ornate-museum; scene_type=museum_hall; mood=dramatic, opulent, ceremonial; palette=emerald, black, gold, dark bronze; materials=marble, velvet, gilded metal, painted panel"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.91
+}

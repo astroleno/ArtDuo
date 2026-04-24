@@ -1,0 +1,145 @@
+{
+  "id": "bg-034",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_01_11.png",
+    "suggested_filename": "bg-minimal-white-gallery-concrete-034.png",
+    "local_public_path": "/artduo-gallery/bg-minimal-white-gallery-concrete-034.png",
+    "label_cn": "极简白墙展厅",
+    "asset_group": "minimal-white-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "gallery_interior",
+    "styles": [
+      "minimal",
+      "contemporary",
+      "clean"
+    ],
+    "materials": [
+      "painted wall",
+      "concrete",
+      "polished floor"
+    ],
+    "lighting": [
+      "ceiling track lights",
+      "soft wash"
+    ],
+    "mood": [
+      "calm",
+      "precise",
+      "quiet"
+    ],
+    "palette": [
+      "white",
+      "light beige",
+      "gray",
+      "charcoal"
+    ],
+    "composition": [
+      "centered",
+      "frontal",
+      "symmetrical"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "low",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "calm",
+      "clear",
+      "neutral"
+    ],
+    "art_styles": [
+      "minimal",
+      "contemporary",
+      "clean"
+    ],
+    "artwork_palette_modes": [
+      "any",
+      "high-contrast"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-work"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "high",
+    "safe_text_zones": [
+      "center",
+      "left-center",
+      "right-center",
+      "top"
+    ],
+    "mobile_crop_tolerance": "excellent",
+    "visual_busyness": 0.2
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.17,
+        "y": 0.14,
+        "width": 0.66,
+        "height": 0.6
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "window-lit",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "light-swell",
+      "scale-focus"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "lateral-pan"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "极简白墙展厅 minimal-white-gallery minimal white-wall concrete black-bench calm precise quiet white light beige gray charcoal",
+    "search_terms": [
+      "minimal-white-gallery",
+      "minimal",
+      "white-wall",
+      "concrete",
+      "black-bench",
+      "calm",
+      "clear",
+      "neutral",
+      "white",
+      "light-beige",
+      "gray",
+      "charcoal",
+      "gallery-interior"
+    ],
+    "embedding_text": "极简白墙展厅; minimal-white-gallery; scene_type=gallery_interior; mood=calm, precise, quiet; palette=white, light beige, gray, charcoal; materials=painted wall, concrete, polished floor"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.97
+}

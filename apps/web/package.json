@@ -1,0 +1,9 @@
+{
+  "name": "@artduo/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"console.log('preflight: @artduo/web scaffold ready')\"",
+    "typecheck": "node -e \"console.log('preflight: @artduo/web scaffold ready')\""
+  }
+}

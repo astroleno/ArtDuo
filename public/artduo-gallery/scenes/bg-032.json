@@ -1,0 +1,144 @@
+{
+  "id": "bg-032",
+  "asset": {
+    "original_filename": "ChatGPT Image 2026年4月23日 01_01_03.png",
+    "suggested_filename": "bg-gothic-stone-gallery-arched-032.png",
+    "local_public_path": "/artduo-gallery/bg-gothic-stone-gallery-arched-032.png",
+    "label_cn": "哥特石拱展厅",
+    "asset_group": "gothic-stone-gallery",
+    "metadata_version": "2026-04-23-vlm-draft"
+  },
+  "image_info": {
+    "width": 1672,
+    "height": 941,
+    "aspect_ratio": "16:9",
+    "orientation": "landscape"
+  },
+  "visual_profile": {
+    "scene_type": "museum_hall",
+    "styles": [
+      "gothic",
+      "historic",
+      "symmetrical"
+    ],
+    "materials": [
+      "stone",
+      "plaster",
+      "dark wood"
+    ],
+    "lighting": [
+      "side daylight",
+      "soft ambient"
+    ],
+    "mood": [
+      "reverent",
+      "quiet",
+      "aged"
+    ],
+    "palette": [
+      "sand",
+      "taupe",
+      "brown",
+      "muted gold"
+    ],
+    "composition": [
+      "centered",
+      "frontal",
+      "axial"
+    ],
+    "negative_space_level": "high",
+    "space_depth": "layered",
+    "focal_density": "medium",
+    "reference_inference": []
+  },
+  "curation_profile": {
+    "emotion_ids": [
+      "solemn",
+      "serene",
+      "historic"
+    ],
+    "art_styles": [
+      "gothic",
+      "historic",
+      "symmetrical"
+    ],
+    "artwork_palette_modes": [
+      "earth-neutral",
+      "muted-warm"
+    ],
+    "artwork_composition_modes": [
+      "centered",
+      "single-work"
+    ],
+    "artwork_orientation_modes": [
+      "landscape",
+      "portrait"
+    ]
+  },
+  "ui_profile": {
+    "overlay_readability": "medium",
+    "safe_text_zones": [
+      "center",
+      "bottom",
+      "top"
+    ],
+    "mobile_crop_tolerance": "fair",
+    "visual_busyness": 0.57
+  },
+  "stage_profile": {
+    "primary_mount_zone": {
+      "shape": "rect",
+      "rect": {
+        "x": 0.23,
+        "y": 0.2,
+        "width": 0.54,
+        "height": 0.56
+      }
+    },
+    "preferred_artwork_scale": "large",
+    "wall_visibility": "high",
+    "depth_strategy": "window-lit",
+    "dominant_axis": "center"
+  },
+  "transition_profile": {
+    "entry_families": [
+      "fade",
+      "dissolve",
+      "light-swell"
+    ],
+    "exit_families": [
+      "dissolve",
+      "match-cut",
+      "depth-push"
+    ],
+    "transition_tempo": "slow",
+    "transition_intensity": "soft",
+    "implementation_hint": "auto"
+  },
+  "retrieval_profile": {
+    "search_text": "哥特石拱展厅 gothic-stone-gallery gothic stone arched stained-glass reverent quiet aged sand taupe brown muted gold",
+    "search_terms": [
+      "gothic-stone-gallery",
+      "gothic",
+      "stone",
+      "arched",
+      "stained-glass",
+      "solemn",
+      "serene",
+      "historic",
+      "sand",
+      "taupe",
+      "brown",
+      "muted-gold",
+      "museum-hall"
+    ],
+    "embedding_text": "哥特石拱展厅; gothic-stone-gallery; scene_type=museum_hall; mood=reverent, quiet, aged; palette=sand, taupe, brown, muted gold; materials=stone, plaster, dark wood"
+  },
+  "parse_meta": {
+    "parsed_by": "hybrid",
+    "parser_model": "multi-agent-image-review-manual-normalization",
+    "parsed_at": "2026-04-23",
+    "needs_review": false
+  },
+  "confidence": 0.9
+}
