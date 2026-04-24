@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
@@ -92,6 +92,8 @@ export interface ReleaseBuildResult {
   searchPath: string;
   mediaIndexPath: string;
   backgroundScenesPath: string;
+  corpusSource: "curated" | "legacy";
+  resolvedCorpusPath?: string;
   records: {
     artworks: ArtworkRecord[];
     metadata: ArtworkMetadataShardRecord[];
@@ -110,6 +112,10 @@ function resolveRootDir(rootDir?: string): string {
 
 function resolveOutputRoot(rootDir: string, outputRoot?: string): string {
   return outputRoot ? path.resolve(outputRoot) : path.join(rootDir, "data", "releases");
+}
+
+function resolveCuratedCorpusRoot(rootDir: string): string {
+  return path.join(rootDir, "data", "curation", "release-ready");
 }
 
 function readJsonFile<T>(filePath: string): T {
@@ -470,6 +476,24 @@ export function loadBackgroundScenes(rootDir: string): BackgroundSceneRecord[] {
   return parseBackgroundSceneRecords(scenes);
 }
 
+export function resolvePreferredCorpusPath(rootDir: string, explicitCorpusPath?: string): string | undefined {
+  if (explicitCorpusPath) {
+    return path.resolve(explicitCorpusPath);
+  }
+
+  const curatedRoot = resolveCuratedCorpusRoot(rootDir);
+  if (!existsSync(curatedRoot)) {
+    return undefined;
+  }
+
+  const candidates = readdirSync(curatedRoot)
+    .filter((fileName) => fileName.endsWith(".json"))
+    .sort();
+  const latest = candidates.at(-1);
+
+  return latest ? path.join(curatedRoot, latest) : undefined;
+}
+
 export function loadCuratedArtworkRecords(corpusPath: string, version: string, limit?: number): ArtworkRecord[] {
   const curatedRecords = parseArtworkRecords(readJsonFile<unknown>(corpusPath), corpusPath);
   const source = typeof limit === "number" ? curatedRecords.slice(0, limit) : curatedRecords;
@@ -523,9 +547,11 @@ export function buildReleaseArtifact(options: ReleaseBuildOptions = {}): Release
   const backgroundCatalogVersion = options.backgroundCatalogVersion ?? corpusVersion;
   const contractsVersion = options.contractsVersion ?? DEFAULT_CONTRACTS_VERSION;
   const outputDir = path.join(outputRoot, corpusVersion);
+  const resolvedCorpusPath = resolvePreferredCorpusPath(rootDir, options.corpusPath);
+  const corpusSource = resolvedCorpusPath ? "curated" : "legacy";
   ensureDir(outputDir);
 
-  const artworks = loadArtworkRecords(rootDir, corpusVersion, options.limit, options.corpusPath);
+  const artworks = loadArtworkRecords(rootDir, corpusVersion, options.limit, resolvedCorpusPath);
   const backgroundScenes = loadBackgroundScenes(rootDir);
   const metadata = artworks.map(toMetadataShardRecord);
   const search = artworks.map(toSearchShardRecord);
@@ -568,6 +594,8 @@ export function buildReleaseArtifact(options: ReleaseBuildOptions = {}): Release
     searchPath,
     mediaIndexPath,
     backgroundScenesPath,
+    corpusSource,
+    resolvedCorpusPath,
     records: {
       artworks,
       metadata,
