@@ -2,9 +2,18 @@
   "name": "@artduo/pipeline",
   "version": "0.1.0",
   "private": true,
+  "dependencies": {
+    "@artduo/contracts": "workspace:*"
+  },
   "scripts": {
-    "build": "node -e \"console.log('preflight: @artduo/pipeline scaffold ready')\"",
-    "typecheck": "node -e \"console.log('preflight: @artduo/pipeline scaffold ready')\"",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test src/*.test.ts",
+    "build:metadata": "tsx src/build-artwork-metadata-shards.ts",
+    "build:search": "tsx src/build-search-shards.ts",
+    "build:media-index": "tsx src/build-media-index.ts",
+    "build:background-scenes": "tsx src/build-background-scenes.ts",
+    "build:release": "tsx src/build-release-manifest.ts",
     "met:probe": "node ../../scripts/collect/met-probe.js",
     "met:batch": "node ../../scripts/collect/met-batch.js"
   }

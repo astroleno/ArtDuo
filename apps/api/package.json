@@ -2,8 +2,12 @@
   "name": "@artduo/api",
   "version": "0.1.0",
   "private": true,
+  "dependencies": {
+    "@artduo/contracts": "workspace:*"
+  },
   "scripts": {
-    "build": "node -e \"console.log('preflight: @artduo/api scaffold ready')\"",
-    "typecheck": "node -e \"console.log('preflight: @artduo/api scaffold ready')\""
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test test/**/*.test.ts"
   }
 }
