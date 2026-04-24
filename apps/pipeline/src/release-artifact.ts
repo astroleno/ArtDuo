@@ -4,7 +4,14 @@ import os from "node:os";
 import path from "node:path";
 
 import type { ArtworkGrade, ArtworkGradeLabel, ArtworkRecord, MotionProfile, NarrationMode } from "@artduo/contracts";
-import { parseBackgroundSceneRecords, parseReleaseManifest, type BackgroundSceneRecord, type ReleaseManifest, type ShardInfo } from "@artduo/contracts";
+import {
+  parseArtworkRecords,
+  parseBackgroundSceneRecords,
+  parseReleaseManifest,
+  type BackgroundSceneRecord,
+  type ReleaseManifest,
+  type ShardInfo,
+} from "@artduo/contracts";
 
 type LegacyMetadataRecord = {
   id: string;
@@ -71,6 +78,7 @@ export type ArtworkMediaIndexRecord = Pick<
 export interface ReleaseBuildOptions {
   rootDir?: string;
   outputRoot?: string;
+  corpusPath?: string;
   corpusVersion?: string;
   backgroundCatalogVersion?: string;
   contractsVersion?: string;
@@ -462,7 +470,21 @@ export function loadBackgroundScenes(rootDir: string): BackgroundSceneRecord[] {
   return parseBackgroundSceneRecords(scenes);
 }
 
-export function loadArtworkRecords(rootDir: string, version: string, limit?: number): ArtworkRecord[] {
+export function loadCuratedArtworkRecords(corpusPath: string, version: string, limit?: number): ArtworkRecord[] {
+  const curatedRecords = parseArtworkRecords(readJsonFile<unknown>(corpusPath), corpusPath);
+  const source = typeof limit === "number" ? curatedRecords.slice(0, limit) : curatedRecords;
+
+  return source.map((record) => ({
+    ...record,
+    version,
+  }));
+}
+
+export function loadArtworkRecords(rootDir: string, version: string, limit?: number, corpusPath?: string): ArtworkRecord[] {
+  if (corpusPath) {
+    return loadCuratedArtworkRecords(corpusPath, version, limit);
+  }
+
   const metadataPath = path.join(rootDir, "data", "met", "processed", "artworks-metadata.json");
   const searchPath = path.join(rootDir, "data", "met", "processed", "artworks-search.json");
   const imagesPath = path.join(rootDir, "data", "met", "processed", "artworks-images.json");
@@ -503,7 +525,7 @@ export function buildReleaseArtifact(options: ReleaseBuildOptions = {}): Release
   const outputDir = path.join(outputRoot, corpusVersion);
   ensureDir(outputDir);
 
-  const artworks = loadArtworkRecords(rootDir, corpusVersion, options.limit);
+  const artworks = loadArtworkRecords(rootDir, corpusVersion, options.limit, options.corpusPath);
   const backgroundScenes = loadBackgroundScenes(rootDir);
   const metadata = artworks.map(toMetadataShardRecord);
   const search = artworks.map(toSearchShardRecord);

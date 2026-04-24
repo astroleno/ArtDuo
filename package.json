@@ -11,7 +11,8 @@
     "collect:met:phase": "node scripts/collect/met-collect.js --phase",
     "collect:met:emotion": "node scripts/collect/met-collect.js --emotion",
     "collect:met:probe": "pnpm --filter @artduo/pipeline met:probe",
-    "collect:met:batch": "pnpm --filter @artduo/pipeline met:batch"
+    "collect:met:batch": "pnpm --filter @artduo/pipeline met:batch",
+    "collect:release-ready": "pnpm --filter @artduo/pipeline build:release-ready"
   },
   "dependencies": {
     "@xenova/transformers": "^2.17.2",
