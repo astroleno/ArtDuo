@@ -15,6 +15,8 @@
     "build:media-index": "tsx src/build-media-index.ts",
     "build:background-scenes": "tsx src/build-background-scenes.ts",
     "build:embeddings": "tsx src/build-embedding-shards.ts",
+    "debug:vector-retrieval": "tsx src/debug-vector-retrieval.ts",
+    "bench:vector": "tsx src/run-vector-benchmark.ts",
     "build:candidate-preview": "tsx src/build-candidate-preview.ts",
     "build:confirmed-metadata-backfill": "tsx src/build-confirmed-metadata-backfill.ts",
     "build:metadata-backfill-preview": "tsx src/build-metadata-backfill-preview.ts",

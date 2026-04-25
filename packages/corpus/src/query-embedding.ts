@@ -4,6 +4,7 @@ export const DEFAULT_EMBEDDING_DIMENSIONS = 256;
 export const LOCAL_EMBEDDING_MODEL_ID = "local-hash-embedding-v1";
 
 const STOP_WORDS = new Set([
+  "after",
   "a",
   "an",
   "and",
@@ -28,10 +29,13 @@ const TOKEN_ALIASES: Record<string, string[]> = {
   contemplation: ["reflective", "meditative", "quiet", "stillness"],
   desire: ["yearning", "longing", "passion", "craving"],
   enigmatic: ["mystery", "oracle", "secret", "shadow"],
+  hope: ["optimism", "renewal", "uplift", "dawn", "promise"],
   joy: ["cheerful", "delight", "playful", "bright"],
   melancholy: ["somber", "pensive", "quiet", "sorrow"],
   mystery: ["enigmatic", "oracle", "secret", "shadow"],
+  optimism: ["hope", "renewal", "uplift", "promise"],
   reflective: ["contemplation", "meditative", "quiet", "stillness"],
+  renewal: ["hope", "optimism", "rebirth", "dawn", "light"],
   serenity: ["tranquil", "calm", "still", "peaceful"],
   tranquil: ["serenity", "calm", "peaceful", "still"],
   wonder: ["awe", "amazement", "curiosity", "marvel"],
@@ -102,6 +106,19 @@ function expandAliases(tokens: string[]): string[] {
   return unique(expanded);
 }
 
+function collectBaseTokens(value: string): string[] {
+  const normalized = normalizeQueryText(value);
+  const rawTokens = normalized.match(TOKEN_PATTERN) ?? [];
+
+  return unique(
+    rawTokens
+      .flatMap((token) => splitHanToken(token))
+      .map((token) => token.trim())
+      .filter((token) => token.length > 0)
+      .filter((token) => !STOP_WORDS.has(token)),
+  );
+}
+
 export function normalizeQueryText(value: string): string {
   return value
     .normalize("NFKC")
@@ -113,15 +130,13 @@ export function normalizeQueryText(value: string): string {
 }
 
 export function tokenizeQueryText(value: string): string[] {
-  const normalized = normalizeQueryText(value);
-  const rawTokens = normalized.match(TOKEN_PATTERN) ?? [];
-  const baseTokens = rawTokens
-    .flatMap((token) => splitHanToken(token))
-    .map((token) => token.trim())
-    .filter((token) => token.length > 0)
-    .filter((token) => !STOP_WORDS.has(token));
+  const baseTokens = collectBaseTokens(value);
 
   return unique([...expandAliases(baseTokens), ...buildAdjacentBigrams(baseTokens)]);
+}
+
+export function tokenizeKeywordText(value: string): string[] {
+  return collectBaseTokens(value);
 }
 
 export function embedText(

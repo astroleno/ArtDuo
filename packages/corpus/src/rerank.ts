@@ -1,4 +1,4 @@
-import { tokenizeQueryText } from "./query-embedding";
+import { tokenizeKeywordText, tokenizeQueryText } from "./query-embedding";
 import type { VectorSearchDocument, VectorSearchResult } from "./vector-search";
 
 export interface LexicalSearchResult<T> {
@@ -31,6 +31,15 @@ function normalizeGrade(grade: string | undefined): number {
   }
 
   return 0.55;
+}
+
+function getSortableId(value: unknown): string | undefined {
+  if (!value || typeof value !== "object" || !("id" in value)) {
+    return undefined;
+  }
+
+  const id = (value as { id?: unknown }).id;
+  return typeof id === "string" ? id : undefined;
 }
 
 function scoreTokenCoverage(queryTokens: string[], documentTokens: string[]): {
@@ -75,6 +84,49 @@ export function buildLexicalRanking<T>(
     .sort((left, right) => {
       if (right.score !== left.score) {
         return right.score - left.score;
+      }
+
+      return left.matchedTokens.length - right.matchedTokens.length;
+    })
+    .slice(0, limit)
+    .map((entry, index) => ({
+      ...entry,
+      rank: index + 1,
+    }));
+}
+
+export function buildKeywordBaselineRanking<T>(
+  queryText: string,
+  items: T[],
+  options: {
+    getText: (item: T) => string;
+    limit?: number;
+  },
+): LexicalSearchResult<T>[] {
+  const limit = options.limit ?? 10;
+  const queryTokens = tokenizeKeywordText(queryText);
+
+  return items
+    .map((item) => {
+      const { score, matchedTokens } = scoreTokenCoverage(queryTokens, tokenizeKeywordText(options.getText(item)));
+
+      return {
+        item,
+        score,
+        matchedTokens,
+      };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((left, right) => {
+      if (right.score !== left.score) {
+        return right.score - left.score;
+      }
+
+      const leftId = getSortableId(left.item);
+      const rightId = getSortableId(right.item);
+
+      if (leftId && rightId) {
+        return leftId.localeCompare(rightId);
       }
 
       return left.matchedTokens.length - right.matchedTokens.length;

@@ -19,7 +19,9 @@
     "collect:metadata-preview": "pnpm --filter @artduo/pipeline build:metadata-backfill-preview",
     "collect:candidate-preview": "pnpm --filter @artduo/pipeline build:candidate-preview",
     "collect:quantity-preview": "pnpm --filter @artduo/pipeline build:quantity-preview",
-    "collect:release-ready": "pnpm --filter @artduo/pipeline build:release-ready"
+    "collect:release-ready": "pnpm --filter @artduo/pipeline build:release-ready",
+    "vector:debug": "pnpm --filter @artduo/pipeline debug:vector-retrieval",
+    "vector:benchmark": "pnpm --filter @artduo/pipeline bench:vector"
   },
   "dependencies": {
     "@xenova/transformers": "^2.17.2",

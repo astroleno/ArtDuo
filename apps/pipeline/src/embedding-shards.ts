@@ -2,8 +2,9 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { buildArtworkEmbeddingText, embedText, LOCAL_EMBEDDING_MODEL_ID, type VectorSearchDocument } from "@artduo/corpus";
+import { buildArtworkEmbeddingText, embedText, LOCAL_EMBEDDING_MODEL_ID } from "@artduo/corpus";
 import {
+  type EmbeddingShardRecord as ContractEmbeddingShardRecord,
   parseArtworkRecords,
   parseReleaseManifest,
   type ArtworkRecord,
@@ -21,15 +22,7 @@ export interface EmbeddingBuildOptions {
   dimensions?: number;
 }
 
-export interface EmbeddingShardRecord extends VectorSearchDocument {
-  source: ArtworkRecord["source"];
-  sourceArtworkId: string;
-  version: string;
-  model: string;
-  dimensions: number;
-  text: string;
-  tokenCount: number;
-}
+export type EmbeddingShardRecord = ContractEmbeddingShardRecord;
 
 export interface EmbeddingBuildReport {
   releaseVersion: string;
@@ -111,6 +104,10 @@ function buildEmbeddingRecord(record: ArtworkRecord, dimensions: number): Embedd
     version: record.version,
     model: embedded.model,
     dimensions: embedded.dimensions,
+    title: record.metadata.title,
+    artistDisplayName: record.metadata.artistDisplayName,
+    grade: record.presentation.grade,
+    moodTags: record.metadata.moodTags,
     text: embedded.normalizedText,
     tokenCount: embedded.tokens.length,
     vector: embedded.vector,

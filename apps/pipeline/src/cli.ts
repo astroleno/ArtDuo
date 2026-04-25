@@ -7,6 +7,8 @@ import type { MetadataBackfillPreviewOptions } from "./metadata-backfill-preview
 import type { QuantityPreviewOptions } from "./quantity-preview";
 import type { ReleaseBuildOptions } from "./release-artifact";
 import type { ReleaseReadyBuildOptions } from "./release-ready-corpus";
+import type { VectorBenchmarkCliOptions } from "./run-vector-benchmark";
+import type { VectorRetrievalDebugCliOptions } from "./debug-vector-retrieval";
 
 function readFlag(name: string): string | undefined {
   const index = process.argv.indexOf(name);
@@ -52,6 +54,48 @@ export function readEmbeddingBuildOptions(): EmbeddingBuildOptions {
     corpusPath: corpusPath ? path.resolve(corpusPath) : undefined,
     releaseVersion,
     dimensions: Number.isFinite(dimensions) ? dimensions : undefined,
+  };
+}
+
+export function readVectorRetrievalDebugOptions(): VectorRetrievalDebugCliOptions {
+  const rootDir = readFlag("--root-dir");
+  const releasesRoot = readFlag("--releases-root");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const query = readFlag("--query");
+  const outputPath = readFlag("--output");
+  const limitValue = readFlag("--limit");
+  const limit = limitValue ? Number.parseInt(limitValue, 10) : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    query,
+    outputPath: outputPath ? path.resolve(outputPath) : undefined,
+    limit: Number.isFinite(limit) ? limit : undefined,
+  };
+}
+
+export function readVectorBenchmarkOptions(): VectorBenchmarkCliOptions {
+  const rootDir = readFlag("--root-dir");
+  const releasesRoot = readFlag("--releases-root");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const promptsPath = readFlag("--prompts");
+  const outputPath = readFlag("--output");
+  const limitValue = readFlag("--limit");
+  const limit = limitValue ? Number.parseInt(limitValue, 10) : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    promptsPath: promptsPath ? path.resolve(promptsPath) : undefined,
+    outputPath: outputPath ? path.resolve(outputPath) : undefined,
+    limit: Number.isFinite(limit) ? limit : undefined,
   };
 }
 
