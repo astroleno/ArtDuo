@@ -13,9 +13,14 @@
     "build:search": "tsx src/build-search-shards.ts",
     "build:media-index": "tsx src/build-media-index.ts",
     "build:background-scenes": "tsx src/build-background-scenes.ts",
+    "build:candidate-preview": "tsx src/build-candidate-preview.ts",
+    "build:confirmed-metadata-backfill": "tsx src/build-confirmed-metadata-backfill.ts",
+    "build:metadata-backfill-preview": "tsx src/build-metadata-backfill-preview.ts",
+    "build:quantity-preview": "tsx src/build-quantity-preview.ts",
     "build:release-ready": "tsx src/build-release-ready-corpus.ts",
     "build:release": "tsx src/build-release-manifest.ts",
     "met:probe": "node ../../scripts/collect/met-probe.js",
-    "met:batch": "node ../../scripts/collect/met-batch.js"
+    "met:batch": "node ../../scripts/collect/met-batch.js",
+    "met:backfill-batch-probe-approval": "node ../../scripts/collect/backfill-batch-probe-approval.js"
   }
 }

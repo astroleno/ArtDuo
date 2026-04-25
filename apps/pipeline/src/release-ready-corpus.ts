@@ -6,7 +6,7 @@ import path from "node:path";
 import type { ArtworkGrade, ArtworkGradeLabel, ArtworkRecord, MotionProfile, NarrationMode } from "@artduo/contracts";
 import { parseArtworkRecord, parseArtworkRecords } from "@artduo/contracts";
 
-type ConfirmedRecord = {
+export type ConfirmedRecord = {
   sourceArtworkId?: string | null;
   id?: string | null;
   source?: string | null;
@@ -44,15 +44,28 @@ type ConfirmedRecord = {
   } | null;
 };
 
-type ReleaseReadyInput = {
+export type ConfirmedInput = {
   filePath: string;
   theme: string;
   records: ConfirmedRecord[];
 };
 
+export type CandidateBackfillFlags = {
+  description: boolean;
+  storySnippet: boolean;
+  searchText: boolean;
+  moodTags: boolean;
+  colorTags: boolean;
+};
+
+export type BuildCandidateRecordOptions = {
+  unknownAspectCompositionTags?: string[];
+};
+
 export interface ReleaseReadyBuildOptions {
   rootDir?: string;
   confirmedRoot?: string;
+  metadataBackfillRoot?: string;
   outputRoot?: string;
   reportRoot?: string;
   inputPath?: string;
@@ -106,6 +119,10 @@ function resolveConfirmedRoot(rootDir: string, confirmedRoot?: string): string {
   return confirmedRoot ? path.resolve(confirmedRoot) : path.join(rootDir, "data", "curation", "confirmed");
 }
 
+function resolveMetadataBackfillRoot(rootDir: string, metadataBackfillRoot?: string): string {
+  return metadataBackfillRoot ? path.resolve(metadataBackfillRoot) : path.join(rootDir, "data", "curation", "metadata-backfill");
+}
+
 function resolveOutputRoot(rootDir: string, outputRoot?: string): string {
   return outputRoot ? path.resolve(outputRoot) : path.join(rootDir, "data", "curation", "release-ready");
 }
@@ -122,7 +139,7 @@ function readJsonFile<T>(filePath: string): T {
   return JSON.parse(readFileSync(filePath, "utf8")) as T;
 }
 
-function compactText(value: unknown): string | undefined {
+export function compactText(value: unknown): string | undefined {
   if (value === null || value === undefined) {
     return undefined;
   }
@@ -148,19 +165,105 @@ function normalizeThemeTag(theme: string): string {
     .replace(/^-+|-+$/g, "") || "curated";
 }
 
-function loadConfirmedInputs(confirmedRoot: string, inputPath?: string): ReleaseReadyInput[] {
+function discoverLatestThemeFiles(root: string): string[] {
+  const latestByTheme = new Map<string, string>();
+  const fileNames = readdirSync(root)
+    .filter((fileName) => fileName.endsWith(".json"))
+    .sort();
+
+  for (const fileName of fileNames) {
+    latestByTheme.set(normalizeThemeTag(inferThemeFromFile(fileName)), path.join(root, fileName));
+  }
+
+  return [...latestByTheme.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([, filePath]) => filePath);
+}
+
+export function loadConfirmedInputs(confirmedRoot: string, inputPath?: string): ConfirmedInput[] {
   const filePaths = inputPath
     ? [path.resolve(inputPath)]
-    : readdirSync(confirmedRoot)
-      .filter((fileName) => fileName.endsWith(".json"))
-      .sort()
-      .map((fileName) => path.join(confirmedRoot, fileName));
+    : discoverLatestThemeFiles(confirmedRoot);
 
   return filePaths.map((filePath) => ({
     filePath,
     theme: normalizeThemeTag(inferThemeFromFile(filePath)),
     records: readJsonFile<ConfirmedRecord[]>(filePath),
   }));
+}
+
+type ReleaseReadyInput = {
+  theme: string;
+  filePath: string;
+  reviewCleared: boolean;
+  records: ArtworkRecord[];
+  provenance: "metadata-backfill" | "confirmed";
+};
+
+function loadLatestArtworkInputs(metadataBackfillRoot: string): ReleaseReadyInput[] {
+  return discoverLatestThemeFiles(metadataBackfillRoot).map((filePath) => ({
+    theme: normalizeThemeTag(inferThemeFromFile(filePath)),
+    filePath,
+    reviewCleared: true,
+    records: parseArtworkRecords(readJsonFile<unknown>(filePath), filePath),
+    provenance: "metadata-backfill" as const,
+  }));
+}
+
+function loadReleaseReadyInputs(
+  confirmedRoot: string,
+  metadataBackfillRoot: string,
+  inputPath?: string,
+): ReleaseReadyInput[] {
+  if (inputPath) {
+    const resolvedPath = path.resolve(inputPath);
+    const payload = readJsonFile<unknown>(resolvedPath);
+    const theme = normalizeThemeTag(inferThemeFromFile(resolvedPath));
+
+    try {
+      return [{
+        theme,
+        filePath: resolvedPath,
+        reviewCleared: true,
+        records: parseArtworkRecords(payload, resolvedPath),
+        provenance: "metadata-backfill",
+      }];
+    } catch {
+      return loadConfirmedInputs(confirmedRoot, resolvedPath).map((input) => ({
+        theme: input.theme,
+        filePath: input.filePath,
+        reviewCleared: true,
+        records: input.records.map((record) => buildCandidateRecord(record, input.theme, "release-ready-input").record),
+        provenance: "confirmed" as const,
+      }));
+    }
+  }
+
+  const preferred = new Map<string, ReleaseReadyInput>();
+
+  try {
+    for (const input of loadLatestArtworkInputs(metadataBackfillRoot)) {
+      preferred.set(input.theme, input);
+    }
+  } catch {
+    // metadata-backfill may not exist yet; fall through to confirmed inputs
+  }
+
+  for (const input of loadConfirmedInputs(confirmedRoot)) {
+    if (preferred.has(input.theme)) {
+      continue;
+    }
+
+    preferred.set(input.theme, {
+      theme: input.theme,
+      filePath: input.filePath,
+      reviewCleared: true,
+      records: input.records.map((record) => buildCandidateRecord(record, input.theme, "release-ready-input").record),
+      provenance: "confirmed",
+    });
+  }
+
+  return [...preferred.values()].sort((left, right) => left.theme.localeCompare(right.theme));
 }
 
 function buildSourceAssetFingerprint(record: ConfirmedRecord): string | undefined {
@@ -317,7 +420,10 @@ function deriveSubjectTags(record: ConfirmedRecord, theme: string): string[] {
   return tags.length > 0 ? tags.slice(0, 6) : ["curated-work"];
 }
 
-function deriveCompositionTags(aspectRatioHint: "portrait" | "landscape" | "square" | undefined): string[] {
+function deriveCompositionTags(
+  aspectRatioHint: "portrait" | "landscape" | "square" | undefined,
+  unknownAspectCompositionTags: string[] = ["single-subject", "curated-promote"],
+): string[] {
   if (aspectRatioHint === "portrait") {
     return ["single-subject", "portrait-bias"];
   }
@@ -327,7 +433,7 @@ function deriveCompositionTags(aspectRatioHint: "portrait" | "landscape" | "squa
   if (aspectRatioHint === "square") {
     return ["centered", "square-frame"];
   }
-  return ["single-subject", "curated-promote"];
+  return unknownAspectCompositionTags;
 }
 
 function normalizeAspectRatioHint(value: string | undefined): "portrait" | "landscape" | "square" | undefined {
@@ -406,15 +512,14 @@ function buildDuplicateKeys(record: ArtworkRecord): string[] {
   return keys;
 }
 
-function buildCandidateRecord(record: ConfirmedRecord, theme: string, corpusVersion: string): {
+export function buildCandidateRecord(
+  record: ConfirmedRecord,
+  theme: string,
+  corpusVersion: string,
+  options: BuildCandidateRecordOptions = {},
+): {
   record: ArtworkRecord;
-  backfills: {
-    description: boolean;
-    storySnippet: boolean;
-    searchText: boolean;
-    moodTags: boolean;
-    colorTags: boolean;
-  };
+  backfills: CandidateBackfillFlags;
 } {
   const source = inferSource(record);
   const sourceArtworkId = inferSourceArtworkId(record) ?? "unknown-source-id";
@@ -469,7 +574,7 @@ function buildCandidateRecord(record: ConfirmedRecord, theme: string, corpusVers
       moodTags,
       colorTags,
       subjectTags,
-      compositionTags: deriveCompositionTags(aspectRatioHint),
+      compositionTags: deriveCompositionTags(aspectRatioHint, options.unknownAspectCompositionTags),
     },
     retrieval: {
       searchText,
@@ -516,10 +621,10 @@ function buildCandidateRecord(record: ConfirmedRecord, theme: string, corpusVers
   };
 }
 
-function validateReleaseReadyMinimums(record: ArtworkRecord, reviewDecision: string | undefined): string[] {
+function validateReleaseReadyMinimums(record: ArtworkRecord, reviewCleared: boolean): string[] {
   const reasons: string[] = [];
 
-  if (reviewDecision !== "promote") {
+  if (!reviewCleared) {
     reasons.push("missing-promote-review");
   }
   if (!compactText(record.sourceArtworkId)) {
@@ -620,6 +725,7 @@ function writeJsonFile(filePath: string, data: unknown): void {
 export function buildReleaseReadyCorpus(options: ReleaseReadyBuildOptions = {}): ReleaseReadyBuildResult {
   const rootDir = resolveRootDir(options.rootDir);
   const confirmedRoot = resolveConfirmedRoot(rootDir, options.confirmedRoot);
+  const metadataBackfillRoot = resolveMetadataBackfillRoot(rootDir, options.metadataBackfillRoot);
   const outputRoot = resolveOutputRoot(rootDir, options.outputRoot);
   const reportRoot = resolveReportRoot(rootDir, options.reportRoot);
   const corpusVersion = options.corpusVersion ?? new Date().toISOString().slice(0, 10);
@@ -630,7 +736,7 @@ export function buildReleaseReadyCorpus(options: ReleaseReadyBuildOptions = {}):
   const outputPath = path.join(outputRoot, `${corpusVersion}.json`);
   const reportPath = path.join(reportRoot, `release-ready-${corpusVersion}.json`);
   const reportMarkdownPath = path.join(reportRoot, `release-ready-${corpusVersion}.md`);
-  const inputs = loadConfirmedInputs(confirmedRoot, options.inputPath);
+  const inputs = loadReleaseReadyInputs(confirmedRoot, metadataBackfillRoot, options.inputPath);
   const existingRecords = loadExistingReleaseReadyRecords(outputRoot, outputPath);
   const seenDuplicateKeys = new Set(existingRecords.flatMap((record) => buildDuplicateKeys(record)));
 
@@ -650,9 +756,19 @@ export function buildReleaseReadyCorpus(options: ReleaseReadyBuildOptions = {}):
     themes[input.theme] = themes[input.theme] ?? { confirmed: 0, releaseReady: 0 };
     themes[input.theme].confirmed += input.records.length;
 
-    for (const confirmedRecord of input.records) {
-      const { record, backfills } = buildCandidateRecord(confirmedRecord, input.theme, corpusVersion);
-      const reasons = validateReleaseReadyMinimums(record, compactText(confirmedRecord.review?.decision));
+    for (const sourceRecord of input.records) {
+      const record = {
+        ...sourceRecord,
+        version: corpusVersion,
+      };
+      const backfills = {
+        description: false,
+        storySnippet: false,
+        searchText: false,
+        moodTags: false,
+        colorTags: false,
+      };
+      const reasons = validateReleaseReadyMinimums(record, input.reviewCleared);
       const duplicateKeys = buildDuplicateKeys(record);
 
       if (duplicateKeys.some((key) => seenDuplicateKeys.has(key))) {

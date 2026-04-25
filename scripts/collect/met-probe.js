@@ -9,6 +9,7 @@ const MET_API_BASE = 'https://collectionapi.metmuseum.org/public/collection/v1';
 const SEARCH_MAX_RETRIES = 3;
 const DETAIL_MAX_RETRIES = 3;
 const RETRY_BASE_DELAY = 1500;
+const REQUEST_TIMEOUT_MS = 15000;
 const DEFAULT_LIMIT = 20;
 const DEFAULT_SAMPLE_SIZE = 10;
 const DEFAULT_OUTPUT_ROOT = path.resolve(__dirname, '../../data/sources/met/probe');
@@ -38,10 +39,35 @@ function unique(values) {
   return [...new Set(values.filter(Boolean))];
 }
 
+function mergeSearchObjectIds(searches, limit) {
+  const merged = [];
+  const seen = new Set();
+  const longestSearch = searches.reduce((max, search) => Math.max(max, search.objectIDs.length), 0);
+
+  for (let index = 0; index < longestSearch && merged.length < limit; index += 1) {
+    for (const search of searches) {
+      const objectID = search.objectIDs[index];
+      if (!objectID || seen.has(objectID)) {
+        continue;
+      }
+      seen.add(objectID);
+      merged.push(objectID);
+      if (merged.length >= limit) {
+        break;
+      }
+    }
+  }
+
+  return merged;
+}
+
 async function fetchJson(url, retries) {
   for (let attempt = 1; attempt <= retries; attempt += 1) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { signal: controller.signal });
       if (response.status === 403 || response.status === 429) {
         if (attempt === retries) {
           throw new Error(`HTTP ${response.status}`);
@@ -54,10 +80,15 @@ async function fetchJson(url, retries) {
       }
       return response.json();
     } catch (error) {
+      const normalizedError = error?.name === 'AbortError'
+        ? new Error(`Request timeout after ${REQUEST_TIMEOUT_MS}ms`)
+        : error;
       if (attempt === retries) {
-        throw error;
+        throw normalizedError;
       }
       await sleep(RETRY_BASE_DELAY * attempt);
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 
@@ -213,7 +244,7 @@ async function runProbe(options) {
     await sleep(200);
   }
 
-  const candidateIds = [...uniqueIds].slice(0, options.limit);
+  const candidateIds = mergeSearchObjectIds(searches, options.limit);
   const sampleIds = candidateIds.slice(0, options.sample);
   const detailObjects = [];
 

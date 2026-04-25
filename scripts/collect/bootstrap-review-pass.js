@@ -16,6 +16,14 @@ function readJsonFile(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
+function percentage(count, total) {
+  if (!total) {
+    return 0;
+  }
+
+  return Number(((count / total) * 100).toFixed(1));
+}
+
 function timestampForId(date = new Date()) {
   return date.toISOString().replace(/[:.]/g, '-');
 }
@@ -294,50 +302,91 @@ const reviewMarkdownPath = path.join(path.resolve(options.reportRoot), `review-$
 const coveragePath = path.join(path.resolve(options.reportRoot), `coverage-${reviewRunId}.json`);
 const confirmedPath = path.join(path.resolve(options.confirmedRoot), `${options.theme}--${reviewRunId}.json`);
 
+const decisionCounts = decisions.reduce((acc, item) => {
+  acc[item.decision] = (acc[item.decision] || 0) + 1;
+  return acc;
+}, {});
 const promotedIds = new Set(decisions.filter(item => item.decision === 'promote').map(item => item.sourceArtworkId));
 const confirmedRecords = queue.filter(record => promotedIds.has(String(record.sourceArtworkId))).map(record => ({
   ...record,
   review: decisions.find(item => item.sourceArtworkId === String(record.sourceArtworkId)),
 }));
+const reviewedCount = queue.length;
+const promoteCount = decisionCounts.promote || 0;
+const holdCount = decisionCounts.hold || 0;
+const rejectCount = decisionCounts.reject || 0;
+const matchedCount = promoteCount + holdCount;
+const matchedPercent = percentage(matchedCount, reviewedCount);
+const portraitCount = 0;
+const landscapeCount = 0;
+const squareCount = 0;
+const unknownOrientationCount = reviewedCount;
+const dominantSource = {
+  source: 'met',
+  reviewed: reviewedCount,
+  reviewedPercent: percentage(reviewedCount, reviewedCount),
+};
 
 const coverage = {
   runId: reviewRunId,
   theme: options.theme,
+  gateThresholds: {
+    confirmedMin: 30,
+    orientationMinPercent: 15,
+    sceneMatchMinPercent: 60,
+    sourceConcentrationMaxPercent: 70,
+  },
   sourceCoverage: {
     met: {
-      reviewed: queue.length,
-      promote: decisions.filter(item => item.decision === 'promote').length,
-      hold: decisions.filter(item => item.decision === 'hold').length,
-      reject: decisions.filter(item => item.decision === 'reject').length,
+      reviewed: reviewedCount,
+      reviewedPercent: percentage(reviewedCount, reviewedCount),
+      promote: promoteCount,
+      hold: holdCount,
+      reject: rejectCount,
     },
+  },
+  sourceConcentration: {
+    dominantSource: dominantSource.source,
+    dominantPercent: dominantSource.reviewedPercent,
+    note: 'This bootstrap review wave still comes from a single source lane.',
   },
   emotionCoverage: {
     [options.theme]: {
-      reviewed: queue.length,
-      promote: decisions.filter(item => item.decision === 'promote').length,
-      hold: decisions.filter(item => item.decision === 'hold').length,
-      reject: decisions.filter(item => item.decision === 'reject').length,
+      reviewed: reviewedCount,
+      promote: promoteCount,
+      hold: holdCount,
+      reject: rejectCount,
     },
   },
   orientationCoverage: {
-    portrait: 0,
-    landscape: 0,
-    square: 0,
-    unknown: queue.length,
+    portrait: portraitCount,
+    landscape: landscapeCount,
+    square: squareCount,
+    unknown: unknownOrientationCount,
+    portraitPercent: percentage(portraitCount, reviewedCount),
+    landscapePercent: percentage(landscapeCount, reviewedCount),
+    squarePercent: percentage(squareCount, reviewedCount),
+    unknownPercent: percentage(unknownOrientationCount, reviewedCount),
     note: 'Image dimensions are not stored in the current batch payload, so orientation remains unknown in this bootstrap review.',
   },
   estimatedGradeDistribution: {
-    A: decisions.filter(item => item.decision === 'promote').length,
-    B: decisions.filter(item => item.decision === 'hold').length,
-    C: decisions.filter(item => item.decision === 'reject').length,
+    A: promoteCount,
+    B: holdCount,
+    C: rejectCount,
   },
   estimatedSceneMatch: {
-    matchedCount: decisions.filter(item => item.decision !== 'reject').length,
-    matchedPercent: Number(((decisions.filter(item => item.decision !== 'reject').length / queue.length) * 100).toFixed(1)),
+    matchedCount,
+    matchedPercent,
     note: 'Bootstrap estimate based on metadata-only review; second-pass image review may lower this number.',
   },
   triggers: {
-    confirmedBelowThirty: decisions.filter(item => item.decision === 'promote').length < 30,
+    confirmedBelowThirty: promoteCount < 30,
+    sceneMatchBelowSixty: matchedPercent < 60,
+    orientationCoverageBelowTarget:
+      percentage(portraitCount, reviewedCount) < 15
+      || percentage(landscapeCount, reviewedCount) < 15
+      || percentage(squareCount, reviewedCount) < 15,
+    sourceConcentrationAboveSeventy: dominantSource.reviewedPercent > 70,
   },
 };
 
