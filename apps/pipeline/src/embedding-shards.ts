@@ -2,7 +2,15 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { buildArtworkEmbeddingText, embedText, LOCAL_EMBEDDING_MODEL_ID } from "@artduo/corpus";
+import {
+  buildArtworkEmbeddingText,
+  createLocalHashEmbeddingProvider,
+  embedText,
+  LOCAL_EMBEDDING_MODEL_ID,
+  type EmbeddedTextVector,
+  type EmbeddingProviderMode,
+  type TextEmbeddingProvider,
+} from "@artduo/corpus";
 import {
   type EmbeddingShardRecord as ContractEmbeddingShardRecord,
   parseArtworkRecords,
@@ -20,6 +28,8 @@ export interface EmbeddingBuildOptions {
   corpusPath?: string;
   releaseVersion?: string;
   dimensions?: number;
+  requestedProviderMode?: EmbeddingProviderMode;
+  embeddingProvider?: TextEmbeddingProvider;
 }
 
 export type EmbeddingShardRecord = ContractEmbeddingShardRecord;
@@ -30,6 +40,8 @@ export interface EmbeddingBuildReport {
   manifestPath: string;
   updatedManifest: boolean;
   manifestRecordCount?: number;
+  requestedProviderMode: EmbeddingProviderMode;
+  providerMode: EmbeddingProviderMode;
   dimensions: number;
   model: string;
   recordCount: number;
@@ -93,10 +105,7 @@ function loadCorpusRecords(corpusPath: string): ArtworkRecord[] {
   return parseArtworkRecords(readJsonFile<unknown>(corpusPath), corpusPath);
 }
 
-function buildEmbeddingRecord(record: ArtworkRecord, dimensions: number): EmbeddingShardRecord {
-  const text = buildArtworkEmbeddingText(record);
-  const embedded = embedText(text, { dimensions });
-
+function buildEmbeddingRecord(record: ArtworkRecord, embedded: EmbeddedTextVector): EmbeddingShardRecord {
   return {
     id: record.id,
     source: record.source,
@@ -112,6 +121,35 @@ function buildEmbeddingRecord(record: ArtworkRecord, dimensions: number): Embedd
     tokenCount: embedded.tokens.length,
     vector: embedded.vector,
   };
+}
+
+export async function buildEmbeddingRecordsWithProvider(
+  artworks: ArtworkRecord[],
+  options: {
+    dimensions?: number;
+    embeddingProvider?: TextEmbeddingProvider;
+    batchSize?: number;
+  } = {},
+): Promise<EmbeddingShardRecord[]> {
+  const embeddingProvider = options.embeddingProvider ?? createLocalHashEmbeddingProvider();
+  const texts = artworks.map((record) => buildArtworkEmbeddingText(record));
+  const embeddedTexts: EmbeddedTextVector[] = [];
+  const batchSize = options.batchSize ?? (embeddingProvider.mode === "remote-openai-compatible" ? 32 : Math.max(texts.length, 1));
+
+  for (let index = 0; index < texts.length; index += batchSize) {
+    const batch = texts.slice(index, index + batchSize);
+    const embeddedBatch = await embeddingProvider.embedTexts(batch, {
+      dimensions: options.dimensions,
+    });
+
+    embeddedTexts.push(...embeddedBatch);
+  }
+
+  if (embeddedTexts.length !== artworks.length) {
+    throw new Error(`Embedding provider returned ${embeddedTexts.length} vectors for ${artworks.length} artworks.`);
+  }
+
+  return artworks.map((record, index) => buildEmbeddingRecord(record, embeddedTexts[index]!));
 }
 
 function collectManifestRecordCounts(manifest: ReleaseManifest): Array<[string, number]> {
@@ -138,7 +176,13 @@ export function buildEmbeddingShards(options: EmbeddingBuildOptions = {}): Embed
   ensureDir(outputDir);
 
   const artworks = loadCorpusRecords(corpusPath);
-  const records = artworks.map((record) => buildEmbeddingRecord(record, dimensions));
+  const records = artworks.map((record) => {
+    const embedded = embedText(buildArtworkEmbeddingText(record), { dimensions });
+    return buildEmbeddingRecord(record, {
+      provider: "local-hash",
+      ...embedded,
+    });
+  });
   const embeddingsPath = path.join(outputDir, "embeddings-01.json");
   const reportPath = path.join(outputDir, "embedding-report.json");
   let manifest: ReleaseManifest | undefined;
@@ -178,8 +222,95 @@ export function buildEmbeddingShards(options: EmbeddingBuildOptions = {}): Embed
     manifestPath,
     updatedManifest: Boolean(manifest),
     manifestRecordCount,
+    requestedProviderMode: options.requestedProviderMode ?? "local-hash",
+    providerMode: "local-hash",
     dimensions,
     model: LOCAL_EMBEDDING_MODEL_ID,
+    recordCount: records.length,
+    sampleArtworkIds: records.slice(0, 5).map((record) => record.id),
+  };
+
+  writeJsonFile(reportPath, report);
+
+  return {
+    outputDir,
+    manifestPath,
+    embeddingsPath,
+    reportPath,
+    records,
+    report,
+    manifest,
+  };
+}
+
+export async function buildEmbeddingShardsWithProvider(
+  options: EmbeddingBuildOptions = {},
+): Promise<EmbeddingBuildResult> {
+  const rootDir = resolveRootDir(options.rootDir);
+  const outputRoot = resolveOutputRoot(rootDir, options.outputRoot);
+  const releaseVersion = options.releaseVersion ?? resolveLatestReleaseVersion(outputRoot);
+  const outputDir = path.join(outputRoot, releaseVersion);
+  const manifestPath = path.join(outputDir, "manifest.json");
+  const corpusPath = options.corpusPath ?? resolvePreferredCorpusPath(rootDir);
+  const dimensions = options.dimensions ?? 256;
+  const embeddingProvider = options.embeddingProvider ?? createLocalHashEmbeddingProvider();
+  const requestedProviderMode = options.requestedProviderMode ?? embeddingProvider.mode;
+
+  if (!corpusPath) {
+    throw new Error("Unable to resolve a curated corpus for embedding shard generation.");
+  }
+
+  ensureDir(outputDir);
+
+  const artworks = loadCorpusRecords(corpusPath);
+  const records = await buildEmbeddingRecordsWithProvider(artworks, {
+    dimensions,
+    embeddingProvider,
+  });
+  const embeddingsPath = path.join(outputDir, "embeddings-01.json");
+  const reportPath = path.join(outputDir, "embedding-report.json");
+  let manifest: ReleaseManifest | undefined;
+  let manifestRecordCount: number | undefined;
+
+  if (existsSync(manifestPath)) {
+    const existing = parseReleaseManifest(readJsonFile<unknown>(manifestPath), manifestPath);
+    const mismatchedShards = collectManifestRecordCounts(existing)
+      .filter(([, recordCount]) => recordCount !== records.length)
+      .map(([shardName, recordCount]) => `${shardName}=${recordCount}`);
+
+    if (mismatchedShards.length > 0) {
+      throw new Error(
+        `Release manifest does not match the embedding corpus size (${records.length}). Rebuild the release artifact first: ${mismatchedShards.join(", ")}`,
+      );
+    }
+
+    manifestRecordCount = existing.shards.metadata[0]?.recordCount;
+    const embeddingShard = writeJsonFile(embeddingsPath, records);
+    manifest = {
+      ...existing,
+      shards: {
+        ...existing.shards,
+        embeddings: [{ ...embeddingShard, id: "embeddings-01" }],
+      },
+    };
+
+    parseReleaseManifest(manifest);
+    writeJsonFile(manifestPath, manifest);
+  } else {
+    writeJsonFile(embeddingsPath, records);
+  }
+
+  const firstRecord = records[0];
+  const report: EmbeddingBuildReport = {
+    releaseVersion,
+    corpusPath,
+    manifestPath,
+    updatedManifest: Boolean(manifest),
+    manifestRecordCount,
+    requestedProviderMode,
+    providerMode: firstRecord?.model === LOCAL_EMBEDDING_MODEL_ID ? "local-hash" : embeddingProvider.mode,
+    dimensions: firstRecord?.dimensions ?? dimensions,
+    model: firstRecord?.model ?? embeddingProvider.model,
     recordCount: records.length,
     sampleArtworkIds: records.slice(0, 5).map((record) => record.id),
   };

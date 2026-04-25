@@ -1,9 +1,10 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { loadEmbeddingShards, runVectorBenchmark, type VectorBenchmarkPrompt } from "@artduo/corpus";
+import { loadEmbeddingShards, runVectorBenchmarkWithProvider, type VectorBenchmarkPrompt } from "@artduo/corpus";
 
-import { readVectorBenchmarkOptions } from "./cli";
+import { readEmbeddingRuntimeCliOptions, readVectorBenchmarkOptions } from "./cli";
+import { resolveEmbeddingRuntime } from "./embedding-runtime";
 
 export interface VectorBenchmarkCliOptions {
   rootDir?: string;
@@ -36,7 +37,7 @@ function writeJsonFile(filePath: string, data: unknown): void {
   writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`);
 }
 
-function main(): void {
+async function main(): Promise<void> {
   const options = readVectorBenchmarkOptions();
   const rootDir = resolveRootDir(options.rootDir);
   const loaded = loadEmbeddingShards({
@@ -48,14 +49,21 @@ function main(): void {
   const promptsPath = options.promptsPath ?? resolveDefaultPromptsPath(rootDir);
   const outputPath = options.outputPath ?? resolveDefaultOutputPath(rootDir, loaded.releaseVersion);
   const prompts = readPrompts(promptsPath);
-  const benchmark = runVectorBenchmark(prompts, loaded.records, {
+  const runtime = resolveEmbeddingRuntime({
+    ...readEmbeddingRuntimeCliOptions(),
+    rootDir,
+  });
+  const benchmark = await runVectorBenchmarkWithProvider(prompts, loaded.records, {
     limit: options.limit,
+    embeddingProvider: runtime.provider,
   });
   const payload = {
     releaseVersion: loaded.releaseVersion,
     manifestPath: loaded.manifestPath,
     promptsPath,
     generatedAt: new Date().toISOString(),
+    requestedProviderMode: runtime.requestedProviderMode,
+    configuredProviderMode: runtime.summary.configuredProviderMode,
     ...benchmark,
   };
 
@@ -64,4 +72,7 @@ function main(): void {
   console.log(`report: ${outputPath}`);
 }
 
-main();
+main().catch((error: unknown) => {
+  console.error(error);
+  process.exitCode = 1;
+});

@@ -1,9 +1,10 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { loadEmbeddingShards, runRetrievalDebug } from "@artduo/corpus";
+import { loadEmbeddingShards, runRetrievalDebugWithProvider } from "@artduo/corpus";
 
-import { readVectorRetrievalDebugOptions } from "./cli";
+import { readEmbeddingRuntimeCliOptions, readVectorRetrievalDebugOptions } from "./cli";
+import { resolveEmbeddingRuntime } from "./embedding-runtime";
 
 export interface VectorRetrievalDebugCliOptions {
   rootDir?: string;
@@ -24,7 +25,7 @@ function writeJsonFile(filePath: string, data: unknown): void {
   writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`);
 }
 
-function main(): void {
+async function main(): Promise<void> {
   const options = readVectorRetrievalDebugOptions();
   const query = options.query?.trim();
 
@@ -38,8 +39,13 @@ function main(): void {
     releaseVersion: options.releaseVersion,
     manifestPath: options.manifestPath,
   });
-  const result = runRetrievalDebug(query, loaded.records, {
+  const runtime = resolveEmbeddingRuntime({
+    ...readEmbeddingRuntimeCliOptions(),
+    rootDir: options.rootDir,
+  });
+  const result = await runRetrievalDebugWithProvider(query, loaded.records, {
     limit: options.limit,
+    embeddingProvider: runtime.provider,
   });
   const rootDir = options.rootDir ?? path.resolve(process.cwd(), "../..");
   const outputPath = options.outputPath ?? resolveDefaultOutputPath(rootDir, loaded.releaseVersion);
@@ -47,6 +53,8 @@ function main(): void {
     releaseVersion: loaded.releaseVersion,
     manifestPath: loaded.manifestPath,
     shardPaths: loaded.shardPaths,
+    requestedProviderMode: runtime.requestedProviderMode,
+    configuredProviderMode: runtime.summary.configuredProviderMode,
     ...result,
   };
 
@@ -55,4 +63,7 @@ function main(): void {
   console.log(`report: ${outputPath}`);
 }
 
-main();
+main().catch((error: unknown) => {
+  console.error(error);
+  process.exitCode = 1;
+});

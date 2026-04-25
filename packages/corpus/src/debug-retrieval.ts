@@ -1,5 +1,6 @@
 import type { EmbeddingShardRecord } from "@artduo/contracts";
 
+import { createLocalHashEmbeddingProvider, type EmbeddedTextVector, type TextEmbeddingProvider } from "./embedding-provider";
 import { embedText } from "./query-embedding";
 import { buildKeywordBaselineRanking, rerankVectorResults } from "./rerank";
 import { searchVectorIndex } from "./vector-search";
@@ -20,6 +21,7 @@ export interface RetrievalDebugEntry {
 
 export interface RetrievalDebugResult {
   query: string;
+  provider: string;
   normalizedQuery: string;
   model: string;
   dimensions: number;
@@ -42,15 +44,15 @@ function toEntry(record: EmbeddingShardRecord, rank: number, vectorScore: number
   };
 }
 
-export function runRetrievalDebug(
+function buildRetrievalDebugResult(
   query: string,
   records: EmbeddingShardRecord[],
+  embedded: EmbeddedTextVector,
   options: {
     limit?: number;
     minScore?: number;
-  } = {},
+  },
 ): RetrievalDebugResult {
-  const embedded = embedText(query);
   const limit = options.limit ?? 10;
   const vectorTopK = searchVectorIndex(embedded.vector, records, {
     limit,
@@ -68,6 +70,7 @@ export function runRetrievalDebug(
 
   return {
     query,
+    provider: embedded.provider,
     normalizedQuery: embedded.normalizedText,
     model: embedded.model,
     dimensions: embedded.dimensions,
@@ -85,4 +88,35 @@ export function runRetrievalDebug(
       matchedTokens: entry.matchedTokens,
     })),
   };
+}
+
+export function runRetrievalDebug(
+  query: string,
+  records: EmbeddingShardRecord[],
+  options: {
+    limit?: number;
+    minScore?: number;
+  } = {},
+): RetrievalDebugResult {
+  return buildRetrievalDebugResult(query, records, {
+    provider: "local-hash",
+    ...embedText(query),
+  }, options);
+}
+
+export async function runRetrievalDebugWithProvider(
+  query: string,
+  records: EmbeddingShardRecord[],
+  options: {
+    limit?: number;
+    minScore?: number;
+    embeddingProvider?: TextEmbeddingProvider;
+  } = {},
+): Promise<RetrievalDebugResult> {
+  const embeddingProvider = options.embeddingProvider ?? createLocalHashEmbeddingProvider();
+  const embedded = await embeddingProvider.embedText(query, {
+    dimensions: records[0]?.dimensions,
+  });
+
+  return buildRetrievalDebugResult(query, records, embedded, options);
 }

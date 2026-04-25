@@ -17,6 +17,7 @@
     "build:embeddings": "tsx src/build-embedding-shards.ts",
     "debug:vector-retrieval": "tsx src/debug-vector-retrieval.ts",
     "bench:vector": "tsx src/run-vector-benchmark.ts",
+    "bench:vector:provider": "tsx src/run-vector-provider-benchmark.ts",
     "build:candidate-preview": "tsx src/build-candidate-preview.ts",
     "build:confirmed-metadata-backfill": "tsx src/build-confirmed-metadata-backfill.ts",
     "build:metadata-backfill-preview": "tsx src/build-metadata-backfill-preview.ts",
