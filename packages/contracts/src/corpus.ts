@@ -1,4 +1,4 @@
-import { expectObject, parseArray, readNumber, readObject, readOptionalObject, readString } from "./internal/validation";
+import { expectObject, parseArray, readNumber, readObject, readString } from "./internal/validation";
 
 export interface SourceVersions {
   corpusVersion: string;
@@ -53,7 +53,7 @@ function parseSourceVersions(value: unknown, path: string): ReleaseManifest["rel
 export function parseReleaseManifest(value: unknown, path = "ReleaseManifest"): ReleaseManifest {
   const manifest = expectObject(value, path);
   const shards = readObject(manifest, "shards", path);
-  const embeddings = readOptionalObject(shards, "embeddings", `${path}.shards`);
+  const embeddings = (shards as { embeddings?: unknown }).embeddings;
 
   return {
     release: parseSourceVersions(readObject(manifest, "release", path), `${path}.release`),

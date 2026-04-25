@@ -2,6 +2,7 @@ import path from "node:path";
 
 import type { CandidatePreviewOptions } from "./candidate-preview";
 import type { ConfirmedMetadataBackfillOptions } from "./confirmed-metadata-backfill";
+import type { EmbeddingBuildOptions } from "./embedding-shards";
 import type { MetadataBackfillPreviewOptions } from "./metadata-backfill-preview";
 import type { QuantityPreviewOptions } from "./quantity-preview";
 import type { ReleaseBuildOptions } from "./release-artifact";
@@ -34,6 +35,23 @@ export function readReleaseBuildOptions(): ReleaseBuildOptions {
     backgroundCatalogVersion,
     contractsVersion,
     limit: Number.isFinite(limit) ? limit : undefined,
+  };
+}
+
+export function readEmbeddingBuildOptions(): EmbeddingBuildOptions {
+  const rootDir = readFlag("--root-dir");
+  const outputRoot = readFlag("--output-root");
+  const corpusPath = readFlag("--corpus-path");
+  const releaseVersion = readFlag("--release-version");
+  const dimensionsValue = readFlag("--dimensions");
+  const dimensions = dimensionsValue ? Number.parseInt(dimensionsValue, 10) : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    outputRoot: outputRoot ? path.resolve(outputRoot) : undefined,
+    corpusPath: corpusPath ? path.resolve(corpusPath) : undefined,
+    releaseVersion,
+    dimensions: Number.isFinite(dimensions) ? dimensions : undefined,
   };
 }
 

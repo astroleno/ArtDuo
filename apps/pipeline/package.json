@@ -3,16 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@artduo/corpus": "workspace:*",
     "@artduo/contracts": "workspace:*"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "tsx --test src/*.test.ts",
+    "typecheck": "pnpm --filter @artduo/contracts build && pnpm --filter @artduo/corpus build && tsc -p tsconfig.json --noEmit",
+    "test": "pnpm --filter @artduo/contracts build && pnpm --filter @artduo/corpus build && tsx --test src/*.test.ts",
     "build:metadata": "tsx src/build-artwork-metadata-shards.ts",
     "build:search": "tsx src/build-search-shards.ts",
     "build:media-index": "tsx src/build-media-index.ts",
     "build:background-scenes": "tsx src/build-background-scenes.ts",
+    "build:embeddings": "tsx src/build-embedding-shards.ts",
     "build:candidate-preview": "tsx src/build-candidate-preview.ts",
     "build:confirmed-metadata-backfill": "tsx src/build-confirmed-metadata-backfill.ts",
     "build:metadata-backfill-preview": "tsx src/build-metadata-backfill-preview.ts",
