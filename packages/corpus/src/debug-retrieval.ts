@@ -37,7 +37,7 @@ function toEntry(record: EmbeddingShardRecord, rank: number, vectorScore: number
     title: record.title,
     artistDisplayName: record.artistDisplayName,
     sourceArtworkId: record.sourceArtworkId,
-    theme: record.moodTags[0],
+    theme: record.theme,
     grade: record.grade,
     rank,
     vectorScore,

@@ -6,6 +6,7 @@ export interface EmbeddingShardRecord {
   source: ArtworkSource;
   sourceArtworkId: string;
   version: string;
+  theme: string;
   model: string;
   dimensions: number;
   title: string;
@@ -25,6 +26,7 @@ export function parseEmbeddingShardRecord(value: unknown, path = "EmbeddingShard
     source: readLiteral(record, "source", ARTWORK_SOURCES, path),
     sourceArtworkId: readString(record, "sourceArtworkId", path),
     version: readString(record, "version", path),
+    theme: readString(record, "theme", path),
     model: readString(record, "model", path),
     dimensions: readNumber(record, "dimensions", path),
     title: readString(record, "title", path),

@@ -23,6 +23,7 @@ export interface LoadedEmbeddingShards extends LoadedReleaseManifest {
 }
 
 interface LegacyEmbeddingMetadataFallback {
+  theme: string;
   title: string;
   artistDisplayName?: string;
   grade: string;
@@ -133,12 +134,14 @@ function loadMetadataFallbackIndex(loaded: LoadedReleaseManifest): Map<string, L
       const metadata = expectObject(record.metadata, `${recordPath}.metadata`);
       const presentation = expectObject(record.presentation, `${recordPath}.presentation`);
       const id = readString(record.id, `${recordPath}.id`);
+      const moodTags = readStringArray(metadata.moodTags, `${recordPath}.metadata.moodTags`);
 
       index.set(id, {
+        theme: moodTags[0] ?? "",
         title: readString(metadata.title, `${recordPath}.metadata.title`),
         artistDisplayName: readOptionalString(metadata.artistDisplayName, `${recordPath}.metadata.artistDisplayName`),
         grade: readString(presentation.grade, `${recordPath}.presentation.grade`),
-        moodTags: readStringArray(metadata.moodTags, `${recordPath}.metadata.moodTags`),
+        moodTags,
       });
     }
   }
@@ -200,6 +203,7 @@ function normalizeLegacyEmbeddingShardRecords(
           ? record.artistDisplayName
           : metadataFallback.artistDisplayName,
         grade: typeof record.grade === "string" && record.grade.trim() !== "" ? record.grade : metadataFallback.grade,
+        theme: typeof record.theme === "string" && record.theme.trim() !== "" ? record.theme : metadataFallback.theme,
         moodTags: Array.isArray(record.moodTags) && record.moodTags.length > 0 ? record.moodTags : metadataFallback.moodTags,
         text,
         tokenCount,

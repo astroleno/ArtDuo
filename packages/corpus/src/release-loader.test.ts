@@ -17,6 +17,7 @@ test("release loader resolves embeddings from the manifest", () => {
       source: "met",
       sourceArtworkId: "1",
       version: "vector-smoke",
+      theme: "mystery",
       model: "local-hash-embedding-v1",
       dimensions: 4,
       title: "Oracle",
@@ -53,6 +54,7 @@ test("release loader resolves embeddings from the manifest", () => {
   assert.equal(path.basename(loaded.shardPaths[0] ?? ""), "embeddings-01.json");
   assert.equal(loaded.records[0]?.title, "Oracle");
   assert.equal(loaded.records[0]?.dimensions, 4);
+  assert.equal(loaded.records[0]?.theme, "mystery");
   assert.ok(readFileSync(loaded.shardPaths[0] ?? "", "utf8").includes("local-hash-embedding-v1"));
 });
 
@@ -120,5 +122,6 @@ test("release loader backfills legacy embeddings from metadata and search shards
   assert.equal(loaded.records[0]?.title, "Oracle");
   assert.equal(loaded.records[0]?.artistDisplayName, "Unknown");
   assert.equal(loaded.records[0]?.grade, "A");
+  assert.equal(loaded.records[0]?.theme, "mystery");
   assert.deepEqual(loaded.records[0]?.moodTags, ["mystery"]);
 });

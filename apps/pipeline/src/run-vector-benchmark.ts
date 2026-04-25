@@ -21,7 +21,7 @@ function resolveRootDir(rootDir?: string): string {
 }
 
 function resolveDefaultPromptsPath(rootDir: string): string {
-  return path.join(rootDir, "benchmarks", "vector-smoke-prompts.json");
+  return path.join(rootDir, "benchmarks", "vector-promotion-prompts.json");
 }
 
 function resolveDefaultOutputPath(rootDir: string, releaseVersion: string): string {

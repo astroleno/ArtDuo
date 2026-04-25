@@ -10,6 +10,7 @@ test("embedding shard records preserve retrieval debug metadata", () => {
       source: "met",
       sourceArtworkId: "1",
       version: "2026-04-25-curation-b",
+      theme: "mystery",
       model: "local-hash-embedding-v1",
       dimensions: 4,
       title: "Oracle",
@@ -24,6 +25,7 @@ test("embedding shard records preserve retrieval debug metadata", () => {
 
   assert.equal(records[0]?.title, "Oracle");
   assert.equal(records[0]?.grade, "A");
+  assert.equal(records[0]?.theme, "mystery");
   assert.deepEqual(records[0]?.moodTags, ["mystery"]);
   assert.equal(records[0]?.vector.length, 4);
 });

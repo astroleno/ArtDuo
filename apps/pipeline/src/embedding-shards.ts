@@ -105,12 +105,23 @@ function loadCorpusRecords(corpusPath: string): ArtworkRecord[] {
   return parseArtworkRecords(readJsonFile<unknown>(corpusPath), corpusPath);
 }
 
+function resolvePrimaryTheme(record: ArtworkRecord): string {
+  const theme = record.retrieval.emotionLabels[0] ?? record.metadata.moodTags[0];
+
+  if (!theme || theme.trim() === "") {
+    throw new Error(`Artwork ${record.id} is missing a primary theme for embedding shard generation.`);
+  }
+
+  return theme;
+}
+
 function buildEmbeddingRecord(record: ArtworkRecord, embedded: EmbeddedTextVector): EmbeddingShardRecord {
   return {
     id: record.id,
     source: record.source,
     sourceArtworkId: record.sourceArtworkId,
     version: record.version,
+    theme: resolvePrimaryTheme(record),
     model: embedded.model,
     dimensions: embedded.dimensions,
     title: record.metadata.title,
@@ -252,8 +263,8 @@ export async function buildEmbeddingShardsWithProvider(
   const outputDir = path.join(outputRoot, releaseVersion);
   const manifestPath = path.join(outputDir, "manifest.json");
   const corpusPath = options.corpusPath ?? resolvePreferredCorpusPath(rootDir);
-  const dimensions = options.dimensions ?? 256;
   const embeddingProvider = options.embeddingProvider ?? createLocalHashEmbeddingProvider();
+  const dimensions = options.dimensions ?? (embeddingProvider.mode === "local-hash" ? 256 : undefined);
   const requestedProviderMode = options.requestedProviderMode ?? embeddingProvider.mode;
 
   if (!corpusPath) {
@@ -309,7 +320,7 @@ export async function buildEmbeddingShardsWithProvider(
     manifestRecordCount,
     requestedProviderMode,
     providerMode: firstRecord?.model === LOCAL_EMBEDDING_MODEL_ID ? "local-hash" : embeddingProvider.mode,
-    dimensions: firstRecord?.dimensions ?? dimensions,
+    dimensions: firstRecord?.dimensions ?? dimensions ?? 0,
     model: firstRecord?.model ?? embeddingProvider.model,
     recordCount: records.length,
     sampleArtworkIds: records.slice(0, 5).map((record) => record.id),

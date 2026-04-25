@@ -37,6 +37,7 @@ test("embedding shard build writes a release-local embedding artifact and update
   assert.equal(result.report.requestedProviderMode, "local-hash");
   assert.equal(result.report.providerMode, "local-hash");
   assert.equal(manifest.shards.embeddings?.[0]?.recordCount, 3);
+  assert.equal(embeddings[0]?.theme, "admiration");
   assert.equal(embeddings[0]?.model, "local-hash-embedding-v1");
   assert.equal((embeddings[0]?.vector as number[]).length, 64);
 });
@@ -118,6 +119,7 @@ test("embedding shard build can use an explicit remote-compatible provider", asy
   assert.equal(result.report.requestedProviderMode, "remote-openai-compatible");
   assert.equal(result.report.providerMode, "remote-openai-compatible");
   assert.equal(result.report.model, "remote-test-model");
+  assert.equal(embeddings[0]?.theme, "admiration");
   assert.equal(embeddings[0]?.model, "remote-test-model");
   assert.equal((embeddings[0]?.vector as number[]).length, 4);
 });

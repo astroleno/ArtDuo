@@ -30,7 +30,7 @@ function resolveRootDir(rootDir?: string): string {
 }
 
 function resolveDefaultPromptsPath(rootDir: string): string {
-  return path.join(rootDir, "benchmarks", "vector-smoke-prompts.json");
+  return path.join(rootDir, "benchmarks", "vector-promotion-prompts.json");
 }
 
 function resolveDefaultBaselinePath(rootDir: string, releaseVersion?: string): string | undefined {
@@ -92,6 +92,26 @@ function summarizeBenchmark(result: VectorBenchmarkResult): Record<string, unkno
     lexicalTop1HitRate: result.lexicalTop1HitRate,
     lexicalTop5HitRate: result.lexicalTop5HitRate,
   };
+}
+
+function buildPromptSignature(prompts: Array<Pick<VectorBenchmarkPrompt, "id" | "expectedThemes">>): string {
+  return prompts.map((prompt) => `${prompt.id}:${prompt.expectedThemes.join("|")}`).join("||");
+}
+
+function isComparableBaseline(
+  prompts: VectorBenchmarkPrompt[],
+  baselineBenchmark?: Partial<VectorBenchmarkResult>,
+): boolean {
+  if (!baselineBenchmark?.results || baselineBenchmark.promptCount !== prompts.length) {
+    return false;
+  }
+
+  return buildPromptSignature(prompts) === buildPromptSignature(
+    baselineBenchmark.results.map((result) => ({
+      id: result.id,
+      expectedThemes: result.expectedThemes,
+    })),
+  );
 }
 
 function buildPromptComparison(
@@ -158,6 +178,7 @@ async function main(): Promise<void> {
   const baselineBenchmark = baselinePath && existsSync(baselinePath)
     ? JSON.parse(readFileSync(baselinePath, "utf8")) as Partial<VectorBenchmarkResult>
     : undefined;
+  const baselineComparable = isComparableBaseline(prompts, baselineBenchmark);
   const payload = {
     generatedAt: new Date().toISOString(),
     corpusPath,
@@ -168,6 +189,7 @@ async function main(): Promise<void> {
     providerSummary: runtime.summary,
     localBenchmark: summarizeBenchmark(localBenchmark),
     remoteBenchmark: summarizeBenchmark(remoteBenchmark),
+    baselineComparable,
     baselineBenchmark: baselineBenchmark ? {
       provider: baselineBenchmark.provider,
       model: baselineBenchmark.model,
@@ -185,7 +207,7 @@ async function main(): Promise<void> {
         lexicalTop1HitRate: Number((remoteBenchmark.lexicalTop1HitRate - localBenchmark.lexicalTop1HitRate).toFixed(6)),
         lexicalTop5HitRate: Number((remoteBenchmark.lexicalTop5HitRate - localBenchmark.lexicalTop5HitRate).toFixed(6)),
       },
-      deltaVsBaseline: baselineBenchmark ? {
+      deltaVsBaseline: baselineBenchmark && baselineComparable ? {
         rerankTop1HitRate: Number(((remoteBenchmark.rerankTop1HitRate ?? 0) - (baselineBenchmark.rerankTop1HitRate ?? 0)).toFixed(6)),
         rerankTop5HitRate: Number(((remoteBenchmark.rerankTop5HitRate ?? 0) - (baselineBenchmark.rerankTop5HitRate ?? 0)).toFixed(6)),
         lexicalTop1HitRate: Number(((remoteBenchmark.lexicalTop1HitRate ?? 0) - (baselineBenchmark.lexicalTop1HitRate ?? 0)).toFixed(6)),
