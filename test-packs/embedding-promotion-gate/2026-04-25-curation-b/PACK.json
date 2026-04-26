@@ -1,0 +1,79 @@
+{
+  "packId": "embedding-promotion-gate-2026-04-25-curation-b",
+  "scope": "engineering-external-test",
+  "status": "ready",
+  "createdAt": "2026-04-26T14:52:30.706Z",
+  "notes": [
+    "This pack is for engineering validation of embedding build, retrieval, and benchmark flows.",
+    "It is not a full product external test pack because chat provider wiring is still out of scope.",
+    "The bundled release artifact uses local-hash embeddings as the deterministic baseline.",
+    "Remote provider validation is included as benchmark reports plus runbook commands for strict remote rebuilds."
+  ],
+  "artifacts": {
+    "corpus": "corpus/release-ready.json",
+    "releaseManifest": "release/manifest.json",
+    "embeddingShard": "release/embeddings-01.json",
+    "embeddingReport": "release/embedding-report.json",
+    "promotionPrompts": "benchmarks/vector-promotion-prompts.json",
+    "smokePrompts": "benchmarks/vector-smoke-prompts.json",
+    "localBenchmarkReport": "reports/vector-benchmark-local.json",
+    "smokeBenchmarkReport": "reports/vector-benchmark-smoke.json",
+    "providerBenchmarkKey1Report": "reports/vector-provider-benchmark-key1.json",
+    "providerBenchmarkKey2Report": "reports/vector-provider-benchmark-key2.json",
+    "runbook": "README.md"
+  },
+  "release": {
+    "releaseVersion": "release",
+    "corpusVersion": "release",
+    "contractsVersion": "0.1.0",
+    "artworkCount": 221,
+    "backgroundSceneCount": 50,
+    "embeddingCount": 221,
+    "embeddingProvider": "local-hash",
+    "embeddingModel": "local-hash-embedding-v1",
+    "embeddingDimensions": 256
+  },
+  "benchmarks": {
+    "localPromotion": {
+      "promptCount": 24,
+      "provider": "local-hash",
+      "model": "local-hash-embedding-v1",
+      "dimensions": 256,
+      "rerankTop1HitRate": 0.75,
+      "rerankTop5HitRate": 0.791667
+    },
+    "localSmoke": {
+      "promptCount": 8,
+      "provider": "local-hash",
+      "model": "local-hash-embedding-v1",
+      "dimensions": 256,
+      "rerankTop1HitRate": 1,
+      "rerankTop5HitRate": 1
+    },
+    "remotePromotionKey1": {
+      "promptCount": 24,
+      "provider": "remote-openai-compatible",
+      "model": "text-embedding-3-large",
+      "dimensions": 3072,
+      "apiKeySlot": 1,
+      "baselineComparable": true,
+      "rerankTop1HitRate": 0.875,
+      "rerankTop5HitRate": 0.958333
+    },
+    "remotePromotionKey2": {
+      "promptCount": 24,
+      "provider": "remote-openai-compatible",
+      "model": "text-embedding-3-large",
+      "dimensions": 3072,
+      "apiKeySlot": 2,
+      "baselineComparable": true,
+      "rerankTop1HitRate": 0.916667,
+      "rerankTop5HitRate": 1
+    }
+  },
+  "debugQueries": [
+    "enigmatic oracle shadowed hall",
+    "quiet meditative reflection in a cloister",
+    "静默沉思 cloister reflection"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "release": {
+    "corpusVersion": "release",
+    "backgroundCatalogVersion": "release",
+    "contractsVersion": "0.1.0",
+    "createdAt": "2026-04-26T14:50:05.160Z"
+  },
+  "shards": {
+    "metadata": [
+      {
+        "id": "metadata-01",
+        "url": "./metadata-01.json",
+        "checksum": "sha256:8286b4ce856958192bd4e3cb7bfcce561ddd9dd0c48c8a061e2b30f586350353",
+        "sizeBytes": 464818,
+        "recordCount": 221
+      }
+    ],
+    "search": [
+      {
+        "id": "search-01",
+        "url": "./search-01.json",
+        "checksum": "sha256:c9090da4774e121bb53a91d87ef55e20b933fdf68c0f87fb69212e8e181e76c1",
+        "sizeBytes": 197355,
+        "recordCount": 221
+      }
+    ],
+    "mediaIndex": [
+      {
+        "id": "media-01",
+        "url": "./media-01.json",
+        "checksum": "sha256:4ee0b74a7f8ee8075285a03135f0138d52c7e618a8989f1a6a2849c502a501f8",
+        "sizeBytes": 131237,
+        "recordCount": 221
+      }
+    ],
+    "backgroundScenes": [
+      {
+        "id": "background-scenes-01",
+        "url": "./background-scenes-01.json",
+        "checksum": "sha256:c6791ca1cce3b892e9255b5275d10979927a988f16c59e197071e0250cdb3cd0",
+        "sizeBytes": 183442,
+        "recordCount": 50
+      }
+    ],
+    "embeddings": [
+      {
+        "id": "embeddings-01",
+        "url": "./embeddings-01.json",
+        "checksum": "sha256:42d2d7b644829b84821281339c20ffdad4174238acc81a053e237a4ced6bc0cf",
+        "sizeBytes": 876515,
+        "recordCount": 221
+      }
+    ]
+  }
+}
