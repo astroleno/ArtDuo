@@ -18,6 +18,8 @@ export interface EmbeddingRuntimeCliOptions {
   embeddingApiKeySlot?: number;
   embeddingTimeoutMs?: number;
   embeddingAllowFallback?: boolean;
+  defaultProviderMode?: EmbeddingProviderMode;
+  defaultAllowFallback?: boolean;
 }
 
 export interface ResolvedEmbeddingRuntime {
@@ -170,7 +172,7 @@ export function resolveEmbeddingRuntime(
   const rootDir = resolveRootDir(options.rootDir);
   const { env, envPaths } = loadRuntimeEnv(rootDir);
   const requestedProviderMode = normalizeProviderMode(
-    options.embeddingProviderMode ?? env.EMBEDDING_PROVIDER,
+    firstNonEmpty(options.embeddingProviderMode, env.EMBEDDING_PROVIDER, options.defaultProviderMode),
   );
 
   if (requestedProviderMode === "local-hash") {
@@ -194,6 +196,7 @@ export function resolveEmbeddingRuntime(
   const timeoutMs = options.embeddingTimeoutMs ?? parseNumber(env.EMBEDDING_TIMEOUT_MS) ?? 30000;
   const fallbackEnabled = options.embeddingAllowFallback
     ?? parseBoolean(env.EMBEDDING_ALLOW_FALLBACK)
+    ?? options.defaultAllowFallback
     ?? true;
 
   if (!endpoint || !model || !apiKey) {

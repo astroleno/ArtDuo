@@ -7,6 +7,8 @@ async function main(): Promise<void> {
   const runtime = resolveEmbeddingRuntime({
     ...readEmbeddingRuntimeCliOptions(),
     rootDir: buildOptions.rootDir,
+    defaultProviderMode: "remote-openai-compatible",
+    defaultAllowFallback: false,
   });
   const result = await buildEmbeddingShardsWithProvider({
     ...buildOptions,
