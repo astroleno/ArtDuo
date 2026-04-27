@@ -41,7 +41,10 @@ The local baseline is deterministic. Remote provider results should be treated a
 ```bash
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 PACK_ROOT="$REPO_ROOT/test-packs/embedding-promotion-gate/2026-04-25-curation-b"
+pnpm install
 ```
+
+No separate `pnpm build` bootstrap is required for the pack commands below. The pipeline CLI entrypoints prepare the workspace package builds themselves.
 
 ## 1. Validate the Checked-In Local Baseline
 
