@@ -1,0 +1,104 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "corpusRecordCount": 221,
+  "embeddingRecordCount": 221,
+  "generatedAt": "2026-04-25T16:14:53.112Z",
+  "notes": [
+    "Keyword baseline intentionally uses exact token overlap without alias expansion.",
+    "Vector ranking uses local-hash-embedding-v1 plus rerank over the same release-ready corpus."
+  ],
+  "comparisons": [
+    {
+      "query": "tranquil stillness quiet reflection",
+      "vectorTopK": [
+        {
+          "id": "met-471179",
+          "title": "Chapter House from Notre-Dame-de-Pontaut",
+          "theme": "serenity",
+          "vectorScore": 0.384201,
+          "lexicalScore": 0.454545,
+          "combinedScore": 0.418625
+        },
+        {
+          "id": "met-10065",
+          "title": "Repose",
+          "theme": "serenity",
+          "vectorScore": 0.366442,
+          "lexicalScore": 0.454545,
+          "combinedScore": 0.405838
+        },
+        {
+          "id": "met-340850",
+          "title": "The Rest on the Flight into Egypt (The Repose of the Holy Family in Egypt)",
+          "theme": "serenity",
+          "vectorScore": 0.345925,
+          "lexicalScore": 0.454545,
+          "combinedScore": 0.391066
+        },
+        {
+          "id": "met-439122",
+          "title": "Gothic Windows in the Ruins of the Monastery at Oybin",
+          "theme": "serenity",
+          "vectorScore": 0.324143,
+          "lexicalScore": 0.454545,
+          "combinedScore": 0.375383
+        },
+        {
+          "id": "met-459435",
+          "title": "Landscape with a Shepherd in Repose",
+          "theme": "serenity",
+          "vectorScore": 0.322415,
+          "lexicalScore": 0.454545,
+          "combinedScore": 0.374139
+        }
+      ],
+      "lexicalTopK": []
+    },
+    {
+      "query": "enigmatic oracle shadowed hall",
+      "vectorTopK": [
+        {
+          "id": "met-323800",
+          "title": "Figure of a supernatural creature",
+          "theme": "mystery",
+          "vectorScore": 0.355563,
+          "lexicalScore": 0.5,
+          "combinedScore": 0.408005
+        },
+        {
+          "id": "met-436563",
+          "title": "Saint Peter and Simon Magus",
+          "theme": "mystery",
+          "vectorScore": 0.309824,
+          "lexicalScore": 0.5,
+          "combinedScore": 0.375073
+        },
+        {
+          "id": "met-459187",
+          "title": "The Burial of Punchinello",
+          "theme": "mystery",
+          "vectorScore": 0.306571,
+          "lexicalScore": 0.5,
+          "combinedScore": 0.372731
+        },
+        {
+          "id": "met-471869",
+          "title": "The Cloisters Apocalypse",
+          "theme": "mystery",
+          "vectorScore": 0.280181,
+          "lexicalScore": 0.5,
+          "combinedScore": 0.35373
+        },
+        {
+          "id": "met-436564",
+          "title": "Saint Zenobius Resuscitating a Dead Child",
+          "theme": "mystery",
+          "vectorScore": 0.271493,
+          "lexicalScore": 0.5,
+          "combinedScore": 0.347475
+        }
+      ],
+      "lexicalTopK": []
+    }
+  ]
+}

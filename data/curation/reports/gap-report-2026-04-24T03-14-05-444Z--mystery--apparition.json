@@ -1,0 +1,26 @@
+{
+  "runId": "2026-04-24T03-14-05-444Z--mystery--apparition",
+  "source": "met",
+  "theme": "mystery",
+  "query": "apparition",
+  "synonyms": [
+    "oracle",
+    "prophecy"
+  ],
+  "counts": {
+    "rawDetailCount": 100,
+    "candidateCount": 90,
+    "excludedCount": 10
+  },
+  "excludeCounts": {
+    "missing-image": 10
+  },
+  "metadataGapCounts": {
+    "missing-description": 100
+  },
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-47-52-479Z--mystery--apparition",
+    "note": "Dropped `enigmatic` from the approved batch input after manual review showed it diluted the narrative-supernatural lane."
+  }
+}

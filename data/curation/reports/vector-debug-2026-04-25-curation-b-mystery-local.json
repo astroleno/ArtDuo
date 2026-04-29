@@ -1,0 +1,250 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+  "shardPaths": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/embeddings-01.json"
+  ],
+  "requestedProviderMode": "local-hash",
+  "configuredProviderMode": "local-hash",
+  "query": "occult whisper behind ceremonial curtains",
+  "provider": "local-hash",
+  "normalizedQuery": "occult whisper behind ceremonial curtains",
+  "model": "local-hash-embedding-v1",
+  "dimensions": 256,
+  "recordCount": 221,
+  "vectorTopK": [
+    {
+      "id": "met-353543",
+      "title": "Mars and Venus",
+      "artistDisplayName": "Hendrick Goltzius",
+      "sourceArtworkId": "353543",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.378582
+    },
+    {
+      "id": "met-647875",
+      "title": "Venus and Mars with Cupid and the Three Graces",
+      "artistDisplayName": "Master HCB",
+      "sourceArtworkId": "647875",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.359792
+    },
+    {
+      "id": "met-438661",
+      "title": "Study of a Female Nude",
+      "artistDisplayName": "Henri Lehmann",
+      "sourceArtworkId": "438661",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.329052
+    },
+    {
+      "id": "met-739090",
+      "title": "Country Lovers",
+      "artistDisplayName": "Thomas Rowlandson",
+      "sourceArtworkId": "739090",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.327899
+    },
+    {
+      "id": "met-392339",
+      "title": "Venus and Sleeping Cupid",
+      "artistDisplayName": "Hans Stutte",
+      "sourceArtworkId": "392339",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.314516
+    },
+    {
+      "id": "met-479089",
+      "title": "Mirror Case with scenes of paired lovers",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "479089",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.314346
+    },
+    {
+      "id": "met-310870",
+      "title": "Eyema byeri (reliquary guardian figure)",
+      "artistDisplayName": "Okak-Fang artist",
+      "sourceArtworkId": "310870",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.309771
+    },
+    {
+      "id": "met-739059",
+      "title": "Aged Lovers",
+      "artistDisplayName": "Thomas Rowlandson",
+      "sourceArtworkId": "739059",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.306782
+    },
+    {
+      "id": "met-435894",
+      "title": "Bathsheba at Her Bath",
+      "artistDisplayName": "Giuseppe Bartolomeo Chiari",
+      "sourceArtworkId": "435894",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.302734
+    },
+    {
+      "id": "met-208539",
+      "title": "Diana Bathing",
+      "artistDisplayName": "Jean-Baptiste Boudard",
+      "sourceArtworkId": "208539",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.29677
+    }
+  ],
+  "rerankedTopK": [
+    {
+      "id": "met-353543",
+      "title": "Mars and Venus",
+      "artistDisplayName": "Hendrick Goltzius",
+      "sourceArtworkId": "353543",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.378582,
+      "lexicalScore": 0,
+      "combinedScore": 0.314579,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-647875",
+      "title": "Venus and Mars with Cupid and the Three Graces",
+      "artistDisplayName": "Master HCB",
+      "sourceArtworkId": "647875",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.359792,
+      "lexicalScore": 0,
+      "combinedScore": 0.30105,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-438661",
+      "title": "Study of a Female Nude",
+      "artistDisplayName": "Henri Lehmann",
+      "sourceArtworkId": "438661",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.329052,
+      "lexicalScore": 0,
+      "combinedScore": 0.278917,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-739090",
+      "title": "Country Lovers",
+      "artistDisplayName": "Thomas Rowlandson",
+      "sourceArtworkId": "739090",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.327899,
+      "lexicalScore": 0,
+      "combinedScore": 0.278087,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-392339",
+      "title": "Venus and Sleeping Cupid",
+      "artistDisplayName": "Hans Stutte",
+      "sourceArtworkId": "392339",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.314516,
+      "lexicalScore": 0,
+      "combinedScore": 0.268452,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-479089",
+      "title": "Mirror Case with scenes of paired lovers",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "479089",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.314346,
+      "lexicalScore": 0,
+      "combinedScore": 0.268329,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-310870",
+      "title": "Eyema byeri (reliquary guardian figure)",
+      "artistDisplayName": "Okak-Fang artist",
+      "sourceArtworkId": "310870",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.309771,
+      "lexicalScore": 0,
+      "combinedScore": 0.265035,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-739059",
+      "title": "Aged Lovers",
+      "artistDisplayName": "Thomas Rowlandson",
+      "sourceArtworkId": "739059",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.306782,
+      "lexicalScore": 0,
+      "combinedScore": 0.262883,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-435894",
+      "title": "Bathsheba at Her Bath",
+      "artistDisplayName": "Giuseppe Bartolomeo Chiari",
+      "sourceArtworkId": "435894",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.302734,
+      "lexicalScore": 0,
+      "combinedScore": 0.259968,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-208539",
+      "title": "Diana Bathing",
+      "artistDisplayName": "Jean-Baptiste Boudard",
+      "sourceArtworkId": "208539",
+      "theme": "desire",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.29677,
+      "lexicalScore": 0,
+      "combinedScore": 0.255674,
+      "matchedTokens": []
+    }
+  ],
+  "lexicalTopK": []
+}

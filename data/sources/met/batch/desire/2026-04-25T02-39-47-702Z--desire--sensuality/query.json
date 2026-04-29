@@ -1,0 +1,24 @@
+{
+  "runId": "2026-04-25T02-39-47-702Z--desire--sensuality",
+  "source": "met",
+  "theme": "desire",
+  "query": "sensuality",
+  "synonyms": [
+    "lovers",
+    "bathing"
+  ],
+  "excludes": [
+    "desire",
+    "longing",
+    "passion",
+    "romance",
+    "yearning"
+  ],
+  "titleOnly": false,
+  "limit": 100,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-25T02-17-09-125Z--desire--sensuality",
+    "note": "Flipping the lane to `sensuality` with `lovers` / `bathing` removed the sorrow-object spillover and produced a strong enough image-led desire set to batch."
+  }
+}

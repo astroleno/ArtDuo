@@ -1,0 +1,2551 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+  "promptsPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/benchmarks/vector-smoke-prompts.json",
+  "generatedAt": "2026-04-25T17:43:46.479Z",
+  "requestedProviderMode": "local-hash",
+  "configuredProviderMode": "local-hash",
+  "provider": "local-hash",
+  "model": "local-hash-embedding-v1",
+  "dimensions": 256,
+  "promptCount": 8,
+  "rerankTop1HitRate": 1,
+  "rerankTop5HitRate": 1,
+  "lexicalTop1HitRate": 0.25,
+  "lexicalTop5HitRate": 0.375,
+  "results": [
+    {
+      "id": "contemplation-01",
+      "query": "quiet meditative reflection in a cloister",
+      "expectedThemes": [
+        "contemplation"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": true,
+      "lexicalTop5Hit": true,
+      "retrieval": {
+        "query": "quiet meditative reflection in a cloister",
+        "provider": "local-hash",
+        "normalizedQuery": "quiet meditative reflection in a cloister",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-468697",
+            "title": "Old Age Drives the Stag out of a Lake and the Hounds Cold, Heat, Anxiety, Vexation, Heaviness, Fear, Age, and Grief Attack Him, (from The Hunt of the Frail Stag)",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "468697",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.286524
+          },
+          {
+            "id": "met-382544",
+            "title": "Inundated Ruins of a Monastery",
+            "artistDisplayName": "Karl Blechen",
+            "sourceArtworkId": "382544",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.261823
+          },
+          {
+            "id": "met-737790",
+            "title": "Rain of Flowers Through the Four Stages of Meditation",
+            "artistDisplayName": "Xugu (Zhu Huairen)",
+            "sourceArtworkId": "737790",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.258745
+          },
+          {
+            "id": "met-436582",
+            "title": "Head of a Young Woman",
+            "artistDisplayName": "Jean-Baptiste Greuze",
+            "sourceArtworkId": "436582",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.253449
+          },
+          {
+            "id": "met-38574",
+            "title": "Jain Svetambara Tirthankara in Meditation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "38574",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.248469
+          },
+          {
+            "id": "met-39346",
+            "title": "Avalokiteshvara Padmapani",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "39346",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.245471
+          },
+          {
+            "id": "met-471848",
+            "title": "Relief with the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471848",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.240622
+          },
+          {
+            "id": "met-474091",
+            "title": "Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474091",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.238947
+          },
+          {
+            "id": "met-902212",
+            "title": "Section of the Sutra on the Contemplation of Immeasurable Life, one of the “Rengeōin Fragments” (Rengeō’in-gire)",
+            "artistDisplayName": "Emperor Shirakawa",
+            "sourceArtworkId": "902212",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.237063
+          },
+          {
+            "id": "met-474436",
+            "title": "Trie Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474436",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.2352
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-474091",
+            "title": "Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474091",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.238947,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.308327,
+            "matchedTokens": [
+              "quiet",
+              "meditative",
+              "cloister"
+            ]
+          },
+          {
+            "id": "met-474436",
+            "title": "Trie Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474436",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.2352,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.30563,
+            "matchedTokens": [
+              "quiet",
+              "meditative",
+              "cloister"
+            ]
+          },
+          {
+            "id": "met-382544",
+            "title": "Inundated Ruins of a Monastery",
+            "artistDisplayName": "Karl Blechen",
+            "sourceArtworkId": "382544",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.261823,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.29337,
+            "matchedTokens": [
+              "quiet",
+              "meditative"
+            ]
+          },
+          {
+            "id": "met-737790",
+            "title": "Rain of Flowers Through the Four Stages of Meditation",
+            "artistDisplayName": "Xugu (Zhu Huairen)",
+            "sourceArtworkId": "737790",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.258745,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.291153,
+            "matchedTokens": [
+              "quiet",
+              "meditative"
+            ]
+          },
+          {
+            "id": "met-436582",
+            "title": "Head of a Young Woman",
+            "artistDisplayName": "Jean-Baptiste Greuze",
+            "sourceArtworkId": "436582",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.253449,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.28734,
+            "matchedTokens": [
+              "quiet",
+              "meditative"
+            ]
+          },
+          {
+            "id": "met-38574",
+            "title": "Jain Svetambara Tirthankara in Meditation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "38574",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.248469,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.283755,
+            "matchedTokens": [
+              "quiet",
+              "meditative"
+            ]
+          },
+          {
+            "id": "met-39346",
+            "title": "Avalokiteshvara Padmapani",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "39346",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.245471,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.281596,
+            "matchedTokens": [
+              "quiet",
+              "meditative"
+            ]
+          },
+          {
+            "id": "met-468697",
+            "title": "Old Age Drives the Stag out of a Lake and the Hounds Cold, Heat, Anxiety, Vexation, Heaviness, Fear, Age, and Grief Attack Him, (from The Hunt of the Frail Stag)",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "468697",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.286524,
+            "lexicalScore": 0.142857,
+            "combinedScore": 0.279726,
+            "matchedTokens": [
+              "quiet"
+            ]
+          },
+          {
+            "id": "met-902212",
+            "title": "Section of the Sutra on the Contemplation of Immeasurable Life, one of the “Rengeōin Fragments” (Rengeō’in-gire)",
+            "artistDisplayName": "Emperor Shirakawa",
+            "sourceArtworkId": "902212",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.237063,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.275542,
+            "matchedTokens": [
+              "quiet",
+              "meditative"
+            ]
+          },
+          {
+            "id": "met-471848",
+            "title": "Relief with the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471848",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.240622,
+            "lexicalScore": 0,
+            "combinedScore": 0.215248,
+            "matchedTokens": []
+          }
+        ],
+        "lexicalTopK": [
+          {
+            "id": "met-470314",
+            "title": "Cuxa Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "470314",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "cloister"
+            ]
+          },
+          {
+            "id": "met-472181",
+            "title": "Saint-Guilhem Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "472181",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "cloister"
+            ]
+          },
+          {
+            "id": "met-474091",
+            "title": "Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474091",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "cloister"
+            ]
+          },
+          {
+            "id": "met-474436",
+            "title": "Trie Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474436",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "cloister"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "desire-01",
+      "query": "yearning devotion and distant longing",
+      "expectedThemes": [
+        "desire"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": false,
+      "lexicalTop5Hit": false,
+      "retrieval": {
+        "query": "yearning devotion and distant longing",
+        "provider": "local-hash",
+        "normalizedQuery": "yearning devotion and distant longing",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-353543",
+            "title": "Mars and Venus",
+            "artistDisplayName": "Hendrick Goltzius",
+            "sourceArtworkId": "353543",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.417054
+          },
+          {
+            "id": "met-647875",
+            "title": "Venus and Mars with Cupid and the Three Graces",
+            "artistDisplayName": "Master HCB",
+            "sourceArtworkId": "647875",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.402595
+          },
+          {
+            "id": "met-739059",
+            "title": "Aged Lovers",
+            "artistDisplayName": "Thomas Rowlandson",
+            "sourceArtworkId": "739059",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.396677
+          },
+          {
+            "id": "met-739090",
+            "title": "Country Lovers",
+            "artistDisplayName": "Thomas Rowlandson",
+            "sourceArtworkId": "739090",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.393071
+          },
+          {
+            "id": "met-392339",
+            "title": "Venus and Sleeping Cupid",
+            "artistDisplayName": "Hans Stutte",
+            "sourceArtworkId": "392339",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.390156
+          },
+          {
+            "id": "met-451023",
+            "title": "The Lovers",
+            "artistDisplayName": "Riza-yi 'Abbasi",
+            "sourceArtworkId": "451023",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.38888
+          },
+          {
+            "id": "met-459110",
+            "title": "Young Girl Bathing",
+            "artistDisplayName": "Auguste Renoir",
+            "sourceArtworkId": "459110",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.373821
+          },
+          {
+            "id": "met-435894",
+            "title": "Bathsheba at Her Bath",
+            "artistDisplayName": "Giuseppe Bartolomeo Chiari",
+            "sourceArtworkId": "435894",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.364052
+          },
+          {
+            "id": "met-436131",
+            "title": "Bather Stepping into a Tub",
+            "artistDisplayName": "Edgar Degas",
+            "sourceArtworkId": "436131",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.358471
+          },
+          {
+            "id": "met-459093",
+            "title": "Diana and Actaeon (Diana Surprised in Her Bath)",
+            "artistDisplayName": "Camille Corot",
+            "sourceArtworkId": "459093",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.354798
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-353543",
+            "title": "Mars and Venus",
+            "artistDisplayName": "Hendrick Goltzius",
+            "sourceArtworkId": "353543",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.417054,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.452279,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-647875",
+            "title": "Venus and Mars with Cupid and the Three Graces",
+            "artistDisplayName": "Master HCB",
+            "sourceArtworkId": "647875",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.402595,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.441868,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-739059",
+            "title": "Aged Lovers",
+            "artistDisplayName": "Thomas Rowlandson",
+            "sourceArtworkId": "739059",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.396677,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.437607,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-739090",
+            "title": "Country Lovers",
+            "artistDisplayName": "Thomas Rowlandson",
+            "sourceArtworkId": "739090",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.393071,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.435011,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-392339",
+            "title": "Venus and Sleeping Cupid",
+            "artistDisplayName": "Hans Stutte",
+            "sourceArtworkId": "392339",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.390156,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.432912,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-451023",
+            "title": "The Lovers",
+            "artistDisplayName": "Riza-yi 'Abbasi",
+            "sourceArtworkId": "451023",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.38888,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.431994,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-459110",
+            "title": "Young Girl Bathing",
+            "artistDisplayName": "Auguste Renoir",
+            "sourceArtworkId": "459110",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.373821,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.421151,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-435894",
+            "title": "Bathsheba at Her Bath",
+            "artistDisplayName": "Giuseppe Bartolomeo Chiari",
+            "sourceArtworkId": "435894",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.364052,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.414117,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-436131",
+            "title": "Bather Stepping into a Tub",
+            "artistDisplayName": "Edgar Degas",
+            "sourceArtworkId": "436131",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.358471,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.410099,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          },
+          {
+            "id": "met-459093",
+            "title": "Diana and Actaeon (Diana Surprised in Her Bath)",
+            "artistDisplayName": "Camille Corot",
+            "sourceArtworkId": "459093",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.354798,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.407455,
+            "matchedTokens": [
+              "yearning",
+              "desire",
+              "longing",
+              "passion",
+              "craving"
+            ]
+          }
+        ],
+        "lexicalTopK": []
+      }
+    },
+    {
+      "id": "hope-01",
+      "query": "gentle optimism and renewal after darkness",
+      "expectedThemes": [
+        "hope"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": false,
+      "lexicalTop5Hit": false,
+      "retrieval": {
+        "query": "gentle optimism and renewal after darkness",
+        "provider": "local-hash",
+        "normalizedQuery": "gentle optimism and renewal after darkness",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-336540",
+            "title": "Awe-struck Saint Jerome",
+            "artistDisplayName": "Anonymous, Spanish, School of Seville, 17th century",
+            "sourceArtworkId": "336540",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.340368
+          },
+          {
+            "id": "met-923689",
+            "title": "Le pauvre jeune homme",
+            "artistDisplayName": "Marguerite Eléonore Lingée",
+            "sourceArtworkId": "923689",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.244225
+          },
+          {
+            "id": "met-471848",
+            "title": "Relief with the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471848",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.23291
+          },
+          {
+            "id": "met-470309",
+            "title": "The Hours of Jeanne d'Evreux, Queen of France",
+            "artistDisplayName": "Jean Pucelle",
+            "sourceArtworkId": "470309",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.225761
+          },
+          {
+            "id": "met-383409",
+            "title": "A Waterfall in a Forest at Langhennersdorf",
+            "artistDisplayName": "Christoph Nathe",
+            "sourceArtworkId": "383409",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.220824
+          },
+          {
+            "id": "met-451728",
+            "title": "\"Shaikh San'an and the Christian Maiden\", Folio 22v from a Mantiq al-Tayr (Language of the Birds)",
+            "artistDisplayName": "Farid al-Din `Attar",
+            "sourceArtworkId": "451728",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.217163
+          },
+          {
+            "id": "met-343218",
+            "title": "Annunciation",
+            "artistDisplayName": "Filippo Bellini",
+            "sourceArtworkId": "343218",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.213153
+          },
+          {
+            "id": "met-382544",
+            "title": "Inundated Ruins of a Monastery",
+            "artistDisplayName": "Karl Blechen",
+            "sourceArtworkId": "382544",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.211078
+          },
+          {
+            "id": "met-342317",
+            "title": "Nativity",
+            "artistDisplayName": "Anonymous, Italian, Venetian, 18th century",
+            "sourceArtworkId": "342317",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.210877
+          },
+          {
+            "id": "met-37789",
+            "title": "Ritual Crown with the Five Transcendent Buddhas",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "37789",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.208066
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-343218",
+            "title": "Annunciation",
+            "artistDisplayName": "Filippo Bellini",
+            "sourceArtworkId": "343218",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.213153,
+            "lexicalScore": 0.538462,
+            "combinedScore": 0.313932,
+            "matchedTokens": [
+              "optimism",
+              "hope",
+              "renewal",
+              "uplift",
+              "promise",
+              "dawn",
+              "light"
+            ]
+          },
+          {
+            "id": "met-471848",
+            "title": "Relief with the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471848",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.23291,
+            "lexicalScore": 0.461538,
+            "combinedScore": 0.311234,
+            "matchedTokens": [
+              "optimism",
+              "hope",
+              "renewal",
+              "uplift",
+              "promise",
+              "dawn"
+            ]
+          },
+          {
+            "id": "met-342317",
+            "title": "Nativity",
+            "artistDisplayName": "Anonymous, Italian, Venetian, 18th century",
+            "sourceArtworkId": "342317",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.210877,
+            "lexicalScore": 0.461538,
+            "combinedScore": 0.29537,
+            "matchedTokens": [
+              "optimism",
+              "hope",
+              "renewal",
+              "uplift",
+              "promise",
+              "dawn"
+            ]
+          },
+          {
+            "id": "met-336540",
+            "title": "Awe-struck Saint Jerome",
+            "artistDisplayName": "Anonymous, Spanish, School of Seville, 17th century",
+            "sourceArtworkId": "336540",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.340368,
+            "lexicalScore": 0,
+            "combinedScore": 0.287065,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-923689",
+            "title": "Le pauvre jeune homme",
+            "artistDisplayName": "Marguerite Eléonore Lingée",
+            "sourceArtworkId": "923689",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.244225,
+            "lexicalScore": 0,
+            "combinedScore": 0.217842,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-470309",
+            "title": "The Hours of Jeanne d'Evreux, Queen of France",
+            "artistDisplayName": "Jean Pucelle",
+            "sourceArtworkId": "470309",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.225761,
+            "lexicalScore": 0,
+            "combinedScore": 0.204548,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-383409",
+            "title": "A Waterfall in a Forest at Langhennersdorf",
+            "artistDisplayName": "Christoph Nathe",
+            "sourceArtworkId": "383409",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.220824,
+            "lexicalScore": 0,
+            "combinedScore": 0.200993,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-451728",
+            "title": "\"Shaikh San'an and the Christian Maiden\", Folio 22v from a Mantiq al-Tayr (Language of the Birds)",
+            "artistDisplayName": "Farid al-Din `Attar",
+            "sourceArtworkId": "451728",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.217163,
+            "lexicalScore": 0,
+            "combinedScore": 0.198357,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-382544",
+            "title": "Inundated Ruins of a Monastery",
+            "artistDisplayName": "Karl Blechen",
+            "sourceArtworkId": "382544",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.211078,
+            "lexicalScore": 0,
+            "combinedScore": 0.193976,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-37789",
+            "title": "Ritual Crown with the Five Transcendent Buddhas",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "37789",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.208066,
+            "lexicalScore": 0,
+            "combinedScore": 0.191808,
+            "matchedTokens": []
+          }
+        ],
+        "lexicalTopK": []
+      }
+    },
+    {
+      "id": "joy-01",
+      "query": "playful delight and bright celebration",
+      "expectedThemes": [
+        "joy"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": false,
+      "lexicalTop5Hit": false,
+      "retrieval": {
+        "query": "playful delight and bright celebration",
+        "provider": "local-hash",
+        "normalizedQuery": "playful delight and bright celebration",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-10821",
+            "title": "The Dancing Lesson",
+            "artistDisplayName": "Thomas Eakins",
+            "sourceArtworkId": "10821",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.360604
+          },
+          {
+            "id": "met-282190",
+            "title": "Pierrot Laughing",
+            "artistDisplayName": "Nadar",
+            "sourceArtworkId": "282190",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.346901
+          },
+          {
+            "id": "met-392595",
+            "title": "The Laughing Audience",
+            "artistDisplayName": "William Hogarth",
+            "sourceArtworkId": "392595",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.337851
+          },
+          {
+            "id": "met-828433",
+            "title": "Officer and Laughing Girl, after Vermeer",
+            "artistDisplayName": "Jules-Ferdinand Jacquemart",
+            "sourceArtworkId": "828433",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.329651
+          },
+          {
+            "id": "met-436267",
+            "title": "A Musical Party",
+            "artistDisplayName": "Gerbrand van den Eeckhout",
+            "sourceArtworkId": "436267",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.328901
+          },
+          {
+            "id": "met-248160",
+            "title": "Bronze statuette of a satyr dancing",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "248160",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.327753
+          },
+          {
+            "id": "met-474091",
+            "title": "Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474091",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.309158
+          },
+          {
+            "id": "met-396220",
+            "title": "Laughing Peasant",
+            "artistDisplayName": "Adriaen van Ostade",
+            "sourceArtworkId": "396220",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.293455
+          },
+          {
+            "id": "met-382741",
+            "title": "Two Boys Laughing",
+            "artistDisplayName": "Wallerant Vaillant",
+            "sourceArtworkId": "382741",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.293156
+          },
+          {
+            "id": "met-246311",
+            "title": "Bronze statuette of a dancing Lar",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "246311",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.291483
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-10821",
+            "title": "The Dancing Lesson",
+            "artistDisplayName": "Thomas Eakins",
+            "sourceArtworkId": "10821",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.360604,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.39592,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-282190",
+            "title": "Pierrot Laughing",
+            "artistDisplayName": "Nadar",
+            "sourceArtworkId": "282190",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.346901,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.386054,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-392595",
+            "title": "The Laughing Audience",
+            "artistDisplayName": "William Hogarth",
+            "sourceArtworkId": "392595",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.337851,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.379538,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-828433",
+            "title": "Officer and Laughing Girl, after Vermeer",
+            "artistDisplayName": "Jules-Ferdinand Jacquemart",
+            "sourceArtworkId": "828433",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.329651,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.373634,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-436267",
+            "title": "A Musical Party",
+            "artistDisplayName": "Gerbrand van den Eeckhout",
+            "sourceArtworkId": "436267",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.328901,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.373094,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-248160",
+            "title": "Bronze statuette of a satyr dancing",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "248160",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.327753,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.372268,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-396220",
+            "title": "Laughing Peasant",
+            "artistDisplayName": "Adriaen van Ostade",
+            "sourceArtworkId": "396220",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.293455,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.347573,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-382741",
+            "title": "Two Boys Laughing",
+            "artistDisplayName": "Wallerant Vaillant",
+            "sourceArtworkId": "382741",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.293156,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.347358,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-246311",
+            "title": "Bronze statuette of a dancing Lar",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "246311",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.291483,
+            "lexicalScore": 0.428571,
+            "combinedScore": 0.346153,
+            "matchedTokens": [
+              "playful",
+              "delight",
+              "bright"
+            ]
+          },
+          {
+            "id": "met-474091",
+            "title": "Cloister",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "474091",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.309158,
+            "lexicalScore": 0,
+            "combinedScore": 0.264594,
+            "matchedTokens": []
+          }
+        ],
+        "lexicalTopK": []
+      }
+    },
+    {
+      "id": "melancholy-01",
+      "query": "pensive sorrow in a muted interior",
+      "expectedThemes": [
+        "melancholy"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": false,
+      "lexicalTop5Hit": true,
+      "retrieval": {
+        "query": "pensive sorrow in a muted interior",
+        "provider": "local-hash",
+        "normalizedQuery": "pensive sorrow in a muted interior",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-737764",
+            "title": "Woman lost in thought beneath a wutong tree",
+            "artistDisplayName": "Sha Fu",
+            "sourceArtworkId": "737764",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.238392
+          },
+          {
+            "id": "met-10790",
+            "title": "In the Woods",
+            "artistDisplayName": "Asher Brown Durand",
+            "sourceArtworkId": "10790",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.237852
+          },
+          {
+            "id": "met-729602",
+            "title": "Our Lady of Solitude",
+            "artistDisplayName": "José Guadalupe Posada",
+            "sourceArtworkId": "729602",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.235253
+          },
+          {
+            "id": "met-383409",
+            "title": "A Waterfall in a Forest at Langhennersdorf",
+            "artistDisplayName": "Christoph Nathe",
+            "sourceArtworkId": "383409",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.232793
+          },
+          {
+            "id": "met-435713",
+            "title": "The Disillusioned Medea",
+            "artistDisplayName": "Paulus Bor",
+            "sourceArtworkId": "435713",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.217957
+          },
+          {
+            "id": "met-662131",
+            "title": "Awful Conflagration of the Steam Boat Lexington in Long Island Sound on Monday Eve, January 13th, 1840, by which melancholy occurrence, over 100 Persons Perished",
+            "artistDisplayName": "William Keesey Hewitt",
+            "sourceArtworkId": "662131",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.2154
+          },
+          {
+            "id": "met-838139",
+            "title": "Stained glass window",
+            "artistDisplayName": "Daniel Cottier",
+            "sourceArtworkId": "838139",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.209111
+          },
+          {
+            "id": "met-42562",
+            "title": "Gentleman Taking Leave of His Lady on a Veranda",
+            "artistDisplayName": "Suzuki Harunobu",
+            "sourceArtworkId": "42562",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.200783
+          },
+          {
+            "id": "met-471848",
+            "title": "Relief with the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471848",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.194812
+          },
+          {
+            "id": "met-643364",
+            "title": "Melancholy (Melancolia)",
+            "artistDisplayName": "Theodor Matham",
+            "sourceArtworkId": "643364",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.194745
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-737764",
+            "title": "Woman lost in thought beneath a wutong tree",
+            "artistDisplayName": "Sha Fu",
+            "sourceArtworkId": "737764",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.238392,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.276499,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-10790",
+            "title": "In the Woods",
+            "artistDisplayName": "Asher Brown Durand",
+            "sourceArtworkId": "10790",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.237852,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.276111,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-729602",
+            "title": "Our Lady of Solitude",
+            "artistDisplayName": "José Guadalupe Posada",
+            "sourceArtworkId": "729602",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.235253,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.274239,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-383409",
+            "title": "A Waterfall in a Forest at Langhennersdorf",
+            "artistDisplayName": "Christoph Nathe",
+            "sourceArtworkId": "383409",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.232793,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.272468,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-435713",
+            "title": "The Disillusioned Medea",
+            "artistDisplayName": "Paulus Bor",
+            "sourceArtworkId": "435713",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.217957,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.261786,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-662131",
+            "title": "Awful Conflagration of the Steam Boat Lexington in Long Island Sound on Monday Eve, January 13th, 1840, by which melancholy occurrence, over 100 Persons Perished",
+            "artistDisplayName": "William Keesey Hewitt",
+            "sourceArtworkId": "662131",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.2154,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.259945,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-42562",
+            "title": "Gentleman Taking Leave of His Lady on a Veranda",
+            "artistDisplayName": "Suzuki Harunobu",
+            "sourceArtworkId": "42562",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.200783,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.249421,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-643364",
+            "title": "Melancholy (Melancolia)",
+            "artistDisplayName": "Theodor Matham",
+            "sourceArtworkId": "643364",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.194745,
+            "lexicalScore": 0.285714,
+            "combinedScore": 0.245073,
+            "matchedTokens": [
+              "pensive",
+              "sorrow"
+            ]
+          },
+          {
+            "id": "met-838139",
+            "title": "Stained glass window",
+            "artistDisplayName": "Daniel Cottier",
+            "sourceArtworkId": "838139",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.209111,
+            "lexicalScore": 0,
+            "combinedScore": 0.19256,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-471848",
+            "title": "Relief with the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471848",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.194812,
+            "lexicalScore": 0,
+            "combinedScore": 0.182265,
+            "matchedTokens": []
+          }
+        ],
+        "lexicalTopK": [
+          {
+            "id": "met-12158",
+            "title": "Pensive Girl",
+            "artistDisplayName": "John Singer Sargent",
+            "sourceArtworkId": "12158",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "pensive"
+            ]
+          },
+          {
+            "id": "met-285610",
+            "title": "Pensive",
+            "artistDisplayName": "Pierre-Louis Pierson",
+            "sourceArtworkId": "285610",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "pensive"
+            ]
+          },
+          {
+            "id": "met-376264",
+            "title": "Plate 1: Pensive man resting his head on his hand, from \"Icones ad vivum expressae\"",
+            "artistDisplayName": "Giovanni Cattini",
+            "sourceArtworkId": "376264",
+            "theme": "melancholy",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "pensive"
+            ]
+          },
+          {
+            "id": "met-38577",
+            "title": "Column Surround with Pensive Woman",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "38577",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "pensive"
+            ]
+          },
+          {
+            "id": "met-42708",
+            "title": "Bodhisattva in pensive pose",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "42708",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "pensive"
+            ]
+          },
+          {
+            "id": "met-437246",
+            "title": "Interior of Saint Peter's, Rome",
+            "artistDisplayName": "Giovanni Paolo Panini",
+            "sourceArtworkId": "437246",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "interior"
+            ]
+          },
+          {
+            "id": "met-61535",
+            "title": "Seated bodhisattva in pensive pose",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "61535",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "pensive"
+            ]
+          },
+          {
+            "id": "met-65397",
+            "title": "Pensive bodhisattva",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "65397",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "pensive"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mystery-01",
+      "query": "enigmatic oracle shadowed hall",
+      "expectedThemes": [
+        "mystery"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": false,
+      "lexicalTop5Hit": false,
+      "retrieval": {
+        "query": "enigmatic oracle shadowed hall",
+        "provider": "local-hash",
+        "normalizedQuery": "enigmatic oracle shadowed hall",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-323800",
+            "title": "Figure of a supernatural creature",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "323800",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.355563
+          },
+          {
+            "id": "met-436563",
+            "title": "Saint Peter and Simon Magus",
+            "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+            "sourceArtworkId": "436563",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.309824
+          },
+          {
+            "id": "met-459187",
+            "title": "The Burial of Punchinello",
+            "artistDisplayName": "Giovanni Domenico Tiepolo",
+            "sourceArtworkId": "459187",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.306571
+          },
+          {
+            "id": "met-471869",
+            "title": "The Cloisters Apocalypse",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471869",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.280181
+          },
+          {
+            "id": "met-436564",
+            "title": "Saint Zenobius Resuscitating a Dead Child",
+            "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+            "sourceArtworkId": "436564",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.271493
+          },
+          {
+            "id": "met-471987",
+            "title": "Vision of Saint Germain of Paris",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471987",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.255222
+          },
+          {
+            "id": "met-193346",
+            "title": "The Prophet Moses",
+            "artistDisplayName": "Valentin Bousch",
+            "sourceArtworkId": "193346",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.254269
+          },
+          {
+            "id": "met-193345",
+            "title": "The Prophet Isaiah",
+            "artistDisplayName": "Valentin Bousch",
+            "sourceArtworkId": "193345",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.249452
+          },
+          {
+            "id": "met-204605",
+            "title": "Jacob's Dream",
+            "artistDisplayName": "P.M.",
+            "sourceArtworkId": "204605",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.236469
+          },
+          {
+            "id": "met-204608",
+            "title": "Joseph Interpreting Pharaoh's Dream",
+            "artistDisplayName": "P.M.",
+            "sourceArtworkId": "204608",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.225669
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-323800",
+            "title": "Figure of a supernatural creature",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "323800",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.355563,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.408005,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-436563",
+            "title": "Saint Peter and Simon Magus",
+            "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+            "sourceArtworkId": "436563",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.309824,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.375073,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-459187",
+            "title": "The Burial of Punchinello",
+            "artistDisplayName": "Giovanni Domenico Tiepolo",
+            "sourceArtworkId": "459187",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.306571,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.372731,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-471869",
+            "title": "The Cloisters Apocalypse",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471869",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.280181,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.35373,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-436564",
+            "title": "Saint Zenobius Resuscitating a Dead Child",
+            "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+            "sourceArtworkId": "436564",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.271493,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.347475,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-471987",
+            "title": "Vision of Saint Germain of Paris",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471987",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.255222,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.33576,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-193346",
+            "title": "The Prophet Moses",
+            "artistDisplayName": "Valentin Bousch",
+            "sourceArtworkId": "193346",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.254269,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.335074,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-193345",
+            "title": "The Prophet Isaiah",
+            "artistDisplayName": "Valentin Bousch",
+            "sourceArtworkId": "193345",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.249452,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.331605,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-204605",
+            "title": "Jacob's Dream",
+            "artistDisplayName": "P.M.",
+            "sourceArtworkId": "204605",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.236469,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.322258,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          },
+          {
+            "id": "met-204608",
+            "title": "Joseph Interpreting Pharaoh's Dream",
+            "artistDisplayName": "P.M.",
+            "sourceArtworkId": "204608",
+            "theme": "mystery",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.225669,
+            "lexicalScore": 0.5,
+            "combinedScore": 0.314482,
+            "matchedTokens": [
+              "enigmatic",
+              "mystery",
+              "oracle",
+              "secret",
+              "shadow"
+            ]
+          }
+        ],
+        "lexicalTopK": []
+      }
+    },
+    {
+      "id": "serenity-01",
+      "query": "tranquil stillness quiet reflection",
+      "expectedThemes": [
+        "serenity"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": false,
+      "lexicalTop5Hit": false,
+      "retrieval": {
+        "query": "tranquil stillness quiet reflection",
+        "provider": "local-hash",
+        "normalizedQuery": "tranquil stillness quiet reflection",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-471179",
+            "title": "Chapter House from Notre-Dame-de-Pontaut",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471179",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.384201
+          },
+          {
+            "id": "met-10065",
+            "title": "Repose",
+            "artistDisplayName": "John White Alexander",
+            "sourceArtworkId": "10065",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.366442
+          },
+          {
+            "id": "met-340850",
+            "title": "The Rest on the Flight into Egypt (The Repose of the Holy Family in Egypt)",
+            "artistDisplayName": "William Blake",
+            "sourceArtworkId": "340850",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.345925
+          },
+          {
+            "id": "met-439122",
+            "title": "Gothic Windows in the Ruins of the Monastery at Oybin",
+            "artistDisplayName": "Carl Gustav Carus",
+            "sourceArtworkId": "439122",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.324143
+          },
+          {
+            "id": "met-459435",
+            "title": "Landscape with a Shepherd in Repose",
+            "artistDisplayName": "The Veneto",
+            "sourceArtworkId": "459435",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.322415
+          },
+          {
+            "id": "met-341487",
+            "title": "Repose in Egypt, Mary holding and looking at the infant Christ while St. Joseph sleeps",
+            "artistDisplayName": "Simone Cantarini",
+            "sourceArtworkId": "341487",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.317439
+          },
+          {
+            "id": "met-38640",
+            "title": "Meditating Buddha Attended by Two Bodhisattvas",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "38640",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.31693
+          },
+          {
+            "id": "met-38978",
+            "title": "Buddha in Meditation Posture",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "38978",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.311427
+          },
+          {
+            "id": "met-464607",
+            "title": "Virgin of the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "464607",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.307422
+          },
+          {
+            "id": "met-39181",
+            "title": "Seated Amitayus",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "39181",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.301833
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-471179",
+            "title": "Chapter House from Notre-Dame-de-Pontaut",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "471179",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.384201,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.418625,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-10065",
+            "title": "Repose",
+            "artistDisplayName": "John White Alexander",
+            "sourceArtworkId": "10065",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.366442,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.405838,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-340850",
+            "title": "The Rest on the Flight into Egypt (The Repose of the Holy Family in Egypt)",
+            "artistDisplayName": "William Blake",
+            "sourceArtworkId": "340850",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.345925,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.391066,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-439122",
+            "title": "Gothic Windows in the Ruins of the Monastery at Oybin",
+            "artistDisplayName": "Carl Gustav Carus",
+            "sourceArtworkId": "439122",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.324143,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.375383,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-459435",
+            "title": "Landscape with a Shepherd in Repose",
+            "artistDisplayName": "The Veneto",
+            "sourceArtworkId": "459435",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.322415,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.374139,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-341487",
+            "title": "Repose in Egypt, Mary holding and looking at the infant Christ while St. Joseph sleeps",
+            "artistDisplayName": "Simone Cantarini",
+            "sourceArtworkId": "341487",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.317439,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.370556,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-38640",
+            "title": "Meditating Buddha Attended by Two Bodhisattvas",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "38640",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.31693,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.370189,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-38978",
+            "title": "Buddha in Meditation Posture",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "38978",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.311427,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.366227,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-464607",
+            "title": "Virgin of the Annunciation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "464607",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.307422,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.363344,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          },
+          {
+            "id": "met-39181",
+            "title": "Seated Amitayus",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "39181",
+            "theme": "serenity",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.301833,
+            "lexicalScore": 0.454545,
+            "combinedScore": 0.35932,
+            "matchedTokens": [
+              "tranquil",
+              "serenity",
+              "calm",
+              "peaceful",
+              "still"
+            ]
+          }
+        ],
+        "lexicalTopK": []
+      }
+    },
+    {
+      "id": "wonder-01",
+      "query": "awe at impossible light and revelation",
+      "expectedThemes": [
+        "wonder"
+      ],
+      "rerankTop1Hit": true,
+      "rerankTop5Hit": true,
+      "lexicalTop1Hit": true,
+      "lexicalTop5Hit": true,
+      "retrieval": {
+        "query": "awe at impossible light and revelation",
+        "provider": "local-hash",
+        "normalizedQuery": "awe at impossible light and revelation",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "recordCount": 221,
+        "vectorTopK": [
+          {
+            "id": "met-817550",
+            "title": "Moses striking the rock with a stick to bring forth water, while the Israelites look on in amazement",
+            "artistDisplayName": "Jean-Baptiste Haussard",
+            "sourceArtworkId": "817550",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.32624
+          },
+          {
+            "id": "met-549169",
+            "title": "Cult Image of the God Ptah",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "549169",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.253415
+          },
+          {
+            "id": "met-247487",
+            "title": "Terracotta statuette of dancing Aphrodite with Eros",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "247487",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.245607
+          },
+          {
+            "id": "met-551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "551786",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.201885
+          },
+          {
+            "id": "met-65397",
+            "title": "Pensive bodhisattva",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "65397",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.191343
+          },
+          {
+            "id": "met-54081",
+            "title": "Bodhisattva",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "54081",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.188612
+          },
+          {
+            "id": "met-42547",
+            "title": "Bodhidharma in meditation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "42547",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.180321
+          },
+          {
+            "id": "met-854846",
+            "title": "Mars, Venus and Cupid with Vulcan at his forge (the Mantuan Roundel)",
+            "artistDisplayName": "Gian Marco Cavalli",
+            "sourceArtworkId": "854846",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.172685
+          },
+          {
+            "id": "met-451728",
+            "title": "\"Shaikh San'an and the Christian Maiden\", Folio 22v from a Mantiq al-Tayr (Language of the Birds)",
+            "artistDisplayName": "Farid al-Din `Attar",
+            "sourceArtworkId": "451728",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.16788
+          },
+          {
+            "id": "met-450536",
+            "title": "Inkwell with Twelve Zodiac Medallions",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "450536",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.165244
+          }
+        ],
+        "rerankedTopK": [
+          {
+            "id": "met-817550",
+            "title": "Moses striking the rock with a stick to bring forth water, while the Israelites look on in amazement",
+            "artistDisplayName": "Jean-Baptiste Haussard",
+            "sourceArtworkId": "817550",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.32624,
+            "lexicalScore": 0.142857,
+            "combinedScore": 0.308321,
+            "matchedTokens": [
+              "awe"
+            ]
+          },
+          {
+            "id": "met-549169",
+            "title": "Cult Image of the God Ptah",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "549169",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.253415,
+            "lexicalScore": 0.142857,
+            "combinedScore": 0.255887,
+            "matchedTokens": [
+              "awe"
+            ]
+          },
+          {
+            "id": "met-247487",
+            "title": "Terracotta statuette of dancing Aphrodite with Eros",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "247487",
+            "theme": "joy",
+            "grade": "B",
+            "rank": 3,
+            "vectorScore": 0.245607,
+            "lexicalScore": 0,
+            "combinedScore": 0.218837,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-551786",
+            "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "551786",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 4,
+            "vectorScore": 0.201885,
+            "lexicalScore": 0.142857,
+            "combinedScore": 0.218786,
+            "matchedTokens": [
+              "awe"
+            ]
+          },
+          {
+            "id": "met-54081",
+            "title": "Bodhisattva",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "54081",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 5,
+            "vectorScore": 0.188612,
+            "lexicalScore": 0.142857,
+            "combinedScore": 0.209229,
+            "matchedTokens": [
+              "awe"
+            ]
+          },
+          {
+            "id": "met-451728",
+            "title": "\"Shaikh San'an and the Christian Maiden\", Folio 22v from a Mantiq al-Tayr (Language of the Birds)",
+            "artistDisplayName": "Farid al-Din `Attar",
+            "sourceArtworkId": "451728",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 6,
+            "vectorScore": 0.16788,
+            "lexicalScore": 0.142857,
+            "combinedScore": 0.194302,
+            "matchedTokens": [
+              "awe"
+            ]
+          },
+          {
+            "id": "met-450536",
+            "title": "Inkwell with Twelve Zodiac Medallions",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "450536",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 7,
+            "vectorScore": 0.165244,
+            "lexicalScore": 0.142857,
+            "combinedScore": 0.192404,
+            "matchedTokens": [
+              "awe"
+            ]
+          },
+          {
+            "id": "met-65397",
+            "title": "Pensive bodhisattva",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "65397",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 8,
+            "vectorScore": 0.191343,
+            "lexicalScore": 0,
+            "combinedScore": 0.179767,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-42547",
+            "title": "Bodhidharma in meditation",
+            "artistDisplayName": "Unknown Artist",
+            "sourceArtworkId": "42547",
+            "theme": "contemplation",
+            "grade": "B",
+            "rank": 9,
+            "vectorScore": 0.180321,
+            "lexicalScore": 0,
+            "combinedScore": 0.171831,
+            "matchedTokens": []
+          },
+          {
+            "id": "met-854846",
+            "title": "Mars, Venus and Cupid with Vulcan at his forge (the Mantuan Roundel)",
+            "artistDisplayName": "Gian Marco Cavalli",
+            "sourceArtworkId": "854846",
+            "theme": "desire",
+            "grade": "B",
+            "rank": 10,
+            "vectorScore": 0.172685,
+            "lexicalScore": 0,
+            "combinedScore": 0.166333,
+            "matchedTokens": []
+          }
+        ],
+        "lexicalTopK": [
+          {
+            "id": "met-336540",
+            "title": "Awe-struck Saint Jerome",
+            "artistDisplayName": "Anonymous, Spanish, School of Seville, 17th century",
+            "sourceArtworkId": "336540",
+            "theme": "wonder",
+            "grade": "B",
+            "rank": 1,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "awe"
+            ]
+          },
+          {
+            "id": "met-343218",
+            "title": "Annunciation",
+            "artistDisplayName": "Filippo Bellini",
+            "sourceArtworkId": "343218",
+            "theme": "hope",
+            "grade": "B",
+            "rank": 2,
+            "vectorScore": 0.25,
+            "lexicalScore": 0.25,
+            "matchedTokens": [
+              "light"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "runId": "2026-04-24T03-04-20-455Z--wonder--astonishment",
+  "source": "met",
+  "theme": "wonder",
+  "query": "astonishment",
+  "synonyms": [
+    "amazement",
+    "awe"
+  ],
+  "createdAt": "2026-04-24T03:11:45.676Z",
+  "searchResults": {
+    "uniqueHitCount": 269,
+    "searchDigest": "3306ceea75a87275793aada75b6b796ee1fc7fff48501f2b767dd9a0c233c899"
+  },
+  "counts": {
+    "rawDetailCount": 100,
+    "candidateCount": 71,
+    "excludedCount": 29
+  },
+  "excludeCounts": {
+    "missing-image": 29,
+    "missing-title": 2,
+    "missing-object-url": 2,
+    "missing-artist-and-description": 2
+  },
+  "metadataGapCounts": {
+    "missing-description": 100,
+    "missing-artist": 2
+  },
+  "nextAction": "move kept records to review queue",
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-46-28-237Z--wonder--astonishment",
+    "note": "Dropped `marvel` from the approved batch input after manual review showed surname/card noise in the probe sample."
+  }
+}

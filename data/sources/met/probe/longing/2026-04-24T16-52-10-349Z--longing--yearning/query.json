@@ -1,0 +1,20 @@
+{
+  "runId": "2026-04-24T16-52-10-349Z--longing--yearning",
+  "createdAt": "2026-04-24T16:52:10.349Z",
+  "source": "met",
+  "theme": "longing",
+  "query": "yearning",
+  "synonyms": [
+    "wistful",
+    "pensive"
+  ],
+  "excludes": [
+    "longing",
+    "pining",
+    "melancholy"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

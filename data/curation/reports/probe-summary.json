@@ -1,0 +1,1016 @@
+{
+  "generatedAt": "2026-04-25T02:49:16.341Z",
+  "source": "met",
+  "decisionVocabulary": {
+    "probeVerdict": [
+      "pass",
+      "mixed",
+      "fail"
+    ],
+    "reviewDecision": [
+      "promote",
+      "hold",
+      "reject"
+    ]
+  },
+  "gateThresholds": {
+    "uniqueHitCountMin": 10,
+    "sampleSizeMin": 10,
+    "usableHitsMin": 5,
+    "imageCoverageMin": 0.7,
+    "artistCoverageMin": 0.7,
+    "descriptionCoverageMin": 0.3
+  },
+  "handoffArtifacts": {
+    "approvedQueryMatrixJson": "data/curation/reports/probe-approved-query-matrix.json",
+    "approvedQueryMatrixMd": "data/curation/reports/probe-approved-query-matrix.md"
+  },
+  "notes": [
+    "Probe verdicts use `pass / mixed / fail`; `promote / hold / reject` is reserved for review-loop decisions.",
+    "Each summary entry now separates configured input, summary-level recommendations, and approved batch input to keep manual overrides auditable.",
+    "Batch handoff is canonical only when a theme has `gateDecision = approved-for-batch` and a populated `approvedBatchInput` block."
+  ],
+  "themes": [
+    {
+      "theme": "serenity",
+      "selectedRunId": "2026-04-25T02-16-37-014Z--serenity--repose",
+      "selectedRunDir": "data/sources/met/probe/serenity/2026-04-25T02-16-37-014Z--serenity--repose",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/serenity/2026-04-25T02-16-37-014Z--serenity--repose/query.json",
+        "searchResultsPath": "data/sources/met/probe/serenity/2026-04-25T02-16-37-014Z--serenity--repose/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/serenity/2026-04-25T02-16-37-014Z--serenity--repose/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/serenity/2026-04-25T02-16-37-014Z--serenity--repose/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "repose",
+        "synonyms": [
+          "meditation"
+        ],
+        "excludes": [
+          "stillness",
+          "calm",
+          "serenity",
+          "tranquil"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 40,
+        "sampleSize": 10,
+        "usableHits": 5,
+        "imageCoverage": 0.8,
+        "descriptionCoverage": 0,
+        "artistCoverage": 0.6
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": false,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "stillness",
+        "calm",
+        "serenity",
+        "tranquil"
+      ],
+      "recommendedBans": [
+        "serenity",
+        "tranquil"
+      ],
+      "approvedBatchInput": {
+        "query": "repose",
+        "synonyms": [
+          "meditation"
+        ],
+        "excludes": [
+          "stillness",
+          "calm",
+          "serenity",
+          "tranquil"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "serenity",
+            "tranquil"
+          ],
+          "reason": "Switching to the narrower `repose` + `meditation` lane finally removed the worst title-match noise and produced a coherent enough scene set to batch."
+        }
+      ],
+      "manualNotes": "Switching to the narrower `repose` + `meditation` lane finally removed the worst title-match noise and produced a coherent enough scene set to batch.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "10065",
+          "title": "Repose"
+        },
+        {
+          "sourceArtworkId": "42547",
+          "title": "Bodhidharma in meditation"
+        },
+        {
+          "sourceArtworkId": "72301",
+          "title": "Buddha Seated in Meditation"
+        },
+        {
+          "sourceArtworkId": "369738",
+          "title": "Repose (Ruhende vom Rücken)"
+        },
+        {
+          "sourceArtworkId": "10239",
+          "title": "Meditation"
+        }
+      ]
+    },
+    {
+      "theme": "melancholy",
+      "selectedRunId": "2026-04-24T02-45-55-823Z--melancholy--melancholy",
+      "selectedRunDir": "data/sources/met/probe/melancholy/2026-04-24T02-45-55-823Z--melancholy--melancholy",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/melancholy/2026-04-24T02-45-55-823Z--melancholy--melancholy/query.json",
+        "searchResultsPath": "data/sources/met/probe/melancholy/2026-04-24T02-45-55-823Z--melancholy--melancholy/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/melancholy/2026-04-24T02-45-55-823Z--melancholy--melancholy/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/melancholy/2026-04-24T02-45-55-823Z--melancholy--melancholy/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "melancholy",
+        "synonyms": [
+          "pensive",
+          "solitude",
+          "wistful"
+        ],
+        "excludes": [
+          "sadness",
+          "blue"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 79,
+        "sampleSize": 10,
+        "usableHits": 5,
+        "imageCoverage": 0.7,
+        "descriptionCoverage": 0,
+        "artistCoverage": 0.8
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": true,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "sadness",
+        "blue"
+      ],
+      "recommendedBans": [],
+      "approvedBatchInput": {
+        "query": "melancholy",
+        "synonyms": [
+          "pensive",
+          "solitude",
+          "wistful"
+        ],
+        "excludes": [
+          "sadness",
+          "blue"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [],
+      "manualNotes": "Configured input already matched the approved batch input; this lane is clean enough to move forward.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "391598",
+          "title": "Melancholy"
+        },
+        {
+          "sourceArtworkId": "38012",
+          "title": "Melancholy Courtesan"
+        },
+        {
+          "sourceArtworkId": "382737",
+          "title": "Autumn's Grey and Melancholy"
+        },
+        {
+          "sourceArtworkId": "285610",
+          "title": "Pensive"
+        },
+        {
+          "sourceArtworkId": "65397",
+          "title": "Pensive bodhisattva"
+        }
+      ]
+    },
+    {
+      "theme": "longing",
+      "selectedRunId": "2026-04-25T02-18-47-977Z--longing--wistful",
+      "selectedRunDir": "data/sources/met/probe/longing/2026-04-25T02-18-47-977Z--longing--wistful",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/longing/2026-04-25T02-18-47-977Z--longing--wistful/query.json",
+        "searchResultsPath": "data/sources/met/probe/longing/2026-04-25T02-18-47-977Z--longing--wistful/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/longing/2026-04-25T02-18-47-977Z--longing--wistful/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/longing/2026-04-25T02-18-47-977Z--longing--wistful/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "wistful",
+        "synonyms": [],
+        "excludes": [
+          "longing",
+          "pining",
+          "melancholy",
+          "pensive"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 20,
+        "sampleSize": 10,
+        "usableHits": 8,
+        "imageCoverage": 0.8,
+        "descriptionCoverage": 0,
+        "artistCoverage": 1
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": true,
+        "manualVerdictPass": false
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "fail",
+      "gateDecision": "redesign-query",
+      "configuredExcludes": [
+        "longing",
+        "pining",
+        "melancholy",
+        "pensive"
+      ],
+      "recommendedBans": [
+        "yearning",
+        "melancholy",
+        "pensive"
+      ],
+      "approvedBatchInput": null,
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "manual-verdict-override",
+          "from": "pass",
+          "to": "fail",
+          "reason": "After isolating the lane down to `wistful`, Met still collapses toward portrait, fashion, and satire material; this theme needs a fresh query concept or another source, not another incremental rerun."
+        },
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "yearning",
+            "melancholy",
+            "pensive"
+          ],
+          "reason": "After isolating the lane down to `wistful`, Met still collapses toward portrait, fashion, and satire material; this theme needs a fresh query concept or another source, not another incremental rerun."
+        }
+      ],
+      "manualNotes": "After isolating the lane down to `wistful`, Met still collapses toward portrait, fashion, and satire material; this theme needs a fresh query concept or another source, not another incremental rerun.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "437900",
+          "title": "Comtesse de la Châtre (Marie Charlotte Louise Perrette Aglaé Bontemps, 1762–1848)"
+        },
+        {
+          "sourceArtworkId": "737764",
+          "title": "Woman lost in thought beneath a wutong tree"
+        },
+        {
+          "sourceArtworkId": "436603",
+          "title": "Samson Captured by the Philistines"
+        },
+        {
+          "sourceArtworkId": "51996",
+          "title": "The Courtesan Nishikigi of the Yotsumeya Brothel, from the series “A Pattern Book of the Year’s First Designs, Fresh as Spring Herbs” (“Hinagata wakana hatsu moyō”)"
+        }
+      ]
+    },
+    {
+      "theme": "wonder",
+      "selectedRunId": "2026-04-24T02-46-28-237Z--wonder--astonishment",
+      "selectedRunDir": "data/sources/met/probe/wonder/2026-04-24T02-46-28-237Z--wonder--astonishment",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/wonder/2026-04-24T02-46-28-237Z--wonder--astonishment/query.json",
+        "searchResultsPath": "data/sources/met/probe/wonder/2026-04-24T02-46-28-237Z--wonder--astonishment/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/wonder/2026-04-24T02-46-28-237Z--wonder--astonishment/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/wonder/2026-04-24T02-46-28-237Z--wonder--astonishment/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "astonishment",
+        "synonyms": [
+          "amazement",
+          "awe",
+          "marvel"
+        ],
+        "excludes": [
+          "wonder",
+          "miracle"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 80,
+        "sampleSize": 10,
+        "usableHits": 8,
+        "imageCoverage": 0.9,
+        "descriptionCoverage": 0,
+        "artistCoverage": 0.8
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": true,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "wonder",
+        "miracle"
+      ],
+      "recommendedBans": [
+        "marvel"
+      ],
+      "approvedBatchInput": {
+        "query": "astonishment",
+        "synonyms": [
+          "amazement",
+          "awe"
+        ],
+        "excludes": [
+          "wonder",
+          "miracle",
+          "marvel"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "recommended-input-adjustment",
+          "diffs": [
+            "synonyms: amazement, awe, marvel -> amazement, awe",
+            "excludes: wonder, miracle -> wonder, miracle, marvel"
+          ],
+          "reason": "Dropped `marvel` from the approved batch input after manual review showed surname/card noise in the probe sample."
+        },
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "marvel"
+          ],
+          "reason": "Dropped `marvel` from the approved batch input after manual review showed surname/card noise in the probe sample."
+        }
+      ],
+      "manualNotes": "Dropped `marvel` from the approved batch input after manual review showed surname/card noise in the probe sample.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "395293",
+          "title": "Admiration with Astonishment (Le Brun Travested, or Caricatures of the Passions)"
+        },
+        {
+          "sourceArtworkId": "623059",
+          "title": "Figure 57: Astonishment, stupefaction, amazement"
+        },
+        {
+          "sourceArtworkId": "817550",
+          "title": "Moses striking the rock with a stick to bring forth water, while the Israelites look on in amazement"
+        },
+        {
+          "sourceArtworkId": "438816",
+          "title": "The Forest in Winter at Sunset"
+        },
+        {
+          "sourceArtworkId": "459100",
+          "title": "Tahitian Women Bathing"
+        }
+      ]
+    },
+    {
+      "theme": "contemplation",
+      "selectedRunId": "2026-04-24T16-52-22-853Z--contemplation--contemplation",
+      "selectedRunDir": "data/sources/met/probe/contemplation/2026-04-24T16-52-22-853Z--contemplation--contemplation",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/contemplation/2026-04-24T16-52-22-853Z--contemplation--contemplation/query.json",
+        "searchResultsPath": "data/sources/met/probe/contemplation/2026-04-24T16-52-22-853Z--contemplation--contemplation/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/contemplation/2026-04-24T16-52-22-853Z--contemplation--contemplation/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/contemplation/2026-04-24T16-52-22-853Z--contemplation--contemplation/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "contemplation",
+        "synonyms": [
+          "meditation",
+          "pensive"
+        ],
+        "excludes": [
+          "reflection",
+          "solitude"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 60,
+        "sampleSize": 10,
+        "usableHits": 4,
+        "imageCoverage": 0.8,
+        "descriptionCoverage": 0,
+        "artistCoverage": 0.6
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": false,
+        "imageCoverage": true,
+        "metadataCoverage": false,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "mixed",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "reflection",
+        "solitude"
+      ],
+      "recommendedBans": [
+        "solitude"
+      ],
+      "approvedBatchInput": {
+        "query": "contemplation",
+        "synonyms": [
+          "meditation",
+          "pensive"
+        ],
+        "excludes": [
+          "reflection",
+          "solitude"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "manual-verdict-override",
+          "from": "mixed",
+          "to": "pass",
+          "reason": "Dropping `solitude` cleaned the lane enough; the remaining sample is thematically coherent, and the auto miss is mainly an artifact of image-rich `Unknown Artist` works depressing artist coverage."
+        },
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "solitude"
+          ],
+          "reason": "Dropping `solitude` cleaned the lane enough; the remaining sample is thematically coherent, and the auto miss is mainly an artifact of image-rich `Unknown Artist` works depressing artist coverage."
+        }
+      ],
+      "manualNotes": "Dropping `solitude` cleaned the lane enough; the remaining sample is thematically coherent, and the auto miss is mainly an artifact of image-rich `Unknown Artist` works depressing artist coverage.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "438417",
+          "title": "Two Men Contemplating the Moon"
+        },
+        {
+          "sourceArtworkId": "42547",
+          "title": "Bodhidharma in meditation"
+        },
+        {
+          "sourceArtworkId": "72301",
+          "title": "Buddha Seated in Meditation"
+        },
+        {
+          "sourceArtworkId": "439344",
+          "title": "Two Men before a Waterfall at Sunset"
+        },
+        {
+          "sourceArtworkId": "437394",
+          "title": "Aristotle with a Bust of Homer"
+        }
+      ]
+    },
+    {
+      "theme": "hope",
+      "selectedRunId": "2026-04-24T02-49-43-514Z--hope--hope",
+      "selectedRunDir": "data/sources/met/probe/hope/2026-04-24T02-49-43-514Z--hope--hope",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/hope/2026-04-24T02-49-43-514Z--hope--hope/query.json",
+        "searchResultsPath": "data/sources/met/probe/hope/2026-04-24T02-49-43-514Z--hope--hope/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/hope/2026-04-24T02-49-43-514Z--hope--hope/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/hope/2026-04-24T02-49-43-514Z--hope--hope/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "hope",
+        "synonyms": [
+          "renewal",
+          "aspiration",
+          "promise"
+        ],
+        "excludes": [
+          "looking forward"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 80,
+        "sampleSize": 10,
+        "usableHits": 7,
+        "imageCoverage": 0.7,
+        "descriptionCoverage": 0,
+        "artistCoverage": 1
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": true,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "looking forward"
+      ],
+      "recommendedBans": [
+        "promise"
+      ],
+      "approvedBatchInput": {
+        "query": "hope",
+        "synonyms": [
+          "renewal",
+          "aspiration"
+        ],
+        "excludes": [
+          "looking forward",
+          "promise"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "recommended-input-adjustment",
+          "diffs": [
+            "synonyms: renewal, aspiration, promise -> renewal, aspiration",
+            "excludes: looking forward -> looking forward, promise"
+          ],
+          "reason": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit."
+        },
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "promise"
+          ],
+          "reason": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit."
+        }
+      ],
+      "manualNotes": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "460524",
+          "title": "Hope"
+        },
+        {
+          "sourceArtworkId": "11145",
+          "title": "The Veteran in a New Field"
+        },
+        {
+          "sourceArtworkId": "270851",
+          "title": "The Time of Promise"
+        },
+        {
+          "sourceArtworkId": "255973",
+          "title": "Statue of Dionysos leaning on a female figure (\"Hope Dionysos\")"
+        }
+      ]
+    },
+    {
+      "theme": "loneliness",
+      "selectedRunId": "2026-04-25T02-18-56-673Z--loneliness--solitary-figure",
+      "selectedRunDir": "data/sources/met/probe/loneliness/2026-04-25T02-18-56-673Z--loneliness--solitary-figure",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/loneliness/2026-04-25T02-18-56-673Z--loneliness--solitary-figure/query.json",
+        "searchResultsPath": "data/sources/met/probe/loneliness/2026-04-25T02-18-56-673Z--loneliness--solitary-figure/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/loneliness/2026-04-25T02-18-56-673Z--loneliness--solitary-figure/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/loneliness/2026-04-25T02-18-56-673Z--loneliness--solitary-figure/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "solitary figure",
+        "synonyms": [
+          "solitude"
+        ],
+        "excludes": [
+          "pensive",
+          "desolation",
+          "lonesome",
+          "widower",
+          "office in a small city"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 40,
+        "sampleSize": 10,
+        "usableHits": 3,
+        "imageCoverage": 0.3,
+        "descriptionCoverage": 0,
+        "artistCoverage": 1
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": false,
+        "imageCoverage": false,
+        "metadataCoverage": true,
+        "manualVerdictPass": false
+      },
+      "autoVerdict": "mixed",
+      "manualVerdict": "fail",
+      "gateDecision": "redesign-query",
+      "configuredExcludes": [
+        "pensive",
+        "desolation",
+        "lonesome",
+        "widower",
+        "office in a small city"
+      ],
+      "recommendedBans": [
+        "pensive",
+        "desolation",
+        "widower",
+        "office in a small city"
+      ],
+      "approvedBatchInput": null,
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "manual-verdict-override",
+          "from": "mixed",
+          "to": "fail",
+          "reason": "Even after stripping back to the more scene-led `solitary figure` lane, image coverage stalls far below gate and the remaining sample is too sparse to justify more Met reruns."
+        },
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "pensive",
+            "desolation",
+            "widower",
+            "office in a small city"
+          ],
+          "reason": "Even after stripping back to the more scene-led `solitary figure` lane, image coverage stalls far below gate and the remaining sample is too sparse to justify more Met reruns."
+        }
+      ],
+      "manualNotes": "Even after stripping back to the more scene-led `solitary figure` lane, image coverage stalls far below gate and the remaining sample is too sparse to justify more Met reruns.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "49171",
+          "title": "Landscape with solitary figure"
+        },
+        {
+          "sourceArtworkId": "825541",
+          "title": "The Widower"
+        },
+        {
+          "sourceArtworkId": "729602",
+          "title": "Our Lady of Solitude"
+        }
+      ]
+    },
+    {
+      "theme": "joy",
+      "selectedRunId": "2026-04-24T16-53-04-786Z--joy--merry-company",
+      "selectedRunDir": "data/sources/met/probe/joy/2026-04-24T16-53-04-786Z--joy--merry-company",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/joy/2026-04-24T16-53-04-786Z--joy--merry-company/query.json",
+        "searchResultsPath": "data/sources/met/probe/joy/2026-04-24T16-53-04-786Z--joy--merry-company/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/joy/2026-04-24T16-53-04-786Z--joy--merry-company/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/joy/2026-04-24T16-53-04-786Z--joy--merry-company/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "merry company",
+        "synonyms": [
+          "cheerful",
+          "laughing",
+          "dancing"
+        ],
+        "excludes": [
+          "festival",
+          "celebration",
+          "rejoicing",
+          "joy",
+          "delight"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 79,
+        "sampleSize": 10,
+        "usableHits": 6,
+        "imageCoverage": 0.7,
+        "descriptionCoverage": 0,
+        "artistCoverage": 0.7
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": true,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "festival",
+        "celebration",
+        "rejoicing",
+        "joy",
+        "delight"
+      ],
+      "recommendedBans": [
+        "festival",
+        "celebration",
+        "rejoicing",
+        "cheerful"
+      ],
+      "approvedBatchInput": {
+        "query": "merry company",
+        "synonyms": [
+          "laughing",
+          "dancing"
+        ],
+        "excludes": [
+          "festival",
+          "celebration",
+          "rejoicing",
+          "joy",
+          "delight",
+          "cheerful"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "recommended-input-adjustment",
+          "diffs": [
+            "synonyms: cheerful, laughing, dancing -> laughing, dancing",
+            "excludes: festival, celebration, rejoicing, joy, delight -> festival, celebration, rejoicing, joy, delight, cheerful"
+          ],
+          "reason": "Switching to the scene-led `merry company` lane removed the old event-ephemera collapse; `cheerful` still reintroduces interior/card noise, so it stays banned in the approved batch input."
+        },
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "festival",
+            "celebration",
+            "rejoicing",
+            "cheerful"
+          ],
+          "reason": "Switching to the scene-led `merry company` lane removed the old event-ephemera collapse; `cheerful` still reintroduces interior/card noise, so it stays banned in the approved batch input."
+        }
+      ],
+      "manualNotes": "Switching to the scene-led `merry company` lane removed the old event-ephemera collapse; `cheerful` still reintroduces interior/card noise, so it stays banned in the approved batch input.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "437749",
+          "title": "Merry Company on a Terrace"
+        },
+        {
+          "sourceArtworkId": "282190",
+          "title": "Pierrot Laughing"
+        },
+        {
+          "sourceArtworkId": "437812",
+          "title": "A Dance in the Country"
+        },
+        {
+          "sourceArtworkId": "436622",
+          "title": "Merrymakers at Shrovetide"
+        },
+        {
+          "sourceArtworkId": "394395",
+          "title": "The Cheerful Cupids"
+        }
+      ]
+    },
+    {
+      "theme": "mystery",
+      "selectedRunId": "2026-04-24T02-47-52-479Z--mystery--apparition",
+      "selectedRunDir": "data/sources/met/probe/mystery/2026-04-24T02-47-52-479Z--mystery--apparition",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/mystery/2026-04-24T02-47-52-479Z--mystery--apparition/query.json",
+        "searchResultsPath": "data/sources/met/probe/mystery/2026-04-24T02-47-52-479Z--mystery--apparition/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/mystery/2026-04-24T02-47-52-479Z--mystery--apparition/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/mystery/2026-04-24T02-47-52-479Z--mystery--apparition/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "apparition",
+        "synonyms": [
+          "oracle",
+          "prophecy",
+          "enigmatic"
+        ],
+        "excludes": [
+          "mystery",
+          "vision"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 80,
+        "sampleSize": 10,
+        "usableHits": 6,
+        "imageCoverage": 0.9,
+        "descriptionCoverage": 0,
+        "artistCoverage": 0.7
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": true,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "mystery",
+        "vision"
+      ],
+      "recommendedBans": [
+        "enigmatic"
+      ],
+      "approvedBatchInput": {
+        "query": "apparition",
+        "synonyms": [
+          "oracle",
+          "prophecy"
+        ],
+        "excludes": [
+          "mystery",
+          "vision",
+          "enigmatic"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "recommended-input-adjustment",
+          "diffs": [
+            "synonyms: oracle, prophecy, enigmatic -> oracle, prophecy",
+            "excludes: mystery, vision -> mystery, vision, enigmatic"
+          ],
+          "reason": "Dropped `enigmatic` from the approved batch input after manual review showed it diluted the narrative-supernatural lane."
+        },
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "enigmatic"
+          ],
+          "reason": "Dropped `enigmatic` from the approved batch input after manual review showed it diluted the narrative-supernatural lane."
+        }
+      ],
+      "manualNotes": "Dropped `enigmatic` from the approved batch input after manual review showed it diluted the narrative-supernatural lane.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "635400",
+          "title": "The Apparition of the Virgin of El Pilar to St. James"
+        },
+        {
+          "sourceArtworkId": "849803",
+          "title": "The Oracle"
+        },
+        {
+          "sourceArtworkId": "451418",
+          "title": "\"Muhammad's Call to Prophecy and the First Revelation\", Folio from a Majma' al-Tavarikh (Compendium of Histories)"
+        },
+        {
+          "sourceArtworkId": "340635",
+          "title": "An Apparition"
+        },
+        {
+          "sourceArtworkId": "744086",
+          "title": "Prophecy Explained"
+        }
+      ]
+    },
+    {
+      "theme": "desire",
+      "selectedRunId": "2026-04-25T02-17-09-125Z--desire--sensuality",
+      "selectedRunDir": "data/sources/met/probe/desire/2026-04-25T02-17-09-125Z--desire--sensuality",
+      "artifacts": {
+        "queryPath": "data/sources/met/probe/desire/2026-04-25T02-17-09-125Z--desire--sensuality/query.json",
+        "searchResultsPath": "data/sources/met/probe/desire/2026-04-25T02-17-09-125Z--desire--sensuality/search-results.json",
+        "detailSamplePath": "data/sources/met/probe/desire/2026-04-25T02-17-09-125Z--desire--sensuality/detail-sample.json",
+        "probeReportPath": "data/sources/met/probe/desire/2026-04-25T02-17-09-125Z--desire--sensuality/probe-report.md"
+      },
+      "configuredInput": {
+        "query": "sensuality",
+        "synonyms": [
+          "lovers",
+          "bathing"
+        ],
+        "excludes": [
+          "desire",
+          "longing",
+          "passion",
+          "romance",
+          "yearning"
+        ]
+      },
+      "metrics": {
+        "uniqueHitCount": 58,
+        "sampleSize": 10,
+        "usableHits": 8,
+        "imageCoverage": 0.8,
+        "descriptionCoverage": 0,
+        "artistCoverage": 1
+      },
+      "gateEvaluation": {
+        "uniqueHitCount": true,
+        "sampleSize": true,
+        "usableHits": true,
+        "imageCoverage": true,
+        "metadataCoverage": true,
+        "manualVerdictPass": true
+      },
+      "autoVerdict": "pass",
+      "manualVerdict": "pass",
+      "gateDecision": "approved-for-batch",
+      "configuredExcludes": [
+        "desire",
+        "longing",
+        "passion",
+        "romance",
+        "yearning"
+      ],
+      "recommendedBans": [
+        "yearning",
+        "passion",
+        "romance"
+      ],
+      "approvedBatchInput": {
+        "query": "sensuality",
+        "synonyms": [
+          "lovers",
+          "bathing"
+        ],
+        "excludes": [
+          "desire",
+          "longing",
+          "passion",
+          "romance",
+          "yearning"
+        ]
+      },
+      "recommendedNextProbeInput": null,
+      "overrideLog": [
+        {
+          "kind": "summary-level-ban-recommendation",
+          "recommendedBans": [
+            "yearning",
+            "passion",
+            "romance"
+          ],
+          "reason": "Flipping the lane to `sensuality` with `lovers` / `bathing` removed the sorrow-object spillover and produced a strong enough image-led desire set to batch."
+        }
+      ],
+      "manualNotes": "Flipping the lane to `sensuality` with `lovers` / `bathing` removed the sorrow-object spillover and produced a strong enough image-led desire set to batch.",
+      "sampleRecommendations": [
+        {
+          "sourceArtworkId": "451023",
+          "title": "The Lovers"
+        },
+        {
+          "sourceArtworkId": "193438",
+          "title": "Eternal Spring"
+        },
+        {
+          "sourceArtworkId": "459100",
+          "title": "Tahitian Women Bathing"
+        },
+        {
+          "sourceArtworkId": "436131",
+          "title": "Bather Stepping into a Tub"
+        },
+        {
+          "sourceArtworkId": "55233",
+          "title": "Lovers"
+        }
+      ]
+    }
+  ]
+}

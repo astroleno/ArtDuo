@@ -1,0 +1,29 @@
+{
+  "runId": "2026-04-25T06-16-00-000Z--mystery--targeted-square-vision",
+  "source": "met",
+  "theme": "mystery",
+  "query": "vision",
+  "synonyms": [
+    "dream",
+    "apparition",
+    "oracle",
+    "prophecy",
+    "nocturne"
+  ],
+  "counts": {
+    "rawDetailCount": 200,
+    "candidateCount": 26,
+    "excludedCount": 174
+  },
+  "excludeCounts": {
+    "missing-image": 174,
+    "missing-title": 162,
+    "missing-object-url": 162,
+    "missing-artist-and-description": 162
+  },
+  "metadataGapCounts": {
+    "missing-description": 200,
+    "missing-artist": 162
+  },
+  "probeApproval": null
+}

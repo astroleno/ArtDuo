@@ -1,0 +1,250 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+  "shardPaths": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/embeddings-01.json"
+  ],
+  "requestedProviderMode": "remote-openai-compatible",
+  "configuredProviderMode": "remote-openai-compatible",
+  "query": "occult whisper behind ceremonial curtains",
+  "provider": "remote-openai-compatible",
+  "normalizedQuery": "occult whisper behind ceremonial curtains",
+  "model": "text-embedding-3-large",
+  "dimensions": 256,
+  "recordCount": 221,
+  "vectorTopK": [
+    {
+      "id": "met-246311",
+      "title": "Bronze statuette of a dancing Lar",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "246311",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.151923
+    },
+    {
+      "id": "met-193346",
+      "title": "The Prophet Moses",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193346",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.145732
+    },
+    {
+      "id": "met-366377",
+      "title": "Resurrection",
+      "artistDisplayName": "Parmigianino (Girolamo Francesco Maria Mazzola)",
+      "sourceArtworkId": "366377",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.130523
+    },
+    {
+      "id": "met-193345",
+      "title": "The Prophet Isaiah",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193345",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.121274
+    },
+    {
+      "id": "met-437748",
+      "title": "The Lovesick Maiden",
+      "artistDisplayName": "Jan Steen",
+      "sourceArtworkId": "437748",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.118425
+    },
+    {
+      "id": "met-436203",
+      "title": "Dawn",
+      "artistDisplayName": "Gaspare Diziani",
+      "sourceArtworkId": "436203",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.117091
+    },
+    {
+      "id": "met-10821",
+      "title": "The Dancing Lesson",
+      "artistDisplayName": "Thomas Eakins",
+      "sourceArtworkId": "10821",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.115251
+    },
+    {
+      "id": "met-207121",
+      "title": "Dancing Girl",
+      "artistDisplayName": "Vienna",
+      "sourceArtworkId": "207121",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.112043
+    },
+    {
+      "id": "met-438159",
+      "title": "An Eruption of Vesuvius",
+      "artistDisplayName": "Johan Christian Dahl",
+      "sourceArtworkId": "438159",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.111077
+    },
+    {
+      "id": "met-437749",
+      "title": "Merry Company on a Terrace",
+      "artistDisplayName": "Jan Steen",
+      "sourceArtworkId": "437749",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.110806
+    }
+  ],
+  "rerankedTopK": [
+    {
+      "id": "met-246311",
+      "title": "Bronze statuette of a dancing Lar",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "246311",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.151923,
+      "lexicalScore": 0,
+      "combinedScore": 0.151385,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-193346",
+      "title": "The Prophet Moses",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193346",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.145732,
+      "lexicalScore": 0,
+      "combinedScore": 0.146927,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-366377",
+      "title": "Resurrection",
+      "artistDisplayName": "Parmigianino (Girolamo Francesco Maria Mazzola)",
+      "sourceArtworkId": "366377",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.130523,
+      "lexicalScore": 0,
+      "combinedScore": 0.135977,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-193345",
+      "title": "The Prophet Isaiah",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193345",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.121274,
+      "lexicalScore": 0,
+      "combinedScore": 0.129317,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-437748",
+      "title": "The Lovesick Maiden",
+      "artistDisplayName": "Jan Steen",
+      "sourceArtworkId": "437748",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.118425,
+      "lexicalScore": 0,
+      "combinedScore": 0.127266,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-436203",
+      "title": "Dawn",
+      "artistDisplayName": "Gaspare Diziani",
+      "sourceArtworkId": "436203",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.117091,
+      "lexicalScore": 0,
+      "combinedScore": 0.126306,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-10821",
+      "title": "The Dancing Lesson",
+      "artistDisplayName": "Thomas Eakins",
+      "sourceArtworkId": "10821",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.115251,
+      "lexicalScore": 0,
+      "combinedScore": 0.124981,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-207121",
+      "title": "Dancing Girl",
+      "artistDisplayName": "Vienna",
+      "sourceArtworkId": "207121",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.112043,
+      "lexicalScore": 0,
+      "combinedScore": 0.122671,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-438159",
+      "title": "An Eruption of Vesuvius",
+      "artistDisplayName": "Johan Christian Dahl",
+      "sourceArtworkId": "438159",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.111077,
+      "lexicalScore": 0,
+      "combinedScore": 0.121975,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-437749",
+      "title": "Merry Company on a Terrace",
+      "artistDisplayName": "Jan Steen",
+      "sourceArtworkId": "437749",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.110806,
+      "lexicalScore": 0,
+      "combinedScore": 0.12178,
+      "matchedTokens": []
+    }
+  ],
+  "lexicalTopK": []
+}

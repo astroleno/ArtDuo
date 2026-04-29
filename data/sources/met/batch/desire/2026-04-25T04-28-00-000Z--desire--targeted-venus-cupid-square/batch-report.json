@@ -1,0 +1,33 @@
+{
+  "runId": "2026-04-25T04-28-00-000Z--desire--targeted-venus-cupid-square",
+  "source": "met",
+  "theme": "desire",
+  "query": "Venus Cupid",
+  "synonyms": [
+    "Cupid Venus",
+    "Venus Mars",
+    "Sleeping Venus",
+    "Toilet of Venus"
+  ],
+  "createdAt": "2026-04-25T08:48:54.473Z",
+  "searchResults": {
+    "uniqueHitCount": 130,
+    "searchDigest": "5ce2c84a57b4a47d0c04f9a1f859ed7efa04513da9b0185a41da119121a38bdd"
+  },
+  "counts": {
+    "rawDetailCount": 120,
+    "candidateCount": 75,
+    "excludedCount": 45
+  },
+  "excludeCounts": {
+    "missing-image": 45,
+    "missing-title": 43,
+    "missing-object-url": 43,
+    "missing-artist-and-description": 43
+  },
+  "metadataGapCounts": {
+    "missing-description": 120,
+    "missing-artist": 43
+  },
+  "nextAction": "move kept records to review queue"
+}

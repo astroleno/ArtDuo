@@ -1,0 +1,22 @@
+{
+  "runId": "2026-04-24T15-04-34-024Z--wonder--astonishment",
+  "source": "met",
+  "theme": "wonder",
+  "query": "astonishment",
+  "synonyms": [
+    "amazement",
+    "awe"
+  ],
+  "excludes": [
+    "wonder",
+    "miracle",
+    "marvel"
+  ],
+  "titleOnly": false,
+  "limit": 200,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-46-28-237Z--wonder--astonishment",
+    "note": "Dropped `marvel` from the approved batch input after manual review showed surname/card noise in the probe sample."
+  }
+}

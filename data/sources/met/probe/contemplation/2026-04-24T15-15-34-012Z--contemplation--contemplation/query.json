@@ -1,0 +1,19 @@
+{
+  "runId": "2026-04-24T15-15-34-012Z--contemplation--contemplation",
+  "createdAt": "2026-04-24T15:15:34.011Z",
+  "source": "met",
+  "theme": "contemplation",
+  "query": "contemplation",
+  "synonyms": [
+    "meditation",
+    "pensive"
+  ],
+  "excludes": [
+    "reflection",
+    "solitude"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

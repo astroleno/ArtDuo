@@ -1,0 +1,30 @@
+{
+  "runId": "2026-04-25T08-00-00-000Z--contemplation--targeted-meditation-scholar",
+  "source": "met",
+  "theme": "contemplation",
+  "query": "meditation",
+  "synonyms": [
+    "philosopher",
+    "hermit",
+    "scholar",
+    "reading",
+    "cloister",
+    "Bodhidharma"
+  ],
+  "counts": {
+    "rawDetailCount": 300,
+    "candidateCount": 31,
+    "excludedCount": 269
+  },
+  "excludeCounts": {
+    "missing-image": 269,
+    "missing-title": 264,
+    "missing-object-url": 264,
+    "missing-artist-and-description": 264
+  },
+  "metadataGapCounts": {
+    "missing-description": 300,
+    "missing-artist": 264
+  },
+  "probeApproval": null
+}

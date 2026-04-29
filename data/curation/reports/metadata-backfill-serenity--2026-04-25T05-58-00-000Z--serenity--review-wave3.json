@@ -1,0 +1,58 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T13:05:28.841Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/serenity--2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/serenity--2026-04-25T05-58-00-000Z--serenity--review-wave3.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 36,
+    "backfilledCount": 36,
+    "contractValidatedCount": 36
+  },
+  "themes": {
+    "serenity": {
+      "confirmed": 36,
+      "backfilled": 36
+    }
+  },
+  "backfillCounts": {
+    "description": 36,
+    "storySnippet": 36,
+    "searchText": 36,
+    "moodTags": 36,
+    "colorTags": 36,
+    "aspectRatioHint": 36,
+    "sceneAffinity": 36
+  },
+  "coverageContexts": [
+    {
+      "theme": "serenity",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/serenity--2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+      "reviewRunId": "2026-04-25T05-58-00-000Z--serenity--review-wave3",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+      "matchedCount": 36,
+      "matchedPercent": 100,
+      "orientationCoverage": {
+        "portrait": 21,
+        "landscape": 8,
+        "square": 7,
+        "unknown": 0,
+        "portraitPercent": 58.3,
+        "landscapePercent": 22.2,
+        "squarePercent": 19.4,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

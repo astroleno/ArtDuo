@@ -1,0 +1,30 @@
+{
+  "runId": "2026-04-25T06-38-00-000Z--mystery--targeted-square-night-revelation",
+  "source": "met",
+  "theme": "mystery",
+  "query": "revelation",
+  "synonyms": [
+    "night",
+    "moonlight",
+    "dream",
+    "miracle",
+    "prophet",
+    "supernatural"
+  ],
+  "counts": {
+    "rawDetailCount": 260,
+    "candidateCount": 22,
+    "excludedCount": 238
+  },
+  "excludeCounts": {
+    "missing-image": 238,
+    "missing-title": 225,
+    "missing-object-url": 225,
+    "missing-artist-and-description": 225
+  },
+  "metadataGapCounts": {
+    "missing-description": 260,
+    "missing-artist": 225
+  },
+  "probeApproval": null
+}

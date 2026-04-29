@@ -1,0 +1,538 @@
+{
+  "generatedAt": "2026-04-25T02:49:16.341Z",
+  "source": "met",
+  "probeApprovedQueryMatrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+  "queueContract": {
+    "canonicalReviewQueue": true,
+    "candidatePoolIsMirrorDuringBootstrap": true,
+    "note": "The current bootstrap batch writer mirrors the same candidate payload into both `candidate-pool/` and `review-queue/`; review loop must read `review-queue/` only."
+  },
+  "notes": [
+    "Batch candidate gating now excludes only records that are missing images, titles, object URLs, or both artist and description.",
+    "Missing Met descriptions are tracked as metadata gaps instead of forcing zero-candidate runs.",
+    "Superseded batch runs must remain visible in this summary so downstream consumers know which artifact is canonical."
+  ],
+  "themes": [
+    {
+      "theme": "serenity",
+      "canonicalRunId": "2026-04-25T02-33-12-593Z--serenity--repose",
+      "batchReportPath": "data/sources/met/batch/serenity/2026-04-25T02-33-12-593Z--serenity--repose/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/serenity/2026-04-25T02-33-12-593Z--serenity--repose/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-25T02-16-37-014Z--serenity--repose",
+        "note": "Switching to the narrower `repose` + `meditation` lane finally removed the worst title-match noise and produced a coherent enough scene set to batch."
+      },
+      "query": "repose",
+      "synonyms": [
+        "meditation"
+      ],
+      "excludes": [
+        "stillness",
+        "calm",
+        "serenity",
+        "tranquil"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/serenity--2026-04-25T02-33-12-593Z--serenity--repose.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/serenity--2026-04-25T02-33-12-593Z--serenity--repose.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-25T02-33-12-593Z--serenity--repose.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 71,
+        "excludedCount": 29
+      },
+      "excludeCounts": {
+        "missing-image": 29,
+        "missing-title": 18,
+        "missing-object-url": 18,
+        "missing-artist-and-description": 18
+      },
+      "metadataGapCounts": {
+        "missing-description": 100,
+        "missing-artist": 18
+      },
+      "reviewPriority": "queued",
+      "supersededRuns": [],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "10065",
+          "title": "Repose"
+        },
+        {
+          "sourceArtworkId": "42547",
+          "title": "Bodhidharma in meditation"
+        },
+        {
+          "sourceArtworkId": "72301",
+          "title": "Buddha Seated in Meditation"
+        },
+        {
+          "sourceArtworkId": "678013",
+          "title": "Tiger in Repose"
+        }
+      ]
+    },
+    {
+      "theme": "melancholy",
+      "canonicalRunId": "2026-04-24T03-00-57-855Z--melancholy--melancholy",
+      "batchReportPath": "data/sources/met/batch/melancholy/2026-04-24T03-00-57-855Z--melancholy--melancholy/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/melancholy/2026-04-24T03-00-57-855Z--melancholy--melancholy/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-24T02-45-55-823Z--melancholy--melancholy",
+        "note": "Configured input already matched the approved batch input; this lane is clean enough to move forward."
+      },
+      "query": "melancholy",
+      "synonyms": [
+        "pensive",
+        "solitude",
+        "wistful"
+      ],
+      "excludes": [
+        "sadness",
+        "blue"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/melancholy--2026-04-24T03-00-57-855Z--melancholy--melancholy.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/melancholy--2026-04-24T03-00-57-855Z--melancholy--melancholy.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-24T03-00-57-855Z--melancholy--melancholy.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 68,
+        "excludedCount": 32
+      },
+      "excludeCounts": {
+        "missing-image": 32,
+        "missing-title": 3,
+        "missing-object-url": 3,
+        "missing-artist-and-description": 3
+      },
+      "metadataGapCounts": {
+        "missing-description": 100,
+        "missing-artist": 3
+      },
+      "reviewPriority": "high",
+      "supersededRuns": [
+        {
+          "runId": "2026-04-24T02-57-50-204Z--melancholy--melancholy",
+          "batchReportPath": "data/sources/met/batch/melancholy/2026-04-24T02-57-50-204Z--melancholy--melancholy/batch-report.json",
+          "reason": "Superseded after batch gating was corrected to track `missing-description` as a metadata gap instead of auto-excluding every record."
+        },
+        {
+          "runId": "2026-04-24T14-58-34-971Z--melancholy--melancholy",
+          "batchReportPath": "data/sources/met/batch/melancholy/2026-04-24T14-58-34-971Z--melancholy--melancholy/batch-report.json",
+          "reason": "Discovered non-canonical batch run sharing the same approved batch input."
+        }
+      ],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "391598",
+          "title": "Melancholy"
+        },
+        {
+          "sourceArtworkId": "65397",
+          "title": "Pensive bodhisattva"
+        },
+        {
+          "sourceArtworkId": "38012",
+          "title": "Melancholy Courtesan"
+        },
+        {
+          "sourceArtworkId": "285610",
+          "title": "Pensive"
+        }
+      ]
+    },
+    {
+      "theme": "wonder",
+      "canonicalRunId": "2026-04-24T03-04-20-455Z--wonder--astonishment",
+      "batchReportPath": "data/sources/met/batch/wonder/2026-04-24T03-04-20-455Z--wonder--astonishment/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/wonder/2026-04-24T03-04-20-455Z--wonder--astonishment/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-24T02-46-28-237Z--wonder--astonishment",
+        "note": "Dropped `marvel` from the approved batch input after manual review showed surname/card noise in the probe sample."
+      },
+      "query": "astonishment",
+      "synonyms": [
+        "amazement",
+        "awe"
+      ],
+      "excludes": [
+        "wonder",
+        "miracle",
+        "marvel"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/wonder--2026-04-24T03-04-20-455Z--wonder--astonishment.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/wonder--2026-04-24T03-04-20-455Z--wonder--astonishment.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-24T03-04-20-455Z--wonder--astonishment.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 71,
+        "excludedCount": 29
+      },
+      "excludeCounts": {
+        "missing-image": 29,
+        "missing-title": 2,
+        "missing-object-url": 2,
+        "missing-artist-and-description": 2
+      },
+      "metadataGapCounts": {
+        "missing-description": 100,
+        "missing-artist": 2
+      },
+      "reviewPriority": "high",
+      "supersededRuns": [
+        {
+          "runId": "2026-04-24T15-04-34-024Z--wonder--astonishment",
+          "batchReportPath": "data/sources/met/batch/wonder/2026-04-24T15-04-34-024Z--wonder--astonishment/batch-report.json",
+          "reason": "Discovered non-canonical batch run sharing the same approved batch input."
+        }
+      ],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "395293",
+          "title": "Admiration with Astonishment (Le Brun Travested, or Caricatures of the Passions)"
+        },
+        {
+          "sourceArtworkId": "623059",
+          "title": "Figure 57: Astonishment, stupefaction, amazement"
+        },
+        {
+          "sourceArtworkId": "817550",
+          "title": "Moses striking the rock with a stick to bring forth water, while the Israelites look on in amazement"
+        },
+        {
+          "sourceArtworkId": "438816",
+          "title": "The Forest in Winter at Sunset"
+        }
+      ]
+    },
+    {
+      "theme": "contemplation",
+      "canonicalRunId": "2026-04-24T15-17-19-827Z--contemplation--contemplation",
+      "batchReportPath": "data/sources/met/batch/contemplation/2026-04-24T15-17-19-827Z--contemplation--contemplation/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/contemplation/2026-04-24T15-17-19-827Z--contemplation--contemplation/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-24T16-52-22-853Z--contemplation--contemplation",
+        "note": "Dropping `solitude` cleaned the lane enough; the remaining sample is thematically coherent, and the auto miss is mainly an artifact of image-rich `Unknown Artist` works depressing artist coverage."
+      },
+      "query": "contemplation",
+      "synonyms": [
+        "meditation",
+        "pensive"
+      ],
+      "excludes": [
+        "reflection",
+        "solitude"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/contemplation--2026-04-24T15-17-19-827Z--contemplation--contemplation.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/contemplation--2026-04-24T15-17-19-827Z--contemplation--contemplation.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-24T15-17-19-827Z--contemplation--contemplation.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 33,
+        "excludedCount": 67
+      },
+      "excludeCounts": {
+        "missing-image": 67,
+        "missing-title": 59,
+        "missing-object-url": 59,
+        "missing-artist-and-description": 59
+      },
+      "metadataGapCounts": {
+        "missing-description": 100,
+        "missing-artist": 59
+      },
+      "reviewPriority": "queued",
+      "supersededRuns": [],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "438417",
+          "title": "Two Men Contemplating the Moon"
+        },
+        {
+          "sourceArtworkId": "42547",
+          "title": "Bodhidharma in meditation"
+        },
+        {
+          "sourceArtworkId": "65397",
+          "title": "Pensive bodhisattva"
+        },
+        {
+          "sourceArtworkId": "72301",
+          "title": "Buddha Seated in Meditation"
+        }
+      ]
+    },
+    {
+      "theme": "hope",
+      "canonicalRunId": "2026-04-24T03-11-48-117Z--hope--hope",
+      "batchReportPath": "data/sources/met/batch/hope/2026-04-24T03-11-48-117Z--hope--hope/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/hope/2026-04-24T03-11-48-117Z--hope--hope/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-24T02-49-43-514Z--hope--hope",
+        "note": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit."
+      },
+      "query": "hope",
+      "synonyms": [
+        "renewal",
+        "aspiration"
+      ],
+      "excludes": [
+        "looking forward",
+        "promise"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/hope--2026-04-24T03-11-48-117Z--hope--hope.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/hope--2026-04-24T03-11-48-117Z--hope--hope.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-24T03-11-48-117Z--hope--hope.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 68,
+        "excludedCount": 32
+      },
+      "excludeCounts": {
+        "missing-image": 32
+      },
+      "metadataGapCounts": {
+        "missing-description": 100
+      },
+      "reviewPriority": "medium",
+      "supersededRuns": [
+        {
+          "runId": "2026-04-24T15-09-31-657Z--hope--hope",
+          "batchReportPath": "data/sources/met/batch/hope/2026-04-24T15-09-31-657Z--hope--hope/batch-report.json",
+          "reason": "Discovered non-canonical batch run sharing the same approved batch input."
+        }
+      ],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "460524",
+          "title": "Hope"
+        },
+        {
+          "sourceArtworkId": "11145",
+          "title": "The Veteran in a New Field"
+        },
+        {
+          "sourceArtworkId": "255973",
+          "title": "Statue of Dionysos leaning on a female figure (\"Hope Dionysos\")"
+        },
+        {
+          "sourceArtworkId": "270851",
+          "title": "The Time of Promise"
+        }
+      ]
+    },
+    {
+      "theme": "joy",
+      "canonicalRunId": "2026-04-25T02-34-30-154Z--joy--merry-company",
+      "batchReportPath": "data/sources/met/batch/joy/2026-04-25T02-34-30-154Z--joy--merry-company/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/joy/2026-04-25T02-34-30-154Z--joy--merry-company/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-24T16-53-04-786Z--joy--merry-company",
+        "note": "Switching to the scene-led `merry company` lane removed the old event-ephemera collapse; `cheerful` still reintroduces interior/card noise, so it stays banned in the approved batch input."
+      },
+      "query": "merry company",
+      "synonyms": [
+        "laughing",
+        "dancing"
+      ],
+      "excludes": [
+        "festival",
+        "celebration",
+        "rejoicing",
+        "joy",
+        "delight",
+        "cheerful"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/joy--2026-04-25T02-34-30-154Z--joy--merry-company.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/joy--2026-04-25T02-34-30-154Z--joy--merry-company.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-25T02-34-30-154Z--joy--merry-company.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 68,
+        "excludedCount": 32
+      },
+      "excludeCounts": {
+        "missing-image": 32,
+        "missing-title": 18,
+        "missing-object-url": 18,
+        "missing-artist-and-description": 18
+      },
+      "metadataGapCounts": {
+        "missing-description": 100,
+        "missing-artist": 18
+      },
+      "reviewPriority": "queued",
+      "supersededRuns": [],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "437749",
+          "title": "Merry Company on a Terrace"
+        },
+        {
+          "sourceArtworkId": "282190",
+          "title": "Pierrot Laughing"
+        },
+        {
+          "sourceArtworkId": "248420",
+          "title": "Terracotta head of a laughing satyr"
+        },
+        {
+          "sourceArtworkId": "437812",
+          "title": "A Dance in the Country"
+        }
+      ]
+    },
+    {
+      "theme": "mystery",
+      "canonicalRunId": "2026-04-24T03-14-05-444Z--mystery--apparition",
+      "batchReportPath": "data/sources/met/batch/mystery/2026-04-24T03-14-05-444Z--mystery--apparition/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/mystery/2026-04-24T03-14-05-444Z--mystery--apparition/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-24T02-47-52-479Z--mystery--apparition",
+        "note": "Dropped `enigmatic` from the approved batch input after manual review showed it diluted the narrative-supernatural lane."
+      },
+      "query": "apparition",
+      "synonyms": [
+        "oracle",
+        "prophecy"
+      ],
+      "excludes": [
+        "mystery",
+        "vision",
+        "enigmatic"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/mystery--2026-04-24T03-14-05-444Z--mystery--apparition.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/mystery--2026-04-24T03-14-05-444Z--mystery--apparition.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-24T03-14-05-444Z--mystery--apparition.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 90,
+        "excludedCount": 10
+      },
+      "excludeCounts": {
+        "missing-image": 10
+      },
+      "metadataGapCounts": {
+        "missing-description": 100
+      },
+      "reviewPriority": "highest",
+      "supersededRuns": [
+        {
+          "runId": "2026-04-24T14-58-34-971Z--mystery--apparition",
+          "batchReportPath": "data/sources/met/batch/mystery/2026-04-24T14-58-34-971Z--mystery--apparition/batch-report.json",
+          "reason": "Discovered non-canonical batch run sharing the same approved batch input."
+        }
+      ],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "635400",
+          "title": "The Apparition of the Virgin of El Pilar to St. James"
+        },
+        {
+          "sourceArtworkId": "849803",
+          "title": "The Oracle"
+        },
+        {
+          "sourceArtworkId": "451418",
+          "title": "\"Muhammad's Call to Prophecy and the First Revelation\", Folio from a Majma' al-Tavarikh (Compendium of Histories)"
+        },
+        {
+          "sourceArtworkId": "340635",
+          "title": "An Apparition"
+        }
+      ]
+    },
+    {
+      "theme": "desire",
+      "canonicalRunId": "2026-04-25T02-39-47-702Z--desire--sensuality",
+      "batchReportPath": "data/sources/met/batch/desire/2026-04-25T02-39-47-702Z--desire--sensuality/batch-report.md",
+      "batchReportJsonPath": "data/sources/met/batch/desire/2026-04-25T02-39-47-702Z--desire--sensuality/batch-report.json",
+      "probeApprovalPath": "data/curation/reports/probe-approved-query-matrix.json",
+      "probeApproval": {
+        "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+        "probeRunId": "2026-04-25T02-17-09-125Z--desire--sensuality",
+        "note": "Flipping the lane to `sensuality` with `lovers` / `bathing` removed the sorrow-object spillover and produced a strong enough image-led desire set to batch."
+      },
+      "query": "sensuality",
+      "synonyms": [
+        "lovers",
+        "bathing"
+      ],
+      "excludes": [
+        "desire",
+        "longing",
+        "passion",
+        "romance",
+        "yearning"
+      ],
+      "canonicalReviewQueuePath": "data/curation/review-queue/desire--2026-04-25T02-39-47-702Z--desire--sensuality.json",
+      "candidatePoolMirrorPath": "data/curation/candidate-pool/desire--2026-04-25T02-39-47-702Z--desire--sensuality.json",
+      "gapReportPath": "data/curation/reports/gap-report-2026-04-25T02-39-47-702Z--desire--sensuality.json",
+      "candidatePoolMirrorsReviewQueue": true,
+      "auditContractSatisfied": true,
+      "counts": {
+        "rawDetailCount": 100,
+        "candidateCount": 46,
+        "excludedCount": 54
+      },
+      "excludeCounts": {
+        "missing-title": 25,
+        "missing-image": 54,
+        "missing-object-url": 25,
+        "missing-artist-and-description": 25
+      },
+      "metadataGapCounts": {
+        "missing-description": 100,
+        "missing-artist": 25
+      },
+      "reviewPriority": "queued",
+      "supersededRuns": [],
+      "sampleRecords": [
+        {
+          "sourceArtworkId": "451023",
+          "title": "The Lovers"
+        },
+        {
+          "sourceArtworkId": "459100",
+          "title": "Tahitian Women Bathing"
+        },
+        {
+          "sourceArtworkId": "436131",
+          "title": "Bather Stepping into a Tub"
+        },
+        {
+          "sourceArtworkId": "55233",
+          "title": "Lovers"
+        }
+      ]
+    }
+  ],
+  "pendingApprovedThemes": []
+}

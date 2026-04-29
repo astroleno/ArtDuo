@@ -1,0 +1,25 @@
+{
+  "runId": "2026-04-25T02-34-30-154Z--joy--merry-company",
+  "source": "met",
+  "theme": "joy",
+  "query": "merry company",
+  "synonyms": [
+    "laughing",
+    "dancing"
+  ],
+  "excludes": [
+    "festival",
+    "celebration",
+    "rejoicing",
+    "joy",
+    "delight",
+    "cheerful"
+  ],
+  "titleOnly": false,
+  "limit": 100,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T16-53-04-786Z--joy--merry-company",
+    "note": "Switching to the scene-led `merry company` lane removed the old event-ephemera collapse; `cheerful` still reintroduces interior/card noise, so it stays banned in the approved batch input."
+  }
+}

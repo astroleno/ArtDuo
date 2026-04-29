@@ -1,0 +1,19 @@
+{
+  "runId": "2026-04-24T02-36-40-498Z--desire--desire",
+  "createdAt": "2026-04-24T02:36:40.497Z",
+  "source": "met",
+  "theme": "desire",
+  "query": "desire",
+  "synonyms": [
+    "longing",
+    "yearning",
+    "passion"
+  ],
+  "excludes": [
+    "craving"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

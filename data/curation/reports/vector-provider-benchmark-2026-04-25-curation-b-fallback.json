@@ -1,0 +1,185 @@
+{
+  "generatedAt": "2026-04-25T17:20:33.138Z",
+  "corpusPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/release-ready/2026-04-25-curation-b.json",
+  "promptsPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/benchmarks/vector-smoke-prompts.json",
+  "baselinePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/vector-benchmark-2026-04-25-curation-b.json",
+  "requestedProviderMode": "remote-openai-compatible",
+  "configuredProviderMode": "remote-openai-compatible",
+  "providerSummary": {
+    "requestedProviderMode": "remote-openai-compatible",
+    "configuredProviderMode": "remote-openai-compatible",
+    "endpoint": "http://127.0.0.1:9/v1/embeddings",
+    "model": "text-embedding-3-large",
+    "apiKeySlot": 1,
+    "fallbackEnabled": true,
+    "envPaths": [
+      "/Users/aitoshuu/Documents/GitHub/ArtDuo/.env"
+    ]
+  },
+  "localBenchmark": {
+    "provider": "local-hash",
+    "model": "local-hash-embedding-v1",
+    "dimensions": 256,
+    "promptCount": 8,
+    "rerankTop1HitRate": 1,
+    "rerankTop5HitRate": 1,
+    "lexicalTop1HitRate": 0.25,
+    "lexicalTop5HitRate": 0.375
+  },
+  "remoteBenchmark": {
+    "provider": "local-hash",
+    "model": "local-hash-embedding-v1",
+    "dimensions": 256,
+    "promptCount": 8,
+    "rerankTop1HitRate": 1,
+    "rerankTop5HitRate": 1,
+    "lexicalTop1HitRate": 0.25,
+    "lexicalTop5HitRate": 0.375
+  },
+  "baselineBenchmark": {
+    "provider": "local-hash",
+    "model": "local-hash-embedding-v1",
+    "dimensions": 256,
+    "promptCount": 8,
+    "rerankTop1HitRate": 1,
+    "rerankTop5HitRate": 1,
+    "lexicalTop1HitRate": 0.25,
+    "lexicalTop5HitRate": 0.375
+  },
+  "comparison": {
+    "deltaVsLocal": {
+      "rerankTop1HitRate": 0,
+      "rerankTop5HitRate": 0,
+      "lexicalTop1HitRate": 0,
+      "lexicalTop5HitRate": 0
+    },
+    "deltaVsBaseline": {
+      "rerankTop1HitRate": 0,
+      "rerankTop5HitRate": 0,
+      "lexicalTop1HitRate": 0,
+      "lexicalTop5HitRate": 0
+    },
+    "prompts": [
+      {
+        "id": "contemplation-01",
+        "query": "quiet meditative reflection in a cloister",
+        "expectedThemes": [
+          "contemplation"
+        ],
+        "baselineTop1Theme": "contemplation",
+        "localTop1Theme": "contemplation",
+        "remoteTop1Theme": "contemplation",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "desire-01",
+        "query": "yearning devotion and distant longing",
+        "expectedThemes": [
+          "desire"
+        ],
+        "baselineTop1Theme": "desire",
+        "localTop1Theme": "desire",
+        "remoteTop1Theme": "desire",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "hope-01",
+        "query": "gentle optimism and renewal after darkness",
+        "expectedThemes": [
+          "hope"
+        ],
+        "baselineTop1Theme": "hope",
+        "localTop1Theme": "hope",
+        "remoteTop1Theme": "hope",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "joy-01",
+        "query": "playful delight and bright celebration",
+        "expectedThemes": [
+          "joy"
+        ],
+        "baselineTop1Theme": "joy",
+        "localTop1Theme": "joy",
+        "remoteTop1Theme": "joy",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "melancholy-01",
+        "query": "pensive sorrow in a muted interior",
+        "expectedThemes": [
+          "melancholy"
+        ],
+        "baselineTop1Theme": "melancholy",
+        "localTop1Theme": "melancholy",
+        "remoteTop1Theme": "melancholy",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "mystery-01",
+        "query": "enigmatic oracle shadowed hall",
+        "expectedThemes": [
+          "mystery"
+        ],
+        "baselineTop1Theme": "mystery",
+        "localTop1Theme": "mystery",
+        "remoteTop1Theme": "mystery",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "serenity-01",
+        "query": "tranquil stillness quiet reflection",
+        "expectedThemes": [
+          "serenity"
+        ],
+        "baselineTop1Theme": "serenity",
+        "localTop1Theme": "serenity",
+        "remoteTop1Theme": "serenity",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "wonder-01",
+        "query": "awe at impossible light and revelation",
+        "expectedThemes": [
+          "wonder"
+        ],
+        "baselineTop1Theme": "wonder",
+        "localTop1Theme": "wonder",
+        "remoteTop1Theme": "wonder",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      }
+    ]
+  }
+}

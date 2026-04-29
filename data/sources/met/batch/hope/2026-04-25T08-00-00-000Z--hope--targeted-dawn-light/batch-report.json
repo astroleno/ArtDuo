@@ -1,0 +1,35 @@
+{
+  "runId": "2026-04-25T08-00-00-000Z--hope--targeted-dawn-light",
+  "source": "met",
+  "theme": "hope",
+  "query": "dawn",
+  "synonyms": [
+    "sunrise",
+    "resurrection",
+    "spring",
+    "rainbow",
+    "light",
+    "promise"
+  ],
+  "createdAt": "2026-04-25T15:20:16.295Z",
+  "searchResults": {
+    "uniqueHitCount": 1722,
+    "searchDigest": "244432703e947fed0c6382a19cf1afb2d869b822ed387b2246d24395a28a8eb6"
+  },
+  "counts": {
+    "rawDetailCount": 300,
+    "candidateCount": 4,
+    "excludedCount": 296
+  },
+  "excludeCounts": {
+    "missing-image": 296,
+    "missing-title": 291,
+    "missing-object-url": 291,
+    "missing-artist-and-description": 291
+  },
+  "metadataGapCounts": {
+    "missing-description": 300,
+    "missing-artist": 291
+  },
+  "nextAction": "move kept records to review queue"
+}

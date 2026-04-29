@@ -1,0 +1,426 @@
+{
+  "generatedAt": "2026-04-25T17:42:28.281Z",
+  "corpusPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/release-ready/2026-04-25-curation-b.json",
+  "promptsPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/benchmarks/vector-promotion-prompts.json",
+  "baselinePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/vector-benchmark-2026-04-25-curation-b.json",
+  "requestedProviderMode": "remote-openai-compatible",
+  "configuredProviderMode": "remote-openai-compatible",
+  "providerSummary": {
+    "requestedProviderMode": "remote-openai-compatible",
+    "configuredProviderMode": "remote-openai-compatible",
+    "endpoint": "https://yunwu.ai/v1/embeddings",
+    "model": "text-embedding-3-large",
+    "apiKeySlot": 2,
+    "fallbackEnabled": true,
+    "envPaths": [
+      "/Users/aitoshuu/Documents/GitHub/ArtDuo/.env"
+    ]
+  },
+  "localBenchmark": {
+    "provider": "local-hash",
+    "model": "local-hash-embedding-v1",
+    "dimensions": 256,
+    "promptCount": 24,
+    "rerankTop1HitRate": 0.75,
+    "rerankTop5HitRate": 0.791667,
+    "lexicalTop1HitRate": 0.208333,
+    "lexicalTop5HitRate": 0.333333
+  },
+  "remoteBenchmark": {
+    "provider": "remote-openai-compatible",
+    "model": "text-embedding-3-large",
+    "dimensions": 3072,
+    "promptCount": 24,
+    "rerankTop1HitRate": 0.916667,
+    "rerankTop5HitRate": 1,
+    "lexicalTop1HitRate": 0.208333,
+    "lexicalTop5HitRate": 0.333333
+  },
+  "baselineComparable": true,
+  "baselineBenchmark": {
+    "provider": "local-hash",
+    "model": "local-hash-embedding-v1",
+    "dimensions": 256,
+    "promptCount": 24,
+    "rerankTop1HitRate": 0.708333,
+    "rerankTop5HitRate": 0.791667,
+    "lexicalTop1HitRate": 0.208333,
+    "lexicalTop5HitRate": 0.333333
+  },
+  "comparison": {
+    "deltaVsLocal": {
+      "rerankTop1HitRate": 0.166667,
+      "rerankTop5HitRate": 0.208333,
+      "lexicalTop1HitRate": 0,
+      "lexicalTop5HitRate": 0
+    },
+    "deltaVsBaseline": {
+      "rerankTop1HitRate": 0.208334,
+      "rerankTop5HitRate": 0.208333,
+      "lexicalTop1HitRate": 0,
+      "lexicalTop5HitRate": 0
+    },
+    "prompts": [
+      {
+        "id": "contemplation-direct-01",
+        "query": "quiet meditative reflection in a cloister",
+        "expectedThemes": [
+          "contemplation"
+        ],
+        "baselineTop1Theme": "contemplation",
+        "localTop1Theme": "contemplation",
+        "remoteTop1Theme": "contemplation",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "contemplation-metaphor-01",
+        "query": "monastic pause and inward stillness",
+        "expectedThemes": [
+          "contemplation"
+        ],
+        "baselineTop1Theme": "contemplation",
+        "localTop1Theme": "contemplation",
+        "remoteTop1Theme": "contemplation",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "contemplation-zhmix-01",
+        "query": "静默沉思 cloister reflection",
+        "expectedThemes": [
+          "contemplation"
+        ],
+        "baselineTop1Theme": "melancholy",
+        "localTop1Theme": "joy",
+        "remoteTop1Theme": "contemplation",
+        "baselineTop1Hit": false,
+        "localTop1Hit": false,
+        "remoteTop1Hit": true,
+        "localTop5Hit": false,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "desire-direct-01",
+        "query": "yearning devotion and distant longing",
+        "expectedThemes": [
+          "desire"
+        ],
+        "baselineTop1Theme": "desire",
+        "localTop1Theme": "desire",
+        "remoteTop1Theme": "desire",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "desire-metaphor-01",
+        "query": "devotional ache beneath restraint",
+        "expectedThemes": [
+          "desire"
+        ],
+        "baselineTop1Theme": "wonder",
+        "localTop1Theme": "desire",
+        "remoteTop1Theme": "contemplation",
+        "baselineTop1Hit": false,
+        "localTop1Hit": true,
+        "remoteTop1Hit": false,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "desire-zhmix-01",
+        "query": "渴望 devotion and longing",
+        "expectedThemes": [
+          "desire"
+        ],
+        "baselineTop1Theme": "desire",
+        "localTop1Theme": "desire",
+        "remoteTop1Theme": "desire",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "hope-direct-01",
+        "query": "gentle optimism and renewal after darkness",
+        "expectedThemes": [
+          "hope"
+        ],
+        "baselineTop1Theme": "hope",
+        "localTop1Theme": "hope",
+        "remoteTop1Theme": "hope",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "hope-metaphor-01",
+        "query": "rebirth at the edge of dawn",
+        "expectedThemes": [
+          "hope"
+        ],
+        "baselineTop1Theme": "hope",
+        "localTop1Theme": "hope",
+        "remoteTop1Theme": "hope",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "hope-zhmix-01",
+        "query": "黑暗之后 renewal and first light",
+        "expectedThemes": [
+          "hope"
+        ],
+        "baselineTop1Theme": "hope",
+        "localTop1Theme": "hope",
+        "remoteTop1Theme": "hope",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "joy-direct-01",
+        "query": "playful delight and bright celebration",
+        "expectedThemes": [
+          "joy"
+        ],
+        "baselineTop1Theme": "joy",
+        "localTop1Theme": "joy",
+        "remoteTop1Theme": "joy",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "joy-metaphor-01",
+        "query": "laughter carried by festival air",
+        "expectedThemes": [
+          "joy"
+        ],
+        "baselineTop1Theme": "hope",
+        "localTop1Theme": "hope",
+        "remoteTop1Theme": "joy",
+        "baselineTop1Hit": false,
+        "localTop1Hit": false,
+        "remoteTop1Hit": true,
+        "localTop5Hit": false,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "joy-zhmix-01",
+        "query": "欢庆 bright festival delight",
+        "expectedThemes": [
+          "joy"
+        ],
+        "baselineTop1Theme": "joy",
+        "localTop1Theme": "joy",
+        "remoteTop1Theme": "joy",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "melancholy-direct-01",
+        "query": "pensive sorrow in a muted interior",
+        "expectedThemes": [
+          "melancholy"
+        ],
+        "baselineTop1Theme": "melancholy",
+        "localTop1Theme": "melancholy",
+        "remoteTop1Theme": "melancholy",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "melancholy-metaphor-01",
+        "query": "quiet grief beneath ash colored light",
+        "expectedThemes": [
+          "melancholy"
+        ],
+        "baselineTop1Theme": "melancholy",
+        "localTop1Theme": "melancholy",
+        "remoteTop1Theme": "melancholy",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "melancholy-zhmix-01",
+        "query": "忧伤 muted interior sorrow",
+        "expectedThemes": [
+          "melancholy"
+        ],
+        "baselineTop1Theme": "melancholy",
+        "localTop1Theme": "melancholy",
+        "remoteTop1Theme": "melancholy",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "mystery-direct-01",
+        "query": "enigmatic oracle shadowed hall",
+        "expectedThemes": [
+          "mystery"
+        ],
+        "baselineTop1Theme": "mystery",
+        "localTop1Theme": "mystery",
+        "remoteTop1Theme": "mystery",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "mystery-metaphor-01",
+        "query": "occult whisper behind ceremonial curtains",
+        "expectedThemes": [
+          "mystery"
+        ],
+        "baselineTop1Theme": "desire",
+        "localTop1Theme": "desire",
+        "remoteTop1Theme": "mystery",
+        "baselineTop1Hit": false,
+        "localTop1Hit": false,
+        "remoteTop1Hit": true,
+        "localTop5Hit": false,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "mystery-zhmix-01",
+        "query": "神谕 shadowed chamber secret",
+        "expectedThemes": [
+          "mystery"
+        ],
+        "baselineTop1Theme": "wonder",
+        "localTop1Theme": "wonder",
+        "remoteTop1Theme": "mystery",
+        "baselineTop1Hit": false,
+        "localTop1Hit": false,
+        "remoteTop1Hit": true,
+        "localTop5Hit": false,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "serenity-direct-01",
+        "query": "tranquil stillness quiet reflection",
+        "expectedThemes": [
+          "serenity"
+        ],
+        "baselineTop1Theme": "serenity",
+        "localTop1Theme": "serenity",
+        "remoteTop1Theme": "serenity",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "serenity-metaphor-01",
+        "query": "restful hush beside clear water",
+        "expectedThemes": [
+          "serenity"
+        ],
+        "baselineTop1Theme": "desire",
+        "localTop1Theme": "desire",
+        "remoteTop1Theme": "melancholy",
+        "baselineTop1Hit": false,
+        "localTop1Hit": false,
+        "remoteTop1Hit": false,
+        "localTop5Hit": false,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "serenity-zhmix-01",
+        "query": "宁静 calm water repose",
+        "expectedThemes": [
+          "serenity"
+        ],
+        "baselineTop1Theme": "serenity",
+        "localTop1Theme": "serenity",
+        "remoteTop1Theme": "serenity",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "wonder-direct-01",
+        "query": "awe at impossible light and revelation",
+        "expectedThemes": [
+          "wonder"
+        ],
+        "baselineTop1Theme": "wonder",
+        "localTop1Theme": "wonder",
+        "remoteTop1Theme": "wonder",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "wonder-metaphor-01",
+        "query": "revelation under impossible skies",
+        "expectedThemes": [
+          "wonder"
+        ],
+        "baselineTop1Theme": "hope",
+        "localTop1Theme": "hope",
+        "remoteTop1Theme": "wonder",
+        "baselineTop1Hit": false,
+        "localTop1Hit": false,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      },
+      {
+        "id": "wonder-zhmix-01",
+        "query": "惊叹 impossible light and revelation",
+        "expectedThemes": [
+          "wonder"
+        ],
+        "baselineTop1Theme": "wonder",
+        "localTop1Theme": "wonder",
+        "remoteTop1Theme": "wonder",
+        "baselineTop1Hit": true,
+        "localTop1Hit": true,
+        "remoteTop1Hit": true,
+        "localTop5Hit": true,
+        "remoteTop5Hit": true
+      }
+    ]
+  }
+}

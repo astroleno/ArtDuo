@@ -1,0 +1,21 @@
+{
+  "runId": "2026-04-24T15-09-31-657Z--hope--hope",
+  "source": "met",
+  "theme": "hope",
+  "query": "hope",
+  "synonyms": [
+    "renewal",
+    "aspiration"
+  ],
+  "excludes": [
+    "looking forward",
+    "promise"
+  ],
+  "titleOnly": false,
+  "limit": 200,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-49-43-514Z--hope--hope",
+    "note": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit."
+  }
+}

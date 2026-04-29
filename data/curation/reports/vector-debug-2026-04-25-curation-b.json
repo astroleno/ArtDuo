@@ -1,0 +1,307 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+  "shardPaths": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/embeddings-01.json"
+  ],
+  "query": "enigmatic oracle shadowed hall",
+  "normalizedQuery": "enigmatic oracle shadowed hall",
+  "model": "local-hash-embedding-v1",
+  "dimensions": 256,
+  "recordCount": 221,
+  "vectorTopK": [
+    {
+      "id": "met-323800",
+      "title": "Figure of a supernatural creature",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "323800",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.355563
+    },
+    {
+      "id": "met-436563",
+      "title": "Saint Peter and Simon Magus",
+      "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+      "sourceArtworkId": "436563",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.309824
+    },
+    {
+      "id": "met-459187",
+      "title": "The Burial of Punchinello",
+      "artistDisplayName": "Giovanni Domenico Tiepolo",
+      "sourceArtworkId": "459187",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.306571
+    },
+    {
+      "id": "met-471869",
+      "title": "The Cloisters Apocalypse",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "471869",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.280181
+    },
+    {
+      "id": "met-436564",
+      "title": "Saint Zenobius Resuscitating a Dead Child",
+      "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+      "sourceArtworkId": "436564",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.271493
+    },
+    {
+      "id": "met-471987",
+      "title": "Vision of Saint Germain of Paris",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "471987",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.255222
+    },
+    {
+      "id": "met-193346",
+      "title": "The Prophet Moses",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193346",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.254269
+    },
+    {
+      "id": "met-193345",
+      "title": "The Prophet Isaiah",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193345",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.249452
+    },
+    {
+      "id": "met-204605",
+      "title": "Jacob's Dream",
+      "artistDisplayName": "P.M.",
+      "sourceArtworkId": "204605",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.236469
+    },
+    {
+      "id": "met-204608",
+      "title": "Joseph Interpreting Pharaoh's Dream",
+      "artistDisplayName": "P.M.",
+      "sourceArtworkId": "204608",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.225669
+    }
+  ],
+  "rerankedTopK": [
+    {
+      "id": "met-323800",
+      "title": "Figure of a supernatural creature",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "323800",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.355563,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.408005,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-436563",
+      "title": "Saint Peter and Simon Magus",
+      "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+      "sourceArtworkId": "436563",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.309824,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.375073,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-459187",
+      "title": "The Burial of Punchinello",
+      "artistDisplayName": "Giovanni Domenico Tiepolo",
+      "sourceArtworkId": "459187",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.306571,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.372731,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-471869",
+      "title": "The Cloisters Apocalypse",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "471869",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.280181,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.35373,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-436564",
+      "title": "Saint Zenobius Resuscitating a Dead Child",
+      "artistDisplayName": "Benozzo Gozzoli (Benozzo di Lese di Sandro)",
+      "sourceArtworkId": "436564",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.271493,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.347475,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-471987",
+      "title": "Vision of Saint Germain of Paris",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "471987",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.255222,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.33576,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-193346",
+      "title": "The Prophet Moses",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193346",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.254269,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.335074,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-193345",
+      "title": "The Prophet Isaiah",
+      "artistDisplayName": "Valentin Bousch",
+      "sourceArtworkId": "193345",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.249452,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.331605,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-204605",
+      "title": "Jacob's Dream",
+      "artistDisplayName": "P.M.",
+      "sourceArtworkId": "204605",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.236469,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.322258,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    },
+    {
+      "id": "met-204608",
+      "title": "Joseph Interpreting Pharaoh's Dream",
+      "artistDisplayName": "P.M.",
+      "sourceArtworkId": "204608",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.225669,
+      "lexicalScore": 0.5,
+      "combinedScore": 0.314482,
+      "matchedTokens": [
+        "enigmatic",
+        "mystery",
+        "oracle",
+        "secret",
+        "shadow"
+      ]
+    }
+  ],
+  "lexicalTopK": []
+}

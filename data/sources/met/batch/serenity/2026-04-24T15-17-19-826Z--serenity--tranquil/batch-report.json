@@ -1,0 +1,32 @@
+{
+  "runId": "2026-04-24T15-17-19-826Z--serenity--tranquil",
+  "source": "met",
+  "theme": "serenity",
+  "query": "tranquil",
+  "synonyms": [
+    "serenity",
+    "repose",
+    "meditation"
+  ],
+  "createdAt": "2026-04-24T15:19:45.847Z",
+  "searchResults": {
+    "uniqueHitCount": 387,
+    "searchDigest": "f5d7883529a7245651d5b6bce28abe2acfa37370fa2be52370c3f4d747ba365a"
+  },
+  "counts": {
+    "rawDetailCount": 100,
+    "candidateCount": 22,
+    "excludedCount": 78
+  },
+  "excludeCounts": {
+    "missing-image": 78,
+    "missing-title": 69,
+    "missing-object-url": 69,
+    "missing-artist-and-description": 69
+  },
+  "metadataGapCounts": {
+    "missing-description": 100,
+    "missing-artist": 69
+  },
+  "nextAction": "move kept records to review queue"
+}

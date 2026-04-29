@@ -1,0 +1,19 @@
+{
+  "runId": "2026-04-24T02-34-27-576Z--hope--hope",
+  "createdAt": "2026-04-24T02:34:27.572Z",
+  "source": "met",
+  "theme": "hope",
+  "query": "hope",
+  "synonyms": [
+    "renewal",
+    "aspiration",
+    "promise"
+  ],
+  "excludes": [
+    "looking forward"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

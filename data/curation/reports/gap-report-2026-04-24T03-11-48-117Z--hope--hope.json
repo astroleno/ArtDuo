@@ -1,0 +1,26 @@
+{
+  "runId": "2026-04-24T03-11-48-117Z--hope--hope",
+  "source": "met",
+  "theme": "hope",
+  "query": "hope",
+  "synonyms": [
+    "renewal",
+    "aspiration"
+  ],
+  "counts": {
+    "rawDetailCount": 100,
+    "candidateCount": 68,
+    "excludedCount": 32
+  },
+  "excludeCounts": {
+    "missing-image": 32
+  },
+  "metadataGapCounts": {
+    "missing-description": 100
+  },
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-49-43-514Z--hope--hope",
+    "note": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "runId": "2026-04-25T06-38-00-000Z--melancholy--targeted-square-lamentation",
+  "source": "met",
+  "theme": "melancholy",
+  "query": "lamentation",
+  "synonyms": [
+    "mourning",
+    "old age",
+    "widow",
+    "solitude",
+    "grief",
+    "elegy"
+  ],
+  "counts": {
+    "rawDetailCount": 260,
+    "candidateCount": 22,
+    "excludedCount": 238
+  },
+  "excludeCounts": {
+    "missing-image": 238,
+    "missing-title": 226,
+    "missing-object-url": 226,
+    "missing-artist-and-description": 226
+  },
+  "metadataGapCounts": {
+    "missing-description": 260,
+    "missing-artist": 226
+  },
+  "probeApproval": null
+}

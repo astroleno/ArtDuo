@@ -1,0 +1,22 @@
+{
+  "runId": "2026-04-24T14-58-34-971Z--mystery--apparition",
+  "source": "met",
+  "theme": "mystery",
+  "query": "apparition",
+  "synonyms": [
+    "oracle",
+    "prophecy"
+  ],
+  "excludes": [
+    "mystery",
+    "vision",
+    "enigmatic"
+  ],
+  "titleOnly": false,
+  "limit": 200,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-47-52-479Z--mystery--apparition",
+    "note": "Dropped `enigmatic` from the approved batch input after manual review showed it diluted the narrative-supernatural lane."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "runId": "2026-04-24T02-35-31-542Z--joy--joy",
+  "createdAt": "2026-04-24T02:35:31.541Z",
+  "source": "met",
+  "theme": "joy",
+  "query": "joy",
+  "synonyms": [
+    "delight",
+    "jubilation",
+    "celebration"
+  ],
+  "excludes": [
+    "happy"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

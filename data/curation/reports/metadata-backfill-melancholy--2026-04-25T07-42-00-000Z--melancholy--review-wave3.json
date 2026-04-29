@@ -1,0 +1,58 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T15:14:37.452Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 39,
+    "backfilledCount": 39,
+    "contractValidatedCount": 39
+  },
+  "themes": {
+    "melancholy": {
+      "confirmed": 39,
+      "backfilled": 39
+    }
+  },
+  "backfillCounts": {
+    "description": 39,
+    "storySnippet": 39,
+    "searchText": 39,
+    "moodTags": 39,
+    "colorTags": 39,
+    "aspectRatioHint": 39,
+    "sceneAffinity": 39
+  },
+  "coverageContexts": [
+    {
+      "theme": "melancholy",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "reviewRunId": "2026-04-25T07-42-00-000Z--melancholy--review-wave3",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "matchedCount": 32,
+      "matchedPercent": 82.1,
+      "orientationCoverage": {
+        "portrait": 26,
+        "landscape": 6,
+        "square": 7,
+        "unknown": 0,
+        "portraitPercent": 66.7,
+        "landscapePercent": 15.4,
+        "squarePercent": 17.9,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

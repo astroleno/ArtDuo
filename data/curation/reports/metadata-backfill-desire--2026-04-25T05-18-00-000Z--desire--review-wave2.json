@@ -1,0 +1,58 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T12:58:40.495Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 40,
+    "backfilledCount": 40,
+    "contractValidatedCount": 40
+  },
+  "themes": {
+    "desire": {
+      "confirmed": 40,
+      "backfilled": 40
+    }
+  },
+  "backfillCounts": {
+    "description": 40,
+    "storySnippet": 40,
+    "searchText": 40,
+    "moodTags": 40,
+    "colorTags": 40,
+    "aspectRatioHint": 40,
+    "sceneAffinity": 40
+  },
+  "coverageContexts": [
+    {
+      "theme": "desire",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "reviewRunId": "2026-04-25T05-18-00-000Z--desire--review-wave2",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "matchedCount": 40,
+      "matchedPercent": 100,
+      "orientationCoverage": {
+        "portrait": 23,
+        "landscape": 11,
+        "square": 6,
+        "unknown": 0,
+        "portraitPercent": 57.5,
+        "landscapePercent": 27.5,
+        "squarePercent": 15,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

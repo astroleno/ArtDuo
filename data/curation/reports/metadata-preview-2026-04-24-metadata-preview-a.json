@@ -1,0 +1,83 @@
+{
+  "previewVersion": "2026-04-24-metadata-preview-a",
+  "createdAt": "2026-04-24T14:14:04.099Z",
+  "scope": "preview-only",
+  "outputDir": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-metadata-preview-a",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-metadata-preview-a/manifest.json",
+  "metadataPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-metadata-preview-a/metadata-01.json",
+  "searchPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-metadata-preview-a/search-01.json",
+  "mediaIndexPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-metadata-preview-a/media-01.json",
+  "backgroundScenesPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-metadata-preview-a/background-scenes-01.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-24T10-18-44-860Z--hope--review-wave1.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-24T11-02-00-000Z--melancholy--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/mystery--2026-04-24T10-46-00-000Z--mystery--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/wonder--2026-04-24T10-18-44-860Z--wonder--review-wave1.json"
+  ],
+  "counts": {
+    "inputThemeCount": 4,
+    "inputRecordCount": 99,
+    "previewRecordCount": 99,
+    "backgroundSceneCount": 50
+  },
+  "themes": [
+    {
+      "theme": "hope",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-24T10-18-44-860Z--hope--review-wave1.json",
+      "recordCount": 16,
+      "matchedPercent": 38.2,
+      "themeGateBlockers": [
+        "confirmed-below-thirty",
+        "scene-match-below-sixty",
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "melancholy",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-24T11-02-00-000Z--melancholy--review-wave2.json",
+      "recordCount": 33,
+      "matchedPercent": 54.4,
+      "themeGateBlockers": [
+        "scene-match-below-sixty",
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "mystery",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/mystery--2026-04-24T10-46-00-000Z--mystery--review-wave2.json",
+      "recordCount": 32,
+      "matchedPercent": 44.4,
+      "themeGateBlockers": [
+        "scene-match-below-sixty",
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "wonder",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/wonder--2026-04-24T10-18-44-860Z--wonder--review-wave1.json",
+      "recordCount": 18,
+      "matchedPercent": 45.1,
+      "themeGateBlockers": [
+        "confirmed-below-thirty",
+        "scene-match-below-sixty",
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ],
+  "notes": [
+    "This preview consumes metadata-backfill artifacts and writes preview-only shards for retrieval, copy, and downstream exploration.",
+    "It does not promote any theme to release-ready and does not clear theme or portfolio gates."
+  ]
+}

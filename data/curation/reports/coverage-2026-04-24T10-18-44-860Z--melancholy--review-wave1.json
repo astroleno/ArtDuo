@@ -1,0 +1,40 @@
+{
+  "runId": "2026-04-24T10-18-44-860Z--melancholy--review-wave1",
+  "theme": "melancholy",
+  "sourceCoverage": {
+    "met": {
+      "reviewed": 68,
+      "promote": 21,
+      "hold": 16,
+      "reject": 31
+    }
+  },
+  "emotionCoverage": {
+    "melancholy": {
+      "reviewed": 68,
+      "promote": 21,
+      "hold": 16,
+      "reject": 31
+    }
+  },
+  "orientationCoverage": {
+    "portrait": 0,
+    "landscape": 0,
+    "square": 0,
+    "unknown": 68,
+    "note": "Image dimensions are not stored in the current batch payload, so orientation remains unknown in this bootstrap review."
+  },
+  "estimatedGradeDistribution": {
+    "A": 21,
+    "B": 16,
+    "C": 31
+  },
+  "estimatedSceneMatch": {
+    "matchedCount": 37,
+    "matchedPercent": 54.4,
+    "note": "Bootstrap estimate based on metadata-only review; second-pass image review may lower this number."
+  },
+  "triggers": {
+    "confirmedBelowThirty": true
+  }
+}

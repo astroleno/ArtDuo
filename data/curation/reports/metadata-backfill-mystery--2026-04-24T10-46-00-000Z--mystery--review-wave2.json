@@ -1,0 +1,60 @@
+{
+  "corpusVersion": "2026-04-25-curation-b",
+  "createdAt": "2026-04-24T17:04:57.777Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/mystery--2026-04-24T10-46-00-000Z--mystery--review-wave2.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/mystery--2026-04-24T10-46-00-000Z--mystery--review-wave2.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 32,
+    "backfilledCount": 32,
+    "contractValidatedCount": 32
+  },
+  "themes": {
+    "mystery": {
+      "confirmed": 32,
+      "backfilled": 32
+    }
+  },
+  "backfillCounts": {
+    "description": 32,
+    "storySnippet": 32,
+    "searchText": 32,
+    "moodTags": 32,
+    "colorTags": 32,
+    "aspectRatioHint": 32,
+    "sceneAffinity": 32
+  },
+  "coverageContexts": [
+    {
+      "theme": "mystery",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/mystery--2026-04-24T10-46-00-000Z--mystery--review-wave2.json",
+      "reviewRunId": "2026-04-24T10-46-00-000Z--mystery--review-wave2",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-24T10-46-00-000Z--mystery--review-wave2.json",
+      "matchedCount": 32,
+      "matchedPercent": 100,
+      "orientationCoverage": {
+        "portrait": 19,
+        "landscape": 13,
+        "square": 0,
+        "unknown": 0,
+        "portraitPercent": 59.4,
+        "landscapePercent": 40.6,
+        "squarePercent": 0,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "runId": "2026-04-25T02-16-37-014Z--serenity--repose",
+  "createdAt": "2026-04-25T02:16:37.004Z",
+  "source": "met",
+  "theme": "serenity",
+  "query": "repose",
+  "synonyms": [
+    "meditation"
+  ],
+  "excludes": [
+    "stillness",
+    "calm",
+    "serenity",
+    "tranquil"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

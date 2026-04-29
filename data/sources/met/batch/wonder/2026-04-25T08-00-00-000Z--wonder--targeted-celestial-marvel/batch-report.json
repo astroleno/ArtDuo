@@ -1,0 +1,35 @@
+{
+  "runId": "2026-04-25T08-00-00-000Z--wonder--targeted-celestial-marvel",
+  "source": "met",
+  "theme": "wonder",
+  "query": "miracle",
+  "synonyms": [
+    "rainbow",
+    "comet",
+    "star",
+    "celestial",
+    "aurora",
+    "marvel"
+  ],
+  "createdAt": "2026-04-25T15:20:03.412Z",
+  "searchResults": {
+    "uniqueHitCount": 1678,
+    "searchDigest": "d114f5a88140cb41fe6de8549155b31f0ee195baabb582c5e56c19e802d746d3"
+  },
+  "counts": {
+    "rawDetailCount": 300,
+    "candidateCount": 14,
+    "excludedCount": 286
+  },
+  "excludeCounts": {
+    "missing-image": 286,
+    "missing-title": 276,
+    "missing-object-url": 276,
+    "missing-artist-and-description": 276
+  },
+  "metadataGapCounts": {
+    "missing-description": 300,
+    "missing-artist": 276
+  },
+  "nextAction": "move kept records to review queue"
+}

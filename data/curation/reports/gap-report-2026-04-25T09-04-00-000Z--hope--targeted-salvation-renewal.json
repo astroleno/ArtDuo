@@ -1,0 +1,29 @@
+{
+  "runId": "2026-04-25T09-04-00-000Z--hope--targeted-salvation-renewal",
+  "source": "met",
+  "theme": "hope",
+  "query": "Annunciation",
+  "synonyms": [
+    "Nativity",
+    "Virgin and Child",
+    "Holy Family",
+    "Adoration",
+    "Resurrection"
+  ],
+  "counts": {
+    "rawDetailCount": 320,
+    "candidateCount": 75,
+    "excludedCount": 245
+  },
+  "excludeCounts": {
+    "missing-image": 245,
+    "missing-title": 242,
+    "missing-object-url": 242,
+    "missing-artist-and-description": 242
+  },
+  "metadataGapCounts": {
+    "missing-description": 320,
+    "missing-artist": 242
+  },
+  "probeApproval": null
+}

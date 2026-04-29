@@ -1,0 +1,60 @@
+{
+  "corpusVersion": "2026-04-25-curation-b",
+  "createdAt": "2026-04-24T17:04:57.807Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-24T11-02-00-000Z--melancholy--review-wave2.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/melancholy--2026-04-24T11-02-00-000Z--melancholy--review-wave2.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 33,
+    "backfilledCount": 33,
+    "contractValidatedCount": 33
+  },
+  "themes": {
+    "melancholy": {
+      "confirmed": 33,
+      "backfilled": 33
+    }
+  },
+  "backfillCounts": {
+    "description": 33,
+    "storySnippet": 33,
+    "searchText": 33,
+    "moodTags": 33,
+    "colorTags": 33,
+    "aspectRatioHint": 33,
+    "sceneAffinity": 33
+  },
+  "coverageContexts": [
+    {
+      "theme": "melancholy",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/melancholy--2026-04-24T11-02-00-000Z--melancholy--review-wave2.json",
+      "reviewRunId": "2026-04-24T11-02-00-000Z--melancholy--review-wave2",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-24T11-02-00-000Z--melancholy--review-wave2.json",
+      "matchedCount": 31,
+      "matchedPercent": 93.9,
+      "orientationCoverage": {
+        "portrait": 26,
+        "landscape": 5,
+        "square": 2,
+        "unknown": 0,
+        "portraitPercent": 78.8,
+        "landscapePercent": 15.2,
+        "squarePercent": 6.1,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

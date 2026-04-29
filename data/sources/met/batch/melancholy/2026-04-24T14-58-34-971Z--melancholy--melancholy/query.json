@@ -1,0 +1,22 @@
+{
+  "runId": "2026-04-24T14-58-34-971Z--melancholy--melancholy",
+  "source": "met",
+  "theme": "melancholy",
+  "query": "melancholy",
+  "synonyms": [
+    "pensive",
+    "solitude",
+    "wistful"
+  ],
+  "excludes": [
+    "sadness",
+    "blue"
+  ],
+  "titleOnly": false,
+  "limit": 200,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-45-55-823Z--melancholy--melancholy",
+    "note": "Configured input already matched the approved batch input; this lane is clean enough to move forward."
+  }
+}

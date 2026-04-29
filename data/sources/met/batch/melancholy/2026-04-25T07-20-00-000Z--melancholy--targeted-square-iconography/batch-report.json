@@ -1,0 +1,34 @@
+{
+  "runId": "2026-04-25T07-20-00-000Z--melancholy--targeted-square-iconography",
+  "source": "met",
+  "theme": "melancholy",
+  "query": "Man of Sorrows",
+  "synonyms": [
+    "Pieta",
+    "Mater Dolorosa",
+    "Sorrowful Virgin",
+    "Weeping Woman",
+    "Lamentation"
+  ],
+  "createdAt": "2026-04-25T13:28:01.638Z",
+  "searchResults": {
+    "uniqueHitCount": 709,
+    "searchDigest": "68a3a6bceebf164024c445760e74a98107cbd49eedbafae8d44f9cf027456a67"
+  },
+  "counts": {
+    "rawDetailCount": 220,
+    "candidateCount": 66,
+    "excludedCount": 154
+  },
+  "excludeCounts": {
+    "missing-image": 154,
+    "missing-title": 148,
+    "missing-object-url": 148,
+    "missing-artist-and-description": 148
+  },
+  "metadataGapCounts": {
+    "missing-description": 220,
+    "missing-artist": 148
+  },
+  "nextAction": "move kept records to review queue"
+}

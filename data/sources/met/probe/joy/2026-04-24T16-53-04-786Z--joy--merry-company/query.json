@@ -1,0 +1,23 @@
+{
+  "runId": "2026-04-24T16-53-04-786Z--joy--merry-company",
+  "createdAt": "2026-04-24T16:53:04.785Z",
+  "source": "met",
+  "theme": "joy",
+  "query": "merry company",
+  "synonyms": [
+    "cheerful",
+    "laughing",
+    "dancing"
+  ],
+  "excludes": [
+    "festival",
+    "celebration",
+    "rejoicing",
+    "joy",
+    "delight"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

@@ -1,0 +1,307 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+  "shardPaths": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/embeddings-01.json"
+  ],
+  "requestedProviderMode": "remote-openai-compatible",
+  "configuredProviderMode": "remote-openai-compatible",
+  "query": "静默沉思 cloister reflection",
+  "provider": "remote-openai-compatible",
+  "normalizedQuery": "静默沉思 cloister reflection",
+  "model": "text-embedding-3-large",
+  "dimensions": 256,
+  "recordCount": 221,
+  "vectorTopK": [
+    {
+      "id": "met-366377",
+      "title": "Resurrection",
+      "artistDisplayName": "Parmigianino (Girolamo Francesco Maria Mazzola)",
+      "sourceArtworkId": "366377",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.142331
+    },
+    {
+      "id": "met-255973",
+      "title": "Statue of Dionysos leaning on a female figure (\"Hope Dionysos\")",
+      "artistDisplayName": "Pacetti, Vincenzo",
+      "sourceArtworkId": "255973",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.13467
+    },
+    {
+      "id": "met-323800",
+      "title": "Figure of a supernatural creature",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "323800",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.131377
+    },
+    {
+      "id": "met-38012",
+      "title": "Melancholy Courtesan",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "38012",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.129231
+    },
+    {
+      "id": "met-391598",
+      "title": "Melancholy",
+      "artistDisplayName": "Anonymous, Italian, 16th century",
+      "sourceArtworkId": "391598",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.116129
+    },
+    {
+      "id": "met-248420",
+      "title": "Terracotta head of a laughing satyr",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "248420",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.111879
+    },
+    {
+      "id": "met-729602",
+      "title": "Our Lady of Solitude",
+      "artistDisplayName": "José Guadalupe Posada",
+      "sourceArtworkId": "729602",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.108962
+    },
+    {
+      "id": "met-251395",
+      "title": "Bronze statuette of a dancing satyr",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "251395",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.106165
+    },
+    {
+      "id": "met-38126",
+      "title": "Brhaspati (The Personification of the Planet Jupiter)",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "38126",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.104518
+    },
+    {
+      "id": "met-78192",
+      "title": "The Spiritual Master Padmasambhava",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "78192",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.104127
+    }
+  ],
+  "rerankedTopK": [
+    {
+      "id": "met-366377",
+      "title": "Resurrection",
+      "artistDisplayName": "Parmigianino (Girolamo Francesco Maria Mazzola)",
+      "sourceArtworkId": "366377",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.142331,
+      "lexicalScore": 0,
+      "combinedScore": 0.144478,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-255973",
+      "title": "Statue of Dionysos leaning on a female figure (\"Hope Dionysos\")",
+      "artistDisplayName": "Pacetti, Vincenzo",
+      "sourceArtworkId": "255973",
+      "theme": "hope",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.13467,
+      "lexicalScore": 0,
+      "combinedScore": 0.138962,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-323800",
+      "title": "Figure of a supernatural creature",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "323800",
+      "theme": "mystery",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.131377,
+      "lexicalScore": 0,
+      "combinedScore": 0.136591,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-38012",
+      "title": "Melancholy Courtesan",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "38012",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.129231,
+      "lexicalScore": 0,
+      "combinedScore": 0.135046,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-391598",
+      "title": "Melancholy",
+      "artistDisplayName": "Anonymous, Italian, 16th century",
+      "sourceArtworkId": "391598",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.116129,
+      "lexicalScore": 0,
+      "combinedScore": 0.125613,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-248420",
+      "title": "Terracotta head of a laughing satyr",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "248420",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.111879,
+      "lexicalScore": 0,
+      "combinedScore": 0.122553,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-729602",
+      "title": "Our Lady of Solitude",
+      "artistDisplayName": "José Guadalupe Posada",
+      "sourceArtworkId": "729602",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.108962,
+      "lexicalScore": 0,
+      "combinedScore": 0.120453,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-251395",
+      "title": "Bronze statuette of a dancing satyr",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "251395",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.106165,
+      "lexicalScore": 0,
+      "combinedScore": 0.118439,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-38126",
+      "title": "Brhaspati (The Personification of the Planet Jupiter)",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "38126",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.104518,
+      "lexicalScore": 0,
+      "combinedScore": 0.117253,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-78192",
+      "title": "The Spiritual Master Padmasambhava",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "78192",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.104127,
+      "lexicalScore": 0,
+      "combinedScore": 0.116971,
+      "matchedTokens": []
+    }
+  ],
+  "lexicalTopK": [
+    {
+      "id": "met-470314",
+      "title": "Cuxa Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "470314",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    },
+    {
+      "id": "met-472181",
+      "title": "Saint-Guilhem Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "472181",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    },
+    {
+      "id": "met-474091",
+      "title": "Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "474091",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    },
+    {
+      "id": "met-474436",
+      "title": "Trie Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "474436",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    }
+  ]
+}

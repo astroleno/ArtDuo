@@ -1,0 +1,180 @@
+{
+  "generatedAt": "2026-04-25T15:40:01.301Z",
+  "source": "met",
+  "releaseReadyReportPath": "data/curation/reports/release-ready-2026-04-25-curation-b.json",
+  "notes": [
+    "Parallel work reflects the farthest completed curation step for each theme, without implying the theme has cleared the review-loop gate.",
+    "Theme gate status is derived from coverage triggers for confirmed count, scene-match coverage, and orientation coverage.",
+    "Portfolio gate status currently tracks source concentration separately because the current bootstrap wave is still single-source."
+  ],
+  "themes": [
+    {
+      "theme": "contemplation",
+      "reviewRunId": "2026-04-25T09-56-00-000Z--contemplation--review-wave2",
+      "reviewPath": "data/curation/reports/review-2026-04-25T09-56-00-000Z--contemplation--review-wave2.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+      "confirmedPath": "data/curation/confirmed/contemplation--2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+      "promote": 34,
+      "hold": 0,
+      "reject": 8,
+      "confirmedCount": 34,
+      "releaseReadyCount": 34,
+      "matchedPercent": 76.5,
+      "parallelWork": "release-ready-complete",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "desire",
+      "reviewRunId": "2026-04-25T05-18-00-000Z--desire--review-wave2",
+      "reviewPath": "data/curation/reports/review-2026-04-25T05-18-00-000Z--desire--review-wave2.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "confirmedPath": "data/curation/confirmed/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "promote": 40,
+      "hold": 4,
+      "reject": 18,
+      "confirmedCount": 40,
+      "releaseReadyCount": 34,
+      "matchedPercent": 100,
+      "parallelWork": "release-ready-partial",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "hope",
+      "reviewRunId": "2026-04-25T09-52-00-000Z--hope--review-wave2",
+      "reviewPath": "data/curation/reports/review-2026-04-25T09-52-00-000Z--hope--review-wave2.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "confirmedPath": "data/curation/confirmed/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "promote": 38,
+      "hold": 0,
+      "reject": 41,
+      "confirmedCount": 38,
+      "releaseReadyCount": 27,
+      "matchedPercent": 81.6,
+      "parallelWork": "release-ready-partial",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "joy",
+      "reviewRunId": "2026-04-25T03-36-00-000Z--joy--review-wave2",
+      "reviewPath": "data/curation/reports/review-2026-04-25T03-36-00-000Z--joy--review-wave2.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+      "confirmedPath": "data/curation/confirmed/joy--2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+      "promote": 30,
+      "hold": 12,
+      "reject": 26,
+      "confirmedCount": 30,
+      "releaseReadyCount": 30,
+      "matchedPercent": 100,
+      "parallelWork": "release-ready-complete",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "melancholy",
+      "reviewRunId": "2026-04-25T07-42-00-000Z--melancholy--review-wave3",
+      "reviewPath": "data/curation/reports/review-2026-04-25T07-42-00-000Z--melancholy--review-wave3.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "confirmedPath": "data/curation/confirmed/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "promote": 39,
+      "hold": 3,
+      "reject": 31,
+      "confirmedCount": 39,
+      "releaseReadyCount": 30,
+      "matchedPercent": 82.1,
+      "parallelWork": "release-ready-partial",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "mystery",
+      "reviewRunId": "2026-04-25T07-40-00-000Z--mystery--review-wave3",
+      "reviewPath": "data/curation/reports/review-2026-04-25T07-40-00-000Z--mystery--review-wave3.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+      "confirmedPath": "data/curation/confirmed/mystery--2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+      "promote": 38,
+      "hold": 8,
+      "reject": 50,
+      "confirmedCount": 38,
+      "releaseReadyCount": 10,
+      "matchedPercent": 100,
+      "parallelWork": "release-ready-partial",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "serenity",
+      "reviewRunId": "2026-04-25T05-58-00-000Z--serenity--review-wave3",
+      "reviewPath": "data/curation/reports/review-2026-04-25T05-58-00-000Z--serenity--review-wave3.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+      "confirmedPath": "data/curation/confirmed/serenity--2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+      "promote": 36,
+      "hold": 5,
+      "reject": 35,
+      "confirmedCount": 36,
+      "releaseReadyCount": 20,
+      "matchedPercent": 100,
+      "parallelWork": "release-ready-partial",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "wonder",
+      "reviewRunId": "2026-04-25T09-54-00-000Z--wonder--review-wave2",
+      "reviewPath": "data/curation/reports/review-2026-04-25T09-54-00-000Z--wonder--review-wave2.md",
+      "coveragePath": "data/curation/reports/coverage-2026-04-25T09-54-00-000Z--wonder--review-wave2.json",
+      "confirmedPath": "data/curation/confirmed/wonder--2026-04-25T09-54-00-000Z--wonder--review-wave2.json",
+      "promote": 37,
+      "hold": 0,
+      "reject": 38,
+      "confirmedCount": 37,
+      "releaseReadyCount": 36,
+      "matchedPercent": 83.8,
+      "parallelWork": "release-ready-partial",
+      "themeGateStatus": "gate-cleared",
+      "themeGateBlockers": [],
+      "recommendedThemeGateWork": "release-ready-prep",
+      "portfolioGateStatus": "still-needs-program-backfill",
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

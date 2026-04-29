@@ -1,0 +1,35 @@
+{
+  "runId": "2026-04-25T07-00-00-000Z--melancholy--targeted-square-sorrow",
+  "source": "met",
+  "theme": "melancholy",
+  "query": "sorrow",
+  "synonyms": [
+    "weeping",
+    "tears",
+    "despair",
+    "sadness",
+    "lonely",
+    "bereavement"
+  ],
+  "createdAt": "2026-04-25T13:24:33.514Z",
+  "searchResults": {
+    "uniqueHitCount": 1361,
+    "searchDigest": "109e2aabdcb1903c3243b90c7f573a95186f6af72b38783df962171e204ba989"
+  },
+  "counts": {
+    "rawDetailCount": 300,
+    "candidateCount": 44,
+    "excludedCount": 256
+  },
+  "excludeCounts": {
+    "missing-image": 256,
+    "missing-title": 229,
+    "missing-object-url": 229,
+    "missing-artist-and-description": 229
+  },
+  "metadataGapCounts": {
+    "missing-description": 300,
+    "missing-artist": 229
+  },
+  "nextAction": "move kept records to review queue"
+}

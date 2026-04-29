@@ -1,0 +1,41 @@
+{
+  "corpusVersion": "2026-04-24-curation-a",
+  "createdAt": "2026-04-24T03:48:06.535Z",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/release-ready/2026-04-24-curation-a.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/mystery--2026-04-24T03-23-06-155Z--mystery--review-wave1.json"
+  ],
+  "counts": {
+    "confirmedCount": 28,
+    "releaseReadyCount": 27,
+    "excludedCount": 1,
+    "existingReleaseReadyCount": 0
+  },
+  "themes": {
+    "mystery": {
+      "confirmed": 28,
+      "releaseReady": 27
+    }
+  },
+  "exclusionCounts": {
+    "duplicate": 1
+  },
+  "backfillCounts": {
+    "description": 27,
+    "storySnippet": 27,
+    "searchText": 27,
+    "moodTags": 27,
+    "colorTags": 27
+  },
+  "excludedSamples": [
+    {
+      "sourceArtworkId": "812615",
+      "title": "The Oracle",
+      "theme": "mystery",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/mystery--2026-04-24T03-23-06-155Z--mystery--review-wave1.json",
+      "reasons": [
+        "duplicate"
+      ]
+    }
+  ]
+}

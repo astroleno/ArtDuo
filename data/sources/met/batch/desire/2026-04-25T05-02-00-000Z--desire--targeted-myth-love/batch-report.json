@@ -1,0 +1,34 @@
+{
+  "runId": "2026-04-25T05-02-00-000Z--desire--targeted-myth-love",
+  "source": "met",
+  "theme": "desire",
+  "query": "Cupid Psyche",
+  "synonyms": [
+    "Cupid and Psyche",
+    "Sleeping Venus",
+    "Danae",
+    "Leda",
+    "Nymph"
+  ],
+  "createdAt": "2026-04-25T10:35:21.442Z",
+  "searchResults": {
+    "uniqueHitCount": 160,
+    "searchDigest": "2666089d72aac92218b651d5e0325bff09744aaf361ce743b682617be2647ec2"
+  },
+  "counts": {
+    "rawDetailCount": 160,
+    "candidateCount": 60,
+    "excludedCount": 100
+  },
+  "excludeCounts": {
+    "missing-title": 95,
+    "missing-image": 100,
+    "missing-object-url": 95,
+    "missing-artist-and-description": 95
+  },
+  "metadataGapCounts": {
+    "missing-description": 160,
+    "missing-artist": 95
+  },
+  "nextAction": "move kept records to review queue"
+}

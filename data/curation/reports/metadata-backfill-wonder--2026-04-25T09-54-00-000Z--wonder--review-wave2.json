@@ -1,0 +1,58 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T15:37:44.567Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/wonder--2026-04-25T09-54-00-000Z--wonder--review-wave2.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/wonder--2026-04-25T09-54-00-000Z--wonder--review-wave2.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 37,
+    "backfilledCount": 37,
+    "contractValidatedCount": 37
+  },
+  "themes": {
+    "wonder": {
+      "confirmed": 37,
+      "backfilled": 37
+    }
+  },
+  "backfillCounts": {
+    "description": 37,
+    "storySnippet": 37,
+    "searchText": 37,
+    "moodTags": 37,
+    "colorTags": 37,
+    "aspectRatioHint": 37,
+    "sceneAffinity": 37
+  },
+  "coverageContexts": [
+    {
+      "theme": "wonder",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/wonder--2026-04-25T09-54-00-000Z--wonder--review-wave2.json",
+      "reviewRunId": "2026-04-25T09-54-00-000Z--wonder--review-wave2",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T09-54-00-000Z--wonder--review-wave2.json",
+      "matchedCount": 31,
+      "matchedPercent": 83.8,
+      "orientationCoverage": {
+        "portrait": 15,
+        "landscape": 16,
+        "square": 6,
+        "unknown": 0,
+        "portraitPercent": 40.5,
+        "landscapePercent": 43.2,
+        "squarePercent": 16.2,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "runId": "2026-04-25T04-15-00-000Z--desire--targeted-venus-cupid",
+  "source": "met",
+  "theme": "desire",
+  "query": "Venus",
+  "synonyms": [
+    "Cupid",
+    "Bathsheba",
+    "Bacchanal",
+    "Female Nude",
+    "Mars and Venus"
+  ],
+  "counts": {
+    "rawDetailCount": 180,
+    "candidateCount": 68,
+    "excludedCount": 112
+  },
+  "excludeCounts": {
+    "missing-image": 112,
+    "missing-title": 103,
+    "missing-object-url": 103,
+    "missing-artist-and-description": 103
+  },
+  "metadataGapCounts": {
+    "missing-description": 180,
+    "missing-artist": 103
+  },
+  "probeApproval": null
+}

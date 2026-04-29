@@ -1,0 +1,34 @@
+{
+  "runId": "2026-04-25T08-28-00-000Z--hope--targeted-square-allegory",
+  "source": "met",
+  "theme": "hope",
+  "query": "Hope",
+  "synonyms": [
+    "Faith Hope Charity",
+    "Allegory of Hope",
+    "Hope and Charity",
+    "The Promise",
+    "Promised Land"
+  ],
+  "createdAt": "2026-04-25T15:25:40.220Z",
+  "searchResults": {
+    "uniqueHitCount": 451,
+    "searchDigest": "afa55713ba9b3f4c3d0c9a1342452fa690df5f9609525b962ab2eb5495aa6af1"
+  },
+  "counts": {
+    "rawDetailCount": 240,
+    "candidateCount": 69,
+    "excludedCount": 171
+  },
+  "excludeCounts": {
+    "missing-image": 171,
+    "missing-title": 161,
+    "missing-object-url": 161,
+    "missing-artist-and-description": 161
+  },
+  "metadataGapCounts": {
+    "missing-description": 240,
+    "missing-artist": 161
+  },
+  "nextAction": "move kept records to review queue"
+}

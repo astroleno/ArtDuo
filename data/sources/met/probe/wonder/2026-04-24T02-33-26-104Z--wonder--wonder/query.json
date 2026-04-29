@@ -1,0 +1,19 @@
+{
+  "runId": "2026-04-24T02-33-26-104Z--wonder--wonder",
+  "createdAt": "2026-04-24T02:33:26.099Z",
+  "source": "met",
+  "theme": "wonder",
+  "query": "wonder",
+  "synonyms": [
+    "marvel",
+    "astonishment",
+    "amazement"
+  ],
+  "excludes": [
+    "miracle"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

@@ -1,0 +1,247 @@
+{
+  "corpusVersion": "2026-04-25-curation-b",
+  "createdAt": "2026-04-25T15:39:45.770Z",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/release-ready/2026-04-25-curation-b.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/contemplation--2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/joy--2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/mystery--2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/serenity--2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/wonder--2026-04-25T09-54-00-000Z--wonder--review-wave2.json"
+  ],
+  "counts": {
+    "confirmedCount": 292,
+    "releaseReadyCount": 221,
+    "excludedCount": 71,
+    "existingReleaseReadyCount": 27
+  },
+  "themes": {
+    "contemplation": {
+      "confirmed": 34,
+      "releaseReady": 34
+    },
+    "desire": {
+      "confirmed": 40,
+      "releaseReady": 34
+    },
+    "hope": {
+      "confirmed": 38,
+      "releaseReady": 27
+    },
+    "joy": {
+      "confirmed": 30,
+      "releaseReady": 30
+    },
+    "melancholy": {
+      "confirmed": 39,
+      "releaseReady": 30
+    },
+    "mystery": {
+      "confirmed": 38,
+      "releaseReady": 10
+    },
+    "serenity": {
+      "confirmed": 36,
+      "releaseReady": 20
+    },
+    "wonder": {
+      "confirmed": 37,
+      "releaseReady": 36
+    }
+  },
+  "exclusionCounts": {
+    "duplicate": 71
+  },
+  "backfillCounts": {
+    "description": 0,
+    "storySnippet": 0,
+    "searchText": 0,
+    "moodTags": 0,
+    "colorTags": 0
+  },
+  "excludedSamples": [
+    {
+      "sourceArtworkId": "382449",
+      "title": "Lovers",
+      "theme": "desire",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "336175",
+      "title": "The Lovers",
+      "theme": "desire",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "203473",
+      "title": "Two lovers",
+      "theme": "desire",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "391579",
+      "title": "The Lovers",
+      "theme": "desire",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "334904",
+      "title": "The Lovers",
+      "theme": "desire",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "813181",
+      "title": "Mars and Venus",
+      "theme": "desire",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "364668",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "366536",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "376466",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "823373",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "363570",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "386157",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "201884",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "363571",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "15245",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "12909",
+      "title": "Hope",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "438724",
+      "title": "The Annunciation",
+      "theme": "hope",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "65397",
+      "title": "Pensive bodhisattva",
+      "theme": "melancholy",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "285610",
+      "title": "Pensive",
+      "theme": "melancholy",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "reasons": [
+        "duplicate"
+      ]
+    },
+    {
+      "sourceArtworkId": "12158",
+      "title": "Pensive Girl",
+      "theme": "melancholy",
+      "sourceFile": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "reasons": [
+        "duplicate"
+      ]
+    }
+  ]
+}

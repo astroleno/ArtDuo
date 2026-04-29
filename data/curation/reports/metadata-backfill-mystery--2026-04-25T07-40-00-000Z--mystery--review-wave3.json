@@ -1,0 +1,58 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T15:14:37.454Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/mystery--2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/mystery--2026-04-25T07-40-00-000Z--mystery--review-wave3.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 38,
+    "backfilledCount": 38,
+    "contractValidatedCount": 38
+  },
+  "themes": {
+    "mystery": {
+      "confirmed": 38,
+      "backfilled": 38
+    }
+  },
+  "backfillCounts": {
+    "description": 38,
+    "storySnippet": 38,
+    "searchText": 38,
+    "moodTags": 38,
+    "colorTags": 38,
+    "aspectRatioHint": 38,
+    "sceneAffinity": 38
+  },
+  "coverageContexts": [
+    {
+      "theme": "mystery",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/mystery--2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+      "reviewRunId": "2026-04-25T07-40-00-000Z--mystery--review-wave3",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+      "matchedCount": 38,
+      "matchedPercent": 100,
+      "orientationCoverage": {
+        "portrait": 19,
+        "landscape": 13,
+        "square": 6,
+        "unknown": 0,
+        "portraitPercent": 50,
+        "landscapePercent": 34.2,
+        "squarePercent": 15.8,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

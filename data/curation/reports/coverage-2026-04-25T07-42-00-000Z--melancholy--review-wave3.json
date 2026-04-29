@@ -1,0 +1,121 @@
+{
+  "runId": "2026-04-25T07-42-00-000Z--melancholy--review-wave3",
+  "theme": "melancholy",
+  "gateThresholds": {
+    "confirmedMin": 30,
+    "orientationMinPercent": 15,
+    "sceneMatchMinPercent": 60,
+    "sourceConcentrationMaxPercent": 70
+  },
+  "sourceCoverage": {
+    "met": {
+      "reviewed": 39,
+      "reviewedPercent": 100,
+      "promote": 39,
+      "hold": 3,
+      "reject": 31
+    }
+  },
+  "sourceConcentration": {
+    "dominantSource": "met",
+    "dominantPercent": 100,
+    "note": "Updated after metadata-backfill enrichment against the current confirmed set."
+  },
+  "emotionCoverage": {
+    "melancholy": {
+      "reviewed": 73,
+      "promote": 39,
+      "hold": 3,
+      "reject": 31
+    }
+  },
+  "orientationCoverage": {
+    "portrait": 26,
+    "landscape": 6,
+    "square": 7,
+    "unknown": 0,
+    "portraitPercent": 66.7,
+    "landscapePercent": 15.4,
+    "squarePercent": 17.9,
+    "unknownPercent": 0,
+    "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+  },
+  "estimatedGradeDistribution": {
+    "A": 0,
+    "B": 39,
+    "C": 0
+  },
+  "estimatedSceneMatch": {
+    "matchedCount": 32,
+    "matchedPercent": 82.1,
+    "note": "Computed against the current background scene catalog after metadata-backfill enrichment.",
+    "sampledMatches": [
+      {
+        "sourceArtworkId": "391598",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      },
+      {
+        "sourceArtworkId": "65397",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      },
+      {
+        "sourceArtworkId": "437900",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      },
+      {
+        "sourceArtworkId": "38012",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      },
+      {
+        "sourceArtworkId": "285610",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      },
+      {
+        "sourceArtworkId": "436603",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "landscape"
+      },
+      {
+        "sourceArtworkId": "382737",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "landscape"
+      },
+      {
+        "sourceArtworkId": "337542",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      },
+      {
+        "sourceArtworkId": "12158",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      },
+      {
+        "sourceArtworkId": "729602",
+        "sceneId": "bg-041",
+        "score": 0.655,
+        "aspectRatioHint": "portrait"
+      }
+    ]
+  },
+  "triggers": {
+    "confirmedBelowThirty": false,
+    "sceneMatchBelowSixty": false,
+    "orientationCoverageBelowTarget": false,
+    "sourceConcentrationAboveSeventy": true
+  }
+}

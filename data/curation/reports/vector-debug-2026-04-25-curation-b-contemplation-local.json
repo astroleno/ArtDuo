@@ -1,0 +1,307 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+  "shardPaths": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/embeddings-01.json"
+  ],
+  "requestedProviderMode": "local-hash",
+  "configuredProviderMode": "local-hash",
+  "query": "静默沉思 cloister reflection",
+  "provider": "local-hash",
+  "normalizedQuery": "静默沉思 cloister reflection",
+  "model": "local-hash-embedding-v1",
+  "dimensions": 256,
+  "recordCount": 221,
+  "vectorTopK": [
+    {
+      "id": "met-468697",
+      "title": "Old Age Drives the Stag out of a Lake and the Hounds Cold, Heat, Anxiety, Vexation, Heaviness, Fear, Age, and Grief Attack Him, (from The Hunt of the Frail Stag)",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "468697",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.223077
+    },
+    {
+      "id": "met-74100",
+      "title": "Dancing Ganesha",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "74100",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.209535
+    },
+    {
+      "id": "met-459376",
+      "title": "Revelers at a Table in the Countryside",
+      "artistDisplayName": "Gabriel de Saint-Aubin",
+      "sourceArtworkId": "459376",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.207373
+    },
+    {
+      "id": "met-459435",
+      "title": "Landscape with a Shepherd in Repose",
+      "artistDisplayName": "The Veneto",
+      "sourceArtworkId": "459435",
+      "theme": "serenity",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.187152
+    },
+    {
+      "id": "met-435713",
+      "title": "The Disillusioned Medea",
+      "artistDisplayName": "Paulus Bor",
+      "sourceArtworkId": "435713",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.180973
+    },
+    {
+      "id": "met-829412",
+      "title": "Su Dongpo Laughing",
+      "artistDisplayName": "Suzuki Shōnen",
+      "sourceArtworkId": "829412",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.17096
+    },
+    {
+      "id": "met-73646",
+      "title": "Landscapes in the styles of old masters",
+      "artistDisplayName": "Gao Cen",
+      "sourceArtworkId": "73646",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.169503
+    },
+    {
+      "id": "met-437246",
+      "title": "Interior of Saint Peter's, Rome",
+      "artistDisplayName": "Giovanni Paolo Panini",
+      "sourceArtworkId": "437246",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.167921
+    },
+    {
+      "id": "met-436141",
+      "title": "The Dancing Class",
+      "artistDisplayName": "Edgar Degas",
+      "sourceArtworkId": "436141",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.165881
+    },
+    {
+      "id": "met-264711",
+      "title": "Black Cañon, From Camp 8, Looking Above",
+      "artistDisplayName": "Timothy H. O'Sullivan",
+      "sourceArtworkId": "264711",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.162548
+    }
+  ],
+  "rerankedTopK": [
+    {
+      "id": "met-468697",
+      "title": "Old Age Drives the Stag out of a Lake and the Hounds Cold, Heat, Anxiety, Vexation, Heaviness, Fear, Age, and Grief Attack Him, (from The Hunt of the Frail Stag)",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "468697",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.223077,
+      "lexicalScore": 0,
+      "combinedScore": 0.202615,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-74100",
+      "title": "Dancing Ganesha",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "74100",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.209535,
+      "lexicalScore": 0,
+      "combinedScore": 0.192865,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-459376",
+      "title": "Revelers at a Table in the Countryside",
+      "artistDisplayName": "Gabriel de Saint-Aubin",
+      "sourceArtworkId": "459376",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.207373,
+      "lexicalScore": 0,
+      "combinedScore": 0.191309,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-459435",
+      "title": "Landscape with a Shepherd in Repose",
+      "artistDisplayName": "The Veneto",
+      "sourceArtworkId": "459435",
+      "theme": "serenity",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.187152,
+      "lexicalScore": 0,
+      "combinedScore": 0.176749,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-435713",
+      "title": "The Disillusioned Medea",
+      "artistDisplayName": "Paulus Bor",
+      "sourceArtworkId": "435713",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 5,
+      "vectorScore": 0.180973,
+      "lexicalScore": 0,
+      "combinedScore": 0.172301,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-829412",
+      "title": "Su Dongpo Laughing",
+      "artistDisplayName": "Suzuki Shōnen",
+      "sourceArtworkId": "829412",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 6,
+      "vectorScore": 0.17096,
+      "lexicalScore": 0,
+      "combinedScore": 0.165091,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-73646",
+      "title": "Landscapes in the styles of old masters",
+      "artistDisplayName": "Gao Cen",
+      "sourceArtworkId": "73646",
+      "theme": "melancholy",
+      "grade": "B",
+      "rank": 7,
+      "vectorScore": 0.169503,
+      "lexicalScore": 0,
+      "combinedScore": 0.164042,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-437246",
+      "title": "Interior of Saint Peter's, Rome",
+      "artistDisplayName": "Giovanni Paolo Panini",
+      "sourceArtworkId": "437246",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 8,
+      "vectorScore": 0.167921,
+      "lexicalScore": 0,
+      "combinedScore": 0.162903,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-436141",
+      "title": "The Dancing Class",
+      "artistDisplayName": "Edgar Degas",
+      "sourceArtworkId": "436141",
+      "theme": "joy",
+      "grade": "B",
+      "rank": 9,
+      "vectorScore": 0.165881,
+      "lexicalScore": 0,
+      "combinedScore": 0.161434,
+      "matchedTokens": []
+    },
+    {
+      "id": "met-264711",
+      "title": "Black Cañon, From Camp 8, Looking Above",
+      "artistDisplayName": "Timothy H. O'Sullivan",
+      "sourceArtworkId": "264711",
+      "theme": "wonder",
+      "grade": "B",
+      "rank": 10,
+      "vectorScore": 0.162548,
+      "lexicalScore": 0,
+      "combinedScore": 0.159035,
+      "matchedTokens": []
+    }
+  ],
+  "lexicalTopK": [
+    {
+      "id": "met-470314",
+      "title": "Cuxa Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "470314",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 1,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    },
+    {
+      "id": "met-472181",
+      "title": "Saint-Guilhem Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "472181",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 2,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    },
+    {
+      "id": "met-474091",
+      "title": "Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "474091",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 3,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    },
+    {
+      "id": "met-474436",
+      "title": "Trie Cloister",
+      "artistDisplayName": "Unknown Artist",
+      "sourceArtworkId": "474436",
+      "theme": "contemplation",
+      "grade": "B",
+      "rank": 4,
+      "vectorScore": 0.2,
+      "lexicalScore": 0.2,
+      "matchedTokens": [
+        "cloister"
+      ]
+    }
+  ]
+}

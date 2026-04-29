@@ -1,0 +1,37 @@
+{
+  "runId": "2026-04-24T14-58-34-971Z--melancholy--melancholy",
+  "source": "met",
+  "theme": "melancholy",
+  "query": "melancholy",
+  "synonyms": [
+    "pensive",
+    "solitude",
+    "wistful"
+  ],
+  "createdAt": "2026-04-24T15:04:25.976Z",
+  "searchResults": {
+    "uniqueHitCount": 459,
+    "searchDigest": "7e2583d37bca32e75cf50b56bebf0653757ed4267672b96dff2968dd8cfb77d2"
+  },
+  "counts": {
+    "rawDetailCount": 200,
+    "candidateCount": 20,
+    "excludedCount": 180
+  },
+  "excludeCounts": {
+    "missing-image": 180,
+    "missing-title": 171,
+    "missing-object-url": 171,
+    "missing-artist-and-description": 171
+  },
+  "metadataGapCounts": {
+    "missing-description": 200,
+    "missing-artist": 171
+  },
+  "nextAction": "move kept records to review queue",
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-45-55-823Z--melancholy--melancholy",
+    "note": "Configured input already matched the approved batch input; this lane is clean enough to move forward."
+  }
+}

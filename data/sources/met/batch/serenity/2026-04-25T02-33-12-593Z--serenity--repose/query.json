@@ -1,0 +1,22 @@
+{
+  "runId": "2026-04-25T02-33-12-593Z--serenity--repose",
+  "source": "met",
+  "theme": "serenity",
+  "query": "repose",
+  "synonyms": [
+    "meditation"
+  ],
+  "excludes": [
+    "stillness",
+    "calm",
+    "serenity",
+    "tranquil"
+  ],
+  "titleOnly": false,
+  "limit": 100,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-25T02-16-37-014Z--serenity--repose",
+    "note": "Switching to the narrower `repose` + `meditation` lane finally removed the worst title-match noise and produced a coherent enough scene set to batch."
+  }
+}

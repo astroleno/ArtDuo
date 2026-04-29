@@ -1,0 +1,32 @@
+{
+  "runId": "2026-04-24T03-11-48-117Z--hope--hope",
+  "source": "met",
+  "theme": "hope",
+  "query": "hope",
+  "synonyms": [
+    "renewal",
+    "aspiration"
+  ],
+  "createdAt": "2026-04-24T03:14:02.873Z",
+  "searchResults": {
+    "uniqueHitCount": 300,
+    "searchDigest": "c0f399ea004037180dab5bb52ebf634da1d81e6d275686991f55babdab3b37d6"
+  },
+  "counts": {
+    "rawDetailCount": 100,
+    "candidateCount": 68,
+    "excludedCount": 32
+  },
+  "excludeCounts": {
+    "missing-image": 32
+  },
+  "metadataGapCounts": {
+    "missing-description": 100
+  },
+  "nextAction": "move kept records to review queue",
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T02-49-43-514Z--hope--hope",
+    "note": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit."
+  }
+}

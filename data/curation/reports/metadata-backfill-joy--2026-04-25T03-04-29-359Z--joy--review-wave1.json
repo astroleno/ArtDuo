@@ -1,0 +1,60 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T03:26:19.343Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/joy--2026-04-25T03-04-29-359Z--joy--review-wave1.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/joy--2026-04-25T03-04-29-359Z--joy--review-wave1.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 25,
+    "backfilledCount": 25,
+    "contractValidatedCount": 25
+  },
+  "themes": {
+    "joy": {
+      "confirmed": 25,
+      "backfilled": 25
+    }
+  },
+  "backfillCounts": {
+    "description": 25,
+    "storySnippet": 25,
+    "searchText": 25,
+    "moodTags": 25,
+    "colorTags": 25,
+    "aspectRatioHint": 25,
+    "sceneAffinity": 25
+  },
+  "coverageContexts": [
+    {
+      "theme": "joy",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/joy--2026-04-25T03-04-29-359Z--joy--review-wave1.json",
+      "reviewRunId": "2026-04-25T03-04-29-359Z--joy--review-wave1",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T03-04-29-359Z--joy--review-wave1.json",
+      "matchedCount": 25,
+      "matchedPercent": 100,
+      "orientationCoverage": {
+        "portrait": 16,
+        "landscape": 4,
+        "square": 5,
+        "unknown": 0,
+        "portraitPercent": 64,
+        "landscapePercent": 16,
+        "squarePercent": 20,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [
+        "confirmed-below-thirty"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

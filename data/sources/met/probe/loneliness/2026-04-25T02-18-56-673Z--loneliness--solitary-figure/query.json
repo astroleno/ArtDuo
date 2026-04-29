@@ -1,0 +1,21 @@
+{
+  "runId": "2026-04-25T02-18-56-673Z--loneliness--solitary-figure",
+  "createdAt": "2026-04-25T02:18:56.672Z",
+  "source": "met",
+  "theme": "loneliness",
+  "query": "solitary figure",
+  "synonyms": [
+    "solitude"
+  ],
+  "excludes": [
+    "pensive",
+    "desolation",
+    "lonesome",
+    "widower",
+    "office in a small city"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

@@ -1,0 +1,29 @@
+{
+  "runId": "2026-04-25T05-40-00-000Z--serenity--targeted-square-meditation-wide",
+  "source": "met",
+  "theme": "serenity",
+  "query": "meditation",
+  "synonyms": [
+    "Bodhidharma",
+    "cloister",
+    "monastery",
+    "zen",
+    "quiet landscape"
+  ],
+  "counts": {
+    "rawDetailCount": 180,
+    "candidateCount": 60,
+    "excludedCount": 120
+  },
+  "excludeCounts": {
+    "missing-title": 112,
+    "missing-image": 120,
+    "missing-object-url": 112,
+    "missing-artist-and-description": 112
+  },
+  "metadataGapCounts": {
+    "missing-description": 180,
+    "missing-artist": 112
+  },
+  "probeApproval": null
+}

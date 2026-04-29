@@ -1,0 +1,21 @@
+{
+  "runId": "2026-04-24T15-17-19-827Z--contemplation--contemplation",
+  "source": "met",
+  "theme": "contemplation",
+  "query": "contemplation",
+  "synonyms": [
+    "meditation",
+    "pensive"
+  ],
+  "excludes": [
+    "reflection",
+    "solitude"
+  ],
+  "titleOnly": false,
+  "limit": 100,
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T16-52-22-853Z--contemplation--contemplation",
+    "note": "Dropping `solitude` cleaned the lane enough; the remaining sample is thematically coherent, and the auto miss is mainly an artifact of image-rich `Unknown Artist` works depressing artist coverage."
+  }
+}

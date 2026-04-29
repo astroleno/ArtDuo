@@ -1,0 +1,34 @@
+{
+  "runId": "2026-04-25T06-16-00-000Z--melancholy--targeted-square-solitude",
+  "source": "met",
+  "theme": "melancholy",
+  "query": "mourning",
+  "synonyms": [
+    "solitude",
+    "pensive",
+    "lamentation",
+    "grief",
+    "lonely"
+  ],
+  "createdAt": "2026-04-25T13:14:06.172Z",
+  "searchResults": {
+    "uniqueHitCount": 1029,
+    "searchDigest": "cd555b5baa0c61518501ee677b30641bf2907d456cd69a1da4ac76de4c9136f8"
+  },
+  "counts": {
+    "rawDetailCount": 200,
+    "candidateCount": 22,
+    "excludedCount": 178
+  },
+  "excludeCounts": {
+    "missing-image": 178,
+    "missing-title": 164,
+    "missing-object-url": 164,
+    "missing-artist-and-description": 164
+  },
+  "metadataGapCounts": {
+    "missing-description": 200,
+    "missing-artist": 164
+  },
+  "nextAction": "move kept records to review queue"
+}

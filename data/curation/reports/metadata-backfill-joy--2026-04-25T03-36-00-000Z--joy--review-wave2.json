@@ -1,0 +1,58 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T03:38:08.051Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/joy--2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/joy--2026-04-25T03-36-00-000Z--joy--review-wave2.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 30,
+    "backfilledCount": 30,
+    "contractValidatedCount": 30
+  },
+  "themes": {
+    "joy": {
+      "confirmed": 30,
+      "backfilled": 30
+    }
+  },
+  "backfillCounts": {
+    "description": 30,
+    "storySnippet": 30,
+    "searchText": 30,
+    "moodTags": 30,
+    "colorTags": 30,
+    "aspectRatioHint": 30,
+    "sceneAffinity": 30
+  },
+  "coverageContexts": [
+    {
+      "theme": "joy",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/joy--2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+      "reviewRunId": "2026-04-25T03-36-00-000Z--joy--review-wave2",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+      "matchedCount": 30,
+      "matchedPercent": 100,
+      "orientationCoverage": {
+        "portrait": 20,
+        "landscape": 5,
+        "square": 5,
+        "unknown": 0,
+        "portraitPercent": 66.7,
+        "landscapePercent": 16.7,
+        "squarePercent": 16.7,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

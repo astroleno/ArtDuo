@@ -1,0 +1,61 @@
+{
+  "corpusVersion": "2026-04-25-curation-b",
+  "createdAt": "2026-04-24T17:04:57.088Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-24T10-18-44-860Z--hope--review-wave1.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/hope--2026-04-24T10-18-44-860Z--hope--review-wave1.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 16,
+    "backfilledCount": 16,
+    "contractValidatedCount": 16
+  },
+  "themes": {
+    "hope": {
+      "confirmed": 16,
+      "backfilled": 16
+    }
+  },
+  "backfillCounts": {
+    "description": 16,
+    "storySnippet": 16,
+    "searchText": 16,
+    "moodTags": 16,
+    "colorTags": 16,
+    "aspectRatioHint": 16,
+    "sceneAffinity": 16
+  },
+  "coverageContexts": [
+    {
+      "theme": "hope",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/hope--2026-04-24T10-18-44-860Z--hope--review-wave1.json",
+      "reviewRunId": "2026-04-24T10-18-44-860Z--hope--review-wave1",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-24T10-18-44-860Z--hope--review-wave1.json",
+      "matchedCount": 16,
+      "matchedPercent": 100,
+      "orientationCoverage": {
+        "portrait": 10,
+        "landscape": 6,
+        "square": 0,
+        "unknown": 0,
+        "portraitPercent": 62.5,
+        "landscapePercent": 37.5,
+        "squarePercent": 0,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [
+        "confirmed-below-thirty",
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

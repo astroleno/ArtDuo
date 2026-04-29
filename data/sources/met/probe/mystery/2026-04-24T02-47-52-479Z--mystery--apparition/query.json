@@ -1,0 +1,20 @@
+{
+  "runId": "2026-04-24T02-47-52-479Z--mystery--apparition",
+  "createdAt": "2026-04-24T02:47:52.477Z",
+  "source": "met",
+  "theme": "mystery",
+  "query": "apparition",
+  "synonyms": [
+    "oracle",
+    "prophecy",
+    "enigmatic"
+  ],
+  "excludes": [
+    "mystery",
+    "vision"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

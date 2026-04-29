@@ -1,0 +1,58 @@
+{
+  "corpusVersion": "2026-04-25-metadata-backfill",
+  "createdAt": "2026-04-25T15:37:44.570Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/contemplation--2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/contemplation--2026-04-25T09-56-00-000Z--contemplation--review-wave2.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 34,
+    "backfilledCount": 34,
+    "contractValidatedCount": 34
+  },
+  "themes": {
+    "contemplation": {
+      "confirmed": 34,
+      "backfilled": 34
+    }
+  },
+  "backfillCounts": {
+    "description": 34,
+    "storySnippet": 34,
+    "searchText": 34,
+    "moodTags": 34,
+    "colorTags": 34,
+    "aspectRatioHint": 34,
+    "sceneAffinity": 34
+  },
+  "coverageContexts": [
+    {
+      "theme": "contemplation",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/contemplation--2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+      "reviewRunId": "2026-04-25T09-56-00-000Z--contemplation--review-wave2",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+      "matchedCount": 26,
+      "matchedPercent": 76.5,
+      "orientationCoverage": {
+        "portrait": 19,
+        "landscape": 7,
+        "square": 8,
+        "unknown": 0,
+        "portraitPercent": 55.9,
+        "landscapePercent": 20.6,
+        "squarePercent": 23.5,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

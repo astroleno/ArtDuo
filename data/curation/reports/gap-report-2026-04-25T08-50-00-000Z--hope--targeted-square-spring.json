@@ -1,0 +1,29 @@
+{
+  "runId": "2026-04-25T08-50-00-000Z--hope--targeted-square-spring",
+  "source": "met",
+  "theme": "hope",
+  "query": "Spring",
+  "synonyms": [
+    "Resurrection",
+    "Dawn",
+    "Sunrise",
+    "New Life",
+    "Blossom"
+  ],
+  "counts": {
+    "rawDetailCount": 16,
+    "candidateCount": 8,
+    "excludedCount": 8
+  },
+  "excludeCounts": {
+    "missing-title": 1,
+    "missing-image": 8,
+    "missing-object-url": 1,
+    "missing-artist-and-description": 1
+  },
+  "metadataGapCounts": {
+    "missing-artist": 1,
+    "missing-description": 16
+  },
+  "probeApproval": null
+}

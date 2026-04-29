@@ -1,0 +1,30 @@
+{
+  "runId": "2026-04-24T15-17-19-827Z--contemplation--contemplation",
+  "source": "met",
+  "theme": "contemplation",
+  "query": "contemplation",
+  "synonyms": [
+    "meditation",
+    "pensive"
+  ],
+  "counts": {
+    "rawDetailCount": 100,
+    "candidateCount": 33,
+    "excludedCount": 67
+  },
+  "excludeCounts": {
+    "missing-image": 67,
+    "missing-title": 59,
+    "missing-object-url": 59,
+    "missing-artist-and-description": 59
+  },
+  "metadataGapCounts": {
+    "missing-description": 100,
+    "missing-artist": 59
+  },
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-24T16-52-22-853Z--contemplation--contemplation",
+    "note": "Dropping `solitude` cleaned the lane enough; the remaining sample is thematically coherent, and the auto miss is mainly an artifact of image-rich `Unknown Artist` works depressing artist coverage."
+  }
+}

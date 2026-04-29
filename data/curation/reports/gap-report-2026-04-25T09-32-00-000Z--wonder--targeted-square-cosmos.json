@@ -1,0 +1,30 @@
+{
+  "runId": "2026-04-25T09-32-00-000Z--wonder--targeted-square-cosmos",
+  "source": "met",
+  "theme": "wonder",
+  "query": "globe",
+  "synonyms": [
+    "sphere",
+    "zodiac",
+    "cosmos",
+    "planet",
+    "constellation",
+    "star map"
+  ],
+  "counts": {
+    "rawDetailCount": 260,
+    "candidateCount": 58,
+    "excludedCount": 202
+  },
+  "excludeCounts": {
+    "missing-image": 202,
+    "missing-title": 186,
+    "missing-object-url": 186,
+    "missing-artist-and-description": 186
+  },
+  "metadataGapCounts": {
+    "missing-description": 260,
+    "missing-artist": 186
+  },
+  "probeApproval": null
+}

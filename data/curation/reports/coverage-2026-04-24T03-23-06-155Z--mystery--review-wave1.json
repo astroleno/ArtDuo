@@ -1,0 +1,40 @@
+{
+  "runId": "2026-04-24T03-23-06-155Z--mystery--review-wave1",
+  "theme": "mystery",
+  "sourceCoverage": {
+    "met": {
+      "reviewed": 90,
+      "promote": 28,
+      "hold": 12,
+      "reject": 50
+    }
+  },
+  "emotionCoverage": {
+    "mystery": {
+      "reviewed": 90,
+      "promote": 28,
+      "hold": 12,
+      "reject": 50
+    }
+  },
+  "orientationCoverage": {
+    "portrait": 0,
+    "landscape": 0,
+    "square": 0,
+    "unknown": 90,
+    "note": "Image dimensions are not stored in the current batch payload, so orientation remains unknown in this bootstrap review."
+  },
+  "estimatedGradeDistribution": {
+    "A": 28,
+    "B": 12,
+    "C": 50
+  },
+  "estimatedSceneMatch": {
+    "matchedCount": 40,
+    "matchedPercent": 44.4,
+    "note": "Bootstrap estimate based on metadata-only review; second-pass image review may lower this number."
+  },
+  "triggers": {
+    "confirmedBelowThirty": true
+  }
+}

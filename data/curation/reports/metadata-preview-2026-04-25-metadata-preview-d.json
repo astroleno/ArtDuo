@@ -1,0 +1,113 @@
+{
+  "previewVersion": "2026-04-25-metadata-preview-d",
+  "createdAt": "2026-04-25T15:38:33.951Z",
+  "scope": "preview-only",
+  "outputDir": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-25-metadata-preview-d",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-25-metadata-preview-d/manifest.json",
+  "metadataPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-25-metadata-preview-d/metadata-01.json",
+  "searchPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-25-metadata-preview-d/search-01.json",
+  "mediaIndexPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-25-metadata-preview-d/media-01.json",
+  "backgroundScenesPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-25-metadata-preview-d/background-scenes-01.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/contemplation--2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/joy--2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/mystery--2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/serenity--2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/wonder--2026-04-25T09-54-00-000Z--wonder--review-wave2.json"
+  ],
+  "counts": {
+    "inputThemeCount": 8,
+    "inputRecordCount": 292,
+    "previewRecordCount": 292,
+    "backgroundSceneCount": 50
+  },
+  "themes": [
+    {
+      "theme": "contemplation",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/contemplation--2026-04-25T09-56-00-000Z--contemplation--review-wave2.json",
+      "recordCount": 34,
+      "matchedPercent": 76.5,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "desire",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/desire--2026-04-25T05-18-00-000Z--desire--review-wave2.json",
+      "recordCount": 40,
+      "matchedPercent": 100,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "hope",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/hope--2026-04-25T09-52-00-000Z--hope--review-wave2.json",
+      "recordCount": 38,
+      "matchedPercent": 81.6,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "joy",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/joy--2026-04-25T03-36-00-000Z--joy--review-wave2.json",
+      "recordCount": 30,
+      "matchedPercent": 100,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "melancholy",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/melancholy--2026-04-25T07-42-00-000Z--melancholy--review-wave3.json",
+      "recordCount": 39,
+      "matchedPercent": 82.1,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "mystery",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/mystery--2026-04-25T07-40-00-000Z--mystery--review-wave3.json",
+      "recordCount": 38,
+      "matchedPercent": 100,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "serenity",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/serenity--2026-04-25T05-58-00-000Z--serenity--review-wave3.json",
+      "recordCount": 36,
+      "matchedPercent": 100,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    },
+    {
+      "theme": "wonder",
+      "inputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/wonder--2026-04-25T09-54-00-000Z--wonder--review-wave2.json",
+      "recordCount": 37,
+      "matchedPercent": 83.8,
+      "themeGateBlockers": [],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ],
+  "notes": [
+    "This preview consumes metadata-backfill artifacts and writes preview-only shards for retrieval, copy, and downstream exploration.",
+    "It does not promote any theme to release-ready and does not clear theme or portfolio gates."
+  ]
+}

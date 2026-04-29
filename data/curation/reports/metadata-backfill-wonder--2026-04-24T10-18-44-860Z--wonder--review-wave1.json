@@ -1,0 +1,61 @@
+{
+  "corpusVersion": "2026-04-25-curation-b",
+  "createdAt": "2026-04-24T17:04:56.885Z",
+  "scope": "metadata-backfill-only",
+  "outputPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/metadata-backfill/wonder--2026-04-24T10-18-44-860Z--wonder--review-wave1.json",
+  "inputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/wonder--2026-04-24T10-18-44-860Z--wonder--review-wave1.json"
+  ],
+  "notes": [
+    "This artifact backfills Phase 1 metadata/retrieval fields and refreshes orientation + scene-match coverage against the current scene catalog.",
+    "It still does not clear theme gates or portfolio gates automatically; use the refreshed coverage reports to decide whether a theme is ready for release-ready promotion."
+  ],
+  "counts": {
+    "confirmedCount": 18,
+    "backfilledCount": 18,
+    "contractValidatedCount": 18
+  },
+  "themes": {
+    "wonder": {
+      "confirmed": 18,
+      "backfilled": 18
+    }
+  },
+  "backfillCounts": {
+    "description": 18,
+    "storySnippet": 18,
+    "searchText": 18,
+    "moodTags": 18,
+    "colorTags": 18,
+    "aspectRatioHint": 18,
+    "sceneAffinity": 18
+  },
+  "coverageContexts": [
+    {
+      "theme": "wonder",
+      "confirmedPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/confirmed/wonder--2026-04-24T10-18-44-860Z--wonder--review-wave1.json",
+      "reviewRunId": "2026-04-24T10-18-44-860Z--wonder--review-wave1",
+      "coveragePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/coverage-2026-04-24T10-18-44-860Z--wonder--review-wave1.json",
+      "matchedCount": 17,
+      "matchedPercent": 94.4,
+      "orientationCoverage": {
+        "portrait": 7,
+        "landscape": 10,
+        "square": 1,
+        "unknown": 0,
+        "portraitPercent": 38.9,
+        "landscapePercent": 55.6,
+        "squarePercent": 5.6,
+        "unknownPercent": 0,
+        "note": "Orientation inferred from remote image headers when available; remaining unknown items should be revisited in curation backfill."
+      },
+      "themeGateBlockers": [
+        "confirmed-below-thirty",
+        "orientation-coverage-below-target"
+      ],
+      "portfolioGateBlockers": [
+        "source-concentration-above-seventy"
+      ]
+    }
+  ]
+}

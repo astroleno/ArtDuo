@@ -1,0 +1,21 @@
+{
+  "runId": "2026-04-24T16-52-51-832Z--loneliness--solitary",
+  "createdAt": "2026-04-24T16:52:51.831Z",
+  "source": "met",
+  "theme": "loneliness",
+  "query": "solitary",
+  "synonyms": [
+    "solitude",
+    "solitary figure",
+    "desolation"
+  ],
+  "excludes": [
+    "pensive",
+    "loneliness",
+    "lonesome"
+  ],
+  "titleOnly": false,
+  "limit": 20,
+  "sample": 10,
+  "legacyCollectorReference": "scripts/collect/met-collect.js"
+}

@@ -1,0 +1,49 @@
+{
+  "previewVersion": "2026-04-24-quantity-preview-a",
+  "createdAt": "2026-04-24T16:30:23.089Z",
+  "scope": "quantity-preview-only",
+  "outputDir": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-quantity-preview-a",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-quantity-preview-a/manifest.json",
+  "metadataPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-quantity-preview-a/metadata-01.json",
+  "searchPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-quantity-preview-a/search-01.json",
+  "mediaIndexPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-quantity-preview-a/media-01.json",
+  "backgroundScenesPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-quantity-preview-a/background-scenes-01.json",
+  "provenancePath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/preview/2026-04-24-quantity-preview-a/provenance-01.json",
+  "candidateInputFiles": [
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/contemplation--2026-04-24T15-17-19-827Z--contemplation--contemplation.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/hope--2026-04-24T03-11-48-117Z--hope--hope.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/hope--2026-04-24T15-09-31-657Z--hope--hope.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/melancholy--2026-04-24T02-57-50-204Z--melancholy--melancholy.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/melancholy--2026-04-24T03-00-57-855Z--melancholy--melancholy.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/melancholy--2026-04-24T14-58-34-971Z--melancholy--melancholy.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/mystery--2026-04-24T03-14-05-444Z--mystery--apparition.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/mystery--2026-04-24T14-58-34-971Z--mystery--apparition.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/serenity--2026-04-24T15-17-19-826Z--serenity--tranquil.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/wonder--2026-04-24T03-04-20-455Z--wonder--astonishment.json",
+    "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/candidate-pool/wonder--2026-04-24T15-04-34-024Z--wonder--astonishment.json"
+  ],
+  "counts": {
+    "targetCount": 500,
+    "candidateUniqueCount": 373,
+    "legacyBoostCount": 127,
+    "legacyFallbackCount": 0,
+    "finalPreviewCount": 500,
+    "backgroundSceneCount": 50
+  },
+  "legacyBoost": {
+    "emotionIds": [
+      "wonder",
+      "mystery",
+      "contemplation",
+      "serenity",
+      "optimism",
+      "regret",
+      "despair",
+      "desolation"
+    ]
+  },
+  "notes": [
+    "This preview is quantity-oriented. It merges current candidate-pool records with a clearly separated legacy Met boost to reach the requested pool size.",
+    "It is not review-cleared, not gate-cleared, and must not be treated as release-ready."
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "generatedAt": "2026-04-25T02:49:16.341Z",
+  "source": "met",
+  "semantics": "Canonical batch handoff artifact. Batch runs must copy query/synonym/exclude from this file only.",
+  "themes": [
+    {
+      "theme": "serenity",
+      "probeRunId": "2026-04-25T02-16-37-014Z--serenity--repose",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "repose",
+        "synonyms": [
+          "meditation"
+        ],
+        "excludes": [
+          "stillness",
+          "calm",
+          "serenity",
+          "tranquil"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-25T02-33-12-593Z--serenity--repose",
+      "note": "Switching to the narrower `repose` + `meditation` lane finally removed the worst title-match noise and produced a coherent enough scene set to batch."
+    },
+    {
+      "theme": "melancholy",
+      "probeRunId": "2026-04-24T02-45-55-823Z--melancholy--melancholy",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "melancholy",
+        "synonyms": [
+          "pensive",
+          "solitude",
+          "wistful"
+        ],
+        "excludes": [
+          "sadness",
+          "blue"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-24T03-00-57-855Z--melancholy--melancholy",
+      "note": "Configured input already matched the approved batch input; this lane is clean enough to move forward."
+    },
+    {
+      "theme": "wonder",
+      "probeRunId": "2026-04-24T02-46-28-237Z--wonder--astonishment",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "astonishment",
+        "synonyms": [
+          "amazement",
+          "awe"
+        ],
+        "excludes": [
+          "wonder",
+          "miracle",
+          "marvel"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-24T03-04-20-455Z--wonder--astonishment",
+      "note": "Dropped `marvel` from the approved batch input after manual review showed surname/card noise in the probe sample."
+    },
+    {
+      "theme": "contemplation",
+      "probeRunId": "2026-04-24T16-52-22-853Z--contemplation--contemplation",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "contemplation",
+        "synonyms": [
+          "meditation",
+          "pensive"
+        ],
+        "excludes": [
+          "reflection",
+          "solitude"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-24T15-17-19-827Z--contemplation--contemplation",
+      "note": "Dropping `solitude` cleaned the lane enough; the remaining sample is thematically coherent, and the auto miss is mainly an artifact of image-rich `Unknown Artist` works depressing artist coverage."
+    },
+    {
+      "theme": "hope",
+      "probeRunId": "2026-04-24T02-49-43-514Z--hope--hope",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "hope",
+        "synonyms": [
+          "renewal",
+          "aspiration"
+        ],
+        "excludes": [
+          "looking forward",
+          "promise"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-24T03-11-48-117Z--hope--hope",
+      "note": "Dropped `promise` from the approved batch input after probe review showed it widened the lane faster than it improved fit."
+    },
+    {
+      "theme": "joy",
+      "probeRunId": "2026-04-24T16-53-04-786Z--joy--merry-company",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "merry company",
+        "synonyms": [
+          "laughing",
+          "dancing"
+        ],
+        "excludes": [
+          "festival",
+          "celebration",
+          "rejoicing",
+          "joy",
+          "delight",
+          "cheerful"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-25T02-34-30-154Z--joy--merry-company",
+      "note": "Switching to the scene-led `merry company` lane removed the old event-ephemera collapse; `cheerful` still reintroduces interior/card noise, so it stays banned in the approved batch input."
+    },
+    {
+      "theme": "mystery",
+      "probeRunId": "2026-04-24T02-47-52-479Z--mystery--apparition",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "apparition",
+        "synonyms": [
+          "oracle",
+          "prophecy"
+        ],
+        "excludes": [
+          "mystery",
+          "vision",
+          "enigmatic"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-24T03-14-05-444Z--mystery--apparition",
+      "note": "Dropped `enigmatic` from the approved batch input after manual review showed it diluted the narrative-supernatural lane."
+    },
+    {
+      "theme": "desire",
+      "probeRunId": "2026-04-25T02-17-09-125Z--desire--sensuality",
+      "manualVerdict": "pass",
+      "approvedBatchInput": {
+        "query": "sensuality",
+        "synonyms": [
+          "lovers",
+          "bathing"
+        ],
+        "excludes": [
+          "desire",
+          "longing",
+          "passion",
+          "romance",
+          "yearning"
+        ]
+      },
+      "batchStatus": "batched",
+      "consumedByBatchRunId": "2026-04-25T02-39-47-702Z--desire--sensuality",
+      "note": "Flipping the lane to `sensuality` with `lovers` / `bathing` removed the sorrow-object spillover and produced a strong enough image-led desire set to batch."
+    }
+  ],
+  "notApprovedThemes": [
+    {
+      "theme": "longing",
+      "probeRunId": "2026-04-25T02-18-47-977Z--longing--wistful",
+      "manualVerdict": "fail",
+      "gateDecision": "redesign-query"
+    },
+    {
+      "theme": "loneliness",
+      "probeRunId": "2026-04-25T02-18-56-673Z--loneliness--solitary-figure",
+      "manualVerdict": "fail",
+      "gateDecision": "redesign-query"
+    }
+  ]
+}

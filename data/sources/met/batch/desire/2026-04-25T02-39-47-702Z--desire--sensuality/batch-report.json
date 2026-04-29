@@ -1,0 +1,36 @@
+{
+  "runId": "2026-04-25T02-39-47-702Z--desire--sensuality",
+  "source": "met",
+  "theme": "desire",
+  "query": "sensuality",
+  "synonyms": [
+    "lovers",
+    "bathing"
+  ],
+  "createdAt": "2026-04-25T02:41:33.927Z",
+  "searchResults": {
+    "uniqueHitCount": 297,
+    "searchDigest": "e2d3c5bb9fdf51591a7ae42d33c5b97e4c2848f3300ee235b271422b73804fc1"
+  },
+  "counts": {
+    "rawDetailCount": 100,
+    "candidateCount": 46,
+    "excludedCount": 54
+  },
+  "excludeCounts": {
+    "missing-title": 25,
+    "missing-image": 54,
+    "missing-object-url": 25,
+    "missing-artist-and-description": 25
+  },
+  "metadataGapCounts": {
+    "missing-description": 100,
+    "missing-artist": 25
+  },
+  "nextAction": "move kept records to review queue",
+  "probeApproval": {
+    "matrixPath": "data/curation/reports/probe-approved-query-matrix.json",
+    "probeRunId": "2026-04-25T02-17-09-125Z--desire--sensuality",
+    "note": "Flipping the lane to `sensuality` with `lovers` / `bathing` removed the sorrow-object spillover and produced a strong enough image-led desire set to batch."
+  }
+}
