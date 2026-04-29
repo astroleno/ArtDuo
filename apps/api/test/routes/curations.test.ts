@@ -80,3 +80,16 @@ test("same idempotency key with different request body returns 409", () => {
     assert.deepEqual((original.body as CurationSession).unitIds, ["u1"]);
   }
 });
+
+test("create session is rate-limited by idempotency key or client identity", () => {
+  resetCurationRouteState();
+
+  const headers = { "X-Forwarded-For": "203.0.113.8" };
+  const first = createCurationSession(request, headers);
+  const second = createCurationSession(request, headers);
+  const third = createCurationSession(request, headers);
+
+  assert.equal(first.status, 201);
+  assert.equal(second.status, 201);
+  assert.equal(third.status, 429);
+});

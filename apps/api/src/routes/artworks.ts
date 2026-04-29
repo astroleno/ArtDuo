@@ -7,6 +7,7 @@ import { parseReleaseManifest } from "@artduo/contracts";
 import { resolveCorpusManifestPath } from "./corpus";
 import { InMemoryExplanationCache } from "../services/explanations/explanation-cache";
 import { getArtworkExplanation, type ArtworkExplanationGenerator } from "../services/explanations/get-artwork-explanation";
+import { assertWithinBudget } from "../services/curation/budget-guard";
 
 export interface ApiRouteResponse<T> {
   status: number;
@@ -18,6 +19,11 @@ export interface ArtworkExplanationRouteRequest {
   artworkId: string;
   releaseVersion: string;
   contextText: string;
+}
+
+export interface ArtworkExplanationBudgetInput {
+  estimatedTokens: number;
+  maxTokens: number;
 }
 
 export interface ArtworkExplanationRouteOptions {
@@ -58,13 +64,25 @@ function loadArtworkIds(options: ArtworkExplanationRouteOptions, releaseVersion:
 export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOptions = {}): {
   getArtworkExplanation: (
     request: ArtworkExplanationRouteRequest,
+    budget?: ArtworkExplanationBudgetInput,
   ) => Promise<ApiRouteResponse<ArtworkExplanation | ApiError>> | ApiRouteResponse<ArtworkExplanation | ApiError>;
 } {
   return {
-    async getArtworkExplanation(request: ArtworkExplanationRouteRequest): Promise<ApiRouteResponse<ArtworkExplanation | ApiError>> {
+    async getArtworkExplanation(
+      request: ArtworkExplanationRouteRequest,
+      budget?: ArtworkExplanationBudgetInput,
+    ): Promise<ApiRouteResponse<ArtworkExplanation | ApiError>> {
       const ids = loadArtworkIds(options, request.releaseVersion);
       if (!ids.has(request.artworkId)) {
         return apiError(404, "artwork_not_found", `Artwork not found: ${request.artworkId}`);
+      }
+
+      if (budget) {
+        try {
+          assertWithinBudget(budget);
+        } catch (error) {
+          return apiError(429, "budget_exceeded", (error as Error).message);
+        }
       }
 
       const explanation = await getArtworkExplanation(

@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import type { ApiError, CreateCurationRequest, CurationSession } from "@artduo/contracts";
 
 import { InMemoryIdempotencyStore } from "../services/http/idempotency-store";
+import { InMemoryRateLimit } from "../services/http/rate-limit";
 import { InMemoryCurationSessionStore } from "../services/curation/session-store";
 import { createSessionToken, verifySessionToken } from "../services/auth/session-token";
 
@@ -18,6 +19,7 @@ interface IdempotencyRecord {
   session: CurationSession;
 }
 const idempotencyStore = new InMemoryIdempotencyStore<IdempotencyRecord>();
+const rateLimiter = new InMemoryRateLimit({ limit: 2, windowMs: 60_000 });
 
 function readHeader(headers: Record<string, string | undefined> | undefined, key: string): string | undefined {
   if (!headers) {
@@ -84,6 +86,23 @@ export function createCurationSession(
   headers?: Record<string, string | undefined>,
 ): ApiRouteResponse<CurationSession | ApiError> {
   const idempotencyKey = readHeader(headers, "Idempotency-Key");
+  const clientIp = readHeader(headers, "X-Forwarded-For");
+  const rateKey = idempotencyKey ?? clientIp ?? "anonymous";
+  const rate = rateLimiter.check(rateKey);
+  if (!rate.allowed) {
+    return {
+      status: 429,
+      body: {
+        code: "rate_limited",
+        message: "Too many requests",
+      },
+      headers: {
+        "Cache-Control": "no-store",
+        "Retry-After": rate.resetAt,
+      },
+    };
+  }
+
   const requestFingerprint = stableStringify(request);
 
   let session: CurationSession;
@@ -143,4 +162,5 @@ export function getCurationSession(
 export function resetCurationRouteState(): void {
   sessionStore.clear();
   idempotencyStore.clear();
+  rateLimiter.clear();
 }

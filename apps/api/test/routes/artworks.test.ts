@@ -123,3 +123,18 @@ test("unknown artwork returns 404", async () => {
 
   assert.equal(response.status, 404);
 });
+
+test("budget guard rejects explanation when estimated tokens exceed max", async () => {
+  const releasesRoot = createFixtureRelease();
+  const route = createArtworkExplanationRoute({ releasesRoot });
+  const response = await route.getArtworkExplanation(
+    {
+      artworkId: "met-474091",
+      releaseVersion: "2026-04-25-curation-b",
+      contextText: "quiet meditative reflection",
+    },
+    { estimatedTokens: 5001, maxTokens: 5000 },
+  );
+
+  assert.equal(response.status, 429);
+});
