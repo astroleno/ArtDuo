@@ -2,8 +2,26 @@
   "name": "@artduo/web",
   "version": "0.1.0",
   "private": true,
+  "dependencies": {
+    "@artduo/contracts": "workspace:*",
+    "@artduo/corpus": "workspace:*",
+    "lucide-react": "^0.544.0",
+    "next": "15.5.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^22.15.30",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0"
+  },
   "scripts": {
-    "build": "node -e \"console.log('preflight: @artduo/web scaffold ready')\"",
-    "typecheck": "node -e \"console.log('preflight: @artduo/web scaffold ready')\""
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "test": "tsx --test test/**/*.test.ts",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   }
 }
