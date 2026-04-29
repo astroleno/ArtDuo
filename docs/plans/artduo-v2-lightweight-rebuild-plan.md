@@ -1,11 +1,30 @@
 ---
 title: ArtDuo V2 Lightweight Rebuild Plan
-status: active
+status: phase1-closed-phase2-ready
 created: 2026-04-23
+updated: 2026-04-29
 origin: docs/brainstorms/artduo-v2-lightweight-rebuild-requirements.md
 ---
 
 # ArtDuo V2 轻量重建技术计划
+
+## 当前状态
+
+Phase 1 已关账，可以推进 Phase 2，但当前代码仍需要以清晰 PR 边界固化。
+
+已验证事实：
+
+- `apps/web` 已从 scaffold 落地为 Next App Router 产品 thin slice。
+- `Landing -> Gallery -> Detail` 主路径已接入 release manifest、embedding records、rerank 和背景场景选择。
+- 当前 runtime 真相源是 `data/releases/2026-04-25-curation-b/manifest.json` 及同目录 shards。
+- 当前 web 实现是 Phase 1 server-side release bridge：Next.js 服务端读取本地 release files 并执行检索。
+- 这份关账不宣称严格浏览器本地 IndexedDB/Worker 架构已经完成；该工作进入后续计划。
+- `pnpm preflight:check` 已覆盖 workspace tests、typecheck、build 和 Playwright E2E。
+- `data/curation/reports/phase1-closeout-report.md` 记录了关账结果、benchmark 和人工 top10 gate。
+
+下一份执行计划：
+
+- `docs/plans/artduo-v2-phase2-continuation-plan.md`
 
 ## 问题框架
 
@@ -45,6 +64,8 @@ origin: docs/brainstorms/artduo-v2-lightweight-rebuild-requirements.md
 - `docs/specs/artduo-v2-background-scene-schema.md`
 - `docs/plans/artduo-v2-frontend-backend-workstreams.md`
 - `docs/plans/artduo-v2-artwork-collection-runbook.md`
+- `data/curation/reports/phase1-closeout-report.md`
+- `docs/plans/artduo-v2-phase2-continuation-plan.md`
 
 ## 非协商技术决策
 
@@ -123,6 +144,18 @@ Phase 1 不允许提前把 session 层变成强依赖。
 ### 决策 8：信息架构和状态矩阵单独成文
 
 主导航、返回规则、页面状态矩阵不再散落在页面口头约定里，统一以 `docs/specs/artduo-v2-ux-flow-and-state-matrix.md` 为准。
+
+### 决策 9：Phase 1 接受 server-side release bridge，严格浏览器本地检索后移
+
+Phase 1 的产品 thin slice 已经证明 release-backed 主路径成立。当前实现允许 Next.js 服务端读取 release manifest/shards 并执行检索，因为它满足以下约束：
+
+- runtime 仍只消费 release manifest 和 shards
+- 不依赖旧 `frontend/` 数据流
+- 不依赖 SSE 或 runtime LLM
+- 不引入 `GET /v1/background-scenes` 主路径
+- 可通过 `pnpm preflight:check` 和 benchmark 重放
+
+这不是放弃本地优先路线。IndexedDB cache、Worker search 和浏览器侧 shard loading 进入后续 follow-up，在实现前不得把当前形态描述为完整 local-first runtime。
 
 ## 目标结构
 
@@ -304,7 +337,7 @@ Test scenarios:
 
 - benchmark prompt set 可重复执行
 - probe 输出可追溯到 query、source、采样范围和命中结果
-- 人工评审结论能区分 `promote / hold / reject`
+- probe verdict 能区分 `pass / mixed / fail`，review 决策能区分 `promote / hold / reject`
 - Phase 1 不会在没有可信度报告的情况下宣称通过
 - 在 `apps/pipeline/` 正式接管前，当前仓库已有 `npm run collect:met:probe` 和 `npm run collect:met:batch` 可直接生成采集 artifacts
 
@@ -379,9 +412,40 @@ Test scenarios:
 - Phase 1 benchmark 通过门槛：
   - 固定 benchmark prompts 至少 20 条
   - 至少 80% 的 prompts 在 top 10 中有 5 件以上被人工判定为“可用候选”
-  - probe 第一轮报告明确列出 `promote / hold / reject` 结论
+  - probe 第一轮报告明确列出 `pass / mixed / fail` 结论，并生成 canonical batch handoff artifact
+
+### Phase 1 关账结果
+
+Status: closed on 2026-04-29.
+
+Release:
+
+- `data/releases/2026-04-25-curation-b/manifest.json`
+- metadata/search/media/background-scenes/embeddings shards are present for 221 release-ready artworks and 50 background scenes.
+
+Product path:
+
+- `apps/web/app/page.tsx`
+- `apps/web/app/gallery/page.tsx`
+- `apps/web/app/artwork/[id]/page.tsx`
+- `apps/web/components/artwork-image.tsx`
+- `apps/web/lib/release-catalog.ts`
+
+Acceptance:
+
+- `pnpm preflight:check` passes.
+- Workspace tests include 4 web unit tests for release loading, search, empty query handling, and missing shard diagnostics.
+- Playwright E2E has 4 passing browser tests for Landing -> Gallery -> Detail and Phase 1 state coverage.
+- `pnpm vector:benchmark -- --release-version 2026-04-25-curation-b` reports rerank Top-1 `95.83%` and Top-5 `100%`.
+- Manual top10 gate is 20/24 pass, 83.33%, above the 80% Phase 1 threshold.
+
+Known deferral:
+
+- Browser-local IndexedDB/Worker runtime remains open and must be planned explicitly before claiming strict local-first execution.
 
 ## Phase 2: Curation Core Experience
+
+Status: next.
 
 ### 目标
 
