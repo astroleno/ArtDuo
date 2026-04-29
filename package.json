@@ -5,8 +5,9 @@
   "scripts": {
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm --filter @artduo/contracts test",
-    "preflight:check": "pnpm build && pnpm test",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter @artduo/web test:e2e",
+    "preflight:check": "pnpm test && pnpm typecheck && pnpm build && pnpm test:e2e",
     "collect:met:test": "node scripts/collect/met-collect.js --test",
     "collect:met:phase": "node scripts/collect/met-collect.js --phase",
     "collect:met:emotion": "node scripts/collect/met-collect.js --emotion",

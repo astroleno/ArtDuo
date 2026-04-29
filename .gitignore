@@ -182,6 +182,13 @@ coverage/
 # Jest
 .jest/
 
+# Playwright
+test-results/
+playwright-report/
+
+# Local Codex artifacts
+.codex/
+
 # ===========================================
 # 数据文件（项目特定）
 # ===========================================
