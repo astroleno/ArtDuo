@@ -44,3 +44,11 @@ Source: `review-screenshots/` desktop + mobile capture set, cross-lens review (`
 2. Gallery: implement asymmetric grid and robust image fallback.
 3. Immersive: remove heavy card chrome and adopt caption treatment.
 4. Shared: centralize tokens and add reduced-motion media query.
+
+## Acceptance Signals
+
+1. Landing first screen is recognizably art-curation without reading helper text.
+2. Gallery avoids equal-weight three-column template and preserves artwork proportions.
+3. Immersive view keeps artwork as primary focus (target visual weight 65%-72%).
+4. Missing image cases show graceful fallback metadata instead of blank blocks.
+5. Reduced-motion mode disables non-essential animation across landing/gallery/immersive states.

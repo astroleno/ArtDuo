@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import type { CurationSession } from "@artduo/contracts";
+
 import { createCurationSession, getCurationSession, resetCurationRouteState } from "../../src/routes/curations";
 
 const request = {
@@ -14,33 +16,67 @@ const request = {
   exhibitionSnapshot: [{ unitId: "u1", artworkId: "met-474091", backgroundSceneId: "scene-1", rank: 1, score: 0.9 }],
 };
 
+function requireCreatedSession(response: ReturnType<typeof createCurationSession>): CurationSession {
+  assert.equal(response.status, 201);
+  if (response.status !== 201) {
+    throw new Error("Expected created session response");
+  }
+
+  return response.body as CurationSession;
+}
+
 test("create returns 201 and idempotency returns the same session id", () => {
   resetCurationRouteState();
   const first = createCurationSession(request, { "Idempotency-Key": "create-1" });
   const second = createCurationSession(request, { "Idempotency-Key": "create-1" });
+  const firstSession = requireCreatedSession(first);
+  const secondSession = requireCreatedSession(second);
 
-  assert.equal(first.status, 201);
-  assert.equal(second.status, 201);
-  assert.equal(first.body.id, second.body.id);
-  assert.equal(first.body.ownership.token.length > 0, true);
+  assert.equal(firstSession.id, secondSession.id);
+  assert.equal(firstSession.ownership.token.length > 0, true);
 });
 
 test("get returns 200 for owner, 403 for wrong token, and 404 for unknown session", () => {
   resetCurationRouteState();
   const created = createCurationSession(request, { "Idempotency-Key": "create-2" });
+  const createdSession = requireCreatedSession(created);
 
-  const ok = getCurationSession(created.body.id, {
-    Authorization: `Bearer ${created.body.ownership.token}`,
+  const ok = getCurationSession(createdSession.id, {
+    Authorization: `Bearer ${createdSession.ownership.token}`,
   });
   assert.equal(ok.status, 200);
 
-  const forbidden = getCurationSession(created.body.id, {
+  const forbidden = getCurationSession(createdSession.id, {
     Authorization: "Bearer wrong-token",
   });
   assert.equal(forbidden.status, 403);
 
   const missing = getCurationSession("missing-session", {
-    Authorization: `Bearer ${created.body.ownership.token}`,
+    Authorization: `Bearer ${createdSession.ownership.token}`,
   });
   assert.equal(missing.status, 404);
+});
+
+test("same idempotency key with different request body returns 409", () => {
+  resetCurationRouteState();
+  const first = createCurationSession(request, { "Idempotency-Key": "create-3" });
+  const firstSession = requireCreatedSession(first);
+  const changedRequest = {
+    ...request,
+    userText: "different intent for same key",
+    exhibitionSnapshot: [
+      { unitId: "u2", artworkId: "met-470314", backgroundSceneId: "scene-2", rank: 1, score: 0.87 },
+    ],
+  };
+
+  const conflict = createCurationSession(changedRequest, { "Idempotency-Key": "create-3" });
+  assert.equal(conflict.status, 409);
+
+  const original = getCurationSession(firstSession.id, {
+    Authorization: `Bearer ${firstSession.ownership.token}`,
+  });
+  assert.equal(original.status, 200);
+  if (original.status === 200) {
+    assert.deepEqual((original.body as CurationSession).unitIds, ["u1"]);
+  }
 });

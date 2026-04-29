@@ -13,7 +13,11 @@ export interface ApiRouteResponse<T> {
 }
 
 const sessionStore = new InMemoryCurationSessionStore();
-const idempotencyStore = new InMemoryIdempotencyStore<CurationSession>();
+interface IdempotencyRecord {
+  fingerprint: string;
+  session: CurationSession;
+}
+const idempotencyStore = new InMemoryIdempotencyStore<IdempotencyRecord>();
 
 function readHeader(headers: Record<string, string | undefined> | undefined, key: string): string | undefined {
   if (!headers) {
@@ -61,14 +65,47 @@ function apiError(status: number, code: string, message: string): ApiRouteRespon
   return { status, body: { code, message } };
 }
 
+function stableStringify(value: unknown): string {
+  if (value === null || typeof value !== "object") {
+    return JSON.stringify(value);
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map((entry) => stableStringify(entry)).join(",")}]`;
+  }
+
+  const objectValue = value as Record<string, unknown>;
+  const keys = Object.keys(objectValue).sort();
+  return `{${keys.map((key) => `${JSON.stringify(key)}:${stableStringify(objectValue[key])}`).join(",")}}`;
+}
+
 export function createCurationSession(
   request: CreateCurationRequest,
   headers?: Record<string, string | undefined>,
-): ApiRouteResponse<CurationSession> {
+): ApiRouteResponse<CurationSession | ApiError> {
   const idempotencyKey = readHeader(headers, "Idempotency-Key");
-  const session = idempotencyKey
-    ? idempotencyStore.getOrSet(idempotencyKey, () => sessionStore.create(buildSession(request)))
-    : sessionStore.create(buildSession(request));
+  const requestFingerprint = stableStringify(request);
+
+  let session: CurationSession;
+  if (idempotencyKey) {
+    const existing = idempotencyStore.get(idempotencyKey);
+    if (existing) {
+      if (existing.fingerprint !== requestFingerprint) {
+        return apiError(409, "idempotency_key_conflict", "Idempotency key already used with a different request");
+      }
+
+      session = existing.session;
+    } else {
+      const created = sessionStore.create(buildSession(request));
+      idempotencyStore.set(idempotencyKey, {
+        fingerprint: requestFingerprint,
+        session: created,
+      });
+      session = created;
+    }
+  } else {
+    session = sessionStore.create(buildSession(request));
+  }
 
   return {
     status: 201,
