@@ -124,9 +124,17 @@ test("unknown artwork returns 404", async () => {
   assert.equal(response.status, 404);
 });
 
-test("budget guard rejects explanation when estimated tokens exceed max", async () => {
+test("budget guard rejects generation when estimated tokens exceed max", async () => {
   const releasesRoot = createFixtureRelease();
-  const route = createArtworkExplanationRoute({ releasesRoot });
+  const route = createArtworkExplanationRoute({
+    releasesRoot,
+    generator: () => ({
+      title: "Quiet Cloister",
+      shortText: "A meditative lane.",
+      detailText: "Longer detail",
+      generatedAt: "2026-04-29T00:00:00.000Z",
+    }),
+  });
   const response = await route.getArtworkExplanation(
     {
       artworkId: "met-474091",
@@ -137,4 +145,43 @@ test("budget guard rejects explanation when estimated tokens exceed max", async 
   );
 
   assert.equal(response.status, 429);
+});
+
+test("cached ready explanation is returned even when over-budget input is provided", async () => {
+  const releasesRoot = createFixtureRelease();
+  let calls = 0;
+  const route = createArtworkExplanationRoute({
+    releasesRoot,
+    generator: () => {
+      calls += 1;
+      return {
+        title: "Quiet Cloister",
+        shortText: "A meditative lane.",
+        detailText: "Longer detail",
+        generatedAt: "2026-04-29T00:00:00.000Z",
+      };
+    },
+  });
+
+  const first = await route.getArtworkExplanation({
+    artworkId: "met-474091",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet meditative reflection",
+  });
+  const second = await route.getArtworkExplanation(
+    {
+      artworkId: "met-474091",
+      releaseVersion: "2026-04-25-curation-b",
+      contextText: "quiet meditative reflection",
+    },
+    { estimatedTokens: 99999, maxTokens: 5000 },
+  );
+
+  assert.equal(first.status, 200);
+  assert.equal(second.status, 200);
+  if (first.status === 200 && second.status === 200) {
+    assert.equal((first.body as { status: string }).status, "ready");
+    assert.equal((second.body as { status: string }).status, "ready");
+  }
+  assert.equal(calls, 1);
 });

@@ -5,7 +5,7 @@ import type { ApiError, ArtworkExplanation, ArtworkExplanationContent } from "@a
 import { parseReleaseManifest } from "@artduo/contracts";
 
 import { resolveCorpusManifestPath } from "./corpus";
-import { InMemoryExplanationCache } from "../services/explanations/explanation-cache";
+import { buildExplanationCacheKey, InMemoryExplanationCache } from "../services/explanations/explanation-cache";
 import { getArtworkExplanation, type ArtworkExplanationGenerator } from "../services/explanations/get-artwork-explanation";
 import { assertWithinBudget } from "../services/curation/budget-guard";
 
@@ -30,9 +30,8 @@ export interface ArtworkExplanationRouteOptions {
   rootDir?: string;
   releasesRoot?: string;
   generator?: ArtworkExplanationGenerator;
+  cache?: InMemoryExplanationCache;
 }
-
-const defaultCache = new InMemoryExplanationCache();
 
 function apiError(status: number, code: string, message: string): ApiRouteResponse<ApiError> {
   return { status, body: { code, message } };
@@ -67,6 +66,8 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
     budget?: ArtworkExplanationBudgetInput,
   ) => Promise<ApiRouteResponse<ArtworkExplanation | ApiError>> | ApiRouteResponse<ArtworkExplanation | ApiError>;
 } {
+  const cache = options.cache ?? new InMemoryExplanationCache();
+
   return {
     async getArtworkExplanation(
       request: ArtworkExplanationRouteRequest,
@@ -77,7 +78,30 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
         return apiError(404, "artwork_not_found", `Artwork not found: ${request.artworkId}`);
       }
 
-      if (budget) {
+      const cacheKey = buildExplanationCacheKey({
+        releaseVersion: request.releaseVersion,
+        artworkId: request.artworkId,
+        contextText: request.contextText,
+      });
+      const cached = cache.get(cacheKey);
+      if (cached) {
+        return {
+          status: 200,
+          body: {
+            artworkId: request.artworkId,
+            releaseVersion: request.releaseVersion,
+            status: "ready",
+            content: cached,
+            cacheKey,
+            updatedAt: cached.generatedAt,
+          },
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        };
+      }
+
+      if (budget && options.generator) {
         try {
           assertWithinBudget(budget);
         } catch (error) {
@@ -86,7 +110,7 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
       }
 
       const explanation = await getArtworkExplanation(
-        defaultCache,
+        cache,
         {
           artworkId: request.artworkId,
           releaseVersion: request.releaseVersion,

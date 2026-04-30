@@ -93,3 +93,45 @@ test("create session is rate-limited by idempotency key or client identity", () 
   assert.equal(second.status, 201);
   assert.equal(third.status, 429);
 });
+
+test("same idempotency key replay still returns original session after rate limit window is exhausted", () => {
+  resetCurationRouteState();
+  const headers = { "Idempotency-Key": "retry-same-request" };
+
+  const first = createCurationSession(request, headers);
+  const second = createCurationSession(
+    {
+      ...request,
+      userText: "another request",
+      exhibitionSnapshot: [{ unitId: "u9", artworkId: "met-470314", rank: 1, score: 0.7 }],
+    },
+    { "X-Forwarded-For": "198.51.100.7" },
+  );
+  const third = createCurationSession(
+    {
+      ...request,
+      userText: "yet another request",
+      exhibitionSnapshot: [{ unitId: "u10", artworkId: "met-470314", rank: 1, score: 0.7 }],
+    },
+    { "X-Forwarded-For": "198.51.100.7" },
+  );
+  const fourth = createCurationSession(
+    {
+      ...request,
+      userText: "third same-ip new request",
+      exhibitionSnapshot: [{ unitId: "u11", artworkId: "met-470314", rank: 1, score: 0.7 }],
+    },
+    { "X-Forwarded-For": "198.51.100.7" },
+  );
+
+  assert.equal(first.status, 201);
+  assert.equal(second.status, 201);
+  assert.equal(third.status, 201);
+  assert.equal(fourth.status, 429);
+
+  const replay = createCurationSession(request, headers);
+  assert.equal(replay.status, 201);
+  if (first.status === 201 && replay.status === 201) {
+    assert.equal((first.body as CurationSession).id, (replay.body as CurationSession).id);
+  }
+});

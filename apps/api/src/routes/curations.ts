@@ -86,6 +86,25 @@ export function createCurationSession(
   headers?: Record<string, string | undefined>,
 ): ApiRouteResponse<CurationSession | ApiError> {
   const idempotencyKey = readHeader(headers, "Idempotency-Key");
+  const requestFingerprint = stableStringify(request);
+
+  if (idempotencyKey) {
+    const existing = idempotencyStore.get(idempotencyKey);
+    if (existing) {
+      if (existing.fingerprint !== requestFingerprint) {
+        return apiError(409, "idempotency_key_conflict", "Idempotency key already used with a different request");
+      }
+
+      return {
+        status: 201,
+        body: existing.session,
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      };
+    }
+  }
+
   const clientIp = readHeader(headers, "X-Forwarded-For");
   const rateKey = idempotencyKey ?? clientIp ?? "anonymous";
   const rate = rateLimiter.check(rateKey);
@@ -103,25 +122,14 @@ export function createCurationSession(
     };
   }
 
-  const requestFingerprint = stableStringify(request);
-
   let session: CurationSession;
   if (idempotencyKey) {
-    const existing = idempotencyStore.get(idempotencyKey);
-    if (existing) {
-      if (existing.fingerprint !== requestFingerprint) {
-        return apiError(409, "idempotency_key_conflict", "Idempotency key already used with a different request");
-      }
-
-      session = existing.session;
-    } else {
-      const created = sessionStore.create(buildSession(request));
-      idempotencyStore.set(idempotencyKey, {
-        fingerprint: requestFingerprint,
-        session: created,
-      });
-      session = created;
-    }
+    const created = sessionStore.create(buildSession(request));
+    idempotencyStore.set(idempotencyKey, {
+      fingerprint: requestFingerprint,
+      session: created,
+    });
+    session = created;
   } else {
     session = sessionStore.create(buildSession(request));
   }
