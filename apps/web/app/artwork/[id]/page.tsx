@@ -2,6 +2,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { ArtworkImage } from "../../../components/artwork-image";
+import { getArtworkExplanationClient } from "../../../lib/explanation-client";
 import { getArtworkDetail, loadWebReleaseCatalog } from "../../../lib/release-catalog";
 
 interface ArtworkPageProps {
@@ -34,6 +35,11 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
   }
 
   const { artwork, scene } = detail;
+  const explanation = await getArtworkExplanationClient({
+    artworkId: artwork.id,
+    releaseVersion: catalog.releaseVersion,
+    contextText: query ?? artwork.searchText,
+  });
   const galleryHref = query ? `/gallery?${new URLSearchParams({ query }).toString()}` : "/gallery";
   const stageImage = scene?.imageUrl ?? "/artduo-gallery/bg-skylit-warm-gallery-plaster-wall-001.png";
 
@@ -89,6 +95,13 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               </div>
             </div>
             <p>{artwork.description ?? artwork.searchText}</p>
+            <p className="meta" data-testid="explanation-slot" style={{ marginTop: 16 }}>
+              {explanation.status === "ready"
+                ? explanation.content?.shortText
+                : explanation.status === "pending"
+                  ? "Explanation pending"
+                  : "Explanation unavailable"}
+            </p>
             <div className="tag-row" style={{ marginTop: 18 }}>
               {[...artwork.moodTags, ...artwork.subjectTags.slice(0, 4)].map((tag) => (
                 <span className="tag" key={tag}>{tag}</span>
