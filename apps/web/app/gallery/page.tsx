@@ -1,7 +1,8 @@
 import { ArrowRight, Search } from "lucide-react";
 
 import { ArtworkImage } from "../../components/artwork-image";
-import { loadWebReleaseCatalog, searchReleaseCatalog } from "../../lib/release-catalog";
+import { searchGalleryWithRuntime } from "../../lib/browser-curation";
+import { loadWebReleaseCatalog } from "../../lib/release-catalog";
 
 interface GalleryPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -16,11 +17,26 @@ function readQuery(params: Record<string, string | string[] | undefined> | undef
   return value ?? "";
 }
 
+function readRuntime(params: Record<string, string | string[] | undefined> | undefined): string | undefined {
+  const value = params?.runtime;
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+
+  return value;
+}
+
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const params = await searchParams;
   const query = readQuery(params) || "I want a quiet moonlit room";
+  const runtimeMode = readRuntime(params);
   const catalog = loadWebReleaseCatalog();
-  const search = searchReleaseCatalog(catalog, query, { limit: 12 });
+  const { search, runtime } = searchGalleryWithRuntime({
+    catalog,
+    query,
+    limit: 12,
+    runtimeMode,
+  });
 
   return (
     <main className="shell">
@@ -37,6 +53,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
 
       <section className="gallery-header">
         <p className="meta">{search.results.length} ranked works from {catalog.artworkCount} release-ready artworks</p>
+        <p className="meta" data-testid="runtime-mode">Runtime: {runtime}</p>
         <h1 className="page-title">Gallery</h1>
         <form className="query-form" action="/gallery">
           <div className="field">
