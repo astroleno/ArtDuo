@@ -7,6 +7,7 @@ interface ArtworkImageProps {
   alt: string;
   className?: string;
   fallbackLabel?: string;
+  fallbackMeta?: string;
   loading?: "eager" | "lazy";
 }
 
@@ -15,6 +16,7 @@ export function ArtworkImage({
   alt,
   className = "",
   fallbackLabel = "Image unavailable",
+  fallbackMeta,
   loading = "lazy",
 }: ArtworkImageProps) {
   const [failed, setFailed] = useState(false);
@@ -33,9 +35,11 @@ export function ArtworkImage({
         aria-label={`${alt} unavailable`}
         className={`artwork-image-fallback ${className}`}
         data-testid="image-fallback"
-        role="img"
+        role="group"
       >
-        <span>{fallbackLabel}</span>
+        <span className="fallback-title">{fallbackLabel}</span>
+        {fallbackMeta ? <span className="fallback-meta">{fallbackMeta}</span> : null}
+        <button type="button" onClick={() => setFailed(false)}>Retry image</button>
       </div>
     );
   }

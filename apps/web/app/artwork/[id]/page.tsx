@@ -62,15 +62,21 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
             <ArtworkImage
               alt={`${artwork.title} artwork`}
               className="detail-artwork-image"
+              fallbackLabel={artwork.title}
+              fallbackMeta={[artwork.artistDisplayName, artwork.yearLabel].filter(Boolean).join(", ") || "Collection image unavailable"}
               loading="eager"
               src={artwork.imageUrlFull ?? artwork.imageUrl}
             />
+            <figcaption className="artwork-caption">
+              <strong>{artwork.title}</strong>
+              <span>{[artwork.artistDisplayName, artwork.yearLabel].filter(Boolean).join(", ")}</span>
+            </figcaption>
           </figure>
           <div className="detail-copy">
             <p className="eyebrow">Release {catalog.releaseVersion}</p>
             <h1>{artwork.title}</h1>
             <p>{[artwork.artistDisplayName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ")}</p>
-            <p>{artwork.storySnippet ?? artwork.description ?? "Release-ready artwork selected by local retrieval."}</p>
+            <p>{artwork.storySnippet ?? "Release-ready artwork selected by local retrieval."}</p>
             <div className="detail-actions">
               <a className="secondary-link" href={galleryHref}>
                 <ArrowLeft aria-hidden="true" size={17} /> 返回 Gallery
@@ -103,8 +109,8 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
                   : "Explanation unavailable"}
             </p>
             <div className="tag-row" style={{ marginTop: 18 }}>
-              {[...artwork.moodTags, ...artwork.subjectTags.slice(0, 4)].map((tag) => (
-                <span className="tag" key={tag}>{tag}</span>
+              {[...artwork.moodTags, ...artwork.subjectTags.slice(0, 4)].map((tag, index) => (
+                <span className="tag" key={`${tag}-${index}`}>{tag}</span>
               ))}
             </div>
           </div>

@@ -3,6 +3,9 @@
 Date: 2026-04-29  
 Source: `review-screenshots/` desktop + mobile capture set, cross-lens review (`taste-skill`, `impeccable`, `huashu-design`)
 
+Latest review: 2026-05-03  
+Latest source: `review-screenshots-2026-05-03/` desktop + mobile capture set, same cross-lens review. No code changes were made during that review pass.
+
 ## Scope Boundary
 
 - Keep `frontend/` as legacy donor; do not use it as current runtime implementation target.
@@ -44,6 +47,13 @@ Source: `review-screenshots/` desktop + mobile capture set, cross-lens review (`
 2. Gallery: implement asymmetric grid and robust image fallback.
 3. Immersive: remove heavy card chrome and adopt caption treatment.
 4. Shared: centralize tokens and add reduced-motion media query.
+
+## 2026-05-03 Apps/Web Pass
+
+1. Landing: use release artwork slices as a low-opacity first-viewport art signal.
+2. Gallery: replace equal three-column presentation with a primary work, curatorial arc, and stage groups while preserving ranked result access.
+3. Detail: move artwork metadata into a caption treatment and reduce side-copy visual weight.
+4. Shared: preserve artwork proportions with `object-fit: contain`, enrich image fallback metadata, and add global reduced-motion coverage.
 
 ## Acceptance Signals
 

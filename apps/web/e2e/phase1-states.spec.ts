@@ -18,6 +18,7 @@ test("gallery cards fall back when artwork images fail to load", async ({ page }
   await page.goto("/gallery?query=I+want+a+quiet+moonlit+room");
 
   await expect(page.getByTestId("image-fallback").first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Retry image" }).first()).toBeVisible();
 });
 
 test("unknown artwork detail routes render the not-found state", async ({ page }) => {

@@ -12,10 +12,21 @@ export default function HomePage() {
   const catalog = loadWebReleaseCatalog();
   const heroScene = catalog.backgroundScenes[0];
   const heroImage = heroScene?.imageUrl ?? "/artduo-gallery/bg-skylit-warm-gallery-plaster-wall-001.png";
+  const heroArtworks = catalog.artworks.slice(0, 3);
 
   return (
     <main className="shell">
       <section className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className="hero-artwork-veil" aria-hidden="true">
+          {heroArtworks.map((artwork) => (
+            <img
+              alt=""
+              className="hero-artwork-slice"
+              key={artwork.id}
+              src={artwork.imageUrlFull ?? artwork.imageUrl}
+            />
+          ))}
+        </div>
         <div className="hero-content">
           <p className="eyebrow">Release-backed curation thin slice</p>
           <h1>ArtDuo</h1>
