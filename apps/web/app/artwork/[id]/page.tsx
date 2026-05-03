@@ -41,7 +41,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     contextText: query ?? artwork.searchText,
   });
   const galleryHref = query ? `/gallery?${new URLSearchParams({ query }).toString()}` : "/gallery";
-  const stageImage = scene?.imageUrl ?? "/artduo-gallery/bg-skylit-warm-gallery-plaster-wall-001.png";
+  const stageImage = artwork.imageUrlFull ?? artwork.imageUrl;
 
   return (
     <main className="shell">

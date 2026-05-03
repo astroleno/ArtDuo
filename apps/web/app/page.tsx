@@ -10,9 +10,8 @@ const STARTER_PROMPTS = [
 
 export default function HomePage() {
   const catalog = loadWebReleaseCatalog();
-  const heroScene = catalog.backgroundScenes[0];
-  const heroImage = heroScene?.imageUrl ?? "/artduo-gallery/bg-skylit-warm-gallery-plaster-wall-001.png";
   const heroArtworks = catalog.artworks.slice(0, 3);
+  const heroImage = heroArtworks[0]?.imageUrlFull ?? heroArtworks[0]?.imageUrl ?? "";
 
   return (
     <main className="shell">
