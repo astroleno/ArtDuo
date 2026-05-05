@@ -616,6 +616,98 @@ h1,
   padding: 28px;
 }
 
+.loading-input,
+.loading-button,
+.loading-featured,
+.loading-minis span {
+  background: linear-gradient(90deg, rgba(24, 21, 18, 0.08), rgba(143, 47, 35, 0.13), rgba(24, 21, 18, 0.08));
+  background-size: 220% 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  animation: skeleton-shimmer 1400ms ease-in-out infinite;
+}
+
+.loading-input {
+  min-height: 52px;
+}
+
+.loading-button {
+  align-self: end;
+  min-height: 56px;
+  width: 124px;
+}
+
+.curation-loading {
+  display: grid;
+  gap: clamp(24px, 4vw, 42px);
+  grid-template-columns: minmax(220px, 0.42fr) minmax(300px, 1fr);
+}
+
+.curation-timeline {
+  border-left: 1px solid var(--line);
+  display: grid;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 6px 0 6px 20px;
+}
+
+.curation-timeline li {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  gap: 10px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: curation-step 900ms ease forwards;
+}
+
+.curation-timeline span {
+  background: var(--accent);
+  border-radius: 999px;
+  height: 10px;
+  margin-left: -26px;
+  width: 10px;
+}
+
+.loading-wall {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(260px, 1.1fr);
+}
+
+.loading-featured {
+  aspect-ratio: 4 / 5;
+}
+
+.loading-minis {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.loading-minis span {
+  aspect-ratio: 4 / 3;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 120% 0;
+  }
+
+  100% {
+    background-position: -120% 0;
+  }
+}
+
+@keyframes curation-step {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 860px) {
   .topbar,
   .section-header {
@@ -632,7 +724,9 @@ h1,
   .query-form,
   .detail-stage-inner,
   .detail-grid,
-  .curation-wall {
+  .curation-wall,
+  .curation-loading,
+  .loading-wall {
     grid-template-columns: 1fr;
   }
 
@@ -659,7 +753,8 @@ h1,
 
   .stats,
   .result-grid,
-  .stage-grid {
+  .stage-grid,
+  .loading-minis {
     grid-template-columns: 1fr;
   }
 

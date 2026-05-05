@@ -6,6 +6,9 @@ Source: `review-screenshots/` desktop + mobile capture set, cross-lens review (`
 Latest review: 2026-05-03  
 Latest source: `review-screenshots-2026-05-03/` desktop + mobile capture set, same cross-lens review. No code changes were made during that review pass.
 
+Follow-up review: 2026-05-05  
+Follow-up source: `review-screenshots-2026-05-05/`. Screenshots still target `frontend/` legacy donor, so findings are preserved here but implementation remains scoped to `apps/web`.
+
 ## Scope Boundary
 
 - Keep `frontend/` as legacy donor; do not use it as current runtime implementation target.
@@ -54,6 +57,11 @@ Latest source: `review-screenshots-2026-05-03/` desktop + mobile capture set, sa
 2. Gallery: replace equal three-column presentation with a primary work, curatorial arc, and stage groups while preserving ranked result access.
 3. Detail: move artwork metadata into a caption treatment and reduce side-copy visual weight.
 4. Shared: preserve artwork proportions with `object-fit: contain`, enrich image fallback metadata, and add global reduced-motion coverage.
+
+## 2026-05-05 Apps/Web Follow-Up
+
+1. Gallery: add a staged curation loading shell so waiting reads as analysis, curve generation, artwork selection, and narration writing.
+2. Boundary: keep legacy `frontend/` findings as donor feedback only; current runtime implementation target remains `apps/web`.
 
 ## Acceptance Signals
 
