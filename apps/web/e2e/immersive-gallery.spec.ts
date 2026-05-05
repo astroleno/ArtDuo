@@ -19,6 +19,11 @@ test("immersive gallery can move between scenes and preserve query state", async
   const firstTitle = await page.getByTestId("immersive-scene-title").textContent();
   await expect(page.getByRole("main")).toHaveClass(/immersive-transition-fade/);
 
+  const secondSceneTarget = page.getByRole("link", { name: "Open scene 2" });
+  const secondSceneBox = await secondSceneTarget.boundingBox();
+  expect(secondSceneBox?.width).toBeGreaterThanOrEqual(44);
+  expect(secondSceneBox?.height).toBeGreaterThanOrEqual(44);
+
   await page.getByRole("link", { name: "Next scene" }).click();
 
   await expect(page).toHaveURL(/query=I\+want\+a\+quiet\+moonlit\+room/);

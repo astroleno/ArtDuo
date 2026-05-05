@@ -29,7 +29,7 @@ html {
 
 body {
   margin: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--surface);
 }
 
@@ -65,7 +65,7 @@ img {
 }
 
 .shell {
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .topbar {
@@ -624,7 +624,7 @@ h1,
 .immersive-shell {
   background: #100d0b;
   color: #fffaf1;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   position: relative;
 }
@@ -666,7 +666,7 @@ h1,
   display: grid;
   gap: clamp(24px, 5vw, 58px);
   grid-template-columns: minmax(320px, 1.62fr) minmax(240px, 0.7fr);
-  min-height: calc(100vh - 140px);
+  min-height: calc(100dvh - 140px);
   padding: clamp(18px, 4vw, 58px) clamp(18px, 5vw, 64px) 80px;
   position: relative;
   z-index: 1;
@@ -751,7 +751,7 @@ h1,
 
 .immersive-progress {
   display: flex;
-  gap: 9px;
+  gap: 0;
   justify-content: center;
   list-style: none;
   margin: 0;
@@ -760,24 +760,66 @@ h1,
 
 .immersive-progress li {
   align-items: center;
-  background: rgba(255, 250, 241, 0.3);
-  border-radius: 999px;
+  background: transparent;
   display: flex;
-  height: 8px;
+  height: 44px;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
+  width: 44px;
+}
+
+.immersive-progress li::before {
+  background: rgba(255, 250, 241, 0.22);
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 22px;
+}
+
+.immersive-progress li:first-child::before {
+  left: 22px;
+}
+
+.immersive-progress li:last-child::before {
+  right: 22px;
+}
+
+.immersive-progress li::after {
+  background: rgba(255, 250, 241, 0.62);
+  border-radius: 999px;
+  content: "";
+  height: 8px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 8px;
 }
 
 .immersive-progress li.is-active {
+  width: 44px;
+}
+
+.immersive-progress li.is-active::after {
   background: #fffaf1;
+  box-shadow: 0 0 0 6px rgba(255, 250, 241, 0.1);
   width: 24px;
 }
 
 .immersive-progress a {
+  border-radius: 999px;
   display: block;
-  height: 100%;
-  width: 100%;
+  height: 44px;
+  position: relative;
+  width: 44px;
+  z-index: 1;
+}
+
+.immersive-progress a:hover {
+  background: rgba(255, 250, 241, 0.08);
 }
 
 .immersive-progress span {

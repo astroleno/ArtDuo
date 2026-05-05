@@ -63,6 +63,12 @@ Follow-up source: `review-screenshots-2026-05-05/`. Screenshots still target `fr
 1. Gallery: add a staged curation loading shell so waiting reads as analysis, curve generation, artwork selection, and narration writing.
 2. Boundary: keep legacy `frontend/` findings as donor feedback only; current runtime implementation target remains `apps/web`.
 
+## 2026-05-06 Apps/Web Follow-Up
+
+1. Boundary: re-confirm the latest `frontend/` review remains donor-only; no legacy HTML edits.
+2. Immersive: convert the bottom progress dots into a 44px museum-index rail so scene navigation is touch-safe on mobile.
+3. Verification: add e2e coverage that measures the scene progress link target before moving from scene 1 to scene 2.
+
 ## Acceptance Signals
 
 1. Landing first screen is recognizably art-curation without reading helper text.
