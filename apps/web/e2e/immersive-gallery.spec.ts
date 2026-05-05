@@ -12,6 +12,22 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
   await expect(page.getByLabel("Immersive gallery progress")).toBeVisible();
 });
 
+test("immersive gallery can move between scenes and preserve query state", async ({ page }) => {
+  await page.goto("/gallery?query=I+want+a+quiet+moonlit+room");
+  await page.getByRole("link", { name: /沉浸观展/ }).click();
+
+  const firstTitle = await page.getByTestId("immersive-scene-title").textContent();
+  await expect(page.getByRole("main")).toHaveClass(/immersive-transition-fade/);
+
+  await page.getByRole("link", { name: "Next scene" }).click();
+
+  await expect(page).toHaveURL(/query=I\+want\+a\+quiet\+moonlit\+room/);
+  await expect(page).toHaveURL(/unit=met-/);
+  await expect(page.getByRole("main")).toHaveClass(/immersive-transition-dissolve/);
+  await expect(page.getByTestId("immersive-scene-title")).not.toHaveText(firstTitle ?? "");
+  await expect(page.getByRole("link", { name: "Previous scene" })).toBeVisible();
+});
+
 test("artwork detail can enter immersive gallery at the current artwork", async ({ page }) => {
   await page.goto("/gallery?query=I+want+a+quiet+moonlit+room");
   await page.getByTestId("result-card").first().getByRole("link", { name: /打开详情/ }).click();

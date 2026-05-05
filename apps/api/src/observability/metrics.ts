@@ -73,6 +73,8 @@ export class InMemoryMetrics {
   }
 }
 
+export const defaultCurationMetrics = new InMemoryMetrics();
+
 export function createMetricTimer(
   metrics: InMemoryMetrics,
   name: CurationMetricName,

@@ -725,6 +725,22 @@ h1,
   text-transform: uppercase;
 }
 
+.immersive-scene-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.immersive-scene-nav a {
+  border: 1px solid rgba(255, 250, 241, 0.24);
+  border-radius: 999px;
+  color: rgba(255, 250, 241, 0.84);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 9px 12px;
+}
+
 .immersive-footer {
   bottom: 24px;
   left: 0;
@@ -756,6 +772,12 @@ h1,
 .immersive-progress li.is-active {
   background: #fffaf1;
   width: 24px;
+}
+
+.immersive-progress a {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .immersive-progress span {

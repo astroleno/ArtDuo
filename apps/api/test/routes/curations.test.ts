@@ -4,6 +4,8 @@ import { test } from "node:test";
 import type { CurationSession } from "@artduo/contracts";
 
 import { createCurationSession, getCurationSession, resetCurationRouteState } from "../../src/routes/curations";
+import { InMemoryMetrics } from "../../src/observability/metrics";
+import { InMemoryRequestLog } from "../../src/observability/request-log";
 
 const request = {
   userText: "quiet meditative reflection in a cloister",
@@ -134,4 +136,29 @@ test("same idempotency key replay still returns original session after rate limi
   if (first.status === 201 && replay.status === 201) {
     assert.equal((first.body as CurationSession).id, (replay.body as CurationSession).id);
   }
+});
+
+test("create session records runtime metrics and request log entries", () => {
+  resetCurationRouteState();
+  const metrics = new InMemoryMetrics();
+  const requestLog = new InMemoryRequestLog();
+
+  const first = createCurationSession(
+    request,
+    { "Idempotency-Key": "observability-create", "X-Request-Id": "req-create-1" },
+    { metrics, requestLog },
+  );
+  const replay = createCurationSession(
+    request,
+    { "Idempotency-Key": "observability-create", "X-Request-Id": "req-create-2" },
+    { metrics, requestLog },
+  );
+
+  assert.equal(first.status, 201);
+  assert.equal(replay.status, 201);
+  assert.deepEqual(metrics.list("exhibition.create").map((entry) => entry.tags.result), ["created", "idempotency_replay"]);
+  assert.deepEqual(requestLog.list().map((entry) => `${entry.requestId}:${entry.tags.result}`), [
+    "req-create-1:created",
+    "req-create-2:idempotency_replay",
+  ]);
 });

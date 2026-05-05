@@ -40,6 +40,10 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
   return (
     <ImmersiveGallery
       galleryHref={galleryHref}
+      getSceneHref={(unit) => `/gallery/${encodeURIComponent(id)}/immersive?${new URLSearchParams({
+        query,
+        unit: unit.id,
+      }).toString()}`}
       selectedUnitId={selectedUnitId}
       units={units}
     />

@@ -6,6 +6,8 @@ import { InMemoryIdempotencyStore } from "../services/http/idempotency-store";
 import { InMemoryRateLimit } from "../services/http/rate-limit";
 import { InMemoryCurationSessionStore } from "../services/curation/session-store";
 import { createSessionToken, verifySessionToken } from "../services/auth/session-token";
+import { defaultCurationMetrics, type InMemoryMetrics } from "../observability/metrics";
+import { defaultCurationRequestLog, type InMemoryRequestLog } from "../observability/request-log";
 
 export interface ApiRouteResponse<T> {
   status: number;
@@ -20,6 +22,11 @@ interface IdempotencyRecord {
 }
 const idempotencyStore = new InMemoryIdempotencyStore<IdempotencyRecord>();
 const rateLimiter = new InMemoryRateLimit({ limit: 2, windowMs: 60_000 });
+
+export interface CurationRouteObservabilityOptions {
+  metrics?: InMemoryMetrics;
+  requestLog?: InMemoryRequestLog;
+}
 
 function readHeader(headers: Record<string, string | undefined> | undefined, key: string): string | undefined {
   if (!headers) {
@@ -84,24 +91,58 @@ function stableStringify(value: unknown): string {
 export function createCurationSession(
   request: CreateCurationRequest,
   headers?: Record<string, string | undefined>,
+  observability: CurationRouteObservabilityOptions = {},
 ): ApiRouteResponse<CurationSession | ApiError> {
+  const metrics = observability.metrics ?? defaultCurationMetrics;
+  const requestLog = observability.requestLog ?? defaultCurationRequestLog;
+  const startedAt = Date.now();
+  const requestId = readHeader(headers, "X-Request-Id") ?? `req_${randomUUID()}`;
   const idempotencyKey = readHeader(headers, "Idempotency-Key");
   const requestFingerprint = stableStringify(request);
+  const finish = (
+    response: ApiRouteResponse<CurationSession | ApiError>,
+    result: string,
+  ): ApiRouteResponse<CurationSession | ApiError> => {
+    const durationMs = Date.now() - startedAt;
+    metrics.recordDuration("exhibition.create", durationMs, {
+      releaseVersion: request.releaseVersion,
+      result,
+    });
+    requestLog.append({
+      requestId,
+      method: "POST",
+      route: "/v1/curations",
+      status: response.status,
+      durationMs,
+      tags: {
+        releaseVersion: request.releaseVersion,
+        result,
+      },
+    });
+
+    return response;
+  };
 
   if (idempotencyKey) {
     const existing = idempotencyStore.get(idempotencyKey);
     if (existing) {
       if (existing.fingerprint !== requestFingerprint) {
-        return apiError(409, "idempotency_key_conflict", "Idempotency key already used with a different request");
+        return finish(
+          apiError(409, "idempotency_key_conflict", "Idempotency key already used with a different request"),
+          "idempotency_conflict",
+        );
       }
 
-      return {
-        status: 201,
-        body: existing.session,
-        headers: {
-          "Cache-Control": "no-store",
+      return finish(
+        {
+          status: 201,
+          body: existing.session,
+          headers: {
+            "Cache-Control": "no-store",
+          },
         },
-      };
+        "idempotency_replay",
+      );
     }
   }
 
@@ -109,17 +150,20 @@ export function createCurationSession(
   const rateKey = idempotencyKey ?? clientIp ?? "anonymous";
   const rate = rateLimiter.check(rateKey);
   if (!rate.allowed) {
-    return {
-      status: 429,
-      body: {
-        code: "rate_limited",
-        message: "Too many requests",
+    return finish(
+      {
+        status: 429,
+        body: {
+          code: "rate_limited",
+          message: "Too many requests",
+        },
+        headers: {
+          "Cache-Control": "no-store",
+          "Retry-After": rate.resetAt,
+        },
       },
-      headers: {
-        "Cache-Control": "no-store",
-        "Retry-After": rate.resetAt,
-      },
-    };
+      "rate_limited",
+    );
   }
 
   let session: CurationSession;
@@ -134,13 +178,16 @@ export function createCurationSession(
     session = sessionStore.create(buildSession(request));
   }
 
-  return {
-    status: 201,
-    body: session,
-    headers: {
-      "Cache-Control": "no-store",
+  return finish(
+    {
+      status: 201,
+      body: session,
+      headers: {
+        "Cache-Control": "no-store",
+      },
     },
-  };
+    "created",
+  );
 }
 
 export function getCurationSession(
@@ -171,4 +218,6 @@ export function resetCurationRouteState(): void {
   sessionStore.clear();
   idempotencyStore.clear();
   rateLimiter.clear();
+  defaultCurationMetrics.clear();
+  defaultCurationRequestLog.clear();
 }

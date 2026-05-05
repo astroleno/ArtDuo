@@ -5,6 +5,8 @@ import path from "node:path";
 import { test } from "node:test";
 
 import { createArtworkExplanationRoute } from "../../src/routes/artworks";
+import { InMemoryMetrics } from "../../src/observability/metrics";
+import { InMemoryRequestLog } from "../../src/observability/request-log";
 
 function createFixtureRelease(): string {
   const releasesRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-artworks-route-"));
@@ -184,4 +186,38 @@ test("cached ready explanation is returned even when over-budget input is provid
     assert.equal((second.body as { status: string }).status, "ready");
   }
   assert.equal(calls, 1);
+});
+
+test("explanation route records runtime metrics and request log entries", async () => {
+  const releasesRoot = createFixtureRelease();
+  const metrics = new InMemoryMetrics();
+  const requestLog = new InMemoryRequestLog();
+  const route = createArtworkExplanationRoute({
+    releasesRoot,
+    metrics,
+    requestLog,
+    generator: () => ({
+      title: "Quiet Cloister",
+      shortText: "A meditative lane.",
+      detailText: "Longer detail",
+      generatedAt: "2026-04-29T00:00:00.000Z",
+    }),
+  });
+
+  await route.getArtworkExplanation({
+    artworkId: "met-474091",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet meditative reflection",
+  });
+  await route.getArtworkExplanation({
+    artworkId: "met-474091",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet meditative reflection",
+  });
+
+  assert.deepEqual(metrics.list("explanation.generate").map((entry) => entry.tags.result), ["ready", "cache_hit"]);
+  assert.deepEqual(requestLog.list().map((entry) => `${entry.route}:${entry.tags.result}`), [
+    "/v1/artworks/:id/explanation:ready",
+    "/v1/artworks/:id/explanation:cache_hit",
+  ]);
 });

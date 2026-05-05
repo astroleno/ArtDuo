@@ -19,6 +19,8 @@ export class InMemoryAnalyticsSink implements AnalyticsSink {
   }
 }
 
+export const defaultAnalyticsSink = new InMemoryAnalyticsSink();
+
 function normalizeProperties(properties: Record<string, string | undefined> = {}): Record<string, string> {
   return Object.fromEntries(
     Object.entries(properties).filter((entry): entry is [string, string] => typeof entry[1] === "string" && entry[1] !== ""),

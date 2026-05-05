@@ -41,3 +41,5 @@ export class InMemoryRequestLog {
     this.entries.length = 0;
   }
 }
+
+export const defaultCurationRequestLog = new InMemoryRequestLog();

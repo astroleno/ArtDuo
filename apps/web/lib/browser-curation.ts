@@ -1,5 +1,6 @@
 import type { WebReleaseCatalog, WebSearchResult } from "./release-catalog";
 import { searchReleaseCatalog } from "./release-catalog";
+import { defaultAnalyticsSink, trackAnalyticsEvent, type AnalyticsSink } from "./analytics";
 
 export interface BrowserCurationResult {
   search: WebSearchResult;
@@ -11,6 +12,7 @@ export function searchGalleryWithRuntime(input: {
   query: string;
   limit?: number;
   runtimeMode?: string;
+  analyticsSink?: AnalyticsSink;
 }): BrowserCurationResult {
   const baseSearch = () => searchReleaseCatalog(input.catalog, input.query, { limit: input.limit ?? 12 });
 
@@ -25,6 +27,10 @@ export function searchGalleryWithRuntime(input: {
 
     return { search: baseSearch(), runtime: "browser-worker" };
   } catch {
+    void trackAnalyticsEvent(input.analyticsSink ?? defaultAnalyticsSink, "curation.degraded", {
+      reason: "browser_worker_failed",
+      fallback: "server-fallback",
+    });
     return { search: baseSearch(), runtime: "server-fallback" };
   }
 }

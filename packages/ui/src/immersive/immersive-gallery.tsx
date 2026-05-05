@@ -8,9 +8,10 @@ export interface ImmersiveGalleryProps {
   selectedUnitId?: string;
   registry?: TransitionRegistry;
   galleryHref: string;
+  getSceneHref?: (unit: ImmersiveGalleryUnit, index: number) => string;
 }
 
-export function ImmersiveGallery({ units, selectedUnitId, registry, galleryHref }: ImmersiveGalleryProps) {
+export function ImmersiveGallery({ units, selectedUnitId, registry, galleryHref, getSceneHref }: ImmersiveGalleryProps) {
   const scenes = buildImmersiveScenes(units, { registry });
   const selectedIndex = Math.max(0, scenes.findIndex((scene) => scene.unit.id === selectedUnitId));
   const activeScene = scenes[selectedIndex] ?? scenes[0];
@@ -28,6 +29,9 @@ export function ImmersiveGallery({ units, selectedUnitId, registry, galleryHref 
   }
 
   const activeByline = [activeScene.unit.artistDisplayName, activeScene.unit.yearLabel].filter(Boolean).join(", ");
+  const sceneHrefs = scenes.map((scene) => getSceneHref?.(scene.unit, scene.index));
+  const previousScene = scenes[activeScene.index - 1];
+  const nextScene = scenes[activeScene.index + 1];
 
   return (
     <main className={`immersive-shell ${activeScene.transition.className}`}>
@@ -40,13 +44,23 @@ export function ImmersiveGallery({ units, selectedUnitId, registry, galleryHref 
         <ImageLightbox unit={activeScene.unit} />
         <aside className="immersive-caption">
           <p className="immersive-kicker">{activeScene.unit.sceneLabel ?? activeScene.transition.family}</p>
-          <h1>{activeScene.unit.title}</h1>
+          <h1 data-testid="immersive-scene-title">{activeScene.unit.title}</h1>
           {activeByline ? <p>{activeByline}</p> : null}
+          {scenes.length > 1 ? (
+            <nav className="immersive-scene-nav" aria-label="Immersive scene navigation">
+              {previousScene && sceneHrefs[previousScene.index] ? (
+                <a href={sceneHrefs[previousScene.index]}>Previous scene</a>
+              ) : null}
+              {nextScene && sceneHrefs[nextScene.index] ? (
+                <a href={sceneHrefs[nextScene.index]}>Next scene</a>
+              ) : null}
+            </nav>
+          ) : null}
         </aside>
       </section>
 
       <footer className="immersive-footer">
-        <ProgressIndicator total={scenes.length} currentIndex={activeScene.index} />
+        <ProgressIndicator total={scenes.length} currentIndex={activeScene.index} itemHrefs={sceneHrefs} />
       </footer>
     </main>
   );

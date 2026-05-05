@@ -8,6 +8,8 @@ import { resolveCorpusManifestPath } from "./corpus";
 import { buildExplanationCacheKey, InMemoryExplanationCache } from "../services/explanations/explanation-cache";
 import { getArtworkExplanation, type ArtworkExplanationGenerator } from "../services/explanations/get-artwork-explanation";
 import { assertWithinBudget } from "../services/curation/budget-guard";
+import { defaultCurationMetrics, type InMemoryMetrics } from "../observability/metrics";
+import { defaultCurationRequestLog, type InMemoryRequestLog } from "../observability/request-log";
 
 export interface ApiRouteResponse<T> {
   status: number;
@@ -31,6 +33,8 @@ export interface ArtworkExplanationRouteOptions {
   releasesRoot?: string;
   generator?: ArtworkExplanationGenerator;
   cache?: InMemoryExplanationCache;
+  metrics?: InMemoryMetrics;
+  requestLog?: InMemoryRequestLog;
 }
 
 function apiError(status: number, code: string, message: string): ApiRouteResponse<ApiError> {
@@ -67,15 +71,43 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
   ) => Promise<ApiRouteResponse<ArtworkExplanation | ApiError>> | ApiRouteResponse<ArtworkExplanation | ApiError>;
 } {
   const cache = options.cache ?? new InMemoryExplanationCache();
+  const metrics = options.metrics ?? defaultCurationMetrics;
+  const requestLog = options.requestLog ?? defaultCurationRequestLog;
 
   return {
     async getArtworkExplanation(
       request: ArtworkExplanationRouteRequest,
       budget?: ArtworkExplanationBudgetInput,
     ): Promise<ApiRouteResponse<ArtworkExplanation | ApiError>> {
+      const startedAt = Date.now();
+      const finish = (
+        response: ApiRouteResponse<ArtworkExplanation | ApiError>,
+        result: string,
+      ): ApiRouteResponse<ArtworkExplanation | ApiError> => {
+        const durationMs = Date.now() - startedAt;
+        metrics.recordDuration("explanation.generate", durationMs, {
+          artworkId: request.artworkId,
+          releaseVersion: request.releaseVersion,
+          result,
+        });
+        requestLog.append({
+          requestId: `artwork-explanation-${request.releaseVersion}-${request.artworkId}`,
+          method: "GET",
+          route: "/v1/artworks/:id/explanation",
+          status: response.status,
+          durationMs,
+          tags: {
+            artworkId: request.artworkId,
+            releaseVersion: request.releaseVersion,
+            result,
+          },
+        });
+
+        return response;
+      };
       const ids = loadArtworkIds(options, request.releaseVersion);
       if (!ids.has(request.artworkId)) {
-        return apiError(404, "artwork_not_found", `Artwork not found: ${request.artworkId}`);
+        return finish(apiError(404, "artwork_not_found", `Artwork not found: ${request.artworkId}`), "not_found");
       }
 
       const cacheKey = buildExplanationCacheKey({
@@ -85,27 +117,30 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
       });
       const cached = cache.get(cacheKey);
       if (cached) {
-        return {
-          status: 200,
-          body: {
-            artworkId: request.artworkId,
-            releaseVersion: request.releaseVersion,
-            status: "ready",
-            content: cached,
-            cacheKey,
-            updatedAt: cached.generatedAt,
+        return finish(
+          {
+            status: 200,
+            body: {
+              artworkId: request.artworkId,
+              releaseVersion: request.releaseVersion,
+              status: "ready",
+              content: cached,
+              cacheKey,
+              updatedAt: cached.generatedAt,
+            },
+            headers: {
+              "Cache-Control": "no-store",
+            },
           },
-          headers: {
-            "Cache-Control": "no-store",
-          },
-        };
+          "cache_hit",
+        );
       }
 
       if (budget && options.generator) {
         try {
           assertWithinBudget(budget);
         } catch (error) {
-          return apiError(429, "budget_exceeded", (error as Error).message);
+          return finish(apiError(429, "budget_exceeded", (error as Error).message), "budget_exceeded");
         }
       }
 
@@ -123,13 +158,16 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
         }) => ArtworkExplanationContent | Promise<ArtworkExplanationContent>) | undefined,
       );
 
-      return {
-        status: 200,
-        body: explanation,
-        headers: {
-          "Cache-Control": "no-store",
+      return finish(
+        {
+          status: 200,
+          body: explanation,
+          headers: {
+            "Cache-Control": "no-store",
+          },
         },
-      };
+        explanation.status,
+      );
     },
   };
 }
