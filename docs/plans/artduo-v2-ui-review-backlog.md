@@ -69,6 +69,14 @@ Follow-up source: `review-screenshots-2026-05-05/`. Screenshots still target `fr
 2. Immersive: convert the bottom progress dots into a 44px museum-index rail so scene navigation is touch-safe on mobile.
 3. Verification: add e2e coverage that measures the scene progress link target before moving from scene 1 to scene 2.
 
+## 2026-05-06 Apps/Web Mobile + Scene Follow-Up
+
+1. Mobile: hide the decorative landing artwork veil on small screens and clip horizontal overflow at the page shell.
+2. Immersive: allow mobile vertical scroll, keep the progress rail in document flow, and compress the back link hierarchy.
+3. Gallery: stop auto-running the default query when no query is present; show an explicit intent-start state instead.
+4. Scene backgrounds: serve `/artduo-gallery/*` assets from the `apps/web` runtime and pass matched background scenes into Gallery, Detail, and Immersive surfaces.
+5. Image states: localize fallback copy, expose fallback artwork semantics as `role="img"`, and lazy-load non-featured result images.
+
 ## Acceptance Signals
 
 1. Landing first screen is recognizably art-curation without reading helper text.

@@ -7,6 +7,7 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
 
   await expect(page).toHaveURL(/\/gallery\/local\/immersive\?query=I\+want\+a\+quiet\+moonlit\+room/);
   await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
+  await expect(page.getByRole("main")).toHaveCSS("background-image", /artduo-gallery/);
   await expect(page.getByRole("img")).toBeVisible();
   await expect(page.getByRole("link", { name: "Back to Gallery" })).toBeVisible();
   await expect(page.getByLabel("Immersive gallery progress")).toBeVisible();
@@ -42,4 +43,17 @@ test("artwork detail can enter immersive gallery at the current artwork", async 
 
   await expect(page).toHaveURL(/\/gallery\/local\/immersive/);
   await expect(page.getByRole("heading", { name: heading ?? "" })).toBeVisible();
+});
+
+test("immersive gallery mobile layout scrolls without clipping progress", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
+
+  const shellOverflowY = await page.locator(".immersive-shell").evaluate((element) => getComputedStyle(element).overflowY);
+  const footerPosition = await page.locator(".immersive-footer").evaluate((element) => getComputedStyle(element).position);
+  const hasHorizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+
+  expect(shellOverflowY).toBe("auto");
+  expect(footerPosition).toBe("sticky");
+  expect(hasHorizontalOverflow).toBe(false);
 });

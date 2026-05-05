@@ -1,12 +1,7 @@
 import { ArrowRight, Search } from "lucide-react";
 
+import { STARTER_PROMPTS } from "../lib/prompts";
 import { loadWebReleaseCatalog } from "../lib/release-catalog";
-
-const STARTER_PROMPTS = [
-  "I want a quiet moonlit room",
-  "Show me hopeful spring light",
-  "Find mystery with a dark gallery",
-];
 
 export default function HomePage() {
   const catalog = loadWebReleaseCatalog();
@@ -40,7 +35,6 @@ export default function HomePage() {
               <input
                 id="query"
                 name="query"
-                defaultValue="I want a quiet moonlit room"
                 placeholder="例如：I need a calm painting about moonlight"
                 required
               />

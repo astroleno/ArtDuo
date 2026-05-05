@@ -45,7 +45,12 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     query: query ?? artwork.searchText,
     unit: artwork.id,
   }).toString()}`;
-  const stageImage = artwork.imageUrlFull ?? artwork.imageUrl;
+  const stageImage = scene?.imageUrl ?? artwork.imageUrlFull ?? artwork.imageUrl;
+  const fallbackMeta = [
+    `馆藏编号 ${artwork.id}`,
+    artwork.artistDisplayName,
+    artwork.yearLabel,
+  ].filter(Boolean).join(" · ");
 
   return (
     <main className="shell">
@@ -67,7 +72,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               alt={`${artwork.title} artwork`}
               className="detail-artwork-image"
               fallbackLabel={artwork.title}
-              fallbackMeta={[artwork.artistDisplayName, artwork.yearLabel].filter(Boolean).join(", ") || "Collection image unavailable"}
+              fallbackMeta={fallbackMeta}
               loading="eager"
               src={artwork.imageUrlFull ?? artwork.imageUrl}
             />

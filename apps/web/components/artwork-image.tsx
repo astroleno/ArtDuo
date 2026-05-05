@@ -8,6 +8,7 @@ interface ArtworkImageProps {
   className?: string;
   fallbackLabel?: string;
   fallbackMeta?: string;
+  decoding?: "async" | "auto" | "sync";
   loading?: "eager" | "lazy";
 }
 
@@ -15,8 +16,9 @@ export function ArtworkImage({
   src,
   alt,
   className = "",
-  fallbackLabel = "Image unavailable",
+  fallbackLabel = "图像暂不可用",
   fallbackMeta,
+  decoding = "async",
   loading = "lazy",
 }: ArtworkImageProps) {
   const [failed, setFailed] = useState(false);
@@ -32,14 +34,19 @@ export function ArtworkImage({
   if (failed) {
     return (
       <div
-        aria-label={`${alt} unavailable`}
         className={`artwork-image-fallback ${className}`}
         data-testid="image-fallback"
-        role="group"
       >
-        <span className="fallback-title">{fallbackLabel}</span>
-        {fallbackMeta ? <span className="fallback-meta">{fallbackMeta}</span> : null}
-        <button type="button" onClick={() => setFailed(false)}>Retry image</button>
+        <div
+          aria-label={`${fallbackLabel}. 图像暂不可用. ${fallbackMeta ?? ""}`}
+          className="fallback-copy"
+          role="img"
+        >
+          <span className="fallback-status">图像暂不可用</span>
+          <span className="fallback-title">{fallbackLabel}</span>
+          {fallbackMeta ? <span className="fallback-meta">{fallbackMeta}</span> : null}
+        </div>
+        <button type="button" onClick={() => setFailed(false)}>重试图像</button>
       </div>
     );
   }
@@ -48,6 +55,7 @@ export function ArtworkImage({
     <img
       alt={alt}
       className={className}
+      decoding={decoding}
       loading={loading}
       onError={() => setFailed(true)}
       ref={imageRef}

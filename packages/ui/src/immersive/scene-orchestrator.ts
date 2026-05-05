@@ -7,6 +7,7 @@ export interface ImmersiveGalleryUnit {
   yearLabel?: string;
   imageUrl: string;
   imageUrlFull?: string;
+  backgroundSceneUrl?: string;
   sceneLabel?: string;
   transitionFamily?: TransitionFamily;
 }

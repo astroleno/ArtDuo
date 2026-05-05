@@ -17,6 +17,7 @@ const units: ImmersiveGalleryUnit[] = [
     id: "met-2",
     title: "Spring Window",
     imageUrl: "https://example.test/spring.jpg",
+    backgroundSceneUrl: "/artduo-gallery/bg-spring.jpg",
     transitionFamily: "dissolve",
   },
   {
@@ -39,6 +40,7 @@ test("immersive gallery renders next previous and clickable progress scene links
 
   assert.match(markup, /Spring Window/);
   assert.match(markup, /immersive-transition-dissolve/);
+  assert.match(markup, /bg-spring\.jpg/);
   assert.match(markup, /Previous scene/);
   assert.match(markup, /Next scene/);
   assert.match(markup, /aria-label="Open scene 1"/);

@@ -25,12 +25,14 @@ html {
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: 0;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   min-height: 100dvh;
   background: var(--surface);
+  overflow-x: clip;
 }
 
 a {
@@ -125,6 +127,7 @@ img {
   background-size: cover;
   display: flex;
   min-height: 78vh;
+  overflow-x: clip;
   padding: clamp(28px, 5vw, 72px);
   position: relative;
 }
@@ -302,7 +305,22 @@ h1,
 .gallery-header {
   background: var(--surface-strong);
   border-bottom: 1px solid var(--line);
+  background-position: center;
+  background-size: cover;
   padding: clamp(32px, 5vw, 60px) clamp(18px, 5vw, 64px);
+}
+
+.gallery-header.has-scene-backdrop {
+  color: #fffaf1;
+}
+
+.gallery-header.has-scene-backdrop .meta,
+.gallery-header.has-scene-backdrop .query-form label {
+  color: rgba(255, 250, 241, 0.78);
+}
+
+.gallery-header.has-scene-backdrop .secondary-link {
+  background: rgba(255, 250, 241, 0.92);
 }
 
 .query-form {
@@ -466,9 +484,14 @@ h1,
 }
 
 .score-line {
+  background: rgba(41, 75, 104, 0.08);
+  border: 1px solid rgba(41, 75, 104, 0.12);
+  border-radius: 999px;
   color: var(--blue);
   font-size: 0.82rem;
   font-weight: 700;
+  padding: 4px 8px;
+  width: fit-content;
 }
 
 .detail-stage {
@@ -532,15 +555,27 @@ h1,
 
 .artwork-image-fallback {
   align-items: center;
-  background: #d7d0c2;
+  background:
+    linear-gradient(135deg, rgba(255, 250, 241, 0.42), rgba(143, 47, 35, 0.08)),
+    #d7d0c2;
   color: var(--muted);
   display: grid;
-  gap: 8px;
+  gap: 10px;
   font-weight: 700;
   justify-content: center;
   min-height: 180px;
   padding: 18px;
   text-align: center;
+}
+
+.artwork-image-fallback .fallback-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.artwork-image-fallback .fallback-status {
+  color: var(--accent);
+  font-size: 0.78rem;
 }
 
 .artwork-image-fallback .fallback-title {
@@ -618,11 +653,23 @@ h1,
 .empty-state {
   border: 1px dashed var(--line);
   border-radius: 8px;
+  display: grid;
+  gap: 12px;
   padding: 28px;
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .immersive-shell {
   background: #100d0b;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #fffaf1;
   min-height: 100dvh;
   overflow: hidden;
@@ -999,9 +1046,7 @@ h1,
   }
 
   .hero-artwork-veil {
-    inset: 18px 18px auto auto;
-    max-width: 52vw;
-    opacity: 0.13;
+    display: none;
   }
 
   .hero-artwork-slice {
@@ -1037,10 +1082,48 @@ h1,
     padding-top: 20px;
   }
 
+  .immersive-shell {
+    overflow-x: clip;
+    overflow-y: auto;
+  }
+
+  .immersive-stage {
+    min-height: auto;
+    padding-bottom: 24px;
+  }
+
+  .immersive-footer {
+    background: linear-gradient(180deg, rgba(16, 13, 11, 0), rgba(16, 13, 11, 0.92) 28%);
+    bottom: 0;
+    left: auto;
+    overflow-x: auto;
+    padding: 18px 0 calc(14px + env(safe-area-inset-bottom));
+    position: sticky;
+    right: auto;
+  }
+
+  .immersive-progress {
+    justify-content: flex-start;
+    min-width: 100%;
+    padding: 0 18px;
+    width: max-content;
+  }
+
   .immersive-topbar {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    padding: 14px 18px;
+  }
+
+  .immersive-brand {
+    font-size: 1.04rem;
+  }
+
+  .immersive-back-link {
+    font-size: 0.92rem;
+    min-height: 44px;
+    padding: 8px 10px;
   }
 }
 
@@ -1051,5 +1134,14 @@ h1,
     animation: none !important;
     scroll-behavior: auto !important;
     transition: none !important;
+  }
+}
+
+@supports not (overflow: clip) {
+  html,
+  body,
+  .hero,
+  .immersive-shell {
+    overflow-x: hidden;
   }
 }

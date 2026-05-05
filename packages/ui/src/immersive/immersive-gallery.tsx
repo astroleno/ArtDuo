@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { ImageLightbox } from "./image-lightbox";
 import { ProgressIndicator } from "./progress-indicator";
 import { buildImmersiveScenes, type ImmersiveGalleryUnit } from "./scene-orchestrator";
@@ -32,9 +34,14 @@ export function ImmersiveGallery({ units, selectedUnitId, registry, galleryHref,
   const sceneHrefs = scenes.map((scene) => getSceneHref?.(scene.unit, scene.index));
   const previousScene = scenes[activeScene.index - 1];
   const nextScene = scenes[activeScene.index + 1];
+  const shellStyle: CSSProperties | undefined = activeScene.unit.backgroundSceneUrl
+    ? {
+      backgroundImage: `linear-gradient(90deg, rgba(16, 13, 11, 0.86), rgba(16, 13, 11, 0.46)), url(${activeScene.unit.backgroundSceneUrl})`,
+    }
+    : undefined;
 
   return (
-    <main className={`immersive-shell ${activeScene.transition.className}`}>
+    <main className={`immersive-shell ${activeScene.transition.className}`} style={shellStyle}>
       <header className="immersive-topbar">
         <a className="immersive-brand" href="/">ArtDuo</a>
         <a className="immersive-back-link" href={galleryHref}>Back to Gallery</a>

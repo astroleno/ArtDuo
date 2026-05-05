@@ -2,7 +2,8 @@ import { ArrowRight, Search } from "lucide-react";
 
 import { ArtworkImage } from "../../components/artwork-image";
 import { searchGalleryWithRuntime } from "../../lib/browser-curation";
-import { loadWebReleaseCatalog } from "../../lib/release-catalog";
+import { DEFAULT_CURATION_PROMPT, STARTER_PROMPTS } from "../../lib/prompts";
+import { loadWebReleaseCatalog, type WebReleaseCatalog, type WebSearchResult } from "../../lib/release-catalog";
 
 interface GalleryPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -11,10 +12,10 @@ interface GalleryPageProps {
 function readQuery(params: Record<string, string | string[] | undefined> | undefined): string {
   const value = params?.query;
   if (Array.isArray(value)) {
-    return value[0] ?? "";
+    return (value[0] ?? "").trim();
   }
 
-  return value ?? "";
+  return (value ?? "").trim();
 }
 
 function readRuntime(params: Record<string, string | string[] | undefined> | undefined): string | undefined {
@@ -26,19 +27,45 @@ function readRuntime(params: Record<string, string | string[] | undefined> | und
   return value;
 }
 
+function buildIdleSearch(catalog: WebReleaseCatalog, query: string): WebSearchResult {
+  return {
+    query,
+    normalizedQuery: "",
+    model: "idle",
+    dimensions: catalog.embeddingRecords[0]?.dimensions ?? 0,
+    results: [],
+  };
+}
+
+function formatMatchScore(score: number): string {
+  return `${Math.max(0, Math.min(100, score * 100)).toFixed(1)}%`;
+}
+
+function buildFallbackMeta(result: WebSearchResult["results"][number]): string {
+  return [
+    `馆藏编号 ${result.artwork.id}`,
+    result.artwork.artistDisplayName,
+    result.artwork.yearLabel,
+  ].filter(Boolean).join(" · ");
+}
+
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const params = await searchParams;
-  const query = readQuery(params) || "I want a quiet moonlit room";
+  const query = readQuery(params);
+  const hasQuery = query.length > 0;
   const runtimeMode = readRuntime(params);
   const catalog = loadWebReleaseCatalog();
   const immersiveHref = `/gallery/local/immersive?${new URLSearchParams({ query }).toString()}`;
-  const { search, runtime } = searchGalleryWithRuntime({
-    catalog,
-    query,
-    limit: 12,
-    runtimeMode,
-  });
+  const { search, runtime } = hasQuery
+    ? searchGalleryWithRuntime({
+      catalog,
+      query,
+      limit: 12,
+      runtimeMode,
+    })
+    : { search: buildIdleSearch(catalog, query), runtime: "idle" };
   const featured = search.results[0];
+  const featuredSceneImage = featured?.scene?.imageUrl;
   const stages = [
     { label: "Opening", items: search.results.slice(1, 4) },
     { label: "Drift", items: search.results.slice(4, 8) },
@@ -50,13 +77,13 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
         alt={`${result.artwork.title} artwork`}
         className="result-image"
         fallbackLabel={result.artwork.title}
-        fallbackMeta={[result.artwork.artistDisplayName, result.artwork.yearLabel].filter(Boolean).join(", ") || "Collection image unavailable"}
-        loading="eager"
+        fallbackMeta={buildFallbackMeta(result)}
+        loading={variant === "featured" ? "eager" : "lazy"}
         src={result.artwork.imageUrl}
       />
       <div className="result-body">
         <p className="score-line">
-          #{result.rank} combined {result.combinedScore.toFixed(3)}
+          匹配度 {formatMatchScore(result.combinedScore)}
         </p>
         <div>
           <h2 className="result-title">{result.artwork.title}</h2>
@@ -90,8 +117,15 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
         </nav>
       </header>
 
-      <section className="gallery-header">
-        <p className="meta">{search.results.length} ranked works from {catalog.artworkCount} release-ready artworks</p>
+      <section
+        className={`gallery-header ${featuredSceneImage ? "has-scene-backdrop" : ""}`}
+        style={featuredSceneImage ? { backgroundImage: `linear-gradient(90deg, rgba(24, 21, 18, 0.82), rgba(24, 21, 18, 0.36)), url(${featuredSceneImage})` } : undefined}
+      >
+        <p className="meta">
+          {hasQuery
+            ? `${search.results.length} ranked works from ${catalog.artworkCount} release-ready artworks`
+            : `${catalog.artworkCount} release-ready artworks waiting for an intent`}
+        </p>
         <p className="sr-only" data-testid="runtime-mode">Runtime: {runtime}</p>
         <h1 className="page-title">Gallery</h1>
         <form className="query-form" action="/gallery">
@@ -102,10 +136,10 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             <input id="query" name="query" defaultValue={query} required />
           </div>
           <button className="primary-button" type="submit">
-            重新检索 <ArrowRight aria-hidden="true" size={18} />
+            {hasQuery ? "重新检索" : "开始策展"} <ArrowRight aria-hidden="true" size={18} />
           </button>
         </form>
-        {search.results.length > 0 ? (
+        {hasQuery && search.results.length > 0 ? (
           <a className="secondary-link gallery-immersive-link" href={immersiveHref}>
             沉浸观展 <ArrowRight aria-hidden="true" size={17} />
           </a>
@@ -113,10 +147,32 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
       </section>
 
       <section className="section" aria-label="Search results">
-        {search.results.length === 0 ? (
+        {!hasQuery ? (
+          <div className="empty-state gallery-intent-state">
+            <p className="meta">Start with a mood, light, room, or viewing wish</p>
+            <h2>先选择一个策展意图</h2>
+            <p className="meta">Gallery 不再替你自动检索默认展览。选择一个示例，或输入自己的观看愿望。</p>
+            <div className="empty-actions">
+              {STARTER_PROMPTS.map((prompt) => (
+                <a className="secondary-link" href={`/gallery?query=${encodeURIComponent(prompt)}`} key={prompt}>
+                  {prompt}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : search.results.length === 0 ? (
           <div className="empty-state">
             <h2>没有找到可展示作品</h2>
             <p className="meta">尝试更具体的情绪、光线、主题或空间描述。</p>
+            <div className="empty-actions">
+              <a className="secondary-link" href="/gallery">清空输入</a>
+              <a className="secondary-link" href={`/gallery?query=${encodeURIComponent(STARTER_PROMPTS[1] ?? DEFAULT_CURATION_PROMPT)}`}>
+                使用示例
+              </a>
+              <a className="secondary-link" href={`/gallery?query=${encodeURIComponent(DEFAULT_CURATION_PROMPT)}`}>
+                查看默认展览 <ArrowRight aria-hidden="true" size={17} />
+              </a>
+            </div>
           </div>
         ) : (
           <div className="curation-wall">
