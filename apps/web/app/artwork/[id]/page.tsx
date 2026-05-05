@@ -41,6 +41,10 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     contextText: query ?? artwork.searchText,
   });
   const galleryHref = query ? `/gallery?${new URLSearchParams({ query }).toString()}` : "/gallery";
+  const immersiveHref = `/gallery/local/immersive?${new URLSearchParams({
+    query: query ?? artwork.searchText,
+    unit: artwork.id,
+  }).toString()}`;
   const stageImage = artwork.imageUrlFull ?? artwork.imageUrl;
 
   return (
@@ -80,6 +84,9 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
             <div className="detail-actions">
               <a className="secondary-link" href={galleryHref}>
                 <ArrowLeft aria-hidden="true" size={17} /> 返回 Gallery
+              </a>
+              <a className="secondary-link" href={immersiveHref}>
+                沉浸观展 <ExternalLink aria-hidden="true" size={17} />
               </a>
               {artwork.objectUrl ? (
                 <a className="secondary-link" href={artwork.objectUrl} target="_blank" rel="noreferrer">

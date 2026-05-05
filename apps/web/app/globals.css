@@ -326,6 +326,11 @@ h1,
   padding: 0 14px;
 }
 
+.gallery-immersive-link {
+  margin-top: 14px;
+  width: fit-content;
+}
+
 .result-grid {
   display: grid;
   gap: 18px;
@@ -616,6 +621,204 @@ h1,
   padding: 28px;
 }
 
+.immersive-shell {
+  background: #100d0b;
+  color: #fffaf1;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.immersive-shell::before {
+  background: radial-gradient(circle at 34% 42%, rgba(255, 250, 241, 0.11), transparent 34%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.immersive-topbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 22px clamp(18px, 5vw, 64px);
+  position: relative;
+  z-index: 1;
+}
+
+.immersive-brand {
+  color: #fffaf1;
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.immersive-back-link {
+  border: 1px solid rgba(255, 250, 241, 0.24);
+  border-radius: 8px;
+  color: rgba(255, 250, 241, 0.82);
+  font-weight: 700;
+  padding: 9px 12px;
+}
+
+.immersive-stage {
+  align-items: center;
+  display: grid;
+  gap: clamp(24px, 5vw, 58px);
+  grid-template-columns: minmax(320px, 1.62fr) minmax(240px, 0.7fr);
+  min-height: calc(100vh - 140px);
+  padding: clamp(18px, 4vw, 58px) clamp(18px, 5vw, 64px) 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.immersive-lightbox {
+  background: rgba(255, 250, 241, 0.92);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+  display: grid;
+  margin: 0;
+  padding: 8px;
+}
+
+.immersive-lightbox img {
+  max-height: 70vh;
+  object-fit: contain;
+  width: 100%;
+}
+
+.immersive-lightbox figcaption {
+  border-top: 1px solid rgba(24, 21, 18, 0.12);
+  color: var(--ink);
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+}
+
+.immersive-lightbox figcaption strong {
+  font-family: var(--font-serif);
+}
+
+.immersive-lightbox figcaption span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.immersive-caption {
+  border-left: 1px solid rgba(255, 250, 241, 0.2);
+  display: grid;
+  gap: 12px;
+  max-width: 430px;
+  padding-left: 24px;
+}
+
+.immersive-caption h1 {
+  font-size: clamp(2.1rem, 4vw, 4rem);
+}
+
+.immersive-caption p {
+  color: rgba(255, 250, 241, 0.78);
+}
+
+.immersive-kicker {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.immersive-footer {
+  bottom: 24px;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 2;
+}
+
+.immersive-progress {
+  display: flex;
+  gap: 9px;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.immersive-progress li {
+  align-items: center;
+  background: rgba(255, 250, 241, 0.3);
+  border-radius: 999px;
+  display: flex;
+  height: 8px;
+  justify-content: center;
+  overflow: hidden;
+  width: 8px;
+}
+
+.immersive-progress li.is-active {
+  background: #fffaf1;
+  width: 24px;
+}
+
+.immersive-progress span {
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+.immersive-empty {
+  display: grid;
+  gap: 12px;
+  padding: 20vh clamp(18px, 5vw, 64px);
+}
+
+.immersive-transition-dissolve .immersive-lightbox {
+  animation: immersive-dissolve 680ms ease both;
+}
+
+.immersive-transition-light-swell .immersive-lightbox {
+  animation: immersive-light-swell 760ms ease both;
+}
+
+.immersive-transition-depth-push .immersive-lightbox {
+  animation: immersive-depth-push 820ms ease both;
+}
+
+@keyframes immersive-dissolve {
+  from {
+    filter: blur(10px);
+    opacity: 0;
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes immersive-light-swell {
+  0% {
+    filter: brightness(1.3);
+    opacity: 0;
+  }
+
+  100% {
+    filter: brightness(1);
+    opacity: 1;
+  }
+}
+
+@keyframes immersive-depth-push {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .loading-input,
 .loading-button,
 .loading-featured,
@@ -726,7 +929,8 @@ h1,
   .detail-grid,
   .curation-wall,
   .curation-loading,
-  .loading-wall {
+  .loading-wall,
+  .immersive-stage {
     grid-template-columns: 1fr;
   }
 
@@ -760,6 +964,19 @@ h1,
 
   .fact {
     grid-template-columns: 1fr;
+  }
+
+  .immersive-caption {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 250, 241, 0.2);
+    padding-left: 0;
+    padding-top: 20px;
+  }
+
+  .immersive-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
   }
 }
 

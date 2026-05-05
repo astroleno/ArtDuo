@@ -31,6 +31,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const query = readQuery(params) || "I want a quiet moonlit room";
   const runtimeMode = readRuntime(params);
   const catalog = loadWebReleaseCatalog();
+  const immersiveHref = `/gallery/local/immersive?${new URLSearchParams({ query }).toString()}`;
   const { search, runtime } = searchGalleryWithRuntime({
     catalog,
     query,
@@ -104,6 +105,11 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             重新检索 <ArrowRight aria-hidden="true" size={18} />
           </button>
         </form>
+        {search.results.length > 0 ? (
+          <a className="secondary-link gallery-immersive-link" href={immersiveHref}>
+            沉浸观展 <ArrowRight aria-hidden="true" size={17} />
+          </a>
+        ) : null}
       </section>
 
       <section className="section" aria-label="Search results">
