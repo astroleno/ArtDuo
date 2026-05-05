@@ -44,12 +44,28 @@ origin: docs/plans/artduo-v2-lightweight-rebuild-plan.md
 
 - `scripts/collect/met-probe.js`
 - `scripts/collect/met-batch.js`
+- `scripts/collect/build-curation-summaries.js`
+- `apps/pipeline/src/build-confirmed-metadata-backfill.ts`
+- `apps/pipeline/src/build-metadata-backfill-preview.ts`
+- `apps/pipeline/src/build-candidate-preview.ts`
+- `apps/pipeline/src/build-quantity-preview.ts`
 - `package.json` script: `npm run collect:met:probe`
 - `package.json` script: `npm run collect:met:batch`
+- `package.json` script: `npm run collect:metadata-backfill`
+- `package.json` script: `npm run collect:metadata-preview`
+- `package.json` script: `npm run collect:candidate-preview`
+- `package.json` script: `npm run collect:quantity-preview`
 
 这个入口会把 probe artifacts 写到：
 
 - `data/sources/met/probe/<theme>/<run-id>/`
+
+汇总和 handoff artifact 固定写到：
+
+- `data/curation/reports/probe-summary.json`
+- `data/curation/reports/probe-summary.md`
+- `data/curation/reports/probe-approved-query-matrix.json`
+- `data/curation/reports/probe-approved-query-matrix.md`
 
 在 `apps/pipeline/` 正式接管前，V2 的第一周工作以这个入口为准。
 
@@ -69,6 +85,8 @@ data/
     candidate-pool/
     review-queue/
     confirmed/
+    metadata-backfill/
+    preview/
     release-ready/
     reports/
     benchmarks/
@@ -78,6 +96,8 @@ data/
 
 - `data/met/*` 继续保留为 legacy 参考数据
 - V2 runbook 只往 `data/sources/*` 和 `data/curation/*` 写入
+- `metadata-backfill/` 是 `confirmed` 的并行 enrichment artifact，只补 Phase 1 metadata/retrieval 字段
+- `preview/` 是 metadata-backfill 的下游试运行产物，可供检索 / 文案 / UI 验证使用
 - `release-ready/` 是最终可进入 release manifest 的集合
 
 ## 状态定义
@@ -90,6 +110,39 @@ data/
 
 通过人工或策展 review，值得进入最终作品库候选层。
 
+### metadata-backfill
+
+基于 `confirmed` 补齐 Phase 1 metadata / retrieval 字段后的并行工作层。
+
+说明：
+
+- 这一步可以和 curation backfill 并行推进
+- 它不等于主题 gate 已通过
+- 它也不等于 portfolio gate 已通过
+
+### preview
+
+基于 `metadata-backfill` 生成的 preview-only shard / manifest 层。
+
+说明：
+
+- 只用于检索、文案、下游消费联调
+- 不等于 runtime 正式 release
+- 不得替代 `release-ready/` 成为 canonical 发布源
+
+当数量目标优先于 curation gate 时，可以额外生成 `candidate-preview`：
+
+- 输入来自 `candidate-pool/`
+- 只用于大盘浏览、粗召回验证和 UI 压测
+- 不得和 `metadata-backfill preview` 混淆
+
+如果仍然不足以满足数量目标，可以额外生成 `quantity-preview`：
+
+- 先吃 `candidate-pool` 全并集
+- 再用 legacy Met 处理语料做补位
+- 补位必须在 report 里明确披露，不得伪装成当前 curation 成果
+- preview 目录内必须同时写逐条 provenance sidecar，能区分 `candidate-pool`、`legacy-boost`、`legacy-fallback`
+
 ### release-ready
 
 在 `confirmed` 基础上，已经满足 Phase 1 发布合同，能够进入 `ReleaseManifest` 产物。
@@ -97,6 +150,10 @@ data/
 结论：
 
 - `confirmed` 不等于可发布
+- `metadata-backfill` 不等于 gate-cleared
+- `preview` 不等于 release-ready
+- `candidate-preview` 只代表数量可用，不代表策展质量可用
+- `quantity-preview` 允许 legacy boost，但只能用于数量导向验证
 - Phase 1 runtime 实际消费的是 `release-ready corpus`
 
 ## release-ready 最低条件
@@ -303,6 +360,8 @@ npm run collect:met:probe -- \
 - `data/curation/candidate-pool/`
 - `data/curation/review-queue/`
 - `data/curation/confirmed/`
+- `data/curation/metadata-backfill/`
+- `data/curation/preview/`
 - `data/curation/release-ready/`
 - `data/curation/reports/`
 - `data/curation/benchmarks/`
@@ -358,6 +417,12 @@ npm run collect:met:probe -- \
 - `data/curation/reports/probe-summary.json`
 - `data/curation/reports/probe-summary.md`
 
+注意：
+
+- probe verdict 只用 `pass / mixed / fail`
+- `promote / hold / reject` 只属于 review loop，不能回写成 probe verdict
+- summary 必须保留 `configuredInput`、`configuredExcludes`、`recommendedBans`、metrics 和 override log，不能只留一句人工结论
+
 ### Probe Gate
 
 只有满足以下阈值才允许进入 batch：
@@ -365,13 +430,28 @@ npm run collect:met:probe -- \
 - `uniqueHitCount >= 10`
 - `sample size >= 10`
 - `usable hits >= 5`
-- `image coverage >= 0.8`
-- `artist coverage >= 0.8` 或 `description coverage >= 0.3`
+- `image coverage >= 0.7`
+- `artist coverage >= 0.7` 或 `description coverage >= 0.3`
 - 人工 verdict 为 `pass`
 
 其中：
 
 - `usable hit` = `hasImage && (hasDescription || hasArtist)`
+
+### Probe 到 Batch 的 canonical handoff
+
+只有在 probe summary 里被标成 `gateDecision = approved-for-batch` 的主题，才允许进入 batch。
+
+canonical handoff artifact 固定为：
+
+- `data/curation/reports/probe-approved-query-matrix.json`
+- `data/curation/reports/probe-approved-query-matrix.md`
+
+要求：
+
+- batch 的 `query / synonym / exclude` 必须从这份 matrix 读取
+- 手写 `--query/--synonym/--exclude` 只允许用于临时调试，不可作为 canonical batch artifact
+- batch run 的 `query.json` 必须记录它消费的是哪一份 approved matrix，以及对应的 probe run
 
 ## 阶段 2：Batch
 
@@ -398,9 +478,7 @@ data/sources/met/batch/<theme>/<run-id>/
 ```bash
 npm run collect:met:batch -- \
   --theme melancholy \
-  --query melancholy \
-  --synonym sadness \
-  --synonym solitude \
+  --use-approved-matrix \
   --limit 100
 ```
 
@@ -417,11 +495,16 @@ npm run collect:met:batch -- \
 - 每条 candidate 至少补齐：
   - `sourceArtworkId`
   - `title`
-  - `artistDisplayName`
   - `yearLabel`
   - `imageUrlPreview` 或 `imageUrlFull`
   - `objectUrl`
-  - `descriptionRaw`
+  - `artistDisplayName` 或 `descriptionRaw`
+
+同时要求：
+
+- `descriptionRaw` 只要有就必须保留到 normalized candidate
+- `descriptionRaw` 为空时要记为 metadata gap，而不是直接把 candidate 清空
+- 自动 gate 至少保证 `hasImage && title && objectUrl && (artistDisplayName || descriptionRaw)`
 
 ### 自动剔除规则
 
@@ -430,21 +513,31 @@ batch 阶段必须自动检查：
 - duplicate object id
 - 缺图
 - 缺 `title`
-- 缺 `artistDisplayName`
+- 缺 `objectUrl`
 - 图片不可访问
 - 图像过小
-- description 为空
+- 同时缺 `artistDisplayName` 和 `descriptionRaw`
 - 明显偏题
+
+说明：
+
+- `descriptionRaw` 为空 = metadata gap，不是自动剔除
+- `artistDisplayName` 为空但 `descriptionRaw` 存在 = 允许保留
 
 ### Batch 输出去向
 
-- 初筛通过的进入 `data/curation/candidate-pool/`
-- 需要人工看的进入 `data/curation/review-queue/`
+- canonical review 输入进入 `data/curation/review-queue/`
+- `data/curation/candidate-pool/` 当前仅作为 bootstrap mirror snapshot
 - 每轮都必须写 `gap report`
 
 建议 gap report 路径：
 
 - `data/curation/reports/gap-report-<run-id>.json`
+
+要求：
+
+- review loop 只读取 `review-queue/`
+- 如果 `candidate-pool/` 仍然双写同一份数据，summary 必须显式标注它只是 mirror，而不是另一个独立 gate
 
 ## 阶段 3：Review Loop
 
@@ -502,7 +595,8 @@ data/curation/reports/review-<run-id>.md
 ### Promote 后的状态流转
 
 - `promote` -> 进入 `confirmed/`
-- 经过 Phase 1 contract 补齐和校验后 -> 进入 `release-ready/`
+- 经过 metadata backfill -> 进入 `metadata-backfill/`
+- 经过 Phase 1 contract 补齐和发布校验后 -> 进入 `release-ready/`
 
 ### release-ready 审核
 
