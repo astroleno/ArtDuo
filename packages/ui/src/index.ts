@@ -2,6 +2,8 @@ export * from "./immersive/image-lightbox";
 export * from "./immersive/immersive-gallery";
 export * from "./immersive/progress-indicator";
 export * from "./immersive/scene-orchestrator";
+export * from "./immersive/director-focus";
+export * from "./immersive/video-stage";
 export * from "./transitions/depth-push-transition";
 export * from "./transitions/dissolve-transition";
 export * from "./transitions/fade-transition";

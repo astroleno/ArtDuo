@@ -4,6 +4,7 @@ export * from "./background-match";
 export * from "./background-scene";
 export * from "./corpus";
 export * from "./curation-events";
+export * from "./curation-grade";
 export {
   SESSION_STATUSES,
   type CurationSessionStatus,
