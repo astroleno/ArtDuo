@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
+import { gotoApp } from "./helpers";
+
 test("visitor can turn a sentence into a gallery and open artwork detail", async ({ page }) => {
-  await page.goto("/");
+  await gotoApp(page, "/");
 
   await expect(page.getByRole("heading", { name: "ArtDuo" })).toBeVisible();
   await page.getByLabel("策展意图").fill("I want a quiet moonlit room");

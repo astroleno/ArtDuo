@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
+import { gotoApp } from "./helpers";
+
 test("immersive gallery opens from gallery and preserves the release-backed exhibition", async ({ page }) => {
-  await page.goto("/gallery?query=I+want+a+quiet+moonlit+room");
+  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
 
   await page.getByRole("link", { name: /沉浸观展/ }).click();
 
@@ -14,7 +16,7 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
 });
 
 test("immersive gallery can move between scenes and preserve query state", async ({ page }) => {
-  await page.goto("/gallery?query=I+want+a+quiet+moonlit+room");
+  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
   await page.getByRole("link", { name: /沉浸观展/ }).click();
 
   const firstTitle = await page.getByTestId("immersive-scene-title").textContent();
@@ -35,7 +37,7 @@ test("immersive gallery can move between scenes and preserve query state", async
 });
 
 test("artwork detail can enter immersive gallery at the current artwork", async ({ page }) => {
-  await page.goto("/gallery?query=I+want+a+quiet+moonlit+room");
+  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
   await page.getByTestId("result-card").first().getByRole("link", { name: /打开详情/ }).click();
   const heading = await page.getByRole("heading", { level: 1 }).textContent();
 
@@ -47,7 +49,7 @@ test("artwork detail can enter immersive gallery at the current artwork", async 
 
 test("immersive gallery mobile layout scrolls without clipping progress", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
+  await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
 
   const shellOverflowY = await page.locator(".immersive-shell").evaluate((element) => getComputedStyle(element).overflowY);
   const footerPosition = await page.locator(".immersive-footer").evaluate((element) => getComputedStyle(element).position);
