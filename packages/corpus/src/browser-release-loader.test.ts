@@ -3,7 +3,7 @@ import { test } from "node:test";
 
 import type { EmbeddingShardRecord } from "@artduo/contracts";
 
-import { createInMemoryBrowserCache } from "./indexeddb-cache";
+import { createIndexedDbBrowserCache, createInMemoryBrowserCache, type IndexedDbFactory } from "./indexeddb-cache";
 import { loadBrowserEmbeddingShards, loadBrowserReleaseManifest } from "./browser-release-loader";
 import { createSearchWorkerHandler } from "./search-worker";
 import { searchVectorIndex } from "./vector-search";
@@ -64,6 +64,83 @@ const sampleEmbeddings: EmbeddingShardRecord[] = [
   },
 ];
 
+class FakeIndexedDbRequest<T = unknown> {
+  result?: T;
+  error?: unknown;
+  onsuccess: (() => void) | null = null;
+  onerror: (() => void) | null = null;
+  onupgradeneeded: (() => void) | null = null;
+}
+
+class FakeIndexedDbDatabase {
+  readonly stores = new Map<string, Map<string, unknown>>();
+  readonly objectStoreNames = {
+    contains: (name: string) => this.stores.has(name),
+  };
+
+  createObjectStore(name: string) {
+    this.stores.set(name, new Map());
+  }
+
+  transaction(name: string) {
+    const values = this.stores.get(name);
+
+    if (!values) {
+      throw new Error(`Missing fake object store ${name}`);
+    }
+
+    return {
+      objectStore: () => ({
+        get: (key: string) => {
+          const request = new FakeIndexedDbRequest();
+          queueMicrotask(() => {
+            request.result = values.get(key);
+            request.onsuccess?.();
+          });
+
+          return request;
+        },
+        put: (value: unknown, key: string) => {
+          const request = new FakeIndexedDbRequest();
+          queueMicrotask(() => {
+            values.set(key, value);
+            request.result = key;
+            request.onsuccess?.();
+          });
+
+          return request;
+        },
+      }),
+    };
+  }
+}
+
+class FakeIndexedDbFactory implements IndexedDbFactory {
+  readonly databases = new Map<string, FakeIndexedDbDatabase>();
+
+  open(name: string) {
+    const request = new FakeIndexedDbRequest<FakeIndexedDbDatabase>();
+
+    queueMicrotask(() => {
+      let database = this.databases.get(name);
+      const isNewDatabase = !database;
+
+      if (!database) {
+        database = new FakeIndexedDbDatabase();
+        this.databases.set(name, database);
+      }
+
+      request.result = database;
+      if (isNewDatabase) {
+        request.onupgradeneeded?.();
+      }
+      request.onsuccess?.();
+    });
+
+    return request;
+  }
+}
+
 test("browser loader fetches manifest plus required embedding shard and then serves cache", async () => {
   const manifestUrl = "https://example.com/releases/2026-04-25-curation-b/manifest.json";
   const calls: string[] = [];
@@ -91,6 +168,49 @@ test("browser loader fetches manifest plus required embedding shard and then ser
   const second = await loadBrowserEmbeddingShards({ manifestUrl, manifest }, { fetchImpl, cache });
 
   assert.equal(first.records.length, 2);
+  assert.equal(second.records.length, 2);
+  assert.equal(firstCount, calls.length);
+  assert.equal(calls.filter((url) => url.endsWith("embeddings-01.json")).length, 1);
+});
+
+test("indexeddb browser cache persists release shards across cache instances", async () => {
+  const indexedDB = new FakeIndexedDbFactory();
+  const firstCache = createIndexedDbBrowserCache({ indexedDB, dbName: "artduo-test", storeName: "release-shards" });
+  const secondCache = createIndexedDbBrowserCache({ indexedDB, dbName: "artduo-test", storeName: "release-shards" });
+
+  await firstCache.set("release:test", sampleEmbeddings);
+
+  assert.deepEqual(await secondCache.get<EmbeddingShardRecord[]>("release:test"), sampleEmbeddings);
+});
+
+test("browser loader can reuse an indexeddb-backed shard cache", async () => {
+  const manifestUrl = "https://example.com/releases/2026-04-25-curation-b/manifest.json";
+  const calls: string[] = [];
+
+  const fetchImpl: typeof fetch = async (input) => {
+    const url = String(input);
+    calls.push(url);
+
+    if (url.endsWith("manifest.json")) {
+      return makeJsonResponse(sampleManifest);
+    }
+
+    if (url.endsWith("embeddings-01.json")) {
+      return makeJsonResponse(sampleEmbeddings);
+    }
+
+    return new Response("not-found", { status: 404 });
+  };
+
+  const indexedDB = new FakeIndexedDbFactory();
+  const manifest = await loadBrowserReleaseManifest(manifestUrl, { fetchImpl });
+  const firstCache = createIndexedDbBrowserCache({ indexedDB, dbName: "artduo-loader-test" });
+  const secondCache = createIndexedDbBrowserCache({ indexedDB, dbName: "artduo-loader-test" });
+
+  await loadBrowserEmbeddingShards({ manifestUrl, manifest }, { fetchImpl, cache: firstCache });
+  const firstCount = calls.length;
+  const second = await loadBrowserEmbeddingShards({ manifestUrl, manifest }, { fetchImpl, cache: secondCache });
+
   assert.equal(second.records.length, 2);
   assert.equal(firstCount, calls.length);
   assert.equal(calls.filter((url) => url.endsWith("embeddings-01.json")).length, 1);
