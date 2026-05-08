@@ -43,6 +43,6 @@ test("immersive gallery renders next previous and clickable progress scene links
   assert.match(markup, /bg-spring\.jpg/);
   assert.match(markup, /Previous scene/);
   assert.match(markup, /Next scene/);
-  assert.match(markup, /aria-label="Open scene 1"/);
+  assert.match(markup, /aria-label="Open scene 1 of 3"/);
   assert.match(markup, /unit=met-3/);
 });

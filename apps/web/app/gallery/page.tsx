@@ -49,6 +49,13 @@ function buildFallbackMeta(result: WebSearchResult["results"][number]): string {
   ].filter(Boolean).join(" · ");
 }
 
+function getPrimaryTag(result: WebSearchResult["results"][number]): string | undefined {
+  return result.scene?.label
+    ?? result.artwork.moodTags[0]
+    ?? result.artwork.subjectTags[0]
+    ?? result.artwork.colorTags[0];
+}
+
 function buildDetailHref(result: WebSearchResult["results"][number], query: string): string {
   const params = new URLSearchParams();
   if (query) {
@@ -88,8 +95,10 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
     { label: "Drift", items: search.results.slice(4, 8) },
     { label: "Return", items: search.results.slice(8, 12) },
   ].filter((stage) => stage.items.length > 0);
-  const renderResultCard = (result: (typeof search.results)[number], variant: "featured" | "standard" = "standard") => (
-    <article className={`result-card ${variant === "featured" ? "result-card-featured" : ""}`} data-testid="result-card" key={result.artwork.id}>
+  const renderResultCard = (result: (typeof search.results)[number], variant: "featured" | "standard" = "standard") => {
+    const detailHref = buildDetailHref(result, query);
+    const primaryTag = getPrimaryTag(result);
+    const cardImage = (
       <ArtworkImage
         alt={`${result.artwork.title} artwork`}
         className="result-image"
@@ -98,28 +107,57 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
         loading={variant === "featured" ? "eager" : "lazy"}
         src={result.artwork.imageUrl}
       />
-      <div className="result-body">
-        <p className="score-line">
-          匹配度 {formatMatchScore(result.combinedScore)}
-        </p>
-        <div>
-          <h2 className="result-title">{result.artwork.title}</h2>
-          <p className="meta">
-            {[result.artwork.artistDisplayName, result.artwork.yearLabel].filter(Boolean).join(", ")}
-          </p>
-        </div>
-        <div className="tag-row">
-          {result.artwork.moodTags.slice(0, 3).map((tag, index) => (
-            <span className="tag" key={`${tag}-${index}`}>{tag}</span>
-          ))}
-          {result.scene ? <span className="tag">{result.scene.label}</span> : null}
-        </div>
-        <a className="secondary-link" href={buildDetailHref(result, query)} aria-label={`打开详情：${result.artwork.title}`}>
-          打开详情 <ArrowRight aria-hidden="true" size={17} />
+    );
+
+    if (variant === "standard") {
+      return (
+        <a
+          aria-label={`打开详情：${result.artwork.title}`}
+          className="result-card result-card-quiet"
+          data-testid="result-card"
+          href={detailHref}
+          key={result.artwork.id}
+        >
+          {cardImage}
+          <div className="result-body">
+            <div>
+              <h2 className="result-title">{result.artwork.title}</h2>
+              <p className="meta">
+                {[result.artwork.artistDisplayName, result.artwork.yearLabel].filter(Boolean).join(", ")}
+              </p>
+            </div>
+            {primaryTag ? <span className="tag tag-single">{primaryTag}</span> : null}
+          </div>
         </a>
-      </div>
-    </article>
-  );
+      );
+    }
+
+    return (
+      <article className="result-card result-card-featured" data-testid="result-card" key={result.artwork.id}>
+        {cardImage}
+        <div className="result-body">
+          <p className="score-line">
+            匹配度 {formatMatchScore(result.combinedScore)}
+          </p>
+          <div>
+            <h2 className="result-title">{result.artwork.title}</h2>
+            <p className="meta">
+              {[result.artwork.artistDisplayName, result.artwork.yearLabel].filter(Boolean).join(", ")}
+            </p>
+          </div>
+          <div className="tag-row">
+            {result.artwork.moodTags.slice(0, 2).map((tag, index) => (
+              <span className="tag" key={`${tag}-${index}`}>{tag}</span>
+            ))}
+            {result.scene ? <span className="tag">{result.scene.label}</span> : null}
+          </div>
+          <a className="secondary-link" href={detailHref} aria-label={`打开详情：${result.artwork.title}`}>
+            打开详情 <ArrowRight aria-hidden="true" size={17} />
+          </a>
+        </div>
+      </article>
+    );
+  };
 
   return (
     <main className="shell">
@@ -209,8 +247,16 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
                 <section className="stage-group" key={stage.label} aria-label={`${stage.label} works`}>
                   <h2>{stage.label}</h2>
                   <div className="stage-grid">
-                    {stage.items.map((result) => renderResultCard(result))}
+                    {stage.items.slice(0, 2).map((result) => renderResultCard(result))}
                   </div>
+                  {stage.items.length > 2 ? (
+                    <details className="stage-more">
+                      <summary>查看更多候选（{stage.items.length - 2}）</summary>
+                      <div className="stage-grid stage-grid-extra">
+                        {stage.items.slice(2).map((result) => renderResultCard(result))}
+                      </div>
+                    </details>
+                  ) : null}
                 </section>
               ))}
             </div>

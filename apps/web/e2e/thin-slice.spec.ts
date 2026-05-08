@@ -14,6 +14,8 @@ test("visitor can turn a sentence into a gallery and open artwork detail", async
   await expect(page.getByText("Primary work")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Opening" })).toBeVisible();
   await expect(page.getByTestId("result-card")).toHaveCount(12);
+  await expect(page.locator('[data-testid="result-card"]:visible')).toHaveCount(7);
+  await expect(page.locator(".stage-more").first()).toBeVisible();
 
   const firstCard = page.getByTestId("result-card").first();
   await expect(firstCard.getByRole("img")).toBeVisible();

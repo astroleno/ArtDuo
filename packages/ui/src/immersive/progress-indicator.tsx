@@ -6,7 +6,7 @@ export interface ProgressIndicatorProps {
 
 export function ProgressIndicator({ total, currentIndex, itemHrefs = [] }: ProgressIndicatorProps) {
   return (
-    <ol className="immersive-progress" aria-label="Immersive gallery progress">
+    <ol className="immersive-progress" aria-label={`Immersive gallery progress, scene ${currentIndex + 1} of ${total}`}>
       {Array.from({ length: total }).map((_, index) => {
         const href = itemHrefs[index];
         const isActive = index === currentIndex;
@@ -19,7 +19,7 @@ export function ProgressIndicator({ total, currentIndex, itemHrefs = [] }: Progr
             key={index}
           >
             {href ? (
-              <a href={href} aria-label={`Open scene ${index + 1}`}>
+              <a href={href} aria-label={`Open scene ${index + 1} of ${total}`}>
                 {content}
               </a>
             ) : content}

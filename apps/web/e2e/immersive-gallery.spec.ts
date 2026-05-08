@@ -12,7 +12,7 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
   await expect(page.getByRole("main")).toHaveCSS("background-image", /artduo-gallery/);
   await expect(page.getByRole("img")).toBeVisible();
   await expect(page.getByRole("link", { name: "Back to Gallery" })).toBeVisible();
-  await expect(page.getByLabel("Immersive gallery progress")).toBeVisible();
+  await expect(page.getByLabel(/Immersive gallery progress/)).toBeVisible();
 });
 
 test("immersive gallery can move between scenes and preserve query state", async ({ page }) => {
@@ -22,7 +22,7 @@ test("immersive gallery can move between scenes and preserve query state", async
   const firstTitle = await page.getByTestId("immersive-scene-title").textContent();
   await expect(page.getByRole("main")).toHaveClass(/immersive-transition-fade/);
 
-  const secondSceneTarget = page.getByRole("link", { name: "Open scene 2" });
+  const secondSceneTarget = page.getByRole("link", { name: /Open scene 2/ });
   const secondSceneBox = await secondSceneTarget.boundingBox();
   expect(secondSceneBox?.width).toBeGreaterThanOrEqual(44);
   expect(secondSceneBox?.height).toBeGreaterThanOrEqual(44);

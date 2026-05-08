@@ -72,14 +72,6 @@ export default function HomePage() {
             <strong>{catalog.backgroundSceneCount}</strong>
             <span>background scenes</span>
           </div>
-          <div className="stat">
-            <strong>{catalog.embeddingRecords.length}</strong>
-            <span>local embeddings</span>
-          </div>
-          <div className="stat">
-            <strong>{catalog.manifest.shards.search[0]?.recordCount ?? catalog.artworkCount}</strong>
-            <span>search records</span>
-          </div>
         </div>
       </section>
     </main>

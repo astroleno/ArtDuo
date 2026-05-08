@@ -56,6 +56,19 @@ function formatEvidenceTokens(tokens: string[]): string {
   return tokens.length > 0 ? tokens.slice(0, 6).join(", ") : "No lexical token match";
 }
 
+function buildRecommendationReason(explanation: Awaited<ReturnType<typeof getArtworkExplanationClient>>): string {
+  if (explanation.status !== "ready" || !explanation.content?.evidence) {
+    return "解释会在不阻塞作品阅读的前提下补全。";
+  }
+
+  const grounding = explanation.content.evidence.grounding;
+  const sceneLabel = grounding.scene?.label ?? "当前展厅";
+  const tokens = grounding.matchedTokens.slice(0, 3);
+  const tokenText = tokens.length > 0 ? `，尤其靠近「${tokens.join(" / ")}」这些线索` : "";
+
+  return `这件作品被选中，是因为它和你的观看意图在情绪、主题与画面气质上相互靠近${tokenText}，并适合放入「${sceneLabel}」的观展氛围。`;
+}
+
 function renderExplanationStatus(explanation: Awaited<ReturnType<typeof getArtworkExplanationClient>>): string {
   if (explanation.status === "ready") {
     return explanation.content?.shortText ?? "Explanation ready";
@@ -174,26 +187,32 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
             <div className="explanation-card" data-testid="explanation-slot" style={{ marginTop: 16 }}>
               <p className="meta">{renderExplanationStatus(explanation)}</p>
               {explanation.status === "ready" && explanation.content?.evidence ? (
-                <div className="explanation-evidence" data-testid="explanation-evidence">
-                  <p className="evidence-label">Grounded evidence</p>
-                  <div className="evidence-summary">
-                    <span>Scene: {explanation.content.evidence.grounding.scene?.label ?? "Artwork only"}</span>
-                    <span>Score: {formatEvidenceScore(explanation.content.evidence.grounding.retrievalScore)}</span>
-                    <span>Tokens: {formatEvidenceTokens(explanation.content.evidence.grounding.matchedTokens)}</span>
+                <>
+                  <div className="recommendation-reason">
+                    <p className="evidence-label">为什么推荐这件作品</p>
+                    <p>{buildRecommendationReason(explanation)}</p>
                   </div>
-                  <ul className="citation-list" aria-label="Explanation citations">
-                    {explanation.content.evidence.citations.map((citation) => (
-                      <li key={`${citation.kind}-${citation.sourceId}`}>
-                        <span>{citation.kind}</span>
-                        {citation.url ? (
-                          <a href={citation.url} target="_blank" rel="noreferrer">{citation.label}</a>
-                        ) : (
-                          <strong>{citation.label}</strong>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                  <details className="explanation-evidence" data-testid="explanation-evidence">
+                    <summary>检索依据</summary>
+                    <div className="evidence-summary">
+                      <span>展厅：{explanation.content.evidence.grounding.scene?.label ?? "作品自身"}</span>
+                      <span>匹配度：{formatEvidenceScore(explanation.content.evidence.grounding.retrievalScore)}</span>
+                      <span>线索：{formatEvidenceTokens(explanation.content.evidence.grounding.matchedTokens)}</span>
+                    </div>
+                    <ul className="citation-list" aria-label="Explanation citations">
+                      {explanation.content.evidence.citations.map((citation) => (
+                        <li key={`${citation.kind}-${citation.sourceId}`}>
+                          <span>{citation.kind}</span>
+                          {citation.url ? (
+                            <a href={citation.url} target="_blank" rel="noreferrer">{citation.label}</a>
+                          ) : (
+                            <strong>{citation.label}</strong>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </>
               ) : null}
             </div>
             <div className="tag-row" style={{ marginTop: 18 }}>
