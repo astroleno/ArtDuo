@@ -8,11 +8,13 @@ export * from "./curation-grade";
 export {
   SESSION_STATUSES,
   type CurationSessionStatus,
+  type SourceVersions,
   type SourceVersions as CurationSourceVersions,
   type ExhibitionSnapshotUnit,
   type CreateCurationRequest,
   type OwnershipToken,
   type CurationSession,
+  parseSourceVersions,
   parseCreateCurationRequest,
   parseCurationSession,
 } from "./curation-session";

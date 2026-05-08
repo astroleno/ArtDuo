@@ -7,6 +7,7 @@ import { test } from "node:test";
 import { createArtworkExplanationRoute } from "../../src/routes/artworks";
 import { InMemoryMetrics } from "../../src/observability/metrics";
 import { InMemoryRequestLog } from "../../src/observability/request-log";
+import { createDeterministicGroundedExplanationGenerator } from "../../src/services/explanations/explanation-generator-adapter";
 
 function createFixtureRelease(): string {
   const releasesRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-artworks-route-"));
@@ -56,13 +57,45 @@ function createFixtureRelease(): string {
 
   writeFileSync(
     path.join(releaseDir, "metadata-01.json"),
-    JSON.stringify([{ id: "met-474091", metadata: { title: "Cloister" } }], null, 2),
+    JSON.stringify(
+      [{
+        id: "met-474091",
+        metadata: {
+          title: "Cloister",
+          artistDisplayName: "Unknown Artist",
+          yearLabel: "12th century",
+          objectUrl: "https://www.metmuseum.org/art/collection/search/474091",
+        },
+      }],
+      null,
+      2,
+    ),
   );
   writeFileSync(path.join(releaseDir, "search-01.json"), "[]");
   writeFileSync(path.join(releaseDir, "media-01.json"), "[]");
-  writeFileSync(path.join(releaseDir, "background-scenes-01.json"), "[]");
+  writeFileSync(
+    path.join(releaseDir, "background-scenes-01.json"),
+    JSON.stringify(
+      [{
+        id: "bg-quiet-cloister",
+        asset: {
+          label_en: "Quiet cloister wall",
+          local_public_path: "/artduo-gallery/bg-classical-museum-color-midnight-blue-007.png",
+        },
+      }],
+      null,
+      2,
+    ),
+  );
 
   return releasesRoot;
+}
+
+function deterministicGenerator() {
+  return createDeterministicGroundedExplanationGenerator({
+    model: "deterministic-test",
+    now: () => "2026-04-29T00:00:00.000Z",
+  });
 }
 
 test("known artwork returns pending without generator", async () => {
@@ -79,19 +112,77 @@ test("known artwork returns pending without generator", async () => {
   assert.equal((response.body as { status: string }).status, "pending");
 });
 
+test("server provider env is opt-in and does not run by default", async () => {
+  const releasesRoot = createFixtureRelease();
+  const route = createArtworkExplanationRoute({
+    releasesRoot,
+    providerEnv: {
+      ARTDUO_EXPLANATION_PROVIDER: "openai-compatible",
+      ARTDUO_EXPLANATION_ENDPOINT: "https://example.com/v1/explanations",
+      ARTDUO_EXPLANATION_MODEL: "test-model",
+      ARTDUO_EXPLANATION_API_KEY: "server-only-test-key",
+    },
+    providerFetch: async () => {
+      throw new Error("provider should not run unless enabled");
+    },
+  });
+  const response = await route.getArtworkExplanation({
+    artworkId: "met-474091",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet meditative reflection",
+  });
+
+  assert.equal(response.status, 200);
+  if (response.status !== 200) return;
+  assert.equal((response.body as { status: string }).status, "pending");
+});
+
+test("enabled server provider receives route grounding", async () => {
+  const releasesRoot = createFixtureRelease();
+  let providerGroundingArtwork = "";
+  const route = createArtworkExplanationRoute({
+    releasesRoot,
+    enableServerProvider: true,
+    providerEnv: {
+      ARTDUO_EXPLANATION_PROVIDER: "openai-compatible",
+      ARTDUO_EXPLANATION_ENDPOINT: "https://example.com/v1/explanations",
+      ARTDUO_EXPLANATION_MODEL: "test-model",
+      ARTDUO_EXPLANATION_API_KEY: "server-only-test-key",
+    },
+    providerFetch: async (_url, init) => {
+      const body = JSON.parse(String(init?.body)) as { grounding: { artwork: { id: string } } };
+      providerGroundingArtwork = body.grounding.artwork.id;
+      return new Response(JSON.stringify({
+        title: "Provider Cloister",
+        shortText: "Grounded provider note.",
+        detailText: "Grounded provider detail.",
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    },
+  });
+
+  const response = await route.getArtworkExplanation({
+    artworkId: "met-474091",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet meditative reflection",
+    backgroundSceneId: "bg-quiet-cloister",
+    retrievalScore: 0.308327,
+    matchedTokens: ["quiet", "meditative", "cloister"],
+  });
+
+  assert.equal(response.status, 200);
+  assert.equal(providerGroundingArtwork, "met-474091");
+  if (response.status !== 200 || "code" in response.body || response.body.status !== "ready") return;
+  assert.equal(response.body.content?.evidence.grounding.scene?.id, "bg-quiet-cloister");
+});
+
 test("generator returns ready explanation and is cached", async () => {
   const releasesRoot = createFixtureRelease();
   let calls = 0;
   const route = createArtworkExplanationRoute({
     releasesRoot,
-    generator: () => {
+    generator: (input) => {
       calls += 1;
-      return {
-        title: "Quiet Cloister",
-        shortText: "A meditative lane.",
-        detailText: "Longer detail",
-        generatedAt: "2026-04-29T00:00:00.000Z",
-      };
+      return deterministicGenerator()(input);
     },
   });
 
@@ -114,6 +205,42 @@ test("generator returns ready explanation and is cached", async () => {
   assert.equal(calls, 1);
 });
 
+test("ready explanation includes grounding context and citations", async () => {
+  const releasesRoot = createFixtureRelease();
+  let receivedArtworkTitle = "";
+  const route = createArtworkExplanationRoute({
+    releasesRoot,
+    generator: (input) => {
+      receivedArtworkTitle = input.grounding.artwork.title;
+      return deterministicGenerator()(input);
+    },
+  });
+
+  const response = await route.getArtworkExplanation({
+    artworkId: "met-474091",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet meditative reflection",
+    backgroundSceneId: "bg-quiet-cloister",
+    retrievalScore: 0.308327,
+    matchedTokens: ["quiet", "meditative", "cloister"],
+  });
+
+  assert.equal(response.status, 200);
+  if (response.status !== 200 || "code" in response.body || response.body.status !== "ready") return;
+  const content = response.body.content;
+  assert.ok(content);
+  assert.equal(receivedArtworkTitle, "Cloister");
+  assert.equal(content.evidence.grounding.artwork.id, "met-474091");
+  assert.equal(content.evidence.grounding.scene?.id, "bg-quiet-cloister");
+  assert.equal(content.evidence.grounding.retrievalScore, 0.308327);
+  assert.deepEqual(content.evidence.grounding.matchedTokens, ["quiet", "meditative", "cloister"]);
+  assert.equal(content.evidence.grounding.sourceVersions.corpusVersion, "2026-04-25-curation-b");
+  assert.ok(content.evidence.citations.some((citation) => citation.kind === "artwork"));
+  assert.ok(content.evidence.citations.some((citation) => citation.kind === "scene"));
+  assert.ok(content.evidence.citations.some((citation) => citation.kind === "release"));
+  assert.ok(content.evidence.citations.some((citation) => citation.kind === "retrieval"));
+});
+
 test("unknown artwork returns 404", async () => {
   const releasesRoot = createFixtureRelease();
   const route = createArtworkExplanationRoute({ releasesRoot });
@@ -130,12 +257,7 @@ test("budget guard rejects generation when estimated tokens exceed max", async (
   const releasesRoot = createFixtureRelease();
   const route = createArtworkExplanationRoute({
     releasesRoot,
-    generator: () => ({
-      title: "Quiet Cloister",
-      shortText: "A meditative lane.",
-      detailText: "Longer detail",
-      generatedAt: "2026-04-29T00:00:00.000Z",
-    }),
+    generator: deterministicGenerator(),
   });
   const response = await route.getArtworkExplanation(
     {
@@ -154,14 +276,9 @@ test("cached ready explanation is returned even when over-budget input is provid
   let calls = 0;
   const route = createArtworkExplanationRoute({
     releasesRoot,
-    generator: () => {
+    generator: (input) => {
       calls += 1;
-      return {
-        title: "Quiet Cloister",
-        shortText: "A meditative lane.",
-        detailText: "Longer detail",
-        generatedAt: "2026-04-29T00:00:00.000Z",
-      };
+      return deterministicGenerator()(input);
     },
   });
 
@@ -196,12 +313,7 @@ test("explanation route records runtime metrics and request log entries", async 
     releasesRoot,
     metrics,
     requestLog,
-    generator: () => ({
-      title: "Quiet Cloister",
-      shortText: "A meditative lane.",
-      detailText: "Longer detail",
-      generatedAt: "2026-04-29T00:00:00.000Z",
-    }),
+    generator: deterministicGenerator(),
   });
 
   await route.getArtworkExplanation({

@@ -1,4 +1,4 @@
-import type { ArtworkExplanation, ArtworkExplanationContent } from "@artduo/contracts";
+import type { ArtworkExplanation, ArtworkExplanationContent, GroundingContext } from "@artduo/contracts";
 
 import { buildExplanationCacheKey, InMemoryExplanationCache } from "./explanation-cache";
 
@@ -6,6 +6,7 @@ export interface GetArtworkExplanationInput {
   artworkId: string;
   releaseVersion: string;
   contextText: string;
+  grounding: GroundingContext;
 }
 
 export interface ArtworkExplanationGeneratorInput extends GetArtworkExplanationInput {}

@@ -1,5 +1,6 @@
 import type { ArtworkExplanation } from "@artduo/contracts";
 import { createArtworkExplanationRoute } from "../../api/src/routes/artworks";
+import { createDeterministicGroundedExplanationGenerator } from "../../api/src/services/explanations/explanation-generator-adapter";
 
 interface ArtworkExplanationRoute {
   getArtworkExplanation: (input: {
@@ -10,17 +11,7 @@ interface ArtworkExplanationRoute {
 }
 
 const route = createArtworkExplanationRoute({
-  generator: ({ artworkId, contextText }) => {
-    const context = contextText.trim() || "your curation intent";
-    const now = new Date().toISOString();
-    return {
-      title: `Curation Note · ${artworkId}`,
-      shortText: `Curation note: ${context.slice(0, 120)}`,
-      detailText: `This artwork resonates with the current intent through composition, mood, and scene affinity cues from the release corpus.`,
-      generatedAt: now,
-      model: "local-curation-generator-v0",
-    };
-  },
+  generator: createDeterministicGroundedExplanationGenerator({ model: "local-curation-generator-v0" }),
 });
 
 export async function getArtworkExplanationClient(

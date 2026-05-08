@@ -846,6 +846,28 @@ git add packages/corpus apps/web
 git commit -m "feat(corpus): add browser-local release search"
 ```
 
+## Task 8: Harden RAG Grounding and Explanation Evidence
+
+This task closes the gap between "grounded generation is planned" and "grounded generation is contract/API-test enforced."
+
+**Files:**
+
+- `packages/contracts/src/artwork-explanation.ts`
+- `packages/contracts/fixtures/artwork-explanation-ready.json`
+- `apps/api/src/services/explanations/get-artwork-explanation.ts`
+- `apps/api/src/services/explanations/explanation-generator-adapter.ts`
+- `apps/api/src/routes/artworks.ts`
+- `apps/api/test/services/explanation-generator-adapter.test.ts`
+- `apps/api/test/routes/artworks.test.ts`
+
+Required behavior:
+
+- `GroundingContext` carries `userText`, `releaseVersion`, `artwork`, optional `scene`, `retrievalScore`, `matchedTokens`, and `sourceVersions`.
+- Ready `ArtworkExplanationContent` carries traceable `evidence` with grounding context and citations.
+- The API route builds grounding from release metadata and background scene shards before invoking a generator.
+- Deterministic generators remain available for automated tests without real LLM credentials.
+- Real provider generation is opt-in and server-env gated; provider env alone must not change tests from pending to ready.
+
 ## Phase 2 Completion Gate
 
 Phase 2 can be considered complete when all are true:

@@ -50,7 +50,7 @@ export interface CurationSession {
   error?: string;
 }
 
-function parseSourceVersions(value: unknown, path: string): SourceVersions {
+export function parseSourceVersions(value: unknown, path: string): SourceVersions {
   const sourceVersions = expectObject(value, path);
 
   return {

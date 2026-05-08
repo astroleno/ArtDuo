@@ -39,6 +39,30 @@ test("cache stores and returns explanation by key", () => {
     shortText: "A meditative lane.",
     detailText: "Longer detail",
     generatedAt: "2026-04-29T00:00:00.000Z",
+    evidence: {
+      grounding: {
+        userText: "quiet meditative reflection",
+        releaseVersion: "2026-04-25-curation-b",
+        artwork: {
+          id: "met-474091",
+          title: "Cloister",
+        },
+        retrievalScore: 0.3,
+        matchedTokens: ["quiet", "meditative"],
+        sourceVersions: {
+          corpusVersion: "2026-04-25-curation-b",
+          backgroundCatalogVersion: "2026-04-25-curation-b",
+          contractsVersion: "0.2.0",
+        },
+      },
+      citations: [
+        {
+          kind: "artwork",
+          sourceId: "met-474091",
+          label: "Cloister",
+        },
+      ],
+    },
   };
 
   cache.set(key, content);

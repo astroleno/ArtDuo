@@ -37,6 +37,35 @@ test("explanation client returns pending or ready non-blocking states", async ()
               shortText: "A calm threshold.",
               detailText: "Longer detail text",
               generatedAt: "2026-04-30T00:00:00.000Z",
+              evidence: {
+                grounding: {
+                  userText: "quiet moonlit room",
+                  releaseVersion: "2026-04-25-curation-b",
+                  artwork: {
+                    id: "met-1",
+                    title: "Moonlit Pause",
+                  },
+                  retrievalScore: 0.91,
+                  matchedTokens: ["quiet", "moonlit"],
+                  sourceVersions: {
+                    corpusVersion: "2026-04-25-curation-b",
+                    backgroundCatalogVersion: "2026-04-25-curation-b",
+                    contractsVersion: "0.2.0",
+                  },
+                },
+                citations: [
+                  {
+                    kind: "artwork",
+                    sourceId: "met-1",
+                    label: "Moonlit Pause",
+                  },
+                  {
+                    kind: "release",
+                    sourceId: "2026-04-25-curation-b",
+                    label: "Release 2026-04-25-curation-b",
+                  },
+                ],
+              },
             },
             cacheKey: "k2",
             updatedAt: "2026-04-30T00:00:00.000Z",

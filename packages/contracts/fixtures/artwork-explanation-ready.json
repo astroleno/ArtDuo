@@ -7,7 +7,56 @@
     "shortText": "Stone corridors and soft light frame a meditative hush.",
     "detailText": "This work uses repetition and enclosure to turn outward architecture into inward attention.",
     "generatedAt": "2026-04-29T00:00:05.000Z",
-    "model": "offline-mock-v1"
+    "model": "offline-mock-v1",
+    "evidence": {
+      "grounding": {
+        "userText": "quiet meditative reflection",
+        "releaseVersion": "2026-04-25-curation-b",
+        "artwork": {
+          "id": "met-474091",
+          "title": "Cloister",
+          "artistDisplayName": "Unknown Artist",
+          "yearLabel": "12th century",
+          "objectUrl": "https://www.metmuseum.org/art/collection/search/474091"
+        },
+        "scene": {
+          "id": "bg-quiet-cloister",
+          "label": "Quiet cloister wall",
+          "imageUrl": "/artduo-gallery/bg-classical-museum-color-midnight-blue-007.png"
+        },
+        "retrievalScore": 0.308327,
+        "matchedTokens": ["quiet", "meditative", "cloister"],
+        "sourceVersions": {
+          "corpusVersion": "2026-04-25-curation-b",
+          "backgroundCatalogVersion": "2026-04-25-curation-b",
+          "contractsVersion": "0.2.0"
+        }
+      },
+      "citations": [
+        {
+          "kind": "artwork",
+          "sourceId": "met-474091",
+          "label": "Cloister",
+          "text": "Cloister"
+        },
+        {
+          "kind": "scene",
+          "sourceId": "bg-quiet-cloister",
+          "label": "Quiet cloister wall"
+        },
+        {
+          "kind": "release",
+          "sourceId": "2026-04-25-curation-b",
+          "label": "Release 2026-04-25-curation-b"
+        },
+        {
+          "kind": "retrieval",
+          "sourceId": "met-474091",
+          "label": "Matched tokens",
+          "text": "quiet, meditative, cloister"
+        }
+      ]
+    }
   },
   "cacheKey": "met-474091:2026-04-25-curation-b:default",
   "updatedAt": "2026-04-29T00:00:05.000Z"
