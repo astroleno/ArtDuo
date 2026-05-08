@@ -7,6 +7,9 @@ interface ArtworkExplanationRoute {
     artworkId: string;
     releaseVersion: string;
     contextText: string;
+    backgroundSceneId?: string;
+    retrievalScore?: number;
+    matchedTokens?: string[];
   }) => Promise<{ status: number; body: ArtworkExplanation | { code: string; message: string } }>;
 }
 
@@ -15,7 +18,14 @@ const route = createArtworkExplanationRoute({
 });
 
 export async function getArtworkExplanationClient(
-  input: { artworkId: string; releaseVersion: string; contextText?: string },
+  input: {
+    artworkId: string;
+    releaseVersion: string;
+    contextText?: string;
+    backgroundSceneId?: string;
+    retrievalScore?: number;
+    matchedTokens?: string[];
+  },
   deps?: { route?: ArtworkExplanationRoute },
 ): Promise<ArtworkExplanation> {
   const activeRoute = deps?.route ?? route;
@@ -24,6 +34,9 @@ export async function getArtworkExplanationClient(
     artworkId: input.artworkId,
     releaseVersion: input.releaseVersion,
     contextText: input.contextText ?? "",
+    backgroundSceneId: input.backgroundSceneId,
+    retrievalScore: input.retrievalScore,
+    matchedTokens: input.matchedTokens,
   });
 
   if (response.status !== 200) {

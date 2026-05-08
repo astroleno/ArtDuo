@@ -79,6 +79,47 @@ test("explanation client returns pending or ready non-blocking states", async ()
   assert.equal(ready.status, "ready");
 });
 
+test("explanation client forwards retrieval grounding fields to the route", async () => {
+  let forwarded: unknown;
+
+  await getArtworkExplanationClient(
+    {
+      artworkId: "met-1",
+      releaseVersion: "2026-04-25-curation-b",
+      contextText: "quiet moonlit room",
+      backgroundSceneId: "bg-moon",
+      retrievalScore: 0.917,
+      matchedTokens: ["quiet", "moonlit"],
+    },
+    {
+      route: {
+        getArtworkExplanation: async (input) => {
+          forwarded = input;
+          return {
+            status: 200,
+            body: {
+              artworkId: "met-1",
+              releaseVersion: "2026-04-25-curation-b",
+              status: "pending",
+              cacheKey: "k1",
+              updatedAt: "2026-04-30T00:00:00.000Z",
+            },
+          };
+        },
+      },
+    },
+  );
+
+  assert.deepEqual(forwarded, {
+    artworkId: "met-1",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet moonlit room",
+    backgroundSceneId: "bg-moon",
+    retrievalScore: 0.917,
+    matchedTokens: ["quiet", "moonlit"],
+  });
+});
+
 test("explanation client maps route errors to failed state", async () => {
   const failed = await getArtworkExplanationClient(
     { artworkId: "unknown", releaseVersion: "2026-04-25-curation-b", contextText: "x" },

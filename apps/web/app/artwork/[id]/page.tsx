@@ -10,13 +10,61 @@ interface ArtworkPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }
 
-function readQuery(params: Record<string, string | string[] | undefined> | undefined): string | undefined {
-  const value = params?.query;
+function readParam(
+  params: Record<string, string | string[] | undefined> | undefined,
+  key: string,
+): string | undefined {
+  const value = params?.[key];
   if (Array.isArray(value)) {
     return value[0];
   }
 
   return value;
+}
+
+function readQuery(params: Record<string, string | string[] | undefined> | undefined): string | undefined {
+  return readParam(params, "query");
+}
+
+function readNumberParam(
+  params: Record<string, string | string[] | undefined> | undefined,
+  key: string,
+): number | undefined {
+  const value = readParam(params, key);
+  if (!value) {
+    return undefined;
+  }
+
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function readRepeatedParam(
+  params: Record<string, string | string[] | undefined> | undefined,
+  key: string,
+): string[] {
+  const value = params?.[key];
+  const values = Array.isArray(value) ? value : value ? [value] : [];
+  return values.flatMap((entry) => entry.split(",")).map((entry) => entry.trim()).filter(Boolean);
+}
+
+function formatEvidenceScore(score: number): string {
+  return `${Math.max(0, Math.min(100, score * 100)).toFixed(1)}%`;
+}
+
+function formatEvidenceTokens(tokens: string[]): string {
+  return tokens.length > 0 ? tokens.slice(0, 6).join(", ") : "No lexical token match";
+}
+
+function renderExplanationStatus(explanation: Awaited<ReturnType<typeof getArtworkExplanationClient>>): string {
+  if (explanation.status === "ready") {
+    return explanation.content?.shortText ?? "Explanation ready";
+  }
+  if (explanation.status === "pending") {
+    return "Explanation pending";
+  }
+
+  return "Explanation unavailable";
 }
 
 export function generateStaticParams() {
@@ -27,6 +75,9 @@ export function generateStaticParams() {
 export default async function ArtworkPage({ params, searchParams }: ArtworkPageProps) {
   const [{ id }, queryParams] = await Promise.all([params, searchParams]);
   const query = readQuery(queryParams);
+  const backgroundSceneId = readParam(queryParams, "backgroundSceneId");
+  const retrievalScore = readNumberParam(queryParams, "retrievalScore");
+  const matchedTokens = readRepeatedParam(queryParams, "matchedTokens");
   const catalog = loadWebReleaseCatalog();
   const detail = getArtworkDetail(catalog, id, query);
 
@@ -34,11 +85,18 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     notFound();
   }
 
-  const { artwork, scene } = detail;
+  const { artwork } = detail;
+  const requestedScene = backgroundSceneId
+    ? catalog.backgroundScenes.find((candidate) => candidate.id === backgroundSceneId)
+    : undefined;
+  const scene = requestedScene ?? detail.scene;
   const explanation = await getArtworkExplanationClient({
     artworkId: artwork.id,
     releaseVersion: catalog.releaseVersion,
     contextText: query ?? artwork.searchText,
+    backgroundSceneId: scene?.id,
+    retrievalScore,
+    matchedTokens,
   });
   const galleryHref = query ? `/gallery?${new URLSearchParams({ query }).toString()}` : "/gallery";
   const immersiveHref = `/gallery/local/immersive?${new URLSearchParams({
@@ -113,13 +171,31 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               </div>
             </div>
             <p>{artwork.description ?? artwork.searchText}</p>
-            <p className="meta" data-testid="explanation-slot" style={{ marginTop: 16 }}>
-              {explanation.status === "ready"
-                ? explanation.content?.shortText
-                : explanation.status === "pending"
-                  ? "Explanation pending"
-                  : "Explanation unavailable"}
-            </p>
+            <div className="explanation-card" data-testid="explanation-slot" style={{ marginTop: 16 }}>
+              <p className="meta">{renderExplanationStatus(explanation)}</p>
+              {explanation.status === "ready" && explanation.content?.evidence ? (
+                <div className="explanation-evidence" data-testid="explanation-evidence">
+                  <p className="evidence-label">Grounded evidence</p>
+                  <div className="evidence-summary">
+                    <span>Scene: {explanation.content.evidence.grounding.scene?.label ?? "Artwork only"}</span>
+                    <span>Score: {formatEvidenceScore(explanation.content.evidence.grounding.retrievalScore)}</span>
+                    <span>Tokens: {formatEvidenceTokens(explanation.content.evidence.grounding.matchedTokens)}</span>
+                  </div>
+                  <ul className="citation-list" aria-label="Explanation citations">
+                    {explanation.content.evidence.citations.map((citation) => (
+                      <li key={`${citation.kind}-${citation.sourceId}`}>
+                        <span>{citation.kind}</span>
+                        {citation.url ? (
+                          <a href={citation.url} target="_blank" rel="noreferrer">{citation.label}</a>
+                        ) : (
+                          <strong>{citation.label}</strong>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
             <div className="tag-row" style={{ marginTop: 18 }}>
               {[...artwork.moodTags, ...artwork.subjectTags.slice(0, 4)].map((tag, index) => (
                 <span className="tag" key={`${tag}-${index}`}>{tag}</span>

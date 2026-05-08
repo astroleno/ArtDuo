@@ -49,6 +49,23 @@ function buildFallbackMeta(result: WebSearchResult["results"][number]): string {
   ].filter(Boolean).join(" · ");
 }
 
+function buildDetailHref(result: WebSearchResult["results"][number], query: string): string {
+  const params = new URLSearchParams();
+  if (query) {
+    params.set("query", query);
+  }
+  if (result.scene?.id) {
+    params.set("backgroundSceneId", result.scene.id);
+  }
+  params.set("retrievalScore", result.combinedScore.toFixed(6));
+  for (const token of result.matchedTokens) {
+    params.append("matchedTokens", token);
+  }
+
+  const suffix = params.toString();
+  return `/artwork/${encodeURIComponent(result.artwork.id)}${suffix ? `?${suffix}` : ""}`;
+}
+
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const params = await searchParams;
   const query = readQuery(params);
@@ -97,7 +114,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           ))}
           {result.scene ? <span className="tag">{result.scene.label}</span> : null}
         </div>
-        <a className="secondary-link" href={result.artwork.detailHref} aria-label={`打开详情：${result.artwork.title}`}>
+        <a className="secondary-link" href={buildDetailHref(result, query)} aria-label={`打开详情：${result.artwork.title}`}>
           打开详情 <ArrowRight aria-hidden="true" size={17} />
         </a>
       </div>
