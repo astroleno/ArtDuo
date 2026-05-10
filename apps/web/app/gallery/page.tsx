@@ -2,6 +2,7 @@ import { ArrowRight, Search } from "lucide-react";
 
 import { ArtworkImage } from "../../components/artwork-image";
 import { searchGalleryWithRuntime } from "../../lib/browser-curation";
+import { buildCurationNarrative, curvePath, type CurationNarrative } from "../../lib/curation-narrative";
 import { DEFAULT_CURATION_PROMPT, STARTER_PROMPTS } from "../../lib/prompts";
 import { loadWebReleaseCatalog, type WebReleaseCatalog, type WebSearchResult } from "../../lib/release-catalog";
 
@@ -73,6 +74,45 @@ function buildDetailHref(result: WebSearchResult["results"][number], query: stri
   return `/artwork/${encodeURIComponent(result.artwork.id)}${suffix ? `?${suffix}` : ""}`;
 }
 
+function EmotionCurve({ narrative }: { narrative: CurationNarrative }) {
+  const path = curvePath(narrative.curve);
+
+  return (
+    <section className="emotion-curve-panel" aria-label="Emotional curve" data-testid="emotion-curve">
+      <div>
+        <p className="meta">Emotional curve</p>
+        <h2>{narrative.title}</h2>
+      </div>
+      <svg className="emotion-curve-svg" viewBox="0 0 300 96" role="img" aria-label="A three-stage emotional curve">
+        <path className="emotion-curve-guide" d="M 0 72 C 72 18, 190 88, 300 32" />
+        <path className="emotion-curve-line" d={path} />
+        {narrative.curve.map((point, index) => {
+          const x = narrative.curve.length === 1 ? 150 : (index / (narrative.curve.length - 1)) * 300;
+          const y = 84 - point.intensity * 66;
+
+          return (
+            <circle
+              className="emotion-curve-dot"
+              cx={x}
+              cy={y}
+              key={point.label}
+              r={index === 0 ? 5.6 : 4.6}
+            />
+          );
+        })}
+      </svg>
+      <div className="emotion-curve-labels">
+        {narrative.curve.map((point) => (
+          <span key={point.label}>
+            <strong>{point.label}</strong>
+            {point.tone}
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const params = await searchParams;
   const query = readQuery(params);
@@ -90,6 +130,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
     : { search: buildIdleSearch(catalog, query), runtime: "idle" };
   const featured = search.results[0];
   const featuredSceneImage = featured?.scene?.imageUrl;
+  const narrative = hasQuery && search.results.length > 0 ? buildCurationNarrative(search) : undefined;
   const stages = [
     { label: "Opening", items: search.results.slice(1, 4) },
     { label: "Drift", items: search.results.slice(4, 8) },
@@ -230,36 +271,51 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             </div>
           </div>
         ) : (
-          <div className="curation-wall">
-            {featured ? (
-              <div className="featured-work">
-                <p className="meta">Primary work</p>
-                {renderResultCard(featured, "featured")}
-              </div>
+          <div className="curation-experience">
+            {narrative ? (
+              <section className="curation-preface" aria-label="Curatorial preface" data-testid="curation-preface">
+                <p className="meta">Preface</p>
+                <p>{narrative.preface}</p>
+              </section>
             ) : null}
-            <div className="curation-arc" aria-hidden="true">
-              {stages.map((stage) => (
-                <span key={stage.label} />
-              ))}
+            {narrative ? <EmotionCurve narrative={narrative} /> : null}
+            <div className="curation-wall">
+              {featured ? (
+                <div className="featured-work">
+                  <p className="meta">Primary work</p>
+                  {renderResultCard(featured, "featured")}
+                </div>
+              ) : null}
+              <div className="curation-arc" aria-hidden="true">
+                {stages.map((stage) => (
+                  <span key={stage.label} />
+                ))}
+              </div>
+              <div className="stage-wall">
+                {stages.map((stage) => (
+                  <section className="stage-group" key={stage.label} aria-label={`${stage.label} works`}>
+                    <h2>{stage.label}</h2>
+                    <div className="stage-grid">
+                      {stage.items.slice(0, 2).map((result) => renderResultCard(result))}
+                    </div>
+                    {stage.items.length > 2 ? (
+                      <details className="stage-more">
+                        <summary>查看更多候选（{stage.items.length - 2}）</summary>
+                        <div className="stage-grid stage-grid-extra">
+                          {stage.items.slice(2).map((result) => renderResultCard(result))}
+                        </div>
+                      </details>
+                    ) : null}
+                  </section>
+                ))}
+              </div>
             </div>
-            <div className="stage-wall">
-              {stages.map((stage) => (
-                <section className="stage-group" key={stage.label} aria-label={`${stage.label} works`}>
-                  <h2>{stage.label}</h2>
-                  <div className="stage-grid">
-                    {stage.items.slice(0, 2).map((result) => renderResultCard(result))}
-                  </div>
-                  {stage.items.length > 2 ? (
-                    <details className="stage-more">
-                      <summary>查看更多候选（{stage.items.length - 2}）</summary>
-                      <div className="stage-grid stage-grid-extra">
-                        {stage.items.slice(2).map((result) => renderResultCard(result))}
-                      </div>
-                    </details>
-                  ) : null}
-                </section>
-              ))}
-            </div>
+            {narrative ? (
+              <section className="curation-closing" aria-label="Curatorial closing" data-testid="curation-closing">
+                <p className="meta">Closing</p>
+                <p>{narrative.closing}</p>
+              </section>
+            ) : null}
           </div>
         )}
       </section>

@@ -10,7 +10,10 @@ export function ImageLightbox({ unit, className = "" }: ImageLightboxProps) {
 
   return (
     <figure className={`immersive-lightbox ${className}`}>
-      <img alt={`${unit.title} artwork`} src={unit.imageUrlFull ?? unit.imageUrl} />
+      <div className="immersive-artwork-frame">
+        <img alt={`${unit.title} artwork`} src={unit.imageUrlFull ?? unit.imageUrl} />
+        <span className="immersive-canvas-grain" aria-hidden="true" />
+      </div>
       <figcaption>
         <strong>{unit.title}</strong>
         {byline ? <span>{byline}</span> : null}

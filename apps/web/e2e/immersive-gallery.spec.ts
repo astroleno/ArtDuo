@@ -11,6 +11,9 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
   await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
   await expect(page.getByRole("main")).toHaveCSS("background-image", /artduo-gallery/);
   await expect(page.getByRole("img")).toBeVisible();
+  await expect(page.locator(".immersive-atmosphere")).toBeVisible();
+  await expect(page.getByTestId("immersive-preface")).toBeVisible();
+  await expect(page.getByTestId("immersive-emotion-curve")).toBeVisible();
   await expect(page.getByRole("link", { name: "Back to Gallery" })).toBeVisible();
   await expect(page.getByLabel(/Immersive gallery progress/)).toBeVisible();
 });

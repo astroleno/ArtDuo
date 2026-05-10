@@ -33,6 +33,8 @@ test("immersive gallery renders next previous and clickable progress scene links
     <ImmersiveGallery
       galleryHref="/gallery?query=moon"
       getSceneHref={(unit) => `/gallery/local/immersive?query=moon&unit=${unit.id}`}
+      preface="Begin with the moon room."
+      closing="Leave through a quieter threshold."
       selectedUnitId="met-2"
       units={units}
     />,
@@ -44,5 +46,7 @@ test("immersive gallery renders next previous and clickable progress scene links
   assert.match(markup, /Previous scene/);
   assert.match(markup, /Next scene/);
   assert.match(markup, /aria-label="Open scene 1 of 3"/);
+  assert.match(markup, /immersive-atmosphere/);
+  assert.match(markup, /data-testid="immersive-emotion-curve"/);
   assert.match(markup, /unit=met-3/);
 });

@@ -9,6 +9,10 @@ export interface ImmersiveGalleryUnit {
   imageUrlFull?: string;
   backgroundSceneUrl?: string;
   sceneLabel?: string;
+  stageLabel?: string;
+  stageTone?: string;
+  emotionalIntensity?: number;
+  curatorNote?: string;
   transitionFamily?: TransitionFamily;
 }
 
