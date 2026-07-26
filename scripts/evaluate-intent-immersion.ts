@@ -527,9 +527,29 @@ function renderMarkdown(phase: string, results: EvaluationResult[]): string {
 }
 
 function main(): void {
-  const phase = process.argv[2] ?? "baseline";
+  let phase = "baseline";
+  let outputDir = join(process.cwd(), "output", "intent-immersion-eval");
+  const args = process.argv.slice(2);
+  for (let index = 0; index < args.length; index += 1) {
+    const argument = args[index];
+    if (argument === "--output-dir") {
+      const value = args[index + 1];
+      if (!value) {
+        throw new Error("--output-dir requires a directory path.");
+      }
+      outputDir = value;
+      index += 1;
+      continue;
+    }
+    if (argument.startsWith("--")) {
+      throw new Error(`Unknown argument: ${argument}`);
+    }
+    if (phase !== "baseline") {
+      throw new Error("Only one positional phase argument is allowed.");
+    }
+    phase = argument;
+  }
   const results = evaluate(phase);
-  const outputDir = join(process.cwd(), "output", "intent-immersion-eval");
 
   mkdirSync(outputDir, { recursive: true });
   writeFileSync(join(outputDir, `${phase}.json`), `${JSON.stringify(results, null, 2)}\n`);

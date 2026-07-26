@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
@@ -26,7 +26,48 @@ interface CaseResult {
   message: string;
 }
 
-const outDir = join(process.cwd(), "output/a2a-framework-test-20260616-142013");
+interface HarnessArguments {
+  replayPath: string;
+  replayRepeatPath: string;
+  replayReportPath: string;
+  outputDir: string;
+}
+
+function parseHarnessArguments(argv: string[]): HarnessArguments {
+  const values = new Map<string, string>();
+  for (let index = 0; index < argv.length; index += 2) {
+    const flag = argv[index];
+    const value = argv[index + 1];
+    if (!flag || !value || !["--replay", "--replay-repeat", "--replay-report", "--output-dir"].includes(flag)) {
+      throw new Error(
+        "Usage: tsx output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts --replay <json> --replay-repeat <json> --replay-report <md> --output-dir <dir>",
+      );
+    }
+    values.set(flag, value);
+  }
+
+  const replayPath = values.get("--replay");
+  const replayRepeatPath = values.get("--replay-repeat");
+  const replayReportPath = values.get("--replay-report");
+  const outputDir = values.get("--output-dir");
+  if (!replayPath || !replayRepeatPath || !replayReportPath || !outputDir) {
+    throw new Error(
+      "A2A harness requires --replay, --replay-repeat, --replay-report, and --output-dir so replay inputs are explicit and reproducible.",
+    );
+  }
+  return {
+    replayPath: resolve(replayPath),
+    replayRepeatPath: resolve(replayRepeatPath),
+    replayReportPath: resolve(replayReportPath),
+    outputDir: resolve(outputDir),
+  };
+}
+
+const harnessArguments = parseHarnessArguments(process.argv.slice(2));
+const outDir = harnessArguments.outputDir;
+const replay = JSON.parse(readFileSync(harnessArguments.replayPath, "utf8"));
+const replayRepeat = JSON.parse(readFileSync(harnessArguments.replayRepeatPath, "utf8"));
+const replayMarkdown = readFileSync(harnessArguments.replayReportPath, "utf8");
 const results: CaseResult[] = [];
 
 function values(entries: Array<{ value: string }> | undefined): string[] {
@@ -644,8 +685,6 @@ run("A6-09", () => {
 blocked("A6-10", "Viewport coverage and online LLM timeout fallback require browser/network scenario control; skipped under no-Playwright constraint.");
 
 // Agent 7
-const replay = JSON.parse(readFileSync(join(process.cwd(), "output/intent-immersion-eval/a2a-framework-test-20260616-142013.json"), "utf8"));
-const replayRepeat = JSON.parse(readFileSync(join(process.cwd(), "output/intent-immersion-eval/a2a-framework-test-20260616-142013-repeat.json"), "utf8"));
 run("A7-01", () => {
   const sample = replay[0];
   expect(sample.id && sample.output.userAgent && sample.output.growthForm && sample.output.negotiationTrace && sample.output.curveMetrics, "core replay fields missing");
@@ -666,18 +705,15 @@ run("A7-05", () => {
   expect(replay.some((entry: any) => entry.reviewerVerdict || entry.reviewerNotes || entry.severity), "reviewer fields missing");
 });
 run("A7-06", () => {
-  const md = readFileSync(join(process.cwd(), "output/intent-immersion-eval/a2a-framework-test-20260616-142013.md"), "utf8");
-  expect(/failed caseId|failed cases|失败/i.test(md), "failed-case reproduction section missing");
+  expect(/failed caseId|failed cases|失败/i.test(replayMarkdown), "failed-case reproduction section missing");
 });
 run("A7-07", () => {
-  const md = readFileSync(join(process.cwd(), "output/intent-immersion-eval/a2a-framework-test-20260616-142013.md"), "utf8");
-  expect(/baseline|candidate|delta|regression|improvement/i.test(md), "baseline/candidate diff output missing");
+  expect(/baseline|candidate|delta|regression|improvement/i.test(replayMarkdown), "baseline/candidate diff output missing");
 });
 run("A7-08", () => {
-  const md = readFileSync(join(process.cwd(), "output/intent-immersion-eval/a2a-framework-test-20260616-142013.md"), "utf8");
-  expect(/Cases: 50/.test(md), "total cases missing");
-  expect(/pass|fail/i.test(md), "pass/fail summary missing");
-  expect(/rejection|resistance violation/i.test(md), "rejection/resistance summary missing");
+  expect(/Cases: 50/.test(replayMarkdown), "total cases missing");
+  expect(/pass|fail/i.test(replayMarkdown), "pass/fail summary missing");
+  expect(/rejection|resistance violation/i.test(replayMarkdown), "rejection/resistance summary missing");
 });
 run("A7-09", () => {
   expect(!replay.some((entry: any) => typeof entry.input === "string" && entry.input.length > 0), "raw user prompts are copied into replay JSON");
@@ -848,6 +884,7 @@ const byAgent = results.reduce<Record<string, Record<Status | "total", number>>>
   return acc;
 }, {});
 
+mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "spec-harness-results.json"), `${JSON.stringify({ counts, byAgent, results }, null, 2)}\n`);
 
 const lines = [
