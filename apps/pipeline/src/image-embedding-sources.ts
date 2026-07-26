@@ -3,6 +3,7 @@ import { realpathSync, readFileSync, statSync } from "node:fs";
 import { get as httpsGet } from "node:https";
 import { isIP } from "node:net";
 import path from "node:path";
+import ipaddr from "ipaddr.js";
 
 import type { ImageEmbeddingEntityType } from "@artduo/contracts";
 
@@ -128,96 +129,22 @@ function isInside(parentPath: string, childPath: string): boolean {
   return relative === "" || (!relative.startsWith(`..${path.sep}`) && relative !== ".." && !path.isAbsolute(relative));
 }
 
-function isPublicIpv4(address: string): boolean {
-  const octets = address.split(".").map((entry) => Number.parseInt(entry, 10));
-  if (octets.length !== 4 || octets.some((entry) => !Number.isInteger(entry) || entry < 0 || entry > 255)) {
-    return false;
-  }
-  const [first, second] = octets;
-  return !(
-    first === 0 || first === 10 || first === 127 ||
-    (first === 100 && second! >= 64 && second! <= 127) ||
-    (first === 169 && second === 254) ||
-    (first === 172 && second! >= 16 && second! <= 31) ||
-    (first === 192 && second === 0) ||
-    (first === 192 && second === 168) ||
-    (first === 198 && (second === 18 || second === 19)) ||
-    first >= 224
-  );
-}
+const IPV6_GLOBAL_UNICAST = ipaddr.parse("2000::") as ipaddr.IPv6;
 
 function isPublicAddress(address: string, family: number): boolean {
-  if (family === 4) {
-    return isIP(address) === 4 && isPublicIpv4(address);
-  }
-  if (family !== 6 || isIP(address) !== 6) {
+  if ((family !== 4 && family !== 6) || isIP(address) !== family) {
     return false;
   }
-  const value = parseIpv6Address(address);
-  if (value === undefined) {
+  let parsed: ipaddr.IPv4 | ipaddr.IPv6;
+  try {
+    parsed = ipaddr.parse(address);
+  } catch {
     return false;
   }
-
-  const first16 = Number(value >> 112n);
-  const first32 = Number(value >> 96n);
-  const first48 = value >> 80n;
-  const high64 = value >> 64n;
-  const ipv4Compatible = value >> 32n === 0n;
-  const ipv4Mapped = value >> 32n === 0xffffn;
-  return !(
-    ipv4Compatible || ipv4Mapped ||
-    (first16 & 0xfe00) === 0xfc00 || // unique-local fc00::/7
-    (first16 & 0xffc0) === 0xfe80 || // link-local fe80::/10
-    (first16 & 0xffc0) === 0xfec0 || // deprecated site-local fec0::/10
-    (first16 & 0xff00) === 0xff00 || // multicast ff00::/8
-    first16 === 0x2002 || // 6to4 (can encapsulate a non-public IPv4 destination)
-    first16 === 0x3ffe || // deprecated 6bone
-    first16 === 0x5f00 || // IETF reserved SRv6 SID block
-    first32 === 0x20010000 || // Teredo 2001::/32
-    (first32 & 0xfffffff0) === 0x20010010 || // ORCHIDv2 2001:10::/28
-    (first32 & 0xfffffff0) === 0x20010020 || // ORCHID 2001:20::/28
-    first32 === 0x20010002 || // benchmarking 2001:2::/48
-    first32 === 0x20010db8 || // documentation 2001:db8::/32
-    high64 === 0x0100000000000000n || // discard-only 100::/64
-    first32 === 0x0064ff9b || // NAT64 well-known prefix 64:ff9b::/96
-    first48 === 0x0064ff9b0001n // NAT64 local-use prefix 64:ff9b:1::/48
-  );
-}
-
-function parseIpv6Address(address: string): bigint | undefined {
-  const halves = address.toLowerCase().split("::");
-  if (halves.length > 2) {
-    return undefined;
+  if (parsed.kind() !== (family === 4 ? "ipv4" : "ipv6") || parsed.range() !== "unicast") {
+    return false;
   }
-  const parseHalf = (half: string): string[] | undefined => {
-    if (half === "") {
-      return [];
-    }
-    const groups = half.split(":");
-    const last = groups.at(-1);
-    if (last?.includes(".")) {
-      if (!isIpv4Syntax(last)) {
-        return undefined;
-      }
-      const octets = last.split(".").map(Number);
-      groups.splice(-1, 1, ((octets[0]! << 8) | octets[1]!).toString(16), ((octets[2]! << 8) | octets[3]!).toString(16));
-    }
-    return groups.every((group) => /^[a-f0-9]{1,4}$/u.test(group)) ? groups : undefined;
-  };
-  const left = parseHalf(halves[0] ?? "");
-  const right = parseHalf(halves[1] ?? "");
-  if (!left || !right || left.length + right.length > 8 || (halves.length === 1 && left.length !== 8)) {
-    return undefined;
-  }
-  const groups = halves.length === 1
-    ? left
-    : [...left, ...Array.from({ length: 8 - left.length - right.length }, () => "0"), ...right];
-  return groups.reduce((value, group) => (value << 16n) | BigInt(`0x${group}`), 0n);
-}
-
-function isIpv4Syntax(address: string): boolean {
-  const octets = address.split(".").map((entry) => Number.parseInt(entry, 10));
-  return octets.length === 4 && octets.every((entry) => Number.isInteger(entry) && entry >= 0 && entry <= 255);
+  return parsed.kind() === "ipv4" || parsed.match(IPV6_GLOBAL_UNICAST, 3);
 }
 
 function locateSources(input: ImageEmbeddingSourceInput): LocatedSource[] {
@@ -485,17 +412,35 @@ async function loadRemoteSource(
 ): Promise<{ bytes: Uint8Array; info: ImageInfo; sourceHost: string }> {
   let url = validateRemoteUrl(locator);
   for (let redirects = 0; redirects <= IMAGE_FETCH_LIMITS.maxRedirects; redirects += 1) {
-    const timeoutMs = remainingTimeoutMs(deadline);
-    const addresses = await options.dnsLookup(url.hostname);
+    remainingTimeoutMs(deadline);
+    let addresses: Array<{ address: string; family: number }>;
+    try {
+      addresses = await options.dnsLookup(url.hostname);
+    } catch (error) {
+      if (error instanceof SourceError) {
+        throw error;
+      }
+      remainingTimeoutMs(deadline);
+      fail("fetch-failed", "Artwork image DNS lookup failed.");
+    }
     if (addresses.length === 0 || addresses.some((entry) => !isPublicAddress(entry.address, entry.family))) {
       fail("invalid-source", "Artwork image host did not resolve to public unicast addresses.");
     }
-    const response = await options.remoteRequest(url, {
-      timeoutMs,
-      maxBytes: IMAGE_FETCH_LIMITS.maxBytes,
-      addresses,
-      signal: deadline.signal,
-    });
+    let response: RemoteImageResponse;
+    try {
+      response = await options.remoteRequest(url, {
+        timeoutMs: remainingTimeoutMs(deadline),
+        maxBytes: IMAGE_FETCH_LIMITS.maxBytes,
+        addresses,
+        signal: deadline.signal,
+      });
+    } catch (error) {
+      if (error instanceof SourceError) {
+        throw error;
+      }
+      remainingTimeoutMs(deadline);
+      fail("fetch-failed", "Artwork image request failed.");
+    }
     if (response.status >= 300 && response.status < 400) {
       const location = response.headers.location;
       if (!location || redirects === IMAGE_FETCH_LIMITS.maxRedirects) {

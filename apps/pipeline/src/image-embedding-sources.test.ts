@@ -150,6 +150,21 @@ test("source resolver rejects unsafe DNS, redirect targets, byte overages, and c
   assert.equal(privateDns.status, "failed");
   assert.equal(privateDns.status === "failed" && privateDns.failure.reason, "invalid-source");
 
+  for (const address of ["198.51.100.1", "203.0.113.1"]) {
+    let remoteCalls = 0;
+    const result = await resolveImageEmbeddingSource(input, {
+      rootDir,
+      remoteRequest: async () => {
+        remoteCalls += 1;
+        return { status: 200, headers: { "content-type": "image/png" }, bytes: PNG };
+      },
+      dnsLookup: async () => [{ address, family: 4 }],
+    });
+    assert.equal(result.status, "failed", address);
+    assert.equal(result.status === "failed" && result.failure.reason, "invalid-source", address);
+    assert.equal(remoteCalls, 0, address);
+  }
+
   const redirect = await resolveImageEmbeddingSource(input, {
     rootDir,
     dnsLookup: publicDnsLookup,
@@ -203,14 +218,22 @@ test("source resolver rejects IPv6 loopback, private, site-local, mapped, and IA
     "2001:db8::1",
     "2001:0::1",
     "64:ff9b::8.8.8.8",
+    "4000::1",
+    "fe00::1",
+    "200::1",
   ]) {
+    let remoteCalls = 0;
     const result = await resolveImageEmbeddingSource(input, {
       rootDir,
-      remoteRequest: remoteResponse(),
+      remoteRequest: async () => {
+        remoteCalls += 1;
+        return { status: 200, headers: { "content-type": "image/png" }, bytes: PNG };
+      },
       dnsLookup: async () => [{ address, family: 6 }],
     });
     assert.equal(result.status, "failed", address);
     assert.equal(result.status === "failed" && result.failure.reason, "invalid-source", address);
+    assert.equal(remoteCalls, 0, address);
   }
 
   const publicIpv6 = await resolveImageEmbeddingSource(input, {
@@ -279,6 +302,47 @@ test("artwork fallback candidates share one total timeout budget", async () => {
   assert.equal(result.status, "failed");
   assert.equal(result.status === "failed" && result.failure.reason, "fetch-failed");
   assert.equal(attempts, 1);
+});
+
+test("artwork sources fall back after a DNS or connection error", async () => {
+  const input = {
+    entityType: "artwork" as const,
+    entityId: "met-network-fallback",
+    media: {
+      imageUrlPreview: "https://images.metmuseum.org/preview.png",
+      baseImageUrl: "https://images.metmuseum.org/base.png",
+    },
+  };
+  let dnsCalls = 0;
+  const dnsFallback = await resolveImageEmbeddingSource(input, {
+    rootDir: tempRoot(),
+    dnsLookup: async () => {
+      dnsCalls += 1;
+      if (dnsCalls === 1) {
+        throw Object.assign(new Error("temporary DNS failure"), { code: "EAI_AGAIN" });
+      }
+      return [{ address: "8.8.8.8", family: 4 }];
+    },
+    remoteRequest: remoteResponse(),
+  });
+  assert.equal(dnsFallback.status, "ready");
+  assert.equal(dnsFallback.status === "ready" && dnsFallback.source.fieldPath, "media.baseImageUrl");
+
+  const requestedPaths: string[] = [];
+  const connectionFallback = await resolveImageEmbeddingSource(input, {
+    rootDir: tempRoot(),
+    dnsLookup: publicDnsLookup,
+    remoteRequest: async (url) => {
+      requestedPaths.push(url.pathname);
+      if (url.pathname === "/preview.png") {
+        throw Object.assign(new Error("connection reset"), { code: "ECONNRESET" });
+      }
+      return { status: 200, headers: { "content-type": "image/png" }, bytes: PNG };
+    },
+  });
+  assert.equal(connectionFallback.status, "ready");
+  assert.equal(connectionFallback.status === "ready" && connectionFallback.source.fieldPath, "media.baseImageUrl");
+  assert.deepEqual(requestedPaths, ["/preview.png", "/base.png"]);
 });
 
 test("source resolver rejects cache hits whose bytes or metadata do not survive full decode", async () => {

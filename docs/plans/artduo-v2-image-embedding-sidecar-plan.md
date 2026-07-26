@@ -631,6 +631,9 @@ export const IMAGE_FETCH_LIMITS = {
 ```
 
 远端只接受 HTTPS 与 allowlisted host；使用 manual redirect，每一跳重新校验目标。DNS 解析结果必须全部为 public unicast address，连接层也必须绑定到已验证结果或使用具有等价 SSRF 防护的 fetch adapter。
+地址语法与 IANA special-purpose range 由直接依赖 `ipaddr.js` 分类；IPv4 仅接受
+其 `unicast` range，IPv6 还必须位于 globally-routable `2000::/3`，避免以维护不全
+的手写黑名单判断公网地址。
 
 Background Scene 的 `local_public_path` 是 public URL path，不是文件系统绝对路径。实现先拒绝 traversal/backslash，再去掉一个前导 `/`，随后相对 `<rootDir>/public` 解析。`publicRoot` 与最终文件都使用 `realpath` 后再次校验 containment，防止 symlink escape。读取完成后对原始 bytes 计算 SHA-256；content-type 与 magic bytes 必须一致，JPEG/PNG/WebP 都须经 `RawImage.fromBlob` 完整解码后才接受。Artwork 的 preview/base/full URL 按优先级依次尝试；前一个安全来源失败时才能回退到下一个。15 秒总时限覆盖 DNS、redirect、连接和完整 response read，每一跳均重新做 URL 与 DNS 防护。
 
@@ -684,8 +687,9 @@ fingerprint，并在读入 bytes 或完整解码前检查 byte/pixel 上限，�
 修正 `.gitignore`：继续忽略 `package-lock.json`、`yarn.lock`，但不再忽略本项目
 实际使用的 `pnpm-lock.yaml`。生成并审查 lockfile；若出现与本计划无关的大范围
 dependency 更新，停止并在干净 worktree 从当前 package manifests 重建，不能
-直接接受噪声 diff。Report 同时记录 lock 中解析出的 provider、ONNX runtime 与
-图片 decoder 精确版本，不能只记录 direct semver。
+直接接受噪声 diff。任何此前被错误跟踪的 npm lockfile 或 `node_modules` 安装树
+必须从 Git 索引移除，不能令 frozen install 改脏工作树。Report 同时记录 lock 中
+解析出的 provider、ONNX runtime 与图片 decoder 精确版本，不能只记录 direct semver。
 
 - [ ] **Step 6: 运行测试、类型检查与 opt-in 真实 smoke**
 
