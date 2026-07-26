@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import type { ImageEmbeddingEntityType } from "@artduo/contracts";
@@ -28,6 +28,11 @@ export interface CachedImageSourceValue extends CachedImageSource {
 
 const SENSITIVE_QUERY_KEYS = /(?:api[-_]?key|auth(?:orization)?|credential|key|signature|sig|token)/iu;
 const SHA256_CHECKSUM = /^sha256:[a-f0-9]{64}$/iu;
+export const IMAGE_SOURCE_CACHE_SCHEMA_VERSION = 2;
+
+export interface ImageSourceCacheReadOptions {
+  maxBytes?: number;
+}
 
 function sha256(value: Uint8Array | string): string {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
@@ -69,7 +74,7 @@ export function fingerprintImageSourceBytes(bytes: Uint8Array): string {
 }
 
 function cacheEntryId(key: ImageSourceCacheKey): string {
-  return sha256(JSON.stringify(key)).slice("sha256:".length);
+  return sha256(JSON.stringify({ schemaVersion: IMAGE_SOURCE_CACHE_SCHEMA_VERSION, key })).slice("sha256:".length);
 }
 
 function isSafeCachedMetadata(value: unknown, key: ImageSourceCacheKey): value is CachedImageSource {
@@ -92,7 +97,7 @@ function isSafeCachedMetadata(value: unknown, key: ImageSourceCacheKey): value i
 export class ImageSourceCache {
   constructor(private readonly rootDir: string) {}
 
-  read(key: ImageSourceCacheKey): CachedImageSourceValue | undefined {
+  read(key: ImageSourceCacheKey, options: ImageSourceCacheReadOptions = {}): CachedImageSourceValue | undefined {
     try {
       const entryId = cacheEntryId(key);
       const bytesPath = path.join(this.rootDir, `${entryId}.bin`);
@@ -103,6 +108,13 @@ export class ImageSourceCache {
 
       const metadata = JSON.parse(readFileSync(metadataPath, "utf8")) as unknown;
       if (!isSafeCachedMetadata(metadata, key)) {
+        return undefined;
+      }
+      if (options.maxBytes !== undefined && metadata.sizeBytes > options.maxBytes) {
+        return undefined;
+      }
+      const fileSize = statSync(bytesPath).size;
+      if (fileSize !== metadata.sizeBytes || (options.maxBytes !== undefined && fileSize > options.maxBytes)) {
         return undefined;
       }
       const bytes = new Uint8Array(readFileSync(bytesPath));

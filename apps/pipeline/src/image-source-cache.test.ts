@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, readdirSync, truncateSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
@@ -41,4 +41,25 @@ test("source locator fingerprints redact auth query values while preserving reso
 
   assert.equal(first, second);
   assert.notEqual(first, differentResource);
+});
+
+test("image source cache checks on-disk size before reading source bytes", () => {
+  const cacheRoot = path.join(mkdtempSync(path.join(os.tmpdir(), "artduo-image-cache-")), "cache");
+  const cache = new ImageSourceCache(cacheRoot);
+  const key = {
+    entityType: "artwork" as const,
+    entityId: "met-oversized-cache",
+    fieldPath: "media.imageUrlPreview",
+    sourceLocatorFingerprint: fingerprintImageSourceLocator("https://images.metmuseum.org/oversized.png"),
+  };
+  cache.write(key, {
+    bytes: BYTES,
+    mediaType: "image/png",
+    width: 1,
+    height: 1,
+  });
+  const bytesPath = path.join(cacheRoot, readdirSync(cacheRoot).find((entry) => entry.endsWith(".bin"))!);
+  truncateSync(bytesPath, 12 * 1024 * 1024 + 1);
+
+  assert.equal(cache.read(key, { maxBytes: 12 * 1024 * 1024 }), undefined);
 });

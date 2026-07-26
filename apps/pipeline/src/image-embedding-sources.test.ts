@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, symlinkSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, readdirSync, symlinkSync, truncateSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 
-import { ImageSourceCache } from "./image-source-cache";
+import { ImageSourceCache, fingerprintImageSourceBytes, fingerprintImageSourceLocator } from "./image-source-cache";
 import {
   resolveImageEmbeddingSource,
   type RemoteImageRequest,
@@ -14,6 +14,16 @@ const PNG = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScL8JwAAAABJRU5ErkJggg==",
   "base64",
 );
+
+function pngHeader(width: number, height: number): Uint8Array {
+  const bytes = new Uint8Array(24);
+  bytes.set([137, 80, 78, 71, 13, 10, 26, 10], 0);
+  bytes.set([73, 72, 68, 82], 12);
+  const view = new DataView(bytes.buffer);
+  view.setUint32(16, width);
+  view.setUint32(20, height);
+  return bytes;
+}
 
 function tempRoot(): string {
   return mkdtempSync(path.join(os.tmpdir(), "artduo-image-source-"));
@@ -177,6 +187,40 @@ test("source resolver rejects unsafe DNS, redirect targets, byte overages, and c
   assert.equal(spoofedContentType.status === "failed" && spoofedContentType.failure.reason, "fetch-failed");
 });
 
+test("source resolver rejects IPv6 loopback, private, site-local, mapped, and IANA-reserved address forms", async () => {
+  const rootDir = tempRoot();
+  const input = {
+    entityType: "artwork" as const,
+    entityId: "met-ipv6",
+    media: { imageUrlPreview: "https://images.metmuseum.org/preview.png" },
+  };
+
+  for (const address of [
+    "fec0::1",
+    "0:0:0:0:0:0:0:1",
+    "::127.0.0.1",
+    "::ffff:8.8.8.8",
+    "2001:db8::1",
+    "2001:0::1",
+    "64:ff9b::8.8.8.8",
+  ]) {
+    const result = await resolveImageEmbeddingSource(input, {
+      rootDir,
+      remoteRequest: remoteResponse(),
+      dnsLookup: async () => [{ address, family: 6 }],
+    });
+    assert.equal(result.status, "failed", address);
+    assert.equal(result.status === "failed" && result.failure.reason, "invalid-source", address);
+  }
+
+  const publicIpv6 = await resolveImageEmbeddingSource(input, {
+    rootDir,
+    remoteRequest: remoteResponse(),
+    dnsLookup: async () => [{ address: "2001:4860:4860::8888", family: 6 }],
+  });
+  assert.equal(publicIpv6.status, "ready");
+});
+
 test("source resolver applies the total timeout to DNS and aborts an in-flight remote request", async () => {
   const rootDir = tempRoot();
   const input = {
@@ -209,6 +253,109 @@ test("source resolver applies the total timeout to DNS and aborts an in-flight r
   assert.equal(requestTimeout.status, "failed");
   assert.equal(requestTimeout.status === "failed" && requestTimeout.failure.reason, "fetch-failed");
   assert.equal(aborted, true);
+});
+
+test("artwork fallback candidates share one total timeout budget", async () => {
+  const rootDir = tempRoot();
+  let attempts = 0;
+  const result = await resolveImageEmbeddingSource({
+    entityType: "artwork",
+    entityId: "met-timeout",
+    media: {
+      imageUrlPreview: "https://images.metmuseum.org/preview.png",
+      baseImageUrl: "https://images.metmuseum.org/base.png",
+      imageUrlFull: "https://images.metmuseum.org/full.png",
+    },
+  }, {
+    rootDir,
+    totalTimeoutMs: 10,
+    dnsLookup: publicDnsLookup,
+    remoteRequest: async (_url, options) => new Promise((_, reject) => {
+      attempts += 1;
+      options.signal.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
+    }),
+  });
+
+  assert.equal(result.status, "failed");
+  assert.equal(result.status === "failed" && result.failure.reason, "fetch-failed");
+  assert.equal(attempts, 1);
+});
+
+test("source resolver rejects cache hits whose bytes or metadata do not survive full decode", async () => {
+  const rootDir = tempRoot();
+  const cacheDir = path.join(rootDir, ".cache", "artduo", "image-sources");
+  const cache = new ImageSourceCache(cacheDir);
+  const input = {
+    entityType: "artwork" as const,
+    entityId: "met-cache",
+    media: { imageUrlPreview: "https://images.metmuseum.org/preview.png" },
+  };
+  const key = {
+    entityType: input.entityType,
+    entityId: input.entityId,
+    fieldPath: "media.imageUrlPreview",
+    sourceLocatorFingerprint: fingerprintImageSourceLocator(input.media.imageUrlPreview),
+  };
+  cache.write(key, {
+    bytes: PNG.subarray(0, 24),
+    mediaType: "image/png",
+    width: 1,
+    height: 1,
+    sourceHost: "images.metmuseum.org",
+  });
+
+  const truncated = await resolveImageEmbeddingSource(input, { rootDir, cache, offline: true });
+  assert.equal(truncated.status, "failed");
+  assert.equal(truncated.status === "failed" && truncated.failure.reason, "decode-failed");
+
+  cache.write(key, {
+    bytes: PNG,
+    mediaType: "image/png",
+    width: 1,
+    height: 1,
+    sourceHost: "images.metmuseum.org",
+  });
+  const metadataPath = path.join(cacheDir, readdirSync(cacheDir).find((entry) => entry.endsWith(".json"))!);
+  const metadata = JSON.parse(readFileSync(metadataPath, "utf8")) as Record<string, unknown>;
+  metadata.width = 2;
+  metadata.fingerprint = fingerprintImageSourceBytes(PNG);
+  writeFileSync(metadataPath, `${JSON.stringify(metadata)}\n`);
+
+  const mismatchedMetadata = await resolveImageEmbeddingSource(input, { rootDir, cache, offline: true });
+  assert.equal(mismatchedMetadata.status, "failed");
+  assert.equal(mismatchedMetadata.status === "failed" && mismatchedMetadata.failure.reason, "decode-failed");
+});
+
+test("source resolver checks local byte size before reading the whole file", async () => {
+  const rootDir = tempRoot();
+  const publicDir = path.join(rootDir, "public", "artduo-gallery");
+  mkdirSync(publicDir, { recursive: true });
+  const imagePath = path.join(publicDir, "too-large.png");
+  writeFileSync(imagePath, PNG.subarray(0, 1));
+  truncateSync(imagePath, 12 * 1024 * 1024 + 1);
+
+  const result = await resolveImageEmbeddingSource({
+    entityType: "background-scene",
+    entityId: "large-local",
+    asset: { local_public_path: "/artduo-gallery/too-large.png" },
+  }, { rootDir });
+  assert.equal(result.status, "failed");
+  assert.equal(result.status === "failed" && result.failure.reason, "fetch-failed");
+});
+
+test("source resolver rejects oversized pixel dimensions before full image decode", async () => {
+  const result = await resolveImageEmbeddingSource({
+    entityType: "artwork",
+    entityId: "pixel-bomb",
+    media: { imageUrlPreview: "https://images.metmuseum.org/pixel-bomb.png" },
+  }, {
+    rootDir: tempRoot(),
+    dnsLookup: publicDnsLookup,
+    remoteRequest: remoteResponse(pngHeader(12_000, 4_001)),
+  });
+
+  assert.equal(result.status, "failed");
+  assert.equal(result.status === "failed" && result.failure.reason, "decode-failed");
 });
 
 test("source resolver serves a cache hit without network and refreshes only when requested", async () => {

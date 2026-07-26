@@ -661,7 +661,9 @@ interface CachedImageSource {
 userinfo、fragment 和已知鉴权 query，保留会改变资源选择的非敏感部分；本地 source
 使用规范化 public URL path。Cache key 由 entity type、entity id、逻辑 field
 path 和 `sourceLocatorFingerprint` 派生。读取时同时校验 locator 与原始 bytes
-fingerprint，避免 release 改图后误用旧 cache。默认优先 cache，只有显式
+fingerprint，并在读入 bytes 或完整解码前检查 byte/pixel 上限，避免 release 改图后
+误用旧 cache 或由缓存触发资源耗尽。Cache key 包含 schema version；验证规则升级时
+旧条目不得复用。默认优先 cache，只有显式
 `--refresh-source-cache true` 才访问远端更新。Task 7 的 reproducibility build
 必须在断网/禁止 fetch 模式下仅依赖 frozen cache 完成。
 
