@@ -9,6 +9,7 @@ interface ArtworkImageProps {
   fallbackLabel?: string;
   fallbackMeta?: string;
   decoding?: "async" | "auto" | "sync";
+  fetchPriority?: "high" | "low" | "auto";
   loading?: "eager" | "lazy";
 }
 
@@ -19,6 +20,7 @@ export function ArtworkImage({
   fallbackLabel = "图像暂不可用",
   fallbackMeta,
   decoding = "async",
+  fetchPriority,
   loading = "lazy",
 }: ArtworkImageProps) {
   const [failed, setFailed] = useState(false);
@@ -56,6 +58,7 @@ export function ArtworkImage({
       alt={alt}
       className={className}
       decoding={decoding}
+      fetchPriority={fetchPriority}
       loading={loading}
       onError={() => setFailed(true)}
       ref={imageRef}

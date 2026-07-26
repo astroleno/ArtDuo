@@ -13,17 +13,17 @@ export default function GalleryLoading() {
       <header className="topbar">
         <a className="brand" href="/">
           <span className="brand-mark">ArtDuo</span>
-          <span className="brand-meta">Preparing gallery</span>
+          <span className="brand-meta">正在策展</span>
         </a>
         <nav className="nav" aria-label="Primary">
-          <a href="/">Landing</a>
-          <a href="/gallery">Gallery</a>
+          <a href="/">首页</a>
+          <a href="/gallery">画廊</a>
         </nav>
       </header>
 
       <section className="gallery-header" aria-busy="true">
-        <p className="meta">Curating from the release corpus</p>
-        <h1 className="page-title">Gallery</h1>
+        <p className="meta">正在从馆藏中组织观展路线</p>
+        <h1 className="page-title">导览画廊</h1>
         <div className="query-form" role="status" aria-label="Gallery loading">
           <div className="field">
             <label>

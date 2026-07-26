@@ -1,12 +1,13 @@
 import { ArrowRight, Search } from "lucide-react";
 
+import { artworkImageUrl } from "../lib/artwork-image-url";
 import { STARTER_PROMPTS } from "../lib/prompts";
 import { loadWebReleaseCatalog } from "../lib/release-catalog";
 
 export default function HomePage() {
   const catalog = loadWebReleaseCatalog();
   const heroArtworks = catalog.artworks.slice(0, 3);
-  const heroImage = heroArtworks[0]?.imageUrlFull ?? heroArtworks[0]?.imageUrl ?? "";
+  const heroImage = heroArtworks[0] ? artworkImageUrl(heroArtworks[0].id) : "";
 
   return (
     <main className="shell">
@@ -17,17 +18,17 @@ export default function HomePage() {
               alt=""
               className="hero-artwork-slice"
               key={artwork.id}
-              src={artwork.imageUrlFull ?? artwork.imageUrl}
+              src={artworkImageUrl(artwork.id)}
             />
           ))}
         </div>
         <div className="hero-content">
-          <p className="eyebrow">Release-backed curation thin slice</p>
+          <p className="eyebrow">情绪策展入口</p>
           <h1>ArtDuo</h1>
           <p className="hero-copy">
-            输入一句情绪、场景或观看愿望，ArtDuo 会从当前 release-ready 作品集中生成一个可打开详情的展览入口。
+            输入一句情绪、场景或观看愿望，ArtDuo 会从当前馆藏中展开一场安静的观展。
           </p>
-          <form className="intent-form" action="/gallery">
+          <form className="intent-form" action="/gallery/local/immersive">
             <div className="field">
               <label htmlFor="query">
                 <Search aria-hidden="true" size={16} /> 策展意图
@@ -35,43 +36,34 @@ export default function HomePage() {
               <input
                 id="query"
                 name="query"
-                placeholder="例如：I need a calm painting about moonlight"
+                placeholder="例如：我想看一幅安静的月光"
                 required
+                suppressHydrationWarning
               />
             </div>
             <button className="primary-button" type="submit">
-              生成展览 <ArrowRight aria-hidden="true" size={18} />
+              生成观展路线 <ArrowRight aria-hidden="true" size={18} />
             </button>
           </form>
           <div className="prompt-row" aria-label="示例提示">
             {STARTER_PROMPTS.map((prompt) => (
-              <a className="prompt-chip" href={`/gallery?query=${encodeURIComponent(prompt)}`} key={prompt}>
-                {prompt}
+              <a className="prompt-chip" href={`/gallery/local/immersive?query=${encodeURIComponent(prompt.query)}`} key={prompt.query}>
+                {prompt.label}
               </a>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section" aria-label="Release stats">
+      <section className="section home-afterword" aria-label="Viewing note">
         <div className="section-header">
           <div>
-            <p className="meta">Release {catalog.releaseVersion}</p>
-            <h2>当前可检索作品集</h2>
+            <p className="meta">观展从一句话开始</p>
+            <h2>写下你想停留的光、情绪或房间。</h2>
           </div>
           <a className="secondary-link" href="/gallery">
-            浏览 Gallery <ArrowRight aria-hidden="true" size={17} />
+            换一句愿望 <ArrowRight aria-hidden="true" size={17} />
           </a>
-        </div>
-        <div className="stats">
-          <div className="stat">
-            <strong>{catalog.artworkCount}</strong>
-            <span>release-ready artworks</span>
-          </div>
-          <div className="stat">
-            <strong>{catalog.backgroundSceneCount}</strong>
-            <span>background scenes</span>
-          </div>
         </div>
       </section>
     </main>

@@ -68,6 +68,7 @@ test("browser worker fallback records degradation analytics in the runtime helpe
     artworks: [artwork],
     artworkById: new Map([[artwork.id, artwork]]),
     backgroundScenes: [],
+    backgroundSceneEmbeddingRecords: [],
     embeddingRecords: [{
       id: artwork.id,
       source: "met",

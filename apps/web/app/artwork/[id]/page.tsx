@@ -2,6 +2,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { ArtworkImage } from "../../../components/artwork-image";
+import { artworkImageUrl } from "../../../lib/artwork-image-url";
 import { getArtworkExplanationClient } from "../../../lib/explanation-client";
 import { getArtworkDetail, loadWebReleaseCatalog } from "../../../lib/release-catalog";
 
@@ -116,7 +117,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     query: query ?? artwork.searchText,
     unit: artwork.id,
   }).toString()}`;
-  const stageImage = scene?.imageUrl ?? artwork.imageUrlFull ?? artwork.imageUrl;
+  const stageImage = scene?.imageUrl ?? artworkImageUrl(artwork.id);
   const fallbackMeta = [
     `馆藏编号 ${artwork.id}`,
     artwork.artistDisplayName,
@@ -128,11 +129,11 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
       <header className="topbar">
         <a className="brand" href="/">
           <span className="brand-mark">ArtDuo</span>
-          <span className="brand-meta">Release {catalog.releaseVersion}</span>
+          <span className="brand-meta">馆藏 {catalog.releaseVersion}</span>
         </a>
         <nav className="nav" aria-label="Primary">
-          <a href="/">Landing</a>
-          <a href={galleryHref}>Gallery</a>
+          <a href="/">首页</a>
+          <a href={galleryHref}>画廊</a>
         </nav>
       </header>
 
@@ -145,7 +146,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               fallbackLabel={artwork.title}
               fallbackMeta={fallbackMeta}
               loading="eager"
-              src={artwork.imageUrlFull ?? artwork.imageUrl}
+              src={artworkImageUrl(artwork.id)}
             />
             <figcaption className="artwork-caption">
               <strong>{artwork.title}</strong>
@@ -153,10 +154,10 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
             </figcaption>
           </figure>
           <div className="detail-copy">
-            <p className="eyebrow">Release {catalog.releaseVersion}</p>
+            <p className="eyebrow">馆藏 {catalog.releaseVersion}</p>
             <h1>{artwork.title}</h1>
             <p>{[artwork.artistDisplayName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ")}</p>
-            <p>{artwork.storySnippet ?? "Release-ready artwork selected by local retrieval."}</p>
+            <p>{artwork.storySnippet ?? "这件作品适合作为本次观展路线中的一个停留点。"}</p>
             <div className="detail-actions">
               <a className="secondary-link" href={galleryHref}>
                 <ArrowLeft aria-hidden="true" size={17} /> 返回 Gallery

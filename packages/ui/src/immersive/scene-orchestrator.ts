@@ -1,5 +1,16 @@
 import { resolveTransitionModule, type TransitionFamily, type TransitionModule, type TransitionRegistry } from "../transitions/registry";
 
+export interface ImmersiveAffectState {
+  valence: number;
+  arousal: number;
+  tension: number;
+  wonder: number;
+  intimacy: number;
+}
+
+export type ImmersiveGrowthStageRole = "threshold" | "mirror" | "turn" | "release" | "afterglow";
+export type ImmersiveTransitionIntent = "fade" | "drift" | "push" | "hold" | "return";
+
 export interface ImmersiveGalleryUnit {
   id: string;
   title: string;
@@ -7,13 +18,35 @@ export interface ImmersiveGalleryUnit {
   yearLabel?: string;
   imageUrl: string;
   imageUrlFull?: string;
+  aspectRatioHint?: string;
   backgroundSceneUrl?: string;
   sceneLabel?: string;
+  sceneMatchReason?: string;
+  sceneRouteLabel?: string;
   stageLabel?: string;
   stageTone?: string;
   emotionalIntensity?: number;
+  growthStageId?: string;
+  growthStageRole?: ImmersiveGrowthStageRole;
+  affectState?: ImmersiveAffectState;
+  transitionIntent?: ImmersiveTransitionIntent;
   curatorNote?: string;
   transitionFamily?: TransitionFamily;
+  displayMode?: "object-case" | "wall-painting" | "architecture-flat";
+  visualPresentation?: {
+    contentBounds?: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
+    contentAspectRatio?: number;
+    whiteBorderRatio?: number;
+    cropStrategy?: "preserve-paper" | "trim-border" | "focus-subject";
+    confidence?: number;
+    source?: string;
+    notes?: string[];
+  };
 }
 
 export interface ImmersiveScene {

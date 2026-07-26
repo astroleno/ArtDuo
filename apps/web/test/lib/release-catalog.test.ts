@@ -6,7 +6,7 @@ import { test } from "node:test";
 
 import { embedText } from "@artduo/corpus";
 
-import { loadWebReleaseCatalog, searchReleaseCatalog } from "../../lib/release-catalog";
+import { loadWebReleaseCatalog, searchBackgroundScenes, searchReleaseCatalog } from "../../lib/release-catalog";
 
 function writeJson(filePath: string, value: unknown): void {
   writeFileSync(filePath, JSON.stringify(value, null, 2));
@@ -146,6 +146,15 @@ function buildReleaseFixture(): string {
         imageUrlPreview: "https://images.example.test/moon-preview.jpg",
         imageUrlFull: "https://images.example.test/moon-full.jpg",
         aspectRatioHint: "landscape",
+        visualPresentation: {
+          contentBounds: { x: 0.08, y: 0.12, width: 0.84, height: 0.74 },
+          contentAspectRatio: 1.45,
+          whiteBorderRatio: 0.24,
+          cropStrategy: "trim-border",
+          confidence: 0.82,
+          source: "fixture-vlm",
+          notes: ["large paper margin around painted scene"],
+        },
         hasMotionAsset: false,
         mediaVersion: "2026-04-25T00:00:00.000Z",
       },
@@ -189,6 +198,8 @@ function buildReleaseFixture(): string {
       },
       retrieval_profile: {
         search_text: "quiet moon contemplation cool dark gallery",
+        search_terms: ["quiet", "moon", "contemplation", "cool-dark", "gallery-interior"],
+        embedding_text: "月光静室; scene_type=gallery_interior; mood=serene, quiet; palette=cool dark; materials=stone, shadow, moonlight",
       },
     },
   ]);
@@ -238,10 +249,14 @@ test("loads the release manifest into gallery-ready artwork records", () => {
   assert.equal(catalog.releaseVersion, "2026-04-25-curation-b");
   assert.equal(catalog.artworkCount, 2);
   assert.equal(catalog.backgroundSceneCount, 1);
+  assert.equal(catalog.backgroundSceneEmbeddingRecords.length, 1);
   assert.equal(catalog.artworks[0]?.id, "met-moon");
   assert.equal(catalog.artworks[0]?.title, "Two Men Contemplating the Moon");
   assert.equal(catalog.artworks[0]?.imageUrl, "https://images.example.test/moon-preview.jpg");
+  assert.equal(catalog.artworks[0]?.visualPresentation?.cropStrategy, "trim-border");
+  assert.deepEqual(catalog.artworks[0]?.visualPresentation?.contentBounds, { x: 0.08, y: 0.12, width: 0.84, height: 0.74 });
   assert.equal(catalog.artworks[0]?.detailHref, "/artwork/met-moon");
+  assert.match(catalog.backgroundScenes[0]?.embeddingText ?? "", /moonlight/);
 });
 
 test("searches a visitor sentence into ranked gallery cards with detail links", () => {
@@ -257,6 +272,17 @@ test("searches a visitor sentence into ranked gallery cards with detail links", 
   assert.deepEqual(result.results[0]?.artwork.moodTags, ["contemplation"]);
   assert.equal(result.results[0]?.scene?.imageUrl, "/artduo-gallery/bg-moon.png");
   assert.ok((result.results[0]?.combinedScore ?? 0) > (result.results[1]?.combinedScore ?? 0));
+});
+
+test("searches background scenes directly from the visitor query", () => {
+  const rootDir = buildReleaseFixture();
+  const catalog = loadWebReleaseCatalog({ rootDir });
+  const result = searchBackgroundScenes(catalog, "quiet moonlit stone room", { limit: 1 });
+
+  assert.equal(result.query, "quiet moonlit stone room");
+  assert.equal(result.results.length, 1);
+  assert.equal(result.results[0]?.scene.id, "bg-moon");
+  assert.ok((result.results[0]?.combinedScore ?? 0) > 0);
 });
 
 test("returns an empty gallery result for queries without searchable tokens", () => {

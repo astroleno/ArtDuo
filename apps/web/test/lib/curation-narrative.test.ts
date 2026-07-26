@@ -64,7 +64,32 @@ test("curation narrative produces preface closing and a three-stage curve", () =
   });
 
   assert.match(narrative.preface, /Work met-1/);
-  assert.match(narrative.closing, /5 works/);
+  assert.match(narrative.preface, /我把这句愿望理解成/);
+  assert.match(narrative.preface, /把注意力从噪声里慢慢收回来/);
+  assert.match(narrative.closing, /5 件作品/);
+  assert.match(narrative.closing, /不是答案/);
   assert.equal(narrative.curve.length, 3);
+  assert.equal(narrative.curve.length, narrative.growthForm.stages.length);
+  assert.equal(narrative.growthForm.sourceText, "I want a quiet room");
+  assert.ok(narrative.intentSignals.includes("serenity"));
   assert.match(curvePath(narrative.curve), /^M /);
+});
+
+test("curation narrative keeps visible copy aligned with hard brightness resistance", () => {
+  const narrative = buildCurationNarrative({
+    query: "不要太明亮，想要暗红和深木色",
+    normalizedQuery: "不要太明亮 想要暗红 深木色",
+    model: "local",
+    dimensions: 4,
+    results: [
+      result("met-hope", 0.91, "hope", "wood"),
+      result("met-melancholy", 0.82, "melancholy", "walnut"),
+      result("met-desire", 0.71, "desire", "dark"),
+    ],
+  });
+
+  assert.ok(narrative.growthForm.rules.some((rule) => rule.severity === "hard" && rule.signal === "bright"));
+  assert.doesNotMatch(narrative.preface, /喜悦|亮起来/);
+  assert.doesNotMatch(narrative.title, /向上的光|明亮/);
+  assert.match(`${narrative.title} ${narrative.preface}`, /低光|木色|暗红/);
 });

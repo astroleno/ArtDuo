@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ArtDuo",
-  description: "Release-backed emotional art curation thin slice.",
+  description: "情绪驱动的艺术观展路线。",
 };
 
 export default function RootLayout({
