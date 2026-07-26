@@ -228,7 +228,7 @@ Variant 中只发布 checksum、固定模型标识和已通过评估的视觉 po
 - Create: `data/curation/reports/image-embeddings/2026-04-25-curation-b/promotion-anchor-set.json`
 - Modify: `README.md`
 
-- [ ] **Step 1: 建立可审查的工作边界**
+- [x] **Step 1: 建立可审查的工作边界**
 
 执行：
 
@@ -246,7 +246,7 @@ git status --short -- node_modules
 - tracked `node_modules` 删除、A2A、relationship graph、visual presentation 和 UI 实验改动不得混入本计划提交。
 - 如果当前工作树无法满足边界，停止并请求用户授权建立专用 worktree；不得自行 stash、reset 或覆盖现有改动。
 
-- [ ] **Step 2: 运行不会覆盖历史报告的完整基线**
+- [x] **Step 2: 运行不会覆盖历史报告的完整基线**
 
 执行者先创建本次 run directory：
 
@@ -270,7 +270,7 @@ cp output/intent-immersion-eval/image-embedding-baseline.json \
 
 `pnpm vector:benchmark` 必须显式使用 `--output`，不得覆盖 tracked 的 Phase 1 closeout report。基线文档记录 run directory、命令、commit SHA、manifest checksum 和结果摘要；不记录用户目录、密钥或含 query credential 的 URL。
 
-- [ ] **Step 3: 处理当前文本 benchmark 回退**
+- [x] **Step 3: 处理当前文本 benchmark 回退**
 
 从 `$ARTDUO_IMAGE_BASELINE_DIR/vector-benchmark.json` 读取结果：
 
@@ -279,7 +279,7 @@ cp output/intent-immersion-eval/image-embedding-baseline.json \
 - 只有用户明确批准 waiver 时才能继续；waiver 必须记录 failing case IDs、与 image sidecar 无关的证据、风险和失效日期。
 - waiver 只允许 Task 1-5 shadow 能力继续，不自动授权 Task 6-7 的用户可见融合与发布。
 
-- [ ] **Step 4: 冻结 A2A case-set baseline 与 critical artwork set**
+- [x] **Step 4: 冻结 A2A case-set baseline 与 critical artwork set**
 
 A2A baseline 必须保存：
 
@@ -296,7 +296,7 @@ A2A baseline 必须保存：
 - anchor 按 primary mood/theme 分层，再按 `sha256(releaseVersion + artworkId)` 排序选取，保证可回放。
 - anchor 文件只保存 release artwork IDs、分层字段和选择算法版本，不保存远端 URL。
 
-- [ ] **Step 5: 冻结浏览器性能与 E2E 基线**
+- [x] **Step 5: 冻结浏览器性能与 E2E 基线**
 
 记录当前 14 条 E2E 的 pass/fail/skip 列表。新增 sidecar 的预算：
 
@@ -309,7 +309,7 @@ A2A baseline 必须保存：
   Worker。
 - 加载或解析超时不得阻塞 Gallery/Immersive；必须回退 metadata-only scene selection。
 
-- [ ] **Step 6: 同步项目状态文档**
+- [x] **Step 6: 同步项目状态文档**
 
 README 至少更新：
 
@@ -318,7 +318,7 @@ README 至少更新：
 - A2A `55/40/5` 是现有专项基线，不是全绿状态。
 - 当前 sidecar 工作仍是 shadow-only。
 
-- [ ] **Step 7: 显式提交 readiness 文档**
+- [x] **Step 7: 显式提交 readiness 文档**
 
 只暂存本步骤实际修改的文件：
 
@@ -343,7 +343,7 @@ git commit -m "docs: freeze image sidecar readiness baseline"
 - Inspect: `output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts`
 - Inspect: `scripts/evaluate-intent-immersion.ts`
 
-- [ ] **Step 1: 记录当前 release 和排序基线**
+- [x] **Step 1: 记录当前 release 和排序基线**
 
 读取 Task -1 的 frozen artifacts；如 commit 或 base manifest checksum 已变化，重新执行 Task -1。不得通过重新运行当前 benchmark 来静默替换 Phase 1 权威门槛。
 
@@ -358,7 +358,7 @@ git commit -m "docs: freeze image sidecar readiness baseline"
 - base manifest checksum。
 - promotion anchor set checksum。
 
-- [ ] **Step 2: 写清六条不可破坏的不变量**
+- [x] **Step 2: 写清六条不可破坏的不变量**
 
 `docs/architecture/image-embedding-sidecar.md` 必须明确：
 
@@ -369,7 +369,7 @@ git commit -m "docs: freeze image sidecar readiness baseline"
 5. base `manifest.json` 不被覆盖；image sidecar 通过显式 manifest variant 发布和回退。
 6. A2A 以 case-set diff 判定，不以 harness exit code 判定。
 
-- [ ] **Step 3: 提交基线文档**
+- [x] **Step 3: 提交基线文档**
 
 ```bash
 git add docs/architecture/image-embedding-sidecar.md
