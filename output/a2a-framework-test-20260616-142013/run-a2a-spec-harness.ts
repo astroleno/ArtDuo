@@ -708,7 +708,7 @@ run("A7-06", () => {
   expect(/failed caseId|failed cases|失败/i.test(replayMarkdown), "failed-case reproduction section missing");
 });
 run("A7-07", () => {
-  expect(/baseline|candidate|delta|regression|improvement/i.test(replayMarkdown), "baseline/candidate diff output missing");
+  expect(false, "structured baseline/candidate diff artifact is required but not supplied");
 });
 run("A7-08", () => {
   expect(/Cases: 50/.test(replayMarkdown), "total cases missing");

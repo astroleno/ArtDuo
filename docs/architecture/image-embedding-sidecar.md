@@ -74,8 +74,10 @@ pass IDs were `A6-02`, `A6-06`, `A6-08`, `A6-09`, and `A7-08`.
 
 After the harness input paths were made explicit, the reproducible local command
 still reports `51/44/5`: `A6-02`, `A6-06`, `A6-08`, and `A6-09` remain lost
-passes. This is an unresolved A2A regression and blocks Task 6/7 promotion; it
-must not be normalized by updating the authority above.
+passes. `A7-07` remains an explicit failure until a structured baseline/candidate
+diff artifact is supplied; phase names must not affect this result. This is an
+unresolved A2A regression and blocks Task 6/7 promotion; it must not be
+normalized by updating the authority above.
 
 The 50-case intent/immersion replay baseline is:
 
