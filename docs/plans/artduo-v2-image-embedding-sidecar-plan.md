@@ -670,13 +670,17 @@ fingerprint，并在读入 bytes 或完整解码前检查 byte/pixel 上限，�
 `--refresh-source-cache true` 才访问远端更新。Task 7 的 reproducibility build
 必须在断网/禁止 fetch 模式下仅依赖 frozen cache 完成。
 
-- [x] **Step 5: 将 transformers 声明为 pipeline 直接依赖**
+- [ ] **Step 5: 将 transformers 声明为 pipeline 直接依赖**
 
-> **Verified 2026-07-26:** `pnpm install --lockfile-only` generated
-> `pnpm-lock.yaml`, and `pnpm install --frozen-lockfile` completed without a
-> resolution step. The lock resolves `@xenova/transformers` `2.17.2`,
+> **Partial 2026-07-26:** `pnpm install --lockfile-only` generated
+> `pnpm-lock.yaml`, which resolves `@xenova/transformers` `2.17.2`,
 > `onnxruntime-web`/`onnxruntime-node` `1.14.0`, and the image decoder
-> `sharp` `0.32.6` used by that provider.
+> `sharp` `0.32.6`. A new clean worktree confirms frozen lock resolution,
+> runtime `commander` `14.0.3`, and a clean Git status after npm artifacts were
+> removed from the index. Its normal frozen install is still blocked because
+> `sharp` `0.32.6` times out downloading libvips from GitHub; the successful
+> clean-worktree resolution used `--ignore-scripts`. Keep this step open until
+> the normal frozen install completes with its native postinstall scripts.
 
 在根 `package.json` 与 `apps/pipeline/package.json` 都使用 exact version：
 
@@ -693,12 +697,14 @@ dependency 更新，停止并在干净 worktree 从当前 package manifests 重�
 
 - [ ] **Step 6: 运行测试、类型检查与 opt-in 真实 smoke**
 
-> **Blocked 2026-07-26:** normal pipeline tests pass (54 passed; the real smoke
+> **Blocked 2026-07-26:** normal pipeline tests pass (55 passed; the real smoke
 > remains opt-in) and pipeline typecheck passes. The opt-in smoke was invoked,
 > but the pinned Hugging Face artifact URL and a direct 30-second HTTP probe
 > both timed out during connection; no verified model artifact is available in
-> the local cache. Task 2 remains open until the same pinned-revision smoke
-> command completes successfully.
+> the local cache. In a clean worktree, `sharp` `0.32.6` also timed out while
+> downloading libvips during normal frozen install. Task 2 remains open until
+> the normal frozen install and the same pinned-revision smoke command both
+> complete successfully.
 
 ```bash
 pnpm install
