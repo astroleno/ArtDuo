@@ -107,4 +107,22 @@ test("image embedding shard records reject duplicate ids and inconsistent finger
       modelRevision: "other-revision",
     }),
   ]), /modelRevision must be consistent/);
+
+  assert.throws(() => parseImageEmbeddingShardRecords([
+    validRecord(),
+    validRecord({
+      id: "artwork:met-2",
+      entityId: "met-2",
+      releaseVersion: "2026-05-01-curation-c",
+    }),
+  ]), /releaseVersion must be consistent/);
+});
+
+test("image embedding shards cap records at 1,000", () => {
+  const records = Array.from({ length: 1_001 }, (_, index) => validRecord({
+    id: `artwork:met-${index}`,
+    entityId: `met-${index}`,
+  }));
+
+  assert.throws(() => parseImageEmbeddingShardRecords(records), /at most 1000 records/);
 });

@@ -119,8 +119,11 @@ function parseImageEmbeddingManifestBinding(
   }
 
   const imageShardChecksum = parseChecksum(binding.imageShardChecksum, `${path}.imageShardChecksum`);
-  if (!imageEmbeddings.some((shard) => shard.checksum === imageShardChecksum)) {
-    fail(`${path}.imageShardChecksum`, "must match an imageEmbeddings shard checksum");
+  if (imageEmbeddings.length !== 1) {
+    fail(path, "must bind exactly one imageEmbeddings shard");
+  }
+  if (imageEmbeddings[0]?.checksum !== imageShardChecksum) {
+    fail(`${path}.imageShardChecksum`, "must match the bound imageEmbeddings shard checksum");
   }
 
   return {

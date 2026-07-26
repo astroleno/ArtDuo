@@ -145,3 +145,16 @@ test("manifest parser rejects invalid image policy and checksum bindings", () =>
   ((invalidChecksum as { imageEmbeddingSidecar: { imageShardChecksum: string } }).imageEmbeddingSidecar.imageShardChecksum) = "sha256:not-a-checksum";
   assert.throws(() => parseReleaseManifest(invalidChecksum), /expected sha256 checksum/);
 });
+
+test("manifest parser requires the sidecar binding to cover exactly one image shard", () => {
+  const unboundShard = variantManifest();
+  (unboundShard.shards.imageEmbeddings as Array<Record<string, unknown>>).push({
+    id: "image-embeddings-02",
+    url: "./image-embeddings-02.json",
+    checksum: OTHER_CHECKSUM,
+    sizeBytes: 100,
+    recordCount: 5,
+  });
+
+  assert.throws(() => parseReleaseManifest(unboundShard), /exactly one imageEmbeddings shard/);
+});

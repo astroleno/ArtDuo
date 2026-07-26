@@ -2,6 +2,7 @@ import { expectObject, parseArray, readLiteral, readNumber, readString } from ".
 
 export const IMAGE_EMBEDDING_ENTITY_TYPES = ["artwork", "background-scene"] as const;
 export type ImageEmbeddingEntityType = (typeof IMAGE_EMBEDDING_ENTITY_TYPES)[number];
+export const MAX_IMAGE_EMBEDDING_SHARD_RECORDS = 1_000;
 
 export interface ImageEmbeddingSourceRef {
   shardId: string;
@@ -37,6 +38,7 @@ const ARTWORK_SOURCE_FIELD_PATHS = new Set([
 ]);
 const BACKGROUND_SCENE_SOURCE_FIELD_PATHS = new Set(["asset.local_public_path"]);
 const CONSISTENT_SHARD_FIELDS = [
+  "releaseVersion",
   "model",
   "modelRevision",
   "modelVariant",
@@ -167,6 +169,9 @@ export function parseImageEmbeddingShardRecords(
   path = "ImageEmbeddingShardRecord[]",
 ): ImageEmbeddingShardRecord[] {
   const records = parseArray(value, (entry, entryPath) => parseImageEmbeddingShardRecord(entry, entryPath), path);
+  if (records.length > MAX_IMAGE_EMBEDDING_SHARD_RECORDS) {
+    fail(path, `must contain at most ${MAX_IMAGE_EMBEDDING_SHARD_RECORDS} records`);
+  }
   const ids = new Set<string>();
 
   for (const record of records) {
