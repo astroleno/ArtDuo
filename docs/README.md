@@ -13,6 +13,7 @@
 - `docs/plans/artduo-v2-lightweight-rebuild-plan.md`
 - `docs/plans/artduo-v2-frontend-backend-workstreams.md`
 - `docs/plans/artduo-v2-artwork-collection-runbook.md`
+- `docs/plans/artduo-v2-affective-a2a-growth-form-plan.md`
 - `docs/roadmaps/artduo-v2-three-phase-roadmap.md`
 - `docs/specs/artduo-v2-shared-contracts-and-api.md`
 - `docs/specs/artduo-v2-ux-flow-and-state-matrix.md`
@@ -29,7 +30,8 @@
 6. 数据构建前看 `docs/specs/artduo-v2-local-corpus-and-media-schema.md`
 7. 背景匹配和转场实现前看 `docs/specs/artduo-v2-background-scene-schema.md`
 8. 开始收集名画时看 `docs/plans/artduo-v2-artwork-collection-runbook.md`
-9. 最后用 `docs/roadmaps/artduo-v2-three-phase-roadmap.md` 对齐节奏和阶段边界
+9. 情绪 A2A 和沉浸式个性化升级前看 `docs/plans/artduo-v2-affective-a2a-growth-form-plan.md`
+10. 最后用 `docs/roadmaps/artduo-v2-three-phase-roadmap.md` 对齐节奏和阶段边界
 
 ## 当前共识
 
