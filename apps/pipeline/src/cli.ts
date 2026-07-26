@@ -8,6 +8,10 @@ import type { MetadataBackfillPreviewOptions } from "./metadata-backfill-preview
 import type { QuantityPreviewOptions } from "./quantity-preview";
 import type { ReleaseBuildOptions } from "./release-artifact";
 import type { ReleaseReadyBuildOptions } from "./release-ready-corpus";
+import type { RelationshipGraphBuildOptions } from "./relationship-graph";
+import type { RelationshipGraphEvaluationOptions } from "./relationship-graph-evaluation";
+import type { RelationshipGraphPhase0Options } from "./relationship-graph-phase0";
+import type { VisualPresentationPreviewOptions } from "./visual-presentation-preview";
 import type { VectorBenchmarkCliOptions } from "./run-vector-benchmark";
 import type { VectorProviderBenchmarkCliOptions } from "./run-vector-provider-benchmark";
 import type { VectorRetrievalDebugCliOptions } from "./debug-vector-retrieval";
@@ -257,5 +261,104 @@ export function readQuantityPreviewBuildOptions(): QuantityPreviewOptions {
     reportRoot: reportRoot ? path.resolve(reportRoot) : undefined,
     previewVersion,
     targetCount: Number.isFinite(targetCount) ? targetCount : undefined,
+  };
+}
+
+export function readRelationshipGraphPhase0Options(): RelationshipGraphPhase0Options {
+  const rootDir = readFlag("--root-dir");
+  const releasesRoot = readFlag("--releases-root");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const reportRoot = readFlag("--report-root");
+  const anchorCountValue = readFlag("--anchor-count");
+  const negativePairCountValue = readFlag("--negative-pair-count");
+  const topKValue = readFlag("--top-k");
+  const anchorCount = anchorCountValue ? Number.parseInt(anchorCountValue, 10) : undefined;
+  const negativePairCount = negativePairCountValue ? Number.parseInt(negativePairCountValue, 10) : undefined;
+  const topK = topKValue ? Number.parseInt(topKValue, 10) : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    reportRoot: reportRoot ? path.resolve(reportRoot) : undefined,
+    anchorCount: Number.isFinite(anchorCount) ? anchorCount : undefined,
+    negativePairCount: Number.isFinite(negativePairCount) ? negativePairCount : undefined,
+    topK: Number.isFinite(topK) ? topK : undefined,
+  };
+}
+
+export function readRelationshipGraphBuildOptions(): RelationshipGraphBuildOptions {
+  const rootDir = readFlag("--root-dir");
+  const releasesRoot = readFlag("--releases-root");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const reportRoot = readFlag("--report-root");
+  const outputPath = readFlag("--output");
+  const updateManifest = readBooleanFlag("--update-manifest");
+  const publicSourceRefsValue = readFlag("--public-source-refs-per-signal-node");
+  const publicSourceRefsPerSignalNode = publicSourceRefsValue
+    ? Number.parseInt(publicSourceRefsValue, 10)
+    : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    reportRoot: reportRoot ? path.resolve(reportRoot) : undefined,
+    outputPath: outputPath ? path.resolve(outputPath) : undefined,
+    updateManifest,
+    publicSourceRefsPerSignalNode: Number.isFinite(publicSourceRefsPerSignalNode)
+      ? publicSourceRefsPerSignalNode
+      : undefined,
+  };
+}
+
+export function readRelationshipGraphEvaluationOptions(): RelationshipGraphEvaluationOptions {
+  const rootDir = readFlag("--root-dir");
+  const releasesRoot = readFlag("--releases-root");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const reportRoot = readFlag("--report-root");
+  const promptsPath = readFlag("--prompts");
+  const outputPath = readFlag("--output");
+  const topKValue = readFlag("--top-k");
+  const benchmarkLimitValue = readFlag("--benchmark-limit");
+  const topK = topKValue ? Number.parseInt(topKValue, 10) : undefined;
+  const benchmarkLimit = benchmarkLimitValue ? Number.parseInt(benchmarkLimitValue, 10) : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    reportRoot: reportRoot ? path.resolve(reportRoot) : undefined,
+    promptsPath: promptsPath ? path.resolve(promptsPath) : undefined,
+    outputPath: outputPath ? path.resolve(outputPath) : undefined,
+    topK: Number.isFinite(topK) ? topK : undefined,
+    benchmarkLimit: Number.isFinite(benchmarkLimit) ? benchmarkLimit : undefined,
+  };
+}
+
+export function readVisualPresentationPreviewOptions(): VisualPresentationPreviewOptions {
+  const rootDir = readFlag("--root-dir");
+  const releasesRoot = readFlag("--releases-root");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const reportRoot = readFlag("--report-root");
+  const outputPath = readFlag("--output");
+  const limitValue = readFlag("--limit");
+  const limit = limitValue ? Number.parseInt(limitValue, 10) : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    reportRoot: reportRoot ? path.resolve(reportRoot) : undefined,
+    outputPath: outputPath ? path.resolve(outputPath) : undefined,
+    limit: Number.isFinite(limit) ? limit : undefined,
   };
 }

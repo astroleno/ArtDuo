@@ -1,0 +1,842 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "createdAt": "2026-06-10T03:30:12.505Z",
+  "scope": "visual-presentation-vlm-worklist",
+  "builderVersion": "visual-presentation-preview.v1",
+  "manifestPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+  "reportPath": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/visual-presentation/2026-04-25-curation-b/visual-presentation-preview.json",
+  "limit": 40,
+  "counts": {
+    "totalMediaRecords": 221,
+    "metadataRecords": 221,
+    "mediaRecordsWithoutMetadata": 0,
+    "alreadyAnnotatedCount": 0,
+    "signalCandidateCount": 83,
+    "emittedCandidateCount": 40
+  },
+  "candidates": [
+    {
+      "id": "met-451728",
+      "source": "met",
+      "sourceArtworkId": "451728",
+      "title": "\"Shaikh San'an and the Christian Maiden\", Folio 22v from a Mantiq al-Tayr (Language of the Birds)",
+      "artistDisplayName": "Farid al-Din `Attar",
+      "medium": "Opaque watercolor, silver, and gold on paper",
+      "department": "Islamic Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/is/web-large/DP247740.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/is/original/DP247740.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/is/web-large/DP247740.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: \"Shaikh San'an and the Christian Maiden\", Folio 22v from a Mantiq al-Tayr (Language of the Birds)\nArtist: Farid al-Din `Attar\nMedium: Opaque watercolor, silver, and gold on paper\nDepartment: Islamic Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-267087",
+      "source": "met",
+      "sourceArtworkId": "267087",
+      "title": "[Landscape with Cottage]",
+      "artistDisplayName": "Marie-Charles-Isidore Choiselat",
+      "medium": "Daguerreotype",
+      "department": "Photographs",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/ph/web-large/DT1150.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/ph/original/DT1150.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/ph/web-large/DT1150.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: [Landscape with Cottage]\nArtist: Marie-Charles-Isidore Choiselat\nMedium: Daguerreotype\nDepartment: Photographs\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-820411",
+      "source": "met",
+      "sourceArtworkId": "820411",
+      "title": "A Peep at the Gas Lights in Pall-Mall",
+      "artistDisplayName": "Thomas Rowlandson",
+      "medium": "Hand-colored etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP883650.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP883650.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP883650.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: A Peep at the Gas Lights in Pall-Mall\nArtist: Thomas Rowlandson\nMedium: Hand-colored etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-383409",
+      "source": "met",
+      "sourceArtworkId": "383409",
+      "title": "A Waterfall in a Forest at Langhennersdorf",
+      "artistDisplayName": "Christoph Nathe",
+      "medium": "Brush and brown ink, watercolor, gouache, over a sketch in graphite",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP803860.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP803860.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP803860.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: A Waterfall in a Forest at Langhennersdorf\nArtist: Christoph Nathe\nMedium: Brush and brown ink, watercolor, gouache, over a sketch in graphite\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-395293",
+      "source": "met",
+      "sourceArtworkId": "395293",
+      "title": "Admiration with Astonishment (Le Brun Travested, or Caricatures of the Passions)",
+      "artistDisplayName": "Thomas Rowlandson",
+      "medium": "Etching, printed in brown ink",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP817197.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP817197.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP817197.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Admiration with Astonishment (Le Brun Travested, or Caricatures of the Passions)\nArtist: Thomas Rowlandson\nMedium: Etching, printed in brown ink\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-739059",
+      "source": "met",
+      "sourceArtworkId": "739059",
+      "title": "Aged Lovers",
+      "artistDisplayName": "Thomas Rowlandson",
+      "medium": "Etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP872161.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP872161.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP872161.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Aged Lovers\nArtist: Thomas Rowlandson\nMedium: Etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-821109",
+      "source": "met",
+      "sourceArtworkId": "821109",
+      "title": "Allegorical figure appearing on clouds overhead while a group of men gathered below look up in astonishment",
+      "artistDisplayName": "Claude Augustin Duflos le Jeune",
+      "medium": "Etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP887945.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP887945.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP887945.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Allegorical figure appearing on clouds overhead while a group of men gathered below look up in astonishment\nArtist: Claude Augustin Duflos le Jeune\nMedium: Etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-337542",
+      "source": "met",
+      "sourceArtworkId": "337542",
+      "title": "Allegorical Figure of Melancholy",
+      "artistDisplayName": "Charles de La Traverse",
+      "medium": "Pen and brown ink, brush and brown wash, over black chalk",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP807088.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP807088.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP807088.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Allegorical Figure of Melancholy\nArtist: Charles de La Traverse\nMedium: Pen and brown ink, brush and brown wash, over black chalk\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-343218",
+      "source": "met",
+      "sourceArtworkId": "343218",
+      "title": "Annunciation",
+      "artistDisplayName": "Filippo Bellini",
+      "medium": "Pen and brown ink, brush and brown wash, over leadpoint or black chalk, on paper washed light brown; squared for transfer",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP807860.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP807860.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP807860.jpg",
+      "aspectRatioHint": "square",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Annunciation\nArtist: Filippo Bellini\nMedium: Pen and brown ink, brush and brown wash, over leadpoint or black chalk, on paper washed light brown; squared for transfer\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-382737",
+      "source": "met",
+      "sourceArtworkId": "382737",
+      "title": "Autumn's Grey and Melancholy",
+      "artistDisplayName": "Henry Farrer",
+      "medium": "Etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP818538.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP818538.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP818538.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Autumn's Grey and Melancholy\nArtist: Henry Farrer\nMedium: Etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-336540",
+      "source": "met",
+      "sourceArtworkId": "336540",
+      "title": "Awe-struck Saint Jerome",
+      "artistDisplayName": "Anonymous, Spanish, School of Seville, 17th century",
+      "medium": "Pen and brown ink over black chalk underdrawing. On off-white paper",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP800528.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP800528.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP800528.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Awe-struck Saint Jerome\nArtist: Anonymous, Spanish, School of Seville, 17th century\nMedium: Pen and brown ink over black chalk underdrawing. On off-white paper\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-662131",
+      "source": "met",
+      "sourceArtworkId": "662131",
+      "title": "Awful Conflagration of the Steam Boat Lexington in Long Island Sound on Monday Eve, January 13th, 1840, by which melancholy occurrence, over 100 Persons Perished",
+      "artistDisplayName": "William Keesey Hewitt",
+      "medium": "Hand-colored lithograph",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP853624.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP853624.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP853624.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Awful Conflagration of the Steam Boat Lexington in Long Island Sound on Monday Eve, January 13th, 1840, by which melancholy occurrence, over 100 Persons Perished\nArtist: William Keesey Hewitt\nMedium: Hand-colored lithograph\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-335240",
+      "source": "met",
+      "sourceArtworkId": "335240",
+      "title": "Bacchanal",
+      "artistDisplayName": "Nicolas Poussin",
+      "medium": "Pen and brown ink, brush and brown wash, over faint black chalk",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP807962.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP807962.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP807962.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Bacchanal\nArtist: Nicolas Poussin\nMedium: Pen and brown ink, brush and brown wash, over faint black chalk\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-436131",
+      "source": "met",
+      "sourceArtworkId": "436131",
+      "title": "Bather Stepping into a Tub",
+      "artistDisplayName": "Edgar Degas",
+      "medium": "Pastel and charcoal on blue laid paper, mounted at perimeter on backing board",
+      "department": "European Paintings",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/ep/web-large/DP253484.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/ep/original/DP253484.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/ep/web-large/DP253484.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Bather Stepping into a Tub\nArtist: Edgar Degas\nMedium: Pastel and charcoal on blue laid paper, mounted at perimeter on backing board\nDepartment: European Paintings\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-264711",
+      "source": "met",
+      "sourceArtworkId": "264711",
+      "title": "Black Cañon, From Camp 8, Looking Above",
+      "artistDisplayName": "Timothy H. O'Sullivan",
+      "medium": "Albumen silver print from glass negative",
+      "department": "Photographs",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/ph/web-large/DP-31141-020.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/ph/original/DP-31141-020.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/ph/web-large/DP-31141-020.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Black Cañon, From Camp 8, Looking Above\nArtist: Timothy H. O'Sullivan\nMedium: Albumen silver print from glass negative\nDepartment: Photographs\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-551786",
+      "source": "met",
+      "sourceArtworkId": "551786",
+      "title": "Book of the Dead of the Priest of Horus, Imhotep (Imuthes)",
+      "artistDisplayName": "Unknown Artist",
+      "medium": "Papyrus, ink",
+      "department": "Egyptian Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/eg/web-large/2-35.9.20a–w_EGDP014589-4594.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/eg/original/2-35.9.20a–w_EGDP014589-4594.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/eg/web-large/2-35.9.20a–w_EGDP014589-4594.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Book of the Dead of the Priest of Horus, Imhotep (Imuthes)\nArtist: Unknown Artist\nMedium: Papyrus, ink\nDepartment: Egyptian Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-729663",
+      "source": "met",
+      "sourceArtworkId": "729663",
+      "title": "Broadsheet Our Lady of Solitude of Santa Cruz",
+      "artistDisplayName": "José Guadalupe Posada",
+      "medium": "Type-metal engraving and letterpress on buff paper",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP867950.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP867950.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP867950.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Broadsheet Our Lady of Solitude of Santa Cruz\nArtist: José Guadalupe Posada\nMedium: Type-metal engraving and letterpress on buff paper\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-446183",
+      "source": "met",
+      "sourceArtworkId": "446183",
+      "title": "Bustan (Orchard) of Sa'di",
+      "artistDisplayName": "Mir 'Ali al-Husaini",
+      "medium": "Ink, opaque watercolor, and gold on paper; leather binding",
+      "department": "Islamic Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/is/web-large/sf11-134-2-61v.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/is/original/sf11-134-2-61v.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/is/web-large/sf11-134-2-61v.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Bustan (Orchard) of Sa'di\nArtist: Mir 'Ali al-Husaini\nMedium: Ink, opaque watercolor, and gold on paper; leather binding\nDepartment: Islamic Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-739090",
+      "source": "met",
+      "sourceArtworkId": "739090",
+      "title": "Country Lovers",
+      "artistDisplayName": "Thomas Rowlandson",
+      "medium": "Etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP872166.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP872166.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP872166.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Country Lovers\nArtist: Thomas Rowlandson\nMedium: Etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-50897",
+      "source": "met",
+      "sourceArtworkId": "50897",
+      "title": "Evening bell from mist-shrouded temple (left); Autumn moon over Lake Dongting (right)",
+      "artistDisplayName": "An Gyeon",
+      "medium": "Pair of hanging scrolls; ink on silk",
+      "department": "Asian Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/as/web-large/DP-36421-001.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/as/original/DP-36421-001.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/as/web-large/DP-36421-001.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Evening bell from mist-shrouded temple (left); Autumn moon over Lake Dongting (right)\nArtist: An Gyeon\nMedium: Pair of hanging scrolls; ink on silk\nDepartment: Asian Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-623057",
+      "source": "met",
+      "sourceArtworkId": "623057",
+      "title": "Figure 55: Astonishment badly rendered by the subject: a ridiculous and inane expression.",
+      "artistDisplayName": "Guillaume-Benjamin-Amand Duchenne de Boulogne",
+      "medium": "Albumen silver print from glass negative",
+      "department": "Photographs",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/ph/web-large/DP304513.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/ph/original/DP304513.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/ph/web-large/DP304513.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Figure 55: Astonishment badly rendered by the subject: a ridiculous and inane expression.\nArtist: Guillaume-Benjamin-Amand Duchenne de Boulogne\nMedium: Albumen silver print from glass negative\nDepartment: Photographs\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-623059",
+      "source": "met",
+      "sourceArtworkId": "623059",
+      "title": "Figure 57: Astonishment, stupefaction, amazement",
+      "artistDisplayName": "Guillaume-Benjamin-Amand Duchenne de Boulogne",
+      "medium": "Albumen silver print from glass negative",
+      "department": "Photographs",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/ph/web-large/DP304509.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/ph/original/DP304509.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/ph/web-large/DP304509.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Figure 57: Astonishment, stupefaction, amazement\nArtist: Guillaume-Benjamin-Amand Duchenne de Boulogne\nMedium: Albumen silver print from glass negative\nDepartment: Photographs\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-42562",
+      "source": "met",
+      "sourceArtworkId": "42562",
+      "title": "Gentleman Taking Leave of His Lady on a Veranda",
+      "artistDisplayName": "Suzuki Harunobu",
+      "medium": "Woodblock print; ink and color on paper",
+      "department": "Asian Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/as/web-large/DP118778.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/as/original/DP118778.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/as/web-large/DP118778.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Gentleman Taking Leave of His Lady on a Veranda\nArtist: Suzuki Harunobu\nMedium: Woodblock print; ink and color on paper\nDepartment: Asian Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-450536",
+      "source": "met",
+      "sourceArtworkId": "450536",
+      "title": "Inkwell with Twelve Zodiac Medallions",
+      "artistDisplayName": "Unknown Artist",
+      "medium": "Brass; cast, inlaid with silver and copper",
+      "department": "Islamic Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/is/web-large/DP189.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/is/original/DP189.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/is/web-large/DP189.jpg",
+      "aspectRatioHint": "square",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Inkwell with Twelve Zodiac Medallions\nArtist: Unknown Artist\nMedium: Brass; cast, inlaid with silver and copper\nDepartment: Islamic Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-382544",
+      "source": "met",
+      "sourceArtworkId": "382544",
+      "title": "Inundated Ruins of a Monastery",
+      "artistDisplayName": "Karl Blechen",
+      "medium": "Pen and black ink, watercolor washes, sgrafitto",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP158018.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP158018.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP158018.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Inundated Ruins of a Monastery\nArtist: Karl Blechen\nMedium: Pen and black ink, watercolor washes, sgrafitto\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-477499",
+      "source": "met",
+      "sourceArtworkId": "477499",
+      "title": "Jaharis Byzantine Lectionary",
+      "artistDisplayName": "Unknown Artist",
+      "medium": "Tempera, gold, and ink on parchment; leather binding",
+      "department": "Medieval Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/md/web-large/DP160636.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/md/original/DP160636.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/md/web-large/DP160636.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Jaharis Byzantine Lectionary\nArtist: Unknown Artist\nMedium: Tempera, gold, and ink on parchment; leather binding\nDepartment: Medieval Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-459435",
+      "source": "met",
+      "sourceArtworkId": "459435",
+      "title": "Landscape with a Shepherd in Repose",
+      "artistDisplayName": "The Veneto",
+      "medium": "Pen and brown ink, over black chalk.",
+      "department": "Robert Lehman Collection",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/rl/web-large/DP-17358-023.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/rl/original/DP-17358-023.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/rl/web-large/DP-17358-023.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Landscape with a Shepherd in Repose\nArtist: The Veneto\nMedium: Pen and brown ink, over black chalk.\nDepartment: Robert Lehman Collection\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-35994",
+      "source": "met",
+      "sourceArtworkId": "35994",
+      "title": "Landscape with fisherman",
+      "artistDisplayName": "Qi Zhijia",
+      "medium": "Folding fan mounted as an album leaf; ink on gold paper",
+      "department": "Asian Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/as/web-large/DP153848.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/as/original/DP153848.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/as/web-large/DP153848.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Landscape with fisherman\nArtist: Qi Zhijia\nMedium: Folding fan mounted as an album leaf; ink on gold paper\nDepartment: Asian Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-73646",
+      "source": "met",
+      "sourceArtworkId": "73646",
+      "title": "Landscapes in the styles of old masters",
+      "artistDisplayName": "Gao Cen",
+      "medium": "Album of ten leaves; ink and color on silk",
+      "department": "Asian Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/as/web-large/DP145870_crd.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/as/original/DP145870_crd.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/as/web-large/DP145870_crd.jpg",
+      "aspectRatioHint": "square",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Landscapes in the styles of old masters\nArtist: Gao Cen\nMedium: Album of ten leaves; ink and color on silk\nDepartment: Asian Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-400260",
+      "source": "met",
+      "sourceArtworkId": "400260",
+      "title": "Laughing Fool",
+      "artistDisplayName": "Werner van den Valckert",
+      "medium": "Etching and engraving",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP820707.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP820707.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP820707.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Laughing Fool\nArtist: Werner van den Valckert\nMedium: Etching and engraving\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-396220",
+      "source": "met",
+      "sourceArtworkId": "396220",
+      "title": "Laughing Peasant",
+      "artistDisplayName": "Adriaen van Ostade",
+      "medium": "Etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP821845.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP821845.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP821845.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Laughing Peasant\nArtist: Adriaen van Ostade\nMedium: Etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-923689",
+      "source": "met",
+      "sourceArtworkId": "923689",
+      "title": "Le pauvre jeune homme",
+      "artistDisplayName": "Marguerite Eléonore Lingée",
+      "medium": "Engraving and etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP-39860-001.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP-39860-001.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP-39860-001.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Le pauvre jeune homme\nArtist: Marguerite Eléonore Lingée\nMedium: Engraving and etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-742689",
+      "source": "met",
+      "sourceArtworkId": "742689",
+      "title": "Love Laughs at Locksmiths",
+      "artistDisplayName": "Thomas Rowlandson",
+      "medium": "Hand-colored etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP873760.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP873760.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP873760.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Love Laughs at Locksmiths\nArtist: Thomas Rowlandson\nMedium: Hand-colored etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-55233",
+      "source": "met",
+      "sourceArtworkId": "55233",
+      "title": "Lovers",
+      "artistDisplayName": "Isoda Koryūsai",
+      "medium": "Woodblock print; ink and color on paper",
+      "department": "Asian Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/as/web-large/DP144624.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/as/original/DP144624.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/as/web-large/DP144624.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Lovers\nArtist: Isoda Koryūsai\nMedium: Woodblock print; ink and color on paper\nDepartment: Asian Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-353543",
+      "source": "met",
+      "sourceArtworkId": "353543",
+      "title": "Mars and Venus",
+      "artistDisplayName": "Hendrick Goltzius",
+      "medium": "Engraving",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP821107.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP821107.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP821107.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Mars and Venus\nArtist: Hendrick Goltzius\nMedium: Engraving\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-336007",
+      "source": "met",
+      "sourceArtworkId": "336007",
+      "title": "Mars and Venus in the Bath",
+      "artistDisplayName": "Giovanni David",
+      "medium": "Etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP889763.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP889763.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP889763.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Mars and Venus in the Bath\nArtist: Giovanni David\nMedium: Etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-700439",
+      "source": "met",
+      "sourceArtworkId": "700439",
+      "title": "Mars and Venus Served by Cupid and the Graces",
+      "artistDisplayName": "Léon Davent",
+      "medium": "Engraving",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP855383.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP855383.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP855383.jpg",
+      "aspectRatioHint": "landscape",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Mars and Venus Served by Cupid and the Graces\nArtist: Léon Davent\nMedium: Engraving\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-261511",
+      "source": "met",
+      "sourceArtworkId": "261511",
+      "title": "Méditation",
+      "artistDisplayName": "Pierre-Louis Pierson",
+      "medium": "Albumen silver print from glass negative",
+      "department": "Photographs",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/ph/web-large/DP228850.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/ph/original/DP228850.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/ph/web-large/DP228850.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Méditation\nArtist: Pierre-Louis Pierson\nMedium: Albumen silver print from glass negative\nDepartment: Photographs\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    },
+    {
+      "id": "met-49471",
+      "source": "met",
+      "sourceArtworkId": "49471",
+      "title": "Meditation in a Cave",
+      "artistDisplayName": "Ren Yu",
+      "medium": "Hanging scroll; ink and color on paper",
+      "department": "Asian Art",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/as/web-large/DP-30337-002.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/as/original/DP-30337-002.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/as/web-large/DP-30337-002.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "medium-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Meditation in a Cave\nArtist: Ren Yu\nMedium: Hanging scroll; ink and color on paper\nDepartment: Asian Art\nInitial recommendation: trim-border\nReason codes: medium-paper-print-photo"
+    },
+    {
+      "id": "met-391598",
+      "source": "met",
+      "sourceArtworkId": "391598",
+      "title": "Melancholy",
+      "artistDisplayName": "Anonymous, Italian, 16th century",
+      "medium": "Etching",
+      "department": "Drawings and Prints",
+      "imageUrlPreview": "https://images.metmuseum.org/CRDImages/dp/web-large/DP826191.jpg",
+      "imageUrlFull": "https://images.metmuseum.org/CRDImages/dp/original/DP826191.jpg",
+      "baseImageUrl": "https://images.metmuseum.org/CRDImages/dp/web-large/DP826191.jpg",
+      "aspectRatioHint": "portrait",
+      "priority": "high",
+      "recommendedCropStrategy": "trim-border",
+      "reasonCodes": [
+        "department-paper-or-photo",
+        "medium-paper-print-photo",
+        "tag-paper-print-photo"
+      ],
+      "vlmPrompt": "Inspect this artwork image for immersive display.\nReturn JSON only with this shape:\n{\"contentBounds\":{\"x\":0,\"y\":0,\"width\":1,\"height\":1},\"contentAspectRatio\":1,\"whiteBorderRatio\":0,\"cropStrategy\":\"trim-border|preserve-paper|focus-subject\",\"confidence\":0,\"notes\":[\"short reason\"]}\nUse normalized image coordinates. contentBounds should enclose the meaningful artwork content, excluding scanner beds, mats, blank outer frames, or UI-like borders.\nIf the blank paper itself is intrinsic to the artwork, preserve it and choose preserve-paper.\nChoose trim-border when the current image has a removable white/cream outer frame that weakens immersive display.\nArtwork: Melancholy\nArtist: Anonymous, Italian, 16th century\nMedium: Etching\nDepartment: Drawings and Prints\nInitial recommendation: trim-border\nReason codes: department-paper-or-photo, medium-paper-print-photo, tag-paper-print-photo"
+    }
+  ],
+  "notes": [
+    "This report is a VLM worklist only. It does not mutate release shards or update corpus checksums.",
+    "Use VLM output to populate media.visualPresentation after validation, then rebuild release artifacts.",
+    "The worklist prioritizes likely paper, print, drawing, and photograph records because they often contain removable capture mats or white borders."
+  ]
+}

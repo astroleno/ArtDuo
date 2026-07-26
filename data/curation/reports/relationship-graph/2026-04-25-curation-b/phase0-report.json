@@ -1,0 +1,25 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "generatedAt": "2026-05-14T09:51:52.602Z",
+  "scope": "relationship-graph-phase0-pr1",
+  "artifacts": {
+    "metadataBaseline": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/relationship-graph/2026-04-25-curation-b/metadata-baseline-report.json",
+    "payloadMeasurement": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/relationship-graph/2026-04-25-curation-b/payload-measurement.json",
+    "evaluationFixture": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/curation/reports/relationship-graph/2026-04-25-curation-b/evaluation-fixture.json"
+  },
+  "decisionGate": {
+    "continuation": "pending-phase1-contract",
+    "discardPath": "If a later sidecar selector cannot beat this metadata baseline by the approved Phase 0 thresholds, stop at metadata selector plus internal report.",
+    "blockedUntil": [
+      "Phase 1 contract/parser limits use the measured numeric caps.",
+      "No public sidecar artifact is published before the evaluation gate.",
+      "Vector search and rerank benchmark remain unchanged."
+    ]
+  },
+  "safeguards": {
+    "publicSidecarWritten": false,
+    "manifestUpdated": false,
+    "runtimeLoaderTouched": false,
+    "vectorOrRerankTouched": false
+  }
+}

@@ -23,7 +23,10 @@
     "collect:release-ready": "pnpm --filter @artduo/pipeline build:release-ready",
     "vector:debug": "pnpm --filter @artduo/pipeline debug:vector-retrieval",
     "vector:benchmark": "pnpm --filter @artduo/pipeline bench:vector",
-    "vector:benchmark:provider": "pnpm --filter @artduo/pipeline bench:vector:provider"
+    "vector:benchmark:provider": "pnpm --filter @artduo/pipeline bench:vector:provider",
+    "relationship-graph:phase0": "pnpm --filter @artduo/pipeline relationship-graph:phase0",
+    "relationship-graph:build": "pnpm --filter @artduo/pipeline build:relationship-graph",
+    "relationship-graph:evaluate": "pnpm --filter @artduo/pipeline relationship-graph:evaluate"
   },
   "dependencies": {
     "@xenova/transformers": "^2.17.2",

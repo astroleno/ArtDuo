@@ -1,0 +1,289 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "generatedAt": "2026-05-14T09:51:52.602Z",
+  "scope": "phase0-payload-measurement-only",
+  "measurementVersion": "relationship-graph-payload-measurement.phase0.v1",
+  "publicSidecarWritten": false,
+  "releaseInputs": {
+    "manifest": {
+      "path": "/Users/aitoshuu/Documents/GitHub/ArtDuo/data/releases/2026-04-25-curation-b/manifest.json",
+      "sizeBytes": 1532,
+      "checksum": "sha256:055a0b15855b5e20e25bd792778c95036fb0f7229409fd5b612b63e7fe1909fd"
+    },
+    "shards": [
+      {
+        "artifact": "metadata",
+        "id": "metadata-01",
+        "url": "./metadata-01.json",
+        "sizeBytes": 467912,
+        "recordCount": 221,
+        "checksum": "sha256:75e1de78dec8a7de58d2e3c67ec9e4c3cb516f880a63c775d9d7b6c71738fc5a"
+      },
+      {
+        "artifact": "search",
+        "id": "search-01",
+        "url": "./search-01.json",
+        "sizeBytes": 200449,
+        "recordCount": 221,
+        "checksum": "sha256:693f8fabed5306bbb0dea602ceee9bfa18660ac60f160dc2d2da27897cff07dd"
+      },
+      {
+        "artifact": "mediaIndex",
+        "id": "media-01",
+        "url": "./media-01.json",
+        "sizeBytes": 134331,
+        "recordCount": 221,
+        "checksum": "sha256:aab4a82629b33a941822c8722d8901e21eb90c5407107429174c71586675e065"
+      },
+      {
+        "artifact": "backgroundScenes",
+        "id": "background-scenes-01",
+        "url": "./background-scenes-01.json",
+        "sizeBytes": 183442,
+        "recordCount": 50,
+        "checksum": "sha256:c6791ca1cce3b892e9255b5275d10979927a988f16c59e197071e0250cdb3cd0"
+      }
+    ]
+  },
+  "estimatedPublicGraph": {
+    "schemaVersion": "relationship-graph.v1",
+    "builderVersion": "relationship-graph-estimator.phase0.v1",
+    "taxonomyVersion": "relationship-taxonomy.phase0-unaliased.v1",
+    "jsonSizeBytes": 1574386,
+    "gzipSizeBytes": 59998,
+    "nodeCount": 447,
+    "edgeCount": 1415,
+    "nodeCountsByType": {
+      "artwork": 221,
+      "emotion": 8,
+      "palette": 16,
+      "subject": 202
+    },
+    "edgeCountsByRelation": {
+      "has_emotion": 221,
+      "has_palette": 250,
+      "has_subject": 944
+    },
+    "graphSha256": "sha256:3787844fc14d3122893bab7ca5ba7d1164cf01447bcbd7913516e1abd685b956"
+  },
+  "degreeDistribution": {
+    "all": {
+      "count": 447,
+      "average": 6.3311,
+      "max": 114,
+      "p50": 6,
+      "p90": 8,
+      "p95": 20
+    },
+    "artwork": {
+      "count": 221,
+      "average": 6.4027,
+      "max": 8,
+      "p50": 6,
+      "p90": 7,
+      "p95": 8
+    },
+    "emotion": {
+      "count": 8,
+      "average": 27.625,
+      "max": 36,
+      "p50": 30,
+      "p90": 36,
+      "p95": 36
+    },
+    "palette": {
+      "count": 16,
+      "average": 15.625,
+      "max": 114,
+      "p50": 8,
+      "p90": 23,
+      "p95": 114
+    },
+    "subject": {
+      "count": 202,
+      "average": 4.6733,
+      "max": 66,
+      "p50": 1,
+      "p90": 11,
+      "p95": 30
+    }
+  },
+  "topHighDegreeSignalNodes": [
+    {
+      "id": "palette:unknown-palette",
+      "type": "palette",
+      "label": "unknown-palette",
+      "degree": 114,
+      "sourceRefCount": 114
+    },
+    {
+      "id": "subject:paintings",
+      "type": "subject",
+      "label": "Paintings",
+      "degree": 66,
+      "sourceRefCount": 66
+    },
+    {
+      "id": "subject:european-paintings",
+      "type": "subject",
+      "label": "European Paintings",
+      "degree": 52,
+      "sourceRefCount": 52
+    },
+    {
+      "id": "subject:oil-on-canvas",
+      "type": "subject",
+      "label": "Oil on canvas",
+      "degree": 48,
+      "sourceRefCount": 48
+    },
+    {
+      "id": "subject:drawings-and-prints",
+      "type": "subject",
+      "label": "Drawings and Prints",
+      "degree": 45,
+      "sourceRefCount": 45
+    },
+    {
+      "id": "subject:asian-art",
+      "type": "subject",
+      "label": "Asian Art",
+      "degree": 39,
+      "sourceRefCount": 39
+    },
+    {
+      "id": "subject:prints",
+      "type": "subject",
+      "label": "Prints",
+      "degree": 38,
+      "sourceRefCount": 38
+    },
+    {
+      "id": "emotion:wonder",
+      "type": "emotion",
+      "label": "wonder",
+      "degree": 36,
+      "sourceRefCount": 72
+    },
+    {
+      "id": "subject:wonder",
+      "type": "subject",
+      "label": "wonder",
+      "degree": 36,
+      "sourceRefCount": 36
+    },
+    {
+      "id": "emotion:contemplation",
+      "type": "emotion",
+      "label": "contemplation",
+      "degree": 34,
+      "sourceRefCount": 68
+    },
+    {
+      "id": "emotion:desire",
+      "type": "emotion",
+      "label": "desire",
+      "degree": 34,
+      "sourceRefCount": 68
+    },
+    {
+      "id": "subject:contemplation",
+      "type": "subject",
+      "label": "contemplation",
+      "degree": 34,
+      "sourceRefCount": 34
+    },
+    {
+      "id": "subject:desire",
+      "type": "subject",
+      "label": "desire",
+      "degree": 34,
+      "sourceRefCount": 34
+    },
+    {
+      "id": "emotion:joy",
+      "type": "emotion",
+      "label": "joy",
+      "degree": 30,
+      "sourceRefCount": 60
+    },
+    {
+      "id": "emotion:melancholy",
+      "type": "emotion",
+      "label": "melancholy",
+      "degree": 30,
+      "sourceRefCount": 60
+    },
+    {
+      "id": "subject:joy",
+      "type": "subject",
+      "label": "joy",
+      "degree": 30,
+      "sourceRefCount": 30
+    },
+    {
+      "id": "subject:melancholy",
+      "type": "subject",
+      "label": "melancholy",
+      "degree": 30,
+      "sourceRefCount": 30
+    },
+    {
+      "id": "emotion:hope",
+      "type": "emotion",
+      "label": "hope",
+      "degree": 27,
+      "sourceRefCount": 54
+    },
+    {
+      "id": "subject:hope",
+      "type": "subject",
+      "label": "hope",
+      "degree": 27,
+      "sourceRefCount": 27
+    },
+    {
+      "id": "subject:sculpture",
+      "type": "subject",
+      "label": "Sculpture",
+      "degree": 27,
+      "sourceRefCount": 27
+    }
+  ],
+  "byteStats": {
+    "maxStringBytes": 301,
+    "maxStringPath": "nodes[50].label",
+    "maxReasonLabelBytes": 159,
+    "sourceRefs": {
+      "maxFieldPathBytes": 26,
+      "maxRecordIdBytes": 10,
+      "maxShardIdBytes": 20,
+      "maxSerializedSourceRefBytes": 150
+    }
+  },
+  "browserCatalogLoadDelta": {
+    "currentManifestAndShardBytes": 1838742,
+    "estimatedAdditionalBytes": 1574386,
+    "estimatedAdditionalGzipBytes": 59998,
+    "estimatedIncreaseRatio": 0.8562
+  },
+  "proposedParserLimits": {
+    "bufferRatio": 0.3,
+    "maxPreParseBytes": 2046976,
+    "maxShardSizeBytes": 2046976,
+    "maxGzipSizeBytes": 78848,
+    "maxNodes": 590,
+    "maxEdges": 1840,
+    "maxDegreePerNode": 150,
+    "maxSourceRefsPerNode": 150,
+    "maxSourceRefsPerEdge": 3,
+    "maxFieldPathBytes": 128,
+    "maxStringBytes": 448,
+    "maxReasonLabelBytes": 160
+  },
+  "notes": [
+    "This is a measured estimate of the extracted-only public graph payload. No relationship graph shard was written.",
+    "Public graph estimate uses only artwork, emotion, subject, and palette nodes with EXTRACTED release-field edges.",
+    "Scene, release, provenance, inferred, ambiguous, prompt, citation, and debug evidence are excluded from the public payload estimate."
+  ]
+}
