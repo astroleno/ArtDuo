@@ -63,9 +63,19 @@ ID.
 
 | Status | Count | Case IDs |
 | --- | ---: | --- |
-| pass | 50 | `A2-01`, `A2-05`, `A2-06`, `A3-01`, `A3-02`, `A3-03`, `A3-04`, `A3-05`, `A3-07`, `A3-08`, `A3-09`, `A3-10`, `A4-01`, `A4-02`, `A4-03`, `A4-04`, `A4-05`, `A4-06`, `A4-07`, `A4-09`, `A4-10`, `A5-01`, `A5-02`, `A5-03`, `A5-06`, `A5-07`, `A5-08`, `A5-09`, `A5-10`, `A6-01`, `A6-04`, `A6-05`, `A7-02`, `A8-03`, `A8-04`, `A8-05`, `A8-06`, `A8-07`, `A8-08`, `A8-10`, `A9-10`, `A10-01`, `A10-02`, `A10-03`, `A10-04`, `A10-05`, `A10-06`, `A10-08`, `A10-09`, `A10-10` |
-| fail | 45 | `A1-01`, `A1-02`, `A1-03`, `A1-04`, `A1-05`, `A1-06`, `A1-07`, `A1-08`, `A1-09`, `A1-10`, `A2-02`, `A2-03`, `A2-04`, `A2-07`, `A2-08`, `A2-09`, `A2-10`, `A3-06`, `A4-08`, `A5-04`, `A5-05`, `A6-02`, `A6-03`, `A6-06`, `A6-08`, `A6-09`, `A7-01`, `A7-03`, `A7-04`, `A7-05`, `A7-06`, `A7-07`, `A7-08`, `A7-09`, `A8-01`, `A8-02`, `A8-09`, `A9-01`, `A9-02`, `A9-03`, `A9-04`, `A9-05`, `A9-06`, `A9-07`, `A10-07` |
+| pass | 55 | `A2-01`, `A2-05`, `A2-06`, `A3-01`, `A3-02`, `A3-03`, `A3-04`, `A3-05`, `A3-07`, `A3-08`, `A3-09`, `A3-10`, `A4-01`, `A4-02`, `A4-03`, `A4-04`, `A4-05`, `A4-06`, `A4-07`, `A4-09`, `A4-10`, `A5-01`, `A5-02`, `A5-03`, `A5-06`, `A5-07`, `A5-08`, `A5-09`, `A5-10`, `A6-01`, `A6-02`, `A6-04`, `A6-05`, `A6-06`, `A6-08`, `A6-09`, `A7-02`, `A7-08`, `A8-03`, `A8-04`, `A8-05`, `A8-06`, `A8-07`, `A8-08`, `A8-10`, `A9-10`, `A10-01`, `A10-02`, `A10-03`, `A10-04`, `A10-05`, `A10-06`, `A10-08`, `A10-09`, `A10-10` |
+| fail | 40 | `A1-01`, `A1-02`, `A1-03`, `A1-04`, `A1-05`, `A1-06`, `A1-07`, `A1-08`, `A1-09`, `A1-10`, `A2-02`, `A2-03`, `A2-04`, `A2-07`, `A2-08`, `A2-09`, `A2-10`, `A3-06`, `A4-08`, `A5-04`, `A5-05`, `A6-03`, `A7-01`, `A7-03`, `A7-04`, `A7-05`, `A7-06`, `A7-07`, `A7-09`, `A8-01`, `A8-02`, `A8-09`, `A9-01`, `A9-02`, `A9-03`, `A9-04`, `A9-05`, `A9-06`, `A9-07`, `A10-07` |
 | blocked | 5 | `A6-07`, `A6-10`, `A7-10`, `A9-08`, `A9-09` |
+
+This `55/40/5` set is the authority for every later case-set diff. The previous
+`50/45/5` documentation snapshot was produced while the harness depended on
+untracked replay files; it is a regression, not a new frozen baseline. Its lost
+pass IDs were `A6-02`, `A6-06`, `A6-08`, `A6-09`, and `A7-08`.
+
+After the harness input paths were made explicit, the reproducible local command
+still reports `51/44/5`: `A6-02`, `A6-06`, `A6-08`, and `A6-09` remain lost
+passes. This is an unresolved A2A regression and blocks Task 6/7 promotion; it
+must not be normalized by updating the authority above.
 
 The 50-case intent/immersion replay baseline is:
 

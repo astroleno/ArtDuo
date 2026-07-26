@@ -246,7 +246,7 @@ git status --short -- node_modules
 - tracked `node_modules` 删除、A2A、relationship graph、visual presentation 和 UI 实验改动不得混入本计划提交。
 - 如果当前工作树无法满足边界，停止并请求用户授权建立专用 worktree；不得自行 stash、reset 或覆盖现有改动。
 
-- [x] **Step 2: 运行不会覆盖历史报告的完整基线**
+- [ ] **Step 2: 运行不会覆盖历史报告的完整基线（A2A 输入此前不完整）**
 
 执行者先创建本次 run directory：
 
@@ -259,12 +259,19 @@ pnpm vector:benchmark -- \
   --release-version 2026-04-25-curation-b \
   --output "$ARTDUO_IMAGE_BASELINE_DIR/vector-benchmark.json"
 
-pnpm exec tsx output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts
-cp output/a2a-framework-test-20260616-142013/spec-harness-results.json \
+ARTDUO_A2A_REPLAY_DIR="$ARTDUO_IMAGE_BASELINE_DIR/a2a-replay-input"
+pnpm exec tsx scripts/evaluate-intent-immersion.ts image-embedding-baseline \
+  --output-dir "$ARTDUO_A2A_REPLAY_DIR"
+pnpm exec tsx scripts/evaluate-intent-immersion.ts image-embedding-baseline-repeat \
+  --output-dir "$ARTDUO_A2A_REPLAY_DIR"
+pnpm exec tsx output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts \
+  --replay "$ARTDUO_A2A_REPLAY_DIR/image-embedding-baseline.json" \
+  --replay-repeat "$ARTDUO_A2A_REPLAY_DIR/image-embedding-baseline-repeat.json" \
+  --replay-report "$ARTDUO_A2A_REPLAY_DIR/image-embedding-baseline.md" \
+  --output-dir "$ARTDUO_IMAGE_BASELINE_DIR/a2a-harness"
+cp "$ARTDUO_IMAGE_BASELINE_DIR/a2a-harness/spec-harness-results.json" \
   "$ARTDUO_IMAGE_BASELINE_DIR/a2a-spec-harness.json"
-
-pnpm exec tsx scripts/evaluate-intent-immersion.ts image-embedding-baseline
-cp output/intent-immersion-eval/image-embedding-baseline.json \
+cp "$ARTDUO_A2A_REPLAY_DIR/image-embedding-baseline.json" \
   "$ARTDUO_IMAGE_BASELINE_DIR/a2a-replay.json"
 ```
 
@@ -279,7 +286,7 @@ cp output/intent-immersion-eval/image-embedding-baseline.json \
 - 只有用户明确批准 waiver 时才能继续；waiver 必须记录 failing case IDs、与 image sidecar 无关的证据、风险和失效日期。
 - waiver 只允许 Task 1-5 shadow 能力继续，不自动授权 Task 6-7 的用户可见融合与发布。
 
-- [x] **Step 4: 冻结 A2A case-set baseline 与 critical artwork set**
+- [ ] **Step 4: 冻结 A2A case-set baseline 与 critical artwork set（当前 `51/44/5` 回归未清除）**
 
 A2A baseline 必须保存：
 
@@ -551,7 +558,12 @@ export interface ImageEmbeddingProvider {
   readonly model: string;
   readonly modelRevision: string;
   readonly modelVariant: string;
-  readonly modelArtifactChecksum: string;
+  readonly expectedModelArtifactChecksum: string;
+  getModelArtifactProvenance(): Promise<{
+    artifact: "onnx/vision_model_quantized.onnx";
+    checksum: string;
+    providerVersion: string;
+  }>;
   embedImages(inputs: ImageEmbeddingInput[]): Promise<EmbeddedImageVector[]>;
 }
 ```
@@ -595,8 +607,11 @@ Uint8Array
 
 模型 pipeline 只接收已由 source resolver 验证和限额的 bytes，不允许 provider
 自行通过 URL 取图。`modelVariant` 是 provider 对具体加载选项和 artifact path 的
-稳定命名，不是任意 CLI 字符串。Artifact checksum、输出数量、dimensions 或
-preprocessing fingerprint 任一不一致立即失败。
+稳定命名，不是任意 CLI 字符串。`getModelArtifactProvenance()` 必须在 pipeline
+加载后从实际 cache artifact 读取 bytes 并计算 checksum；target artifact、runtime
+version、checksum、输出数量、dimensions 或 preprocessing fingerprint 任一不一致
+立即失败。报告和 vector 记录使用已验证的实际 provenance，绝不以常量冒充已验证
+artifact。
 
 - [x] **Step 3: 实现安全 source resolver**
 
@@ -617,7 +632,7 @@ export const IMAGE_FETCH_LIMITS = {
 
 远端只接受 HTTPS 与 allowlisted host；使用 manual redirect，每一跳重新校验目标。DNS 解析结果必须全部为 public unicast address，连接层也必须绑定到已验证结果或使用具有等价 SSRF 防护的 fetch adapter。
 
-Background Scene 的 `local_public_path` 是 public URL path，不是文件系统绝对路径。实现先拒绝 traversal/backslash，再去掉一个前导 `/`，随后相对 `<rootDir>/public` 解析。`publicRoot` 与最终文件都使用 `realpath` 后再次校验 containment，防止 symlink escape。读取完成后对原始 bytes 计算 SHA-256；content-type 与 magic bytes 必须一致。
+Background Scene 的 `local_public_path` 是 public URL path，不是文件系统绝对路径。实现先拒绝 traversal/backslash，再去掉一个前导 `/`，随后相对 `<rootDir>/public` 解析。`publicRoot` 与最终文件都使用 `realpath` 后再次校验 containment，防止 symlink escape。读取完成后对原始 bytes 计算 SHA-256；content-type 与 magic bytes 必须一致，JPEG/PNG/WebP 都须经 `RawImage.fromBlob` 完整解码后才接受。Artwork 的 preview/base/full URL 按优先级依次尝试；前一个安全来源失败时才能回退到下一个。15 秒总时限覆盖 DNS、redirect、连接和完整 response read，每一跳均重新做 URL 与 DNS 防护。
 
 - [x] **Step 4: 增加可回放 source cache**
 
@@ -1728,8 +1743,16 @@ pnpm image-embeddings:benchmark -- \
   --review-pack data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-pack.json \
   --review-verdicts data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-verdicts.json \
   --output "$image_output"
-pnpm exec tsx output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts
-pnpm exec tsx scripts/evaluate-intent-immersion.ts image-embedding-final
+ARTDUO_A2A_FINAL_REPLAY_DIR="$ARTDUO_IMAGE_FINAL_DIR/a2a-replay-input"
+pnpm exec tsx scripts/evaluate-intent-immersion.ts image-embedding-final \
+  --output-dir "$ARTDUO_A2A_FINAL_REPLAY_DIR"
+pnpm exec tsx scripts/evaluate-intent-immersion.ts image-embedding-final-repeat \
+  --output-dir "$ARTDUO_A2A_FINAL_REPLAY_DIR"
+pnpm exec tsx output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts \
+  --replay "$ARTDUO_A2A_FINAL_REPLAY_DIR/image-embedding-final.json" \
+  --replay-repeat "$ARTDUO_A2A_FINAL_REPLAY_DIR/image-embedding-final-repeat.json" \
+  --replay-report "$ARTDUO_A2A_FINAL_REPLAY_DIR/image-embedding-final.md" \
+  --output-dir "$ARTDUO_IMAGE_FINAL_DIR/a2a-harness"
 pnpm --filter @artduo/web exec playwright test e2e/image-scene-fusion.spec.ts
 ```
 

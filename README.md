@@ -23,7 +23,7 @@ Phase 1 closeout evidence:
 - Benchmark prompts: `benchmarks/vector-promotion-prompts.json`
 - Current benchmark gate: rerank Top-1 `95.83%`, rerank Top-5 `100%`, manual top10 pass rate `83.33%`
 - Readiness recheck (2026-07-26): an alias-expansion regression was corrected; the current local benchmark is again Top-1 `95.83%` and Top-5 `100%`. The remaining permitted Top-1 miss is `desire-metaphor-01`.
-- A2A is a differential baseline, not an all-green certification. The current harness run is `50 pass / 45 fail / 5 blocked`; promotion compares pass/fail/blocked case IDs, not just totals or the harness exit code.
+- A2A is a differential baseline, not an all-green certification. The authoritative case set is `55 pass / 40 fail / 5 blocked`. A previous source-less `50/45/5` capture and the current reproducible `51/44/5` capture are regressions, not replacement baselines; promotion is blocked until every authoritative pass ID remains a pass. Promotion compares pass/fail/blocked case IDs, not just totals or the harness exit code.
 - Browser E2E has 14 defined cases. The current local baseline is blocked until the Playwright Chromium artifact is available; this is an environment prerequisite, not an application assertion result.
 
 ## Active Commands
