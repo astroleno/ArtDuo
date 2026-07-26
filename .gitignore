@@ -189,6 +189,9 @@ playwright-report/
 # Local Codex artifacts
 .codex/
 
+# Isolated agent worktrees
+.worktrees/
+
 # ===========================================
 # 数据文件（项目特定）
 # ===========================================
