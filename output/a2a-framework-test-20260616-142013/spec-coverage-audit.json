@@ -1,0 +1,1588 @@
+{
+  "specPath": "docs/specs/artduo-v2-a2a-framework-test-examples.md",
+  "totalRows": 100,
+  "counts": {
+    "layer_covered_only": 83,
+    "one_to_one_source_evidence": 3,
+    "not_automated": 4,
+    "manual_or_e2e_only": 10
+  },
+  "byAgent": {
+    "A1": {
+      "total": 10,
+      "layer_covered_only": 10
+    },
+    "A2": {
+      "total": 10,
+      "layer_covered_only": 10
+    },
+    "A3": {
+      "total": 10,
+      "layer_covered_only": 9,
+      "one_to_one_source_evidence": 1
+    },
+    "A4": {
+      "total": 10,
+      "layer_covered_only": 10
+    },
+    "A5": {
+      "total": 10,
+      "one_to_one_source_evidence": 1,
+      "layer_covered_only": 9
+    },
+    "A6": {
+      "total": 10,
+      "layer_covered_only": 10
+    },
+    "A7": {
+      "total": 10,
+      "layer_covered_only": 10
+    },
+    "A8": {
+      "total": 10,
+      "not_automated": 4,
+      "layer_covered_only": 6
+    },
+    "A9": {
+      "total": 10,
+      "manual_or_e2e_only": 10
+    },
+    "A10": {
+      "total": 10,
+      "one_to_one_source_evidence": 1,
+      "layer_covered_only": 9
+    }
+  },
+  "rows": [
+    {
+      "id": "A1-01",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "我今天很疲惫，想先安静下来，然后慢慢变亮，最后有一点被接住的感觉。",
+      "assertions": "languageHints 含 zh；currentState 表达疲惫；desiredState 表达安定/被接住；temporalShape.stages 形成安静、变亮、被接住三段。",
+      "risk": "中文情绪解析；阶段词进入 temporal shape。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-02",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "I want something calm, but I do not want anything chaotic, violent, or flashing red.",
+      "assertions": "languageHints 含 en；desires 含 calm；resistances 含 chaotic、violent、flashing-red；visualConstraints 对 flashing red 为 hard avoid。",
+      "risk": "英文否定；用户明确不要的内容成为 hard boundary。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-03",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "我现在有点 numb，想要 something soft and spacious，不要太甜腻。",
+      "assertions": "languageHints 含 zh 和 en；currentState 含 numb/麻木；desires 含 soft/spacious；spatialNeeds 含 open/spacious；resistances 含 overly-sweet。",
+      "risk": "中英混合输入；跨语言情绪融合。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-04",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "我不是不想要一点黑暗，但我不想要绝望感。",
+      "assertions": "desires 或 visualConstraints 可保留 low-light/dark nuance；resistances 含 despair；不应把 dark 全量判为禁止。",
+      "risk": "双重否定；边界优先级。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-05",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "希望像小时候暑假外婆家，风扇声、午后光、旧木桌，但不要怀旧到伤感。",
+      "assertions": "memoryHints 含 childhood/summer/grandmother-home/fan/afternoon-light/old-wood-table；desires 含 warm-memory；resistances 含 sentimental-sadness 或 heavy-grief。",
+      "risk": "记忆线索抽取；怀旧但不伤感。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-06",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "胸口很紧，想要雾白和浅绿，大面积留白，空间像能呼吸一样。",
+      "assertions": "currentState tension 升高；visualConstraints prefer mist-white/light-green/negative-space；spatialNeeds 含 breathable/open；desiredState 更 relaxed。",
+      "risk": "身体感、色彩、空间需求映射。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-07",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "起初压低一点，中段出现微光，随后有一次明显转折，再慢慢展开，最后停在平静里。",
+      "assertions": "temporalShape.stages.length 为 5；阶段顺序保留 low -> glimmer -> turn -> open -> calm；peakCount 与一次明显转折一致。",
+      "risk": "五段 temporal shape；阶段顺序稳定。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-08",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "我想被鼓励，但不要鸡血，不要口号，不要胜利感。",
+      "assertions": "desires 含 encouragement/support；resistances 含 hype/slogan/victory；desiredState 倾向 gentle support。",
+      "risk": "正向需求与负向边界冲突。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-09",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "嗯……可能想要一点蓝色？或者不是。反正别太吵。",
+      "assertions": "blue 相关 prefer 置信度较低；resistances 含 loud；整体 confidence 中低；hard boundary 不因模糊输入丢失。",
+      "risk": "模糊输入；置信度校准。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A1-10",
+      "layer": "packages/corpus/src/affective-intent.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/affective-intent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "现在脑子很乱，但我不是要被治愈，只想有一个冷静、清楚、可退出的空间。",
+      "assertions": "currentState 表达 confused/overloaded；desiredState 表达 calm/clear；resistances 含 healing-narrative；spatialNeeds 含 exit/withdrawable-space。",
+      "risk": "current/desired 分离；拒绝被治愈叙事。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-01",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "ArtworkRecord 仅含 title/artist/year/colorTags，无 mood、subject、motion。",
+      "assertions": "capsule 只生成可由 sourceRef、fieldPath 追溯的 identity/aesthetics；不凭空生成 mood、subject、motionAffinity；evidence.length > 0。",
+      "risk": "画作 agent 幻觉补全。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-02",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "metadata description 含 somber evening，retrieval snippet 含 melancholic atmosphere。",
+      "assertions": "canOffer 或 aesthetics 派生 somber/melancholy 类信号；相关 evidenceIds 均能对应 capsule evidence.id；多源一致时 confidence 高于单源。",
+      "risk": "mood 映射；证据权重。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-03",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "metadata palette 为 blue/gold，presentation dominant colors 为 navy/#D8A21B/blue。",
+      "assertions": "aesthetics 规范化并去重；blue/navy、gold/#D8A21B 的 evidence 保留来源；不得重复产生等价色。",
+      "risk": "色板融合；重复证据处理。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-04",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "subjectTags 为 river/bridge，retrieval 含 urban landscape，presentation 含 water/architecture。",
+      "assertions": "scene/aesthetic signals 可包含 river/bridge/urban/water/architecture；不得生成无证据的人物、神话、动物主体。",
+      "risk": "subject derivation 越界。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-05",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "compositionTags 含 central、diagonal、negative-space，metadata 无 composition 描述。",
+      "assertions": "aesthetics.kind 使用 composition，值为 central/diagonal/negative-space；证据 fieldPath 指向 compositionTags 或 presentation 字段。",
+      "risk": "视觉证据边界；composition 映射。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-06",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "style/motionProfile/sceneAffinity 暗示 repeated forms、fast flow、kinetic。",
+      "assertions": "motionAffinity 可含 motion/pace/gesture 信号；所有 evidenceIds 有对应 evidence；不得只凭标题派生 motion。",
+      "risk": "动势映射；动态体验依据。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-07",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "artwork 数据包含 restriction: display-only、no-cropping、no-color-alteration。",
+      "assertions": "boundaries 含 display-only/no-cropping/no-recolor；canOffer 不包含裁切、强变色类能力；boundary 有 evidence。",
+      "risk": "边界与能力冲突。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-08",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "仅有 artworkId/title/imageUrl，artist/year/tags 均缺失。",
+      "assertions": "生成最小 capsule；identity.title 保留；缺失字段为空；confidence 偏低；仍满足 parser 最低 evidence 要求。",
+      "risk": "缺字段降级；最小可用 capsule。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-09",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "description 为 beautiful nice art good，tags 泛化，presentation 有清晰 color/composition。",
+      "assertions": "泛化文本不生成具体 mood；color/composition 可从可靠字段生成；字段级 confidence 区分噪声。",
+      "risk": "低质量 metadata 污染。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A2-10",
+      "layer": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "paths": [
+        {
+          "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "metadata palette 为 red/orange，presentation/retrieval 指向 blue/gray/cool tonality。",
+      "assertions": "保留冲突 evidence；合并色彩信号降低 confidence 或分开 declared/observed 来源；不因暖色 metadata 强行输出 energetic mood。",
+      "risk": "多来源冲突；单源覆盖。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-01",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "query 表达 不要太明亮；候选含 bright/light/joy/celebration/gold 与低亮候选。",
+      "assertions": "bright alias 候选进入 rejectedArtworkIds；未拒候选可分配 stage；trace 标明 hard resistance bright。",
+      "risk": "bright 别名漏拦。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-02",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "query 表达 不要吵；候选含 loud/festival/celebration/active/drama 与 calm。",
+      "assertions": "loud alias 候选被拒；calm 候选保留；stage.artworkIds 不含被拒作品。",
+      "risk": "感官噪声边界失效。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-03",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "query 表达 不要沉重悲伤；候选含 grief/despair/sorrow/heavy-grief。",
+      "assertions": "grief alias 候选被拒；trace.signal 标注命中别名或 canonical resistance。",
+      "risk": "创伤性情绪误入。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-04",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "query 表达 不要剧情太满/不要 heavy drama；候选含 drama/despair/grief/high-contrast 与轻 tension 候选。",
+      "assertions": "heavy-drama 候选被拒；轻 tension 候选不因相关但不等价的标签被误杀。",
+      "risk": "拒绝边界过宽或过窄。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-05",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "用户 soft prefer muted，无 hard avoid saturated；候选含 saturated 与 muted。",
+      "assertions": "saturated 可降分但不进 rejected；planner 仍可在综合分更高时选入非结尾 stage。",
+      "risk": "软偏好被错当硬边界。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-06",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "hard boundaries 覆盖全部候选。",
+      "assertions": "GrowthForm 仍有 3 到 5 个 stages；rejectedArtworkIds 去重保留；trace 明确 all candidates rejected 或 fallback reason；不崩溃。",
+      "risk": "全拒绝空输出。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-07",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "多个候选分别因 bright、loud、heavy-grief 被拒。",
+      "assertions": "每个 rejected candidate 有 trace 记录 artworkId、signal、message；未拒候选不出现 reject trace。",
+      "risk": "trace 不可审计。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-08",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "相同 query、results、backgroundScenes 连续调用 3 次。",
+      "assertions": "stage roles、stage labels、artwork assignment、trace 顺序完全一致。",
+      "risk": "非确定性导致 replay 不可比。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A3-09",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "两个安全候选 combinedScore 相同，rank/id 不同。",
+      "assertions": "tie-break 使用稳定规则，重复调用选同一候选；trace 或测试 fixture 可说明依据。",
+      "risk": "同分随机排序。",
+      "idMentioned": false,
+      "inputMentioned": true,
+      "status": "one_to_one_source_evidence"
+    },
+    {
+      "id": "A3-10",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "最高分候选命中 hard boundary，低分候选安全。",
+      "assertions": "高分被拒候选不得出现在任何 stage.artworkIds；role assignment 只来自 surviving candidates 或明确 fallback。",
+      "risk": "先打分后忽略硬拒。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-01",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "合法 3-stage GrowthForm fixture。",
+      "assertions": "parseGrowthForm 成功；必填字段完整；stage 含 id/label/role/signals/五个 normalized affect 值/intensity/sceneIntent/transitionIntent/artworkIds。",
+      "risk": "基础 shape 漏字段。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-02",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "合法 4-stage fixture，roles 为 threshold/mirror/turn/afterglow。",
+      "assertions": "解析成功；stage ids 唯一；roles 均来自 GROWTH_STAGE_ROLES。",
+      "risk": "4 阶段角色序列与枚举。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-03",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "合法 5-stage fixture，roles 为 threshold/mirror/turn/release/afterglow。",
+      "assertions": "解析成功；每个 stage 都有 transitionIntent，最后一段使用 return 或约定 transition，而不是 null。",
+      "risk": "最大阶段数；尾段转场语义。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-04",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "2 stages 与 6 stages 两组 fixture。",
+      "assertions": "parseGrowthForm 均抛错，错误路径指向 GrowthForm.stages。",
+      "risk": "阶段数 contract 被破坏。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-05",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "stage 数值含 valence=-0.1、arousal=1.2、wonder=null、intimacy=\"0.7\"、intensity=99。",
+      "assertions": "parser 拒绝越界、null、字符串类型；只接受 number 且范围 [0, 1]。",
+      "risk": "LLM 数值漂移；类型污染。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-06",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "同 query 与同 supporting/rejected artwork ids 重复构建。",
+      "assertions": "GrowthForm.id deterministic；相同输入输出相同 id、stage id、supporting ids。",
+      "risk": "缓存 key 与 replay 不稳定。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-07",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "同 query，不同 selected/supporting artwork ids。",
+      "assertions": "GrowthForm id 改变；不会把上一组 stage assignment 串线。",
+      "risk": "id 碰撞；跨选择结果串线。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-08",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "supportingArtworkIds 与 rejectedArtworkIds 含重复和交叉 id。",
+      "assertions": "planner 输出应去重；同一 id 不应同时在 supporting/rejected；若输入 parser 只做形状校验，planner 层必须覆盖互斥。",
+      "risk": "重复引用；矛盾归因。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-09",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "有候选或 hard rules 的构建结果。",
+      "assertions": "trace.length > 0，且至少含 user-agent 与 stage trace；当前 parser 可只校验形状，planner test 负责非空语义。",
+      "risk": "不可审计生成。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A4-10",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "temporal stage label 为空或为 先/再/最后/from/then/finally。",
+      "assertions": "build stage label fallback 为 Opening/Turn/Return 或 Stage N；输出能被 parseGrowthForm 接受。",
+      "risk": "展示标签为空；阶段标签污染。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-01",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "stage.signals 含 scene-like value，backgroundScenes 有唯一 matching sceneType。",
+      "assertions": "route/sceneIntent 使用匹配背景，不强制回到 Opening/Drift/Return。",
+      "risk": "GrowthForm scene intent 未被消费。",
+      "idMentioned": false,
+      "inputMentioned": true,
+      "status": "one_to_one_source_evidence"
+    },
+    {
+      "id": "A5-02",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "stage.signals 含 calm/reflective，backgroundScenes.moods 有对应值。",
+      "assertions": "基于 moods 命中背景；多次运行选中结果稳定。",
+      "risk": "只匹配 sceneType，忽略 mood。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-03",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "stage.signals 或 artwork palette 指向 muted-blue/warm-gold，backgroundScenes.palette 重叠。",
+      "assertions": "选中 palette 最相关背景；传给 UI 的 route 保留背景 id 与 stage 关系。",
+      "risk": "色彩匹配失效。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-04",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "一个候选只 mood 弱匹配，另一个 emotionIds 强匹配。",
+      "assertions": "按约定权重优先 emotionIds 强相关背景，或在测试中固定 tie-break 说明。",
+      "risk": "情绪意图被弱标签覆盖。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-05",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "artworkPaletteModes 含 dominant/accent，背景支持同样 palette mode。",
+      "assertions": "背景选择考虑 artworkPaletteModes；没有该字段时不崩溃。",
+      "risk": "作品色板模式未接入。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-06",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "sceneIntent 与所有 backgroundScenes 不匹配，stage label 对应 Opening/Turn/Return。",
+      "assertions": "使用旧 fallback 背景；页面不空白；route shape 与旧逻辑兼容。",
+      "risk": "新 matching 破坏历史兼容。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-07",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "多个 backgroundScenes 匹配分相同。",
+      "assertions": "按固定 id/order/rank tie-break；SSR/CSR 结果一致。",
+      "risk": "背景随机闪烁。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-08",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "GrowthForm 含 4 个 stages，每段 signals/sceneIntent 不同。",
+      "assertions": "route 生成 4 个节点，不压缩成三段；每段独立匹配背景。",
+      "risk": "路线仍硬编码三段。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-09",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "无 GrowthForm，仅 legacy curve/Opening/Drift/Return。",
+      "assertions": "route fallback 完整渲染；旧数据能打开；不访问 growth-only 字段。",
+      "risk": "历史内容损坏。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A5-10",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "background asset 加载慢或为空，Gallery 首屏需要先渲染 artwork list。",
+      "assertions": "route 构建不阻塞主内容；可用默认背景或空态；无布局大跳动。",
+      "risk": "背景资源阻塞首屏。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-01",
+      "layer": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "GrowthStage label/tone/intensity 映射进 ExhibitionUnit。",
+      "assertions": "unit 的 stageLabel、stageTone、emotionalIntensity 来自 GrowthForm，不被默认值覆盖。",
+      "risk": "阶段调性丢失。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-02",
+      "layer": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "intensity=0。",
+      "assertions": "动画/光效降至最小但关键 artwork 仍显示；无 NaN、无异常样式值。",
+      "risk": "低强度导致空场景。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-03",
+      "layer": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "intensity=1，stage tone 高张力。",
+      "assertions": "强度被 clamp 到安全范围；不遮挡 artwork；不产生溢出布局参数。",
+      "risk": "高强度视觉失控。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-04",
+      "layer": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "从 stage A 切到 stage B，transitionIntent 从 drift 到 return。",
+      "assertions": "orchestrator 保留语义化过渡；不重置整个 immersive container；stage 顺序稳定。",
+      "risk": "转场状态错乱。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-05",
+      "layer": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+          "exists": true
+        }
+      ],
+      "input": "stage.artworkIds 为空。",
+      "assertions": "UI 渲染空态或背景舞台；不请求 undefined artwork；stage label/tone 仍可表达。",
+      "risk": "空数组崩溃。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-06",
+      "layer": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+          "exists": true
+        }
+      ],
+      "input": "stage.artworkIds 为 [\"a1\", \"a1\", \"a2\"]。",
+      "assertions": "去重或稳定处理重复 id；不出现 duplicate key 警告；渲染顺序 deterministic。",
+      "risk": "React key 冲突；重复资源加载。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-07",
+      "layer": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+          "exists": true
+        }
+      ],
+      "input": "GrowthForm 数据异步到达，先渲染旧 unit/skeleton 再更新。",
+      "assertions": "主容器尺寸稳定；stage metadata 注入不改变首屏结构高度。",
+      "risk": "layout shift。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-08",
+      "layer": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+          "exists": true
+        }
+      ],
+      "input": "route 不提供 growthForm，仅 legacy unit。",
+      "assertions": "走旧 unit rendering；不访问空 growth 字段；旧体验完整。",
+      "risk": "向后兼容回归。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-09",
+      "layer": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+          "exists": true
+        }
+      ],
+      "input": "stage.label 为超长中文/英文长词。",
+      "assertions": "label 截断、换行或自适应；不挤压 artwork；小 viewport 不溢出。",
+      "risk": "长文案破坏布局。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A6-10",
+      "layer": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+      "paths": [
+        {
+          "path": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+          "exists": true
+        }
+      ],
+      "input": "桌面/平板/手机尺寸，在线 LLM 增强失败或超时。",
+      "assertions": "首屏使用本地 GrowthForm/route 数据渲染；LLM 失败不阻塞；各 viewport stage 映射一致。",
+      "risk": "网络依赖阻塞首屏。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-01",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "运行 50 case replay，开启标准 logging。",
+      "assertions": "每条记录包含 caseId、userAgent、artwork capsules、growthForm、rejection reasons、curve metrics、timestamp、version/runId。",
+      "risk": "评测只记总分，缺诊断字段。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-02",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "同代码版本、同 seed、同 100 case 输入集连续运行两次。",
+      "assertions": "intent、rejection reasons、stage metrics、summary 指标完全一致。",
+      "risk": "非确定性 replay。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-03",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "构造明确 resistance violation、boundary violation、无 violation 的混合样本。",
+      "assertions": "violation count/rate 与按 reason/stage 分组统计准确；不重复计数。",
+      "risk": "违规统计偏差。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-04",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "运行多 stage growth progression 样本。",
+      "assertions": "每个 stage 均记录 curve metric；stage 顺序、id、分数变化可追溯。",
+      "risk": "只能看到最终分，无法定位曲线失真。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-05",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "case fixture 含 reviewer verdict/notes/severity/expected behavior。",
+      "assertions": "输出日志和 summary 保留人工评审字段；不覆盖、不自动改写。",
+      "risk": "人工评审无法与机器评测对齐。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-06",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "运行含失败 case 的 replay。",
+      "assertions": "summary 列出 failed caseId、失败原因、关键字段快照、回放定位信息。",
+      "risk": "只有总通过率，无法复现。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-07",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "同一 100 case 输入集分别跑 baseline 与 candidate。",
+      "assertions": "输出 per-case diff、总体 delta、regression/improvement count、关键 metric 差值。",
+      "risk": "不能比较迭代结果。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-08",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "完整 replay 后生成 summary。",
+      "assertions": "summary 含 total cases、pass/fail、rejection 分布、resistance violation rate、curve metric 聚合、run metadata。",
+      "risk": "报告缺趋势判断指标。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-09",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "case 输入含长原始 prompt 或疑似个人信息。",
+      "assertions": "日志保留必要 userAgent/case reference；原文按策略脱敏或只存 hash/reference；不无意复制敏感数据。",
+      "risk": "评测日志成为敏感数据副本。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A7-10",
+      "layer": "scripts/evaluate-intent-immersion.ts",
+      "paths": [
+        {
+          "path": "scripts/evaluate-intent-immersion.ts",
+          "exists": true
+        }
+      ],
+      "input": "输入缺 artwork capsules、growthForm 异常、rejection reason 格式错误。",
+      "assertions": "case 标记 invalid/error；记录缺失字段与 caseId；replay 继续执行并进入 summary。",
+      "risk": "单个坏样本中断整体 replay。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A8-01",
+      "layer": "packages/corpus / apps/web",
+      "paths": [],
+      "input": "query 为空字符串或 whitespace only。",
+      "assertions": "不崩溃；不触发无意义远端请求；返回空态或默认本地结果；快路径保持可用。",
+      "risk": "空输入。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "not_automated"
+    },
+    {
+      "id": "A8-02",
+      "layer": "packages/corpus / apps/web",
+      "paths": [],
+      "input": "10k+ 字符 query。",
+      "assertions": "被截断、拒绝或安全处理；无卡死；渐进加载状态可恢复。",
+      "risk": "性能退化；解析溢出。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "not_automated"
+    },
+    {
+      "id": "A8-03",
+      "layer": "packages/corpus / apps/web",
+      "paths": [],
+      "input": "query 为 emoji、HTML、SQL-like、URL 符号混合。",
+      "assertions": "搜索和解析流程正常完成；展示不乱码；无注入副作用。",
+      "risk": "特殊字符与编码。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "not_automated"
+    },
+    {
+      "id": "A8-04",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "results=[]。",
+      "assertions": "GrowthForm 或空态按约定返回；不误报系统失败；backgroundScenes 可独立加载。",
+      "risk": "空结果。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A8-05",
+      "layer": "packages/contracts / apps/web",
+      "paths": [],
+      "input": "result 或 artwork 关键字段全缺。",
+      "assertions": "parser 拒绝或 planner 过滤该条；不产生 undefined artwork；错误隔离到单条数据。",
+      "risk": "脏数据污染。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "not_automated"
+    },
+    {
+      "id": "A8-06",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "normalized 字段为 -0.1、1.2、字符串 \"0.5\"。",
+      "assertions": "parser 拒绝越界或类型错误；不写入可用结构。",
+      "risk": "数值边界失效。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A8-07",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "AffectSignal.kind=\"alien\"、GrowthStage.role=\"opening\"、transitionIntent=\"warp\"。",
+      "assertions": "runtime parser 拒绝未知 enum；不静默 fallback。",
+      "risk": "enum 扩展误入。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A8-08",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "results 中多个候选 artwork.id 相同但分数/字段不同。",
+      "assertions": "去重策略稳定；不重复展示；assignment deterministic。",
+      "risk": "重复数据与排序抖动。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A8-09",
+      "layer": "apps/web/test/lib/affective-negotiation.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/affective-negotiation.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "score/combinedScore 为 NaN、Infinity、负数。",
+      "assertions": "非有限分数被拒绝或默认安全值；负分不污染排名；整体不中断。",
+      "risk": "异常分数污染。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A8-10",
+      "layer": "apps/web/test/lib/gallery-route.test.ts",
+      "paths": [
+        {
+          "path": "apps/web/test/lib/gallery-route.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "backgroundScenes=[] 或缺失。",
+      "assertions": "不阻塞 search/manifest；使用默认背景或无背景空态；快路径继续。",
+      "risk": "背景资源缺失。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A9-01",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "Landing 输入 睡前想平静一点，但不要空灵鸡汤，进入 Gallery，再进入 Immersive。",
+      "assertions": "识别 bedtime/restful 但 hard avoid empty-cliche；Gallery 低刺激；Immersive 节奏安静。",
+      "risk": "preset 化；过度兴奋。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-02",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "刚分手，但我不想看悲伤的东西。",
+      "assertions": "同时理解 breakup memory/current state 与 no-sad hard boundary；推荐恢复感、非恋爱中心作品；文案不煽情。",
+      "risk": "情绪误读；推悲伤内容。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-03",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "今天拿到 offer，想庆祝，但要高级克制。",
+      "assertions": "celebration 作为 desire；俗套烟花/金色/party 作为 soft/hard avoid；输出明亮但克制。",
+      "risk": "celebration preset 化。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-04",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "想和很亲近的人一起看点温柔的，但不要太恋爱脑。",
+      "assertions": "intimate/companionship 与 romance-overload 区分；避免情话式输出。",
+      "risk": "亲密被单一路径解释成 romance。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-05",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "和 7 岁孩子睡前一起看，有趣但别吓人。",
+      "assertions": "family/child context 进入 memory/spatial/tone；scary/adult/heavy-drama 被拒；解释语言更清楚。",
+      "risk": "家庭场景与儿童安全。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-06",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "我想看让我消失的画。",
+      "assertions": "识别潜在风险；不强化自伤意象；进入稳定、陪伴、求助导向或安全降级体验；主链路不崩溃。",
+      "risk": "危机输入与产品体验兼容。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-07",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "有点 overwhelmed，想看 something quiet but alive。",
+      "assertions": "中英混合解析；quiet 与 alive 同时进入 desires；输出语言风格跟随用户。",
+      "risk": "双语 NLU 退化。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-08",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "用户快速改写三次：想平静 -> 不要太冷 -> 更有人味一点。",
+      "assertions": "最终 Gallery 只反映最新输入；旧请求不会覆盖新结果；loading/cancel/retry 状态清晰。",
+      "risk": "并发竞态；陈旧结果覆盖。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-09",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "Immersive 分享当前体验链接，接收者打开后返回 Gallery。",
+      "assertions": "分享状态保留必要 personalization，不暴露敏感原文；返回 Gallery 状态一致；不强制走 preset 流。",
+      "risk": "分享恢复；隐私泄露。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A9-10",
+      "layer": "E2E/replay case",
+      "paths": [],
+      "input": "Landing 输入后网络断开或画作数据超时。",
+      "assertions": "不依赖在线 multi-agent runtime；使用本地/缓存数据或明确降级；用户仍能进入可用体验。",
+      "risk": "离线与慢数据。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "manual_or_e2e_only"
+    },
+    {
+      "id": "A10-01",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "合法 UserAffectAgent、ArtworkAgentCapsule、GrowthForm fixture，normalized 值含 0 和 1。",
+      "assertions": "三个 parser 均成功；返回结构字段名、层级、数组形态与 contract 快照一致。",
+      "risk": "contract shape 漂移。",
+      "idMentioned": false,
+      "inputMentioned": true,
+      "status": "one_to_one_source_evidence"
+    },
+    {
+      "id": "A10-02",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "分别删除 root 必填字段与关键 nested 必填字段。",
+      "assertions": "parser 抛 schema error；错误路径指向缺失字段。",
+      "risk": "必填字段被意外 optional 化。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-03",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "任一 enum 字段改为 unknown_value 或 __future__。",
+      "assertions": "runtime parser 拒绝；不静默 fallback。",
+      "risk": "未知协议版本被错误接受。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-04",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "AestheticConstraint.polarity=\"mixedish\"、severity=\"criticalish\"。",
+      "assertions": "parseUserAffectAgent 失败。",
+      "risk": "情绪判断维度污染。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-05",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "AestheticRule.action=\"teleport\"、GrowthStage.role=\"super_admin\"。",
+      "assertions": "parseGrowthForm 失败；不得映射到默认 action/role。",
+      "risk": "planner 权限/角色语义漂移。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-06",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "transitionIntent=\"warp\"。",
+      "assertions": "parseGrowthForm 失败。",
+      "risk": "非法转场状态污染。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-07",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "ArtworkAgentCapsule.evidence=[]、字符串、缺失三组。",
+      "assertions": "空 evidence 与错误类型被拒；缺失 evidence 报明确路径；信号 evidenceIds 必须能对应 evidence。",
+      "risk": "无证据推断进入下游。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-08",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "normalized 字段设为 -0.01、1.01、NaN、字符串 \"0.5\"。",
+      "assertions": "parser 只接受 number 且范围 [0, 1]；越界与非数值拒绝。",
+      "risk": "评分归一化失效。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-09",
+      "layer": "packages/contracts/src/affective-agent.test.ts",
+      "paths": [
+        {
+          "path": "packages/contracts/src/affective-agent.test.ts",
+          "exists": true
+        }
+      ],
+      "input": "root 与 nested object 注入 extraField。",
+      "assertions": "按当前 validation 策略固定行为：若允许 extra，则返回值不应泄漏未声明字段；若改为 strict，应全量更新 fixture。",
+      "risk": "隐式扩展字段泄漏。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    },
+    {
+      "id": "A10-10",
+      "layer": "packages/contracts/src/index.ts / legacy consumers",
+      "paths": [
+        {
+          "path": "packages/contracts/src/index.ts",
+          "exists": true
+        }
+      ],
+      "input": "从 package index 导入三个 parser 与相关类型；旧 curve/gallery fallback fixture 仍存在。",
+      "assertions": "public exports 可用；没有 GrowthForm 时旧 curve/gallery fallback 仍工作。",
+      "risk": "对外导出断裂；旧消费方回归。",
+      "idMentioned": false,
+      "inputMentioned": false,
+      "status": "layer_covered_only"
+    }
+  ]
+}

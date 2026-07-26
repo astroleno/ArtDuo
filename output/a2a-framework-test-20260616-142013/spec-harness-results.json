@@ -1,0 +1,571 @@
+{
+  "counts": {
+    "pass": 55,
+    "fail": 40,
+    "blocked": 5
+  },
+  "byAgent": {
+    "A1": {
+      "total": 10,
+      "pass": 0,
+      "fail": 10,
+      "blocked": 0
+    },
+    "A2": {
+      "total": 10,
+      "pass": 3,
+      "fail": 7,
+      "blocked": 0
+    },
+    "A3": {
+      "total": 10,
+      "pass": 9,
+      "fail": 1,
+      "blocked": 0
+    },
+    "A4": {
+      "total": 10,
+      "pass": 9,
+      "fail": 1,
+      "blocked": 0
+    },
+    "A5": {
+      "total": 10,
+      "pass": 8,
+      "fail": 2,
+      "blocked": 0
+    },
+    "A6": {
+      "total": 10,
+      "pass": 7,
+      "fail": 1,
+      "blocked": 2
+    },
+    "A7": {
+      "total": 10,
+      "pass": 2,
+      "fail": 7,
+      "blocked": 1
+    },
+    "A8": {
+      "total": 10,
+      "pass": 7,
+      "fail": 3,
+      "blocked": 0
+    },
+    "A9": {
+      "total": 10,
+      "pass": 1,
+      "fail": 7,
+      "blocked": 2
+    },
+    "A10": {
+      "total": 10,
+      "pass": 9,
+      "fail": 1,
+      "blocked": 0
+    }
+  },
+  "results": [
+    {
+      "id": "A1-01",
+      "status": "fail",
+      "message": "missing quiet stage"
+    },
+    {
+      "id": "A1-02",
+      "status": "fail",
+      "message": "missing chaotic resistance"
+    },
+    {
+      "id": "A1-03",
+      "status": "fail",
+      "message": "missing soft/spacious desire"
+    },
+    {
+      "id": "A1-04",
+      "status": "fail",
+      "message": "dark nuance was not preserved"
+    },
+    {
+      "id": "A1-05",
+      "status": "fail",
+      "message": "missing memory hint childhood"
+    },
+    {
+      "id": "A1-06",
+      "status": "fail",
+      "message": "tension was not elevated"
+    },
+    {
+      "id": "A1-07",
+      "status": "fail",
+      "message": "expected 5 stages, got 4"
+    },
+    {
+      "id": "A1-08",
+      "status": "fail",
+      "message": "missing encouragement/support desire"
+    },
+    {
+      "id": "A1-09",
+      "status": "fail",
+      "message": "ambiguous input did not lower confidence"
+    },
+    {
+      "id": "A1-10",
+      "status": "fail",
+      "message": "missing healing narrative resistance"
+    },
+    {
+      "id": "A2-01",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A2-02",
+      "status": "fail",
+      "message": "description/retrieval mood was not derived"
+    },
+    {
+      "id": "A2-03",
+      "status": "fail",
+      "message": "blue/navy equivalent colors were duplicated"
+    },
+    {
+      "id": "A2-04",
+      "status": "fail",
+      "message": "missing derived scene/subject signal river"
+    },
+    {
+      "id": "A2-05",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A2-06",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A2-07",
+      "status": "fail",
+      "message": "missing restriction boundary display-only"
+    },
+    {
+      "id": "A2-08",
+      "status": "fail",
+      "message": "minimal capsule confidence should be low"
+    },
+    {
+      "id": "A2-09",
+      "status": "fail",
+      "message": "generic text became concrete mood"
+    },
+    {
+      "id": "A2-10",
+      "status": "fail",
+      "message": "conflicting color sources did not lower confidence"
+    },
+    {
+      "id": "A3-01",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-02",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-03",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-04",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-05",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-06",
+      "status": "fail",
+      "message": "fallback/all-rejected trace reason missing"
+    },
+    {
+      "id": "A3-07",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-08",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-09",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A3-10",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-01",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-02",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-03",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-04",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-05",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-06",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-07",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-08",
+      "status": "fail",
+      "message": "same id appears in supporting and rejected"
+    },
+    {
+      "id": "A4-09",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A4-10",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-01",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-02",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-03",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-04",
+      "status": "fail",
+      "message": "emotionIds strong match did not beat weak mood match"
+    },
+    {
+      "id": "A5-05",
+      "status": "fail",
+      "message": "artworkPaletteModes matching failed"
+    },
+    {
+      "id": "A5-06",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-07",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-08",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-09",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A5-10",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-01",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-02",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-03",
+      "status": "fail",
+      "message": "high intensity was not clamped"
+    },
+    {
+      "id": "A6-04",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-05",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-06",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-07",
+      "status": "blocked",
+      "message": "Requires browser layout-shift measurement or hydration timing; skipped under no-Playwright constraint."
+    },
+    {
+      "id": "A6-08",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-09",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A6-10",
+      "status": "blocked",
+      "message": "Viewport coverage and online LLM timeout fallback require browser/network scenario control; skipped under no-Playwright constraint."
+    },
+    {
+      "id": "A7-01",
+      "status": "fail",
+      "message": "artwork capsules missing"
+    },
+    {
+      "id": "A7-02",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A7-03",
+      "status": "fail",
+      "message": "violation count/rate grouped statistics missing"
+    },
+    {
+      "id": "A7-04",
+      "status": "fail",
+      "message": "per-stage curve metrics missing"
+    },
+    {
+      "id": "A7-05",
+      "status": "fail",
+      "message": "reviewer fields missing"
+    },
+    {
+      "id": "A7-06",
+      "status": "fail",
+      "message": "failed-case reproduction section missing"
+    },
+    {
+      "id": "A7-07",
+      "status": "fail",
+      "message": "baseline/candidate diff output missing"
+    },
+    {
+      "id": "A7-08",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A7-09",
+      "status": "fail",
+      "message": "raw user prompts are copied into replay JSON"
+    },
+    {
+      "id": "A7-10",
+      "status": "blocked",
+      "message": "Script has hardcoded cases and no injectable malformed-case fixture interface to continue after invalid inputs."
+    },
+    {
+      "id": "A8-01",
+      "status": "fail",
+      "message": "GrowthForm.sourceText: expected non-empty string"
+    },
+    {
+      "id": "A8-02",
+      "status": "fail",
+      "message": "10k+ query was not truncated or rejected"
+    },
+    {
+      "id": "A8-03",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A8-04",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A8-05",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A8-06",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A8-07",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A8-08",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A8-09",
+      "status": "fail",
+      "message": "GrowthForm.trace[1].score: expected number"
+    },
+    {
+      "id": "A8-10",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A9-01",
+      "status": "fail",
+      "message": "empty-cliche/chicken-soup boundary missing"
+    },
+    {
+      "id": "A9-02",
+      "status": "fail",
+      "message": "breakup context missing"
+    },
+    {
+      "id": "A9-03",
+      "status": "fail",
+      "message": "celebration desire missing"
+    },
+    {
+      "id": "A9-04",
+      "status": "fail",
+      "message": "companionship/intimacy missing"
+    },
+    {
+      "id": "A9-05",
+      "status": "fail",
+      "message": "child/family context missing"
+    },
+    {
+      "id": "A9-06",
+      "status": "fail",
+      "message": "crisis/safety risk not detected"
+    },
+    {
+      "id": "A9-07",
+      "status": "fail",
+      "message": "quiet/alive desires missing"
+    },
+    {
+      "id": "A9-08",
+      "status": "blocked",
+      "message": "Rapid rewrite cancellation/race behavior requires UI request concurrency instrumentation."
+    },
+    {
+      "id": "A9-09",
+      "status": "blocked",
+      "message": "Share-link privacy and return-to-gallery state requires routed browser/session validation."
+    },
+    {
+      "id": "A9-10",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-01",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-02",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-03",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-04",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-05",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-06",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-07",
+      "status": "fail",
+      "message": "dangling evidenceIds accepted"
+    },
+    {
+      "id": "A10-08",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-09",
+      "status": "pass",
+      "message": "OK"
+    },
+    {
+      "id": "A10-10",
+      "status": "pass",
+      "message": "OK"
+    }
+  ]
+}
