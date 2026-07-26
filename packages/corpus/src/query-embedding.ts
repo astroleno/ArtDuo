@@ -31,6 +31,7 @@ const STOP_WORDS = new Set([
 ]);
 
 const TOKEN_PATTERN = /[\p{Script=Han}]+|[a-z0-9]+/giu;
+const SOMBER_INTENT_TOKENS = new Set(["grief", "melancholy", "sorrow"]);
 
 const TOKEN_ALIASES: Record<string, string[]> = {
   calm: ["serenity", "tranquil", "peaceful", "still"],
@@ -70,7 +71,7 @@ const TOKEN_ALIASES: Record<string, string[]> = {
   occult: ["mystery", "oracle", "secret", "shadow", "apparition"],
   optimism: ["hope", "renewal", "uplift", "promise"],
   pause: ["contemplation", "stillness", "quiet"],
-  quiet: ["serenity", "calm", "stillness", "contemplation"],
+  quiet: ["serenity", "calm", "stillness"],
   rebirth: ["hope", "renewal", "dawn", "light"],
   repose: ["serenity", "tranquil", "calm", "restful"],
   reverence: ["awe", "wonder", "contemplation", "reverent"],
@@ -264,10 +265,13 @@ function applyNegativeIntentFilters(normalizedText: string, tokens: string[]): s
 
 function expandAliases(tokens: string[]): string[] {
   const expanded: string[] = [];
+  const hasExplicitSomberIntent = tokens.some((token) => SOMBER_INTENT_TOKENS.has(token));
 
   for (const token of tokens) {
     expanded.push(token);
-    expanded.push(...(TOKEN_ALIASES[token] ?? []));
+    if (token !== "quiet" || !hasExplicitSomberIntent) {
+      expanded.push(...(TOKEN_ALIASES[token] ?? []));
+    }
   }
 
   return unique(expanded);

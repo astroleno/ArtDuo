@@ -44,3 +44,20 @@ test("query embedding normalizes and embeds text deterministically", () => {
   assert.equal(first.dimensions, 256);
   assert.ok(first.tokens.includes("mystery"));
 });
+
+test("quiet keeps its serenity expansion without injecting contemplation", () => {
+  const tokens = tokenizeQueryText("I need a quiet room after a difficult day");
+
+  assert.ok(tokens.includes("serenity"));
+  assert.equal(tokens.includes("contemplation"), false);
+});
+
+test("quiet does not overwrite an explicit grief intent with serenity aliases", () => {
+  const tokens = tokenizeQueryText("quiet grief beneath ash colored light");
+
+  assert.ok(tokens.includes("quiet"));
+  assert.ok(tokens.includes("grief"));
+  assert.equal(tokens.includes("serenity"), false);
+  assert.equal(tokens.includes("calm"), false);
+  assert.equal(tokens.includes("stillness"), false);
+});
