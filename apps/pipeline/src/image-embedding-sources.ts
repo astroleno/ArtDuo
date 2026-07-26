@@ -80,7 +80,12 @@ export interface RemoteImageResponse {
 
 export type RemoteImageRequest = (
   url: URL,
-  options: { timeoutMs: number; maxBytes: number; addresses: Array<{ address: string; family: number }> },
+  options: {
+    timeoutMs: number;
+    maxBytes: number;
+    addresses: Array<{ address: string; family: number }>;
+    signal: AbortSignal;
+  },
 ) => Promise<RemoteImageResponse>;
 
 export interface ImageEmbeddingSourceOptions {
@@ -89,6 +94,8 @@ export interface ImageEmbeddingSourceOptions {
   cache?: ImageSourceCache;
   refreshSourceCache?: boolean;
   offline?: boolean;
+  /** Test-only cap; production may only shorten the fixed 15-second limit. */
+  totalTimeoutMs?: number;
   remoteRequest?: RemoteImageRequest;
   dnsLookup?: (hostname: string) => Promise<Array<{ address: string; family: number }>>;
 }
@@ -156,25 +163,27 @@ function isPublicAddress(address: string, family: number): boolean {
   );
 }
 
-function locateSource(input: ImageEmbeddingSourceInput): LocatedSource {
+function locateSources(input: ImageEmbeddingSourceInput): LocatedSource[] {
   if (input.entityType === "artwork") {
     const candidates: Array<[string, string | undefined]> = [
       ["media.imageUrlPreview", input.media.imageUrlPreview],
       ["media.baseImageUrl", input.media.baseImageUrl],
       ["media.imageUrlFull", input.media.imageUrlFull],
     ];
-    const found = candidates.find(([, locator]) => typeof locator === "string" && locator.trim() !== "");
-    if (!found) {
+    const sources = candidates
+      .filter(([, locator]) => typeof locator === "string" && locator.trim() !== "")
+      .map(([fieldPath, locator]) => ({ locator: locator!.trim(), fieldPath, remote: true }));
+    if (sources.length === 0) {
       fail("missing-source", "Artwork has no usable release image reference.");
     }
-    return { locator: found[1]!.trim(), fieldPath: found[0], remote: true };
+    return sources;
   }
 
   const locator = input.asset.local_public_path?.trim();
   if (!locator) {
     fail("missing-source", "Background scene has no usable public image reference.");
   }
-  return { locator, fieldPath: "asset.local_public_path", remote: false };
+  return [{ locator, fieldPath: "asset.local_public_path", remote: false }];
 }
 
 function normalizePublicPath(locator: string): string {
@@ -216,66 +225,49 @@ function mediaTypeFromHeader(value: string | undefined): ImageInfo["mediaType"] 
   fail("fetch-failed", "Image response content type is not allowed.");
 }
 
-function readPngInfo(bytes: Uint8Array): ImageInfo | undefined {
+function detectImageMediaType(bytes: Uint8Array): ImageInfo["mediaType"] | undefined {
   const signature = [137, 80, 78, 71, 13, 10, 26, 10];
-  if (signature.some((value, index) => bytes[index] !== value) || bytes.length < 24) {
-    return undefined;
+  if (bytes.length >= signature.length && !signature.some((value, index) => bytes[index] !== value)) {
+    return "image/png";
   }
-  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-  return { mediaType: "image/png", width: view.getUint32(16), height: view.getUint32(20) };
-}
-
-function readJpegInfo(bytes: Uint8Array): ImageInfo | undefined {
-  if (bytes[0] !== 0xff || bytes[1] !== 0xd8) {
-    return undefined;
+  if (bytes[0] === 0xff && bytes[1] === 0xd8) {
+    return "image/jpeg";
   }
-  let offset = 2;
-  while (offset + 9 < bytes.length) {
-    if (bytes[offset] !== 0xff) {
-      offset += 1;
-      continue;
-    }
-    const marker = bytes[offset + 1];
-    if (marker === undefined) {
-      break;
-    }
-    if (marker === 0xd8 || marker === 0xd9 || (marker >= 0xd0 && marker <= 0xd7)) {
-      offset += 2;
-      continue;
-    }
-    const length = ((bytes[offset + 2] ?? 0) << 8) + (bytes[offset + 3] ?? 0);
-    if (length < 2 || offset + 2 + length > bytes.length) {
-      break;
-    }
-    if ((marker >= 0xc0 && marker <= 0xc3) || (marker >= 0xc5 && marker <= 0xc7) || (marker >= 0xc9 && marker <= 0xcb) || (marker >= 0xcd && marker <= 0xcf)) {
-      const height = ((bytes[offset + 5] ?? 0) << 8) + (bytes[offset + 6] ?? 0);
-      const width = ((bytes[offset + 7] ?? 0) << 8) + (bytes[offset + 8] ?? 0);
-      return { mediaType: "image/jpeg", width, height };
-    }
-    offset += 2 + length;
+  if (
+    bytes.length >= 12 &&
+    Buffer.from(bytes.subarray(0, 4)).toString("ascii") === "RIFF" &&
+    Buffer.from(bytes.subarray(8, 12)).toString("ascii") === "WEBP"
+  ) {
+    return "image/webp";
   }
   return undefined;
 }
 
-function readWebpInfo(bytes: Uint8Array): ImageInfo | undefined {
-  if (bytes.length < 30 || Buffer.from(bytes.subarray(0, 4)).toString("ascii") !== "RIFF" || Buffer.from(bytes.subarray(8, 12)).toString("ascii") !== "WEBP") {
-    return undefined;
+async function decodeImageInfo(bytes: Uint8Array): Promise<ImageInfo> {
+  const mediaType = detectImageMediaType(bytes);
+  if (!mediaType) {
+    fail("decode-failed", "Image bytes do not match a supported image format.");
   }
-  const chunk = Buffer.from(bytes.subarray(12, 16)).toString("ascii");
-  if (chunk === "VP8X") {
-    const width = 1 + (bytes[24] ?? 0) + ((bytes[25] ?? 0) << 8) + ((bytes[26] ?? 0) << 16);
-    const height = 1 + (bytes[27] ?? 0) + ((bytes[28] ?? 0) << 8) + ((bytes[29] ?? 0) << 16);
-    return { mediaType: "image/webp", width, height };
-  }
-  return undefined;
-}
 
-function decodeImageInfo(bytes: Uint8Array): ImageInfo {
-  const info = readPngInfo(bytes) ?? readJpegInfo(bytes) ?? readWebpInfo(bytes);
-  if (!info || info.width <= 0 || info.height <= 0 || info.width > IMAGE_FETCH_LIMITS.maxWidth || info.height > IMAGE_FETCH_LIMITS.maxHeight || info.width * info.height > IMAGE_FETCH_LIMITS.maxPixels) {
+  try {
+    const transformers = await import("@xenova/transformers");
+    const image = await transformers.RawImage.fromBlob(new Blob([bytes], { type: mediaType }));
+    const { width, height } = image;
+    if (
+      !Number.isInteger(width) || !Number.isInteger(height) ||
+      width <= 0 || height <= 0 ||
+      width > IMAGE_FETCH_LIMITS.maxWidth || height > IMAGE_FETCH_LIMITS.maxHeight ||
+      width * height > IMAGE_FETCH_LIMITS.maxPixels
+    ) {
+      fail("decode-failed", "Image dimensions exceed decode limits.");
+    }
+    return { mediaType, width, height };
+  } catch (error) {
+    if (error instanceof SourceError) {
+      throw error;
+    }
     fail("decode-failed", "Image decode validation failed.");
   }
-  return info;
 }
 
 async function defaultDnsLookup(hostname: string): Promise<Array<{ address: string; family: number }>> {
@@ -290,6 +282,7 @@ const defaultRemoteRequest: RemoteImageRequest = async (url, options) => new Pro
   }
   const request = httpsGet(url, {
     lookup: (_hostname, _options, callback) => callback(null, address.address, address.family),
+    signal: options.signal,
   }, (response) => {
     const chunks: Buffer[] = [];
     let sizeBytes = 0;
@@ -312,43 +305,80 @@ const defaultRemoteRequest: RemoteImageRequest = async (url, options) => new Pro
   request.on("error", reject);
 });
 
+function resolveTotalTimeoutMs(value: number | undefined): number {
+  if (value === undefined) {
+    return IMAGE_FETCH_LIMITS.timeoutMs;
+  }
+  if (!Number.isInteger(value) || value <= 0) {
+    throw new TypeError("Image source total timeout must be a positive integer.");
+  }
+  return Math.min(value, IMAGE_FETCH_LIMITS.timeoutMs);
+}
+
+async function withOverallTimeout<T>(
+  timeoutMs: number,
+  operation: (signal: AbortSignal) => Promise<T>,
+): Promise<T> {
+  const controller = new AbortController();
+  return new Promise<T>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      controller.abort();
+      reject(new SourceError("fetch-failed", "Image source request exceeded the total timeout."));
+    }, timeoutMs);
+    operation(controller.signal).then(
+      (value) => {
+        clearTimeout(timeout);
+        resolve(value);
+      },
+      (error: unknown) => {
+        clearTimeout(timeout);
+        reject(error);
+      },
+    );
+  });
+}
+
 async function loadRemoteSource(
   locator: string,
   options: Required<Pick<ImageEmbeddingSourceOptions, "remoteRequest" | "dnsLookup">>,
+  totalTimeoutMs: number,
 ): Promise<{ bytes: Uint8Array; info: ImageInfo; sourceHost: string }> {
-  let url = validateRemoteUrl(locator);
-  for (let redirects = 0; redirects <= IMAGE_FETCH_LIMITS.maxRedirects; redirects += 1) {
-    const addresses = await options.dnsLookup(url.hostname);
-    if (addresses.length === 0 || addresses.some((entry) => !isPublicAddress(entry.address, entry.family))) {
-      fail("invalid-source", "Artwork image host did not resolve to public unicast addresses.");
-    }
-    const response = await options.remoteRequest(url, {
-      timeoutMs: IMAGE_FETCH_LIMITS.timeoutMs,
-      maxBytes: IMAGE_FETCH_LIMITS.maxBytes,
-      addresses,
-    });
-    if (response.status >= 300 && response.status < 400) {
-      const location = response.headers.location;
-      if (!location || redirects === IMAGE_FETCH_LIMITS.maxRedirects) {
-        fail("fetch-failed", "Artwork image redirect could not be completed.");
+  return withOverallTimeout(totalTimeoutMs, async (signal) => {
+    let url = validateRemoteUrl(locator);
+    for (let redirects = 0; redirects <= IMAGE_FETCH_LIMITS.maxRedirects; redirects += 1) {
+      const addresses = await options.dnsLookup(url.hostname);
+      if (addresses.length === 0 || addresses.some((entry) => !isPublicAddress(entry.address, entry.family))) {
+        fail("invalid-source", "Artwork image host did not resolve to public unicast addresses.");
       }
-      url = validateRemoteUrl(new URL(location, url).toString());
-      continue;
+      const response = await options.remoteRequest(url, {
+        timeoutMs: totalTimeoutMs,
+        maxBytes: IMAGE_FETCH_LIMITS.maxBytes,
+        addresses,
+        signal,
+      });
+      if (response.status >= 300 && response.status < 400) {
+        const location = response.headers.location;
+        if (!location || redirects === IMAGE_FETCH_LIMITS.maxRedirects) {
+          fail("fetch-failed", "Artwork image redirect could not be completed.");
+        }
+        url = validateRemoteUrl(new URL(location, url).toString());
+        continue;
+      }
+      if (response.status < 200 || response.status >= 300 || response.bytes.byteLength > IMAGE_FETCH_LIMITS.maxBytes) {
+        fail("fetch-failed", "Artwork image response was unsuccessful or exceeded limits.");
+      }
+      const contentType = mediaTypeFromHeader(response.headers["content-type"]);
+      const info = await decodeImageInfo(response.bytes);
+      if (info.mediaType !== contentType) {
+        fail("fetch-failed", "Image response type does not match image magic bytes.");
+      }
+      return { bytes: response.bytes, info, sourceHost: url.hostname.toLowerCase() };
     }
-    if (response.status < 200 || response.status >= 300 || response.bytes.byteLength > IMAGE_FETCH_LIMITS.maxBytes) {
-      fail("fetch-failed", "Artwork image response was unsuccessful or exceeded limits.");
-    }
-    const contentType = mediaTypeFromHeader(response.headers["content-type"]);
-    const info = decodeImageInfo(response.bytes);
-    if (info.mediaType !== contentType) {
-      fail("fetch-failed", "Image response type does not match image magic bytes.");
-    }
-    return { bytes: response.bytes, info, sourceHost: url.hostname.toLowerCase() };
-  }
-  fail("fetch-failed", "Artwork image redirect limit exceeded.");
+    return fail("fetch-failed", "Artwork image redirect limit exceeded.");
+  });
 }
 
-function loadLocalSource(locator: string, rootDir: string, publicRoot?: string): { bytes: Uint8Array; info: ImageInfo } {
+async function loadLocalSource(locator: string, rootDir: string, publicRoot?: string): Promise<{ bytes: Uint8Array; info: ImageInfo }> {
   const normalizedPath = normalizePublicPath(locator);
   const resolvedPublicRoot = realpathSync(publicRoot ? path.resolve(publicRoot) : path.join(rootDir, "public"));
   const candidatePath = path.resolve(resolvedPublicRoot, `.${normalizedPath}`);
@@ -368,7 +398,7 @@ function loadLocalSource(locator: string, rootDir: string, publicRoot?: string):
   if (bytes.byteLength > IMAGE_FETCH_LIMITS.maxBytes) {
     fail("fetch-failed", "Background scene image exceeds the byte limit.");
   }
-  return { bytes, info: decodeImageInfo(bytes) };
+  return { bytes, info: await decodeImageInfo(bytes) };
 }
 
 export async function resolveImageEmbeddingSource(
@@ -376,61 +406,73 @@ export async function resolveImageEmbeddingSource(
   options: ImageEmbeddingSourceOptions,
 ): Promise<ResolveImageEmbeddingSourceResult> {
   try {
-    const located = locateSource(input);
-    const safeLocator = located.remote ? located.locator : normalizePublicPath(located.locator);
-    const sourceLocatorFingerprint = fingerprintImageSourceLocator(safeLocator);
-    const cacheKey: ImageSourceCacheKey = {
-      entityType: input.entityType,
-      entityId: input.entityId,
-      fieldPath: located.fieldPath,
-      sourceLocatorFingerprint,
-    };
-    const cached = options.refreshSourceCache ? undefined : options.cache?.read(cacheKey);
-    if (cached) {
-      return {
-        status: "ready",
-        source: {
+    const sources = locateSources(input);
+    const totalTimeoutMs = resolveTotalTimeoutMs(options.totalTimeoutMs);
+    let finalFailure: SourceError | undefined;
+    for (const located of sources) {
+      try {
+        const safeLocator = located.remote ? located.locator : normalizePublicPath(located.locator);
+        const sourceLocatorFingerprint = fingerprintImageSourceLocator(safeLocator);
+        const cacheKey: ImageSourceCacheKey = {
           entityType: input.entityType,
           entityId: input.entityId,
           fieldPath: located.fieldPath,
-          bytes: cached.bytes,
-          mediaType: cached.mediaType,
-          width: cached.width,
-          height: cached.height,
-          fingerprint: cached.fingerprint,
           sourceLocatorFingerprint,
-          sourceHost: cached.sourceHost,
-        },
-      };
-    }
-    if (options.offline) {
-      fail("offline-cache-miss", "No matching source bytes are present in the local cache.");
-    }
+        };
+        const cached = options.refreshSourceCache ? undefined : options.cache?.read(cacheKey);
+        if (cached) {
+          return {
+            status: "ready",
+            source: {
+              entityType: input.entityType,
+              entityId: input.entityId,
+              fieldPath: located.fieldPath,
+              bytes: cached.bytes,
+              mediaType: cached.mediaType,
+              width: cached.width,
+              height: cached.height,
+              fingerprint: cached.fingerprint,
+              sourceLocatorFingerprint,
+              sourceHost: cached.sourceHost,
+            },
+          };
+        }
+        if (options.offline) {
+          fail("offline-cache-miss", "No matching source bytes are present in the local cache.");
+        }
 
-    const loaded = located.remote
-      ? await loadRemoteSource(safeLocator, {
-        remoteRequest: options.remoteRequest ?? defaultRemoteRequest,
-        dnsLookup: options.dnsLookup ?? defaultDnsLookup,
-      })
-      : loadLocalSource(safeLocator, options.rootDir, options.publicRoot);
-    const sourceHost = "sourceHost" in loaded && typeof loaded.sourceHost === "string"
-      ? loaded.sourceHost
-      : undefined;
-    const source = {
-      entityType: input.entityType,
-      entityId: input.entityId,
-      fieldPath: located.fieldPath,
-      bytes: loaded.bytes,
-      mediaType: loaded.info.mediaType,
-      width: loaded.info.width,
-      height: loaded.info.height,
-      fingerprint: fingerprintImageSourceBytes(loaded.bytes),
-      sourceLocatorFingerprint,
-      sourceHost,
-    } satisfies ResolvedImageEmbeddingSource;
-    options.cache?.write(cacheKey, source);
+        const loaded = located.remote
+          ? await loadRemoteSource(safeLocator, {
+            remoteRequest: options.remoteRequest ?? defaultRemoteRequest,
+            dnsLookup: options.dnsLookup ?? defaultDnsLookup,
+          }, totalTimeoutMs)
+          : await loadLocalSource(safeLocator, options.rootDir, options.publicRoot);
+        const sourceHost = "sourceHost" in loaded && typeof loaded.sourceHost === "string"
+          ? loaded.sourceHost
+          : undefined;
+        const source = {
+          entityType: input.entityType,
+          entityId: input.entityId,
+          fieldPath: located.fieldPath,
+          bytes: loaded.bytes,
+          mediaType: loaded.info.mediaType,
+          width: loaded.info.width,
+          height: loaded.info.height,
+          fingerprint: fingerprintImageSourceBytes(loaded.bytes),
+          sourceLocatorFingerprint,
+          sourceHost,
+        } satisfies ResolvedImageEmbeddingSource;
+        options.cache?.write(cacheKey, source);
 
-    return { status: "ready", source };
+        return { status: "ready", source };
+      } catch (error) {
+        if (!(error instanceof SourceError)) {
+          throw error;
+        }
+        finalFailure = error;
+      }
+    }
+    throw finalFailure ?? new SourceError("missing-source", "Image source could not be located.");
   } catch (error) {
     if (error instanceof SourceError) {
       return { status: "failed", failure: { reason: error.reason, message: error.message } };

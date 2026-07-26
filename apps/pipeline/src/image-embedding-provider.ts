@@ -1,4 +1,6 @@
 import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 import type { ImageEmbeddingEntityType } from "@artduo/contracts";
 
@@ -46,13 +48,21 @@ export interface ImageEmbeddingProvider {
   readonly model: string;
   readonly modelRevision: string;
   readonly modelVariant: string;
-  readonly modelArtifactChecksum: string;
+  readonly expectedModelArtifactChecksum: string;
+  getModelArtifactProvenance(): Promise<ImageModelArtifactProvenance>;
   embedImages(inputs: ImageEmbeddingInput[]): Promise<EmbeddedImageVector[]>;
+}
+
+export interface ImageModelArtifactProvenance {
+  artifact: typeof IMAGE_MODEL_ARTIFACT;
+  checksum: string;
+  providerVersion: string;
 }
 
 export interface ImageEmbeddingRuntime {
   rawImageFromBlob(blob: Blob): Promise<unknown>;
   createImageFeatureExtractor(): Promise<(images: unknown[]) => Promise<{ data: ArrayLike<number> }>>;
+  getModelArtifactProvenance(): Promise<ImageModelArtifactProvenance>;
 }
 
 export interface CreateImageEmbeddingProviderOptions {
@@ -81,6 +91,25 @@ function normalizeVector(values: ArrayLike<number>): number[] {
 
 async function loadTransformersRuntime(): Promise<ImageEmbeddingRuntime> {
   const transformers = await import("@xenova/transformers");
+  let artifactProvenance: Promise<ImageModelArtifactProvenance> | undefined;
+
+  function getArtifactProvenance(): Promise<ImageModelArtifactProvenance> {
+    artifactProvenance ??= (async () => {
+      const cacheDir = transformers.env.cacheDir;
+      if (typeof cacheDir !== "string" || cacheDir.length === 0) {
+        throw new Error("Transformers runtime has no filesystem model cache for artifact verification.");
+      }
+      const artifactPath = path.join(cacheDir, IMAGE_MODEL_ID, IMAGE_MODEL_REVISION, IMAGE_MODEL_ARTIFACT);
+      const bytes = await readFile(artifactPath);
+      return {
+        artifact: IMAGE_MODEL_ARTIFACT,
+        checksum: `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
+        providerVersion: transformers.env.version,
+      };
+    })();
+    return artifactProvenance;
+  }
+
   return {
     rawImageFromBlob: (blob) => transformers.RawImage.fromBlob(blob),
     async createImageFeatureExtractor() {
@@ -91,6 +120,7 @@ async function loadTransformersRuntime(): Promise<ImageEmbeddingRuntime> {
       });
       return async (images) => extractor(images as never) as Promise<{ data: ArrayLike<number> }>;
     },
+    getModelArtifactProvenance: getArtifactProvenance,
   };
 }
 
@@ -99,6 +129,7 @@ export function createTransformersImageEmbeddingProvider(
 ): ImageEmbeddingProvider {
   let runtimePromise: Promise<ImageEmbeddingRuntime> | undefined;
   let extractorPromise: Promise<(images: unknown[]) => Promise<{ data: ArrayLike<number> }>> | undefined;
+  let verifiedArtifactPromise: Promise<ImageModelArtifactProvenance> | undefined;
   const runtimeLoader = options.runtimeLoader ?? loadTransformersRuntime;
 
   async function getRuntime(): Promise<ImageEmbeddingRuntime> {
@@ -113,17 +144,37 @@ export function createTransformersImageEmbeddingProvider(
     return extractorPromise;
   }
 
+  async function getVerifiedArtifact(): Promise<ImageModelArtifactProvenance> {
+    verifiedArtifactPromise ??= (async () => {
+      await getExtractor();
+      const provenance = await (await getRuntime()).getModelArtifactProvenance();
+      if (provenance.artifact !== IMAGE_MODEL_ARTIFACT) {
+        throw new Error("Image embedding runtime resolved an unexpected model artifact.");
+      }
+      if (provenance.providerVersion !== IMAGE_PROVIDER_VERSION) {
+        throw new Error("Image embedding runtime version does not match the pinned provider.");
+      }
+      if (provenance.checksum !== IMAGE_MODEL_ARTIFACT_SHA256) {
+        throw new Error("Image embedding runtime artifact checksum does not match the pinned artifact.");
+      }
+      return provenance;
+    })();
+    return verifiedArtifactPromise;
+  }
+
   return {
     mode: "local-transformers",
     model: IMAGE_MODEL_ID,
     modelRevision: IMAGE_MODEL_REVISION,
     modelVariant: IMAGE_MODEL_VARIANT,
-    modelArtifactChecksum: IMAGE_MODEL_ARTIFACT_SHA256,
+    expectedModelArtifactChecksum: IMAGE_MODEL_ARTIFACT_SHA256,
+    getModelArtifactProvenance: getVerifiedArtifact,
     async embedImages(inputs: ImageEmbeddingInput[]): Promise<EmbeddedImageVector[]> {
       if (inputs.length === 0) {
         return [];
       }
       const runtime = await getRuntime();
+      const artifact = await getVerifiedArtifact();
       const images = await Promise.all(inputs.map((input) =>
         runtime.rawImageFromBlob(new Blob([input.bytes], { type: input.mediaType })),
       ));
@@ -141,8 +192,8 @@ export function createTransformersImageEmbeddingProvider(
         model: IMAGE_MODEL_ID,
         modelRevision: IMAGE_MODEL_REVISION,
         modelVariant: IMAGE_MODEL_VARIANT,
-        modelArtifactChecksum: IMAGE_MODEL_ARTIFACT_SHA256,
-        providerVersion: IMAGE_PROVIDER_VERSION,
+        modelArtifactChecksum: artifact.checksum,
+        providerVersion: artifact.providerVersion,
         dimensions: IMAGE_EMBEDDING_DIMENSIONS,
         preprocessingVersion: IMAGE_PREPROCESSING_VERSION,
         preprocessingFingerprint: IMAGE_PREPROCESSING_FINGERPRINT,
