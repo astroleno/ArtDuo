@@ -667,13 +667,13 @@ fingerprint，并在读入 bytes 或完整解码前检查 byte/pixel 上限，�
 `--refresh-source-cache true` 才访问远端更新。Task 7 的 reproducibility build
 必须在断网/禁止 fetch 模式下仅依赖 frozen cache 完成。
 
-- [ ] **Step 5: 将 transformers 声明为 pipeline 直接依赖**
+- [x] **Step 5: 将 transformers 声明为 pipeline 直接依赖**
 
-> **Blocked 2026-07-26:** manifests now pin `@xenova/transformers` at `2.17.2`,
-> but three bounded `pnpm install --lockfile-only` attempts made no dependency
-> resolution progress against either configured or public registry. No
-> `pnpm-lock.yaml` was generated. Task 2 remains open until the lockfile and
-> frozen-lockfile install are verified.
+> **Verified 2026-07-26:** `pnpm install --lockfile-only` generated
+> `pnpm-lock.yaml`, and `pnpm install --frozen-lockfile` completed without a
+> resolution step. The lock resolves `@xenova/transformers` `2.17.2`,
+> `onnxruntime-web`/`onnxruntime-node` `1.14.0`, and the image decoder
+> `sharp` `0.32.6` used by that provider.
 
 在根 `package.json` 与 `apps/pipeline/package.json` 都使用 exact version：
 
@@ -688,6 +688,13 @@ dependency 更新，停止并在干净 worktree 从当前 package manifests 重�
 图片 decoder 精确版本，不能只记录 direct semver。
 
 - [ ] **Step 6: 运行测试、类型检查与 opt-in 真实 smoke**
+
+> **Blocked 2026-07-26:** normal pipeline tests pass (54 passed; the real smoke
+> remains opt-in) and pipeline typecheck passes. The opt-in smoke was invoked,
+> but the pinned Hugging Face artifact URL and a direct 30-second HTTP probe
+> both timed out during connection; no verified model artifact is available in
+> the local cache. Task 2 remains open until the same pinned-revision smoke
+> command completes successfully.
 
 ```bash
 pnpm install
