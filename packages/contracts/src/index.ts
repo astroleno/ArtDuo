@@ -1,4 +1,5 @@
 export * from "./artwork";
+export * from "./affective-agent";
 export * from "./artwork-explanation";
 export * from "./background-match";
 export * from "./background-scene";
@@ -21,3 +22,4 @@ export {
 export * from "./embedding-shard";
 export * from "./errors";
 export * from "./exhibition-unit";
+export * from "./relationship-graph";

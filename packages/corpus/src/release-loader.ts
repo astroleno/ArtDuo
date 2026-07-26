@@ -1,7 +1,18 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-import { parseEmbeddingShardRecord, parseEmbeddingShardRecords, parseReleaseManifest, type EmbeddingShardRecord, type ReleaseManifest, type ShardInfo } from "@artduo/contracts";
+import {
+  DEFAULT_RELATIONSHIP_GRAPH_LIMITS,
+  parseEmbeddingShardRecord,
+  parseEmbeddingShardRecords,
+  parseRelationshipGraphShard,
+  parseReleaseManifest,
+  type EmbeddingShardRecord,
+  type RelationshipGraphParserLimits,
+  type RelationshipGraphShard,
+  type ReleaseManifest,
+  type ShardInfo,
+} from "@artduo/contracts";
 
 export interface ReleaseLoaderOptions {
   rootDir?: string;
@@ -20,6 +31,17 @@ export interface LoadedReleaseManifest {
 export interface LoadedEmbeddingShards extends LoadedReleaseManifest {
   shardPaths: string[];
   records: EmbeddingShardRecord[];
+}
+
+export interface RelationshipGraphLoaderOptions extends ReleaseLoaderOptions {
+  parserLimits?: RelationshipGraphParserLimits;
+  maxPreParseBytes?: number;
+}
+
+export interface LoadedRelationshipGraphShard extends LoadedReleaseManifest {
+  shardPath: string;
+  shard: ShardInfo;
+  graph: RelationshipGraphShard;
 }
 
 interface LegacyEmbeddingMetadataFallback {
@@ -83,6 +105,19 @@ export function loadReleaseManifest(options: ReleaseLoaderOptions = {}): LoadedR
 
 export function resolveShardPath(manifestPath: string, shard: ShardInfo): string {
   return path.resolve(path.dirname(manifestPath), shard.url);
+}
+
+export function readJsonObject(filePath: string, maxPreParseBytes = DEFAULT_RELATIONSHIP_GRAPH_LIMITS.maxPreParseBytes): Record<string, unknown> {
+  const raw = readFileSync(filePath, "utf8");
+  const sizeBytes = Buffer.byteLength(raw, "utf8");
+
+  if (sizeBytes > maxPreParseBytes) {
+    throw new TypeError(`${filePath}: exceeds max pre-parse bytes`);
+  }
+
+  const value = JSON.parse(raw) as unknown;
+
+  return expectObject(value, filePath);
 }
 
 function expectObject(value: unknown, path: string): Record<string, unknown> {
@@ -245,5 +280,43 @@ export function loadEmbeddingShards(options: ReleaseLoaderOptions = {}): LoadedE
     ...loaded,
     shardPaths,
     records,
+  };
+}
+
+export function loadRelationshipGraphShard(
+  options: RelationshipGraphLoaderOptions = {},
+): LoadedRelationshipGraphShard | undefined {
+  const loaded = loadReleaseManifest(options);
+  const graphShards = loaded.manifest.shards.relationshipGraph;
+
+  if (!graphShards || graphShards.length === 0) {
+    return undefined;
+  }
+
+  if (graphShards.length > 1) {
+    throw new Error(`Release ${loaded.releaseVersion} exposes multiple relationship graph shards; one object shard is supported.`);
+  }
+
+  const shard = graphShards[0] as ShardInfo;
+  const shardPath = resolveShardPath(loaded.manifestPath, shard);
+  const maxPreParseBytes = options.maxPreParseBytes ?? options.parserLimits?.maxPreParseBytes;
+  const graph = parseRelationshipGraphShard(
+    readJsonObject(shardPath, maxPreParseBytes),
+    shardPath,
+    options.parserLimits,
+  );
+
+  if (graph.releaseVersion !== loaded.releaseVersion) {
+    throw new TypeError(`${shardPath}: graph releaseVersion must match release ${loaded.releaseVersion}`);
+  }
+  if (shard.recordCount !== graph.nodes.length) {
+    throw new TypeError(`${shardPath}: ShardInfo.recordCount must equal relationship graph nodes.length`);
+  }
+
+  return {
+    ...loaded,
+    shardPath,
+    shard,
+    graph,
   };
 }

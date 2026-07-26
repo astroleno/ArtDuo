@@ -32,6 +32,7 @@ export const MOTION_PROFILES = [
   "out-of-frame",
 ] as const;
 export const NARRATION_MODES = ["none", "caption", "voiceover"] as const;
+export const VISUAL_CROP_STRATEGIES = ["preserve-paper", "trim-border", "focus-subject"] as const;
 
 export type ArtworkSource = (typeof ARTWORK_SOURCES)[number];
 export type EnergyLevel = (typeof ENERGY_LEVELS)[number];
@@ -43,6 +44,24 @@ export type ArtworkGrade = (typeof GRADE_VALUES)[number];
 export type ArtworkGradeLabel = (typeof GRADE_LABELS)[number];
 export type MotionProfile = (typeof MOTION_PROFILES)[number];
 export type NarrationMode = (typeof NARRATION_MODES)[number];
+export type VisualCropStrategy = (typeof VISUAL_CROP_STRATEGIES)[number];
+
+export interface NormalizedImageBounds {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface ArtworkVisualPresentation {
+  contentBounds?: NormalizedImageBounds;
+  contentAspectRatio?: number;
+  whiteBorderRatio?: number;
+  cropStrategy?: VisualCropStrategy;
+  confidence?: number;
+  source?: string;
+  notes?: string[];
+}
 
 export interface ArtworkMetadata {
   title: string;
@@ -86,6 +105,7 @@ export interface ArtworkMediaRefs {
   videoUrlCloseup?: string;
   videoPosterUrl?: string;
   aspectRatioHint?: AspectRatioHint;
+  visualPresentation?: ArtworkVisualPresentation;
   hasMotionAsset: boolean;
   mediaVersion?: string;
   sourceAssetFingerprint?: string;
@@ -198,6 +218,7 @@ function parseArtworkRetrieval(value: unknown, path: string): ArtworkRetrieval {
 
 function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
   const media = expectObject(value, path);
+  const visualPresentation = readOptionalObject(media, "visualPresentation", path);
 
   const parsed: ArtworkMediaRefs = {
     baseImageUrl: readOptionalString(media, "baseImageUrl", path),
@@ -208,6 +229,9 @@ function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
     videoUrlCloseup: readOptionalString(media, "videoUrlCloseup", path),
     videoPosterUrl: readOptionalString(media, "videoPosterUrl", path),
     aspectRatioHint: readOptionalLiteral(media, "aspectRatioHint", ASPECT_RATIO_HINTS, path),
+    visualPresentation: visualPresentation
+      ? parseArtworkVisualPresentation(visualPresentation, `${path}.visualPresentation`)
+      : undefined,
     hasMotionAsset: readBoolean(media, "hasMotionAsset", path),
     mediaVersion: readOptionalString(media, "mediaVersion", path),
     sourceAssetFingerprint: readOptionalString(media, "sourceAssetFingerprint", path),
@@ -222,6 +246,66 @@ function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
   }
 
   return parsed;
+}
+
+function readNormalizedRatio(source: JsonObject, key: string, path: string): number {
+  const value = readNumber(source, key, path);
+  if (value < 0 || value > 1) {
+    throw new TypeError(`${path}.${key}: expected number between 0 and 1`);
+  }
+
+  return value;
+}
+
+function readOptionalNormalizedRatio(source: JsonObject, key: string, path: string): number | undefined {
+  const value = readOptionalNumber(source, key, path);
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value < 0 || value > 1) {
+    throw new TypeError(`${path}.${key}: expected number between 0 and 1`);
+  }
+
+  return value;
+}
+
+function parseNormalizedImageBounds(value: unknown, path: string): NormalizedImageBounds {
+  const bounds = expectObject(value, path);
+  const parsed = {
+    x: readNormalizedRatio(bounds, "x", path),
+    y: readNormalizedRatio(bounds, "y", path),
+    width: readNormalizedRatio(bounds, "width", path),
+    height: readNormalizedRatio(bounds, "height", path),
+  };
+
+  if (parsed.width <= 0 || parsed.height <= 0) {
+    throw new TypeError(`${path}: expected positive width and height`);
+  }
+  if (parsed.x + parsed.width > 1.001 || parsed.y + parsed.height > 1.001) {
+    throw new TypeError(`${path}: expected bounds to fit inside the image`);
+  }
+
+  return parsed;
+}
+
+function parseArtworkVisualPresentation(value: unknown, path: string): ArtworkVisualPresentation {
+  const visual = expectObject(value, path);
+  const bounds = readOptionalObject(visual, "contentBounds", path);
+  const contentAspectRatio = readOptionalNumber(visual, "contentAspectRatio", path);
+
+  if (contentAspectRatio !== undefined && contentAspectRatio <= 0) {
+    throw new TypeError(`${path}.contentAspectRatio: expected positive number`);
+  }
+
+  return {
+    contentBounds: bounds ? parseNormalizedImageBounds(bounds, `${path}.contentBounds`) : undefined,
+    contentAspectRatio,
+    whiteBorderRatio: readOptionalNormalizedRatio(visual, "whiteBorderRatio", path),
+    cropStrategy: readOptionalLiteral(visual, "cropStrategy", VISUAL_CROP_STRATEGIES, path),
+    confidence: readOptionalNormalizedRatio(visual, "confidence", path),
+    source: readOptionalString(visual, "source", path),
+    notes: readOptionalStringArray(visual, "notes", path),
+  };
 }
 
 function parseArtworkPresentation(value: unknown, path: string): ArtworkPresentation {

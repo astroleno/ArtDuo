@@ -24,6 +24,7 @@ export interface ReleaseManifest {
     mediaIndex: ShardInfo[];
     backgroundScenes: ShardInfo[];
     embeddings?: ShardInfo[];
+    relationshipGraph?: ShardInfo[];
   };
 }
 
@@ -54,6 +55,7 @@ export function parseReleaseManifest(value: unknown, path = "ReleaseManifest"): 
   const manifest = expectObject(value, path);
   const shards = readObject(manifest, "shards", path);
   const embeddings = (shards as { embeddings?: unknown }).embeddings;
+  const relationshipGraph = (shards as { relationshipGraph?: unknown }).relationshipGraph;
 
   return {
     release: parseSourceVersions(readObject(manifest, "release", path), `${path}.release`),
@@ -68,6 +70,13 @@ export function parseReleaseManifest(value: unknown, path = "ReleaseManifest"): 
       ),
       embeddings: embeddings
         ? parseArray(embeddings, (entry, entryPath) => parseShardInfo(entry, entryPath), `${path}.shards.embeddings`)
+        : undefined,
+      relationshipGraph: relationshipGraph
+        ? parseArray(
+            relationshipGraph,
+            (entry, entryPath) => parseShardInfo(entry, entryPath),
+            `${path}.shards.relationshipGraph`,
+          )
         : undefined,
     },
   };

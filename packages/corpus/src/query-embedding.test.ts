@@ -27,6 +27,18 @@ test("query embedding normalizes and embeds text deterministically", () => {
   assert.ok(tokenizeQueryText("restful hush beside clear water").includes("serenity"));
   assert.ok(tokenizeQueryText("laughter carried by festival air").includes("joy"));
   assert.ok(tokenizeQueryText("revelation under impossible skies").includes("wonder"));
+  assert.ok(tokenizeQueryText("今天想看快乐、跳跃、明亮的东西").includes("joy"));
+  assert.ok(tokenizeQueryText("给我像书房一样专注的路线").includes("contemplation"));
+  assert.ok(tokenizeQueryText("像进入一座古老教堂，庄重但温柔").includes("awe"));
+  assert.ok(tokenizeQueryText("关于想念、远方和没说出口的话").includes("desire"));
+  assert.ok(tokenizeQueryText("我今天不太想说话，只想看留白").includes("silence"));
+  assert.ok(tokenizeQueryText("I want happiness in a museum whisper").includes("joy"));
+  assert.ok(tokenizeQueryText("有没有风景，最好像走到远处").includes("landscape"));
+  assert.ok(tokenizeQueryText("暖金色的房间，适合慢慢停留").includes("gold"));
+  assert.ok(tokenizeQueryText("I need a quiet room after a difficult day").includes("serenity"));
+  assert.ok(tokenizeQueryText("warm museum hall, gold, reverent, old-world").includes("wonder"));
+  assert.ok(tokenizeQueryText("我想看蓝灰色、冷一点、很安静").includes("serenity"));
+  assert.ok(!tokenizeQueryText("不要太明亮，想要暗红和深木色").includes("joy"));
   assert.deepEqual(first.vector, second.vector);
   assert.equal(first.model, "local-hash-embedding-v1");
   assert.equal(first.dimensions, 256);

@@ -155,8 +155,8 @@ export function rerankVectorResults<T extends VectorSearchDocument>(
       const lexical = scoreTokenCoverage(queryTokens, tokenizeQueryText(options.getText(entry.item)));
       const gradeScore = normalizeGrade(options.getGrade?.(entry.item));
       const combinedScore =
-        entry.score * 0.72 +
-        lexical.score * 0.22 +
+        entry.score * 0.5 +
+        lexical.score * 0.44 +
         gradeScore * 0.06;
 
       return {

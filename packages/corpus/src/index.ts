@@ -1,4 +1,6 @@
 export * from "./embedding-provider";
+export * from "./affective-intent";
+export * from "./artwork-agent-capsule";
 export * from "./debug-retrieval";
 export * from "./query-embedding";
 export * from "./prefetch";
@@ -9,3 +11,4 @@ export * from "./search-worker";
 export * from "./vector-search";
 export * from "./vector-benchmark";
 export * from "./rerank";
+export * from "./relationship-graph";

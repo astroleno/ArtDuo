@@ -39,3 +39,24 @@ test("manifest parser accepts optional embedding shards", () => {
   assert.equal(manifest.shards.embeddings?.[0]?.id, "embeddings-01");
   assert.equal(manifest.shards.embeddings?.[0]?.recordCount, 3);
 });
+
+test("manifest parser accepts optional relationship graph shards", () => {
+  const manifest = parseReleaseManifest({
+    release: {
+      corpusVersion: "2026-04-25-curation-b",
+      backgroundCatalogVersion: "2026-04-25-curation-b",
+      contractsVersion: "0.1.0",
+      createdAt: "2026-04-25T00:00:00.000Z",
+    },
+    shards: {
+      metadata: [{ id: "metadata-01", url: "./metadata-01.json", checksum: "sha256:test", sizeBytes: 100, recordCount: 3 }],
+      search: [{ id: "search-01", url: "./search-01.json", checksum: "sha256:test", sizeBytes: 100, recordCount: 3 }],
+      mediaIndex: [{ id: "media-01", url: "./media-01.json", checksum: "sha256:test", sizeBytes: 100, recordCount: 3 }],
+      backgroundScenes: [{ id: "background-scenes-01", url: "./background-scenes-01.json", checksum: "sha256:test", sizeBytes: 100, recordCount: 2 }],
+      relationshipGraph: [{ id: "relationship-graph-01", url: "./relationship-graph-01.json", checksum: "sha256:test", sizeBytes: 100, recordCount: 7 }],
+    },
+  });
+
+  assert.equal(manifest.shards.relationshipGraph?.[0]?.id, "relationship-graph-01");
+  assert.equal(manifest.shards.relationshipGraph?.[0]?.recordCount, 7);
+});
