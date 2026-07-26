@@ -6,7 +6,7 @@ The legacy `frontend/` app is kept as donor/reference material. New runtime work
 
 ## Current Status
 
-V2 Phase 1 is closed as a product thin slice.
+V2 Phase 1 is closed as a product thin slice. Phase 2 curation capabilities are implemented, but their formal closeout remains pending.
 
 - `apps/web` is a real Next App Router application.
 - Landing -> Gallery -> Detail works against release artifacts.
@@ -14,6 +14,7 @@ V2 Phase 1 is closed as a product thin slice.
 - The web thin slice currently uses a server-side release bridge: Next.js reads local release shards and runs retrieval on the server.
 - Browser-local IndexedDB/Worker retrieval is explicitly deferred; it is not claimed as complete.
 - Repeatable acceptance is wired through `pnpm preflight:check`.
+- The image-embedding sidecar is currently shadow-only: it is not a required release shard, does not change production ranking, and does not alter the base manifest.
 
 Phase 1 closeout evidence:
 
@@ -21,6 +22,9 @@ Phase 1 closeout evidence:
 - Release: `data/releases/2026-04-25-curation-b/`
 - Benchmark prompts: `benchmarks/vector-promotion-prompts.json`
 - Current benchmark gate: rerank Top-1 `95.83%`, rerank Top-5 `100%`, manual top10 pass rate `83.33%`
+- Readiness recheck (2026-07-26): an alias-expansion regression was corrected; the current local benchmark is again Top-1 `95.83%` and Top-5 `100%`. The remaining permitted Top-1 miss is `desire-metaphor-01`.
+- A2A is a differential baseline, not an all-green certification. The current harness run is `50 pass / 45 fail / 5 blocked`; promotion compares pass/fail/blocked case IDs, not just totals or the harness exit code.
+- Browser E2E has 14 defined cases. The current local baseline is blocked until the Playwright Chromium artifact is available; this is an environment prerequisite, not an application assertion result.
 
 ## Active Commands
 
@@ -133,7 +137,7 @@ Known deferral:
 
 ### Phase 2: Curation Core Experience
 
-Status: next.
+Status: implemented, closeout pending.
 
 Goal:
 
@@ -142,7 +146,7 @@ Goal:
 - Preserve the Phase 1 fast gallery path while explanations are generated and cached asynchronously.
 - Add ownership, idempotency, rate limit, budget, retention, and request redaction boundaries.
 
-See `docs/plans/artduo-v2-phase2-continuation-plan.md` before continuing work.
+See `docs/plans/artduo-v2-phase2-continuation-plan.md` before closeout or follow-up work.
 
 ### Phase 3: Immersive Productization
 

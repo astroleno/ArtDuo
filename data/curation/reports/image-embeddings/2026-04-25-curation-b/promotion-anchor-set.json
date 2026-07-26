@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "image-embedding-promotion-anchor-set.v1",
+  "releaseVersion": "2026-04-25-curation-b",
+  "selection": {
+    "algorithmVersion": "primary-mood-theme-round-robin-sha256-v1",
+    "targetAnchorCount": 30,
+    "criticalGrade": "A",
+    "gradeAArtworkIds": [],
+    "stratification": [
+      "metadata.moodTags[0]",
+      "theme"
+    ],
+    "sortKey": "sha256(releaseVersion + artworkId)",
+    "selectionOrder": "lexicographic stratum order with one hash-sorted item per stratum per round"
+  },
+  "anchors": [
+    { "artworkId": "met-437990", "primaryMood": "contemplation", "theme": "unknown" },
+    { "artworkId": "met-437180", "primaryMood": "desire", "theme": "unknown" },
+    { "artworkId": "met-13350", "primaryMood": "hope", "theme": "unknown" },
+    { "artworkId": "met-828433", "primaryMood": "joy", "theme": "unknown" },
+    { "artworkId": "met-336228", "primaryMood": "melancholy", "theme": "unknown" },
+    { "artworkId": "met-323800", "primaryMood": "mystery", "theme": "unknown" },
+    { "artworkId": "met-464607", "primaryMood": "serenity", "theme": "unknown" },
+    { "artworkId": "met-446183", "primaryMood": "wonder", "theme": "unknown" },
+    { "artworkId": "met-65397", "primaryMood": "contemplation", "theme": "unknown" },
+    { "artworkId": "met-392339", "primaryMood": "desire", "theme": "unknown" },
+    { "artworkId": "met-342317", "primaryMood": "hope", "theme": "unknown" },
+    { "artworkId": "met-253483", "primaryMood": "joy", "theme": "unknown" },
+    { "artworkId": "met-923689", "primaryMood": "melancholy", "theme": "unknown" },
+    { "artworkId": "met-193345", "primaryMood": "mystery", "theme": "unknown" },
+    { "artworkId": "met-437175", "primaryMood": "serenity", "theme": "unknown" },
+    { "artworkId": "met-817550", "primaryMood": "wonder", "theme": "unknown" },
+    { "artworkId": "met-39193", "primaryMood": "contemplation", "theme": "unknown" },
+    { "artworkId": "met-435739", "primaryMood": "desire", "theme": "unknown" },
+    { "artworkId": "met-471848", "primaryMood": "hope", "theme": "unknown" },
+    { "artworkId": "met-248160", "primaryMood": "joy", "theme": "unknown" },
+    { "artworkId": "met-383409", "primaryMood": "melancholy", "theme": "unknown" },
+    { "artworkId": "met-459187", "primaryMood": "mystery", "theme": "unknown" },
+    { "artworkId": "met-459435", "primaryMood": "serenity", "theme": "unknown" },
+    { "artworkId": "met-38141", "primaryMood": "wonder", "theme": "unknown" },
+    { "artworkId": "met-436582", "primaryMood": "contemplation", "theme": "unknown" },
+    { "artworkId": "met-459110", "primaryMood": "desire", "theme": "unknown" },
+    { "artworkId": "met-471853", "primaryMood": "hope", "theme": "unknown" },
+    { "artworkId": "met-74100", "primaryMood": "joy", "theme": "unknown" },
+    { "artworkId": "met-437097", "primaryMood": "melancholy", "theme": "unknown" },
+    { "artworkId": "met-193346", "primaryMood": "mystery", "theme": "unknown" }
+  ]
+}
