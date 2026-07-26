@@ -499,7 +499,7 @@ git commit -m "feat(contracts): add image embedding shard contract"
 - Modify: `.gitignore`
 - Add: `pnpm-lock.yaml`
 
-- [ ] **Step 1: 先写 provider 与 source resolver 的失败测试**
+- [x] **Step 1: 先写 provider 与 source resolver 的失败测试**
 
 Provider 测试使用 2 个内存图片 buffer，断言批次顺序、模型元数据、dimensions、归一化和数量不匹配错误。Source resolver 测试必须覆盖：
 
@@ -524,7 +524,7 @@ pnpm --filter @artduo/pipeline test
 
 预期：模块不存在，测试失败。
 
-- [ ] **Step 2: 定义可注入 provider 接口**
+- [x] **Step 2: 定义可注入 provider 接口**
 
 ```ts
 export interface ImageEmbeddingInput {
@@ -598,7 +598,7 @@ Uint8Array
 稳定命名，不是任意 CLI 字符串。Artifact checksum、输出数量、dimensions 或
 preprocessing fingerprint 任一不一致立即失败。
 
-- [ ] **Step 3: 实现安全 source resolver**
+- [x] **Step 3: 实现安全 source resolver**
 
 固定限制：
 
@@ -619,7 +619,7 @@ export const IMAGE_FETCH_LIMITS = {
 
 Background Scene 的 `local_public_path` 是 public URL path，不是文件系统绝对路径。实现先拒绝 traversal/backslash，再去掉一个前导 `/`，随后相对 `<rootDir>/public` 解析。`publicRoot` 与最终文件都使用 `realpath` 后再次校验 containment，防止 symlink escape。读取完成后对原始 bytes 计算 SHA-256；content-type 与 magic bytes 必须一致。
 
-- [ ] **Step 4: 增加可回放 source cache**
+- [x] **Step 4: 增加可回放 source cache**
 
 默认 cache root：
 
@@ -651,6 +651,12 @@ fingerprint，避免 release 改图后误用旧 cache。默认优先 cache，只
 必须在断网/禁止 fetch 模式下仅依赖 frozen cache 完成。
 
 - [ ] **Step 5: 将 transformers 声明为 pipeline 直接依赖**
+
+> **Blocked 2026-07-26:** manifests now pin `@xenova/transformers` at `2.17.2`,
+> but three bounded `pnpm install --lockfile-only` attempts made no dependency
+> resolution progress against either configured or public registry. No
+> `pnpm-lock.yaml` was generated. Task 2 remains open until the lockfile and
+> frozen-lockfile install are verified.
 
 在根 `package.json` 与 `apps/pipeline/package.json` 都使用 exact version：
 
