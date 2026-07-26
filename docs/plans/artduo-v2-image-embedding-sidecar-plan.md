@@ -388,7 +388,7 @@ git commit -m "docs: define image embedding sidecar boundaries"
 - Modify: `packages/contracts/src/corpus.test.ts`
 - Modify: `packages/contracts/src/index.ts`
 
-- [ ] **Step 1: 先写失败的契约测试**
+- [x] **Step 1: 先写失败的契约测试**
 
 测试必须覆盖：
 
@@ -413,7 +413,7 @@ pnpm --filter @artduo/contracts test
 
 预期：因为 parser、export 和 manifest 字段尚不存在而失败。
 
-- [ ] **Step 2: 实现严格 parser**
+- [x] **Step 2: 实现严格 parser**
 
 核心校验函数：
 
@@ -448,7 +448,7 @@ function parseImageVector(value: unknown, dimensions: number, path: string): num
 
 Parser 还必须验证 `id === `${entityType}:${entityId}``，并禁止 `source.fieldPath`、`source.recordId`、`source.fingerprint` 包含 `file://`、反斜杠、`..` 或用户目录绝对路径。单 record parser 负责结构安全；跨 shard 的 `source.shardId` / `recordId` referential integrity 由 Task 3 builder 和 Task 4 loader 在拥有完整 release context 时校验。
 
-- [ ] **Step 3: 扩展 ReleaseManifest**
+- [x] **Step 3: 扩展 ReleaseManifest**
 
 在 `parseReleaseManifest` 中像 `embeddings` 一样解析 `imageEmbeddings`，并解析
 可选 `imageEmbeddingSidecar` binding。两者必须同时存在；binding 的 shard
@@ -461,7 +461,7 @@ preprocessing fingerprint 必须能与实际 shard 元数据/记录交叉验证�
 variant 携带。本轮不修改 relationship graph contract，因为没有实际 graph
 consumer 生成 image-embedding source refs。
 
-- [ ] **Step 4: 运行契约测试**
+- [x] **Step 4: 运行契约测试**
 
 ```bash
 pnpm --filter @artduo/contracts test
@@ -470,7 +470,7 @@ pnpm --filter @artduo/contracts build
 
 预期：全部通过。
 
-- [ ] **Step 5: 提交契约**
+- [x] **Step 5: 提交契约**
 
 ```bash
 git add \
