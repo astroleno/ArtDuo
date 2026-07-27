@@ -4,6 +4,7 @@ import type { CandidatePreviewOptions } from "./candidate-preview";
 import type { ConfirmedMetadataBackfillOptions } from "./confirmed-metadata-backfill";
 import type { EmbeddingRuntimeCliOptions } from "./embedding-runtime";
 import type { EmbeddingBuildOptions } from "./embedding-shards";
+import type { ImageEmbeddingBuildOptions } from "./image-embedding-shards";
 import type { MetadataBackfillPreviewOptions } from "./metadata-backfill-preview";
 import type { QuantityPreviewOptions } from "./quantity-preview";
 import type { ReleaseBuildOptions } from "./release-artifact";
@@ -102,6 +103,39 @@ export function readEmbeddingBuildOptions(): EmbeddingBuildOptions {
     corpusPath: corpusPath ? path.resolve(corpusPath) : undefined,
     releaseVersion,
     dimensions: Number.isFinite(dimensions) ? dimensions : undefined,
+  };
+}
+
+export function readImageEmbeddingBuildOptions(): ImageEmbeddingBuildOptions {
+  const rootDir = readFlag("--root-dir");
+  const releasesRoot = readFlag("--releases-root");
+  const reportRoot = readFlag("--report-root");
+  const candidateRoot = readFlag("--candidate-root");
+  const sourceCacheRoot = readFlag("--source-cache-root") ?? readFlag("--source-cache");
+  const promotionAnchorPath = readFlag("--promotion-anchor-set");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const model = readFlag("--image-embedding-model");
+  const modelRevision = readFlag("--image-embedding-model-revision");
+  const modelVariant = readFlag("--image-embedding-model-variant");
+  const batchSizeValue = readFlag("--image-embedding-batch-size");
+  const batchSize = batchSizeValue ? Number.parseInt(batchSizeValue, 10) : undefined;
+
+  return {
+    rootDir: rootDir ? path.resolve(rootDir) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
+    reportRoot: reportRoot ? path.resolve(reportRoot) : undefined,
+    candidateRoot: candidateRoot ? path.resolve(candidateRoot) : undefined,
+    sourceCacheRoot: sourceCacheRoot ? path.resolve(sourceCacheRoot) : undefined,
+    promotionAnchorPath: promotionAnchorPath ? path.resolve(promotionAnchorPath) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    model,
+    modelRevision,
+    modelVariant,
+    batchSize: Number.isFinite(batchSize) ? batchSize : undefined,
+    refreshSourceCache: readBooleanFlag("--refresh-source-cache"),
+    offline: readBooleanFlag("--offline"),
   };
 }
 

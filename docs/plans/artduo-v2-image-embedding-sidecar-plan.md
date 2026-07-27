@@ -742,6 +742,14 @@ git commit -m "feat(pipeline): add image embedding provider and source resolver"
 
 ## Task 3: 构建 Image Embedding Sidecar 与质量报告
 
+> **Partial 2026-07-27:** shadow builder、原子 candidate/report 写入和显式 CLI
+> 已实现；pipeline 定向/全量测试与 typecheck 通过。使用真实 release、空 source
+> cache 和 `--offline true` 的临时演练得到 221 个 Artwork、50 个 Background Scene
+> 的 `offline-cache-miss`，candidate 为 0 且 `coverageReady=false`，确认不会把不完整
+> 输入误判为可发布。真实 source-cache/model 构建仍依赖 Task 2 中尚未解除的正常
+> frozen install 与 pinned Hugging Face artifact 下载阻塞，因此本 Task 的完整 shadow
+> 构建与后续 promotion 仍保持未完成。
+
 **Files:**
 
 - Create: `apps/pipeline/src/image-embedding-shards.ts`

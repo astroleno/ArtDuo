@@ -22,6 +22,7 @@
     "collect:candidate-preview": "pnpm --filter @artduo/pipeline build:candidate-preview",
     "collect:quantity-preview": "pnpm --filter @artduo/pipeline build:quantity-preview",
     "collect:release-ready": "pnpm --filter @artduo/pipeline build:release-ready",
+    "image-embeddings:build": "pnpm --filter @artduo/pipeline build:image-embeddings",
     "vector:debug": "pnpm --filter @artduo/pipeline debug:vector-retrieval",
     "vector:benchmark": "pnpm --filter @artduo/pipeline bench:vector",
     "vector:benchmark:provider": "pnpm --filter @artduo/pipeline bench:vector:provider",

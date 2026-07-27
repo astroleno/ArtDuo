@@ -18,6 +18,7 @@
     "build:media-index": "pnpm run workspace:prepare && tsx src/build-media-index.ts",
     "build:background-scenes": "pnpm run workspace:prepare && tsx src/build-background-scenes.ts",
     "build:embeddings": "pnpm run workspace:prepare && tsx src/build-embedding-shards.ts",
+    "build:image-embeddings": "pnpm run workspace:prepare && tsx src/build-image-embedding-shards.ts",
     "debug:vector-retrieval": "pnpm run workspace:prepare && tsx src/debug-vector-retrieval.ts",
     "bench:vector": "pnpm run workspace:prepare && tsx src/run-vector-benchmark.ts",
     "bench:vector:provider": "pnpm run workspace:prepare && tsx src/run-vector-provider-benchmark.ts",
