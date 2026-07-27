@@ -694,6 +694,8 @@ dependency 更新，停止并在干净 worktree 从当前 package manifests 重�
 直接接受噪声 diff。任何此前被错误跟踪的 npm lockfile 或 `node_modules` 安装树
 必须从 Git 索引移除，不能令 frozen install 改脏工作树。Report 同时记录 lock 中
 解析出的 provider、ONNX runtime 与图片 decoder 精确版本，不能只记录 direct semver。
+根 `test` gate 运行 repository hygiene check；`git ls-files ':(glob)**/node_modules/**'`
+必须为空，避免任何独立 npm test package 的安装树重新进入索引。
 
 - [ ] **Step 6: 运行测试、类型检查与 opt-in 真实 smoke**
 
