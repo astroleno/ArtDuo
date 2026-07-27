@@ -1134,7 +1134,7 @@ git commit -m "feat(corpus): load and search optional image embeddings"
 - Modify: `apps/pipeline/package.json`
 - Modify: `package.json`
 
-- [ ] **Step 1: 写失败的评估测试**
+- [x] **Step 1: 写失败的评估测试**
 
 用 synthetic fixture 精确测试：
 
@@ -1161,7 +1161,7 @@ pnpm --filter @artduo/pipeline test
 
 预期：评估模块不存在，测试失败。
 
-- [ ] **Step 2: 实现确定性 weak-label benchmark**
+- [x] **Step 2: 实现确定性 weak-label benchmark**
 
 自动标签只能来自当前结构化字段，不调用 LLM：
 
@@ -1193,7 +1193,7 @@ pnpm --filter @artduo/pipeline test
 per-strata breakdown。有效 holdout artwork 少于 30 时门槛失败；任何样本数少于
 5 的 strata 标记 `insufficient-sample`，不能将其零样本结果汇总成通过。
 
-- [ ] **Step 3: 生成 review pack**
+- [x] **Step 3: 生成 review pack**
 
 固定生成三份互相校验的评审 artifacts：
 
@@ -1238,7 +1238,7 @@ type HumanAcceptability = "acceptable" | "unacceptable" | "uncertain";
 
 Review pack 是内部评估输入，不进入 release manifest。
 
-- [ ] **Step 4: 实现 debug CLI**
+- [x] **Step 4: 实现 debug CLI**
 
 支持：
 
@@ -1252,7 +1252,7 @@ pnpm image-embeddings:debug -- \
 
 输出每个候选的 `entityId`、cosine score、model、source fingerprint，不输出本机路径。
 
-- [ ] **Step 5: 增加 scripts**
+- [x] **Step 5: 增加 scripts**
 
 ```json
 // apps/pipeline/package.json
@@ -1271,7 +1271,7 @@ Benchmark CLI 同时支持显式 `--output`、`--build-report`、`--review-pack`
 `promotionReady` 可为 true，但 `fusionVerificationReady` 必须为 false；Task 6
 完成 targeted E2E 后用同一命令绑定 E2E report checksum，才能将后者置为 true。
 
-- [ ] **Step 6: 运行自动 benchmark**
+- [x] **Step 6: 运行自动 benchmark**
 
 ```bash
 pnpm image-embeddings:benchmark -- \
@@ -1284,6 +1284,8 @@ pnpm image-embeddings:benchmark -- \
 ```
 
 预期：生成 evaluation report 与 30 条 review pack；未完成人工判定前，报告明确 `promotionReady: false`。
+
+> 2026-07-27 shadow run：离线 candidate 为 0 条（Artwork 221、Background Scene 50 均未获得向量），因此生成了 fail-closed pre-review report，但没有可用于盲评的 changed comparison。`promotionReady: false`；Task 5 仍等待有效候选与 Step 7 人工评审。
 
 - [ ] **Step 7: 完成人工评审并重跑**
 

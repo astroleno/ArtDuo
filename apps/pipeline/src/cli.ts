@@ -5,6 +5,8 @@ import type { ConfirmedMetadataBackfillOptions } from "./confirmed-metadata-back
 import type { EmbeddingRuntimeCliOptions } from "./embedding-runtime";
 import type { EmbeddingBuildOptions } from "./embedding-shards";
 import type { ImageEmbeddingBuildOptions } from "./image-embedding-shards";
+import type { ImageEmbeddingEvaluationOptions } from "./run-image-embedding-evaluation";
+import type { ImageEmbeddingDebugOptions } from "./debug-image-embedding";
 import type { MetadataBackfillPreviewOptions } from "./metadata-backfill-preview";
 import type { QuantityPreviewOptions } from "./quantity-preview";
 import type { ReleaseBuildOptions } from "./release-artifact";
@@ -24,6 +26,10 @@ function readFlag(name: string): string | undefined {
   }
 
   return process.argv[index + 1];
+}
+
+function resolveCliPath(value: string, workspaceRoot: string): string {
+  return path.isAbsolute(value) ? path.resolve(value) : path.resolve(workspaceRoot, value);
 }
 
 function readBooleanFlag(name: string): boolean | undefined {
@@ -136,6 +142,70 @@ export function readImageEmbeddingBuildOptions(): ImageEmbeddingBuildOptions {
     batchSize: Number.isFinite(batchSize) ? batchSize : undefined,
     refreshSourceCache: readBooleanFlag("--refresh-source-cache"),
     offline: readBooleanFlag("--offline"),
+  };
+}
+
+export function readImageEmbeddingEvaluationOptions(): ImageEmbeddingEvaluationOptions {
+  const rootDir = readFlag("--root-dir");
+  const workspaceRoot = rootDir ? path.resolve(rootDir) : path.resolve(process.cwd(), "../..");
+  const releasesRoot = readFlag("--releases-root");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const candidateShardPath = readFlag("--candidate-shard");
+  const buildReportPath = readFlag("--build-report");
+  const promotionAnchorPath = readFlag("--promotion-anchor-set");
+  const outputPath = readFlag("--output");
+  const reviewPackPath = readFlag("--review-pack");
+  const reviewVerdictsPath = readFlag("--review-verdicts");
+  const reviewerViewOutputPath = readFlag("--reviewer-view-output");
+  const fusionE2eReportPath = readFlag("--fusion-e2e-report");
+  const textBenchmarkBaselinePath = readFlag("--text-benchmark-baseline");
+  const a2aBaselinePath = readFlag("--a2a-baseline");
+  const e2eBaselinePath = readFlag("--e2e-baseline");
+
+  return {
+    rootDir: rootDir ? workspaceRoot : undefined,
+    releasesRoot: releasesRoot ? resolveCliPath(releasesRoot, workspaceRoot) : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? resolveCliPath(manifestPath, workspaceRoot) : undefined,
+    candidateShardPath: candidateShardPath ? resolveCliPath(candidateShardPath, workspaceRoot) : undefined,
+    buildReportPath: buildReportPath ? resolveCliPath(buildReportPath, workspaceRoot) : undefined,
+    promotionAnchorPath: promotionAnchorPath ? resolveCliPath(promotionAnchorPath, workspaceRoot) : undefined,
+    outputPath: outputPath ? resolveCliPath(outputPath, workspaceRoot) : undefined,
+    reviewPackPath: reviewPackPath ? resolveCliPath(reviewPackPath, workspaceRoot) : undefined,
+    reviewVerdictsPath: reviewVerdictsPath ? resolveCliPath(reviewVerdictsPath, workspaceRoot) : undefined,
+    emitReviewPack: readBooleanFlag("--emit-review-pack"),
+    reviewerViewOutputPath: reviewerViewOutputPath ? resolveCliPath(reviewerViewOutputPath, workspaceRoot) : undefined,
+    fusionE2eReportPath: fusionE2eReportPath ? resolveCliPath(fusionE2eReportPath, workspaceRoot) : undefined,
+    textBenchmarkBaselinePath: textBenchmarkBaselinePath ? resolveCliPath(textBenchmarkBaselinePath, workspaceRoot) : undefined,
+    a2aBaselinePath: a2aBaselinePath ? resolveCliPath(a2aBaselinePath, workspaceRoot) : undefined,
+    e2eBaselinePath: e2eBaselinePath ? resolveCliPath(e2eBaselinePath, workspaceRoot) : undefined,
+  };
+}
+
+export function readImageEmbeddingDebugOptions(): ImageEmbeddingDebugOptions {
+  const rootDir = readFlag("--root-dir");
+  const workspaceRoot = rootDir ? path.resolve(rootDir) : path.resolve(process.cwd(), "../..");
+  const releaseVersion = readFlag("--release-version");
+  const candidateShardPath = readFlag("--candidate-shard");
+  const entityType = readFlag("--entity-type");
+  const entityId = readFlag("--entity-id");
+  const limitValue = readFlag("--limit");
+  const outputPath = readFlag("--output");
+  const limit = limitValue ? Number.parseInt(limitValue, 10) : undefined;
+
+  if (entityType !== undefined && entityType !== "artwork" && entityType !== "background-scene") {
+    throw new TypeError("--entity-type must be artwork or background-scene.");
+  }
+
+  return {
+    rootDir: rootDir ? workspaceRoot : undefined,
+    releaseVersion,
+    candidateShardPath: candidateShardPath ? resolveCliPath(candidateShardPath, workspaceRoot) : undefined,
+    entityType,
+    entityId,
+    limit: Number.isFinite(limit) ? limit : undefined,
+    outputPath: outputPath ? resolveCliPath(outputPath, workspaceRoot) : undefined,
   };
 }
 
