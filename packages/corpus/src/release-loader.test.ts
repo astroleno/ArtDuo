@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -6,7 +7,8 @@ import { test } from "node:test";
 
 import type { RelationshipGraphShard } from "@artduo/contracts";
 
-import { loadEmbeddingShards, loadRelationshipGraphShard, readJsonObject } from "./release-loader";
+import { loadEmbeddingShards, loadImageEmbeddingShards, loadRelationshipGraphShard, readJsonObject } from "./release-loader";
+import * as releaseLoader from "./release-loader";
 
 function validRelationshipGraph(): RelationshipGraphShard {
   return {
@@ -115,6 +117,23 @@ function writeBaseManifest(releaseDir: string, shards: Record<string, unknown>):
       ...shards,
     },
   }, null, 2));
+}
+
+function checksum(value: Uint8Array | string): `sha256:${string}` {
+  return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function writeJsonShard(releaseDir: string, fileName: string, value: unknown) {
+  const serialized = JSON.stringify(value, null, 2);
+  const content = `${serialized}\n`;
+  writeFileSync(path.join(releaseDir, fileName), content);
+  return {
+    id: path.basename(fileName, ".json"),
+    url: `./${fileName}`,
+    checksum: checksum(serialized),
+    sizeBytes: Buffer.byteLength(content),
+    recordCount: Array.isArray(value) ? value.length : 1,
+  };
 }
 
 test("release loader resolves embeddings from the manifest", () => {
@@ -353,5 +372,220 @@ test("relationship graph loader rejects stale sidecar release versions", () => {
   assert.throws(
     () => loadRelationshipGraphShard({ rootDir, releaseVersion: "graph-current" }),
     /graph releaseVersion must match release graph-current/,
+  );
+});
+
+test("image embedding loader returns an empty optional sidecar when the base manifest has none", () => {
+  const rootDir = mkdtempSync(path.join(os.tmpdir(), "artduo-image-embedding-absent-"));
+  const releaseDir = path.join(rootDir, "data", "releases", "image-absent");
+  mkdirSync(releaseDir, { recursive: true });
+  writeBaseManifest(releaseDir, {});
+
+  const loadImageEmbeddingShards = (releaseLoader as Record<string, unknown>).loadImageEmbeddingShards;
+  assert.equal(typeof loadImageEmbeddingShards, "function", "image embedding loader must be exported");
+  const loaded = (loadImageEmbeddingShards as (options: { rootDir: string; releaseVersion: string }) => {
+    records: unknown[];
+    shardPaths: string[];
+  })({ rootDir, releaseVersion: "image-absent" });
+
+  assert.deepEqual(loaded.records, []);
+  assert.deepEqual(loaded.shardPaths, []);
+});
+
+function createImageEmbeddingVariantFixture(entityType: "artwork" | "background-scene" = "artwork") {
+  const rootDir = mkdtempSync(path.join(os.tmpdir(), "artduo-image-embedding-variant-"));
+  const releaseVersion = "image-variant";
+  const releaseDir = path.join(rootDir, "data", "releases", releaseVersion);
+  mkdirSync(releaseDir, { recursive: true });
+  const metadata = writeJsonShard(releaseDir, "metadata-01.json", []);
+  const search = writeJsonShard(releaseDir, "search-01.json", []);
+  const media = writeJsonShard(releaseDir, "media-01.json", [
+    { id: "met-1", media: { imageUrlPreview: "https://images.metmuseum.org/met-1.png" } },
+  ]);
+  const backgroundScenes = writeJsonShard(releaseDir, "background-scenes-01.json", [
+    { id: "scene-1", asset: { local_public_path: "/artduo-gallery/scene-1.png" } },
+  ]);
+  const baseManifest = {
+    release: {
+      corpusVersion: releaseVersion,
+      backgroundCatalogVersion: releaseVersion,
+      contractsVersion: "0.1.0",
+      createdAt: "2026-07-27T00:00:00.000Z",
+    },
+    shards: { metadata: [metadata], search: [search], mediaIndex: [media], backgroundScenes: [backgroundScenes] },
+  };
+  const baseManifestPath = path.join(releaseDir, "manifest.json");
+  writeFileSync(baseManifestPath, `${JSON.stringify(baseManifest, null, 2)}\n`);
+  const baseManifestChecksum = checksum(readFileSync(baseManifestPath));
+  const modelArtifactChecksum = checksum("image-model");
+  const preprocessingFingerprint = checksum("image-preprocessing");
+  const entityId = entityType === "artwork" ? "met-1" : "scene-1";
+  const imageShard = writeJsonShard(releaseDir, "image-embeddings-01.json", [
+    {
+      id: `${entityType}:${entityId}`,
+      entityType,
+      entityId,
+      releaseVersion,
+      model: "test-image-model",
+      modelRevision: "test-revision",
+      modelVariant: "quantized",
+      modelArtifactChecksum,
+      provider: "@xenova/transformers",
+      providerVersion: "2.17.2",
+      dimensions: 2,
+      preprocessingVersion: "test-preprocessing.v1",
+      preprocessingFingerprint,
+      vectorPrecision: 8,
+      source: {
+        shardId: entityType === "artwork" ? "media-01" : "background-scenes-01",
+        recordId: entityId,
+        fieldPath: entityType === "artwork" ? "media.imageUrlPreview" : "asset.local_public_path",
+        fingerprint: checksum(`source-${entityId}`),
+      },
+      vector: [1, 0],
+    },
+  ]);
+  const variantManifest = {
+    ...baseManifest,
+    shards: { ...baseManifest.shards, imageEmbeddings: [imageShard] },
+    imageEmbeddingSidecar: {
+      schemaVersion: "image-embedding-v1",
+      baseManifestChecksum,
+      promotionReportChecksum: checksum("promotion-report"),
+      promotionBindingChecksum: checksum("promotion-binding"),
+      imageShardChecksum: imageShard.checksum,
+      model: "test-image-model",
+      modelRevision: "test-revision",
+      modelVariant: "quantized",
+      modelArtifactChecksum,
+      providerVersion: "2.17.2",
+      preprocessingFingerprint,
+      visualPolicy: { candidateCount: 1, weight: 0.1, lowerCosine: 0.2, upperCosine: 0.8 },
+    },
+  };
+  const variantManifestPath = path.join(releaseDir, "manifest.image-embedding-v1.json");
+  writeFileSync(variantManifestPath, `${JSON.stringify(variantManifest, null, 2)}\n`);
+
+  return { rootDir, releaseVersion, releaseDir, variantManifestPath, imageShard, variantManifest };
+}
+
+test("image embedding loader reads a bound explicit variant and its image shard", () => {
+  const fixture = createImageEmbeddingVariantFixture();
+
+  const loaded = loadImageEmbeddingShards({
+    rootDir: fixture.rootDir,
+    releaseVersion: fixture.releaseVersion,
+    imageEmbeddingManifestPath: fixture.variantManifestPath,
+  });
+
+  assert.deepEqual(loaded.records.map((record) => record.id), ["artwork:met-1"]);
+  assert.equal(loaded.shardPaths[0], path.join(fixture.releaseDir, "image-embeddings-01.json"));
+  assert.equal(loaded.imageEmbeddingSidecar?.imageShardChecksum, fixture.imageShard.checksum);
+});
+
+test("image embedding loader resolves a bound background-scene source reference", () => {
+  const fixture = createImageEmbeddingVariantFixture("background-scene");
+
+  const loaded = loadImageEmbeddingShards({
+    rootDir: fixture.rootDir,
+    releaseVersion: fixture.releaseVersion,
+    imageEmbeddingManifestPath: fixture.variantManifestPath,
+  });
+
+  assert.deepEqual(loaded.records.map((record) => record.id), ["background-scene:scene-1"]);
+});
+
+test("image embedding loader enforces the variant pre-parse limit before JSON parsing", () => {
+  const fixture = createImageEmbeddingVariantFixture();
+  writeFileSync(fixture.variantManifestPath, `${" ".repeat(1024)}{}`);
+
+  assert.throws(
+    () => loadImageEmbeddingShards({
+      rootDir: fixture.rootDir,
+      releaseVersion: fixture.releaseVersion,
+      imageEmbeddingManifestPath: fixture.variantManifestPath,
+      maxPreParseBytes: 64,
+    }),
+    /pre-parse bytes/,
+  );
+});
+
+test("image embedding loader rejects an explicit variant outside the requested release version", () => {
+  const fixture = createImageEmbeddingVariantFixture();
+
+  assert.throws(
+    () => loadImageEmbeddingShards({
+      rootDir: fixture.rootDir,
+      releaseVersion: "different-release",
+      imageEmbeddingManifestPath: fixture.variantManifestPath,
+    }),
+    /releaseVersion/,
+  );
+});
+
+test("async image embedding loader reads the same explicitly selected sidecar", async () => {
+  const fixture = createImageEmbeddingVariantFixture();
+  const loadImageEmbeddingShardsAsync = (releaseLoader as Record<string, unknown>).loadImageEmbeddingShardsAsync;
+  assert.equal(typeof loadImageEmbeddingShardsAsync, "function", "async image embedding loader must be exported");
+
+  const loaded = await (loadImageEmbeddingShardsAsync as (options: {
+    rootDir: string;
+    releaseVersion: string;
+    imageEmbeddingManifestPath: string;
+  }) => Promise<{ records: Array<{ id: string }>; imageEmbeddingSidecar?: { modelRevision: string } }>)({
+    rootDir: fixture.rootDir,
+    releaseVersion: fixture.releaseVersion,
+    imageEmbeddingManifestPath: fixture.variantManifestPath,
+  });
+
+  assert.deepEqual(loaded.records.map((record) => record.id), ["artwork:met-1"]);
+  assert.equal(loaded.imageEmbeddingSidecar?.modelRevision, "test-revision");
+});
+
+test("async image embedding loader surfaces an already-aborted signal without reading the sidecar", async () => {
+  const fixture = createImageEmbeddingVariantFixture();
+  const controller = new AbortController();
+  controller.abort();
+  const loadImageEmbeddingShardsAsync = (releaseLoader as Record<string, unknown>).loadImageEmbeddingShardsAsync;
+  assert.equal(typeof loadImageEmbeddingShardsAsync, "function", "async image embedding loader must be exported");
+
+  await assert.rejects(
+    (loadImageEmbeddingShardsAsync as (options: {
+      rootDir: string;
+      releaseVersion: string;
+      imageEmbeddingManifestPath: string;
+      signal: AbortSignal;
+    }) => Promise<unknown>)({
+      rootDir: fixture.rootDir,
+      releaseVersion: fixture.releaseVersion,
+      imageEmbeddingManifestPath: path.join(fixture.releaseDir, "must-not-be-read.json"),
+      signal: controller.signal,
+    }),
+    /aborted/i,
+  );
+});
+
+test("image embedding loader rejects a source reference that is absent from the base release shard", () => {
+  const fixture = createImageEmbeddingVariantFixture();
+  const imageShardPath = path.join(fixture.releaseDir, "image-embeddings-01.json");
+  const records = JSON.parse(readFileSync(imageShardPath, "utf8")) as Array<Record<string, unknown>>;
+  const source = records[0]?.source as Record<string, unknown>;
+  source.recordId = "met-missing";
+  const imageShard = writeJsonShard(fixture.releaseDir, "image-embeddings-01.json", records);
+  const variantManifest = fixture.variantManifest as {
+    shards: { imageEmbeddings: Array<unknown> };
+    imageEmbeddingSidecar: { imageShardChecksum: string };
+  };
+  variantManifest.shards.imageEmbeddings = [imageShard];
+  variantManifest.imageEmbeddingSidecar.imageShardChecksum = imageShard.checksum;
+  writeFileSync(fixture.variantManifestPath, `${JSON.stringify(variantManifest, null, 2)}\n`);
+
+  assert.throws(
+    () => loadImageEmbeddingShards({
+      rootDir: fixture.rootDir,
+      releaseVersion: fixture.releaseVersion,
+      imageEmbeddingManifestPath: fixture.variantManifestPath,
+    }),
+    /source reference/,
   );
 });

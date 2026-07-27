@@ -5,6 +5,7 @@ export * from "./debug-retrieval";
 export * from "./query-embedding";
 export * from "./prefetch";
 export * from "./release-loader";
+export * from "./image-embedding";
 export * from "./browser-release-loader";
 export * from "./indexeddb-cache";
 export * from "./search-worker";

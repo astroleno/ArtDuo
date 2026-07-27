@@ -974,7 +974,7 @@ git commit -m "feat(pipeline): build versioned image embedding sidecars"
 - Modify: `packages/corpus/src/browser-release-loader.test.ts`
 - Modify: `packages/corpus/src/index.ts`
 
-- [ ] **Step 1: 写失败的 loader 和搜索测试**
+- [x] **Step 1: 写失败的 loader 和搜索测试**
 
 覆盖：
 
@@ -1005,7 +1005,7 @@ pnpm --filter @artduo/corpus test
 
 预期：新 API 尚不存在，测试失败。
 
-- [ ] **Step 2: 实现 loader**
+- [x] **Step 2: 实现 loader**
 
 ```ts
 export interface LoadedImageEmbeddingShards extends LoadedReleaseManifest {
@@ -1044,7 +1044,7 @@ fetch 必须先校验 variant 响应大小，再按同样的 bounded streaming �
 shard。Abort 只能中止 I/O，不能抢占 `JSON.parse`；因此 4 MB pre-parse hard cap
 仍是 server 响应时间上界的一部分，不能依赖 timeout 代替 size cap。
 
-- [ ] **Step 3: 实现内存索引与搜索**
+- [x] **Step 3: 实现内存索引与搜索**
 
 ```ts
 export interface ImageEmbeddingIndex {
@@ -1080,7 +1080,7 @@ export function scoreArtworkBackgroundCompatibility(
 
 复用现有 cosine/vector search 工具，不复制相似度实现。由于 shard contract 强制 unit vectors，现有 dot-product cosine 路径成立；index 创建时仍需抽样复核范数。当前约 271 个实体继续线性扫描。
 
-- [ ] **Step 4: 增加 browser parse/index 性能测量**
+- [x] **Step 4: 增加 browser parse/index 性能测量**
 
 使用确定性 271 × 512 dense vector fixture，分别记录：
 
@@ -1095,7 +1095,7 @@ export function scoreArtworkBackgroundCompatibility(
 mobile-emulation diagnostic，除非另立并批准真实 Worker/UI 集成计划，否则不能
 宣称已有生产浏览器测量。
 
-- [ ] **Step 5: 运行测试**
+- [x] **Step 5: 运行测试**
 
 ```bash
 pnpm --filter @artduo/contracts build
@@ -1105,7 +1105,7 @@ pnpm --filter @artduo/corpus typecheck
 
 预期：全部通过；fixture 满足 Task -1 的 raw size、parse/index 和 heap 预算。
 
-- [ ] **Step 6: 提交 loader 和索引**
+- [x] **Step 6: 提交 loader 和索引**
 
 ```bash
 git add \
