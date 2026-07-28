@@ -6,6 +6,7 @@ import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
 import {
   buildImageEmbeddingReviewPack,
+  classifyImageEmbeddingArtworkWeakLabelPair,
   evaluateImageEmbeddingHumanReview,
   evaluateImageEmbeddingWeakLabels,
   renderImageEmbeddingReviewerView,
@@ -130,6 +131,63 @@ test("frozen scene weak labels use the production metadata scorer and its weight
     sceneType: "architectural_space",
     palette: [],
   }), 0);
+});
+
+test("frozen metadata scorer keeps valid 14 and 15 point matches distinct", () => {
+  const artwork = {
+    id: "high-score-artwork",
+    moodTags: ["contemplation"],
+    colorTags: ["ochre", "indigo", "ivory"],
+    compositionTags: [],
+    subjectTags: [],
+    emotionLabels: ["awe"],
+    sceneAffinity: {
+      paletteModes: ["warm-neutral"],
+      sceneTypes: ["gallery_interior"],
+    },
+  };
+  const sharedScene = {
+    id: "shared-scene",
+    emotionIds: ["contemplation", "awe"],
+    artworkPaletteModes: ["warm-neutral"],
+    sceneType: "gallery_interior",
+    palette: ["ochre", "indigo"],
+  };
+
+  assert.equal(scoreFrozenBackgroundSceneWeakLabel(artwork, sharedScene), 14);
+  assert.equal(scoreFrozenBackgroundSceneWeakLabel(artwork, {
+    ...sharedScene,
+    id: "one-more-color-scene",
+    palette: ["ochre", "indigo", "ivory"],
+  }), 15);
+});
+
+test("artwork positives require two distinct shared weak-label fields rather than two tags from one field", () => {
+  const sharedColorOnlyLeft = {
+    id: "shared-color-left",
+    moodTags: [],
+    colorTags: ["ochre", "ultramarine"],
+    compositionTags: ["centered"],
+    subjectTags: ["portrait"],
+    aspectRatioHint: "landscape",
+  };
+  const sharedColorOnlyRight = {
+    ...sharedColorOnlyLeft,
+    id: "shared-color-right",
+    compositionTags: ["asymmetrical"],
+    subjectTags: ["landscape"],
+    aspectRatioHint: "portrait",
+  };
+  const sharedTwoFields = {
+    ...sharedColorOnlyRight,
+    id: "shared-two-fields",
+    compositionTags: ["centered"],
+    subjectTags: ["landscape"],
+    aspectRatioHint: "landscape",
+  };
+
+  assert.equal(classifyImageEmbeddingArtworkWeakLabelPair(sharedColorOnlyLeft, sharedColorOnlyRight), undefined);
+  assert.equal(classifyImageEmbeddingArtworkWeakLabelPair(sharedColorOnlyLeft, sharedTwoFields), "positive");
 });
 
 test("scene Top-3 evaluation reports missing vectors outside the metric denominator", () => {
@@ -304,6 +362,56 @@ test("holdout readiness fails closed for small or unsatisfied strata and emits c
   assert.equal(evaluation.artworkPairwise.holdout.confidenceInterval.resampleCount, 1_000);
 });
 
+test("holdout gates major mood and department strata while retaining long-tail combinations as diagnostics", () => {
+  const moods = Array.from({ length: 7 }, (_, index) => `mood-${index + 1}`);
+  const departments = Array.from({ length: 9 }, (_, index) => `department-${index + 1}`);
+  const artworks = moods.flatMap((mood) => departments.flatMap((department) =>
+    Array.from({ length: 3 }, (_, duplicate) => ({
+      id: `${mood}-${department}-${duplicate + 1}`,
+      department,
+      moodTags: [mood],
+      colorTags: ["ochre"],
+      compositionTags: ["centered"],
+      subjectTags: ["portrait"],
+      emotionLabels: [mood],
+      sceneAffinity: { paletteModes: [], sceneTypes: [] },
+    }))));
+  const records = [
+    ...artworks.map((artwork) => record(artwork.id, [1, 0])),
+    record("scene-positive", [1, 0], "background-scene"),
+    record("scene-zero", [0, 1], "background-scene"),
+  ];
+  const evaluation = evaluateImageEmbeddingWeakLabels({
+    releaseVersion: "major-strata-test",
+    evaluationVersion: "image-embedding-evaluation.v1",
+    artworks,
+    scenes: [
+      {
+        id: "scene-positive",
+        emotionIds: moods,
+        artworkPaletteModes: [],
+        sceneType: "gallery_interior",
+        palette: ["ochre"],
+      },
+      {
+        id: "scene-zero",
+        emotionIds: [],
+        artworkPaletteModes: [],
+        sceneType: "architectural_space",
+        palette: [],
+      },
+    ],
+    records,
+  });
+
+  assert.equal(evaluation.sceneTop3.holdout.perStrata.length, 63);
+  assert.ok(evaluation.sceneTop3.holdout.perStrata.every((stratum) => stratum.status === "insufficient-sample"));
+  assert.equal(evaluation.holdoutReadiness.sceneTop3.allStrataSufficient, false);
+  assert.equal(evaluation.holdoutReadiness.sceneTop3.allMajorStrataSufficient, true);
+  assert.equal(evaluation.sceneTop3.holdout.majorStrata.length, moods.length + departments.length);
+  assert.ok(evaluation.sceneTop3.holdout.majorStrata.every((stratum) => stratum.status === "ready"));
+});
+
 test("review pack remains blind and only accepts a complete verdict sidecar bound to its checksum", () => {
   const generated = buildImageEmbeddingReviewPack({
     releaseVersion: "review-pack-test",
@@ -312,6 +420,8 @@ test("review pack remains blind and only accepts a complete verdict sidecar boun
     comparisons: Array.from({ length: 32 }, (_, index) => ({
       artworkId: `artwork-${String(index + 1).padStart(2, "0")}`,
       stratum: `${index % 2 === 0 ? "contemplation" : "wonder"}|paintings`,
+      mood: index % 2 === 0 ? "contemplation" : "wonder",
+      department: "paintings",
       artworkCaption: `Artwork ${index + 1}`,
       artworkImageUrl: `https://images.example.test/artwork-${index + 1}.jpg`,
       baseline: {
@@ -386,4 +496,42 @@ test("review pack remains blind and only accepts a complete verdict sidecar boun
   const malformedPack = { ...generated.pack, comparisons: [null] } as unknown as typeof generated.pack;
   assert.equal(evaluateImageEmbeddingHumanReview(malformedPack, verdicts).valid, false);
   assert.throws(() => renderImageEmbeddingReviewerView(malformedPack), /invalid|malformed/i);
+});
+
+test("review pack uses deterministic marginal quotas instead of stopping at lexicographically early compound strata", () => {
+  const moods = Array.from({ length: 7 }, (_, index) => `mood-${String(index + 1).padStart(2, "0")}`);
+  const departments = Array.from({ length: 9 }, (_, index) => `department-${String(index + 1).padStart(2, "0")}`);
+  const generated = buildImageEmbeddingReviewPack({
+    releaseVersion: "review-pack-strata-test",
+    evaluationVersion: "image-embedding-evaluation.v1",
+    candidateShardChecksum: checksum("candidate-shard"),
+    comparisons: moods.flatMap((mood) => departments.map((department) => ({
+      artworkId: `${mood}-${department}`,
+      stratum: `${mood}|${department}`,
+      mood,
+      department,
+      artworkCaption: `${mood} ${department}`,
+      artworkImageUrl: `https://images.example.test/${mood}-${department}.jpg`,
+      baseline: {
+        sceneId: `baseline-${mood}-${department}`,
+        score: 0.4,
+        fingerprint: checksum(`baseline-${mood}-${department}`),
+        imageUrl: `https://images.example.test/baseline-${mood}-${department}.jpg`,
+      },
+      candidate: {
+        sceneId: `candidate-${mood}-${department}`,
+        score: 0.7,
+        fingerprint: checksum(`candidate-${mood}-${department}`),
+        imageUrl: `https://images.example.test/candidate-${mood}-${department}.jpg`,
+      },
+    }))),
+  });
+
+  assert.equal(generated.pack.comparisons.length, 30);
+  assert.equal(generated.pack.sampling.algorithm, "marginal-proportional-v1");
+  assert.equal(generated.pack.sampling.moods.length, moods.length);
+  assert.equal(generated.pack.sampling.departments.length, departments.length);
+  assert.ok(generated.pack.sampling.moods.every((stratum) => stratum.selectedCount > 0));
+  assert.ok(generated.pack.sampling.departments.every((stratum) => stratum.selectedCount > 0));
+  assert.ok(generated.pack.comparisons.some((comparison) => comparison.mood === moods.at(-1)));
 });

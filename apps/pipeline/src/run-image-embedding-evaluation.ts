@@ -1,9 +1,17 @@
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { cosineSimilarity, loadReleaseManifest } from "@artduo/corpus";
-import { parseImageEmbeddingShardRecords, type ImageEmbeddingShardRecord, type ShardInfo } from "@artduo/contracts";
+import {
+  assertImageSceneScoreCardinality,
+  IMAGE_SCENE_SCORE_CARDINALITY_LIMITS,
+  IMAGE_SCENE_SCORE_UPPER_BOUND,
+  parseImageEmbeddingShardRecords,
+  type ImageEmbeddingShardRecord,
+  type ShardInfo,
+} from "@artduo/contracts";
 
 import {
   buildImageEmbeddingReviewPack,
@@ -11,18 +19,27 @@ import {
   evaluateImageEmbeddingWeakLabels,
   renderImageEmbeddingReviewerView,
   scoreFrozenBackgroundSceneWeakLabel,
+  validateImageEmbeddingMachineReviewPack,
   type ImageEmbeddingEvaluationArtwork,
   type ImageEmbeddingEvaluationScene,
   type ImageEmbeddingHumanReviewEvaluation,
   type ImageEmbeddingMachineReviewPack,
   type ImageEmbeddingWeakLabelEvaluation,
 } from "./image-embedding-evaluation";
+import {
+  validateImageEmbeddingA2aEvidence,
+  validateImageEmbeddingE2eEvidence,
+  validateImageEmbeddingFusionE2eEvidence,
+  validateImageEmbeddingTextBenchmarkEvidence,
+  type ImageEmbeddingEvidenceContext,
+  type ImageEmbeddingEvidenceValidation,
+} from "./image-embedding-promotion-evidence";
 import { readImageEmbeddingEvaluationOptions } from "./cli";
 
 const EVALUATION_VERSION = "image-embedding-evaluation.v1";
 const VISUAL_CANDIDATE_COUNT = 12;
 const VISUAL_WEIGHT_CANDIDATES = [0.05, 0.1, 0.15, 0.2, 0.3] as const;
-const FROZEN_METADATA_SCORE_UPPER_BOUND = 13;
+export const FROZEN_METADATA_SCORE_UPPER_BOUND = IMAGE_SCENE_SCORE_UPPER_BOUND;
 
 export interface ImageEmbeddingEvaluationOptions {
   rootDir?: string;
@@ -41,6 +58,8 @@ export interface ImageEmbeddingEvaluationOptions {
   textBenchmarkBaselinePath?: string;
   a2aBaselinePath?: string;
   e2eBaselinePath?: string;
+  /** Internal test seam; the CLI always derives this value from the selected Git checkout. */
+  expectedEvidenceCommitSha?: string;
 }
 
 export interface ImageEmbeddingPromotionBinding {
@@ -134,6 +153,10 @@ export interface ImageEmbeddingEvaluationReport {
     a2aBaselineChecksum: string;
     e2eBaselineChecksum: string;
     fusionE2eReportChecksum?: string;
+    textBenchmarkBaselineValid: boolean;
+    a2aBaselineValid: boolean;
+    e2eBaselineValid: boolean;
+    fusionE2eReportValid?: boolean;
   };
   gates: {
     bindingIntegrity: boolean;
@@ -144,6 +167,7 @@ export interface ImageEmbeddingEvaluationReport {
     reviewPackReady: boolean;
     humanReviewReady: boolean;
     baselineBindingsReady: boolean;
+    fusionE2eReady: boolean;
     visualPolicySelectionReady: boolean;
   };
   promotionBinding: ImageEmbeddingPromotionBinding;
@@ -221,6 +245,18 @@ function optionalStringArray(value: unknown): string[] {
     : [];
 }
 
+function scoreBoundedStringArray(value: unknown, label: string, maximum: number): string[] {
+  const values = stringArray(value, label);
+  assertImageSceneScoreCardinality(values, maximum, label);
+  return values;
+}
+
+function optionalScoreBoundedStringArray(value: unknown, label: string, maximum: number): string[] {
+  const values = optionalStringArray(value);
+  assertImageSceneScoreCardinality(values, maximum, label);
+  return values;
+}
+
 function expectNumber(value: unknown, label: string): number {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     throw new TypeError(`${label}: expected finite number.`);
@@ -235,6 +271,25 @@ function isInside(parentPath: string, childPath: string): boolean {
 
 function resolveRootDir(rootDir?: string): string {
   return rootDir ? path.resolve(rootDir) : path.resolve(process.cwd(), "../..");
+}
+
+function resolveEvidenceCommitSha(rootDir: string, expectedCommitSha?: string): string | undefined {
+  const explicit = expectedCommitSha?.trim();
+  if (explicit) {
+    if (!/^[a-f0-9]{40}$/u.test(explicit)) {
+      throw new TypeError("Expected evidence commit SHA must be a full lowercase SHA-1.");
+    }
+    return explicit;
+  }
+  try {
+    const commitSha = execFileSync("git", ["-C", rootDir, "rev-parse", "HEAD"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    return /^[a-f0-9]{40}$/u.test(commitSha) ? commitSha : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function resolveReportDirectory(rootDir: string, releaseVersion: string): string {
@@ -299,10 +354,22 @@ function parseBaseInputs(input: {
       const curationProfile = expectRecord(record.curation_profile, `background-scenes:${shard.id}[${index}].curation_profile`);
       return {
         id: expectString(record.id, `background-scenes:${shard.id}[${index}].id`),
-        emotionIds: stringArray(curationProfile.emotion_ids, `background-scenes:${shard.id}[${index}].curation_profile.emotion_ids`),
-        artworkPaletteModes: optionalStringArray(curationProfile.artwork_palette_modes),
+        emotionIds: scoreBoundedStringArray(
+          curationProfile.emotion_ids,
+          `background-scenes:${shard.id}[${index}].curation_profile.emotion_ids`,
+          IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.sceneEmotionIds,
+        ),
+        artworkPaletteModes: optionalScoreBoundedStringArray(
+          curationProfile.artwork_palette_modes,
+          `background-scenes:${shard.id}[${index}].curation_profile.artwork_palette_modes`,
+          IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.sceneArtworkPaletteModes,
+        ),
         sceneType: optionalString(visualProfile.scene_type),
-        palette: stringArray(visualProfile.palette, `background-scenes:${shard.id}[${index}].visual_profile.palette`),
+        palette: scoreBoundedStringArray(
+          visualProfile.palette,
+          `background-scenes:${shard.id}[${index}].visual_profile.palette`,
+          IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.scenePalette,
+        ),
         imageUrl: optionalString(asset.local_public_path),
       } satisfies EvaluationScene;
     }));
@@ -325,15 +392,35 @@ function parseBaseInputs(input: {
     return {
       id,
       department: optionalString(metadataValue.department),
-      moodTags: stringArray(metadataValue.moodTags, `metadata:${id}.metadata.moodTags`),
-      colorTags: stringArray(metadataValue.colorTags, `metadata:${id}.metadata.colorTags`),
+      moodTags: scoreBoundedStringArray(
+        metadataValue.moodTags,
+        `metadata:${id}.metadata.moodTags`,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkMoodTags,
+      ),
+      colorTags: scoreBoundedStringArray(
+        metadataValue.colorTags,
+        `metadata:${id}.metadata.colorTags`,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkColorTags,
+      ),
       compositionTags: stringArray(metadataValue.compositionTags, `metadata:${id}.metadata.compositionTags`),
       subjectTags: stringArray(metadataValue.subjectTags, `metadata:${id}.metadata.subjectTags`),
       aspectRatioHint: optionalString(mediaValue.aspectRatioHint),
-      emotionLabels: optionalStringArray(retrieval.emotionLabels),
+      emotionLabels: optionalScoreBoundedStringArray(
+        retrieval.emotionLabels,
+        `search:${id}.retrieval.emotionLabels`,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkEmotionLabels,
+      ),
       sceneAffinity: {
-        paletteModes: optionalStringArray(affinity.paletteModes),
-        sceneTypes: optionalStringArray(affinity.sceneTypes),
+        paletteModes: optionalScoreBoundedStringArray(
+          affinity.paletteModes,
+          `metadata:${id}.presentation.sceneAffinity.paletteModes`,
+          IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkPaletteModes,
+        ),
+        sceneTypes: optionalScoreBoundedStringArray(
+          affinity.sceneTypes,
+          `metadata:${id}.presentation.sceneAffinity.sceneTypes`,
+          IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkSceneTypes,
+        ),
       },
       caption: expectString(metadataValue.title, `metadata:${id}.metadata.title`),
       imageUrl: optionalString(mediaValue.imageUrlPreview)
@@ -402,7 +489,7 @@ function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
-function normalizeMetadataScore(score: number): number {
+export function normalizeMetadataScore(score: number): number {
   return clamp01(score / FROZEN_METADATA_SCORE_UPPER_BOUND);
 }
 
@@ -565,8 +652,15 @@ function chooseVisualPolicy(input: {
 }
 
 function stratumForArtwork(artwork: EvaluationArtwork): string {
-  const mood = artwork.moodTags.find((value) => value.trim())?.trim().toLowerCase() ?? "unknown";
-  return `${mood}|${artwork.department?.trim().toLowerCase() || "unknown"}`;
+  return `${moodForArtwork(artwork)}|${departmentForArtwork(artwork)}`;
+}
+
+function moodForArtwork(artwork: EvaluationArtwork): string {
+  return artwork.moodTags.find((value) => value.trim())?.trim().toLowerCase() ?? "unknown";
+}
+
+function departmentForArtwork(artwork: EvaluationArtwork): string {
+  return artwork.department?.trim().toLowerCase() || "unknown";
 }
 
 function readMachineReviewPack(value: unknown): ImageEmbeddingMachineReviewPack {
@@ -577,8 +671,54 @@ function readMachineReviewPack(value: unknown): ImageEmbeddingMachineReviewPack 
   return pack as unknown as ImageEmbeddingMachineReviewPack;
 }
 
-function checksumOrMissing(filePath: string | undefined): string {
-  return filePath ? sha256Checksum(readFileSync(filePath)) : "missing";
+interface ValidatedEvidenceFile {
+  provided: boolean;
+  checksum: string;
+  validation: ImageEmbeddingEvidenceValidation;
+}
+
+function missingEvidence(): ValidatedEvidenceFile {
+  return {
+    provided: false,
+    checksum: "missing",
+    validation: { valid: false, reasons: [] },
+  };
+}
+
+function readValidatedEvidence(
+  filePath: string | undefined,
+  context: ImageEmbeddingEvidenceContext,
+  label: string,
+  validator: (value: unknown, validationContext: ImageEmbeddingEvidenceContext) => ImageEmbeddingEvidenceValidation,
+): ValidatedEvidenceFile {
+  if (!filePath) {
+    return missingEvidence();
+  }
+  try {
+    const bytes = readFileSync(filePath);
+    const checksum = sha256Checksum(bytes);
+    const value = JSON.parse(bytes.toString("utf8")) as unknown;
+    return {
+      provided: true,
+      checksum,
+      validation: validator(value, context),
+    };
+  } catch {
+    return {
+      provided: true,
+      checksum: "missing",
+      validation: { valid: false, reasons: [`${label} evidence could not be read as JSON.`] },
+    };
+  }
+}
+
+function recordEvidenceFailures(
+  evidence: ValidatedEvidenceFile,
+  bindingFailures: string[],
+): void {
+  if (evidence.provided && !evidence.validation.valid) {
+    bindingFailures.push(...evidence.validation.reasons);
+  }
 }
 
 function writeJsonAtomically(filePath: string, value: unknown): void {
@@ -631,6 +771,7 @@ export async function runImageEmbeddingEvaluation(
     throw new TypeError("Selected release version does not match the base manifest.");
   }
   const reportDirectory = resolveReportDirectory(rootDir, releaseVersion);
+  const evidenceCommitSha = resolveEvidenceCommitSha(rootDir, options.expectedEvidenceCommitSha);
   const outputPath = path.resolve(options.outputPath);
   if (isInside(loaded.releaseDir, outputPath)) {
     throw new TypeError("Image embedding evaluation output must remain outside the base release directory.");
@@ -731,6 +872,8 @@ export async function runImageEmbeddingEvaluation(
     return [{
       artworkId: artwork.id,
       stratum: stratumForArtwork(artwork),
+      mood: moodForArtwork(artwork),
+      department: departmentForArtwork(artwork),
       artworkCaption: artwork.caption,
       artworkImageUrl: artwork.imageUrl,
       baseline: {
@@ -759,12 +902,20 @@ export async function runImageEmbeddingEvaluation(
   const reviewPack = options.reviewPackPath && !options.emitReviewPack
     ? readMachineReviewPack(readJsonFile(reviewPackPath))
     : generatedReviewPack.pack;
+  const reviewPackValidationError = validateImageEmbeddingMachineReviewPack(reviewPack);
+  if (reviewPackValidationError) {
+    bindingFailures.push(`Review pack is malformed: ${reviewPackValidationError}`);
+  }
   if (
     reviewPack.releaseVersion !== releaseVersion
     || reviewPack.evaluationVersion !== EVALUATION_VERSION
     || reviewPack.candidateShardChecksum !== candidate.checksum
   ) {
     bindingFailures.push("Review pack does not bind to the selected release, evaluation version, and candidate shard.");
+  }
+  const reviewPackMatchesGenerated = reviewPack.reviewPackChecksum === generatedReviewPack.pack.reviewPackChecksum;
+  if (!reviewPackMatchesGenerated) {
+    bindingFailures.push("Review pack does not match this run's deterministic comparison set.");
   }
   if (options.emitReviewPack) {
     if (isInside(loaded.releaseDir, reviewPackPath)) {
@@ -791,32 +942,58 @@ export async function runImageEmbeddingEvaluation(
     humanReview = invalidatedHumanReview(humanReview, "Evaluation input bindings are invalid.");
   }
 
-  const textBenchmarkBaselineChecksum = checksumOrMissing(options.textBenchmarkBaselinePath);
-  const a2aBaselineChecksum = checksumOrMissing(options.a2aBaselinePath);
-  const e2eBaselineChecksum = checksumOrMissing(options.e2eBaselinePath);
-  const fusionE2eReportChecksum = options.fusionE2eReportPath
-    ? checksumOrMissing(options.fusionE2eReportPath)
-    : undefined;
+  const evidenceContext: ImageEmbeddingEvidenceContext = {
+    releaseVersion,
+    baseManifestChecksum,
+    commitSha: evidenceCommitSha,
+  };
+  const textBenchmarkEvidence = readValidatedEvidence(
+    options.textBenchmarkBaselinePath,
+    evidenceContext,
+    "Text benchmark",
+    validateImageEmbeddingTextBenchmarkEvidence,
+  );
+  const a2aEvidence = readValidatedEvidence(
+    options.a2aBaselinePath,
+    evidenceContext,
+    "A2A",
+    validateImageEmbeddingA2aEvidence,
+  );
+  const e2eEvidence = readValidatedEvidence(
+    options.e2eBaselinePath,
+    evidenceContext,
+    "E2E",
+    validateImageEmbeddingE2eEvidence,
+  );
+  recordEvidenceFailures(textBenchmarkEvidence, bindingFailures);
+  recordEvidenceFailures(a2aEvidence, bindingFailures);
+  recordEvidenceFailures(e2eEvidence, bindingFailures);
+  const textBenchmarkBaselineChecksum = textBenchmarkEvidence.checksum;
+  const a2aBaselineChecksum = a2aEvidence.checksum;
+  const e2eBaselineChecksum = e2eEvidence.checksum;
   const artworkHoldout = weakLabels.artworkPairwise.holdout;
   const sceneHoldout = weakLabels.sceneTop3.holdout;
   const artworkHoldoutReady = weakLabels.holdoutReadiness.artworkPairwise.minimumSampleMet
-    && weakLabels.holdoutReadiness.artworkPairwise.allStrataSufficient
+    && weakLabels.holdoutReadiness.artworkPairwise.allMajorStrataSufficient
     && artworkHoldout.pairwiseAccuracy >= 0.8
     && artworkHoldout.confidenceInterval.lower >= 0.7;
   const sceneHoldoutReady = weakLabels.holdoutReadiness.sceneTop3.minimumSampleMet
-    && weakLabels.holdoutReadiness.sceneTop3.allStrataSufficient
+    && weakLabels.holdoutReadiness.sceneTop3.allMajorStrataSufficient
     && sceneHoldout.hitRate >= 0.7
     && sceneHoldout.confidenceInterval.lower >= 0.6;
-  const reviewPackReady = generatedReviewPack.minimumSampleMet && reviewPack.comparisons.length >= 30;
+  const reviewPackReady = generatedReviewPack.minimumSampleMet
+    && reviewPackMatchesGenerated
+    && !reviewPackValidationError
+    && reviewPack.comparisons.length >= 30;
   const humanReviewReady = humanReview.valid
     && humanReview.humanReviewComplete
     && humanReview.completedCount >= 30
     && humanReview.uncertainRate <= 0.1
     && humanReview.candidateAcceptableRate >= 0.8
     && humanReview.candidateRegressionRate <= 0.1;
-  const baselineBindingsReady = textBenchmarkBaselineChecksum !== "missing"
-    && a2aBaselineChecksum !== "missing"
-    && e2eBaselineChecksum !== "missing";
+  const baselineBindingsReady = textBenchmarkEvidence.validation.valid
+    && a2aEvidence.validation.valid
+    && e2eEvidence.validation.valid;
   const bindingIntegrity = bindingFailures.length === 0;
   const promotionReady = bindingIntegrity
     && buildReport.gates.coverageReady
@@ -826,7 +1003,6 @@ export async function runImageEmbeddingEvaluation(
     && humanReviewReady
     && baselineBindingsReady
     && visualPolicySelection.selectionReady;
-  const fusionVerificationReady = promotionReady && fusionE2eReportChecksum !== undefined && fusionE2eReportChecksum !== "missing";
   const reviewVerdictsChecksum = humanReview.reviewVerdictsChecksum ?? "missing";
   const promotionBindingPayload = {
     releaseVersion,
@@ -876,6 +1052,22 @@ export async function runImageEmbeddingEvaluation(
       visualPolicySelectionReady: visualPolicySelection.selectionReady,
     },
   };
+  const promotionBindingChecksum = sha256Checksum(canonicalJson(promotionBindingPayload));
+  const fusionEvidenceContext: ImageEmbeddingEvidenceContext & { promotionBindingChecksum: string } = {
+    ...evidenceContext,
+    promotionBindingChecksum,
+  };
+  const fusionE2eEvidence = options.fusionE2eReportPath
+    ? readValidatedEvidence(
+      options.fusionE2eReportPath,
+      fusionEvidenceContext,
+      "Fusion E2E",
+      (value) => validateImageEmbeddingFusionE2eEvidence(value, fusionEvidenceContext),
+    )
+    : undefined;
+  const fusionE2eReportChecksum = fusionE2eEvidence?.checksum;
+  const fusionE2eReady = fusionE2eEvidence?.validation.valid === true;
+  const fusionVerificationReady = promotionReady && fusionE2eReady;
   const promotionBinding: ImageEmbeddingPromotionBinding = {
     releaseVersion,
     evaluationVersion: EVALUATION_VERSION,
@@ -889,7 +1081,7 @@ export async function runImageEmbeddingEvaluation(
     a2aBaselineChecksum,
     e2eBaselineChecksum,
     fusionE2eReportChecksum,
-    promotionBindingChecksum: sha256Checksum(canonicalJson(promotionBindingPayload)),
+    promotionBindingChecksum,
     model: buildReport.model,
     modelRevision: buildReport.modelRevision,
     modelVariant: buildReport.modelVariant,
@@ -916,6 +1108,10 @@ export async function runImageEmbeddingEvaluation(
       a2aBaselineChecksum,
       e2eBaselineChecksum,
       fusionE2eReportChecksum,
+      textBenchmarkBaselineValid: textBenchmarkEvidence.validation.valid,
+      a2aBaselineValid: a2aEvidence.validation.valid,
+      e2eBaselineValid: e2eEvidence.validation.valid,
+      fusionE2eReportValid: fusionE2eEvidence?.validation.valid,
     },
     gates: {
       bindingIntegrity,
@@ -926,6 +1122,7 @@ export async function runImageEmbeddingEvaluation(
       reviewPackReady,
       humanReviewReady,
       baselineBindingsReady,
+      fusionE2eReady,
       visualPolicySelectionReady: visualPolicySelection.selectionReady,
     },
     promotionBinding,

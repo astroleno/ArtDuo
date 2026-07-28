@@ -43,6 +43,7 @@ interface ArtworkPair {
 const BOOTSTRAP_RESAMPLE_COUNT = 1_000;
 const MINIMUM_HOLDOUT_ARTWORK_COUNT = 30;
 const MINIMUM_STRATUM_ARTWORK_COUNT = 5;
+const MINIMUM_MAJOR_STRATUM_ELIGIBLE_ARTWORK_COUNT = 14;
 
 interface BootstrapConfidenceInterval {
   lower: number;
@@ -61,6 +62,7 @@ interface PerStratumMetricBreakdown {
 interface MetricEvidence {
   confidenceInterval: BootstrapConfidenceInterval;
   perStrata: PerStratumMetricBreakdown[];
+  majorStrata: PerStratumMetricBreakdown[];
 }
 
 interface SplitPairwiseMetricsBase {
@@ -81,6 +83,7 @@ interface SplitPairwiseMetrics extends SplitPairwiseMetricsBase, MetricEvidence 
 interface ArtworkPairwiseObservation {
   artworkId: string;
   stratum: string;
+  majorStrata: string[];
   comparisonCount: number;
   correctComparisonCount: number;
 }
@@ -104,6 +107,7 @@ interface SceneTop3Metrics extends SceneTop3MetricsBase, MetricEvidence {}
 interface SceneTop3Observation {
   artworkId: string;
   stratum: string;
+  majorStrata: string[];
   hitCount: number;
 }
 
@@ -123,6 +127,7 @@ interface HoldoutMetricReadiness {
   minimumArtworkCount: number;
   minimumSampleMet: boolean;
   allStrataSufficient: boolean;
+  allMajorStrataSufficient: boolean;
 }
 
 export interface ImageEmbeddingWeakLabelEvaluation {
@@ -163,6 +168,8 @@ export interface ImageEmbeddingReviewSceneOption {
 export interface ImageEmbeddingReviewComparisonInput {
   artworkId: string;
   stratum: string;
+  mood: string;
+  department: string;
   artworkCaption: string;
   artworkImageUrl: string;
   baseline: ImageEmbeddingReviewSceneOption;
@@ -174,12 +181,29 @@ export interface ImageEmbeddingMachineReviewComparison extends ImageEmbeddingRev
   randomizationSeed: string;
 }
 
+export interface ImageEmbeddingReviewSamplingStratum {
+  stratum: string;
+  availableCount: number;
+  targetCount: number;
+  selectedCount: number;
+  uncoveredReason?: "selection-capacity" | "marginal-quota-conflict";
+}
+
+export interface ImageEmbeddingReviewSampling {
+  algorithm: "marginal-proportional-v1";
+  requestedComparisonCount: number;
+  selectedComparisonCount: number;
+  moods: ImageEmbeddingReviewSamplingStratum[];
+  departments: ImageEmbeddingReviewSamplingStratum[];
+}
+
 export interface ImageEmbeddingMachineReviewPack {
-  schemaVersion: "image-embedding-review-pack.v1";
+  schemaVersion: "image-embedding-review-pack.v2";
   releaseVersion: string;
   evaluationVersion: string;
   candidateShardChecksum: string;
   unchangedComparisonCount: number;
+  sampling: ImageEmbeddingReviewSampling;
   comparisons: ImageEmbeddingMachineReviewComparison[];
   reviewPackChecksum: string;
 }
@@ -228,6 +252,7 @@ function sha256(value: string): string {
 interface MetricClusterObservation {
   artworkId: string;
   stratum: string;
+  majorStrata: string[];
   numerator: number;
   denominator: number;
 }
@@ -291,13 +316,13 @@ function bootstrapConfidenceInterval(
   };
 }
 
-function metricEvidence(
+function metricBreakdown(
   observations: MetricClusterObservation[],
   expectedStrata: string[],
-  seed: string,
-): MetricEvidence {
-  const perStrata = expectedStrata.map((stratum) => {
-    const inStratum = observations.filter((observation) => observation.stratum === stratum);
+  includesStratum: (observation: MetricClusterObservation, stratum: string) => boolean,
+): PerStratumMetricBreakdown[] {
+  return expectedStrata.map((stratum) => {
+    const inStratum = observations.filter((observation) => includesStratum(observation, stratum));
     const numerator = inStratum.reduce((total, observation) => total + observation.numerator, 0);
     const denominator = inStratum.reduce((total, observation) => total + observation.denominator, 0);
     const uniqueArtworkCount = new Set(inStratum.map((observation) => observation.artworkId)).size;
@@ -312,10 +337,18 @@ function metricEvidence(
         : "insufficient-sample" as const,
     };
   });
+}
 
+function metricEvidence(
+  observations: MetricClusterObservation[],
+  expectedStrata: string[],
+  expectedMajorStrata: string[],
+  seed: string,
+): MetricEvidence {
   return {
     confidenceInterval: bootstrapConfidenceInterval(observations, seed),
-    perStrata,
+    perStrata: metricBreakdown(observations, expectedStrata, (observation, stratum) => observation.stratum === stratum),
+    majorStrata: metricBreakdown(observations, expectedMajorStrata, (observation, stratum) => observation.majorStrata.includes(stratum)),
   };
 }
 
@@ -323,23 +356,26 @@ function withMetricEvidence<T extends object>(
   metrics: T,
   observations: MetricClusterObservation[],
   expectedStrata: string[],
+  expectedMajorStrata: string[],
   seed: string,
 ): T & MetricEvidence {
   return {
     ...metrics,
-    ...metricEvidence(observations, expectedStrata, seed),
+    ...metricEvidence(observations, expectedStrata, expectedMajorStrata, seed),
   };
 }
 
 function holdoutMetricReadiness(
   uniqueArtworkCount: number,
   perStrata: PerStratumMetricBreakdown[],
+  majorStrata: PerStratumMetricBreakdown[],
 ): HoldoutMetricReadiness {
   return {
     uniqueArtworkCount,
     minimumArtworkCount: MINIMUM_HOLDOUT_ARTWORK_COUNT,
     minimumSampleMet: uniqueArtworkCount >= MINIMUM_HOLDOUT_ARTWORK_COUNT,
     allStrataSufficient: perStrata.length > 0 && perStrata.every((stratum) => stratum.status === "ready"),
+    allMajorStrataSufficient: majorStrata.length > 0 && majorStrata.every((stratum) => stratum.status === "ready"),
   };
 }
 
@@ -438,6 +474,9 @@ function assertReviewComparisonInput(input: ImageEmbeddingReviewComparisonInput)
   if (
     !input.artworkId.trim()
     || !input.stratum.trim()
+    || !input.mood.trim()
+    || !input.department.trim()
+    || input.stratum !== `${input.mood}|${input.department}`
     || !input.artworkCaption.trim()
     || !input.artworkImageUrl.trim()
     || !input.baseline.sceneId.trim()
@@ -452,6 +491,180 @@ function assertReviewComparisonInput(input: ImageEmbeddingReviewComparisonInput)
   ) {
     throw new TypeError("Review pack comparison must contain complete changed baseline and candidate data.");
   }
+}
+
+interface MarginalQuota {
+  stratum: string;
+  availableCount: number;
+  targetCount: number;
+}
+
+function stableStratumOrder(left: string, right: string, seed: string): number {
+  const leftKey = sha256(`${seed}:${left}`);
+  const rightKey = sha256(`${seed}:${right}`);
+  return leftKey.localeCompare(rightKey) || left.localeCompare(right);
+}
+
+function buildMarginalQuotas(
+  comparisons: ImageEmbeddingReviewComparisonInput[],
+  dimension: "mood" | "department",
+  requestedComparisonCount: number,
+  seed: string,
+): Map<string, MarginalQuota> {
+  const availableByStratum = new Map<string, number>();
+  for (const comparison of comparisons) {
+    const stratum = comparison[dimension];
+    availableByStratum.set(stratum, (availableByStratum.get(stratum) ?? 0) + 1);
+  }
+  const quotas = [...availableByStratum.entries()].map(([stratum, availableCount]) => ({
+    stratum,
+    availableCount,
+    targetCount: 0,
+    remainder: 0,
+  }));
+  const targetTotal = Math.min(requestedComparisonCount, comparisons.length);
+  const availableTotal = comparisons.length;
+  if (targetTotal === 0 || availableTotal === 0) {
+    return new Map(quotas.map(({ stratum, availableCount, targetCount }) => [stratum, {
+      stratum,
+      availableCount,
+      targetCount,
+    }]));
+  }
+
+  for (const quota of quotas) {
+    const rawTarget = targetTotal * quota.availableCount / availableTotal;
+    quota.targetCount = Math.floor(rawTarget);
+    quota.remainder = rawTarget - quota.targetCount;
+  }
+  let unallocated = targetTotal - quotas.reduce((total, quota) => total + quota.targetCount, 0);
+  const priority = [...quotas].sort((left, right) =>
+    right.remainder - left.remainder
+    || stableStratumOrder(left.stratum, right.stratum, seed));
+  for (const quota of priority) {
+    if (unallocated === 0) {
+      break;
+    }
+    quota.targetCount += 1;
+    unallocated -= 1;
+  }
+
+  if (quotas.length <= targetTotal) {
+    for (const quota of quotas) {
+      if (quota.targetCount === 0) {
+        quota.targetCount = 1;
+      }
+    }
+    let excess = quotas.reduce((total, quota) => total + quota.targetCount, 0) - targetTotal;
+    const removable = [...quotas].sort((left, right) =>
+      left.remainder - right.remainder
+      || stableStratumOrder(left.stratum, right.stratum, seed));
+    for (const quota of removable) {
+      while (excess > 0 && quota.targetCount > 1) {
+        quota.targetCount -= 1;
+        excess -= 1;
+      }
+    }
+  }
+
+  return new Map(quotas.map(({ stratum, availableCount, targetCount }) => [stratum, {
+    stratum,
+    availableCount,
+    targetCount,
+  }]));
+}
+
+function selectedMarginalCount(
+  selected: ImageEmbeddingReviewComparisonInput[],
+  dimension: "mood" | "department",
+  stratum: string,
+): number {
+  return selected.filter((comparison) => comparison[dimension] === stratum).length;
+}
+
+function selectMarginalComparisons(input: {
+  comparisons: ImageEmbeddingReviewComparisonInput[];
+  requestedComparisonCount: number;
+  releaseVersion: string;
+  evaluationVersion: string;
+  moodQuotas: Map<string, MarginalQuota>;
+  departmentQuotas: Map<string, MarginalQuota>;
+}): ImageEmbeddingReviewComparisonInput[] {
+  const maximumCount = Math.min(input.requestedComparisonCount, input.comparisons.length);
+  const ordered = [...input.comparisons].sort((left, right) => reviewPackComparisonOrder(
+    left,
+    right,
+    input.releaseVersion,
+    input.evaluationVersion,
+  ));
+  const selected: ImageEmbeddingReviewComparisonInput[] = [];
+  const selectedArtworkIds = new Set<string>();
+  const add = (comparison: ImageEmbeddingReviewComparisonInput | undefined): void => {
+    if (comparison && selected.length < maximumCount && !selectedArtworkIds.has(comparison.artworkId)) {
+      selected.push(comparison);
+      selectedArtworkIds.add(comparison.artworkId);
+    }
+  };
+  const choose = (candidates: ImageEmbeddingReviewComparisonInput[]): ImageEmbeddingReviewComparisonInput | undefined =>
+    candidates.sort((left, right) => {
+      const leftMoodNeed = Math.max(0, (input.moodQuotas.get(left.mood)?.targetCount ?? 0) - selectedMarginalCount(selected, "mood", left.mood));
+      const rightMoodNeed = Math.max(0, (input.moodQuotas.get(right.mood)?.targetCount ?? 0) - selectedMarginalCount(selected, "mood", right.mood));
+      const leftDepartmentNeed = Math.max(0, (input.departmentQuotas.get(left.department)?.targetCount ?? 0) - selectedMarginalCount(selected, "department", left.department));
+      const rightDepartmentNeed = Math.max(0, (input.departmentQuotas.get(right.department)?.targetCount ?? 0) - selectedMarginalCount(selected, "department", right.department));
+      const leftCoverage = (selectedMarginalCount(selected, "mood", left.mood) === 0 ? 1 : 0)
+        + (selectedMarginalCount(selected, "department", left.department) === 0 ? 1 : 0);
+      const rightCoverage = (selectedMarginalCount(selected, "mood", right.mood) === 0 ? 1 : 0)
+        + (selectedMarginalCount(selected, "department", right.department) === 0 ? 1 : 0);
+      return rightCoverage - leftCoverage
+        || rightMoodNeed + rightDepartmentNeed - (leftMoodNeed + leftDepartmentNeed)
+        || reviewPackComparisonOrder(left, right, input.releaseVersion, input.evaluationVersion);
+    })[0];
+
+  const coverageRequests = [
+    ...[...input.moodQuotas.keys()].map((stratum) => ({ dimension: "mood" as const, stratum })),
+    ...[...input.departmentQuotas.keys()].map((stratum) => ({ dimension: "department" as const, stratum })),
+  ].sort((left, right) => stableStratumOrder(
+    `${left.dimension}:${left.stratum}`,
+    `${right.dimension}:${right.stratum}`,
+    `${input.releaseVersion}:${input.evaluationVersion}:review-coverage`,
+  ));
+  for (const request of coverageRequests) {
+    if (selected.length >= maximumCount || selectedMarginalCount(selected, request.dimension, request.stratum) > 0) {
+      continue;
+    }
+    add(choose(ordered.filter((comparison) =>
+      !selectedArtworkIds.has(comparison.artworkId) && comparison[request.dimension] === request.stratum)));
+  }
+
+  while (selected.length < maximumCount) {
+    const next = choose(ordered.filter((comparison) => !selectedArtworkIds.has(comparison.artworkId)));
+    if (!next) {
+      break;
+    }
+    add(next);
+  }
+  return selected;
+}
+
+function samplingBreakdown(
+  quotas: Map<string, MarginalQuota>,
+  selected: ImageEmbeddingReviewComparisonInput[],
+  dimension: "mood" | "department",
+): ImageEmbeddingReviewSamplingStratum[] {
+  return [...quotas.values()]
+    .sort((left, right) => left.stratum.localeCompare(right.stratum))
+    .map((quota) => {
+      const selectedCount = selectedMarginalCount(selected, dimension, quota.stratum);
+      return {
+        stratum: quota.stratum,
+        availableCount: quota.availableCount,
+        targetCount: quota.targetCount,
+        selectedCount,
+        uncoveredReason: selectedCount === 0
+          ? quota.targetCount === 0 ? "selection-capacity" as const : "marginal-quota-conflict" as const
+          : undefined,
+      };
+    });
 }
 
 export function buildImageEmbeddingReviewPack(input: {
@@ -470,7 +683,7 @@ export function buildImageEmbeddingReviewPack(input: {
   }
 
   const seenArtworkIds = new Set<string>();
-  const changedByStratum = new Map<string, ImageEmbeddingReviewComparisonInput[]>();
+  const changedComparisons: ImageEmbeddingReviewComparisonInput[] = [];
   let unchangedComparisonCount = 0;
   for (const comparison of input.comparisons) {
     if (comparison.baseline.sceneId === comparison.candidate.sceneId) {
@@ -482,37 +695,19 @@ export function buildImageEmbeddingReviewPack(input: {
       throw new TypeError(`Review pack contains duplicate artwork ${comparison.artworkId}.`);
     }
     seenArtworkIds.add(comparison.artworkId);
-    const entries = changedByStratum.get(comparison.stratum) ?? [];
-    entries.push(comparison);
-    changedByStratum.set(comparison.stratum, entries);
+    changedComparisons.push(comparison);
   }
-
-  const strata = [...changedByStratum.keys()].sort();
-  for (const stratum of strata) {
-    const entries = changedByStratum.get(stratum);
-    entries?.sort((left, right) => reviewPackComparisonOrder(
-      left,
-      right,
-      input.releaseVersion,
-      input.evaluationVersion,
-    ));
-  }
-
-  const selected: ImageEmbeddingReviewComparisonInput[] = [];
-  let madeProgress = true;
-  while (selected.length < minimumComparisonCount && madeProgress) {
-    madeProgress = false;
-    for (const stratum of strata) {
-      const next = changedByStratum.get(stratum)?.shift();
-      if (next) {
-        selected.push(next);
-        madeProgress = true;
-      }
-      if (selected.length >= minimumComparisonCount) {
-        break;
-      }
-    }
-  }
+  const quotaSeed = `${input.releaseVersion}:${input.evaluationVersion}:review-marginal-quota`;
+  const moodQuotas = buildMarginalQuotas(changedComparisons, "mood", minimumComparisonCount, `${quotaSeed}:mood`);
+  const departmentQuotas = buildMarginalQuotas(changedComparisons, "department", minimumComparisonCount, `${quotaSeed}:department`);
+  const selected = selectMarginalComparisons({
+    comparisons: changedComparisons,
+    requestedComparisonCount: minimumComparisonCount,
+    releaseVersion: input.releaseVersion,
+    evaluationVersion: input.evaluationVersion,
+    moodQuotas,
+    departmentQuotas,
+  });
 
   const comparisons = selected.map((comparison) => {
     const stableInput = {
@@ -529,11 +724,18 @@ export function buildImageEmbeddingReviewPack(input: {
     };
   });
   const payload: Omit<ImageEmbeddingMachineReviewPack, "reviewPackChecksum"> = {
-    schemaVersion: "image-embedding-review-pack.v1",
+    schemaVersion: "image-embedding-review-pack.v2",
     releaseVersion: input.releaseVersion,
     evaluationVersion: input.evaluationVersion,
     candidateShardChecksum: input.candidateShardChecksum,
     unchangedComparisonCount,
+    sampling: {
+      algorithm: "marginal-proportional-v1",
+      requestedComparisonCount: minimumComparisonCount,
+      selectedComparisonCount: comparisons.length,
+      moods: samplingBreakdown(moodQuotas, selected, "mood"),
+      departments: samplingBreakdown(departmentQuotas, selected, "department"),
+    },
     comparisons,
   };
   const pack: ImageEmbeddingMachineReviewPack = {
@@ -558,7 +760,7 @@ function escapeHtml(value: string): string {
 }
 
 export function renderImageEmbeddingReviewerView(pack: ImageEmbeddingMachineReviewPack): string {
-  const packError = validateMachineReviewPack(pack);
+  const packError = validateImageEmbeddingMachineReviewPack(pack);
   if (packError) {
     throw new TypeError(`Reviewer view requires an intact machine review pack: ${packError}`);
   }
@@ -598,6 +800,92 @@ function hasOnlyKeys(value: Record<string, unknown>, keys: string[]): boolean {
     && keys.every((key) => Object.hasOwn(value, key));
 }
 
+function hasRequiredAndOnlyKeys(
+  value: Record<string, unknown>,
+  requiredKeys: string[],
+  optionalKeys: string[] = [],
+): boolean {
+  return Object.keys(value).every((key) => [...requiredKeys, ...optionalKeys].includes(key))
+    && requiredKeys.every((key) => Object.hasOwn(value, key));
+}
+
+function isNonnegativeInteger(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= 0;
+}
+
+function validateReviewSamplingDimension(
+  value: unknown,
+  comparisons: ImageEmbeddingMachineReviewComparison[],
+  dimension: "mood" | "department",
+): string | undefined {
+  if (!Array.isArray(value)) {
+    return `Machine review pack ${dimension} sampling is invalid.`;
+  }
+  const selectedCounts = new Map<string, number>();
+  for (const comparison of comparisons) {
+    const stratum = comparison[dimension];
+    selectedCounts.set(stratum, (selectedCounts.get(stratum) ?? 0) + 1);
+  }
+  const seen = new Set<string>();
+  for (const entry of value) {
+    const availableCount = isRecord(entry) ? entry.availableCount : undefined;
+    const targetCount = isRecord(entry) ? entry.targetCount : undefined;
+    const selectedCount = isRecord(entry) ? entry.selectedCount : undefined;
+    if (!isRecord(entry)
+      || !hasRequiredAndOnlyKeys(entry, ["stratum", "availableCount", "targetCount", "selectedCount"], ["uncoveredReason"])
+      || typeof entry.stratum !== "string"
+      || !entry.stratum.trim()
+      || !isNonnegativeInteger(availableCount)
+      || !isNonnegativeInteger(targetCount)
+      || !isNonnegativeInteger(selectedCount)
+      || availableCount <= 0
+      || targetCount > availableCount
+      || selectedCount > availableCount
+      || seen.has(entry.stratum)) {
+      return `Machine review pack ${dimension} sampling contains invalid strata.`;
+    }
+    const actualSelectedCount = selectedCounts.get(entry.stratum) ?? 0;
+    if (selectedCount !== actualSelectedCount) {
+      return `Machine review pack ${dimension} sampling does not match selected comparisons.`;
+    }
+    if (selectedCount === 0) {
+      if (entry.uncoveredReason !== "selection-capacity" && entry.uncoveredReason !== "marginal-quota-conflict") {
+        return `Machine review pack ${dimension} sampling omits an uncovered reason.`;
+      }
+      if ((entry.uncoveredReason === "selection-capacity") !== (targetCount === 0)) {
+        return `Machine review pack ${dimension} sampling has an inconsistent uncovered reason.`;
+      }
+    } else if (entry.uncoveredReason !== undefined) {
+      return `Machine review pack ${dimension} sampling marks a covered stratum as uncovered.`;
+    }
+    seen.add(entry.stratum);
+  }
+  if ([...selectedCounts.keys()].some((stratum) => !seen.has(stratum))) {
+    return `Machine review pack ${dimension} sampling omits a selected stratum.`;
+  }
+  return undefined;
+}
+
+function validateReviewSampling(
+  value: unknown,
+  comparisons: ImageEmbeddingMachineReviewComparison[],
+): string | undefined {
+  const requestedComparisonCount = isRecord(value) ? value.requestedComparisonCount : undefined;
+  const selectedComparisonCount = isRecord(value) ? value.selectedComparisonCount : undefined;
+  if (!isRecord(value)
+    || !hasOnlyKeys(value, ["algorithm", "requestedComparisonCount", "selectedComparisonCount", "moods", "departments"])
+    || value.algorithm !== "marginal-proportional-v1"
+    || !isNonnegativeInteger(requestedComparisonCount)
+    || requestedComparisonCount < 30
+    || !isNonnegativeInteger(selectedComparisonCount)
+    || selectedComparisonCount !== comparisons.length
+    || selectedComparisonCount > requestedComparisonCount) {
+    return "Machine review pack sampling has an invalid schema.";
+  }
+  return validateReviewSamplingDimension(value.moods, comparisons, "mood")
+    ?? validateReviewSamplingDimension(value.departments, comparisons, "department");
+}
+
 function emptyHumanReviewEvaluation(
   valid: boolean,
   humanReviewComplete: boolean,
@@ -623,10 +911,20 @@ function emptyHumanReviewEvaluation(
   };
 }
 
-function validateMachineReviewPack(pack: ImageEmbeddingMachineReviewPack): string | undefined {
+export function validateImageEmbeddingMachineReviewPack(pack: ImageEmbeddingMachineReviewPack): string | undefined {
   const candidate = pack as unknown;
   if (!isRecord(candidate)
-    || candidate.schemaVersion !== "image-embedding-review-pack.v1"
+    || !hasOnlyKeys(candidate, [
+      "schemaVersion",
+      "releaseVersion",
+      "evaluationVersion",
+      "candidateShardChecksum",
+      "unchangedComparisonCount",
+      "sampling",
+      "comparisons",
+      "reviewPackChecksum",
+    ])
+    || candidate.schemaVersion !== "image-embedding-review-pack.v2"
     || typeof candidate.releaseVersion !== "string"
     || typeof candidate.evaluationVersion !== "string"
     || typeof candidate.candidateShardChecksum !== "string"
@@ -649,6 +947,7 @@ function validateMachineReviewPack(pack: ImageEmbeddingMachineReviewPack): strin
 
   const reviewIds = new Set<string>();
   const artworkIds = new Set<string>();
+  const comparisons: ImageEmbeddingMachineReviewComparison[] = [];
   for (const comparison of pack.comparisons) {
     if (!isRecord(comparison)) {
       return "Machine review pack contains malformed comparison data.";
@@ -678,15 +977,16 @@ function validateMachineReviewPack(pack: ImageEmbeddingMachineReviewPack): strin
     }
     reviewIds.add(comparison.reviewId);
     artworkIds.add(comparison.artworkId);
+    comparisons.push(comparison);
   }
-  return undefined;
+  return validateReviewSampling(candidate.sampling, comparisons);
 }
 
 export function evaluateImageEmbeddingHumanReview(
   pack: ImageEmbeddingMachineReviewPack,
   sidecar: unknown,
 ): ImageEmbeddingHumanReviewEvaluation {
-  const packError = validateMachineReviewPack(pack);
+  const packError = validateImageEmbeddingMachineReviewPack(pack);
   if (packError) {
     return emptyHumanReviewEvaluation(false, false, [packError], pack.comparisons.length);
   }
@@ -818,27 +1118,40 @@ function normalizedValues(values: string[], prefix: string): Set<string> {
   }));
 }
 
-function artworkWeakLabelTokens(artwork: ImageEmbeddingEvaluationArtwork): Set<string> {
-  const tokens = new Set<string>([
-    ...normalizedValues(artwork.colorTags, "color"),
-    ...normalizedValues(artwork.compositionTags, "composition"),
-    ...normalizedValues(artwork.subjectTags, "subject"),
-  ]);
+function artworkWeakLabelFields(artwork: ImageEmbeddingEvaluationArtwork): Set<string>[] {
   const aspectRatioHint = artwork.aspectRatioHint?.trim().toLowerCase();
-  if (aspectRatioHint) {
-    tokens.add(`aspect:${aspectRatioHint}`);
-  }
-  return tokens;
+  return [
+    normalizedValues(artwork.colorTags, "color"),
+    normalizedValues(artwork.compositionTags, "composition"),
+    normalizedValues(artwork.subjectTags, "subject"),
+    new Set(aspectRatioHint ? [`aspect:${aspectRatioHint}`] : []),
+  ];
 }
 
-function intersectionSize(left: Set<string>, right: Set<string>): number {
-  let count = 0;
+function fieldsShareValue(left: Set<string>, right: Set<string>): boolean {
   for (const value of left) {
     if (right.has(value)) {
-      count += 1;
+      return true;
     }
   }
-  return count;
+  return false;
+}
+
+export function classifyImageEmbeddingArtworkWeakLabelPair(
+  left: ImageEmbeddingEvaluationArtwork,
+  right: ImageEmbeddingEvaluationArtwork,
+): "positive" | "negative" | undefined {
+  if (left.id === right.id) {
+    return undefined;
+  }
+  const leftFields = artworkWeakLabelFields(left);
+  const rightFields = artworkWeakLabelFields(right);
+  const sharedFieldCount = leftFields.reduce((count, field, index) =>
+    count + (fieldsShareValue(field, rightFields[index] ?? new Set()) ? 1 : 0), 0);
+  if (sharedFieldCount >= 2) {
+    return "positive";
+  }
+  return sharedFieldCount === 0 ? "negative" : undefined;
 }
 
 function caseInsensitiveIntersectionSize(left: string[], right: string[]): number {
@@ -937,6 +1250,7 @@ function evaluateSceneTop3(
     observations.push({
       artworkId: artwork.id,
       stratum: artworkStratum(artwork),
+      majorStrata: artworkMajorStrata(artwork),
       hitCount: hit ? 1 : 0,
     });
   }
@@ -955,7 +1269,6 @@ function evaluateSceneTop3(
 }
 
 function buildArtworkPairs(artworks: ImageEmbeddingEvaluationArtwork[]): ArtworkPair[] {
-  const tokensByArtwork = new Map(artworks.map((artwork) => [artwork.id, artworkWeakLabelTokens(artwork)]));
   const pairs: ArtworkPair[] = [];
   for (let leftIndex = 0; leftIndex < artworks.length; leftIndex += 1) {
     const left = artworks[leftIndex];
@@ -967,11 +1280,9 @@ function buildArtworkPairs(artworks: ImageEmbeddingEvaluationArtwork[]): Artwork
       if (!right) {
         continue;
       }
-      const sharedCount = intersectionSize(tokensByArtwork.get(left.id) ?? new Set(), tokensByArtwork.get(right.id) ?? new Set());
-      if (sharedCount >= 2) {
-        pairs.push({ leftId: left.id, rightId: right.id, label: "positive" });
-      } else if (sharedCount === 0) {
-        pairs.push({ leftId: left.id, rightId: right.id, label: "negative" });
+      const label = classifyImageEmbeddingArtworkWeakLabelPair(left, right);
+      if (label) {
+        pairs.push({ leftId: left.id, rightId: right.id, label });
       }
     }
   }
@@ -982,6 +1293,11 @@ function artworkStratum(artwork: ImageEmbeddingEvaluationArtwork): string {
   const mood = artwork.moodTags.find((value) => value.trim() !== "")?.trim().toLowerCase() ?? "unknown";
   const department = artwork.department?.trim().toLowerCase() || "unknown";
   return `${mood}|${department}`;
+}
+
+function artworkMajorStrata(artwork: ImageEmbeddingEvaluationArtwork): string[] {
+  const [mood, department] = artworkStratum(artwork).split("|");
+  return [`mood:${mood}`, `department:${department}`];
 }
 
 function splitArtworkIds(input: {
@@ -1090,6 +1406,13 @@ function pairwiseMetrics(
           compositionTags: [],
           subjectTags: [],
         }),
+        majorStrata: artworkMajorStrata(artworksById.get(artworkId) ?? {
+          id: artworkId,
+          moodTags: [],
+          colorTags: [],
+          compositionTags: [],
+          subjectTags: [],
+        }),
         comparisonCount: artworkComparisonCount,
         correctComparisonCount: artworkCorrectComparisonCount,
       });
@@ -1132,6 +1455,19 @@ function expectedStrata(
   )].sort();
 }
 
+function expectedMajorStrata(artworks: ImageEmbeddingEvaluationArtwork[]): string[] {
+  const counts = new Map<string, number>();
+  for (const artwork of artworks) {
+    for (const stratum of artworkMajorStrata(artwork)) {
+      counts.set(stratum, (counts.get(stratum) ?? 0) + 1);
+    }
+  }
+  return [...counts.entries()]
+    .filter(([, count]) => count >= MINIMUM_MAJOR_STRATUM_ELIGIBLE_ARTWORK_COUNT)
+    .map(([stratum]) => stratum)
+    .sort();
+}
+
 export function evaluateImageEmbeddingWeakLabels(
   input: ImageEmbeddingWeakLabelEvaluationInput,
 ): ImageEmbeddingWeakLabelEvaluation {
@@ -1172,15 +1508,18 @@ export function evaluateImageEmbeddingWeakLabels(
   );
   const trainStrata = expectedStrata(split.trainArtworkIds, artworksById);
   const holdoutStrata = expectedStrata(split.holdoutArtworkIds, artworksById);
+  const majorStrata = expectedMajorStrata(input.artworks);
   const trainPairwiseMetrics = withMetricEvidence(
     trainPairwise.metrics,
     trainPairwise.observations.map((observation) => ({
       artworkId: observation.artworkId,
       stratum: observation.stratum,
+      majorStrata: observation.majorStrata,
       numerator: observation.correctComparisonCount,
       denominator: observation.comparisonCount,
     })),
     trainStrata,
+    majorStrata,
     `${input.releaseVersion}:${input.evaluationVersion}:artwork-pairwise:train`,
   );
   const holdoutPairwiseMetrics = withMetricEvidence(
@@ -1188,10 +1527,12 @@ export function evaluateImageEmbeddingWeakLabels(
     holdoutPairwise.observations.map((observation) => ({
       artworkId: observation.artworkId,
       stratum: observation.stratum,
+      majorStrata: observation.majorStrata,
       numerator: observation.correctComparisonCount,
       denominator: observation.comparisonCount,
     })),
     holdoutStrata,
+    majorStrata,
     `${input.releaseVersion}:${input.evaluationVersion}:artwork-pairwise:holdout`,
   );
   const trainSceneTop3Metrics = withMetricEvidence(
@@ -1199,10 +1540,12 @@ export function evaluateImageEmbeddingWeakLabels(
     trainSceneTop3.observations.map((observation) => ({
       artworkId: observation.artworkId,
       stratum: observation.stratum,
+      majorStrata: observation.majorStrata,
       numerator: observation.hitCount,
       denominator: 1,
     })),
     trainStrata,
+    majorStrata,
     `${input.releaseVersion}:${input.evaluationVersion}:scene-top3:train`,
   );
   const holdoutSceneTop3Metrics = withMetricEvidence(
@@ -1210,10 +1553,12 @@ export function evaluateImageEmbeddingWeakLabels(
     holdoutSceneTop3.observations.map((observation) => ({
       artworkId: observation.artworkId,
       stratum: observation.stratum,
+      majorStrata: observation.majorStrata,
       numerator: observation.hitCount,
       denominator: 1,
     })),
     holdoutStrata,
+    majorStrata,
     `${input.releaseVersion}:${input.evaluationVersion}:scene-top3:holdout`,
   );
 
@@ -1238,10 +1583,12 @@ export function evaluateImageEmbeddingWeakLabels(
       artworkPairwise: holdoutMetricReadiness(
         holdoutPairwiseMetrics.uniqueArtworkCount,
         holdoutPairwiseMetrics.perStrata,
+        holdoutPairwiseMetrics.majorStrata,
       ),
       sceneTop3: holdoutMetricReadiness(
         holdoutSceneTop3Metrics.evaluatedArtworkCount,
         holdoutSceneTop3Metrics.perStrata,
+        holdoutSceneTop3Metrics.majorStrata,
       ),
     },
   };

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Every task must keep the checkboxes current. Starting subagents still requires explicit user authorization.
 
-> Review revision: 2026-07-26. This revision incorporates the current repository quality findings and makes baseline, publication, security, replay, and browser acceptance gates executable.
+> Review revision: 2026-07-28. This revision incorporates the current repository quality findings and makes baseline, publication, security, replay, and browser acceptance gates executable.
 
 **Goal:** 为 Artwork 与 Background Scene 建立可版本化、可回放、可评估的图片向量 sidecar，在不掩盖现有文本检索回退、不扩大现有 A2A 缺口、不改变默认生产排序的前提下，验证视觉信号是否相对当前 metadata-only 场景选择带来稳定、可解释的增益。
 
@@ -275,7 +275,7 @@ cp "$ARTDUO_A2A_REPLAY_DIR/image-embedding-baseline.json" \
   "$ARTDUO_IMAGE_BASELINE_DIR/a2a-replay.json"
 ```
 
-`pnpm vector:benchmark` 必须显式使用 `--output`，不得覆盖 tracked 的 Phase 1 closeout report。基线文档记录 run directory、命令、commit SHA、manifest checksum 和结果摘要；不记录用户目录、密钥或含 query credential 的 URL。
+`pnpm vector:benchmark` 必须显式使用 `--output`，不得覆盖 tracked 的 Phase 1 closeout report。基线文档记录 run directory、命令、commit SHA、manifest checksum 和结果摘要；不记录用户目录、密钥或含 query credential 的 URL。完成原始命令后，baseline producer 必须把可审计的逐条结果写成 Task 5 定义的严格 evidence envelope；raw benchmark、A2A harness 或 Playwright 输出本身不能作为 `--text-benchmark-baseline`、`--a2a-baseline`、`--e2e-baseline` 或 `--fusion-e2e-report` 的通过凭据。
 
 - [x] **Step 3: 处理当前文本 benchmark 回退**
 
@@ -1143,7 +1143,8 @@ git commit -m "feat(corpus): load and search optional image embeddings"
 - 缺失向量从分母与 coverage 中分别正确统计，不静默跳过。
 - train/holdout split 由 release + entity ID 确定，调权只读 train，promotion 指标只读 holdout。
 - review pack 确定性抽样至少 30 条 baseline 与 candidate scene ID 不同的
-  comparison，覆盖主要 mood/department strata；不足 30 条时不得 promotion。
+  comparison，使用冻结的 mood/department 边际配额覆盖主要层；不得按复合
+  `mood|department` 的字典序先到先得。不足 30 条时不得 promotion。
 - reviewer view 随机化 A/B 方位并隐藏算法、分数和 candidate 身份。
 - machine pack checksum 固定后，人工只写独立 verdict sidecar；修改 machine
   pack、randomization 或 candidate 数据会使评估失败。
@@ -1152,6 +1153,9 @@ git commit -m "feat(corpus): load and search optional image embeddings"
 - flag 关闭时 production ordering snapshot 完全一致。
 - evaluation report 的 build report checksum、candidate checksum、base manifest
   checksum 或 model fingerprint 不匹配时 `promotionReady === false`。
+- 任一 text/A2A/E2E/fusion evidence 的空文件、未知 schema、失败状态、缺字段、
+  错误 release/commit/manifest binding 都必须 fail-closed；外部 review pack 即使
+  自身 checksum 合法，也必须与本轮确定性生成的 pack checksum 完全相同。
 
 执行：
 
@@ -1165,7 +1169,8 @@ pnpm --filter @artduo/pipeline test
 
 自动标签只能来自当前结构化字段，不调用 LLM：
 
-- Artwork positive：至少共享两个可用高置信字段；字段只来自
+- Artwork positive：至少共享两个**不同**的可用高置信字段；同一字段内共享多个 tag
+  只能计为一个字段。字段只来自
   `metadata.colorTags`、`metadata.compositionTags`、`metadata.subjectTags` 和
   media shard 的 `media.aspectRatioHint`。`unknown-palette`、空数组等占位值不计
   为共享。
@@ -1188,10 +1193,20 @@ pnpm --filter @artduo/pipeline test
 - bootstrap 以 artwork ID 为 cluster 重采样，不能把同一 artwork 派生的多条 pair
   当成独立样本放大置信度。
 
+参与 frozen score 的数组必须由共享 contract 限制：Artwork `moodTags <= 3`、
+`emotionLabels <= 3`、`sceneAffinity.paletteModes <= 4`、`sceneTypes <= 3`、
+`colorTags <= 3`；Scene `emotion_ids <= 3`、`artwork_palette_modes <= 3`、
+`palette <= 4`。据此冻结 score 上界为 `37`，所有 late-fusion metadata score 以
+`score / 37` 归一化；不得重新使用历史 hard-code 的 `13`，也不得候选集 min-max。
+
 报告必须标记 `labelSource: "structured-weak-label-v1"`，避免把弱标签描述为人工
 真值，并输出 unique entity sample size、95% bootstrap confidence interval 与
-per-strata breakdown。有效 holdout artwork 少于 30 时门槛失败；任何样本数少于
-5 的 strata 标记 `insufficient-sample`，不能将其零样本结果汇总成通过。
+full `mood|department` diagnostic breakdown，以及 major marginal breakdown。有效
+holdout artwork 少于 30 时门槛失败；full combination 样本少于 5 必须标记
+`insufficient-sample`，但不使长尾组合永久阻断 promotion。全局门槛只要求 frozen
+release 中有至少 14 个 eligible artwork 的 `mood:<value>` 与
+`department:<value>` major strata 均各有至少 5 个有效 holdout artwork；低频层保留
+诊断和未覆盖原因。
 
 - [x] **Step 3: 生成 review pack**
 
@@ -1200,7 +1215,10 @@ per-strata breakdown。有效 holdout artwork 少于 30 时门槛失败；任何
 - Machine pack：至少 30 条 baseline scene ID 与 candidate scene ID 不同的
   artwork comparison，包含 IDs、分数、fingerprints、randomization seed，但不
   接收人工编辑。另行报告 unchanged case 数量，不能用 unchanged/tie 样本填满
-  30 条门槛。
+  30 条门槛。`image-embedding-review-pack.v2` 还必须记录
+  `marginal-proportional-v1` 的 mood/department `availableCount`、`targetCount`、
+  `selectedCount` 与未覆盖原因；稳定 hash 决定配额/同分顺序，不能由字典序偏置前
+  30 个 compound strata。
 - Reviewer view：由 machine pack 生成只读 HTML，相同 30 条记录的盲化 A/B
   图片与必要 caption；不包含算法名、candidate 方位、视觉分数、metadata 分数或
   machine pack 文件路径。
@@ -1265,11 +1283,31 @@ pnpm image-embeddings:debug -- \
 ```
 
 Benchmark CLI 同时支持显式 `--output`、`--build-report`、`--review-pack`、
-`--review-verdicts`、`--emit-review-pack`、`--reviewer-view-output` 和可选
+`--review-verdicts`、`--emit-review-pack`、`--reviewer-view-output`、
+`--text-benchmark-baseline`、`--a2a-baseline`、`--e2e-baseline` 和可选
 `--fusion-e2e-report`。自动化验证必须显式输出到临时文件；只有 Task 5 完成人工
 评审后的 report 才写入计划中的固定 report 路径。Task 5 首次完成时
 `promotionReady` 可为 true，但 `fusionVerificationReady` 必须为 false；Task 6
 完成 targeted E2E 后用同一命令绑定 E2E report checksum，才能将后者置为 true。
+
+四类 evidence 绝不能以“文件存在”作为通过条件，也不能直接把任意 runner 的 raw
+JSON/HTML 传入。每份必须是严格、无额外字段的 versioned JSON envelope，且共同
+绑定所选 release、base manifest checksum 和当前 evaluator Git `HEAD` commit SHA：
+
+- `image-embedding-text-benchmark-evidence.v1`：恰好 24 条唯一 prompt result，
+  重算后的 Top-1 `>= 23/24`、Top-5 `= 24/24`。
+- `image-embedding-a2a-evidence.v1`：baseline/candidate 的完整、互斥 case ID set；
+  candidate 不得损失 baseline pass、不得引入 fail/blocked；恰好 50 条 replay、
+  average total `>= 0.975`、hard-resistance violation `= 0`。
+- `image-embedding-e2e-evidence.v1`：`pnpm preflight:check` exit code `0`，完整
+  14 条 baseline/candidate case ID set，candidate 无 fail/skip。
+- `image-embedding-fusion-e2e-evidence.v1`：除共同 binding 外还必须精确绑定
+  `promotionBindingChecksum`、成功 preflight、至少 5 条 expected targeted case，且
+  每条均 pass、无 fail/skip。
+
+未知 schema、失败/缺失字段、无法读取的 JSON、commit 无法解析或不一致、阈值不达标
+一律令对应 gate 为 false。fusion evidence 只影响 `fusionVerificationReady`；它不能
+反向把未达标的 Task 5 `promotionReady` 变为 true。
 
 - [x] **Step 6: 运行自动 benchmark**
 
@@ -1506,8 +1544,8 @@ export function fuseBackgroundSceneScore(input: {
 发布，并用 `promotionReportChecksum`、`promotionBindingChecksum` 和
 `imageShardChecksum` 绑定。Web runtime
 不得访问内部 evaluation report，也不能另设默认权重或重新调参。现有 metadata
-分数必须先通过冻结的理论上下界归一化到 `[0, 1]`，不得对当前候选集合做动态
-min-max，也不得用未归一化 raw score 直接融合。
+分数必须先通过共享 `IMAGE_SCENE_SCORE_UPPER_BOUND = 37` 的冻结理论上界归一化到
+`[0, 1]`，不得对当前候选集合做动态 min-max，也不得用未归一化 raw score 直接融合。
 
 - [ ] **Step 3: 实现显式 server 配置、按需加载与 query-level fail-closed**
 

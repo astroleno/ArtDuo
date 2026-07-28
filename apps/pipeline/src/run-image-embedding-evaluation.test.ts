@@ -7,7 +7,12 @@ import { test } from "node:test";
 
 import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
-import { runImageEmbeddingEvaluation } from "./run-image-embedding-evaluation";
+import { calculateImageEmbeddingReviewPackChecksum } from "./image-embedding-evaluation";
+import {
+  FROZEN_METADATA_SCORE_UPPER_BOUND,
+  normalizeMetadataScore,
+  runImageEmbeddingEvaluation,
+} from "./run-image-embedding-evaluation";
 
 const RELEASE_VERSION = "image-evaluation-runner-test";
 
@@ -194,6 +199,69 @@ function createFixture(): {
   };
 }
 
+function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>): {
+  textBenchmarkBaselinePath: string;
+  a2aBaselinePath: string;
+  e2eBaselinePath: string;
+} {
+  const binding = {
+    releaseVersion: RELEASE_VERSION,
+    commitSha: "a".repeat(40),
+    baseManifestChecksum: checksum(readFileSync(fixture.manifestPath)),
+  };
+  const textBenchmarkBaselinePath = path.join(fixture.rootDir, "text-baseline.json");
+  writeFileSync(textBenchmarkBaselinePath, `${JSON.stringify({
+    schemaVersion: "image-embedding-text-benchmark-evidence.v1",
+    ...binding,
+    vectorBenchmark: {
+      promptCount: 24,
+      rerankTop1HitRate: 23 / 24,
+      rerankTop5HitRate: 1,
+      results: Array.from({ length: 24 }, (_, index) => ({
+        id: `prompt-${String(index + 1).padStart(2, "0")}`,
+        rerankTop1Hit: index !== 0,
+        rerankTop5Hit: true,
+      })),
+    },
+  }, null, 2)}\n`);
+
+  const a2aIds = Array.from({ length: 50 }, (_, index) => `a2a-${String(index + 1).padStart(2, "0")}`);
+  const a2aBaselinePath = path.join(fixture.rootDir, "a2a-baseline.json");
+  writeFileSync(a2aBaselinePath, `${JSON.stringify({
+    schemaVersion: "image-embedding-a2a-evidence.v1",
+    ...binding,
+    caseSets: {
+      baseline: { passIds: a2aIds, failIds: [], blockedIds: [] },
+      candidate: { passIds: a2aIds, failIds: [], blockedIds: [] },
+    },
+    replay: {
+      caseCount: 50,
+      averageTotal: 0.975,
+      hardResistanceViolationIds: [],
+    },
+  }, null, 2)}\n`);
+
+  const e2eIds = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
+  const e2eBaselinePath = path.join(fixture.rootDir, "e2e-baseline.json");
+  writeFileSync(e2eBaselinePath, `${JSON.stringify({
+    schemaVersion: "image-embedding-e2e-evidence.v1",
+    ...binding,
+    preflight: { command: "pnpm preflight:check", exitCode: 0 },
+    caseSets: {
+      baseline: { passIds: e2eIds, failIds: [], skippedIds: [] },
+      candidate: { passIds: e2eIds, failIds: [], skippedIds: [] },
+    },
+  }, null, 2)}\n`);
+
+  return { textBenchmarkBaselinePath, a2aBaselinePath, e2eBaselinePath };
+}
+
+test("metadata score normalization preserves the order of valid 14 and 15 point frozen scores", () => {
+  assert.equal(FROZEN_METADATA_SCORE_UPPER_BOUND, 37);
+  assert.ok(normalizeMetadataScore(14) < normalizeMetadataScore(15));
+  assert.ok(normalizeMetadataScore(15) < 1);
+});
+
 test("image embedding runner binds candidate/build inputs and emits a fail-closed pre-review report", async () => {
   const fixture = createFixture();
   const baseManifest = readFileSync(fixture.manifestPath, "utf8");
@@ -246,4 +314,101 @@ test("image embedding runner fails closed when a bound build input is changed", 
     assert.equal(result.report.gates.bindingIntegrity, false);
     assert.equal(result.report.promotionBinding.promotionReady, false);
   }
+});
+
+test("image embedding runner rejects arbitrary baseline and fusion evidence files", async () => {
+  const fixture = createFixture();
+  const textBaselinePath = path.join(fixture.rootDir, "text-baseline.json");
+  const a2aBaselinePath = path.join(fixture.rootDir, "a2a-baseline.json");
+  const e2eBaselinePath = path.join(fixture.rootDir, "e2e-baseline.json");
+  const fusionE2ePath = path.join(fixture.rootDir, "fusion-e2e.json");
+  for (const filePath of [textBaselinePath, a2aBaselinePath, e2eBaselinePath, fusionE2ePath]) {
+    writeFileSync(filePath, "{}\n");
+  }
+
+  const result = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    textBenchmarkBaselinePath: textBaselinePath,
+    a2aBaselinePath,
+    e2eBaselinePath,
+    fusionE2eReportPath: fusionE2ePath,
+  });
+
+  assert.equal(result.report.gates.baselineBindingsReady, false);
+  assert.equal(result.report.gates.bindingIntegrity, false);
+  assert.equal(result.report.promotionBinding.fusionVerificationReady, false);
+});
+
+test("image embedding runner accepts only passing evidence bound to this release and manifest", async () => {
+  const fixture = createFixture();
+  const evidence = writePassingPromotionEvidence(fixture);
+
+  const valid = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    expectedEvidenceCommitSha: "a".repeat(40),
+    ...evidence,
+  });
+  assert.equal(valid.report.gates.baselineBindingsReady, true, JSON.stringify(valid.report.gates.bindingFailures));
+
+  const invalidTextEvidence = JSON.parse(readFileSync(evidence.textBenchmarkBaselinePath, "utf8")) as {
+    baseManifestChecksum: string;
+  };
+  invalidTextEvidence.baseManifestChecksum = checksum("wrong-manifest");
+  writeFileSync(evidence.textBenchmarkBaselinePath, `${JSON.stringify(invalidTextEvidence, null, 2)}\n`);
+  const invalid = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    expectedEvidenceCommitSha: "a".repeat(40),
+    ...evidence,
+  });
+  assert.equal(invalid.report.gates.baselineBindingsReady, false);
+  assert.equal(invalid.report.gates.bindingIntegrity, false);
+});
+
+test("image embedding runner rejects a self-checksummed external review pack that differs from this run", async () => {
+  const fixture = createFixture();
+  await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    emitReviewPack: true,
+    reviewPackPath: fixture.reviewPackPath,
+  });
+  const externalPack = JSON.parse(readFileSync(fixture.reviewPackPath, "utf8")) as {
+    comparisons: Array<{ baseline: { score: number } }>;
+    reviewPackChecksum: string;
+  };
+  externalPack.comparisons[0]!.baseline.score += 0.01;
+  externalPack.reviewPackChecksum = calculateImageEmbeddingReviewPackChecksum(externalPack as never);
+  writeFileSync(fixture.reviewPackPath, `${JSON.stringify(externalPack, null, 2)}\n`);
+
+  const result = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    reviewPackPath: fixture.reviewPackPath,
+  });
+
+  assert.equal(result.report.gates.bindingIntegrity, false);
+  assert.equal(result.report.promotionBinding.promotionReady, false);
 });
