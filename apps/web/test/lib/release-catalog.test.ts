@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
@@ -301,5 +301,20 @@ test("reports the shard kind and id when a release shard is missing", () => {
   assert.throws(
     () => loadWebReleaseCatalog({ rootDir }),
     /Failed to load mediaIndex shard media-01/,
+  );
+});
+
+test("rejects score inputs that exceed the shared frozen metadata cardinality contract", () => {
+  const rootDir = buildReleaseFixture();
+  const metadataPath = path.join(rootDir, "data", "releases", "2026-04-25-curation-b", "metadata-01.json");
+  const metadata = JSON.parse(readFileSync(metadataPath, "utf8")) as Array<{
+    metadata: { moodTags: string[] };
+  }>;
+  metadata[0]!.metadata.moodTags = ["contemplation", "awe", "wonder", "joy"];
+  writeJson(metadataPath, metadata);
+
+  assert.throws(
+    () => loadWebReleaseCatalog({ rootDir }),
+    /at most 3 values for the frozen image-scene score contract/,
   );
 });

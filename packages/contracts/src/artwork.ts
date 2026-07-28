@@ -14,6 +14,7 @@ import {
   readString,
   readStringArray,
 } from "./internal/validation";
+import { assertImageSceneScoreCardinality, IMAGE_SCENE_SCORE_CARDINALITY_LIMITS } from "./image-scene-score";
 
 export const ARTWORK_SOURCES = ["met", "custom"] as const;
 export const ENERGY_LEVELS = ["low", "medium", "high"] as const;
@@ -147,6 +148,30 @@ export interface ArtworkRecord {
   presentation: ArtworkPresentation;
 }
 
+function readScoreBoundedStringArray(
+  source: JsonObject,
+  key: string,
+  path: string,
+  maximum: number,
+): string[] {
+  const values = readStringArray(source, key, path);
+  assertImageSceneScoreCardinality(values, maximum, `${path}.${key}`);
+  return values;
+}
+
+function readOptionalScoreBoundedStringArray(
+  source: JsonObject,
+  key: string,
+  path: string,
+  maximum: number,
+): string[] | undefined {
+  const values = readOptionalStringArray(source, key, path);
+  if (values) {
+    assertImageSceneScoreCardinality(values, maximum, `${path}.${key}`);
+  }
+  return values;
+}
+
 function parseFocusTarget(value: unknown, path: string): FocusTarget {
   const target = expectObject(value, path);
 
@@ -161,8 +186,18 @@ function parseSceneAffinity(value: unknown, path: string): SceneAffinity {
   const affinity = expectObject(value, path);
 
   return {
-    sceneTypes: readOptionalStringArray(affinity, "sceneTypes", path),
-    paletteModes: readOptionalStringArray(affinity, "paletteModes", path),
+    sceneTypes: readOptionalScoreBoundedStringArray(
+      affinity,
+      "sceneTypes",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkSceneTypes,
+    ),
+    paletteModes: readOptionalScoreBoundedStringArray(
+      affinity,
+      "paletteModes",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkPaletteModes,
+    ),
     spatialModes: readOptionalStringArray(affinity, "spatialModes", path),
     transitionTags: readOptionalStringArray(affinity, "transitionTags", path),
   };
@@ -185,8 +220,18 @@ function parseArtworkMetadata(value: unknown, path: string): ArtworkMetadata {
     descriptionRaw: readOptionalString(metadata, "descriptionRaw", path),
     descriptionClean: readOptionalString(metadata, "descriptionClean", path),
     storySnippet: readOptionalString(metadata, "storySnippet", path),
-    moodTags: readStringArray(metadata, "moodTags", path),
-    colorTags: readStringArray(metadata, "colorTags", path),
+    moodTags: readScoreBoundedStringArray(
+      metadata,
+      "moodTags",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkMoodTags,
+    ),
+    colorTags: readScoreBoundedStringArray(
+      metadata,
+      "colorTags",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkColorTags,
+    ),
     subjectTags: readStringArray(metadata, "subjectTags", path),
     compositionTags: readStringArray(metadata, "compositionTags", path),
   };
@@ -198,7 +243,12 @@ function parseArtworkRetrieval(value: unknown, path: string): ArtworkRetrieval {
   return {
     searchText: readString(retrieval, "searchText", path),
     searchTextShort: readOptionalString(retrieval, "searchTextShort", path),
-    emotionLabels: readStringArray(retrieval, "emotionLabels", path),
+    emotionLabels: readScoreBoundedStringArray(
+      retrieval,
+      "emotionLabels",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkEmotionLabels,
+    ),
     energyLevel: readOptionalLiteral(retrieval, "energyLevel", ENERGY_LEVELS, path),
     valence: readOptionalLiteral(retrieval, "valence", VALENCE_LEVELS, path),
     pace: readOptionalLiteral(retrieval, "pace", PACE_LEVELS, path),

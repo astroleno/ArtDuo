@@ -15,3 +15,15 @@ test("background scene fixtures expose staging and transition data", () => {
     assert.ok(scene.ui_profile.overlay_readability, `${scene.id} should define overlay readability`);
   }
 });
+
+test("background scene parser enforces frozen image-scene score cardinality limits", () => {
+  const overCardinality = structuredClone(loadFixture<Array<{
+    curation_profile: { emotion_ids: string[] };
+  }>>("background-scenes.json")[0]!);
+  overCardinality.curation_profile.emotion_ids = ["quiet", "awe", "wonder", "joy"];
+
+  assert.throws(
+    () => parseBackgroundSceneRecords([overCardinality]),
+    /at most 3 values for the frozen image-scene score contract/,
+  );
+});

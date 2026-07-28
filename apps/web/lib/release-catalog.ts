@@ -9,7 +9,12 @@ import {
   searchVectorIndex,
   type ReleaseLoaderOptions,
 } from "@artduo/corpus";
-import type { EmbeddingShardRecord, ReleaseManifest } from "@artduo/contracts";
+import {
+  assertImageSceneScoreCardinality,
+  IMAGE_SCENE_SCORE_CARDINALITY_LIMITS,
+  type EmbeddingShardRecord,
+  type ReleaseManifest,
+} from "@artduo/contracts";
 
 export interface WebArtworkVisualPresentation {
   contentBounds?: {
@@ -211,6 +216,12 @@ function readStringArray(value: unknown): string[] {
   return value.filter((entry): entry is string => typeof entry === "string" && entry.trim() !== "");
 }
 
+function readScoreBoundedStringArray(value: unknown, path: string, maximum: number): string[] {
+  const values = readStringArray(value);
+  assertImageSceneScoreCardinality(values, maximum, path);
+  return values;
+}
+
 function readNormalizedRatio(value: unknown): number | undefined {
   const parsed = readOptionalNumber(value);
   if (parsed === undefined || parsed < 0 || parsed > 1) {
@@ -296,8 +307,16 @@ function parseMetadataRecord(value: unknown, path: string): MetadataShardRecord 
       objectUrl: readOptionalString(metadata.objectUrl),
       descriptionClean: readOptionalString(metadata.descriptionClean),
       storySnippet: readOptionalString(metadata.storySnippet),
-      moodTags: readStringArray(metadata.moodTags),
-      colorTags: readStringArray(metadata.colorTags),
+      moodTags: readScoreBoundedStringArray(
+        metadata.moodTags,
+        `${path}.metadata.moodTags`,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkMoodTags,
+      ),
+      colorTags: readScoreBoundedStringArray(
+        metadata.colorTags,
+        `${path}.metadata.colorTags`,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkColorTags,
+      ),
       subjectTags: readStringArray(metadata.subjectTags),
       compositionTags: readStringArray(metadata.compositionTags),
     },
@@ -306,8 +325,16 @@ function parseMetadataRecord(value: unknown, path: string): MetadataShardRecord 
       gradeLabel: readOptionalString(presentation.gradeLabel),
       motionProfile: readOptionalString(presentation.motionProfile),
       sceneAffinity: {
-        sceneTypes: readStringArray(sceneAffinity.sceneTypes),
-        paletteModes: readStringArray(sceneAffinity.paletteModes),
+        sceneTypes: readScoreBoundedStringArray(
+          sceneAffinity.sceneTypes,
+          `${path}.presentation.sceneAffinity.sceneTypes`,
+          IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkSceneTypes,
+        ),
+        paletteModes: readScoreBoundedStringArray(
+          sceneAffinity.paletteModes,
+          `${path}.presentation.sceneAffinity.paletteModes`,
+          IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkPaletteModes,
+        ),
         spatialModes: readStringArray(sceneAffinity.spatialModes),
         transitionTags: readStringArray(sceneAffinity.transitionTags),
       },
@@ -324,7 +351,11 @@ function parseSearchRecord(value: unknown, path: string): SearchShardRecord {
     retrieval: {
       searchText: readString(retrieval.searchText, `${path}.retrieval.searchText`),
       searchTextShort: readOptionalString(retrieval.searchTextShort),
-      emotionLabels: readStringArray(retrieval.emotionLabels),
+      emotionLabels: readScoreBoundedStringArray(
+        retrieval.emotionLabels,
+        `${path}.retrieval.emotionLabels`,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkEmotionLabels,
+      ),
       keywordBoosts: readStringArray(retrieval.keywordBoosts),
     },
   };
@@ -371,9 +402,21 @@ function parseBackgroundScene(value: unknown, path: string): WebBackgroundScene 
     imageUrl: readOptionalString(asset.local_public_path),
     sceneType: readOptionalString(visualProfile.scene_type),
     moods: readStringArray(visualProfile.mood),
-    palette: readStringArray(visualProfile.palette),
-    emotionIds: readStringArray(curationProfile.emotion_ids),
-    artworkPaletteModes: readStringArray(curationProfile.artwork_palette_modes),
+    palette: readScoreBoundedStringArray(
+      visualProfile.palette,
+      `${path}.visual_profile.palette`,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.scenePalette,
+    ),
+    emotionIds: readScoreBoundedStringArray(
+      curationProfile.emotion_ids,
+      `${path}.curation_profile.emotion_ids`,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.sceneEmotionIds,
+    ),
+    artworkPaletteModes: readScoreBoundedStringArray(
+      curationProfile.artwork_palette_modes,
+      `${path}.curation_profile.artwork_palette_modes`,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.sceneArtworkPaletteModes,
+    ),
     searchText,
     searchTerms,
     embeddingText,

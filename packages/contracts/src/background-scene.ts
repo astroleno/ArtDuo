@@ -16,6 +16,7 @@ import {
   readStringArray,
 } from "./internal/validation";
 import { IMPLEMENTATION_HINTS, TRANSITION_FAMILIES, type ImplementationHint, type TransitionFamily } from "./exhibition-unit";
+import { assertImageSceneScoreCardinality, IMAGE_SCENE_SCORE_CARDINALITY_LIMITS } from "./image-scene-score";
 
 export const BACKGROUND_SCENE_TYPES = [
   "gallery_interior",
@@ -187,6 +188,30 @@ export interface BackgroundSceneRecord {
   confidence?: number;
 }
 
+function readScoreBoundedStringArray(
+  source: JsonObject,
+  key: string,
+  path: string,
+  maximum: number,
+): string[] {
+  const values = readStringArray(source, key, path);
+  assertImageSceneScoreCardinality(values, maximum, `${path}.${key}`);
+  return values;
+}
+
+function readOptionalScoreBoundedStringArray(
+  source: JsonObject,
+  key: string,
+  path: string,
+  maximum: number,
+): string[] | undefined {
+  const values = readOptionalStringArray(source, key, path);
+  if (values) {
+    assertImageSceneScoreCardinality(values, maximum, `${path}.${key}`);
+  }
+  return values;
+}
+
 function parsePoint(value: unknown, path: string): NormalizedPoint {
   const point = expectObject(value, path);
 
@@ -262,7 +287,12 @@ function parseVisualProfile(value: unknown, path: string): BackgroundVisualProfi
     materials: readStringArray(visual, "materials", path),
     lighting: readStringArray(visual, "lighting", path),
     mood: readStringArray(visual, "mood", path),
-    palette: readStringArray(visual, "palette", path),
+    palette: readScoreBoundedStringArray(
+      visual,
+      "palette",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.scenePalette,
+    ),
     composition: readStringArray(visual, "composition", path),
     negative_space_level: readOptionalLiteral(visual, "negative_space_level", BACKGROUND_DENSITIES, path),
     space_depth: readOptionalLiteral(visual, "space_depth", ["flat", "layered", "deep"] as const, path),
@@ -286,7 +316,12 @@ function parseCurationProfile(value: unknown, path: string): BackgroundCurationP
   const locationAffinity = readOptionalObject(curation, "location_affinity", path);
 
   return {
-    emotion_ids: readStringArray(curation, "emotion_ids", path),
+    emotion_ids: readScoreBoundedStringArray(
+      curation,
+      "emotion_ids",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.sceneEmotionIds,
+    ),
     art_styles: readOptionalStringArray(curation, "art_styles", path),
     art_style_ids: readOptionalStringArray(curation, "art_style_ids", path),
     time_periods: readOptionalStringArray(curation, "time_periods", path),
@@ -299,7 +334,12 @@ function parseCurationProfile(value: unknown, path: string): BackgroundCurationP
     museum_keys: readOptionalStringArray(curation, "museum_keys", path),
     location_affinity: locationAffinity ? parseLocationAffinity(locationAffinity, `${path}.location_affinity`) : undefined,
     artwork_subject_modes: readOptionalStringArray(curation, "artwork_subject_modes", path),
-    artwork_palette_modes: readOptionalStringArray(curation, "artwork_palette_modes", path),
+    artwork_palette_modes: readOptionalScoreBoundedStringArray(
+      curation,
+      "artwork_palette_modes",
+      path,
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.sceneArtworkPaletteModes,
+    ),
     artwork_composition_modes: readOptionalStringArray(curation, "artwork_composition_modes", path),
     artwork_orientation_modes: readOptionalStringArray(curation, "artwork_orientation_modes", path),
     supported_artwork_grades: readOptionalStringArray(curation, "supported_artwork_grades", path),

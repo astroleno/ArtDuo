@@ -21,6 +21,7 @@ export {
 } from "./curation-session";
 export * from "./embedding-shard";
 export * from "./image-embedding-shard";
+export * from "./image-scene-score";
 export * from "./errors";
 export * from "./exhibition-unit";
 export * from "./relationship-graph";

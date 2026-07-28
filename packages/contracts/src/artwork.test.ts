@@ -86,3 +86,13 @@ test("artwork parser rejects visual presentation bounds outside the image", () =
     /expected bounds to fit inside the image/,
   );
 });
+
+test("artwork parser enforces frozen image-scene score cardinality limits", () => {
+  const overCardinality = structuredClone(baseArtworkRecord);
+  overCardinality.metadata.moodTags = ["quiet", "awe", "wonder", "joy"];
+
+  assert.throws(
+    () => parseArtworkRecords([overCardinality]),
+    /at most 3 values for the frozen image-scene score contract/,
+  );
+});
