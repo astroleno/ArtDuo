@@ -4,7 +4,12 @@ import os from "node:os";
 import path from "node:path";
 
 import type { ArtworkGrade, ArtworkGradeLabel, ArtworkRecord, MotionProfile, NarrationMode } from "@artduo/contracts";
-import { parseArtworkRecord, parseArtworkRecords } from "@artduo/contracts";
+import {
+  capImageSceneScoreValues,
+  IMAGE_SCENE_SCORE_CARDINALITY_LIMITS,
+  parseArtworkRecord,
+  parseArtworkRecords,
+} from "@artduo/contracts";
 
 export type ConfirmedRecord = {
   sourceArtworkId?: string | null;
@@ -533,9 +538,15 @@ export function buildCandidateRecord(
   const description = descriptionRaw ?? deriveFallbackDescription(record, theme, title, artistDisplayName);
   const descriptionWasBackfilled = !descriptionRaw;
   const storySnippet = deriveStorySnippet(title, artistDisplayName, descriptionRaw, compactText(record.review?.notes));
-  const moodTags = [theme];
+  const moodTags = capImageSceneScoreValues(
+    [theme],
+    IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkMoodTags,
+  );
   const medium = compactText(record.metadata?.medium);
-  const colorTags = extractColorTags([title, medium, description].filter(Boolean).join(" "));
+  const colorTags = capImageSceneScoreValues(
+    extractColorTags([title, medium, description].filter(Boolean).join(" ")),
+    IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkColorTags,
+  );
   const subjectTags = deriveSubjectTags(record, theme);
   const aspectRatioHint = normalizeAspectRatioHint(compactText(record.media?.aspectRatioHint));
   const energyLevel = deriveEnergyLevel(theme);
@@ -579,7 +590,10 @@ export function buildCandidateRecord(
     retrieval: {
       searchText,
       searchTextShort: [title, artistDisplayName].filter(Boolean).join(" "),
-      emotionLabels: moodTags,
+      emotionLabels: capImageSceneScoreValues(
+        moodTags,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkEmotionLabels,
+      ),
       energyLevel,
       valence: deriveValence(theme),
       pace: derivePace(energyLevel),

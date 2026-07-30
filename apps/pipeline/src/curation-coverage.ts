@@ -8,6 +8,7 @@ import type {
   BackgroundScoreBreakdown,
   SceneAffinity,
 } from "@artduo/contracts";
+import { capImageSceneScoreValues, IMAGE_SCENE_SCORE_CARDINALITY_LIMITS } from "@artduo/contracts";
 
 const DEFAULT_FETCH_TIMEOUT_MS = 15_000;
 const DEFAULT_SCENE_MATCH_THRESHOLD = 0.58;
@@ -432,13 +433,19 @@ function buildSceneAffinity(matches: BackgroundMatch[], scenesById: Map<string, 
   }
 
   return {
-    sceneTypes: unique(scenes.map((scene) => scene.visual_profile.scene_type)).slice(0, 3),
-    paletteModes: unique(
-      scenes.flatMap((scene) => [
-        ...(scene.curation_profile.artwork_palette_modes ?? []),
-        ...(scene.visual_profile.palette ?? []),
-      ]).map(normalizeToken),
-    ).slice(0, 4),
+    sceneTypes: capImageSceneScoreValues(
+      unique(scenes.map((scene) => scene.visual_profile.scene_type)),
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkSceneTypes,
+    ),
+    paletteModes: capImageSceneScoreValues(
+      unique(
+        scenes.flatMap((scene) => [
+          ...(scene.curation_profile.artwork_palette_modes ?? []),
+          ...(scene.visual_profile.palette ?? []),
+        ]).map(normalizeToken),
+      ),
+      IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkPaletteModes,
+    ),
     spatialModes: unique(
       scenes.map((scene) => compactText(scene.stage_profile.depth_strategy)).filter((value): value is string => Boolean(value)),
     ).map(normalizeToken).slice(0, 3),

@@ -6,7 +6,7 @@ import { test } from "node:test";
 
 import { parseArtworkRecords } from "@artduo/contracts";
 
-import { buildReleaseReadyCorpus } from "./release-ready-corpus";
+import { buildCandidateRecord, buildReleaseReadyCorpus } from "./release-ready-corpus";
 
 test("release-ready corpus builder backfills Phase 1 fields and excludes duplicates", () => {
   const rootDir = mkdtempSync(path.join(os.tmpdir(), "artduo-release-ready-root-"));
@@ -185,4 +185,24 @@ test("release-ready corpus builder backfills Phase 1 fields and excludes duplica
   assert.equal(result.report.exclusionCounts.duplicate, undefined);
   assert.equal(result.report.exclusionCounts["missing-promote-review"], undefined);
   assert.equal(result.report.backfillCounts.description, 0);
+});
+
+test("release-ready producer stably truncates extracted score-bearing color values", () => {
+  const candidate = buildCandidateRecord({
+    sourceArtworkId: "777",
+    id: "met-777",
+    source: "met",
+    metadata: {
+      title: "Amber Beige Black Blue Brown Study",
+      artistDisplayName: "Known Artist",
+      descriptionRaw: "Red, green, gold, ochre, silver, white, and yellow pigments.",
+    },
+    media: {
+      imageUrlPreview: "https://images.example.test/met-777.jpg",
+      mediaVersion: "2026-07-30T00:00:00.000Z",
+    },
+  }, "contemplation", "release-ready-cap-test");
+
+  assert.deepEqual(candidate.record.metadata.colorTags, ["amber", "beige", "black"]);
+  assert.doesNotThrow(() => parseArtworkRecords([candidate.record], "release-ready-cap-test"));
 });

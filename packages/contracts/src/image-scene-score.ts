@@ -30,3 +30,15 @@ export function assertImageSceneScoreCardinality(
     throw new TypeError(`${path}: expected at most ${maximum} values for the frozen image-scene score contract`);
   }
 }
+
+/**
+ * Release producers use this stable prefix cap before serializing score-bearing
+ * arrays. Parsers remain strict so externally supplied shards cannot bypass the
+ * frozen contract.
+ */
+export function capImageSceneScoreValues<T>(values: readonly T[], maximum: number): T[] {
+  if (!Number.isInteger(maximum) || maximum < 0) {
+    throw new TypeError("Image-scene score cardinality cap must be a non-negative integer.");
+  }
+  return values.slice(0, maximum);
+}

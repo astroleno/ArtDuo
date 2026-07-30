@@ -6,15 +6,40 @@ import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
 import {
   buildImageEmbeddingReviewPack,
+  calculateImageEmbeddingReviewPackChecksum,
   classifyImageEmbeddingArtworkWeakLabelPair,
   evaluateImageEmbeddingHumanReview,
   evaluateImageEmbeddingWeakLabels,
   renderImageEmbeddingReviewerView,
   scoreFrozenBackgroundSceneWeakLabel,
+  validateImageEmbeddingMachineReviewPack,
 } from "./image-embedding-evaluation";
 
 function checksum(value: string): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function reviewComparison(mood: string, department: string, index: number) {
+  return {
+    artworkId: `quota-artwork-${String(index).padStart(2, "0")}`,
+    stratum: `${mood}|${department}`,
+    mood,
+    department,
+    artworkCaption: `${mood} ${department}`,
+    artworkImageUrl: `https://images.example.test/quota-artwork-${index}.jpg`,
+    baseline: {
+      sceneId: `quota-baseline-${index}`,
+      score: 0.4,
+      fingerprint: checksum(`quota-baseline-${index}`),
+      imageUrl: `https://images.example.test/quota-baseline-${index}.jpg`,
+    },
+    candidate: {
+      sceneId: `quota-candidate-${index}`,
+      score: 0.7,
+      fingerprint: checksum(`quota-candidate-${index}`),
+      imageUrl: `https://images.example.test/quota-candidate-${index}.jpg`,
+    },
+  };
 }
 
 function record(
@@ -534,4 +559,63 @@ test("review pack uses deterministic marginal quotas instead of stopping at lexi
   assert.ok(generated.pack.sampling.moods.every((stratum) => stratum.selectedCount > 0));
   assert.ok(generated.pack.sampling.departments.every((stratum) => stratum.selectedCount > 0));
   assert.ok(generated.pack.comparisons.some((comparison) => comparison.mood === moods.at(-1)));
+});
+
+test("review pack exactly fills feasible coupled mood and department quotas", () => {
+  const moods = [
+    ...Array<string>(30).fill("m1"),
+    ...Array<string>(9).fill("m2"),
+    ...Array<string>(6).fill("m3"),
+  ];
+  const departments = [
+    "d2", "d5", "d3", "d2", "d4", "d2", "d4", "d2", "d1", "d3",
+    "d3", "d2", "d2", "d1", "d5", "d3", "d2", "d3", "d3", "d4",
+    "d2", "d1", "d4", "d3", "d1", "d4", "d1", "d4", "d2", "d4",
+    "d2", "d4", "d4", "d4", "d4", "d2", "d1", "d1", "d2",
+    "d1", "d4", "d2", "d1", "d2", "d2",
+  ];
+  const generated = buildImageEmbeddingReviewPack({
+    releaseVersion: "quota-search",
+    evaluationVersion: "v1",
+    candidateShardChecksum: checksum("candidate-shard"),
+    comparisons: moods.map((mood, index) => reviewComparison(mood, departments[index]!, index)),
+  });
+
+  assert.equal(generated.minimumSampleMet, true);
+  assert.ok(
+    [...generated.pack.sampling.moods, ...generated.pack.sampling.departments]
+      .every((stratum) => stratum.selectedCount === stratum.targetCount),
+  );
+  assert.equal(validateImageEmbeddingMachineReviewPack(generated.pack), undefined);
+});
+
+test("review pack fails closed when independently proportional marginals are infeasible", () => {
+  const comparisons = [
+    reviewComparison("m1", "d1", 1),
+    reviewComparison("m2", "d1", 2),
+    ...Array.from({ length: 43 }, (_, index) => reviewComparison("m3", "d2", index + 3)),
+  ];
+  const generated = buildImageEmbeddingReviewPack({
+    releaseVersion: "review-pack-infeasible-quota-test",
+    evaluationVersion: "image-embedding-evaluation.v1",
+    candidateShardChecksum: checksum("candidate-shard"),
+    comparisons,
+  });
+
+  assert.equal(generated.minimumSampleMet, false);
+  assert.ok(generated.pack.comparisons.length < 30);
+});
+
+test("machine review pack rejects a full sample whose recorded quota diverges from selected comparisons", () => {
+  const generated = buildImageEmbeddingReviewPack({
+    releaseVersion: "review-pack-quota-integrity-test",
+    evaluationVersion: "image-embedding-evaluation.v1",
+    candidateShardChecksum: checksum("candidate-shard"),
+    comparisons: Array.from({ length: 30 }, (_, index) => reviewComparison("m1", "d1", index + 1)),
+  });
+  const tampered = structuredClone(generated.pack);
+  tampered.sampling.moods[0]!.targetCount = 29;
+  tampered.reviewPackChecksum = calculateImageEmbeddingReviewPackChecksum(tampered);
+
+  assert.match(validateImageEmbeddingMachineReviewPack(tampered) ?? "", /quota|target/i);
 });

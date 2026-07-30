@@ -5,6 +5,8 @@ import path from "node:path";
 
 import type { ArtworkGrade, ArtworkGradeLabel, ArtworkRecord, MotionProfile, NarrationMode } from "@artduo/contracts";
 import {
+  capImageSceneScoreValues,
+  IMAGE_SCENE_SCORE_CARDINALITY_LIMITS,
   parseArtworkRecords,
   parseBackgroundSceneRecords,
   parseReleaseManifest,
@@ -381,6 +383,14 @@ export function createArtworkRecord(
     compactText(search?.searchText) ??
     [title, artistDisplayName, description, ...emotionKeywords].filter(Boolean).join(" ");
   const sourceAssetFingerprint = buildSourceAssetFingerprint(image);
+  const moodTags = capImageSceneScoreValues(
+    emotionKeywords.length > 0 ? emotionKeywords : ["unknown-mood"],
+    IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkMoodTags,
+  );
+  const colorTags = capImageSceneScoreValues(
+    extractColorTags([title, medium, description].filter(Boolean).join(" ")),
+    IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkColorTags,
+  );
 
   return {
     id: metadata.id,
@@ -401,15 +411,18 @@ export function createArtworkRecord(
       descriptionRaw: description,
       descriptionClean: description,
       storySnippet: deriveStorySnippet(title, description, artistDisplayName),
-      moodTags: emotionKeywords.length > 0 ? emotionKeywords.slice(0, 4) : ["unknown-mood"],
-      colorTags: extractColorTags([title, medium, description].filter(Boolean).join(" ")),
+      moodTags,
+      colorTags,
       subjectTags: deriveSubjectTags(metadata),
       compositionTags: deriveCompositionTags(metadata),
     },
     retrieval: {
       searchText,
       searchTextShort: [title, artistDisplayName].filter(Boolean).join(" "),
-      emotionLabels: emotionKeywords.length > 0 ? emotionKeywords.slice(0, 4) : ["unknown-mood"],
+      emotionLabels: capImageSceneScoreValues(
+        moodTags,
+        IMAGE_SCENE_SCORE_CARDINALITY_LIMITS.artworkEmotionLabels,
+      ),
       energyLevel,
       valence: deriveValence(emotionId),
       pace: derivePace(energyLevel),

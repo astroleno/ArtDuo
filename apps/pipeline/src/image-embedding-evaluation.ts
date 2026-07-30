@@ -582,6 +582,69 @@ function selectedMarginalCount(
   return selected.filter((comparison) => comparison[dimension] === stratum).length;
 }
 
+interface FlowEdge {
+  to: number;
+  reverse: number;
+  capacity: number;
+}
+
+interface ComparisonFlowEdge {
+  comparison: ImageEmbeddingReviewComparisonInput;
+  from: number;
+  edgeIndex: number;
+}
+
+function addFlowEdge(graph: FlowEdge[][], from: number, to: number, capacity: number): number {
+  const forwardIndex = graph[from]!.length;
+  const reverseIndex = graph[to]!.length;
+  graph[from]!.push({ to, reverse: reverseIndex, capacity });
+  graph[to]!.push({ to: from, reverse: forwardIndex, capacity: 0 });
+  return forwardIndex;
+}
+
+function maximumFlow(graph: FlowEdge[][], source: number, sink: number, maximum: number): number {
+  let flow = 0;
+  while (flow < maximum) {
+    const previous = Array.from({ length: graph.length }, () => ({ node: -1, edge: -1 }));
+    const queue = [source];
+    previous[source] = { node: source, edge: -1 };
+    for (let cursor = 0; cursor < queue.length && previous[sink]!.node === -1; cursor += 1) {
+      const node = queue[cursor]!;
+      for (let edgeIndex = 0; edgeIndex < graph[node]!.length; edgeIndex += 1) {
+        const edge = graph[node]![edgeIndex]!;
+        if (edge.capacity <= 0 || previous[edge.to]!.node !== -1) {
+          continue;
+        }
+        previous[edge.to] = { node, edge: edgeIndex };
+        queue.push(edge.to);
+        if (edge.to === sink) {
+          break;
+        }
+      }
+    }
+    if (previous[sink]!.node === -1) {
+      break;
+    }
+
+    let increment = maximum - flow;
+    for (let node = sink; node !== source;) {
+      const step = previous[node]!;
+      const edge = graph[step.node]![step.edge]!;
+      increment = Math.min(increment, edge.capacity);
+      node = step.node;
+    }
+    for (let node = sink; node !== source;) {
+      const step = previous[node]!;
+      const edge = graph[step.node]![step.edge]!;
+      edge.capacity -= increment;
+      graph[edge.to]![edge.reverse]!.capacity += increment;
+      node = step.node;
+    }
+    flow += increment;
+  }
+  return flow;
+}
+
 function selectMarginalComparisons(input: {
   comparisons: ImageEmbeddingReviewComparisonInput[];
   requestedComparisonCount: number;
@@ -589,7 +652,7 @@ function selectMarginalComparisons(input: {
   evaluationVersion: string;
   moodQuotas: Map<string, MarginalQuota>;
   departmentQuotas: Map<string, MarginalQuota>;
-}): ImageEmbeddingReviewComparisonInput[] {
+}): { selected: ImageEmbeddingReviewComparisonInput[]; quotaSatisfied: boolean } {
   const maximumCount = Math.min(input.requestedComparisonCount, input.comparisons.length);
   const ordered = [...input.comparisons].sort((left, right) => reviewPackComparisonOrder(
     left,
@@ -597,53 +660,63 @@ function selectMarginalComparisons(input: {
     input.releaseVersion,
     input.evaluationVersion,
   ));
-  const selected: ImageEmbeddingReviewComparisonInput[] = [];
-  const selectedArtworkIds = new Set<string>();
-  const add = (comparison: ImageEmbeddingReviewComparisonInput | undefined): void => {
-    if (comparison && selected.length < maximumCount && !selectedArtworkIds.has(comparison.artworkId)) {
-      selected.push(comparison);
-      selectedArtworkIds.add(comparison.artworkId);
-    }
-  };
-  const choose = (candidates: ImageEmbeddingReviewComparisonInput[]): ImageEmbeddingReviewComparisonInput | undefined =>
-    candidates.sort((left, right) => {
-      const leftMoodNeed = Math.max(0, (input.moodQuotas.get(left.mood)?.targetCount ?? 0) - selectedMarginalCount(selected, "mood", left.mood));
-      const rightMoodNeed = Math.max(0, (input.moodQuotas.get(right.mood)?.targetCount ?? 0) - selectedMarginalCount(selected, "mood", right.mood));
-      const leftDepartmentNeed = Math.max(0, (input.departmentQuotas.get(left.department)?.targetCount ?? 0) - selectedMarginalCount(selected, "department", left.department));
-      const rightDepartmentNeed = Math.max(0, (input.departmentQuotas.get(right.department)?.targetCount ?? 0) - selectedMarginalCount(selected, "department", right.department));
-      const leftCoverage = (selectedMarginalCount(selected, "mood", left.mood) === 0 ? 1 : 0)
-        + (selectedMarginalCount(selected, "department", left.department) === 0 ? 1 : 0);
-      const rightCoverage = (selectedMarginalCount(selected, "mood", right.mood) === 0 ? 1 : 0)
-        + (selectedMarginalCount(selected, "department", right.department) === 0 ? 1 : 0);
-      return rightCoverage - leftCoverage
-        || rightMoodNeed + rightDepartmentNeed - (leftMoodNeed + leftDepartmentNeed)
-        || reviewPackComparisonOrder(left, right, input.releaseVersion, input.evaluationVersion);
-    })[0];
+  const moodTargetCount = [...input.moodQuotas.values()].reduce((total, quota) => total + quota.targetCount, 0);
+  const departmentTargetCount = [...input.departmentQuotas.values()].reduce((total, quota) => total + quota.targetCount, 0);
+  if (moodTargetCount !== maximumCount || departmentTargetCount !== maximumCount) {
+    return { selected: [], quotaSatisfied: false };
+  }
 
-  const coverageRequests = [
-    ...[...input.moodQuotas.keys()].map((stratum) => ({ dimension: "mood" as const, stratum })),
-    ...[...input.departmentQuotas.keys()].map((stratum) => ({ dimension: "department" as const, stratum })),
-  ].sort((left, right) => stableStratumOrder(
-    `${left.dimension}:${left.stratum}`,
-    `${right.dimension}:${right.stratum}`,
-    `${input.releaseVersion}:${input.evaluationVersion}:review-coverage`,
+  const moodStrata = [...input.moodQuotas.keys()].sort((left, right) => stableStratumOrder(
+    left,
+    right,
+    `${input.releaseVersion}:${input.evaluationVersion}:review-mood-flow`,
   ));
-  for (const request of coverageRequests) {
-    if (selected.length >= maximumCount || selectedMarginalCount(selected, request.dimension, request.stratum) > 0) {
-      continue;
-    }
-    add(choose(ordered.filter((comparison) =>
-      !selectedArtworkIds.has(comparison.artworkId) && comparison[request.dimension] === request.stratum)));
+  const departmentStrata = [...input.departmentQuotas.keys()].sort((left, right) => stableStratumOrder(
+    left,
+    right,
+    `${input.releaseVersion}:${input.evaluationVersion}:review-department-flow`,
+  ));
+  const source = 0;
+  const sink = 1;
+  const moodNodes = new Map(moodStrata.map((stratum, index) => [stratum, index + 2]));
+  const departmentNodes = new Map(departmentStrata.map((stratum, index) => [stratum, index + 2 + moodStrata.length]));
+  const graph: FlowEdge[][] = Array.from({ length: 2 + moodStrata.length + departmentStrata.length }, () => []);
+  for (const mood of moodStrata) {
+    addFlowEdge(graph, source, moodNodes.get(mood)!, input.moodQuotas.get(mood)!.targetCount);
   }
-
-  while (selected.length < maximumCount) {
-    const next = choose(ordered.filter((comparison) => !selectedArtworkIds.has(comparison.artworkId)));
-    if (!next) {
-      break;
-    }
-    add(next);
+  for (const department of departmentStrata) {
+    addFlowEdge(graph, departmentNodes.get(department)!, sink, input.departmentQuotas.get(department)!.targetCount);
   }
-  return selected;
+  const comparisonEdges: ComparisonFlowEdge[] = [];
+  for (const comparison of ordered) {
+    const from = moodNodes.get(comparison.mood);
+    const to = departmentNodes.get(comparison.department);
+    if (from === undefined || to === undefined) {
+      return { selected: [], quotaSatisfied: false };
+    }
+    comparisonEdges.push({
+      comparison,
+      from,
+      edgeIndex: addFlowEdge(graph, from, to, 1),
+    });
+  }
+  const selectedFlow = maximumFlow(graph, source, sink, maximumCount);
+  const selected = comparisonEdges
+    .filter(({ from, edgeIndex }) => graph[from]![edgeIndex]!.capacity === 0)
+    .map(({ comparison }) => comparison)
+    .sort((left, right) => reviewPackComparisonOrder(
+      left,
+      right,
+      input.releaseVersion,
+      input.evaluationVersion,
+    ));
+  const quotaSatisfied = selectedFlow === maximumCount
+    && selected.length === maximumCount
+    && [...input.moodQuotas.values()].every((quota) =>
+      selectedMarginalCount(selected, "mood", quota.stratum) === quota.targetCount)
+    && [...input.departmentQuotas.values()].every((quota) =>
+      selectedMarginalCount(selected, "department", quota.stratum) === quota.targetCount);
+  return { selected, quotaSatisfied };
 }
 
 function samplingBreakdown(
@@ -700,7 +773,7 @@ export function buildImageEmbeddingReviewPack(input: {
   const quotaSeed = `${input.releaseVersion}:${input.evaluationVersion}:review-marginal-quota`;
   const moodQuotas = buildMarginalQuotas(changedComparisons, "mood", minimumComparisonCount, `${quotaSeed}:mood`);
   const departmentQuotas = buildMarginalQuotas(changedComparisons, "department", minimumComparisonCount, `${quotaSeed}:department`);
-  const selected = selectMarginalComparisons({
+  const selection = selectMarginalComparisons({
     comparisons: changedComparisons,
     requestedComparisonCount: minimumComparisonCount,
     releaseVersion: input.releaseVersion,
@@ -708,6 +781,7 @@ export function buildImageEmbeddingReviewPack(input: {
     moodQuotas,
     departmentQuotas,
   });
+  const selected = selection.selected;
 
   const comparisons = selected.map((comparison) => {
     const stableInput = {
@@ -744,7 +818,7 @@ export function buildImageEmbeddingReviewPack(input: {
   };
 
   return {
-    minimumSampleMet: pack.comparisons.length >= minimumComparisonCount,
+    minimumSampleMet: pack.comparisons.length >= minimumComparisonCount && selection.quotaSatisfied,
     pack,
   };
 }
@@ -817,6 +891,7 @@ function validateReviewSamplingDimension(
   value: unknown,
   comparisons: ImageEmbeddingMachineReviewComparison[],
   dimension: "mood" | "department",
+  requireExactTargets: boolean,
 ): string | undefined {
   if (!Array.isArray(value)) {
     return `Machine review pack ${dimension} sampling is invalid.`;
@@ -847,6 +922,9 @@ function validateReviewSamplingDimension(
     const actualSelectedCount = selectedCounts.get(entry.stratum) ?? 0;
     if (selectedCount !== actualSelectedCount) {
       return `Machine review pack ${dimension} sampling does not match selected comparisons.`;
+    }
+    if (requireExactTargets && selectedCount !== targetCount) {
+      return `Machine review pack ${dimension} sampling does not satisfy its exact marginal quota.`;
     }
     if (selectedCount === 0) {
       if (entry.uncoveredReason !== "selection-capacity" && entry.uncoveredReason !== "marginal-quota-conflict") {
@@ -882,8 +960,9 @@ function validateReviewSampling(
     || selectedComparisonCount > requestedComparisonCount) {
     return "Machine review pack sampling has an invalid schema.";
   }
-  return validateReviewSamplingDimension(value.moods, comparisons, "mood")
-    ?? validateReviewSamplingDimension(value.departments, comparisons, "department");
+  const requireExactTargets = selectedComparisonCount === requestedComparisonCount;
+  return validateReviewSamplingDimension(value.moods, comparisons, "mood", requireExactTargets)
+    ?? validateReviewSamplingDimension(value.departments, comparisons, "department", requireExactTargets);
 }
 
 function emptyHumanReviewEvaluation(
