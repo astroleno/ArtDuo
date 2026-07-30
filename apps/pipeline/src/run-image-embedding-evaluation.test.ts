@@ -15,6 +15,40 @@ import {
 } from "./run-image-embedding-evaluation";
 
 const RELEASE_VERSION = "image-evaluation-runner-test";
+const TEXT_PROMPT_IDS = Array.from({ length: 24 }, (_, index) => `prompt-${String(index + 1).padStart(2, "0")}`);
+const A2A_PASS_IDS = Array.from({ length: 55 }, (_, index) => `a2a-pass-${String(index + 1).padStart(2, "0")}`);
+const A2A_FAIL_IDS = Array.from({ length: 40 }, (_, index) => `a2a-fail-${String(index + 1).padStart(2, "0")}`);
+const A2A_BLOCKED_IDS = Array.from({ length: 5 }, (_, index) => `a2a-blocked-${String(index + 1).padStart(2, "0")}`);
+const A2A_REPLAY_IDS = Array.from({ length: 50 }, (_, index) => `a2a-replay-${String(index + 1).padStart(2, "0")}`);
+const E2E_IDS = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
+const FUSION_IDS = Array.from({ length: 5 }, (_, index) => `fusion-${String(index + 1).padStart(2, "0")}`);
+
+function frozenEvidenceSuites() {
+  return {
+    textBenchmark: {
+      suiteChecksum: checksum("text-suite"),
+      caseIds: TEXT_PROMPT_IDS,
+    },
+    a2a: {
+      caseSet: {
+        suiteChecksum: checksum("a2a-case-set-suite"),
+        baseline: { passIds: A2A_PASS_IDS, failIds: A2A_FAIL_IDS, blockedIds: A2A_BLOCKED_IDS },
+      },
+      replay: {
+        suiteChecksum: checksum("a2a-replay-suite"),
+        caseIds: A2A_REPLAY_IDS,
+      },
+    },
+    e2e: {
+      suiteChecksum: checksum("e2e-suite"),
+      baseline: { passIds: E2E_IDS, failIds: [], skippedIds: [] },
+    },
+    fusionE2e: {
+      suiteChecksum: checksum("fusion-suite"),
+      caseIds: FUSION_IDS,
+    },
+  };
+}
 
 function checksum(value: string | Uint8Array): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
@@ -159,6 +193,7 @@ function createFixture(): {
     schemaVersion: "image-embedding-promotion-anchor-set.v1",
     releaseVersion: RELEASE_VERSION,
     anchors: artworkIds.map((artworkId) => ({ artworkId })),
+    evidenceSuites: frozenEvidenceSuites(),
   }, null, 2)}\n`);
   const candidateRecords = [
     ...artworkIds.map((id) => imageRecord("artwork", id, [1, 0])),
@@ -203,57 +238,84 @@ function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>
   textBenchmarkBaselinePath: string;
   a2aBaselinePath: string;
   e2eBaselinePath: string;
+  textBenchmarkRunnerArtifactPath: string;
+  a2aCaseSetRunnerArtifactPath: string;
+  a2aReplayRunnerArtifactPath: string;
+  e2eRunnerArtifactPath: string;
 } {
+  const suites = frozenEvidenceSuites();
   const binding = {
     releaseVersion: RELEASE_VERSION,
     commitSha: "a".repeat(40),
     baseManifestChecksum: checksum(readFileSync(fixture.manifestPath)),
   };
+  const textBenchmarkRunnerArtifactPath = path.join(fixture.rootDir, "text-runner-artifact.json");
+  const a2aCaseSetRunnerArtifactPath = path.join(fixture.rootDir, "a2a-case-set-runner-artifact.json");
+  const a2aReplayRunnerArtifactPath = path.join(fixture.rootDir, "a2a-replay-runner-artifact.json");
+  const e2eRunnerArtifactPath = path.join(fixture.rootDir, "e2e-runner-artifact.json");
+  writeFileSync(textBenchmarkRunnerArtifactPath, "text-runner-artifact");
+  writeFileSync(a2aCaseSetRunnerArtifactPath, "a2a-case-set-runner-artifact");
+  writeFileSync(a2aReplayRunnerArtifactPath, "a2a-replay-runner-artifact");
+  writeFileSync(e2eRunnerArtifactPath, "e2e-runner-artifact");
   const textBenchmarkBaselinePath = path.join(fixture.rootDir, "text-baseline.json");
   writeFileSync(textBenchmarkBaselinePath, `${JSON.stringify({
-    schemaVersion: "image-embedding-text-benchmark-evidence.v1",
+    schemaVersion: "image-embedding-text-benchmark-evidence.v2",
     ...binding,
+    suiteChecksum: suites.textBenchmark.suiteChecksum,
+    runnerArtifactChecksum: checksum("text-runner-artifact"),
     vectorBenchmark: {
       promptCount: 24,
       rerankTop1HitRate: 23 / 24,
       rerankTop5HitRate: 1,
-      results: Array.from({ length: 24 }, (_, index) => ({
-        id: `prompt-${String(index + 1).padStart(2, "0")}`,
+      results: TEXT_PROMPT_IDS.map((id, index) => ({
+        id,
         rerankTop1Hit: index !== 0,
         rerankTop5Hit: true,
       })),
     },
   }, null, 2)}\n`);
 
-  const a2aIds = Array.from({ length: 50 }, (_, index) => `a2a-${String(index + 1).padStart(2, "0")}`);
   const a2aBaselinePath = path.join(fixture.rootDir, "a2a-baseline.json");
   writeFileSync(a2aBaselinePath, `${JSON.stringify({
-    schemaVersion: "image-embedding-a2a-evidence.v1",
+    schemaVersion: "image-embedding-a2a-evidence.v2",
     ...binding,
-    caseSets: {
-      baseline: { passIds: a2aIds, failIds: [], blockedIds: [] },
-      candidate: { passIds: a2aIds, failIds: [], blockedIds: [] },
+    caseSet: {
+      suiteChecksum: suites.a2a.caseSet.suiteChecksum,
+      runnerArtifactChecksum: checksum("a2a-case-set-runner-artifact"),
+      baseline: suites.a2a.caseSet.baseline,
+      candidate: suites.a2a.caseSet.baseline,
     },
     replay: {
-      caseCount: 50,
+      suiteChecksum: suites.a2a.replay.suiteChecksum,
+      runnerArtifactChecksum: checksum("a2a-replay-runner-artifact"),
+      caseIds: A2A_REPLAY_IDS,
       averageTotal: 0.975,
       hardResistanceViolationIds: [],
     },
   }, null, 2)}\n`);
 
-  const e2eIds = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
   const e2eBaselinePath = path.join(fixture.rootDir, "e2e-baseline.json");
   writeFileSync(e2eBaselinePath, `${JSON.stringify({
-    schemaVersion: "image-embedding-e2e-evidence.v1",
+    schemaVersion: "image-embedding-e2e-evidence.v2",
     ...binding,
+    suiteChecksum: suites.e2e.suiteChecksum,
+    runnerArtifactChecksum: checksum("e2e-runner-artifact"),
     preflight: { command: "pnpm preflight:check", exitCode: 0 },
     caseSets: {
-      baseline: { passIds: e2eIds, failIds: [], skippedIds: [] },
-      candidate: { passIds: e2eIds, failIds: [], skippedIds: [] },
+      baseline: suites.e2e.baseline,
+      candidate: suites.e2e.baseline,
     },
   }, null, 2)}\n`);
 
-  return { textBenchmarkBaselinePath, a2aBaselinePath, e2eBaselinePath };
+  return {
+    textBenchmarkBaselinePath,
+    a2aBaselinePath,
+    e2eBaselinePath,
+    textBenchmarkRunnerArtifactPath,
+    a2aCaseSetRunnerArtifactPath,
+    a2aReplayRunnerArtifactPath,
+    e2eRunnerArtifactPath,
+  };
 }
 
 test("metadata score normalization preserves the order of valid 14 and 15 point frozen scores", () => {
@@ -344,7 +406,7 @@ test("image embedding runner rejects arbitrary baseline and fusion evidence file
   assert.equal(result.report.promotionBinding.fusionVerificationReady, false);
 });
 
-test("image embedding runner accepts only passing evidence bound to this release and manifest", async () => {
+test("image embedding runner accepts only exact frozen evidence bound to original runner artifacts", async () => {
   const fixture = createFixture();
   const evidence = writePassingPromotionEvidence(fixture);
 
@@ -359,6 +421,24 @@ test("image embedding runner accepts only passing evidence bound to this release
     ...evidence,
   });
   assert.equal(valid.report.gates.baselineBindingsReady, true, JSON.stringify(valid.report.gates.bindingFailures));
+  assert.equal(valid.report.promotionBinding.fusionE2eSuiteChecksum, checksum("fusion-suite"));
+  assert.equal(valid.report.promotionBinding.fusionE2eRunnerArtifactChecksum, "missing");
+
+  writeFileSync(evidence.textBenchmarkRunnerArtifactPath, "tampered-runner-artifact");
+  const detachedArtifact = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    expectedEvidenceCommitSha: "a".repeat(40),
+    ...evidence,
+  });
+  assert.equal(detachedArtifact.report.gates.baselineBindingsReady, false);
+  assert.equal(detachedArtifact.report.gates.bindingIntegrity, false);
+
+  writeFileSync(evidence.textBenchmarkRunnerArtifactPath, "text-runner-artifact");
 
   const invalidTextEvidence = JSON.parse(readFileSync(evidence.textBenchmarkBaselinePath, "utf8")) as {
     baseManifestChecksum: string;

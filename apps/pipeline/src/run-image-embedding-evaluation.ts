@@ -27,12 +27,14 @@ import {
   type ImageEmbeddingWeakLabelEvaluation,
 } from "./image-embedding-evaluation";
 import {
+  parseImageEmbeddingEvidenceSuiteBindings,
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
   validateImageEmbeddingFusionE2eEvidence,
   validateImageEmbeddingTextBenchmarkEvidence,
   type ImageEmbeddingEvidenceContext,
   type ImageEmbeddingEvidenceValidation,
+  type ImageEmbeddingEvidenceSuiteBindings,
 } from "./image-embedding-promotion-evidence";
 import { readImageEmbeddingEvaluationOptions } from "./cli";
 
@@ -58,6 +60,11 @@ export interface ImageEmbeddingEvaluationOptions {
   textBenchmarkBaselinePath?: string;
   a2aBaselinePath?: string;
   e2eBaselinePath?: string;
+  textBenchmarkRunnerArtifactPath?: string;
+  a2aCaseSetRunnerArtifactPath?: string;
+  a2aReplayRunnerArtifactPath?: string;
+  e2eRunnerArtifactPath?: string;
+  fusionE2eRunnerArtifactPath?: string;
   /** Internal test seam; the CLI always derives this value from the selected Git checkout. */
   expectedEvidenceCommitSha?: string;
 }
@@ -74,6 +81,16 @@ export interface ImageEmbeddingPromotionBinding {
   textBenchmarkBaselineChecksum: string;
   a2aBaselineChecksum: string;
   e2eBaselineChecksum: string;
+  textBenchmarkSuiteChecksum: string;
+  a2aCaseSetSuiteChecksum: string;
+  a2aReplaySuiteChecksum: string;
+  e2eSuiteChecksum: string;
+  fusionE2eSuiteChecksum: string;
+  textBenchmarkRunnerArtifactChecksum: string;
+  a2aCaseSetRunnerArtifactChecksum: string;
+  a2aReplayRunnerArtifactChecksum: string;
+  e2eRunnerArtifactChecksum: string;
+  fusionE2eRunnerArtifactChecksum: string;
   fusionE2eReportChecksum?: string;
   promotionBindingChecksum: string;
   model: string;
@@ -152,6 +169,16 @@ export interface ImageEmbeddingEvaluationReport {
     textBenchmarkBaselineChecksum: string;
     a2aBaselineChecksum: string;
     e2eBaselineChecksum: string;
+    textBenchmarkSuiteChecksum: string;
+    a2aCaseSetSuiteChecksum: string;
+    a2aReplaySuiteChecksum: string;
+    e2eSuiteChecksum: string;
+    fusionE2eSuiteChecksum: string;
+    textBenchmarkRunnerArtifactChecksum: string;
+    a2aCaseSetRunnerArtifactChecksum: string;
+    a2aReplayRunnerArtifactChecksum: string;
+    e2eRunnerArtifactChecksum: string;
+    fusionE2eRunnerArtifactChecksum: string;
     fusionE2eReportChecksum?: string;
     textBenchmarkBaselineValid: boolean;
     a2aBaselineValid: boolean;
@@ -712,6 +739,24 @@ function readValidatedEvidence(
   }
 }
 
+function readRunnerArtifactChecksum(filePath: string | undefined): string | undefined {
+  if (!filePath) {
+    return undefined;
+  }
+  try {
+    return sha256Checksum(readFileSync(path.resolve(filePath)));
+  } catch {
+    return undefined;
+  }
+}
+
+function frozenSuiteChecksum(
+  bindings: ImageEmbeddingEvidenceSuiteBindings | undefined,
+  selector: (suites: ImageEmbeddingEvidenceSuiteBindings) => string,
+): string {
+  return bindings ? selector(bindings) : "missing";
+}
+
 function recordEvidenceFailures(
   evidence: ValidatedEvidenceFile,
   bindingFailures: string[],
@@ -783,12 +828,28 @@ export async function runImageEmbeddingEvaluation(
     ? path.resolve(options.promotionAnchorPath)
     : path.join(reportDirectory, "promotion-anchor-set.json");
   const baseManifestChecksum = sha256Checksum(readFileSync(loaded.manifestPath));
-  const promotionAnchorSetChecksum = sha256Checksum(readFileSync(promotionAnchorPath));
+  const promotionAnchorBytes = readFileSync(promotionAnchorPath);
+  const promotionAnchorSetChecksum = sha256Checksum(promotionAnchorBytes);
+  const bindingFailures: string[] = [];
+  let evidenceSuites: ImageEmbeddingEvidenceSuiteBindings | undefined;
+  try {
+    const promotionAnchor = JSON.parse(promotionAnchorBytes.toString("utf8")) as unknown;
+    if (!isRecord(promotionAnchor) || promotionAnchor.releaseVersion !== releaseVersion) {
+      bindingFailures.push("Promotion anchor set does not match the selected release version.");
+    } else {
+      const parsedSuites = parseImageEmbeddingEvidenceSuiteBindings(promotionAnchor.evidenceSuites);
+      if (parsedSuites.bindings) {
+        evidenceSuites = parsedSuites.bindings;
+      }
+      bindingFailures.push(...parsedSuites.reasons);
+    }
+  } catch {
+    bindingFailures.push("Promotion anchor set could not be read as a frozen evidence suite binding.");
+  }
   const candidate = readCandidateRecords(candidateShardPath);
   const buildReportBytes = readFileSync(buildReportPath);
   const buildReportChecksum = sha256Checksum(buildReportBytes);
   const buildReport = parseBuildReport(JSON.parse(buildReportBytes.toString("utf8")) as unknown);
-  const bindingFailures: string[] = [];
 
   if (buildReport.releaseVersion !== releaseVersion) {
     bindingFailures.push("Build report releaseVersion does not match the selected release.");
@@ -942,10 +1003,19 @@ export async function runImageEmbeddingEvaluation(
     humanReview = invalidatedHumanReview(humanReview, "Evaluation input bindings are invalid.");
   }
 
+  const runnerArtifactChecksums = {
+    textBenchmark: readRunnerArtifactChecksum(options.textBenchmarkRunnerArtifactPath),
+    a2aCaseSet: readRunnerArtifactChecksum(options.a2aCaseSetRunnerArtifactPath),
+    a2aReplay: readRunnerArtifactChecksum(options.a2aReplayRunnerArtifactPath),
+    e2e: readRunnerArtifactChecksum(options.e2eRunnerArtifactPath),
+    fusionE2e: readRunnerArtifactChecksum(options.fusionE2eRunnerArtifactPath),
+  };
   const evidenceContext: ImageEmbeddingEvidenceContext = {
     releaseVersion,
     baseManifestChecksum,
     commitSha: evidenceCommitSha,
+    evidenceSuites,
+    runnerArtifactChecksums,
   };
   const textBenchmarkEvidence = readValidatedEvidence(
     options.textBenchmarkBaselinePath,
@@ -971,6 +1041,16 @@ export async function runImageEmbeddingEvaluation(
   const textBenchmarkBaselineChecksum = textBenchmarkEvidence.checksum;
   const a2aBaselineChecksum = a2aEvidence.checksum;
   const e2eBaselineChecksum = e2eEvidence.checksum;
+  const textBenchmarkSuiteChecksum = frozenSuiteChecksum(evidenceSuites, (suites) => suites.textBenchmark.suiteChecksum);
+  const a2aCaseSetSuiteChecksum = frozenSuiteChecksum(evidenceSuites, (suites) => suites.a2a.caseSet.suiteChecksum);
+  const a2aReplaySuiteChecksum = frozenSuiteChecksum(evidenceSuites, (suites) => suites.a2a.replay.suiteChecksum);
+  const e2eSuiteChecksum = frozenSuiteChecksum(evidenceSuites, (suites) => suites.e2e.suiteChecksum);
+  const fusionE2eSuiteChecksum = frozenSuiteChecksum(evidenceSuites, (suites) => suites.fusionE2e.suiteChecksum);
+  const textBenchmarkRunnerArtifactChecksum = runnerArtifactChecksums.textBenchmark ?? "missing";
+  const a2aCaseSetRunnerArtifactChecksum = runnerArtifactChecksums.a2aCaseSet ?? "missing";
+  const a2aReplayRunnerArtifactChecksum = runnerArtifactChecksums.a2aReplay ?? "missing";
+  const e2eRunnerArtifactChecksum = runnerArtifactChecksums.e2e ?? "missing";
+  const fusionE2eRunnerArtifactChecksum = runnerArtifactChecksums.fusionE2e ?? "missing";
   const artworkHoldout = weakLabels.artworkPairwise.holdout;
   const sceneHoldout = weakLabels.sceneTop3.holdout;
   const artworkHoldoutReady = weakLabels.holdoutReadiness.artworkPairwise.minimumSampleMet
@@ -1016,6 +1096,16 @@ export async function runImageEmbeddingEvaluation(
     textBenchmarkBaselineChecksum,
     a2aBaselineChecksum,
     e2eBaselineChecksum,
+    textBenchmarkSuiteChecksum,
+    a2aCaseSetSuiteChecksum,
+    a2aReplaySuiteChecksum,
+    e2eSuiteChecksum,
+    fusionE2eSuiteChecksum,
+    textBenchmarkRunnerArtifactChecksum,
+    a2aCaseSetRunnerArtifactChecksum,
+    a2aReplayRunnerArtifactChecksum,
+    e2eRunnerArtifactChecksum,
+    fusionE2eRunnerArtifactChecksum,
     model: buildReport.model,
     modelRevision: buildReport.modelRevision,
     modelVariant: buildReport.modelVariant,
@@ -1080,6 +1170,16 @@ export async function runImageEmbeddingEvaluation(
     textBenchmarkBaselineChecksum,
     a2aBaselineChecksum,
     e2eBaselineChecksum,
+    textBenchmarkSuiteChecksum,
+    a2aCaseSetSuiteChecksum,
+    a2aReplaySuiteChecksum,
+    e2eSuiteChecksum,
+    fusionE2eSuiteChecksum,
+    textBenchmarkRunnerArtifactChecksum,
+    a2aCaseSetRunnerArtifactChecksum,
+    a2aReplayRunnerArtifactChecksum,
+    e2eRunnerArtifactChecksum,
+    fusionE2eRunnerArtifactChecksum,
     fusionE2eReportChecksum,
     promotionBindingChecksum,
     model: buildReport.model,
@@ -1107,6 +1207,16 @@ export async function runImageEmbeddingEvaluation(
       textBenchmarkBaselineChecksum,
       a2aBaselineChecksum,
       e2eBaselineChecksum,
+      textBenchmarkSuiteChecksum,
+      a2aCaseSetSuiteChecksum,
+      a2aReplaySuiteChecksum,
+      e2eSuiteChecksum,
+      fusionE2eSuiteChecksum,
+      textBenchmarkRunnerArtifactChecksum,
+      a2aCaseSetRunnerArtifactChecksum,
+      a2aReplayRunnerArtifactChecksum,
+      e2eRunnerArtifactChecksum,
+      fusionE2eRunnerArtifactChecksum,
       fusionE2eReportChecksum,
       textBenchmarkBaselineValid: textBenchmarkEvidence.validation.valid,
       a2aBaselineValid: a2aEvidence.validation.valid,

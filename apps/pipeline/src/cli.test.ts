@@ -64,3 +64,28 @@ test("workspace exposes the image embedding shadow-build command", () => {
   assert.equal(rootPackage.scripts["image-embeddings:build"], "pnpm --filter @artduo/pipeline build:image-embeddings");
   assert.equal(existsSync(path.resolve(__dirname, "build-image-embedding-shards.ts")), true);
 });
+
+test("image embedding evaluation CLI resolves every frozen runner artifact path", () => {
+  const originalArgv = process.argv;
+  process.argv = [
+    "node",
+    "run-image-embedding-evaluation.ts",
+    "--root-dir", "/tmp/image-evaluation-root",
+    "--text-benchmark-runner-artifact", "evidence/text-runner.json",
+    "--a2a-case-set-runner-artifact", "evidence/a2a-case-set-runner.json",
+    "--a2a-replay-runner-artifact", "evidence/a2a-replay-runner.json",
+    "--e2e-runner-artifact", "evidence/e2e-runner.json",
+    "--fusion-e2e-runner-artifact", "evidence/fusion-runner.json",
+  ];
+
+  try {
+    const options = cli.readImageEmbeddingEvaluationOptions() as Record<string, unknown>;
+    assert.equal(options.textBenchmarkRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/text-runner.json"));
+    assert.equal(options.a2aCaseSetRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/a2a-case-set-runner.json"));
+    assert.equal(options.a2aReplayRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/a2a-replay-runner.json"));
+    assert.equal(options.e2eRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/e2e-runner.json"));
+    assert.equal(options.fusionE2eRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/fusion-runner.json"));
+  } finally {
+    process.argv = originalArgv;
+  }
+});

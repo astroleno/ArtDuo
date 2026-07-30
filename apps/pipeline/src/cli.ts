@@ -162,6 +162,11 @@ export function readImageEmbeddingEvaluationOptions(): ImageEmbeddingEvaluationO
   const textBenchmarkBaselinePath = readFlag("--text-benchmark-baseline");
   const a2aBaselinePath = readFlag("--a2a-baseline");
   const e2eBaselinePath = readFlag("--e2e-baseline");
+  const textBenchmarkRunnerArtifactPath = readFlag("--text-benchmark-runner-artifact");
+  const a2aCaseSetRunnerArtifactPath = readFlag("--a2a-case-set-runner-artifact");
+  const a2aReplayRunnerArtifactPath = readFlag("--a2a-replay-runner-artifact");
+  const e2eRunnerArtifactPath = readFlag("--e2e-runner-artifact");
+  const fusionE2eRunnerArtifactPath = readFlag("--fusion-e2e-runner-artifact");
 
   return {
     rootDir: rootDir ? workspaceRoot : undefined,
@@ -180,6 +185,11 @@ export function readImageEmbeddingEvaluationOptions(): ImageEmbeddingEvaluationO
     textBenchmarkBaselinePath: textBenchmarkBaselinePath ? resolveCliPath(textBenchmarkBaselinePath, workspaceRoot) : undefined,
     a2aBaselinePath: a2aBaselinePath ? resolveCliPath(a2aBaselinePath, workspaceRoot) : undefined,
     e2eBaselinePath: e2eBaselinePath ? resolveCliPath(e2eBaselinePath, workspaceRoot) : undefined,
+    textBenchmarkRunnerArtifactPath: textBenchmarkRunnerArtifactPath ? resolveCliPath(textBenchmarkRunnerArtifactPath, workspaceRoot) : undefined,
+    a2aCaseSetRunnerArtifactPath: a2aCaseSetRunnerArtifactPath ? resolveCliPath(a2aCaseSetRunnerArtifactPath, workspaceRoot) : undefined,
+    a2aReplayRunnerArtifactPath: a2aReplayRunnerArtifactPath ? resolveCliPath(a2aReplayRunnerArtifactPath, workspaceRoot) : undefined,
+    e2eRunnerArtifactPath: e2eRunnerArtifactPath ? resolveCliPath(e2eRunnerArtifactPath, workspaceRoot) : undefined,
+    fusionE2eRunnerArtifactPath: fusionE2eRunnerArtifactPath ? resolveCliPath(fusionE2eRunnerArtifactPath, workspaceRoot) : undefined,
   };
 }
 
