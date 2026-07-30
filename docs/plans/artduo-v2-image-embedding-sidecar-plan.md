@@ -1198,6 +1198,9 @@ pnpm --filter @artduo/pipeline test
 `colorTags <= 3`；Scene `emotion_ids <= 3`、`artwork_palette_modes <= 3`、
 `palette <= 4`。据此冻结 score 上界为 `37`，所有 late-fusion metadata score 以
 `score / 37` 归一化；不得重新使用历史 hard-code 的 `13`，也不得候选集 min-max。
+所有 release 与 release-ready producer 在序列化这些字段前必须复用同一上限作稳定
+前缀截断；parser 仍须严格拒绝外部 shard 的超限值，不能用 parser 端静默截断掩盖
+producer 或输入问题。
 
 报告必须标记 `labelSource: "structured-weak-label-v1"`，避免把弱标签描述为人工
 真值，并输出 unique entity sample size、95% bootstrap confidence interval 与
@@ -1218,7 +1221,10 @@ release 中有至少 14 个 eligible artwork 的 `mood:<value>` 与
   30 条门槛。`image-embedding-review-pack.v2` 还必须记录
   `marginal-proportional-v1` 的 mood/department `availableCount`、`targetCount`、
   `selectedCount` 与未覆盖原因；稳定 hash 决定配额/同分顺序，不能由字典序偏置前
-  30 个 compound strata。
+  30 个 compound strata。选择必须以确定性二分图最大流精确满足两个边际配额；若
+  配额不可行，只能输出带 mismatch 诊断的不足样本，`minimumSampleMet` 与 promotion
+  gate 必须为 false。任意 30 条完整 pack 的 `selectedCount !== targetCount` 都是
+  无效 machine pack。
 - Reviewer view：由 machine pack 生成只读 HTML，相同 30 条记录的盲化 A/B
   图片与必要 caption；不包含算法名、candidate 方位、视觉分数、metadata 分数或
   machine pack 文件路径。
@@ -1285,25 +1291,33 @@ pnpm image-embeddings:debug -- \
 Benchmark CLI 同时支持显式 `--output`、`--build-report`、`--review-pack`、
 `--review-verdicts`、`--emit-review-pack`、`--reviewer-view-output`、
 `--text-benchmark-baseline`、`--a2a-baseline`、`--e2e-baseline` 和可选
-`--fusion-e2e-report`。自动化验证必须显式输出到临时文件；只有 Task 5 完成人工
+`--fusion-e2e-report`，以及 text/A2A case-set/A2A replay/E2E/fusion 的
+`--text-benchmark-runner-artifact`、`--a2a-case-set-runner-artifact`、
+`--a2a-replay-runner-artifact`、`--e2e-runner-artifact`、
+`--fusion-e2e-runner-artifact` 原始 runner artifact 路径。自动化验证必须显式输出到临时文件；只有 Task 5 完成人工
 评审后的 report 才写入计划中的固定 report 路径。Task 5 首次完成时
 `promotionReady` 可为 true，但 `fusionVerificationReady` 必须为 false；Task 6
 完成 targeted E2E 后用同一命令绑定 E2E report checksum，才能将后者置为 true。
 
 四类 evidence 绝不能以“文件存在”作为通过条件，也不能直接把任意 runner 的 raw
-JSON/HTML 传入。每份必须是严格、无额外字段的 versioned JSON envelope，且共同
-绑定所选 release、base manifest checksum 和当前 evaluator Git `HEAD` commit SHA：
+JSON/HTML 传入。每份必须是严格、无额外字段的 v2 JSON envelope，且共同绑定所选
+release、base manifest checksum 和当前 evaluator Git `HEAD` commit SHA。可信的
+`promotion-anchor-set.json` 还必须冻结四类 suite 的精确 ID/status 集合与 suite checksum；
+build report 已绑定该 anchor 的整体 checksum。每次 candidate run 的 artifact checksum 不能
+错误复用历史 baseline：evidence 声明的 suite checksum 必须匹配 anchor，而动态的
+runner artifact checksum 必须匹配本次显式传入的原始 artifact bytes，并写入 promotion binding：
 
-- `image-embedding-text-benchmark-evidence.v1`：恰好 24 条唯一 prompt result，
+- `image-embedding-text-benchmark-evidence.v2`：恰好冻结的 24 条 prompt result，
   重算后的 Top-1 `>= 23/24`、Top-5 `= 24/24`。
-- `image-embedding-a2a-evidence.v1`：baseline/candidate 的完整、互斥 case ID set；
-  candidate 不得损失 baseline pass、不得引入 fail/blocked；恰好 50 条 replay、
-  average total `>= 0.975`、hard-resistance violation `= 0`。
-- `image-embedding-e2e-evidence.v1`：`pnpm preflight:check` exit code `0`，完整
-  14 条 baseline/candidate case ID set，candidate 无 fail/skip。
-- `image-embedding-fusion-e2e-evidence.v1`：除共同 binding 外还必须精确绑定
-  `promotionBindingChecksum`、成功 preflight、至少 5 条 expected targeted case，且
-  每条均 pass、无 fail/skip。
+- `image-embedding-a2a-evidence.v2`：独立的 authoritative 100-row `55 pass / 40 fail /
+  5 blocked` baseline/candidate case-set，以及另一套精确冻结的 50-case replay；candidate
+  不得损失 baseline pass、不得引入 fail/blocked；replay average total `>= 0.975`、
+  hard-resistance violation `= 0`。两套 suite 和原始 artifact 不得相互替代。
+- `image-embedding-e2e-evidence.v2`：`pnpm preflight:check` exit code `0`，精确冻结的
+  14 条 baseline/candidate case-set，candidate 无 fail/skip。
+- `image-embedding-fusion-e2e-evidence.v2`：除共同 binding 外还必须精确绑定
+  `promotionBindingChecksum`、成功 preflight、anchor 冻结的 targeted case IDs（至少 5 条），
+  且每条均 pass、无 fail/skip。
 
 未知 schema、失败/缺失字段、无法读取的 JSON、commit 无法解析或不一致、阈值不达标
 一律令对应 gate 为 false。fusion evidence 只影响 `fusionVerificationReady`；它不能
