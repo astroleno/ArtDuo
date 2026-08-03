@@ -1280,10 +1280,12 @@ pnpm image-embeddings:debug -- \
 
 ```json
 // apps/pipeline/package.json
+"build:image-embedding-evidence": "pnpm run workspace:prepare && tsx src/build-image-embedding-promotion-evidence.ts",
 "debug:image-embeddings": "pnpm run workspace:prepare && tsx src/debug-image-embedding.ts",
 "bench:image-embeddings": "pnpm run workspace:prepare && tsx src/run-image-embedding-evaluation.ts"
 
 // package.json
+"image-embeddings:evidence": "pnpm --filter @artduo/pipeline build:image-embedding-evidence",
 "image-embeddings:debug": "pnpm --filter @artduo/pipeline debug:image-embeddings",
 "image-embeddings:benchmark": "pnpm --filter @artduo/pipeline bench:image-embeddings"
 ```
@@ -1299,13 +1301,23 @@ Benchmark CLI 同时支持显式 `--output`、`--build-report`、`--review-pack`
 `promotionReady` 可为 true，但 `fusionVerificationReady` 必须为 false；Task 6
 完成 targeted E2E 后用同一命令绑定 E2E report checksum，才能将后者置为 true。
 
+`image-embeddings:evidence` 每次只将一种 native raw runner artifact 规范化为一个
+strict v2 envelope：text、成对 A2A case-set/replay、14-case E2E、或 fusion E2E。
+它要求可解析的 Git `HEAD` 和没有 staged/unstaged tracked diff；raw/output 临时文件可为
+untracked。E2E/fusion producer 与 evaluator 都实际执行一次 `pnpm preflight:check`，而不是
+相信 envelope 自报的 exit code。
+
 四类 evidence 绝不能以“文件存在”作为通过条件，也不能直接把任意 runner 的 raw
 JSON/HTML 传入。每份必须是严格、无额外字段的 v2 JSON envelope，且共同绑定所选
 release、base manifest checksum 和当前 evaluator Git `HEAD` commit SHA。可信的
 `promotion-anchor-set.json` 还必须冻结四类 suite 的精确 ID/status 集合与 suite checksum；
 build report 已绑定该 anchor 的整体 checksum。每次 candidate run 的 artifact checksum 不能
 错误复用历史 baseline：evidence 声明的 suite checksum 必须匹配 anchor，而动态的
-runner artifact checksum 必须匹配本次显式传入的原始 artifact bytes，并写入 promotion binding：
+runner artifact checksum 必须匹配本次显式传入的原始 artifact bytes。evaluator 必须解析
+native raw artifact 并重算逐条 status、命中率、A2A score 与 Playwright outcome，再与 envelope
+逐项比对；只匹配 bytes checksum 仍视为不可信。baseline raw artifact checksum 写入
+promotion binding；fusion raw artifact/report checksum 只写 report/fusion binding，绝不能改变
+Task 5 已冻结的 `promotionBindingChecksum`：
 
 - `image-embedding-text-benchmark-evidence.v2`：恰好冻结的 24 条 prompt result，
   重算后的 Top-1 `>= 23/24`、Top-5 `= 24/24`。
@@ -1319,8 +1331,8 @@ runner artifact checksum 必须匹配本次显式传入的原始 artifact bytes�
   `promotionBindingChecksum`、成功 preflight、anchor 冻结的 targeted case IDs（至少 5 条），
   且每条均 pass、无 fail/skip。
 
-未知 schema、失败/缺失字段、无法读取的 JSON、commit 无法解析或不一致、阈值不达标
-一律令对应 gate 为 false。fusion evidence 只影响 `fusionVerificationReady`；它不能
+未知 schema、失败/缺失字段、无法读取的 JSON、commit 无法解析或不一致、tracked tree 脏、
+raw/envelope 语义不一致或阈值不达标一律令对应 gate 为 false。fusion evidence 只影响 `fusionVerificationReady`；它不能
 反向把未达标的 Task 5 `promotionReady` 变为 true。
 
 - [x] **Step 6: 运行自动 benchmark**
@@ -1344,7 +1356,35 @@ pnpm image-embeddings:benchmark -- \
 评审者查看只读 reviewer view，只在
 `image-embedding-review-verdicts.json` 填写对应 `reviewId` 的 verdict 与简短
 `reason`；不修改 machine pack、候选 ID、分数、randomization seed 或
-fingerprint。然后执行：
+fingerprint。先确保 Task 5 代码与 frozen anchor 已提交，`git diff --quiet HEAD --` 只剩
+允许的 untracked 临时 runner/evidence 输出。将 text/A2A/E2E 的 native raw artifact 置于同一
+可保留的临时目录（不得在 Task 6 重新生成而改变 baseline checksum），并规范化：
+
+```bash
+ARTDUO_EVIDENCE_DIR="$(mktemp -d -t artduo-image-promotion-evidence)"
+text_raw="$ARTDUO_EVIDENCE_DIR/vector-benchmark.json"
+a2a_case_raw="$ARTDUO_EVIDENCE_DIR/a2a-spec-harness.json"
+a2a_replay_raw="$ARTDUO_EVIDENCE_DIR/a2a-replay.json"
+e2e_raw="$ARTDUO_EVIDENCE_DIR/image-embedding-e2e-playwright.json"
+
+# 先执行 Task -1 冻结的 text/A2A native runners，并执行冻结的 14-case E2E runner，
+# 分别写入上述四个 raw 路径；raw Playwright JSON 不是 evidence envelope。
+pnpm image-embeddings:evidence -- \
+  --release-version 2026-04-25-curation-b \
+  --output "$ARTDUO_EVIDENCE_DIR/text-evidence.json" \
+  --text-benchmark-runner-artifact "$text_raw"
+pnpm image-embeddings:evidence -- \
+  --release-version 2026-04-25-curation-b \
+  --output "$ARTDUO_EVIDENCE_DIR/a2a-evidence.json" \
+  --a2a-case-set-runner-artifact "$a2a_case_raw" \
+  --a2a-replay-runner-artifact "$a2a_replay_raw"
+pnpm image-embeddings:evidence -- \
+  --release-version 2026-04-25-curation-b \
+  --output "$ARTDUO_EVIDENCE_DIR/e2e-evidence.json" \
+  --e2e-runner-artifact "$e2e_raw"
+```
+
+然后执行：
 
 ```bash
 pnpm image-embeddings:benchmark -- \
@@ -1353,6 +1393,13 @@ pnpm image-embeddings:benchmark -- \
   --candidate-shard data/curation/reports/image-embeddings/2026-04-25-curation-b/candidates/image-embeddings-01.json \
   --review-pack data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-pack.json \
   --review-verdicts data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-verdicts.json \
+  --text-benchmark-baseline "$ARTDUO_EVIDENCE_DIR/text-evidence.json" \
+  --a2a-baseline "$ARTDUO_EVIDENCE_DIR/a2a-evidence.json" \
+  --e2e-baseline "$ARTDUO_EVIDENCE_DIR/e2e-evidence.json" \
+  --text-benchmark-runner-artifact "$text_raw" \
+  --a2a-case-set-runner-artifact "$a2a_case_raw" \
+  --a2a-replay-runner-artifact "$a2a_replay_raw" \
+  --e2e-runner-artifact "$e2e_raw" \
   --output data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-evaluation.json
 ```
 
@@ -1395,8 +1442,8 @@ interface ImageEmbeddingPromotionBinding {
 
 `promotionBindingChecksum` 是 canonical JSON 的 SHA-256，输入包含上述 release、
 candidate/review/baseline/model/policy 字段以及 holdout/human gate 的原始计数与
-结果；排除 `generatedAt`、原始临时路径和后续
-`fusionE2eReportChecksum`。因此 Task 6 回写 E2E 证据时该 checksum 必须保持
+结果；排除 `generatedAt`、原始临时路径、后续
+`fusionE2eReportChecksum` 与 fusion raw runner artifact checksum。因此 Task 6 回写 E2E 证据时该 checksum 必须保持
 不变，任何重算候选、重做人工 verdict 或修改 policy 都会改变它并强制重跑 Task
 6。
 
@@ -1411,7 +1458,13 @@ candidate/review/baseline/model/policy 字段以及 holdout/human gate 的原始
 git add \
   apps/pipeline/src/image-embedding-evaluation.ts \
   apps/pipeline/src/image-embedding-evaluation.test.ts \
+  apps/pipeline/src/image-embedding-evidence-artifacts.ts \
+  apps/pipeline/src/image-embedding-promotion-evidence.ts \
+  apps/pipeline/src/image-embedding-promotion-evidence.test.ts \
+  apps/pipeline/src/build-image-embedding-promotion-evidence.ts \
+  apps/pipeline/src/build-image-embedding-promotion-evidence.test.ts \
   apps/pipeline/src/run-image-embedding-evaluation.ts \
+  apps/pipeline/src/run-image-embedding-evaluation.test.ts \
   apps/pipeline/src/debug-image-embedding.ts \
   apps/pipeline/src/debug-image-embedding.test.ts \
   apps/pipeline/src/cli.ts \
@@ -1634,20 +1687,33 @@ E2E 通过稳定、无敏感信息的 server trace/status 标记观察是否应�
 
 - [ ] **Step 5: 运行回归测试并回写 fusion verification binding**
 
+在这一步之前，Task 5 的最终 promotion report 和本任务的 fusion 代码必须已经分别提交；
+`ARTDUO_EVIDENCE_DIR` 必须指向 Task 5 保留的 baseline raw/envelope 目录。禁止在 dirty
+tracked tree 上生成 evidence；若 shell 已重启，先重新导出同一个目录，而不是重跑 baseline。
+
 ```bash
 pnpm --filter @artduo/contracts build
 pnpm --filter @artduo/corpus test
 pnpm --filter @artduo/web test
 ARTDUO_FUSION_CHECK_DIR="$(mktemp -d -t artduo-image-fusion-check)"
 baseline_output="$ARTDUO_FUSION_CHECK_DIR/vector-benchmark.json"
-fusion_e2e_output="$ARTDUO_FUSION_CHECK_DIR/image-scene-fusion-e2e.json"
+fusion_e2e_raw="$ARTDUO_FUSION_CHECK_DIR/image-scene-fusion-e2e.playwright.json"
+fusion_e2e_evidence="$ARTDUO_FUSION_CHECK_DIR/image-scene-fusion-e2e-evidence.json"
 pnpm vector:benchmark -- \
   --release-version 2026-04-25-curation-b \
   --output "$baseline_output"
 pnpm --filter @artduo/web exec playwright test \
   e2e/image-scene-fusion.spec.ts \
-  --reporter=json > "$fusion_e2e_output"
+  --reporter=json > "$fusion_e2e_raw"
 pnpm test
+
+git diff --quiet HEAD --
+PROMOTION_BINDING_CHECKSUM="$(node -e 'const fs = require("node:fs"); const report = JSON.parse(fs.readFileSync("data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-evaluation.json", "utf8")); process.stdout.write(report.promotionBinding.promotionBindingChecksum);')"
+pnpm image-embeddings:evidence -- \
+  --release-version 2026-04-25-curation-b \
+  --output "$fusion_e2e_evidence" \
+  --fusion-e2e-runner-artifact "$fusion_e2e_raw" \
+  --promotion-binding-checksum "$PROMOTION_BINDING_CHECKSUM"
 
 pnpm image-embeddings:benchmark -- \
   --release-version 2026-04-25-curation-b \
@@ -1655,7 +1721,15 @@ pnpm image-embeddings:benchmark -- \
   --candidate-shard data/curation/reports/image-embeddings/2026-04-25-curation-b/candidates/image-embeddings-01.json \
   --review-pack data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-pack.json \
   --review-verdicts data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-verdicts.json \
-  --fusion-e2e-report "$fusion_e2e_output" \
+  --text-benchmark-baseline "$ARTDUO_EVIDENCE_DIR/text-evidence.json" \
+  --a2a-baseline "$ARTDUO_EVIDENCE_DIR/a2a-evidence.json" \
+  --e2e-baseline "$ARTDUO_EVIDENCE_DIR/e2e-evidence.json" \
+  --text-benchmark-runner-artifact "$ARTDUO_EVIDENCE_DIR/vector-benchmark.json" \
+  --a2a-case-set-runner-artifact "$ARTDUO_EVIDENCE_DIR/a2a-spec-harness.json" \
+  --a2a-replay-runner-artifact "$ARTDUO_EVIDENCE_DIR/a2a-replay.json" \
+  --e2e-runner-artifact "$ARTDUO_EVIDENCE_DIR/image-embedding-e2e-playwright.json" \
+  --fusion-e2e-report "$fusion_e2e_evidence" \
+  --fusion-e2e-runner-artifact "$fusion_e2e_raw" \
   --output data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-evaluation.json
 ```
 
@@ -1667,9 +1741,10 @@ pnpm image-embeddings:benchmark -- \
 - fallback E2E 的 scene 顺序与 metadata baseline 完全一致。
 - targeted E2E 性能数据在冻结预算内。
 - evaluation report 保持相同 `promotionBindingChecksum`，新增规范化后的
-  `fusionE2eReportChecksum`，并给出 `fusionVerificationReady: true`。原始
-  Playwright report 可含临时路径，只保存在 temp dir；evaluation report 只写
-  case ID、状态、预算数字和 checksum。
+  `fusionE2eReportChecksum` 与 fusion raw artifact checksum，并给出
+  `fusionVerificationReady: true`。原始 Playwright JSON 只能传给
+  `image-embeddings:evidence`，不能直接传给 `--fusion-e2e-report`；它可含临时路径，
+  只保存在 temp dir。evaluation report 只写 case ID、状态、预算数字和 checksum。
 
 - [ ] **Step 6: 提交晚融合**
 
