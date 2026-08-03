@@ -62,7 +62,10 @@ test("workspace exposes the image embedding shadow-build command", () => {
 
   assert.equal(pipelinePackage.scripts["build:image-embeddings"], "pnpm run workspace:prepare && tsx src/build-image-embedding-shards.ts");
   assert.equal(rootPackage.scripts["image-embeddings:build"], "pnpm --filter @artduo/pipeline build:image-embeddings");
+  assert.equal(pipelinePackage.scripts["build:image-embedding-evidence"], "pnpm run workspace:prepare && tsx src/build-image-embedding-promotion-evidence.ts");
+  assert.equal(rootPackage.scripts["image-embeddings:evidence"], "pnpm --filter @artduo/pipeline build:image-embedding-evidence");
   assert.equal(existsSync(path.resolve(__dirname, "build-image-embedding-shards.ts")), true);
+  assert.equal(existsSync(path.resolve(__dirname, "build-image-embedding-promotion-evidence.ts")), true);
 });
 
 test("image embedding evaluation CLI resolves every frozen runner artifact path", () => {
@@ -85,6 +88,33 @@ test("image embedding evaluation CLI resolves every frozen runner artifact path"
     assert.equal(options.a2aReplayRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/a2a-replay-runner.json"));
     assert.equal(options.e2eRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/e2e-runner.json"));
     assert.equal(options.fusionE2eRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/fusion-runner.json"));
+  } finally {
+    process.argv = originalArgv;
+  }
+});
+
+test("promotion evidence CLI accepts exactly addressed raw artifacts and fusion binding", () => {
+  const originalArgv = process.argv;
+  process.argv = [
+    "node",
+    "build-image-embedding-promotion-evidence.ts",
+    "--root-dir", "/tmp/image-evidence-root",
+    "--release-version", "image-evidence-test",
+    "--manifest", "data/releases/image-evidence-test/manifest.json",
+    "--promotion-anchor-set", "data/curation/promotion-anchor-set.json",
+    "--output", "evidence/fusion-envelope.json",
+    "--fusion-e2e-runner-artifact", "raw/fusion-playwright.json",
+    "--promotion-binding-checksum", "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  ];
+
+  try {
+    const options = cli.readImageEmbeddingPromotionEvidenceBuildOptions() as Record<string, unknown>;
+    assert.equal(options.rootDir, path.resolve("/tmp/image-evidence-root"));
+    assert.equal(options.manifestPath, path.resolve("/tmp/image-evidence-root/data/releases/image-evidence-test/manifest.json"));
+    assert.equal(options.promotionAnchorPath, path.resolve("/tmp/image-evidence-root/data/curation/promotion-anchor-set.json"));
+    assert.equal(options.outputPath, path.resolve("/tmp/image-evidence-root/evidence/fusion-envelope.json"));
+    assert.equal(options.fusionE2eRunnerArtifactPath, path.resolve("/tmp/image-evidence-root/raw/fusion-playwright.json"));
+    assert.equal(options.promotionBindingChecksum, "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
   } finally {
     process.argv = originalArgv;
   }

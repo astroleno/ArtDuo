@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
@@ -27,12 +27,20 @@ import {
   type ImageEmbeddingWeakLabelEvaluation,
 } from "./image-embedding-evaluation";
 import {
+  parseImageEmbeddingA2aCaseSetRunnerArtifact,
+  parseImageEmbeddingA2aReplayRunnerArtifact,
+  parseImageEmbeddingPlaywrightRunnerArtifact,
+  parseImageEmbeddingTextBenchmarkRunnerArtifact,
+  type ImageEmbeddingRunnerArtifactParseResult,
+} from "./image-embedding-evidence-artifacts";
+import {
   parseImageEmbeddingEvidenceSuiteBindings,
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
   validateImageEmbeddingFusionE2eEvidence,
   validateImageEmbeddingTextBenchmarkEvidence,
   type ImageEmbeddingEvidenceContext,
+  type ImageEmbeddingEvidencePreflight,
   type ImageEmbeddingEvidenceValidation,
   type ImageEmbeddingEvidenceSuiteBindings,
 } from "./image-embedding-promotion-evidence";
@@ -67,6 +75,8 @@ export interface ImageEmbeddingEvaluationOptions {
   fusionE2eRunnerArtifactPath?: string;
   /** Internal test seam; the CLI always derives this value from the selected Git checkout. */
   expectedEvidenceCommitSha?: string;
+  /** Internal test seam; production evaluation runs the preflight command directly. */
+  preflightCheck?: () => ImageEmbeddingEvidencePreflight;
 }
 
 export interface ImageEmbeddingPromotionBinding {
@@ -300,22 +310,43 @@ function resolveRootDir(rootDir?: string): string {
   return rootDir ? path.resolve(rootDir) : path.resolve(process.cwd(), "../..");
 }
 
-function resolveEvidenceCommitSha(rootDir: string, expectedCommitSha?: string): string | undefined {
+interface EvidenceGitBinding {
+  commitSha?: string;
+  clean: boolean;
+  reason?: string;
+}
+
+function resolveEvidenceGitBinding(rootDir: string, expectedCommitSha?: string): EvidenceGitBinding {
   const explicit = expectedCommitSha?.trim();
   if (explicit) {
     if (!/^[a-f0-9]{40}$/u.test(explicit)) {
       throw new TypeError("Expected evidence commit SHA must be a full lowercase SHA-1.");
     }
-    return explicit;
   }
   try {
     const commitSha = execFileSync("git", ["-C", rootDir, "rev-parse", "HEAD"], {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
     }).trim();
-    return /^[a-f0-9]{40}$/u.test(commitSha) ? commitSha : undefined;
+    if (!/^[a-f0-9]{40}$/u.test(commitSha)) {
+      return { clean: false, reason: "Evaluator Git HEAD is unavailable or malformed." };
+    }
+    if (explicit && explicit !== commitSha) {
+      return { commitSha, clean: false, reason: "Expected evidence commit SHA does not match Git HEAD." };
+    }
+    const diff = spawnSync("git", ["-C", rootDir, "diff", "--quiet", "--ignore-submodules", "HEAD", "--"], {
+      stdio: "ignore",
+    });
+    if (diff.status !== 0) {
+      return { commitSha, clean: false, reason: "Tracked worktree differs from HEAD; evidence must be generated from committed files." };
+    }
+    return { commitSha, clean: true };
   } catch {
-    return undefined;
+    // Test fixtures may intentionally be outside a Git checkout; the test-only
+    // explicit SHA preserves the same binding contract without exposing a CLI bypass.
+    return explicit
+      ? { commitSha: explicit, clean: true }
+      : { clean: false, reason: "Evaluator Git HEAD could not be resolved." };
   }
 }
 
@@ -739,15 +770,51 @@ function readValidatedEvidence(
   }
 }
 
-function readRunnerArtifactChecksum(filePath: string | undefined): string | undefined {
+interface ReadRunnerArtifact<T> {
+  provided: boolean;
+  checksum?: string;
+  artifact?: T;
+  reasons: string[];
+}
+
+function missingRunnerArtifact<T>(): ReadRunnerArtifact<T> {
+  return { provided: false, reasons: [] };
+}
+
+function readRunnerArtifact<T>(
+  filePath: string | undefined,
+  label: string,
+  parser: (value: unknown) => ImageEmbeddingRunnerArtifactParseResult<T>,
+): ReadRunnerArtifact<T> {
   if (!filePath) {
-    return undefined;
+    return missingRunnerArtifact();
   }
   try {
-    return sha256Checksum(readFileSync(path.resolve(filePath)));
+    const bytes = readFileSync(path.resolve(filePath));
+    const parsed = parser(JSON.parse(bytes.toString("utf8")) as unknown);
+    return {
+      provided: true,
+      checksum: sha256Checksum(bytes),
+      artifact: parsed.artifact,
+      reasons: parsed.reasons,
+    };
   } catch {
-    return undefined;
+    return {
+      provided: true,
+      reasons: [`${label} runner artifact could not be read as JSON.`],
+    };
   }
+}
+
+function runImageEmbeddingPreflight(rootDir: string): ImageEmbeddingEvidencePreflight {
+  const result = spawnSync("pnpm", ["preflight:check"], {
+    cwd: rootDir,
+    stdio: "ignore",
+  });
+  return {
+    command: "pnpm preflight:check",
+    exitCode: typeof result.status === "number" ? result.status : 1,
+  };
 }
 
 function frozenSuiteChecksum(
@@ -816,7 +883,8 @@ export async function runImageEmbeddingEvaluation(
     throw new TypeError("Selected release version does not match the base manifest.");
   }
   const reportDirectory = resolveReportDirectory(rootDir, releaseVersion);
-  const evidenceCommitSha = resolveEvidenceCommitSha(rootDir, options.expectedEvidenceCommitSha);
+  const evidenceGitBinding = resolveEvidenceGitBinding(rootDir, options.expectedEvidenceCommitSha);
+  const evidenceCommitSha = evidenceGitBinding.commitSha;
   const outputPath = path.resolve(options.outputPath);
   if (isInside(loaded.releaseDir, outputPath)) {
     throw new TypeError("Image embedding evaluation output must remain outside the base release directory.");
@@ -831,6 +899,9 @@ export async function runImageEmbeddingEvaluation(
   const promotionAnchorBytes = readFileSync(promotionAnchorPath);
   const promotionAnchorSetChecksum = sha256Checksum(promotionAnchorBytes);
   const bindingFailures: string[] = [];
+  if (!evidenceGitBinding.clean) {
+    bindingFailures.push(evidenceGitBinding.reason ?? "Evidence Git binding is invalid.");
+  }
   let evidenceSuites: ImageEmbeddingEvidenceSuiteBindings | undefined;
   try {
     const promotionAnchor = JSON.parse(promotionAnchorBytes.toString("utf8")) as unknown;
@@ -999,23 +1070,69 @@ export async function runImageEmbeddingEvaluation(
     ? readJsonFile(path.resolve(options.reviewVerdictsPath))
     : undefined;
   let humanReview = evaluateImageEmbeddingHumanReview(reviewPack, verdictSidecar);
-  if (bindingFailures.length > 0) {
-    humanReview = invalidatedHumanReview(humanReview, "Evaluation input bindings are invalid.");
-  }
 
+  const textBenchmarkRunnerArtifact = readRunnerArtifact(
+    options.textBenchmarkRunnerArtifactPath,
+    "Text benchmark",
+    parseImageEmbeddingTextBenchmarkRunnerArtifact,
+  );
+  const a2aCaseSetRunnerArtifact = readRunnerArtifact(
+    options.a2aCaseSetRunnerArtifactPath,
+    "A2A case-set",
+    parseImageEmbeddingA2aCaseSetRunnerArtifact,
+  );
+  const a2aReplayRunnerArtifact = readRunnerArtifact(
+    options.a2aReplayRunnerArtifactPath,
+    "A2A replay",
+    parseImageEmbeddingA2aReplayRunnerArtifact,
+  );
+  const e2eRunnerArtifact = readRunnerArtifact(
+    options.e2eRunnerArtifactPath,
+    "E2E",
+    parseImageEmbeddingPlaywrightRunnerArtifact,
+  );
+  const fusionE2eRunnerArtifact = readRunnerArtifact(
+    options.fusionE2eRunnerArtifactPath,
+    "Fusion E2E",
+    parseImageEmbeddingPlaywrightRunnerArtifact,
+  );
+  const parsedRunnerArtifacts = [
+    textBenchmarkRunnerArtifact,
+    a2aCaseSetRunnerArtifact,
+    a2aReplayRunnerArtifact,
+    e2eRunnerArtifact,
+    fusionE2eRunnerArtifact,
+  ];
+  for (const artifact of parsedRunnerArtifacts) {
+    if (artifact.provided && artifact.reasons.length > 0) {
+      bindingFailures.push(...artifact.reasons);
+    }
+  }
   const runnerArtifactChecksums = {
-    textBenchmark: readRunnerArtifactChecksum(options.textBenchmarkRunnerArtifactPath),
-    a2aCaseSet: readRunnerArtifactChecksum(options.a2aCaseSetRunnerArtifactPath),
-    a2aReplay: readRunnerArtifactChecksum(options.a2aReplayRunnerArtifactPath),
-    e2e: readRunnerArtifactChecksum(options.e2eRunnerArtifactPath),
-    fusionE2e: readRunnerArtifactChecksum(options.fusionE2eRunnerArtifactPath),
+    textBenchmark: textBenchmarkRunnerArtifact.checksum,
+    a2aCaseSet: a2aCaseSetRunnerArtifact.checksum,
+    a2aReplay: a2aReplayRunnerArtifact.checksum,
+    e2e: e2eRunnerArtifact.checksum,
+    fusionE2e: fusionE2eRunnerArtifact.checksum,
   };
+  const runnerArtifacts = {
+    textBenchmark: textBenchmarkRunnerArtifact.artifact,
+    a2aCaseSet: a2aCaseSetRunnerArtifact.artifact,
+    a2aReplay: a2aReplayRunnerArtifact.artifact,
+    e2e: e2eRunnerArtifact.artifact,
+    fusionE2e: fusionE2eRunnerArtifact.artifact,
+  };
+  const preflight = options.e2eBaselinePath || options.fusionE2eReportPath
+    ? options.preflightCheck?.() ?? runImageEmbeddingPreflight(rootDir)
+    : undefined;
   const evidenceContext: ImageEmbeddingEvidenceContext = {
     releaseVersion,
     baseManifestChecksum,
     commitSha: evidenceCommitSha,
     evidenceSuites,
     runnerArtifactChecksums,
+    runnerArtifacts,
+    preflight,
   };
   const textBenchmarkEvidence = readValidatedEvidence(
     options.textBenchmarkBaselinePath,
@@ -1038,6 +1155,9 @@ export async function runImageEmbeddingEvaluation(
   recordEvidenceFailures(textBenchmarkEvidence, bindingFailures);
   recordEvidenceFailures(a2aEvidence, bindingFailures);
   recordEvidenceFailures(e2eEvidence, bindingFailures);
+  if (bindingFailures.length > 0) {
+    humanReview = invalidatedHumanReview(humanReview, "Evaluation input bindings are invalid.");
+  }
   const textBenchmarkBaselineChecksum = textBenchmarkEvidence.checksum;
   const a2aBaselineChecksum = a2aEvidence.checksum;
   const e2eBaselineChecksum = e2eEvidence.checksum;
@@ -1105,7 +1225,8 @@ export async function runImageEmbeddingEvaluation(
     a2aCaseSetRunnerArtifactChecksum,
     a2aReplayRunnerArtifactChecksum,
     e2eRunnerArtifactChecksum,
-    fusionE2eRunnerArtifactChecksum,
+    // The fusion runner is intentionally omitted: Task 6 produces it after the
+    // Task 5 decision and must verify the same promotion binding checksum.
     model: buildReport.model,
     modelRevision: buildReport.modelRevision,
     modelVariant: buildReport.modelVariant,

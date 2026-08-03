@@ -5,6 +5,7 @@ import type { ConfirmedMetadataBackfillOptions } from "./confirmed-metadata-back
 import type { EmbeddingRuntimeCliOptions } from "./embedding-runtime";
 import type { EmbeddingBuildOptions } from "./embedding-shards";
 import type { ImageEmbeddingBuildOptions } from "./image-embedding-shards";
+import type { ImageEmbeddingPromotionEvidenceBuildOptions } from "./build-image-embedding-promotion-evidence";
 import type { ImageEmbeddingEvaluationOptions } from "./run-image-embedding-evaluation";
 import type { ImageEmbeddingDebugOptions } from "./debug-image-embedding";
 import type { MetadataBackfillPreviewOptions } from "./metadata-backfill-preview";
@@ -190,6 +191,45 @@ export function readImageEmbeddingEvaluationOptions(): ImageEmbeddingEvaluationO
     a2aReplayRunnerArtifactPath: a2aReplayRunnerArtifactPath ? resolveCliPath(a2aReplayRunnerArtifactPath, workspaceRoot) : undefined,
     e2eRunnerArtifactPath: e2eRunnerArtifactPath ? resolveCliPath(e2eRunnerArtifactPath, workspaceRoot) : undefined,
     fusionE2eRunnerArtifactPath: fusionE2eRunnerArtifactPath ? resolveCliPath(fusionE2eRunnerArtifactPath, workspaceRoot) : undefined,
+  };
+}
+
+export function readImageEmbeddingPromotionEvidenceBuildOptions(): ImageEmbeddingPromotionEvidenceBuildOptions {
+  const rootDir = readFlag("--root-dir");
+  const workspaceRoot = rootDir ? path.resolve(rootDir) : path.resolve(process.cwd(), "../..");
+  const releaseVersion = readFlag("--release-version");
+  const manifestPath = readFlag("--manifest");
+  const promotionAnchorPath = readFlag("--promotion-anchor-set");
+  const outputPath = readFlag("--output");
+  const textBenchmarkRunnerArtifactPath = readFlag("--text-benchmark-runner-artifact");
+  const a2aCaseSetRunnerArtifactPath = readFlag("--a2a-case-set-runner-artifact");
+  const a2aReplayRunnerArtifactPath = readFlag("--a2a-replay-runner-artifact");
+  const e2eRunnerArtifactPath = readFlag("--e2e-runner-artifact");
+  const fusionE2eRunnerArtifactPath = readFlag("--fusion-e2e-runner-artifact");
+  const promotionBindingChecksum = readFlag("--promotion-binding-checksum");
+
+  return {
+    rootDir: rootDir ? workspaceRoot : undefined,
+    releaseVersion,
+    manifestPath: manifestPath ? resolveCliPath(manifestPath, workspaceRoot) : undefined,
+    promotionAnchorPath: promotionAnchorPath ? resolveCliPath(promotionAnchorPath, workspaceRoot) : undefined,
+    outputPath: outputPath ? resolveCliPath(outputPath, workspaceRoot) : undefined,
+    textBenchmarkRunnerArtifactPath: textBenchmarkRunnerArtifactPath
+      ? resolveCliPath(textBenchmarkRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    a2aCaseSetRunnerArtifactPath: a2aCaseSetRunnerArtifactPath
+      ? resolveCliPath(a2aCaseSetRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    a2aReplayRunnerArtifactPath: a2aReplayRunnerArtifactPath
+      ? resolveCliPath(a2aReplayRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    e2eRunnerArtifactPath: e2eRunnerArtifactPath
+      ? resolveCliPath(e2eRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    fusionE2eRunnerArtifactPath: fusionE2eRunnerArtifactPath
+      ? resolveCliPath(fusionE2eRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    promotionBindingChecksum,
   };
 }
 

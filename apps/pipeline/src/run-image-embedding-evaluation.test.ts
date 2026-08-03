@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
@@ -8,6 +9,7 @@ import { test } from "node:test";
 import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
 import { calculateImageEmbeddingReviewPackChecksum } from "./image-embedding-evaluation";
+import { buildImageEmbeddingPromotionEvidence } from "./build-image-embedding-promotion-evidence";
 import {
   FROZEN_METADATA_SCORE_UPPER_BOUND,
   normalizeMetadataScore,
@@ -52,6 +54,31 @@ function frozenEvidenceSuites() {
 
 function checksum(value: string | Uint8Array): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function writePlaywrightRunnerArtifact(filePath: string, caseIds: string[], failedIds: string[] = []): void {
+  writeFileSync(filePath, `${JSON.stringify({
+    suites: [{
+      title: "image-embedding",
+      specs: caseIds.map((id) => ({
+        title: id,
+        tests: [{ results: [{ status: failedIds.includes(id) ? "failed" : "passed" }] }],
+      })),
+    }],
+  }, null, 2)}\n`);
+}
+
+function initializeGitFixture(rootDir: string): string {
+  const git = (args: string[]): string => execFileSync("git", ["-C", rootDir, ...args], {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  }).trim();
+  git(["init"]);
+  git(["config", "user.email", "test@example.test"]);
+  git(["config", "user.name", "ArtDuo Test"]);
+  git(["add", "--all"]);
+  git(["commit", "-m", "fixture"]);
+  return git(["rev-parse", "HEAD"]);
 }
 
 function writeJson(filePath: string, value: unknown): {
@@ -253,16 +280,38 @@ function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>
   const a2aCaseSetRunnerArtifactPath = path.join(fixture.rootDir, "a2a-case-set-runner-artifact.json");
   const a2aReplayRunnerArtifactPath = path.join(fixture.rootDir, "a2a-replay-runner-artifact.json");
   const e2eRunnerArtifactPath = path.join(fixture.rootDir, "e2e-runner-artifact.json");
-  writeFileSync(textBenchmarkRunnerArtifactPath, "text-runner-artifact");
-  writeFileSync(a2aCaseSetRunnerArtifactPath, "a2a-case-set-runner-artifact");
-  writeFileSync(a2aReplayRunnerArtifactPath, "a2a-replay-runner-artifact");
-  writeFileSync(e2eRunnerArtifactPath, "e2e-runner-artifact");
+  const textResults = TEXT_PROMPT_IDS.map((id, index) => ({
+    id,
+    rerankTop1Hit: index !== 0,
+    rerankTop5Hit: true,
+  }));
+  writeFileSync(textBenchmarkRunnerArtifactPath, `${JSON.stringify({
+    releaseVersion: RELEASE_VERSION,
+    promptCount: textResults.length,
+    rerankTop1HitRate: 23 / 24,
+    rerankTop5HitRate: 1,
+    results: textResults,
+  }, null, 2)}\n`);
+  writeFileSync(a2aCaseSetRunnerArtifactPath, `${JSON.stringify({
+    counts: { pass: A2A_PASS_IDS.length, fail: A2A_FAIL_IDS.length, blocked: A2A_BLOCKED_IDS.length },
+    results: [
+      ...A2A_PASS_IDS.map((id) => ({ id, status: "pass" })),
+      ...A2A_FAIL_IDS.map((id) => ({ id, status: "fail" })),
+      ...A2A_BLOCKED_IDS.map((id) => ({ id, status: "blocked" })),
+    ],
+  }, null, 2)}\n`);
+  writeFileSync(a2aReplayRunnerArtifactPath, `${JSON.stringify(A2A_REPLAY_IDS.map((id) => ({
+    id,
+    scores: { total: 0.975 },
+    output: { curveMetrics: { hardResistanceViolations: 0 } },
+  })), null, 2)}\n`);
+  writePlaywrightRunnerArtifact(e2eRunnerArtifactPath, E2E_IDS);
   const textBenchmarkBaselinePath = path.join(fixture.rootDir, "text-baseline.json");
   writeFileSync(textBenchmarkBaselinePath, `${JSON.stringify({
     schemaVersion: "image-embedding-text-benchmark-evidence.v2",
     ...binding,
     suiteChecksum: suites.textBenchmark.suiteChecksum,
-    runnerArtifactChecksum: checksum("text-runner-artifact"),
+    runnerArtifactChecksum: checksum(readFileSync(textBenchmarkRunnerArtifactPath)),
     vectorBenchmark: {
       promptCount: 24,
       rerankTop1HitRate: 23 / 24,
@@ -281,13 +330,13 @@ function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>
     ...binding,
     caseSet: {
       suiteChecksum: suites.a2a.caseSet.suiteChecksum,
-      runnerArtifactChecksum: checksum("a2a-case-set-runner-artifact"),
+      runnerArtifactChecksum: checksum(readFileSync(a2aCaseSetRunnerArtifactPath)),
       baseline: suites.a2a.caseSet.baseline,
       candidate: suites.a2a.caseSet.baseline,
     },
     replay: {
       suiteChecksum: suites.a2a.replay.suiteChecksum,
-      runnerArtifactChecksum: checksum("a2a-replay-runner-artifact"),
+      runnerArtifactChecksum: checksum(readFileSync(a2aReplayRunnerArtifactPath)),
       caseIds: A2A_REPLAY_IDS,
       averageTotal: 0.975,
       hardResistanceViolationIds: [],
@@ -299,7 +348,7 @@ function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>
     schemaVersion: "image-embedding-e2e-evidence.v2",
     ...binding,
     suiteChecksum: suites.e2e.suiteChecksum,
-    runnerArtifactChecksum: checksum("e2e-runner-artifact"),
+    runnerArtifactChecksum: checksum(readFileSync(e2eRunnerArtifactPath)),
     preflight: { command: "pnpm preflight:check", exitCode: 0 },
     caseSets: {
       baseline: suites.e2e.baseline,
@@ -399,6 +448,7 @@ test("image embedding runner rejects arbitrary baseline and fusion evidence file
     a2aBaselinePath,
     e2eBaselinePath,
     fusionE2eReportPath: fusionE2ePath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
   });
 
   assert.equal(result.report.gates.baselineBindingsReady, false);
@@ -418,12 +468,14 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
     buildReportPath: fixture.buildReportPath,
     outputPath: fixture.outputPath,
     expectedEvidenceCommitSha: "a".repeat(40),
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
     ...evidence,
   });
   assert.equal(valid.report.gates.baselineBindingsReady, true, JSON.stringify(valid.report.gates.bindingFailures));
   assert.equal(valid.report.promotionBinding.fusionE2eSuiteChecksum, checksum("fusion-suite"));
   assert.equal(valid.report.promotionBinding.fusionE2eRunnerArtifactChecksum, "missing");
 
+  const originalTextRunnerArtifact = readFileSync(evidence.textBenchmarkRunnerArtifactPath);
   writeFileSync(evidence.textBenchmarkRunnerArtifactPath, "tampered-runner-artifact");
   const detachedArtifact = await runImageEmbeddingEvaluation({
     rootDir: fixture.rootDir,
@@ -433,12 +485,13 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
     buildReportPath: fixture.buildReportPath,
     outputPath: fixture.outputPath,
     expectedEvidenceCommitSha: "a".repeat(40),
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
     ...evidence,
   });
   assert.equal(detachedArtifact.report.gates.baselineBindingsReady, false);
   assert.equal(detachedArtifact.report.gates.bindingIntegrity, false);
 
-  writeFileSync(evidence.textBenchmarkRunnerArtifactPath, "text-runner-artifact");
+  writeFileSync(evidence.textBenchmarkRunnerArtifactPath, originalTextRunnerArtifact);
 
   const invalidTextEvidence = JSON.parse(readFileSync(evidence.textBenchmarkBaselinePath, "utf8")) as {
     baseManifestChecksum: string;
@@ -453,10 +506,104 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
     buildReportPath: fixture.buildReportPath,
     outputPath: fixture.outputPath,
     expectedEvidenceCommitSha: "a".repeat(40),
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
     ...evidence,
   });
   assert.equal(invalid.report.gates.baselineBindingsReady, false);
   assert.equal(invalid.report.gates.bindingIntegrity, false);
+});
+
+test("Task 6 fusion verification keeps the Task 5 promotion binding checksum unchanged", async () => {
+  const fixture = createFixture();
+  initializeGitFixture(fixture.rootDir);
+  const evidence = writePassingPromotionEvidence(fixture);
+  const commonEvidenceBuildOptions = {
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+  };
+  buildImageEmbeddingPromotionEvidence({
+    ...commonEvidenceBuildOptions,
+    outputPath: evidence.textBenchmarkBaselinePath,
+    textBenchmarkRunnerArtifactPath: evidence.textBenchmarkRunnerArtifactPath,
+  });
+  buildImageEmbeddingPromotionEvidence({
+    ...commonEvidenceBuildOptions,
+    outputPath: evidence.a2aBaselinePath,
+    a2aCaseSetRunnerArtifactPath: evidence.a2aCaseSetRunnerArtifactPath,
+    a2aReplayRunnerArtifactPath: evidence.a2aReplayRunnerArtifactPath,
+  });
+  buildImageEmbeddingPromotionEvidence({
+    ...commonEvidenceBuildOptions,
+    outputPath: evidence.e2eBaselinePath,
+    e2eRunnerArtifactPath: evidence.e2eRunnerArtifactPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+  });
+  const task5 = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+    ...evidence,
+  });
+  assert.equal(task5.report.gates.baselineBindingsReady, true, JSON.stringify(task5.report.gates.bindingFailures));
+  const fusionE2eRunnerArtifactPath = path.join(fixture.rootDir, "fusion-playwright.json");
+  writePlaywrightRunnerArtifact(fusionE2eRunnerArtifactPath, FUSION_IDS);
+  const fusionE2eReportPath = path.join(fixture.rootDir, "fusion-evidence.json");
+  buildImageEmbeddingPromotionEvidence({
+    ...commonEvidenceBuildOptions,
+    outputPath: fusionE2eReportPath,
+    fusionE2eRunnerArtifactPath,
+    promotionBindingChecksum: task5.report.promotionBinding.promotionBindingChecksum,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+  });
+
+  const task6 = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+    fusionE2eReportPath,
+    fusionE2eRunnerArtifactPath,
+    ...evidence,
+  });
+
+  assert.equal(
+    task6.report.promotionBinding.promotionBindingChecksum,
+    task5.report.promotionBinding.promotionBindingChecksum,
+  );
+  assert.equal(task6.report.gates.fusionE2eReady, true, JSON.stringify(task6.report.gates.bindingFailures));
+});
+
+test("image embedding runner fails closed when staged or unstaged tracked files differ from HEAD", async () => {
+  for (const staged of [false, true]) {
+    const fixture = createFixture();
+    const trackedSourcePath = path.join(fixture.rootDir, "evidence-source.txt");
+    writeFileSync(trackedSourcePath, "clean\n");
+    initializeGitFixture(fixture.rootDir);
+    writeFileSync(trackedSourcePath, staged ? "staged\n" : "dirty\n");
+    if (staged) {
+      execFileSync("git", ["-C", fixture.rootDir, "add", trackedSourcePath]);
+    }
+
+    const result = await runImageEmbeddingEvaluation({
+      rootDir: fixture.rootDir,
+      releaseVersion: RELEASE_VERSION,
+      manifestPath: fixture.manifestPath,
+      candidateShardPath: fixture.candidatePath,
+      buildReportPath: fixture.buildReportPath,
+      outputPath: fixture.outputPath,
+    });
+
+    assert.equal(result.report.gates.bindingIntegrity, false);
+    assert.ok(result.report.gates.bindingFailures.some((reason) => /tracked worktree.*HEAD/i.test(reason)));
+  }
 });
 
 test("image embedding runner rejects a self-checksummed external review pack that differs from this run", async () => {

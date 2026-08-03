@@ -3,6 +3,12 @@ import { createHash } from "node:crypto";
 import { test } from "node:test";
 
 import {
+  parseImageEmbeddingA2aCaseSetRunnerArtifact,
+  parseImageEmbeddingA2aReplayRunnerArtifact,
+  parseImageEmbeddingPlaywrightRunnerArtifact,
+  parseImageEmbeddingTextBenchmarkRunnerArtifact,
+} from "./image-embedding-evidence-artifacts";
+import {
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
   validateImageEmbeddingFusionE2eEvidence,
@@ -54,12 +60,65 @@ const runnerArtifactChecksums = {
   fusionE2e: checksum("fusion-runner-artifact"),
 };
 
+function playwrightRunnerArtifact(caseIds: string[], failedIds: string[] = []): object {
+  return {
+    suites: [{
+      title: "image-embedding",
+      specs: caseIds.map((id) => ({
+        title: id,
+        tests: [{
+          results: [{ status: failedIds.includes(id) ? "failed" : "passed" }],
+        }],
+      })),
+    }],
+  };
+}
+
+const rawRunnerArtifacts = {
+  textBenchmark: {
+    releaseVersion: "promotion-evidence-test",
+    promptCount: 24,
+    rerankTop1HitRate: 23 / 24,
+    rerankTop5HitRate: 1,
+    results: textPromptIds.map((id, index) => ({
+      id,
+      rerankTop1Hit: index !== 0,
+      rerankTop5Hit: true,
+    })),
+  },
+  a2aCaseSet: {
+    counts: { pass: 55, fail: 40, blocked: 5 },
+    results: [
+      ...a2aPassIds.map((id) => ({ id, status: "pass" })),
+      ...a2aFailIds.map((id) => ({ id, status: "fail" })),
+      ...a2aBlockedIds.map((id) => ({ id, status: "blocked" })),
+    ],
+  },
+  a2aReplay: a2aReplayIds.map((id) => ({
+    id,
+    scores: { total: 0.975 },
+    output: { curveMetrics: { hardResistanceViolations: 0 } },
+  })),
+  e2e: playwrightRunnerArtifact(e2eIds),
+  fusionE2e: playwrightRunnerArtifact(fusionIds),
+};
+
+const runnerArtifacts = {
+  textBenchmark: parseImageEmbeddingTextBenchmarkRunnerArtifact(rawRunnerArtifacts.textBenchmark).artifact!,
+  a2aCaseSet: parseImageEmbeddingA2aCaseSetRunnerArtifact(rawRunnerArtifacts.a2aCaseSet).artifact!,
+  a2aReplay: parseImageEmbeddingA2aReplayRunnerArtifact(rawRunnerArtifacts.a2aReplay).artifact!,
+  e2e: parseImageEmbeddingPlaywrightRunnerArtifact(rawRunnerArtifacts.e2e).artifact!,
+  fusionE2e: parseImageEmbeddingPlaywrightRunnerArtifact(rawRunnerArtifacts.fusionE2e).artifact!,
+};
+
 const context = {
   releaseVersion: "promotion-evidence-test",
   baseManifestChecksum: checksum("manifest"),
   commitSha: "a".repeat(40),
   evidenceSuites,
   runnerArtifactChecksums,
+  runnerArtifacts,
+  preflight: { command: "pnpm preflight:check", exitCode: 0 },
 };
 const binding = {
   releaseVersion: context.releaseVersion,
@@ -263,4 +322,58 @@ test("promotion evidence binds the current raw runner artifact without pinning i
       textBenchmark: currentRunnerArtifactChecksum,
     },
   }).valid, true);
+});
+
+test("promotion evidence rejects a forged text pass envelope when the raw benchmark contains another miss", () => {
+  const rawText = {
+    ...rawRunnerArtifacts.textBenchmark,
+    results: rawRunnerArtifacts.textBenchmark.results.map((result, index) =>
+      index === 1 ? { ...result, rerankTop1Hit: false } : result),
+  };
+  const textBenchmark = parseImageEmbeddingTextBenchmarkRunnerArtifact(rawText).artifact!;
+
+  assert.equal(validateImageEmbeddingTextBenchmarkEvidence(passingTextEvidence(), {
+    ...context,
+    runnerArtifacts: { ...runnerArtifacts, textBenchmark },
+  }).valid, false);
+});
+
+test("promotion evidence rejects a forged A2A pass envelope when the raw harness regresses a pass", () => {
+  const rawCaseSet = {
+    ...rawRunnerArtifacts.a2aCaseSet,
+    results: rawRunnerArtifacts.a2aCaseSet.results.map((result) =>
+      result.id === a2aPassIds[0] ? { ...result, status: "fail" } : result),
+  };
+  rawCaseSet.counts = { pass: 54, fail: 41, blocked: 5 };
+  const a2aCaseSet = parseImageEmbeddingA2aCaseSetRunnerArtifact(rawCaseSet).artifact!;
+
+  assert.equal(validateImageEmbeddingA2aEvidence(passingA2aEvidence(), {
+    ...context,
+    runnerArtifacts: { ...runnerArtifacts, a2aCaseSet },
+  }).valid, false);
+});
+
+test("promotion evidence rejects a forged A2A replay envelope when the raw replay score differs", () => {
+  const rawReplay = rawRunnerArtifacts.a2aReplay.map((result, index) =>
+    index === 0 ? { ...result, scores: { total: 0.5 } } : result);
+  const a2aReplay = parseImageEmbeddingA2aReplayRunnerArtifact(rawReplay).artifact!;
+
+  assert.equal(validateImageEmbeddingA2aEvidence(passingA2aEvidence(), {
+    ...context,
+    runnerArtifacts: { ...runnerArtifacts, a2aReplay },
+  }).valid, false);
+});
+
+test("promotion evidence rejects forged E2E and fusion passes when raw Playwright outcomes fail", () => {
+  const e2e = parseImageEmbeddingPlaywrightRunnerArtifact(playwrightRunnerArtifact(e2eIds, [e2eIds[0]!])).artifact!;
+  assert.equal(validateImageEmbeddingE2eEvidence(passingE2eEvidence(), {
+    ...context,
+    runnerArtifacts: { ...runnerArtifacts, e2e },
+  }).valid, false);
+  const fusionE2e = parseImageEmbeddingPlaywrightRunnerArtifact(playwrightRunnerArtifact(fusionIds, [fusionIds[0]!])).artifact!;
+  assert.equal(validateImageEmbeddingFusionE2eEvidence(passingFusionEvidence(), {
+    ...context,
+    runnerArtifacts: { ...runnerArtifacts, fusionE2e },
+    promotionBindingChecksum: checksum("promotion-binding"),
+  }).valid, false);
 });

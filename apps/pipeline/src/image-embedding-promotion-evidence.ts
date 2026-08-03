@@ -1,3 +1,8 @@
+import type {
+  ImageEmbeddingEvidenceRunnerArtifacts,
+  ImageEmbeddingTextBenchmarkRunnerResult,
+} from "./image-embedding-evidence-artifacts";
+
 export interface ImageEmbeddingEvidenceCaseSet {
   passIds: string[];
   failIds: string[];
@@ -45,6 +50,11 @@ export interface ImageEmbeddingEvidenceRunnerArtifactChecksums {
   fusionE2e?: string;
 }
 
+export interface ImageEmbeddingEvidencePreflight {
+  command: "pnpm preflight:check";
+  exitCode: number;
+}
+
 export interface ImageEmbeddingEvidenceContext {
   releaseVersion: string;
   baseManifestChecksum: string;
@@ -52,6 +62,8 @@ export interface ImageEmbeddingEvidenceContext {
   promotionBindingChecksum?: string;
   evidenceSuites?: ImageEmbeddingEvidenceSuiteBindings;
   runnerArtifactChecksums?: ImageEmbeddingEvidenceRunnerArtifactChecksums;
+  runnerArtifacts?: ImageEmbeddingEvidenceRunnerArtifacts;
+  preflight?: ImageEmbeddingEvidencePreflight;
 }
 
 export interface ImageEmbeddingEvidenceValidation {
@@ -367,6 +379,40 @@ function validateSuiteAndArtifactBinding(input: {
   return reasons;
 }
 
+function sameTextBenchmarkResults(
+  evidenceResults: ImageEmbeddingTextBenchmarkRunnerResult[],
+  artifactResults: ImageEmbeddingTextBenchmarkRunnerResult[],
+): boolean {
+  if (evidenceResults.length !== artifactResults.length) {
+    return false;
+  }
+  const artifactById = new Map(artifactResults.map((result) => [result.id, result]));
+  return evidenceResults.every((result) => {
+    const artifact = artifactById.get(result.id);
+    return artifact?.rerankTop1Hit === result.rerankTop1Hit
+      && artifact.rerankTop5Hit === result.rerankTop5Hit;
+  });
+}
+
+function validatePreflightBinding(
+  value: unknown,
+  context: ImageEmbeddingEvidenceContext,
+  label: string,
+): string[] {
+  if (!exactKeys(value, ["command", "exitCode"])
+    || value.command !== "pnpm preflight:check"
+    || !Number.isInteger(value.exitCode)) {
+    return [`${label} evidence preflight schema is invalid.`];
+  }
+  if (!context.preflight) {
+    return [`${label} evidence cannot be accepted without a fresh preflight result.`];
+  }
+  if (context.preflight.command !== value.command || context.preflight.exitCode !== value.exitCode) {
+    return [`${label} evidence preflight result does not match this evaluation run.`];
+  }
+  return value.exitCode === 0 ? [] : [`${label} evidence does not prove a successful full preflight run.`];
+}
+
 export function validateImageEmbeddingTextBenchmarkEvidence(
   value: unknown,
   context: ImageEmbeddingEvidenceContext,
@@ -409,6 +455,7 @@ export function validateImageEmbeddingTextBenchmarkEvidence(
     return validation([...reasons, "Text benchmark evidence result count does not match its prompt count."]);
   }
   const resultIds = new Set<string>();
+  const evidenceResults: ImageEmbeddingTextBenchmarkRunnerResult[] = [];
   let top1Hits = 0;
   let top5Hits = 0;
   for (const result of benchmark.results) {
@@ -421,6 +468,11 @@ export function validateImageEmbeddingTextBenchmarkEvidence(
       return validation([...reasons, "Text benchmark evidence results are malformed or duplicate."]);
     }
     resultIds.add(result.id);
+    evidenceResults.push({
+      id: result.id,
+      rerankTop1Hit: result.rerankTop1Hit,
+      rerankTop5Hit: result.rerankTop5Hit,
+    });
     if (result.rerankTop1Hit) {
       top1Hits += 1;
     }
@@ -430,6 +482,13 @@ export function validateImageEmbeddingTextBenchmarkEvidence(
   }
   if (!sameIdSet([...resultIds].sort(), [...(context.evidenceSuites?.textBenchmark.caseIds ?? [])].sort())) {
     reasons.push("Text benchmark evidence result IDs do not match the frozen prompt suite.");
+  }
+  const runnerArtifact = context.runnerArtifacts?.textBenchmark;
+  if (!runnerArtifact) {
+    reasons.push("Text benchmark runner artifact could not be parsed for semantic verification.");
+  } else if (runnerArtifact.releaseVersion !== context.releaseVersion
+    || !sameTextBenchmarkResults(evidenceResults, runnerArtifact.results)) {
+    reasons.push("Text benchmark evidence results do not match the raw runner artifact.");
   }
   const computedTop1 = top1Hits / promptCount;
   const computedTop5 = top5Hits / promptCount;
@@ -468,6 +527,12 @@ export function validateImageEmbeddingA2aEvidence(
   const baseline = parseCaseSet(evidence.caseSet.baseline, "blockedIds", "A2A baseline");
   const candidate = parseCaseSet(evidence.caseSet.candidate, "blockedIds", "A2A candidate");
   reasons.push(...baseline.reasons, ...candidate.reasons);
+  const caseSetRunnerArtifact = context.runnerArtifacts?.a2aCaseSet;
+  if (!caseSetRunnerArtifact) {
+    reasons.push("A2A case-set runner artifact could not be parsed for semantic verification.");
+  } else if (candidate.parsed && !sameCaseSetStatus(candidate.parsed, caseSetRunnerArtifact.candidate)) {
+    reasons.push("A2A candidate statuses do not match the raw harness artifact.");
+  }
   const expectedBaseline = context.evidenceSuites?.a2a.caseSet
     ? expectedA2aBaseline(context.evidenceSuites.a2a.caseSet)
     : undefined;
@@ -496,6 +561,14 @@ export function validateImageEmbeddingA2aEvidence(
   const expectedReplayIds = context.evidenceSuites?.a2a.replay.caseIds ?? [];
   if (!sameIdSet([...replayCaseIds].sort(), [...expectedReplayIds].sort())) {
     reasons.push("A2A replay case IDs do not match the independent frozen 50-case replay suite.");
+  }
+  const replayRunnerArtifact = context.runnerArtifacts?.a2aReplay;
+  if (!replayRunnerArtifact) {
+    reasons.push("A2A replay runner artifact could not be parsed for semantic verification.");
+  } else if (!sameIdSet([...replayCaseIds].sort(), [...replayRunnerArtifact.caseIds].sort())
+    || Math.abs(averageTotal - replayRunnerArtifact.averageTotal) > 1e-6
+    || !sameIdSet([...hardResistanceViolationIds].sort(), [...replayRunnerArtifact.hardResistanceViolationIds].sort())) {
+    reasons.push("A2A replay evidence does not match the raw replay artifact.");
   }
   if (!isSubset(hardResistanceViolationIds, expectedReplayIds)) {
     reasons.push("A2A replay contains a hard-resistance ID outside the frozen replay suite.");
@@ -535,17 +608,19 @@ export function validateImageEmbeddingE2eEvidence(
     suite: context.evidenceSuites?.e2e,
     observedRunnerArtifactChecksum: context.runnerArtifactChecksums?.e2e,
   }));
-  if (!exactKeys(evidence.preflight, ["command", "exitCode"])
-    || evidence.preflight.command !== "pnpm preflight:check"
-    || evidence.preflight.exitCode !== 0) {
-    reasons.push("E2E evidence does not prove a successful full preflight run.");
-  }
+  reasons.push(...validatePreflightBinding(evidence.preflight, context, "E2E"));
   if (!exactKeys(evidence.caseSets, ["baseline", "candidate"])) {
     return validation([...reasons, "E2E evidence case-set schema is invalid."]);
   }
   const baseline = parseCaseSet(evidence.caseSets.baseline, "skippedIds", "E2E baseline");
   const candidate = parseCaseSet(evidence.caseSets.candidate, "skippedIds", "E2E candidate");
   reasons.push(...baseline.reasons, ...candidate.reasons);
+  const runnerArtifact = context.runnerArtifacts?.e2e;
+  if (!runnerArtifact) {
+    reasons.push("E2E runner artifact could not be parsed for semantic verification.");
+  } else if (candidate.parsed && !sameCaseSetStatus(candidate.parsed, runnerArtifact.candidate)) {
+    reasons.push("E2E candidate statuses do not match the raw Playwright artifact.");
+  }
   const expectedBaseline = context.evidenceSuites?.e2e
     ? expectedE2eBaseline(context.evidenceSuites.e2e)
     : undefined;
@@ -596,11 +671,7 @@ export function validateImageEmbeddingFusionE2eEvidence(
     || !CHECKSUM.test(evidence.promotionBindingChecksum)) {
     reasons.push("Fusion E2E evidence does not bind to this promotion decision.");
   }
-  if (!exactKeys(evidence.preflight, ["command", "exitCode"])
-    || evidence.preflight.command !== "pnpm preflight:check"
-    || evidence.preflight.exitCode !== 0) {
-    reasons.push("Fusion E2E evidence does not prove a successful full preflight run.");
-  }
+  reasons.push(...validatePreflightBinding(evidence.preflight, context, "Fusion E2E"));
   if (!exactKeys(evidence.targetedE2e, ["expectedCaseIds", "passedCaseIds", "failedCaseIds", "skippedCaseIds"])) {
     return validation([...reasons, "Fusion E2E targeted result schema is invalid."]);
   }
@@ -613,6 +684,19 @@ export function validateImageEmbeddingFusionE2eEvidence(
   }
   const observedIds = [...passedCaseIds, ...failedCaseIds, ...skippedCaseIds];
   const frozenCaseIds = context.evidenceSuites?.fusionE2e.caseIds ?? [];
+  const runnerArtifact = context.runnerArtifacts?.fusionE2e;
+  if (!runnerArtifact) {
+    reasons.push("Fusion E2E runner artifact could not be parsed for semantic verification.");
+  } else {
+    const envelopeCaseSet: ImageEmbeddingEvidenceCaseSet = {
+      passIds: passedCaseIds,
+      failIds: failedCaseIds,
+      blockedOrSkippedIds: skippedCaseIds,
+    };
+    if (!sameCaseSetStatus(envelopeCaseSet, runnerArtifact.candidate)) {
+      reasons.push("Fusion E2E statuses do not match the raw Playwright artifact.");
+    }
+  }
   if (new Set(observedIds).size !== observedIds.length
     || !sameIdSet([...expectedCaseIds].sort(), [...frozenCaseIds].sort())
     || !sameIdSet([...expectedCaseIds].sort(), [...observedIds].sort())
