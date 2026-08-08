@@ -150,7 +150,11 @@ async function sha256(bytes: Uint8Array): Promise<string> {
   if (!globalThis.crypto?.subtle) {
     throw new Error("Web Crypto SHA-256 is unavailable in this runtime");
   }
-  const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
+  // Copy into an owned ArrayBuffer: a view may be backed by SharedArrayBuffer,
+  // which Web Crypto intentionally does not accept as BufferSource input.
+  const digestInput = new Uint8Array(bytes.byteLength);
+  digestInput.set(bytes);
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", digestInput.buffer);
   return `sha256:${Array.from(new Uint8Array(digest), (value) => value.toString(16).padStart(2, "0")).join("")}`;
 }
 
