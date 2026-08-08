@@ -13,6 +13,102 @@
     "sortKey": "sha256(releaseVersion + artworkId)",
     "selectionOrder": "lexicographic stratum order with one hash-sorted item per stratum per round"
   },
+  "evidenceSuiteChecksumAlgorithm": "sha256(canonical-json({schemaVersion:'image-embedding-evidence-suite.v1',suiteType,...suitePayload}))",
+  "evidenceSuites": {
+    "textBenchmark": {
+      "suiteChecksum": "sha256:476b3eeae6060c081060caa13e558ba1c652db6457f8708f620617f104d184ee",
+      "caseIds": [
+        "contemplation-direct-01",
+        "contemplation-metaphor-01",
+        "contemplation-zhmix-01",
+        "desire-direct-01",
+        "desire-metaphor-01",
+        "desire-zhmix-01",
+        "hope-direct-01",
+        "hope-metaphor-01",
+        "hope-zhmix-01",
+        "joy-direct-01",
+        "joy-metaphor-01",
+        "joy-zhmix-01",
+        "melancholy-direct-01",
+        "melancholy-metaphor-01",
+        "melancholy-zhmix-01",
+        "mystery-direct-01",
+        "mystery-metaphor-01",
+        "mystery-zhmix-01",
+        "serenity-direct-01",
+        "serenity-metaphor-01",
+        "serenity-zhmix-01",
+        "wonder-direct-01",
+        "wonder-metaphor-01",
+        "wonder-zhmix-01"
+      ]
+    },
+    "a2a": {
+      "caseSet": {
+        "suiteChecksum": "sha256:db9dc440530f32005620e9b0819bae0b32c1cc4d3969d2fb2dcd7436133edd7c",
+        "baseline": {
+          "passIds": [
+            "A2-01", "A2-05", "A2-06", "A3-01", "A3-02", "A3-03", "A3-04", "A3-05", "A3-07", "A3-08", "A3-09", "A3-10",
+            "A4-01", "A4-02", "A4-03", "A4-04", "A4-05", "A4-06", "A4-07", "A4-09", "A4-10", "A5-01", "A5-02", "A5-03",
+            "A5-06", "A5-07", "A5-08", "A5-09", "A5-10", "A6-01", "A6-02", "A6-04", "A6-05", "A6-06", "A6-08", "A6-09",
+            "A7-02", "A7-08", "A8-03", "A8-04", "A8-05", "A8-06", "A8-07", "A8-08", "A8-10", "A9-10", "A10-01", "A10-02",
+            "A10-03", "A10-04", "A10-05", "A10-06", "A10-08", "A10-09", "A10-10"
+          ],
+          "failIds": [
+            "A1-01", "A1-02", "A1-03", "A1-04", "A1-05", "A1-06", "A1-07", "A1-08", "A1-09", "A1-10", "A2-02", "A2-03",
+            "A2-04", "A2-07", "A2-08", "A2-09", "A2-10", "A3-06", "A4-08", "A5-04", "A5-05", "A6-03", "A7-01", "A7-03",
+            "A7-04", "A7-05", "A7-06", "A7-07", "A7-09", "A8-01", "A8-02", "A8-09", "A9-01", "A9-02", "A9-03", "A9-04",
+            "A9-05", "A9-06", "A9-07", "A10-07"
+          ],
+          "blockedIds": ["A6-07", "A6-10", "A7-10", "A9-08", "A9-09"]
+        }
+      },
+      "replay": {
+        "suiteChecksum": "sha256:8cfb092a55e8f309cc2608deb10ce12dd271ddf50dc9751dd54c9fa36cfc34b7",
+        "caseIds": [
+          "T01", "T02", "T03", "T04", "T05", "T06", "T07", "T08", "T09", "T10",
+          "T11", "T12", "T13", "T14", "T15", "T16", "T17", "T18", "T19", "T20",
+          "T21", "T22", "T23", "T24", "T25", "T26", "T27", "T28", "T29", "T30",
+          "T31", "T32", "T33", "T34", "T35", "T36", "T37", "T38", "T39", "T40",
+          "T41", "T42", "T43", "T44", "T45", "T46", "T47", "T48", "T49", "T50"
+        ]
+      }
+    },
+    "e2e": {
+      "suiteChecksum": "sha256:4057e866ea87d329d3f32a4494268e8de8786f5374d715e69e73915c737fcdff",
+      "baseline": {
+        "passIds": [
+          "gallery keeps rendering results when browser worker search fails",
+          "detail page renders explanation slot with generated ready content",
+          "immersive gallery opens from gallery and preserves the release-backed exhibition",
+          "immersive gallery can move between scenes and preserve query state",
+          "artwork detail can enter immersive gallery at the current artwork",
+          "immersive gallery mobile layout scrolls without clipping progress",
+          "landing page does not horizontally overflow on mobile",
+          "gallery waits for explicit intent when no query is provided",
+          "gallery shows an empty state for a query with no searchable terms",
+          "gallery uses matched scene backdrops and lazy-loads secondary artworks",
+          "background scene assets are served by the web app",
+          "gallery cards fall back when artwork images fail to load",
+          "unknown artwork detail routes render the not-found state",
+          "visitor can turn a sentence into a gallery and open artwork detail"
+        ],
+        "failIds": [],
+        "skippedIds": []
+      }
+    },
+    "fusionE2e": {
+      "suiteChecksum": "sha256:3d9f9080418e3044f770bf6b2349f69a3511c71192b11b750ae3a5e31387e3ca",
+      "caseIds": [
+        "image sidecar stays unread when fusion is disabled",
+        "image sidecar is not read before a query yields artwork candidates",
+        "image sidecar checksum failures fall back to metadata scene order",
+        "image sidecar reranks only bounded eligible scene candidates",
+        "image sidecar loader meets parse and heap budgets"
+      ]
+    }
+  },
   "anchors": [
     { "artworkId": "met-437990", "primaryMood": "contemplation", "theme": "unknown" },
     { "artworkId": "met-437180", "primaryMood": "desire", "theme": "unknown" },

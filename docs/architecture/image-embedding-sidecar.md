@@ -22,7 +22,7 @@ rerank ordering.
 | Base manifest | `data/releases/2026-04-25-curation-b/manifest.json` |
 | Base manifest checksum | `sha256:d16e859a68abdab4c4c5bb5056fbe50a4a3efda18e40dd0097634c4c24e784c9` |
 | Base manifest bytes | `1820` |
-| Promotion anchor checksum | `sha256:208de58e2fa6e2e39a24e0180d9c1159ef47381e9a6a9cfd8eb70fdec9a0e581` |
+| Promotion anchor checksum | `sha256:e4f96a71f79ff7e4b8f5c7802b5b2313d1626ace5be8d300e508177e200252da` |
 | Promotion anchors | 30 deterministic release artwork IDs; no Grade A artworks exist in this release |
 | Anchor algorithm | `primary-mood-theme-round-robin-sha256-v1`; `sha256(releaseVersion + artworkId)` within each primary-mood/theme stratum |
 
@@ -72,12 +72,12 @@ This `55/40/5` set is the authority for every later case-set diff. The previous
 untracked replay files; it is a regression, not a new frozen baseline. Its lost
 pass IDs were `A6-02`, `A6-06`, `A6-08`, `A6-09`, and `A7-08`.
 
-After the harness input paths were made explicit, the reproducible local command
-still reports `51/44/5`: `A6-02`, `A6-06`, `A6-08`, and `A6-09` remain lost
-passes. `A7-07` remains an explicit failure until a structured baseline/candidate
-diff artifact is supplied; phase names must not affect this result. This is an
-unresolved A2A regression and blocks Task 6/7 promotion; it must not be
-normalized by updating the authority above.
+The current reproducible command reports the authoritative `55/40/5` set again,
+including `A6-02`, `A6-06`, `A6-08`, and `A6-09`. `A7-07` remains an explicit
+failure until a structured baseline/candidate diff artifact is supplied; phase
+names must not affect this result. The remaining authority failures and blocks
+are part of the differential baseline, so later promotion still requires the
+same exact case-status set rather than a merely successful harness process.
 
 The 50-case intent/immersion replay baseline is:
 

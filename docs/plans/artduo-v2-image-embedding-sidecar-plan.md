@@ -286,7 +286,7 @@ cp "$ARTDUO_A2A_REPLAY_DIR/image-embedding-baseline.json" \
 - 只有用户明确批准 waiver 时才能继续；waiver 必须记录 failing case IDs、与 image sidecar 无关的证据、风险和失效日期。
 - waiver 只允许 Task 1-5 shadow 能力继续，不自动授权 Task 6-7 的用户可见融合与发布。
 
-- [ ] **Step 4: 冻结 A2A case-set baseline 与 critical artwork set（当前 `51/44/5` 回归未清除）**
+- [x] **Step 4: 冻结 A2A case-set baseline 与 critical artwork set（当前重放已恢复 `55/40/5`）**
 
 A2A baseline 必须保存：
 
@@ -1350,6 +1350,8 @@ pnpm image-embeddings:benchmark -- \
 预期：生成 evaluation report 与 30 条 review pack；未完成人工判定前，报告明确 `promotionReady: false`。
 
 > 2026-07-27 shadow run：离线 candidate 为 0 条（Artwork 221、Background Scene 50 均未获得向量），因此生成了 fail-closed pre-review report，但没有可用于盲评的 changed comparison。`promotionReady: false`；Task 5 仍等待有效候选与 Step 7 人工评审。
+>
+> 2026-08-08 recovery run：pinned-model smoke 与 source-cache rebuild 后获得 270 条 candidate（Artwork `220/221`、30/30 critical anchors、Background Scene `50/50`），`coverageReady: true`。该临时 candidate 仍需在更新后的 frozen evidence anchor 上重建并完成 machine/human gates；它未改写 base manifest，也未提交 cache 或 vector payload。
 
 - [ ] **Step 7: 完成人工评审并重跑**
 
