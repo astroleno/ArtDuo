@@ -7,25 +7,17 @@ test("visitor can turn a sentence into a gallery and open artwork detail", async
 
   await expect(page.getByRole("heading", { name: "ArtDuo" })).toBeVisible();
   await page.getByLabel("策展意图").fill("I want a quiet moonlit room");
-  await page.getByRole("button", { name: "生成展览" }).click();
+  await page.getByRole("button", { name: "生成观展路线" }).click();
 
-  await expect(page).toHaveURL(/\/gallery\?query=I\+want\+a\+quiet\+moonlit\+room/);
-  await expect(page.getByRole("heading", { name: /Gallery/ })).toBeVisible();
-  await expect(page.getByText("Primary work")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Opening" })).toBeVisible();
-  await expect(page.getByTestId("curation-preface")).toBeVisible();
-  await expect(page.getByTestId("emotion-curve")).toBeVisible();
-  await expect(page.getByTestId("curation-closing")).toBeVisible();
-  await expect(page.getByTestId("result-card")).toHaveCount(12);
-  await expect(page.locator('[data-testid="result-card"]:visible')).toHaveCount(7);
-  await expect(page.locator(".stage-more").first()).toBeVisible();
+  await expect(page).toHaveURL(/\/gallery\/local\/immersive\?query=I\+want\+a\+quiet\+moonlit\+room/);
+  await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
+  await expect(page.getByTestId("immersive-preface")).toBeVisible();
+  await expect(page.getByRole("button", { name: /打开《.+》大图/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: "下一幅" })).toBeVisible();
 
-  const firstCard = page.getByTestId("result-card").first();
-  await expect(firstCard.getByRole("img")).toBeVisible();
-  await firstCard.getByRole("link", { name: /打开详情/ }).click();
-
-  await expect(page).toHaveURL(/\/artwork\/met-/);
+  await gotoApp(page, "/artwork/met-247010?query=I+want+a+quiet+moonlit+room&backgroundSceneId=bg-001&retrievalScore=0.5&matchedTokens=quiet");
+  await expect(page).toHaveURL(/\/artwork\/met-247010/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(page.getByText(/Release \d{4}-\d{2}-\d{2}/).first()).toBeVisible();
+  await expect(page.getByText(/馆藏 \d{4}-\d{2}-\d{2}/).first()).toBeVisible();
   await expect(page.getByRole("link", { name: "返回 Gallery" })).toBeVisible();
 });

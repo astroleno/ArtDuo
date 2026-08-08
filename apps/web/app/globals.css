@@ -2144,11 +2144,11 @@ body[data-immersive-lightbox="open"] .immersive-shell {
   align-items: center;
   background: transparent;
   display: flex;
-  height: 38px;
+  height: 44px;
   justify-content: center;
   overflow: visible;
   position: relative;
-  width: 38px;
+  width: 44px;
 }
 
 .immersive-progress li::before {
@@ -2158,15 +2158,15 @@ body[data-immersive-lightbox="open"] .immersive-shell {
   left: 0;
   position: absolute;
   right: 0;
-  top: 19px;
+  top: 22px;
 }
 
 .immersive-progress li:first-child::before {
-  left: 19px;
+  left: 22px;
 }
 
 .immersive-progress li:last-child::before {
-  right: 19px;
+  right: 22px;
 }
 
 .immersive-progress li::after {
@@ -2182,7 +2182,7 @@ body[data-immersive-lightbox="open"] .immersive-shell {
 }
 
 .immersive-progress li.is-active {
-  width: 38px;
+  width: 44px;
 }
 
 .immersive-progress li.is-active::after {
@@ -2198,10 +2198,10 @@ body[data-immersive-lightbox="open"] .immersive-shell {
   border-radius: 999px;
   cursor: pointer;
   display: block;
-  height: 38px;
+  height: 44px;
   padding: 0;
   position: relative;
-  width: 38px;
+  width: 44px;
   z-index: 1;
 }
 
