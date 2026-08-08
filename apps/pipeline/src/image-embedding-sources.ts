@@ -1,7 +1,7 @@
 import { lookup as lookupDns } from "node:dns/promises";
 import { realpathSync, readFileSync, statSync } from "node:fs";
 import { get as httpsGet } from "node:https";
-import { isIP } from "node:net";
+import { isIP, type LookupFunction } from "node:net";
 import path from "node:path";
 import ipaddr from "ipaddr.js";
 
@@ -331,7 +331,7 @@ const defaultRemoteRequest: RemoteImageRequest = async (url, options) => new Pro
     return;
   }
   const request = httpsGet(url, {
-    lookup: (_hostname, _options, callback) => callback(null, address.address, address.family),
+    lookup: createBoundAddressLookup(address),
     signal: options.signal,
   }, (response) => {
     const chunks: Buffer[] = [];
@@ -354,6 +354,21 @@ const defaultRemoteRequest: RemoteImageRequest = async (url, options) => new Pro
   request.setTimeout(options.timeoutMs, () => request.destroy(new Error("Image request timed out.")));
   request.on("error", reject);
 });
+
+/**
+ * Keep the TLS connection pinned to an address already approved by the source
+ * resolver. Recent Node versions invoke request lookups with `all: true`, which
+ * changes the callback result shape from one address to an address array.
+ */
+export function createBoundAddressLookup(address: { address: string; family: number }): LookupFunction {
+  return (_hostname, options, callback) => {
+    if (options.all) {
+      callback(null, [{ address: address.address, family: address.family }]);
+      return;
+    }
+    callback(null, address.address, address.family);
+  };
+}
 
 function resolveTotalTimeoutMs(value: number | undefined): number {
   if (value === undefined) {

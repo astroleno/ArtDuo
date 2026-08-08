@@ -6,6 +6,7 @@ import { test } from "node:test";
 
 import { ImageSourceCache, fingerprintImageSourceBytes, fingerprintImageSourceLocator } from "./image-source-cache";
 import {
+  createBoundAddressLookup,
   resolveImageEmbeddingSource,
   type RemoteImageRequest,
 } from "./image-embedding-sources";
@@ -36,6 +37,32 @@ function remoteResponse(bytes = PNG): RemoteImageRequest {
 async function publicDnsLookup() {
   return [{ address: "8.8.8.8", family: 4 }];
 }
+
+test("bound remote lookup supports Node's all-address callback mode", async () => {
+  const lookup = createBoundAddressLookup({ address: "8.8.8.8", family: 4 });
+
+  const single = await new Promise<{ address: string; family: number }>((resolve, reject) => {
+    lookup("images.metmuseum.org", { all: false }, (error, address, family) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve({ address: address as string, family: family as number });
+    });
+  });
+  assert.deepEqual(single, { address: "8.8.8.8", family: 4 });
+
+  const multiple = await new Promise<Array<{ address: string; family: number }>>((resolve, reject) => {
+    lookup("images.metmuseum.org", { all: true }, (error, addresses) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(addresses as Array<{ address: string; family: number }>);
+    });
+  });
+  assert.deepEqual(multiple, [{ address: "8.8.8.8", family: 4 }]);
+});
 
 test("artwork sources use preview before base/full URLs and background sources map through public root", async () => {
   const remote = await resolveImageEmbeddingSource({

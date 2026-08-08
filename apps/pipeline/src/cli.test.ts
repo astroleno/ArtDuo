@@ -52,6 +52,33 @@ test("image embedding CLI reads explicit shadow-build paths and flags", () => {
   }
 });
 
+test("image embedding CLI resolves relative artifact paths from the workspace root", () => {
+  const originalArgv = process.argv;
+  process.argv = [
+    "node",
+    "build-image-embedding-shards.ts",
+    "--root-dir", "/tmp/image-workspace",
+    "--releases-root", "data/releases",
+    "--report-root", "data/reports",
+    "--candidate-root", "data/candidates",
+    "--source-cache", ".cache/image-sources",
+    "--promotion-anchor-set", "data/anchors.json",
+    "--manifest", "data/releases/release/manifest.json",
+  ];
+
+  try {
+    const options = cli.readImageEmbeddingBuildOptions();
+    assert.equal(options.releasesRoot, "/tmp/image-workspace/data/releases");
+    assert.equal(options.reportRoot, "/tmp/image-workspace/data/reports");
+    assert.equal(options.candidateRoot, "/tmp/image-workspace/data/candidates");
+    assert.equal(options.sourceCacheRoot, "/tmp/image-workspace/.cache/image-sources");
+    assert.equal(options.promotionAnchorPath, "/tmp/image-workspace/data/anchors.json");
+    assert.equal(options.manifestPath, "/tmp/image-workspace/data/releases/release/manifest.json");
+  } finally {
+    process.argv = originalArgv;
+  }
+});
+
 test("workspace exposes the image embedding shadow-build command", () => {
   const pipelinePackage = JSON.parse(readFileSync(path.resolve(__dirname, "../package.json"), "utf8")) as {
     scripts: Record<string, string>;

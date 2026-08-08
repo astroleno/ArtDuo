@@ -115,6 +115,7 @@ export function readEmbeddingBuildOptions(): EmbeddingBuildOptions {
 
 export function readImageEmbeddingBuildOptions(): ImageEmbeddingBuildOptions {
   const rootDir = readFlag("--root-dir");
+  const workspaceRoot = rootDir ? path.resolve(rootDir) : path.resolve(process.cwd(), "../..");
   const releasesRoot = readFlag("--releases-root");
   const reportRoot = readFlag("--report-root");
   const candidateRoot = readFlag("--candidate-root");
@@ -130,13 +131,13 @@ export function readImageEmbeddingBuildOptions(): ImageEmbeddingBuildOptions {
 
   return {
     rootDir: rootDir ? path.resolve(rootDir) : undefined,
-    releasesRoot: releasesRoot ? path.resolve(releasesRoot) : undefined,
-    reportRoot: reportRoot ? path.resolve(reportRoot) : undefined,
-    candidateRoot: candidateRoot ? path.resolve(candidateRoot) : undefined,
-    sourceCacheRoot: sourceCacheRoot ? path.resolve(sourceCacheRoot) : undefined,
-    promotionAnchorPath: promotionAnchorPath ? path.resolve(promotionAnchorPath) : undefined,
+    releasesRoot: releasesRoot ? path.resolve(workspaceRoot, releasesRoot) : undefined,
+    reportRoot: reportRoot ? path.resolve(workspaceRoot, reportRoot) : undefined,
+    candidateRoot: candidateRoot ? path.resolve(workspaceRoot, candidateRoot) : undefined,
+    sourceCacheRoot: sourceCacheRoot ? path.resolve(workspaceRoot, sourceCacheRoot) : undefined,
+    promotionAnchorPath: promotionAnchorPath ? path.resolve(workspaceRoot, promotionAnchorPath) : undefined,
     releaseVersion,
-    manifestPath: manifestPath ? path.resolve(manifestPath) : undefined,
+    manifestPath: manifestPath ? path.resolve(workspaceRoot, manifestPath) : undefined,
     model,
     modelRevision,
     modelVariant,
