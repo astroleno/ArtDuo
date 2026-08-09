@@ -2079,6 +2079,8 @@ body[data-immersive-lightbox="open"] .immersive-shell {
   transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
+.immersive-scene-nav a:hover,
+.immersive-scene-nav a:focus-visible,
 .immersive-scene-nav button:hover,
 .immersive-scene-nav button:focus-visible {
   background: rgba(255, 250, 241, 0.08);

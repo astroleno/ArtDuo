@@ -15,9 +15,14 @@ test("visitor can turn a sentence into a gallery and open artwork detail", async
   await expect(page.getByRole("button", { name: /打开《.+》大图/ })).toBeVisible();
   await expect(page.getByRole("button", { name: "下一幅" })).toBeVisible();
 
-  await gotoApp(page, "/artwork/met-247010?query=I+want+a+quiet+moonlit+room&backgroundSceneId=bg-001&retrievalScore=0.5&matchedTokens=quiet");
-  await expect(page).toHaveURL(/\/artwork\/met-247010/);
-  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  const sceneTitle = await page.getByTestId("immersive-scene-title").textContent();
+  const detailLink = page.getByRole("link", { name: /查看《.+》详情/ });
+  const detailHref = await detailLink.getAttribute("href");
+  expect(detailHref).toMatch(/^\/artwork\/met-[^?]+\?query=I\+want\+a\+quiet\+moonlit\+room$/);
+  await detailLink.click();
+
+  await expect(page).toHaveURL(new RegExp(`${detailHref?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`));
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(sceneTitle ?? "");
   await expect(page.getByText(/馆藏 \d{4}-\d{2}-\d{2}/).first()).toBeVisible();
   await expect(page.getByRole("link", { name: "返回 Gallery" })).toBeVisible();
 });

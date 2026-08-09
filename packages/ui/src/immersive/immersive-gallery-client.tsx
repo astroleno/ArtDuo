@@ -456,6 +456,11 @@ export function ImmersiveGalleryClient({
           ) : null}
           {scenes.length > 1 ? (
             <nav className="immersive-scene-nav" aria-label="Immersive scene navigation">
+              {activeScene.unit.detailHref ? (
+                <a href={activeScene.unit.detailHref}>
+                  {`查看《${activeScene.unit.title}》详情`}
+                </a>
+              ) : null}
               {previousScene ? (
                 <button type="button" disabled={!isHydrated} onClick={() => moveTo(currentIndex - 1)}>
                   上一幅
@@ -466,6 +471,12 @@ export function ImmersiveGalleryClient({
                   下一幅
                 </button>
               ) : null}
+            </nav>
+          ) : activeScene.unit.detailHref ? (
+            <nav className="immersive-scene-nav" aria-label="Immersive scene navigation">
+              <a href={activeScene.unit.detailHref}>
+                {`查看《${activeScene.unit.title}》详情`}
+              </a>
             </nav>
           ) : null}
         </aside>

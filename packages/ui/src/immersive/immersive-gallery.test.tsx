@@ -17,6 +17,7 @@ const units: ImmersiveGalleryUnit[] = [
   {
     id: "met-2",
     title: "Spring Window",
+    detailHref: "/artwork/met-2?query=moon",
     imageUrl: "https://example.test/spring.jpg",
     backgroundSceneUrl: "/artduo-gallery/bg-spring.jpg",
     sceneLabel: "雾白静室",
@@ -68,6 +69,7 @@ test("immersive gallery renders next previous controls and quiet progress", () =
   assert.doesNotMatch(markup, /data-testid="immersive-scene-match"/);
   assert.match(markup, /上一幅/);
   assert.match(markup, /下一幅/);
+  assert.match(markup, /href="\/artwork\/met-2\?query=moon"[^>]*>查看《Spring Window》详情/);
   assert.doesNotMatch(markup, /aria-label="Open scene/);
   assert.match(markup, /aria-label="观展进度，第 2 幅，共 3 幅"/);
   assert.match(markup, /aria-label="跳到第 1 幅，共 3 幅"/);

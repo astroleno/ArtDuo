@@ -220,6 +220,7 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
     return {
       id: result.artwork.id,
       title: result.artwork.title,
+      detailHref: result.artwork.detailHref,
       artistDisplayName: result.artwork.artistDisplayName,
       yearLabel: result.artwork.yearLabel,
       imageUrl: artworkImageUrl(result.artwork.id),

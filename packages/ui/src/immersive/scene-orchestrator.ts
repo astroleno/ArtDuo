@@ -14,6 +14,7 @@ export type ImmersiveTransitionIntent = "fade" | "drift" | "push" | "hold" | "re
 export interface ImmersiveGalleryUnit {
   id: string;
   title: string;
+  detailHref?: string;
   artistDisplayName?: string;
   yearLabel?: string;
   imageUrl: string;
