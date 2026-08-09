@@ -1297,7 +1297,9 @@ Benchmark CLI 同时支持显式 `--output`、`--build-report`、`--review-pack`
 `--text-benchmark-runner-artifact`、`--a2a-case-set-runner-artifact`、
 `--a2a-replay-runner-artifact`、`--e2e-runner-artifact`、
 `--fusion-e2e-runner-artifact` 原始 runner artifact 路径，以及用于逐字段核对 Task 5
-输入的 `--fusion-promotion-report`。自动化验证必须显式输出到临时文件；只有 Task 5 完成人工
+输入的 `--fusion-promotion-report`。Fusion producer 另要求 `--task5-build-report`、
+`--task5-review-pack`、`--task5-review-verdicts`、三份 `--task5-*-baseline` 和四份
+`--task5-*-runner-artifact`，用于独立重建 Task 5 决策。自动化验证必须显式输出到临时文件；只有 Task 5 完成人工
 评审后的 report 才写入计划中的固定 report 路径。Task 5 首次完成时
 `promotionReady` 可为 true，但 `fusionVerificationReady` 必须为 false；Task 6
 完成 targeted E2E 后用同一命令绑定 E2E report checksum，才能将后者置为 true。
@@ -1307,6 +1309,14 @@ strict v2 envelope：text、成对 A2A case-set/replay、14-case E2E、或 fusio
 它要求可解析的 Git `HEAD` 和没有 staged/unstaged tracked diff；raw/output 临时文件可为
 untracked。E2E/fusion producer 与 evaluator 都实际执行一次 `pnpm preflight:check`，而不是
 相信 envelope 自报的 exit code。
+
+生成 fusion evidence 时，producer 不能把 Task 5 report 自带且自哈希的
+`promotionBindingPayload` 当成独立证明。CLI 必须同时显式传入 Task 5 的 build report、
+review pack、verdict sidecar、三份 baseline envelope 和四份 baseline raw artifact；producer
+在私有临时目录用当前冻结 anchor/suite、当前 clean commit 和同一次 preflight 重新执行 Task 5
+evaluator。只有重建出的完整 payload、checksum 与 `promotionReady: true` 逐字节匹配所选 Task 5
+report，才允许启动固定 Fusion suite。缺少输入、当前 suite 漂移、raw/envelope 不一致或重建后
+任一 gate 失败都必须在浏览器启动前 fail closed。
 
 四类 evidence 绝不能以“文件存在”作为通过条件，也不能直接把任意 runner 的 raw
 JSON/HTML 传入。每份必须是严格、无额外字段的 v2 JSON envelope，且共同绑定所选
@@ -1719,7 +1729,17 @@ pnpm image-embeddings:evidence -- \
   --fusion-e2e-runner-artifact-output "$fusion_e2e_raw" \
   --fusion-candidate-shard "$candidate_shard" \
   --fusion-promotion-report "$task5_report" \
-  --promotion-binding-checksum "$PROMOTION_BINDING_CHECKSUM"
+  --promotion-binding-checksum "$PROMOTION_BINDING_CHECKSUM" \
+  --task5-build-report data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-report.json \
+  --task5-review-pack data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-pack.json \
+  --task5-review-verdicts data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-review-verdicts.json \
+  --task5-text-benchmark-baseline "$ARTDUO_EVIDENCE_DIR/text-evidence.json" \
+  --task5-a2a-baseline "$ARTDUO_EVIDENCE_DIR/a2a-evidence.json" \
+  --task5-e2e-baseline "$ARTDUO_EVIDENCE_DIR/e2e-evidence.json" \
+  --task5-text-benchmark-runner-artifact "$ARTDUO_EVIDENCE_DIR/vector-benchmark.json" \
+  --task5-a2a-case-set-runner-artifact "$ARTDUO_EVIDENCE_DIR/a2a-spec-harness.json" \
+  --task5-a2a-replay-runner-artifact "$ARTDUO_EVIDENCE_DIR/a2a-replay.json" \
+  --task5-e2e-runner-artifact "$ARTDUO_EVIDENCE_DIR/image-embedding-e2e-playwright.json"
 
 pnpm image-embeddings:benchmark -- \
   --release-version 2026-04-25-curation-b \
@@ -1750,7 +1770,9 @@ pnpm image-embeddings:benchmark -- \
 - `image-embeddings:evidence` 要求 raw output 尚不存在，在 producer 私有临时目录运行固定命令
   `pnpm test:e2e:fusion`，成功解析后才以排他方式复制到调用者指定位置；它不会删除或覆盖
   调用者文件。该命令从显式锁定的 promotion-ready Task 5 report、candidate 与 base manifest
-  在系统临时目录生成 checksum-bound valid/fault variants，并用独立 config、
+  开始，先用显式提供的 build/review/baseline raw/envelope 在系统临时目录独立重跑 Task 5
+  evaluator；重建的 gate payload、checksum 和 ready 状态必须与 report 完全一致。通过后才生成
+  checksum-bound valid/fault variants，并用独立 config、
   project 与 spec 产生 fresh Playwright JSON。producer 会清除继承环境中的 release/report/
   candidate/base 覆盖值；raw metadata 必须逐字段记录三个输入 checksum、releaseVersion 和
   promotionBindingChecksum。不得预制同名 JSON 或直接运行任意 spec 冒充该 suite。

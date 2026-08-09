@@ -108,20 +108,23 @@ The defined E2E case set has 14 cases:
 13. `phase1-states.spec.ts › unknown artwork detail routes render the not-found state`
 14. `thin-slice.spec.ts › visitor can turn a sentence into a gallery and open artwork detail`
 
-The earlier local Chromium launch blocker is resolved. The current recovered
-14-case browser baseline ran on commit
+The earlier local Chromium launch blocker is resolved. The latest recovered
+14-case browser run completed on commit
 `47e77852bc3003237674f3df2d9d3728316aa817`, starting at
 `2026-08-09T03:50:07.620Z`, and completed with `14 passed`, `0 failed`, and
-`0 skipped`. The run is bound by:
+`0 skipped`. Its historical artifacts are bound by:
 
 - raw Playwright JSON checksum:
   `sha256:8f097624e5b5cdb66a7886bd5d4f32a0b4d7635f660718a288bc61b9dc0103ca`;
-- frozen 14-case suite checksum:
+- then-current 14-case suite checksum:
   `sha256:31c023870f3f69990996d05cf0e36a85fbf1e400d01b58fc161d5a9acd61beb8`;
 - normalized E2E evidence checksum:
   `sha256:1b482ef3fd0962759a4041fb6a9618582e3fbba765d1821453446e0bbb2b944d`.
 
-The older commit `78778706cea4807d0bc35d6258cd182158229d44` run and its
+The currently frozen 14-case suite checksum is
+`sha256:694a8ff82b400af6817db771fe867b6642df3c5fd32a617667455f7c5df0478c`;
+there is not yet a normalized 14/14 envelope bound to that checksum and the
+current clean commit. The older commit `78778706cea4807d0bc35d6258cd182158229d44` run and its
 `sha256:e1fc98...` raw artifact are historical recovery evidence only; they predate
 the real exhibition-to-artwork-detail click. Commit `e4e4bd2` subsequently split
 the five targeted Fusion cases into a separately executable, promotion-gated suite
@@ -155,11 +158,14 @@ The sidecar budgets are frozen as follows:
    and rolled back only through an explicit manifest variant.
 6. A2A promotion is decided by a case-set diff, not the harness exit code.
 7. Task 6 Fusion evidence is generated only from producer-selected Task 5 inputs.
-   The producer recomputes the canonical `promotionBindingPayload`, locks the base
-   manifest, candidate shard, and Task 5 report paths, removes inherited override
-   variables, and records their checksums plus release and promotion binding in
-   Playwright metadata. The evaluator compares the same fields against the Task 5
-   report; a detached raw artifact or report fails closed.
+   Before launching the browser, the producer independently reruns the Task 5
+   evaluator from explicit build, review, baseline envelope, and raw runner inputs
+   against the current frozen anchor and clean commit. The reconstructed gate
+   payload, checksum, and ready state must exactly match the selected Task 5 report.
+   The producer then locks the base manifest, candidate shard, and Task 5 report
+   paths, removes inherited override variables, and records their checksums plus
+   release and promotion binding in Playwright metadata. A self-hashed payload,
+   detached raw artifact, stale suite, or substituted report fails closed.
 
 ## Runtime and Data Boundaries
 
