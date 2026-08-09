@@ -39,12 +39,23 @@ export interface ImageEmbeddingPlaywrightRunnerArtifact {
   candidate: ImageEmbeddingEvidenceCaseSet;
 }
 
+export interface ImageEmbeddingFusionPlaywrightRunnerBinding {
+  suiteId: string;
+  configPath: string;
+  projectName: string;
+  specPath: string;
+}
+
+export interface ImageEmbeddingFusionPlaywrightRunnerArtifact extends ImageEmbeddingPlaywrightRunnerArtifact {
+  runnerBinding: ImageEmbeddingFusionPlaywrightRunnerBinding;
+}
+
 export interface ImageEmbeddingEvidenceRunnerArtifacts {
   textBenchmark?: ImageEmbeddingTextBenchmarkRunnerArtifact;
   a2aCaseSet?: ImageEmbeddingA2aCaseSetRunnerArtifact;
   a2aReplay?: ImageEmbeddingA2aReplayRunnerArtifact;
   e2e?: ImageEmbeddingPlaywrightRunnerArtifact;
-  fusionE2e?: ImageEmbeddingPlaywrightRunnerArtifact;
+  fusionE2e?: ImageEmbeddingFusionPlaywrightRunnerArtifact;
 }
 
 export interface ImageEmbeddingRunnerArtifactParseResult<T> {
@@ -314,4 +325,84 @@ export function parseImageEmbeddingPlaywrightRunnerArtifact(
     return { reasons: ["Playwright runner artifact must contain unique named case results."] };
   }
   return { artifact: { candidate: asCaseSet(rows) }, reasons: [] };
+}
+
+function validateFusionPlaywrightSuite(
+  value: unknown,
+  specFile: string,
+  projectName: string,
+): string | undefined {
+  if (!isRecord(value)) {
+    return "Fusion Playwright runner artifact contains an invalid suite.";
+  }
+  if (value.specs !== undefined) {
+    if (value.file !== specFile || !Array.isArray(value.specs)) {
+      return "Fusion Playwright runner artifact was not produced by the frozen spec file.";
+    }
+    for (const spec of value.specs) {
+      if (!isRecord(spec) || spec.file !== specFile || !Array.isArray(spec.tests) || spec.tests.length !== 1) {
+        return "Fusion Playwright runner artifact contains a test outside the frozen spec file.";
+      }
+      const test = spec.tests[0];
+      if (!isRecord(test) || test.projectId !== projectName || test.projectName !== projectName) {
+        return "Fusion Playwright runner artifact was not produced by the frozen project.";
+      }
+    }
+  }
+  if (value.suites !== undefined) {
+    if (!Array.isArray(value.suites)) {
+      return "Fusion Playwright runner artifact contains invalid nested suites.";
+    }
+    for (const suite of value.suites) {
+      const reason = validateFusionPlaywrightSuite(suite, specFile, projectName);
+      if (reason) {
+        return reason;
+      }
+    }
+  }
+  return undefined;
+}
+
+export function parseImageEmbeddingFusionPlaywrightRunnerArtifact(
+  value: unknown,
+): ImageEmbeddingRunnerArtifactParseResult<ImageEmbeddingFusionPlaywrightRunnerArtifact> {
+  if (!isRecord(value)
+    || !isRecord(value.config)
+    || !isRecord(value.config.metadata)
+    || !Array.isArray(value.config.projects)
+    || !Array.isArray(value.suites)) {
+    return { reasons: ["Fusion Playwright runner artifact must bind its config, project, spec, and suite metadata."] };
+  }
+  const metadata = value.config.metadata;
+  const suiteId = nonEmptyString(metadata.imageEmbeddingEvidenceSuiteId);
+  const configPath = repositoryRelativePath(metadata.imageEmbeddingEvidenceConfigPath);
+  const projectName = nonEmptyString(metadata.imageEmbeddingEvidenceProjectName);
+  const specPath = repositoryRelativePath(metadata.imageEmbeddingEvidenceSpecPath);
+  const configFile = nonEmptyString(value.config.configFile)?.replaceAll("\\", "/");
+  if (!suiteId || !configPath || !projectName || !specPath || !configFile
+    || !configFile.endsWith(`/${configPath}`)) {
+    return { reasons: ["Fusion Playwright runner artifact config or suite metadata is invalid."] };
+  }
+  const projects = value.config.projects.filter(isRecord);
+  if (projects.length !== 1 || projects[0]?.id !== projectName || projects[0]?.name !== projectName) {
+    return { reasons: ["Fusion Playwright runner artifact project does not match its frozen project metadata."] };
+  }
+  const specFile = specPath.split("/").at(-1)!;
+  for (const suite of value.suites) {
+    const reason = validateFusionPlaywrightSuite(suite, specFile, projectName);
+    if (reason) {
+      return { reasons: [reason] };
+    }
+  }
+  const parsed = parseImageEmbeddingPlaywrightRunnerArtifact(value);
+  if (!parsed.artifact) {
+    return { reasons: parsed.reasons };
+  }
+  return {
+    artifact: {
+      candidate: parsed.artifact.candidate,
+      runnerBinding: { suiteId, configPath, projectName, specPath },
+    },
+    reasons: [],
+  };
 }

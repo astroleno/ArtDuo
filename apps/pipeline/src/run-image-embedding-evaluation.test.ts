@@ -36,6 +36,12 @@ const TEXT_RUNNER = {
   dimensions: 256,
   limit: 10,
 };
+const FUSION_RUNNER = {
+  suiteId: "fixture-image-embedding-fusion-e2e.v1",
+  configPath: "evidence-suite-source.txt",
+  projectName: "image-scene-fusion",
+  specPath: "evidence-suite-source.txt",
+};
 
 function frozenEvidenceSuites() {
   const sourceFiles = [{ path: "evidence-suite-source.txt", checksum: checksum(SUITE_SOURCE_CONTENT) }];
@@ -64,7 +70,7 @@ function frozenEvidenceSuites() {
     }),
     fusionE2e: buildImageEmbeddingEvidenceSuiteDescriptor({
       suiteType: "fusion-e2e",
-      suitePayload: { caseIds: FUSION_IDS },
+      suitePayload: { caseIds: FUSION_IDS, runner: FUSION_RUNNER },
       sourceFiles,
     }),
   };
@@ -81,6 +87,34 @@ function writePlaywrightRunnerArtifact(filePath: string, caseIds: string[], fail
       specs: caseIds.map((id) => ({
         title: id,
         tests: [{ results: [{ status: failedIds.includes(id) ? "failed" : "passed" }] }],
+      })),
+    }],
+  }, null, 2)}\n`);
+}
+
+function writeFusionPlaywrightRunnerArtifact(filePath: string, caseIds: string[], failedIds: string[] = []): void {
+  writeFileSync(filePath, `${JSON.stringify({
+    config: {
+      configFile: `/fixture/${FUSION_RUNNER.configPath}`,
+      metadata: {
+        imageEmbeddingEvidenceSuiteId: FUSION_RUNNER.suiteId,
+        imageEmbeddingEvidenceConfigPath: FUSION_RUNNER.configPath,
+        imageEmbeddingEvidenceProjectName: FUSION_RUNNER.projectName,
+        imageEmbeddingEvidenceSpecPath: FUSION_RUNNER.specPath,
+      },
+      projects: [{ id: FUSION_RUNNER.projectName, name: FUSION_RUNNER.projectName }],
+    },
+    suites: [{
+      title: path.basename(FUSION_RUNNER.specPath),
+      file: path.basename(FUSION_RUNNER.specPath),
+      specs: caseIds.map((id) => ({
+        title: id,
+        file: path.basename(FUSION_RUNNER.specPath),
+        tests: [{
+          projectId: FUSION_RUNNER.projectName,
+          projectName: FUSION_RUNNER.projectName,
+          results: [{ status: failedIds.includes(id) ? "failed" : "passed" }],
+        }],
       })),
     }],
   }, null, 2)}\n`);
@@ -588,13 +622,17 @@ test("Task 6 fusion verification keeps the Task 5 promotion binding checksum unc
   });
   assert.equal(task5.report.gates.baselineBindingsReady, true, JSON.stringify(task5.report.gates.bindingFailures));
   const fusionE2eRunnerArtifactPath = path.join(fixture.rootDir, "fusion-playwright.json");
-  writePlaywrightRunnerArtifact(fusionE2eRunnerArtifactPath, FUSION_IDS);
+  writeFusionPlaywrightRunnerArtifact(fusionE2eRunnerArtifactPath, FUSION_IDS);
   const fusionE2eReportPath = path.join(fixture.rootDir, "fusion-evidence.json");
   buildImageEmbeddingPromotionEvidence({
     ...commonEvidenceBuildOptions,
     outputPath: fusionE2eReportPath,
     fusionE2eRunnerArtifactPath,
     promotionBindingChecksum: task5.report.promotionBinding.promotionBindingChecksum,
+    fusionE2eCheck: (artifactPath) => {
+      writeFusionPlaywrightRunnerArtifact(artifactPath, FUSION_IDS);
+      return { command: "pnpm test:e2e:fusion", exitCode: 0 };
+    },
     preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
   });
 

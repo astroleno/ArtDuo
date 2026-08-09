@@ -24,7 +24,8 @@
     "lib/**/*.ts",
     "test/**/*.ts",
     "e2e/**/*.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    "playwright.image-scene-fusion.config.ts"
   ],
   "exclude": ["node_modules"]
 }

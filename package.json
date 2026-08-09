@@ -8,6 +8,7 @@
     "check:repo-hygiene": "node scripts/check-repository-hygiene.js",
     "test": "pnpm run check:repo-hygiene && pnpm -r test",
     "test:e2e": "pnpm --filter @artduo/web test:e2e",
+    "test:e2e:fusion": "pnpm --filter @artduo/web test:e2e:fusion",
     "preflight:check": "pnpm test && pnpm typecheck && pnpm build && pnpm test:e2e",
     "collect:met:test": "node scripts/collect/met-collect.js --test",
     "collect:met:phase": "node scripts/collect/met-collect.js --phase",

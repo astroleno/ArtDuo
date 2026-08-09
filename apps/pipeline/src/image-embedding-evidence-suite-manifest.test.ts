@@ -73,7 +73,15 @@ function createFixture(): { rootDir: string; anchorPath: string; sourcePath: str
     }),
     fusionE2e: buildImageEmbeddingEvidenceSuiteDescriptor({
       suiteType: "fusion-e2e",
-      suitePayload: { caseIds: fusionIds },
+      suitePayload: {
+        caseIds: fusionIds,
+        runner: {
+          suiteId: "fixture-fusion-e2e.v1",
+          configPath: "apps/web/e2e/thin-slice.spec.ts",
+          projectName: "fixture-fusion",
+          specPath: "apps/web/e2e/thin-slice.spec.ts",
+        },
+      },
       sourceFiles,
     }),
   };

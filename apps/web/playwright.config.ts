@@ -6,6 +6,7 @@ const galleryReadyURL = `${baseURL}/gallery?query=I+want+a+quiet+moonlit+room`;
 
 export default defineConfig({
   testDir: "./e2e",
+  testIgnore: "image-scene-fusion.spec.ts",
   fullyParallel: false,
   workers: 1,
   reporter: "list",

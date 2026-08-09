@@ -23,6 +23,7 @@
     "start": "next start",
     "test": "tsx --test test/**/*.test.ts",
     "test:e2e": "playwright test",
+    "test:e2e:fusion": "node scripts/run-image-scene-fusion-e2e.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   }
 }

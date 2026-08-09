@@ -78,7 +78,7 @@
     "e2e": {
       "schemaVersion": "image-embedding-evidence-suite.v2",
       "suiteType": "e2e",
-      "suiteChecksum": "sha256:31c023870f3f69990996d05cf0e36a85fbf1e400d01b58fc161d5a9acd61beb8",
+      "suiteChecksum": "sha256:694a8ff82b400af6817db771fe867b6642df3c5fd32a617667455f7c5df0478c",
       "sourceFiles": [
         { "path": "apps/web/e2e/browser-local-runtime.spec.ts", "checksum": "sha256:f0d64aa67bcf8f84576b989fe795942f6157f8545cf0b45c1f37024162e28628" },
         { "path": "apps/web/e2e/explanation-state.spec.ts", "checksum": "sha256:13acee029f5a708c6f769b7547b06237cb1a1b8334cfba6cbb7420df2111c068" },
@@ -86,7 +86,7 @@
         { "path": "apps/web/e2e/immersive-gallery.spec.ts", "checksum": "sha256:8d60da6a8b2fb5f9835b94f0eeda26ad7b834957740a99abde197e73778a976b" },
         { "path": "apps/web/e2e/phase1-states.spec.ts", "checksum": "sha256:f3488018e01d3d3463189759856cd22bec6a0c35e179772cf9080a3be670ce82" },
         { "path": "apps/web/e2e/thin-slice.spec.ts", "checksum": "sha256:49a9121ab1400760d8a1d574b77a38a465682cfe3645193eb18fcbf9f18ecc72" },
-        { "path": "apps/web/playwright.config.ts", "checksum": "sha256:e4c765aad30216493a943672b48f71439f5e478d85a74cef4b536761028dba7b" },
+        { "path": "apps/web/playwright.config.ts", "checksum": "sha256:4bd2f8c23995669f808fc977303b9ab2defcdb975aef7a67bf44b7d57ff27cd3" },
         { "path": "apps/web/scripts/playwright-web-server.mjs", "checksum": "sha256:219ed1179268dd0bb5e5b5739aa5eeb0fbb180e9e67dc766e91e0b2ac2e29021" }
       ],
       "baseline": {
@@ -113,9 +113,18 @@
     "fusionE2e": {
       "schemaVersion": "image-embedding-evidence-suite.v2",
       "suiteType": "fusion-e2e",
-      "suiteChecksum": "sha256:025b31313e575956b59715ff90f03ea686c65f6ec8a5daf8899ef56b03178297",
+      "suiteChecksum": "sha256:6a7833e008a9665260b703e473c65b96be2bcfad6be34fbf171ec07b89246539",
       "sourceFiles": [
-        { "path": "benchmarks/image-embedding-fusion-e2e-cases.json", "checksum": "sha256:193bf27695d0e2d518715030bfd72d2ff82e9ec53634a08e98075668993b3161" }
+        { "path": "apps/web/e2e/fixtures/image-scene-fusion-baseline.v1.json", "checksum": "sha256:a82ddaad7cd1fa7395afa25a32b6a79c72b3ca6309c35688cae510c76b9e2f93" },
+        { "path": "apps/web/e2e/image-scene-fusion.spec.ts", "checksum": "sha256:0ec5a9d51c5654d228d3c896350d830736780ba4d2ac34467c4dbad4dd7b82ab" },
+        { "path": "apps/web/package.json", "checksum": "sha256:2407a5bb2fed3c8682493ad147ee62046b3a4a3f17492e1788cfb13dffad5781" },
+        { "path": "apps/web/playwright.image-scene-fusion.config.ts", "checksum": "sha256:66f008a71e40d86fe2fb58ab00d382b75095a42958b133260f12598ed19744b1" },
+        { "path": "apps/web/scripts/playwright-web-server.mjs", "checksum": "sha256:219ed1179268dd0bb5e5b5739aa5eeb0fbb180e9e67dc766e91e0b2ac2e29021" },
+        { "path": "apps/web/scripts/run-image-scene-fusion-e2e.mjs", "checksum": "sha256:87b5282601f83c430173c02565068ff9d3b0bba437769e44963c773ae1c20245" },
+        { "path": "apps/web/test/lib/image-scene-fusion-fixture.test.ts", "checksum": "sha256:75d85098656de61a97350ff15babbbd18b040b69eedb868d395b075129738d8d" },
+        { "path": "apps/web/tsconfig.json", "checksum": "sha256:5af9467486448a062b402f1a73e19fe6d7496dd281f8ee8a3bb591505c91ee88" },
+        { "path": "benchmarks/image-embedding-fusion-e2e-cases.json", "checksum": "sha256:193bf27695d0e2d518715030bfd72d2ff82e9ec53634a08e98075668993b3161" },
+        { "path": "package.json", "checksum": "sha256:2ef4dcdc708459cf453f70be668425773bdf00a7b7ad2a026a7fbc9d05500b18" }
       ],
       "caseIds": [
         "image sidecar stays unread when fusion is disabled",
@@ -123,7 +132,13 @@
         "image sidecar checksum failures fall back to metadata scene order",
         "image sidecar reranks only bounded eligible scene candidates",
         "image sidecar loader meets parse and heap budgets"
-      ]
+      ],
+      "runner": {
+        "suiteId": "image-embedding-fusion-e2e.v1",
+        "configPath": "apps/web/playwright.image-scene-fusion.config.ts",
+        "projectName": "image-scene-fusion",
+        "specPath": "apps/web/e2e/image-scene-fusion.spec.ts"
+      }
     }
   }
 }

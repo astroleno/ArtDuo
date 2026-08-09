@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "image-scene-fusion-e2e-baseline.v1",
+  "query": "I want a quiet moonlit room",
+  "candidateLimit": 12,
+  "metadataArtworkIds": [
+    "met-247010",
+    "met-341487",
+    "met-12158",
+    "met-39346",
+    "met-38640",
+    "met-10065",
+    "met-38978",
+    "met-464607",
+    "met-474091",
+    "met-474436",
+    "met-39181",
+    "met-471179"
+  ],
+  "metadataSceneIds": ["bg-007", "bg-030", "bg-009"],
+  "fallbackReasons": ["manifest-not-found", "checksum-mismatch", "missing-entity", "timeout"],
+  "budgets": {
+    "parseAndIndexP95MillisecondsMaximum": 150,
+    "incrementalHeapBytesMaximum": 16777216
+  }
+}

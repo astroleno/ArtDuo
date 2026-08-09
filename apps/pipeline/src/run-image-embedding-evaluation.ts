@@ -29,6 +29,7 @@ import {
 import {
   parseImageEmbeddingA2aCaseSetRunnerArtifact,
   parseImageEmbeddingA2aReplayRunnerArtifact,
+  parseImageEmbeddingFusionPlaywrightRunnerArtifact,
   parseImageEmbeddingPlaywrightRunnerArtifact,
   parseImageEmbeddingTextBenchmarkRunnerArtifact,
   type ImageEmbeddingRunnerArtifactParseResult,
@@ -1091,7 +1092,7 @@ export async function runImageEmbeddingEvaluation(
   const fusionE2eRunnerArtifact = readRunnerArtifact(
     options.fusionE2eRunnerArtifactPath,
     "Fusion E2E",
-    parseImageEmbeddingPlaywrightRunnerArtifact,
+    parseImageEmbeddingFusionPlaywrightRunnerArtifact,
   );
   const parsedRunnerArtifacts = [
     textBenchmarkRunnerArtifact,

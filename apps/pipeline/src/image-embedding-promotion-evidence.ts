@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 
 import type {
   ImageEmbeddingEvidenceRunnerArtifacts,
+  ImageEmbeddingFusionPlaywrightRunnerBinding,
   ImageEmbeddingTextBenchmarkRunnerBinding,
   ImageEmbeddingTextBenchmarkRunnerResult,
 } from "./image-embedding-evidence-artifacts";
@@ -36,6 +37,11 @@ export interface ImageEmbeddingTextBenchmarkSuite extends ImageEmbeddingEvidence
   runner: ImageEmbeddingTextBenchmarkSuiteRunner;
 }
 
+export interface ImageEmbeddingFusionE2eSuite extends ImageEmbeddingEvidenceSuite {
+  suiteType: "fusion-e2e";
+  runner: ImageEmbeddingFusionPlaywrightRunnerBinding;
+}
+
 export interface ImageEmbeddingA2aCaseSetSuite {
   schemaVersion: "image-embedding-evidence-suite.v2";
   suiteType: "a2a-case-set";
@@ -67,7 +73,7 @@ export interface ImageEmbeddingEvidenceSuiteBindings {
     replay: ImageEmbeddingEvidenceSuite;
   };
   e2e: ImageEmbeddingE2eCaseSetSuite;
-  fusionE2e: ImageEmbeddingEvidenceSuite;
+  fusionE2e: ImageEmbeddingFusionE2eSuite;
 }
 
 export interface ImageEmbeddingEvidenceRunnerArtifactChecksums {
@@ -365,7 +371,7 @@ function validateCaseSetRegression(
 function parseSimpleSuite(
   value: unknown,
   label: string,
-  suiteType: "a2a-replay" | "fusion-e2e",
+  suiteType: "a2a-replay",
   expectedCaseCount?: number,
 ): {
   suite?: ImageEmbeddingEvidenceSuite;
@@ -391,6 +397,49 @@ function parseSimpleSuite(
       suiteChecksum: value.suiteChecksum,
       sourceFiles,
       caseIds,
+    },
+    reasons: [],
+  };
+}
+
+function parseFusionE2eSuite(value: unknown): {
+  suite?: ImageEmbeddingFusionE2eSuite;
+  reasons: string[];
+} {
+  if (!exactKeys(value, ["schemaVersion", "suiteType", "suiteChecksum", "sourceFiles", "caseIds", "runner"])
+    || !exactKeys(value.runner, ["suiteId", "configPath", "projectName", "specPath"])) {
+    return { reasons: ["Fusion E2E frozen suite schema is invalid."] };
+  }
+  const caseIds = uniqueStringArray(value.caseIds);
+  const sourceFiles = parseSuiteSourceFiles(value.sourceFiles);
+  const runner = value.runner;
+  if (!caseIds
+    || caseIds.length < MINIMUM_FUSION_E2E_CASE_COUNT
+    || !sourceFiles
+    || typeof runner.suiteId !== "string"
+    || !runner.suiteId.trim()
+    || typeof runner.configPath !== "string"
+    || !runner.configPath.trim()
+    || typeof runner.projectName !== "string"
+    || !runner.projectName.trim()
+    || typeof runner.specPath !== "string"
+    || !runner.specPath.trim()
+    || !sourceFiles.some((sourceFile) => sourceFile.path === runner.configPath)
+    || !sourceFiles.some((sourceFile) => sourceFile.path === runner.specPath)) {
+    return { reasons: ["Fusion E2E frozen suite contents are invalid or detached from its executable sources."] };
+  }
+  const runnerBinding = runner as unknown as ImageEmbeddingFusionPlaywrightRunnerBinding;
+  if (!suiteChecksumMatches(value, "fusion-e2e", { caseIds, runner: runnerBinding }, sourceFiles)) {
+    return { reasons: ["Fusion E2E frozen suite checksum does not match its canonical manifest."] };
+  }
+  return {
+    suite: {
+      schemaVersion: EVIDENCE_SUITE_SCHEMA,
+      suiteType: "fusion-e2e",
+      suiteChecksum: value.suiteChecksum,
+      sourceFiles,
+      caseIds,
+      runner: runnerBinding,
     },
     reasons: [],
   };
@@ -539,7 +588,7 @@ export function parseImageEmbeddingEvidenceSuiteBindings(value: unknown): ImageE
   const a2aCaseSet = parseA2aCaseSetSuite(value.a2a.caseSet);
   const a2aReplay = parseSimpleSuite(value.a2a.replay, "A2A replay", "a2a-replay", A2A_REPLAY_CASE_COUNT);
   const e2e = parseE2eCaseSetSuite(value.e2e);
-  const fusionE2e = parseSimpleSuite(value.fusionE2e, "Fusion E2E", "fusion-e2e");
+  const fusionE2e = parseFusionE2eSuite(value.fusionE2e);
   const reasons = [
     ...textBenchmark.reasons,
     ...a2aCaseSet.reasons,
@@ -712,6 +761,28 @@ function validateTextRunnerBinding(
     reasons.push("Text benchmark evidence runner binding does not match the raw benchmark artifact.");
   }
   return reasons;
+}
+
+function parseFusionRunnerBinding(value: unknown): ImageEmbeddingFusionPlaywrightRunnerBinding | undefined {
+  if (!exactKeys(value, ["suiteId", "configPath", "projectName", "specPath"])) {
+    return undefined;
+  }
+  for (const field of ["suiteId", "configPath", "projectName", "specPath"] as const) {
+    if (typeof value[field] !== "string" || !value[field].trim()) {
+      return undefined;
+    }
+  }
+  return value as unknown as ImageEmbeddingFusionPlaywrightRunnerBinding;
+}
+
+function sameFusionRunnerBinding(
+  left: ImageEmbeddingFusionPlaywrightRunnerBinding,
+  right: ImageEmbeddingFusionPlaywrightRunnerBinding,
+): boolean {
+  return left.suiteId === right.suiteId
+    && left.configPath === right.configPath
+    && left.projectName === right.projectName
+    && left.specPath === right.specPath;
 }
 
 function validatePreflightBinding(
@@ -981,6 +1052,7 @@ export function validateImageEmbeddingFusionE2eEvidence(
     "runnerArtifactChecksum",
     "promotionBindingChecksum",
     "preflight",
+    "runnerBinding",
     "targetedE2e",
   ])) {
     return validation([...reasons, "Fusion E2E evidence contains unsupported fields."]);
@@ -998,6 +1070,17 @@ export function validateImageEmbeddingFusionE2eEvidence(
     reasons.push("Fusion E2E evidence does not bind to this promotion decision.");
   }
   reasons.push(...validatePreflightBinding(evidence.preflight, context, "Fusion E2E"));
+  const runnerBinding = parseFusionRunnerBinding(evidence.runnerBinding);
+  const frozenRunnerBinding = context.evidenceSuites?.fusionE2e.runner;
+  const rawRunnerBinding = context.runnerArtifacts?.fusionE2e?.runnerBinding;
+  if (!runnerBinding) {
+    reasons.push("Fusion E2E runner binding schema is invalid.");
+  } else if (!frozenRunnerBinding
+    || !rawRunnerBinding
+    || !sameFusionRunnerBinding(runnerBinding, frozenRunnerBinding)
+    || !sameFusionRunnerBinding(runnerBinding, rawRunnerBinding)) {
+    reasons.push("Fusion E2E runner binding does not match the frozen suite and raw Playwright artifact.");
+  }
   if (!exactKeys(evidence.targetedE2e, ["expectedCaseIds", "passedCaseIds", "failedCaseIds", "skippedCaseIds"])) {
     return validation([...reasons, "Fusion E2E targeted result schema is invalid."]);
   }

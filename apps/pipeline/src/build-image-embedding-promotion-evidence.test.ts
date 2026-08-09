@@ -30,6 +30,12 @@ const TEXT_RUNNER = {
   dimensions: 256,
   limit: 10,
 };
+const FUSION_RUNNER = {
+  suiteId: "image-embedding-fusion-e2e.v1",
+  configPath: "apps/web/playwright.image-scene-fusion.config.ts",
+  projectName: "image-scene-fusion",
+  specPath: "apps/web/e2e/image-scene-fusion.spec.ts",
+};
 
 function checksum(value: string | Uint8Array): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
@@ -77,7 +83,7 @@ function frozenEvidenceSuites(sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile
     }),
     fusionE2e: buildImageEmbeddingEvidenceSuiteDescriptor({
       suiteType: "fusion-e2e",
-      suitePayload: { caseIds: FUSION_IDS },
+      suitePayload: { caseIds: FUSION_IDS, runner: FUSION_RUNNER },
       sourceFiles,
     }),
   };
@@ -100,9 +106,17 @@ function createFixture(): {
   const promptsPath = path.join(rootDir, TEXT_RUNNER.promptsPath);
   mkdirSync(path.dirname(promptsPath), { recursive: true });
   writeJson(promptsPath, TEXT_IDS.map((id) => ({ id })));
+  const fusionConfigPath = path.join(rootDir, FUSION_RUNNER.configPath);
+  const fusionSpecPath = path.join(rootDir, FUSION_RUNNER.specPath);
+  mkdirSync(path.dirname(fusionConfigPath), { recursive: true });
+  mkdirSync(path.dirname(fusionSpecPath), { recursive: true });
+  writeFileSync(fusionConfigPath, "export default { project: 'image-scene-fusion' };\n");
+  writeFileSync(fusionSpecPath, "test('frozen fusion suite', () => {});\n");
   const suiteSourcePath = path.join(rootDir, "evidence-suite-source.txt");
   writeFileSync(suiteSourcePath, "frozen suite source\n");
   const suites = frozenEvidenceSuites([
+    { path: FUSION_RUNNER.specPath, checksum: checksum(readFileSync(fusionSpecPath)) },
+    { path: FUSION_RUNNER.configPath, checksum: checksum(readFileSync(fusionConfigPath)) },
     { path: TEXT_RUNNER.promptsPath, checksum: checksum(readFileSync(promptsPath)) },
     { path: "evidence-suite-source.txt", checksum: checksum(readFileSync(suiteSourcePath)) },
   ]);
@@ -145,6 +159,34 @@ function createFixture(): {
   return { rootDir, manifestPath, anchorPath, textRunnerPath, fusionRunnerPath };
 }
 
+function writeFusionRunnerArtifact(filePath: string): void {
+  writeJson(filePath, {
+    config: {
+      configFile: path.join("/repo", FUSION_RUNNER.configPath),
+      metadata: {
+        imageEmbeddingEvidenceSuiteId: FUSION_RUNNER.suiteId,
+        imageEmbeddingEvidenceConfigPath: FUSION_RUNNER.configPath,
+        imageEmbeddingEvidenceProjectName: FUSION_RUNNER.projectName,
+        imageEmbeddingEvidenceSpecPath: FUSION_RUNNER.specPath,
+      },
+      projects: [{ id: FUSION_RUNNER.projectName, name: FUSION_RUNNER.projectName }],
+    },
+    suites: [{
+      title: path.basename(FUSION_RUNNER.specPath),
+      file: path.basename(FUSION_RUNNER.specPath),
+      specs: FUSION_IDS.map((id) => ({
+        title: id,
+        file: path.basename(FUSION_RUNNER.specPath),
+        tests: [{
+          projectId: FUSION_RUNNER.projectName,
+          projectName: FUSION_RUNNER.projectName,
+          results: [{ status: "passed" }],
+        }],
+      })),
+    }],
+  });
+}
+
 test("promotion evidence producer emits a text envelope recomputed from the raw benchmark", () => {
   const fixture = createFixture();
   const outputPath = path.join(fixture.rootDir, "text-evidence.json");
@@ -176,6 +218,7 @@ test("promotion evidence producer normalizes raw Playwright fusion output instea
   const fixture = createFixture();
   const outputPath = path.join(fixture.rootDir, "fusion-evidence.json");
   const promotionBindingChecksum = checksum("task-5-promotion-binding");
+  let fixedSuiteRuns = 0;
 
   const result = buildImageEmbeddingPromotionEvidence({
     rootDir: fixture.rootDir,
@@ -185,6 +228,11 @@ test("promotion evidence producer normalizes raw Playwright fusion output instea
     outputPath,
     fusionE2eRunnerArtifactPath: fixture.fusionRunnerPath,
     promotionBindingChecksum,
+    fusionE2eCheck: (artifactPath) => {
+      fixedSuiteRuns += 1;
+      writeFusionRunnerArtifact(artifactPath);
+      return { command: "pnpm test:e2e:fusion", exitCode: 0 };
+    },
     preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
   });
 
@@ -195,6 +243,7 @@ test("promotion evidence producer normalizes raw Playwright fusion output instea
     targetedE2e: { passedCaseIds: string[]; failedCaseIds: string[] };
   };
   assert.equal(result.kind, "fusion-e2e");
+  assert.equal(fixedSuiteRuns, 1);
   assert.equal(envelope.schemaVersion, "image-embedding-fusion-e2e-evidence.v2");
   assert.equal(envelope.runnerArtifactChecksum, checksum(readFileSync(fixture.fusionRunnerPath)));
   assert.equal(envelope.promotionBindingChecksum, promotionBindingChecksum);

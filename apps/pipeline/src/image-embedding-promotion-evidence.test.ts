@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
+import path from "node:path";
 import { test } from "node:test";
 
 import {
   parseImageEmbeddingA2aCaseSetRunnerArtifact,
   parseImageEmbeddingA2aReplayRunnerArtifact,
+  parseImageEmbeddingFusionPlaywrightRunnerArtifact,
   parseImageEmbeddingPlaywrightRunnerArtifact,
   parseImageEmbeddingTextBenchmarkRunnerArtifact,
 } from "./image-embedding-evidence-artifacts";
@@ -31,6 +33,8 @@ const e2eIds = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1)
 const fusionIds = Array.from({ length: 5 }, (_, index) => `fusion-${String(index + 1).padStart(2, "0")}`);
 const frozenPromptChecksum = checksum("frozen-vector-prompts");
 const sourceFiles = [
+  { path: "apps/web/e2e/image-scene-fusion.spec.ts", checksum: checksum("fusion-spec") },
+  { path: "apps/web/playwright.image-scene-fusion.config.ts", checksum: checksum("fusion-config") },
   { path: "benchmarks/vector-promotion-prompts.json", checksum: frozenPromptChecksum },
   { path: "test/evidence-suite-source.ts", checksum: checksum("suite-source") },
 ];
@@ -43,6 +47,12 @@ const textRunnerBinding = {
   model: "local-hash-embedding-v1",
   dimensions: 256,
   limit: 10,
+};
+const fusionRunnerBinding = {
+  suiteId: "image-embedding-fusion-e2e.v1",
+  configPath: "apps/web/playwright.image-scene-fusion.config.ts",
+  projectName: "image-scene-fusion",
+  specPath: "apps/web/e2e/image-scene-fusion.spec.ts",
 };
 
 const evidenceSuites = {
@@ -70,7 +80,7 @@ const evidenceSuites = {
   }),
   fusionE2e: buildImageEmbeddingEvidenceSuiteDescriptor({
     suiteType: "fusion-e2e",
-    suitePayload: { caseIds: fusionIds },
+    suitePayload: { caseIds: fusionIds, runner: fusionRunnerBinding },
     sourceFiles,
   }),
 };
@@ -90,6 +100,34 @@ function playwrightRunnerArtifact(caseIds: string[], failedIds: string[] = []): 
       specs: caseIds.map((id) => ({
         title: id,
         tests: [{
+          results: [{ status: failedIds.includes(id) ? "failed" : "passed" }],
+        }],
+      })),
+    }],
+  };
+}
+
+function fusionPlaywrightRunnerArtifact(caseIds: string[], failedIds: string[] = []): object {
+  return {
+    config: {
+      configFile: `/repo/${fusionRunnerBinding.configPath}`,
+      metadata: {
+        imageEmbeddingEvidenceSuiteId: fusionRunnerBinding.suiteId,
+        imageEmbeddingEvidenceConfigPath: fusionRunnerBinding.configPath,
+        imageEmbeddingEvidenceProjectName: fusionRunnerBinding.projectName,
+        imageEmbeddingEvidenceSpecPath: fusionRunnerBinding.specPath,
+      },
+      projects: [{ id: fusionRunnerBinding.projectName, name: fusionRunnerBinding.projectName }],
+    },
+    suites: [{
+      title: path.basename(fusionRunnerBinding.specPath),
+      file: path.basename(fusionRunnerBinding.specPath),
+      specs: caseIds.map((id) => ({
+        title: id,
+        file: path.basename(fusionRunnerBinding.specPath),
+        tests: [{
+          projectId: fusionRunnerBinding.projectName,
+          projectName: fusionRunnerBinding.projectName,
           results: [{ status: failedIds.includes(id) ? "failed" : "passed" }],
         }],
       })),
@@ -133,7 +171,7 @@ const rawRunnerArtifacts = {
     output: { curveMetrics: { hardResistanceViolations: 0 } },
   })),
   e2e: playwrightRunnerArtifact(e2eIds),
-  fusionE2e: playwrightRunnerArtifact(fusionIds),
+  fusionE2e: fusionPlaywrightRunnerArtifact(fusionIds),
 };
 
 const runnerArtifacts = {
@@ -141,7 +179,7 @@ const runnerArtifacts = {
   a2aCaseSet: parseImageEmbeddingA2aCaseSetRunnerArtifact(rawRunnerArtifacts.a2aCaseSet).artifact!,
   a2aReplay: parseImageEmbeddingA2aReplayRunnerArtifact(rawRunnerArtifacts.a2aReplay).artifact!,
   e2e: parseImageEmbeddingPlaywrightRunnerArtifact(rawRunnerArtifacts.e2e).artifact!,
-  fusionE2e: parseImageEmbeddingPlaywrightRunnerArtifact(rawRunnerArtifacts.fusionE2e).artifact!,
+  fusionE2e: parseImageEmbeddingFusionPlaywrightRunnerArtifact(rawRunnerArtifacts.fusionE2e).artifact!,
 };
 
 const context = {
@@ -183,6 +221,16 @@ test("text benchmark parser preserves the frozen input and runtime binding", () 
     manifestChecksum: checksum("manifest"),
     promptsChecksum: frozenPromptChecksum,
   });
+});
+
+test("fusion Playwright parser requires the frozen config, project, spec, and suite metadata", () => {
+  const parsed = parseImageEmbeddingFusionPlaywrightRunnerArtifact(rawRunnerArtifacts.fusionE2e);
+  assert.deepEqual(parsed.reasons, []);
+  assert.deepEqual(parsed.artifact?.runnerBinding, fusionRunnerBinding);
+
+  const titleOnlyForgery = parseImageEmbeddingFusionPlaywrightRunnerArtifact(playwrightRunnerArtifact(fusionIds));
+  assert.equal(titleOnlyForgery.artifact, undefined);
+  assert.ok(titleOnlyForgery.reasons.some((reason) => /config|project|spec|suite/i.test(reason)));
 });
 const binding = {
   releaseVersion: context.releaseVersion,
@@ -256,6 +304,7 @@ function passingFusionEvidence(): object {
     runnerArtifactChecksum: runnerArtifactChecksums.fusionE2e,
     promotionBindingChecksum: checksum("promotion-binding"),
     preflight: { command: "pnpm preflight:check", exitCode: 0 },
+    runnerBinding: fusionRunnerBinding,
     targetedE2e: {
       expectedCaseIds: fusionIds,
       passedCaseIds: fusionIds,
@@ -463,7 +512,7 @@ test("promotion evidence rejects forged E2E and fusion passes when raw Playwrigh
     ...context,
     runnerArtifacts: { ...runnerArtifacts, e2e },
   }).valid, false);
-  const fusionE2e = parseImageEmbeddingPlaywrightRunnerArtifact(playwrightRunnerArtifact(fusionIds, [fusionIds[0]!])).artifact!;
+  const fusionE2e = parseImageEmbeddingFusionPlaywrightRunnerArtifact(fusionPlaywrightRunnerArtifact(fusionIds, [fusionIds[0]!])).artifact!;
   assert.equal(validateImageEmbeddingFusionE2eEvidence(passingFusionEvidence(), {
     ...context,
     runnerArtifacts: { ...runnerArtifacts, fusionE2e },

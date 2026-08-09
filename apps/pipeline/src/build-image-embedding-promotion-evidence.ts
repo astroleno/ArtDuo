@@ -6,6 +6,7 @@ import path from "node:path";
 import {
   parseImageEmbeddingA2aCaseSetRunnerArtifact,
   parseImageEmbeddingA2aReplayRunnerArtifact,
+  parseImageEmbeddingFusionPlaywrightRunnerArtifact,
   parseImageEmbeddingPlaywrightRunnerArtifact,
   parseImageEmbeddingTextBenchmarkRunnerArtifact,
   type ImageEmbeddingEvidenceRunnerArtifacts,
@@ -42,6 +43,8 @@ export interface ImageEmbeddingPromotionEvidenceBuildOptions {
   promotionBindingChecksum?: string;
   /** Internal test seam; the production CLI executes the preflight command itself. */
   preflightCheck?: () => ImageEmbeddingEvidencePreflight;
+  /** Internal test seam; the production CLI executes the frozen Fusion E2E suite itself. */
+  fusionE2eCheck?: (artifactPath: string) => { command: "pnpm test:e2e:fusion"; exitCode: number };
 }
 
 export interface ImageEmbeddingPromotionEvidenceBuildResult {
@@ -181,6 +184,22 @@ function runPreflight(rootDir: string): ImageEmbeddingEvidencePreflight {
   });
   return {
     command: "pnpm preflight:check",
+    exitCode: typeof result.status === "number" ? result.status : 1,
+  };
+}
+
+function runFusionE2e(rootDir: string, artifactPath: string): { command: "pnpm test:e2e:fusion"; exitCode: number } {
+  const result = spawnSync("pnpm", ["test:e2e:fusion"], {
+    cwd: rootDir,
+    env: {
+      ...process.env,
+      CI: "1",
+      PLAYWRIGHT_JSON_OUTPUT_FILE: artifactPath,
+    },
+    stdio: "inherit",
+  });
+  return {
+    command: "pnpm test:e2e:fusion",
     exitCode: typeof result.status === "number" ? result.status : 1,
   };
 }
@@ -351,10 +370,21 @@ export function buildImageEmbeddingPromotionEvidence(
       },
     };
   } else {
+    const fusionArtifactPath = path.resolve(options.fusionE2eRunnerArtifactPath!);
+    mkdirSync(path.dirname(fusionArtifactPath), { recursive: true });
+    try {
+      unlinkSync(fusionArtifactPath);
+    } catch {
+      // A prior or forged artifact is optional; the frozen runner must create a fresh one.
+    }
+    const fusionRun = options.fusionE2eCheck?.(fusionArtifactPath) ?? runFusionE2e(rootDir, fusionArtifactPath);
+    if (fusionRun.command !== "pnpm test:e2e:fusion" || fusionRun.exitCode !== 0) {
+      throw new TypeError("Fusion E2E evidence requires a successful fresh run of pnpm test:e2e:fusion.");
+    }
     const raw = readRunnerArtifact(
-      options.fusionE2eRunnerArtifactPath!,
+      fusionArtifactPath,
       "Fusion E2E",
-      parseImageEmbeddingPlaywrightRunnerArtifact,
+      parseImageEmbeddingFusionPlaywrightRunnerArtifact,
     );
     const preflight = options.preflightCheck?.() ?? runPreflight(rootDir);
     runnerArtifactChecksums.fusionE2e = raw.checksum;
@@ -368,6 +398,7 @@ export function buildImageEmbeddingPromotionEvidence(
       runnerArtifactChecksum: raw.checksum,
       promotionBindingChecksum: options.promotionBindingChecksum,
       preflight,
+      runnerBinding: raw.artifact.runnerBinding,
       targetedE2e: {
         expectedCaseIds: evidenceSuites.fusionE2e.caseIds,
         passedCaseIds: raw.artifact.candidate.passIds,
