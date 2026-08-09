@@ -289,6 +289,7 @@ export function buildImageEmbeddingPromotionEvidence(
       ...binding,
       suiteChecksum: evidenceSuites.textBenchmark.suiteChecksum,
       runnerArtifactChecksum: raw.checksum,
+      runnerBinding: raw.artifact.runnerBinding,
       vectorBenchmark: {
         promptCount: raw.artifact.results.length,
         rerankTop1HitRate: top1Hits / raw.artifact.results.length,

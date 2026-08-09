@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
@@ -32,6 +33,18 @@ function readPrompts(filePath: string): VectorBenchmarkPrompt[] {
   return JSON.parse(readFileSync(filePath, "utf8")) as VectorBenchmarkPrompt[];
 }
 
+function sha256Checksum(bytes: Uint8Array): `sha256:${string}` {
+  return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+}
+
+function repositoryRelativePath(rootDir: string, filePath: string, label: string): string {
+  const relative = path.relative(rootDir, path.resolve(filePath));
+  if (!relative || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
+    throw new TypeError(`${label} must be inside the repository root.`);
+  }
+  return relative.split(path.sep).join("/");
+}
+
 function writeJsonFile(filePath: string, data: unknown): void {
   mkdirSync(path.dirname(filePath), { recursive: true });
   writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`);
@@ -49,21 +62,25 @@ async function main(): Promise<void> {
   const promptsPath = options.promptsPath ?? resolveDefaultPromptsPath(rootDir);
   const outputPath = options.outputPath ?? resolveDefaultOutputPath(rootDir, loaded.releaseVersion);
   const prompts = readPrompts(promptsPath);
+  const limit = options.limit ?? 10;
   const runtime = resolveEmbeddingRuntime({
     ...readEmbeddingRuntimeCliOptions(),
     rootDir,
   });
   const benchmark = await runVectorBenchmarkWithProvider(prompts, loaded.records, {
-    limit: options.limit,
+    limit,
     embeddingProvider: runtime.provider,
   });
   const payload = {
     releaseVersion: loaded.releaseVersion,
-    manifestPath: loaded.manifestPath,
-    promptsPath,
+    manifestPath: repositoryRelativePath(rootDir, loaded.manifestPath, "Vector benchmark manifest"),
+    manifestChecksum: sha256Checksum(readFileSync(loaded.manifestPath)),
+    promptsPath: repositoryRelativePath(rootDir, promptsPath, "Vector benchmark prompts"),
+    promptsChecksum: sha256Checksum(readFileSync(promptsPath)),
     generatedAt: new Date().toISOString(),
     requestedProviderMode: runtime.requestedProviderMode,
     configuredProviderMode: runtime.summary.configuredProviderMode,
+    limit,
     ...benchmark,
   };
 

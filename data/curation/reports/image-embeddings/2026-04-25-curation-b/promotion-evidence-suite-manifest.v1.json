@@ -5,9 +5,9 @@
     "textBenchmark": {
       "schemaVersion": "image-embedding-evidence-suite.v2",
       "suiteType": "text-benchmark",
-      "suiteChecksum": "sha256:e4b94e018ca03ea41373ee7de874b0b5830f6f8638a5f0b7ae97a19ff5b7296b",
+      "suiteChecksum": "sha256:559d73a3906d7fd98fc2c6060e75d2f173ee863fa62a2fa2cbbd7922b361057b",
       "sourceFiles": [
-        { "path": "apps/pipeline/src/run-vector-benchmark.ts", "checksum": "sha256:8948d0e82344efe900026ecb5eb70beeba5d2eac09143492e13330f8e2a0b436" },
+        { "path": "apps/pipeline/src/run-vector-benchmark.ts", "checksum": "sha256:0589de81e0f3b6e2f9ebe6a529a4eda71e2e7303814a3d07d2bb9a9f02a30180" },
         { "path": "benchmarks/vector-promotion-prompts.json", "checksum": "sha256:3af26c8b133e027eab4e53eb44ce45e7c5c18ed85c4515189726d93a9194766a" },
         { "path": "packages/corpus/src/vector-benchmark.ts", "checksum": "sha256:2bc4324c26c47068b1c5ce3f1253e149a0700054a17e187bcefb9e8f33ad7775" }
       ],
@@ -20,7 +20,17 @@
         "mystery-direct-01", "mystery-metaphor-01", "mystery-zhmix-01",
         "serenity-direct-01", "serenity-metaphor-01", "serenity-zhmix-01",
         "wonder-direct-01", "wonder-metaphor-01", "wonder-zhmix-01"
-      ]
+      ],
+      "runner": {
+        "manifestPath": "data/releases/2026-04-25-curation-b/manifest.json",
+        "promptsPath": "benchmarks/vector-promotion-prompts.json",
+        "requestedProviderMode": "local-hash",
+        "configuredProviderMode": "local-hash",
+        "provider": "local-hash",
+        "model": "local-hash-embedding-v1",
+        "dimensions": 256,
+        "limit": 10
+      }
     },
     "a2a": {
       "caseSet": {

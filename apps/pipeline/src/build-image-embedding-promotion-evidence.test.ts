@@ -20,6 +20,16 @@ const A2A_BLOCKED_IDS = Array.from({ length: 5 }, (_, index) => `a2a-blocked-${S
 const A2A_REPLAY_IDS = Array.from({ length: 50 }, (_, index) => `a2a-replay-${String(index + 1).padStart(2, "0")}`);
 const E2E_IDS = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
 const FUSION_IDS = Array.from({ length: 5 }, (_, index) => `fusion-${String(index + 1).padStart(2, "0")}`);
+const TEXT_RUNNER = {
+  manifestPath: `data/releases/${RELEASE_VERSION}/manifest.json`,
+  promptsPath: "benchmarks/vector-promotion-prompts.json",
+  requestedProviderMode: "local-hash",
+  configuredProviderMode: "local-hash",
+  provider: "local-hash",
+  model: "local-hash-embedding-v1",
+  dimensions: 256,
+  limit: 10,
+};
 
 function checksum(value: string | Uint8Array): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
@@ -45,7 +55,7 @@ function frozenEvidenceSuites(sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile
   return {
     textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
       suiteType: "text-benchmark",
-      suitePayload: { caseIds: TEXT_IDS },
+      suitePayload: { caseIds: TEXT_IDS, runner: TEXT_RUNNER },
       sourceFiles,
     }),
     a2a: {
@@ -87,9 +97,15 @@ function createFixture(): {
   mkdirSync(reportDir, { recursive: true });
   const manifestPath = path.join(releaseDir, "manifest.json");
   writeJson(manifestPath, { release: { corpusVersion: RELEASE_VERSION } });
+  const promptsPath = path.join(rootDir, TEXT_RUNNER.promptsPath);
+  mkdirSync(path.dirname(promptsPath), { recursive: true });
+  writeJson(promptsPath, TEXT_IDS.map((id) => ({ id })));
   const suiteSourcePath = path.join(rootDir, "evidence-suite-source.txt");
   writeFileSync(suiteSourcePath, "frozen suite source\n");
-  const suites = frozenEvidenceSuites([{ path: "evidence-suite-source.txt", checksum: checksum(readFileSync(suiteSourcePath)) }]);
+  const suites = frozenEvidenceSuites([
+    { path: TEXT_RUNNER.promptsPath, checksum: checksum(readFileSync(promptsPath)) },
+    { path: "evidence-suite-source.txt", checksum: checksum(readFileSync(suiteSourcePath)) },
+  ]);
   const suiteManifestPath = path.join(reportDir, "promotion-evidence-suite-manifest.v1.json");
   writeJson(suiteManifestPath, {
     schemaVersion: "image-embedding-evidence-suite-manifest.v1",
@@ -111,6 +127,9 @@ function createFixture(): {
   const textRunnerPath = path.join(rootDir, "text-runner.json");
   writeJson(textRunnerPath, {
     releaseVersion: RELEASE_VERSION,
+    ...TEXT_RUNNER,
+    manifestChecksum: checksum(readFileSync(manifestPath)),
+    promptsChecksum: checksum(readFileSync(promptsPath)),
     promptCount: TEXT_IDS.length,
     rerankTop1HitRate: 23 / 24,
     rerankTop5HitRate: 1,
@@ -142,11 +161,14 @@ test("promotion evidence producer emits a text envelope recomputed from the raw 
   const envelope = JSON.parse(readFileSync(outputPath, "utf8")) as {
     schemaVersion: string;
     runnerArtifactChecksum: string;
+    runnerBinding: { promptsChecksum: string; manifestChecksum: string };
     vectorBenchmark: { results: Array<{ id: string; rerankTop1Hit: boolean }> };
   };
   assert.equal(result.kind, "text-benchmark");
   assert.equal(envelope.schemaVersion, "image-embedding-text-benchmark-evidence.v2");
   assert.equal(envelope.runnerArtifactChecksum, checksum(readFileSync(fixture.textRunnerPath)));
+  assert.equal(envelope.runnerBinding.promptsChecksum, checksum(readFileSync(path.join(fixture.rootDir, TEXT_RUNNER.promptsPath))));
+  assert.equal(envelope.runnerBinding.manifestChecksum, checksum(readFileSync(fixture.manifestPath)));
   assert.equal(envelope.vectorBenchmark.results.filter((row) => row.rerankTop1Hit).length, 23);
 });
 

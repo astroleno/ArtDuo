@@ -29,12 +29,26 @@ const a2aBlockedIds = Array.from({ length: 5 }, (_, index) => `a2a-blocked-${Str
 const a2aReplayIds = Array.from({ length: 50 }, (_, index) => `a2a-replay-${String(index + 1).padStart(2, "0")}`);
 const e2eIds = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
 const fusionIds = Array.from({ length: 5 }, (_, index) => `fusion-${String(index + 1).padStart(2, "0")}`);
-const sourceFiles = [{ path: "test/evidence-suite-source.ts", checksum: checksum("suite-source") }];
+const frozenPromptChecksum = checksum("frozen-vector-prompts");
+const sourceFiles = [
+  { path: "benchmarks/vector-promotion-prompts.json", checksum: frozenPromptChecksum },
+  { path: "test/evidence-suite-source.ts", checksum: checksum("suite-source") },
+];
+const textRunnerBinding = {
+  manifestPath: "data/releases/promotion-evidence-test/manifest.json",
+  promptsPath: "benchmarks/vector-promotion-prompts.json",
+  requestedProviderMode: "local-hash",
+  configuredProviderMode: "local-hash",
+  provider: "local-hash",
+  model: "local-hash-embedding-v1",
+  dimensions: 256,
+  limit: 10,
+};
 
 const evidenceSuites = {
   textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
     suiteType: "text-benchmark",
-    suitePayload: { caseIds: textPromptIds },
+    suitePayload: { caseIds: textPromptIds, runner: textRunnerBinding },
     sourceFiles,
   }),
   a2a: {
@@ -86,6 +100,16 @@ function playwrightRunnerArtifact(caseIds: string[], failedIds: string[] = []): 
 const rawRunnerArtifacts = {
   textBenchmark: {
     releaseVersion: "promotion-evidence-test",
+    manifestPath: textRunnerBinding.manifestPath,
+    manifestChecksum: checksum("manifest"),
+    promptsPath: textRunnerBinding.promptsPath,
+    promptsChecksum: frozenPromptChecksum,
+    requestedProviderMode: textRunnerBinding.requestedProviderMode,
+    configuredProviderMode: textRunnerBinding.configuredProviderMode,
+    provider: textRunnerBinding.provider,
+    model: textRunnerBinding.model,
+    dimensions: textRunnerBinding.dimensions,
+    limit: textRunnerBinding.limit,
     promptCount: 24,
     rerankTop1HitRate: 23 / 24,
     rerankTop5HitRate: 1,
@@ -149,6 +173,17 @@ test("frozen suite parser recomputes the canonical checksum after case content c
   assert.equal(parsed.bindings, undefined);
   assert.ok(parsed.reasons.some((reason) => /checksum does not match its canonical manifest/i.test(reason)));
 });
+
+test("text benchmark parser preserves the frozen input and runtime binding", () => {
+  const parsed = parseImageEmbeddingTextBenchmarkRunnerArtifact(rawRunnerArtifacts.textBenchmark);
+
+  assert.deepEqual(parsed.reasons, []);
+  assert.deepEqual(parsed.artifact?.runnerBinding, {
+    ...textRunnerBinding,
+    manifestChecksum: checksum("manifest"),
+    promptsChecksum: frozenPromptChecksum,
+  });
+});
 const binding = {
   releaseVersion: context.releaseVersion,
   baseManifestChecksum: context.baseManifestChecksum,
@@ -161,6 +196,11 @@ function passingTextEvidence(): object {
     ...binding,
     suiteChecksum: evidenceSuites.textBenchmark.suiteChecksum,
     runnerArtifactChecksum: runnerArtifactChecksums.textBenchmark,
+    runnerBinding: {
+      ...textRunnerBinding,
+      manifestChecksum: checksum("manifest"),
+      promptsChecksum: frozenPromptChecksum,
+    },
     vectorBenchmark: {
       promptCount: 24,
       rerankTop1HitRate: 23 / 24,
@@ -365,6 +405,30 @@ test("promotion evidence rejects a forged text pass envelope when the raw benchm
     ...context,
     runnerArtifacts: { ...runnerArtifacts, textBenchmark },
   }).valid, false);
+});
+
+test("promotion evidence rejects a text benchmark produced from substituted inputs or runtime settings", () => {
+  const mutations: Array<[string, unknown]> = [
+    ["promptsPath", "benchmarks/easier-prompts.json"],
+    ["promptsChecksum", checksum("replacement-prompts")],
+    ["manifestPath", "data/releases/another/manifest.json"],
+    ["manifestChecksum", checksum("replacement-manifest")],
+    ["provider", "remote-provider"],
+    ["model", "different-model"],
+    ["dimensions", 128],
+    ["limit", 100],
+  ];
+
+  for (const [field, value] of mutations) {
+    const rawText = structuredClone(rawRunnerArtifacts.textBenchmark) as Record<string, unknown>;
+    rawText[field] = value;
+    const textBenchmark = parseImageEmbeddingTextBenchmarkRunnerArtifact(rawText).artifact!;
+    const result = validateImageEmbeddingTextBenchmarkEvidence(passingTextEvidence(), {
+      ...context,
+      runnerArtifacts: { ...runnerArtifacts, textBenchmark },
+    });
+    assert.equal(result.valid, false, `${field} substitution must fail closed`);
+  }
 });
 
 test("promotion evidence rejects a forged A2A pass envelope when the raw harness regresses a pass", () => {

@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 
 import type {
   ImageEmbeddingEvidenceRunnerArtifacts,
+  ImageEmbeddingTextBenchmarkRunnerBinding,
   ImageEmbeddingTextBenchmarkRunnerResult,
 } from "./image-embedding-evidence-artifacts";
 
@@ -17,6 +18,22 @@ export interface ImageEmbeddingEvidenceSuite {
   suiteChecksum: string;
   sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[];
   caseIds: string[];
+}
+
+export interface ImageEmbeddingTextBenchmarkSuiteRunner {
+  manifestPath: string;
+  promptsPath: string;
+  requestedProviderMode: string;
+  configuredProviderMode: string;
+  provider: string;
+  model: string;
+  dimensions: number;
+  limit: number;
+}
+
+export interface ImageEmbeddingTextBenchmarkSuite extends ImageEmbeddingEvidenceSuite {
+  suiteType: "text-benchmark";
+  runner: ImageEmbeddingTextBenchmarkSuiteRunner;
 }
 
 export interface ImageEmbeddingA2aCaseSetSuite {
@@ -44,7 +61,7 @@ export interface ImageEmbeddingE2eCaseSetSuite {
 }
 
 export interface ImageEmbeddingEvidenceSuiteBindings {
-  textBenchmark: ImageEmbeddingEvidenceSuite;
+  textBenchmark: ImageEmbeddingTextBenchmarkSuite;
   a2a: {
     caseSet: ImageEmbeddingA2aCaseSetSuite;
     replay: ImageEmbeddingEvidenceSuite;
@@ -348,7 +365,7 @@ function validateCaseSetRegression(
 function parseSimpleSuite(
   value: unknown,
   label: string,
-  suiteType: "text-benchmark" | "a2a-replay" | "fusion-e2e",
+  suiteType: "a2a-replay" | "fusion-e2e",
   expectedCaseCount?: number,
 ): {
   suite?: ImageEmbeddingEvidenceSuite;
@@ -374,6 +391,64 @@ function parseSimpleSuite(
       suiteChecksum: value.suiteChecksum,
       sourceFiles,
       caseIds,
+    },
+    reasons: [],
+  };
+}
+
+function parseTextBenchmarkSuite(value: unknown): {
+  suite?: ImageEmbeddingTextBenchmarkSuite;
+  reasons: string[];
+} {
+  if (!exactKeys(value, ["schemaVersion", "suiteType", "suiteChecksum", "sourceFiles", "caseIds", "runner"])
+    || !exactKeys(value.runner, [
+      "manifestPath",
+      "promptsPath",
+      "requestedProviderMode",
+      "configuredProviderMode",
+      "provider",
+      "model",
+      "dimensions",
+      "limit",
+    ])) {
+    return { reasons: ["Text benchmark frozen suite schema is invalid."] };
+  }
+  const runnerValue = value.runner;
+  const caseIds = uniqueStringArray(value.caseIds);
+  const sourceFiles = parseSuiteSourceFiles(value.sourceFiles);
+  const stringFields = [
+    "manifestPath",
+    "promptsPath",
+    "requestedProviderMode",
+    "configuredProviderMode",
+    "provider",
+    "model",
+  ] as const;
+  if (!caseIds
+    || caseIds.length !== TEXT_PROMPT_COUNT
+    || !sourceFiles
+    || stringFields.some((field) => typeof runnerValue[field] !== "string" || !runnerValue[field].trim())
+    || !Number.isInteger(runnerValue.dimensions)
+    || (runnerValue.dimensions as number) <= 0
+    || !Number.isInteger(runnerValue.limit)
+    || (runnerValue.limit as number) <= 0) {
+    return { reasons: ["Text benchmark frozen suite contents are invalid."] };
+  }
+  const runner = runnerValue as unknown as ImageEmbeddingTextBenchmarkSuiteRunner;
+  if (!sourceFiles.some((sourceFile) => sourceFile.path === runner.promptsPath)) {
+    return { reasons: ["Text benchmark frozen suite does not bind its prompts source file."] };
+  }
+  if (!suiteChecksumMatches(value, "text-benchmark", { caseIds, runner }, sourceFiles)) {
+    return { reasons: ["Text benchmark frozen suite checksum does not match its canonical manifest."] };
+  }
+  return {
+    suite: {
+      schemaVersion: EVIDENCE_SUITE_SCHEMA,
+      suiteType: "text-benchmark",
+      suiteChecksum: value.suiteChecksum,
+      sourceFiles,
+      caseIds,
+      runner,
     },
     reasons: [],
   };
@@ -460,7 +535,7 @@ export function parseImageEmbeddingEvidenceSuiteBindings(value: unknown): ImageE
   if (!exactKeys(value.a2a, ["caseSet", "replay"])) {
     return { reasons: ["A2A frozen suite bindings are malformed."] };
   }
-  const textBenchmark = parseSimpleSuite(value.textBenchmark, "Text benchmark", "text-benchmark", TEXT_PROMPT_COUNT);
+  const textBenchmark = parseTextBenchmarkSuite(value.textBenchmark);
   const a2aCaseSet = parseA2aCaseSetSuite(value.a2a.caseSet);
   const a2aReplay = parseSimpleSuite(value.a2a.replay, "A2A replay", "a2a-replay", A2A_REPLAY_CASE_COUNT);
   const e2e = parseE2eCaseSetSuite(value.e2e);
@@ -545,6 +620,100 @@ function sameTextBenchmarkResults(
   });
 }
 
+function parseTextRunnerBinding(value: unknown): ImageEmbeddingTextBenchmarkRunnerBinding | undefined {
+  if (!exactKeys(value, [
+    "manifestPath",
+    "manifestChecksum",
+    "promptsPath",
+    "promptsChecksum",
+    "requestedProviderMode",
+    "configuredProviderMode",
+    "provider",
+    "model",
+    "dimensions",
+    "limit",
+  ])) {
+    return undefined;
+  }
+  const stringFields = [
+    "manifestPath",
+    "promptsPath",
+    "requestedProviderMode",
+    "configuredProviderMode",
+    "provider",
+    "model",
+  ] as const;
+  if (stringFields.some((field) => typeof value[field] !== "string" || !value[field].trim())
+    || typeof value.manifestChecksum !== "string"
+    || !CHECKSUM.test(value.manifestChecksum)
+    || typeof value.promptsChecksum !== "string"
+    || !CHECKSUM.test(value.promptsChecksum)
+    || !Number.isInteger(value.dimensions)
+    || (value.dimensions as number) <= 0
+    || !Number.isInteger(value.limit)
+    || (value.limit as number) <= 0) {
+    return undefined;
+  }
+  return value as unknown as ImageEmbeddingTextBenchmarkRunnerBinding;
+}
+
+function sameTextRunnerBinding(
+  left: ImageEmbeddingTextBenchmarkRunnerBinding,
+  right: ImageEmbeddingTextBenchmarkRunnerBinding,
+): boolean {
+  return left.manifestPath === right.manifestPath
+    && left.manifestChecksum === right.manifestChecksum
+    && left.promptsPath === right.promptsPath
+    && left.promptsChecksum === right.promptsChecksum
+    && left.requestedProviderMode === right.requestedProviderMode
+    && left.configuredProviderMode === right.configuredProviderMode
+    && left.provider === right.provider
+    && left.model === right.model
+    && left.dimensions === right.dimensions
+    && left.limit === right.limit;
+}
+
+function validateTextRunnerBinding(
+  evidenceBinding: ImageEmbeddingTextBenchmarkRunnerBinding,
+  context: ImageEmbeddingEvidenceContext,
+): string[] {
+  const reasons: string[] = [];
+  const suite = context.evidenceSuites?.textBenchmark;
+  const rawBinding = context.runnerArtifacts?.textBenchmark?.runnerBinding;
+  if (!suite) {
+    return ["Text benchmark runner binding cannot be verified without a frozen suite."];
+  }
+  const frozenPrompts = suite.sourceFiles.find((sourceFile) => sourceFile.path === suite.runner.promptsPath);
+  if (!frozenPrompts) {
+    reasons.push("Text benchmark frozen prompts source is unavailable.");
+  }
+  if (evidenceBinding.manifestChecksum !== context.baseManifestChecksum
+    || evidenceBinding.manifestPath !== suite.runner.manifestPath) {
+    reasons.push("Text benchmark runner manifest does not match the selected frozen release.");
+  }
+  if (!frozenPrompts
+    || evidenceBinding.promptsPath !== suite.runner.promptsPath
+    || evidenceBinding.promptsChecksum !== frozenPrompts.checksum) {
+    reasons.push("Text benchmark runner prompts do not match the frozen prompt bytes.");
+  }
+  for (const field of [
+    "requestedProviderMode",
+    "configuredProviderMode",
+    "provider",
+    "model",
+    "dimensions",
+    "limit",
+  ] as const) {
+    if (evidenceBinding[field] !== suite.runner[field]) {
+      reasons.push(`Text benchmark runner ${field} does not match the frozen runtime contract.`);
+    }
+  }
+  if (!rawBinding || !sameTextRunnerBinding(evidenceBinding, rawBinding)) {
+    reasons.push("Text benchmark evidence runner binding does not match the raw benchmark artifact.");
+  }
+  return reasons;
+}
+
 function validatePreflightBinding(
   value: unknown,
   context: ImageEmbeddingEvidenceContext,
@@ -581,6 +750,7 @@ export function validateImageEmbeddingTextBenchmarkEvidence(
     "baseManifestChecksum",
     "suiteChecksum",
     "runnerArtifactChecksum",
+    "runnerBinding",
     "vectorBenchmark",
   ])) {
     return validation([...reasons, "Text benchmark evidence contains unsupported fields."]);
@@ -592,6 +762,11 @@ export function validateImageEmbeddingTextBenchmarkEvidence(
     suite: context.evidenceSuites?.textBenchmark,
     observedRunnerArtifactChecksum: context.runnerArtifactChecksums?.textBenchmark,
   }));
+  const runnerBinding = parseTextRunnerBinding(evidence.runnerBinding);
+  if (!runnerBinding) {
+    return validation([...reasons, "Text benchmark evidence runner binding schema is invalid."]);
+  }
+  reasons.push(...validateTextRunnerBinding(runnerBinding, context));
   const benchmark = evidence.vectorBenchmark;
   if (!exactKeys(benchmark, ["promptCount", "rerankTop1HitRate", "rerankTop5HitRate", "results"])) {
     return validation([...reasons, "Text benchmark evidence benchmark schema is invalid."]);

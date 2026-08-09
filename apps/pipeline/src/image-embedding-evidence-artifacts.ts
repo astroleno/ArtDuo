@@ -6,8 +6,22 @@ export interface ImageEmbeddingTextBenchmarkRunnerResult {
   rerankTop5Hit: boolean;
 }
 
+export interface ImageEmbeddingTextBenchmarkRunnerBinding {
+  manifestPath: string;
+  manifestChecksum: string;
+  promptsPath: string;
+  promptsChecksum: string;
+  requestedProviderMode: string;
+  configuredProviderMode: string;
+  provider: string;
+  model: string;
+  dimensions: number;
+  limit: number;
+}
+
 export interface ImageEmbeddingTextBenchmarkRunnerArtifact {
   releaseVersion: string;
+  runnerBinding: ImageEmbeddingTextBenchmarkRunnerBinding;
   results: ImageEmbeddingTextBenchmarkRunnerResult[];
 }
 
@@ -39,6 +53,7 @@ export interface ImageEmbeddingRunnerArtifactParseResult<T> {
 }
 
 type PlaywrightStatus = "pass" | "fail" | "skipped";
+const CHECKSUM = /^sha256:[a-f0-9]{64}$/u;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -50,6 +65,56 @@ function nonEmptyString(value: unknown): string | undefined {
 
 function finiteNumber(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
+}
+
+function repositoryRelativePath(value: unknown): string | undefined {
+  const candidate = nonEmptyString(value);
+  if (!candidate
+    || candidate.startsWith("/")
+    || candidate.includes("\\")
+    || candidate.split("/").some((segment) => !segment || segment === "." || segment === "..")) {
+    return undefined;
+  }
+  return candidate;
+}
+
+function parseTextRunnerBinding(value: Record<string, unknown>): ImageEmbeddingTextBenchmarkRunnerBinding | undefined {
+  const manifestPath = repositoryRelativePath(value.manifestPath);
+  const promptsPath = repositoryRelativePath(value.promptsPath);
+  const manifestChecksum = nonEmptyString(value.manifestChecksum);
+  const promptsChecksum = nonEmptyString(value.promptsChecksum);
+  const requestedProviderMode = nonEmptyString(value.requestedProviderMode);
+  const configuredProviderMode = nonEmptyString(value.configuredProviderMode);
+  const provider = nonEmptyString(value.provider);
+  const model = nonEmptyString(value.model);
+  if (!manifestPath
+    || !promptsPath
+    || !manifestChecksum
+    || !CHECKSUM.test(manifestChecksum)
+    || !promptsChecksum
+    || !CHECKSUM.test(promptsChecksum)
+    || !requestedProviderMode
+    || !configuredProviderMode
+    || !provider
+    || !model
+    || !Number.isInteger(value.dimensions)
+    || (value.dimensions as number) <= 0
+    || !Number.isInteger(value.limit)
+    || (value.limit as number) <= 0) {
+    return undefined;
+  }
+  return {
+    manifestPath,
+    manifestChecksum,
+    promptsPath,
+    promptsChecksum,
+    requestedProviderMode,
+    configuredProviderMode,
+    provider,
+    model,
+    dimensions: value.dimensions as number,
+    limit: value.limit as number,
+  };
 }
 
 function uniqueIds(values: string[]): boolean {
@@ -89,9 +154,11 @@ export function parseImageEmbeddingTextBenchmarkRunnerArtifact(
     return { reasons: ["Text benchmark runner artifact must be a JSON object."] };
   }
   const releaseVersion = nonEmptyString(value.releaseVersion);
+  const runnerBinding = parseTextRunnerBinding(value);
   const results = parseTextResults(value.results);
-  if (!releaseVersion || !results || results.length === 0 || !Number.isInteger(value.promptCount) || value.promptCount !== results.length) {
-    return { reasons: ["Text benchmark runner artifact has invalid release, prompt count, or result rows."] };
+  if (!releaseVersion || !runnerBinding || !results || results.length === 0
+    || !Number.isInteger(value.promptCount) || value.promptCount !== results.length) {
+    return { reasons: ["Text benchmark runner artifact has invalid release, binding, prompt count, or result rows."] };
   }
   const top1 = results.filter((result) => result.rerankTop1Hit).length / results.length;
   const top5 = results.filter((result) => result.rerankTop5Hit).length / results.length;
@@ -100,7 +167,7 @@ export function parseImageEmbeddingTextBenchmarkRunnerArtifact(
     || Math.abs(value.rerankTop5HitRate - top5) > 1e-6) {
     return { reasons: ["Text benchmark runner artifact summaries do not match its result rows."] };
   }
-  return { artifact: { releaseVersion, results }, reasons: [] };
+  return { artifact: { releaseVersion, runnerBinding, results }, reasons: [] };
 }
 
 export function parseImageEmbeddingA2aCaseSetRunnerArtifact(

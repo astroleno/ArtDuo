@@ -39,7 +39,19 @@ function createFixture(): { rootDir: string; anchorPath: string; sourcePath: str
   const suites = {
     textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
       suiteType: "text-benchmark",
-      suitePayload: { caseIds: textIds },
+      suitePayload: {
+        caseIds: textIds,
+        runner: {
+          manifestPath: `data/releases/${RELEASE_VERSION}/manifest.json`,
+          promptsPath: "apps/web/e2e/thin-slice.spec.ts",
+          requestedProviderMode: "local-hash",
+          configuredProviderMode: "local-hash",
+          provider: "local-hash",
+          model: "local-hash-embedding-v1",
+          dimensions: 256,
+          limit: 10,
+        },
+      },
       sourceFiles,
     }),
     a2a: {

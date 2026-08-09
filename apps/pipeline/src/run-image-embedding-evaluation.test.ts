@@ -26,13 +26,23 @@ const A2A_REPLAY_IDS = Array.from({ length: 50 }, (_, index) => `a2a-replay-${St
 const E2E_IDS = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
 const FUSION_IDS = Array.from({ length: 5 }, (_, index) => `fusion-${String(index + 1).padStart(2, "0")}`);
 const SUITE_SOURCE_CONTENT = "frozen suite source\n";
+const TEXT_RUNNER = {
+  manifestPath: `data/releases/${RELEASE_VERSION}/manifest.json`,
+  promptsPath: "evidence-suite-source.txt",
+  requestedProviderMode: "local-hash",
+  configuredProviderMode: "local-hash",
+  provider: "local-hash",
+  model: "local-hash-embedding-v1",
+  dimensions: 256,
+  limit: 10,
+};
 
 function frozenEvidenceSuites() {
   const sourceFiles = [{ path: "evidence-suite-source.txt", checksum: checksum(SUITE_SOURCE_CONTENT) }];
   return {
     textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
       suiteType: "text-benchmark",
-      suitePayload: { caseIds: TEXT_PROMPT_IDS },
+      suitePayload: { caseIds: TEXT_PROMPT_IDS, runner: TEXT_RUNNER },
       sourceFiles,
     }),
     a2a: {
@@ -306,6 +316,9 @@ function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>
   }));
   writeFileSync(textBenchmarkRunnerArtifactPath, `${JSON.stringify({
     releaseVersion: RELEASE_VERSION,
+    ...TEXT_RUNNER,
+    manifestChecksum: checksum(readFileSync(fixture.manifestPath)),
+    promptsChecksum: checksum(SUITE_SOURCE_CONTENT),
     promptCount: textResults.length,
     rerankTop1HitRate: 23 / 24,
     rerankTop5HitRate: 1,
@@ -331,6 +344,11 @@ function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>
     ...binding,
     suiteChecksum: suites.textBenchmark.suiteChecksum,
     runnerArtifactChecksum: checksum(readFileSync(textBenchmarkRunnerArtifactPath)),
+    runnerBinding: {
+      ...TEXT_RUNNER,
+      manifestChecksum: checksum(readFileSync(fixture.manifestPath)),
+      promptsChecksum: checksum(SUITE_SOURCE_CONTENT),
+    },
     vectorBenchmark: {
       promptCount: 24,
       rerankTop1HitRate: 23 / 24,
