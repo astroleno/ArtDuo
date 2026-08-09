@@ -1296,7 +1296,8 @@ Benchmark CLI 同时支持显式 `--output`、`--build-report`、`--review-pack`
 `--fusion-e2e-report`，以及 text/A2A case-set/A2A replay/E2E/fusion 的
 `--text-benchmark-runner-artifact`、`--a2a-case-set-runner-artifact`、
 `--a2a-replay-runner-artifact`、`--e2e-runner-artifact`、
-`--fusion-e2e-runner-artifact` 原始 runner artifact 路径。自动化验证必须显式输出到临时文件；只有 Task 5 完成人工
+`--fusion-e2e-runner-artifact` 原始 runner artifact 路径，以及用于逐字段核对 Task 5
+输入的 `--fusion-promotion-report`。自动化验证必须显式输出到临时文件；只有 Task 5 完成人工
 评审后的 report 才写入计划中的固定 report 路径。Task 5 首次完成时
 `promotionReady` 可为 true，但 `fusionVerificationReady` 必须为 false；Task 6
 完成 targeted E2E 后用同一命令绑定 E2E report checksum，才能将后者置为 true。
@@ -1701,17 +1702,23 @@ ARTDUO_FUSION_CHECK_DIR="$(mktemp -d -t artduo-image-fusion-check)"
 baseline_output="$ARTDUO_FUSION_CHECK_DIR/vector-benchmark.json"
 fusion_e2e_raw="$ARTDUO_FUSION_CHECK_DIR/image-scene-fusion-e2e.playwright.json"
 fusion_e2e_evidence="$ARTDUO_FUSION_CHECK_DIR/image-scene-fusion-e2e-evidence.json"
+task5_report="data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-evaluation.json"
+candidate_shard="data/curation/reports/image-embeddings/2026-04-25-curation-b/candidates/image-embeddings-01.json"
+base_manifest="data/releases/2026-04-25-curation-b/manifest.json"
 pnpm vector:benchmark -- \
   --release-version 2026-04-25-curation-b \
   --output "$baseline_output"
 pnpm test
 
 git diff --quiet HEAD --
-PROMOTION_BINDING_CHECKSUM="$(node -e 'const fs = require("node:fs"); const report = JSON.parse(fs.readFileSync("data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-evaluation.json", "utf8")); process.stdout.write(report.promotionBinding.promotionBindingChecksum);')"
+PROMOTION_BINDING_CHECKSUM="$(node -e 'const fs = require("node:fs"); const report = JSON.parse(fs.readFileSync(process.argv[1], "utf8")); process.stdout.write(report.promotionBinding.promotionBindingChecksum);' "$task5_report")"
 pnpm image-embeddings:evidence -- \
   --release-version 2026-04-25-curation-b \
+  --manifest "$base_manifest" \
   --output "$fusion_e2e_evidence" \
-  --fusion-e2e-runner-artifact "$fusion_e2e_raw" \
+  --fusion-e2e-runner-artifact-output "$fusion_e2e_raw" \
+  --fusion-candidate-shard "$candidate_shard" \
+  --fusion-promotion-report "$task5_report" \
   --promotion-binding-checksum "$PROMOTION_BINDING_CHECKSUM"
 
 pnpm image-embeddings:benchmark -- \
@@ -1729,6 +1736,7 @@ pnpm image-embeddings:benchmark -- \
   --e2e-runner-artifact "$ARTDUO_EVIDENCE_DIR/image-embedding-e2e-playwright.json" \
   --fusion-e2e-report "$fusion_e2e_evidence" \
   --fusion-e2e-runner-artifact "$fusion_e2e_raw" \
+  --fusion-promotion-report "$task5_report" \
   --output data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-evaluation.json
 ```
 
@@ -1739,11 +1747,13 @@ pnpm image-embeddings:benchmark -- \
   selection 实验 snapshot 可变化。
 - fallback E2E 的 scene 顺序与 metadata baseline 完全一致。
 - targeted E2E 性能数据在冻结预算内。
-- `image-embeddings:evidence` 会先删除目标 raw 文件，再运行固定命令
-  `pnpm test:e2e:fusion`；该命令从 promotion-ready Task 5 report 和 candidate
+- `image-embeddings:evidence` 要求 raw output 尚不存在，在 producer 私有临时目录运行固定命令
+  `pnpm test:e2e:fusion`，成功解析后才以排他方式复制到调用者指定位置；它不会删除或覆盖
+  调用者文件。该命令从显式锁定的 promotion-ready Task 5 report、candidate 与 base manifest
   在系统临时目录生成 checksum-bound valid/fault variants，并用独立 config、
-  project 与 spec 产生 fresh Playwright JSON。不得预制同名 JSON 或直接运行任意
-  spec 冒充该 suite。
+  project 与 spec 产生 fresh Playwright JSON。producer 会清除继承环境中的 release/report/
+  candidate/base 覆盖值；raw metadata 必须逐字段记录三个输入 checksum、releaseVersion 和
+  promotionBindingChecksum。不得预制同名 JSON 或直接运行任意 spec 冒充该 suite。
 - evaluation report 保持相同 `promotionBindingChecksum`，新增规范化后的
   `fusionE2eReportChecksum` 与 fusion raw artifact checksum，并给出
   `fusionVerificationReady: true`。原始 Playwright JSON 只能传给

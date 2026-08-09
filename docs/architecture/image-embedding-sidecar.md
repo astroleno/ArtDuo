@@ -154,6 +154,12 @@ The sidecar budgets are frozen as follows:
 5. The base `manifest.json` is never overwritten. Image sidecars are published
    and rolled back only through an explicit manifest variant.
 6. A2A promotion is decided by a case-set diff, not the harness exit code.
+7. Task 6 Fusion evidence is generated only from producer-selected Task 5 inputs.
+   The producer recomputes the canonical `promotionBindingPayload`, locks the base
+   manifest, candidate shard, and Task 5 report paths, removes inherited override
+   variables, and records their checksums plus release and promotion binding in
+   Playwright metadata. The evaluator compares the same fields against the Task 5
+   report; a detached raw artifact or report fails closed.
 
 ## Runtime and Data Boundaries
 
