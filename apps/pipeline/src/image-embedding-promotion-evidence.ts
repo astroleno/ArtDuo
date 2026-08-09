@@ -87,6 +87,12 @@ export interface ImageEmbeddingEvidenceSuiteBindingsParseResult {
   reasons: string[];
 }
 
+export function imageEmbeddingEvidencePreflightEnvironment(
+  environment: NodeJS.ProcessEnv = process.env,
+): NodeJS.ProcessEnv {
+  return { ...environment, CI: "1" };
+}
+
 export type ImageEmbeddingEvidenceSuiteType = "text-benchmark" | "a2a-case-set" | "a2a-replay" | "e2e" | "fusion-e2e";
 
 export interface ImageEmbeddingEvidenceSuiteSourceFile {

@@ -10,6 +10,7 @@ import {
 } from "./image-embedding-evidence-artifacts";
 import {
   buildImageEmbeddingEvidenceSuiteDescriptor,
+  imageEmbeddingEvidencePreflightEnvironment,
   parseImageEmbeddingEvidenceSuiteBindings,
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
@@ -128,6 +129,11 @@ const context = {
   runnerArtifacts,
   preflight: { command: "pnpm preflight:check", exitCode: 0 },
 };
+
+test("evidence preflight forces an isolated CI browser server", () => {
+  assert.equal(imageEmbeddingEvidencePreflightEnvironment({ CI: "0", CUSTOM_FLAG: "kept" }).CI, "1");
+  assert.equal(imageEmbeddingEvidencePreflightEnvironment({ CUSTOM_FLAG: "kept" }).CUSTOM_FLAG, "kept");
+});
 
 test("frozen suite parser recomputes the canonical checksum after case content changes", () => {
   const changed = structuredClone(evidenceSuites);

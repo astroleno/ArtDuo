@@ -12,6 +12,7 @@ import {
   type ImageEmbeddingRunnerArtifactParseResult,
 } from "./image-embedding-evidence-artifacts";
 import {
+  imageEmbeddingEvidencePreflightEnvironment,
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
   validateImageEmbeddingFusionE2eEvidence,
@@ -173,7 +174,11 @@ function readRunnerArtifact<T>(
 }
 
 function runPreflight(rootDir: string): ImageEmbeddingEvidencePreflight {
-  const result = spawnSync("pnpm", ["preflight:check"], { cwd: rootDir, stdio: "ignore" });
+  const result = spawnSync("pnpm", ["preflight:check"], {
+    cwd: rootDir,
+    env: imageEmbeddingEvidencePreflightEnvironment(),
+    stdio: "ignore",
+  });
   return {
     command: "pnpm preflight:check",
     exitCode: typeof result.status === "number" ? result.status : 1,
