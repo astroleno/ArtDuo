@@ -10,6 +10,7 @@ import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
 import { calculateImageEmbeddingReviewPackChecksum } from "./image-embedding-evaluation";
 import { buildImageEmbeddingPromotionEvidence } from "./build-image-embedding-promotion-evidence";
+import { buildImageEmbeddingEvidenceSuiteDescriptor } from "./image-embedding-promotion-evidence";
 import {
   FROZEN_METADATA_SCORE_UPPER_BOUND,
   normalizeMetadataScore,
@@ -24,31 +25,38 @@ const A2A_BLOCKED_IDS = Array.from({ length: 5 }, (_, index) => `a2a-blocked-${S
 const A2A_REPLAY_IDS = Array.from({ length: 50 }, (_, index) => `a2a-replay-${String(index + 1).padStart(2, "0")}`);
 const E2E_IDS = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
 const FUSION_IDS = Array.from({ length: 5 }, (_, index) => `fusion-${String(index + 1).padStart(2, "0")}`);
+const SUITE_SOURCE_CONTENT = "frozen suite source\n";
 
 function frozenEvidenceSuites() {
+  const sourceFiles = [{ path: "evidence-suite-source.txt", checksum: checksum(SUITE_SOURCE_CONTENT) }];
   return {
-    textBenchmark: {
-      suiteChecksum: checksum("text-suite"),
-      caseIds: TEXT_PROMPT_IDS,
-    },
+    textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "text-benchmark",
+      suitePayload: { caseIds: TEXT_PROMPT_IDS },
+      sourceFiles,
+    }),
     a2a: {
-      caseSet: {
-        suiteChecksum: checksum("a2a-case-set-suite"),
-        baseline: { passIds: A2A_PASS_IDS, failIds: A2A_FAIL_IDS, blockedIds: A2A_BLOCKED_IDS },
-      },
-      replay: {
-        suiteChecksum: checksum("a2a-replay-suite"),
-        caseIds: A2A_REPLAY_IDS,
-      },
+      caseSet: buildImageEmbeddingEvidenceSuiteDescriptor({
+        suiteType: "a2a-case-set",
+        suitePayload: { baseline: { passIds: A2A_PASS_IDS, failIds: A2A_FAIL_IDS, blockedIds: A2A_BLOCKED_IDS } },
+        sourceFiles,
+      }),
+      replay: buildImageEmbeddingEvidenceSuiteDescriptor({
+        suiteType: "a2a-replay",
+        suitePayload: { caseIds: A2A_REPLAY_IDS },
+        sourceFiles,
+      }),
     },
-    e2e: {
-      suiteChecksum: checksum("e2e-suite"),
-      baseline: { passIds: E2E_IDS, failIds: [], skippedIds: [] },
-    },
-    fusionE2e: {
-      suiteChecksum: checksum("fusion-suite"),
-      caseIds: FUSION_IDS,
-    },
+    e2e: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "e2e",
+      suitePayload: { baseline: { passIds: E2E_IDS, failIds: [], skippedIds: [] } },
+      sourceFiles,
+    }),
+    fusionE2e: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "fusion-e2e",
+      suitePayload: { caseIds: FUSION_IDS },
+      sourceFiles,
+    }),
   };
 }
 
@@ -215,12 +223,23 @@ function createFixture(): {
     },
   }, null, 2)}\n`);
 
+  writeFileSync(path.join(rootDir, "evidence-suite-source.txt"), SUITE_SOURCE_CONTENT);
+  const suiteManifestPath = path.join(reportDir, "promotion-evidence-suite-manifest.v1.json");
+  writeFileSync(suiteManifestPath, `${JSON.stringify({
+    schemaVersion: "image-embedding-evidence-suite-manifest.v1",
+    releaseVersion: RELEASE_VERSION,
+    suites: frozenEvidenceSuites(),
+  }, null, 2)}\n`);
   const promotionAnchorPath = path.join(reportDir, "promotion-anchor-set.json");
   writeFileSync(promotionAnchorPath, `${JSON.stringify({
     schemaVersion: "image-embedding-promotion-anchor-set.v1",
     releaseVersion: RELEASE_VERSION,
     anchors: artworkIds.map((artworkId) => ({ artworkId })),
-    evidenceSuites: frozenEvidenceSuites(),
+    evidenceSuiteManifest: {
+      schemaVersion: "image-embedding-evidence-suite-manifest.v1",
+      path: "./promotion-evidence-suite-manifest.v1.json",
+      checksum: checksum(readFileSync(suiteManifestPath)),
+    },
   }, null, 2)}\n`);
   const candidateRecords = [
     ...artworkIds.map((id) => imageRecord("artwork", id, [1, 0])),
@@ -472,7 +491,7 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
     ...evidence,
   });
   assert.equal(valid.report.gates.baselineBindingsReady, true, JSON.stringify(valid.report.gates.bindingFailures));
-  assert.equal(valid.report.promotionBinding.fusionE2eSuiteChecksum, checksum("fusion-suite"));
+  assert.equal(valid.report.promotionBinding.fusionE2eSuiteChecksum, frozenEvidenceSuites().fusionE2e.suiteChecksum);
   assert.equal(valid.report.promotionBinding.fusionE2eRunnerArtifactChecksum, "missing");
 
   const originalTextRunnerArtifact = readFileSync(evidence.textBenchmarkRunnerArtifactPath);

@@ -34,7 +34,6 @@ import {
   type ImageEmbeddingRunnerArtifactParseResult,
 } from "./image-embedding-evidence-artifacts";
 import {
-  parseImageEmbeddingEvidenceSuiteBindings,
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
   validateImageEmbeddingFusionE2eEvidence,
@@ -44,6 +43,7 @@ import {
   type ImageEmbeddingEvidenceValidation,
   type ImageEmbeddingEvidenceSuiteBindings,
 } from "./image-embedding-promotion-evidence";
+import { readImageEmbeddingEvidenceSuiteManifest } from "./image-embedding-evidence-suite-manifest";
 import { readImageEmbeddingEvaluationOptions } from "./cli";
 
 const EVALUATION_VERSION = "image-embedding-evaluation.v1";
@@ -903,20 +903,15 @@ export async function runImageEmbeddingEvaluation(
     bindingFailures.push(evidenceGitBinding.reason ?? "Evidence Git binding is invalid.");
   }
   let evidenceSuites: ImageEmbeddingEvidenceSuiteBindings | undefined;
-  try {
-    const promotionAnchor = JSON.parse(promotionAnchorBytes.toString("utf8")) as unknown;
-    if (!isRecord(promotionAnchor) || promotionAnchor.releaseVersion !== releaseVersion) {
-      bindingFailures.push("Promotion anchor set does not match the selected release version.");
-    } else {
-      const parsedSuites = parseImageEmbeddingEvidenceSuiteBindings(promotionAnchor.evidenceSuites);
-      if (parsedSuites.bindings) {
-        evidenceSuites = parsedSuites.bindings;
-      }
-      bindingFailures.push(...parsedSuites.reasons);
-    }
-  } catch {
-    bindingFailures.push("Promotion anchor set could not be read as a frozen evidence suite binding.");
+  const parsedSuites = readImageEmbeddingEvidenceSuiteManifest({
+    rootDir,
+    anchorPath: promotionAnchorPath,
+    releaseVersion,
+  });
+  if (parsedSuites.bindings) {
+    evidenceSuites = parsedSuites.bindings;
   }
+  bindingFailures.push(...parsedSuites.reasons);
   const candidate = readCandidateRecords(candidateShardPath);
   const buildReportBytes = readFileSync(buildReportPath);
   const buildReportChecksum = sha256Checksum(buildReportBytes);

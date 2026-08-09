@@ -7,6 +7,10 @@ import path from "node:path";
 import { test } from "node:test";
 
 import { buildImageEmbeddingPromotionEvidence } from "./build-image-embedding-promotion-evidence";
+import {
+  buildImageEmbeddingEvidenceSuiteDescriptor,
+  type ImageEmbeddingEvidenceSuiteSourceFile,
+} from "./image-embedding-promotion-evidence";
 
 const RELEASE_VERSION = "image-embedding-evidence-producer-test";
 const TEXT_IDS = Array.from({ length: 24 }, (_, index) => `prompt-${String(index + 1).padStart(2, "0")}`);
@@ -37,21 +41,35 @@ function initializeGitFixture(rootDir: string): void {
   git(["commit", "-m", "fixture"]);
 }
 
-function frozenEvidenceSuites() {
+function frozenEvidenceSuites(sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[]) {
   return {
-    textBenchmark: { suiteChecksum: checksum("text-suite"), caseIds: TEXT_IDS },
+    textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "text-benchmark",
+      suitePayload: { caseIds: TEXT_IDS },
+      sourceFiles,
+    }),
     a2a: {
-      caseSet: {
-        suiteChecksum: checksum("a2a-case-set-suite"),
-        baseline: { passIds: A2A_PASS_IDS, failIds: A2A_FAIL_IDS, blockedIds: A2A_BLOCKED_IDS },
-      },
-      replay: { suiteChecksum: checksum("a2a-replay-suite"), caseIds: A2A_REPLAY_IDS },
+      caseSet: buildImageEmbeddingEvidenceSuiteDescriptor({
+        suiteType: "a2a-case-set",
+        suitePayload: { baseline: { passIds: A2A_PASS_IDS, failIds: A2A_FAIL_IDS, blockedIds: A2A_BLOCKED_IDS } },
+        sourceFiles,
+      }),
+      replay: buildImageEmbeddingEvidenceSuiteDescriptor({
+        suiteType: "a2a-replay",
+        suitePayload: { caseIds: A2A_REPLAY_IDS },
+        sourceFiles,
+      }),
     },
-    e2e: {
-      suiteChecksum: checksum("e2e-suite"),
-      baseline: { passIds: E2E_IDS, failIds: [], skippedIds: [] },
-    },
-    fusionE2e: { suiteChecksum: checksum("fusion-suite"), caseIds: FUSION_IDS },
+    e2e: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "e2e",
+      suitePayload: { baseline: { passIds: E2E_IDS, failIds: [], skippedIds: [] } },
+      sourceFiles,
+    }),
+    fusionE2e: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "fusion-e2e",
+      suitePayload: { caseIds: FUSION_IDS },
+      sourceFiles,
+    }),
   };
 }
 
@@ -69,11 +87,24 @@ function createFixture(): {
   mkdirSync(reportDir, { recursive: true });
   const manifestPath = path.join(releaseDir, "manifest.json");
   writeJson(manifestPath, { release: { corpusVersion: RELEASE_VERSION } });
+  const suiteSourcePath = path.join(rootDir, "evidence-suite-source.txt");
+  writeFileSync(suiteSourcePath, "frozen suite source\n");
+  const suites = frozenEvidenceSuites([{ path: "evidence-suite-source.txt", checksum: checksum(readFileSync(suiteSourcePath)) }]);
+  const suiteManifestPath = path.join(reportDir, "promotion-evidence-suite-manifest.v1.json");
+  writeJson(suiteManifestPath, {
+    schemaVersion: "image-embedding-evidence-suite-manifest.v1",
+    releaseVersion: RELEASE_VERSION,
+    suites,
+  });
   const anchorPath = path.join(reportDir, "promotion-anchor-set.json");
   writeJson(anchorPath, {
     schemaVersion: "image-embedding-promotion-anchor-set.v1",
     releaseVersion: RELEASE_VERSION,
-    evidenceSuites: frozenEvidenceSuites(),
+    evidenceSuiteManifest: {
+      schemaVersion: "image-embedding-evidence-suite-manifest.v1",
+      path: "./promotion-evidence-suite-manifest.v1.json",
+      checksum: checksum(readFileSync(suiteManifestPath)),
+    },
   });
   initializeGitFixture(rootDir);
 

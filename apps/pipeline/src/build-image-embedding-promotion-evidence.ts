@@ -12,7 +12,6 @@ import {
   type ImageEmbeddingRunnerArtifactParseResult,
 } from "./image-embedding-evidence-artifacts";
 import {
-  parseImageEmbeddingEvidenceSuiteBindings,
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
   validateImageEmbeddingFusionE2eEvidence,
@@ -23,6 +22,7 @@ import {
   type ImageEmbeddingEvidenceRunnerArtifactChecksums,
   type ImageEmbeddingEvidenceSuiteBindings,
 } from "./image-embedding-promotion-evidence";
+import { readImageEmbeddingEvidenceSuiteManifest } from "./image-embedding-evidence-suite-manifest";
 import { readImageEmbeddingPromotionEvidenceBuildOptions } from "./cli";
 
 type EvidenceKind = "text-benchmark" | "a2a" | "e2e" | "fusion-e2e";
@@ -120,23 +120,12 @@ function resolveCleanCommitSha(rootDir: string): string {
   }
 }
 
-function readEvidenceSuites(anchorPath: string, releaseVersion: string): ImageEmbeddingEvidenceSuiteBindings {
-  try {
-    const anchor = JSON.parse(readFileSync(anchorPath, "utf8")) as unknown;
-    if (!isRecord(anchor) || anchor.releaseVersion !== releaseVersion) {
-      throw new TypeError("Promotion anchor does not match the selected release.");
-    }
-    const parsed = parseImageEmbeddingEvidenceSuiteBindings(anchor.evidenceSuites);
-    if (!parsed.bindings || parsed.reasons.length > 0) {
-      throw new TypeError(parsed.reasons.join(" ") || "Promotion anchor evidence suites are invalid.");
-    }
-    return parsed.bindings;
-  } catch (error) {
-    if (error instanceof TypeError) {
-      throw error;
-    }
-    throw new TypeError("Promotion anchor could not be read as a frozen evidence suite binding.");
+function readEvidenceSuites(rootDir: string, anchorPath: string, releaseVersion: string): ImageEmbeddingEvidenceSuiteBindings {
+  const parsed = readImageEmbeddingEvidenceSuiteManifest({ rootDir, anchorPath, releaseVersion });
+  if (!parsed.bindings || parsed.reasons.length > 0) {
+    throw new TypeError(parsed.reasons.join(" ") || "Promotion anchor evidence suites are invalid.");
   }
+  return parsed.bindings;
 }
 
 function determineKind(options: ImageEmbeddingPromotionEvidenceBuildOptions): EvidenceKind {
@@ -260,7 +249,7 @@ export function buildImageEmbeddingPromotionEvidence(
   const anchorPath = options.promotionAnchorPath
     ? path.resolve(options.promotionAnchorPath)
     : path.join(rootDir, "data", "curation", "reports", "image-embeddings", release.releaseVersion, "promotion-anchor-set.json");
-  const evidenceSuites = readEvidenceSuites(anchorPath, release.releaseVersion);
+  const evidenceSuites = readEvidenceSuites(rootDir, anchorPath, release.releaseVersion);
   const commitSha = resolveCleanCommitSha(rootDir);
   const kind = determineKind(options);
   const runnerArtifactChecksums: ImageEmbeddingEvidenceRunnerArtifactChecksums = {};

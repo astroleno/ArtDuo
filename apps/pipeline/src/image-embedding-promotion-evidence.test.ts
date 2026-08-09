@@ -9,6 +9,8 @@ import {
   parseImageEmbeddingTextBenchmarkRunnerArtifact,
 } from "./image-embedding-evidence-artifacts";
 import {
+  buildImageEmbeddingEvidenceSuiteDescriptor,
+  parseImageEmbeddingEvidenceSuiteBindings,
   validateImageEmbeddingA2aEvidence,
   validateImageEmbeddingE2eEvidence,
   validateImageEmbeddingFusionE2eEvidence,
@@ -26,30 +28,36 @@ const a2aBlockedIds = Array.from({ length: 5 }, (_, index) => `a2a-blocked-${Str
 const a2aReplayIds = Array.from({ length: 50 }, (_, index) => `a2a-replay-${String(index + 1).padStart(2, "0")}`);
 const e2eIds = Array.from({ length: 14 }, (_, index) => `e2e-${String(index + 1).padStart(2, "0")}`);
 const fusionIds = Array.from({ length: 5 }, (_, index) => `fusion-${String(index + 1).padStart(2, "0")}`);
+const sourceFiles = [{ path: "test/evidence-suite-source.ts", checksum: checksum("suite-source") }];
 
 const evidenceSuites = {
-  textBenchmark: {
-    suiteChecksum: checksum("text-suite"),
-    caseIds: textPromptIds,
-  },
+  textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
+    suiteType: "text-benchmark",
+    suitePayload: { caseIds: textPromptIds },
+    sourceFiles,
+  }),
   a2a: {
-    caseSet: {
-      suiteChecksum: checksum("a2a-case-set-suite"),
-      baseline: { passIds: a2aPassIds, failIds: a2aFailIds, blockedIds: a2aBlockedIds },
-    },
-    replay: {
-      suiteChecksum: checksum("a2a-replay-suite"),
-      caseIds: a2aReplayIds,
-    },
+    caseSet: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "a2a-case-set",
+      suitePayload: { baseline: { passIds: a2aPassIds, failIds: a2aFailIds, blockedIds: a2aBlockedIds } },
+      sourceFiles,
+    }),
+    replay: buildImageEmbeddingEvidenceSuiteDescriptor({
+      suiteType: "a2a-replay",
+      suitePayload: { caseIds: a2aReplayIds },
+      sourceFiles,
+    }),
   },
-  e2e: {
-    suiteChecksum: checksum("e2e-suite"),
-    baseline: { passIds: e2eIds, failIds: [], skippedIds: [] },
-  },
-  fusionE2e: {
-    suiteChecksum: checksum("fusion-suite"),
-    caseIds: fusionIds,
-  },
+  e2e: buildImageEmbeddingEvidenceSuiteDescriptor({
+    suiteType: "e2e",
+    suitePayload: { baseline: { passIds: e2eIds, failIds: [], skippedIds: [] } },
+    sourceFiles,
+  }),
+  fusionE2e: buildImageEmbeddingEvidenceSuiteDescriptor({
+    suiteType: "fusion-e2e",
+    suitePayload: { caseIds: fusionIds },
+    sourceFiles,
+  }),
 };
 
 const runnerArtifactChecksums = {
@@ -120,6 +128,15 @@ const context = {
   runnerArtifacts,
   preflight: { command: "pnpm preflight:check", exitCode: 0 },
 };
+
+test("frozen suite parser recomputes the canonical checksum after case content changes", () => {
+  const changed = structuredClone(evidenceSuites);
+  changed.e2e.baseline.passIds[0] = "weakened-e2e-case";
+
+  const parsed = parseImageEmbeddingEvidenceSuiteBindings(changed);
+  assert.equal(parsed.bindings, undefined);
+  assert.ok(parsed.reasons.some((reason) => /checksum does not match its canonical manifest/i.test(reason)));
+});
 const binding = {
   releaseVersion: context.releaseVersion,
   baseManifestChecksum: context.baseManifestChecksum,

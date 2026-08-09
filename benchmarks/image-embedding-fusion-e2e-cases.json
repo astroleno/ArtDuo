@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "image-embedding-fusion-e2e-cases.v1",
+  "cases": [
+    {
+      "id": "image sidecar stays unread when fusion is disabled",
+      "input": {
+        "featureFlag": false,
+        "query": "I want a quiet moonlit room"
+      },
+      "expected": {
+        "imageSidecarReads": 0,
+        "metadataOrderPreserved": true
+      }
+    },
+    {
+      "id": "image sidecar is not read before a query yields artwork candidates",
+      "input": {
+        "featureFlag": true,
+        "query": "!!!"
+      },
+      "expected": {
+        "candidateCount": 0,
+        "imageSidecarReads": 0
+      }
+    },
+    {
+      "id": "image sidecar checksum failures fall back to metadata scene order",
+      "input": {
+        "featureFlag": true,
+        "sidecarChecksum": "invalid",
+        "query": "I want a quiet moonlit room"
+      },
+      "expected": {
+        "metadataOrderPreserved": true,
+        "pageRemainsUsable": true
+      }
+    },
+    {
+      "id": "image sidecar reranks only bounded eligible scene candidates",
+      "input": {
+        "featureFlag": true,
+        "query": "I want a quiet moonlit room",
+        "eligibleCandidateLimit": 12
+      },
+      "expected": {
+        "rerankedCandidateCountMaximum": 12,
+        "ineligibleCandidatesUnchanged": true
+      }
+    },
+    {
+      "id": "image sidecar loader meets parse and heap budgets",
+      "input": {
+        "featureFlag": true,
+        "query": "I want a quiet moonlit room"
+      },
+      "expected": {
+        "serverParseAndIndexP95MillisecondsMaximum": 150,
+        "incrementalHeapBytesMaximum": 16777216
+      }
+    }
+  ]
+}

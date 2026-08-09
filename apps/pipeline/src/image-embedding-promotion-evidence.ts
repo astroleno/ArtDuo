@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 import type {
   ImageEmbeddingEvidenceRunnerArtifacts,
   ImageEmbeddingTextBenchmarkRunnerResult,
@@ -10,12 +12,18 @@ export interface ImageEmbeddingEvidenceCaseSet {
 }
 
 export interface ImageEmbeddingEvidenceSuite {
+  schemaVersion: "image-embedding-evidence-suite.v2";
+  suiteType: ImageEmbeddingEvidenceSuiteType;
   suiteChecksum: string;
+  sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[];
   caseIds: string[];
 }
 
 export interface ImageEmbeddingA2aCaseSetSuite {
+  schemaVersion: "image-embedding-evidence-suite.v2";
+  suiteType: "a2a-case-set";
   suiteChecksum: string;
+  sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[];
   baseline: {
     passIds: string[];
     failIds: string[];
@@ -24,7 +32,10 @@ export interface ImageEmbeddingA2aCaseSetSuite {
 }
 
 export interface ImageEmbeddingE2eCaseSetSuite {
+  schemaVersion: "image-embedding-evidence-suite.v2";
+  suiteType: "e2e";
   suiteChecksum: string;
+  sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[];
   baseline: {
     passIds: string[];
     failIds: string[];
@@ -76,6 +87,13 @@ export interface ImageEmbeddingEvidenceSuiteBindingsParseResult {
   reasons: string[];
 }
 
+export type ImageEmbeddingEvidenceSuiteType = "text-benchmark" | "a2a-case-set" | "a2a-replay" | "e2e" | "fusion-e2e";
+
+export interface ImageEmbeddingEvidenceSuiteSourceFile {
+  path: string;
+  checksum: string;
+}
+
 const TEXT_BENCHMARK_SCHEMA = "image-embedding-text-benchmark-evidence.v2";
 const A2A_SCHEMA = "image-embedding-a2a-evidence.v2";
 const E2E_SCHEMA = "image-embedding-e2e-evidence.v2";
@@ -90,9 +108,69 @@ const A2A_REPLAY_CASE_COUNT = 50;
 const MINIMUM_A2A_AVERAGE_TOTAL = 0.975;
 const E2E_CASE_COUNT = 14;
 const MINIMUM_FUSION_E2E_CASE_COUNT = 5;
+const EVIDENCE_SUITE_SCHEMA = "image-embedding-evidence-suite.v2" as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function canonicalJson(value: unknown): string {
+  if (value === null || typeof value === "string" || typeof value === "boolean") {
+    return JSON.stringify(value);
+  }
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) {
+      throw new TypeError("Canonical JSON only permits finite numbers.");
+    }
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map((entry) => canonicalJson(entry)).join(",")}]`;
+  }
+  if (isRecord(value)) {
+    return `{${Object.entries(value)
+      .filter(([, entry]) => entry !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`)
+      .join(",")}}`;
+  }
+  throw new TypeError("Canonical JSON only permits JSON values.");
+}
+
+export function calculateImageEmbeddingEvidenceSuiteChecksum(input: {
+  suiteType: ImageEmbeddingEvidenceSuiteType;
+  suitePayload: Record<string, unknown>;
+  sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[];
+}): `sha256:${string}` {
+  const canonical = canonicalJson({
+    schemaVersion: EVIDENCE_SUITE_SCHEMA,
+    suiteType: input.suiteType,
+    suitePayload: input.suitePayload,
+    sourceFiles: input.sourceFiles,
+  });
+  return `sha256:${createHash("sha256").update(canonical).digest("hex")}`;
+}
+
+export function buildImageEmbeddingEvidenceSuiteDescriptor<
+  S extends ImageEmbeddingEvidenceSuiteType,
+  T extends Record<string, unknown>,
+>(input: {
+  suiteType: S;
+  suitePayload: T;
+  sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[];
+}): T & {
+  schemaVersion: typeof EVIDENCE_SUITE_SCHEMA;
+  suiteType: S;
+  suiteChecksum: `sha256:${string}`;
+  sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[];
+} {
+  return {
+    schemaVersion: EVIDENCE_SUITE_SCHEMA,
+    suiteType: input.suiteType,
+    suiteChecksum: calculateImageEmbeddingEvidenceSuiteChecksum(input),
+    sourceFiles: input.sourceFiles,
+    ...input.suitePayload,
+  };
 }
 
 function exactKeys(value: unknown, keys: string[]): value is Record<string, unknown> {
@@ -111,6 +189,42 @@ function uniqueStringArray(value: unknown): string[] | undefined {
   }
   const values = value.map((entry) => entry.trim());
   return new Set(values).size === values.length ? values : undefined;
+}
+
+function parseSuiteSourceFiles(value: unknown): ImageEmbeddingEvidenceSuiteSourceFile[] | undefined {
+  if (!Array.isArray(value) || value.length === 0) {
+    return undefined;
+  }
+  const sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[] = [];
+  for (const entry of value) {
+    if (!exactKeys(entry, ["path", "checksum"])
+      || typeof entry.path !== "string"
+      || !entry.path.trim()
+      || entry.path !== entry.path.trim()
+      || typeof entry.checksum !== "string"
+      || !CHECKSUM.test(entry.checksum)) {
+      return undefined;
+    }
+    sourceFiles.push({ path: entry.path, checksum: entry.checksum });
+  }
+  if (new Set(sourceFiles.map((entry) => entry.path)).size !== sourceFiles.length) {
+    return undefined;
+  }
+  const sortedPaths = sourceFiles.map((entry) => entry.path).sort((left, right) => left.localeCompare(right));
+  return sourceFiles.every((entry, index) => entry.path === sortedPaths[index]) ? sourceFiles : undefined;
+}
+
+function suiteChecksumMatches(
+  value: Record<string, unknown>,
+  suiteType: ImageEmbeddingEvidenceSuiteType,
+  suitePayload: Record<string, unknown>,
+  sourceFiles: ImageEmbeddingEvidenceSuiteSourceFile[],
+): value is Record<string, unknown> & { suiteChecksum: string } {
+  return value.schemaVersion === EVIDENCE_SUITE_SCHEMA
+    && value.suiteType === suiteType
+    && typeof value.suiteChecksum === "string"
+    && CHECKSUM.test(value.suiteChecksum)
+    && value.suiteChecksum === calculateImageEmbeddingEvidenceSuiteChecksum({ suiteType, suitePayload, sourceFiles });
 }
 
 function validation(reasons: string[]): ImageEmbeddingEvidenceValidation {
@@ -220,22 +334,34 @@ function validateCaseSetRegression(
   return reasons;
 }
 
-function parseSimpleSuite(value: unknown, label: string, expectedCaseCount?: number): {
+function parseSimpleSuite(
+  value: unknown,
+  label: string,
+  suiteType: "text-benchmark" | "a2a-replay" | "fusion-e2e",
+  expectedCaseCount?: number,
+): {
   suite?: ImageEmbeddingEvidenceSuite;
   reasons: string[];
 } {
-  if (!exactKeys(value, ["suiteChecksum", "caseIds"])) {
+  if (!exactKeys(value, ["schemaVersion", "suiteType", "suiteChecksum", "sourceFiles", "caseIds"])) {
     return { reasons: [`${label} frozen suite schema is invalid.`] };
   }
   const caseIds = uniqueStringArray(value.caseIds);
-  if (typeof value.suiteChecksum !== "string" || !CHECKSUM.test(value.suiteChecksum)
-    || !caseIds
+  const sourceFiles = parseSuiteSourceFiles(value.sourceFiles);
+  if (!caseIds
+    || !sourceFiles
     || (expectedCaseCount !== undefined && caseIds.length !== expectedCaseCount)) {
     return { reasons: [`${label} frozen suite contents are invalid.`] };
   }
+  if (!suiteChecksumMatches(value, suiteType, { caseIds }, sourceFiles)) {
+    return { reasons: [`${label} frozen suite checksum does not match its canonical manifest.`] };
+  }
   return {
     suite: {
+      schemaVersion: EVIDENCE_SUITE_SCHEMA,
+      suiteType,
       suiteChecksum: value.suiteChecksum,
+      sourceFiles,
       caseIds,
     },
     reasons: [],
@@ -246,12 +372,12 @@ function parseA2aCaseSetSuite(value: unknown): {
   suite?: ImageEmbeddingA2aCaseSetSuite;
   reasons: string[];
 } {
-  if (!exactKeys(value, ["suiteChecksum", "baseline"])) {
+  if (!exactKeys(value, ["schemaVersion", "suiteType", "suiteChecksum", "sourceFiles", "baseline"])) {
     return { reasons: ["A2A case-set frozen suite schema is invalid."] };
   }
   const baseline = parseCaseSet(value.baseline, "blockedIds", "A2A frozen baseline");
-  if (typeof value.suiteChecksum !== "string" || !CHECKSUM.test(value.suiteChecksum)
-    || !baseline.parsed) {
+  const sourceFiles = parseSuiteSourceFiles(value.sourceFiles);
+  if (!baseline.parsed || !sourceFiles) {
     return { reasons: [...baseline.reasons, "A2A case-set frozen suite contents are invalid."] };
   }
   const caseCount = caseSetIds(baseline.parsed).length;
@@ -261,14 +387,21 @@ function parseA2aCaseSetSuite(value: unknown): {
     || caseCount !== A2A_CASE_SET_COUNT) {
     return { reasons: ["A2A frozen baseline must contain the authoritative 55/40/5 100-row case set."] };
   }
+  const baselinePayload = {
+    passIds: baseline.parsed.passIds,
+    failIds: baseline.parsed.failIds,
+    blockedIds: baseline.parsed.blockedOrSkippedIds,
+  };
+  if (!suiteChecksumMatches(value, "a2a-case-set", { baseline: baselinePayload }, sourceFiles)) {
+    return { reasons: ["A2A case-set frozen suite checksum does not match its canonical manifest."] };
+  }
   return {
     suite: {
+      schemaVersion: EVIDENCE_SUITE_SCHEMA,
+      suiteType: "a2a-case-set",
       suiteChecksum: value.suiteChecksum,
-      baseline: {
-        passIds: baseline.parsed.passIds,
-        failIds: baseline.parsed.failIds,
-        blockedIds: baseline.parsed.blockedOrSkippedIds,
-      },
+      sourceFiles,
+      baseline: baselinePayload,
     },
     reasons: [],
   };
@@ -278,25 +411,32 @@ function parseE2eCaseSetSuite(value: unknown): {
   suite?: ImageEmbeddingE2eCaseSetSuite;
   reasons: string[];
 } {
-  if (!exactKeys(value, ["suiteChecksum", "baseline"])) {
+  if (!exactKeys(value, ["schemaVersion", "suiteType", "suiteChecksum", "sourceFiles", "baseline"])) {
     return { reasons: ["E2E frozen suite schema is invalid."] };
   }
   const baseline = parseCaseSet(value.baseline, "skippedIds", "E2E frozen baseline");
-  if (typeof value.suiteChecksum !== "string" || !CHECKSUM.test(value.suiteChecksum)
-    || !baseline.parsed) {
+  const sourceFiles = parseSuiteSourceFiles(value.sourceFiles);
+  if (!baseline.parsed || !sourceFiles) {
     return { reasons: [...baseline.reasons, "E2E frozen suite contents are invalid."] };
   }
   if (caseSetIds(baseline.parsed).length !== E2E_CASE_COUNT) {
     return { reasons: ["E2E frozen suite must contain the authoritative 14-case baseline."] };
   }
+  const baselinePayload = {
+    passIds: baseline.parsed.passIds,
+    failIds: baseline.parsed.failIds,
+    skippedIds: baseline.parsed.blockedOrSkippedIds,
+  };
+  if (!suiteChecksumMatches(value, "e2e", { baseline: baselinePayload }, sourceFiles)) {
+    return { reasons: ["E2E frozen suite checksum does not match its canonical manifest."] };
+  }
   return {
     suite: {
+      schemaVersion: EVIDENCE_SUITE_SCHEMA,
+      suiteType: "e2e",
       suiteChecksum: value.suiteChecksum,
-      baseline: {
-        passIds: baseline.parsed.passIds,
-        failIds: baseline.parsed.failIds,
-        skippedIds: baseline.parsed.blockedOrSkippedIds,
-      },
+      sourceFiles,
+      baseline: baselinePayload,
     },
     reasons: [],
   };
@@ -309,11 +449,11 @@ export function parseImageEmbeddingEvidenceSuiteBindings(value: unknown): ImageE
   if (!exactKeys(value.a2a, ["caseSet", "replay"])) {
     return { reasons: ["A2A frozen suite bindings are malformed."] };
   }
-  const textBenchmark = parseSimpleSuite(value.textBenchmark, "Text benchmark", TEXT_PROMPT_COUNT);
+  const textBenchmark = parseSimpleSuite(value.textBenchmark, "Text benchmark", "text-benchmark", TEXT_PROMPT_COUNT);
   const a2aCaseSet = parseA2aCaseSetSuite(value.a2a.caseSet);
-  const a2aReplay = parseSimpleSuite(value.a2a.replay, "A2A replay", A2A_REPLAY_CASE_COUNT);
+  const a2aReplay = parseSimpleSuite(value.a2a.replay, "A2A replay", "a2a-replay", A2A_REPLAY_CASE_COUNT);
   const e2e = parseE2eCaseSetSuite(value.e2e);
-  const fusionE2e = parseSimpleSuite(value.fusionE2e, "Fusion E2E");
+  const fusionE2e = parseSimpleSuite(value.fusionE2e, "Fusion E2E", "fusion-e2e");
   const reasons = [
     ...textBenchmark.reasons,
     ...a2aCaseSet.reasons,
