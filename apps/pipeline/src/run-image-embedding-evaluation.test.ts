@@ -594,10 +594,13 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
     buildReportPath: fixture.buildReportPath,
     outputPath: fixture.outputPath,
     expectedEvidenceCommitSha: "a".repeat(40),
+    expectedExecutionCommitSha: "a".repeat(40),
     preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
     ...evidence,
   });
   assert.equal(valid.report.gates.baselineBindingsReady, true, JSON.stringify(valid.report.gates.bindingFailures));
+  assert.equal(valid.report.gates.bindingIntegrity, true, JSON.stringify(valid.report.gates.bindingFailures));
+  assert.equal(valid.report.baselineBindings.baselineEvidenceCommitSha, "a".repeat(40));
   assert.equal(valid.report.promotionBinding.fusionE2eSuiteChecksum, frozenEvidenceSuites().fusionE2e.suiteChecksum);
   assert.equal(valid.report.promotionBinding.fusionE2eRunnerArtifactChecksum, "missing");
 
@@ -611,6 +614,7 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
     buildReportPath: fixture.buildReportPath,
     outputPath: fixture.outputPath,
     expectedEvidenceCommitSha: "a".repeat(40),
+    expectedExecutionCommitSha: "a".repeat(40),
     preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
     ...evidence,
   });
@@ -632,11 +636,92 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
     buildReportPath: fixture.buildReportPath,
     outputPath: fixture.outputPath,
     expectedEvidenceCommitSha: "a".repeat(40),
+    expectedExecutionCommitSha: "a".repeat(40),
     preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
     ...evidence,
   });
   assert.equal(invalid.report.gates.baselineBindingsReady, false);
   assert.equal(invalid.report.gates.bindingIntegrity, false);
+});
+
+test("Task 5 baseline evidence remains valid after its report is committed on a later clean HEAD", async () => {
+  const fixture = createFixture();
+  const evidenceCommitSha = initializeGitFixture(fixture.rootDir);
+  const evidence = writePassingPromotionEvidence(fixture);
+  const commonEvidenceBuildOptions = {
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+  };
+  buildImageEmbeddingPromotionEvidence({
+    ...commonEvidenceBuildOptions,
+    outputPath: evidence.textBenchmarkBaselinePath,
+    textBenchmarkRunnerArtifactPath: evidence.textBenchmarkRunnerArtifactPath,
+  });
+  buildImageEmbeddingPromotionEvidence({
+    ...commonEvidenceBuildOptions,
+    outputPath: evidence.a2aBaselinePath,
+    a2aCaseSetRunnerArtifactPath: evidence.a2aCaseSetRunnerArtifactPath,
+    a2aReplayRunnerArtifactPath: evidence.a2aReplayRunnerArtifactPath,
+  });
+  buildImageEmbeddingPromotionEvidence({
+    ...commonEvidenceBuildOptions,
+    outputPath: evidence.e2eBaselinePath,
+    e2eRunnerArtifactPath: evidence.e2eRunnerArtifactPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+  });
+  const task5 = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+    ...evidence,
+  });
+  assert.equal(task5.report.gates.baselineBindingsReady, true, JSON.stringify(task5.report.gates.bindingFailures));
+
+  execFileSync("git", ["-C", fixture.rootDir, "add", fixture.outputPath]);
+  execFileSync("git", ["-C", fixture.rootDir, "commit", "-m", "record task5 report"]);
+  const executionCommitSha = execFileSync("git", ["-C", fixture.rootDir, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+  assert.notEqual(executionCommitSha, evidenceCommitSha);
+
+  const reconstructed = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+    ...evidence,
+  });
+  assert.equal(reconstructed.report.gates.baselineBindingsReady, true, JSON.stringify(reconstructed.report.gates.bindingFailures));
+  assert.equal(reconstructed.report.baselineBindings.baselineEvidenceCommitSha, evidenceCommitSha);
+  assert.equal(reconstructed.report.promotionBindingPayload.baselineEvidenceCommitSha, evidenceCommitSha);
+});
+
+test("Task 5 rejects baseline envelopes that do not share one frozen evidence commit", async () => {
+  const fixture = createFixture();
+  const evidence = writePassingPromotionEvidence(fixture);
+  const a2a = JSON.parse(readFileSync(evidence.a2aBaselinePath, "utf8")) as { commitSha: string };
+  a2a.commitSha = "b".repeat(40);
+  writeFileSync(evidence.a2aBaselinePath, `${JSON.stringify(a2a, null, 2)}\n`);
+
+  const result = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    expectedExecutionCommitSha: "c".repeat(40),
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+    ...evidence,
+  });
+  assert.equal(result.report.gates.baselineBindingsReady, false);
+  assert.ok(result.report.gates.bindingFailures.some((reason) => /do not share one frozen commit SHA/u.test(reason)));
 });
 
 test("Task 6 fusion producer refuses to run before the bound Task 5 report is promotion-ready", async () => {

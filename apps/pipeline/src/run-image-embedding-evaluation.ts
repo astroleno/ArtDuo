@@ -54,6 +54,7 @@ import { readImageEmbeddingEvaluationOptions } from "./cli";
 const EVALUATION_VERSION = "image-embedding-evaluation.v1";
 const VISUAL_CANDIDATE_COUNT = 12;
 const VISUAL_WEIGHT_CANDIDATES = [0.05, 0.1, 0.15, 0.2, 0.3] as const;
+const COMMIT_SHA = /^[a-f0-9]{40}$/u;
 export const FROZEN_METADATA_SCORE_UPPER_BOUND = IMAGE_SCENE_SCORE_UPPER_BOUND;
 
 export interface ImageEmbeddingEvaluationOptions {
@@ -79,8 +80,10 @@ export interface ImageEmbeddingEvaluationOptions {
   a2aReplayRunnerArtifactPath?: string;
   e2eRunnerArtifactPath?: string;
   fusionE2eRunnerArtifactPath?: string;
-  /** Internal test seam; the CLI always derives this value from the selected Git checkout. */
+  /** Internal test seam for the commit frozen into the baseline evidence envelopes. */
   expectedEvidenceCommitSha?: string;
+  /** Internal test seam; production always verifies the current clean Git HEAD. */
+  expectedExecutionCommitSha?: string;
   /** Internal test seam; production evaluation runs the preflight command directly. */
   preflightCheck?: () => ImageEmbeddingEvidencePreflight;
 }
@@ -97,6 +100,7 @@ export interface ImageEmbeddingPromotionBinding {
   textBenchmarkBaselineChecksum: string;
   a2aBaselineChecksum: string;
   e2eBaselineChecksum: string;
+  baselineEvidenceCommitSha: string;
   textBenchmarkSuiteChecksum: string;
   a2aCaseSetSuiteChecksum: string;
   a2aReplaySuiteChecksum: string;
@@ -137,6 +141,7 @@ export interface ImageEmbeddingPromotionBindingPayload {
   textBenchmarkBaselineChecksum: string;
   a2aBaselineChecksum: string;
   e2eBaselineChecksum: string;
+  baselineEvidenceCommitSha: string;
   textBenchmarkSuiteChecksum: string;
   a2aCaseSetSuiteChecksum: string;
   a2aReplaySuiteChecksum: string;
@@ -218,6 +223,7 @@ export interface ImageEmbeddingEvaluationReport {
     textBenchmarkBaselineChecksum: string;
     a2aBaselineChecksum: string;
     e2eBaselineChecksum: string;
+    baselineEvidenceCommitSha: string;
     textBenchmarkSuiteChecksum: string;
     a2aCaseSetSuiteChecksum: string;
     a2aReplaySuiteChecksum: string;
@@ -350,17 +356,17 @@ function resolveRootDir(rootDir?: string): string {
   return rootDir ? path.resolve(rootDir) : path.resolve(process.cwd(), "../..");
 }
 
-interface EvidenceGitBinding {
+interface ExecutionGitBinding {
   commitSha?: string;
   clean: boolean;
   reason?: string;
 }
 
-function resolveEvidenceGitBinding(rootDir: string, expectedCommitSha?: string): EvidenceGitBinding {
+function resolveExecutionGitBinding(rootDir: string, expectedCommitSha?: string): ExecutionGitBinding {
   const explicit = expectedCommitSha?.trim();
   if (explicit) {
-    if (!/^[a-f0-9]{40}$/u.test(explicit)) {
-      throw new TypeError("Expected evidence commit SHA must be a full lowercase SHA-1.");
+    if (!COMMIT_SHA.test(explicit)) {
+      throw new TypeError("Expected execution commit SHA must be a full lowercase SHA-1.");
     }
   }
   try {
@@ -368,11 +374,11 @@ function resolveEvidenceGitBinding(rootDir: string, expectedCommitSha?: string):
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
     }).trim();
-    if (!/^[a-f0-9]{40}$/u.test(commitSha)) {
+    if (!COMMIT_SHA.test(commitSha)) {
       return { clean: false, reason: "Evaluator Git HEAD is unavailable or malformed." };
     }
     if (explicit && explicit !== commitSha) {
-      return { commitSha, clean: false, reason: "Expected evidence commit SHA does not match Git HEAD." };
+      return { commitSha, clean: false, reason: "Expected execution commit SHA does not match Git HEAD." };
     }
     const diff = spawnSync("git", ["-C", rootDir, "diff", "--quiet", "--ignore-submodules", "HEAD", "--"], {
       stdio: "ignore",
@@ -532,6 +538,53 @@ function parseBaseInputs(input: {
 
 function readJsonFile(filePath: string): unknown {
   return JSON.parse(readFileSync(filePath, "utf8")) as unknown;
+}
+
+interface BaselineEvidenceCommitBinding {
+  commitSha?: string;
+  reasons: string[];
+}
+
+function resolveBaselineEvidenceCommitBinding(
+  options: ImageEmbeddingEvaluationOptions,
+): BaselineEvidenceCommitBinding {
+  const explicit = options.expectedEvidenceCommitSha?.trim();
+  if (explicit && !COMMIT_SHA.test(explicit)) {
+    throw new TypeError("Expected baseline evidence commit SHA must be a full lowercase SHA-1.");
+  }
+  const reasons: string[] = [];
+  const observedCommits: string[] = [];
+  for (const [filePath, label] of [
+    [options.textBenchmarkBaselinePath, "Text benchmark"],
+    [options.a2aBaselinePath, "A2A"],
+    [options.e2eBaselinePath, "E2E"],
+  ] as const) {
+    if (!filePath) {
+      continue;
+    }
+    try {
+      const evidence = readJsonFile(path.resolve(filePath));
+      if (!isRecord(evidence) || typeof evidence.commitSha !== "string" || !COMMIT_SHA.test(evidence.commitSha)) {
+        reasons.push(`${label} evidence does not declare a valid frozen commit SHA.`);
+        continue;
+      }
+      observedCommits.push(evidence.commitSha);
+    } catch {
+      reasons.push(`${label} evidence commit SHA could not be read.`);
+    }
+  }
+  const distinctCommits = [...new Set(observedCommits)];
+  if (distinctCommits.length > 1) {
+    reasons.push("Baseline evidence envelopes do not share one frozen commit SHA.");
+  }
+  const observed = distinctCommits.length === 1 ? distinctCommits[0] : undefined;
+  if (explicit && observed && explicit !== observed) {
+    reasons.push("Expected baseline evidence commit SHA does not match the frozen envelopes.");
+  }
+  return {
+    commitSha: explicit ?? observed,
+    reasons,
+  };
 }
 
 function parseBuildReport(value: unknown): ImageEmbeddingBuildReportBinding {
@@ -973,8 +1026,10 @@ export function runImageEmbeddingEvaluation(
     throw new TypeError("Selected release version does not match the base manifest.");
   }
   const reportDirectory = resolveReportDirectory(rootDir, releaseVersion);
-  const evidenceGitBinding = resolveEvidenceGitBinding(rootDir, options.expectedEvidenceCommitSha);
-  const evidenceCommitSha = evidenceGitBinding.commitSha;
+  const executionGitBinding = resolveExecutionGitBinding(rootDir, options.expectedExecutionCommitSha);
+  const executionCommitSha = executionGitBinding.commitSha;
+  const baselineEvidenceCommitBinding = resolveBaselineEvidenceCommitBinding(options);
+  const baselineEvidenceCommitSha = baselineEvidenceCommitBinding.commitSha ?? "missing";
   const outputPath = path.resolve(options.outputPath);
   if (isInside(loaded.releaseDir, outputPath)) {
     throw new TypeError("Image embedding evaluation output must remain outside the base release directory.");
@@ -989,9 +1044,10 @@ export function runImageEmbeddingEvaluation(
   const promotionAnchorBytes = readFileSync(promotionAnchorPath);
   const promotionAnchorSetChecksum = sha256Checksum(promotionAnchorBytes);
   const bindingFailures: string[] = [];
-  if (!evidenceGitBinding.clean) {
-    bindingFailures.push(evidenceGitBinding.reason ?? "Evidence Git binding is invalid.");
+  if (!executionGitBinding.clean) {
+    bindingFailures.push(executionGitBinding.reason ?? "Execution Git binding is invalid.");
   }
+  bindingFailures.push(...baselineEvidenceCommitBinding.reasons);
   let evidenceSuites: ImageEmbeddingEvidenceSuiteBindings | undefined;
   const parsedSuites = readImageEmbeddingEvidenceSuiteManifest({
     rootDir,
@@ -1213,7 +1269,7 @@ export function runImageEmbeddingEvaluation(
   const evidenceContext: ImageEmbeddingEvidenceContext = {
     releaseVersion,
     baseManifestChecksum,
-    commitSha: evidenceCommitSha,
+    commitSha: baselineEvidenceCommitBinding.commitSha,
     evidenceSuites,
     runnerArtifactChecksums,
     runnerArtifacts,
@@ -1323,6 +1379,7 @@ export function runImageEmbeddingEvaluation(
     textBenchmarkBaselineChecksum,
     a2aBaselineChecksum,
     e2eBaselineChecksum,
+    baselineEvidenceCommitSha,
     textBenchmarkSuiteChecksum,
     a2aCaseSetSuiteChecksum,
     a2aReplaySuiteChecksum,
@@ -1355,6 +1412,7 @@ export function runImageEmbeddingEvaluation(
   });
   const fusionEvidenceContext: ImageEmbeddingEvidenceContext & { promotionBindingChecksum: string } = {
     ...evidenceContext,
+    commitSha: executionCommitSha,
     promotionBindingChecksum,
     fusionPromotionInputBinding,
   };
@@ -1381,6 +1439,7 @@ export function runImageEmbeddingEvaluation(
     textBenchmarkBaselineChecksum,
     a2aBaselineChecksum,
     e2eBaselineChecksum,
+    baselineEvidenceCommitSha,
     textBenchmarkSuiteChecksum,
     a2aCaseSetSuiteChecksum,
     a2aReplaySuiteChecksum,
@@ -1418,6 +1477,7 @@ export function runImageEmbeddingEvaluation(
       textBenchmarkBaselineChecksum,
       a2aBaselineChecksum,
       e2eBaselineChecksum,
+      baselineEvidenceCommitSha,
       textBenchmarkSuiteChecksum,
       a2aCaseSetSuiteChecksum,
       a2aReplaySuiteChecksum,

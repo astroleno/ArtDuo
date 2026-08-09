@@ -342,7 +342,12 @@ test("promotion evidence producer normalizes raw Playwright fusion output instea
     fusionCandidateShardPath: fixture.candidateShardPath,
     fusionPromotionReportPath: fixture.promotionReportPath,
     promotionBindingChecksum,
-    task5EvaluationCheck: () => task5Reconstruction(fixture.promotionReportPath),
+    task5EvaluationCheck: (evaluationOptions) => {
+      const executionCommitSha = execFileSync("git", ["-C", fixture.rootDir, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+      assert.equal(evaluationOptions.expectedExecutionCommitSha, executionCommitSha);
+      assert.equal(evaluationOptions.expectedEvidenceCommitSha, undefined);
+      return task5Reconstruction(fixture.promotionReportPath);
+    },
     fusionE2eCheck: (input) => {
       fixedSuiteRuns += 1;
       assert.notEqual(input.artifactPath, fusionRunnerOutputPath, "the runner must write into producer-owned temporary storage");

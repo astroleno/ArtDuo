@@ -43,6 +43,7 @@ import {
 import { readImageEmbeddingEvidenceSuiteManifest } from "./image-embedding-evidence-suite-manifest";
 import {
   runImageEmbeddingEvaluation,
+  type ImageEmbeddingEvaluationOptions,
   type ImageEmbeddingPromotionBindingPayload,
 } from "./run-image-embedding-evaluation";
 import { readImageEmbeddingPromotionEvidenceBuildOptions } from "./cli";
@@ -76,7 +77,7 @@ export interface ImageEmbeddingPromotionEvidenceBuildOptions {
   /** Internal test seam; the production CLI executes the preflight command itself. */
   preflightCheck?: () => ImageEmbeddingEvidencePreflight;
   /** Internal test seam; the production CLI independently reruns the Task 5 evaluator. */
-  task5EvaluationCheck?: () => ImageEmbeddingTask5EvaluationReconstruction;
+  task5EvaluationCheck?: (options: ImageEmbeddingEvaluationOptions) => ImageEmbeddingTask5EvaluationReconstruction;
   /** Internal test seam; the production CLI executes the frozen Fusion E2E suite itself. */
   fusionE2eCheck?: (input: ImageEmbeddingFusionE2eRunInput) => { command: "pnpm test:e2e:fusion"; exitCode: number };
 }
@@ -240,14 +241,10 @@ function reconstructTask5Evaluation(
     preflight: ImageEmbeddingEvidencePreflight;
   },
 ): ImageEmbeddingTask5EvaluationReconstruction {
-  const seamResult = options.task5EvaluationCheck?.();
-  if (seamResult) {
-    return seamResult;
-  }
   assertTask5ReconstructionInputs(options);
   const temporaryDirectory = mkdtempSync(path.join(os.tmpdir(), "artduo-task5-reconstruction-"));
   try {
-    const result = runImageEmbeddingEvaluation({
+    const evaluationOptions: ImageEmbeddingEvaluationOptions = {
       rootDir: input.rootDir,
       releaseVersion: input.release.releaseVersion,
       manifestPath: input.release.manifestPath,
@@ -264,9 +261,14 @@ function reconstructTask5Evaluation(
       a2aCaseSetRunnerArtifactPath: options.task5A2aCaseSetRunnerArtifactPath,
       a2aReplayRunnerArtifactPath: options.task5A2aReplayRunnerArtifactPath,
       e2eRunnerArtifactPath: options.task5E2eRunnerArtifactPath,
-      expectedEvidenceCommitSha: input.commitSha,
+      expectedExecutionCommitSha: input.commitSha,
       preflightCheck: () => input.preflight,
-    });
+    };
+    const seamResult = options.task5EvaluationCheck?.(evaluationOptions);
+    if (seamResult) {
+      return seamResult;
+    }
+    const result = runImageEmbeddingEvaluation(evaluationOptions);
     return {
       promotionBindingPayload: result.report.promotionBindingPayload,
       promotionBindingChecksum: result.report.promotionBinding.promotionBindingChecksum,

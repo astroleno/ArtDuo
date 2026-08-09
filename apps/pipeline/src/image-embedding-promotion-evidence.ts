@@ -283,9 +283,9 @@ function validateBinding(value: unknown, context: ImageEmbeddingEvidenceContext,
   if (typeof binding.commitSha !== "string" || !COMMIT_SHA.test(binding.commitSha)) {
     reasons.push(`${label} evidence commit SHA is invalid.`);
   } else if (!context.commitSha) {
-    reasons.push(`${label} evidence cannot bind because the evaluator commit SHA is unavailable.`);
+    reasons.push(`${label} evidence cannot bind because its expected commit SHA is unavailable.`);
   } else if (binding.commitSha !== context.commitSha) {
-    reasons.push(`${label} evidence commit SHA does not match the evaluator commit.`);
+    reasons.push(`${label} evidence commit SHA does not match the expected frozen commit.`);
   }
   if (typeof binding.baseManifestChecksum !== "string" || !CHECKSUM.test(binding.baseManifestChecksum)) {
     reasons.push(`${label} evidence base manifest checksum format is invalid.`);
