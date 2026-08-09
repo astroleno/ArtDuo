@@ -108,11 +108,15 @@ The defined E2E case set has 14 cases:
 13. `phase1-states.spec.ts › unknown artwork detail routes render the not-found state`
 14. `thin-slice.spec.ts › visitor can turn a sentence into a gallery and open artwork detail`
 
-This baseline cannot execute assertions locally because the Playwright Chromium
-binary is absent. The runner reports all 14 as `failed` at `browserType.launch`,
-before application code executes; for promotion comparison they are classified as
-**blocked by environment**, not as product failures. A real Chromium-backed run is
-required before Task 6 or Task 7 can pass.
+The earlier local Chromium launch blocker is resolved. A Chromium-backed recovery
+run on commit `78778706cea4807d0bc35d6258cd182158229d44` started at
+`2026-08-08T09:53:33.267Z` and completed all 14 cases with `14 passed`, `0 failed`,
+and `0 skipped`. Its raw Playwright JSON checksum is
+`sha256:e1fc98c83bda3a56d6321d67959573e5d3dc78a21ed94c7a164212c35d8c5f73`.
+The prior `browserType.launch` failures are retained only as historical environment
+evidence; they are no longer the current browser baseline. Promotion still requires
+a fresh raw artifact and normalized envelope bound to the current clean commit and
+the current frozen suite manifest.
 
 The sidecar budgets are frozen as follows:
 
