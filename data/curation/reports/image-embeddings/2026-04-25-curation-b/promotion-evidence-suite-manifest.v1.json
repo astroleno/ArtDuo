@@ -68,7 +68,7 @@
     "e2e": {
       "schemaVersion": "image-embedding-evidence-suite.v2",
       "suiteType": "e2e",
-      "suiteChecksum": "sha256:a261b28ea826344b2ce089c78029161a06c58b3dad4bbe5db12284fc6e4dedb3",
+      "suiteChecksum": "sha256:31c023870f3f69990996d05cf0e36a85fbf1e400d01b58fc161d5a9acd61beb8",
       "sourceFiles": [
         { "path": "apps/web/e2e/browser-local-runtime.spec.ts", "checksum": "sha256:f0d64aa67bcf8f84576b989fe795942f6157f8545cf0b45c1f37024162e28628" },
         { "path": "apps/web/e2e/explanation-state.spec.ts", "checksum": "sha256:13acee029f5a708c6f769b7547b06237cb1a1b8334cfba6cbb7420df2111c068" },
@@ -77,7 +77,7 @@
         { "path": "apps/web/e2e/phase1-states.spec.ts", "checksum": "sha256:f3488018e01d3d3463189759856cd22bec6a0c35e179772cf9080a3be670ce82" },
         { "path": "apps/web/e2e/thin-slice.spec.ts", "checksum": "sha256:49a9121ab1400760d8a1d574b77a38a465682cfe3645193eb18fcbf9f18ecc72" },
         { "path": "apps/web/playwright.config.ts", "checksum": "sha256:e4c765aad30216493a943672b48f71439f5e478d85a74cef4b536761028dba7b" },
-        { "path": "apps/web/scripts/playwright-web-server.mjs", "checksum": "sha256:d8cf1fd3886025fce2b62128e10f29b7313bde4807a2998ec80489c391b6e53b" }
+        { "path": "apps/web/scripts/playwright-web-server.mjs", "checksum": "sha256:219ed1179268dd0bb5e5b5739aa5eeb0fbb180e9e67dc766e91e0b2ac2e29021" }
       ],
       "baseline": {
         "passIds": [
