@@ -4,6 +4,12 @@ import net from "node:net";
 const host = "127.0.0.1";
 const port = Number(process.env.ARTDUO_WEB_E2E_PORT ?? "3211");
 const url = `http://${host}:${port}`;
+const mayReuseExistingServer = !process.env.CI;
+
+function refuseOccupiedPort() {
+  console.error(`${url} is occupied during an isolated CI run. Set ARTDUO_WEB_E2E_PORT to an unused port.`);
+  process.exit(1);
+}
 
 function isPortOpen() {
   return new Promise((resolve) => {
@@ -45,9 +51,15 @@ async function waitForUrlReady() {
 }
 
 if (await isUrlReady()) {
+  if (!mayReuseExistingServer) {
+    refuseOccupiedPort();
+  }
   console.log(`Reusing existing @artduo/web server on ${url}`);
   setInterval(() => {}, 2 ** 31 - 1);
 } else if (await isPortOpen()) {
+  if (!mayReuseExistingServer) {
+    refuseOccupiedPort();
+  }
   if (await waitForUrlReady()) {
     console.log(`Reusing existing @artduo/web server on ${url}`);
     setInterval(() => {}, 2 ** 31 - 1);

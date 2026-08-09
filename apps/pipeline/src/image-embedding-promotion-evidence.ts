@@ -89,8 +89,13 @@ export interface ImageEmbeddingEvidenceSuiteBindingsParseResult {
 
 export function imageEmbeddingEvidencePreflightEnvironment(
   environment: NodeJS.ProcessEnv = process.env,
+  isolatedPort = String(32_000 + (process.pid % 14_000)),
 ): NodeJS.ProcessEnv {
-  return { ...environment, CI: "1" };
+  return {
+    ...environment,
+    CI: "1",
+    ARTDUO_WEB_E2E_PORT: isolatedPort,
+  };
 }
 
 export type ImageEmbeddingEvidenceSuiteType = "text-benchmark" | "a2a-case-set" | "a2a-replay" | "e2e" | "fusion-e2e";

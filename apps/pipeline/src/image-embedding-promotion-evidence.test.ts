@@ -131,8 +131,14 @@ const context = {
 };
 
 test("evidence preflight forces an isolated CI browser server", () => {
-  assert.equal(imageEmbeddingEvidencePreflightEnvironment({ CI: "0", CUSTOM_FLAG: "kept" }).CI, "1");
-  assert.equal(imageEmbeddingEvidencePreflightEnvironment({ CUSTOM_FLAG: "kept" }).CUSTOM_FLAG, "kept");
+  const environment = imageEmbeddingEvidencePreflightEnvironment(
+    { CI: "0", CUSTOM_FLAG: "kept", ARTDUO_WEB_E2E_PORT: "3211" },
+    "43121",
+  );
+
+  assert.equal(environment.CI, "1");
+  assert.equal(environment.CUSTOM_FLAG, "kept");
+  assert.equal(environment.ARTDUO_WEB_E2E_PORT, "43121");
 });
 
 test("frozen suite parser recomputes the canonical checksum after case content changes", () => {
