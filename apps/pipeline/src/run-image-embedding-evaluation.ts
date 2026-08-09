@@ -8,7 +8,9 @@ import {
   assertImageSceneScoreCardinality,
   IMAGE_SCENE_SCORE_CARDINALITY_LIMITS,
   IMAGE_SCENE_SCORE_UPPER_BOUND,
+  isImageEmbeddingPromotionGateReady,
   parseImageEmbeddingShardRecords,
+  type ImageEmbeddingPromotionGateEvidence,
   type ImageEmbeddingShardRecord,
   type ShardInfo,
 } from "@artduo/contracts";
@@ -153,35 +155,7 @@ export interface ImageEmbeddingPromotionBindingPayload {
   visualCandidateCount: number;
   recommendedVisualWeight: number;
   visualCalibration: VisualCalibration;
-  gateEvidence: {
-    bindingIntegrity: boolean;
-    buildCoverageReady: boolean;
-    artworkHoldout: {
-      minimumSampleMet: boolean;
-      count: number;
-      pointEstimate: number;
-      lowerConfidence: number;
-      allStrataSufficient: boolean;
-    };
-    sceneHoldout: {
-      minimumSampleMet: boolean;
-      count: number;
-      pointEstimate: number;
-      lowerConfidence: number;
-      allStrataSufficient: boolean;
-    };
-    reviewPackReady: boolean;
-    humanReview: {
-      valid: boolean;
-      complete: boolean;
-      completedCount: number;
-      uncertainRate: number;
-      candidateAcceptableRate: number;
-      candidateRegressionRate: number;
-    };
-    baselineBindingsReady: boolean;
-    visualPolicySelectionReady: boolean;
-  };
+  gateEvidence: ImageEmbeddingPromotionGateEvidence;
 }
 
 interface ImageEmbeddingBuildReportBinding {
@@ -315,39 +289,6 @@ function canonicalJson(value: unknown): string {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
-}
-
-function numberMeets(value: unknown, predicate: (value: number) => boolean): boolean {
-  return typeof value === "number" && Number.isFinite(value) && predicate(value);
-}
-
-function promotionPayloadIsReady(value: unknown): boolean {
-  if (!isRecord(value) || !isRecord(value.gateEvidence)) {
-    return false;
-  }
-  const gates = value.gateEvidence;
-  const artwork = isRecord(gates.artworkHoldout) ? gates.artworkHoldout : undefined;
-  const scene = isRecord(gates.sceneHoldout) ? gates.sceneHoldout : undefined;
-  const human = isRecord(gates.humanReview) ? gates.humanReview : undefined;
-  return gates.bindingIntegrity === true
-    && gates.buildCoverageReady === true
-    && artwork?.minimumSampleMet === true
-    && artwork.allStrataSufficient === true
-    && numberMeets(artwork.pointEstimate, (entry) => entry >= 0.8)
-    && numberMeets(artwork.lowerConfidence, (entry) => entry >= 0.7)
-    && scene?.minimumSampleMet === true
-    && scene.allStrataSufficient === true
-    && numberMeets(scene.pointEstimate, (entry) => entry >= 0.7)
-    && numberMeets(scene.lowerConfidence, (entry) => entry >= 0.6)
-    && gates.reviewPackReady === true
-    && human?.valid === true
-    && human.complete === true
-    && numberMeets(human.completedCount, (entry) => entry >= 30)
-    && numberMeets(human.uncertainRate, (entry) => entry <= 0.1)
-    && numberMeets(human.candidateAcceptableRate, (entry) => entry >= 0.8)
-    && numberMeets(human.candidateRegressionRate, (entry) => entry <= 0.1)
-    && gates.baselineBindingsReady === true
-    && gates.visualPolicySelectionReady === true;
 }
 
 function expectRecord(value: unknown, label: string): Record<string, unknown> {
@@ -658,7 +599,7 @@ function readFusionPromotionInputBinding(input: {
       || report.promotionBinding.promotionBindingChecksum !== checksum
       || report.promotionBinding.promotionReady !== true
       || report.promotionBinding.fusionVerificationReady !== false
-      || !promotionPayloadIsReady(report.promotionBindingPayload)) {
+      || !isImageEmbeddingPromotionGateReady(report.promotionBindingPayload.gateEvidence)) {
       return undefined;
     }
     for (const [field, expected] of [
@@ -1010,9 +951,9 @@ function invalidatedHumanReview(
   };
 }
 
-export async function runImageEmbeddingEvaluation(
+export function runImageEmbeddingEvaluation(
   options: ImageEmbeddingEvaluationOptions,
-): Promise<ImageEmbeddingEvaluationResult> {
+): ImageEmbeddingEvaluationResult {
   if (!options.outputPath) {
     throw new TypeError("Image embedding evaluation requires an explicit --output path.");
   }
@@ -1339,15 +1280,37 @@ export async function runImageEmbeddingEvaluation(
     && a2aEvidence.validation.valid
     && e2eEvidence.validation.valid;
   const bindingIntegrity = bindingFailures.length === 0;
-  const promotionReady = bindingIntegrity
-    && buildReport.gates.coverageReady
-    && artworkHoldoutReady
-    && sceneHoldoutReady
-    && reviewPackReady
-    && humanReviewReady
-    && baselineBindingsReady
-    && visualPolicySelection.selectionReady;
   const reviewVerdictsChecksum = humanReview.reviewVerdictsChecksum ?? "missing";
+  const promotionGateEvidence: ImageEmbeddingPromotionGateEvidence = {
+    bindingIntegrity,
+    buildCoverageReady: buildReport.gates.coverageReady,
+    artworkHoldout: {
+      minimumSampleMet: weakLabels.holdoutReadiness.artworkPairwise.minimumSampleMet,
+      count: weakLabels.holdoutReadiness.artworkPairwise.uniqueArtworkCount,
+      pointEstimate: artworkHoldout.pairwiseAccuracy,
+      lowerConfidence: artworkHoldout.confidenceInterval.lower,
+      allMajorStrataSufficient: weakLabels.holdoutReadiness.artworkPairwise.allMajorStrataSufficient,
+    },
+    sceneHoldout: {
+      minimumSampleMet: weakLabels.holdoutReadiness.sceneTop3.minimumSampleMet,
+      count: weakLabels.holdoutReadiness.sceneTop3.uniqueArtworkCount,
+      pointEstimate: sceneHoldout.hitRate,
+      lowerConfidence: sceneHoldout.confidenceInterval.lower,
+      allMajorStrataSufficient: weakLabels.holdoutReadiness.sceneTop3.allMajorStrataSufficient,
+    },
+    reviewPackReady,
+    humanReview: {
+      valid: humanReview.valid,
+      complete: humanReview.humanReviewComplete,
+      completedCount: humanReview.completedCount,
+      uncertainRate: humanReview.uncertainRate,
+      candidateAcceptableRate: humanReview.candidateAcceptableRate,
+      candidateRegressionRate: humanReview.candidateRegressionRate,
+    },
+    baselineBindingsReady,
+    visualPolicySelectionReady: visualPolicySelection.selectionReady,
+  };
+  const promotionReady = isImageEmbeddingPromotionGateReady(promotionGateEvidence);
   const promotionBindingPayload: ImageEmbeddingPromotionBindingPayload = {
     releaseVersion,
     evaluationVersion: EVALUATION_VERSION,
@@ -1380,40 +1343,9 @@ export async function runImageEmbeddingEvaluation(
     visualCandidateCount: VISUAL_CANDIDATE_COUNT,
     recommendedVisualWeight: visualPolicySelection.recommendedVisualWeight,
     visualCalibration: visualPolicySelection.visualCalibration,
-    gateEvidence: {
-      bindingIntegrity,
-      buildCoverageReady: buildReport.gates.coverageReady,
-      artworkHoldout: {
-        minimumSampleMet: weakLabels.holdoutReadiness.artworkPairwise.minimumSampleMet,
-        count: weakLabels.holdoutReadiness.artworkPairwise.uniqueArtworkCount,
-        pointEstimate: artworkHoldout.pairwiseAccuracy,
-        lowerConfidence: artworkHoldout.confidenceInterval.lower,
-        allStrataSufficient: weakLabels.holdoutReadiness.artworkPairwise.allStrataSufficient,
-      },
-      sceneHoldout: {
-        minimumSampleMet: weakLabels.holdoutReadiness.sceneTop3.minimumSampleMet,
-        count: weakLabels.holdoutReadiness.sceneTop3.uniqueArtworkCount,
-        pointEstimate: sceneHoldout.hitRate,
-        lowerConfidence: sceneHoldout.confidenceInterval.lower,
-        allStrataSufficient: weakLabels.holdoutReadiness.sceneTop3.allStrataSufficient,
-      },
-      reviewPackReady,
-      humanReview: {
-        valid: humanReview.valid,
-        complete: humanReview.humanReviewComplete,
-        completedCount: humanReview.completedCount,
-        uncertainRate: humanReview.uncertainRate,
-        candidateAcceptableRate: humanReview.candidateAcceptableRate,
-        candidateRegressionRate: humanReview.candidateRegressionRate,
-      },
-      baselineBindingsReady,
-      visualPolicySelectionReady: visualPolicySelection.selectionReady,
-    },
+    gateEvidence: promotionGateEvidence,
   };
   const promotionBindingChecksum = sha256Checksum(canonicalJson(promotionBindingPayload));
-  if (promotionPayloadIsReady(promotionBindingPayload) !== promotionReady) {
-    throw new TypeError("Promotion binding payload readiness does not match the evaluation gates.");
-  }
   const fusionPromotionInputBinding = readFusionPromotionInputBinding({
     promotionReportPath: options.fusionPromotionReportPath,
     releaseVersion,

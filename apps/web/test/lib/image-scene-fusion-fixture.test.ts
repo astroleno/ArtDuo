@@ -82,14 +82,14 @@ function fixtureInput(promotionReady = true) {
         count: 60,
         pointEstimate: 0.9,
         lowerConfidence: 0.8,
-        allStrataSufficient: true,
+        allMajorStrataSufficient: true,
       },
       sceneHoldout: {
         minimumSampleMet: true,
         count: 60,
         pointEstimate: 0.8,
         lowerConfidence: 0.7,
-        allStrataSufficient: true,
+        allMajorStrataSufficient: true,
       },
       reviewPackReady: promotionReady,
       humanReview: {

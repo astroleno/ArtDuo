@@ -499,6 +499,22 @@ test("image embedding runner binds candidate/build inputs and emits a fail-close
   assert.equal(result.report.promotionBinding.promotionReady, false);
   const promotionBindingPayload = (result.report as unknown as { promotionBindingPayload?: unknown }).promotionBindingPayload;
   assert.ok(promotionBindingPayload, "the Task 5 report must retain the canonical promotion decision payload");
+  const gateEvidence = (promotionBindingPayload as {
+    gateEvidence: {
+      artworkHoldout: Record<string, unknown>;
+      sceneHoldout: Record<string, unknown>;
+    };
+  }).gateEvidence;
+  assert.equal(
+    gateEvidence.artworkHoldout.allMajorStrataSufficient,
+    result.report.weakLabels.holdoutReadiness.artworkPairwise.allMajorStrataSufficient,
+  );
+  assert.equal(
+    gateEvidence.sceneHoldout.allMajorStrataSufficient,
+    result.report.weakLabels.holdoutReadiness.sceneTop3.allMajorStrataSufficient,
+  );
+  assert.equal(Object.hasOwn(gateEvidence.artworkHoldout, "allStrataSufficient"), false);
+  assert.equal(Object.hasOwn(gateEvidence.sceneHoldout, "allStrataSufficient"), false);
   assert.equal(
     result.report.promotionBinding.promotionBindingChecksum,
     checksum(canonicalJson(promotionBindingPayload)),

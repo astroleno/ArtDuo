@@ -212,6 +212,16 @@ export function readImageEmbeddingPromotionEvidenceBuildOptions(): ImageEmbeddin
   const fusionCandidateShardPath = readFlag("--fusion-candidate-shard");
   const fusionPromotionReportPath = readFlag("--fusion-promotion-report");
   const promotionBindingChecksum = readFlag("--promotion-binding-checksum");
+  const task5BuildReportPath = readFlag("--task5-build-report");
+  const task5ReviewPackPath = readFlag("--task5-review-pack");
+  const task5ReviewVerdictsPath = readFlag("--task5-review-verdicts");
+  const task5TextBenchmarkBaselinePath = readFlag("--task5-text-benchmark-baseline");
+  const task5A2aBaselinePath = readFlag("--task5-a2a-baseline");
+  const task5E2eBaselinePath = readFlag("--task5-e2e-baseline");
+  const task5TextBenchmarkRunnerArtifactPath = readFlag("--task5-text-benchmark-runner-artifact");
+  const task5A2aCaseSetRunnerArtifactPath = readFlag("--task5-a2a-case-set-runner-artifact");
+  const task5A2aReplayRunnerArtifactPath = readFlag("--task5-a2a-replay-runner-artifact");
+  const task5E2eRunnerArtifactPath = readFlag("--task5-e2e-runner-artifact");
 
   return {
     rootDir: rootDir ? workspaceRoot : undefined,
@@ -241,6 +251,26 @@ export function readImageEmbeddingPromotionEvidenceBuildOptions(): ImageEmbeddin
       ? resolveCliPath(fusionPromotionReportPath, workspaceRoot)
       : undefined,
     promotionBindingChecksum,
+    task5BuildReportPath: task5BuildReportPath ? resolveCliPath(task5BuildReportPath, workspaceRoot) : undefined,
+    task5ReviewPackPath: task5ReviewPackPath ? resolveCliPath(task5ReviewPackPath, workspaceRoot) : undefined,
+    task5ReviewVerdictsPath: task5ReviewVerdictsPath ? resolveCliPath(task5ReviewVerdictsPath, workspaceRoot) : undefined,
+    task5TextBenchmarkBaselinePath: task5TextBenchmarkBaselinePath
+      ? resolveCliPath(task5TextBenchmarkBaselinePath, workspaceRoot)
+      : undefined,
+    task5A2aBaselinePath: task5A2aBaselinePath ? resolveCliPath(task5A2aBaselinePath, workspaceRoot) : undefined,
+    task5E2eBaselinePath: task5E2eBaselinePath ? resolveCliPath(task5E2eBaselinePath, workspaceRoot) : undefined,
+    task5TextBenchmarkRunnerArtifactPath: task5TextBenchmarkRunnerArtifactPath
+      ? resolveCliPath(task5TextBenchmarkRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    task5A2aCaseSetRunnerArtifactPath: task5A2aCaseSetRunnerArtifactPath
+      ? resolveCliPath(task5A2aCaseSetRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    task5A2aReplayRunnerArtifactPath: task5A2aReplayRunnerArtifactPath
+      ? resolveCliPath(task5A2aReplayRunnerArtifactPath, workspaceRoot)
+      : undefined,
+    task5E2eRunnerArtifactPath: task5E2eRunnerArtifactPath
+      ? resolveCliPath(task5E2eRunnerArtifactPath, workspaceRoot)
+      : undefined,
   };
 }
 

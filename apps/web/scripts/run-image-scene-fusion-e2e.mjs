@@ -5,6 +5,8 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { isImageEmbeddingPromotionGateReady } from "@artduo/contracts";
+
 function checksum(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -51,32 +53,6 @@ function writeJsonArtifact(filePath, value) {
   };
 }
 
-function promotionPayloadIsReady(payload) {
-  const gates = payload?.gateEvidence;
-  const artwork = gates?.artworkHoldout;
-  const scene = gates?.sceneHoldout;
-  const human = gates?.humanReview;
-  return gates?.bindingIntegrity === true
-    && gates?.buildCoverageReady === true
-    && artwork?.minimumSampleMet === true
-    && artwork?.allStrataSufficient === true
-    && artwork?.pointEstimate >= 0.8
-    && artwork?.lowerConfidence >= 0.7
-    && scene?.minimumSampleMet === true
-    && scene?.allStrataSufficient === true
-    && scene?.pointEstimate >= 0.7
-    && scene?.lowerConfidence >= 0.6
-    && gates?.reviewPackReady === true
-    && human?.valid === true
-    && human?.complete === true
-    && human?.completedCount >= 30
-    && human?.uncertainRate <= 0.1
-    && human?.candidateAcceptableRate >= 0.8
-    && human?.candidateRegressionRate <= 0.1
-    && gates?.baselineBindingsReady === true
-    && gates?.visualPolicySelectionReady === true;
-}
-
 function requirePromotionBinding(report) {
   const binding = report?.promotionBinding;
   const payload = report?.promotionBindingPayload;
@@ -108,7 +84,7 @@ function requirePromotionBinding(report) {
   if (binding.promotionBindingChecksum !== computedChecksum) {
     throw new TypeError("Fusion E2E promotion binding checksum does not match its canonical Task 5 payload.");
   }
-  if (!promotionPayloadIsReady(payload)) {
+  if (!isImageEmbeddingPromotionGateReady(payload.gateEvidence)) {
     throw new TypeError("Fusion E2E promotionReady=true does not match the canonical Task 5 gates.");
   }
   if (report.schemaVersion !== "image-embedding-evaluation-report.v1"

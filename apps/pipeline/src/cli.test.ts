@@ -136,6 +136,16 @@ test("promotion evidence CLI accepts exactly addressed raw artifacts and fusion 
     "--fusion-candidate-shard", "candidates/image-embeddings-01.json",
     "--fusion-promotion-report", "reports/task5-promotion.json",
     "--promotion-binding-checksum", "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "--task5-build-report", "reports/task5-build.json",
+    "--task5-review-pack", "reports/task5-review-pack.json",
+    "--task5-review-verdicts", "reports/task5-review-verdicts.json",
+    "--task5-text-benchmark-baseline", "evidence/task5-text.json",
+    "--task5-a2a-baseline", "evidence/task5-a2a.json",
+    "--task5-e2e-baseline", "evidence/task5-e2e.json",
+    "--task5-text-benchmark-runner-artifact", "raw/task5-text.json",
+    "--task5-a2a-case-set-runner-artifact", "raw/task5-a2a-case-set.json",
+    "--task5-a2a-replay-runner-artifact", "raw/task5-a2a-replay.json",
+    "--task5-e2e-runner-artifact", "raw/task5-e2e.json",
   ];
 
   try {
@@ -148,6 +158,16 @@ test("promotion evidence CLI accepts exactly addressed raw artifacts and fusion 
     assert.equal(options.fusionCandidateShardPath, path.resolve("/tmp/image-evidence-root/candidates/image-embeddings-01.json"));
     assert.equal(options.fusionPromotionReportPath, path.resolve("/tmp/image-evidence-root/reports/task5-promotion.json"));
     assert.equal(options.promotionBindingChecksum, "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    assert.equal(options.task5BuildReportPath, path.resolve("/tmp/image-evidence-root/reports/task5-build.json"));
+    assert.equal(options.task5ReviewPackPath, path.resolve("/tmp/image-evidence-root/reports/task5-review-pack.json"));
+    assert.equal(options.task5ReviewVerdictsPath, path.resolve("/tmp/image-evidence-root/reports/task5-review-verdicts.json"));
+    assert.equal(options.task5TextBenchmarkBaselinePath, path.resolve("/tmp/image-evidence-root/evidence/task5-text.json"));
+    assert.equal(options.task5A2aBaselinePath, path.resolve("/tmp/image-evidence-root/evidence/task5-a2a.json"));
+    assert.equal(options.task5E2eBaselinePath, path.resolve("/tmp/image-evidence-root/evidence/task5-e2e.json"));
+    assert.equal(options.task5TextBenchmarkRunnerArtifactPath, path.resolve("/tmp/image-evidence-root/raw/task5-text.json"));
+    assert.equal(options.task5A2aCaseSetRunnerArtifactPath, path.resolve("/tmp/image-evidence-root/raw/task5-a2a-case-set.json"));
+    assert.equal(options.task5A2aReplayRunnerArtifactPath, path.resolve("/tmp/image-evidence-root/raw/task5-a2a-replay.json"));
+    assert.equal(options.task5E2eRunnerArtifactPath, path.resolve("/tmp/image-evidence-root/raw/task5-e2e.json"));
   } finally {
     process.argv = originalArgv;
   }
