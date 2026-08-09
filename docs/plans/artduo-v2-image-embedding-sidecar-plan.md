@@ -1704,9 +1704,6 @@ fusion_e2e_evidence="$ARTDUO_FUSION_CHECK_DIR/image-scene-fusion-e2e-evidence.js
 pnpm vector:benchmark -- \
   --release-version 2026-04-25-curation-b \
   --output "$baseline_output"
-pnpm --filter @artduo/web exec playwright test \
-  e2e/image-scene-fusion.spec.ts \
-  --reporter=json > "$fusion_e2e_raw"
 pnpm test
 
 git diff --quiet HEAD --
@@ -1742,6 +1739,11 @@ pnpm image-embeddings:benchmark -- \
   selection 实验 snapshot 可变化。
 - fallback E2E 的 scene 顺序与 metadata baseline 完全一致。
 - targeted E2E 性能数据在冻结预算内。
+- `image-embeddings:evidence` 会先删除目标 raw 文件，再运行固定命令
+  `pnpm test:e2e:fusion`；该命令从 promotion-ready Task 5 report 和 candidate
+  在系统临时目录生成 checksum-bound valid/fault variants，并用独立 config、
+  project 与 spec 产生 fresh Playwright JSON。不得预制同名 JSON 或直接运行任意
+  spec 冒充该 suite。
 - evaluation report 保持相同 `promotionBindingChecksum`，新增规范化后的
   `fusionE2eReportChecksum` 与 fusion raw artifact checksum，并给出
   `fusionVerificationReady: true`。原始 Playwright JSON 只能传给

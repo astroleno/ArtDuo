@@ -108,15 +108,27 @@ The defined E2E case set has 14 cases:
 13. `phase1-states.spec.ts › unknown artwork detail routes render the not-found state`
 14. `thin-slice.spec.ts › visitor can turn a sentence into a gallery and open artwork detail`
 
-The earlier local Chromium launch blocker is resolved. A Chromium-backed recovery
-run on commit `78778706cea4807d0bc35d6258cd182158229d44` started at
-`2026-08-08T09:53:33.267Z` and completed all 14 cases with `14 passed`, `0 failed`,
-and `0 skipped`. Its raw Playwright JSON checksum is
-`sha256:e1fc98c83bda3a56d6321d67959573e5d3dc78a21ed94c7a164212c35d8c5f73`.
-The prior `browserType.launch` failures are retained only as historical environment
-evidence; they are no longer the current browser baseline. Promotion still requires
-a fresh raw artifact and normalized envelope bound to the current clean commit and
-the current frozen suite manifest.
+The earlier local Chromium launch blocker is resolved. The current recovered
+14-case browser baseline ran on commit
+`47e77852bc3003237674f3df2d9d3728316aa817`, starting at
+`2026-08-09T03:50:07.620Z`, and completed with `14 passed`, `0 failed`, and
+`0 skipped`. The run is bound by:
+
+- raw Playwright JSON checksum:
+  `sha256:8f097624e5b5cdb66a7886bd5d4f32a0b4d7635f660718a288bc61b9dc0103ca`;
+- frozen 14-case suite checksum:
+  `sha256:31c023870f3f69990996d05cf0e36a85fbf1e400d01b58fc161d5a9acd61beb8`;
+- normalized E2E evidence checksum:
+  `sha256:1b482ef3fd0962759a4041fb6a9618582e3fbba765d1821453446e0bbb2b944d`.
+
+The older commit `78778706cea4807d0bc35d6258cd182158229d44` run and its
+`sha256:e1fc98...` raw artifact are historical recovery evidence only; they predate
+the real exhibition-to-artwork-detail click. Commit `e4e4bd2` subsequently split
+the five targeted Fusion cases into a separately executable, promotion-gated suite
+and refroze the standard suite packaging. Therefore `47e7785` remains the latest
+completed 14/14 semantic browser run, but promotion must generate a fresh raw
+artifact and normalized envelope bound to the current clean commit and current
+suite checksum.
 
 The sidecar budgets are frozen as follows:
 
