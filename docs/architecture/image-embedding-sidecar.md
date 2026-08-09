@@ -160,8 +160,11 @@ The sidecar budgets are frozen as follows:
 7. Task 6 Fusion evidence is generated only from producer-selected Task 5 inputs.
    Before launching the browser, the producer independently reruns the Task 5
    evaluator from explicit build, review, baseline envelope, and raw runner inputs
-   against the current frozen anchor and clean commit. The reconstructed gate
-   payload, checksum, and ready state must exactly match the selected Task 5 report.
+   against the current frozen anchor. The three baseline envelopes must share one
+   frozen evidence commit, which is part of the promotion payload; the current clean
+   execution commit is verified separately and is allowed to be later than that
+   evidence commit. The reconstructed gate payload, checksum, and ready state must
+   exactly match the selected Task 5 report.
    The producer then locks the base manifest, candidate shard, and Task 5 report
    paths, removes inherited override variables, and records their checksums plus
    release and promotion binding in Playwright metadata. A self-hashed payload,

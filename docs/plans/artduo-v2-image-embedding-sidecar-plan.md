@@ -1313,14 +1313,18 @@ untracked。E2E/fusion producer 与 evaluator 都实际执行一次 `pnpm prefli
 生成 fusion evidence 时，producer 不能把 Task 5 report 自带且自哈希的
 `promotionBindingPayload` 当成独立证明。CLI 必须同时显式传入 Task 5 的 build report、
 review pack、verdict sidecar、三份 baseline envelope 和四份 baseline raw artifact；producer
-在私有临时目录用当前冻结 anchor/suite、当前 clean commit 和同一次 preflight 重新执行 Task 5
-evaluator。只有重建出的完整 payload、checksum 与 `promotionReady: true` 逐字节匹配所选 Task 5
+先从三份 baseline envelope 推导并要求一致的 frozen evidence commit，再在私有临时目录用当前
+冻结 anchor/suite、当前 clean execution commit 和同一次 preflight 重新执行 Task 5 evaluator。
+baseline validator 绑定 frozen evidence commit，当前工作树完整性则单独绑定 execution commit；
+两者不得强制相等。只有重建出的完整 payload、checksum 与 `promotionReady: true` 逐字节匹配所选 Task 5
 report，才允许启动固定 Fusion suite。缺少输入、当前 suite 漂移、raw/envelope 不一致或重建后
 任一 gate 失败都必须在浏览器启动前 fail closed。
 
 四类 evidence 绝不能以“文件存在”作为通过条件，也不能直接把任意 runner 的 raw
-JSON/HTML 传入。每份必须是严格、无额外字段的 v2 JSON envelope，且共同绑定所选
-release、base manifest checksum 和当前 evaluator Git `HEAD` commit SHA。可信的
+JSON/HTML 传入。每份必须是严格、无额外字段的 v2 JSON envelope，并绑定所选
+release 与 base manifest checksum。Task 5 的 text/A2A/E2E baseline envelopes 必须共同绑定
+生成它们时的 frozen evidence commit；该 commit 写入 promotion payload，Task 5 report 后续提交
+不会令其失效。Task 6 新生成的 Fusion envelope 则绑定执行时的 clean Git `HEAD`。可信的
 `promotion-anchor-set.json` 还必须冻结四类 suite 的精确 ID/status 集合与 suite checksum；
 build report 已绑定该 anchor 的整体 checksum。每次 candidate run 的 artifact checksum 不能
 错误复用历史 baseline：evidence 声明的 suite checksum 必须匹配 anchor，而动态的
@@ -1435,6 +1439,7 @@ interface ImageEmbeddingPromotionBinding {
   textBenchmarkBaselineChecksum: string;
   a2aBaselineChecksum: string;
   e2eBaselineChecksum: string;
+  baselineEvidenceCommitSha: string;
   fusionE2eReportChecksum?: string;
   promotionBindingChecksum: string;
   modelRevision: string;
@@ -1454,7 +1459,7 @@ interface ImageEmbeddingPromotionBinding {
 ```
 
 `promotionBindingChecksum` 是 canonical JSON 的 SHA-256，输入包含上述 release、
-candidate/review/baseline/model/policy 字段以及 holdout/human gate 的原始计数与
+candidate/review/baseline/model/policy 字段、`baselineEvidenceCommitSha` 以及 holdout/human gate 的原始计数与
 结果；排除 `generatedAt`、原始临时路径、后续
 `fusionE2eReportChecksum` 与 fusion raw runner artifact checksum。因此 Task 6 回写 E2E 证据时该 checksum 必须保持
 不变，任何重算候选、重做人工 verdict 或修改 policy 都会改变它并强制重跑 Task
