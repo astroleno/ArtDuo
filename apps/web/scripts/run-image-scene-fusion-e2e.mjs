@@ -9,6 +9,29 @@ function checksum(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
 
+function canonicalJson(value) {
+  if (value === null || typeof value === "string" || typeof value === "boolean") {
+    return JSON.stringify(value);
+  }
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) {
+      throw new TypeError("Fusion E2E promotion binding contains a non-finite number.");
+    }
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalJson).join(",")}]`;
+  }
+  if (value && typeof value === "object") {
+    return `{${Object.entries(value)
+      .filter(([, entry]) => entry !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`)
+      .join(",")}}`;
+  }
+  throw new TypeError("Fusion E2E promotion binding is not canonical JSON.");
+}
+
 function readJson(filePath, label) {
   try {
     return JSON.parse(readFileSync(filePath, "utf8"));
@@ -28,9 +51,37 @@ function writeJsonArtifact(filePath, value) {
   };
 }
 
+function promotionPayloadIsReady(payload) {
+  const gates = payload?.gateEvidence;
+  const artwork = gates?.artworkHoldout;
+  const scene = gates?.sceneHoldout;
+  const human = gates?.humanReview;
+  return gates?.bindingIntegrity === true
+    && gates?.buildCoverageReady === true
+    && artwork?.minimumSampleMet === true
+    && artwork?.allStrataSufficient === true
+    && artwork?.pointEstimate >= 0.8
+    && artwork?.lowerConfidence >= 0.7
+    && scene?.minimumSampleMet === true
+    && scene?.allStrataSufficient === true
+    && scene?.pointEstimate >= 0.7
+    && scene?.lowerConfidence >= 0.6
+    && gates?.reviewPackReady === true
+    && human?.valid === true
+    && human?.complete === true
+    && human?.completedCount >= 30
+    && human?.uncertainRate <= 0.1
+    && human?.candidateAcceptableRate >= 0.8
+    && human?.candidateRegressionRate <= 0.1
+    && gates?.baselineBindingsReady === true
+    && gates?.visualPolicySelectionReady === true;
+}
+
 function requirePromotionBinding(report) {
   const binding = report?.promotionBinding;
-  if (!binding || binding.promotionReady !== true) {
+  const payload = report?.promotionBindingPayload;
+  if (!binding || !payload || typeof payload !== "object" || Array.isArray(payload)
+    || binding.promotionReady !== true) {
     throw new TypeError("Fusion E2E fixture generation requires a Task 5 report with promotionReady=true.");
   }
   const requiredStrings = [
@@ -52,6 +103,39 @@ function requirePromotionBinding(report) {
     || typeof binding.visualCalibration?.lowerCosine !== "number"
     || typeof binding.visualCalibration?.upperCosine !== "number") {
     throw new TypeError("Fusion E2E promotion binding is incomplete.");
+  }
+  const computedChecksum = checksum(canonicalJson(payload));
+  if (binding.promotionBindingChecksum !== computedChecksum) {
+    throw new TypeError("Fusion E2E promotion binding checksum does not match its canonical Task 5 payload.");
+  }
+  if (!promotionPayloadIsReady(payload)) {
+    throw new TypeError("Fusion E2E promotionReady=true does not match the canonical Task 5 gates.");
+  }
+  if (report.schemaVersion !== "image-embedding-evaluation-report.v1"
+    || report.releaseVersion !== payload.releaseVersion
+    || binding.fusionVerificationReady !== false) {
+    throw new TypeError("Fusion E2E promotion report is not a Task 5 decision artifact.");
+  }
+  for (const field of [
+    "releaseVersion",
+    "baseManifestChecksum",
+    "candidateShardChecksum",
+    "model",
+    "modelRevision",
+    "modelVariant",
+    "modelArtifactChecksum",
+    "providerVersion",
+    "preprocessingFingerprint",
+    "visualCandidateCount",
+    "recommendedVisualWeight",
+  ]) {
+    if (binding[field] !== payload[field]) {
+      throw new TypeError(`Fusion E2E promotion binding field ${field} does not match its canonical payload.`);
+    }
+  }
+  if (binding.visualCalibration?.lowerCosine !== payload.visualCalibration?.lowerCosine
+    || binding.visualCalibration?.upperCosine !== payload.visualCalibration?.upperCosine) {
+    throw new TypeError("Fusion E2E promotion binding calibration does not match its canonical payload.");
   }
   return binding;
 }
@@ -102,6 +186,18 @@ export function buildImageSceneFusionFixture(input) {
   const candidate = readJson(candidateShardPath, "Image embedding candidate shard");
   const report = readJson(promotionReportPath, "Image embedding promotion report");
   const binding = requirePromotionBinding(report);
+  const reportChecksum = checksum(promotionReportBytes);
+  const observedBinding = {
+    releaseVersion: report.releaseVersion,
+    baseManifestChecksum: checksum(baseManifestBytes),
+    candidateShardChecksum: checksum(JSON.stringify(candidate, null, 2)),
+    promotionReportChecksum: reportChecksum,
+    promotionBindingChecksum: binding.promotionBindingChecksum,
+  };
+  if (!input.expectedBinding
+    || Object.keys(observedBinding).some((field) => input.expectedBinding[field] !== observedBinding[field])) {
+    throw new TypeError("Fusion E2E inputs do not match the producer-locked Task 5 inputs.");
+  }
   if (!Array.isArray(candidate) || candidate.length === 0) {
     throw new TypeError("Fusion E2E candidate shard must contain records.");
   }
@@ -114,7 +210,6 @@ export function buildImageSceneFusionFixture(input) {
 
   cpSync(path.dirname(baseManifestPath), fixtureRoot, { recursive: true });
   mkdirSync(fixtureRoot, { recursive: true });
-  const reportChecksum = checksum(promotionReportBytes);
 
   const validShardName = "image-embeddings-valid.json";
   const validShard = writeJsonArtifact(path.join(fixtureRoot, validShardName), candidate);
@@ -155,19 +250,30 @@ export function buildImageSceneFusionFixture(input) {
   return { validManifestPath, checksumManifestPath, missingEntityManifestPath, timeoutManifestPath };
 }
 
+function requiredEnvironment(name, absolutePath = false) {
+  const value = process.env[name]?.trim();
+  if (!value || (absolutePath && !path.isAbsolute(value))) {
+    throw new TypeError(`${name} is required${absolutePath ? " as an absolute path" : ""} from the promotion evidence producer.`);
+  }
+  return value;
+}
+
 function run() {
   const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
-  const releaseVersion = process.env.ARTDUO_FUSION_E2E_RELEASE_VERSION ?? "2026-04-25-curation-b";
-  const reportDir = path.join(repositoryRoot, "data", "curation", "reports", "image-embeddings", releaseVersion);
+  const expectedBinding = {
+    releaseVersion: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_RELEASE_VERSION"),
+    baseManifestChecksum: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST_CHECKSUM"),
+    candidateShardChecksum: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD_CHECKSUM"),
+    promotionReportChecksum: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT_CHECKSUM"),
+    promotionBindingChecksum: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_PROMOTION_BINDING_CHECKSUM"),
+  };
   const fixtureRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-image-scene-fusion-e2e-"));
   try {
     const fixture = buildImageSceneFusionFixture({
-      baseManifestPath: process.env.ARTDUO_FUSION_E2E_BASE_MANIFEST
-        ?? path.join(repositoryRoot, "data", "releases", releaseVersion, "manifest.json"),
-      candidateShardPath: process.env.ARTDUO_FUSION_E2E_CANDIDATE_SHARD
-        ?? path.join(reportDir, "candidates", "image-embeddings-01.json"),
-      promotionReportPath: process.env.ARTDUO_FUSION_E2E_PROMOTION_REPORT
-        ?? path.join(reportDir, "image-embedding-evaluation.json"),
+      baseManifestPath: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST", true),
+      candidateShardPath: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD", true),
+      promotionReportPath: requiredEnvironment("ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT", true),
+      expectedBinding,
       fixtureRoot,
     });
     const result = spawnSync("pnpm", ["exec", "playwright", "test", "--config=playwright.image-scene-fusion.config.ts"], {

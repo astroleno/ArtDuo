@@ -33,6 +33,7 @@ import {
   parseImageEmbeddingPlaywrightRunnerArtifact,
   parseImageEmbeddingTextBenchmarkRunnerArtifact,
   type ImageEmbeddingRunnerArtifactParseResult,
+  type ImageEmbeddingFusionPromotionInputBinding,
 } from "./image-embedding-evidence-artifacts";
 import {
   imageEmbeddingEvidencePreflightEnvironment,
@@ -67,6 +68,7 @@ export interface ImageEmbeddingEvaluationOptions {
   emitReviewPack?: boolean;
   reviewerViewOutputPath?: string;
   fusionE2eReportPath?: string;
+  fusionPromotionReportPath?: string;
   textBenchmarkBaselinePath?: string;
   a2aBaselinePath?: string;
   e2eBaselinePath?: string;
@@ -119,6 +121,67 @@ export interface ImageEmbeddingPromotionBinding {
   };
   promotionReady: boolean;
   fusionVerificationReady: boolean;
+}
+
+export interface ImageEmbeddingPromotionBindingPayload {
+  releaseVersion: string;
+  evaluationVersion: string;
+  baseManifestChecksum: string;
+  promotionAnchorSetChecksum: string;
+  buildReportChecksum: string;
+  candidateShardChecksum: string;
+  reviewPackChecksum: string;
+  reviewVerdictsChecksum: string;
+  textBenchmarkBaselineChecksum: string;
+  a2aBaselineChecksum: string;
+  e2eBaselineChecksum: string;
+  textBenchmarkSuiteChecksum: string;
+  a2aCaseSetSuiteChecksum: string;
+  a2aReplaySuiteChecksum: string;
+  e2eSuiteChecksum: string;
+  fusionE2eSuiteChecksum: string;
+  textBenchmarkRunnerArtifactChecksum: string;
+  a2aCaseSetRunnerArtifactChecksum: string;
+  a2aReplayRunnerArtifactChecksum: string;
+  e2eRunnerArtifactChecksum: string;
+  model: string;
+  modelRevision: string;
+  modelVariant: string;
+  modelArtifactChecksum: string;
+  providerVersion: string;
+  preprocessingFingerprint: string;
+  visualCandidateCount: number;
+  recommendedVisualWeight: number;
+  visualCalibration: VisualCalibration;
+  gateEvidence: {
+    bindingIntegrity: boolean;
+    buildCoverageReady: boolean;
+    artworkHoldout: {
+      minimumSampleMet: boolean;
+      count: number;
+      pointEstimate: number;
+      lowerConfidence: number;
+      allStrataSufficient: boolean;
+    };
+    sceneHoldout: {
+      minimumSampleMet: boolean;
+      count: number;
+      pointEstimate: number;
+      lowerConfidence: number;
+      allStrataSufficient: boolean;
+    };
+    reviewPackReady: boolean;
+    humanReview: {
+      valid: boolean;
+      complete: boolean;
+      completedCount: number;
+      uncertainRate: number;
+      candidateAcceptableRate: number;
+      candidateRegressionRate: number;
+    };
+    baselineBindingsReady: boolean;
+    visualPolicySelectionReady: boolean;
+  };
 }
 
 interface ImageEmbeddingBuildReportBinding {
@@ -209,6 +272,7 @@ export interface ImageEmbeddingEvaluationReport {
     fusionE2eReady: boolean;
     visualPolicySelectionReady: boolean;
   };
+  promotionBindingPayload: ImageEmbeddingPromotionBindingPayload;
   promotionBinding: ImageEmbeddingPromotionBinding;
 }
 
@@ -251,6 +315,39 @@ function canonicalJson(value: unknown): string {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function numberMeets(value: unknown, predicate: (value: number) => boolean): boolean {
+  return typeof value === "number" && Number.isFinite(value) && predicate(value);
+}
+
+function promotionPayloadIsReady(value: unknown): boolean {
+  if (!isRecord(value) || !isRecord(value.gateEvidence)) {
+    return false;
+  }
+  const gates = value.gateEvidence;
+  const artwork = isRecord(gates.artworkHoldout) ? gates.artworkHoldout : undefined;
+  const scene = isRecord(gates.sceneHoldout) ? gates.sceneHoldout : undefined;
+  const human = isRecord(gates.humanReview) ? gates.humanReview : undefined;
+  return gates.bindingIntegrity === true
+    && gates.buildCoverageReady === true
+    && artwork?.minimumSampleMet === true
+    && artwork.allStrataSufficient === true
+    && numberMeets(artwork.pointEstimate, (entry) => entry >= 0.8)
+    && numberMeets(artwork.lowerConfidence, (entry) => entry >= 0.7)
+    && scene?.minimumSampleMet === true
+    && scene.allStrataSufficient === true
+    && numberMeets(scene.pointEstimate, (entry) => entry >= 0.7)
+    && numberMeets(scene.lowerConfidence, (entry) => entry >= 0.6)
+    && gates.reviewPackReady === true
+    && human?.valid === true
+    && human.complete === true
+    && numberMeets(human.completedCount, (entry) => entry >= 30)
+    && numberMeets(human.uncertainRate, (entry) => entry <= 0.1)
+    && numberMeets(human.candidateAcceptableRate, (entry) => entry >= 0.8)
+    && numberMeets(human.candidateRegressionRate, (entry) => entry <= 0.1)
+    && gates.baselineBindingsReady === true
+    && gates.visualPolicySelectionReady === true;
 }
 
 function expectRecord(value: unknown, label: string): Record<string, unknown> {
@@ -534,6 +631,55 @@ function readCandidateRecords(candidateShardPath: string): {
     checksum: sha256Checksum(JSON.stringify(records, null, 2)),
     sizeBytes: bytes.byteLength,
   };
+}
+
+function readFusionPromotionInputBinding(input: {
+  promotionReportPath?: string;
+  releaseVersion: string;
+  baseManifestChecksum: string;
+  candidateShardChecksum: string;
+  promotionBindingChecksum: string;
+}): ImageEmbeddingFusionPromotionInputBinding | undefined {
+  if (!input.promotionReportPath) {
+    return undefined;
+  }
+  try {
+    const reportBytes = readFileSync(path.resolve(input.promotionReportPath));
+    const report = JSON.parse(reportBytes.toString("utf8")) as unknown;
+    if (!isRecord(report)
+      || report.schemaVersion !== "image-embedding-evaluation-report.v1"
+      || report.releaseVersion !== input.releaseVersion
+      || !isRecord(report.promotionBindingPayload)
+      || !isRecord(report.promotionBinding)) {
+      return undefined;
+    }
+    const checksum = sha256Checksum(canonicalJson(report.promotionBindingPayload));
+    if (checksum !== input.promotionBindingChecksum
+      || report.promotionBinding.promotionBindingChecksum !== checksum
+      || report.promotionBinding.promotionReady !== true
+      || report.promotionBinding.fusionVerificationReady !== false
+      || !promotionPayloadIsReady(report.promotionBindingPayload)) {
+      return undefined;
+    }
+    for (const [field, expected] of [
+      ["releaseVersion", input.releaseVersion],
+      ["baseManifestChecksum", input.baseManifestChecksum],
+      ["candidateShardChecksum", input.candidateShardChecksum],
+    ] as const) {
+      if (report.promotionBindingPayload[field] !== expected || report.promotionBinding[field] !== expected) {
+        return undefined;
+      }
+    }
+    return {
+      releaseVersion: input.releaseVersion,
+      baseManifestChecksum: input.baseManifestChecksum,
+      candidateShardChecksum: input.candidateShardChecksum,
+      promotionReportChecksum: sha256Checksum(reportBytes),
+      promotionBindingChecksum: checksum,
+    };
+  } catch {
+    return undefined;
+  }
 }
 
 function comparable(left: ImageEmbeddingShardRecord, right: ImageEmbeddingShardRecord): boolean {
@@ -1202,7 +1348,7 @@ export async function runImageEmbeddingEvaluation(
     && baselineBindingsReady
     && visualPolicySelection.selectionReady;
   const reviewVerdictsChecksum = humanReview.reviewVerdictsChecksum ?? "missing";
-  const promotionBindingPayload = {
+  const promotionBindingPayload: ImageEmbeddingPromotionBindingPayload = {
     releaseVersion,
     evaluationVersion: EVALUATION_VERSION,
     baseManifestChecksum,
@@ -1238,17 +1384,20 @@ export async function runImageEmbeddingEvaluation(
       bindingIntegrity,
       buildCoverageReady: buildReport.gates.coverageReady,
       artworkHoldout: {
+        minimumSampleMet: weakLabels.holdoutReadiness.artworkPairwise.minimumSampleMet,
         count: weakLabels.holdoutReadiness.artworkPairwise.uniqueArtworkCount,
         pointEstimate: artworkHoldout.pairwiseAccuracy,
         lowerConfidence: artworkHoldout.confidenceInterval.lower,
         allStrataSufficient: weakLabels.holdoutReadiness.artworkPairwise.allStrataSufficient,
       },
       sceneHoldout: {
+        minimumSampleMet: weakLabels.holdoutReadiness.sceneTop3.minimumSampleMet,
         count: weakLabels.holdoutReadiness.sceneTop3.uniqueArtworkCount,
         pointEstimate: sceneHoldout.hitRate,
         lowerConfidence: sceneHoldout.confidenceInterval.lower,
         allStrataSufficient: weakLabels.holdoutReadiness.sceneTop3.allStrataSufficient,
       },
+      reviewPackReady,
       humanReview: {
         valid: humanReview.valid,
         complete: humanReview.humanReviewComplete,
@@ -1262,9 +1411,20 @@ export async function runImageEmbeddingEvaluation(
     },
   };
   const promotionBindingChecksum = sha256Checksum(canonicalJson(promotionBindingPayload));
+  if (promotionPayloadIsReady(promotionBindingPayload) !== promotionReady) {
+    throw new TypeError("Promotion binding payload readiness does not match the evaluation gates.");
+  }
+  const fusionPromotionInputBinding = readFusionPromotionInputBinding({
+    promotionReportPath: options.fusionPromotionReportPath,
+    releaseVersion,
+    baseManifestChecksum,
+    candidateShardChecksum: candidate.checksum,
+    promotionBindingChecksum,
+  });
   const fusionEvidenceContext: ImageEmbeddingEvidenceContext & { promotionBindingChecksum: string } = {
     ...evidenceContext,
     promotionBindingChecksum,
+    fusionPromotionInputBinding,
   };
   const fusionE2eEvidence = options.fusionE2eReportPath
     ? readValidatedEvidence(
@@ -1354,6 +1514,7 @@ export async function runImageEmbeddingEvaluation(
       fusionE2eReady,
       visualPolicySelectionReady: visualPolicySelection.selectionReady,
     },
+    promotionBindingPayload,
     promotionBinding,
   };
   writeJsonAtomically(outputPath, report);

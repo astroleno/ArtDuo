@@ -11,6 +11,22 @@ function checksum(value: string | Uint8Array): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
 
+function canonicalJson(value: unknown): string {
+  if (value === null || typeof value === "string" || typeof value === "boolean" || typeof value === "number") {
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalJson).join(",")}]`;
+  }
+  if (typeof value === "object") {
+    return `{${Object.entries(value as Record<string, unknown>)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`)
+      .join(",")}}`;
+  }
+  throw new TypeError("Unsupported canonical JSON value.");
+}
+
 function writeJson(filePath: string, value: unknown): void {
   writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`);
 }
@@ -44,24 +60,77 @@ function fixtureInput(promotionReady = true) {
   writeJson(baseManifestPath, baseManifest);
   writeJson(path.join(releaseDir, "background-scenes-01.json"), []);
   writeJson(candidateShardPath, candidate);
+  const promotionBindingPayload = {
+    releaseVersion: "fixture-release",
+    evaluationVersion: "image-embedding-evaluation.v1",
+    baseManifestChecksum: checksum(readFileSync(baseManifestPath)),
+    candidateShardChecksum: checksum(JSON.stringify(candidate, null, 2)),
+    model: "Xenova/clip-vit-base-patch32",
+    modelRevision: "revision",
+    modelVariant: "quantized",
+    modelArtifactChecksum: checksum("model"),
+    providerVersion: "2.17.2",
+    preprocessingFingerprint: checksum("preprocessing"),
+    visualCandidateCount: 2,
+    recommendedVisualWeight: 0.05,
+    visualCalibration: { lowerCosine: -1, upperCosine: 1 },
+    gateEvidence: {
+      bindingIntegrity: true,
+      buildCoverageReady: true,
+      artworkHoldout: {
+        minimumSampleMet: true,
+        count: 60,
+        pointEstimate: 0.9,
+        lowerConfidence: 0.8,
+        allStrataSufficient: true,
+      },
+      sceneHoldout: {
+        minimumSampleMet: true,
+        count: 60,
+        pointEstimate: 0.8,
+        lowerConfidence: 0.7,
+        allStrataSufficient: true,
+      },
+      reviewPackReady: promotionReady,
+      humanReview: {
+        valid: true,
+        complete: true,
+        completedCount: 30,
+        uncertainRate: 0.05,
+        candidateAcceptableRate: 0.9,
+        candidateRegressionRate: 0.05,
+      },
+      baselineBindingsReady: true,
+      visualPolicySelectionReady: true,
+    },
+  };
+  const promotionBindingChecksum = checksum(canonicalJson(promotionBindingPayload));
   writeJson(promotionReportPath, {
+    schemaVersion: "image-embedding-evaluation-report.v1",
+    releaseVersion: "fixture-release",
+    promotionBindingPayload,
     promotionBinding: {
       promotionReady,
-      baseManifestChecksum: checksum(readFileSync(baseManifestPath)),
-      candidateShardChecksum: checksum(JSON.stringify(candidate, null, 2)),
-      promotionBindingChecksum: checksum("promotion-binding"),
-      model: "Xenova/clip-vit-base-patch32",
-      modelRevision: "revision",
-      modelVariant: "quantized",
-      modelArtifactChecksum: checksum("model"),
-      providerVersion: "2.17.2",
-      preprocessingFingerprint: checksum("preprocessing"),
-      visualCandidateCount: 2,
-      recommendedVisualWeight: 0.05,
-      visualCalibration: { lowerCosine: -1, upperCosine: 1 },
+      fusionVerificationReady: false,
+      ...promotionBindingPayload,
+      promotionBindingChecksum,
     },
   });
-  return { rootDir, baseManifestPath, candidateShardPath, promotionReportPath, baseManifest };
+  return {
+    rootDir,
+    baseManifestPath,
+    candidateShardPath,
+    promotionReportPath,
+    baseManifest,
+    promotionBindingChecksum,
+    expectedBinding: {
+      releaseVersion: "fixture-release",
+      baseManifestChecksum: promotionBindingPayload.baseManifestChecksum,
+      candidateShardChecksum: promotionBindingPayload.candidateShardChecksum,
+      promotionReportChecksum: checksum(readFileSync(promotionReportPath)),
+      promotionBindingChecksum,
+    },
+  };
 }
 
 test("fusion fixture builder creates bound valid and fault variants without mutating the base release", () => {
@@ -75,7 +144,7 @@ test("fusion fixture builder creates bound valid and fault variants without muta
     imageEmbeddingSidecar: { imageShardChecksum: string; promotionBindingChecksum: string };
   };
   assert.equal(valid.imageEmbeddingSidecar.imageShardChecksum, valid.shards.imageEmbeddings[0]?.checksum);
-  assert.equal(valid.imageEmbeddingSidecar.promotionBindingChecksum, checksum("promotion-binding"));
+  assert.equal(valid.imageEmbeddingSidecar.promotionBindingChecksum, input.promotionBindingChecksum);
 
   const checksumFailure = JSON.parse(readFileSync(result.checksumManifestPath, "utf8")) as {
     shards: { imageEmbeddings: Array<{ checksum: string }> };
@@ -91,5 +160,57 @@ test("fusion fixture builder refuses a report that is not promotion-ready", () =
   assert.throws(
     () => buildImageSceneFusionFixture({ ...input, fixtureRoot: path.join(input.rootDir, "generated") }),
     /promotionReady=true/u,
+  );
+});
+
+test("fusion fixture builder rejects promotionReady=true when the canonical Task 5 gates are not ready", () => {
+  const input = fixtureInput(false);
+  const report = JSON.parse(readFileSync(input.promotionReportPath, "utf8")) as {
+    promotionBinding: { promotionReady: boolean };
+  };
+  report.promotionBinding.promotionReady = true;
+  writeJson(input.promotionReportPath, report);
+
+  assert.throws(
+    () => buildImageSceneFusionFixture({
+      ...input,
+      expectedBinding: {
+        ...input.expectedBinding,
+        promotionReportChecksum: checksum(readFileSync(input.promotionReportPath)),
+      },
+      fixtureRoot: path.join(input.rootDir, "generated"),
+    }),
+    /canonical Task 5 gates/u,
+  );
+});
+
+test("fusion fixture builder recomputes and rejects a forged promotion binding checksum", () => {
+  const input = fixtureInput();
+  const report = JSON.parse(readFileSync(input.promotionReportPath, "utf8")) as {
+    promotionBinding: { promotionBindingChecksum: string };
+  };
+  report.promotionBinding.promotionBindingChecksum = checksum("forged-promotion-binding");
+  writeJson(input.promotionReportPath, report);
+
+  assert.throws(
+    () => buildImageSceneFusionFixture({ ...input, fixtureRoot: path.join(input.rootDir, "generated") }),
+    /promotion binding checksum/u,
+  );
+});
+
+test("fusion fixture builder rejects a self-consistent report detached from the producer-locked Task 5 artifact", () => {
+  const input = fixtureInput();
+  const detachedBinding = {
+    ...input.expectedBinding,
+    promotionReportChecksum: checksum("different-task-5-report"),
+  };
+
+  assert.throws(
+    () => buildImageSceneFusionFixture({
+      ...input,
+      expectedBinding: detachedBinding,
+      fixtureRoot: path.join(input.rootDir, "generated"),
+    }),
+    /producer-locked Task 5 inputs/u,
   );
 });

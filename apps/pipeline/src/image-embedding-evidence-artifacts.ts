@@ -39,12 +39,23 @@ export interface ImageEmbeddingPlaywrightRunnerArtifact {
   candidate: ImageEmbeddingEvidenceCaseSet;
 }
 
-export interface ImageEmbeddingFusionPlaywrightRunnerBinding {
+export interface ImageEmbeddingFusionPlaywrightSuiteBinding {
   suiteId: string;
   configPath: string;
   projectName: string;
   specPath: string;
 }
+
+export interface ImageEmbeddingFusionPromotionInputBinding {
+  releaseVersion: string;
+  baseManifestChecksum: string;
+  candidateShardChecksum: string;
+  promotionReportChecksum: string;
+  promotionBindingChecksum: string;
+}
+
+export interface ImageEmbeddingFusionPlaywrightRunnerBinding
+  extends ImageEmbeddingFusionPlaywrightSuiteBinding, ImageEmbeddingFusionPromotionInputBinding {}
 
 export interface ImageEmbeddingFusionPlaywrightRunnerArtifact extends ImageEmbeddingPlaywrightRunnerArtifact {
   runnerBinding: ImageEmbeddingFusionPlaywrightRunnerBinding;
@@ -378,8 +389,18 @@ export function parseImageEmbeddingFusionPlaywrightRunnerArtifact(
   const configPath = repositoryRelativePath(metadata.imageEmbeddingEvidenceConfigPath);
   const projectName = nonEmptyString(metadata.imageEmbeddingEvidenceProjectName);
   const specPath = repositoryRelativePath(metadata.imageEmbeddingEvidenceSpecPath);
+  const releaseVersion = nonEmptyString(metadata.imageEmbeddingEvidenceReleaseVersion);
+  const baseManifestChecksum = nonEmptyString(metadata.imageEmbeddingEvidenceBaseManifestChecksum);
+  const candidateShardChecksum = nonEmptyString(metadata.imageEmbeddingEvidenceCandidateShardChecksum);
+  const promotionReportChecksum = nonEmptyString(metadata.imageEmbeddingEvidencePromotionReportChecksum);
+  const promotionBindingChecksum = nonEmptyString(metadata.imageEmbeddingEvidencePromotionBindingChecksum);
   const configFile = nonEmptyString(value.config.configFile)?.replaceAll("\\", "/");
-  if (!suiteId || !configPath || !projectName || !specPath || !configFile
+  if (!suiteId || !configPath || !projectName || !specPath || !releaseVersion
+    || !baseManifestChecksum || !CHECKSUM.test(baseManifestChecksum)
+    || !candidateShardChecksum || !CHECKSUM.test(candidateShardChecksum)
+    || !promotionReportChecksum || !CHECKSUM.test(promotionReportChecksum)
+    || !promotionBindingChecksum || !CHECKSUM.test(promotionBindingChecksum)
+    || !configFile
     || !configFile.endsWith(`/${configPath}`)) {
     return { reasons: ["Fusion Playwright runner artifact config or suite metadata is invalid."] };
   }
@@ -401,7 +422,17 @@ export function parseImageEmbeddingFusionPlaywrightRunnerArtifact(
   return {
     artifact: {
       candidate: parsed.artifact.candidate,
-      runnerBinding: { suiteId, configPath, projectName, specPath },
+      runnerBinding: {
+        suiteId,
+        configPath,
+        projectName,
+        specPath,
+        releaseVersion,
+        baseManifestChecksum,
+        candidateShardChecksum,
+        promotionReportChecksum,
+        promotionBindingChecksum,
+      },
     },
     reasons: [],
   };

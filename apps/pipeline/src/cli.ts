@@ -161,6 +161,7 @@ export function readImageEmbeddingEvaluationOptions(): ImageEmbeddingEvaluationO
   const reviewVerdictsPath = readFlag("--review-verdicts");
   const reviewerViewOutputPath = readFlag("--reviewer-view-output");
   const fusionE2eReportPath = readFlag("--fusion-e2e-report");
+  const fusionPromotionReportPath = readFlag("--fusion-promotion-report");
   const textBenchmarkBaselinePath = readFlag("--text-benchmark-baseline");
   const a2aBaselinePath = readFlag("--a2a-baseline");
   const e2eBaselinePath = readFlag("--e2e-baseline");
@@ -184,6 +185,7 @@ export function readImageEmbeddingEvaluationOptions(): ImageEmbeddingEvaluationO
     emitReviewPack: readBooleanFlag("--emit-review-pack"),
     reviewerViewOutputPath: reviewerViewOutputPath ? resolveCliPath(reviewerViewOutputPath, workspaceRoot) : undefined,
     fusionE2eReportPath: fusionE2eReportPath ? resolveCliPath(fusionE2eReportPath, workspaceRoot) : undefined,
+    fusionPromotionReportPath: fusionPromotionReportPath ? resolveCliPath(fusionPromotionReportPath, workspaceRoot) : undefined,
     textBenchmarkBaselinePath: textBenchmarkBaselinePath ? resolveCliPath(textBenchmarkBaselinePath, workspaceRoot) : undefined,
     a2aBaselinePath: a2aBaselinePath ? resolveCliPath(a2aBaselinePath, workspaceRoot) : undefined,
     e2eBaselinePath: e2eBaselinePath ? resolveCliPath(e2eBaselinePath, workspaceRoot) : undefined,
@@ -206,7 +208,9 @@ export function readImageEmbeddingPromotionEvidenceBuildOptions(): ImageEmbeddin
   const a2aCaseSetRunnerArtifactPath = readFlag("--a2a-case-set-runner-artifact");
   const a2aReplayRunnerArtifactPath = readFlag("--a2a-replay-runner-artifact");
   const e2eRunnerArtifactPath = readFlag("--e2e-runner-artifact");
-  const fusionE2eRunnerArtifactPath = readFlag("--fusion-e2e-runner-artifact");
+  const fusionE2eRunnerArtifactOutputPath = readFlag("--fusion-e2e-runner-artifact-output");
+  const fusionCandidateShardPath = readFlag("--fusion-candidate-shard");
+  const fusionPromotionReportPath = readFlag("--fusion-promotion-report");
   const promotionBindingChecksum = readFlag("--promotion-binding-checksum");
 
   return {
@@ -227,8 +231,14 @@ export function readImageEmbeddingPromotionEvidenceBuildOptions(): ImageEmbeddin
     e2eRunnerArtifactPath: e2eRunnerArtifactPath
       ? resolveCliPath(e2eRunnerArtifactPath, workspaceRoot)
       : undefined,
-    fusionE2eRunnerArtifactPath: fusionE2eRunnerArtifactPath
-      ? resolveCliPath(fusionE2eRunnerArtifactPath, workspaceRoot)
+    fusionE2eRunnerArtifactOutputPath: fusionE2eRunnerArtifactOutputPath
+      ? resolveCliPath(fusionE2eRunnerArtifactOutputPath, workspaceRoot)
+      : undefined,
+    fusionCandidateShardPath: fusionCandidateShardPath
+      ? resolveCliPath(fusionCandidateShardPath, workspaceRoot)
+      : undefined,
+    fusionPromotionReportPath: fusionPromotionReportPath
+      ? resolveCliPath(fusionPromotionReportPath, workspaceRoot)
       : undefined,
     promotionBindingChecksum,
   };

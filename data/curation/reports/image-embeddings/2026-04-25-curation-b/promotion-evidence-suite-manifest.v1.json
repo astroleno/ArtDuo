@@ -113,15 +113,15 @@
     "fusionE2e": {
       "schemaVersion": "image-embedding-evidence-suite.v2",
       "suiteType": "fusion-e2e",
-      "suiteChecksum": "sha256:6a7833e008a9665260b703e473c65b96be2bcfad6be34fbf171ec07b89246539",
+      "suiteChecksum": "sha256:44b997a4720be077054e355de64f298a4559ea1326bbf0c099b14d35a9fd1ed4",
       "sourceFiles": [
         { "path": "apps/web/e2e/fixtures/image-scene-fusion-baseline.v1.json", "checksum": "sha256:a82ddaad7cd1fa7395afa25a32b6a79c72b3ca6309c35688cae510c76b9e2f93" },
         { "path": "apps/web/e2e/image-scene-fusion.spec.ts", "checksum": "sha256:0ec5a9d51c5654d228d3c896350d830736780ba4d2ac34467c4dbad4dd7b82ab" },
         { "path": "apps/web/package.json", "checksum": "sha256:2407a5bb2fed3c8682493ad147ee62046b3a4a3f17492e1788cfb13dffad5781" },
-        { "path": "apps/web/playwright.image-scene-fusion.config.ts", "checksum": "sha256:66f008a71e40d86fe2fb58ab00d382b75095a42958b133260f12598ed19744b1" },
+        { "path": "apps/web/playwright.image-scene-fusion.config.ts", "checksum": "sha256:4cc1bf6542882c4c24cff813687ff7f7ed44dcbcccbddae70bdb2246d8e68341" },
         { "path": "apps/web/scripts/playwright-web-server.mjs", "checksum": "sha256:219ed1179268dd0bb5e5b5739aa5eeb0fbb180e9e67dc766e91e0b2ac2e29021" },
-        { "path": "apps/web/scripts/run-image-scene-fusion-e2e.mjs", "checksum": "sha256:87b5282601f83c430173c02565068ff9d3b0bba437769e44963c773ae1c20245" },
-        { "path": "apps/web/test/lib/image-scene-fusion-fixture.test.ts", "checksum": "sha256:75d85098656de61a97350ff15babbbd18b040b69eedb868d395b075129738d8d" },
+        { "path": "apps/web/scripts/run-image-scene-fusion-e2e.mjs", "checksum": "sha256:13a1f27520688b3aa874a9798036452cb8d6b7c0bcff8e4694c07cf04ca7862d" },
+        { "path": "apps/web/test/lib/image-scene-fusion-fixture.test.ts", "checksum": "sha256:b1b909023e0c580e2205880a4835009d844fc92082e9de86ab1debc84d245c94" },
         { "path": "apps/web/tsconfig.json", "checksum": "sha256:5af9467486448a062b402f1a73e19fe6d7496dd281f8ee8a3bb591505c91ee88" },
         { "path": "benchmarks/image-embedding-fusion-e2e-cases.json", "checksum": "sha256:193bf27695d0e2d518715030bfd72d2ff82e9ec53634a08e98075668993b3161" },
         { "path": "package.json", "checksum": "sha256:2ef4dcdc708459cf453f70be668425773bdf00a7b7ad2a026a7fbc9d05500b18" }

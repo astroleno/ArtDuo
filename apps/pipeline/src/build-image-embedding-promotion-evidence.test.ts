@@ -6,7 +6,10 @@ import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 
-import { buildImageEmbeddingPromotionEvidence } from "./build-image-embedding-promotion-evidence";
+import {
+  buildImageEmbeddingPromotionEvidence,
+  imageEmbeddingFusionE2eEnvironment,
+} from "./build-image-embedding-promotion-evidence";
 import {
   buildImageEmbeddingEvidenceSuiteDescriptor,
   type ImageEmbeddingEvidenceSuiteSourceFile,
@@ -39,6 +42,23 @@ const FUSION_RUNNER = {
 
 function checksum(value: string | Uint8Array): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function canonicalJson(value: unknown): string {
+  if (value === null || typeof value === "string" || typeof value === "boolean" || typeof value === "number") {
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalJson).join(",")}]`;
+  }
+  if (value && typeof value === "object") {
+    return `{${Object.entries(value as Record<string, unknown>)
+      .filter(([, entry]) => entry !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`)
+      .join(",")}}`;
+  }
+  throw new TypeError("Unsupported canonical JSON value.");
 }
 
 function writeJson(filePath: string, value: unknown): void {
@@ -95,6 +115,9 @@ function createFixture(): {
   anchorPath: string;
   textRunnerPath: string;
   fusionRunnerPath: string;
+  candidateShardPath: string;
+  promotionReportPath: string;
+  promotionBindingChecksum: `sha256:${string}`;
 } {
   const rootDir = mkdtempSync(path.join(os.tmpdir(), "artduo-image-evidence-producer-"));
   const releaseDir = path.join(rootDir, "data", "releases", RELEASE_VERSION);
@@ -136,6 +159,58 @@ function createFixture(): {
       checksum: checksum(readFileSync(suiteManifestPath)),
     },
   });
+  const candidateShardPath = path.join(reportDir, "candidates", "image-embeddings-01.json");
+  mkdirSync(path.dirname(candidateShardPath), { recursive: true });
+  const candidate = [{ id: "artwork:fixture", entityType: "artwork", entityId: "fixture" }];
+  writeJson(candidateShardPath, candidate);
+  const promotionBindingPayload = {
+    releaseVersion: RELEASE_VERSION,
+    evaluationVersion: "image-embedding-evaluation.v1",
+    baseManifestChecksum: checksum(readFileSync(manifestPath)),
+    candidateShardChecksum: checksum(JSON.stringify(candidate, null, 2)),
+    gateEvidence: {
+      bindingIntegrity: true,
+      buildCoverageReady: true,
+      artworkHoldout: {
+        minimumSampleMet: true,
+        count: 60,
+        pointEstimate: 0.9,
+        lowerConfidence: 0.8,
+        allStrataSufficient: true,
+      },
+      sceneHoldout: {
+        minimumSampleMet: true,
+        count: 60,
+        pointEstimate: 0.8,
+        lowerConfidence: 0.7,
+        allStrataSufficient: true,
+      },
+      reviewPackReady: true,
+      humanReview: {
+        valid: true,
+        complete: true,
+        completedCount: 30,
+        uncertainRate: 0.05,
+        candidateAcceptableRate: 0.9,
+        candidateRegressionRate: 0.05,
+      },
+      baselineBindingsReady: true,
+      visualPolicySelectionReady: true,
+    },
+  };
+  const promotionBindingChecksum = checksum(canonicalJson(promotionBindingPayload));
+  const promotionReportPath = path.join(reportDir, "image-embedding-evaluation.json");
+  writeJson(promotionReportPath, {
+    schemaVersion: "image-embedding-evaluation-report.v1",
+    releaseVersion: RELEASE_VERSION,
+    promotionBindingPayload,
+    promotionBinding: {
+      ...promotionBindingPayload,
+      promotionBindingChecksum,
+      promotionReady: true,
+      fusionVerificationReady: false,
+    },
+  });
   initializeGitFixture(rootDir);
 
   const textRunnerPath = path.join(rootDir, "text-runner.json");
@@ -156,10 +231,25 @@ function createFixture(): {
       specs: FUSION_IDS.map((id) => ({ title: id, tests: [{ results: [{ status: "passed" }] }] })),
     }],
   });
-  return { rootDir, manifestPath, anchorPath, textRunnerPath, fusionRunnerPath };
+  return {
+    rootDir,
+    manifestPath,
+    anchorPath,
+    textRunnerPath,
+    fusionRunnerPath,
+    candidateShardPath,
+    promotionReportPath,
+    promotionBindingChecksum,
+  };
 }
 
-function writeFusionRunnerArtifact(filePath: string): void {
+function writeFusionRunnerArtifact(filePath: string, binding: {
+  releaseVersion: string;
+  baseManifestChecksum: string;
+  candidateShardChecksum: string;
+  promotionReportChecksum: string;
+  promotionBindingChecksum: string;
+}): void {
   writeJson(filePath, {
     config: {
       configFile: path.join("/repo", FUSION_RUNNER.configPath),
@@ -168,6 +258,11 @@ function writeFusionRunnerArtifact(filePath: string): void {
         imageEmbeddingEvidenceConfigPath: FUSION_RUNNER.configPath,
         imageEmbeddingEvidenceProjectName: FUSION_RUNNER.projectName,
         imageEmbeddingEvidenceSpecPath: FUSION_RUNNER.specPath,
+        imageEmbeddingEvidenceReleaseVersion: binding.releaseVersion,
+        imageEmbeddingEvidenceBaseManifestChecksum: binding.baseManifestChecksum,
+        imageEmbeddingEvidenceCandidateShardChecksum: binding.candidateShardChecksum,
+        imageEmbeddingEvidencePromotionReportChecksum: binding.promotionReportChecksum,
+        imageEmbeddingEvidencePromotionBindingChecksum: binding.promotionBindingChecksum,
       },
       projects: [{ id: FUSION_RUNNER.projectName, name: FUSION_RUNNER.projectName }],
     },
@@ -217,7 +312,8 @@ test("promotion evidence producer emits a text envelope recomputed from the raw 
 test("promotion evidence producer normalizes raw Playwright fusion output instead of treating it as an envelope", () => {
   const fixture = createFixture();
   const outputPath = path.join(fixture.rootDir, "fusion-evidence.json");
-  const promotionBindingChecksum = checksum("task-5-promotion-binding");
+  const fusionRunnerOutputPath = path.join(fixture.rootDir, "fresh-fusion-runner.json");
+  const promotionBindingChecksum = fixture.promotionBindingChecksum;
   let fixedSuiteRuns = 0;
 
   const result = buildImageEmbeddingPromotionEvidence({
@@ -226,11 +322,17 @@ test("promotion evidence producer normalizes raw Playwright fusion output instea
     manifestPath: fixture.manifestPath,
     promotionAnchorPath: fixture.anchorPath,
     outputPath,
-    fusionE2eRunnerArtifactPath: fixture.fusionRunnerPath,
+    fusionE2eRunnerArtifactOutputPath: fusionRunnerOutputPath,
+    fusionCandidateShardPath: fixture.candidateShardPath,
+    fusionPromotionReportPath: fixture.promotionReportPath,
     promotionBindingChecksum,
-    fusionE2eCheck: (artifactPath) => {
+    fusionE2eCheck: (input) => {
       fixedSuiteRuns += 1;
-      writeFusionRunnerArtifact(artifactPath);
+      assert.notEqual(input.artifactPath, fusionRunnerOutputPath, "the runner must write into producer-owned temporary storage");
+      assert.equal(input.baseManifestPath, fixture.manifestPath);
+      assert.equal(input.candidateShardPath, fixture.candidateShardPath);
+      assert.equal(input.promotionReportPath, fixture.promotionReportPath);
+      writeFusionRunnerArtifact(input.artifactPath, input.binding);
       return { command: "pnpm test:e2e:fusion", exitCode: 0 };
     },
     preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
@@ -245,8 +347,102 @@ test("promotion evidence producer normalizes raw Playwright fusion output instea
   assert.equal(result.kind, "fusion-e2e");
   assert.equal(fixedSuiteRuns, 1);
   assert.equal(envelope.schemaVersion, "image-embedding-fusion-e2e-evidence.v2");
-  assert.equal(envelope.runnerArtifactChecksum, checksum(readFileSync(fixture.fusionRunnerPath)));
+  assert.equal(envelope.runnerArtifactChecksum, checksum(readFileSync(fusionRunnerOutputPath)));
   assert.equal(envelope.promotionBindingChecksum, promotionBindingChecksum);
   assert.deepEqual(envelope.targetedE2e.passedCaseIds, FUSION_IDS);
   assert.deepEqual(envelope.targetedE2e.failedCaseIds, []);
+});
+
+test("promotion evidence producer refuses an existing fusion runner output without changing its bytes", () => {
+  const fixture = createFixture();
+  const outputPath = path.join(fixture.rootDir, "fusion-evidence.json");
+  const originalBytes = readFileSync(fixture.fusionRunnerPath);
+  let fixedSuiteRuns = 0;
+
+  assert.throws(() => buildImageEmbeddingPromotionEvidence({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    promotionAnchorPath: fixture.anchorPath,
+    outputPath,
+    fusionE2eRunnerArtifactOutputPath: fixture.fusionRunnerPath,
+    fusionCandidateShardPath: fixture.candidateShardPath,
+    fusionPromotionReportPath: fixture.promotionReportPath,
+    promotionBindingChecksum: fixture.promotionBindingChecksum,
+    fusionE2eCheck: (input) => {
+      fixedSuiteRuns += 1;
+      writeFusionRunnerArtifact(input.artifactPath, input.binding);
+      return { command: "pnpm test:e2e:fusion", exitCode: 0 };
+    },
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+  }), /already exists/u);
+
+  assert.equal(fixedSuiteRuns, 0);
+  assert.deepEqual(readFileSync(fixture.fusionRunnerPath), originalBytes);
+});
+
+test("fusion runner environment discards inherited input overrides and carries only producer-locked Task 5 bindings", () => {
+  const fixture = createFixture();
+  const binding = {
+    releaseVersion: RELEASE_VERSION,
+    baseManifestChecksum: checksum(readFileSync(fixture.manifestPath)),
+    candidateShardChecksum: checksum(JSON.stringify(JSON.parse(readFileSync(fixture.candidateShardPath, "utf8")), null, 2)),
+    promotionReportChecksum: checksum(readFileSync(fixture.promotionReportPath)),
+    promotionBindingChecksum: fixture.promotionBindingChecksum,
+  };
+  const environment = imageEmbeddingFusionE2eEnvironment({
+    artifactPath: "/tmp/locked-playwright.json",
+    baseManifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidateShardPath,
+    promotionReportPath: fixture.promotionReportPath,
+    binding,
+  }, {
+    ARTDUO_FUSION_E2E_BASE_MANIFEST: "/tmp/forged-base.json",
+    ARTDUO_FUSION_E2E_CANDIDATE_SHARD: "/tmp/forged-candidate.json",
+    ARTDUO_FUSION_E2E_PROMOTION_REPORT: "/tmp/forged-report.json",
+    ARTDUO_FUSION_E2E_RELEASE_VERSION: "forged-release",
+  });
+
+  assert.equal(environment.ARTDUO_FUSION_E2E_BASE_MANIFEST, undefined);
+  assert.equal(environment.ARTDUO_FUSION_E2E_CANDIDATE_SHARD, undefined);
+  assert.equal(environment.ARTDUO_FUSION_E2E_PROMOTION_REPORT, undefined);
+  assert.equal(environment.ARTDUO_FUSION_E2E_RELEASE_VERSION, undefined);
+  assert.equal(environment.ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST, fixture.manifestPath);
+  assert.equal(environment.ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD, fixture.candidateShardPath);
+  assert.equal(environment.ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT, fixture.promotionReportPath);
+  assert.equal(environment.ARTDUO_FUSION_E2E_LOCKED_PROMOTION_BINDING_CHECKSUM, fixture.promotionBindingChecksum);
+});
+
+test("promotion evidence producer rejects promotionReady=true when the canonical Task 5 gates are not ready", () => {
+  const fixture = createFixture();
+  const report = JSON.parse(readFileSync(fixture.promotionReportPath, "utf8")) as {
+    promotionBindingPayload: { gateEvidence: { reviewPackReady: boolean } };
+    promotionBinding: { promotionBindingChecksum: string; promotionReady: boolean };
+  };
+  report.promotionBindingPayload.gateEvidence.reviewPackReady = false;
+  const promotionBindingChecksum = checksum(canonicalJson(report.promotionBindingPayload));
+  report.promotionBinding.promotionBindingChecksum = promotionBindingChecksum;
+  report.promotionBinding.promotionReady = true;
+  writeJson(fixture.promotionReportPath, report);
+  initializeGitFixture(fixture.rootDir);
+  let fusionRuns = 0;
+
+  assert.throws(() => buildImageEmbeddingPromotionEvidence({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    promotionAnchorPath: fixture.anchorPath,
+    outputPath: path.join(fixture.rootDir, "fusion-evidence.json"),
+    fusionE2eRunnerArtifactOutputPath: path.join(fixture.rootDir, "fresh-fusion-runner.json"),
+    fusionCandidateShardPath: fixture.candidateShardPath,
+    fusionPromotionReportPath: fixture.promotionReportPath,
+    promotionBindingChecksum,
+    fusionE2eCheck: (input) => {
+      fusionRuns += 1;
+      writeFusionRunnerArtifact(input.artifactPath, input.binding);
+      return { command: "pnpm test:e2e:fusion", exitCode: 0 };
+    },
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+  }), /canonical Task 5 gates/u);
+  assert.equal(fusionRuns, 0);
 });

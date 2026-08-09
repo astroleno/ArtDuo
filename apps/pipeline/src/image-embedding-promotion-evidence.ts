@@ -2,7 +2,9 @@ import { createHash } from "node:crypto";
 
 import type {
   ImageEmbeddingEvidenceRunnerArtifacts,
+  ImageEmbeddingFusionPromotionInputBinding,
   ImageEmbeddingFusionPlaywrightRunnerBinding,
+  ImageEmbeddingFusionPlaywrightSuiteBinding,
   ImageEmbeddingTextBenchmarkRunnerBinding,
   ImageEmbeddingTextBenchmarkRunnerResult,
 } from "./image-embedding-evidence-artifacts";
@@ -39,7 +41,7 @@ export interface ImageEmbeddingTextBenchmarkSuite extends ImageEmbeddingEvidence
 
 export interface ImageEmbeddingFusionE2eSuite extends ImageEmbeddingEvidenceSuite {
   suiteType: "fusion-e2e";
-  runner: ImageEmbeddingFusionPlaywrightRunnerBinding;
+  runner: ImageEmbeddingFusionPlaywrightSuiteBinding;
 }
 
 export interface ImageEmbeddingA2aCaseSetSuite {
@@ -94,6 +96,7 @@ export interface ImageEmbeddingEvidenceContext {
   baseManifestChecksum: string;
   commitSha?: string;
   promotionBindingChecksum?: string;
+  fusionPromotionInputBinding?: ImageEmbeddingFusionPromotionInputBinding;
   evidenceSuites?: ImageEmbeddingEvidenceSuiteBindings;
   runnerArtifactChecksums?: ImageEmbeddingEvidenceRunnerArtifactChecksums;
   runnerArtifacts?: ImageEmbeddingEvidenceRunnerArtifacts;
@@ -764,25 +767,64 @@ function validateTextRunnerBinding(
 }
 
 function parseFusionRunnerBinding(value: unknown): ImageEmbeddingFusionPlaywrightRunnerBinding | undefined {
-  if (!exactKeys(value, ["suiteId", "configPath", "projectName", "specPath"])) {
+  if (!exactKeys(value, [
+    "suiteId",
+    "configPath",
+    "projectName",
+    "specPath",
+    "releaseVersion",
+    "baseManifestChecksum",
+    "candidateShardChecksum",
+    "promotionReportChecksum",
+    "promotionBindingChecksum",
+  ])) {
     return undefined;
   }
-  for (const field of ["suiteId", "configPath", "projectName", "specPath"] as const) {
+  for (const field of ["suiteId", "configPath", "projectName", "specPath", "releaseVersion"] as const) {
     if (typeof value[field] !== "string" || !value[field].trim()) {
+      return undefined;
+    }
+  }
+  for (const field of [
+    "baseManifestChecksum",
+    "candidateShardChecksum",
+    "promotionReportChecksum",
+    "promotionBindingChecksum",
+  ] as const) {
+    if (typeof value[field] !== "string" || !CHECKSUM.test(value[field])) {
       return undefined;
     }
   }
   return value as unknown as ImageEmbeddingFusionPlaywrightRunnerBinding;
 }
 
-function sameFusionRunnerBinding(
-  left: ImageEmbeddingFusionPlaywrightRunnerBinding,
-  right: ImageEmbeddingFusionPlaywrightRunnerBinding,
+function sameFusionSuiteRunnerBinding(
+  left: ImageEmbeddingFusionPlaywrightSuiteBinding,
+  right: ImageEmbeddingFusionPlaywrightSuiteBinding,
 ): boolean {
   return left.suiteId === right.suiteId
     && left.configPath === right.configPath
     && left.projectName === right.projectName
     && left.specPath === right.specPath;
+}
+
+function sameFusionPromotionInputBinding(
+  left: ImageEmbeddingFusionPromotionInputBinding,
+  right: ImageEmbeddingFusionPromotionInputBinding,
+): boolean {
+  return left.releaseVersion === right.releaseVersion
+    && left.baseManifestChecksum === right.baseManifestChecksum
+    && left.candidateShardChecksum === right.candidateShardChecksum
+    && left.promotionReportChecksum === right.promotionReportChecksum
+    && left.promotionBindingChecksum === right.promotionBindingChecksum;
+}
+
+function sameFusionRunnerBinding(
+  left: ImageEmbeddingFusionPlaywrightRunnerBinding,
+  right: ImageEmbeddingFusionPlaywrightRunnerBinding,
+): boolean {
+  return sameFusionSuiteRunnerBinding(left, right)
+    && sameFusionPromotionInputBinding(left, right);
 }
 
 function validatePreflightBinding(
@@ -1073,13 +1115,16 @@ export function validateImageEmbeddingFusionE2eEvidence(
   const runnerBinding = parseFusionRunnerBinding(evidence.runnerBinding);
   const frozenRunnerBinding = context.evidenceSuites?.fusionE2e.runner;
   const rawRunnerBinding = context.runnerArtifacts?.fusionE2e?.runnerBinding;
+  const promotionInputBinding = context.fusionPromotionInputBinding;
   if (!runnerBinding) {
     reasons.push("Fusion E2E runner binding schema is invalid.");
   } else if (!frozenRunnerBinding
     || !rawRunnerBinding
-    || !sameFusionRunnerBinding(runnerBinding, frozenRunnerBinding)
-    || !sameFusionRunnerBinding(runnerBinding, rawRunnerBinding)) {
-    reasons.push("Fusion E2E runner binding does not match the frozen suite and raw Playwright artifact.");
+    || !promotionInputBinding
+    || !sameFusionSuiteRunnerBinding(runnerBinding, frozenRunnerBinding)
+    || !sameFusionRunnerBinding(runnerBinding, rawRunnerBinding)
+    || !sameFusionPromotionInputBinding(runnerBinding, promotionInputBinding)) {
+    reasons.push("Fusion E2E runner binding does not match the frozen suite, Task 5 inputs, and raw Playwright artifact.");
   }
   if (!exactKeys(evidence.targetedE2e, ["expectedCaseIds", "passedCaseIds", "failedCaseIds", "skippedCaseIds"])) {
     return validation([...reasons, "Fusion E2E targeted result schema is invalid."]);

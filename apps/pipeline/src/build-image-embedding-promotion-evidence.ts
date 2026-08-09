@@ -1,6 +1,18 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
+import {
+  constants as fsConstants,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  renameSync,
+  rmSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
 import {
@@ -10,6 +22,8 @@ import {
   parseImageEmbeddingPlaywrightRunnerArtifact,
   parseImageEmbeddingTextBenchmarkRunnerArtifact,
   type ImageEmbeddingEvidenceRunnerArtifacts,
+  type ImageEmbeddingFusionPromotionInputBinding,
+  type ImageEmbeddingFusionPlaywrightRunnerArtifact,
   type ImageEmbeddingRunnerArtifactParseResult,
 } from "./image-embedding-evidence-artifacts";
 import {
@@ -39,12 +53,22 @@ export interface ImageEmbeddingPromotionEvidenceBuildOptions {
   a2aCaseSetRunnerArtifactPath?: string;
   a2aReplayRunnerArtifactPath?: string;
   e2eRunnerArtifactPath?: string;
-  fusionE2eRunnerArtifactPath?: string;
+  fusionE2eRunnerArtifactOutputPath?: string;
+  fusionCandidateShardPath?: string;
+  fusionPromotionReportPath?: string;
   promotionBindingChecksum?: string;
   /** Internal test seam; the production CLI executes the preflight command itself. */
   preflightCheck?: () => ImageEmbeddingEvidencePreflight;
   /** Internal test seam; the production CLI executes the frozen Fusion E2E suite itself. */
-  fusionE2eCheck?: (artifactPath: string) => { command: "pnpm test:e2e:fusion"; exitCode: number };
+  fusionE2eCheck?: (input: ImageEmbeddingFusionE2eRunInput) => { command: "pnpm test:e2e:fusion"; exitCode: number };
+}
+
+export interface ImageEmbeddingFusionE2eRunInput {
+  artifactPath: string;
+  baseManifestPath: string;
+  candidateShardPath: string;
+  promotionReportPath: string;
+  binding: ImageEmbeddingFusionPromotionInputBinding;
 }
 
 export interface ImageEmbeddingPromotionEvidenceBuildResult {
@@ -62,6 +86,122 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function sha256Checksum(value: Uint8Array | string): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function canonicalJson(value: unknown): string {
+  if (value === null || typeof value === "string" || typeof value === "boolean") {
+    return JSON.stringify(value);
+  }
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) {
+      throw new TypeError("Promotion binding canonical JSON does not permit non-finite numbers.");
+    }
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalJson).join(",")}]`;
+  }
+  if (isRecord(value)) {
+    return `{${Object.entries(value)
+      .filter(([, entry]) => entry !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`)
+      .join(",")}}`;
+  }
+  throw new TypeError("Promotion binding payload is not canonical JSON.");
+}
+
+function numberMeets(value: unknown, predicate: (value: number) => boolean): boolean {
+  return typeof value === "number" && Number.isFinite(value) && predicate(value);
+}
+
+function promotionPayloadIsReady(payload: Record<string, unknown>): boolean {
+  const gates = isRecord(payload.gateEvidence) ? payload.gateEvidence : undefined;
+  const artwork = gates && isRecord(gates.artworkHoldout) ? gates.artworkHoldout : undefined;
+  const scene = gates && isRecord(gates.sceneHoldout) ? gates.sceneHoldout : undefined;
+  const human = gates && isRecord(gates.humanReview) ? gates.humanReview : undefined;
+  return gates?.bindingIntegrity === true
+    && gates.buildCoverageReady === true
+    && artwork?.minimumSampleMet === true
+    && artwork.allStrataSufficient === true
+    && numberMeets(artwork.pointEstimate, (value) => value >= 0.8)
+    && numberMeets(artwork.lowerConfidence, (value) => value >= 0.7)
+    && scene?.minimumSampleMet === true
+    && scene.allStrataSufficient === true
+    && numberMeets(scene.pointEstimate, (value) => value >= 0.7)
+    && numberMeets(scene.lowerConfidence, (value) => value >= 0.6)
+    && gates.reviewPackReady === true
+    && human?.valid === true
+    && human.complete === true
+    && numberMeets(human.completedCount, (value) => value >= 30)
+    && numberMeets(human.uncertainRate, (value) => value <= 0.1)
+    && numberMeets(human.candidateAcceptableRate, (value) => value >= 0.8)
+    && numberMeets(human.candidateRegressionRate, (value) => value <= 0.1)
+    && gates.baselineBindingsReady === true
+    && gates.visualPolicySelectionReady === true;
+}
+
+function readJsonBytes(filePath: string, label: string): { bytes: Buffer; value: unknown } {
+  try {
+    const bytes = readFileSync(filePath);
+    return { bytes, value: JSON.parse(bytes.toString("utf8")) as unknown };
+  } catch {
+    throw new TypeError(`${label} could not be read as JSON.`);
+  }
+}
+
+function resolveFusionPromotionInputs(
+  options: ImageEmbeddingPromotionEvidenceBuildOptions,
+  release: { releaseVersion: string; manifestPath: string; baseManifestChecksum: `sha256:${string}` },
+): Omit<ImageEmbeddingFusionE2eRunInput, "artifactPath"> {
+  const candidateShardPath = path.resolve(options.fusionCandidateShardPath!);
+  const promotionReportPath = path.resolve(options.fusionPromotionReportPath!);
+  const candidate = readJsonBytes(candidateShardPath, "Fusion candidate shard");
+  if (!Array.isArray(candidate.value) || candidate.value.length === 0) {
+    throw new TypeError("Fusion candidate shard must be a non-empty JSON array.");
+  }
+  const candidateShardChecksum = sha256Checksum(JSON.stringify(candidate.value, null, 2));
+  const report = readJsonBytes(promotionReportPath, "Task 5 promotion report");
+  if (!isRecord(report.value)
+    || report.value.schemaVersion !== "image-embedding-evaluation-report.v1"
+    || report.value.releaseVersion !== release.releaseVersion
+    || !isRecord(report.value.promotionBindingPayload)
+    || !isRecord(report.value.promotionBinding)) {
+    throw new TypeError("Task 5 promotion report schema or release binding is invalid.");
+  }
+  const payload = report.value.promotionBindingPayload;
+  const promotionBinding = report.value.promotionBinding;
+  const promotionBindingChecksum = sha256Checksum(canonicalJson(payload));
+  if (promotionBinding.promotionReady !== true
+    || promotionBinding.fusionVerificationReady !== false
+    || promotionBinding.promotionBindingChecksum !== promotionBindingChecksum
+    || options.promotionBindingChecksum !== promotionBindingChecksum) {
+    throw new TypeError("Task 5 promotion report is not a verified promotion-ready decision.");
+  }
+  if (!promotionPayloadIsReady(payload)) {
+    throw new TypeError("Task 5 promotionReady=true does not match the canonical Task 5 gates.");
+  }
+  for (const [field, expected] of [
+    ["releaseVersion", release.releaseVersion],
+    ["baseManifestChecksum", release.baseManifestChecksum],
+    ["candidateShardChecksum", candidateShardChecksum],
+  ] as const) {
+    if (payload[field] !== expected || promotionBinding[field] !== expected) {
+      throw new TypeError(`Task 5 promotion report ${field} does not match the producer-selected input.`);
+    }
+  }
+  return {
+    baseManifestPath: release.manifestPath,
+    candidateShardPath,
+    promotionReportPath,
+    binding: {
+      releaseVersion: release.releaseVersion,
+      baseManifestChecksum: release.baseManifestChecksum,
+      candidateShardChecksum,
+      promotionReportChecksum: sha256Checksum(report.bytes),
+      promotionBindingChecksum,
+    },
+  };
 }
 
 function resolveRootDir(rootDir?: string): string {
@@ -137,7 +277,7 @@ function determineKind(options: ImageEmbeddingPromotionEvidenceBuildOptions): Ev
   const a2aCaseSet = Boolean(options.a2aCaseSetRunnerArtifactPath);
   const a2aReplay = Boolean(options.a2aReplayRunnerArtifactPath);
   const e2e = Boolean(options.e2eRunnerArtifactPath);
-  const fusion = Boolean(options.fusionE2eRunnerArtifactPath);
+  const fusion = Boolean(options.fusionE2eRunnerArtifactOutputPath);
   if (text && !a2aCaseSet && !a2aReplay && !e2e && !fusion) {
     return "text-benchmark";
   }
@@ -150,6 +290,9 @@ function determineKind(options: ImageEmbeddingPromotionEvidenceBuildOptions): Ev
   if (!text && !a2aCaseSet && !a2aReplay && !e2e && fusion) {
     if (!options.promotionBindingChecksum || !CHECKSUM.test(options.promotionBindingChecksum)) {
       throw new TypeError("Fusion promotion evidence requires a valid --promotion-binding-checksum.");
+    }
+    if (!options.fusionCandidateShardPath || !options.fusionPromotionReportPath) {
+      throw new TypeError("Fusion promotion evidence requires explicit Task 5 candidate and promotion report paths.");
     }
     return "fusion-e2e";
   }
@@ -188,20 +331,92 @@ function runPreflight(rootDir: string): ImageEmbeddingEvidencePreflight {
   };
 }
 
-function runFusionE2e(rootDir: string, artifactPath: string): { command: "pnpm test:e2e:fusion"; exitCode: number } {
+const FUSION_E2E_OVERRIDE_KEYS = [
+  "ARTDUO_FUSION_E2E_BASE_MANIFEST",
+  "ARTDUO_FUSION_E2E_CANDIDATE_SHARD",
+  "ARTDUO_FUSION_E2E_PROMOTION_REPORT",
+  "ARTDUO_FUSION_E2E_RELEASE_VERSION",
+  "ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST",
+  "ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD",
+  "ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT",
+  "ARTDUO_FUSION_E2E_LOCKED_RELEASE_VERSION",
+  "ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST_CHECKSUM",
+  "ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD_CHECKSUM",
+  "ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT_CHECKSUM",
+  "ARTDUO_FUSION_E2E_LOCKED_PROMOTION_BINDING_CHECKSUM",
+] as const;
+
+export function imageEmbeddingFusionE2eEnvironment(
+  input: ImageEmbeddingFusionE2eRunInput,
+  environment: NodeJS.ProcessEnv = process.env,
+): NodeJS.ProcessEnv {
+  const result = { ...environment };
+  for (const key of FUSION_E2E_OVERRIDE_KEYS) {
+    delete result[key];
+  }
+  return {
+    ...result,
+    CI: "1",
+    PLAYWRIGHT_JSON_OUTPUT_FILE: input.artifactPath,
+    ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST: input.baseManifestPath,
+    ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD: input.candidateShardPath,
+    ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT: input.promotionReportPath,
+    ARTDUO_FUSION_E2E_LOCKED_RELEASE_VERSION: input.binding.releaseVersion,
+    ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST_CHECKSUM: input.binding.baseManifestChecksum,
+    ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD_CHECKSUM: input.binding.candidateShardChecksum,
+    ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT_CHECKSUM: input.binding.promotionReportChecksum,
+    ARTDUO_FUSION_E2E_LOCKED_PROMOTION_BINDING_CHECKSUM: input.binding.promotionBindingChecksum,
+  };
+}
+
+function runFusionE2e(rootDir: string, input: ImageEmbeddingFusionE2eRunInput): { command: "pnpm test:e2e:fusion"; exitCode: number } {
   const result = spawnSync("pnpm", ["test:e2e:fusion"], {
     cwd: rootDir,
-    env: {
-      ...process.env,
-      CI: "1",
-      PLAYWRIGHT_JSON_OUTPUT_FILE: artifactPath,
-    },
+    env: imageEmbeddingFusionE2eEnvironment(input),
     stdio: "inherit",
   });
   return {
     command: "pnpm test:e2e:fusion",
     exitCode: typeof result.status === "number" ? result.status : 1,
   };
+}
+
+function produceFreshFusionRunnerArtifact(
+  rootDir: string,
+  outputPath: string,
+  promotionInputs: Omit<ImageEmbeddingFusionE2eRunInput, "artifactPath">,
+  check?: (input: ImageEmbeddingFusionE2eRunInput) => { command: "pnpm test:e2e:fusion"; exitCode: number },
+): { artifact: ImageEmbeddingFusionPlaywrightRunnerArtifact; checksum: `sha256:${string}` } {
+  const resolvedOutputPath = path.resolve(outputPath);
+  if (existsSync(resolvedOutputPath)) {
+    throw new TypeError("Fusion E2E runner artifact output already exists; refusing to overwrite it.");
+  }
+  mkdirSync(path.dirname(resolvedOutputPath), { recursive: true });
+  const temporaryDirectory = mkdtempSync(path.join(os.tmpdir(), "artduo-fusion-e2e-"));
+  const temporaryArtifactPath = path.join(temporaryDirectory, "playwright-report.json");
+  try {
+    const input = { ...promotionInputs, artifactPath: temporaryArtifactPath };
+    const fusionRun = check?.(input) ?? runFusionE2e(rootDir, input);
+    if (fusionRun.command !== "pnpm test:e2e:fusion" || fusionRun.exitCode !== 0) {
+      throw new TypeError("Fusion E2E evidence requires a successful fresh run of pnpm test:e2e:fusion.");
+    }
+    const raw = readRunnerArtifact(
+      temporaryArtifactPath,
+      "Fusion E2E",
+      parseImageEmbeddingFusionPlaywrightRunnerArtifact,
+    );
+    try {
+      copyFileSync(temporaryArtifactPath, resolvedOutputPath, fsConstants.COPYFILE_EXCL);
+    } catch (error) {
+      if (isRecord(error) && error.code === "EEXIST") {
+        throw new TypeError("Fusion E2E runner artifact output already exists; refusing to overwrite it.");
+      }
+      throw error;
+    }
+    return raw;
+  } finally {
+    rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
 }
 
 function toBlockedCaseSet(caseSet: ImageEmbeddingEvidenceCaseSet): {
@@ -370,27 +585,19 @@ export function buildImageEmbeddingPromotionEvidence(
       },
     };
   } else {
-    const fusionArtifactPath = path.resolve(options.fusionE2eRunnerArtifactPath!);
-    mkdirSync(path.dirname(fusionArtifactPath), { recursive: true });
-    try {
-      unlinkSync(fusionArtifactPath);
-    } catch {
-      // A prior or forged artifact is optional; the frozen runner must create a fresh one.
-    }
-    const fusionRun = options.fusionE2eCheck?.(fusionArtifactPath) ?? runFusionE2e(rootDir, fusionArtifactPath);
-    if (fusionRun.command !== "pnpm test:e2e:fusion" || fusionRun.exitCode !== 0) {
-      throw new TypeError("Fusion E2E evidence requires a successful fresh run of pnpm test:e2e:fusion.");
-    }
-    const raw = readRunnerArtifact(
-      fusionArtifactPath,
-      "Fusion E2E",
-      parseImageEmbeddingFusionPlaywrightRunnerArtifact,
+    const promotionInputs = resolveFusionPromotionInputs(options, release);
+    const raw = produceFreshFusionRunnerArtifact(
+      rootDir,
+      options.fusionE2eRunnerArtifactOutputPath!,
+      promotionInputs,
+      options.fusionE2eCheck,
     );
     const preflight = options.preflightCheck?.() ?? runPreflight(rootDir);
     runnerArtifactChecksums.fusionE2e = raw.checksum;
     runnerArtifacts.fusionE2e = raw.artifact;
     context.preflight = preflight;
     context.promotionBindingChecksum = options.promotionBindingChecksum;
+    context.fusionPromotionInputBinding = promotionInputs.binding;
     evidence = {
       schemaVersion: "image-embedding-fusion-e2e-evidence.v2",
       ...binding,

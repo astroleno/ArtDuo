@@ -80,6 +80,23 @@ function checksum(value: string | Uint8Array): `sha256:${string}` {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
 
+function canonicalJson(value: unknown): string {
+  if (value === null || typeof value === "string" || typeof value === "boolean" || typeof value === "number") {
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalJson).join(",")}]`;
+  }
+  if (value && typeof value === "object") {
+    return `{${Object.entries(value as Record<string, unknown>)
+      .filter(([, entry]) => entry !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`)
+      .join(",")}}`;
+  }
+  throw new TypeError("Unsupported canonical JSON value.");
+}
+
 function writePlaywrightRunnerArtifact(filePath: string, caseIds: string[], failedIds: string[] = []): void {
   writeFileSync(filePath, `${JSON.stringify({
     suites: [{
@@ -92,7 +109,18 @@ function writePlaywrightRunnerArtifact(filePath: string, caseIds: string[], fail
   }, null, 2)}\n`);
 }
 
-function writeFusionPlaywrightRunnerArtifact(filePath: string, caseIds: string[], failedIds: string[] = []): void {
+function writeFusionPlaywrightRunnerArtifact(
+  filePath: string,
+  caseIds: string[],
+  binding: {
+    releaseVersion: string;
+    baseManifestChecksum: string;
+    candidateShardChecksum: string;
+    promotionReportChecksum: string;
+    promotionBindingChecksum: string;
+  },
+  failedIds: string[] = [],
+): void {
   writeFileSync(filePath, `${JSON.stringify({
     config: {
       configFile: `/fixture/${FUSION_RUNNER.configPath}`,
@@ -101,6 +129,11 @@ function writeFusionPlaywrightRunnerArtifact(filePath: string, caseIds: string[]
         imageEmbeddingEvidenceConfigPath: FUSION_RUNNER.configPath,
         imageEmbeddingEvidenceProjectName: FUSION_RUNNER.projectName,
         imageEmbeddingEvidenceSpecPath: FUSION_RUNNER.specPath,
+        imageEmbeddingEvidenceReleaseVersion: binding.releaseVersion,
+        imageEmbeddingEvidenceBaseManifestChecksum: binding.baseManifestChecksum,
+        imageEmbeddingEvidenceCandidateShardChecksum: binding.candidateShardChecksum,
+        imageEmbeddingEvidencePromotionReportChecksum: binding.promotionReportChecksum,
+        imageEmbeddingEvidencePromotionBindingChecksum: binding.promotionBindingChecksum,
       },
       projects: [{ id: FUSION_RUNNER.projectName, name: FUSION_RUNNER.projectName }],
     },
@@ -464,6 +497,12 @@ test("image embedding runner binds candidate/build inputs and emits a fail-close
   assert.equal(result.report.reviewPack?.comparisons.length, 30);
   assert.equal(result.report.humanReview.humanReviewComplete, false);
   assert.equal(result.report.promotionBinding.promotionReady, false);
+  const promotionBindingPayload = (result.report as unknown as { promotionBindingPayload?: unknown }).promotionBindingPayload;
+  assert.ok(promotionBindingPayload, "the Task 5 report must retain the canonical promotion decision payload");
+  assert.equal(
+    result.report.promotionBinding.promotionBindingChecksum,
+    checksum(canonicalJson(promotionBindingPayload)),
+  );
   assert.equal(result.report.promotionBinding.candidateShardChecksum, checksum(JSON.stringify(JSON.parse(readFileSync(fixture.candidatePath, "utf8")), null, 2)));
   assert.equal(existsSync(fixture.outputPath), true);
   assert.equal(existsSync(fixture.reviewPackPath), true);
@@ -584,7 +623,7 @@ test("image embedding runner accepts only exact frozen evidence bound to origina
   assert.equal(invalid.report.gates.bindingIntegrity, false);
 });
 
-test("Task 6 fusion verification keeps the Task 5 promotion binding checksum unchanged", async () => {
+test("Task 6 fusion producer refuses to run before the bound Task 5 report is promotion-ready", async () => {
   const fixture = createFixture();
   initializeGitFixture(fixture.rootDir);
   const evidence = writePassingPromotionEvidence(fixture);
@@ -621,39 +660,25 @@ test("Task 6 fusion verification keeps the Task 5 promotion binding checksum unc
     ...evidence,
   });
   assert.equal(task5.report.gates.baselineBindingsReady, true, JSON.stringify(task5.report.gates.bindingFailures));
+  assert.equal(task5.report.promotionBinding.promotionReady, false);
   const fusionE2eRunnerArtifactPath = path.join(fixture.rootDir, "fusion-playwright.json");
-  writeFusionPlaywrightRunnerArtifact(fusionE2eRunnerArtifactPath, FUSION_IDS);
   const fusionE2eReportPath = path.join(fixture.rootDir, "fusion-evidence.json");
-  buildImageEmbeddingPromotionEvidence({
+  let fusionRuns = 0;
+  assert.throws(() => buildImageEmbeddingPromotionEvidence({
     ...commonEvidenceBuildOptions,
     outputPath: fusionE2eReportPath,
-    fusionE2eRunnerArtifactPath,
+    fusionE2eRunnerArtifactOutputPath: fusionE2eRunnerArtifactPath,
+    fusionCandidateShardPath: fixture.candidatePath,
+    fusionPromotionReportPath: fixture.outputPath,
     promotionBindingChecksum: task5.report.promotionBinding.promotionBindingChecksum,
-    fusionE2eCheck: (artifactPath) => {
-      writeFusionPlaywrightRunnerArtifact(artifactPath, FUSION_IDS);
+    fusionE2eCheck: (input) => {
+      fusionRuns += 1;
+      writeFusionPlaywrightRunnerArtifact(input.artifactPath, FUSION_IDS, input.binding);
       return { command: "pnpm test:e2e:fusion", exitCode: 0 };
     },
     preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
-  });
-
-  const task6 = await runImageEmbeddingEvaluation({
-    rootDir: fixture.rootDir,
-    releaseVersion: RELEASE_VERSION,
-    manifestPath: fixture.manifestPath,
-    candidateShardPath: fixture.candidatePath,
-    buildReportPath: fixture.buildReportPath,
-    outputPath: fixture.outputPath,
-    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
-    fusionE2eReportPath,
-    fusionE2eRunnerArtifactPath,
-    ...evidence,
-  });
-
-  assert.equal(
-    task6.report.promotionBinding.promotionBindingChecksum,
-    task5.report.promotionBinding.promotionBindingChecksum,
-  );
-  assert.equal(task6.report.gates.fusionE2eReady, true, JSON.stringify(task6.report.gates.bindingFailures));
+  }), /promotion-ready decision/u);
+  assert.equal(fusionRuns, 0);
 });
 
 test("image embedding runner fails closed when staged or unstaged tracked files differ from HEAD", async () => {

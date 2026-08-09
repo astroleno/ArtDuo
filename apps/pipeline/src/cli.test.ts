@@ -106,6 +106,7 @@ test("image embedding evaluation CLI resolves every frozen runner artifact path"
     "--a2a-replay-runner-artifact", "evidence/a2a-replay-runner.json",
     "--e2e-runner-artifact", "evidence/e2e-runner.json",
     "--fusion-e2e-runner-artifact", "evidence/fusion-runner.json",
+    "--fusion-promotion-report", "evidence/task5-promotion.json",
   ];
 
   try {
@@ -115,6 +116,7 @@ test("image embedding evaluation CLI resolves every frozen runner artifact path"
     assert.equal(options.a2aReplayRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/a2a-replay-runner.json"));
     assert.equal(options.e2eRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/e2e-runner.json"));
     assert.equal(options.fusionE2eRunnerArtifactPath, path.resolve("/tmp/image-evaluation-root/evidence/fusion-runner.json"));
+    assert.equal(options.fusionPromotionReportPath, path.resolve("/tmp/image-evaluation-root/evidence/task5-promotion.json"));
   } finally {
     process.argv = originalArgv;
   }
@@ -130,7 +132,9 @@ test("promotion evidence CLI accepts exactly addressed raw artifacts and fusion 
     "--manifest", "data/releases/image-evidence-test/manifest.json",
     "--promotion-anchor-set", "data/curation/promotion-anchor-set.json",
     "--output", "evidence/fusion-envelope.json",
-    "--fusion-e2e-runner-artifact", "raw/fusion-playwright.json",
+    "--fusion-e2e-runner-artifact-output", "raw/fusion-playwright.json",
+    "--fusion-candidate-shard", "candidates/image-embeddings-01.json",
+    "--fusion-promotion-report", "reports/task5-promotion.json",
     "--promotion-binding-checksum", "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   ];
 
@@ -140,7 +144,9 @@ test("promotion evidence CLI accepts exactly addressed raw artifacts and fusion 
     assert.equal(options.manifestPath, path.resolve("/tmp/image-evidence-root/data/releases/image-evidence-test/manifest.json"));
     assert.equal(options.promotionAnchorPath, path.resolve("/tmp/image-evidence-root/data/curation/promotion-anchor-set.json"));
     assert.equal(options.outputPath, path.resolve("/tmp/image-evidence-root/evidence/fusion-envelope.json"));
-    assert.equal(options.fusionE2eRunnerArtifactPath, path.resolve("/tmp/image-evidence-root/raw/fusion-playwright.json"));
+    assert.equal(options.fusionE2eRunnerArtifactOutputPath, path.resolve("/tmp/image-evidence-root/raw/fusion-playwright.json"));
+    assert.equal(options.fusionCandidateShardPath, path.resolve("/tmp/image-evidence-root/candidates/image-embeddings-01.json"));
+    assert.equal(options.fusionPromotionReportPath, path.resolve("/tmp/image-evidence-root/reports/task5-promotion.json"));
     assert.equal(options.promotionBindingChecksum, "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
   } finally {
     process.argv = originalArgv;

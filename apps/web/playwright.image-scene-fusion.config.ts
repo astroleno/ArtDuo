@@ -16,6 +16,14 @@ function requiredEnvironmentPath(name: string): string {
   return value;
 }
 
+function requiredEnvironmentValue(name: string): string {
+  const value = process.env[name]?.trim();
+  if (!value) {
+    throw new TypeError(`${name} must be provided by the promotion evidence producer.`);
+  }
+  return value;
+}
+
 const manifests = {
   valid: requiredEnvironmentPath("ARTDUO_FUSION_E2E_VALID_MANIFEST"),
   checksum: requiredEnvironmentPath("ARTDUO_FUSION_E2E_CHECKSUM_MANIFEST"),
@@ -59,6 +67,11 @@ export default defineConfig({
     imageEmbeddingEvidenceConfigPath: configPath,
     imageEmbeddingEvidenceProjectName: projectName,
     imageEmbeddingEvidenceSpecPath: specPath,
+    imageEmbeddingEvidenceReleaseVersion: requiredEnvironmentValue("ARTDUO_FUSION_E2E_LOCKED_RELEASE_VERSION"),
+    imageEmbeddingEvidenceBaseManifestChecksum: requiredEnvironmentValue("ARTDUO_FUSION_E2E_LOCKED_BASE_MANIFEST_CHECKSUM"),
+    imageEmbeddingEvidenceCandidateShardChecksum: requiredEnvironmentValue("ARTDUO_FUSION_E2E_LOCKED_CANDIDATE_SHARD_CHECKSUM"),
+    imageEmbeddingEvidencePromotionReportChecksum: requiredEnvironmentValue("ARTDUO_FUSION_E2E_LOCKED_PROMOTION_REPORT_CHECKSUM"),
+    imageEmbeddingEvidencePromotionBindingChecksum: requiredEnvironmentValue("ARTDUO_FUSION_E2E_LOCKED_PROMOTION_BINDING_CHECKSUM"),
   },
   use: {
     trace: "on-first-retry",

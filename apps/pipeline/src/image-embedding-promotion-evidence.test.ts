@@ -54,6 +54,13 @@ const fusionRunnerBinding = {
   projectName: "image-scene-fusion",
   specPath: "apps/web/e2e/image-scene-fusion.spec.ts",
 };
+const fusionPromotionInputBinding = {
+  releaseVersion: "promotion-evidence-test",
+  baseManifestChecksum: checksum("manifest"),
+  candidateShardChecksum: checksum("candidate-shard"),
+  promotionReportChecksum: checksum("task-5-promotion-report"),
+  promotionBindingChecksum: checksum("promotion-binding"),
+};
 
 const evidenceSuites = {
   textBenchmark: buildImageEmbeddingEvidenceSuiteDescriptor({
@@ -116,6 +123,11 @@ function fusionPlaywrightRunnerArtifact(caseIds: string[], failedIds: string[] =
         imageEmbeddingEvidenceConfigPath: fusionRunnerBinding.configPath,
         imageEmbeddingEvidenceProjectName: fusionRunnerBinding.projectName,
         imageEmbeddingEvidenceSpecPath: fusionRunnerBinding.specPath,
+        imageEmbeddingEvidenceReleaseVersion: fusionPromotionInputBinding.releaseVersion,
+        imageEmbeddingEvidenceBaseManifestChecksum: fusionPromotionInputBinding.baseManifestChecksum,
+        imageEmbeddingEvidenceCandidateShardChecksum: fusionPromotionInputBinding.candidateShardChecksum,
+        imageEmbeddingEvidencePromotionReportChecksum: fusionPromotionInputBinding.promotionReportChecksum,
+        imageEmbeddingEvidencePromotionBindingChecksum: fusionPromotionInputBinding.promotionBindingChecksum,
       },
       projects: [{ id: fusionRunnerBinding.projectName, name: fusionRunnerBinding.projectName }],
     },
@@ -189,6 +201,7 @@ const context = {
   evidenceSuites,
   runnerArtifactChecksums,
   runnerArtifacts,
+  fusionPromotionInputBinding,
   preflight: { command: "pnpm preflight:check", exitCode: 0 },
 };
 
@@ -226,7 +239,7 @@ test("text benchmark parser preserves the frozen input and runtime binding", () 
 test("fusion Playwright parser requires the frozen config, project, spec, and suite metadata", () => {
   const parsed = parseImageEmbeddingFusionPlaywrightRunnerArtifact(rawRunnerArtifacts.fusionE2e);
   assert.deepEqual(parsed.reasons, []);
-  assert.deepEqual(parsed.artifact?.runnerBinding, fusionRunnerBinding);
+  assert.deepEqual(parsed.artifact?.runnerBinding, { ...fusionRunnerBinding, ...fusionPromotionInputBinding });
 
   const titleOnlyForgery = parseImageEmbeddingFusionPlaywrightRunnerArtifact(playwrightRunnerArtifact(fusionIds));
   assert.equal(titleOnlyForgery.artifact, undefined);
@@ -304,7 +317,7 @@ function passingFusionEvidence(): object {
     runnerArtifactChecksum: runnerArtifactChecksums.fusionE2e,
     promotionBindingChecksum: checksum("promotion-binding"),
     preflight: { command: "pnpm preflight:check", exitCode: 0 },
-    runnerBinding: fusionRunnerBinding,
+    runnerBinding: { ...fusionRunnerBinding, ...fusionPromotionInputBinding },
     targetedE2e: {
       expectedCaseIds: fusionIds,
       passedCaseIds: fusionIds,
@@ -423,6 +436,15 @@ test("promotion evidence rejects forged IDs and a detached runner artifact despi
   const detachedArtifact = passingFusionEvidence() as { runnerArtifactChecksum: string };
   detachedArtifact.runnerArtifactChecksum = checksum("different-runner-artifact");
   assert.equal(validateImageEmbeddingFusionE2eEvidence(detachedArtifact, {
+    ...context,
+    promotionBindingChecksum: checksum("promotion-binding"),
+  }).valid, false);
+
+  const substitutedTask5Input = passingFusionEvidence() as {
+    runnerBinding: { candidateShardChecksum: string };
+  };
+  substitutedTask5Input.runnerBinding.candidateShardChecksum = checksum("substituted-candidate-shard");
+  assert.equal(validateImageEmbeddingFusionE2eEvidence(substitutedTask5Input, {
     ...context,
     promotionBindingChecksum: checksum("promotion-binding"),
   }).valid, false);
