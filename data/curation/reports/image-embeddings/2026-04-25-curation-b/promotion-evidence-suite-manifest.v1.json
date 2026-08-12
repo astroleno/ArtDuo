@@ -36,10 +36,10 @@
       "caseSet": {
         "schemaVersion": "image-embedding-evidence-suite.v2",
         "suiteType": "a2a-case-set",
-        "suiteChecksum": "sha256:ef401c567b1126ad04693c43bd9fa7f83a780b93d2f3025933470da743ba36b6",
+        "suiteChecksum": "sha256:bb7a0cbb3d947e5ea3ab3b05ac22acd8ef4e20c98b5e4e4cdc1fbe2fc2d0eb1a",
         "sourceFiles": [
           { "path": "output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts", "checksum": "sha256:1b96fa8a3c8e51e884662b6d94db5045a8ce182c80ba1a9e263206b9eaf424fa" },
-          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:44850fd715a8c850a40c49f952c742d56630777805e02bfca8172e91258a1e8a" }
+          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:54c89479057113730e486eaa174930acca26eac1d7b55181e833826c5aeba4de" }
         ],
         "baseline": {
           "passIds": [
@@ -62,9 +62,16 @@
       "replay": {
         "schemaVersion": "image-embedding-evidence-suite.v2",
         "suiteType": "a2a-replay",
-        "suiteChecksum": "sha256:8a8d021ed564d80779ee128c21fc2caba7d580ecf10714a95181f923164f97a1",
+        "suiteChecksum": "sha256:6b7529e631d4a8900bf91d1a99f3958764bb29787bad2a6140159838ddfd6555",
         "sourceFiles": [
-          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:44850fd715a8c850a40c49f952c742d56630777805e02bfca8172e91258a1e8a" }
+          { "path": "apps/web/lib/affective-negotiation.ts", "checksum": "sha256:4a244f8d2812b331837c6cb2f4754ae0f181828d028ec868edf4418ec58e3492" },
+          { "path": "apps/web/lib/curation-narrative.ts", "checksum": "sha256:15d869ea99c8afc0e96f8bb52d8c0fa284b8b85b18c18246860ce1b14d5e969f" },
+          { "path": "apps/web/lib/exhibition-results.ts", "checksum": "sha256:4d2e7e684dbe8e663976fa963aacb8a12894ef09058374377066ebf38428a7db" },
+          { "path": "apps/web/lib/gallery-route.ts", "checksum": "sha256:206511f84d0cd0643c19216f795c001dd86b352c9b08577d9dc4b7b890d69582" },
+          { "path": "apps/web/lib/release-catalog.ts", "checksum": "sha256:79cc44cd5a8a0554c4d2ca1be3bc247da82a9df4291895aeb51d4c7cbd640deb" },
+          { "path": "packages/corpus/src/affect-ontology.ts", "checksum": "sha256:f3f6b6f6e2e97bc2bd5089faf5eef7b0d103358a60ff4e88f6333226d3a1b39a" },
+          { "path": "packages/corpus/src/affective-intent.ts", "checksum": "sha256:aff6ee3719faa89f005df7e2d11f212bb7ea831685efeefcf8dcdec10eafbbd1" },
+          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:54c89479057113730e486eaa174930acca26eac1d7b55181e833826c5aeba4de" }
         ],
         "caseIds": [
           "T01", "T02", "T03", "T04", "T05", "T06", "T07", "T08", "T09", "T10",
@@ -78,12 +85,12 @@
     "e2e": {
       "schemaVersion": "image-embedding-evidence-suite.v2",
       "suiteType": "e2e",
-      "suiteChecksum": "sha256:694a8ff82b400af6817db771fe867b6642df3c5fd32a617667455f7c5df0478c",
+      "suiteChecksum": "sha256:5dded3b877bdca919777eb5e9e2df52e6feca71cd3df10f02292df146459545e",
       "sourceFiles": [
         { "path": "apps/web/e2e/browser-local-runtime.spec.ts", "checksum": "sha256:f0d64aa67bcf8f84576b989fe795942f6157f8545cf0b45c1f37024162e28628" },
         { "path": "apps/web/e2e/explanation-state.spec.ts", "checksum": "sha256:13acee029f5a708c6f769b7547b06237cb1a1b8334cfba6cbb7420df2111c068" },
         { "path": "apps/web/e2e/helpers.ts", "checksum": "sha256:bb1ba13e572356be904bf523a80ab73e9178154c118df6b9bfd1f764277e9dac" },
-        { "path": "apps/web/e2e/immersive-gallery.spec.ts", "checksum": "sha256:8d60da6a8b2fb5f9835b94f0eeda26ad7b834957740a99abde197e73778a976b" },
+        { "path": "apps/web/e2e/immersive-gallery.spec.ts", "checksum": "sha256:b1073c48d6a64cefb0c4d43276628e1f6950d99a58313c9553aecdffa32dea8a" },
         { "path": "apps/web/e2e/phase1-states.spec.ts", "checksum": "sha256:f3488018e01d3d3463189759856cd22bec6a0c35e179772cf9080a3be670ce82" },
         { "path": "apps/web/e2e/thin-slice.spec.ts", "checksum": "sha256:49a9121ab1400760d8a1d574b77a38a465682cfe3645193eb18fcbf9f18ecc72" },
         { "path": "apps/web/playwright.config.ts", "checksum": "sha256:4bd2f8c23995669f808fc977303b9ab2defcdb975aef7a67bf44b7d57ff27cd3" },

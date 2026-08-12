@@ -121,10 +121,13 @@ The earlier local Chromium launch blocker is resolved. The latest recovered
 - normalized E2E evidence checksum:
   `sha256:1b482ef3fd0962759a4041fb6a9618582e3fbba765d1821453446e0bbb2b944d`.
 
-The currently frozen 14-case suite checksum is
-`sha256:694a8ff82b400af6817db771fe867b6642df3c5fd32a617667455f7c5df0478c`.
-On 2026-08-12, commit `905639a0827e31c2cc98028f1dcb3e96ad87228e`
-produced a fresh 14/14 raw run and a normalized envelope for this suite. The
+The current 14-case source suite was refrozen after the hard-negative immersive
+route assertion was added; its checksum is
+`sha256:5dded3b877bdca919777eb5e9e2df52e6feca71cd3df10f02292df146459545e`.
+The passing raw/evidence artifacts below predate that refreeze and must not be
+used as current E2E promotion evidence. On 2026-08-12, commit
+`905639a0827e31c2cc98028f1dcb3e96ad87228e` produced a 14/14 raw run and a
+normalized envelope for the then-current suite. The
 raw checksum is
 `sha256:4faa36f6706c120050aa49f904ef8f1733855d366e03d8914b952912bbd33468`
 and the envelope checksum is

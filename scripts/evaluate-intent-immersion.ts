@@ -2,6 +2,10 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { buildCurationNarrative } from "../apps/web/lib/curation-narrative";
+import {
+  buildHardFilteredExhibition,
+  visibleHardResistanceViolationIds,
+} from "../apps/web/lib/exhibition-results";
 import { buildGallerySceneRoute } from "../apps/web/lib/gallery-route";
 import {
   loadWebReleaseCatalog,
@@ -16,6 +20,8 @@ interface EvaluationCase {
   input: string;
   expectedSignals: string[];
   expectedMood?: string;
+  expectedRejectedArtworkIds?: string[];
+  forbiddenVisibleSignals?: string[];
 }
 
 interface EvaluationResult {
@@ -94,7 +100,14 @@ const EVALUATION_CASES: EvaluationCase[] = [
   { id: "T21", input: "黑白、版画、线条，最好很克制", expectedSignals: ["black", "white", "contemplation"], expectedMood: "contemplation" },
   { id: "T22", input: "我想看蓝灰色、冷一点、很安静", expectedSignals: ["serenity", "blue", "charcoal"], expectedMood: "serenity" },
   { id: "T23", input: "暖金色的房间，适合慢慢停留", expectedSignals: ["gold", "warmth", "serenity"], expectedMood: "serenity" },
-  { id: "T24", input: "不要太明亮，想要暗红和深木色", expectedSignals: ["burgundy", "walnut", "melancholy"], expectedMood: "melancholy" },
+  {
+    id: "T24",
+    input: "像睡前，但不要悲伤",
+    expectedSignals: ["serenity", "quiet", "restful"],
+    expectedMood: "serenity",
+    expectedRejectedArtworkIds: ["met-472301"],
+    forbiddenVisibleSignals: ["melancholy", "sad", "sorrow", "grief", "despair"],
+  },
   { id: "T25", input: "我想看人物肖像，像和陌生人对视", expectedSignals: ["portrait", "contemplation", "desire"], expectedMood: "contemplation" },
   { id: "T26", input: "有没有风景，最好像走到远处", expectedSignals: ["landscape", "yearning", "hope"], expectedMood: "hope" },
   { id: "T27", input: "给我一条适合睡前看的路线", expectedSignals: ["serenity", "quiet", "melancholy"], expectedMood: "serenity" },
@@ -210,62 +223,27 @@ function normalizeSignal(value: string): string {
   return value.toLowerCase().replace(/[_\s-]+/g, "-").trim();
 }
 
-function artworkSignals(result: WebSearchResult["results"][number]): string[] {
-  return unique([
-    ...result.matchedTokens,
-    ...result.artwork.moodTags,
-    ...result.artwork.emotionLabels,
-    ...result.artwork.keywordBoosts,
-    ...result.artwork.colorTags,
-    ...result.artwork.subjectTags,
-    ...result.artwork.compositionTags,
-    ...result.artwork.sceneAffinity.paletteModes,
-    ...result.artwork.sceneAffinity.sceneTypes,
-    ...result.artwork.sceneAffinity.spatialModes,
-  ].map(normalizeSignal));
-}
-
-function resistanceAliases(value: string): string[] {
-  if (value === "bright") {
-    return ["bright", "light", "joy", "celebration", "cheerful", "gold"];
-  }
-  if (value === "loud") {
-    return ["loud", "festival", "celebration", "active", "drama"];
-  }
-  if (value === "heavy-grief") {
-    return ["grief", "despair", "sad", "sorrow", "heavy-grief"];
-  }
-  if (value === "heavy-drama") {
-    return ["drama", "despair", "grief", "high-contrast"];
-  }
-
-  return [value];
-}
-
 function hardResistanceViolations(
   search: WebSearchResult,
-  growthForm: ReturnType<typeof buildCurationNarrative>["growthForm"],
+  expectedRejectedArtworkIds: string[],
+  observedRejectedArtworkIds: string[],
 ): number {
-  const hardSignals = growthForm.rules
-    .filter((rule) => rule.severity === "hard")
-    .map((rule) => normalizeSignal(rule.signal));
-  if (hardSignals.length === 0) {
-    return 0;
+  const rejected = new Set(observedRejectedArtworkIds);
+  const missingRequiredRejections = expectedRejectedArtworkIds.filter((artworkId) => !rejected.has(artworkId));
+  return visibleHardResistanceViolationIds(search).length + missingRequiredRejections.length;
+}
+
+function independentVisibleSignalViolationIds(search: WebSearchResult, forbiddenSignals: string[]): string[] {
+  const forbidden = new Set(forbiddenSignals.map(normalizeSignal));
+  if (forbidden.size === 0) {
+    return [];
   }
 
-  const resultById = new Map(search.results.map((result) => [result.artwork.id, result]));
-
-  return growthForm.supportingArtworkIds.reduce((count, artworkId) => {
-    const result = resultById.get(artworkId);
-    if (!result) {
-      return count;
-    }
-
-    const signals = new Set(artworkSignals(result));
-    const violates = hardSignals.some((signal) => resistanceAliases(signal).some((alias) => signals.has(alias)));
-
-    return count + (violates ? 1 : 0);
-  }, 0);
+  return search.results.filter((result) => [
+    ...result.artwork.moodTags,
+    ...result.artwork.emotionLabels,
+    ...result.artwork.subjectTags,
+  ].map(normalizeSignal).some((signal) => forbidden.has(signal))).map((result) => result.artwork.id);
 }
 
 function countPeaks(values: number[]): number {
@@ -292,18 +270,28 @@ function buildCurveMetrics(input: {
   search: WebSearchResult;
   userAgent: ReturnType<typeof buildUserAffectAgent>;
   growthForm: ReturnType<typeof buildCurationNarrative>["growthForm"];
+  expectedRejectedArtworkIds: string[];
+  observedRejectedArtworkIds: string[];
+  forbiddenVisibleSignals: string[];
 }): EvaluationResult["output"]["curveMetrics"] {
   const firstRequested = input.userAgent.temporalShape.stages[0]?.signals.map((signal) => signal.value) ?? [];
   const lastRequested = input.userAgent.temporalShape.stages.at(-1)?.signals.map((signal) => signal.value) ?? [];
   const firstStage = input.growthForm.stages[0]?.signals.map((signal) => signal.value) ?? [];
   const lastStage = input.growthForm.stages.at(-1)?.signals.map((signal) => signal.value) ?? [];
 
+  const contractViolations = hardResistanceViolations(
+    input.search,
+    input.expectedRejectedArtworkIds,
+    input.observedRejectedArtworkIds,
+  );
+  const independentViolations = independentVisibleSignalViolationIds(input.search, input.forbiddenVisibleSignals);
+
   return {
     stageCount: input.growthForm.stages.length,
     peakCount: countPeaks(input.growthForm.stages.map((stage) => stage.intensity)),
     startsNearRequestedState: firstRequested.length === 0 || stageSignalOverlap(firstRequested, firstStage),
     endsNearRequestedState: lastRequested.length === 0 || stageSignalOverlap(lastRequested, lastStage),
-    hardResistanceViolations: hardResistanceViolations(input.search, input.growthForm),
+    hardResistanceViolations: contractViolations + independentViolations.length,
   };
 }
 
@@ -372,7 +360,9 @@ function evaluate(phase: string): EvaluationResult[] {
   const catalog = loadWebReleaseCatalog({ rootDir: process.cwd() });
 
   return EVALUATION_CASES.map((testCase) => {
-    const search = searchReleaseCatalog(catalog, testCase.input, { limit: 12 });
+    const candidateSearch = searchReleaseCatalog(catalog, testCase.input, { limit: catalog.artworkCount });
+    const exhibition = buildHardFilteredExhibition(candidateSearch, { limit: 12 });
+    const search = exhibition.search;
     const sceneSearch = searchBackgroundScenes(catalog, testCase.input, { limit: 12 });
     const userAgent = buildUserAffectAgent(testCase.input);
     const narrative = buildCurationNarrative(search);
@@ -384,6 +374,9 @@ function evaluate(phase: string): EvaluationResult[] {
       search,
       userAgent,
       growthForm: narrative.growthForm,
+      expectedRejectedArtworkIds: testCase.expectedRejectedArtworkIds ?? [],
+      observedRejectedArtworkIds: exhibition.rejectedArtworkIds,
+      forbiddenVisibleSignals: testCase.forbiddenVisibleSignals ?? [],
     });
     const narrativeText = `${narrative.title} ${narrative.preface} ${narrative.closing}`;
     const intent = scoreIntent(testCase, search, narrativeText, narrative.intentSignals);
@@ -413,7 +406,7 @@ function evaluate(phase: string): EvaluationResult[] {
         userAgent,
         growthForm: narrative.growthForm,
         negotiationTrace: narrative.growthForm.trace,
-        rejectedArtworkIds: narrative.growthForm.rejectedArtworkIds,
+        rejectedArtworkIds: exhibition.rejectedArtworkIds,
         curveMetrics,
         route: route.map((stop) => ({
           stage: stop.stageLabel,
