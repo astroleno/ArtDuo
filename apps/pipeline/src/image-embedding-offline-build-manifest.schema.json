@@ -34,8 +34,9 @@
     "report": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["bytesChecksum", "coverageReady", "controlledFailures"],
+      "required": ["sizeBytes", "bytesChecksum", "coverageReady", "controlledFailures"],
       "properties": {
+        "sizeBytes": { "type": "integer", "minimum": 1 },
         "bytesChecksum": { "$ref": "#/$defs/checksum" },
         "coverageReady": { "type": "boolean" },
         "controlledFailures": {

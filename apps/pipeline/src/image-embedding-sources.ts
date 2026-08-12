@@ -131,7 +131,7 @@ function isInside(parentPath: string, childPath: string): boolean {
 
 const IPV6_GLOBAL_UNICAST = ipaddr.parse("2000::") as ipaddr.IPv6;
 
-function isPublicAddress(address: string, family: number): boolean {
+export function isGloballyRoutableAddress(address: string, family: number): boolean {
   if ((family !== 4 && family !== 6) || isIP(address) !== family) {
     return false;
   }
@@ -438,7 +438,7 @@ async function loadRemoteSource(
       remainingTimeoutMs(deadline);
       fail("fetch-failed", "Artwork image DNS lookup failed.");
     }
-    if (addresses.length === 0 || addresses.some((entry) => !isPublicAddress(entry.address, entry.family))) {
+    if (addresses.length === 0 || addresses.some((entry) => !isGloballyRoutableAddress(entry.address, entry.family))) {
       fail("invalid-source", "Artwork image host did not resolve to public unicast addresses.");
     }
     let response: RemoteImageResponse;

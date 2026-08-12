@@ -1,16 +1,22 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { lookup as lookupDns } from "node:dns/promises";
 import { readFileSync, readdirSync, statSync } from "node:fs";
+import { get as httpsGet } from "node:https";
 import { createRequire } from "node:module";
 import path from "node:path";
 
 import { parseImageEmbeddingShardRecords } from "@artduo/contracts";
+
+import { createBoundAddressLookup, isGloballyRoutableAddress } from "./image-embedding-sources";
 
 const EVIDENCE_SCHEMA = "artduo-image-embedding-reproducibility-evidence.v1";
 const OFFLINE_BUILD_MANIFEST_SCHEMA = "artduo-image-embedding-offline-build-manifest.v1";
 const BUNDLE_SCHEMA = "artduo-image-embedding-reproducibility-bundle.v1";
 const SOURCE_CACHE_SCHEMA = "artduo-image-source-cache.v1";
 const SOURCE_CACHE_AGGREGATE_ALGORITHM = "sha256(concat(sortByRelativePath(fileSha256 + twoSpaces + relativePath + newline)))";
+const SOURCE_CACHE_ARCHIVE_FORMAT = "artduo-source-cache-tar-ustar.v1";
+const INSTALL_ISOLATION = "detached sparse checkout at execution.commitSha";
 const CHECKSUM = /^sha256:[a-f0-9]{64}$/u;
 const GIT_SHA = /^[a-f0-9]{40}$/u;
 const SEMVER = /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/u;
@@ -20,11 +26,6 @@ const REQUIRED_RUN_IDS = [
   "offline-frozen-install",
   "real-provider-smoke",
   "offline-shadow-rebuild",
-] as const;
-const REQUIRED_INPUTS = [
-  "package.json",
-  "apps/pipeline/package.json",
-  "pnpm-lock.yaml",
 ] as const;
 
 type Checksum = `sha256:${string}`;
@@ -40,7 +41,6 @@ export interface ReproducibilityRunBinding {
   command: string;
   isolation?: string;
   nativeScriptsEnabled?: boolean;
-  assertions: string[];
   exitCode: 0;
   trackedGitStatusAfterRun: "clean";
   log: ReproducibilityInputBinding;
@@ -101,6 +101,7 @@ export interface ImageEmbeddingReproducibilityEvidence {
       bytesChecksum: Checksum;
     };
     offlineReport: {
+      sizeBytes: number;
       bytesChecksum: Checksum;
       coverageReady: boolean;
       controlledFailures: ControlledFailure[];
@@ -135,11 +136,33 @@ interface OfflineBuildManifest {
     bytesChecksum: Checksum;
   };
   report: {
+    sizeBytes: number;
     bytesChecksum: Checksum;
     coverageReady: boolean;
     controlledFailures: ControlledFailure[];
   };
 }
+
+type StandardImmutableArtifactKind = "model" | "candidate" | "offline-report";
+
+export interface StandardImmutableArtifact {
+  kind: StandardImmutableArtifactKind;
+  uri: string;
+  sizeBytes: number;
+  checksum: Checksum;
+}
+
+export interface SourceCacheImmutableArtifact {
+  kind: "source-cache";
+  uri: string;
+  sizeBytes: number;
+  checksum: Checksum;
+  archiveFormat: typeof SOURCE_CACHE_ARCHIVE_FORMAT;
+  contentFileCount: number;
+  contentAggregateChecksum: Checksum;
+}
+
+export type ImmutableArtifact = StandardImmutableArtifact | SourceCacheImmutableArtifact;
 
 interface ReproducibilityBundle {
   schemaVersion: typeof BUNDLE_SCHEMA;
@@ -149,13 +172,13 @@ interface ReproducibilityBundle {
   artifactRetention: {
     status: "local-only" | "immutable-storage";
     task7Ready: boolean;
-    immutableArtifacts: Array<{
-      kind: "model" | "source-cache" | "candidate" | "offline-report";
-      uri: string;
-      sizeBytes: number;
-      checksum: Checksum;
-    }>;
+    immutableArtifacts: ImmutableArtifact[];
   };
+}
+
+export interface RemoteArtifactObservation {
+  sizeBytes: number;
+  checksum: Checksum;
 }
 
 export interface ImageEmbeddingReproducibilityVerificationOptions {
@@ -165,6 +188,7 @@ export interface ImageEmbeddingReproducibilityVerificationOptions {
   sourceCacheRoot: string;
   candidatePath?: string;
   verifyResolvedDependencies?: boolean;
+  verifyRemoteArtifact?: (artifact: ImmutableArtifact) => Promise<RemoteArtifactObservation | undefined>;
 }
 
 export interface ImageEmbeddingReproducibilityVerificationResult {
@@ -213,6 +237,58 @@ function sha256(value: Uint8Array | string): Checksum {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
 
+function downloadAndHashImmutableArtifact(artifact: ImmutableArtifact): Promise<RemoteArtifactObservation> {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const url = new URL(artifact.uri);
+    const request = httpsGet(url, {
+      headers: { "accept-encoding": "identity", "user-agent": "ArtDuo-reproducibility-verifier/1" },
+      lookup: async (hostname, _options, callback) => {
+        try {
+          const addresses = await lookupDns(hostname, { all: true, verbatim: true });
+          if (addresses.length === 0 || addresses.some((entry) => !isGloballyRoutableAddress(entry.address, entry.family))) {
+            callback(new Error("immutable artifact host did not resolve exclusively to globally routable addresses"), "", 4);
+            return;
+          }
+          createBoundAddressLookup(addresses[0] as { address: string; family: number })(hostname, {}, callback);
+        } catch (error) {
+          callback(error as NodeJS.ErrnoException, "", 4);
+        }
+      },
+    }, (response) => {
+      if (response.statusCode !== 200) {
+        response.resume();
+        settled = true;
+        reject(new Error(`unexpected HTTP status ${response.statusCode ?? "unknown"}`));
+        return;
+      }
+      const digest = createHash("sha256");
+      let sizeBytes = 0;
+      response.on("data", (chunk: Buffer) => {
+        sizeBytes += chunk.byteLength;
+        if (sizeBytes > artifact.sizeBytes) {
+          response.destroy(new Error("remote object exceeds its declared size"));
+          return;
+        }
+        digest.update(chunk);
+      });
+      response.on("end", () => {
+        if (!settled) {
+          settled = true;
+          resolve({ sizeBytes, checksum: `sha256:${digest.digest("hex")}` });
+        }
+      });
+    });
+    request.setTimeout(60_000, () => request.destroy(new Error("remote object verification timed out")));
+    request.on("error", (error) => {
+      if (!settled) {
+        settled = true;
+        reject(error);
+      }
+    });
+  });
+}
+
 function isSafeRelativePath(value: string): boolean {
   return value.length > 0
     && !path.isAbsolute(value)
@@ -256,22 +332,40 @@ function parseControlledFailures(value: unknown): ControlledFailure[] | undefine
   return parsed;
 }
 
-function parseRun(value: unknown): ReproducibilityRunBinding | undefined {
+function expectedRunCommand(
+  id: RequiredRunId,
+  releaseVersion: string,
+  model: { id: string; revision: string; variant: string },
+): string {
+  switch (id) {
+    case "normal-frozen-install":
+      return "pnpm install --frozen-lockfile --registry=https://registry.npmjs.org";
+    case "offline-frozen-install":
+      return "pnpm install --frozen-lockfile --offline";
+    case "real-provider-smoke":
+      return "ARTDUO_RUN_REAL_IMAGE_EMBEDDING_SMOKE=true pnpm --filter @artduo/pipeline exec tsx --test src/image-embedding-provider.real.test.ts";
+    case "offline-shadow-rebuild":
+      return `pnpm image-embeddings:build -- --release-version ${releaseVersion} --image-embedding-model ${model.id} --image-embedding-model-revision ${model.revision} --image-embedding-model-variant ${model.variant} --image-embedding-batch-size 8 --offline true --report-root <TEMP_REPORT_ROOT> --promotion-anchor-set data/curation/reports/image-embeddings/${releaseVersion}/promotion-anchor-set.json`;
+  }
+}
+
+function parseRun(
+  value: unknown,
+  expectedId: RequiredRunId,
+  expectedCommand: string,
+): ReproducibilityRunBinding | undefined {
   if (!isRecord(value)
-    || !REQUIRED_RUN_IDS.includes(value.id as RequiredRunId)
-    || !isNonEmptyString(value.command)
-    || !Array.isArray(value.assertions)
-    || value.assertions.length === 0
-    || !value.assertions.every(isNonEmptyString)
+    || value.id !== expectedId
+    || value.command !== expectedCommand
     || value.exitCode !== 0
     || value.trackedGitStatusAfterRun !== "clean") {
     return undefined;
   }
-  const commonKeys = ["id", "command", "assertions", "exitCode", "trackedGitStatusAfterRun", "log"];
+  const commonKeys = ["id", "command", "exitCode", "trackedGitStatusAfterRun", "log"];
   const installRun = value.id === "normal-frozen-install" || value.id === "offline-frozen-install";
   const keys = installRun ? [...commonKeys, "isolation", "nativeScriptsEnabled"] : commonKeys;
   if (!exactKeys(value, keys)
-    || (installRun && (!isNonEmptyString(value.isolation) || value.nativeScriptsEnabled !== true))) {
+    || (installRun && (value.isolation !== INSTALL_ISOLATION || value.nativeScriptsEnabled !== true))) {
     return undefined;
   }
   const log = parseBinding(value.log);
@@ -281,8 +375,7 @@ function parseRun(value: unknown): ReproducibilityRunBinding | undefined {
   return {
     id: value.id as RequiredRunId,
     command: value.command,
-    ...(installRun ? { isolation: value.isolation as string, nativeScriptsEnabled: true as const } : {}),
-    assertions: value.assertions as string[],
+    ...(installRun ? { isolation: INSTALL_ISOLATION, nativeScriptsEnabled: true as const } : {}),
     exitCode: 0,
     trackedGitStatusAfterRun: "clean",
     log,
@@ -332,8 +425,16 @@ export function parseImageEmbeddingReproducibilityEvidence(value: unknown): Evid
     || !SEMVER.test(environment.pnpmVersion)) {
     return { reasons: ["Reproducibility environment binding is invalid."] };
   }
-  if (!Array.isArray(value.inputs) || value.inputs.length < REQUIRED_INPUTS.length) {
-    return { reasons: ["Reproducibility input bindings are missing."] };
+  const expectedInputPaths = [
+    "package.json",
+    "apps/pipeline/package.json",
+    "pnpm-lock.yaml",
+    `data/releases/${value.releaseVersion}/manifest.json`,
+    `data/curation/reports/image-embeddings/${value.releaseVersion}/promotion-anchor-set.json`,
+    `data/curation/reports/image-embeddings/${value.releaseVersion}/image-embedding-report.json`,
+  ];
+  if (!Array.isArray(value.inputs) || value.inputs.length !== expectedInputPaths.length) {
+    return { reasons: ["Reproducibility input bindings must contain exactly the six required paths."] };
   }
   const inputs = value.inputs.map((entry) => parseBinding(entry));
   if (inputs.some((entry) => entry === undefined)) {
@@ -341,12 +442,8 @@ export function parseImageEmbeddingReproducibilityEvidence(value: unknown): Evid
   }
   const typedInputs = inputs as ReproducibilityInputBinding[];
   const inputPaths = typedInputs.map((entry) => entry.path);
-  if (new Set(inputPaths).size !== inputPaths.length
-    || REQUIRED_INPUTS.some((required) => !inputPaths.includes(required))
-    || !inputPaths.includes(`data/releases/${value.releaseVersion}/manifest.json`)
-    || !inputPaths.includes(`data/curation/reports/image-embeddings/${value.releaseVersion}/promotion-anchor-set.json`)
-    || !inputPaths.includes(`data/curation/reports/image-embeddings/${value.releaseVersion}/image-embedding-report.json`)) {
-    return { reasons: ["Reproducibility input bindings do not contain the required release files."] };
+  if (inputPaths.some((inputPath, index) => inputPath !== expectedInputPaths[index])) {
+    return { reasons: ["Reproducibility input bindings must contain the exact required paths in canonical order."] };
   }
   const runtimeArtifacts = value.runtimeArtifacts;
   if (!exactKeys(runtimeArtifacts, ["model", "sourceCache"])) {
@@ -383,7 +480,15 @@ export function parseImageEmbeddingReproducibilityEvidence(value: unknown): Evid
   if (!Array.isArray(value.runs) || value.runs.length !== REQUIRED_RUN_IDS.length) {
     return { reasons: ["Reproducibility run bindings are incomplete."] };
   }
-  const runs = value.runs.map(parseRun);
+  const runs = value.runs.map((run, index) => parseRun(
+    run,
+    REQUIRED_RUN_IDS[index] as RequiredRunId,
+    expectedRunCommand(REQUIRED_RUN_IDS[index] as RequiredRunId, value.releaseVersion as string, {
+      id: model.id as string,
+      revision: model.revision as string,
+      variant: model.variant as string,
+    }),
+  ));
   if (runs.some((entry) => entry === undefined)) {
     return { reasons: ["Reproducibility run binding is invalid."] };
   }
@@ -407,7 +512,9 @@ export function parseImageEmbeddingReproducibilityEvidence(value: unknown): Evid
   }
   const offlineReport = outputs.offlineReport;
   const controlledFailures = isRecord(offlineReport) ? parseControlledFailures(offlineReport.controlledFailures) : undefined;
-  if (!exactKeys(offlineReport, ["bytesChecksum", "coverageReady", "controlledFailures"])
+  if (!exactKeys(offlineReport, ["sizeBytes", "bytesChecksum", "coverageReady", "controlledFailures"])
+    || !isNonNegativeInteger(offlineReport.sizeBytes)
+    || offlineReport.sizeBytes === 0
     || !isChecksum(offlineReport.bytesChecksum)
     || typeof offlineReport.coverageReady !== "boolean"
     || !controlledFailures) {
@@ -483,6 +590,7 @@ export function parseImageEmbeddingReproducibilityEvidence(value: unknown): Evid
           bytesChecksum: candidate.bytesChecksum,
         },
         offlineReport: {
+          sizeBytes: offlineReport.sizeBytes,
           bytesChecksum: offlineReport.bytesChecksum,
           coverageReady: offlineReport.coverageReady,
           controlledFailures,
@@ -522,7 +630,9 @@ function parseOfflineBuildManifest(value: unknown): ParseResult<OfflineBuildMani
   }
   const report = value.report;
   const failures = isRecord(report) ? parseControlledFailures(report.controlledFailures) : undefined;
-  if (!exactKeys(report, ["bytesChecksum", "coverageReady", "controlledFailures"])
+  if (!exactKeys(report, ["sizeBytes", "bytesChecksum", "coverageReady", "controlledFailures"])
+    || !isNonNegativeInteger(report.sizeBytes)
+    || report.sizeBytes === 0
     || !isChecksum(report.bytesChecksum)
     || typeof report.coverageReady !== "boolean"
     || !failures) {
@@ -535,7 +645,12 @@ function parseOfflineBuildManifest(value: unknown): ParseResult<OfflineBuildMani
       executionCommitSha: value.executionCommitSha,
       inputs: inputs as OfflineBuildManifest["inputs"],
       candidate: candidate as OfflineBuildManifest["candidate"],
-      report: { bytesChecksum: report.bytesChecksum, coverageReady: report.coverageReady, controlledFailures: failures },
+      report: {
+        sizeBytes: report.sizeBytes,
+        bytesChecksum: report.bytesChecksum,
+        coverageReady: report.coverageReady,
+        controlledFailures: failures,
+      },
     },
     reasons: [],
   };
@@ -561,22 +676,47 @@ function parseBundle(value: unknown): ParseResult<ReproducibilityBundle> {
   }
   const artifacts: ReproducibilityBundle["artifactRetention"]["immutableArtifacts"] = [];
   for (const artifact of retention.immutableArtifacts) {
-    if (!exactKeys(artifact, ["kind", "uri", "sizeBytes", "checksum"])
+    if (!isRecord(artifact)
       || !["model", "source-cache", "candidate", "offline-report"].includes(artifact.kind as string)
       || !isNonEmptyString(artifact.uri)
-      || !/^https:\/\//u.test(artifact.uri)
+      || !/^https:\/\/[^/?#]+(?:[/?#]|$)/u.test(artifact.uri)
       || !isNonNegativeInteger(artifact.sizeBytes)
       || artifact.sizeBytes === 0
       || !isChecksum(artifact.checksum)) {
       return { reasons: ["Immutable artifact storage binding is invalid."] };
     }
-    artifacts.push(artifact as ReproducibilityBundle["artifactRetention"]["immutableArtifacts"][number]);
+    if (artifact.kind === "source-cache") {
+      if (!exactKeys(artifact, [
+        "kind",
+        "uri",
+        "sizeBytes",
+        "checksum",
+        "archiveFormat",
+        "contentFileCount",
+        "contentAggregateChecksum",
+      ])
+        || artifact.archiveFormat !== SOURCE_CACHE_ARCHIVE_FORMAT
+        || !isNonNegativeInteger(artifact.contentFileCount)
+        || artifact.contentFileCount === 0
+        || !isChecksum(artifact.contentAggregateChecksum)) {
+        return { reasons: ["Immutable source cache archive binding is invalid."] };
+      }
+      artifacts.push(artifact as unknown as SourceCacheImmutableArtifact);
+    } else {
+      if (!exactKeys(artifact, ["kind", "uri", "sizeBytes", "checksum"])) {
+        return { reasons: ["Immutable artifact storage binding is invalid."] };
+      }
+      artifacts.push(artifact as unknown as StandardImmutableArtifact);
+    }
   }
   const expectedKinds = ["model", "source-cache", "candidate", "offline-report"];
   const kinds = artifacts.map((artifact) => artifact.kind);
   const task7Ready = retention.status === "immutable-storage"
-    && expectedKinds.every((kind) => kinds.includes(kind as typeof artifacts[number]["kind"]))
-    && new Set(kinds).size === expectedKinds.length;
+    && artifacts.length === expectedKinds.length
+    && kinds.every((kind, index) => kind === expectedKinds[index]);
+  if (retention.status === "local-only" && artifacts.length !== 0) {
+    return { reasons: ["Local-only artifact retention cannot declare immutable artifacts."] };
+  }
   if (retention.task7Ready !== task7Ready) {
     return { reasons: ["Artifact retention task7Ready does not match immutable storage coverage."] };
   }
@@ -758,6 +898,84 @@ function verifyLogs(rootDir: string, evidence: ImageEmbeddingReproducibilityEvid
       || !text.includes("trackedGitStatus: clean\n")
       || !/exitCode: 0\n$/u.test(text)) {
       reasons.push(`Run log semantic binding is invalid: ${run.id}.`);
+      continue;
+    }
+    const dependencyLines = Object.entries(evidence.resolvedDependencies).map(
+      ([dependency, version]) => `resolved ${dependency} ${version}\n`,
+    );
+    let semanticallyValid = false;
+    switch (run.id) {
+      case "normal-frozen-install":
+        semanticallyValid = text.includes("Lockfile is up to date, resolution step is skipped\n")
+          && /Packages: \+[1-9][0-9]*\n/u.test(text)
+          && text.includes("hnswlib-node install$ node-gyp rebuild\n")
+          && text.includes("hnswlib-node install: gyp info ok\n")
+          && text.includes("hnswlib-node install: Done\n")
+          && text.includes(`/sharp@${evidence.resolvedDependencies.sharp}/node_modules/sharp install$`)
+          && text.includes("sharp install: sharp: Integrity check passed for ")
+          && text.includes("sharp install: Done\n")
+          && dependencyLines.every((line) => text.includes(line));
+        break;
+      case "offline-frozen-install": {
+        const progressLines = text.match(/^Progress:.*$/gmu) ?? [];
+        semanticallyValid = text.includes("Lockfile is up to date, resolution step is skipped\n")
+          && progressLines.length > 0
+          && progressLines.every((line) => /downloaded 0(?:,|$)/u.test(line))
+          && progressLines.some((line) => /downloaded 0, added [0-9]+, done$/u.test(line))
+          && dependencyLines.every((line) => text.includes(line));
+        break;
+      }
+      case "real-provider-smoke": {
+        const smokeSource = gitOutput(rootDir, [
+          "show",
+          `${evidence.execution.commitSha}:apps/pipeline/src/image-embedding-provider.real.test.ts`,
+        ]) ?? "";
+        semanticallyValid = text.includes(`expectedArtifactChecksum: ${evidence.runtimeArtifacts.model.checksum}\n`)
+          && text.includes("✔ real image provider smoke embeds one PNG and one JPEG")
+          && text.includes("ℹ tests 1\n")
+          && text.includes("ℹ pass 1\n")
+          && text.includes("ℹ fail 0\n")
+          && text.includes("ℹ skipped 0\n")
+          && smokeSource.includes("ONE_PIXEL_PNG")
+          && smokeSource.includes("ONE_PIXEL_JPEG")
+          && smokeSource.includes("provenance.checksum, IMAGE_MODEL_ARTIFACT_SHA256")
+          && smokeSource.includes("entry.dimensions === IMAGE_EMBEDDING_DIMENSIONS")
+          && smokeSource.includes("Math.hypot(...entry.vector) - 1");
+        break;
+      }
+      case "offline-shadow-rebuild":
+        {
+          const failureLine = text.match(/^failures: (.+)$/mu)?.[1];
+          let loggedFailures: ControlledFailure[] | undefined;
+          try {
+            const rawFailures = JSON.parse(failureLine ?? "") as unknown;
+            if (Array.isArray(rawFailures) && rawFailures.every((entry) => isRecord(entry)
+              && exactKeys(entry, ["entityType", "entityId", "code", "message"])
+              && (entry.entityType === "artwork" || entry.entityType === "background-scene")
+              && isNonEmptyString(entry.entityId)
+              && isNonEmptyString(entry.code)
+              && isNonEmptyString(entry.message))) {
+              loggedFailures = rawFailures.map((entry) => ({
+                entityType: entry.entityType as ControlledFailure["entityType"],
+                entityId: entry.entityId as string,
+                code: entry.code as string,
+              }));
+            }
+          } catch {
+            loggedFailures = undefined;
+          }
+        semanticallyValid = text.includes(`candidateDeclaredChecksum: ${evidence.outputs.candidate.declaredChecksum}\n`)
+          && text.includes(`candidateBytesChecksum: ${evidence.outputs.candidate.bytesChecksum}\n`)
+          && text.includes(`candidateRecordCount: ${evidence.outputs.candidate.recordCount}\n`)
+          && text.includes(`reportBytesChecksum: ${evidence.outputs.offlineReport.bytesChecksum}\n`)
+          && text.includes(`coverageReady: ${evidence.outputs.offlineReport.coverageReady}\n`)
+          && loggedFailures !== undefined
+          && sameFailures(loggedFailures, evidence.outputs.offlineReport.controlledFailures);
+        break;
+        }
+    }
+    if (!semanticallyValid) {
+      reasons.push(`Run-specific semantic assertions failed: ${run.id}.`);
     }
   }
 }
@@ -782,8 +1000,8 @@ function readBuildReport(
   }
 }
 
-function inputChecksum(evidence: ImageEmbeddingReproducibilityEvidence, suffix: string): Checksum | undefined {
-  return evidence.inputs.find((input) => input.path.endsWith(suffix))?.checksum;
+function inputChecksum(evidence: ImageEmbeddingReproducibilityEvidence, inputPath: string): Checksum | undefined {
+  return new Map(evidence.inputs.map((input) => [input.path, input.checksum])).get(inputPath);
 }
 
 function sameFailures(left: ControlledFailure[], right: ControlledFailure[]): boolean {
@@ -808,7 +1026,7 @@ export async function verifyImageEmbeddingReproducibility(
   const evidencePath = resolveBoundFile(rootDir, bundleDir, bundle.evidence, reasons, "Evidence envelope");
   const offlineManifestPath = resolveBoundFile(rootDir, bundleDir, bundle.offlineBuildManifest, reasons, "Offline build manifest");
   if (!evidencePath || !offlineManifestPath) {
-    return { valid: false, task7ArtifactReady: bundle.artifactRetention.task7Ready, reasons };
+    return { valid: false, task7ArtifactReady: false, reasons };
   }
   const evidenceResult = readStrictJson(evidencePath, (value) => {
     const parsed = parseImageEmbeddingReproducibilityEvidence(value);
@@ -817,7 +1035,7 @@ export async function verifyImageEmbeddingReproducibility(
   const offlineResult = readStrictJson(offlineManifestPath, parseOfflineBuildManifest);
   if (!evidenceResult.value || !offlineResult.value) {
     reasons.push(...evidenceResult.reasons, ...offlineResult.reasons);
-    return { valid: false, task7ArtifactReady: bundle.artifactRetention.task7Ready, reasons };
+    return { valid: false, task7ArtifactReady: false, reasons };
   }
   const evidence = evidenceResult.value;
   const offlineManifest = offlineResult.value;
@@ -933,6 +1151,7 @@ export async function verifyImageEmbeddingReproducibility(
     || offlineManifest.candidate.sizeBytes !== candidateSize
     || offlineManifest.candidate.declaredChecksum !== evidence.outputs.candidate.declaredChecksum
     || offlineManifest.candidate.bytesChecksum !== evidence.outputs.candidate.bytesChecksum
+    || offlineManifest.report.sizeBytes !== evidence.outputs.offlineReport.sizeBytes
     || offlineManifest.report.bytesChecksum !== evidence.outputs.offlineReport.bytesChecksum
     || offlineManifest.report.coverageReady !== evidence.outputs.offlineReport.coverageReady
     || !sameFailures(offlineManifest.report.controlledFailures, evidence.outputs.offlineReport.controlledFailures)) {
@@ -958,9 +1177,52 @@ export async function verifyImageEmbeddingReproducibility(
     }
   }
 
+  let retentionVerified = bundle.artifactRetention.status === "immutable-storage"
+    && bundle.artifactRetention.task7Ready;
+  if (retentionVerified) {
+    const artifacts = new Map(bundle.artifactRetention.immutableArtifacts.map((artifact) => [artifact.kind, artifact]));
+    const modelArtifact = artifacts.get("model");
+    const sourceCacheArtifact = artifacts.get("source-cache");
+    const candidateArtifact = artifacts.get("candidate");
+    const offlineReportArtifact = artifacts.get("offline-report");
+    if (!modelArtifact
+      || modelArtifact.sizeBytes !== evidence.runtimeArtifacts.model.sizeBytes
+      || modelArtifact.checksum !== evidence.runtimeArtifacts.model.checksum
+      || !candidateArtifact
+      || candidateArtifact.sizeBytes !== candidateSize
+      || candidateArtifact.checksum !== evidence.outputs.candidate.bytesChecksum
+      || !offlineReportArtifact
+      || offlineReportArtifact.sizeBytes !== evidence.outputs.offlineReport.sizeBytes
+      || offlineReportArtifact.checksum !== evidence.outputs.offlineReport.bytesChecksum
+      || !sourceCacheArtifact
+      || sourceCacheArtifact.kind !== "source-cache"
+      || sourceCacheArtifact.contentFileCount !== evidence.runtimeArtifacts.sourceCache.fileCount
+      || sourceCacheArtifact.contentAggregateChecksum !== evidence.runtimeArtifacts.sourceCache.aggregateChecksum) {
+      retentionVerified = false;
+      reasons.push("Immutable artifact metadata does not match the verified local artifacts.");
+    } else {
+      const remoteVerifier = options.verifyRemoteArtifact ?? downloadAndHashImmutableArtifact;
+      for (const artifact of bundle.artifactRetention.immutableArtifacts) {
+        try {
+          const observed = await remoteVerifier(artifact);
+          if (!observed
+            || observed.sizeBytes !== artifact.sizeBytes
+            || observed.checksum !== artifact.checksum) {
+            retentionVerified = false;
+            reasons.push(`Remote immutable artifact does not match: ${artifact.kind}.`);
+          }
+        } catch {
+          retentionVerified = false;
+          reasons.push(`Remote immutable artifact is unavailable or unverifiable: ${artifact.kind}.`);
+        }
+      }
+    }
+  }
+
+  const valid = reasons.length === 0;
   return {
-    valid: reasons.length === 0,
-    task7ArtifactReady: bundle.artifactRetention.task7Ready,
+    valid,
+    task7ArtifactReady: valid && retentionVerified,
     reasons,
   };
 }

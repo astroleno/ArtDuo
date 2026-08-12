@@ -5,6 +5,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "nod
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
 
 import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
@@ -44,6 +45,7 @@ function aggregateCache(rootDir: string): `sha256:${string}` {
 interface Fixture {
   rootDir: string;
   evidencePath: string;
+  offlineManifestPath: string;
   bundlePath: string;
   candidatePath: string;
   modelArtifactPath: string;
@@ -71,6 +73,14 @@ function createFixture(): Fixture {
   write(rootDir, "pnpm-lock.yaml", "lockfileVersion: '6.0'\n");
   writeJson(rootDir, releaseManifestPath, { schemaVersion: "fixture-release.v1", releaseVersion: RELEASE });
   writeJson(rootDir, anchorPath, { schemaVersion: "fixture-anchor.v1", releaseVersion: RELEASE });
+  write(rootDir, "apps/pipeline/src/image-embedding-provider.real.test.ts", [
+    "const ONE_PIXEL_PNG = Buffer.from('png');",
+    "const ONE_PIXEL_JPEG = Buffer.from('jpeg');",
+    "assert.equal(provenance.checksum, IMAGE_MODEL_ARTIFACT_SHA256);",
+    "assert.equal(embedded.every((entry) => entry.dimensions === IMAGE_EMBEDDING_DIMENSIONS), true);",
+    "assert.equal(embedded.every((entry) => Math.abs(Math.hypot(...entry.vector) - 1) < 1e-4), true);",
+    "",
+  ].join("\n"));
 
   const candidate: ImageEmbeddingShardRecord[] = [{
     id: "artwork:art-1",
@@ -122,7 +132,7 @@ function createFixture(): Fixture {
     },
   });
 
-  git(rootDir, ["add", "package.json", "apps/pipeline/package.json", "pnpm-lock.yaml", "data"]);
+  git(rootDir, ["add", "package.json", "apps/pipeline/package.json", "apps/pipeline/src", "pnpm-lock.yaml", "data"]);
   git(rootDir, ["commit", "-qm", "fixture inputs"]);
   const commitSha = git(rootDir, ["rev-parse", "HEAD"]);
   const treeSha = git(rootDir, ["rev-parse", "HEAD^{tree}"]);
@@ -152,25 +162,45 @@ function createFixture(): Fixture {
       id: "normal-frozen-install",
       command: "pnpm install --frozen-lockfile --registry=https://registry.npmjs.org",
       extra: { isolation: "detached sparse checkout at execution.commitSha", nativeScriptsEnabled: true },
-      body: "resolved fixture 1.2.3\n",
+      body: [
+        "Lockfile is up to date, resolution step is skipped",
+        "Packages: +4",
+        ".../node_modules/hnswlib-node install$ node-gyp rebuild",
+        ".../node_modules/hnswlib-node install: gyp info ok",
+        ".../node_modules/hnswlib-node install: Done",
+        ".../sharp@0.1.0/node_modules/sharp install$ node install/libvips",
+        ".../sharp@0.1.0/node_modules/sharp install: sharp: Integrity check passed for darwin-arm64v8",
+        ".../sharp@0.1.0/node_modules/sharp install: Done",
+        "resolved @xenova/transformers 1.2.3",
+        "resolved sharp 0.1.0",
+        "resolved commander 1.0.0",
+        "resolved ipaddr.js 2.0.0",
+      ].join("\n") + "\n",
     },
     {
       id: "offline-frozen-install",
       command: "pnpm install --frozen-lockfile --offline",
       extra: { isolation: "detached sparse checkout at execution.commitSha", nativeScriptsEnabled: true },
-      body: "resolved fixture 1.2.3\n",
+      body: [
+        "Lockfile is up to date, resolution step is skipped",
+        "Progress: resolved 4, reused 4, downloaded 0, added 4, done",
+        "resolved @xenova/transformers 1.2.3",
+        "resolved sharp 0.1.0",
+        "resolved commander 1.0.0",
+        "resolved ipaddr.js 2.0.0",
+      ].join("\n") + "\n",
     },
     {
       id: "real-provider-smoke",
-      command: "ARTDUO_RUN_REAL_IMAGE_EMBEDDING_SMOKE=true fixture-smoke",
+      command: "ARTDUO_RUN_REAL_IMAGE_EMBEDDING_SMOKE=true pnpm --filter @artduo/pipeline exec tsx --test src/image-embedding-provider.real.test.ts",
       extra: {},
-      body: `expectedArtifactChecksum: ${modelChecksum}\npass 1\nskipped 0\n`,
+      body: `expectedArtifactChecksum: ${modelChecksum}\n✔ real image provider smoke embeds one PNG and one JPEG\nℹ tests 1\nℹ pass 1\nℹ fail 0\nℹ skipped 0\n`,
     },
     {
       id: "offline-shadow-rebuild",
-      command: "fixture-build --offline true --report-root <TEMP_REPORT_ROOT>",
+      command: `pnpm image-embeddings:build -- --release-version ${RELEASE} --image-embedding-model fixture/model --image-embedding-model-revision revision-1 --image-embedding-model-variant quantized --image-embedding-batch-size 8 --offline true --report-root <TEMP_REPORT_ROOT> --promotion-anchor-set ${anchorPath}`,
       extra: {},
-      body: `candidateDeclaredChecksum: ${candidateDeclaredChecksum}\ncandidateBytesChecksum: ${candidateBytesChecksum}\ncandidateRecordCount: 1\nreportBytesChecksum: ${sha256("offline-report")}\ncoverageReady: true\n`,
+      body: `records: 1\ncoverage ready: true\ncandidateDeclaredChecksum: ${candidateDeclaredChecksum}\ncandidateBytesChecksum: ${candidateBytesChecksum}\ncandidateRecordCount: 1\nreportBytesChecksum: ${sha256("offline-report")}\ncoverageReady: true\nfailures: [{"entityType":"artwork","entityId":"art-missing","code":"offline-cache-miss","message":"fixture"}]\n`,
     },
   ] as const;
   const runs = runDefinitions.map((run) => {
@@ -181,7 +211,6 @@ function createFixture(): Fixture {
       id: run.id,
       command: run.command,
       ...run.extra,
-      assertions: ["fixture assertion"],
       exitCode: 0,
       trackedGitStatusAfterRun: "clean",
       log: { path: logRelativePath, checksum: sha256(log) },
@@ -206,6 +235,7 @@ function createFixture(): Fixture {
       bytesChecksum: candidateBytesChecksum,
     },
     report: {
+      sizeBytes: Buffer.byteLength("offline-report"),
       bytesChecksum: offlineReportChecksum,
       coverageReady: true,
       controlledFailures: [{ entityType: "artwork", entityId: "art-missing", code: "offline-cache-miss" }],
@@ -247,6 +277,7 @@ function createFixture(): Fixture {
     outputs: {
       candidate: { committed: false, recordCount: 1, declaredChecksum: candidateDeclaredChecksum, bytesChecksum: candidateBytesChecksum },
       offlineReport: {
+        sizeBytes: Buffer.byteLength("offline-report"),
         bytesChecksum: offlineReportChecksum,
         coverageReady: true,
         controlledFailures: [{ entityType: "artwork", entityId: "art-missing", code: "offline-cache-miss" }],
@@ -276,7 +307,35 @@ function createFixture(): Fixture {
     },
   });
 
-  return { rootDir, evidencePath, bundlePath, candidatePath, modelArtifactPath, sourceCacheRoot, evidence };
+  return { rootDir, evidencePath, offlineManifestPath, bundlePath, candidatePath, modelArtifactPath, sourceCacheRoot, evidence };
+}
+
+function rewriteEvidence(fixture: Fixture, mutate: (evidence: Record<string, unknown>) => void): void {
+  const evidence = JSON.parse(readFileSync(fixture.evidencePath, "utf8")) as Record<string, unknown>;
+  mutate(evidence);
+  writeJson(fixture.rootDir, path.relative(fixture.rootDir, fixture.evidencePath), evidence);
+  const bundle = JSON.parse(readFileSync(fixture.bundlePath, "utf8")) as Record<string, unknown>;
+  (bundle.evidence as Record<string, unknown>).checksum = sha256(readFileSync(fixture.evidencePath));
+  writeJson(fixture.rootDir, path.relative(fixture.rootDir, fixture.bundlePath), bundle);
+}
+
+function rewriteRunLog(fixture: Fixture, runId: string, mutate: (text: string) => string): void {
+  rewriteEvidence(fixture, (evidence) => {
+    const runs = evidence.runs as Array<Record<string, unknown>>;
+    const run = runs.find((entry) => entry.id === runId);
+    assert.ok(run);
+    const log = run.log as Record<string, unknown>;
+    const logPath = path.join(fixture.rootDir, log.path as string);
+    const bytes = mutate(readFileSync(logPath, "utf8"));
+    writeFileSync(logPath, bytes);
+    log.checksum = sha256(bytes);
+  });
+}
+
+function rewriteBundle(fixture: Fixture, mutate: (bundle: Record<string, unknown>) => void): void {
+  const bundle = JSON.parse(readFileSync(fixture.bundlePath, "utf8")) as Record<string, unknown>;
+  mutate(bundle);
+  writeJson(fixture.rootDir, path.relative(fixture.rootDir, fixture.bundlePath), bundle);
 }
 
 test("reproducibility verifier binds Git inputs, logs, runtime artifacts, candidate, report, and offline manifest", async () => {
@@ -364,4 +423,224 @@ test("reproducibility checksums use full sha256 values", () => {
   const parsed = parseImageEmbeddingReproducibilityEvidence(fixture.evidence);
   assert.ok(parsed.evidence, parsed.reasons.join("\n"));
   assert.match(parsed.evidence.runtimeArtifacts.model.checksum, SHA);
+});
+
+test("reproducibility evidence accepts only the exact six release inputs", () => {
+  const fixture = createFixture();
+  const evidence = structuredClone(fixture.evidence);
+  const inputs = evidence.inputs as Array<Record<string, unknown>>;
+  inputs.unshift({
+    path: `x/data/releases/${RELEASE}/manifest.json`,
+    checksum: inputs[3]?.checksum,
+  });
+
+  const parsed = parseImageEmbeddingReproducibilityEvidence(evidence);
+  assert.equal(parsed.evidence, undefined);
+  assert.ok(parsed.reasons.some((reason) => /exact|required input/i.test(reason)));
+});
+
+test("reproducibility verifier executes each run-specific log contract", async () => {
+  const mutations = [
+    {
+      id: "normal-frozen-install",
+      mutate: (text: string) => text.replace(".../sharp@0.1.0/node_modules/sharp install: sharp: Integrity check passed for darwin-arm64v8\n", ""),
+    },
+    {
+      id: "offline-frozen-install",
+      mutate: (text: string) => text.replace("downloaded 0, added 4, done", "downloaded 1, added 4, done"),
+    },
+    {
+      id: "real-provider-smoke",
+      mutate: (text: string) => text.replace("ℹ skipped 0\n", ""),
+    },
+    {
+      id: "offline-shadow-rebuild",
+      mutate: (text: string) => text.replace(/^failures:.*\n/mu, ""),
+    },
+  ];
+
+  for (const mutation of mutations) {
+    const fixture = createFixture();
+    rewriteRunLog(fixture, mutation.id, mutation.mutate);
+    const result = await verifyImageEmbeddingReproducibility({
+      rootDir: fixture.rootDir,
+      bundlePath: fixture.bundlePath,
+      modelArtifactPath: fixture.modelArtifactPath,
+      sourceCacheRoot: fixture.sourceCacheRoot,
+      verifyResolvedDependencies: false,
+    });
+    assert.equal(result.valid, false, `${mutation.id} unexpectedly passed`);
+    assert.ok(result.reasons.some((reason) => reason.includes(mutation.id)), result.reasons.join("\n"));
+  }
+});
+
+function configureImmutableRetention(fixture: Fixture): {
+  observations: Map<string, { sizeBytes: number; checksum: `sha256:${string}` }>;
+} {
+  const evidence = JSON.parse(readFileSync(fixture.evidencePath, "utf8")) as Record<string, unknown>;
+  const runtimeArtifacts = evidence.runtimeArtifacts as Record<string, Record<string, unknown>>;
+  const outputs = evidence.outputs as Record<string, Record<string, unknown>>;
+  const candidateBytes = readFileSync(fixture.candidatePath);
+  const cacheArchive = "deterministic-source-cache-archive";
+  const artifacts = [
+    {
+      kind: "model",
+      uri: "https://artifacts.example.invalid/model/vision_model_quantized.onnx",
+      sizeBytes: runtimeArtifacts.model?.sizeBytes,
+      checksum: runtimeArtifacts.model?.checksum,
+    },
+    {
+      kind: "source-cache",
+      uri: "https://artifacts.example.invalid/source-cache/source-cache.tar",
+      sizeBytes: Buffer.byteLength(cacheArchive),
+      checksum: sha256(cacheArchive),
+      archiveFormat: "artduo-source-cache-tar-ustar.v1",
+      contentFileCount: runtimeArtifacts.sourceCache?.fileCount,
+      contentAggregateChecksum: runtimeArtifacts.sourceCache?.aggregateChecksum,
+    },
+    {
+      kind: "candidate",
+      uri: "https://artifacts.example.invalid/candidate/image-embeddings-01.json",
+      sizeBytes: candidateBytes.byteLength,
+      checksum: outputs.candidate?.bytesChecksum,
+    },
+    {
+      kind: "offline-report",
+      uri: "https://artifacts.example.invalid/report/image-embedding-report.json",
+      sizeBytes: outputs.offlineReport?.sizeBytes,
+      checksum: outputs.offlineReport?.bytesChecksum,
+    },
+  ];
+  rewriteBundle(fixture, (bundle) => {
+    bundle.artifactRetention = {
+      status: "immutable-storage",
+      task7Ready: true,
+      immutableArtifacts: artifacts,
+    };
+  });
+  return {
+    observations: new Map(artifacts.map((artifact) => [
+      artifact.uri,
+      { sizeBytes: artifact.sizeBytes as number, checksum: artifact.checksum as `sha256:${string}` },
+    ])),
+  };
+}
+
+test("Task 7 artifact readiness binds and verifies all four immutable objects", async () => {
+  const fixture = createFixture();
+  const { observations } = configureImmutableRetention(fixture);
+  const result = await verifyImageEmbeddingReproducibility({
+    rootDir: fixture.rootDir,
+    bundlePath: fixture.bundlePath,
+    modelArtifactPath: fixture.modelArtifactPath,
+    sourceCacheRoot: fixture.sourceCacheRoot,
+    verifyResolvedDependencies: false,
+    verifyRemoteArtifact: async (artifact: { uri: string }) => observations.get(artifact.uri),
+  });
+  assert.equal(result.valid, true, result.reasons.join("\n"));
+  assert.equal(result.task7ArtifactReady, true);
+});
+
+test("Task 7 artifact readiness fails closed on remote mismatch and unrelated validation failures", async () => {
+  const fixture = createFixture();
+  const { observations } = configureImmutableRetention(fixture);
+  const candidateUri = "https://artifacts.example.invalid/candidate/image-embeddings-01.json";
+  observations.set(candidateUri, { sizeBytes: 1, checksum: sha256("wrong") });
+
+  const result = await verifyImageEmbeddingReproducibility({
+    rootDir: fixture.rootDir,
+    bundlePath: fixture.bundlePath,
+    modelArtifactPath: fixture.modelArtifactPath,
+    sourceCacheRoot: fixture.sourceCacheRoot,
+    verifyResolvedDependencies: false,
+    verifyRemoteArtifact: async (artifact: { uri: string }) => observations.get(artifact.uri),
+  });
+  assert.equal(result.valid, false);
+  assert.equal(result.task7ArtifactReady, false);
+  assert.ok(result.reasons.some((reason) => /remote immutable artifact/i.test(reason)));
+});
+
+test("Task 7 readiness cannot copy a true bundle flag when another verification fails", async () => {
+  const fixture = createFixture();
+  const { observations } = configureImmutableRetention(fixture);
+  writeFileSync(fixture.candidatePath, "[]\n");
+
+  const result = await verifyImageEmbeddingReproducibility({
+    rootDir: fixture.rootDir,
+    bundlePath: fixture.bundlePath,
+    modelArtifactPath: fixture.modelArtifactPath,
+    sourceCacheRoot: fixture.sourceCacheRoot,
+    verifyResolvedDependencies: false,
+    verifyRemoteArtifact: async (artifact: { uri: string }) => observations.get(artifact.uri),
+  });
+  assert.equal(result.valid, false);
+  assert.equal(result.task7ArtifactReady, false);
+  assert.ok(result.reasons.some((reason) => /candidate/i.test(reason)));
+});
+
+test("Task 7 rejects self-consistent remote metadata that is not bound to local artifacts", async () => {
+  const fixture = createFixture();
+  const { observations } = configureImmutableRetention(fixture);
+  rewriteBundle(fixture, (bundle) => {
+    const retention = bundle.artifactRetention as Record<string, unknown>;
+    const artifacts = retention.immutableArtifacts as Array<Record<string, unknown>>;
+    const model = artifacts[0] as Record<string, unknown>;
+    model.sizeBytes = 4;
+    model.checksum = sha256("fake");
+    observations.set(model.uri as string, { sizeBytes: 4, checksum: sha256("fake") });
+  });
+
+  const result = await verifyImageEmbeddingReproducibility({
+    rootDir: fixture.rootDir,
+    bundlePath: fixture.bundlePath,
+    modelArtifactPath: fixture.modelArtifactPath,
+    sourceCacheRoot: fixture.sourceCacheRoot,
+    verifyResolvedDependencies: false,
+    verifyRemoteArtifact: async (artifact: { uri: string }) => observations.get(artifact.uri),
+  });
+  assert.equal(result.valid, false);
+  assert.equal(result.task7ArtifactReady, false);
+  assert.ok(result.reasons.some((reason) => /metadata.*local artifacts/i.test(reason)));
+});
+
+test("Task 7 artifact retention rejects duplicate kinds", async () => {
+  const fixture = createFixture();
+  configureImmutableRetention(fixture);
+  rewriteBundle(fixture, (bundle) => {
+    const retention = bundle.artifactRetention as Record<string, unknown>;
+    const artifacts = retention.immutableArtifacts as Array<Record<string, unknown>>;
+    artifacts.push({ ...artifacts[0], uri: "https://artifacts.example.invalid/model/duplicate.onnx" });
+  });
+
+  const result = await verifyImageEmbeddingReproducibility({
+    rootDir: fixture.rootDir,
+    bundlePath: fixture.bundlePath,
+    modelArtifactPath: fixture.modelArtifactPath,
+    sourceCacheRoot: fixture.sourceCacheRoot,
+    verifyResolvedDependencies: false,
+    verifyRemoteArtifact: async () => undefined,
+  });
+  assert.equal(result.valid, false);
+  assert.equal(result.task7ArtifactReady, false);
+  assert.ok(result.reasons.some((reason) => /retention|artifact/i.test(reason)));
+});
+
+test("committed schemas encode the same strict run, retention, and safe-path discriminants", () => {
+  const sourceDir = path.dirname(fileURLToPath(import.meta.url));
+  const evidenceSchema = JSON.parse(readFileSync(path.join(sourceDir, "image-embedding-reproducibility-evidence.schema.json"), "utf8")) as Record<string, any>;
+  const bundleSchema = JSON.parse(readFileSync(path.join(sourceDir, "image-embedding-reproducibility-bundle.schema.json"), "utf8")) as Record<string, any>;
+  const offlineSchema = JSON.parse(readFileSync(path.join(sourceDir, "image-embedding-offline-build-manifest.schema.json"), "utf8")) as Record<string, any>;
+
+  assert.equal(evidenceSchema.properties.inputs.minItems, 6);
+  assert.equal(evidenceSchema.properties.inputs.maxItems, 6);
+  assert.equal(evidenceSchema.properties.runs.prefixItems.length, 4);
+  assert.equal(evidenceSchema.$defs.normalInstallRun.properties.id.const, "normal-frozen-install");
+  assert.equal(evidenceSchema.$defs.offlineBuildRun.properties.id.const, "offline-shadow-rebuild");
+  assert.ok(Array.isArray(evidenceSchema.properties.promotionState.allOf));
+  assert.match(evidenceSchema.$defs.fileBinding.properties.path.pattern, /\\\.\\\./u);
+  assert.equal(bundleSchema.properties.artifactRetention.oneOf.length, 2);
+  assert.equal(bundleSchema.properties.artifactRetention.oneOf[1].properties.immutableArtifacts.minItems, 4);
+  assert.equal(bundleSchema.properties.artifactRetention.oneOf[1].properties.immutableArtifacts.maxItems, 4);
+  assert.match(bundleSchema.$defs.fileBinding.properties.path.pattern, /\\\.\\\./u);
+  assert.equal(offlineSchema.properties.report.required.includes("sizeBytes"), true);
 });

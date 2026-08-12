@@ -11,27 +11,39 @@
     "evidence": { "$ref": "#/$defs/fileBinding" },
     "offlineBuildManifest": { "$ref": "#/$defs/fileBinding" },
     "artifactRetention": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["status", "task7Ready", "immutableArtifacts"],
-      "properties": {
-        "status": { "enum": ["local-only", "immutable-storage"] },
-        "task7Ready": { "type": "boolean" },
-        "immutableArtifacts": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["kind", "uri", "sizeBytes", "checksum"],
-            "properties": {
-              "kind": { "enum": ["model", "source-cache", "candidate", "offline-report"] },
-              "uri": { "type": "string", "pattern": "^https://" },
-              "sizeBytes": { "type": "integer", "minimum": 1 },
-              "checksum": { "$ref": "#/$defs/checksum" }
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "task7Ready", "immutableArtifacts"],
+          "properties": {
+            "status": { "const": "local-only" },
+            "task7Ready": { "const": false },
+            "immutableArtifacts": { "type": "array", "maxItems": 0 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "task7Ready", "immutableArtifacts"],
+          "properties": {
+            "status": { "const": "immutable-storage" },
+            "task7Ready": { "const": true },
+            "immutableArtifacts": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "prefixItems": [
+                { "$ref": "#/$defs/modelArtifact" },
+                { "$ref": "#/$defs/sourceCacheArtifact" },
+                { "$ref": "#/$defs/candidateArtifact" },
+                { "$ref": "#/$defs/offlineReportArtifact" }
+              ],
+              "items": false
             }
           }
         }
-      }
+      ]
     }
   },
   "$defs": {
@@ -41,7 +53,60 @@
       "additionalProperties": false,
       "required": ["path", "checksum"],
       "properties": {
-        "path": { "type": "string", "pattern": "^\\./[^\\\\]+$" },
+        "path": { "type": "string", "pattern": "^\\./(?!\\.\\.(?:/|$))(?!.*\\/\\.\\.(?:/|$))[^\\\\]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      }
+    },
+    "artifactBaseProperties": {
+      "kind": { "type": "string" },
+      "uri": { "type": "string", "pattern": "^https://[^/?#]+(?:[/?#]|$)" },
+      "sizeBytes": { "type": "integer", "minimum": 1 },
+      "checksum": { "$ref": "#/$defs/checksum" }
+    },
+    "modelArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "uri", "sizeBytes", "checksum"],
+      "properties": {
+        "kind": { "const": "model" },
+        "uri": { "type": "string", "pattern": "^https://[^/?#]+(?:[/?#]|$)" },
+        "sizeBytes": { "type": "integer", "minimum": 1 },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      }
+    },
+    "sourceCacheArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "uri", "sizeBytes", "checksum", "archiveFormat", "contentFileCount", "contentAggregateChecksum"],
+      "properties": {
+        "kind": { "const": "source-cache" },
+        "uri": { "type": "string", "pattern": "^https://[^/?#]+(?:[/?#]|$)" },
+        "sizeBytes": { "type": "integer", "minimum": 1 },
+        "checksum": { "$ref": "#/$defs/checksum" },
+        "archiveFormat": { "const": "artduo-source-cache-tar-ustar.v1" },
+        "contentFileCount": { "type": "integer", "minimum": 1 },
+        "contentAggregateChecksum": { "$ref": "#/$defs/checksum" }
+      }
+    },
+    "candidateArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "uri", "sizeBytes", "checksum"],
+      "properties": {
+        "kind": { "const": "candidate" },
+        "uri": { "type": "string", "pattern": "^https://[^/?#]+(?:[/?#]|$)" },
+        "sizeBytes": { "type": "integer", "minimum": 1 },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      }
+    },
+    "offlineReportArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "uri", "sizeBytes", "checksum"],
+      "properties": {
+        "kind": { "const": "offline-report" },
+        "uri": { "type": "string", "pattern": "^https://[^/?#]+(?:[/?#]|$)" },
+        "sizeBytes": { "type": "integer", "minimum": 1 },
         "checksum": { "$ref": "#/$defs/checksum" }
       }
     }

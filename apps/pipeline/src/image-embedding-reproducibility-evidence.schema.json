@@ -46,8 +46,16 @@
     "inputs": {
       "type": "array",
       "minItems": 6,
-      "uniqueItems": true,
-      "items": { "$ref": "#/$defs/fileBinding" }
+      "maxItems": 6,
+      "prefixItems": [
+        { "allOf": [{ "$ref": "#/$defs/fileBinding" }, { "properties": { "path": { "const": "package.json" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/fileBinding" }, { "properties": { "path": { "const": "apps/pipeline/package.json" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/fileBinding" }, { "properties": { "path": { "const": "pnpm-lock.yaml" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/fileBinding" }, { "properties": { "path": { "pattern": "^data/releases/[^/]+/manifest\\.json$" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/fileBinding" }, { "properties": { "path": { "pattern": "^data/curation/reports/image-embeddings/[^/]+/promotion-anchor-set\\.json$" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/fileBinding" }, { "properties": { "path": { "pattern": "^data/curation/reports/image-embeddings/[^/]+/image-embedding-report\\.json$" } } }] }
+      ],
+      "items": false
     },
     "runtimeArtifacts": {
       "type": "object",
@@ -96,7 +104,13 @@
       "type": "array",
       "minItems": 4,
       "maxItems": 4,
-      "items": { "$ref": "#/$defs/run" }
+      "prefixItems": [
+        { "$ref": "#/$defs/normalInstallRun" },
+        { "$ref": "#/$defs/offlineInstallRun" },
+        { "$ref": "#/$defs/providerSmokeRun" },
+        { "$ref": "#/$defs/offlineBuildRun" }
+      ],
+      "items": false
     },
     "outputs": {
       "type": "object",
@@ -117,8 +131,9 @@
         "offlineReport": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["bytesChecksum", "coverageReady", "controlledFailures"],
+          "required": ["sizeBytes", "bytesChecksum", "coverageReady", "controlledFailures"],
           "properties": {
+            "sizeBytes": { "type": "integer", "minimum": 1 },
             "bytesChecksum": { "$ref": "#/$defs/checksum" },
             "coverageReady": { "type": "boolean" },
             "controlledFailures": { "type": "array", "items": { "$ref": "#/$defs/failure" } }
@@ -148,7 +163,14 @@
         "sceneTop3LowerConfidence": { "$ref": "#/$defs/ratio" },
         "humanReviewCompleted": { "type": "integer", "minimum": 0 },
         "humanReviewRequired": { "type": "integer", "minimum": 1 }
-      }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "promotionReady": { "const": true } }, "required": ["promotionReady"] },
+          "then": { "properties": { "task6Authorized": { "const": true } } },
+          "else": { "properties": { "task6Authorized": { "const": false } } }
+        }
+      ]
     }
   },
   "$defs": {
@@ -160,7 +182,7 @@
       "additionalProperties": false,
       "required": ["path", "checksum"],
       "properties": {
-        "path": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?!\\.$).+$" },
         "checksum": { "$ref": "#/$defs/checksum" }
       }
     },
@@ -174,16 +196,65 @@
         "code": { "type": "string", "minLength": 1 }
       }
     },
-    "run": {
+    "baseRun": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "command", "assertions", "exitCode", "trackedGitStatusAfterRun", "log"],
+      "required": ["id", "command", "exitCode", "trackedGitStatusAfterRun", "log"],
       "properties": {
-        "id": { "enum": ["normal-frozen-install", "offline-frozen-install", "real-provider-smoke", "offline-shadow-rebuild"] },
+        "id": { "type": "string" },
         "command": { "type": "string", "minLength": 1 },
-        "isolation": { "type": "string", "minLength": 1 },
+        "exitCode": { "const": 0 },
+        "trackedGitStatusAfterRun": { "const": "clean" },
+        "log": { "$ref": "#/$defs/fileBinding" }
+      }
+    },
+    "normalInstallRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "command", "isolation", "nativeScriptsEnabled", "exitCode", "trackedGitStatusAfterRun", "log"],
+      "properties": {
+        "id": { "const": "normal-frozen-install" },
+        "command": { "const": "pnpm install --frozen-lockfile --registry=https://registry.npmjs.org" },
+        "isolation": { "const": "detached sparse checkout at execution.commitSha" },
         "nativeScriptsEnabled": { "const": true },
-        "assertions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "exitCode": { "const": 0 },
+        "trackedGitStatusAfterRun": { "const": "clean" },
+        "log": { "$ref": "#/$defs/fileBinding" }
+      }
+    },
+    "offlineInstallRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "command", "isolation", "nativeScriptsEnabled", "exitCode", "trackedGitStatusAfterRun", "log"],
+      "properties": {
+        "id": { "const": "offline-frozen-install" },
+        "command": { "const": "pnpm install --frozen-lockfile --offline" },
+        "isolation": { "const": "detached sparse checkout at execution.commitSha" },
+        "nativeScriptsEnabled": { "const": true },
+        "exitCode": { "const": 0 },
+        "trackedGitStatusAfterRun": { "const": "clean" },
+        "log": { "$ref": "#/$defs/fileBinding" }
+      }
+    },
+    "providerSmokeRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "command", "exitCode", "trackedGitStatusAfterRun", "log"],
+      "properties": {
+        "id": { "const": "real-provider-smoke" },
+        "command": { "const": "ARTDUO_RUN_REAL_IMAGE_EMBEDDING_SMOKE=true pnpm --filter @artduo/pipeline exec tsx --test src/image-embedding-provider.real.test.ts" },
+        "exitCode": { "const": 0 },
+        "trackedGitStatusAfterRun": { "const": "clean" },
+        "log": { "$ref": "#/$defs/fileBinding" }
+      }
+    },
+    "offlineBuildRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "command", "exitCode", "trackedGitStatusAfterRun", "log"],
+      "properties": {
+        "id": { "const": "offline-shadow-rebuild" },
+        "command": { "type": "string", "pattern": "^pnpm image-embeddings:build -- --release-version [^ ]+ --image-embedding-model [^ ]+ --image-embedding-model-revision [^ ]+ --image-embedding-model-variant [^ ]+ --image-embedding-batch-size 8 --offline true --report-root <TEMP_REPORT_ROOT> --promotion-anchor-set data/curation/reports/image-embeddings/[^/]+/promotion-anchor-set\\.json$" },
         "exitCode": { "const": 0 },
         "trackedGitStatusAfterRun": { "const": "clean" },
         "log": { "$ref": "#/$defs/fileBinding" }
