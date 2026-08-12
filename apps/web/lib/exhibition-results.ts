@@ -6,14 +6,16 @@ import {
 } from "@artduo/corpus";
 
 import type { WebSearchResult } from "./release-catalog";
+import {
+  HARD_FILTER_EVIDENCE_SCHEMA_VERSION,
+  type HardFilterEvidence,
+} from "./hard-filter-evidence";
 
 type Candidate = WebSearchResult["results"][number];
 
 export interface HardFilteredExhibition {
   search: WebSearchResult;
-  candidateCount: number;
-  rejectedArtworkIds: string[];
-  rejectionSignalsByArtworkId: Record<string, string>;
+  evidence: HardFilterEvidence;
 }
 
 export function artworkAffectSignals(candidate: Candidate): string[] {
@@ -52,15 +54,17 @@ export function buildHardFilteredExhibition(
     throw new TypeError("Hard-filtered exhibition limit must be a non-negative integer.");
   }
   const hardSignals = hardResistanceSignals(buildUserAffectAgent(candidateSearch.query));
-  const rejectedArtworkIds: string[] = [];
-  const rejectionSignalsByArtworkId: Record<string, string> = {};
+  const rejections: HardFilterEvidence["rejections"] = [];
   const accepted: WebSearchResult["results"] = [];
 
   for (const candidate of candidateSearch.results) {
     const conflict = findAffectResistanceConflict(hardSignals, artworkAffectSignals(candidate));
     if (conflict) {
-      rejectedArtworkIds.push(candidate.artwork.id);
-      rejectionSignalsByArtworkId[candidate.artwork.id] = conflict;
+      rejections.push({
+        artworkId: candidate.artwork.id,
+        title: candidate.artwork.title,
+        signal: conflict,
+      });
       continue;
     }
     if (accepted.length < limit) {
@@ -68,13 +72,22 @@ export function buildHardFilteredExhibition(
     }
   }
 
-  return {
-    search: {
+  const search: WebSearchResult = {
       ...candidateSearch,
       results: accepted.map((candidate, index) => ({ ...candidate, rank: index + 1 })),
-    },
+  };
+  const evidence: HardFilterEvidence = {
+    schemaVersion: HARD_FILTER_EVIDENCE_SCHEMA_VERSION,
+    query: candidateSearch.query,
+    normalizedQuery: candidateSearch.normalizedQuery,
     candidateCount: candidateSearch.results.length,
-    rejectedArtworkIds,
-    rejectionSignalsByArtworkId,
+    visibleLimit: limit,
+    visibleArtworkIds: search.results.map((candidate) => candidate.artwork.id),
+    rejections,
+  };
+
+  return {
+    search,
+    evidence,
   };
 }

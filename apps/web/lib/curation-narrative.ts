@@ -2,6 +2,11 @@ import type { GrowthForm } from "@artduo/contracts";
 import { findAffectResistanceConflict } from "@artduo/corpus";
 
 import { buildAffectiveGrowthForm } from "./affective-negotiation";
+import {
+  assertHardFilterEvidenceMatchesSearch,
+  mergeHardFilterEvidenceIntoGrowthForm,
+  type HardFilterEvidence,
+} from "./hard-filter-evidence";
 import type { WebBackgroundScene, WebSearchResult } from "./release-catalog";
 
 export interface EmotionalCurvePoint {
@@ -278,14 +283,23 @@ export function buildJourneyIntensities(results: WebSearchResult["results"]): nu
   });
 }
 
-export function buildCurationNarrative(search: WebSearchResult): CurationNarrative {
+export function buildCurationNarrative(
+  search: WebSearchResult,
+  options: { hardFilterEvidence?: HardFilterEvidence } = {},
+): CurationNarrative {
   const results = search.results;
   const backgroundScenes = uniqueScenes(results.map((result) => result.scene));
-  const growthForm = buildAffectiveGrowthForm({
+  const baseGrowthForm = buildAffectiveGrowthForm({
     query: search.query,
     results,
     backgroundScenes,
   });
+  if (options.hardFilterEvidence) {
+    assertHardFilterEvidenceMatchesSearch(options.hardFilterEvidence, search);
+  }
+  const growthForm = options.hardFilterEvidence
+    ? mergeHardFilterEvidenceIntoGrowthForm(baseGrowthForm, options.hardFilterEvidence)
+    : baseGrowthForm;
   const top = results[0];
   const topTitle = top?.artwork.title ?? "第一幅作品";
   const sceneLabel = unique(results.map((result) => result.scene?.label))[0] ?? "安静的展厅";

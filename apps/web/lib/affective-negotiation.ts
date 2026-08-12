@@ -77,7 +77,6 @@ function candidateSignals(candidate: Candidate): string[] {
   const artwork = candidate.artwork;
 
   return unique([
-    ...candidate.matchedTokens,
     ...artwork.moodTags,
     ...artwork.emotionLabels,
     ...artwork.keywordBoosts,

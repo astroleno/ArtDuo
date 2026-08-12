@@ -178,10 +178,13 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
       runtimeMode,
     })
     : { search: buildIdleSearch(catalog, query), runtime: "idle" };
-  const search = buildHardFilteredExhibition(candidateSearch, { limit: EXHIBITION_RESULT_LIMIT }).search;
+  const exhibition = buildHardFilteredExhibition(candidateSearch, { limit: EXHIBITION_RESULT_LIMIT });
+  const search = exhibition.search;
   const hasCuratedResults = hasQuery && search.results.length > 0;
   const featured = search.results[0];
-  const narrative = hasQuery && search.results.length > 0 ? buildCurationNarrative(search) : undefined;
+  const narrative = hasQuery && search.results.length > 0
+    ? buildCurationNarrative(search, { hardFilterEvidence: exhibition.evidence })
+    : undefined;
   const sceneSearch = hasQuery ? searchBackgroundScenes(catalog, query, { limit: 12 }) : undefined;
   const sceneRoute = hasCuratedResults ? buildGallerySceneRoute(search, catalog.backgroundScenes, {
     sceneResults: sceneSearch?.results,

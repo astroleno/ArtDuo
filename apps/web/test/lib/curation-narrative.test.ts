@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { buildCurationNarrative, curvePath } from "../../lib/curation-narrative";
+import { buildHardFilteredExhibition } from "../../lib/exhibition-results";
 import type { WebSearchResult } from "../../lib/release-catalog";
 
 function result(id: string, score: number, mood: string, token: string): WebSearchResult["results"][number] {
@@ -92,4 +93,63 @@ test("curation narrative keeps visible copy aligned with hard brightness resista
   assert.doesNotMatch(narrative.preface, /喜悦|亮起来/);
   assert.doesNotMatch(narrative.title, /向上的光|明亮/);
   assert.match(`${narrative.title} ${narrative.preface}`, /低光|木色|暗红/);
+});
+
+test("curation narrative preserves pre-negotiation hard-filter rejections in its growth-form audit", () => {
+  const candidateSearch: WebSearchResult = {
+    query: "像睡前，但不要悲伤",
+    normalizedQuery: "像睡前 但不要悲伤",
+    model: "local",
+    dimensions: 4,
+    results: [
+      result("met-sorrow", 0.92, "melancholy", "sorrow"),
+      result("met-quiet", 0.86, "quiet", "restful"),
+      result("met-calm", 0.8, "serenity", "calm"),
+      result("met-hope", 0.74, "hope", "light"),
+    ],
+  };
+  const exhibition = buildHardFilteredExhibition(candidateSearch, { limit: 3 });
+  const narrative = buildCurationNarrative(exhibition.search, {
+    hardFilterEvidence: exhibition.evidence,
+  });
+
+  assert.deepEqual(narrative.growthForm.rejectedArtworkIds, ["met-sorrow"]);
+  assert.ok(narrative.growthForm.trace.some((entry) => (
+    entry.step === "reject"
+      && entry.artworkId === "met-sorrow"
+      && entry.signal === "sadness"
+  )));
+  assert.deepEqual(
+    narrative.growthForm.supportingArtworkIds.filter((artworkId) => artworkId === "met-sorrow"),
+    [],
+  );
+});
+
+test("curation narrative rejects hard-filter evidence that is not bound to its visible search", () => {
+  const visibleSearch: WebSearchResult = {
+    query: "像睡前，但不要悲伤",
+    normalizedQuery: "像睡前 但不要悲伤",
+    model: "local",
+    dimensions: 4,
+    results: [
+      result("met-quiet", 0.86, "quiet", "restful"),
+      result("met-calm", 0.8, "serenity", "calm"),
+      result("met-hope", 0.74, "hope", "light"),
+    ],
+  };
+
+  assert.throws(
+    () => buildCurationNarrative(visibleSearch, {
+      hardFilterEvidence: {
+        schemaVersion: "hard-filter-evidence.v1",
+        query: "另一句输入",
+        normalizedQuery: "另一句输入",
+        candidateCount: 4,
+        visibleLimit: 3,
+        visibleArtworkIds: ["met-quiet", "met-calm", "met-hope"],
+        rejections: [{ artworkId: "met-sorrow", title: "Work met-sorrow", signal: "sadness" }],
+      },
+    }),
+    /query does not match/i,
+  );
 });

@@ -123,7 +123,7 @@ test("hard-filtered exhibition replenishes the visible set and never falls back 
   };
   const exhibition = buildHardFilteredExhibition(search, { limit: 3 });
 
-  assert.deepEqual(exhibition.rejectedArtworkIds, ["man-of-sorrows"]);
+  assert.deepEqual(exhibition.evidence.rejections.map((entry) => entry.artworkId), ["man-of-sorrows"]);
   assert.deepEqual(exhibition.search.results.map((entry) => entry.artwork.id), ["quiet-1", "quiet-2", "quiet-3"]);
   assert.deepEqual(exhibition.search.results.map((entry) => entry.rank), [1, 2, 3]);
 
@@ -132,7 +132,27 @@ test("hard-filtered exhibition replenishes the visible set and never falls back 
     results: [result("only-sorrow", { mood: ["sorrow"] }, 1)],
   }, { limit: 3 });
   assert.equal(allRejected.search.results.length, 0);
-  assert.deepEqual(allRejected.rejectedArtworkIds, ["only-sorrow"]);
+  assert.deepEqual(allRejected.evidence.rejections.map((entry) => entry.artworkId), ["only-sorrow"]);
+});
+
+test("growth form does not treat retrieval query echoes as artwork affect signals", () => {
+  const quietWithSadQueryEcho = result("quiet-work", {
+    mood: ["quiet"],
+    tokens: ["sadness", "bedtime"],
+  });
+  quietWithSadQueryEcho.artwork.keywordBoosts = ["quiet", "bedtime"];
+  const form = buildAffectiveGrowthForm({
+    query: "像睡前，但不要悲伤",
+    results: [
+      quietWithSadQueryEcho,
+      result("calm-work", { mood: ["serenity"] }, 2),
+      result("hope-work", { mood: ["hope"] }, 3),
+    ],
+    backgroundScenes: [quietScene],
+  });
+
+  assert.ok(form.trace.some((entry) => entry.step === "capsule" && entry.artworkId === "quiet-work"));
+  assert.ok(!form.rejectedArtworkIds.includes("quiet-work"));
 });
 
 test("growth form makes quiet-wonder-calm stages with middle arousal peak", () => {
