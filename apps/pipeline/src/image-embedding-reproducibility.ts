@@ -1,8 +1,17 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { lookup as lookupDns } from "node:dns/promises";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import {
+  closeSync,
+  openSync,
+  readSync,
+  readFileSync,
+  readdirSync,
+  statSync,
+  writeSync,
+} from "node:fs";
 import { get as httpsGet } from "node:https";
+import type { ClientRequest, IncomingMessage, RequestOptions } from "node:http";
 import { createRequire } from "node:module";
 import path from "node:path";
 
@@ -181,6 +190,12 @@ export interface RemoteArtifactObservation {
   checksum: Checksum;
 }
 
+export interface ImmutableArtifactDownloadOptions {
+  httpsGet?: (url: URL, options: RequestOptions, listener: (response: IncomingMessage) => void) => ClientRequest;
+  dnsLookup?: typeof lookupDns;
+  timeoutMs?: number;
+}
+
 export interface ImageEmbeddingReproducibilityVerificationOptions {
   rootDir: string;
   bundlePath: string;
@@ -237,54 +252,78 @@ function sha256(value: Uint8Array | string): Checksum {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
 
-function downloadAndHashImmutableArtifact(artifact: ImmutableArtifact): Promise<RemoteArtifactObservation> {
+export function downloadAndHashImmutableArtifact(
+  artifact: ImmutableArtifact,
+  options: ImmutableArtifactDownloadOptions = {},
+): Promise<RemoteArtifactObservation> {
   return new Promise((resolve, reject) => {
     let settled = false;
+    let response: IncomingMessage | undefined;
     const url = new URL(artifact.uri);
-    const request = httpsGet(url, {
+    const timeoutMs = options.timeoutMs ?? 60_000;
+    if (!Number.isInteger(timeoutMs) || timeoutMs <= 0) {
+      reject(new TypeError("Immutable artifact verification timeout must be a positive integer."));
+      return;
+    }
+    let request: ClientRequest;
+    let deadline: NodeJS.Timeout;
+    const finish = (error?: Error, observation?: RemoteArtifactObservation): void => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(deadline);
+      if (error) {
+        response?.destroy();
+        request.destroy();
+        reject(error);
+        return;
+      }
+      resolve(observation as RemoteArtifactObservation);
+    };
+    request = (options.httpsGet ?? httpsGet)(url, {
       headers: { "accept-encoding": "identity", "user-agent": "ArtDuo-reproducibility-verifier/1" },
-      lookup: async (hostname, _options, callback) => {
+      lookup: async (hostname, lookupOptions, callback) => {
         try {
-          const addresses = await lookupDns(hostname, { all: true, verbatim: true });
+          const addresses = await (options.dnsLookup ?? lookupDns)(hostname, { all: true, verbatim: true });
           if (addresses.length === 0 || addresses.some((entry) => !isGloballyRoutableAddress(entry.address, entry.family))) {
             callback(new Error("immutable artifact host did not resolve exclusively to globally routable addresses"), "", 4);
             return;
           }
-          createBoundAddressLookup(addresses[0] as { address: string; family: number })(hostname, {}, callback);
+          createBoundAddressLookup(addresses[0] as { address: string; family: number })(hostname, lookupOptions, callback);
         } catch (error) {
           callback(error as NodeJS.ErrnoException, "", 4);
         }
       },
-    }, (response) => {
+    }, (incoming) => {
+      response = incoming;
       if (response.statusCode !== 200) {
         response.resume();
-        settled = true;
-        reject(new Error(`unexpected HTTP status ${response.statusCode ?? "unknown"}`));
+        finish(new Error(`unexpected HTTP status ${response.statusCode ?? "unknown"}`));
         return;
       }
       const digest = createHash("sha256");
       let sizeBytes = 0;
       response.on("data", (chunk: Buffer) => {
+        if (settled) return;
         sizeBytes += chunk.byteLength;
         if (sizeBytes > artifact.sizeBytes) {
-          response.destroy(new Error("remote object exceeds its declared size"));
+          finish(new Error("remote object exceeds its declared size"));
           return;
         }
         digest.update(chunk);
       });
       response.on("end", () => {
-        if (!settled) {
-          settled = true;
-          resolve({ sizeBytes, checksum: `sha256:${digest.digest("hex")}` });
-        }
+        if (!settled) finish(undefined, { sizeBytes, checksum: `sha256:${digest.digest("hex")}` });
+      });
+      response.on("error", (error) => finish(error));
+      response.on("aborted", () => finish(new Error("remote object response was aborted")));
+      response.on("close", () => {
+        if (!settled && !response?.complete) finish(new Error("remote object response closed before completion"));
       });
     });
-    request.setTimeout(60_000, () => request.destroy(new Error("remote object verification timed out")));
-    request.on("error", (error) => {
-      if (!settled) {
-        settled = true;
-        reject(error);
-      }
+    deadline = setTimeout(() => finish(new Error("remote object verification exceeded its total deadline")), timeoutMs);
+    request.on("error", (error) => finish(error));
+    request.on("close", () => {
+      if (!settled && !response) finish(new Error("remote object request closed before receiving a response"));
     });
   });
 }
@@ -858,7 +897,7 @@ function verifyInputBindings(rootDir: string, evidence: ImageEmbeddingReproducib
 
 function walkFiles(rootDir: string, currentDir = rootDir): string[] {
   const files: string[] = [];
-  for (const entry of readdirSync(currentDir, { withFileTypes: true }).sort((left, right) => left.name.localeCompare(right.name))) {
+  for (const entry of readdirSync(currentDir, { withFileTypes: true })) {
     const target = path.join(currentDir, entry.name);
     if (entry.isDirectory()) {
       files.push(...walkFiles(rootDir, target));
@@ -866,7 +905,9 @@ function walkFiles(rootDir: string, currentDir = rootDir): string[] {
       files.push(path.relative(rootDir, target).split(path.sep).join("/"));
     }
   }
-  return files;
+  return currentDir === rootDir
+    ? files.sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)))
+    : files;
 }
 
 export function calculateImageSourceCacheAggregate(rootDir: string): { fileCount: number; checksum: Checksum } {
@@ -876,6 +917,112 @@ export function calculateImageSourceCacheAggregate(rootDir: string): { fileCount
     return `${fileChecksum}  ${relativePath}\n`;
   }).join("");
   return { fileCount: files.length, checksum: sha256(index) };
+}
+
+export interface DeterministicSourceCacheArchiveObservation {
+  sizeBytes: number;
+  checksum: Checksum;
+}
+
+function writeTarString(header: Buffer, offset: number, length: number, value: string): void {
+  const bytes = Buffer.from(value, "utf8");
+  if (bytes.byteLength > length) {
+    throw new TypeError(`USTAR field exceeds ${length} bytes: ${value}`);
+  }
+  bytes.copy(header, offset);
+}
+
+function tarOctal(value: number, length: number): string {
+  const digits = value.toString(8);
+  if (digits.length > length - 1) {
+    throw new TypeError(`USTAR integer exceeds ${length - 1} octal digits.`);
+  }
+  return `${digits.padStart(length - 1, "0")}\0`;
+}
+
+function splitUstarPath(relativePath: string): { name: string; prefix: string } {
+  if (Buffer.byteLength(relativePath) <= 100) {
+    return { name: relativePath, prefix: "" };
+  }
+  for (let index = relativePath.lastIndexOf("/"); index > 0; index = relativePath.lastIndexOf("/", index - 1)) {
+    const prefix = relativePath.slice(0, index);
+    const name = relativePath.slice(index + 1);
+    if (Buffer.byteLength(prefix) <= 155 && Buffer.byteLength(name) <= 100) {
+      return { name, prefix };
+    }
+  }
+  throw new TypeError(`Source cache path cannot be represented by POSIX ustar: ${relativePath}`);
+}
+
+function createDeterministicUstarHeader(relativePath: string, sizeBytes: number): Buffer {
+  const header = Buffer.alloc(512);
+  const { name, prefix } = splitUstarPath(relativePath);
+  writeTarString(header, 0, 100, name);
+  writeTarString(header, 100, 8, tarOctal(0o644, 8));
+  writeTarString(header, 108, 8, tarOctal(0, 8));
+  writeTarString(header, 116, 8, tarOctal(0, 8));
+  writeTarString(header, 124, 12, tarOctal(sizeBytes, 12));
+  writeTarString(header, 136, 12, tarOctal(0, 12));
+  header.fill(0x20, 148, 156);
+  header[156] = "0".charCodeAt(0);
+  writeTarString(header, 257, 6, "ustar\0");
+  writeTarString(header, 263, 2, "00");
+  writeTarString(header, 329, 8, tarOctal(0, 8));
+  writeTarString(header, 337, 8, tarOctal(0, 8));
+  writeTarString(header, 345, 155, prefix);
+  const checksum = header.reduce((sum, byte) => sum + byte, 0);
+  writeTarString(header, 148, 8, `${checksum.toString(8).padStart(6, "0")}\0 `);
+  return header;
+}
+
+function buildDeterministicSourceCacheArchive(
+  rootDir: string,
+  outputPath?: string,
+): DeterministicSourceCacheArchiveObservation {
+  const digest = createHash("sha256");
+  let sizeBytes = 0;
+  const output = outputPath ? openSync(outputPath, "wx", 0o600) : undefined;
+  const append = (chunk: Buffer): void => {
+    digest.update(chunk);
+    sizeBytes += chunk.byteLength;
+    if (output !== undefined) writeSync(output, chunk);
+  };
+  try {
+    for (const relativePath of walkFiles(rootDir)) {
+      const filePath = path.join(rootDir, relativePath);
+      const fileSize = statSync(filePath).size;
+      append(createDeterministicUstarHeader(relativePath, fileSize));
+      const input = openSync(filePath, "r");
+      try {
+        const buffer = Buffer.allocUnsafe(64 * 1024);
+        let bytesRead = 0;
+        while ((bytesRead = readSync(input, buffer, 0, buffer.byteLength, null)) > 0) {
+          append(buffer.subarray(0, bytesRead));
+        }
+      } finally {
+        closeSync(input);
+      }
+      const padding = (512 - (fileSize % 512)) % 512;
+      if (padding > 0) append(Buffer.alloc(padding));
+    }
+    append(Buffer.alloc(1024));
+  } finally {
+    if (output !== undefined) closeSync(output);
+  }
+  return { sizeBytes, checksum: `sha256:${digest.digest("hex")}` };
+}
+
+export function calculateDeterministicSourceCacheArchive(
+  rootDir: string,
+): DeterministicSourceCacheArchiveObservation {
+  return buildDeterministicSourceCacheArchive(rootDir);
+}
+
+export function writeDeterministicSourceCacheArchive(
+  rootDir: string,
+  outputPath: string,
+): DeterministicSourceCacheArchiveObservation {
+  return buildDeterministicSourceCacheArchive(rootDir, outputPath);
 }
 
 function verifyLogs(rootDir: string, evidence: ImageEmbeddingReproducibilityEvidence, reasons: string[]): void {
@@ -1185,6 +1332,12 @@ export async function verifyImageEmbeddingReproducibility(
     const sourceCacheArtifact = artifacts.get("source-cache");
     const candidateArtifact = artifacts.get("candidate");
     const offlineReportArtifact = artifacts.get("offline-report");
+    let sourceCacheArchive: DeterministicSourceCacheArchiveObservation | undefined;
+    try {
+      sourceCacheArchive = calculateDeterministicSourceCacheArchive(options.sourceCacheRoot);
+    } catch {
+      reasons.push("Deterministic source cache archive could not be generated from local content.");
+    }
     if (!modelArtifact
       || modelArtifact.sizeBytes !== evidence.runtimeArtifacts.model.sizeBytes
       || modelArtifact.checksum !== evidence.runtimeArtifacts.model.checksum
@@ -1196,6 +1349,9 @@ export async function verifyImageEmbeddingReproducibility(
       || offlineReportArtifact.checksum !== evidence.outputs.offlineReport.bytesChecksum
       || !sourceCacheArtifact
       || sourceCacheArtifact.kind !== "source-cache"
+      || !sourceCacheArchive
+      || sourceCacheArtifact.sizeBytes !== sourceCacheArchive.sizeBytes
+      || sourceCacheArtifact.checksum !== sourceCacheArchive.checksum
       || sourceCacheArtifact.contentFileCount !== evidence.runtimeArtifacts.sourceCache.fileCount
       || sourceCacheArtifact.contentAggregateChecksum !== evidence.runtimeArtifacts.sourceCache.aggregateChecksum) {
       retentionVerified = false;

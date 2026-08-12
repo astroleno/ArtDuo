@@ -1,17 +1,23 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
+import { EventEmitter } from "node:events";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import type { ClientRequest, IncomingMessage, RequestOptions } from "node:http";
 import os from "node:os";
 import path from "node:path";
+import { PassThrough } from "node:stream";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 
 import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
 import {
+  calculateDeterministicSourceCacheArchive,
+  downloadAndHashImmutableArtifact,
   parseImageEmbeddingReproducibilityEvidence,
   verifyImageEmbeddingReproducibility,
+  writeDeterministicSourceCacheArchive,
 } from "./image-embedding-reproducibility";
 
 const RELEASE = "fixture-release";
@@ -481,7 +487,7 @@ function configureImmutableRetention(fixture: Fixture): {
   const runtimeArtifacts = evidence.runtimeArtifacts as Record<string, Record<string, unknown>>;
   const outputs = evidence.outputs as Record<string, Record<string, unknown>>;
   const candidateBytes = readFileSync(fixture.candidatePath);
-  const cacheArchive = "deterministic-source-cache-archive";
+  const cacheArchive = calculateDeterministicSourceCacheArchive(fixture.sourceCacheRoot);
   const artifacts = [
     {
       kind: "model",
@@ -492,8 +498,8 @@ function configureImmutableRetention(fixture: Fixture): {
     {
       kind: "source-cache",
       uri: "https://artifacts.example.invalid/source-cache/source-cache.tar",
-      sizeBytes: Buffer.byteLength(cacheArchive),
-      checksum: sha256(cacheArchive),
+      sizeBytes: cacheArchive.sizeBytes,
+      checksum: cacheArchive.checksum,
       archiveFormat: "artduo-source-cache-tar-ustar.v1",
       contentFileCount: runtimeArtifacts.sourceCache?.fileCount,
       contentAggregateChecksum: runtimeArtifacts.sourceCache?.aggregateChecksum,
@@ -525,6 +531,155 @@ function configureImmutableRetention(fixture: Fixture): {
     ])),
   };
 }
+
+test("deterministic source-cache ustar round-trips and changes with local content", () => {
+  const fixture = createFixture();
+  write(fixture.sourceCacheRoot, "a/z.bin", "nested");
+  write(fixture.sourceCacheRoot, "a-1.bin", "sibling");
+  const archiveRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-archive-"));
+  const firstArchivePath = path.join(archiveRoot, "first.tar");
+  const secondArchivePath = path.join(archiveRoot, "second.tar");
+  const extractionRoot = path.join(archiveRoot, "extracted");
+  mkdirSync(extractionRoot);
+
+  const first = writeDeterministicSourceCacheArchive(fixture.sourceCacheRoot, firstArchivePath);
+  const second = writeDeterministicSourceCacheArchive(fixture.sourceCacheRoot, secondArchivePath);
+  assert.deepEqual(first, second);
+  assert.deepEqual(first, calculateDeterministicSourceCacheArchive(fixture.sourceCacheRoot));
+  execFileSync("tar", ["-xf", firstArchivePath, "-C", extractionRoot]);
+  assert.deepEqual(readFileSync(path.join(extractionRoot, "entry.bin")), readFileSync(path.join(fixture.sourceCacheRoot, "entry.bin")));
+  assert.deepEqual(readFileSync(path.join(extractionRoot, "entry.json")), readFileSync(path.join(fixture.sourceCacheRoot, "entry.json")));
+  const archivedPaths = execFileSync("tar", ["-tf", firstArchivePath], { encoding: "utf8" }).trim().split("\n");
+  assert.deepEqual(archivedPaths, ["a-1.bin", "a/z.bin", "entry.bin", "entry.json"]);
+
+  const header = readFileSync(firstArchivePath).subarray(0, 512);
+  assert.equal(header.subarray(100, 108).toString("ascii"), "0000644\0");
+  assert.equal(header.subarray(108, 116).toString("ascii"), "0000000\0");
+  assert.equal(header.subarray(136, 148).toString("ascii"), "00000000000\0");
+  writeFileSync(path.join(fixture.sourceCacheRoot, "entry.bin"), "changed-cache");
+  assert.notEqual(calculateDeterministicSourceCacheArchive(fixture.sourceCacheRoot).checksum, first.checksum);
+});
+
+interface FakeRequest extends EventEmitter {
+  destroyed: boolean;
+  destroy(error?: Error): void;
+}
+
+function createFakeHttpsGet(response: PassThrough, invokeLookup = false): {
+  request: FakeRequest;
+  get: (url: URL, options: RequestOptions, listener: (response: IncomingMessage) => void) => ClientRequest;
+} {
+  const request = new EventEmitter() as FakeRequest;
+  request.destroyed = false;
+  request.destroy = (error?: Error) => {
+    if (request.destroyed) return;
+    request.destroyed = true;
+    if (error) queueMicrotask(() => request.emit("error", error));
+  };
+  const get = (_url: URL, options: RequestOptions, listener: (incoming: IncomingMessage) => void): ClientRequest => {
+    queueMicrotask(() => {
+      if (!invokeLookup) {
+        listener(response as unknown as IncomingMessage);
+        return;
+      }
+      assert.equal(typeof options.lookup, "function");
+      options.lookup!("artifacts.example.invalid", { all: true }, (error, addresses) => {
+        assert.ifError(error);
+        assert.deepEqual(addresses, [{ address: "8.8.8.8", family: 4 }]);
+        listener(response as unknown as IncomingMessage);
+      });
+    });
+    return request as unknown as ClientRequest;
+  };
+  return { request, get };
+}
+
+function remoteArtifact(bytes: string): {
+  kind: "model";
+  uri: string;
+  sizeBytes: number;
+  checksum: `sha256:${string}`;
+} {
+  return {
+    kind: "model",
+    uri: "https://artifacts.example.invalid/model.bin",
+    sizeBytes: Buffer.byteLength(bytes),
+    checksum: sha256(bytes),
+  };
+}
+
+test("default immutable HTTPS lookup preserves Node's all-address callback shape", async () => {
+  const response = new PassThrough() as PassThrough & { statusCode: number; complete: boolean };
+  response.statusCode = 200;
+  response.complete = false;
+  const transport = createFakeHttpsGet(response, true);
+  queueMicrotask(() => {
+    response.end("verified");
+    response.complete = true;
+  });
+
+  const observation = await downloadAndHashImmutableArtifact(remoteArtifact("verified"), {
+    httpsGet: transport.get,
+    dnsLookup: async () => [{ address: "8.8.8.8", family: 4 }],
+    timeoutMs: 100,
+  });
+  assert.deepEqual(observation, { sizeBytes: 8, checksum: sha256("verified") });
+});
+
+test("immutable HTTPS verification enforces a total deadline despite continuing chunks", async () => {
+  const response = new PassThrough() as PassThrough & { statusCode: number; complete: boolean };
+  response.statusCode = 200;
+  response.complete = false;
+  const transport = createFakeHttpsGet(response);
+  const interval = setInterval(() => response.write("x"), 5);
+  try {
+    await assert.rejects(
+      downloadAndHashImmutableArtifact({ ...remoteArtifact("xxxx"), sizeBytes: 100 }, {
+        httpsGet: transport.get,
+        dnsLookup: async () => [{ address: "8.8.8.8", family: 4 }],
+        timeoutMs: 20,
+      }),
+      /deadline|timed out/i,
+    );
+    assert.equal(transport.request.destroyed, true);
+    assert.equal(response.destroyed, true);
+  } finally {
+    clearInterval(interval);
+  }
+});
+
+test("immutable HTTPS verification rejects response errors, premature close, and oversized streams", async (context) => {
+  for (const scenario of ["error", "aborted", "close", "oversized"] as const) {
+    await context.test(scenario, async () => {
+      const response = new PassThrough() as PassThrough & { statusCode: number; complete: boolean };
+      response.statusCode = 200;
+      response.complete = false;
+      const transport = createFakeHttpsGet(response);
+      queueMicrotask(() => {
+        if (scenario === "error") {
+          response.destroy(new Error("stream failed"));
+        } else if (scenario === "aborted") {
+          response.write("x");
+          response.emit("aborted");
+          response.destroy();
+        } else if (scenario === "close") {
+          response.write("x");
+          response.destroy();
+        } else {
+          response.end("too-large");
+        }
+      });
+      await assert.rejects(
+        downloadAndHashImmutableArtifact({ ...remoteArtifact("ok"), sizeBytes: 2 }, {
+          httpsGet: transport.get,
+          dnsLookup: async () => [{ address: "8.8.8.8", family: 4 }],
+          timeoutMs: 100,
+        }),
+        /failed|aborted|closed|exceeds/i,
+      );
+    });
+  }
+});
 
 test("Task 7 artifact readiness binds and verifies all four immutable objects", async () => {
   const fixture = createFixture();
@@ -601,6 +756,31 @@ test("Task 7 rejects self-consistent remote metadata that is not bound to local 
   assert.equal(result.valid, false);
   assert.equal(result.task7ArtifactReady, false);
   assert.ok(result.reasons.some((reason) => /metadata.*local artifacts/i.test(reason)));
+});
+
+test("Task 7 rejects arbitrary source-cache archive bytes with valid content metadata", async () => {
+  const fixture = createFixture();
+  const { observations } = configureImmutableRetention(fixture);
+  rewriteBundle(fixture, (bundle) => {
+    const retention = bundle.artifactRetention as Record<string, unknown>;
+    const artifacts = retention.immutableArtifacts as Array<Record<string, unknown>>;
+    const sourceCache = artifacts[1] as Record<string, unknown>;
+    sourceCache.sizeBytes = 9;
+    sourceCache.checksum = sha256("arbitrary");
+    observations.set(sourceCache.uri as string, { sizeBytes: 9, checksum: sha256("arbitrary") });
+  });
+
+  const result = await verifyImageEmbeddingReproducibility({
+    rootDir: fixture.rootDir,
+    bundlePath: fixture.bundlePath,
+    modelArtifactPath: fixture.modelArtifactPath,
+    sourceCacheRoot: fixture.sourceCacheRoot,
+    verifyResolvedDependencies: false,
+    verifyRemoteArtifact: async (artifact: { uri: string }) => observations.get(artifact.uri),
+  });
+  assert.equal(result.valid, false);
+  assert.equal(result.task7ArtifactReady, false);
+  assert.ok(result.reasons.some((reason) => /source cache archive|metadata.*local artifacts/i.test(reason)));
 });
 
 test("Task 7 artifact retention rejects duplicate kinds", async () => {
