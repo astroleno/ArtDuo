@@ -471,6 +471,24 @@ function writePassingPromotionEvidence(fixture: ReturnType<typeof createFixture>
   };
 }
 
+function rewriteBaselineEvidenceCommit(
+  evidence: Pick<
+    ReturnType<typeof writePassingPromotionEvidence>,
+    "textBenchmarkBaselinePath" | "a2aBaselinePath" | "e2eBaselinePath"
+  >,
+  commitSha: string,
+): void {
+  for (const filePath of [
+    evidence.textBenchmarkBaselinePath,
+    evidence.a2aBaselinePath,
+    evidence.e2eBaselinePath,
+  ]) {
+    const envelope = JSON.parse(readFileSync(filePath, "utf8")) as { commitSha: string };
+    envelope.commitSha = commitSha;
+    writeFileSync(filePath, `${JSON.stringify(envelope, null, 2)}\n`);
+  }
+}
+
 test("metadata score normalization preserves the order of valid 14 and 15 point frozen scores", () => {
   assert.equal(FROZEN_METADATA_SCORE_UPPER_BOUND, 37);
   assert.ok(normalizeMetadataScore(14) < normalizeMetadataScore(15));
@@ -722,6 +740,56 @@ test("Task 5 rejects baseline envelopes that do not share one frozen evidence co
   });
   assert.equal(result.report.gates.baselineBindingsReady, false);
   assert.ok(result.report.gates.bindingFailures.some((reason) => /do not share one frozen commit SHA/u.test(reason)));
+});
+
+test("Task 5 rejects a frozen baseline evidence commit that does not exist", async () => {
+  const fixture = createFixture();
+  initializeGitFixture(fixture.rootDir);
+  const evidence = writePassingPromotionEvidence(fixture);
+  rewriteBaselineEvidenceCommit(evidence, "f".repeat(40));
+
+  const result = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+    ...evidence,
+  });
+
+  assert.equal(result.report.gates.baselineBindingsReady, false);
+  assert.equal(result.report.gates.bindingIntegrity, false);
+  assert.ok(result.report.gates.bindingFailures.some((reason) => /does not identify a commit in the execution repository/u.test(reason)));
+});
+
+test("Task 5 rejects a frozen baseline evidence commit outside the execution HEAD ancestry", async () => {
+  const fixture = createFixture();
+  initializeGitFixture(fixture.rootDir);
+  const evidence = writePassingPromotionEvidence(fixture);
+  const treeSha = execFileSync("git", ["-C", fixture.rootDir, "write-tree"], { encoding: "utf8" }).trim();
+  const unrelatedCommitSha = execFileSync(
+    "git",
+    ["-C", fixture.rootDir, "commit-tree", treeSha, "-m", "unrelated evidence"],
+    { encoding: "utf8" },
+  ).trim();
+  rewriteBaselineEvidenceCommit(evidence, unrelatedCommitSha);
+
+  const result = await runImageEmbeddingEvaluation({
+    rootDir: fixture.rootDir,
+    releaseVersion: RELEASE_VERSION,
+    manifestPath: fixture.manifestPath,
+    candidateShardPath: fixture.candidatePath,
+    buildReportPath: fixture.buildReportPath,
+    outputPath: fixture.outputPath,
+    preflightCheck: () => ({ command: "pnpm preflight:check", exitCode: 0 }),
+    ...evidence,
+  });
+
+  assert.equal(result.report.gates.baselineBindingsReady, false);
+  assert.equal(result.report.gates.bindingIntegrity, false);
+  assert.ok(result.report.gates.bindingFailures.some((reason) => /is not an ancestor of the execution HEAD/u.test(reason)));
 });
 
 test("Task 6 fusion producer refuses to run before the bound Task 5 report is promotion-ready", async () => {

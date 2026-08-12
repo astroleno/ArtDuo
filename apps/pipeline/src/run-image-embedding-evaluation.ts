@@ -546,6 +546,8 @@ interface BaselineEvidenceCommitBinding {
 }
 
 function resolveBaselineEvidenceCommitBinding(
+  rootDir: string,
+  executionCommitSha: string | undefined,
   options: ImageEmbeddingEvaluationOptions,
 ): BaselineEvidenceCommitBinding {
   const explicit = options.expectedEvidenceCommitSha?.trim();
@@ -581,8 +583,35 @@ function resolveBaselineEvidenceCommitBinding(
   if (explicit && observed && explicit !== observed) {
     reasons.push("Expected baseline evidence commit SHA does not match the frozen envelopes.");
   }
+  const commitSha = explicit ?? observed;
+  let validatedCommitSha = commitSha;
+  if (!explicit && commitSha && !executionCommitSha) {
+    reasons.push("Frozen baseline evidence commit ancestry could not be verified without an execution HEAD.");
+    validatedCommitSha = undefined;
+  } else if (!explicit && commitSha && executionCommitSha) {
+    const commitExists = spawnSync("git", ["-C", rootDir, "cat-file", "-e", `${commitSha}^{commit}`], {
+      stdio: "ignore",
+    });
+    if (commitExists.status !== 0) {
+      reasons.push("Frozen baseline evidence SHA does not identify a commit in the execution repository.");
+      validatedCommitSha = undefined;
+    } else {
+      const isAncestor = spawnSync(
+        "git",
+        ["-C", rootDir, "merge-base", "--is-ancestor", commitSha, executionCommitSha],
+        { stdio: "ignore" },
+      );
+      if (isAncestor.status === 1) {
+        reasons.push("Frozen baseline evidence commit is not an ancestor of the execution HEAD.");
+        validatedCommitSha = undefined;
+      } else if (isAncestor.status !== 0) {
+        reasons.push("Frozen baseline evidence commit ancestry could not be verified.");
+        validatedCommitSha = undefined;
+      }
+    }
+  }
   return {
-    commitSha: explicit ?? observed,
+    commitSha: validatedCommitSha,
     reasons,
   };
 }
@@ -1028,7 +1057,7 @@ export function runImageEmbeddingEvaluation(
   const reportDirectory = resolveReportDirectory(rootDir, releaseVersion);
   const executionGitBinding = resolveExecutionGitBinding(rootDir, options.expectedExecutionCommitSha);
   const executionCommitSha = executionGitBinding.commitSha;
-  const baselineEvidenceCommitBinding = resolveBaselineEvidenceCommitBinding(options);
+  const baselineEvidenceCommitBinding = resolveBaselineEvidenceCommitBinding(rootDir, executionCommitSha, options);
   const baselineEvidenceCommitSha = baselineEvidenceCommitBinding.commitSha ?? "missing";
   const outputPath = path.resolve(options.outputPath);
   if (isInside(loaded.releaseDir, outputPath)) {
