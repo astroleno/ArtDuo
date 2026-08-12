@@ -143,6 +143,33 @@ frozen gates. The deterministic blind pack contains 30 comparisons, but human
 review cannot override either independent automatic gate. Task 6 therefore remains
 disabled.
 
+## Reproducibility Evidence
+
+Task 2/3 evidence is a three-file, fail-closed bundle under
+`data/curation/reports/image-embeddings/2026-04-25-curation-b/reproducibility/`:
+
+- `evidence.v1.json` binds the original execution commit/tree, committed inputs,
+  commands, logs, runtime artifacts, candidate, and current promotion state;
+- `offline-build-manifest.v1.json` preserves the second offline build's input and
+  output checksums even though its temporary candidate/report directory was
+  removed;
+- `bundle.v1.json` binds both files and records artifact-retention readiness.
+
+Run `pnpm image-embeddings:verify-reproducibility -- --release-version
+2026-04-25-curation-b --model-artifact <PINNED_VISION_MODEL_ONNX>
+--source-cache-root .cache/artduo/image-sources` from a clean tracked tree. The
+verifier independently checks Git ancestry, committed inputs, log semantics,
+installed dependencies, model bytes, source-cache aggregate, candidate bytes and
+canonical checksum, the tracked build report, and the offline manifest. Unknown
+fields, missing files, unsafe paths, or any mismatch fail closed.
+
+The current bundle deliberately reports `artifactRetention.status=local-only`
+and `task7Ready=false`. Git contains hashes and reproducibility metadata, not the
+114 MB source cache or vector payload. Task 7 remains blocked until the model,
+source cache, candidate, and offline report are uploaded to controlled immutable
+artifact storage and the bundle records each HTTPS address, byte size, and
+SHA-256.
+
 The sidecar budgets are frozen as follows:
 
 | Situation | Budget |

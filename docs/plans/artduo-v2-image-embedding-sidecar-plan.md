@@ -1420,6 +1420,23 @@ pnpm image-embeddings:benchmark -- \
 > source/model cache 指纹以及每次执行后的 tracked Git 状态；四份归一化原始日志与
 > envelope 一并提交。Candidate 向量与 cache 仍按计划不入 Git，但其 checksum、恢复输入
 > 和离线重建结果已由该 envelope 固定。
+>
+> 2026-08-12 reproducibility hardening：仓库新增严格 v1 JSON schemas、
+> `offline-build-manifest.v1.json` 与 `bundle.v1.json`，并提供 fail-closed 一键验证：
+>
+> ```bash
+> pnpm image-embeddings:verify-reproducibility -- \
+>   --release-version 2026-04-25-curation-b \
+>   --model-artifact <PINNED_VISION_MODEL_ONNX> \
+>   --source-cache-root .cache/artduo/image-sources
+> ```
+>
+> verifier 独立检查 execution commit/tree ancestry、当前 tracked tree、提交时输入、日志
+> checksum/退出语义、运行时依赖、模型 bytes、540-file cache aggregate、candidate bytes/
+> canonical checksum、tracked build report 与离线 build manifest。当前 bundle 明确记录
+> `artifactRetention.status=local-only`、`task7Ready=false`；只有 model、source cache、
+> candidate 与 offline report 四类产物均绑定不可变 HTTPS 地址、size 与 SHA-256 后，才可
+> 将 artifact retention gate 标为 ready。配置受控 artifact storage 前不得进入 Task 7。
 
 - [ ] **Step 7: 完成人工评审并重跑**
 
