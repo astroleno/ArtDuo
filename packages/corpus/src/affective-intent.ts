@@ -76,6 +76,8 @@ const NEGATIVE_SIGNAL_PATTERNS: Array<[RegExp, string[]]> = [
   [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,12}(剧情|戏剧|戏剧性)|\bnot\s+(dramatic|drama)\b|\bno\s+(dramatic|drama)\b/u, ["heavy-drama"]],
 ];
 
+const CHINESE_ACCEPTANCE_SPAN = /(?:不介意|不想避免|不(?:会)?(?:拒绝|避免)|不得不(?:面对|接受|看|观看)|不能不(?:面对|接受|看|观看)|不是不(?:接受|喜欢|面对|看|观看))[^，。,.!?；;]{0,10}?(?:明亮|亮|吵|吵闹|热闹|喧闹|悲伤|哀伤|忧伤|绝望|沉重|悲恸|剧情|戏剧|戏剧性)/gu;
+
 const VISUAL_PREFERENCES: Array<[RegExp, string[]]> = [
   [/暗红|朱红|burgundy|carmine/u, ["burgundy"]],
   [/深木|木色|walnut|dark wood|wood/u, ["walnut"]],
@@ -130,7 +132,8 @@ function detectLanguageHints(sourceText: string): string[] {
 }
 
 function collectResistances(normalized: string): AffectSignal[] {
-  const values = NEGATIVE_SIGNAL_PATTERNS.flatMap(([pattern, signals]) => pattern.test(normalized) ? signals : []);
+  const resistanceScope = normalized.replace(CHINESE_ACCEPTANCE_SPAN, (span) => " ".repeat(span.length));
+  const values = NEGATIVE_SIGNAL_PATTERNS.flatMap(([pattern, signals]) => pattern.test(resistanceScope) ? signals : []);
 
   return unique(values).map((value) => signal("resistance", value, 0.88));
 }

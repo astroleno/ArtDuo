@@ -49,6 +49,10 @@ test("does not treat Chinese acceptance and double-negative phrases as sadness r
     "我不介意悲伤的作品",
     "我不得不面对悲伤",
     "我不是不接受悲伤",
+    "我不拒绝悲伤",
+    "我不会拒绝悲伤",
+    "我不想避免悲伤",
+    "我不能不面对悲伤",
   ]) {
     const agent = buildUserAffectAgent(query);
     assert.ok(
@@ -56,6 +60,20 @@ test("does not treat Chinese acceptance and double-negative phrases as sadness r
       `${query} should not create sadness resistance`,
     );
   }
+});
+
+test("keeps a separate hard resistance after an accepted sadness clause", () => {
+  const agent = buildUserAffectAgent("我不拒绝悲伤，但不要绝望");
+
+  assert.ok(!values(agent.resistances).includes("sadness"));
+  assert.ok(values(agent.resistances).includes("heavy-grief"));
+});
+
+test("keeps a later hard resistance in the same Chinese clause", () => {
+  const agent = buildUserAffectAgent("我不拒绝悲伤也不要绝望");
+
+  assert.ok(!values(agent.resistances).includes("sadness"));
+  assert.ok(values(agent.resistances).includes("heavy-grief"));
 });
 
 test("keeps joy while rejecting cartoonish happiness", () => {
