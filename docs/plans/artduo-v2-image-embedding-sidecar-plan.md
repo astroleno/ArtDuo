@@ -1413,6 +1413,13 @@ pnpm image-embeddings:benchmark -- \
 > 30-item review pack ready。自动质量门仍失败：Artwork holdout `61.72%`
 >（CI lower `59.76%`），Scene Top-3 `18.37%`（CI lower `11.22%`）。因此
 > `promotionReady=false`；人工评审不能覆盖这两个独立硬门，Task 6 继续停止。
+>
+> Task 2/3 的独立复核证据保存在
+> `data/curation/reports/image-embeddings/2026-04-25-curation-b/reproducibility/`：
+> `evidence.v1.json` 绑定执行 commit/tree、环境、命令、退出码、输入与输出 checksum、
+> source/model cache 指纹以及每次执行后的 tracked Git 状态；四份归一化原始日志与
+> envelope 一并提交。Candidate 向量与 cache 仍按计划不入 Git，但其 checksum、恢复输入
+> 和离线重建结果已由该 envelope 固定。
 
 - [ ] **Step 7: 完成人工评审并重跑**
 
