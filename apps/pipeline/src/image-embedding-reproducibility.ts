@@ -4,6 +4,7 @@ import { lookup as lookupDns } from "node:dns/promises";
 import {
   closeSync,
   existsSync,
+  fstatSync,
   linkSync,
   mkdtempSync,
   openSync,
@@ -936,6 +937,8 @@ export function calculateImageSourceCacheAggregate(rootDir: string): { fileCount
 export interface DeterministicSourceCacheArchiveObservation {
   sizeBytes: number;
   checksum: Checksum;
+  contentFileCount: number;
+  contentAggregateChecksum: Checksum;
 }
 
 function writeTarString(header: Buffer, offset: number, length: number, value: string): void {
@@ -995,36 +998,74 @@ function buildDeterministicSourceCacheArchive(
   outputPath?: string,
 ): DeterministicSourceCacheArchiveObservation {
   const digest = createHash("sha256");
+  const contentIndex = createHash("sha256");
   let sizeBytes = 0;
   const output = outputPath ? openSync(outputPath, "wx", 0o600) : undefined;
   const append = (chunk: Buffer): void => {
     digest.update(chunk);
     sizeBytes += chunk.byteLength;
-    if (output !== undefined) writeSync(output, chunk);
+    if (output !== undefined) {
+      let offset = 0;
+      while (offset < chunk.byteLength) {
+        const written = writeSync(output, chunk, offset, chunk.byteLength - offset, null);
+        if (written <= 0) throw new Error("Source cache archive write made no progress.");
+        offset += written;
+      }
+    }
   };
   try {
     for (const relativePath of relativePaths) {
       const filePath = path.join(rootDir, relativePath);
-      const fileSize = statSync(filePath).size;
-      append(createDeterministicUstarHeader(relativePath, fileSize));
       const input = openSync(filePath, "r");
       try {
+        const before = fstatSync(input, { bigint: true });
+        const fileSize = Number(before.size);
+        if (!Number.isSafeInteger(fileSize) || fileSize < 0) {
+          throw new TypeError(`Source cache file size is unsupported: ${relativePath}`);
+        }
+        append(createDeterministicUstarHeader(relativePath, fileSize));
+        const fileDigest = createHash("sha256");
         const buffer = Buffer.allocUnsafe(64 * 1024);
+        let totalBytesRead = 0;
         let bytesRead = 0;
         while ((bytesRead = readSync(input, buffer, 0, buffer.byteLength, null)) > 0) {
-          append(buffer.subarray(0, bytesRead));
+          totalBytesRead += bytesRead;
+          if (totalBytesRead > fileSize) {
+            throw new Error(`Source cache file changed while it was being archived: ${relativePath}`);
+          }
+          const chunk = buffer.subarray(0, bytesRead);
+          fileDigest.update(chunk);
+          append(chunk);
         }
+        const after = fstatSync(input, { bigint: true });
+        if (totalBytesRead !== fileSize
+          || after.size !== before.size
+          || after.mtimeNs !== before.mtimeNs
+          || after.ctimeNs !== before.ctimeNs) {
+          throw new Error(`Source cache file changed while it was being archived: ${relativePath}`);
+        }
+        contentIndex.update(`${fileDigest.digest("hex")}  ${relativePath}\n`);
+        const padding = (512 - (fileSize % 512)) % 512;
+        if (padding > 0) append(Buffer.alloc(padding));
       } finally {
         closeSync(input);
       }
-      const padding = (512 - (fileSize % 512)) % 512;
-      if (padding > 0) append(Buffer.alloc(padding));
+    }
+    const finalRelativePaths = walkFiles(rootDir);
+    if (finalRelativePaths.length !== relativePaths.length
+      || finalRelativePaths.some((relativePath, index) => relativePath !== relativePaths[index])) {
+      throw new Error("Source cache file set changed while it was being archived.");
     }
     append(Buffer.alloc(1024));
   } finally {
     if (output !== undefined) closeSync(output);
   }
-  return { sizeBytes, checksum: `sha256:${digest.digest("hex")}` };
+  return {
+    sizeBytes,
+    checksum: `sha256:${digest.digest("hex")}`,
+    contentFileCount: relativePaths.length,
+    contentAggregateChecksum: `sha256:${contentIndex.digest("hex")}`,
+  };
 }
 
 export function calculateDeterministicSourceCacheArchive(
@@ -1386,8 +1427,10 @@ export async function verifyImageEmbeddingReproducibility(
       || !sourceCacheArchive
       || sourceCacheArtifact.sizeBytes !== sourceCacheArchive.sizeBytes
       || sourceCacheArtifact.checksum !== sourceCacheArchive.checksum
-      || sourceCacheArtifact.contentFileCount !== evidence.runtimeArtifacts.sourceCache.fileCount
-      || sourceCacheArtifact.contentAggregateChecksum !== evidence.runtimeArtifacts.sourceCache.aggregateChecksum) {
+      || sourceCacheArchive.contentFileCount !== evidence.runtimeArtifacts.sourceCache.fileCount
+      || sourceCacheArchive.contentAggregateChecksum !== evidence.runtimeArtifacts.sourceCache.aggregateChecksum
+      || sourceCacheArtifact.contentFileCount !== sourceCacheArchive.contentFileCount
+      || sourceCacheArtifact.contentAggregateChecksum !== sourceCacheArchive.contentAggregateChecksum) {
       retentionVerified = false;
       reasons.push("Immutable artifact metadata does not match the verified local artifacts.");
     } else {

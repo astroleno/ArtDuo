@@ -2,8 +2,19 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { EventEmitter } from "node:events";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import fs, {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  renameSync,
+  rmSync,
+  truncateSync,
+  writeFileSync,
+} from "node:fs";
 import type { ClientRequest, IncomingMessage, RequestOptions } from "node:http";
+import { syncBuiltinESMExports } from "node:module";
 import os from "node:os";
 import path from "node:path";
 import { PassThrough } from "node:stream";
@@ -14,6 +25,7 @@ import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
 
 import {
   calculateDeterministicSourceCacheArchive,
+  calculateImageSourceCacheAggregate,
   downloadAndHashImmutableArtifact,
   parseImageEmbeddingReproducibilityEvidence,
   verifyImageEmbeddingReproducibility,
@@ -546,6 +558,8 @@ test("deterministic source-cache ustar round-trips and changes with local conten
   const second = writeDeterministicSourceCacheArchive(fixture.sourceCacheRoot, secondArchivePath);
   assert.deepEqual(first, second);
   assert.deepEqual(first, calculateDeterministicSourceCacheArchive(fixture.sourceCacheRoot));
+  assert.equal(first.contentFileCount, 4);
+  assert.equal(first.contentAggregateChecksum, calculateImageSourceCacheAggregate(fixture.sourceCacheRoot).checksum);
   execFileSync("tar", ["-xf", firstArchivePath, "-C", extractionRoot]);
   assert.deepEqual(readFileSync(path.join(extractionRoot, "entry.bin")), readFileSync(path.join(fixture.sourceCacheRoot, "entry.bin")));
   assert.deepEqual(readFileSync(path.join(extractionRoot, "entry.json")), readFileSync(path.join(fixture.sourceCacheRoot, "entry.json")));
@@ -558,6 +572,79 @@ test("deterministic source-cache ustar round-trips and changes with local conten
   assert.equal(header.subarray(136, 148).toString("ascii"), "00000000000\0");
   writeFileSync(path.join(fixture.sourceCacheRoot, "entry.bin"), "changed-cache");
   assert.notEqual(calculateDeterministicSourceCacheArchive(fixture.sourceCacheRoot).checksum, first.checksum);
+});
+
+test("source-cache archive rejects a file truncated during its single read", () => {
+  const cacheRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-truncated-read-"));
+  const inputPath = write(cacheRoot, "entry.bin", Buffer.alloc(128 * 1024, 0x61));
+  const originalReadSync = fs.readSync;
+  let truncated = false;
+  fs.readSync = ((...args: Parameters<typeof fs.readSync>) => {
+    if (!truncated) {
+      truncated = true;
+      truncateSync(inputPath, 0);
+    }
+    return originalReadSync(...args);
+  }) as typeof fs.readSync;
+  syncBuiltinESMExports();
+  try {
+    assert.throws(
+      () => calculateDeterministicSourceCacheArchive(cacheRoot),
+      /changed while it was being archived/i,
+    );
+  } finally {
+    fs.readSync = originalReadSync;
+    syncBuiltinESMExports();
+  }
+});
+
+test("source-cache archive rejects a path replaced during its single read", () => {
+  const cacheRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-replaced-read-"));
+  const inputPath = write(cacheRoot, "entry.bin", Buffer.alloc(128 * 1024, 0x61));
+  const replacementRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-replacement-"));
+  const replacementPath = write(replacementRoot, "entry.bin", Buffer.alloc(128 * 1024, 0x62));
+  const originalReadSync = fs.readSync;
+  let replaced = false;
+  fs.readSync = ((...args: Parameters<typeof fs.readSync>) => {
+    const result = originalReadSync(...args);
+    if (!replaced) {
+      replaced = true;
+      renameSync(replacementPath, inputPath);
+    }
+    return result;
+  }) as typeof fs.readSync;
+  syncBuiltinESMExports();
+  try {
+    assert.throws(
+      () => calculateDeterministicSourceCacheArchive(cacheRoot),
+      /changed while it was being archived/i,
+    );
+  } finally {
+    fs.readSync = originalReadSync;
+    syncBuiltinESMExports();
+  }
+});
+
+test("source-cache archive completes partial writes and reports its published bytes", () => {
+  const cacheRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-partial-write-"));
+  write(cacheRoot, "entry.bin", Buffer.alloc(96 * 1024, 0x62));
+  const outputRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-partial-output-"));
+  const outputPath = path.join(outputRoot, "cache.tar");
+  const originalWriteSync = fs.writeSync;
+  fs.writeSync = ((fd: number, buffer: Uint8Array, offset = 0, length = buffer.byteLength - offset) => {
+    const partialLength = Math.max(1, Math.ceil(length / 2));
+    return originalWriteSync(fd, buffer, offset, partialLength, null);
+  }) as typeof fs.writeSync;
+  syncBuiltinESMExports();
+  try {
+    const observation = writeDeterministicSourceCacheArchive(cacheRoot, outputPath);
+    const publishedBytes = readFileSync(outputPath);
+    assert.equal(publishedBytes.byteLength, observation.sizeBytes);
+    assert.equal(sha256(publishedBytes), observation.checksum);
+  } finally {
+    fs.writeSync = originalWriteSync;
+    syncBuiltinESMExports();
+  }
 });
 
 test("source-cache archive output must be outside the cache tree", () => {
@@ -697,6 +784,34 @@ test("immutable HTTPS verification rejects non-public IP literals before transpo
   }
 });
 
+test("immutable HTTPS verification permits globally routable IP literals without DNS", async () => {
+  for (const uri of [
+    "https://8.8.8.8/model.bin",
+    "https://[2001:4860:4860::8888]/model.bin",
+  ]) {
+    const response = new PassThrough() as PassThrough & { statusCode: number; complete: boolean };
+    response.statusCode = 200;
+    response.complete = false;
+    const transport = createFakeHttpsGet(response);
+    let lookupCalled = false;
+    queueMicrotask(() => {
+      response.end("verified");
+      response.complete = true;
+    });
+
+    const observation = await downloadAndHashImmutableArtifact({ ...remoteArtifact("verified"), uri }, {
+      httpsGet: transport.get,
+      dnsLookup: async () => {
+        lookupCalled = true;
+        return [{ address: "127.0.0.1", family: 4 }];
+      },
+      timeoutMs: 100,
+    });
+    assert.deepEqual(observation, { sizeBytes: 8, checksum: sha256("verified") }, uri);
+    assert.equal(lookupCalled, false, uri);
+  }
+});
+
 test("immutable HTTPS verification enforces a total deadline despite continuing chunks", async () => {
   const response = new PassThrough() as PassThrough & { statusCode: number; complete: boolean };
   response.statusCode = 200;
@@ -765,6 +880,56 @@ test("Task 7 artifact readiness binds and verifies all four immutable objects", 
   });
   assert.equal(result.valid, true, result.reasons.join("\n"));
   assert.equal(result.task7ArtifactReady, true);
+});
+
+test("Task 7 binds archive bytes and content aggregate to the same cache read", async () => {
+  const fixture = createFixture();
+  const originalEntry = readFileSync(path.join(fixture.sourceCacheRoot, "entry.bin"));
+  const replacementEntry = Buffer.from("replacement!");
+  writeFileSync(path.join(fixture.sourceCacheRoot, "entry.bin"), replacementEntry);
+  const replacementArchive = calculateDeterministicSourceCacheArchive(fixture.sourceCacheRoot);
+  writeFileSync(path.join(fixture.sourceCacheRoot, "entry.bin"), originalEntry);
+
+  const { observations } = configureImmutableRetention(fixture);
+  rewriteBundle(fixture, (bundle) => {
+    const retention = bundle.artifactRetention as Record<string, unknown>;
+    const artifacts = retention.immutableArtifacts as Array<Record<string, unknown>>;
+    const sourceCache = artifacts.find((artifact) => artifact.kind === "source-cache") as Record<string, unknown>;
+    sourceCache.sizeBytes = replacementArchive.sizeBytes;
+    sourceCache.checksum = replacementArchive.checksum;
+    observations.set(sourceCache.uri as string, {
+      sizeBytes: replacementArchive.sizeBytes,
+      checksum: replacementArchive.checksum,
+    });
+  });
+
+  const originalReadFileSync = fs.readFileSync;
+  let replaced = false;
+  fs.readFileSync = ((filePath: Parameters<typeof fs.readFileSync>[0], ...args: unknown[]) => {
+    const result = originalReadFileSync(filePath, ...(args as [any]));
+    if (!replaced && path.resolve(String(filePath)) === path.join(fixture.sourceCacheRoot, "entry.json")) {
+      replaced = true;
+      writeFileSync(path.join(fixture.sourceCacheRoot, "entry.bin"), replacementEntry);
+    }
+    return result;
+  }) as typeof fs.readFileSync;
+  syncBuiltinESMExports();
+  try {
+    const result = await verifyImageEmbeddingReproducibility({
+      rootDir: fixture.rootDir,
+      bundlePath: fixture.bundlePath,
+      modelArtifactPath: fixture.modelArtifactPath,
+      sourceCacheRoot: fixture.sourceCacheRoot,
+      verifyResolvedDependencies: false,
+      verifyRemoteArtifact: async (artifact: { uri: string }) => observations.get(artifact.uri),
+    });
+    assert.equal(result.valid, false);
+    assert.equal(result.task7ArtifactReady, false);
+    assert.ok(result.reasons.some((reason) => /source cache|local artifacts/i.test(reason)), result.reasons.join("\n"));
+  } finally {
+    fs.readFileSync = originalReadFileSync;
+    syncBuiltinESMExports();
+  }
 });
 
 test("Task 7 artifact readiness fails closed on remote mismatch and unrelated validation failures", async () => {
