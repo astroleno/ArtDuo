@@ -451,6 +451,8 @@ function evaluate(phase: string): EvaluationResult[] {
     const userAgent = buildUserAffectAgent(testCase.input);
     const narrative = buildCurationNarrative(search, {
       hardFilterEvidence: exhibition.evidence,
+      candidateSearch,
+      hardFilterVisibleLimit: 12,
     });
     const route = buildGallerySceneRoute(search, catalog.backgroundScenes, {
       sceneResults: sceneSearch.results,

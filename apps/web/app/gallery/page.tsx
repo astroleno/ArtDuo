@@ -183,7 +183,11 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const hasCuratedResults = hasQuery && search.results.length > 0;
   const featured = search.results[0];
   const narrative = hasQuery && search.results.length > 0
-    ? buildCurationNarrative(search, { hardFilterEvidence: exhibition.evidence })
+    ? buildCurationNarrative(search, {
+      hardFilterEvidence: exhibition.evidence,
+      candidateSearch,
+      hardFilterVisibleLimit: EXHIBITION_RESULT_LIMIT,
+    })
     : undefined;
   const sceneSearch = hasQuery ? searchBackgroundScenes(catalog, query, { limit: 12 }) : undefined;
   const sceneRoute = hasCuratedResults ? buildGallerySceneRoute(search, catalog.backgroundScenes, {

@@ -36,10 +36,10 @@
       "caseSet": {
         "schemaVersion": "image-embedding-evidence-suite.v2",
         "suiteType": "a2a-case-set",
-        "suiteChecksum": "sha256:e220c886ce49477b81db2830e7cc948b5107aea0f229e2a6b80a89527370dd2e",
+        "suiteChecksum": "sha256:cb0586af29e47b9a9fcf5fd958a92dc80e4e89bd6f6d9175bfca17f3a7710fe2",
         "sourceFiles": [
           { "path": "output/a2a-framework-test-20260616-142013/run-a2a-spec-harness.ts", "checksum": "sha256:1b96fa8a3c8e51e884662b6d94db5045a8ce182c80ba1a9e263206b9eaf424fa" },
-          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:ead85bede667985d613ef9bd0cd1e76c89e3ca0001a4a5e41ca0fbfc832914ee" }
+          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:760757d18f2217fe8ef876c2bda3722be61526cd96157f5b795cd9aad6af5a52" }
         ],
         "baseline": {
           "passIds": [
@@ -62,17 +62,17 @@
       "replay": {
         "schemaVersion": "image-embedding-evidence-suite.v2",
         "suiteType": "a2a-replay",
-        "suiteChecksum": "sha256:d83a04a7b7f435a7a7922ac0cf0a8db0194fea8870686d6d33d5ecfb02eb516a",
+        "suiteChecksum": "sha256:e8e9f0b10a01925a62658026976b4349db969a835f24213840329eab0f84a764",
         "sourceFiles": [
           { "path": "apps/web/lib/affective-negotiation.ts", "checksum": "sha256:bbd369591d331bf24899e03f29c05eaea34edb919f95e03e338b5478b2ffda00" },
-          { "path": "apps/web/lib/curation-narrative.ts", "checksum": "sha256:bc114ea5430ed41ec4f40a2360c82147574c2b883099c5316186f73d6d637bb7" },
-          { "path": "apps/web/lib/exhibition-results.ts", "checksum": "sha256:91f6958db810aadd310b0f036681de8b06e3ca1f89aa3e7afc0df03fd12ee19b" },
+          { "path": "apps/web/lib/curation-narrative.ts", "checksum": "sha256:a41be2aeb0d4e59ad356a25b86dcc73d53245af8bc227011cc187b921e89cd82" },
+          { "path": "apps/web/lib/exhibition-results.ts", "checksum": "sha256:07c4978a55d3fac423204e414946a64eb3396fc4cc05be0a3a0917e44c15e5ca" },
           { "path": "apps/web/lib/gallery-route.ts", "checksum": "sha256:206511f84d0cd0643c19216f795c001dd86b352c9b08577d9dc4b7b890d69582" },
-          { "path": "apps/web/lib/hard-filter-evidence.ts", "checksum": "sha256:f2a0664d44156da39a0a6b9c737ef028979b30dbd2ea0bf166c5d70919d35845" },
+          { "path": "apps/web/lib/hard-filter-evidence.ts", "checksum": "sha256:1ac3914d72ac1eb7f401dd50c9aa6d038f7cbecb8c9ce0fae17ab41356d991ed" },
           { "path": "apps/web/lib/release-catalog.ts", "checksum": "sha256:79cc44cd5a8a0554c4d2ca1be3bc247da82a9df4291895aeb51d4c7cbd640deb" },
           { "path": "packages/corpus/src/affect-ontology.ts", "checksum": "sha256:f3f6b6f6e2e97bc2bd5089faf5eef7b0d103358a60ff4e88f6333226d3a1b39a" },
-          { "path": "packages/corpus/src/affective-intent.ts", "checksum": "sha256:89c252222ab54101f1ab8bef283e6d0a5193186a9abfe8905a95e6df23e668d9" },
-          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:ead85bede667985d613ef9bd0cd1e76c89e3ca0001a4a5e41ca0fbfc832914ee" }
+          { "path": "packages/corpus/src/affective-intent.ts", "checksum": "sha256:65b4423433ea790a2b067a8026830175e7e17516f33d020d2baf616ec758b2f3" },
+          { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:760757d18f2217fe8ef876c2bda3722be61526cd96157f5b795cd9aad6af5a52" }
         ],
         "caseIds": [
           "T01", "T02", "T03", "T04", "T05", "T06", "T07", "T08", "T09", "T10",

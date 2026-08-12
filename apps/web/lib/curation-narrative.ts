@@ -285,7 +285,11 @@ export function buildJourneyIntensities(results: WebSearchResult["results"]): nu
 
 export function buildCurationNarrative(
   search: WebSearchResult,
-  options: { hardFilterEvidence?: HardFilterEvidence } = {},
+  options: {
+    hardFilterEvidence?: HardFilterEvidence;
+    candidateSearch?: WebSearchResult;
+    hardFilterVisibleLimit?: number;
+  } = {},
 ): CurationNarrative {
   const results = search.results;
   const backgroundScenes = uniqueScenes(results.map((result) => result.scene));
@@ -295,7 +299,15 @@ export function buildCurationNarrative(
     backgroundScenes,
   });
   if (options.hardFilterEvidence) {
-    assertHardFilterEvidenceMatchesSearch(options.hardFilterEvidence, search);
+    if (!options.candidateSearch || options.hardFilterVisibleLimit === undefined) {
+      throw new TypeError("Hard-filter evidence validation requires the original candidate search and visible limit.");
+    }
+    assertHardFilterEvidenceMatchesSearch(
+      options.hardFilterEvidence,
+      search,
+      options.candidateSearch,
+      options.hardFilterVisibleLimit,
+    );
   }
   const growthForm = options.hardFilterEvidence
     ? mergeHardFilterEvidenceIntoGrowthForm(baseGrowthForm, options.hardFilterEvidence)

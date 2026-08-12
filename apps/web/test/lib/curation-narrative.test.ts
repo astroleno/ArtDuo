@@ -111,6 +111,8 @@ test("curation narrative preserves pre-negotiation hard-filter rejections in its
   const exhibition = buildHardFilteredExhibition(candidateSearch, { limit: 3 });
   const narrative = buildCurationNarrative(exhibition.search, {
     hardFilterEvidence: exhibition.evidence,
+    candidateSearch,
+    hardFilterVisibleLimit: 3,
   });
 
   assert.deepEqual(narrative.growthForm.rejectedArtworkIds, ["met-sorrow"]);
@@ -141,15 +143,151 @@ test("curation narrative rejects hard-filter evidence that is not bound to its v
   assert.throws(
     () => buildCurationNarrative(visibleSearch, {
       hardFilterEvidence: {
-        schemaVersion: "hard-filter-evidence.v1",
+        schemaVersion: "hard-filter-evidence.v2",
+        filterPolicyVersion: "artwork-affect-hard-filter.v1",
         query: "另一句输入",
         normalizedQuery: "另一句输入",
         candidateCount: 4,
+        candidateArtworkIds: ["met-sorrow", "met-quiet", "met-calm", "met-hope"],
+        candidatePoolChecksum: `sha256:${"0".repeat(64)}`,
+        hardRuleSignals: ["sadness"],
+        hardRuleChecksum: `sha256:${"0".repeat(64)}`,
         visibleLimit: 3,
         visibleArtworkIds: ["met-quiet", "met-calm", "met-hope"],
+        eligibleUnselectedArtworkIds: [],
         rejections: [{ artworkId: "met-sorrow", title: "Work met-sorrow", signal: "sadness" }],
       },
+      candidateSearch: visibleSearch,
+      hardFilterVisibleLimit: 3,
     }),
     /query does not match/i,
+  );
+});
+
+function sadnessExhibitionFixture(): {
+  candidateSearch: WebSearchResult;
+  exhibition: ReturnType<typeof buildHardFilteredExhibition>;
+} {
+  const candidateSearch: WebSearchResult = {
+    query: "像睡前，但不要悲伤",
+    normalizedQuery: "像睡前 但不要悲伤",
+    model: "local",
+    dimensions: 4,
+    results: [
+      result("met-sorrow", 0.92, "melancholy", "sorrow"),
+      result("met-quiet", 0.86, "quiet", "restful"),
+      result("met-calm", 0.8, "serenity", "calm"),
+      result("met-hope", 0.74, "hope", "light"),
+    ],
+  };
+
+  return {
+    candidateSearch,
+    exhibition: buildHardFilteredExhibition(candidateSearch, { limit: 3 }),
+  };
+}
+
+test("curation narrative rejects a fabricated hard-filter rejection", () => {
+  const { candidateSearch, exhibition } = sadnessExhibitionFixture();
+  const forged = structuredClone(exhibition.evidence);
+  forged.candidateCount += 1;
+  forged.rejections.push({
+    artworkId: "met-never-a-candidate",
+    title: "Invented work",
+    signal: "sadness",
+  });
+
+  assert.throws(
+    () => buildCurationNarrative(exhibition.search, {
+      hardFilterEvidence: forged,
+      candidateSearch,
+      hardFilterVisibleLimit: 3,
+    }),
+    /candidate|partition|rejection/i,
+  );
+});
+
+test("curation narrative rejects altered hard-filter title and signal semantics", () => {
+  const { candidateSearch, exhibition } = sadnessExhibitionFixture();
+
+  for (const mutate of [
+    (evidence: typeof exhibition.evidence) => { evidence.rejections[0]!.title = "Wrong title"; },
+    (evidence: typeof exhibition.evidence) => { evidence.rejections[0]!.signal = "bright"; },
+  ]) {
+    const forged = structuredClone(exhibition.evidence);
+    mutate(forged);
+    assert.throws(
+      () => buildCurationNarrative(exhibition.search, {
+        hardFilterEvidence: forged,
+        candidateSearch,
+        hardFilterVisibleLimit: 3,
+      }),
+      /rejection|filter/i,
+    );
+  }
+});
+
+test("curation narrative rejects omitted hard-filter rejections", () => {
+  const { candidateSearch, exhibition } = sadnessExhibitionFixture();
+  const forged = structuredClone(exhibition.evidence);
+  forged.rejections = [];
+
+  assert.throws(
+    () => buildCurationNarrative(exhibition.search, {
+      hardFilterEvidence: forged,
+      candidateSearch,
+      hardFilterVisibleLimit: 3,
+    }),
+    /partition|rejection/i,
+  );
+});
+
+test("curation narrative rejects evidence from a substituted candidate pool", () => {
+  const { candidateSearch, exhibition } = sadnessExhibitionFixture();
+  const substitutedCandidateSearch: WebSearchResult = {
+    ...candidateSearch,
+    results: [
+      result("met-other-sorrow", 0.92, "melancholy", "sorrow"),
+      ...candidateSearch.results.slice(1),
+    ],
+  };
+
+  assert.throws(
+    () => buildCurationNarrative(exhibition.search, {
+      hardFilterEvidence: exhibition.evidence,
+      candidateSearch: substitutedCandidateSearch,
+      hardFilterVisibleLimit: 3,
+    }),
+    /candidate|checksum|binding/i,
+  );
+});
+
+test("curation narrative rejects visible content detached from the candidate pool", () => {
+  const { candidateSearch, exhibition } = sadnessExhibitionFixture();
+  const substitutedVisibleSearch = structuredClone(exhibition.search);
+  substitutedVisibleSearch.results[0]!.artwork.title = "Substituted visible title";
+
+  assert.throws(
+    () => buildCurationNarrative(substitutedVisibleSearch, {
+      hardFilterEvidence: exhibition.evidence,
+      candidateSearch,
+      hardFilterVisibleLimit: 3,
+    }),
+    /visible search|candidate partition/i,
+  );
+});
+
+test("curation narrative rejects an evidence-selected visible limit", () => {
+  const { candidateSearch, exhibition } = sadnessExhibitionFixture();
+  const forged = structuredClone(exhibition.evidence);
+  forged.visibleLimit = 4;
+
+  assert.throws(
+    () => buildCurationNarrative(exhibition.search, {
+      hardFilterEvidence: forged,
+      candidateSearch,
+      hardFilterVisibleLimit: 3,
+    }),
+    /visible limit|binding/i,
   );
 });

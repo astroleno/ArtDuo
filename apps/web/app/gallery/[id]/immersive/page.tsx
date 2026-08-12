@@ -205,7 +205,11 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
   const candidateSearch = searchReleaseCatalog(catalog, query, { limit: catalog.artworkCount });
   const exhibition = buildHardFilteredExhibition(candidateSearch, { limit: EXHIBITION_RESULT_LIMIT });
   const search = exhibition.search;
-  const narrative = buildCurationNarrative(search, { hardFilterEvidence: exhibition.evidence });
+  const narrative = buildCurationNarrative(search, {
+    hardFilterEvidence: exhibition.evidence,
+    candidateSearch,
+    hardFilterVisibleLimit: EXHIBITION_RESULT_LIMIT,
+  });
   const journeyIntensities = buildJourneyIntensities(search.results);
   const sceneSearch = searchBackgroundScenes(catalog, query, { limit: 12 });
   const sceneRoute = buildGallerySceneRoute(search, catalog.backgroundScenes, {

@@ -93,7 +93,12 @@ Hard-resistance replay checks use frozen, per-resistance forbidden-signal
 oracles against the final visible artwork set. They do not call the production
 hard-filter predicate. T24 freezes the complete Chinese regression input
 `不要太明亮，想要暗红和深木色，像睡前，但不要悲伤`; pre-negotiation
-rejections are carried into the final GrowthForm rejection trace.
+rejections are carried into the final GrowthForm rejection trace. The
+`hard-filter-evidence.v2` contract binds the ordered candidate IDs and complete
+candidate-content checksum, policy version, hard-rule checksum, rejection semantics, and
+the complete visible/rejected/eligible-unselected partition; the narrative
+reconstructs that partition from the original candidate search before merging
+the audit trace.
 
 ## Browser E2E and Performance Baseline
 
