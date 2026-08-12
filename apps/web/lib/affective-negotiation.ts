@@ -1,5 +1,8 @@
 import {
   buildUserAffectAgent,
+  findAffectResistanceConflict,
+  hardResistanceSignals,
+  normalizeAffectSignal,
 } from "@artduo/corpus";
 import type {
   AffectSignal,
@@ -53,7 +56,7 @@ function unique<T>(values: T[]): T[] {
 }
 
 function normalize(value: string | undefined): string {
-  return (value ?? "").trim().toLowerCase().replace(/[_\s-]+/g, "-");
+  return normalizeAffectSignal(value ?? "");
 }
 
 function hash(value: string): string {
@@ -88,34 +91,12 @@ function candidateSignals(candidate: Candidate): string[] {
   ].map(normalize).filter(Boolean));
 }
 
-function resistanceAliases(value: string): string[] {
-  if (value === "bright") {
-    return ["bright", "light", "joy", "celebration", "cheerful", "gold"];
-  }
-  if (value === "loud") {
-    return ["loud", "festival", "celebration", "active", "drama"];
-  }
-  if (value === "heavy-grief") {
-    return ["grief", "despair", "sad", "sorrow", "heavy-grief"];
-  }
-  if (value === "heavy-drama") {
-    return ["drama", "despair", "grief", "high-contrast"];
-  }
-
-  return [value];
-}
-
 function conflictsWithHardRule(candidate: Candidate, hardSignals: string[]): string | undefined {
-  const signals = new Set(candidateSignals(candidate));
-
-  return hardSignals.find((signal) => resistanceAliases(signal).some((alias) => signals.has(alias)));
+  return findAffectResistanceConflict(hardSignals, candidateSignals(candidate));
 }
 
 function buildRules(agent: UserAffectAgent): AestheticRule[] {
-  const hard = unique([
-    ...agent.resistances.map((entry) => entry.value),
-    ...agent.visualConstraints.filter((entry) => entry.severity === "hard" && entry.polarity === "avoid").map((entry) => entry.value),
-  ]);
+  const hard = hardResistanceSignals(agent);
   const soft = unique([
     ...agent.desires.map((entry) => entry.value),
     ...agent.visualConstraints.filter((entry) => entry.polarity === "prefer").map((entry) => entry.value),
@@ -315,7 +296,7 @@ export function buildAffectiveGrowthForm(input: {
     }
   }
 
-  const stageCandidates = accepted.length > 0 ? accepted : input.results;
+  const stageCandidates = accepted;
   const stages = buildStages(userAgent, stageCandidates, input.backgroundScenes);
   for (const stage of stages) {
     trace.push({

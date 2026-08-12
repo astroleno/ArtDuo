@@ -5,6 +5,7 @@ import { ArtworkImage } from "../../components/artwork-image";
 import { artworkImageUrl } from "../../lib/artwork-image-url";
 import { searchGalleryWithRuntime } from "../../lib/browser-curation";
 import { buildCurationNarrative } from "../../lib/curation-narrative";
+import { buildHardFilteredExhibition } from "../../lib/exhibition-results";
 import { buildGallerySceneRoute, type GallerySceneRouteStop } from "../../lib/gallery-route";
 import { DEFAULT_CURATION_PROMPT, STARTER_PROMPTS } from "../../lib/prompts";
 import { loadWebReleaseCatalog, searchBackgroundScenes, type WebReleaseCatalog, type WebSearchResult } from "../../lib/release-catalog";
@@ -12,6 +13,8 @@ import { loadWebReleaseCatalog, searchBackgroundScenes, type WebReleaseCatalog, 
 interface GalleryPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }
+
+const EXHIBITION_RESULT_LIMIT = 12;
 
 function readQuery(params: Record<string, string | string[] | undefined> | undefined): string {
   const value = params?.query;
@@ -167,14 +170,15 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const routePreview = readView(params) === "route";
   const catalog = loadWebReleaseCatalog();
   const immersiveHref = `/gallery/local/immersive?${new URLSearchParams({ query }).toString()}`;
-  const { search, runtime } = hasQuery
+  const { search: candidateSearch, runtime } = hasQuery
     ? searchGalleryWithRuntime({
       catalog,
       query,
-      limit: 12,
+      limit: catalog.artworkCount,
       runtimeMode,
     })
     : { search: buildIdleSearch(catalog, query), runtime: "idle" };
+  const search = buildHardFilteredExhibition(candidateSearch, { limit: EXHIBITION_RESULT_LIMIT }).search;
   const hasCuratedResults = hasQuery && search.results.length > 0;
   const featured = search.results[0];
   const narrative = hasQuery && search.results.length > 0 ? buildCurationNarrative(search) : undefined;

@@ -15,6 +15,15 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
   await expect(page.getByTestId("immersive-preface")).toBeVisible();
   await expect(page.getByRole("link", { name: "换一句愿望" })).toBeVisible();
   await expect(page.getByLabel(/观展进度/)).toBeVisible();
+
+  await gotoApp(page, `/gallery/local/immersive?${new URLSearchParams({ query: "像睡前，但不要悲伤" })}`);
+  await expect(page.getByLabel(/观展进度，第 1 幅，共 12 幅/)).toBeVisible();
+  for (let index = 1; index <= 12; index += 1) {
+    if (index > 1) {
+      await page.getByRole("button", { name: `跳到第 ${index} 幅，共 12 幅` }).click();
+    }
+    await expect(page.getByTestId("immersive-scene-title")).not.toHaveText("Man of Sorrows");
+  }
 });
 
 test("immersive gallery can move between scenes and preserve query state", async ({ page }) => {

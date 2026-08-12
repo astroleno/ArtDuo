@@ -1,4 +1,5 @@
 import type { GrowthForm } from "@artduo/contracts";
+import { findAffectResistanceConflict } from "@artduo/corpus";
 
 import { buildAffectiveGrowthForm } from "./affective-negotiation";
 import type { WebBackgroundScene, WebSearchResult } from "./release-catalog";
@@ -102,22 +103,7 @@ function growthSignals(growthForm: GrowthForm): string[] {
 }
 
 function signalConflictsWithHardRule(signal: string, hardSignals: Set<string>): boolean {
-  const normalized = signal.toLowerCase().replaceAll(" ", "_");
-
-  if (hardSignals.has("bright")) {
-    return ["bright", "light", "joy", "celebration", "cheerful", "gold", "golden"].includes(normalized);
-  }
-  if (hardSignals.has("loud")) {
-    return ["loud", "festival", "celebration", "active", "drama"].includes(normalized);
-  }
-  if (hardSignals.has("heavy-drama")) {
-    return ["drama", "dramatic", "despair", "grief", "high_contrast"].includes(normalized);
-  }
-  if (hardSignals.has("heavy-grief")) {
-    return ["grief", "despair", "sad", "sorrow", "heavy_grief"].includes(normalized);
-  }
-
-  return hardSignals.has(normalized);
+  return Boolean(findAffectResistanceConflict(hardSignals, [signal]));
 }
 
 function filterSignalsByHardRules(signals: string[], growthForm: GrowthForm): string[] {
@@ -136,7 +122,7 @@ function inferGrowthTone(growthForm: GrowthForm): string | undefined {
   if (hardSignals.has("bright") && (signals.has("low-light") || signals.has("burgundy") || signals.has("walnut"))) {
     return "低光木色";
   }
-  if (hardSignals.has("heavy-grief") && (signals.has("restful") || signals.has("held") || signals.has("quiet"))) {
+  if ((hardSignals.has("sadness") || hardSignals.has("heavy-grief")) && (signals.has("restful") || signals.has("held") || signals.has("quiet"))) {
     return "睡前静光";
   }
   if (hardSignals.has("heavy-drama") && (signals.has("serenity") || signals.has("quiet") || signals.has("contemplation"))) {
@@ -239,7 +225,7 @@ function inferEmotionalNeed(query: string, tone: string, growthForm: GrowthForm)
   if (hardSignals.has("bright") && (signals.has("low-light") || signals.has("burgundy") || signals.has("walnut"))) {
     return "把光压低一点，让暗红、木色和低光把观看安静地包住";
   }
-  if (hardSignals.has("heavy-grief") && (signals.has("restful") || signals.has("held") || /睡前|bedtime|before sleep/.test(normalized))) {
+  if ((hardSignals.has("sadness") || hardSignals.has("heavy-grief")) && (signals.has("restful") || signals.has("held") || /睡前|bedtime|before sleep/.test(normalized))) {
     return "停在睡前那种被轻轻托住的安静里，不往沉重处走";
   }
   if (hardSignals.has("heavy-drama") && (signals.has("serenity") || signals.has("quiet") || signals.has("contemplation") || /剧情太满|no drama/.test(normalized))) {

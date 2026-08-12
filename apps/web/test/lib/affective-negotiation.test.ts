@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { buildAffectiveGrowthForm } from "../../lib/affective-negotiation";
+import { buildHardFilteredExhibition } from "../../lib/exhibition-results";
 import type { WebBackgroundScene, WebSearchResult } from "../../lib/release-catalog";
 
 const quietScene: WebBackgroundScene = {
@@ -78,6 +79,60 @@ test("growth form creates a hard bright rule and rejects bright candidates", () 
   assert.ok(form.rules.some((rule) => rule.signal === "bright" && rule.severity === "hard"));
   assert.ok(form.rejectedArtworkIds.includes("bright-work"));
   assert.ok(form.supportingArtworkIds.includes("dark-work"));
+});
+
+test("broad sadness rejects melancholy while heavy grief preserves it", () => {
+  const candidates = [
+    result("melancholy-work", { mood: ["melancholy"] }, 1),
+    result("sorrow-work", { mood: ["sorrow"] }, 2),
+    result("grief-work", { mood: ["grief"] }, 3),
+    result("despair-work", { mood: ["despair"] }, 4),
+    result("quiet-work", { mood: ["quiet"] }, 5),
+  ];
+  const broad = buildAffectiveGrowthForm({
+    query: "不要悲伤",
+    results: candidates,
+    backgroundScenes: [quietScene],
+  });
+  const heavyOnly = buildAffectiveGrowthForm({
+    query: "我想看孤独但不绝望的东西",
+    results: candidates,
+    backgroundScenes: [quietScene],
+  });
+
+  assert.ok(broad.rules.some((rule) => rule.signal === "sadness" && rule.severity === "hard"));
+  assert.deepEqual(broad.rejectedArtworkIds, ["melancholy-work", "sorrow-work", "grief-work", "despair-work"]);
+  assert.ok(heavyOnly.rules.some((rule) => rule.signal === "heavy-grief" && rule.severity === "hard"));
+  assert.deepEqual(heavyOnly.rejectedArtworkIds, ["grief-work", "despair-work"]);
+  assert.ok(heavyOnly.supportingArtworkIds.includes("melancholy-work"));
+  assert.ok(heavyOnly.supportingArtworkIds.includes("sorrow-work"));
+});
+
+test("hard-filtered exhibition replenishes the visible set and never falls back to rejected works", () => {
+  const search: WebSearchResult = {
+    query: "像睡前，但不要悲伤",
+    normalizedQuery: "像睡前 但不要悲伤",
+    model: "test",
+    dimensions: 4,
+    results: [
+      result("man-of-sorrows", { mood: ["melancholy"] }, 1),
+      result("quiet-1", { mood: ["quiet"] }, 2),
+      result("quiet-2", { mood: ["serenity"] }, 3),
+      result("quiet-3", { mood: ["hope"] }, 4),
+    ],
+  };
+  const exhibition = buildHardFilteredExhibition(search, { limit: 3 });
+
+  assert.deepEqual(exhibition.rejectedArtworkIds, ["man-of-sorrows"]);
+  assert.deepEqual(exhibition.search.results.map((entry) => entry.artwork.id), ["quiet-1", "quiet-2", "quiet-3"]);
+  assert.deepEqual(exhibition.search.results.map((entry) => entry.rank), [1, 2, 3]);
+
+  const allRejected = buildHardFilteredExhibition({
+    ...search,
+    results: [result("only-sorrow", { mood: ["sorrow"] }, 1)],
+  }, { limit: 3 });
+  assert.equal(allRejected.search.results.length, 0);
+  assert.deepEqual(allRejected.rejectedArtworkIds, ["only-sorrow"]);
 });
 
 test("growth form makes quiet-wonder-calm stages with middle arousal peak", () => {

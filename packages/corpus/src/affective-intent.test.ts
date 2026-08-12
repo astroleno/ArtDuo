@@ -26,12 +26,22 @@ test("extracts explicit quiet wonder calm temporal stages", () => {
   assert.ok(stageSignals[2]?.includes("quiet"));
 });
 
-test("extracts bedtime memory and grief resistance", () => {
+test("extracts bedtime memory and broad sadness resistance", () => {
   const agent = buildUserAffectAgent("像睡前，但不要悲伤");
 
   assert.ok(values(agent.memoryHints).includes("bedtime"));
-  assert.ok(values(agent.resistances).includes("heavy-grief"));
+  assert.ok(values(agent.resistances).includes("sadness"));
+  assert.ok(!values(agent.resistances).includes("heavy-grief"));
+  assert.ok(!values(agent.desires).includes("melancholy"));
   assert.ok(values(agent.desires).includes("restful"));
+});
+
+test("keeps melancholy available when only heavy grief is resisted", () => {
+  const agent = buildUserAffectAgent("我想看孤独但不绝望的东西");
+
+  assert.ok(values(agent.resistances).includes("heavy-grief"));
+  assert.ok(!values(agent.resistances).includes("sadness"));
+  assert.ok(values(agent.desires).includes("melancholy"));
 });
 
 test("keeps joy while rejecting cartoonish happiness", () => {

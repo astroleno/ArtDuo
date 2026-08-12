@@ -2,6 +2,7 @@ import { ImmersiveGallery, type ImmersiveGalleryUnit, type TransitionFamily } fr
 
 import { artworkImageUrl } from "../../../../lib/artwork-image-url";
 import { buildCurationNarrative, buildJourneyIntensities } from "../../../../lib/curation-narrative";
+import { buildHardFilteredExhibition } from "../../../../lib/exhibition-results";
 import { buildGallerySceneRoute, sceneRouteStopForIndex, type GallerySceneRouteStop } from "../../../../lib/gallery-route";
 import { DEFAULT_CURATION_PROMPT } from "../../../../lib/prompts";
 import { loadWebReleaseCatalog, searchBackgroundScenes, searchReleaseCatalog, type WebSearchResult } from "../../../../lib/release-catalog";
@@ -12,6 +13,7 @@ interface ImmersivePageProps {
 }
 
 const TRANSITION_SEQUENCE: TransitionFamily[] = ["fade", "dissolve", "light-swell", "depth-push"];
+const EXHIBITION_RESULT_LIMIT = 12;
 const STAGE_BY_INDEX = ["Opening", "Opening", "Opening", "Opening", "Drift", "Drift", "Drift", "Drift", "Return", "Return", "Return", "Return"] as const;
 const TOKEN_STOPWORDS = new Set([
   "a",
@@ -200,7 +202,8 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
   const query = readSingle(queryParams, "query") || DEFAULT_CURATION_PROMPT;
   const selectedUnitId = readSingle(queryParams, "unit");
   const catalog = loadWebReleaseCatalog();
-  const search = searchReleaseCatalog(catalog, query, { limit: 12 });
+  const candidateSearch = searchReleaseCatalog(catalog, query, { limit: catalog.artworkCount });
+  const { search } = buildHardFilteredExhibition(candidateSearch, { limit: EXHIBITION_RESULT_LIMIT });
   const narrative = buildCurationNarrative(search);
   const journeyIntensities = buildJourneyIntensities(search.results);
   const sceneSearch = searchBackgroundScenes(catalog, query, { limit: 12 });

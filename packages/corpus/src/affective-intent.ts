@@ -10,6 +10,7 @@ import type {
 } from "@artduo/contracts";
 
 import { normalizeQueryText, tokenizeQueryText } from "./query-embedding";
+import { findAffectResistanceConflict } from "./affect-ontology";
 
 type SignalMetrics = AffectState;
 
@@ -40,6 +41,7 @@ const SIGNAL_METRICS: Record<string, SignalMetrics> = {
   mystery: { valence: 0.44, arousal: 0.48, tension: 0.48, wonder: 0.7, intimacy: 0.44 },
   quiet: { valence: 0.52, arousal: 0.18, tension: 0.12, wonder: 0.28, intimacy: 0.62 },
   restful: { valence: 0.55, arousal: 0.16, tension: 0.1, wonder: 0.2, intimacy: 0.62 },
+  sadness: { valence: 0.26, arousal: 0.3, tension: 0.56, wonder: 0.2, intimacy: 0.54 },
   serenity: { valence: 0.58, arousal: 0.18, tension: 0.1, wonder: 0.28, intimacy: 0.54 },
   walnut: { valence: 0.46, arousal: 0.22, tension: 0.24, wonder: 0.32, intimacy: 0.78 },
   wonder: { valence: 0.68, arousal: 0.66, tension: 0.28, wonder: 0.9, intimacy: 0.36 },
@@ -68,7 +70,8 @@ const DESIRE_TOKENS = new Set([
 const NEGATIVE_SIGNAL_PATTERNS: Array<[RegExp, string[]]> = [
   [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(明亮|亮|bright)|\b(not too|not|no)\s+bright\b/u, ["bright"]],
   [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(吵|吵闹|热闹|喧闹)|\b(not|no)\s+loud\b/u, ["loud"]],
-  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(悲伤|哀伤|绝望|沉重)|\b(not|no)\s+(sad|grief|despair|heavy grief)\b/u, ["heavy-grief"]],
+  [/(不要|别|不想|不能|避免|拒绝|不)[^，。,.!?；;]{0,10}(悲伤|哀伤|忧伤)|\b(not|no)\s+(sad|sadness|sorrow)\b/u, ["sadness"]],
+  [/(不要|别|不想|不能|避免|拒绝|不)[^，。,.!?；;]{0,10}(绝望|沉重|悲恸)|\b(not|no)\s+(grief|despair|heavy grief)\b/u, ["heavy-grief"]],
   [/\bnot\s+cartoonish\b|\bno\s+cartoonish\b/u, ["cartoonish"]],
   [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,12}(剧情|戏剧|戏剧性)|\bnot\s+(dramatic|drama)\b|\bno\s+(dramatic|drama)\b/u, ["heavy-drama"]],
 ];
@@ -214,10 +217,11 @@ function normalizeSignalValue(token: string): string {
 
 function collectDesires(tokens: string[], normalized: string, resistances: AffectSignal[]): AffectSignal[] {
   const resistanceValues = new Set(resistances.map((entry) => entry.value));
+  const resistedSignals = [...resistanceValues];
   const values = tokens
     .map(normalizeSignalValue)
     .filter((token) => DESIRE_TOKENS.has(token))
-    .filter((token) => !resistanceValues.has(token));
+    .filter((token) => !findAffectResistanceConflict(resistedSignals, [token]));
 
   if (/睡前|bedtime|before sleep/u.test(normalized)) {
     values.push("restful", "quiet", "held");
@@ -226,7 +230,9 @@ function collectDesires(tokens: string[], normalized: string, resistances: Affec
     values.push("intimate", "low-light");
   }
 
-  return unique(values).map((value) => signal(value === "low-light" ? "visual" : "emotion", value, 0.8));
+  return unique(values)
+    .filter((value) => !findAffectResistanceConflict(resistedSignals, [value]))
+    .map((value) => signal(value === "low-light" ? "visual" : "emotion", value, 0.8));
 }
 
 function signalsForSegment(segment: string): AffectSignal[] {
