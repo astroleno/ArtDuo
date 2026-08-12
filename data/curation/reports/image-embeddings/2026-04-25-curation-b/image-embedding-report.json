@@ -1,0 +1,50 @@
+{
+  "releaseVersion": "2026-04-25-curation-b",
+  "baseManifestChecksum": "sha256:d16e859a68abdab4c4c5bb5056fbe50a4a3efda18e40dd0097634c4c24e784c9",
+  "promotionAnchorSetChecksum": "sha256:ac7457edf4556c471d15126a5d9a3ea6feeb5fb44807b70c20b4eb02ad8cd257",
+  "model": "Xenova/clip-vit-base-patch32",
+  "modelRevision": "d15189d7028b43f1d3e65039190477f6af591c2a",
+  "modelVariant": "quantized",
+  "modelArtifactChecksum": "sha256:583fd1110a514667812fee7d684952aaf82a99b959760c8d7dca7e0ab9839299",
+  "providerVersion": "2.17.2",
+  "dimensions": 512,
+  "preprocessingVersion": "clip-vit-base-patch32-image-preprocess.v1",
+  "preprocessingFingerprint": "sha256:fbcbeabcfde7979e66b55f102faebc283ae07268ee705b7ee83ec24037bc61ea",
+  "vectorPrecision": 8,
+  "generatedAt": "2026-08-12T11:14:29.629Z",
+  "artwork": {
+    "eligible": 221,
+    "embedded": 220,
+    "gradeAEligible": 0,
+    "gradeAEmbedded": 0,
+    "criticalEligible": 30,
+    "criticalEmbedded": 30
+  },
+  "backgroundScene": {
+    "eligible": 50,
+    "embedded": 50
+  },
+  "failures": [
+    {
+      "entityType": "artwork",
+      "entityId": "met-195818",
+      "code": "fetch-failed",
+      "message": "Image source could not be resolved (fetch-failed)."
+    }
+  ],
+  "gates": {
+    "vectorsValid": true,
+    "sourceRefsValid": true,
+    "artworkCoverage": 0.995475113122172,
+    "criticalArtworkCoverage": 1,
+    "backgroundSceneCoverage": 1,
+    "coverageReady": true
+  },
+  "candidateShard": {
+    "id": "image-embeddings-01",
+    "url": "./image-embeddings-01.json",
+    "checksum": "sha256:0e7b459bab0e7e74ab98e2923139b42ce7cdf6083ab037651389eabec0fcb017",
+    "sizeBytes": 2795463,
+    "recordCount": 270
+  }
+}
