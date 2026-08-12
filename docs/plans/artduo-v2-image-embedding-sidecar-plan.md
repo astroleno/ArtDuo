@@ -670,7 +670,7 @@ fingerprint，并在读入 bytes 或完整解码前检查 byte/pixel 上限，�
 `--refresh-source-cache true` 才访问远端更新。Task 7 的 reproducibility build
 必须在断网/禁止 fetch 模式下仅依赖 frozen cache 完成。
 
-- [ ] **Step 5: 将 transformers 声明为 pipeline 直接依赖**
+- [x] **Step 5: 将 transformers 声明为 pipeline 直接依赖**
 
 > **Partial 2026-07-26:** `pnpm install --lockfile-only` generated
 > `pnpm-lock.yaml`, which resolves `@xenova/transformers` `2.17.2`,
@@ -681,6 +681,12 @@ fingerprint，并在读入 bytes 或完整解码前检查 byte/pixel 上限，�
 > `sharp` `0.32.6` times out downloading libvips from GitHub; the successful
 > clean-worktree resolution used `--ignore-scripts`. Keep this step open until
 > the normal frozen install completes with its native postinstall scripts.
+>
+> **Closed 2026-08-12:** a clean sparse checkout at `0ae0497` completed normal
+> `pnpm install --frozen-lockfile` with native scripts, including the verified
+> `sharp@0.32.6` libvips download, followed by an offline frozen install that
+> left Git clean. Runtime resolution matched `@xenova/transformers@2.17.2`,
+> `sharp@0.32.6`, `commander@14.0.3`, and `ipaddr.js@2.4.0`.
 
 在根 `package.json` 与 `apps/pipeline/package.json` 都使用 exact version：
 
@@ -697,7 +703,7 @@ dependency 更新，停止并在干净 worktree 从当前 package manifests 重�
 根 `test` gate 运行 repository hygiene check；`git ls-files ':(glob)**/node_modules/**'`
 必须为空，避免任何独立 npm test package 的安装树重新进入索引。
 
-- [ ] **Step 6: 运行测试、类型检查与 opt-in 真实 smoke**
+- [x] **Step 6: 运行测试、类型检查与 opt-in 真实 smoke**
 
 > **Blocked 2026-07-26:** normal pipeline tests pass (55 passed; the real smoke
 > remains opt-in) and pipeline typecheck passes. The opt-in smoke was invoked,
@@ -707,6 +713,13 @@ dependency 更新，停止并在干净 worktree 从当前 package manifests 重�
 > downloading libvips during normal frozen install. Task 2 remains open until
 > the normal frozen install and the same pinned-revision smoke command both
 > complete successfully.
+>
+> **Closed 2026-08-12:** the pinned Hugging Face revision returned the expected
+> 89,117,001-byte vision artifact and checksum
+> `sha256:583fd1110a514667812fee7d684952aaf82a99b959760c8d7dca7e0ab9839299`.
+> The opt-in real provider smoke embedded both PNG and JPEG fixtures into 512D
+> unit vectors (1/1 passed). Full preflight at the same code state passed with
+> Pipeline 116 passed plus the opt-in smoke skipped in the ordinary suite.
 
 ```bash
 pnpm install
@@ -720,7 +733,12 @@ pnpm --filter @artduo/pipeline test -- image-embedding-provider.real.test.ts
 
 预期：普通测试全部通过且没有模型下载和外部网络请求。真实 smoke 只在显式环境变量存在时执行，首次可下载 pinned model；结果记录 dimensions、model revision、variant、provider version 与 preprocessing fingerprint，不记录模型缓存绝对路径。
 
-- [ ] **Step 7: 提交 provider、来源解析与 cache**
+- [x] **Step 7: 提交 provider、来源解析与 cache**
+
+> **Closed earlier on this branch:** the provider, source resolver, cache,
+> dependency lock, and subsequent review fixes are already present in the
+> layered commit history. The 2026-08-12 reproducibility and real-smoke evidence
+> closes the remaining operational gate without adding model/source cache bytes.
 
 ```bash
 git add \
@@ -749,6 +767,16 @@ git commit -m "feat(pipeline): add image embedding provider and source resolver"
 > 输入误判为可发布。真实 source-cache/model 构建仍依赖 Task 2 中尚未解除的正常
 > frozen install 与 pinned Hugging Face artifact 下载阻塞，因此本 Task 的完整 shadow
 > 构建与后续 promotion 仍保持未完成。
+>
+> **Closed 2026-08-12:** after Task 2 reproducibility and real-provider gates
+> passed, the pinned real shadow build produced 270 records: 220/221 artworks,
+> 30/30 critical artworks, and 50/50 background scenes. All vectors and source
+> refs validated; `coverageReady=true`. The sole controlled failure was
+> `artwork:met-195818` with `fetch-failed`. The candidate remains internal and
+> untracked; the report was committed as `59aa266`. A subsequent offline build
+> reproduced candidate checksum
+> `sha256:0e7b459bab0e7e74ab98e2923139b42ce7cdf6083ab037651389eabec0fcb017`
+> and 270 records using only the frozen caches.
 
 **Files:**
 
@@ -759,7 +787,7 @@ git commit -m "feat(pipeline): add image embedding provider and source resolver"
 - Modify: `apps/pipeline/package.json`
 - Modify: `package.json`
 
-- [ ] **Step 1: 写失败的 builder 测试**
+- [x] **Step 1: 写失败的 builder 测试**
 
 使用临时 release fixture 和 fake provider，覆盖：
 
@@ -784,7 +812,7 @@ pnpm --filter @artduo/pipeline test
 
 预期：builder 和 CLI 尚不存在，测试失败。
 
-- [ ] **Step 2: 实现构建选项与报告**
+- [x] **Step 2: 实现构建选项与报告**
 
 ```ts
 export interface ImageEmbeddingBuildOptions {
@@ -858,7 +886,7 @@ critical coverage 只能按该文件与 Grade A 并集计算。Failure `message`
 受控、去路径/URL/响应正文的摘要；原始异常仅输出到受访问控制的即时 debug
 日志，不能进入可提交 report。
 
-- [ ] **Step 3: 实现原子写入**
+- [x] **Step 3: 实现原子写入**
 
 先写 candidate 目录内的临时文件，完成 parser 回读、referential integrity、recordCount、sizeBytes 与 checksum 校验后使用 `renameSync` 替换 candidate 文件。Task 3 不打开 release directory 的写权限。
 
@@ -888,7 +916,7 @@ path.join(
 );
 ```
 
-- [ ] **Step 4: 增加 CLI**
+- [x] **Step 4: 增加 CLI**
 
 新增参数：
 
@@ -919,7 +947,7 @@ path.join(
 "image-embeddings:build": "pnpm --filter @artduo/pipeline build:image-embeddings"
 ```
 
-- [ ] **Step 5: 运行测试**
+- [x] **Step 5: 运行测试**
 
 ```bash
 pnpm --filter @artduo/pipeline test
@@ -928,7 +956,7 @@ pnpm --filter @artduo/pipeline typecheck
 
 预期：全部通过；fixture 构建不访问外网。
 
-- [ ] **Step 6: 首次本地 shadow 构建**
+- [x] **Step 6: 首次本地 shadow 构建**
 
 ```bash
 ARTDUO_IMAGE_REPRO_DIR="$(mktemp -d -t artduo-image-repro)"
@@ -944,7 +972,7 @@ pnpm image-embeddings:build -- \
 
 预期：生成内部报告和 candidate shard；报告包含完整覆盖率、source cache 状态与失败原因。模型首次运行可以写入标准模型缓存，但模型文件和 source cache 不能提交到仓库。Candidate 即使 `coverageReady=true` 也不能被 runtime manifest 发现。
 
-- [ ] **Step 7: 提交 builder**
+- [x] **Step 7: 提交 builder 与真实 shadow report**
 
 ```bash
 git add \
