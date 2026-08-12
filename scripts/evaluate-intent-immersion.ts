@@ -2,10 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { buildCurationNarrative } from "../apps/web/lib/curation-narrative";
-import {
-  buildHardFilteredExhibition,
-  visibleHardResistanceViolationIds,
-} from "../apps/web/lib/exhibition-results";
+import { buildHardFilteredExhibition } from "../apps/web/lib/exhibition-results";
 import { buildGallerySceneRoute } from "../apps/web/lib/gallery-route";
 import {
   loadWebReleaseCatalog,
@@ -20,8 +17,13 @@ interface EvaluationCase {
   input: string;
   expectedSignals: string[];
   expectedMood?: string;
+  hardResistanceOracles?: HardResistanceOracle[];
+}
+
+interface HardResistanceOracle {
+  resistance: string;
+  forbiddenArtworkSignals: string[];
   expectedRejectedArtworkIds?: string[];
-  forbiddenVisibleSignals?: string[];
 }
 
 interface EvaluationResult {
@@ -79,11 +81,29 @@ interface EvaluationResult {
 const EVALUATION_CASES: EvaluationCase[] = [
   { id: "T01", input: "我想看一间安静的月光展厅", expectedSignals: ["serenity", "contemplation", "light"], expectedMood: "serenity" },
   { id: "T02", input: "今天脑子很吵，想慢慢安静下来", expectedSignals: ["serenity", "contemplation", "quiet"], expectedMood: "serenity" },
-  { id: "T03", input: "给我一点春天和希望，不要太热闹", expectedSignals: ["hope", "renewal", "light"], expectedMood: "hope" },
+  {
+    id: "T03",
+    input: "给我一点春天和希望，不要太热闹",
+    expectedSignals: ["hope", "renewal", "light"],
+    expectedMood: "hope",
+    hardResistanceOracles: [{
+      resistance: "loud",
+      forbiddenArtworkSignals: ["loud", "festival", "celebration", "active", "drama"],
+    }],
+  },
   { id: "T04", input: "像刚下雨的清晨，有一点亮起来", expectedSignals: ["hope", "light", "serenity"], expectedMood: "hope" },
   { id: "T05", input: "我有点焦虑，想找可以呼吸的画", expectedSignals: ["serenity", "calm", "light"], expectedMood: "serenity" },
   { id: "T06", input: "失眠后的凌晨，给我一个很轻的展厅", expectedSignals: ["melancholy", "serenity", "quiet"], expectedMood: "melancholy" },
-  { id: "T07", input: "我想看孤独但不绝望的东西", expectedSignals: ["melancholy", "hope", "contemplation"], expectedMood: "melancholy" },
+  {
+    id: "T07",
+    input: "我想看孤独但不绝望的东西",
+    expectedSignals: ["melancholy", "hope", "contemplation"],
+    expectedMood: "melancholy",
+    hardResistanceOracles: [{
+      resistance: "heavy-grief",
+      forbiddenArtworkSignals: ["heavy-grief", "grief", "despair"],
+    }],
+  },
   { id: "T08", input: "关于想念、远方和没说出口的话", expectedSignals: ["desire", "melancholy", "yearning"], expectedMood: "desire" },
   { id: "T09", input: "带一点暗色谜面，像走进秘密房间", expectedSignals: ["mystery", "black", "shadow"], expectedMood: "mystery" },
   { id: "T10", input: "我想要神秘、低光、像旧剧场一样", expectedSignals: ["mystery", "drama", "black"], expectedMood: "mystery" },
@@ -95,18 +115,36 @@ const EVALUATION_CASES: EvaluationCase[] = [
   { id: "T16", input: "像节日之后还留在空气里的光", expectedSignals: ["joy", "hope", "light"], expectedMood: "joy" },
   { id: "T17", input: "我想看有欲望和靠近感的作品", expectedSignals: ["desire", "longing", "passion"], expectedMood: "desire" },
   { id: "T18", input: "一点红色、一点危险、一点想靠近", expectedSignals: ["desire", "red", "drama"], expectedMood: "desire" },
-  { id: "T19", input: "我想沉思，不要剧情太满", expectedSignals: ["contemplation", "quiet", "stillness"], expectedMood: "contemplation" },
+  {
+    id: "T19",
+    input: "我想沉思，不要剧情太满",
+    expectedSignals: ["contemplation", "quiet", "stillness"],
+    expectedMood: "contemplation",
+    hardResistanceOracles: [{
+      resistance: "heavy-drama",
+      forbiddenArtworkSignals: ["heavy-drama", "drama", "dramatic", "despair", "grief", "high-contrast"],
+    }],
+  },
   { id: "T20", input: "给我像书房一样专注的路线", expectedSignals: ["contemplation", "focus", "serenity"], expectedMood: "contemplation" },
   { id: "T21", input: "黑白、版画、线条，最好很克制", expectedSignals: ["black", "white", "contemplation"], expectedMood: "contemplation" },
   { id: "T22", input: "我想看蓝灰色、冷一点、很安静", expectedSignals: ["serenity", "blue", "charcoal"], expectedMood: "serenity" },
   { id: "T23", input: "暖金色的房间，适合慢慢停留", expectedSignals: ["gold", "warmth", "serenity"], expectedMood: "serenity" },
   {
     id: "T24",
-    input: "像睡前，但不要悲伤",
-    expectedSignals: ["serenity", "quiet", "restful"],
+    input: "不要太明亮，想要暗红和深木色，像睡前，但不要悲伤",
+    expectedSignals: ["burgundy", "walnut", "restful"],
     expectedMood: "serenity",
-    expectedRejectedArtworkIds: ["met-472301"],
-    forbiddenVisibleSignals: ["melancholy", "sad", "sorrow", "grief", "despair"],
+    hardResistanceOracles: [
+      {
+        resistance: "bright",
+        forbiddenArtworkSignals: ["bright", "light", "joy", "celebration", "cheerful", "gold", "golden"],
+      },
+      {
+        resistance: "sadness",
+        forbiddenArtworkSignals: ["sadness", "sad", "melancholy", "sorrow", "grief", "despair", "heavy-grief"],
+        expectedRejectedArtworkIds: ["met-472301"],
+      },
+    ],
   },
   { id: "T25", input: "我想看人物肖像，像和陌生人对视", expectedSignals: ["portrait", "contemplation", "desire"], expectedMood: "contemplation" },
   { id: "T26", input: "有没有风景，最好像走到远处", expectedSignals: ["landscape", "yearning", "hope"], expectedMood: "hope" },
@@ -119,17 +157,41 @@ const EVALUATION_CASES: EvaluationCase[] = [
   { id: "T33", input: "something mysterious, dark, almost occult", expectedSignals: ["mystery", "shadow", "black"], expectedMood: "mystery" },
   { id: "T34", input: "I want wonder and impossible skies", expectedSignals: ["wonder", "awe", "impossible"], expectedMood: "wonder" },
   { id: "T35", input: "a route about longing, desire, and distance", expectedSignals: ["desire", "longing", "yearning"], expectedMood: "desire" },
-  { id: "T36", input: "I want joy but not cartoonish happiness", expectedSignals: ["joy", "delight", "bright"], expectedMood: "joy" },
+  {
+    id: "T36",
+    input: "I want joy but not cartoonish happiness",
+    expectedSignals: ["joy", "delight", "bright"],
+    expectedMood: "joy",
+    hardResistanceOracles: [{ resistance: "cartoonish", forbiddenArtworkSignals: ["cartoonish"] }],
+  },
   { id: "T37", input: "quiet contemplation with stone, paper, and soft gray", expectedSignals: ["contemplation", "stone", "gray"], expectedMood: "contemplation" },
   { id: "T38", input: "grief, but with a small path back to light", expectedSignals: ["melancholy", "hope", "light"], expectedMood: "melancholy" },
-  { id: "T39", input: "serene, minimal, gallery interior, no drama", expectedSignals: ["serenity", "neutral", "gallery"], expectedMood: "serenity" },
+  {
+    id: "T39",
+    input: "serene, minimal, gallery interior, no drama",
+    expectedSignals: ["serenity", "neutral", "gallery"],
+    expectedMood: "serenity",
+    hardResistanceOracles: [{
+      resistance: "heavy-drama",
+      forbiddenArtworkSignals: ["heavy-drama", "drama", "dramatic", "despair", "grief", "high-contrast"],
+    }],
+  },
   { id: "T40", input: "warm museum hall, gold, reverent, old-world", expectedSignals: ["gold", "reverence", "awe"], expectedMood: "wonder" },
   { id: "T41", input: "我想看 happiness but in a museum whisper", expectedSignals: ["joy", "quiet", "serenity"], expectedMood: "joy" },
   { id: "T42", input: "一点 mystery，但不要恐怖，像暗处有光", expectedSignals: ["mystery", "light", "shadow"], expectedMood: "mystery" },
   { id: "T43", input: "像把压力放下，calm and clear", expectedSignals: ["serenity", "clarity", "calm"], expectedMood: "serenity" },
   { id: "T44", input: "今天需要被鼓励，hope 但不要鸡汤", expectedSignals: ["hope", "optimism", "light"], expectedMood: "hope" },
   { id: "T45", input: "sad but beautiful, with red and black shadows", expectedSignals: ["melancholy", "red", "black"], expectedMood: "melancholy" },
-  { id: "T46", input: "desire in a quiet room, not loud romance", expectedSignals: ["desire", "quiet", "intimate"], expectedMood: "desire" },
+  {
+    id: "T46",
+    input: "desire in a quiet room, not loud romance",
+    expectedSignals: ["desire", "quiet", "intimate"],
+    expectedMood: "desire",
+    hardResistanceOracles: [{
+      resistance: "loud",
+      forbiddenArtworkSignals: ["loud", "festival", "celebration", "active", "drama"],
+    }],
+  },
   { id: "T47", input: "给我一个从暗到亮的三段式展览", expectedSignals: ["melancholy", "hope", "light"], expectedMood: "hope" },
   { id: "T48", input: "开头孤独，中段有神秘，最后要有希望", expectedSignals: ["melancholy", "mystery", "hope"], expectedMood: "hope" },
   { id: "T49", input: "先安静，再惊叹，最后回到平静", expectedSignals: ["serenity", "wonder", "contemplation"], expectedMood: "serenity" },
@@ -223,27 +285,52 @@ function normalizeSignal(value: string): string {
   return value.toLowerCase().replace(/[_\s-]+/g, "-").trim();
 }
 
-function hardResistanceViolations(
-  search: WebSearchResult,
-  expectedRejectedArtworkIds: string[],
-  observedRejectedArtworkIds: string[],
-): number {
-  const rejected = new Set(observedRejectedArtworkIds);
-  const missingRequiredRejections = expectedRejectedArtworkIds.filter((artworkId) => !rejected.has(artworkId));
-  return visibleHardResistanceViolationIds(search).length + missingRequiredRejections.length;
-}
-
-function independentVisibleSignalViolationIds(search: WebSearchResult, forbiddenSignals: string[]): string[] {
-  const forbidden = new Set(forbiddenSignals.map(normalizeSignal));
-  if (forbidden.size === 0) {
-    return [];
-  }
-
-  return search.results.filter((result) => [
+function independentArtworkSignals(result: WebSearchResult["results"][number]): string[] {
+  return [
     ...result.artwork.moodTags,
     ...result.artwork.emotionLabels,
+    ...result.artwork.keywordBoosts,
+    ...result.artwork.colorTags,
     ...result.artwork.subjectTags,
-  ].map(normalizeSignal).some((signal) => forbidden.has(signal))).map((result) => result.artwork.id);
+    ...result.artwork.compositionTags,
+    ...result.artwork.sceneAffinity.paletteModes,
+    ...result.artwork.sceneAffinity.sceneTypes,
+    ...result.artwork.sceneAffinity.spatialModes,
+    result.artwork.motionProfile,
+  ].map(normalizeSignal);
+}
+
+function independentHardResistanceViolations(input: {
+  search: WebSearchResult;
+  growthForm: ReturnType<typeof buildCurationNarrative>["growthForm"];
+  oracles: HardResistanceOracle[];
+}): number {
+  const expectedRules = new Set(input.oracles.map((oracle) => normalizeSignal(oracle.resistance)));
+  const observedRules = new Set(
+    input.growthForm.rules
+      .filter((rule) => rule.severity === "hard")
+      .map((rule) => normalizeSignal(rule.signal)),
+  );
+  const ruleMismatches = [
+    ...[...expectedRules].filter((signal) => !observedRules.has(signal)),
+    ...[...observedRules].filter((signal) => !expectedRules.has(signal)),
+  ];
+  const visibleViolationIds = new Set<string>();
+  const rejectedArtworkIds = new Set(input.growthForm.rejectedArtworkIds);
+  let missingRequiredRejections = 0;
+
+  for (const oracle of input.oracles) {
+    const forbidden = new Set(oracle.forbiddenArtworkSignals.map(normalizeSignal));
+    for (const result of input.search.results) {
+      if (independentArtworkSignals(result).some((signal) => forbidden.has(signal))) {
+        visibleViolationIds.add(result.artwork.id);
+      }
+    }
+    missingRequiredRejections += (oracle.expectedRejectedArtworkIds ?? [])
+      .filter((artworkId) => !rejectedArtworkIds.has(artworkId)).length;
+  }
+
+  return ruleMismatches.length + visibleViolationIds.size + missingRequiredRejections;
 }
 
 function countPeaks(values: number[]): number {
@@ -270,28 +357,25 @@ function buildCurveMetrics(input: {
   search: WebSearchResult;
   userAgent: ReturnType<typeof buildUserAffectAgent>;
   growthForm: ReturnType<typeof buildCurationNarrative>["growthForm"];
-  expectedRejectedArtworkIds: string[];
-  observedRejectedArtworkIds: string[];
-  forbiddenVisibleSignals: string[];
+  hardResistanceOracles: HardResistanceOracle[];
 }): EvaluationResult["output"]["curveMetrics"] {
   const firstRequested = input.userAgent.temporalShape.stages[0]?.signals.map((signal) => signal.value) ?? [];
   const lastRequested = input.userAgent.temporalShape.stages.at(-1)?.signals.map((signal) => signal.value) ?? [];
   const firstStage = input.growthForm.stages[0]?.signals.map((signal) => signal.value) ?? [];
   const lastStage = input.growthForm.stages.at(-1)?.signals.map((signal) => signal.value) ?? [];
 
-  const contractViolations = hardResistanceViolations(
-    input.search,
-    input.expectedRejectedArtworkIds,
-    input.observedRejectedArtworkIds,
-  );
-  const independentViolations = independentVisibleSignalViolationIds(input.search, input.forbiddenVisibleSignals);
+  const hardResistanceViolations = independentHardResistanceViolations({
+    search: input.search,
+    growthForm: input.growthForm,
+    oracles: input.hardResistanceOracles,
+  });
 
   return {
     stageCount: input.growthForm.stages.length,
     peakCount: countPeaks(input.growthForm.stages.map((stage) => stage.intensity)),
     startsNearRequestedState: firstRequested.length === 0 || stageSignalOverlap(firstRequested, firstStage),
     endsNearRequestedState: lastRequested.length === 0 || stageSignalOverlap(lastRequested, lastStage),
-    hardResistanceViolations: contractViolations + independentViolations.length,
+    hardResistanceViolations,
   };
 }
 
@@ -365,7 +449,9 @@ function evaluate(phase: string): EvaluationResult[] {
     const search = exhibition.search;
     const sceneSearch = searchBackgroundScenes(catalog, testCase.input, { limit: 12 });
     const userAgent = buildUserAffectAgent(testCase.input);
-    const narrative = buildCurationNarrative(search);
+    const narrative = buildCurationNarrative(search, {
+      hardFilterEvidence: exhibition.evidence,
+    });
     const route = buildGallerySceneRoute(search, catalog.backgroundScenes, {
       sceneResults: sceneSearch.results,
       growthForm: narrative.growthForm,
@@ -374,9 +460,7 @@ function evaluate(phase: string): EvaluationResult[] {
       search,
       userAgent,
       growthForm: narrative.growthForm,
-      expectedRejectedArtworkIds: testCase.expectedRejectedArtworkIds ?? [],
-      observedRejectedArtworkIds: exhibition.rejectedArtworkIds,
-      forbiddenVisibleSignals: testCase.forbiddenVisibleSignals ?? [],
+      hardResistanceOracles: testCase.hardResistanceOracles ?? [],
     });
     const narrativeText = `${narrative.title} ${narrative.preface} ${narrative.closing}`;
     const intent = scoreIntent(testCase, search, narrativeText, narrative.intentSignals);
@@ -406,7 +490,7 @@ function evaluate(phase: string): EvaluationResult[] {
         userAgent,
         growthForm: narrative.growthForm,
         negotiationTrace: narrative.growthForm.trace,
-        rejectedArtworkIds: exhibition.rejectedArtworkIds,
+        rejectedArtworkIds: narrative.growthForm.rejectedArtworkIds,
         curveMetrics,
         route: route.map((stop) => ({
           stage: stop.stageLabel,

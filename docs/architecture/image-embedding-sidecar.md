@@ -86,8 +86,14 @@ The 50-case intent/immersion replay baseline is:
 | Average intent | `0.955440` |
 | Average immersion | `1.000000` |
 | Average growth form | `0.883200` |
-| Average total | `0.974640` |
+| Average total | `0.974920` |
 | Hard-resistance violation case IDs | none |
+
+Hard-resistance replay checks use frozen, per-resistance forbidden-signal
+oracles against the final visible artwork set. They do not call the production
+hard-filter predicate. T24 freezes the complete Chinese regression input
+`不要太明亮，想要暗红和深木色，像睡前，但不要悲伤`; pre-negotiation
+rejections are carried into the final GrowthForm rejection trace.
 
 ## Browser E2E and Performance Baseline
 
@@ -121,9 +127,10 @@ The earlier local Chromium launch blocker is resolved. The latest recovered
 - normalized E2E evidence checksum:
   `sha256:1b482ef3fd0962759a4041fb6a9618582e3fbba765d1821453446e0bbb2b944d`.
 
-The current 14-case source suite was refrozen after the hard-negative immersive
-route assertion was added; its checksum is
-`sha256:5dded3b877bdca919777eb5e9e2df52e6feca71cd3df10f02292df146459545e`.
+The current 14-case source suite was refrozen after the complete Chinese
+hard-negative route assertion began checking every visible artwork against an
+independently frozen forbidden-ID oracle; its checksum is
+`sha256:d7913f691944b4af4d36a2508754fe081736a1615736f1202c2c5fdee3fbf087`.
 The passing raw/evidence artifacts below predate that refreeze and must not be
 used as current E2E promotion evidence. On 2026-08-12, commit
 `905639a0827e31c2cc98028f1dcb3e96ad87228e` produced a 14/14 raw run and a
