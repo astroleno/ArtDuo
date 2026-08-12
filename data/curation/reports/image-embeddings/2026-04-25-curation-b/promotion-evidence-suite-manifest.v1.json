@@ -120,7 +120,7 @@
     "fusionE2e": {
       "schemaVersion": "image-embedding-evidence-suite.v2",
       "suiteType": "fusion-e2e",
-      "suiteChecksum": "sha256:8c7955b3787759ab9887d08409aec050641fcb3ae956b279f8ac94e7bf93fd88",
+      "suiteChecksum": "sha256:8a695889fd6d63514b8a5ace65b1d8d3dc0c0e64a8620fa6a799ac4d573742ce",
       "sourceFiles": [
         { "path": "apps/web/e2e/fixtures/image-scene-fusion-baseline.v1.json", "checksum": "sha256:a82ddaad7cd1fa7395afa25a32b6a79c72b3ca6309c35688cae510c76b9e2f93" },
         { "path": "apps/web/e2e/image-scene-fusion.spec.ts", "checksum": "sha256:0ec5a9d51c5654d228d3c896350d830736780ba4d2ac34467c4dbad4dd7b82ab" },
@@ -131,7 +131,7 @@
         { "path": "apps/web/test/lib/image-scene-fusion-fixture.test.ts", "checksum": "sha256:fa54c128e2c8e9eebabe5c94237216da3c539d4bf3aa8d9759c311d38e032a3f" },
         { "path": "apps/web/tsconfig.json", "checksum": "sha256:5af9467486448a062b402f1a73e19fe6d7496dd281f8ee8a3bb591505c91ee88" },
         { "path": "benchmarks/image-embedding-fusion-e2e-cases.json", "checksum": "sha256:193bf27695d0e2d518715030bfd72d2ff82e9ec53634a08e98075668993b3161" },
-        { "path": "package.json", "checksum": "sha256:2ef4dcdc708459cf453f70be668425773bdf00a7b7ad2a026a7fbc9d05500b18" },
+        { "path": "package.json", "checksum": "sha256:70f8ecb9385f34fed01b0943bf771b05382369d2351448d9b5fda1fc1b459d73" },
         { "path": "packages/contracts/package.json", "checksum": "sha256:292d04cc1f11d40d55e97ca0170eeb519032a44389f83fe1fc43651c07e0eca3" },
         { "path": "packages/contracts/src/image-embedding-promotion-gate.ts", "checksum": "sha256:56c5f7aac81a98301854de8c4f001889cb943253323c842b04ee822d8799a9f0" },
         { "path": "packages/contracts/src/index.ts", "checksum": "sha256:8479207b64b73634eccc15839882d4d5bf83f3d43aea4f1646c0309d8ab0cfe7" },
