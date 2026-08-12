@@ -1443,6 +1443,9 @@ pnpm image-embeddings:benchmark -- \
 > extended headers；bundle 同时保留归档 bytes size/SHA-256 与解包内容的 fileCount/aggregate。
 > offline report 的原始产物 size 也与其 checksum 一起固定。任何其他 gate 失败都会强制
 > `task7ArtifactReady=false`。配置受控 artifact storage 前不得进入 Task 7。
+> verifier 会从本地 cache 逐字节生成同一规范 ustar 的 size/SHA-256，并与 bundle 及远端对象
+> 三方比对；远端读取使用保留 Node `lookup(all=true)` 形状的 DNS pinning、全链路 deadline，
+> 且对 response error、aborted、提前 close 与 size overrun 全部 fail-closed。
 
 - [ ] **Step 7: 完成人工评审并重跑**
 
