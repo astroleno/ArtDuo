@@ -20,6 +20,7 @@
     "build:embeddings": "pnpm run workspace:prepare && tsx src/build-embedding-shards.ts",
     "build:image-embeddings": "pnpm run workspace:prepare && tsx src/build-image-embedding-shards.ts",
     "build:image-embedding-evidence": "pnpm run workspace:prepare && tsx src/build-image-embedding-promotion-evidence.ts",
+    "verify:image-embedding-reproducibility": "pnpm run workspace:prepare && tsx src/verify-image-embedding-reproducibility.ts",
     "debug:image-embeddings": "pnpm run workspace:prepare && tsx src/debug-image-embedding.ts",
     "bench:image-embeddings": "pnpm run workspace:prepare && tsx src/run-image-embedding-evaluation.ts",
     "debug:vector-retrieval": "pnpm run workspace:prepare && tsx src/debug-vector-retrieval.ts",

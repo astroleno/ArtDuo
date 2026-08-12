@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://artduo.local/schemas/image-embedding-reproducibility-bundle.v1.json",
+  "title": "ArtDuo image embedding reproducibility bundle v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "releaseVersion", "evidence", "offlineBuildManifest", "artifactRetention"],
+  "properties": {
+    "schemaVersion": { "const": "artduo-image-embedding-reproducibility-bundle.v1" },
+    "releaseVersion": { "type": "string", "minLength": 1 },
+    "evidence": { "$ref": "#/$defs/fileBinding" },
+    "offlineBuildManifest": { "$ref": "#/$defs/fileBinding" },
+    "artifactRetention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "task7Ready", "immutableArtifacts"],
+      "properties": {
+        "status": { "enum": ["local-only", "immutable-storage"] },
+        "task7Ready": { "type": "boolean" },
+        "immutableArtifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "uri", "sizeBytes", "checksum"],
+            "properties": {
+              "kind": { "enum": ["model", "source-cache", "candidate", "offline-report"] },
+              "uri": { "type": "string", "pattern": "^https://" },
+              "sizeBytes": { "type": "integer", "minimum": 1 },
+              "checksum": { "$ref": "#/$defs/checksum" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "fileBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "checksum"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^\\./[^\\\\]+$" },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      }
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://artduo.local/schemas/image-embedding-reproducibility-evidence.v1.json",
+  "title": "ArtDuo image embedding reproducibility evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "releaseVersion",
+    "generatedAt",
+    "execution",
+    "environment",
+    "inputs",
+    "runtimeArtifacts",
+    "resolvedDependencies",
+    "runs",
+    "outputs",
+    "promotionState"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "artduo-image-embedding-reproducibility-evidence.v1" },
+    "releaseVersion": { "type": "string", "minLength": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commitSha", "treeSha", "trackedGitStatusBeforeRuns", "untrackedPromotionArtifactsExcluded"],
+      "properties": {
+        "commitSha": { "$ref": "#/$defs/gitSha" },
+        "treeSha": { "$ref": "#/$defs/gitSha" },
+        "trackedGitStatusBeforeRuns": { "const": "clean" },
+        "untrackedPromotionArtifactsExcluded": { "const": true }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operatingSystem", "architecture", "nodeVersion", "pnpmVersion"],
+      "properties": {
+        "operatingSystem": { "type": "string", "minLength": 1 },
+        "architecture": { "type": "string", "minLength": 1 },
+        "nodeVersion": { "type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+" },
+        "pnpmVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+" }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 6,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/fileBinding" }
+    },
+    "runtimeArtifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "sourceCache"],
+      "properties": {
+        "model": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "revision", "variant", "artifact", "sizeBytes", "checksum"],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "revision": { "type": "string", "minLength": 1 },
+            "variant": { "type": "string", "minLength": 1 },
+            "artifact": { "type": "string", "minLength": 1 },
+            "sizeBytes": { "type": "integer", "minimum": 1 },
+            "checksum": { "$ref": "#/$defs/checksum" }
+          }
+        },
+        "sourceCache": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema", "fileCount", "aggregateAlgorithm", "aggregateChecksum", "committed"],
+          "properties": {
+            "schema": { "const": "artduo-image-source-cache.v1" },
+            "fileCount": { "type": "integer", "minimum": 1 },
+            "aggregateAlgorithm": { "const": "sha256(concat(sortByRelativePath(fileSha256 + twoSpaces + relativePath + newline)))" },
+            "aggregateChecksum": { "$ref": "#/$defs/checksum" },
+            "committed": { "const": false }
+          }
+        }
+      }
+    },
+    "resolvedDependencies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["@xenova/transformers", "sharp", "commander", "ipaddr.js"],
+      "properties": {
+        "@xenova/transformers": { "type": "string" },
+        "sharp": { "type": "string" },
+        "commander": { "type": "string" },
+        "ipaddr.js": { "type": "string" }
+      }
+    },
+    "runs": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/run" }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate", "offlineReport"],
+      "properties": {
+        "candidate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["committed", "recordCount", "declaredChecksum", "bytesChecksum"],
+          "properties": {
+            "committed": { "const": false },
+            "recordCount": { "type": "integer", "minimum": 1 },
+            "declaredChecksum": { "$ref": "#/$defs/checksum" },
+            "bytesChecksum": { "$ref": "#/$defs/checksum" }
+          }
+        },
+        "offlineReport": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bytesChecksum", "coverageReady", "controlledFailures"],
+          "properties": {
+            "bytesChecksum": { "$ref": "#/$defs/checksum" },
+            "coverageReady": { "type": "boolean" },
+            "controlledFailures": { "type": "array", "items": { "$ref": "#/$defs/failure" } }
+          }
+        }
+      }
+    },
+    "promotionState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "promotionReady",
+        "task6Authorized",
+        "artworkHoldoutAccuracy",
+        "artworkHoldoutLowerConfidence",
+        "sceneTop3HitRate",
+        "sceneTop3LowerConfidence",
+        "humanReviewCompleted",
+        "humanReviewRequired"
+      ],
+      "properties": {
+        "promotionReady": { "type": "boolean" },
+        "task6Authorized": { "type": "boolean" },
+        "artworkHoldoutAccuracy": { "$ref": "#/$defs/ratio" },
+        "artworkHoldoutLowerConfidence": { "$ref": "#/$defs/ratio" },
+        "sceneTop3HitRate": { "$ref": "#/$defs/ratio" },
+        "sceneTop3LowerConfidence": { "$ref": "#/$defs/ratio" },
+        "humanReviewCompleted": { "type": "integer", "minimum": 0 },
+        "humanReviewRequired": { "type": "integer", "minimum": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "gitSha": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+    "fileBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "checksum"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "checksum": { "$ref": "#/$defs/checksum" }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entityType", "entityId", "code"],
+      "properties": {
+        "entityType": { "enum": ["artwork", "background-scene"] },
+        "entityId": { "type": "string", "minLength": 1 },
+        "code": { "type": "string", "minLength": 1 }
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "command", "assertions", "exitCode", "trackedGitStatusAfterRun", "log"],
+      "properties": {
+        "id": { "enum": ["normal-frozen-install", "offline-frozen-install", "real-provider-smoke", "offline-shadow-rebuild"] },
+        "command": { "type": "string", "minLength": 1 },
+        "isolation": { "type": "string", "minLength": 1 },
+        "nativeScriptsEnabled": { "const": true },
+        "assertions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "exitCode": { "const": 0 },
+        "trackedGitStatusAfterRun": { "const": "clean" },
+        "log": { "$ref": "#/$defs/fileBinding" }
+      }
+    }
+  }
+}

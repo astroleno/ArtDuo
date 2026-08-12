@@ -91,8 +91,11 @@ test("workspace exposes the image embedding shadow-build command", () => {
   assert.equal(rootPackage.scripts["image-embeddings:build"], "pnpm --filter @artduo/pipeline build:image-embeddings");
   assert.equal(pipelinePackage.scripts["build:image-embedding-evidence"], "pnpm run workspace:prepare && tsx src/build-image-embedding-promotion-evidence.ts");
   assert.equal(rootPackage.scripts["image-embeddings:evidence"], "pnpm --filter @artduo/pipeline build:image-embedding-evidence");
+  assert.equal(pipelinePackage.scripts["verify:image-embedding-reproducibility"], "pnpm run workspace:prepare && tsx src/verify-image-embedding-reproducibility.ts");
+  assert.equal(rootPackage.scripts["image-embeddings:verify-reproducibility"], "pnpm --filter @artduo/pipeline verify:image-embedding-reproducibility");
   assert.equal(existsSync(path.resolve(__dirname, "build-image-embedding-shards.ts")), true);
   assert.equal(existsSync(path.resolve(__dirname, "build-image-embedding-promotion-evidence.ts")), true);
+  assert.equal(existsSync(path.resolve(__dirname, "verify-image-embedding-reproducibility.ts")), true);
 });
 
 test("image embedding evaluation CLI resolves every frozen runner artifact path", () => {

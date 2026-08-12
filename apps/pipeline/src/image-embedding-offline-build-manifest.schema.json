@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://artduo.local/schemas/image-embedding-offline-build-manifest.v1.json",
+  "title": "ArtDuo image embedding offline build manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "releaseVersion", "executionCommitSha", "inputs", "candidate", "report"],
+  "properties": {
+    "schemaVersion": { "const": "artduo-image-embedding-offline-build-manifest.v1" },
+    "releaseVersion": { "type": "string", "minLength": 1 },
+    "executionCommitSha": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseManifestChecksum", "promotionAnchorSetChecksum", "modelArtifactChecksum", "sourceCacheAggregateChecksum"],
+      "properties": {
+        "baseManifestChecksum": { "$ref": "#/$defs/checksum" },
+        "promotionAnchorSetChecksum": { "$ref": "#/$defs/checksum" },
+        "modelArtifactChecksum": { "$ref": "#/$defs/checksum" },
+        "sourceCacheAggregateChecksum": { "$ref": "#/$defs/checksum" }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recordCount", "sizeBytes", "declaredChecksum", "bytesChecksum"],
+      "properties": {
+        "recordCount": { "type": "integer", "minimum": 1 },
+        "sizeBytes": { "type": "integer", "minimum": 1 },
+        "declaredChecksum": { "$ref": "#/$defs/checksum" },
+        "bytesChecksum": { "$ref": "#/$defs/checksum" }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bytesChecksum", "coverageReady", "controlledFailures"],
+      "properties": {
+        "bytesChecksum": { "$ref": "#/$defs/checksum" },
+        "coverageReady": { "type": "boolean" },
+        "controlledFailures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["entityType", "entityId", "code"],
+            "properties": {
+              "entityType": { "enum": ["artwork", "background-scene"] },
+              "entityId": { "type": "string", "minLength": 1 },
+              "code": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "checksum": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}
