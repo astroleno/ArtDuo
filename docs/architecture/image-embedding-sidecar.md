@@ -122,16 +122,26 @@ The earlier local Chromium launch blocker is resolved. The latest recovered
   `sha256:1b482ef3fd0962759a4041fb6a9618582e3fbba765d1821453446e0bbb2b944d`.
 
 The currently frozen 14-case suite checksum is
-`sha256:694a8ff82b400af6817db771fe867b6642df3c5fd32a617667455f7c5df0478c`;
-there is not yet a normalized 14/14 envelope bound to that checksum and the
-current clean commit. The older commit `78778706cea4807d0bc35d6258cd182158229d44` run and its
+`sha256:694a8ff82b400af6817db771fe867b6642df3c5fd32a617667455f7c5df0478c`.
+On 2026-08-12, commit `905639a0827e31c2cc98028f1dcb3e96ad87228e`
+produced a fresh 14/14 raw run and a normalized envelope for this suite. The
+raw checksum is
+`sha256:4faa36f6706c120050aa49f904ef8f1733855d366e03d8914b952912bbd33468`
+and the envelope checksum is
+`sha256:037783595451c9e92352c69cb276efc8fc2216b0d29bb62fea8182679996c9c7`.
+The older commit `78778706cea4807d0bc35d6258cd182158229d44` run and its
 `sha256:e1fc98...` raw artifact are historical recovery evidence only; they predate
 the real exhibition-to-artwork-detail click. Commit `e4e4bd2` subsequently split
 the five targeted Fusion cases into a separately executable, promotion-gated suite
-and refroze the standard suite packaging. Therefore `47e7785` remains the latest
-completed 14/14 semantic browser run, but promotion must generate a fresh raw
-artifact and normalized envelope bound to the current clean commit and current
-suite checksum.
+and refroze the standard suite packaging.
+
+The same 2026-08-12 Task 5 pre-review is binding-valid and coverage-ready, but
+promotion remains blocked by measured visual quality rather than missing evidence:
+artwork pairwise holdout accuracy is `61.72%` with lower confidence `59.76%`, and
+scene Top-3 hit rate is `18.37%` with lower confidence `11.22%`. Both miss their
+frozen gates. The deterministic blind pack contains 30 comparisons, but human
+review cannot override either independent automatic gate. Task 6 therefore remains
+disabled.
 
 The sidecar budgets are frozen as follows:
 

@@ -246,7 +246,13 @@ git status --short -- node_modules
 - tracked `node_modules` 删除、A2A、relationship graph、visual presentation 和 UI 实验改动不得混入本计划提交。
 - 如果当前工作树无法满足边界，停止并请求用户授权建立专用 worktree；不得自行 stash、reset 或覆盖现有改动。
 
-- [ ] **Step 2: 运行不会覆盖历史报告的完整基线（A2A 输入此前不完整）**
+- [x] **Step 2: 运行不会覆盖历史报告的完整基线（A2A 输入此前不完整）**
+
+> **Closed 2026-08-12 at evidence commit `905639a`:** current native runners
+> produced text Top-1 `23/24`, Top-5 `24/24`; authoritative A2A `55/40/5`;
+> 50-case replay average `0.9772` with zero hard-resistance violations; and
+> Chromium E2E `14/14`. The strict v2 text/A2A/E2E envelopes were accepted by
+> the evaluator with `baselineBindingsReady=true` and `bindingIntegrity=true`.
 
 执行者先创建本次 run directory：
 
@@ -1398,6 +1404,15 @@ pnpm image-embeddings:benchmark -- \
 > 2026-07-27 shadow run：离线 candidate 为 0 条（Artwork 221、Background Scene 50 均未获得向量），因此生成了 fail-closed pre-review report，但没有可用于盲评的 changed comparison。`promotionReady: false`；Task 5 仍等待有效候选与 Step 7 人工评审。
 >
 > 2026-08-08 recovery run：pinned-model smoke 与 source-cache rebuild 后获得 270 条 candidate（Artwork `220/221`、30/30 critical anchors、Background Scene `50/50`），`coverageReady: true`。该临时 candidate 仍需在更新后的 frozen evidence anchor 上重建并完成 machine/human gates；它未改写 base manifest，也未提交 cache 或 vector payload。
+>
+> 2026-08-12 current-suite run：270 条 candidate checksum 为
+> `sha256:0e7b459bab0e7e74ab98e2923139b42ce7cdf6083ab037651389eabec0fcb017`，
+> 离线 cache-only 重建得到完全相同 checksum。三份 baseline evidence 共同绑定
+> commit `905639a0827e31c2cc98028f1dcb3e96ad87228e`，且
+> `bindingIntegrity=true`、`baselineBindingsReady=true`、`buildCoverageReady=true`、
+> 30-item review pack ready。自动质量门仍失败：Artwork holdout `61.72%`
+>（CI lower `59.76%`），Scene Top-3 `18.37%`（CI lower `11.22%`）。因此
+> `promotionReady=false`；人工评审不能覆盖这两个独立硬门，Task 6 继续停止。
 
 - [ ] **Step 7: 完成人工评审并重跑**
 
