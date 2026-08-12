@@ -4,6 +4,7 @@ import { execFileSync } from "node:child_process";
 import { EventEmitter } from "node:events";
 import fs, {
   existsSync,
+  appendFileSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -14,11 +15,13 @@ import fs, {
   writeFileSync,
 } from "node:fs";
 import type { ClientRequest, IncomingMessage, RequestOptions } from "node:http";
+import { createServer as createHttpsServer, globalAgent as httpsGlobalAgent } from "node:https";
 import { syncBuiltinESMExports } from "node:module";
 import os from "node:os";
 import path from "node:path";
 import { PassThrough } from "node:stream";
 import { test } from "node:test";
+import { checkServerIdentity, connect as connectTls } from "node:tls";
 import { fileURLToPath } from "node:url";
 
 import type { ImageEmbeddingShardRecord } from "@artduo/contracts";
@@ -647,6 +650,86 @@ test("source-cache archive completes partial writes and reports its published by
   }
 });
 
+test("source-cache archive rejects a zero-progress write without publishing output", () => {
+  const cacheRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-zero-write-"));
+  write(cacheRoot, "entry.bin", "cache-entry");
+  const outputRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-zero-output-"));
+  const outputPath = path.join(outputRoot, "cache.tar");
+  const originalWriteSync = fs.writeSync;
+  fs.writeSync = (() => 0) as typeof fs.writeSync;
+  syncBuiltinESMExports();
+  try {
+    assert.throws(
+      () => writeDeterministicSourceCacheArchive(cacheRoot, outputPath),
+      /made no progress/i,
+    );
+    assert.equal(existsSync(outputPath), false);
+    assert.deepEqual(readdirSync(outputRoot), []);
+  } finally {
+    fs.writeSync = originalWriteSync;
+    syncBuiltinESMExports();
+  }
+});
+
+test("source-cache archive rejects files added or removed during its single read", () => {
+  for (const mutation of ["added", "removed"] as const) {
+    const cacheRoot = mkdtempSync(path.join(os.tmpdir(), `artduo-source-cache-${mutation}-`));
+    const firstPath = write(cacheRoot, "a.bin", Buffer.alloc(128 * 1024, 0x61));
+    write(cacheRoot, "b.bin", "second");
+    const originalReadSync = fs.readSync;
+    let mutated = false;
+    fs.readSync = ((...args: Parameters<typeof fs.readSync>) => {
+      const result = originalReadSync(...args);
+      if (!mutated) {
+        mutated = true;
+        if (mutation === "added") write(cacheRoot, "c.bin", "added");
+        else rmSync(firstPath);
+      }
+      return result;
+    }) as typeof fs.readSync;
+    syncBuiltinESMExports();
+    try {
+      assert.throws(
+        () => calculateDeterministicSourceCacheArchive(cacheRoot),
+        /changed while it was being archived/i,
+        mutation,
+      );
+    } finally {
+      fs.readSync = originalReadSync;
+      syncBuiltinESMExports();
+    }
+  }
+});
+
+test("source-cache archive rejects growth and equal-length in-place modification", () => {
+  for (const mutation of ["growth", "equal-length"] as const) {
+    const cacheRoot = mkdtempSync(path.join(os.tmpdir(), `artduo-source-cache-${mutation}-`));
+    const inputPath = write(cacheRoot, "entry.bin", Buffer.alloc(128 * 1024, 0x61));
+    const originalReadSync = fs.readSync;
+    let mutated = false;
+    fs.readSync = ((...args: Parameters<typeof fs.readSync>) => {
+      const result = originalReadSync(...args);
+      if (!mutated) {
+        mutated = true;
+        if (mutation === "growth") appendFileSync(inputPath, "growth");
+        else writeFileSync(inputPath, Buffer.alloc(128 * 1024, 0x62));
+      }
+      return result;
+    }) as typeof fs.readSync;
+    syncBuiltinESMExports();
+    try {
+      assert.throws(
+        () => calculateDeterministicSourceCacheArchive(cacheRoot),
+        /changed while it was being archived/i,
+        mutation,
+      );
+    } finally {
+      fs.readSync = originalReadSync;
+      syncBuiltinESMExports();
+    }
+  }
+});
+
 test("source-cache archive output must be outside the cache tree", () => {
   for (const relativeOutputPath of ["archive.tar", "nested/archive.tar"]) {
     const cacheRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-contained-output-"));
@@ -730,6 +813,24 @@ function remoteArtifact(bytes: string): {
   };
 }
 
+const TEST_TLS_PRIVATE_KEY = `-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQge9LtC88V2wEvHf9z
+5iN889f9RM7XRf9kU7Uzlu3uu92hRANCAAQdyTSEDoQWu5JQ2PmLr3uBBoV4jmq6
+zepnqeKVqk0v9hCZWviiwk62IjLJkjLBY5M0lvs0hnweytUVF+6eVqiu
+-----END PRIVATE KEY-----`;
+
+const TEST_TLS_CERTIFICATE = `-----BEGIN CERTIFICATE-----
+MIIBiTCCATCgAwIBAgIUGYutobLswIdlyGqWSDwrk50jVhEwCgYIKoZIzj0EAwIw
+EjEQMA4GA1UEAwwHOC44LjguODAeFw0yNjA4MTIxNjUwMzZaFw0zNjA4MDkxNjUw
+MzZaMBIxEDAOBgNVBAMMBzguOC44LjgwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+AAQdyTSEDoQWu5JQ2PmLr3uBBoV4jmq6zepnqeKVqk0v9hCZWviiwk62IjLJkjLB
+Y5M0lvs0hnweytUVF+6eVqiuo2QwYjAdBgNVHQ4EFgQUCdRGAISfcZ5KUhduzGso
+Coa6S+EwHwYDVR0jBBgwFoAUCdRGAISfcZ5KUhduzGsoCoa6S+EwDwYDVR0TAQH/
+BAUwAwEB/zAPBgNVHREECDAGhwQICAgIMAoGCCqGSM49BAMCA0cAMEQCIE3wRZ93
+5e807FDcACfi/xh51aMfMxlt5M4eoqy7DmuEAiB/28SEtsuJ3CHcnNuVChnNT6TZ
+FNrmtJW8cp988bGfgQ==
+-----END CERTIFICATE-----`;
+
 test("default immutable HTTPS lookup preserves Node's all-address callback shape", async () => {
   const response = new PassThrough() as PassThrough & { statusCode: number; complete: boolean };
   response.statusCode = 200;
@@ -809,6 +910,48 @@ test("immutable HTTPS verification permits globally routable IP literals without
     });
     assert.deepEqual(observation, { sizeBytes: 8, checksum: sha256("verified") }, uri);
     assert.equal(lookupCalled, false, uri);
+  }
+});
+
+test("Node's native HTTPS transport accepts a public IP literal without DNS lookup", async () => {
+  const server = createHttpsServer({ key: TEST_TLS_PRIVATE_KEY, cert: TEST_TLS_CERTIFICATE }, (_request, response) => {
+    response.setHeader("connection", "close");
+    response.end("verified");
+  });
+  await new Promise<void>((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(0, "127.0.0.1", () => resolve());
+  });
+  const address = server.address();
+  assert.ok(address && typeof address === "object");
+  const originalCreateConnection = httpsGlobalAgent.createConnection;
+  httpsGlobalAgent.createConnection = ((connectionOptions: Record<string, unknown>, callback: () => void) => connectTls({
+    ...connectionOptions,
+    hostname: undefined,
+    host: "127.0.0.1",
+    port: address.port,
+    ca: TEST_TLS_CERTIFICATE,
+    checkServerIdentity: (_hostname, peerCertificate) => checkServerIdentity("8.8.8.8", peerCertificate),
+    servername: "",
+  }, callback)) as typeof httpsGlobalAgent.createConnection;
+  let lookupCalled = false;
+  try {
+    const observation = await downloadAndHashImmutableArtifact({
+      ...remoteArtifact("verified"),
+      uri: "https://8.8.8.8/model.bin",
+    }, {
+      dnsLookup: async () => {
+        lookupCalled = true;
+        return [{ address: "127.0.0.1", family: 4 }];
+      },
+      timeoutMs: 1_000,
+    });
+    assert.deepEqual(observation, { sizeBytes: 8, checksum: sha256("verified") });
+    assert.equal(lookupCalled, false);
+  } finally {
+    httpsGlobalAgent.createConnection = originalCreateConnection;
+    httpsGlobalAgent.destroy();
+    await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
   }
 });
 
