@@ -3,16 +3,22 @@ import { createHash } from "node:crypto";
 import { lookup as lookupDns } from "node:dns/promises";
 import {
   closeSync,
+  existsSync,
+  linkSync,
+  mkdtempSync,
   openSync,
   readSync,
   readFileSync,
+  realpathSync,
   readdirSync,
+  rmSync,
   statSync,
   writeSync,
 } from "node:fs";
 import { get as httpsGet } from "node:https";
 import type { ClientRequest, IncomingMessage, RequestOptions } from "node:http";
 import { createRequire } from "node:module";
+import { isIP } from "node:net";
 import path from "node:path";
 
 import { parseImageEmbeddingShardRecords } from "@artduo/contracts";
@@ -260,6 +266,14 @@ export function downloadAndHashImmutableArtifact(
     let settled = false;
     let response: IncomingMessage | undefined;
     const url = new URL(artifact.uri);
+    const hostname = url.hostname.startsWith("[") && url.hostname.endsWith("]")
+      ? url.hostname.slice(1, -1)
+      : url.hostname;
+    const literalFamily = isIP(hostname);
+    if (literalFamily !== 0 && !isGloballyRoutableAddress(hostname, literalFamily)) {
+      reject(new Error("immutable artifact IP literal must be globally routable"));
+      return;
+    }
     const timeoutMs = options.timeoutMs ?? 60_000;
     if (!Number.isInteger(timeoutMs) || timeoutMs <= 0) {
       reject(new TypeError("Immutable artifact verification timeout must be a positive integer."));
@@ -977,6 +991,7 @@ function createDeterministicUstarHeader(relativePath: string, sizeBytes: number)
 
 function buildDeterministicSourceCacheArchive(
   rootDir: string,
+  relativePaths: readonly string[],
   outputPath?: string,
 ): DeterministicSourceCacheArchiveObservation {
   const digest = createHash("sha256");
@@ -988,7 +1003,7 @@ function buildDeterministicSourceCacheArchive(
     if (output !== undefined) writeSync(output, chunk);
   };
   try {
-    for (const relativePath of walkFiles(rootDir)) {
+    for (const relativePath of relativePaths) {
       const filePath = path.join(rootDir, relativePath);
       const fileSize = statSync(filePath).size;
       append(createDeterministicUstarHeader(relativePath, fileSize));
@@ -1015,14 +1030,33 @@ function buildDeterministicSourceCacheArchive(
 export function calculateDeterministicSourceCacheArchive(
   rootDir: string,
 ): DeterministicSourceCacheArchiveObservation {
-  return buildDeterministicSourceCacheArchive(rootDir);
+  return buildDeterministicSourceCacheArchive(rootDir, walkFiles(rootDir));
 }
 
 export function writeDeterministicSourceCacheArchive(
   rootDir: string,
   outputPath: string,
 ): DeterministicSourceCacheArchiveObservation {
-  return buildDeterministicSourceCacheArchive(rootDir, outputPath);
+  const resolvedRoot = realpathSync(rootDir);
+  const resolvedOutputParent = realpathSync(path.dirname(path.resolve(outputPath)));
+  const resolvedOutput = path.join(resolvedOutputParent, path.basename(outputPath));
+  if (isInside(resolvedRoot, resolvedOutput)) {
+    throw new TypeError("Source cache archive output must be outside the source cache directory.");
+  }
+  if (existsSync(resolvedOutput)) {
+    throw new TypeError(`Source cache archive output already exists: ${resolvedOutput}`);
+  }
+
+  const relativePaths = walkFiles(resolvedRoot);
+  const temporaryDirectory = mkdtempSync(path.join(resolvedOutputParent, ".artduo-source-cache-archive-"));
+  const temporaryArchive = path.join(temporaryDirectory, "archive.tar");
+  try {
+    const observation = buildDeterministicSourceCacheArchive(resolvedRoot, relativePaths, temporaryArchive);
+    linkSync(temporaryArchive, resolvedOutput);
+    return observation;
+  } finally {
+    rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
 }
 
 function verifyLogs(rootDir: string, evidence: ImageEmbeddingReproducibilityEvidence, reasons: string[]): void {

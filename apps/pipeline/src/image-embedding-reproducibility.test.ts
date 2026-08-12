@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { EventEmitter } from "node:events";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import type { ClientRequest, IncomingMessage, RequestOptions } from "node:http";
 import os from "node:os";
 import path from "node:path";
@@ -560,6 +560,41 @@ test("deterministic source-cache ustar round-trips and changes with local conten
   assert.notEqual(calculateDeterministicSourceCacheArchive(fixture.sourceCacheRoot).checksum, first.checksum);
 });
 
+test("source-cache archive output must be outside the cache tree", () => {
+  for (const relativeOutputPath of ["archive.tar", "nested/archive.tar"]) {
+    const cacheRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-contained-output-"));
+    write(cacheRoot, "a".repeat(101), "forces the old implementation to fail before reading its output");
+    const outputPath = path.join(cacheRoot, relativeOutputPath);
+    mkdirSync(path.dirname(outputPath), { recursive: true });
+
+    assert.throws(
+      () => writeDeterministicSourceCacheArchive(cacheRoot, outputPath),
+      /outside the source cache/i,
+    );
+    assert.equal(existsSync(outputPath), false);
+  }
+});
+
+test("failed source-cache archive writes leave no partial output and can be retried", () => {
+  const cacheRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-failed-write-"));
+  write(cacheRoot, "entry.bin", "cache-entry");
+  const unsupportedPath = write(cacheRoot, "z".repeat(101), "unsupported ustar path");
+  const outputRoot = mkdtempSync(path.join(os.tmpdir(), "artduo-source-cache-atomic-output-"));
+  const outputPath = path.join(outputRoot, "cache.tar");
+
+  assert.throws(
+    () => writeDeterministicSourceCacheArchive(cacheRoot, outputPath),
+    /cannot be represented by POSIX ustar/i,
+  );
+  assert.equal(existsSync(outputPath), false);
+  assert.deepEqual(readdirSync(outputRoot), []);
+
+  rmSync(unsupportedPath);
+  const observation = writeDeterministicSourceCacheArchive(cacheRoot, outputPath);
+  assert.deepEqual(observation, calculateDeterministicSourceCacheArchive(cacheRoot));
+  assert.deepEqual(readdirSync(outputRoot), ["cache.tar"]);
+});
+
 interface FakeRequest extends EventEmitter {
   destroyed: boolean;
   destroy(error?: Error): void;
@@ -624,6 +659,42 @@ test("default immutable HTTPS lookup preserves Node's all-address callback shape
     timeoutMs: 100,
   });
   assert.deepEqual(observation, { sizeBytes: 8, checksum: sha256("verified") });
+});
+
+test("immutable HTTPS verification rejects non-public IP literals before transport", async () => {
+  const unsafeUris = [
+    "https://127.0.0.1/model.bin",
+    "https://10.0.0.1/model.bin",
+    "https://[::1]/model.bin",
+    "https://[fc00::1]/model.bin",
+    "https://[::ffff:127.0.0.1]/model.bin",
+    "https://127.1/model.bin",
+    "https://0177.0.0.1/model.bin",
+    "https://0x7f000001/model.bin",
+    "https://2130706433/model.bin",
+  ];
+
+  for (const uri of unsafeUris) {
+    let transportCalled = false;
+    let lookupCalled = false;
+    await assert.rejects(
+      downloadAndHashImmutableArtifact({ ...remoteArtifact("verified"), uri }, {
+        httpsGet: (_url: URL, _options: RequestOptions, _listener: (response: IncomingMessage) => void) => {
+          transportCalled = true;
+          throw new Error("unsafe URI reached HTTPS transport");
+        },
+        dnsLookup: async () => {
+          lookupCalled = true;
+          return [{ address: "8.8.8.8", family: 4 }];
+        },
+        timeoutMs: 100,
+      }),
+      /globally routable/i,
+      uri,
+    );
+    assert.equal(transportCalled, false, uri);
+    assert.equal(lookupCalled, false, uri);
+  }
 });
 
 test("immutable HTTPS verification enforces a total deadline despite continuing chunks", async () => {
