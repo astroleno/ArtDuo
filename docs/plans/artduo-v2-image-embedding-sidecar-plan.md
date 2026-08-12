@@ -1432,11 +1432,17 @@ pnpm image-embeddings:benchmark -- \
 > ```
 >
 > verifier 独立检查 execution commit/tree ancestry、当前 tracked tree、提交时输入、日志
-> checksum/退出语义、运行时依赖、模型 bytes、540-file cache aggregate、candidate bytes/
-> canonical checksum、tracked build report 与离线 build manifest。当前 bundle 明确记录
+> checksum 及每类命令的专用成功语义、运行时依赖、模型 bytes、540-file cache aggregate、candidate bytes/
+> canonical checksum、tracked build report 与离线 build manifest。输入严格限定为六个规范路径，
+> 不接受额外或 suffix-conflicting 条目；自由文本 `assertions` 已移除。当前 bundle 明确记录
 > `artifactRetention.status=local-only`、`task7Ready=false`；只有 model、source cache、
-> candidate 与 offline report 四类产物均绑定不可变 HTTPS 地址、size 与 SHA-256 后，才可
-> 将 artifact retention gate 标为 ready。配置受控 artifact storage 前不得进入 Task 7。
+> candidate 与 offline report 四类产物按固定顺序唯一出现、与本地验证结果逐项绑定，且
+> 不可变 HTTPS 对象的实际 size/SHA-256 均重新读取验证后，才可将 artifact retention gate
+> 标为 ready。source cache 使用 `artduo-source-cache-tar-ustar.v1`：归档条目按 UTF-8 相对
+> 路径排序，POSIX ustar header 的 uid/gid/mtime 固定为 `0`、mode 固定为 `0644`，不写 PAX/
+> extended headers；bundle 同时保留归档 bytes size/SHA-256 与解包内容的 fileCount/aggregate。
+> offline report 的原始产物 size 也与其 checksum 一起固定。任何其他 gate 失败都会强制
+> `task7ArtifactReady=false`。配置受控 artifact storage 前不得进入 Task 7。
 
 - [ ] **Step 7: 完成人工评审并重跑**
 

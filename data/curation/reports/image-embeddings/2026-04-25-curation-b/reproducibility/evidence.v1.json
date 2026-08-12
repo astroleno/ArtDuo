@@ -69,13 +69,6 @@
       "command": "pnpm install --frozen-lockfile --registry=https://registry.npmjs.org",
       "isolation": "detached sparse checkout at execution.commitSha",
       "nativeScriptsEnabled": true,
-      "assertions": [
-        "lockfile resolution completed",
-        "hnswlib-node native build completed",
-        "sharp@0.32.6 libvips integrity check passed",
-        "resolved dependency versions matched the lockfile",
-        "tracked Git status remained clean"
-      ],
       "exitCode": 0,
       "trackedGitStatusAfterRun": "clean",
       "log": {
@@ -88,11 +81,6 @@
       "command": "pnpm install --frozen-lockfile --offline",
       "isolation": "detached sparse checkout at execution.commitSha",
       "nativeScriptsEnabled": true,
-      "assertions": [
-        "all packages restored without network access",
-        "resolved dependency versions matched the lockfile",
-        "tracked Git status remained clean"
-      ],
       "exitCode": 0,
       "trackedGitStatusAfterRun": "clean",
       "log": {
@@ -103,12 +91,6 @@
     {
       "id": "real-provider-smoke",
       "command": "ARTDUO_RUN_REAL_IMAGE_EMBEDDING_SMOKE=true pnpm --filter @artduo/pipeline exec tsx --test src/image-embedding-provider.real.test.ts",
-      "assertions": [
-        "one PNG and one JPEG decoded through the pinned provider",
-        "both outputs were 512-dimensional unit vectors",
-        "runtime artifact checksum and provider version matched the pins",
-        "one test passed with zero skipped tests"
-      ],
       "exitCode": 0,
       "trackedGitStatusAfterRun": "clean",
       "log": {
@@ -119,13 +101,6 @@
     {
       "id": "offline-shadow-rebuild",
       "command": "pnpm image-embeddings:build -- --release-version 2026-04-25-curation-b --image-embedding-model Xenova/clip-vit-base-patch32 --image-embedding-model-revision d15189d7028b43f1d3e65039190477f6af591c2a --image-embedding-model-variant quantized --image-embedding-batch-size 8 --offline true --report-root <TEMP_REPORT_ROOT> --promotion-anchor-set data/curation/reports/image-embeddings/2026-04-25-curation-b/promotion-anchor-set.json",
-      "assertions": [
-        "candidate was rebuilt without source fetches",
-        "candidate declared checksum matched the online shadow build",
-        "candidate record count was 270",
-        "coverageReady was true",
-        "tracked Git status remained clean"
-      ],
       "exitCode": 0,
       "trackedGitStatusAfterRun": "clean",
       "log": {
@@ -142,6 +117,7 @@
       "bytesChecksum": "sha256:320398aa8c1b9d124b716614eef4cbc4e617df7c5a76b8abeb855d38c44e2b39"
     },
     "offlineReport": {
+      "sizeBytes": 1684,
       "bytesChecksum": "sha256:9185f7c1675a78ba1915aacb20af120429fb172b9bb7af781403d99ae616eadd",
       "coverageReady": true,
       "controlledFailures": [
