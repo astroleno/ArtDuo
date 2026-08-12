@@ -44,6 +44,20 @@ test("keeps melancholy available when only heavy grief is resisted", () => {
   assert.ok(values(agent.desires).includes("melancholy"));
 });
 
+test("does not treat Chinese acceptance and double-negative phrases as sadness resistance", () => {
+  for (const query of [
+    "我不介意悲伤的作品",
+    "我不得不面对悲伤",
+    "我不是不接受悲伤",
+  ]) {
+    const agent = buildUserAffectAgent(query);
+    assert.ok(
+      !values(agent.resistances).includes("sadness"),
+      `${query} should not create sadness resistance`,
+    );
+  }
+});
+
 test("keeps joy while rejecting cartoonish happiness", () => {
   const agent = buildUserAffectAgent("I want joy but not cartoonish happiness");
 

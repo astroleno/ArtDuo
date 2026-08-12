@@ -70,8 +70,8 @@ const DESIRE_TOKENS = new Set([
 const NEGATIVE_SIGNAL_PATTERNS: Array<[RegExp, string[]]> = [
   [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(明亮|亮|bright)|\b(not too|not|no)\s+bright\b/u, ["bright"]],
   [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(吵|吵闹|热闹|喧闹)|\b(not|no)\s+loud\b/u, ["loud"]],
-  [/(不要|别|不想|不能|避免|拒绝|不)[^，。,.!?；;]{0,10}(悲伤|哀伤|忧伤)|\b(not|no)\s+(sad|sadness|sorrow)\b/u, ["sadness"]],
-  [/(不要|别|不想|不能|避免|拒绝|不)[^，。,.!?；;]{0,10}(绝望|沉重|悲恸)|\b(not|no)\s+(grief|despair|heavy grief)\b/u, ["heavy-grief"]],
+  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(悲伤|哀伤|忧伤)|(?:^|[^得是])不(?:悲伤|哀伤|忧伤)|\b(not|no)\s+(sad|sadness|sorrow)\b/u, ["sadness"]],
+  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(绝望|沉重|悲恸)|(?:^|[^得是])不(?:绝望|沉重|悲恸)|\b(not|no)\s+(grief|despair|heavy grief)\b/u, ["heavy-grief"]],
   [/\bnot\s+cartoonish\b|\bno\s+cartoonish\b/u, ["cartoonish"]],
   [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,12}(剧情|戏剧|戏剧性)|\bnot\s+(dramatic|drama)\b|\bno\s+(dramatic|drama)\b/u, ["heavy-drama"]],
 ];
