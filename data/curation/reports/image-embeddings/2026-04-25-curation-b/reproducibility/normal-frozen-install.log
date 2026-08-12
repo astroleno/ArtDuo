@@ -1,0 +1,103 @@
+command: pnpm install --frozen-lockfile --registry=https://registry.npmjs.org
+executionCommitSha: 054fd3bac93715401c5210fb0897a13f73a97bbb
+Preparing worktree (detached HEAD 054fd3b)
+HEAD is now at 054fd3b docs(sidecar): record current promotion blockers
+Scope: all 7 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +195
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 195, reused 30, downloaded 9, added 39
+Progress: resolved 195, reused 30, downloaded 64, added 94
+Progress: resolved 195, reused 30, downloaded 110, added 140
+Progress: resolved 195, reused 30, downloaded 150, added 180
+Progress: resolved 195, reused 30, downloaded 161, added 191
+Progress: resolved 195, reused 30, downloaded 163, added 192
+Progress: resolved 195, reused 30, downloaded 164, added 194
+Progress: resolved 195, reused 30, downloaded 165, added 194
+Progress: resolved 195, reused 30, downloaded 165, added 195
+Progress: resolved 195, reused 30, downloaded 165, added 195, done
+.../node_modules/hnswlib-node install$ node-gyp rebuild
+.../node_modules/protobufjs postinstall$ node scripts/postinstall
+.../node_modules/protobufjs postinstall: Done
+.../node_modules/hnswlib-node install: gyp info it worked if it ends with ok
+.../node_modules/hnswlib-node install: gyp info using node-gyp@9.4.1
+.../node_modules/hnswlib-node install: gyp info using node@26.7.0 | darwin | arm64
+.../node_modules/hnswlib-node install: (node:48138) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+.../node_modules/hnswlib-node install: (Use `node --trace-deprecation ...` to show where the warning was created)
+.../node_modules/hnswlib-node install: gyp info find Python using Python version 3.14.4 found at "/opt/homebrew/opt/python@3.14/bin/python3.14"
+.../node_modules/hnswlib-node install: gyp http GET https://nodejs.org/download/release/v26.7.0/node-v26.7.0-headers.tar.gz
+.../node_modules/hnswlib-node install: gyp http 200 https://nodejs.org/download/release/v26.7.0/node-v26.7.0-headers.tar.gz
+.../node_modules/hnswlib-node install: gyp http GET https://nodejs.org/download/release/v26.7.0/SHASUMS256.txt
+.../node_modules/hnswlib-node install: gyp http 200 https://nodejs.org/download/release/v26.7.0/SHASUMS256.txt
+.../node_modules/hnswlib-node install: gyp info spawn /opt/homebrew/opt/python@3.14/bin/python3.14
+.../node_modules/hnswlib-node install: gyp info spawn args [
+.../node_modules/hnswlib-node install: gyp info spawn args   '/opt/homebrew/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py',
+.../node_modules/hnswlib-node install: gyp info spawn args   'binding.gyp',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-f',
+.../node_modules/hnswlib-node install: gyp info spawn args   'make',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-I',
+.../node_modules/hnswlib-node install: gyp info spawn args   '/private<TEMP_ROOT>/checkout/node_modules/.pnpm/hnswlib-node@3.0.0/node_modules/hnswlib-node/build/config.gypi',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-I',
+.../node_modules/hnswlib-node install: gyp info spawn args   '/opt/homebrew/lib/node_modules/pnpm/dist/node_modules/node-gyp/addon.gypi',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-I',
+.../node_modules/hnswlib-node install: gyp info spawn args   '<USER_HOME>/Library/Caches/node-gyp/26.7.0/include/node/common.gypi',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Dlibrary=shared_library',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Dvisibility=default',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Dnode_root_dir=<USER_HOME>/Library/Caches/node-gyp/26.7.0',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Dnode_gyp_dir=/opt/homebrew/lib/node_modules/pnpm/dist/node_modules/node-gyp',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Dnode_lib_file=<USER_HOME>/Library/Caches/node-gyp/26.7.0/<(target_arch)/node.lib',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Dmodule_root_dir=/private<TEMP_ROOT>/checkout/node_modules/.pnpm/hnswlib-node@3.0.0/node_modules/hnswlib-node',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Dnode_engine=v8',
+.../node_modules/hnswlib-node install: gyp info spawn args   '--depth=.',
+.../node_modules/hnswlib-node install: gyp info spawn args   '--no-parallel',
+.../node_modules/hnswlib-node install: gyp info spawn args   '--generator-output',
+.../node_modules/hnswlib-node install: gyp info spawn args   'build',
+.../node_modules/hnswlib-node install: gyp info spawn args   '-Goutput_dir=.'
+.../node_modules/hnswlib-node install: gyp info spawn args ]
+.../node_modules/hnswlib-node install: gyp info spawn make
+.../node_modules/hnswlib-node install: gyp info spawn args [ 'BUILDTYPE=Release', '-C', 'build' ]
+.../node_modules/hnswlib-node install:   CXX(target) Release/obj.target/addon/src/addon.o
+.../node_modules/hnswlib-node install: In file included from ../src/addon.cc:29:
+.../node_modules/hnswlib-node install: In file included from ../src/hnswlib/hnswlib.h:227:
+.../node_modules/hnswlib-node install: ../src/hnswlib/bruteforce.h:111:27: warning: comparison of integers of different signs: 'int' and 'size_t' (aka 'unsigned long') [-Wsign-compare]
+.../node_modules/hnswlib-node install:   111 |         for (int i = 0; i < k; i++) {
+.../node_modules/hnswlib-node install:       |                         ~ ^ ~
+.../node_modules/hnswlib-node install: ../src/addon.cc:662:15: note: in instantiation of member function 'hnswlib::BruteforceSearch<float>::searchKnn' requested here
+.../node_modules/hnswlib-node install:   662 |       index_->searchKnn(reinterpret_cast<void*>(vec.data()), static_cast<size_t>(k), filterFn);
+.../node_modules/hnswlib-node install:       |               ^
+.../node_modules/hnswlib-node install: In file included from ../src/addon.cc:29:
+.../node_modules/hnswlib-node install: In file included from ../src/hnswlib/hnswlib.h:227:
+.../node_modules/hnswlib-node install: ../src/hnswlib/bruteforce.h:119:27: warning: comparison of integers of different signs: 'int' and 'const size_t' (aka 'const unsigned long') [-Wsign-compare]
+.../node_modules/hnswlib-node install:   119 |         for (int i = k; i < cur_element_count; i++) {
+.../node_modules/hnswlib-node install:       |                         ~ ^ ~~~~~~~~~~~~~~~~~
+.../node_modules/hnswlib-node install: 2 warnings generated.
+.../node_modules/hnswlib-node install:   SOLINK_MODULE(target) Release/addon.node
+.../node_modules/hnswlib-node install: gyp info ok 
+.../node_modules/hnswlib-node install: Done
+.../esbuild@0.27.7/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.27.7/node_modules/esbuild postinstall: Done
+.../sharp@0.32.6/node_modules/sharp install$ (node install/libvips && node install/dll-copy && prebuild-install) || (node install/can-compile && node-gyp rebuild && node install/dll-copy)
+.../sharp@0.32.6/node_modules/sharp install: sharp: Using cached <USER_HOME>/.npm/_libvips/libvips-8.14.5-darwin-arm64v8.tar.br
+.../sharp@0.32.6/node_modules/sharp install: sharp: Integrity check passed for darwin-arm64v8
+.../sharp@0.32.6/node_modules/sharp install: Done
+
+dependencies:
++ @xenova/transformers 2.17.2
++ cheerio 1.2.0
++ commander 14.0.3
++ hnswlib-node 3.0.0
++ natural 8.1.1
+
+devDependencies:
++ @types/node 22.19.17
++ tsx 4.21.0
++ typescript 5.9.3
+
+Done in 24.8s
+resolved @xenova/transformers 2.17.2
+resolved sharp 0.32.6
+resolved commander 14.0.3
+resolved ipaddr.js 2.4.0
+trackedGitStatus: clean
+exitCode: 0

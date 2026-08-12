@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "artduo-image-embedding-reproducibility-evidence.v1",
+  "releaseVersion": "2026-04-25-curation-b",
+  "generatedAt": "2026-08-12T13:23:16Z",
+  "execution": {
+    "commitSha": "054fd3bac93715401c5210fb0897a13f73a97bbb",
+    "treeSha": "705663ea9fdaddb1b9d9e790d34902912eea2890",
+    "trackedGitStatusBeforeRuns": "clean",
+    "untrackedPromotionArtifactsExcluded": true
+  },
+  "environment": {
+    "operatingSystem": "Darwin",
+    "architecture": "arm64",
+    "nodeVersion": "v26.7.0",
+    "pnpmVersion": "8.15.1"
+  },
+  "inputs": [
+    {
+      "path": "package.json",
+      "checksum": "sha256:2ef4dcdc708459cf453f70be668425773bdf00a7b7ad2a026a7fbc9d05500b18"
+    },
+    {
+      "path": "apps/pipeline/package.json",
+      "checksum": "sha256:cb9341d7b727ce8001f4616f786cc18791f80b69ed8ebd8f0bbb80eeb9074f58"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "checksum": "sha256:59122479019d1bdbebee032dbe2959dc064c8df225858fd18e40962b4d529cec"
+    },
+    {
+      "path": "data/releases/2026-04-25-curation-b/manifest.json",
+      "checksum": "sha256:d16e859a68abdab4c4c5bb5056fbe50a4a3efda18e40dd0097634c4c24e784c9"
+    },
+    {
+      "path": "data/curation/reports/image-embeddings/2026-04-25-curation-b/promotion-anchor-set.json",
+      "checksum": "sha256:ac7457edf4556c471d15126a5d9a3ea6feeb5fb44807b70c20b4eb02ad8cd257"
+    },
+    {
+      "path": "data/curation/reports/image-embeddings/2026-04-25-curation-b/image-embedding-report.json",
+      "checksum": "sha256:5f91c3d8b70088089c1e131e9d03d1d84b36af4450207896ce6f5b15751763f0"
+    }
+  ],
+  "runtimeArtifacts": {
+    "model": {
+      "id": "Xenova/clip-vit-base-patch32",
+      "revision": "d15189d7028b43f1d3e65039190477f6af591c2a",
+      "variant": "quantized",
+      "artifact": "onnx/vision_model_quantized.onnx",
+      "sizeBytes": 89117001,
+      "checksum": "sha256:583fd1110a514667812fee7d684952aaf82a99b959760c8d7dca7e0ab9839299"
+    },
+    "sourceCache": {
+      "schema": "artduo-image-source-cache.v1",
+      "fileCount": 540,
+      "aggregateAlgorithm": "sha256(concat(sortByRelativePath(fileSha256 + twoSpaces + relativePath + newline)))",
+      "aggregateChecksum": "sha256:9beecb7543048a3db1bef34e432913d6370b65e43d1fd476c4014532f74a6a1c",
+      "committed": false
+    }
+  },
+  "resolvedDependencies": {
+    "@xenova/transformers": "2.17.2",
+    "sharp": "0.32.6",
+    "commander": "14.0.3",
+    "ipaddr.js": "2.4.0"
+  },
+  "runs": [
+    {
+      "id": "normal-frozen-install",
+      "command": "pnpm install --frozen-lockfile --registry=https://registry.npmjs.org",
+      "isolation": "detached sparse checkout at execution.commitSha",
+      "nativeScriptsEnabled": true,
+      "assertions": [
+        "lockfile resolution completed",
+        "hnswlib-node native build completed",
+        "sharp@0.32.6 libvips integrity check passed",
+        "resolved dependency versions matched the lockfile",
+        "tracked Git status remained clean"
+      ],
+      "exitCode": 0,
+      "trackedGitStatusAfterRun": "clean",
+      "log": {
+        "path": "data/curation/reports/image-embeddings/2026-04-25-curation-b/reproducibility/normal-frozen-install.log",
+        "checksum": "sha256:b0d26229ebf3038e7a77d93692a7181bd191a5da477b628ee144d3478b842440"
+      }
+    },
+    {
+      "id": "offline-frozen-install",
+      "command": "pnpm install --frozen-lockfile --offline",
+      "isolation": "detached sparse checkout at execution.commitSha",
+      "nativeScriptsEnabled": true,
+      "assertions": [
+        "all packages restored without network access",
+        "resolved dependency versions matched the lockfile",
+        "tracked Git status remained clean"
+      ],
+      "exitCode": 0,
+      "trackedGitStatusAfterRun": "clean",
+      "log": {
+        "path": "data/curation/reports/image-embeddings/2026-04-25-curation-b/reproducibility/offline-frozen-install.log",
+        "checksum": "sha256:f3a0eab780a299173749ab410cf6ac2d4cd7114d8af66ce95b5cba751103a879"
+      }
+    },
+    {
+      "id": "real-provider-smoke",
+      "command": "ARTDUO_RUN_REAL_IMAGE_EMBEDDING_SMOKE=true pnpm --filter @artduo/pipeline exec tsx --test src/image-embedding-provider.real.test.ts",
+      "assertions": [
+        "one PNG and one JPEG decoded through the pinned provider",
+        "both outputs were 512-dimensional unit vectors",
+        "runtime artifact checksum and provider version matched the pins",
+        "one test passed with zero skipped tests"
+      ],
+      "exitCode": 0,
+      "trackedGitStatusAfterRun": "clean",
+      "log": {
+        "path": "data/curation/reports/image-embeddings/2026-04-25-curation-b/reproducibility/real-provider-smoke.log",
+        "checksum": "sha256:99d5149b0ee2684d60fa6dec41d45f4f2aaaedfd43e7da905f4e76a3e2a78c0b"
+      }
+    },
+    {
+      "id": "offline-shadow-rebuild",
+      "command": "pnpm image-embeddings:build -- --release-version 2026-04-25-curation-b --image-embedding-model Xenova/clip-vit-base-patch32 --image-embedding-model-revision d15189d7028b43f1d3e65039190477f6af591c2a --image-embedding-model-variant quantized --image-embedding-batch-size 8 --offline true --report-root <TEMP_REPORT_ROOT> --promotion-anchor-set data/curation/reports/image-embeddings/2026-04-25-curation-b/promotion-anchor-set.json",
+      "assertions": [
+        "candidate was rebuilt without source fetches",
+        "candidate declared checksum matched the online shadow build",
+        "candidate record count was 270",
+        "coverageReady was true",
+        "tracked Git status remained clean"
+      ],
+      "exitCode": 0,
+      "trackedGitStatusAfterRun": "clean",
+      "log": {
+        "path": "data/curation/reports/image-embeddings/2026-04-25-curation-b/reproducibility/offline-shadow-rebuild.log",
+        "checksum": "sha256:fc216df73d92c9ffe45dab8c8b36e3e11a1a719cfd15a9f80ba0212b9ae322d4"
+      }
+    }
+  ],
+  "outputs": {
+    "candidate": {
+      "committed": false,
+      "recordCount": 270,
+      "declaredChecksum": "sha256:0e7b459bab0e7e74ab98e2923139b42ce7cdf6083ab037651389eabec0fcb017",
+      "bytesChecksum": "sha256:320398aa8c1b9d124b716614eef4cbc4e617df7c5a76b8abeb855d38c44e2b39"
+    },
+    "offlineReport": {
+      "bytesChecksum": "sha256:9185f7c1675a78ba1915aacb20af120429fb172b9bb7af781403d99ae616eadd",
+      "coverageReady": true,
+      "controlledFailures": [
+        {
+          "entityType": "artwork",
+          "entityId": "met-195818",
+          "code": "offline-cache-miss"
+        }
+      ]
+    }
+  },
+  "promotionState": {
+    "promotionReady": false,
+    "task6Authorized": false,
+    "artworkHoldoutAccuracy": 0.6171759659043428,
+    "artworkHoldoutLowerConfidence": 0.597596,
+    "sceneTop3HitRate": 0.1836734693877551,
+    "sceneTop3LowerConfidence": 0.112245,
+    "humanReviewCompleted": 0,
+    "humanReviewRequired": 30
+  }
+}

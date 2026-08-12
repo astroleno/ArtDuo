@@ -1,0 +1,36 @@
+command: pnpm image-embeddings:build -- --release-version 2026-04-25-curation-b --image-embedding-model Xenova/clip-vit-base-patch32 --image-embedding-model-revision d15189d7028b43f1d3e65039190477f6af591c2a --image-embedding-model-variant quantized --image-embedding-batch-size 8 --offline true --report-root <TEMP_REPORT_ROOT> --promotion-anchor-set data/curation/reports/image-embeddings/2026-04-25-curation-b/promotion-anchor-set.json
+executionCommitSha: 054fd3bac93715401c5210fb0897a13f73a97bbb
+
+> artduo@ image-embeddings:build <WORKSPACE_ROOT>
+> pnpm --filter @artduo/pipeline build:image-embeddings "--" "--release-version" "2026-04-25-curation-b" "--image-embedding-model" "Xenova/clip-vit-base-patch32" "--image-embedding-model-revision" "d15189d7028b43f1d3e65039190477f6af591c2a" "--image-embedding-model-variant" "quantized" "--image-embedding-batch-size" "8" "--offline" "true" "--report-root" "<TEMP_ROOT>/report" "--promotion-anchor-set" "data/curation/reports/image-embeddings/2026-04-25-curation-b/promotion-anchor-set.json"
+
+
+> @artduo/pipeline@0.1.0 build:image-embeddings <WORKSPACE_ROOT>/apps/pipeline
+> pnpm run workspace:prepare && tsx src/build-image-embedding-shards.ts "--" "--release-version" "2026-04-25-curation-b" "--image-embedding-model" "Xenova/clip-vit-base-patch32" "--image-embedding-model-revision" "d15189d7028b43f1d3e65039190477f6af591c2a" "--image-embedding-model-variant" "quantized" "--image-embedding-batch-size" "8" "--offline" "true" "--report-root" "<TEMP_ROOT>/report" "--promotion-anchor-set" "data/curation/reports/image-embeddings/2026-04-25-curation-b/promotion-anchor-set.json"
+
+
+> @artduo/pipeline@0.1.0 workspace:prepare <WORKSPACE_ROOT>/apps/pipeline
+> pnpm --filter @artduo/contracts build && pnpm --filter @artduo/corpus build
+
+
+> @artduo/contracts@0.1.0 build <WORKSPACE_ROOT>/packages/contracts
+> tsc -p tsconfig.json
+
+
+> @artduo/corpus@0.1.0 build <WORKSPACE_ROOT>/packages/corpus
+> tsc -p tsconfig.json
+
+(node:51594) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+image embedding candidate: <TEMP_ROOT>/report/2026-04-25-curation-b/candidates/image-embeddings-01.json
+image embedding report: <TEMP_ROOT>/report/2026-04-25-curation-b/image-embedding-report.json
+records: 270
+coverage ready: true
+candidateDeclaredChecksum: sha256:0e7b459bab0e7e74ab98e2923139b42ce7cdf6083ab037651389eabec0fcb017
+candidateBytesChecksum: sha256:320398aa8c1b9d124b716614eef4cbc4e617df7c5a76b8abeb855d38c44e2b39
+candidateRecordCount: 270
+reportBytesChecksum: sha256:9185f7c1675a78ba1915aacb20af120429fb172b9bb7af781403d99ae616eadd
+coverageReady: true
+failures: [{"entityType":"artwork","entityId":"met-195818","code":"offline-cache-miss","message":"Image source could not be resolved (offline-cache-miss)."}]
+trackedGitStatus: clean
+exitCode: 0

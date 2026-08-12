@@ -1,0 +1,32 @@
+command: pnpm install --frozen-lockfile --offline
+executionCommitSha: 054fd3bac93715401c5210fb0897a13f73a97bbb
+Preparing worktree (detached HEAD 054fd3b)
+HEAD is now at 054fd3b docs(sidecar): record current promotion blockers
+Scope: all 7 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +195
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 195, reused 195, downloaded 0, added 192
+Progress: resolved 195, reused 195, downloaded 0, added 194
+Progress: resolved 195, reused 195, downloaded 0, added 195, done
+
+dependencies:
++ @xenova/transformers 2.17.2
++ cheerio 1.2.0
++ commander 14.0.3
++ hnswlib-node 3.0.0
++ natural 8.1.1
+
+devDependencies:
++ @types/node 22.19.17
++ tsx 4.21.0
++ typescript 5.9.3
+
+Done in 2.8s
+resolved @xenova/transformers 2.17.2
+resolved sharp 0.32.6
+resolved commander 14.0.3
+resolved ipaddr.js 2.4.0
+trackedGitStatus: clean
+exitCode: 0

@@ -1,0 +1,16 @@
+command: ARTDUO_RUN_REAL_IMAGE_EMBEDDING_SMOKE=true pnpm --filter @artduo/pipeline exec tsx --test src/image-embedding-provider.real.test.ts
+executionCommitSha: 054fd3bac93715401c5210fb0897a13f73a97bbb
+expectedArtifactChecksum: sha256:583fd1110a514667812fee7d684952aaf82a99b959760c8d7dca7e0ab9839299
+(node:50750) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ real image provider smoke embeds one PNG and one JPEG (987.000167ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1136.898375
+trackedGitStatus: clean
+exitCode: 0
