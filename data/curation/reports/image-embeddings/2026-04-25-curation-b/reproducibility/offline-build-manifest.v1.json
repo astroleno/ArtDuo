@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "artduo-image-embedding-offline-build-manifest.v1",
+  "releaseVersion": "2026-04-25-curation-b",
+  "executionCommitSha": "054fd3bac93715401c5210fb0897a13f73a97bbb",
+  "inputs": {
+    "baseManifestChecksum": "sha256:d16e859a68abdab4c4c5bb5056fbe50a4a3efda18e40dd0097634c4c24e784c9",
+    "promotionAnchorSetChecksum": "sha256:ac7457edf4556c471d15126a5d9a3ea6feeb5fb44807b70c20b4eb02ad8cd257",
+    "modelArtifactChecksum": "sha256:583fd1110a514667812fee7d684952aaf82a99b959760c8d7dca7e0ab9839299",
+    "sourceCacheAggregateChecksum": "sha256:9beecb7543048a3db1bef34e432913d6370b65e43d1fd476c4014532f74a6a1c"
+  },
+  "candidate": {
+    "recordCount": 270,
+    "sizeBytes": 2795463,
+    "declaredChecksum": "sha256:0e7b459bab0e7e74ab98e2923139b42ce7cdf6083ab037651389eabec0fcb017",
+    "bytesChecksum": "sha256:320398aa8c1b9d124b716614eef4cbc4e617df7c5a76b8abeb855d38c44e2b39"
+  },
+  "report": {
+    "bytesChecksum": "sha256:9185f7c1675a78ba1915aacb20af120429fb172b9bb7af781403d99ae616eadd",
+    "coverageReady": true,
+    "controlledFailures": [
+      {
+        "entityType": "artwork",
+        "entityId": "met-195818",
+        "code": "offline-cache-miss"
+      }
+    ]
+  }
+}

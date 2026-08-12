@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "artduo-image-embedding-reproducibility-bundle.v1",
+  "releaseVersion": "2026-04-25-curation-b",
+  "evidence": {
+    "path": "./evidence.v1.json",
+    "checksum": "sha256:ec5f132d80feb9319f52e17669f05ae345f5ff6a84e3905d758980739ec68a1b"
+  },
+  "offlineBuildManifest": {
+    "path": "./offline-build-manifest.v1.json",
+    "checksum": "sha256:c3e53a87f32f86d16b239cd2439b6b34a17e30013533869ab7f27de1e8788399"
+  },
+  "artifactRetention": {
+    "status": "local-only",
+    "task7Ready": false,
+    "immutableArtifacts": []
+  }
+}
