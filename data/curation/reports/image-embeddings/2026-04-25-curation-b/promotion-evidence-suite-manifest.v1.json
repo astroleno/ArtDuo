@@ -62,7 +62,7 @@
       "replay": {
         "schemaVersion": "image-embedding-evidence-suite.v2",
         "suiteType": "a2a-replay",
-        "suiteChecksum": "sha256:e8e9f0b10a01925a62658026976b4349db969a835f24213840329eab0f84a764",
+        "suiteChecksum": "sha256:b245d522e781d1fa1c8b9691c1c548833d0084e5e06e64325d88a47c5903ef90",
         "sourceFiles": [
           { "path": "apps/web/lib/affective-negotiation.ts", "checksum": "sha256:bbd369591d331bf24899e03f29c05eaea34edb919f95e03e338b5478b2ffda00" },
           { "path": "apps/web/lib/curation-narrative.ts", "checksum": "sha256:a41be2aeb0d4e59ad356a25b86dcc73d53245af8bc227011cc187b921e89cd82" },
@@ -71,7 +71,7 @@
           { "path": "apps/web/lib/hard-filter-evidence.ts", "checksum": "sha256:1ac3914d72ac1eb7f401dd50c9aa6d038f7cbecb8c9ce0fae17ab41356d991ed" },
           { "path": "apps/web/lib/release-catalog.ts", "checksum": "sha256:79cc44cd5a8a0554c4d2ca1be3bc247da82a9df4291895aeb51d4c7cbd640deb" },
           { "path": "packages/corpus/src/affect-ontology.ts", "checksum": "sha256:f3f6b6f6e2e97bc2bd5089faf5eef7b0d103358a60ff4e88f6333226d3a1b39a" },
-          { "path": "packages/corpus/src/affective-intent.ts", "checksum": "sha256:65b4423433ea790a2b067a8026830175e7e17516f33d020d2baf616ec758b2f3" },
+          { "path": "packages/corpus/src/affective-intent.ts", "checksum": "sha256:486b0b8a53b8cf3f4f242cf247f2bc867c09edf0ff81f11cad537b2edd179422" },
           { "path": "scripts/evaluate-intent-immersion.ts", "checksum": "sha256:760757d18f2217fe8ef876c2bda3722be61526cd96157f5b795cd9aad6af5a52" }
         ],
         "caseIds": [

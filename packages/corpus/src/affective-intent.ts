@@ -77,6 +77,7 @@ const NEGATIVE_SIGNAL_PATTERNS: Array<[RegExp, string[]]> = [
 ];
 
 const CHINESE_ACCEPTANCE_SPAN = /(?:不介意|不想避免|不(?:会)?(?:拒绝|避免)|不得不(?:面对|接受|看|观看)|不能不(?:面对|接受|看|观看)|不是不(?:接受|喜欢|面对|看|观看))[^，。,.!?；;]{0,10}?(?:明亮|亮|吵|吵闹|热闹|喧闹|悲伤|哀伤|忧伤|绝望|沉重|悲恸|剧情|戏剧|戏剧性)/gu;
+const RESISTANCE_CLAUSE_BOUNDARY = /[，。,.!?！？；;：:\n\r]+|(?:但(?:是)?|不过|然而)/u;
 
 const VISUAL_PREFERENCES: Array<[RegExp, string[]]> = [
   [/暗红|朱红|burgundy|carmine/u, ["burgundy"]],
@@ -131,9 +132,17 @@ function detectLanguageHints(sourceText: string): string[] {
   return hints.length > 0 ? hints : ["unknown"];
 }
 
-function collectResistances(normalized: string): AffectSignal[] {
-  const resistanceScope = normalized.replace(CHINESE_ACCEPTANCE_SPAN, (span) => " ".repeat(span.length));
-  const values = NEGATIVE_SIGNAL_PATTERNS.flatMap(([pattern, signals]) => pattern.test(resistanceScope) ? signals : []);
+function collectResistances(sourceText: string): AffectSignal[] {
+  const clauses = sourceText
+    .normalize("NFKC")
+    .toLowerCase()
+    .split(RESISTANCE_CLAUSE_BOUNDARY)
+    .map(normalizeQueryText)
+    .filter(Boolean);
+  const values = clauses.flatMap((clause) => {
+    const resistanceScope = clause.replace(CHINESE_ACCEPTANCE_SPAN, (span) => " ".repeat(span.length));
+    return NEGATIVE_SIGNAL_PATTERNS.flatMap(([pattern, signals]) => pattern.test(resistanceScope) ? signals : []);
+  });
 
   return unique(values).map((value) => signal("resistance", value, 0.88));
 }
@@ -335,7 +344,7 @@ export function buildUserAffectAgent(input: string): UserAffectAgent {
   const sourceText = input.trim();
   const normalized = normalizeQueryText(sourceText);
   const tokens = tokenizeQueryText(sourceText);
-  const resistances = collectResistances(normalized);
+  const resistances = collectResistances(sourceText);
   const desires = collectDesires(tokens, normalized, resistances);
   const temporalShape = buildTemporalShape(sourceText, desires);
 

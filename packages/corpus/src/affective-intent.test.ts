@@ -76,6 +76,31 @@ test("keeps a later hard resistance in the same Chinese clause", () => {
   assert.ok(values(agent.resistances).includes("heavy-grief"));
 });
 
+test("does not let an unrelated acceptance clause consume a later hard resistance", () => {
+  const cases = [
+    ["我不介意先看一会，但不要悲伤", "sadness"],
+    ["我不拒绝这种安排，但不要悲伤", "sadness"],
+    ["我不会拒绝这条路线，但不要绝望", "heavy-grief"],
+  ] as const;
+
+  for (const [query, expectedResistance] of cases) {
+    assert.ok(
+      values(buildUserAffectAgent(query).resistances).includes(expectedResistance),
+      `${query} should preserve ${expectedResistance}`,
+    );
+  }
+});
+
+test("keeps Chinese hard-resistance scope stable across clause boundaries", () => {
+  for (const separator of ["，", "。", "；", "！", "\n", "但", "但是", "不过"]) {
+    const agent = buildUserAffectAgent(`我不介意先看一会${separator}不要悲伤`);
+    assert.ok(
+      values(agent.resistances).includes("sadness"),
+      `${JSON.stringify(separator)} should preserve the clause boundary`,
+    );
+  }
+});
+
 test("keeps joy while rejecting cartoonish happiness", () => {
   const agent = buildUserAffectAgent("I want joy but not cartoonish happiness");
 
