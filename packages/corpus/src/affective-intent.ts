@@ -67,17 +67,31 @@ const DESIRE_TOKENS = new Set([
   "yearning",
 ]);
 
-const NEGATIVE_SIGNAL_PATTERNS: Array<[RegExp, string[]]> = [
-  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(明亮|亮|bright)|\b(not too|not|no)\s+bright\b/u, ["bright"]],
-  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(吵|吵闹|热闹|喧闹)|\b(not|no)\s+loud\b/u, ["loud"]],
-  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(悲伤|哀伤|忧伤)|(?:^|[^得是])不(?:悲伤|哀伤|忧伤)|\b(not|no)\s+(sad|sadness|sorrow)\b/u, ["sadness"]],
-  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,10}(绝望|沉重|悲恸)|(?:^|[^得是])不(?:绝望|沉重|悲恸)|\b(not|no)\s+(grief|despair|heavy grief)\b/u, ["heavy-grief"]],
+const ENGLISH_NEGATIVE_SIGNAL_PATTERNS: Array<[RegExp, string[]]> = [
+  [/\b(not too|not|no)\s+bright\b/u, ["bright"]],
+  [/\b(not|no)\s+loud\b/u, ["loud"]],
+  [/\b(not|no)\s+(sad|sadness|sorrow)\b/u, ["sadness"]],
+  [/\b(not|no)\s+(grief|despair|heavy grief)\b/u, ["heavy-grief"]],
   [/\bnot\s+cartoonish\b|\bno\s+cartoonish\b/u, ["cartoonish"]],
-  [/(不要|别|不想|不能|避免|拒绝)[^，。,.!?；;]{0,12}(剧情|戏剧|戏剧性)|\bnot\s+(dramatic|drama)\b|\bno\s+(dramatic|drama)\b/u, ["heavy-drama"]],
+  [/\bnot\s+(dramatic|drama)\b|\bno\s+(dramatic|drama)\b/u, ["heavy-drama"]],
 ];
 
-const CHINESE_ACCEPTANCE_SPAN = /(?:不介意|不想避免|不(?:会)?(?:拒绝|避免)|不得不(?:面对|接受|看|观看)|不能不(?:面对|接受|看|观看)|不是不(?:接受|喜欢|面对|看|观看))[^，。,.!?；;]{0,10}?(?:明亮|亮|吵|吵闹|热闹|喧闹|悲伤|哀伤|忧伤|绝望|沉重|悲恸|剧情|戏剧|戏剧性)/gu;
-const RESISTANCE_CLAUSE_BOUNDARY = /[，。,.!?！？；;：:\n\r]+|(?:但(?:是)?|不过|然而)/u;
+const CHINESE_RESISTANCE_TARGETS: Array<[RegExp, string[]]> = [
+  [/(?:明亮|亮|bright)/u, ["bright"]],
+  [/(?:吵闹|热闹|喧闹|吵)/u, ["loud"]],
+  [/(?:悲伤|哀伤|忧伤)/u, ["sadness"]],
+  [/(?:绝望|沉重|悲恸)/u, ["heavy-grief"]],
+  [/(?:剧情|戏剧性|戏剧)/u, ["heavy-drama"]],
+];
+
+const CHINESE_DIRECT_NEGATION_PATTERNS: Array<[RegExp, string[]]> = [
+  [/(?:^|[^得是能])不(?:悲伤|哀伤|忧伤)/u, ["sadness"]],
+  [/(?:^|[^得是能])不(?:绝望|沉重|悲恸)/u, ["heavy-grief"]],
+];
+
+const CHINESE_RESISTANCE_OPERATOR = /不要|不想|不能|避免|拒绝|别/gu;
+const CHINESE_DIRECT_OBJECT_PREFIX = /^(?:(?:请|只|都|再|要|有|太多|太|过于|过度|任何|一切|所有|这种|那种|这些|那些|有些|一些|一点点|一点|给我|给人|给|带有|带来|带|包含|充满|呈现|出现|显得|看到|看见|观看|看|接受|面对|感受|接触|选择|让我|让人|使我|令人|的))*$/u;
+const MAX_CHINESE_DIRECT_OBJECT_LENGTH = 12;
 
 const VISUAL_PREFERENCES: Array<[RegExp, string[]]> = [
   [/暗红|朱红|burgundy|carmine/u, ["burgundy"]],
@@ -132,17 +146,59 @@ function detectLanguageHints(sourceText: string): string[] {
   return hints.length > 0 ? hints : ["unknown"];
 }
 
-function collectResistances(sourceText: string): AffectSignal[] {
-  const clauses = sourceText
-    .normalize("NFKC")
-    .toLowerCase()
-    .split(RESISTANCE_CLAUSE_BOUNDARY)
-    .map(normalizeQueryText)
-    .filter(Boolean);
-  const values = clauses.flatMap((clause) => {
-    const resistanceScope = clause.replace(CHINESE_ACCEPTANCE_SPAN, (span) => " ".repeat(span.length));
-    return NEGATIVE_SIGNAL_PATTERNS.flatMap(([pattern, signals]) => pattern.test(resistanceScope) ? signals : []);
-  });
+function operatorIsNegated(sourceText: string, operator: string, operatorIndex: number): boolean {
+  const prefix = sourceText.slice(0, operatorIndex).trimEnd();
+  const directObject = sourceText.slice(operatorIndex + operator.length);
+  if (operator === "不能" && /^\s*不/u.test(directObject)) {
+    return true;
+  }
+  if (operator !== "避免" && operator !== "拒绝") {
+    return false;
+  }
+  if (/(?:不得不|不能不|不是不)$/u.test(prefix)) {
+    return false;
+  }
+  return /(?:不|不会|不想|不愿|并不|从不)$/u.test(prefix);
+}
+
+function targetIsDirectObject(sourceText: string, startIndex: number, target: RegExp): boolean {
+  const tail = sourceText.slice(startIndex, startIndex + MAX_CHINESE_DIRECT_OBJECT_LENGTH);
+  const match = target.exec(tail);
+  if (!match || match.index === undefined) {
+    return false;
+  }
+  const prefix = tail.slice(0, match.index).replace(/\s+/gu, "");
+  return CHINESE_DIRECT_OBJECT_PREFIX.test(prefix);
+}
+
+function collectChineseResistances(sourceText: string): string[] {
+  const values = CHINESE_DIRECT_NEGATION_PATTERNS
+    .flatMap(([pattern, signals]) => pattern.test(sourceText) ? signals : []);
+
+  for (const match of sourceText.matchAll(CHINESE_RESISTANCE_OPERATOR)) {
+    const operator = match[0];
+    const operatorIndex = match.index;
+    if (operatorIndex === undefined || operatorIsNegated(sourceText, operator, operatorIndex)) {
+      continue;
+    }
+    values.push(
+      ...CHINESE_RESISTANCE_TARGETS
+        .flatMap(([pattern, signals]) => (
+          targetIsDirectObject(sourceText, operatorIndex + operator.length, pattern) ? signals : []
+        )),
+    );
+  }
+
+  return values;
+}
+
+function collectResistances(sourceText: string, normalized: string): AffectSignal[] {
+  const source = sourceText.normalize("NFKC").toLowerCase();
+  const values = [
+    ...collectChineseResistances(source),
+    ...ENGLISH_NEGATIVE_SIGNAL_PATTERNS
+      .flatMap(([pattern, signals]) => pattern.test(normalized) ? signals : []),
+  ];
 
   return unique(values).map((value) => signal("resistance", value, 0.88));
 }
@@ -344,7 +400,7 @@ export function buildUserAffectAgent(input: string): UserAffectAgent {
   const sourceText = input.trim();
   const normalized = normalizeQueryText(sourceText);
   const tokens = tokenizeQueryText(sourceText);
-  const resistances = collectResistances(sourceText);
+  const resistances = collectResistances(sourceText, normalized);
   const desires = collectDesires(tokens, normalized, resistances);
   const temporalShape = buildTemporalShape(sourceText, desires);
 

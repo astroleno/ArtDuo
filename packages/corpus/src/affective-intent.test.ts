@@ -101,6 +101,30 @@ test("keeps Chinese hard-resistance scope stable across clause boundaries", () =
   }
 });
 
+test("keeps hard resistance after unpunctuated connectors and Unicode separators", () => {
+  for (const separator of ["也", "然后", "最后", "并且", "而且", "—", "——", "／", "｜"]) {
+    const agent = buildUserAffectAgent(`我不介意先看一会${separator}不要悲伤`);
+    assert.ok(
+      values(agent.resistances).includes("sadness"),
+      `${JSON.stringify(separator)} should stop acceptance scope`,
+    );
+  }
+});
+
+test("binds a Chinese resistance operator only to its direct affect object", () => {
+  for (const query of [
+    "我拒绝这种安排也喜欢悲伤",
+    "我避免这条路线然后接受悲伤",
+    "我不想这种构图最后面对绝望",
+  ]) {
+    assert.deepEqual(
+      values(buildUserAffectAgent(query).resistances),
+      [],
+      `${query} should not turn an unrelated object into a hard resistance`,
+    );
+  }
+});
+
 test("keeps joy while rejecting cartoonish happiness", () => {
   const agent = buildUserAffectAgent("I want joy but not cartoonish happiness");
 
