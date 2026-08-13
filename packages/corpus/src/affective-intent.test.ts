@@ -125,6 +125,59 @@ test("binds a Chinese resistance operator only to its direct affect object", () 
   }
 });
 
+test("does not treat bie inside tebie as a resistance operator", () => {
+  for (const query of [
+    "我想看特别悲伤的作品",
+    "给我特别明亮的画",
+    "我喜欢特别戏剧性的作品",
+    "我想看特别吵闹的场景",
+    "我能接受特别绝望的作品",
+  ]) {
+    assert.deepEqual(
+      values(buildUserAffectAgent(query).resistances),
+      [],
+      `${query} should remain a positive request`,
+    );
+  }
+});
+
+test("accepts bounded degree modifiers between a resistance operator and its target", () => {
+  const cases = [
+    ["不要很悲伤", "heavy-grief"],
+    ["不要那么悲伤", "heavy-grief"],
+    ["不要太过明亮", "bright"],
+    ["避免非常绝望", "heavy-grief"],
+    ["拒绝过分戏剧性", "heavy-drama"],
+  ] as const;
+
+  for (const [query, expectedResistance] of cases) {
+    const resistances = values(buildUserAffectAgent(query).resistances);
+    assert.ok(
+      resistances.includes(expectedResistance),
+      `${query} should create ${expectedResistance} resistance`,
+    );
+    if (expectedResistance === "heavy-grief" && /悲伤/u.test(query)) {
+      assert.ok(
+        !resistances.includes("sadness"),
+        `${query} should preserve lower-intensity melancholy`,
+      );
+    }
+  }
+});
+
+test("does not treat a direct affect negation inside a negated wish as resistance", () => {
+  for (const query of [
+    "不想不悲伤",
+    "我不希望不悲伤",
+    "我不愿不悲伤",
+  ]) {
+    assert.ok(
+      !values(buildUserAffectAgent(query).resistances).includes("sadness"),
+      `${query} should not create sadness resistance`,
+    );
+  }
+});
+
 test("keeps joy while rejecting cartoonish happiness", () => {
   const agent = buildUserAffectAgent("I want joy but not cartoonish happiness");
 
