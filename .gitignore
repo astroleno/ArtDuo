@@ -189,6 +189,10 @@ playwright-report/
 # Local Codex artifacts
 .codex/
 
+# Local evaluation outputs and environment notes
+output/
+env.md
+
 # Isolated agent worktrees
 .worktrees/
 
