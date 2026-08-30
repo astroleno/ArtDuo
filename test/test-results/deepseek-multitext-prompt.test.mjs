@@ -6,6 +6,8 @@ import {
   MULTITEXT_PROMPT_VARIANTS,
   buildMultitextPrompt,
   buildMultitextRepairPrompt,
+  classifyMultitextRiskProfile,
+  classifyMultitextTask,
   collectV31GuardIssues,
   gradeMultitextOutput,
   parseMultitextOutput,
@@ -20,7 +22,7 @@ test("matrix contains four cases in each requested text category", () => {
 });
 
 test("source-isolated prompt adapts its JSON contract to each category", () => {
-  assert.deepEqual(MULTITEXT_PROMPT_VARIANTS, ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3", "source-isolated-v3.1"]);
+  assert.deepEqual(MULTITEXT_PROMPT_VARIANTS, ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3", "source-isolated-v3.1", "task-routed-v4", "task-routed-v4.1", "task-routed-v4.2"]);
   for (const item of MULTITEXT_CASES) {
     const prompt = buildMultitextPrompt(item, "source-isolated-v1");
     assert.match(prompt, /只返回一个 JSON 对象/);
@@ -28,6 +30,104 @@ test("source-isolated prompt adapts its JSON contract to each category", () => {
     assert.match(prompt, new RegExp(item.output.fields[0]));
     assert.ok(prompt.length < 8000);
   }
+});
+
+test("task router separates emotion, artwork, preface, and closing requests", () => {
+  const routes = Object.fromEntries(MULTITEXT_CASES.map((item) => [item.id, classifyMultitextTask(item)]));
+
+  assert.equal(routes.emotion_relief_guilt, "emotion_response");
+  assert.equal(routes.art_rich_contrast, "artwork_intro");
+  assert.equal(routes.preface_repair, "exhibition_preface");
+  assert.equal(routes.preface_incomplete_archive, "exhibition_preface");
+  assert.equal(routes.closing_night_photos, "exhibition_closing");
+  assert.equal(routes.closing_memorial_objects, "exhibition_closing");
+});
+
+test("task-routed v4 sends only the selected task contract", () => {
+  const emotion = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "emotion_relief_guilt"), "task-routed-v4");
+  const artwork = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "art_uncertain_attribution"), "task-routed-v4");
+  const preface = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "preface_repair"), "task-routed-v4");
+  const closing = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "closing_memorial_objects"), "task-routed-v4");
+
+  assert.match(emotion, /task_type="emotion_response"/);
+  assert.match(artwork, /task_type="artwork_intro"/);
+  assert.match(preface, /task_type="exhibition_preface"/);
+  assert.match(closing, /task_type="exhibition_closing"/);
+  assert.doesNotMatch(emotion, /作品介绍规则|前言规则|结语规则/);
+  assert.doesNotMatch(artwork, /情感回应规则|前言规则|结语规则/);
+  assert.doesNotMatch(preface, /情感回应规则|作品介绍规则|结语规则/);
+  assert.doesNotMatch(closing, /情感回应规则|作品介绍规则|前言规则/);
+});
+
+test("task-routed v4 is shorter than the current recommended hybrid without dropping high-risk guards", () => {
+  for (const item of MULTITEXT_CASES) {
+    const baseline = buildMultitextPrompt(item, "source-isolated-v3");
+    const routed = buildMultitextPrompt(item, "task-routed-v4");
+    assert.ok(routed.length < baseline.length, `${item.id}: ${routed.length} should be shorter than ${baseline.length}`);
+  }
+
+  const night = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "closing_night_photos"), "task-routed-v4");
+  const memorial = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "closing_memorial_objects"), "task-routed-v4");
+  assert.match(night, /照片中人物的身份/);
+  assert.doesNotMatch(night, /拍摄者身份|摄影者身份/);
+  assert.match(memorial, /不预测.*心理.*精神结果/);
+  assert.match(memorial, /停留或离开/);
+});
+
+test("task-routed v4.1 adds route-specific length plans and remains smaller than v3", () => {
+  const expectedPlans = {
+    emotion_relief_guilt: /response 写65–85字、两句/,
+    emotion_neutral_now: /response 写14–28字/,
+    art_sparse_untitled: /introduction 写125–160字、四句/,
+    preface_repair: /text 写155–170字、五句/,
+    closing_night_photos: /text 写130–145字、五句/,
+    preface_incomplete_archive: /text 写155–170字、五句/,
+    closing_memorial_objects: /text 写140–155字、五句/,
+  };
+
+  for (const [id, pattern] of Object.entries(expectedPlans)) {
+    const item = MULTITEXT_CASES.find((entry) => entry.id === id);
+    const prompt = buildMultitextPrompt(item, "task-routed-v4.1");
+    assert.match(prompt, pattern);
+    if (item.category === "framing_text") {
+      assert.ok(prompt.length < buildMultitextPrompt(item, "source-isolated-v3").length - 300);
+    }
+  }
+
+  const baselineChars = MULTITEXT_CASES.reduce((sum, item) => sum + buildMultitextPrompt(item, "source-isolated-v3").length, 0);
+  const routedChars = MULTITEXT_CASES.reduce((sum, item) => sum + buildMultitextPrompt(item, "task-routed-v4.1").length, 0);
+  assert.ok(routedChars < baselineChars * 0.8);
+});
+
+test("v4.2 risk profiler distinguishes explicit emotion, described artwork, uncertain records, and archive fragments", () => {
+  const profile = (id) => classifyMultitextRiskProfile(MULTITEXT_CASES.find((item) => item.id === id));
+
+  assert.equal(profile("emotion_apology_anger"), "explicit_emotions_only");
+  assert.equal(profile("art_rich_contrast"), "described_artwork");
+  assert.equal(profile("art_uncertain_attribution"), "uncertain_attribution");
+  assert.equal(profile("preface_incomplete_archive"), "archive_record_fragments");
+});
+
+test("task-routed v4.2 isolates the three observed semantic failure families", () => {
+  const apology = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "emotion_apology_anger"), "task-routed-v4.2");
+  const artwork = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "art_rich_contrast"), "task-routed-v4.2");
+  const archive = buildMultitextPrompt(MULTITEXT_CASES.find((item) => item.id === "preface_incomplete_archive"), "task-routed-v4.2");
+
+  assert.match(apology, /只允许：道歉发生、道歉后更生气、原因未知/);
+  assert.match(apology, /委屈、不甘、困惑、等待、平复/);
+  assert.match(artwork, /作者状态=已知：北斋/);
+  assert.match(artwork, /约1835年=作品年代/);
+  assert.match(archive, /实体单位=馆藏记录/);
+  assert.match(archive, /作品是否存世或可见=未知/);
+
+  const riskItems = [
+    MULTITEXT_CASES.find((entry) => entry.id === "emotion_apology_anger"),
+    MULTITEXT_CASES.find((entry) => entry.id === "art_rich_contrast"),
+    MULTITEXT_CASES.find((entry) => entry.id === "preface_incomplete_archive"),
+  ];
+  const baselineChars = riskItems.reduce((sum, item) => sum + buildMultitextPrompt(item, "source-isolated-v3").length, 0);
+  const routedChars = riskItems.reduce((sum, item) => sum + buildMultitextPrompt(item, "task-routed-v4.2").length, 0);
+  assert.ok(routedChars < baselineChars * 0.85);
 });
 
 test("source-isolated v2 adds category-specific anti-invention checks", () => {

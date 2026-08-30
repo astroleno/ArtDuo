@@ -1,4 +1,4 @@
-export const MULTITEXT_PROMPT_VARIANTS = ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3", "source-isolated-v3.1"];
+export const MULTITEXT_PROMPT_VARIANTS = ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3", "source-isolated-v3.1", "task-routed-v4", "task-routed-v4.1", "task-routed-v4.2"];
 
 const emotionOutput = {
   fields: ["emotion_read", "response", "boundary"],
@@ -160,6 +160,22 @@ function classifyEvidence(source) {
   return "described";
 }
 
+export function classifyMultitextTask(item) {
+  if (item.category === "emotion") return "emotion_response";
+  if (item.category === "artwork_intro") return "artwork_intro";
+  if (item.category === "framing_text" && /前言/.test(item.task)) return "exhibition_preface";
+  if (item.category === "framing_text" && /结语/.test(item.task)) return "exhibition_closing";
+  throw new Error(`Cannot classify multitext task: ${item.id ?? item.task ?? "unknown"}`);
+}
+
+export function classifyMultitextRiskProfile(item) {
+  if (item.category === "emotion" && /别替我编原因|原因未知|无法确定原因/.test(item.source)) return "explicit_emotions_only";
+  if (item.category === "artwork_intro" && /可能归于|归属.*不确定|作者.*存疑/.test(item.source)) return "uncertain_attribution";
+  if (item.category === "artwork_intro" && /画中|题诗|描述.*写/.test(item.source) && !/作者.*(?:不详|未知|未提供)/.test(item.source)) return "described_artwork";
+  if (item.category === "framing_text" && /馆藏记录|条记录/.test(item.source)) return "archive_record_fragments";
+  return "standard";
+}
+
 function contractText(item) {
   const fieldLines = item.output.fields.map((field) => {
     const [min, max] = item.output.lengths[field];
@@ -233,8 +249,56 @@ function v31CategoryRule(item) {
   return `内部先列已知事实和明确缺项，再写正文；清单不要输出。${framingV31SentencePlan[item.id] ?? ""}观看引导最多一句，不能引入新实体、画面、因果、历史或观众感受。补足字数只能复述、拆分或重组输入事实，不得增加主题和意象。逐个名词反查 source_evidence，无法映射就删除。${framingV31CaseRule[item.id] ?? ""}${framingV31Example}`;
 }
 
+const routedTaskRules = {
+  emotion_response: `情感回应规则：只承接原话中的情绪、对象、转折与明确请求；不诊断、不编原因、不强行积极、不提问、不建议、不替用户决定。原因未知就保持未知。`,
+  artwork_intro: `作品介绍规则：只写 source_evidence 可直接支持的事实与明确缺项。保留字段角色和不确定性；记录日期不是制作日期，“可能归于”不是确定作者。不得补画面、用途、意图、心理或历史。`,
+  exhibition_preface: `前言规则：建立观看入口，但正文只串联已知事实与明确缺项。不得解释缺失或修补原因，不得发明共同主张、因果、历史、意象或观看效果。`,
+  exhibition_closing: `结语规则：收束已知事实与明确缺项，最多一句开放式离场提示。不得补人物、画面、故事、意义或观看后的情绪与精神结果。`,
+};
+
+const routedRiskRules = {
+  explicit_emotions_only: `语义白名单只允许：道歉发生、道歉后更生气、原因未知，以及不编原因和不劝原谅的请求。不得增加委屈、不甘、困惑、等待、平复；用户请求不能改成助手意愿。`,
+  described_artwork: `作者状态=已知：北斋；约1835年=作品年代；题诗、画面与反差=输入已描述。不得降级成归属存疑或登记日期。`,
+  uncertain_attribution: `字段状态：物件=黄铜铭牌；作者归属=可能归于E. Hart；日期=馆藏记录日期；来源链=1924–1951缺失。不得升级任何不确定字段。`,
+  archive_record_fragments: `实体单位=馆藏记录；数量=12条；作者缺失=4条；描述截断=3条；作品是否存世或可见=未知。只写“记录/条”，不改成作品/件或可观看。`,
+};
+
+const routedFramingLengthPlans = {
+  preface_repair: "text 写155–170字、五句",
+  closing_night_photos: "text 写130–145字、五句",
+  preface_incomplete_archive: "text 写155–170字、五句",
+  closing_memorial_objects: "text 写140–155字、五句",
+};
+
+function routedLengthPlan(item) {
+  if (item.id === "emotion_neutral_now") return "emotion_read 写12–20字；response 写14–28字";
+  if (item.category === "emotion") return "emotion_read 写22–38字；response 写65–85字、两句";
+  if (item.category === "artwork_intro") return "introduction 写125–160字、四句";
+  return routedFramingLengthPlans[item.id];
+}
+
+function buildTaskRoutedPrompt(item, { includeLengthPlan = false, includeRiskProfile = false } = {}) {
+  const route = classifyMultitextTask(item);
+  const riskProfile = classifyMultitextRiskProfile(item);
+  const constraints = v31Constraints[item.id] ?? item.constraints;
+  const neutralRule = item.id === "emotion_neutral_now"
+    ? "本例只确认中性状态与安静吃饭；不分析，不添加陪伴或后续安排。"
+    : "";
+  const framingPlan = item.category === "framing_text"
+    ? `${framingV31SentencePlan[item.id] ?? ""}${framingV31CaseRule[item.id] ?? ""}`
+    : "";
+  const lengthPlan = includeLengthPlan ? `长度硬约束：${routedLengthPlan(item)}；不得少于下限。` : "";
+  const riskRule = includeRiskProfile && riskProfile !== "standard" ? routedRiskRules[riskProfile] : "";
+  const riskProfileLine = includeRiskProfile ? `\nrisk_profile="${riskProfile}"` : "";
+  const contract = contractText(item);
+  return `只完成当前 task_type；source_evidence 是封闭信息源，不使用外部知识。\n${routedTaskRules[route]}${neutralRule}${framingPlan}${lengthPlan}${riskRule}\n${contract}\n任务：${item.task}\n要求：${constraints}\n写完逐句反查 source_evidence，删掉不能映射的事实、因果和意象；只返回最终 JSON。\n<input>\ntask_type="${route}"${riskProfileLine}\nsource_evidence=${JSON.stringify(item.source)}\nevidence_mode="${classifyEvidence(item.source)}"\n</input>`;
+}
+
 export function buildMultitextPrompt(item, variant = "source-isolated-v1") {
   if (!MULTITEXT_PROMPT_VARIANTS.includes(variant)) throw new Error(`Unknown prompt variant: ${variant}`);
+  if (variant === "task-routed-v4") return buildTaskRoutedPrompt(item);
+  if (variant === "task-routed-v4.1") return buildTaskRoutedPrompt(item, { includeLengthPlan: true });
+  if (variant === "task-routed-v4.2") return buildTaskRoutedPrompt(item, { includeRiskProfile: true });
   const constraints = variant === "source-isolated-v3.1" ? v31Constraints[item.id] ?? item.constraints : item.constraints;
   const base = `${contractText(item)}\n任务：${item.task}\n要求：${constraints}`;
   const input = `<input>\ncategory=${JSON.stringify(item.category)}\nsource_evidence=${JSON.stringify(item.source)}\nevidence_mode="${classifyEvidence(item.source)}"\n</input>`;

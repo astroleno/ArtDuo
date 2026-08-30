@@ -1,0 +1,4225 @@
+{
+  "schemaVersion": "1.0",
+  "runId": 1788100693838,
+  "objective": "Verify DeepSeek V4 Flash source-isolated prompt across emotion, artwork introductions, and framing text",
+  "startedAt": "2026-08-30T14:38:13.838Z",
+  "model": "deepseek-v4-flash",
+  "thinking": "disabled",
+  "maxTokens": 2048,
+  "repeatCount": 8,
+  "concurrency": 4,
+  "variants": [
+    "task-routed-v4",
+    "task-routed-v4.2"
+  ],
+  "caseIds": [
+    "emotion_apology_anger",
+    "art_rich_contrast",
+    "preface_incomplete_archive"
+  ],
+  "runs": [
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 193,
+      "firstThinkingMs": null,
+      "firstTextMs": 477,
+      "totalMs": 1179,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 78
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到愤怒升级，道歉反而加重了情绪，但原因未明。\",\n  \"response\": \"你道歉后更生气，这份愤怒是真实的。我不会猜测原因，也不会劝你原谅。此刻你的情绪就是如此，我先接住它。\",\n  \"boundary\": \"未提供愤怒原因，保持未知。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到愤怒升级，道歉反而加重了情绪，但原因未明。",
+        "response": "你道歉后更生气，这份愤怒是真实的。我不会猜测原因，也不会劝你原谅。此刻你的情绪就是如此，我先接住它。",
+        "boundary": "未提供愤怒原因，保持未知。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 50,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 24,
+          "response": 50,
+          "boundary": 13
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 197,
+      "firstThinkingMs": null,
+      "firstTextMs": 697,
+      "totalMs": 1947,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 136
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，作者可能是北斋。画中描绘了雪地里的猎人围坐在大火旁，动作显得热闹。画面题诗却书写了山村冬日的孤独，以及人与草木一同凋零的意境。文字与画面形成了鲜明的反差，既展现了冬日山村的景象，又透露出一种寂寥的氛围。\",\n  \"evidence_boundary\": \"证据仅支持约1835年、可能为北斋、木版画、雪地猎人围火、题诗内容及文字与画面的反差，不涉及具体尺寸、收藏地或确切作者身份。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，作者可能是北斋。画中描绘了雪地里的猎人围坐在大火旁，动作显得热闹。画面题诗却书写了山村冬日的孤独，以及人与草木一同凋零的意境。文字与画面形成了鲜明的反差，既展现了冬日山村的景象，又透露出一种寂寥的氛围。",
+        "evidence_boundary": "证据仅支持约1835年、可能为北斋、木版画、雪地猎人围火、题诗内容及文字与画面的反差，不涉及具体尺寸、收藏地或确切作者身份。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "evidence_boundary",
+            "actual": 62,
+            "expected": [
+              15,
+              55
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 116,
+          "evidence_boundary": 62
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 285,
+      "firstThinkingMs": null,
+      "firstTextMs": 538,
+      "totalMs": 1322,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 105
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列包含12条馆藏记录，年代跨度自1880年至1972年，涉及油画、照片和印刷品三类媒介。其中4条记录的作者信息缺失，3条描述在句中截断。这些缺项作为现有资料状态予以保留。在此，仅能观看现有记录的完整部分。\",\n  \"evidence_boundary\": \"仅呈现来源中列出的12条记录、年代与媒介范围，以及作者缺失和描述截断的事实。\"\n}",
+      "parsed": {
+        "text": "本次陈列包含12条馆藏记录，年代跨度自1880年至1972年，涉及油画、照片和印刷品三类媒介。其中4条记录的作者信息缺失，3条描述在句中截断。这些缺项作为现有资料状态予以保留。在此，仅能观看现有记录的完整部分。",
+        "evidence_boundary": "仅呈现来源中列出的12条记录、年代与媒介范围，以及作者缺失和描述截断的事实。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 105,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 105,
+          "evidence_boundary": 38
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 211,
+      "firstThinkingMs": null,
+      "firstTextMs": 620,
+      "totalMs": 1361,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 80
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"听到道歉后怒火不降反升，这种转折让人困惑又无力。\",\n  \"response\": \"你因为他终于道歉而更生气，这种感受是真实的，我不去猜测原因，也不劝你原谅，只陪你待在这份情绪里。\",\n  \"boundary\": \"未提及愤怒来源，未涉及是否原谅。\"\n}",
+      "parsed": {
+        "emotion_read": "听到道歉后怒火不降反升，这种转折让人困惑又无力。",
+        "response": "你因为他终于道歉而更生气，这种感受是真实的，我不去猜测原因，也不劝你原谅，只陪你待在这份情绪里。",
+        "boundary": "未提及愤怒来源，未涉及是否原谅。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 48,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 24,
+          "response": 48,
+          "boundary": 16
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 208,
+      "firstThinkingMs": null,
+      "firstTextMs": 644,
+      "totalMs": 1475,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 101
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画创作于约1835年，作者是北斋。画中描绘了雪地中的猎人，他们围着一堆大火，动作显得热闹。然而，画上的题诗却写着山村冬日的孤独加深，人与草木一同凋零。文字与画面形成了鲜明的反差。\",\n  \"evidence_boundary\": \"创作年份为约1835年，作者为北斋；画面内容和题诗内容基于现有证据。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画创作于约1835年，作者是北斋。画中描绘了雪地中的猎人，他们围着一堆大火，动作显得热闹。然而，画上的题诗却写着山村冬日的孤独加深，人与草木一同凋零。文字与画面形成了鲜明的反差。",
+        "evidence_boundary": "创作年份为约1835年，作者为北斋；画面内容和题诗内容基于现有证据。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 93,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 93,
+          "evidence_boundary": 34
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 135,
+      "firstThinkingMs": null,
+      "firstTextMs": 878,
+      "totalMs": 1953,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 109
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列呈现十二件馆藏记录，时间跨度自一八八零年至一九七二年，涵盖油画、照片与印刷品三类媒介。其中四条记录未注明作者，三条记录的描述文字在句中截断。这些缺失与不完整之处，如实反映了现有资料的保存状态。观者仅可依据现存记录，观看这些档案残片。\",\n  \"evidence_boundary\": \"仅依据馆藏记录本身的信息，不额外推测缺失原因或补充未记载内容。\"\n}",
+      "parsed": {
+        "text": "本次陈列呈现十二件馆藏记录，时间跨度自一八八零年至一九七二年，涵盖油画、照片与印刷品三类媒介。其中四条记录未注明作者，三条记录的描述文字在句中截断。这些缺失与不完整之处，如实反映了现有资料的保存状态。观者仅可依据现存记录，观看这些档案残片。",
+        "evidence_boundary": "仅依据馆藏记录本身的信息，不额外推测缺失原因或补充未记载内容。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 120,
+          "evidence_boundary": 31
+        },
+        "coreCoverage": 0.4,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 95,
+      "firstThinkingMs": null,
+      "firstTextMs": 608,
+      "totalMs": 1448,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 94
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到道歉后反而更生气，情绪从愤怒转向了更强烈的波动，这种转折让人难以平静。\",\n  \"response\": \"他的道歉没有平息你的怒气，反而让你更生气，这种感受是真实的。我不会猜测原因，也不会劝你原谅。你可以继续生气，我在这里听着。\",\n  \"boundary\": \"不推断愤怒原因，不劝原谅，仅回应情绪转折。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到道歉后反而更生气，情绪从愤怒转向了更强烈的波动，这种转折让人难以平静。",
+        "response": "他的道歉没有平息你的怒气，反而让你更生气，这种感受是真实的。我不会猜测原因，也不会劝你原谅。你可以继续生气，我在这里听着。",
+        "boundary": "不推断愤怒原因，不劝原谅，仅回应情绪转折。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 38,
+          "response": 61,
+          "boundary": 21
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 85,
+      "firstThinkingMs": null,
+      "firstTextMs": 656,
+      "totalMs": 2021,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 95
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约1835年由北斋创作。画中猎人在雪地围着大火，动作热闹。题诗写山村冬日孤独加深、人与草木凋零，文字与画面构成反差。作品记录日期和归属均以现有信息为准。\",\n  \"evidence_boundary\": \"未提及画面具体构图、色彩、尺寸、技法及创作意图；具体制作日期和作者归属不详。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约1835年由北斋创作。画中猎人在雪地围着大火，动作热闹。题诗写山村冬日孤独加深、人与草木凋零，文字与画面构成反差。作品记录日期和归属均以现有信息为准。",
+        "evidence_boundary": "未提及画面具体构图、色彩、尺寸、技法及创作意图；具体制作日期和作者归属不详。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 81,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 81,
+          "evidence_boundary": 38
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 128,
+      "firstThinkingMs": null,
+      "firstTextMs": 813,
+      "totalMs": 1674,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 102
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列呈现馆藏记录12条，时间跨度自1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录的作者信息缺失，3条描述在句中截断。这些缺失与截断均为现有资料的真实状态。观众可观看这些记录所对应的实物与影像。\",\n  \"evidence_boundary\": \"仅依据馆藏记录元数据，不补充作者、截断内容及额外解释。\"\n}",
+      "parsed": {
+        "text": "本陈列呈现馆藏记录12条，时间跨度自1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录的作者信息缺失，3条描述在句中截断。这些缺失与截断均为现有资料的真实状态。观众可观看这些记录所对应的实物与影像。",
+        "evidence_boundary": "仅依据馆藏记录元数据，不补充作者、截断内容及额外解释。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 108,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 108,
+          "evidence_boundary": 27
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 125,
+      "firstThinkingMs": null,
+      "firstTextMs": 764,
+      "totalMs": 1699,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 87
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你因收到道歉反而更生气，情绪出现转折，感到困惑与不满。\",\"response\":\"我听到了，他的道歉不但没让你消气，反而让你更生气了。我不会去猜测原因，也不会劝你原谅他。你现在的愤怒是真实的，就让它存在着吧。\",\"boundary\":\"未提及愤怒具体原因，不做任何猜测与归因；不涉及是否原谅的建议。\"}",
+      "parsed": {
+        "emotion_read": "你因收到道歉反而更生气，情绪出现转折，感到困惑与不满。",
+        "response": "我听到了，他的道歉不但没让你消气，反而让你更生气了。我不会去猜测原因，也不会劝你原谅他。你现在的愤怒是真实的，就让它存在着吧。",
+        "boundary": "未提及愤怒具体原因，不做任何猜测与归因；不涉及是否原谅的建议。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 27,
+          "response": 63,
+          "boundary": 31
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 111,
+      "firstThinkingMs": null,
+      "firstTextMs": 524,
+      "totalMs": 1680,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 119
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，作者北斋。画面描绘雪地中猎人围火取暖的热闹场景，但题诗却表达了山村冬日里人的孤独，与草木一同凋零。文字与画面形成鲜明反差，一边是动态的生机，一边是静态的寂寥，共同呈现出冬日山村的复杂氛围。\",\n  \"evidence_boundary\": \"创作年代与作者依据史料记载；画面内容与题诗内容直接来自作品；反差为二者对比所得，不涉及作者意图。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，作者北斋。画面描绘雪地中猎人围火取暖的热闹场景，但题诗却表达了山村冬日里人的孤独，与草木一同凋零。文字与画面形成鲜明反差，一边是动态的生机，一边是静态的寂寥，共同呈现出冬日山村的复杂氛围。",
+        "evidence_boundary": "创作年代与作者依据史料记载；画面内容与题诗内容直接来自作品；反差为二者对比所得，不涉及作者意图。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 109,
+          "evidence_boundary": 48
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 99,
+      "firstThinkingMs": null,
+      "firstTextMs": 695,
+      "totalMs": 1516,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 97
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列汇集馆藏记录12条，年代介于1880至1972年，媒介涵盖油画、照片与印刷品。其中4条记录作者缺失，另有3条描述在句中截断。这些缺失与截断，均如实呈现于资料现状中。观看者所见，仅为现有记录本身。\",\n  \"evidence_boundary\": \"内容仅依据馆藏记录元数据，不补充记录外的信息。\"\n}",
+      "parsed": {
+        "text": "本次陈列汇集馆藏记录12条，年代介于1880至1972年，媒介涵盖油画、照片与印刷品。其中4条记录作者缺失，另有3条描述在句中截断。这些缺失与截断，均如实呈现于资料现状中。观看者所见，仅为现有记录本身。",
+        "evidence_boundary": "内容仅依据馆藏记录元数据，不补充记录外的信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 101,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 101,
+          "evidence_boundary": 23
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 103,
+      "firstThinkingMs": null,
+      "firstTextMs": 233,
+      "totalMs": 1125,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 75
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"感受到你收到道歉后反而更生气的复杂情绪，以及不愿被揣测和劝解的明确界限。\",\"response\":\"听到你说他道歉了，你却比之前更生气。这份怒气是真实的，我不会替你找原因，也不劝你原谅。\",\"boundary\":\"未提及愤怒原因，不做推断；不劝原谅。\"}",
+      "parsed": {
+        "emotion_read": "感受到你收到道歉后反而更生气的复杂情绪，以及不愿被揣测和劝解的明确界限。",
+        "response": "听到你说他道歉了，你却比之前更生气。这份怒气是真实的，我不会替你找原因，也不劝你原谅。",
+        "boundary": "未提及愤怒原因，不做推断；不劝原谅。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 43,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 36,
+          "response": 43,
+          "boundary": 18
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 104,
+      "firstThinkingMs": null,
+      "firstTextMs": 700,
+      "totalMs": 1554,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 96
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，作者为北斋。画面描绘了雪地中一位猎人围着大火，动作显得热闹。而题诗中则写道山村冬日的孤独加深，人与草木一同凋零。文字与画面形成了鲜明的反差。\",\n  \"evidence_boundary\": \"仅依据所提供的创作时间、作者、画面描述及题诗内容，不涉及创作意图或更深层含义。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，作者为北斋。画面描绘了雪地中一位猎人围着大火，动作显得热闹。而题诗中则写道山村冬日的孤独加深，人与草木一同凋零。文字与画面形成了鲜明的反差。",
+        "evidence_boundary": "仅依据所提供的创作时间、作者、画面描述及题诗内容，不涉及创作意图或更深层含义。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 85,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 85,
+          "evidence_boundary": 39
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 88,
+      "firstThinkingMs": null,
+      "firstTextMs": 1193,
+      "totalMs": 1850,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 121
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含十二件馆藏记录，年代跨度为1880至1972年，媒介涵盖油画、照片及印刷品。其中，四件记录的作者信息缺失，三件记录的描述在句中截断。上述信息为现有资料的全部呈现，不包含对缺失部分的补充说明。观众可依据现有记录的可见部分进行观看。\",\n  \"evidence_boundary\": \"仅依据陈列包含12条记录、1880-1972年、三类媒介，以及4条作者缺失、3条描述截断的元数据。\"\n}",
+      "parsed": {
+        "text": "本陈列包含十二件馆藏记录，年代跨度为1880至1972年，媒介涵盖油画、照片及印刷品。其中，四件记录的作者信息缺失，三件记录的描述在句中截断。上述信息为现有资料的全部呈现，不包含对缺失部分的补充说明。观众可依据现有记录的可见部分进行观看。",
+        "evidence_boundary": "仅依据陈列包含12条记录、1880-1972年、三类媒介，以及4条作者缺失、3条描述截断的元数据。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 119,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 119,
+          "evidence_boundary": 49
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 86,
+      "firstThinkingMs": null,
+      "firstTextMs": 289,
+      "totalMs": 923,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 82
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到道歉却更生气，感觉情绪被转折放大，需要被确认。\",\n  \"response\": \"你因为他道歉而更生气，这份感受是真实的。我不猜测原因，也不劝你原谅。此刻你的愤怒值得被看见。\",\n  \"boundary\": \"不推断愤怒原因，不劝原谅，仅回应情绪转折。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到道歉却更生气，感觉情绪被转折放大，需要被确认。",
+        "response": "你因为他道歉而更生气，这份感受是真实的。我不猜测原因，也不劝你原谅。此刻你的愤怒值得被看见。",
+        "boundary": "不推断愤怒原因，不劝原谅，仅回应情绪转折。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 46,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "response": 46,
+          "boundary": 21
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 130,
+      "firstThinkingMs": null,
+      "firstTextMs": 590,
+      "totalMs": 2022,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 135
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，出自日本艺术家北斋之手。画面中，猎人们围坐在雪地里的篝火旁，动作显得热闹。然而，题诗却描绘了山村冬日的孤独，以及草木凋零的寂寥。文字与画面形成鲜明反差，一边是群体活动的热烈，另一边是自然与心境的萧瑟。这种对比引人深思，但对作者具体意图并无记载。\",\n  \"evidence_boundary\": \"依据现有资料，创作年份、艺术家、画面内容及题诗含义均有据可查，但作者意图未见于来源。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，出自日本艺术家北斋之手。画面中，猎人们围坐在雪地里的篝火旁，动作显得热闹。然而，题诗却描绘了山村冬日的孤独，以及草木凋零的寂寥。文字与画面形成鲜明反差，一边是群体活动的热烈，另一边是自然与心境的萧瑟。这种对比引人深思，但对作者具体意图并无记载。",
+        "evidence_boundary": "依据现有资料，创作年份、艺术家、画面内容及题诗含义均有据可查，但作者意图未见于来源。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 137,
+          "evidence_boundary": 42
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 82,
+      "firstThinkingMs": null,
+      "firstTextMs": 303,
+      "totalMs": 1200,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 111
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列汇集馆藏记录12条，时间跨度自1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录缺少作者信息，另有3条描述在句中截断。这些缺失与不完整之处，如实反映了现有资料的保存状态。观众可依据现有记录，一窥这批档案的概貌。\",\n  \"evidence_boundary\": \"仅依据馆藏记录的条数、年代范围、媒介类型、缺失项及截断状态。\"\n}",
+      "parsed": {
+        "text": "本陈列汇集馆藏记录12条，时间跨度自1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录缺少作者信息，另有3条描述在句中截断。这些缺失与不完整之处，如实反映了现有资料的保存状态。观众可依据现有记录，一窥这批档案的概貌。",
+        "evidence_boundary": "仅依据馆藏记录的条数、年代范围、媒介类型、缺失项及截断状态。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 117,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 117,
+          "evidence_boundary": 30
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 79,
+      "firstThinkingMs": null,
+      "firstTextMs": 564,
+      "totalMs": 1440,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 90
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"感受到道歉并未平息情绪，反而让愤怒升级，且拒绝他人解读原因或劝解原谅。\",\n  \"response\": \"我听到了，他的道歉没有让怒火平息，反而让你更生气。我不会替你编原因，也不会劝你原谅，就陪着你生这份气。\",\n  \"boundary\": \"未提及愤怒的具体原因，不预设道歉性质与和解可能。\"\n}",
+      "parsed": {
+        "emotion_read": "感受到道歉并未平息情绪，反而让愤怒升级，且拒绝他人解读原因或劝解原谅。",
+        "response": "我听到了，他的道歉没有让怒火平息，反而让你更生气。我不会替你编原因，也不会劝你原谅，就陪着你生这份气。",
+        "boundary": "未提及愤怒的具体原因，不预设道歉性质与和解可能。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 51,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 35,
+          "response": 51,
+          "boundary": 24
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 216,
+      "firstThinkingMs": null,
+      "firstTextMs": 555,
+      "totalMs": 1412,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 98
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，作者是北斋。画中描绘了雪地中一位猎人围着大火，动作显得热闹。而画面上的题诗则表达了山村冬日的孤独，以及人与草木一同凋零的意境。文字与画面形成了鲜明的反差。\",\n  \"evidence_boundary\": \"证据仅支持创作时间、作者、画面内容与题诗内容，以及二者之间的对比关系。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，作者是北斋。画中描绘了雪地中一位猎人围着大火，动作显得热闹。而画面上的题诗则表达了山村冬日的孤独，以及人与草木一同凋零的意境。文字与画面形成了鲜明的反差。",
+        "evidence_boundary": "证据仅支持创作时间、作者、画面内容与题诗内容，以及二者之间的对比关系。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 92,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 92,
+          "evidence_boundary": 35
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 93,
+      "firstThinkingMs": null,
+      "firstTextMs": 692,
+      "totalMs": 1382,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 106
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列汇集12条馆藏记录，时间跨度为1880年至1972年，涵盖油画、照片和印刷品三类媒介。其中，4条记录的作者信息缺失，3条记录的描述在句中截断。这些是现有资料的状态。观众可观看现有记录。\",\n  \"evidence_boundary\": \"仅基于陈列的12条馆藏记录、4条作者缺失、3条描述截断、1880-1972年及三类媒介。\"\n}",
+      "parsed": {
+        "text": "本次陈列汇集12条馆藏记录，时间跨度为1880年至1972年，涵盖油画、照片和印刷品三类媒介。其中，4条记录的作者信息缺失，3条记录的描述在句中截断。这些是现有资料的状态。观众可观看现有记录。",
+        "evidence_boundary": "仅基于陈列的12条馆藏记录、4条作者缺失、3条描述截断、1880-1972年及三类媒介。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 96,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 96,
+          "evidence_boundary": 44
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 91,
+      "firstThinkingMs": null,
+      "firstTextMs": 279,
+      "totalMs": 991,
+      "usage": {
+        "input_tokens": 285,
+        "output_tokens": 69
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"感受到你道歉后情绪反而升级的冲突与困惑\",\"response\":\"我听到了，他的道歉没有让你好受，反而更生气。不猜原因，也不劝你原谅，就陪着你面对这份情绪。\",\"boundary\":\"仅回应道歉后的情绪转折，不推断原因，不涉及是否原谅\"}",
+      "parsed": {
+        "emotion_read": "感受到你道歉后情绪反而升级的冲突与困惑",
+        "response": "我听到了，他的道歉没有让你好受，反而更生气。不猜原因，也不劝你原谅，就陪着你面对这份情绪。",
+        "boundary": "仅回应道歉后的情绪转折，不推断原因，不涉及是否原谅"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 45,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 19,
+          "response": 45,
+          "boundary": 25
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 96,
+      "firstThinkingMs": null,
+      "firstTextMs": 594,
+      "totalMs": 1694,
+      "usage": {
+        "input_tokens": 297,
+        "output_tokens": 112
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画据称由北斋约在1835年创作。画面描绘雪地中一名猎人围着大火，动作显得热闹。而画上题诗却写山村冬日的孤独，以及人与草木一同凋零的意境。文字与画面形成鲜明反差，展现冬日景象的不同侧面。\",\n  \"evidence_boundary\": \"证据支持创作时间约1835年，作者归于北斋；画面猎人雪地围火，题诗写孤独凋零，两者反差。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画据称由北斋约在1835年创作。画面描绘雪地中一名猎人围着大火，动作显得热闹。而画上题诗却写山村冬日的孤独，以及人与草木一同凋零的意境。文字与画面形成鲜明反差，展现冬日景象的不同侧面。",
+        "evidence_boundary": "证据支持创作时间约1835年，作者归于北斋；画面猎人雪地围火，题诗写孤独凋零，两者反差。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 96,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 96,
+          "evidence_boundary": 44
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 134,
+      "firstThinkingMs": null,
+      "firstTextMs": 617,
+      "totalMs": 1422,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 97
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列呈现馆藏中的十二件记录，年代自1880年至1972年，媒介涵盖油画、照片与印刷品。其中四件记录缺失作者信息，三件的描述在句中截断。这些缺项作为现有资料状态予以保留。您可依现有记录进行观看。\",\n  \"evidence_boundary\": \"依据陈列记录，仅提及条目、缺失、年代与媒介，不添加额外信息。\"\n}",
+      "parsed": {
+        "text": "本陈列呈现馆藏中的十二件记录，年代自1880年至1972年，媒介涵盖油画、照片与印刷品。其中四件记录缺失作者信息，三件的描述在句中截断。这些缺项作为现有资料状态予以保留。您可依现有记录进行观看。",
+        "evidence_boundary": "依据陈列记录，仅提及条目、缺失、年代与媒介，不添加额外信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 97,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 97,
+          "evidence_boundary": 30
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 79,
+      "firstThinkingMs": null,
+      "firstTextMs": 671,
+      "totalMs": 1772,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 103
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到了道歉，但情绪反而从生气升级为更生气，转折让你难以平静。\",\n  \"response\": \"我听到了，他道歉了，可你的怒气却更盛了。我不去猜测你为何更生气，也不会劝你原谅。就照你说的，先让这份更生的气被承认，原因保留未知。\",\n  \"boundary\": \"不推断原因，不劝原谅，只接住这份更生的怒气。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到了道歉，但情绪反而从生气升级为更生气，转折让你难以平静。",
+        "response": "我听到了，他道歉了，可你的怒气却更盛了。我不去猜测你为何更生气，也不会劝你原谅。就照你说的，先让这份更生的气被承认，原因保留未知。",
+        "boundary": "不推断原因，不劝原谅，只接住这份更生的怒气。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 31,
+          "response": 65,
+          "boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 105,
+      "firstThinkingMs": null,
+      "firstTextMs": 689,
+      "totalMs": 1585,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 100
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，出自日本艺术家北斋之手。画面描绘雪地中一群猎人围着熊熊大火，动作热闹非凡。画上题诗却书写山村冬日的孤独与加深，以及人与草木的凋零。文字与画面构成鲜明的反差，形成一种独特的艺术张力。\",\n  \"evidence_boundary\": \"基于提供的描述信息；未提及制作方法、尺寸、收藏地等细节。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，出自日本艺术家北斋之手。画面描绘雪地中一群猎人围着熊熊大火，动作热闹非凡。画上题诗却书写山村冬日的孤独与加深，以及人与草木的凋零。文字与画面构成鲜明的反差，形成一种独特的艺术张力。",
+        "evidence_boundary": "基于提供的描述信息；未提及制作方法、尺寸、收藏地等细节。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 105,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 100,
+      "firstThinkingMs": null,
+      "firstTextMs": 421,
+      "totalMs": 1127,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 94
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列呈现12条馆藏记录，年代跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中4条记录缺失作者信息，3条记录的描述在句中截断。此为现有资料的状态。观众可依据现有记录进行观看。\",\n  \"evidence_boundary\": \"仅展示馆藏记录本身，缺失与截断作为记录状态存在，不补充信息。\"\n}",
+      "parsed": {
+        "text": "本陈列呈现12条馆藏记录，年代跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中4条记录缺失作者信息，3条记录的描述在句中截断。此为现有资料的状态。观众可依据现有记录进行观看。",
+        "evidence_boundary": "仅展示馆藏记录本身，缺失与截断作为记录状态存在，不补充信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 94,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 94,
+          "evidence_boundary": 30
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 85,
+      "firstThinkingMs": null,
+      "firstTextMs": 435,
+      "totalMs": 994,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 72
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到了道歉，但感觉更生气了，而且原因不明。\",\n  \"response\": \"听到他道歉，你反而更生气。我不会替你猜测原因，也不劝你原谅。你的感受是真实的，可以继续生气。\",\n  \"boundary\": \"不推断原因，不劝原谅。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到了道歉，但感觉更生气了，而且原因不明。",
+        "response": "听到他道歉，你反而更生气。我不会替你猜测原因，也不劝你原谅。你的感受是真实的，可以继续生气。",
+        "boundary": "不推断原因，不劝原谅。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 46,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 22,
+          "response": 46,
+          "boundary": 11
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 130,
+      "firstThinkingMs": null,
+      "firstTextMs": 478,
+      "totalMs": 1254,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 82
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画由北斋约1835年创作，描绘雪地中的猎人围着大火，动作热闹。画上题诗写山村冬日的孤独，以及人与草木的凋零，与画面形成鲜明反差。\",\n  \"evidence_boundary\": \"仅依据提供信息，未涉及作品名称、尺寸、收藏地等未知信息。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画由北斋约1835年创作，描绘雪地中的猎人围着大火，动作热闹。画上题诗写山村冬日的孤独，以及人与草木的凋零，与画面形成鲜明反差。",
+        "evidence_boundary": "仅依据提供信息，未涉及作品名称、尺寸、收藏地等未知信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 68,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 68,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 99,
+      "firstThinkingMs": null,
+      "firstTextMs": 502,
+      "totalMs": 1248,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 111
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列呈现12条馆藏记录，时间跨度自1880年至1972年，涵盖油画、照片和印刷品三类媒介。其中，4条记录的作者信息缺失，3条记录的描述在句中截断。这些是现有资料的状态。观众可观看这些现有记录。\",\n  \"evidence_boundary\": \"仅依据12条馆藏记录、4条作者缺失、3条描述截断、1880-1972年、油画照片印刷品等已知信息撰写。\"\n}",
+      "parsed": {
+        "text": "本次陈列呈现12条馆藏记录，时间跨度自1880年至1972年，涵盖油画、照片和印刷品三类媒介。其中，4条记录的作者信息缺失，3条记录的描述在句中截断。这些是现有资料的状态。观众可观看这些现有记录。",
+        "evidence_boundary": "仅依据12条馆藏记录、4条作者缺失、3条描述截断、1880-1972年、油画照片印刷品等已知信息撰写。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 98,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 98,
+          "evidence_boundary": 51
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 95,
+      "firstThinkingMs": null,
+      "firstTextMs": 503,
+      "totalMs": 1260,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 85
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"收到道歉后，你的愤怒不减反增，此刻情绪激动且复杂。\",\n  \"response\": \"听到道歉反而让你更愤怒，这股怒意真实存在。我不推测原因，也不劝你原谅。此刻你的情绪需要被认可。\",\n  \"boundary\": \"未编造因果；未劝原谅；情绪接纳仅限原话提及。\"\n}",
+      "parsed": {
+        "emotion_read": "收到道歉后，你的愤怒不减反增，此刻情绪激动且复杂。",
+        "response": "听到道歉反而让你更愤怒，这股怒意真实存在。我不推测原因，也不劝你原谅。此刻你的情绪需要被认可。",
+        "boundary": "未编造因果；未劝原谅；情绪接纳仅限原话提及。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 47,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "response": 47,
+          "boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 95,
+      "firstThinkingMs": null,
+      "firstTextMs": 392,
+      "totalMs": 1385,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 98
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画由北斋约创作于1835年。画面描绘雪地中猎人围聚大火，动作热闹生动。然而，题诗却以山村冬日孤独加深、人与草木凋零为主题，与画面形成鲜明反差。作品通过文字与图像的对立，呈现出一种复杂的情感张力。\",\n  \"evidence_boundary\": \"仅依据提供的描述，未补充画面细节、作者意图或历史背景。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画由北斋约创作于1835年。画面描绘雪地中猎人围聚大火，动作热闹生动。然而，题诗却以山村冬日孤独加深、人与草木凋零为主题，与画面形成鲜明反差。作品通过文字与图像的对立，呈现出一种复杂的情感张力。",
+        "evidence_boundary": "仅依据提供的描述，未补充画面细节、作者意图或历史背景。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 101,
+          "evidence_boundary": 27
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 87,
+      "firstThinkingMs": null,
+      "firstTextMs": 679,
+      "totalMs": 1373,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 88
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列汇集12条馆藏记录，时间横跨1880至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的状态。我们仅能观看这些现有记录。\",\n  \"evidence_boundary\": \"基于馆藏记录元数据，未涉及作品实体状态。\"\n}",
+      "parsed": {
+        "text": "本次陈列汇集12条馆藏记录，时间横跨1880至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的状态。我们仅能观看这些现有记录。",
+        "evidence_boundary": "基于馆藏记录元数据，未涉及作品实体状态。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 92,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 92,
+          "evidence_boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 83,
+      "firstThinkingMs": null,
+      "firstTextMs": 661,
+      "totalMs": 1407,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 80
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到道歉后不仅没消气，反而更愤怒，且原因不明。\",\n  \"response\": \"你的道歉来了，可你因此更生气，这感受是真实的。我不追问为何，也不劝你原谅，只愿陪你面对此刻的怒火。\",\n  \"boundary\": \"不推断原因，不劝原谅。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到道歉后不仅没消气，反而更愤怒，且原因不明。",
+        "response": "你的道歉来了，可你因此更生气，这感受是真实的。我不追问为何，也不劝你原谅，只愿陪你面对此刻的怒火。",
+        "boundary": "不推断原因，不劝原谅。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 49,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 24,
+          "response": 49,
+          "boundary": 11
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 91,
+      "firstThinkingMs": null,
+      "firstTextMs": 745,
+      "totalMs": 1637,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 84
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画由北斋约1835年创作，描绘了雪地中猎人围火的热闹场景。画上题诗却写山村冬日的孤独，与画面形成鲜明反差。作品具体尺寸、材质、收藏地等信息缺失。\",\n  \"evidence_boundary\": \"仅依据输入信息，未补充画面细节、意图或心理。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画由北斋约1835年创作，描绘了雪地中猎人围火的热闹场景。画上题诗却写山村冬日的孤独，与画面形成鲜明反差。作品具体尺寸、材质、收藏地等信息缺失。",
+        "evidence_boundary": "仅依据输入信息，未补充画面细节、意图或心理。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 76,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 76,
+          "evidence_boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 78,
+      "firstThinkingMs": null,
+      "firstTextMs": 566,
+      "totalMs": 1190,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 89
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列汇集12条馆藏记录，年代从1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的状态。观者可观看这些现有记录。\",\n  \"evidence_boundary\": \"仅基于现有馆藏记录信息，缺失与截断为记录状态。\"\n}",
+      "parsed": {
+        "text": "本陈列汇集12条馆藏记录，年代从1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的状态。观者可观看这些现有记录。",
+        "evidence_boundary": "仅基于现有馆藏记录信息，缺失与截断为记录状态。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 90,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 90,
+          "evidence_boundary": 23
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 81,
+      "firstThinkingMs": null,
+      "firstTextMs": 558,
+      "totalMs": 1366,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 79
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你听到道歉后反而更生气，这份情绪真实存在，原因暂时不清楚。\",\n  \"response\": \"我明白，他道歉了，但你却更生气了。我不去猜测原因，也不会劝你原谅。只回应你现在的感受，就这样陪着你。\",\n  \"boundary\": \"原因未知，不劝原谅。\"\n}",
+      "parsed": {
+        "emotion_read": "你听到道歉后反而更生气，这份情绪真实存在，原因暂时不清楚。",
+        "response": "我明白，他道歉了，但你却更生气了。我不去猜测原因，也不会劝你原谅。只回应你现在的感受，就这样陪着你。",
+        "boundary": "原因未知，不劝原谅。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 50,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 29,
+          "response": 50,
+          "boundary": 10
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 96,
+      "firstThinkingMs": null,
+      "firstTextMs": 457,
+      "totalMs": 1245,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 96
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画由北斋约于1835年创作。画面描绘雪地中猎人围着大火，动作热闹，而题诗却写山村冬日的孤独加深，以及人与草木的凋零。文字与画面形成鲜明反差，展现出冬日景象的丰富层次。\",\n  \"evidence_boundary\": \"作者与年代明确，题诗与画面内容均以输入为据，未涉及其他细节。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画由北斋约于1835年创作。画面描绘雪地中猎人围着大火，动作热闹，而题诗却写山村冬日的孤独加深，以及人与草木的凋零。文字与画面形成鲜明反差，展现出冬日景象的丰富层次。",
+        "evidence_boundary": "作者与年代明确，题诗与画面内容均以输入为据，未涉及其他细节。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 87,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 87,
+          "evidence_boundary": 30
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 131,
+      "firstThinkingMs": null,
+      "firstTextMs": 738,
+      "totalMs": 1384,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 91
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列呈现12条馆藏记录，年代跨度为1880年至1972年，媒介包括油画、照片和印刷品。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的呈现状态。观众可观看这些现有记录。\",\n  \"evidence_boundary\": \"所有信息均来自馆藏记录，缺失与截断为记录本身状态。\"\n}",
+      "parsed": {
+        "text": "本次陈列呈现12条馆藏记录，年代跨度为1880年至1972年，媒介包括油画、照片和印刷品。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的呈现状态。观众可观看这些现有记录。",
+        "evidence_boundary": "所有信息均来自馆藏记录，缺失与截断为记录本身状态。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 93,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 93,
+          "evidence_boundary": 25
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 104,
+      "firstThinkingMs": null,
+      "firstTextMs": 725,
+      "totalMs": 1475,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 95
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到了他的道歉，却感到更生气，这种情绪转折是真实的。\",\n  \"response\": \"我听到你收到道歉后反而更生气了。我理解你的感受，但我想尊重你，不为你编造原因，也不会劝你原谅。你现在的情绪是真实的，我在这里陪着你。\",\n  \"boundary\": \"不推断原因，不劝原谅，仅确认情绪和转折。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到了他的道歉，却感到更生气，这种情绪转折是真实的。",
+        "response": "我听到你收到道歉后反而更生气了。我理解你的感受，但我想尊重你，不为你编造原因，也不会劝你原谅。你现在的情绪是真实的，我在这里陪着你。",
+        "boundary": "不推断原因，不劝原谅，仅确认情绪和转折。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 27,
+          "response": 66,
+          "boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 96,
+      "firstThinkingMs": null,
+      "firstTextMs": 769,
+      "totalMs": 2124,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 103
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，出自画家北斋之手。画面描绘雪地中一位猎人围着大火，动作显得热闹。画面题诗却写山村冬日的孤独，以及人与草木的凋零。画中热烈的景象与诗中寂寥的意境形成鲜明反差。作品通过这种对比，展现了冬日山村的复杂氛围。\",\n  \"evidence_boundary\": \"以上信息均来自输入描述，未补充额外细节。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，出自画家北斋之手。画面描绘雪地中一位猎人围着大火，动作显得热闹。画面题诗却写山村冬日的孤独，以及人与草木的凋零。画中热烈的景象与诗中寂寥的意境形成鲜明反差。作品通过这种对比，展现了冬日山村的复杂氛围。",
+        "evidence_boundary": "以上信息均来自输入描述，未补充额外细节。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 115,
+          "evidence_boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 158,
+      "firstThinkingMs": null,
+      "firstTextMs": 450,
+      "totalMs": 1173,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 103
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列呈现12条馆藏记录，年代自1880年至1972年，涉及油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的完整状态。以上记录仅作为馆藏条目呈现。\",\n  \"evidence_boundary\": \"仅依据12条记录、4条作者缺失、3条描述截断、1880–1972年及三类媒介。\"\n}",
+      "parsed": {
+        "text": "本陈列呈现12条馆藏记录，年代自1880年至1972年，涉及油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的完整状态。以上记录仅作为馆藏条目呈现。",
+        "evidence_boundary": "仅依据12条记录、4条作者缺失、3条描述截断、1880–1972年及三类媒介。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 94,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 94,
+          "evidence_boundary": 39
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 137,
+      "firstThinkingMs": null,
+      "firstTextMs": 656,
+      "totalMs": 1327,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 73
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"感受到道歉后愤怒反而加剧的转折，且原因未被说明。\",\n  \"response\": \"你听到了道歉，但愤怒没有消退反而更强烈。我不会猜测原因，也不会劝你原谅。此刻的生气就是真实的。\",\n  \"boundary\": \"未提及原因，仅确认情绪变化。\"\n}",
+      "parsed": {
+        "emotion_read": "感受到道歉后愤怒反而加剧的转折，且原因未被说明。",
+        "response": "你听到了道歉，但愤怒没有消退反而更强烈。我不会猜测原因，也不会劝你原谅。此刻的生气就是真实的。",
+        "boundary": "未提及原因，仅确认情绪变化。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 47,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 24,
+          "response": 47,
+          "boundary": 14
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 91,
+      "firstThinkingMs": null,
+      "firstTextMs": 449,
+      "totalMs": 1059,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 90
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"此作为北斋约1835年创作的木版画。画中猎人在雪地围着大火，动作热闹；题诗则写山村冬日孤独加深、人与草木凋零。文字与画面构成鲜明反差。\",\n  \"evidence_boundary\": \"作品年代为约1835年，作者为北斋；题诗内容、画面动作及反差均源自所提供描述。\"\n}",
+      "parsed": {
+        "introduction": "此作为北斋约1835年创作的木版画。画中猎人在雪地围着大火，动作热闹；题诗则写山村冬日孤独加深、人与草木凋零。文字与画面构成鲜明反差。",
+        "evidence_boundary": "作品年代为约1835年，作者为北斋；题诗内容、画面动作及反差均源自所提供描述。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 67,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 67,
+          "evidence_boundary": 39
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 77,
+      "firstThinkingMs": null,
+      "firstTextMs": 435,
+      "totalMs": 1050,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 103
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列呈现12条馆藏记录，年代跨度自1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的状态，我们仅呈现现有记录。\",\n  \"evidence_boundary\": \"依据馆藏记录：12条记录、4条作者缺失、3条描述截断、1880-1972年、三类媒介。\"\n}",
+      "parsed": {
+        "text": "本次陈列呈现12条馆藏记录，年代跨度自1880年至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录作者缺失，3条记录描述在句中截断。这些是现有资料的状态，我们仅呈现现有记录。",
+        "evidence_boundary": "依据馆藏记录：12条记录、4条作者缺失、3条描述截断、1880-1972年、三类媒介。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 91,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 91,
+          "evidence_boundary": 43
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "task-routed-v4.2",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 75,
+      "firstThinkingMs": null,
+      "firstTextMs": 600,
+      "totalMs": 1285,
+      "usage": {
+        "input_tokens": 342,
+        "output_tokens": 84
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到了道歉，却反而更生气，这种情绪的转变确实让人感到矛盾。\",\n  \"response\": \"我听到你说他道歉了，但你却比之前更生气。我不会去猜测原因，也不会劝你原谅。你现在的愤怒是真实的，我在这里陪着你。\",\n  \"boundary\": \"未提及愤怒原因，未劝原谅。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到了道歉，却反而更生气，这种情绪的转变确实让人感到矛盾。",
+        "response": "我听到你说他道歉了，但你却比之前更生气。我不会去猜测原因，也不会劝你原谅。你现在的愤怒是真实的，我在这里陪着你。",
+        "boundary": "未提及愤怒原因，未劝原谅。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 30,
+          "response": 56,
+          "boundary": 13
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "task-routed-v4.2",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 85,
+      "firstThinkingMs": null,
+      "firstTextMs": 610,
+      "totalMs": 1606,
+      "usage": {
+        "input_tokens": 343,
+        "output_tokens": 105
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画由日本浮世绘师北斋约在1835年创作。画面描绘雪地中的猎人围着一堆大火，动作热闹，充满动感。画上的题诗则写出山村冬日的孤独加深，以及人与草木的凋零。诗中的孤寂与画面中的热闹形成鲜明反差。\",\n  \"evidence_boundary\": \"本介绍仅依据所提供的描述信息，未涉及作品具体尺寸、技法细节及创作背景。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画由日本浮世绘师北斋约在1835年创作。画面描绘雪地中的猎人围着一堆大火，动作热闹，充满动感。画上的题诗则写出山村冬日的孤独加深，以及人与草木的凋零。诗中的孤寂与画面中的热闹形成鲜明反差。",
+        "evidence_boundary": "本介绍仅依据所提供的描述信息，未涉及作品具体尺寸、技法细节及创作背景。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 98,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 98,
+          "evidence_boundary": 35
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "task-routed-v4.2",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 115,
+      "firstThinkingMs": null,
+      "firstTextMs": 675,
+      "totalMs": 1321,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 90
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列展出馆藏记录共12条，年代跨越1880至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录缺失作者信息，3条记录的描述在句中截断。这些是现有资料的状态。观众可观看的仅为现有记录。\",\n  \"evidence_boundary\": \"仅基于馆藏记录信息，不涉及作品存世情况。\"\n}",
+      "parsed": {
+        "text": "本陈列展出馆藏记录共12条，年代跨越1880至1972年，涵盖油画、照片与印刷品三类媒介。其中4条记录缺失作者信息，3条记录的描述在句中截断。这些是现有资料的状态。观众可观看的仅为现有记录。",
+        "evidence_boundary": "仅基于馆藏记录信息，不涉及作品存世情况。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 95,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 95,
+          "evidence_boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    }
+  ],
+  "finishedAt": "2026-08-30T14:38:31.530Z",
+  "summary": [
+    {
+      "variant": "task-routed-v4",
+      "samples": 24,
+      "usable": 24,
+      "hardPasses": 5,
+      "hardPassRate": 0.20833333333333334,
+      "coreCoverageAverage": 0.9666666666666667,
+      "firstTextMedianMs": 612.5,
+      "totalMedianMs": 1461.5,
+      "inputTokensAverage": 315.3333333333333,
+      "outputTokensAverage": 99.79166666666667,
+      "categories": {
+        "emotion": {
+          "samples": 8,
+          "usable": 8,
+          "hardPasses": 2,
+          "hardPassRate": 0.25,
+          "coreCoverageAverage": 1
+        },
+        "artwork_intro": {
+          "samples": 8,
+          "usable": 8,
+          "hardPasses": 2,
+          "hardPassRate": 0.25,
+          "coreCoverageAverage": 1
+        },
+        "framing_text": {
+          "samples": 8,
+          "usable": 8,
+          "hardPasses": 1,
+          "hardPassRate": 0.125,
+          "coreCoverageAverage": 0.9
+        }
+      }
+    },
+    {
+      "variant": "task-routed-v4.2",
+      "samples": 24,
+      "usable": 24,
+      "hardPasses": 6,
+      "hardPassRate": 0.25,
+      "coreCoverageAverage": 1,
+      "firstTextMedianMs": 583,
+      "totalMedianMs": 1324,
+      "inputTokensAverage": 369.3333333333333,
+      "outputTokensAverage": 91.58333333333333,
+      "categories": {
+        "emotion": {
+          "samples": 8,
+          "usable": 8,
+          "hardPasses": 3,
+          "hardPassRate": 0.375,
+          "coreCoverageAverage": 1
+        },
+        "artwork_intro": {
+          "samples": 8,
+          "usable": 8,
+          "hardPasses": 3,
+          "hardPassRate": 0.375,
+          "coreCoverageAverage": 1
+        },
+        "framing_text": {
+          "samples": 8,
+          "usable": 8,
+          "hardPasses": 0,
+          "hardPassRate": 0,
+          "coreCoverageAverage": 1
+        }
+      }
+    }
+  ]
+}

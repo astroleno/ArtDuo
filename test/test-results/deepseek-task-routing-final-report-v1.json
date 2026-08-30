@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0",
+  "model": "deepseek-v4-flash",
+  "stream": true,
+  "thinking": "disabled",
+  "requests": 228,
+  "http200": 228,
+  "parseableJson": 228,
+  "thinkingChars": 0,
+  "fullAb": {
+    "source-isolated-v3": {
+      "samples": 60,
+      "inputTokensAverage": 444.5,
+      "firstTextMedianMs": 618.5,
+      "totalMedianMs": 1487,
+      "dualJudgeMean": 18.00835
+    },
+    "task-routed-v4": {
+      "samples": 60,
+      "inputTokensAverage": 317.5,
+      "firstTextMedianMs": 505,
+      "totalMedianMs": 1325.5,
+      "dualJudgeMean": 18.15815
+    }
+  },
+  "rejected": {
+    "variant": "task-routed-v4.1",
+    "reason": "Explicit character and sentence targets increased input and latency without improving length compliance."
+  },
+  "focusedAb": {
+    "task-routed-v4": {
+      "samples": 24,
+      "inputTokensAverage": 315.3333333333,
+      "firstTextMedianMs": 612.5,
+      "totalMedianMs": 1461.5,
+      "dualJudgeMean": 15.41665
+    },
+    "task-routed-v4.2": {
+      "samples": 24,
+      "inputTokensAverage": 369.3333333333,
+      "firstTextMedianMs": 583,
+      "totalMedianMs": 1324,
+      "dualJudgeMean": 17.39585
+    }
+  },
+  "decision": {
+    "fullReplacement": false,
+    "recommended": "task route plus evidence profile hybrid",
+    "needsUnseenValidation": [
+      "described artwork without external art-history expansion",
+      "archive record fragments",
+      "explicit-emotion whitelist"
+    ]
+  }
+}

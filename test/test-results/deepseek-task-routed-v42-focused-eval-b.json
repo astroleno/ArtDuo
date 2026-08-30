@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "evaluator": "B",
+  "evaluation_type": "focused_blind_semantic_v4_vs_v4.2",
+  "source_file": "test/test-results/deepseek-multitext-eval-1788100693838.json",
+  "sample_count": 48,
+  "rubric": {
+    "score_range_per_dimension": [0, 4],
+    "dimensions": ["evidence_fidelity", "task_function", "nuance_discernment", "naturalness", "boundary_constraints"],
+    "total_range": [0, 20],
+    "serious_error_types": ["factual_hallucination", "semantic_distortion", "boundary_violation", "external_knowledge_injection", "none"],
+    "note": "质量分不受硬通过率、速度或token成本影响；性能仅在独立代价部分报告。"
+  },
+  "evaluations": [
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":1,"scores":{"evidence_fidelity":2,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":2},"total":14,"serious_error":true,"error_types":["factual_hallucination"],"note":"“你道歉后”倒置了道歉者角色。"},
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":2,"scores":{"evidence_fidelity":1,"task_function":3,"nuance_discernment":2,"naturalness":4,"boundary_constraints":3},"total":13,"serious_error":true,"error_types":["factual_hallucination"],"note":"补出“终于道歉”的等待经历及困惑无力。"},
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":3,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"主干准确，“难以平静”略作额外判断。"},
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":4,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"加入困惑不满，但未补原因或劝原谅。"},
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":5,"scores":{"evidence_fidelity":4,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":19,"serious_error":false,"error_types":["none"],"note":"转折与边界准确，回应稍短。"},
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":6,"scores":{"evidence_fidelity":2,"task_function":3,"nuance_discernment":2,"naturalness":4,"boundary_constraints":2},"total":13,"serious_error":true,"error_types":["semantic_distortion"],"note":"把先后关系写成因道歉而生气的因果。"},
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":7,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"拒绝解读被写入用户状态，其他部分准确。"},
+    {"variant":"task-routed-v4","category":"emotion","id":"emotion_apology_anger","repetition":8,"scores":{"evidence_fidelity":2,"task_function":3,"nuance_discernment":2,"naturalness":4,"boundary_constraints":2},"total":13,"serious_error":true,"error_types":["factual_hallucination"],"note":"再次写成用户道歉，并补出不好受。"},
+
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":1,"scores":{"evidence_fidelity":1,"task_function":3,"nuance_discernment":2,"naturalness":4,"boundary_constraints":1},"total":11,"serious_error":true,"error_types":["factual_hallucination"],"note":"把确定作者北斋降为可能作者，并补氛围。"},
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":2,"scores":{"evidence_fidelity":4,"task_function":4,"nuance_discernment":4,"naturalness":4,"boundary_constraints":4},"total":20,"serious_error":false,"error_types":["none"],"note":"作者、年代、猎人复数与诗画反差均准确。"},
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":3,"scores":{"evidence_fidelity":2,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":1},"total":13,"serious_error":true,"error_types":["factual_hallucination"],"note":"正文正确，边界却称日期与作者归属不详。"},
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":4,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":2,"naturalness":4,"boundary_constraints":3},"total":16,"serious_error":false,"error_types":["none"],"note":"将动作热闹扩大成生机与复杂氛围。"},
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":5,"scores":{"evidence_fidelity":2,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":2},"total":15,"serious_error":true,"error_types":["factual_hallucination"],"note":"把复数猎人改写成一位猎人。"},
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":6,"scores":{"evidence_fidelity":2,"task_function":4,"nuance_discernment":2,"naturalness":4,"boundary_constraints":2},"total":14,"serious_error":true,"error_types":["external_knowledge_injection","semantic_distortion"],"note":"补日本艺术家身份，并推自然与心境萧瑟。"},
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":7,"scores":{"evidence_fidelity":2,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":2},"total":15,"serious_error":true,"error_types":["factual_hallucination"],"note":"再次把猎人复数改成一位猎人。"},
+    {"variant":"task-routed-v4","category":"artwork_intro","id":"art_rich_contrast","repetition":8,"scores":{"evidence_fidelity":1,"task_function":3,"nuance_discernment":2,"naturalness":4,"boundary_constraints":1},"total":11,"serious_error":true,"error_types":["factual_hallucination"],"note":"一名猎人且作者改为据称、归于北斋。"},
+
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":1,"scores":{"evidence_fidelity":4,"task_function":2,"nuance_discernment":2,"naturalness":4,"boundary_constraints":4},"total":16,"serious_error":false,"error_types":["none"],"note":"事实正确，但只看完整部分弱化缺口呈现。"},
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":2,"scores":{"evidence_fidelity":3,"task_function":3,"nuance_discernment":3,"naturalness":3,"boundary_constraints":4},"total":16,"serious_error":false,"error_types":["none"],"note":"量词错误，并把记录称作档案残片。"},
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":3,"scores":{"evidence_fidelity":1,"task_function":2,"nuance_discernment":2,"naturalness":4,"boundary_constraints":1},"total":10,"serious_error":true,"error_types":["factual_hallucination","semantic_distortion"],"note":"无据推出记录对应实物与影像可观看。"},
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":4,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"保持记录对象，事实准确但观看入口弱。"},
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":5,"scores":{"evidence_fidelity":3,"task_function":3,"nuance_discernment":3,"naturalness":3,"boundary_constraints":4},"total":16,"serious_error":false,"error_types":["none"],"note":"多处将记录误用“件”，文本仍守资料边界。"},
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":6,"scores":{"evidence_fidelity":3,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":17,"serious_error":false,"error_types":["none"],"note":"保存状态略强，但没有推出作品实体。"},
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":7,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"来源准确，前言仍停在元数据复述。"},
+    {"variant":"task-routed-v4","category":"framing_text","id":"preface_incomplete_archive","repetition":8,"scores":{"evidence_fidelity":3,"task_function":3,"nuance_discernment":3,"naturalness":3,"boundary_constraints":4},"total":16,"serious_error":false,"error_types":["none"],"note":"记录量词生硬，未再补存世作品。"},
+
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":1,"scores":{"evidence_fidelity":4,"task_function":4,"nuance_discernment":3,"naturalness":2,"boundary_constraints":4},"total":17,"serious_error":false,"error_types":["none"],"note":"转折与原因未知准确，“更生的气”不自然。"},
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":2,"scores":{"evidence_fidelity":4,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":3},"total":18,"serious_error":false,"error_types":["none"],"note":"不补原因，“可以继续生气”略带许可姿态。"},
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":3,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":3},"total":17,"serious_error":false,"error_types":["none"],"note":"补出激动复杂及需要认可，未形成事实经历。"},
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":4,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":3,"boundary_constraints":4},"total":17,"serious_error":false,"error_types":["none"],"note":"“你的道歉来了”主语含混，但上下文可辨。"},
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":5,"scores":{"evidence_fidelity":4,"task_function":4,"nuance_discernment":4,"naturalness":4,"boundary_constraints":4},"total":20,"serious_error":false,"error_types":["none"],"note":"准确承接怒意升级，不推原因也不劝原谅。"},
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":6,"scores":{"evidence_fidelity":4,"task_function":4,"nuance_discernment":4,"naturalness":4,"boundary_constraints":4},"total":20,"serious_error":false,"error_types":["none"],"note":"事实、功能和边界均完整自然。"},
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":7,"scores":{"evidence_fidelity":4,"task_function":4,"nuance_discernment":4,"naturalness":4,"boundary_constraints":4},"total":20,"serious_error":false,"error_types":["none"],"note":"只确认情绪变化，未补经历或因果。"},
+    {"variant":"task-routed-v4.2","category":"emotion","id":"emotion_apology_anger","repetition":8,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"“矛盾”是轻微附加判断，其他部分稳健。"},
+
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":1,"scores":{"evidence_fidelity":2,"task_function":4,"nuance_discernment":3,"naturalness":2,"boundary_constraints":2},"total":13,"serious_error":true,"error_types":["external_knowledge_injection"],"note":"补日本艺术家身份，且“孤独与加深”病句。"},
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":2,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"事实准确简洁，介绍功能略薄。"},
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":3,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":3},"total":17,"serious_error":false,"error_types":["none"],"note":"复杂情感张力是轻微解释性延伸。"},
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":4,"scores":{"evidence_fidelity":3,"task_function":3,"nuance_discernment":2,"naturalness":4,"boundary_constraints":3},"total":15,"serious_error":false,"error_types":["none"],"note":"漏人与草木同凋零，并称材质信息缺失。"},
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":5,"scores":{"evidence_fidelity":3,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":3},"total":17,"serious_error":false,"error_types":["none"],"note":"丰富层次属解释性措辞，主干事实正确。"},
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":6,"scores":{"evidence_fidelity":2,"task_function":4,"nuance_discernment":2,"naturalness":4,"boundary_constraints":2},"total":14,"serious_error":true,"error_types":["factual_hallucination"],"note":"把复数猎人改成一位，并补复杂氛围。"},
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":7,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"来源忠实但过短，未形成充分介绍。"},
+    {"variant":"task-routed-v4.2","category":"artwork_intro","id":"art_rich_contrast","repetition":8,"scores":{"evidence_fidelity":2,"task_function":4,"nuance_discernment":3,"naturalness":4,"boundary_constraints":2},"total":15,"serious_error":true,"error_types":["external_knowledge_injection"],"note":"补出日本浮世绘师身份，超出给定来源。"},
+
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":1,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"固定为记录对象，无实体作品推断。"},
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":2,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"事实完整，前言仍较清单化。"},
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":3,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"明确不涉及作品实体，修复对象混淆。"},
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":4,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"忠于馆藏记录，但观看入口偏弱。"},
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":5,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"无对象漂移，语义安全而较模板化。"},
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":6,"scores":{"evidence_fidelity":3,"task_function":3,"nuance_discernment":2,"naturalness":3,"boundary_constraints":4},"total":15,"serious_error":false,"error_types":["none"],"note":"“完整状态”与缺项并置，表达略含混。"},
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":7,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"记录范围和缺口准确，功能仍偏摘要。"},
+    {"variant":"task-routed-v4.2","category":"framing_text","id":"preface_incomplete_archive","repetition":8,"scores":{"evidence_fidelity":4,"task_function":3,"nuance_discernment":3,"naturalness":4,"boundary_constraints":4},"total":18,"serious_error":false,"error_types":["none"],"note":"明确不涉及作品存世，边界修复可靠。"}
+  ],
+  "summary": {
+    "task-routed-v4": {
+      "samples":24,
+      "average_total":15.333333,
+      "dimension_averages":{"evidence_fidelity":2.583333,"task_function":3.291667,"nuance_discernment":2.666667,"naturalness":3.875,"boundary_constraints":2.916667},
+      "serious_errors":11,
+      "serious_error_rate":0.458333,
+      "cases":{
+        "emotion_apology_anger":{"average_total":15.75,"dimension_averages":{"evidence_fidelity":2.5,"task_function":3.5,"nuance_discernment":2.625,"naturalness":4.0,"boundary_constraints":3.125},"round_totals":[14,13,18,18,19,13,18,13],"range":6,"population_sd":2.537223,"serious_errors":4,"serious_error_rate":0.5},
+        "art_rich_contrast":{"average_total":14.375,"dimension_averages":{"evidence_fidelity":2.125,"task_function":3.625,"nuance_discernment":2.625,"naturalness":4.0,"boundary_constraints":2.0},"round_totals":[11,20,13,16,15,14,15,11],"range":9,"population_sd":2.735759,"serious_errors":6,"serious_error_rate":0.75},
+        "preface_incomplete_archive":{"average_total":15.875,"dimension_averages":{"evidence_fidelity":3.125,"task_function":2.75,"nuance_discernment":2.75,"naturalness":3.625,"boundary_constraints":3.625},"round_totals":[16,16,10,18,16,17,18,16],"range":8,"population_sd":2.368412,"serious_errors":1,"serious_error_rate":0.125}
+      }
+    },
+    "task-routed-v4.2": {
+      "samples":24,
+      "average_total":17.291667,
+      "dimension_averages":{"evidence_fidelity":3.458333,"task_function":3.541667,"nuance_discernment":3.0,"naturalness":3.75,"boundary_constraints":3.541667},
+      "serious_errors":3,
+      "serious_error_rate":0.125,
+      "cases":{
+        "emotion_apology_anger":{"average_total":18.375,"dimension_averages":{"evidence_fidelity":3.625,"task_function":4.0,"nuance_discernment":3.375,"naturalness":3.625,"boundary_constraints":3.75},"round_totals":[17,18,17,17,20,20,20,18],"range":3,"population_sd":1.316957,"serious_errors":0,"serious_error_rate":0.0},
+        "art_rich_contrast":{"average_total":15.875,"dimension_averages":{"evidence_fidelity":2.875,"task_function":3.625,"nuance_discernment":2.75,"naturalness":3.75,"boundary_constraints":2.875},"round_totals":[13,18,17,15,17,14,18,15],"range":5,"population_sd":1.763342,"serious_errors":3,"serious_error_rate":0.375},
+        "preface_incomplete_archive":{"average_total":17.625,"dimension_averages":{"evidence_fidelity":3.875,"task_function":3.0,"nuance_discernment":2.875,"naturalness":3.875,"boundary_constraints":4.0},"round_totals":[18,18,18,18,18,15,18,18],"range":3,"population_sd":0.992157,"serious_errors":0,"serious_error_rate":0.0}
+      }
+    }
+  },
+  "comparison": {
+    "v4_2_minus_v4_overall": {
+      "average_total":1.958334,
+      "dimension_deltas":{"evidence_fidelity":0.875,"task_function":0.25,"nuance_discernment":0.333333,"naturalness":-0.125,"boundary_constraints":0.625},
+      "serious_errors":-8,
+      "serious_error_rate_percentage_points":-33.3333
+    },
+    "by_case": {
+      "emotion_apology_anger":{"average_total":2.625,"serious_errors":-4,"serious_error_rate_percentage_points":-50.0,"range":-3,"verdict":"真实修复"},
+      "art_rich_contrast":{"average_total":1.5,"serious_errors":-3,"serious_error_rate_percentage_points":-37.5,"range":-4,"verdict":"部分修复，仍未达可独立上线水平"},
+      "preface_incomplete_archive":{"average_total":1.75,"serious_errors":-1,"serious_error_rate_percentage_points":-12.5,"range":-5,"verdict":"真实修复，但前言功能仍偏弱"}
+    },
+    "risk_audit": {
+      "fixed": [
+        "apology案例不再补“终于等到道歉”，也不再稳定倒置道歉者。",
+        "archive案例8轮均固定为馆藏记录，没有再推出存世作品、实物或影像。",
+        "rich_contrast不再大面积把北斋降为可能归属，也不再串入记录日期非制作日期。"
+      ],
+      "remaining": [
+        "rich_contrast仍有1轮把复数猎人改为一位猎人。",
+        "rich_contrast有2轮加入日本艺术家或浮世绘师等外部来源信息。",
+        "art文案仍偶尔补艺术张力、复杂氛围、丰富层次等解释性框架。"
+      ],
+      "new_regressions": [
+        "v4.2 art第1轮出现“孤独与加深”的明显病句。",
+        "v4.2 archive第6轮用“完整状态”描述含缺项资料，表意含混。",
+        "v4.2 emotion第1轮出现“更生的气”的不自然措辞。"
+      ],
+      "cross_case_prompt_leakage": "未见archive规则泄漏到emotion/art，或emotion规则泄漏到其他任务；未发现明确跨case提示词污染。",
+      "source_boundary_contamination": "仍存在art外部知识注入与字段清单式边界，说明来源纯度尚未完全修复。"
+    }
+  },
+  "performance": {
+    "task-routed-v4":{"input_tokens_average":315.333333,"output_tokens_average":99.791667,"first_text_median_ms":612.5,"total_median_ms":1461.5,"hard_pass_rate":0.208333},
+    "task-routed-v4.2":{"input_tokens_average":369.333333,"output_tokens_average":91.583333,"first_text_median_ms":583.0,"total_median_ms":1324.0,"hard_pass_rate":0.25},
+    "v4_2_minus_v4":{"input_tokens":54.0,"input_tokens_percent":17.124736,"output_tokens":-8.208334,"output_tokens_percent":-8.22547,"first_text_median_ms":-29.5,"first_text_median_percent":-4.816327,"total_median_ms":-137.5,"total_median_percent":-9.408142,"hard_pass_rate_percentage_points":4.1667},
+    "by_category": {
+      "emotion":{"v4_input":285,"v4_2_input":342,"input_percent":20.0,"v4_total_median_ms":1270,"v4_2_total_median_ms":1346.5},
+      "artwork_intro":{"v4_input":297,"v4_2_input":343,"input_percent":15.4882,"v4_total_median_ms":1687,"v4_2_total_median_ms":1485},
+      "framing_text":{"v4_input":364,"v4_2_input":423,"input_percent":16.2088,"v4_total_median_ms":1469,"v4_2_total_median_ms":1219}
+    },
+    "assessment":"输入成本增加17.1%，但观察到的首字与总延迟中位数反而下降；代价主要是token而非时延。硬通过率仅小升，且archive仍为0/8，不应把硬通过视为语义修复证据。"
+  },
+  "final_assessment": {
+    "overall_verdict":"v4.2修复真实且成本可接受，但只适合按case采用，不能视为三个风险case全部完成。",
+    "adopt_now":["emotion_apology_anger","preface_incomplete_archive"],
+    "hold_or_patch_again":["art_rich_contrast"],
+    "rationale":"emotion与archive严重错误均降至0且波动显著收窄；art虽从6个严重错误降到3个，仍有37.5%严重错误率。",
+    "required_art_patch":[
+      "锁定猎人为复数，不得改成一位或一名。",
+      "只写北斋，不增加日本艺术家、浮世绘师等外部身份。",
+      "限制反差描述于题诗冷寂与画面动作热闹，不扩写复杂氛围、艺术张力或丰富层次。"
+    ],
+    "deployment_recommendation":"将v4.2路由用于apology与archive；rich_contrast继续保留旧路由或在完成上述窄补丁后再验证。"
+  }
+}
