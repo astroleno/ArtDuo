@@ -21,6 +21,9 @@ export interface GroundingArtwork {
   title: string;
   artistDisplayName?: string;
   yearLabel?: string;
+  medium?: string;
+  department?: string;
+  description?: string;
   objectUrl?: string;
   sourceApiUrl?: string;
 }
@@ -81,6 +84,9 @@ function parseGroundingArtwork(value: unknown, path: string): GroundingArtwork {
     title: readString(artwork, "title", path),
     artistDisplayName: readOptionalString(artwork, "artistDisplayName", path),
     yearLabel: readOptionalString(artwork, "yearLabel", path),
+    medium: readOptionalString(artwork, "medium", path),
+    department: readOptionalString(artwork, "department", path),
+    description: readOptionalString(artwork, "description", path),
     objectUrl: readOptionalString(artwork, "objectUrl", path),
     sourceApiUrl: readOptionalString(artwork, "sourceApiUrl", path),
   };

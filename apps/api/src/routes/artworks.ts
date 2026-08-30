@@ -101,6 +101,10 @@ function loadReleaseGroundingData(
           title,
           artistDisplayName: readNestedString(record, ["metadata", "artistDisplayName"]),
           yearLabel: readNestedString(record, ["metadata", "yearLabel"]),
+          medium: readNestedString(record, ["metadata", "medium"]),
+          department: readNestedString(record, ["metadata", "department"]),
+          description: readNestedString(record, ["metadata", "descriptionClean"])
+            ?? readNestedString(record, ["metadata", "descriptionRaw"]),
           objectUrl: readNestedString(record, ["metadata", "objectUrl"]),
           sourceApiUrl: readNestedString(record, ["metadata", "sourceApiUrl"]),
         });
@@ -244,16 +248,24 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
         }
       }
 
-      const explanation = await getArtworkExplanation(
-        cache,
-        {
-          artworkId: request.artworkId,
-          releaseVersion: request.releaseVersion,
-          contextText: request.contextText,
-          grounding,
-        },
-        generator,
-      );
+      let explanation: ArtworkExplanation;
+      try {
+        explanation = await getArtworkExplanation(
+          cache,
+          {
+            artworkId: request.artworkId,
+            releaseVersion: request.releaseVersion,
+            contextText: request.contextText,
+            grounding,
+          },
+          generator,
+        );
+      } catch {
+        return finish(
+          apiError(502, "explanation_provider_failed", "Artwork explanation provider failed"),
+          "provider_failed",
+        );
+      }
 
       return finish(
         {

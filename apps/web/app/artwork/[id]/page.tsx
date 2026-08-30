@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { ArtworkImage } from "../../../components/artwork-image";
 import { artworkImageUrl } from "../../../lib/artwork-image-url";
+import { buildRecommendationReason } from "../../../lib/artwork-page-copy";
 import { getArtworkExplanationClient } from "../../../lib/explanation-client";
 import { getArtworkDetail, loadWebReleaseCatalog } from "../../../lib/release-catalog";
 
@@ -10,6 +11,8 @@ interface ArtworkPageProps {
   params: Promise<{ id: string }>;
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }
+
+export const dynamic = "force-dynamic";
 
 function readParam(
   params: Record<string, string | string[] | undefined> | undefined,
@@ -57,19 +60,6 @@ function formatEvidenceTokens(tokens: string[]): string {
   return tokens.length > 0 ? tokens.slice(0, 6).join(", ") : "No lexical token match";
 }
 
-function buildRecommendationReason(explanation: Awaited<ReturnType<typeof getArtworkExplanationClient>>): string {
-  if (explanation.status !== "ready" || !explanation.content?.evidence) {
-    return "解释会在不阻塞作品阅读的前提下补全。";
-  }
-
-  const grounding = explanation.content.evidence.grounding;
-  const sceneLabel = grounding.scene?.label ?? "当前展厅";
-  const tokens = grounding.matchedTokens.slice(0, 3);
-  const tokenText = tokens.length > 0 ? `，尤其靠近「${tokens.join(" / ")}」这些线索` : "";
-
-  return `这件作品被选中，是因为它和你的观看意图在情绪、主题与画面气质上相互靠近${tokenText}，并适合放入「${sceneLabel}」的观展氛围。`;
-}
-
 function renderExplanationStatus(explanation: Awaited<ReturnType<typeof getArtworkExplanationClient>>): string {
   if (explanation.status === "ready") {
     return explanation.content?.shortText ?? "Explanation ready";
@@ -79,11 +69,6 @@ function renderExplanationStatus(explanation: Awaited<ReturnType<typeof getArtwo
   }
 
   return "Explanation unavailable";
-}
-
-export function generateStaticParams() {
-  const catalog = loadWebReleaseCatalog();
-  return catalog.artworks.map((artwork) => ({ id: artwork.id }));
 }
 
 export default async function ArtworkPage({ params, searchParams }: ArtworkPageProps) {
@@ -189,6 +174,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               <p className="meta">{renderExplanationStatus(explanation)}</p>
               {explanation.status === "ready" && explanation.content?.evidence ? (
                 <>
+                  <p className="explanation-detail">{explanation.content.detailText}</p>
                   <div className="recommendation-reason">
                     <p className="evidence-label">为什么推荐这件作品</p>
                     <p>{buildRecommendationReason(explanation)}</p>

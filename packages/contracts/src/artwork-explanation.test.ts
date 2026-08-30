@@ -17,6 +17,9 @@ test("artwork explanation exposes pending and ready shapes", () => {
   assert.equal(ready.status, "ready");
   assert.equal(ready.content?.title.length ? true : false, true);
   assert.equal(ready.content?.evidence.grounding.artwork.id, ready.artworkId);
+  assert.equal(ready.content?.evidence.grounding.artwork.medium, "Limestone");
+  assert.equal(ready.content?.evidence.grounding.artwork.department, "Medieval Art");
+  assert.match(ready.content?.evidence.grounding.artwork.description ?? "", /carved stone details/);
   assert.equal(ready.content?.evidence.grounding.releaseVersion, ready.releaseVersion);
   assert.ok(ready.content?.evidence.citations.some((citation) => citation.kind === "artwork"));
   assert.ok(ready.content?.evidence.citations.some((citation) => citation.kind === "release"));

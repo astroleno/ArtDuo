@@ -64,10 +64,9 @@ test("curation narrative produces preface closing and a three-stage curve", () =
   });
 
   assert.match(narrative.preface, /Work met-1/);
-  assert.match(narrative.preface, /我把这句愿望理解成/);
-  assert.match(narrative.preface, /把注意力从噪声里慢慢收回来/);
+  assert.match(narrative.preface, /观看方向.*I want a quiet room/);
   assert.match(narrative.closing, /5 件作品/);
-  assert.match(narrative.closing, /不是答案/);
+  assert.match(narrative.closing, /不替你的感受下结论/);
   assert.equal(narrative.curve.length, 3);
   assert.equal(narrative.curve.length, narrative.growthForm.stages.length);
   assert.equal(narrative.growthForm.sourceText, "I want a quiet room");
@@ -92,4 +91,23 @@ test("curation narrative keeps visible copy aligned with hard brightness resista
   assert.doesNotMatch(narrative.preface, /喜悦|亮起来/);
   assert.doesNotMatch(narrative.title, /向上的光|明亮/);
   assert.match(`${narrative.title} ${narrative.preface}`, /低光|木色|暗红/);
+});
+
+test("curation narrative preserves the stated viewing direction without claiming an emotional outcome", () => {
+  const narrative = buildCurationNarrative({
+    query: "深色作品，展厅不要太暗",
+    normalizedQuery: "深色作品 展厅不要太暗",
+    model: "local",
+    dimensions: 4,
+    results: [
+      result("met-dark-1", 0.91, "contemplation", "charcoal"),
+      result("met-dark-2", 0.83, "serenity", "shadow"),
+      result("met-dark-3", 0.72, "quiet", "room"),
+    ],
+  });
+
+  assert.match(narrative.preface, /观看方向.*深色作品，展厅不要太暗/);
+  assert.doesNotMatch(narrative.preface, /你想|容纳自己/);
+  assert.match(narrative.closing, /不替你的感受下结论/);
+  assert.doesNotMatch(narrative.closing, /感受照亮|不是答案/);
 });

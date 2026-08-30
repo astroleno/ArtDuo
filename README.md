@@ -36,6 +36,16 @@ Run the V2 web app:
 pnpm --filter @artduo/web dev -- -p 3210 -H 127.0.0.1
 ```
 
+To enable the evaluated DeepSeek artwork-introduction path, configure these server-only variables in `.env`:
+
+```dotenv
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_API_KEY=
+DEEPSEEK_MODEL=deepseek-v4-flash
+```
+
+When all three are present, V2 uses OpenAI-compatible SSE streaming with the grounded artwork prompt. Otherwise it keeps the local deterministic explanation fallback. Exhibition preface and closing remain a single deterministic narrative path; the lower-scoring standalone LLM prompts are not enabled.
+
 Open:
 
 ```text

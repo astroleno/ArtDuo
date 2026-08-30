@@ -231,52 +231,6 @@ function inferQuerySignals(query: string, resultSignals: string[]): string[] {
   return unique([...signals, ...resultSignals]).slice(0, 10);
 }
 
-function inferEmotionalNeed(query: string, tone: string, growthForm: GrowthForm): string {
-  const normalized = query.toLowerCase();
-  const hardSignals = growthHardSignals(growthForm);
-  const signals = new Set(growthSignals(growthForm));
-
-  if (hardSignals.has("bright") && (signals.has("low-light") || signals.has("burgundy") || signals.has("walnut"))) {
-    return "把光压低一点，让暗红、木色和低光把观看安静地包住";
-  }
-  if (hardSignals.has("heavy-grief") && (signals.has("restful") || signals.has("held") || /睡前|bedtime|before sleep/.test(normalized))) {
-    return "停在睡前那种被轻轻托住的安静里，不往沉重处走";
-  }
-  if (hardSignals.has("heavy-drama") && (signals.has("serenity") || signals.has("quiet") || signals.has("contemplation") || /剧情太满|no drama/.test(normalized))) {
-    return "保留克制和留白，不让剧情把观看填满";
-  }
-  if (hardSignals.has("loud") && (signals.has("desire") || signals.has("quiet") || signals.has("intimate"))) {
-    return "把靠近感放低声一点，不让浪漫变得喧闹";
-  }
-  if (hardSignals.has("cartoonish") && signals.has("joy")) {
-    return "保留喜悦，但避开卡通式的甜腻";
-  }
-
-  if (/焦虑|anxiety|anxious|紧张|panic|压力|stress/.test(normalized)) {
-    return "先把紧绷感放到画面外面一点";
-  }
-  if (/快乐|跳跃|明亮|节日|happiness|happy|joy|delight|celebration/.test(normalized)) {
-    return "让轻一点的喜悦先在展厅里亮起来";
-  }
-  if (/神秘|谜|秘密|低光|剧场|mystery|occult|secret|shadow/.test(normalized)) {
-    return "把谜面留在暗处，只沿着可见的光往前走";
-  }
-  if (/欲望|靠近|想念|远方|longing|desire|yearning/.test(normalized)) {
-    return "靠近那些还没有说出口的牵引";
-  }
-  if (/孤独|alone|lonely|失眠|怀旧|老照片|grief|悲伤|sad|失去/.test(normalized)) {
-    return "让没有被说完的部分被温柔看见";
-  }
-  if (/希望|春|清晨|亮起来|鼓励|hope|spring|dawn|renewal|治愈|heal|疗愈/.test(normalized)) {
-    return "替自己找回一点可以继续向前的光";
-  }
-  if (/沉思|专注|书房|留白|不想说话|quiet|calm|安静|平静|月光|moon|serenity|rest|minimal|contemplation/.test(normalized)) {
-    return "把注意力从噪声里慢慢收回来";
-  }
-
-  return `沿着“${tone}”找到一个更能容纳自己的位置`;
-}
-
 export function buildJourneyIntensities(results: WebSearchResult["results"]): number[] {
   if (results.length === 0) {
     return [];
@@ -314,7 +268,7 @@ export function buildCurationNarrative(search: WebSearchResult): CurationNarrati
   const tone = growthHardSignals(growthForm).size > 0
     ? growthTone ?? inferQueryTone(search.query) ?? toneLabel(filterSignalsByHardRules(resultSignals, growthForm)[0])
     : inferQueryTone(search.query) ?? growthTone ?? toneLabel(resultSignals[0]);
-  const need = inferEmotionalNeed(search.query, tone, growthForm);
+  const statedDirection = search.query.trim().replace(/\s+/g, " ").slice(0, 120);
 
   const curve = growthForm.stages.map((stage, index) => ({
     label: STAGE_LABELS[index] ?? stage.label,
@@ -324,8 +278,8 @@ export function buildCurationNarrative(search: WebSearchResult): CurationNarrati
 
   return {
     title: `${tone}的观展路线`,
-    preface: `我把这句愿望理解成：你想${need}。从《${topTitle}》进入，先让眼睛适应${sceneLabel}里的光，接下来的作品会沿着“${tone}”慢慢展开。`,
-    closing: `这条路线在“${tone}”里收束。刚才的 ${results.length} 件作品不是答案，而是把你的感受照亮了一点；下一次可以从其中任何一幅重新进入。`,
+    preface: `你给出的观看方向是“${statedDirection}”。从《${topTitle}》进入，先让眼睛适应${sceneLabel}里的光，接下来的作品会沿着“${tone}”慢慢展开。`,
+    closing: `这条路线在“${tone}”里收束。刚才的 ${results.length} 件作品保留了这次选择的线索，但不替你的感受下结论；下一次可以从其中任何一幅重新进入。`,
     curve,
     intentSignals,
     growthForm,

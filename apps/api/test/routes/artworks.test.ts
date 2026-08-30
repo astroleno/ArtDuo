@@ -64,6 +64,9 @@ function createFixtureRelease(): string {
           title: "Cloister",
           artistDisplayName: "Unknown Artist",
           yearLabel: "12th century",
+          medium: "Limestone",
+          department: "Medieval Art",
+          descriptionClean: "A release-grounded architectural fragment with carved stone details.",
           objectUrl: "https://www.metmuseum.org/art/collection/search/474091",
         },
       }],
@@ -139,7 +142,7 @@ test("server provider env is opt-in and does not run by default", async () => {
 
 test("enabled server provider receives route grounding", async () => {
   const releasesRoot = createFixtureRelease();
-  let providerGroundingArtwork = "";
+  let providerReceivedGrounding = false;
   const route = createArtworkExplanationRoute({
     releasesRoot,
     enableServerProvider: true,
@@ -150,13 +153,18 @@ test("enabled server provider receives route grounding", async () => {
       ARTDUO_EXPLANATION_API_KEY: "server-only-test-key",
     },
     providerFetch: async (_url, init) => {
-      const body = JSON.parse(String(init?.body)) as { grounding: { artwork: { id: string } } };
-      providerGroundingArtwork = body.grounding.artwork.id;
-      return new Response(JSON.stringify({
-        title: "Provider Cloister",
-        shortText: "Grounded provider note.",
-        detailText: "Grounded provider detail.",
-      }), { status: 200, headers: { "content-type": "application/json" } });
+      const body = JSON.parse(String(init?.body)) as {
+        messages: Array<{ role: string; content: string }>;
+      };
+      providerReceivedGrounding = body.messages.some((message) => (
+        message.role === "user" && message.content.includes('"id":"met-474091"')
+      ));
+      return new Response([
+        'data: {"model":"test-model","choices":[{"delta":{"content":"{\\"title\\":\\"Provider Cloister\\",\\"shortText\\":\\"Grounded provider note.\\",\\"detailText\\":\\"Grounded provider detail.\\"}"}}]}',
+        "",
+        "data: [DONE]",
+        "",
+      ].join("\n"), { status: 200, headers: { "content-type": "text/event-stream" } });
     },
   });
 
@@ -170,9 +178,31 @@ test("enabled server provider receives route grounding", async () => {
   });
 
   assert.equal(response.status, 200);
-  assert.equal(providerGroundingArtwork, "met-474091");
+  assert.equal(providerReceivedGrounding, true);
   if (response.status !== 200 || "code" in response.body || response.body.status !== "ready") return;
   assert.equal(response.body.content?.evidence.grounding.scene?.id, "bg-quiet-cloister");
+});
+
+test("provider contract failures become a bounded API error instead of rejecting the route", async () => {
+  const releasesRoot = createFixtureRelease();
+  const route = createArtworkExplanationRoute({
+    releasesRoot,
+    generator: async () => {
+      throw new Error("upstream response omitted detailText");
+    },
+  });
+
+  const response = await route.getArtworkExplanation({
+    artworkId: "met-474091",
+    releaseVersion: "2026-04-25-curation-b",
+    contextText: "quiet meditative reflection",
+  });
+
+  assert.equal(response.status, 502);
+  assert.deepEqual(response.body, {
+    code: "explanation_provider_failed",
+    message: "Artwork explanation provider failed",
+  });
 });
 
 test("generator returns ready explanation and is cached", async () => {
@@ -231,11 +261,17 @@ test("ready explanation includes grounding context and citations", async () => {
   assert.ok(content);
   assert.equal(receivedArtworkTitle, "Cloister");
   assert.equal(content.evidence.grounding.artwork.id, "met-474091");
+  assert.equal(content.evidence.grounding.artwork.medium, "Limestone");
+  assert.equal(content.evidence.grounding.artwork.department, "Medieval Art");
+  assert.match(content.evidence.grounding.artwork.description ?? "", /carved stone details/);
   assert.equal(content.evidence.grounding.scene?.id, "bg-quiet-cloister");
   assert.equal(content.evidence.grounding.retrievalScore, 0.308327);
   assert.deepEqual(content.evidence.grounding.matchedTokens, ["quiet", "meditative", "cloister"]);
   assert.equal(content.evidence.grounding.sourceVersions.corpusVersion, "2026-04-25-curation-b");
-  assert.ok(content.evidence.citations.some((citation) => citation.kind === "artwork"));
+  const artworkCitation = content.evidence.citations.find((citation) => citation.kind === "artwork");
+  assert.ok(artworkCitation);
+  assert.match(artworkCitation.text ?? "", /Limestone/);
+  assert.match(artworkCitation.text ?? "", /Medieval Art/);
   assert.ok(content.evidence.citations.some((citation) => citation.kind === "scene"));
   assert.ok(content.evidence.citations.some((citation) => citation.kind === "release"));
   assert.ok(content.evidence.citations.some((citation) => citation.kind === "retrieval"));
