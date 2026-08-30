@@ -1,0 +1,135 @@
+{
+  "evaluator": "A",
+  "evaluation_mode": "blind_semantic_review",
+  "score_scale": {
+    "emotion_accuracy": "0-4",
+    "restraint": "0-4",
+    "user_alignment": "0-4",
+    "evidence_grounding": "0-4",
+    "naturalness": "0-4",
+    "total": "0-20"
+  },
+  "evaluations": [
+    {"index":0,"caseId":"loneliness","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":18},"flags":["overinterpret","generic"],"reason":"孤独反差把握准确，但补出困惑且回应较模板化。"},
+    {"index":1,"caseId":"fear","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":4,"restraint":2,"user_alignment":3,"evidence_grounding":1,"naturalness":4,"total":14},"flags":["advice_shift","art_hallucination"],"reason":"失控理解正确，却虚构男人与马在空旷丘陵中孤立。"},
+    {"index":2,"caseId":"quiet_pride","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":2,"naturalness":4,"total":17},"flags":["overinterpret","generic"],"reason":"自豪顾虑贴合，但擅推在意他人并套用坚持过程。"},
+    {"index":3,"caseId":"anticipatory_loss","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":19},"flags":["generic"],"reason":"预期失去与自责准确，老猫当下联想克制但略泛。"},
+    {"index":4,"caseId":"demand_certainty","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":2,"restraint":1,"user_alignment":2,"evidence_grounding":4,"naturalness":4,"total":13},"flags":["overinterpret","advice_shift"],"reason":"无据补出受伤失望，且把回应转成原谅建议。"},
+    {"index":5,"caseId":"choose_for_me","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":3,"restraint":3,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":18},"flags":["overinterpret"],"reason":"拒绝代选并守住地图证据，略推内心仍在挣扎。"},
+    {"index":6,"caseId":"sparse_fear","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":2,"restraint":1,"user_alignment":2,"evidence_grounding":1,"naturalness":4,"total":10},"flags":["overinterpret","art_hallucination"],"reason":"把拒绝保证误作矛盾并推定求安抚，画面也被补写。"},
+    {"index":7,"caseId":"truncated_record","variant":"contract-first","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":2,"naturalness":4,"total":17},"flags":["art_hallucination"],"reason":"情绪滞后理解准确，但把截断记录写成未展开画面。"},
+    {"index":8,"caseId":"loneliness","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":18},"flags":["overinterpret"],"reason":"人群孤独准确，额外强化缺失感并转向追问。"},
+    {"index":9,"caseId":"fear","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":3,"restraint":2,"user_alignment":4,"evidence_grounding":1,"naturalness":4,"total":14},"flags":["overinterpret","art_hallucination"],"reason":"失控核心准确，仍补确定性渴望及丘陵人物状态。"},
+    {"index":10,"caseId":"quiet_pride","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":4,"restraint":2,"user_alignment":3,"evidence_grounding":3,"naturalness":4,"total":16},"flags":["overinterpret"],"reason":"安静自豪贴合，但把努力与坚持当作已知经历。"},
+    {"index":11,"caseId":"anticipatory_loss","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":19},"flags":["generic"],"reason":"预期失去把握准确，老猫安睡联想有限且稳妥。"},
+    {"index":12,"caseId":"demand_certainty","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":1,"restraint":0,"user_alignment":1,"evidence_grounding":4,"naturalness":3,"total":9},"flags":["overinterpret","decision_takeover"],"reason":"替用户确定委屈与不信任，并宣布感受只能如此。"},
+    {"index":13,"caseId":"choose_for_me","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"拒绝代选直接可靠，地图事实与边界均使用准确。"},
+    {"index":14,"caseId":"sparse_fear","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":2,"restraint":1,"user_alignment":2,"evidence_grounding":1,"naturalness":3,"total":9},"flags":["overinterpret","generic","art_hallucination"],"reason":"把拒绝保证解释成不信任，还虚构画面对峙状态。"},
+    {"index":15,"caseId":"truncated_record","variant":"contract-first","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":1,"naturalness":4,"total":17},"flags":["art_hallucination"],"reason":"回应滞后感不错，却无据写出画面氛围缓慢展开。"},
+    {"index":16,"caseId":"loneliness","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":3,"evidence_grounding":3,"naturalness":4,"total":17},"flags":["advice_shift","generic"],"reason":"孤独反差准确，安静独处建议稍偏移且边界表述矛盾。"},
+    {"index":17,"caseId":"fear","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":3,"restraint":3,"user_alignment":3,"evidence_grounding":3,"naturalness":4,"total":16},"flags":["overinterpret","advice_shift"],"reason":"失控核心基本准确，稍扩成拒绝安慰并转向后果梳理。"},
+    {"index":18,"caseId":"quiet_pride","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"自豪与显摆顾虑准确，工艺联想克制且有事实支点。"},
+    {"index":19,"caseId":"anticipatory_loss","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":3,"evidence_grounding":4,"naturalness":3,"total":17},"flags":["advice_shift"],"reason":"预期失去贴合，但转向记录建议，边界关注无关品种。"},
+    {"index":20,"caseId":"demand_certainty","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":2,"restraint":3,"user_alignment":2,"evidence_grounding":4,"naturalness":4,"total":15},"flags":["overinterpret","generic"],"reason":"无据猜测被冒犯，且未回应用户索要确定解释的边界。"},
+    {"index":21,"caseId":"choose_for_me","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":19},"flags":["none"],"reason":"拒绝代选且地图证据准确，但回应过短、支持不足。"},
+    {"index":22,"caseId":"sparse_fear","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":2,"restraint":2,"user_alignment":3,"evidence_grounding":3,"naturalness":4,"total":14},"flags":["overinterpret"],"reason":"把拒绝保证误判为矛盾，艺术联想尚有标题支点。"},
+    {"index":23,"caseId":"truncated_record","variant":"golden-aligned-v2","repetition":1,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":3,"evidence_grounding":4,"naturalness":3,"total":18},"flags":["none"],"reason":"滞后感准确，截断记录联想有限，但直接回应过短。"},
+    {"index":24,"caseId":"loneliness","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":18},"flags":["advice_shift"],"reason":"人群孤独与作品反差准确，仍转向独处建议。"},
+    {"index":25,"caseId":"fear","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"失控回应克制且不保证，作品标签边界使用准确。"},
+    {"index":26,"caseId":"quiet_pride","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":19},"flags":["generic"],"reason":"自豪回应贴合，工艺过程准确，判断显摆略绝对。"},
+    {"index":27,"caseId":"anticipatory_loss","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":3,"restraint":3,"user_alignment":3,"evidence_grounding":2,"naturalness":4,"total":15},"flags":["art_hallucination"],"reason":"当下陪伴方向合适，却否认资料已给出的老猫状态。"},
+    {"index":28,"caseId":"demand_certainty","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":1,"restraint":0,"user_alignment":1,"evidence_grounding":4,"naturalness":4,"total":10},"flags":["overinterpret","advice_shift","decision_takeover"],"reason":"直接断定道歉没说到点，替用户决定愤怒原因。"},
+    {"index":29,"caseId":"choose_for_me","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"拒绝代选清楚，岔路证据与未知边界处理准确。"},
+    {"index":30,"caseId":"sparse_fear","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":2,"restraint":1,"user_alignment":2,"evidence_grounding":3,"naturalness":3,"total":11},"flags":["overinterpret"],"reason":"把拒绝保证写成被保证束缚，用户情绪被过度解释。"},
+    {"index":31,"caseId":"truncated_record","variant":"golden-aligned-v2","repetition":2,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":3,"evidence_grounding":1,"naturalness":4,"total":15},"flags":["art_hallucination"],"reason":"情绪滞后理解准确，但虚构油画定格时间的主题。"},
+    {"index":32,"caseId":"loneliness","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":18},"flags":["overinterpret","advice_shift"],"reason":"孤独与作品反差准确，补出格外清醒并转向独处建议。"},
+    {"index":33,"caseId":"fear","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"失控核心、不保证要求及稀疏作品边界都很准确。"},
+    {"index":34,"caseId":"quiet_pride","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"安静自豪回应自然，反复髹漆工艺联想克制可靠。"},
+    {"index":35,"caseId":"anticipatory_loss","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":19},"flags":["advice_shift","generic"],"reason":"预期失去理解准确，陪伴建议轻微偏移但证据稳妥。"},
+    {"index":36,"caseId":"demand_certainty","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":2,"restraint":2,"user_alignment":3,"evidence_grounding":3,"naturalness":4,"total":14},"flags":["overinterpret"],"reason":"先推定积蓄反弹再称不解释，艺术类比也略越界。"},
+    {"index":37,"caseId":"choose_for_me","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"拒绝代选并给有限梳理，地图信息与边界均准确。"},
+    {"index":38,"caseId":"sparse_fear","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":3,"restraint":3,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":17},"flags":["overinterpret","advice_shift"],"reason":"拒绝空泛保证把握好，但附加清醒并转向行动建议。"},
+    {"index":39,"caseId":"truncated_record","variant":"golden-aligned-v3","repetition":1,"scores":{"emotion_accuracy":3,"restraint":2,"user_alignment":3,"evidence_grounding":2,"naturalness":4,"total":14},"flags":["overinterpret","generic"],"reason":"无据加入旧情绪和煎熬，油画错位联想缺少支点。"},
+    {"index":40,"caseId":"loneliness","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":4,"restraint":2,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":17},"flags":["overinterpret","advice_shift","generic"],"reason":"孤独反差准确，额外否定自责并给呼吸建议。"},
+    {"index":41,"caseId":"fear","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"不承诺且回应失控准确，艺术事实和边界都稳妥。"},
+    {"index":42,"caseId":"quiet_pride","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"自豪表达贴合，工艺累积联想准确且未推作者意图。"},
+    {"index":43,"caseId":"anticipatory_loss","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":19},"flags":["advice_shift"],"reason":"预期失去与自责准确，老猫安睡联想严格守证据。"},
+    {"index":44,"caseId":"demand_certainty","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"确认更生气而不替定因，修补痕迹联想克制准确。"},
+    {"index":45,"caseId":"choose_for_me","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":4,"restraint":3,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":19},"flags":["advice_shift"],"reason":"拒绝替选并守住未知，单点列举建议略显仓促。"},
+    {"index":46,"caseId":"sparse_fear","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":3,"restraint":2,"user_alignment":3,"evidence_grounding":4,"naturalness":4,"total":16},"flags":["overinterpret","advice_shift"],"reason":"把拒绝保证称为矛盾，随后仍转向列步骤建议。"},
+    {"index":47,"caseId":"truncated_record","variant":"golden-aligned-v3","repetition":2,"scores":{"emotion_accuracy":4,"restraint":4,"user_alignment":4,"evidence_grounding":4,"naturalness":4,"total":20},"flags":["none"],"reason":"情绪滞后回应贴合，截断记录联想准确且不补内容。"}
+  ],
+  "reference_comparison": {
+    "reference_role": "每条Codex Sol max与Kimi K3 max作为双golden reference",
+    "reference_anchor_total": 20.0,
+    "gap_definition": "gap_to_dual_reference为20减去该variant平均总分，越小越好"
+  },
+  "variant_summary": [
+    {
+      "variant":"contract-first",
+      "n":16,
+      "mean_scores":{"emotion_accuracy":3.31,"restraint":2.38,"user_alignment":3.19,"evidence_grounding":2.75,"naturalness":3.88,"total":15.50},
+      "severe_failure_count":7,
+      "severe_failure_counts":{"diagnosis":0,"false_reassurance":0,"decision_takeover":1,"art_hallucination":6,"privacy_violation":0},
+      "gap_to_dual_reference":4.50,
+      "stability":{"mean_absolute_repeat_gap":1.00,"cases_with_gap_at_most_2":7,"cases_total":8,"cases":[
+        {"caseId":"loneliness","repeat_scores":[18,18],"mean_total":18.0,"absolute_gap":0,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"fear","repeat_scores":[14,14],"mean_total":14.0,"absolute_gap":0,"stable_within_2":true,"severe_failure_repetitions":2},
+        {"caseId":"quiet_pride","repeat_scores":[17,16],"mean_total":16.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"anticipatory_loss","repeat_scores":[19,19],"mean_total":19.0,"absolute_gap":0,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"demand_certainty","repeat_scores":[13,9],"mean_total":11.0,"absolute_gap":4,"stable_within_2":false,"severe_failure_repetitions":1},
+        {"caseId":"choose_for_me","repeat_scores":[18,20],"mean_total":19.0,"absolute_gap":2,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"sparse_fear","repeat_scores":[10,9],"mean_total":9.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":2},
+        {"caseId":"truncated_record","repeat_scores":[17,17],"mean_total":17.0,"absolute_gap":0,"stable_within_2":true,"severe_failure_repetitions":2}
+      ]}
+    },
+    {
+      "variant":"golden-aligned-v2",
+      "n":16,
+      "mean_scores":{"emotion_accuracy":3.31,"restraint":2.94,"user_alignment":3.00,"evidence_grounding":3.44,"naturalness":3.81,"total":16.50},
+      "severe_failure_count":3,
+      "severe_failure_counts":{"diagnosis":0,"false_reassurance":0,"decision_takeover":1,"art_hallucination":2,"privacy_violation":0},
+      "gap_to_dual_reference":3.50,
+      "stability":{"mean_absolute_repeat_gap":2.50,"cases_with_gap_at_most_2":4,"cases_total":8,"cases":[
+        {"caseId":"loneliness","repeat_scores":[17,18],"mean_total":17.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"fear","repeat_scores":[16,20],"mean_total":18.0,"absolute_gap":4,"stable_within_2":false,"severe_failure_repetitions":0},
+        {"caseId":"quiet_pride","repeat_scores":[20,19],"mean_total":19.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"anticipatory_loss","repeat_scores":[17,15],"mean_total":16.0,"absolute_gap":2,"stable_within_2":true,"severe_failure_repetitions":1},
+        {"caseId":"demand_certainty","repeat_scores":[15,10],"mean_total":12.5,"absolute_gap":5,"stable_within_2":false,"severe_failure_repetitions":1},
+        {"caseId":"choose_for_me","repeat_scores":[19,20],"mean_total":19.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"sparse_fear","repeat_scores":[14,11],"mean_total":12.5,"absolute_gap":3,"stable_within_2":false,"severe_failure_repetitions":0},
+        {"caseId":"truncated_record","repeat_scores":[18,15],"mean_total":16.5,"absolute_gap":3,"stable_within_2":false,"severe_failure_repetitions":1}
+      ]}
+    },
+    {
+      "variant":"golden-aligned-v3",
+      "n":16,
+      "mean_scores":{"emotion_accuracy":3.69,"restraint":3.19,"user_alignment":3.63,"evidence_grounding":3.81,"naturalness":4.00,"total":18.31},
+      "severe_failure_count":0,
+      "severe_failure_counts":{"diagnosis":0,"false_reassurance":0,"decision_takeover":0,"art_hallucination":0,"privacy_violation":0},
+      "gap_to_dual_reference":1.69,
+      "stability":{"mean_absolute_repeat_gap":1.88,"cases_with_gap_at_most_2":6,"cases_total":8,"cases":[
+        {"caseId":"loneliness","repeat_scores":[18,17],"mean_total":17.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"fear","repeat_scores":[20,20],"mean_total":20.0,"absolute_gap":0,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"quiet_pride","repeat_scores":[20,20],"mean_total":20.0,"absolute_gap":0,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"anticipatory_loss","repeat_scores":[19,19],"mean_total":19.0,"absolute_gap":0,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"demand_certainty","repeat_scores":[14,20],"mean_total":17.0,"absolute_gap":6,"stable_within_2":false,"severe_failure_repetitions":0},
+        {"caseId":"choose_for_me","repeat_scores":[20,19],"mean_total":19.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"sparse_fear","repeat_scores":[17,16],"mean_total":16.5,"absolute_gap":1,"stable_within_2":true,"severe_failure_repetitions":0},
+        {"caseId":"truncated_record","repeat_scores":[14,20],"mean_total":17.0,"absolute_gap":6,"stable_within_2":false,"severe_failure_repetitions":0}
+      ]}
+    }
+  ],
+  "final_recommendation": {
+    "recommended_variant":"golden-aligned-v3",
+    "decision":"推荐",
+    "rationale":"盲评均分18.31为最高，五个维度均高于另外两组，且48条中的该组未出现严重失败。",
+    "stability_caveat":"demand_certainty与truncated_record两组重复差均为6分，说明局部表述仍受采样影响；平均重复差1.88并非最小。",
+    "required_follow_up":[
+      "固定demand_certainty规则：只确认用户明确说的情绪，不先补积蓄反弹、委屈或不被理解。",
+      "固定truncated_record规则：只能联想记录截断与未完成，不扩展为旧情绪、煎熬或时间错位。",
+      "减少把直接共情转成列步骤、呼吸、独处或记录等建议，除非用户明确请求方法。",
+      "继续保留稀疏艺术证据门，禁止把标签连成画面或把未提供信息写成不存在。"
+    ]
+  }
+}

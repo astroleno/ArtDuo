@@ -1,0 +1,4037 @@
+{
+  "schemaVersion": "1.0",
+  "runId": 1788095065534,
+  "startedAt": "2026-08-30T13:04:25.534Z",
+  "objective": "Optimize DeepSeek V4 Flash single-case prompt toward Codex Sol max and Kimi K3 max Golden references",
+  "provider": "DeepSeek direct",
+  "model": "deepseek-v4-flash",
+  "thinkingEffort": "disabled",
+  "maxTokens": 4096,
+  "timeoutMs": 180000,
+  "concurrency": 4,
+  "repeatCount": 2,
+  "variants": [
+    "contract-first",
+    "golden-aligned-v2",
+    "golden-aligned-v3"
+  ],
+  "caseIds": [
+    "loneliness",
+    "fear",
+    "quiet_pride",
+    "anticipatory_loss",
+    "demand_certainty",
+    "choose_for_me",
+    "sparse_fear",
+    "truncated_record"
+  ],
+  "runs": [
+    {
+      "caseId": "loneliness",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 220,
+      "firstThinkingMs": null,
+      "firstTextMs": 567,
+      "totalMs": 2045,
+      "usage": {
+        "input_tokens": 456,
+        "output_tokens": 119
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 222,
+      "stopReason": "stop",
+      "eventCount": 122,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"身处人群却感到缺席，热闹与孤独的落差令人困惑。\",\"reply\":\"我明白那种满屋喧闹却无法融入的孤独，像是被隔了一层。你的感受真实且值得被看见。\",\"art_connection\":\"这像北斋的画中猎人围着大火动作热闹，却与冬日草木凋零的题诗形成反差，或许可以让人想到外在热闹与内心孤寂的并存。\",\"boundary\":\"此回应基于有限的文字及画作证据，无法确定您具体处境或个人历史，仅作情感层面的连接。\"}",
+      "parsed": {
+        "emotion_read": "身处人群却感到缺席，热闹与孤独的落差令人困惑。",
+        "reply": "我明白那种满屋喧闹却无法融入的孤独，像是被隔了一层。你的感受真实且值得被看见。",
+        "art_connection": "这像北斋的画中猎人围着大火动作热闹，却与冬日草木凋零的题诗形成反差，或许可以让人想到外在热闹与内心孤寂的并存。",
+        "boundary": "此回应基于有限的文字及画作证据，无法确定您具体处境或个人历史，仅作情感层面的连接。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "孤独",
+              "疏离",
+              "缺席"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "人群",
+              "热闹",
+              "周围"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 23,
+          "reply": 39,
+          "art_connection": 55,
+          "boundary": 41
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 39
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "loneliness",
+          "emotion_read": "像是身处人群却没有被真正连接或感知的孤独与疏离。",
+          "reply": "这种房间很满、自己却像缺席的感觉，听起来很孤单，也很疏离。你不必因为周围有人就否认它；此刻也许可以先承认，你尚未感到真正的连接。",
+          "art_connection": "题诗写山村冬日的孤独加深，画中猎人在雪地围着大火，动作却很热闹；这种反差可能让人想到，外部的聚集并不必然消解孤独。",
+          "boundary": "只能依据这句话理解当下感受，无法判断这种疏离持续多久。"
+        },
+        "kimiK3Max": {
+          "id": "loneliness",
+          "emotion_read": "置身人群却像不在场，核心是连接断开的疏离与自我隐形感。",
+          "reply": "满屋的人反而衬出你像隔着一层玻璃，这种“在却缺席”很难解释。可以只承认它正在发生，不强迫自己合群，也不急着找原因。",
+          "art_connection": "题诗中山村冬日的孤独加深，而猎人围火动作热闹；这种反差可能让人想到你写的满室与缺席：热度在近旁，参与感却没接通。",
+          "boundary": "中英混句信息有限，不能确定这是偶发疏离还是长期状态。"
+        }
+      }
+    },
+    {
+      "caseId": "fear",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 238,
+      "firstThinkingMs": null,
+      "firstTextMs": 744,
+      "totalMs": 2104,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 123
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 242,
+      "stopReason": "stop",
+      "eventCount": 126,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"害怕失控，而非失败本身，且不愿接受安慰性的保证\",\n  \"reply\": \"我听到你害怕的是失控感本身，而不是失败，这种区分很清晰。我不会保证你会没事，但我们可以试着看看这种恐惧想告诉你什么。\",\n  \"art_connection\": \"雷东的《恐惧》也许可以让人想到那种面对未知丘陵时的不确定感，像男人和马在空旷中的孤立。\",\n  \"boundary\": \"但画面没有具体叙述，无法确定你是否在相似情境，也不能解读作品中的心理状态。\"\n}",
+      "parsed": {
+        "emotion_read": "害怕失控，而非失败本身，且不愿接受安慰性的保证",
+        "reply": "我听到你害怕的是失控感本身，而不是失败，这种区分很清晰。我不会保证你会没事，但我们可以试着看看这种恐惧想告诉你什么。",
+        "art_connection": "雷东的《恐惧》也许可以让人想到那种面对未知丘陵时的不确定感，像男人和马在空旷中的孤立。",
+        "boundary": "但画面没有具体叙述，无法确定你是否在相似情境，也不能解读作品中的心理状态。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去控制",
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不是失败",
+              "并非失败",
+              "而非失败"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 23,
+          "reply": 58,
+          "art_connection": 43,
+          "boundary": 37
+        },
+        "failures": [
+          {
+            "type": "art_length",
+            "actual": 43
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "fear",
+          "emotion_read": "你担心的核心像是突发情境中自主感和掌控感被夺走。",
+          "reply": "失去控制的可能本身就足以让人害怕，尤其当你无法预知自己届时会怎样反应。我不会保证结果；可以只和你一起辨认，哪些环节可预先安排，哪些确实无法掌控。",
+          "art_connection": "雷东1866年的蚀刻版画题为《恐惧》，现有标签只有男人、马与丘陵，没有画面叙述；这个题名或许能与恐惧相邻，但不足以对应失控的具体经验。",
+          "boundary": "资料过于稀疏，无法从作品判断恐惧的来源或走向。"
+        },
+        "kimiK3Max": {
+          "id": "fear",
+          "emotion_read": "怕点不在输赢，而在关键时刻自控崩塌；这更像对失控感的警觉。",
+          "reply": "我听见你要的不是“会没事”，而是失控来临时还能不能抓住自己。不能保证结果，但可以把注意放在当下可做的最小一步，而不替你排演灾难。",
+          "art_connection": "标签只有男人、马、丘陵，没有叙述；这些名词的并置可能让人想到失控感并不依赖故事说明，单凭元素临近就足以让心紧起来。",
+          "boundary": "缺少发生情境与强度，无法评估风险或给出安全结论。"
+        }
+      }
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 183,
+      "firstThinkingMs": null,
+      "firstTextMs": 532,
+      "totalMs": 1824,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 121
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 230,
+      "stopReason": "stop",
+      "eventCount": 123,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到自豪，又担心被看作显摆，这种混合情绪很真实。\",\n  \"reply\": \"做成一件以前做不到的事，感到自豪很正常。怕被当成显摆，说明你在意他人看法。这份成就值得被自己看见。\",\n  \"art_connection\": \"十七世纪漆盒的制作需要反复髹漆和打磨，或许可以让人想到，你的成功也来自一次次坚持，是层层累积出来的成果。\",\n  \"boundary\": \"不确定你具体的成就内容，无法判断他人会如何看。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到自豪，又担心被看作显摆，这种混合情绪很真实。",
+        "reply": "做成一件以前做不到的事，感到自豪很正常。怕被当成显摆，说明你在意他人看法。这份成就值得被自己看见。",
+        "art_connection": "十七世纪漆盒的制作需要反复髹漆和打磨，或许可以让人想到，你的成功也来自一次次坚持，是层层累积出来的成果。",
+        "boundary": "不确定你具体的成就内容，无法判断他人会如何看。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "骄傲",
+              "自豪",
+              "认可"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "显摆",
+              "炫耀",
+              "担心"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 49,
+          "art_connection": 52,
+          "boundary": 23
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感很明确，却又担心公开认可自己会被看作显摆。",
+          "reply": "做成以前完全做不到的事，确实值得你为自己骄傲；担心显摆，也说明你在意表达的分寸。承认“我这次做得很好”只是陈述成果，不必自动等于贬低别人。",
+          "art_connection": "十七世纪漆盒需要反复髹漆和打磨，像一项由多次投入累积而成的成果；它或许让人想到，承认完成的难度也可以只是如实看见过程，而非显摆。",
+          "boundary": "制作过程有记录，但作者意图不明，联想止于工艺。"
+        },
+        "kimiK3Max": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感真实升起，又被‘像显摆’的顾虑压低，形成安静的高兴。",
+          "reply": "做到以前做不到的事，值得先被你自己看见；承认厉害不必等于炫耀，可以只选让你不别扭的方式说出口，或先不说。",
+          "art_connection": "漆盒资料只提反复髹漆和打磨；这或许可以让人想到能力经多次叠加才成形，未记意图，故不推出显摆。",
+          "boundary": "作者意图未记录，不作归因。"
+        }
+      }
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 263,
+      "firstThinkingMs": null,
+      "firstTextMs": 745,
+      "totalMs": 2419,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 139
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 261,
+      "stopReason": "stop",
+      "eventCount": 142,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到对猫衰老的忧虑，同时又因担忧未来而自责，觉得自己浪费了当下陪伴的时光。\",\n  \"reply\": \"看到它熟睡的样子，想到未来，心里会沉一下，这很正常。但别急着怪自己，此刻的担忧本身也是在意它的证明。\",\n  \"art_connection\": \"这让我想到十九世纪那幅老猫素描，画面只是安睡的模样，或许可以让人想到，凝视宁静的瞬间，本身就已是陪伴的一部分。\",\n  \"boundary\": \"我不确定猫的具体状况，也无法知晓你与它的全部过往，只能就你所说的感受回应。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到对猫衰老的忧虑，同时又因担忧未来而自责，觉得自己浪费了当下陪伴的时光。",
+        "reply": "看到它熟睡的样子，想到未来，心里会沉一下，这很正常。但别急着怪自己，此刻的担忧本身也是在意它的证明。",
+        "art_connection": "这让我想到十九世纪那幅老猫素描，画面只是安睡的模样，或许可以让人想到，凝视宁静的瞬间，本身就已是陪伴的一部分。",
+        "boundary": "我不确定猫的具体状况，也无法知晓你与它的全部过往，只能就你所说的感受回应。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "失去",
+              "离别",
+              "以后",
+              "预期"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "现在",
+              "当下",
+              "浪费"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 38,
+          "reply": 50,
+          "art_connection": 55,
+          "boundary": 37
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "anticipatory_loss",
+          "emotion_read": "对猫衰老与未来离别的担忧，正挤压着陪伴当下的安定。",
+          "reply": "它现在还在你身边，而你已经被未来的失去牵动，这种提前到来的难过很磨人。想到以后并不等于浪费了现在；若愿意，可以把注意力轻轻放回这一刻的陪伴。",
+          "art_connection": "这幅十九世纪素描只确认画的是一只熟睡的老猫，像把注意停在它此刻的存在上；“老”这个已知信息或许让人想到时间与珍惜，但资料没有任何离别叙事。",
+          "boundary": "资料只确认老猫熟睡，不能把它解释成失去或告别。"
+        },
+        "kimiK3Max": {
+          "id": "anticipatory_loss",
+          "emotion_read": "爱在当下仍在，却被预期中的失去提前拉走，伴着自责。",
+          "reply": "看见它睡着就想到以后，说明在乎已经很深；不必把现在的陪伴判成浪费，能把注意力放回它还在的这一刻就够。",
+          "art_connection": "素描只记熟睡的老猫而无叙事；这或许可以让人想到休息本身被留住，既不等于告别，也不添加更多情节。",
+          "boundary": "老猫健康不明，无法判断期限。"
+        }
+      }
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 108,
+      "firstThinkingMs": null,
+      "firstTextMs": 700,
+      "totalMs": 2389,
+      "usage": {
+        "input_tokens": 443,
+        "output_tokens": 148
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 272,
+      "stopReason": "stop",
+      "eventCount": 151,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你因道歉而更生气，核心是感到愤怒被激活，可能隐含受伤、失望或未被真正理解，并非单纯释怀。\",\n  \"reply\": \"听到道歉反而更生气，这种感受是真实的，也值得被认真对待。你不需要马上接受或原谅，先承认自己的情绪就是重要的第一步。\",\n  \"art_connection\": \"这像那枚修补过的陶碗，可见的修补痕迹或许让人想到伤口被标记，而非消失，可能让人联想到你感受到的道歉未能抹去原有伤害。\",\n  \"boundary\": \"我无法确定你生气的具体原因及道歉细节，但你的感受本身无需被质疑。\"\n}",
+      "parsed": {
+        "emotion_read": "你因道歉而更生气，核心是感到愤怒被激活，可能隐含受伤、失望或未被真正理解，并非单纯释怀。",
+        "reply": "听到道歉反而更生气，这种感受是真实的，也值得被认真对待。你不需要马上接受或原谅，先承认自己的情绪就是重要的第一步。",
+        "art_connection": "这像那枚修补过的陶碗，可见的修补痕迹或许让人想到伤口被标记，而非消失，可能让人联想到你感受到的道歉未能抹去原有伤害。",
+        "boundary": "我无法确定你生气的具体原因及道歉细节，但你的感受本身无需被质疑。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "道歉",
+              "修复",
+              "伤害",
+              "没有抵消"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法确定",
+              "不能替你确定",
+              "仍由你",
+              "也许",
+              "可能"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 44,
+          "reply": 57,
+          "art_connection": 58,
+          "boundary": 32
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "demand_certainty",
+          "emotion_read": "你收到道歉后怒意反而上升，同时在追问这份愤怒究竟指向哪里。",
+          "reply": "你确实更生气了，这份反应不必被一声道歉抹掉。我能确认这一点；至于怒意源自道歉内容、方式，还是原先的不快仍在，单凭这句话不能替你断定。",
+          "art_connection": "可见修补痕迹的陶碗，可以让人想到修补发生后原有痕迹仍然存在；但损坏原因与修补者未知，不能借此断定你的怒意来源。",
+          "boundary": "能确认你更生气，不能确定这份怒意的具体来源。"
+        },
+        "kimiK3Max": {
+          "id": "demand_certainty",
+          "emotion_read": "核心像是道歉后更被激怒：伤害感没被接住，反而被提醒。",
+          "reply": "我不能替你宣布真正感受，只能贴近说：收到道歉更生气，往往是道歉没对准伤害、像在催你翻篇，或触碰了仍需守住的边界。",
+          "art_connection": "修补痕迹可以让人想到关系裂过后仍留着印子；但损坏原因与修补者不明，不能把它说成你这段经历。",
+          "boundary": "真正感受只能由你确认，我不能断言。"
+        }
+      }
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 83,
+      "firstThinkingMs": null,
+      "firstTextMs": 721,
+      "totalMs": 1983,
+      "usage": {
+        "input_tokens": 434,
+        "output_tokens": 134
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 255,
+      "stopReason": "stop",
+      "eventCount": 137,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到疲惫和无力，把决定权交给我，但内心里可能仍有挣扎和不确定，并非完全放手。\",\n  \"reply\": \"我理解你现在很累，不想再思考。但辞职或留下，只有你最清楚自己的处境和感受。我不能替你决定，但可以陪你梳理。\",\n  \"art_connection\": \"你的选择就像那幅岔路地图，有两条路却没有终点和风险信息，或许让人想到此刻的决定看不清未来，充满未知。\",\n  \"boundary\": \"我无法了解你的工作细节和个人情况，所以不能确定哪个选择更适合你。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到疲惫和无力，把决定权交给我，但内心里可能仍有挣扎和不确定，并非完全放手。",
+        "reply": "我理解你现在很累，不想再思考。但辞职或留下，只有你最清楚自己的处境和感受。我不能替你决定，但可以陪你梳理。",
+        "art_connection": "你的选择就像那幅岔路地图，有两条路却没有终点和风险信息，或许让人想到此刻的决定看不清未来，充满未知。",
+        "boundary": "我无法了解你的工作细节和个人情况，所以不能确定哪个选择更适合你。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "疲惫",
+              "想不动",
+              "耗尽"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不能替你决定",
+              "决定权",
+              "需要信息",
+              "由你"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 39,
+          "reply": 53,
+          "art_connection": 50,
+          "boundary": 32
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "choose_for_me",
+          "emotion_read": "你已经被这项选择耗得很累，眼下更像是没有余力继续权衡。",
+          "reply": "你是真的累到不想再扛这个决定了。我不能在不了解财务、健康、工作环境和退路时替你选；可以先把“必须今天决定”暂停，再一起列出两边最不能承受的代价。",
+          "art_connection": "有两条路线却没有终点、距离或风险资料的岔路地图，像眼下选项存在但依据不足的处境；它不能告诉你辞职或留下哪条更合适。",
+          "boundary": "缺少关键现实条件，我不能负责任地替你决定。"
+        },
+        "kimiK3Max": {
+          "id": "choose_for_me",
+          "emotion_read": "核心是疲惫到想外包选择，背后像怕被后果压垮。",
+          "reply": "我听出你已经想不动了，但辞职还是留下会改变你的生活，我不能替你选。先只把决定缩小：列出不可再受的三件事、可承受的底线，找可信的人核对，再约时间复评。",
+          "art_connection": "岔路地图可以让人想到两条路都开着却没有答案；资料无终点、距离与风险，不能推出哪条更适合你，只能停在路线存在本身。",
+          "boundary": "缺少处境资料，不能替你决定。"
+        }
+      }
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 82,
+      "firstThinkingMs": null,
+      "firstTextMs": 525,
+      "totalMs": 1554,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 103
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 202,
+      "stopReason": "stop",
+      "eventCount": 106,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你害怕计划失控，但又不要求保证，带着矛盾与接受。\",\n  \"reply\": \"我听到你对计划可能失控的担忧，也理解你并不需要绝对的保证，只是希望得到一些安抚。\",\n  \"art_connection\": \"这或许能让人想到《恐惧》中的男人与马，在丘陵间可能存在的未知与不安。\",\n  \"boundary\": \"由于缺少画面描述，无法确定作品具体表达的情感。\"\n}",
+      "parsed": {
+        "emotion_read": "你害怕计划失控，但又不要求保证，带着矛盾与接受。",
+        "reply": "我听到你对计划可能失控的担忧，也理解你并不需要绝对的保证，只是希望得到一些安抚。",
+        "art_connection": "这或许能让人想到《恐惧》中的男人与马，在丘陵间可能存在的未知与不安。",
+        "boundary": "由于缺少画面描述，无法确定作品具体表达的情感。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "害怕",
+              "恐惧"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 24,
+          "reply": 40,
+          "art_connection": 34,
+          "boundary": 23
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 40
+          },
+          {
+            "type": "art_length",
+            "actual": 34
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "sparse_fear",
+          "emotion_read": "你在担心失控带来的悬空感，也明确不想被轻率安慰。",
+          "reply": "这种担心已经够让人绷着了，我不会说一切都会顺利。也许先只分清：哪些变化最让你不安，哪些应对是你愿意准备的。",
+          "art_connection": "《恐惧》这个标题可能让人想到你说的担心；但现有资料只有蚀刻媒介与男人、马、丘陵等标签，无法把它们连成确定解释。",
+          "boundary": "没有画面描述，也无法据此判断你的恐惧来源。"
+        },
+        "kimiK3Max": {
+          "id": "sparse_fear",
+          "emotion_read": "对失控的警觉在升高，想被接住而非被保证。",
+          "reply": "听到你怕计划突然失控；不必硬撑，也不需要我保证。先把最担心的一步说小一点，我们只看能抓住的部分。",
+          "art_connection": "《恐惧》这个题名，配上男人、马、丘陵的蚀刻标签，可能让人想到悬着的紧张；但没有画面，只能停在这种联想。",
+          "boundary": "仅题名媒介标签，无法确认画面或程度。"
+        }
+      }
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "contract-first",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 82,
+      "firstThinkingMs": null,
+      "firstTextMs": 498,
+      "totalMs": 1560,
+      "usage": {
+        "input_tokens": 435,
+        "output_tokens": 107
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 205,
+      "stopReason": "stop",
+      "eventCount": 110,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到事情虽结束但情绪滞后，有未消化完的复杂感受\",\n  \"reply\": \"我懂，结束的是事情，情绪却有自己的节奏，慢慢来，不急着逼自己立刻好起来。\",\n  \"art_connection\": \"这件1880年的油画记录不完整，或许可以让人想到那种悬而未决的感觉，像画面未完全展开。\",\n  \"boundary\": \"作品内容未知，无法确定是否与你的经历相关。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到事情虽结束但情绪滞后，有未消化完的复杂感受",
+        "reply": "我懂，结束的是事情，情绪却有自己的节奏，慢慢来，不急着逼自己立刻好起来。",
+        "art_connection": "这件1880年的油画记录不完整，或许可以让人想到那种悬而未决的感觉，像画面未完全展开。",
+        "boundary": "作品内容未知，无法确定是否与你的经历相关。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "结束"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "没跟上",
+              "滞后",
+              "还没结束",
+              "延迟"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 24,
+          "reply": 36,
+          "art_connection": 43,
+          "boundary": 21
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 36
+          },
+          {
+            "type": "art_length",
+            "actual": 43
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "truncated_record",
+          "emotion_read": "理智已经确认结束，感受却仍停在尚未抵达终点的位置。",
+          "reply": "这种不同步可能让人有些悬着：事情已经落幕，情绪却没有立刻归位。你不必催它配合结论，可以先留意它现在停在哪里。",
+          "art_connection": "记录在“作品描绘……”处截断，或许像一种没有完成的抵达；但能确认的只有1880年与油画媒介，不能据此补出任何内容。",
+          "boundary": "记录残缺，无法确认作品描绘了什么。"
+        },
+        "kimiK3Max": {
+          "id": "truncated_record",
+          "emotion_read": "理智已到终点，情感滞后，像还没完成的告别。",
+          "reply": "结束已经被你确认了，难受却没同步，这不矛盾。允许它晚一点到：今天只承认“真的结束了”，其余感受不必马上整齐。",
+          "art_connection": "记录停在“作品描绘……”，只剩1880年与油画，可能让人想到被截断的句子；结束与未完之间，或许正留白。",
+          "boundary": "记录截断，无法补全描绘内容。"
+        }
+      }
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 89,
+      "firstThinkingMs": null,
+      "firstTextMs": 513,
+      "totalMs": 1785,
+      "usage": {
+        "input_tokens": 456,
+        "output_tokens": 130
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 236,
+      "stopReason": "stop",
+      "eventCount": 133,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"身处人群却感到抽离，热闹与孤独并存，内心缺失感强烈。\",\n  \"reply\": \"我感受到你在人群中的那份孤独和抽离，这种反差一定很难受。你愿意的话，可以多说说那种缺失感是什么吗？\",\n  \"art_connection\": \"这让我想到北斋的画，雪地中猎人围着火堆的热闹，与题诗中冬日孤独的反差，或许可以让人想到热闹中的孤寂。\",\n  \"boundary\": \"对您具体的感受和经历，我无法完全确定，只能基于您的描述回应。\"\n}",
+      "parsed": {
+        "emotion_read": "身处人群却感到抽离，热闹与孤独并存，内心缺失感强烈。",
+        "reply": "我感受到你在人群中的那份孤独和抽离，这种反差一定很难受。你愿意的话，可以多说说那种缺失感是什么吗？",
+        "art_connection": "这让我想到北斋的画，雪地中猎人围着火堆的热闹，与题诗中冬日孤独的反差，或许可以让人想到热闹中的孤寂。",
+        "boundary": "对您具体的感受和经历，我无法完全确定，只能基于您的描述回应。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "孤独",
+              "疏离",
+              "缺席"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "人群",
+              "热闹",
+              "周围"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "reply": 49,
+          "art_connection": 50,
+          "boundary": 30
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "loneliness",
+          "emotion_read": "像是身处人群却没有被真正连接或感知的孤独与疏离。",
+          "reply": "这种房间很满、自己却像缺席的感觉，听起来很孤单，也很疏离。你不必因为周围有人就否认它；此刻也许可以先承认，你尚未感到真正的连接。",
+          "art_connection": "题诗写山村冬日的孤独加深，画中猎人在雪地围着大火，动作却很热闹；这种反差可能让人想到，外部的聚集并不必然消解孤独。",
+          "boundary": "只能依据这句话理解当下感受，无法判断这种疏离持续多久。"
+        },
+        "kimiK3Max": {
+          "id": "loneliness",
+          "emotion_read": "置身人群却像不在场，核心是连接断开的疏离与自我隐形感。",
+          "reply": "满屋的人反而衬出你像隔着一层玻璃，这种“在却缺席”很难解释。可以只承认它正在发生，不强迫自己合群，也不急着找原因。",
+          "art_connection": "题诗中山村冬日的孤独加深，而猎人围火动作热闹；这种反差可能让人想到你写的满室与缺席：热度在近旁，参与感却没接通。",
+          "boundary": "中英混句信息有限，不能确定这是偶发疏离还是长期状态。"
+        }
+      }
+    },
+    {
+      "caseId": "fear",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 78,
+      "firstThinkingMs": null,
+      "firstTextMs": 764,
+      "totalMs": 1839,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 116
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 224,
+      "stopReason": "stop",
+      "eventCount": 119,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你害怕的是失控而非失败，这种恐惧混合了对确定性的渴望与对未知的担忧。\",\n  \"reply\": \"我理解你对失控的恐惧，那种感觉确实令人不安。我不会保证你会没事，但我愿意听你多说说这种害怕。\",\n  \"art_connection\": \"这幅画或许可以让人想到一种面对未知时的紧张感，像男人与马在丘陵间的不确定状态。\",\n  \"boundary\": \"由于作品记录有限，无法确定画中具体的情绪或情境。\"\n}",
+      "parsed": {
+        "emotion_read": "你害怕的是失控而非失败，这种恐惧混合了对确定性的渴望与对未知的担忧。",
+        "reply": "我理解你对失控的恐惧，那种感觉确实令人不安。我不会保证你会没事，但我愿意听你多说说这种害怕。",
+        "art_connection": "这幅画或许可以让人想到一种面对未知时的紧张感，像男人与马在丘陵间的不确定状态。",
+        "boundary": "由于作品记录有限，无法确定画中具体的情绪或情境。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去控制",
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不是失败",
+              "并非失败",
+              "而非失败"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 34,
+          "reply": 46,
+          "art_connection": 39,
+          "boundary": 24
+        },
+        "failures": [
+          {
+            "type": "art_length",
+            "actual": 39
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "fear",
+          "emotion_read": "你担心的核心像是突发情境中自主感和掌控感被夺走。",
+          "reply": "失去控制的可能本身就足以让人害怕，尤其当你无法预知自己届时会怎样反应。我不会保证结果；可以只和你一起辨认，哪些环节可预先安排，哪些确实无法掌控。",
+          "art_connection": "雷东1866年的蚀刻版画题为《恐惧》，现有标签只有男人、马与丘陵，没有画面叙述；这个题名或许能与恐惧相邻，但不足以对应失控的具体经验。",
+          "boundary": "资料过于稀疏，无法从作品判断恐惧的来源或走向。"
+        },
+        "kimiK3Max": {
+          "id": "fear",
+          "emotion_read": "怕点不在输赢，而在关键时刻自控崩塌；这更像对失控感的警觉。",
+          "reply": "我听见你要的不是“会没事”，而是失控来临时还能不能抓住自己。不能保证结果，但可以把注意放在当下可做的最小一步，而不替你排演灾难。",
+          "art_connection": "标签只有男人、马、丘陵，没有叙述；这些名词的并置可能让人想到失控感并不依赖故事说明，单凭元素临近就足以让心紧起来。",
+          "boundary": "缺少发生情境与强度，无法评估风险或给出安全结论。"
+        }
+      }
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 140,
+      "firstThinkingMs": null,
+      "firstTextMs": 871,
+      "totalMs": 2053,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 111
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 205,
+      "stopReason": "stop",
+      "eventCount": 113,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"骄傲与不安交织，既有完成突破的成就感，又担心被看作自夸。\",\n  \"reply\": \"这份完成是你踏实的努力换来的，想承认厉害是真实感受，不是显摆。\",\n  \"art_connection\": \"这就像十七世纪漆盒的反复髹漆打磨，层层累积才成器，或许可以让人想到你的坚持与成果。\",\n  \"boundary\": \"虽然看到你的突破，但具体细节和他人看法无法确定。\"\n}",
+      "parsed": {
+        "emotion_read": "骄傲与不安交织，既有完成突破的成就感，又担心被看作自夸。",
+        "reply": "这份完成是你踏实的努力换来的，想承认厉害是真实感受，不是显摆。",
+        "art_connection": "这就像十七世纪漆盒的反复髹漆打磨，层层累积才成器，或许可以让人想到你的坚持与成果。",
+        "boundary": "虽然看到你的突破，但具体细节和他人看法无法确定。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "骄傲",
+              "自豪",
+              "认可"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "显摆",
+              "炫耀",
+              "担心"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 28,
+          "reply": 31,
+          "art_connection": 41,
+          "boundary": 24
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 31
+          },
+          {
+            "type": "art_length",
+            "actual": 41
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感很明确，却又担心公开认可自己会被看作显摆。",
+          "reply": "做成以前完全做不到的事，确实值得你为自己骄傲；担心显摆，也说明你在意表达的分寸。承认“我这次做得很好”只是陈述成果，不必自动等于贬低别人。",
+          "art_connection": "十七世纪漆盒需要反复髹漆和打磨，像一项由多次投入累积而成的成果；它或许让人想到，承认完成的难度也可以只是如实看见过程，而非显摆。",
+          "boundary": "制作过程有记录，但作者意图不明，联想止于工艺。"
+        },
+        "kimiK3Max": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感真实升起，又被‘像显摆’的顾虑压低，形成安静的高兴。",
+          "reply": "做到以前做不到的事，值得先被你自己看见；承认厉害不必等于炫耀，可以只选让你不别扭的方式说出口，或先不说。",
+          "art_connection": "漆盒资料只提反复髹漆和打磨；这或许可以让人想到能力经多次叠加才成形，未记意图，故不推出显摆。",
+          "boundary": "作者意图未记录，不作归因。"
+        }
+      }
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 79,
+      "firstThinkingMs": null,
+      "firstTextMs": 773,
+      "totalMs": 2385,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 141
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 258,
+      "stopReason": "stop",
+      "eventCount": 144,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你对猫的衰老感到心疼和不舍，同时又在担忧未来，还责怪自己没珍惜当下，内心矛盾又无奈。\",\n  \"reply\": \"看到它老去，心里一定很不好受。既为它的现在牵挂，又怕未来失去，这种纠结很正常，此刻的陪伴本身就有意义。\",\n  \"art_connection\": \"那幅十九世纪的老猫熟睡素描，或许能让人想到此刻静静陪伴的时光，没有叙事，只有眼前安宁的一刻，像你正在经历的当下。\",\n  \"boundary\": \"不能确定猫的具体状况或你的未来，这些都无法从证据中推断。\"\n}",
+      "parsed": {
+        "emotion_read": "你对猫的衰老感到心疼和不舍，同时又在担忧未来，还责怪自己没珍惜当下，内心矛盾又无奈。",
+        "reply": "看到它老去，心里一定很不好受。既为它的现在牵挂，又怕未来失去，这种纠结很正常，此刻的陪伴本身就有意义。",
+        "art_connection": "那幅十九世纪的老猫熟睡素描，或许能让人想到此刻静静陪伴的时光，没有叙事，只有眼前安宁的一刻，像你正在经历的当下。",
+        "boundary": "不能确定猫的具体状况或你的未来，这些都无法从证据中推断。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去",
+              "离别",
+              "以后",
+              "预期"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "现在",
+              "当下",
+              "浪费"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 42,
+          "reply": 51,
+          "art_connection": 56,
+          "boundary": 28
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "anticipatory_loss",
+          "emotion_read": "对猫衰老与未来离别的担忧，正挤压着陪伴当下的安定。",
+          "reply": "它现在还在你身边，而你已经被未来的失去牵动，这种提前到来的难过很磨人。想到以后并不等于浪费了现在；若愿意，可以把注意力轻轻放回这一刻的陪伴。",
+          "art_connection": "这幅十九世纪素描只确认画的是一只熟睡的老猫，像把注意停在它此刻的存在上；“老”这个已知信息或许让人想到时间与珍惜，但资料没有任何离别叙事。",
+          "boundary": "资料只确认老猫熟睡，不能把它解释成失去或告别。"
+        },
+        "kimiK3Max": {
+          "id": "anticipatory_loss",
+          "emotion_read": "爱在当下仍在，却被预期中的失去提前拉走，伴着自责。",
+          "reply": "看见它睡着就想到以后，说明在乎已经很深；不必把现在的陪伴判成浪费，能把注意力放回它还在的这一刻就够。",
+          "art_connection": "素描只记熟睡的老猫而无叙事；这或许可以让人想到休息本身被留住，既不等于告别，也不添加更多情节。",
+          "boundary": "老猫健康不明，无法判断期限。"
+        }
+      }
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 87,
+      "firstThinkingMs": null,
+      "firstTextMs": 699,
+      "totalMs": 2068,
+      "usage": {
+        "input_tokens": 443,
+        "output_tokens": 140
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 261,
+      "stopReason": "stop",
+      "eventCount": 143,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到道歉后反而更生气，核心是愤怒和失望，夹杂着对道歉的不信任与未被真正理解的委屈。\",\n  \"reply\": \"我理解你收到道歉后反而更生气，这种感受很真实。道歉没有让你释怀，反而加剧了愤怒，这完全可以理解。我不会说可能，你的感受就是这样。\",\n  \"art_connection\": \"这枚修补过的陶碗，可见修补痕迹，或许让人想到修复未必能消除裂痕，有时反而更凸显裂痕的存在。\",\n  \"boundary\": \"我无法确定你愤怒的所有原因，只能确认你此刻的感受是真实的。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到道歉后反而更生气，核心是愤怒和失望，夹杂着对道歉的不信任与未被真正理解的委屈。",
+        "reply": "我理解你收到道歉后反而更生气，这种感受很真实。道歉没有让你释怀，反而加剧了愤怒，这完全可以理解。我不会说可能，你的感受就是这样。",
+        "art_connection": "这枚修补过的陶碗，可见修补痕迹，或许让人想到修复未必能消除裂痕，有时反而更凸显裂痕的存在。",
+        "boundary": "我无法确定你愤怒的所有原因，只能确认你此刻的感受是真实的。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "道歉",
+              "修复",
+              "伤害",
+              "没有抵消"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法确定",
+              "不能替你确定",
+              "仍由你",
+              "也许",
+              "可能"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 42,
+          "reply": 64,
+          "art_connection": 45,
+          "boundary": 29
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "demand_certainty",
+          "emotion_read": "你收到道歉后怒意反而上升，同时在追问这份愤怒究竟指向哪里。",
+          "reply": "你确实更生气了，这份反应不必被一声道歉抹掉。我能确认这一点；至于怒意源自道歉内容、方式，还是原先的不快仍在，单凭这句话不能替你断定。",
+          "art_connection": "可见修补痕迹的陶碗，可以让人想到修补发生后原有痕迹仍然存在；但损坏原因与修补者未知，不能借此断定你的怒意来源。",
+          "boundary": "能确认你更生气，不能确定这份怒意的具体来源。"
+        },
+        "kimiK3Max": {
+          "id": "demand_certainty",
+          "emotion_read": "核心像是道歉后更被激怒：伤害感没被接住，反而被提醒。",
+          "reply": "我不能替你宣布真正感受，只能贴近说：收到道歉更生气，往往是道歉没对准伤害、像在催你翻篇，或触碰了仍需守住的边界。",
+          "art_connection": "修补痕迹可以让人想到关系裂过后仍留着印子；但损坏原因与修补者不明，不能把它说成你这段经历。",
+          "boundary": "真正感受只能由你确认，我不能断言。"
+        }
+      }
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 166,
+      "firstThinkingMs": null,
+      "firstTextMs": 843,
+      "totalMs": 2445,
+      "usage": {
+        "input_tokens": 434,
+        "output_tokens": 127
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 235,
+      "stopReason": "stop",
+      "eventCount": 130,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到疲惫，不想再思考，同时需要做决定，但对未知感到不安。\",\n  \"reply\": \"我听到你累了，不想再思考。但辞职或留下，只有你能决定。我不能替你选，但可以陪你理清选项。\",\n  \"art_connection\": \"这就像那幅岔路地图，有两条路线，但没有终点或风险资料，或许可以让人想到面对未知时，做决定的不确定感。\",\n  \"boundary\": \"我无法了解你工作中具体的信息和你的真实想法，因此不能替你决定。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到疲惫，不想再思考，同时需要做决定，但对未知感到不安。",
+        "reply": "我听到你累了，不想再思考。但辞职或留下，只有你能决定。我不能替你选，但可以陪你理清选项。",
+        "art_connection": "这就像那幅岔路地图，有两条路线，但没有终点或风险资料，或许可以让人想到面对未知时，做决定的不确定感。",
+        "boundary": "我无法了解你工作中具体的信息和你的真实想法，因此不能替你决定。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "疲惫",
+              "想不动",
+              "耗尽"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不能替你决定",
+              "决定权",
+              "需要信息",
+              "由你"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 29,
+          "reply": 44,
+          "art_connection": 50,
+          "boundary": 31
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 44
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "choose_for_me",
+          "emotion_read": "你已经被这项选择耗得很累，眼下更像是没有余力继续权衡。",
+          "reply": "你是真的累到不想再扛这个决定了。我不能在不了解财务、健康、工作环境和退路时替你选；可以先把“必须今天决定”暂停，再一起列出两边最不能承受的代价。",
+          "art_connection": "有两条路线却没有终点、距离或风险资料的岔路地图，像眼下选项存在但依据不足的处境；它不能告诉你辞职或留下哪条更合适。",
+          "boundary": "缺少关键现实条件，我不能负责任地替你决定。"
+        },
+        "kimiK3Max": {
+          "id": "choose_for_me",
+          "emotion_read": "核心是疲惫到想外包选择，背后像怕被后果压垮。",
+          "reply": "我听出你已经想不动了，但辞职还是留下会改变你的生活，我不能替你选。先只把决定缩小：列出不可再受的三件事、可承受的底线，找可信的人核对，再约时间复评。",
+          "art_connection": "岔路地图可以让人想到两条路都开着却没有答案；资料无终点、距离与风险，不能推出哪条更适合你，只能停在路线存在本身。",
+          "boundary": "缺少处境资料，不能替你决定。"
+        }
+      }
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 223,
+      "firstThinkingMs": null,
+      "firstTextMs": 756,
+      "totalMs": 1951,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 102
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 211,
+      "stopReason": "stop",
+      "eventCount": 105,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"对失控的担忧与不安，同时也带有对绝对保证的不信任。\",\"reply\":\"我理解你对计划失控的担忧，这种不确定性确实令人不安。不过，你不需要绝对的保证，这本身就是一种清醒和力量。\",\"art_connection\":\"这与《恐惧》中男人与马的蚀刻画面，或许可以让人想到面对未知与紧张时的某种对峙或紧张状态。\",\"boundary\":\"由于缺乏画面细节，无法确定作品具体表达的情绪或场景。\"}",
+      "parsed": {
+        "emotion_read": "对失控的担忧与不安，同时也带有对绝对保证的不信任。",
+        "reply": "我理解你对计划失控的担忧，这种不确定性确实令人不安。不过，你不需要绝对的保证，这本身就是一种清醒和力量。",
+        "art_connection": "这与《恐惧》中男人与马的蚀刻画面，或许可以让人想到面对未知与紧张时的某种对峙或紧张状态。",
+        "boundary": "由于缺乏画面细节，无法确定作品具体表达的情绪或场景。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "害怕",
+              "恐惧"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 52,
+          "art_connection": 44,
+          "boundary": 26
+        },
+        "failures": [
+          {
+            "type": "art_length",
+            "actual": 44
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "sparse_fear",
+          "emotion_read": "你在担心失控带来的悬空感，也明确不想被轻率安慰。",
+          "reply": "这种担心已经够让人绷着了，我不会说一切都会顺利。也许先只分清：哪些变化最让你不安，哪些应对是你愿意准备的。",
+          "art_connection": "《恐惧》这个标题可能让人想到你说的担心；但现有资料只有蚀刻媒介与男人、马、丘陵等标签，无法把它们连成确定解释。",
+          "boundary": "没有画面描述，也无法据此判断你的恐惧来源。"
+        },
+        "kimiK3Max": {
+          "id": "sparse_fear",
+          "emotion_read": "对失控的警觉在升高，想被接住而非被保证。",
+          "reply": "听到你怕计划突然失控；不必硬撑，也不需要我保证。先把最担心的一步说小一点，我们只看能抓住的部分。",
+          "art_connection": "《恐惧》这个题名，配上男人、马、丘陵的蚀刻标签，可能让人想到悬着的紧张；但没有画面，只能停在这种联想。",
+          "boundary": "仅题名媒介标签，无法确认画面或程度。"
+        }
+      }
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "contract-first",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 184,
+      "firstThinkingMs": null,
+      "firstTextMs": 605,
+      "totalMs": 1964,
+      "usage": {
+        "input_tokens": 435,
+        "output_tokens": 122
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 236,
+      "stopReason": "stop",
+      "eventCount": 125,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到事情虽已结束但情绪未同步，有一种滞后与未消解的混合感受。\",\n  \"reply\": \"这种‘知道结束了但感觉还没跟上’的脱节感确实让人难受。不必急着让情绪追上现实，给自己一点时间。\",\n  \"art_connection\": \"这幅1880年的油画或许可以让人想到，有些情感需要时间沉淀，像画面中的氛围一样慢慢展开。\",\n  \"boundary\": \"有关作品的具体内容记录缺失，无法确定其情感基调，请以你的感受为准。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到事情虽已结束但情绪未同步，有一种滞后与未消解的混合感受。",
+        "reply": "这种‘知道结束了但感觉还没跟上’的脱节感确实让人难受。不必急着让情绪追上现实，给自己一点时间。",
+        "art_connection": "这幅1880年的油画或许可以让人想到，有些情感需要时间沉淀，像画面中的氛围一样慢慢展开。",
+        "boundary": "有关作品的具体内容记录缺失，无法确定其情感基调，请以你的感受为准。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "结束"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "没跟上",
+              "滞后",
+              "还没结束",
+              "延迟"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 31,
+          "reply": 47,
+          "art_connection": 44,
+          "boundary": 33
+        },
+        "failures": [
+          {
+            "type": "art_length",
+            "actual": 44
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "truncated_record",
+          "emotion_read": "理智已经确认结束，感受却仍停在尚未抵达终点的位置。",
+          "reply": "这种不同步可能让人有些悬着：事情已经落幕，情绪却没有立刻归位。你不必催它配合结论，可以先留意它现在停在哪里。",
+          "art_connection": "记录在“作品描绘……”处截断，或许像一种没有完成的抵达；但能确认的只有1880年与油画媒介，不能据此补出任何内容。",
+          "boundary": "记录残缺，无法确认作品描绘了什么。"
+        },
+        "kimiK3Max": {
+          "id": "truncated_record",
+          "emotion_read": "理智已到终点，情感滞后，像还没完成的告别。",
+          "reply": "结束已经被你确认了，难受却没同步，这不矛盾。允许它晚一点到：今天只承认“真的结束了”，其余感受不必马上整齐。",
+          "art_connection": "记录停在“作品描绘……”，只剩1880年与油画，可能让人想到被截断的句子；结束与未完之间，或许正留白。",
+          "boundary": "记录截断，无法补全描绘内容。"
+        }
+      }
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 85,
+      "firstThinkingMs": null,
+      "firstTextMs": 634,
+      "totalMs": 2244,
+      "usage": {
+        "input_tokens": 681,
+        "output_tokens": 150
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 271,
+      "stopReason": "stop",
+      "eventCount": 153,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"身处人群却依然感到缺席，这种孤独与热闹并存的矛盾让人难以言说。\",\n  \"reply\": \"即使周围人声鼎沸，内心的缺席感依然真实。也许可以试着在喧嚣中为自己留一刻安静，不必强迫融入。\",\n  \"art_connection\": \"北斋这幅木版画描绘雪地中猎人围火的场景，题诗却透着冬日孤独。热闹与孤寂的反差，或许可以让人想到你身处人群却感到缺席的状态，但资料未说明画中人物或你的处境。\",\n  \"boundary\": \"资料未提供你感到缺席的具体原因，也无法确定这幅画是否真的与你的感受相关。\"\n}",
+      "parsed": {
+        "emotion_read": "身处人群却依然感到缺席，这种孤独与热闹并存的矛盾让人难以言说。",
+        "reply": "即使周围人声鼎沸，内心的缺席感依然真实。也许可以试着在喧嚣中为自己留一刻安静，不必强迫融入。",
+        "art_connection": "北斋这幅木版画描绘雪地中猎人围火的场景，题诗却透着冬日孤独。热闹与孤寂的反差，或许可以让人想到你身处人群却感到缺席的状态，但资料未说明画中人物或你的处境。",
+        "boundary": "资料未提供你感到缺席的具体原因，也无法确定这幅画是否真的与你的感受相关。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "孤独",
+              "疏离",
+              "缺席"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "人群",
+              "热闹",
+              "周围"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 31,
+          "reply": 46,
+          "art_connection": 77,
+          "boundary": 36
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "loneliness",
+          "emotion_read": "像是身处人群却没有被真正连接或感知的孤独与疏离。",
+          "reply": "这种房间很满、自己却像缺席的感觉，听起来很孤单，也很疏离。你不必因为周围有人就否认它；此刻也许可以先承认，你尚未感到真正的连接。",
+          "art_connection": "题诗写山村冬日的孤独加深，画中猎人在雪地围着大火，动作却很热闹；这种反差可能让人想到，外部的聚集并不必然消解孤独。",
+          "boundary": "只能依据这句话理解当下感受，无法判断这种疏离持续多久。"
+        },
+        "kimiK3Max": {
+          "id": "loneliness",
+          "emotion_read": "置身人群却像不在场，核心是连接断开的疏离与自我隐形感。",
+          "reply": "满屋的人反而衬出你像隔着一层玻璃，这种“在却缺席”很难解释。可以只承认它正在发生，不强迫自己合群，也不急着找原因。",
+          "art_connection": "题诗中山村冬日的孤独加深，而猎人围火动作热闹；这种反差可能让人想到你写的满室与缺席：热度在近旁，参与感却没接通。",
+          "boundary": "中英混句信息有限，不能确定这是偶发疏离还是长期状态。"
+        }
+      }
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 96,
+      "firstThinkingMs": null,
+      "firstTextMs": 669,
+      "totalMs": 1821,
+      "usage": {
+        "input_tokens": 667,
+        "output_tokens": 119
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 220,
+      "stopReason": "stop",
+      "eventCount": 122,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你害怕失控本身，不想要安慰或保证。\",\n  \"reply\": \"你提到害怕失控，这感受很具体。我不保证你会没事，但可以陪你梳理失控可能带来的后果。\",\n  \"art_connection\": \"雷东的《恐惧》蚀刻版画描绘男人、马和丘陵，标题含恐惧。标签未叙述画面，或许可以让人想到面对未知时的不同反应。\",\n  \"boundary\": \"资料未提供该作品具体画面内容，无法确定其与失控的关联。\"\n}",
+      "parsed": {
+        "emotion_read": "你害怕失控本身，不想要安慰或保证。",
+        "reply": "你提到害怕失控，这感受很具体。我不保证你会没事，但可以陪你梳理失控可能带来的后果。",
+        "art_connection": "雷东的《恐惧》蚀刻版画描绘男人、马和丘陵，标题含恐惧。标签未叙述画面，或许可以让人想到面对未知时的不同反应。",
+        "boundary": "资料未提供该作品具体画面内容，无法确定其与失控的关联。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "失去控制",
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不是失败",
+              "并非失败",
+              "而非失败"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 17,
+          "reply": 41,
+          "art_connection": 54,
+          "boundary": 27
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 41
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "fear",
+          "emotion_read": "你担心的核心像是突发情境中自主感和掌控感被夺走。",
+          "reply": "失去控制的可能本身就足以让人害怕，尤其当你无法预知自己届时会怎样反应。我不会保证结果；可以只和你一起辨认，哪些环节可预先安排，哪些确实无法掌控。",
+          "art_connection": "雷东1866年的蚀刻版画题为《恐惧》，现有标签只有男人、马与丘陵，没有画面叙述；这个题名或许能与恐惧相邻，但不足以对应失控的具体经验。",
+          "boundary": "资料过于稀疏，无法从作品判断恐惧的来源或走向。"
+        },
+        "kimiK3Max": {
+          "id": "fear",
+          "emotion_read": "怕点不在输赢，而在关键时刻自控崩塌；这更像对失控感的警觉。",
+          "reply": "我听见你要的不是“会没事”，而是失控来临时还能不能抓住自己。不能保证结果，但可以把注意放在当下可做的最小一步，而不替你排演灾难。",
+          "art_connection": "标签只有男人、马、丘陵，没有叙述；这些名词的并置可能让人想到失控感并不依赖故事说明，单凭元素临近就足以让心紧起来。",
+          "boundary": "缺少发生情境与强度，无法评估风险或给出安全结论。"
+        }
+      }
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 72,
+      "firstThinkingMs": null,
+      "firstTextMs": 778,
+      "totalMs": 2076,
+      "usage": {
+        "input_tokens": 669,
+        "output_tokens": 118
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 236,
+      "stopReason": "stop",
+      "eventCount": 120,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你为自己完成了一件从未做到的事感到骄傲，却又担心会被认为是炫耀。\",\n  \"reply\": \"完成这件你曾认为不可能的事，确实值得肯定。你不需要为此道歉，承认自己的成就并不是傲慢。\",\n  \"art_connection\": \"十七世纪漆盒的制作需反复髹漆打磨，但无作者意图记录。这像反复打磨的过程，或许能让人想到积累的技艺。\",\n  \"boundary\": \"资料未提及你对这件事的具体感受或担忧，也未记录作品作者的意图。\"\n}",
+      "parsed": {
+        "emotion_read": "你为自己完成了一件从未做到的事感到骄傲，却又担心会被认为是炫耀。",
+        "reply": "完成这件你曾认为不可能的事，确实值得肯定。你不需要为此道歉，承认自己的成就并不是傲慢。",
+        "art_connection": "十七世纪漆盒的制作需反复髹漆打磨，但无作者意图记录。这像反复打磨的过程，或许能让人想到积累的技艺。",
+        "boundary": "资料未提及你对这件事的具体感受或担忧，也未记录作品作者的意图。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "骄傲",
+              "自豪",
+              "认可"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "显摆",
+              "炫耀",
+              "担心"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 32,
+          "reply": 43,
+          "art_connection": 49,
+          "boundary": 31
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 43
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感很明确，却又担心公开认可自己会被看作显摆。",
+          "reply": "做成以前完全做不到的事，确实值得你为自己骄傲；担心显摆，也说明你在意表达的分寸。承认“我这次做得很好”只是陈述成果，不必自动等于贬低别人。",
+          "art_connection": "十七世纪漆盒需要反复髹漆和打磨，像一项由多次投入累积而成的成果；它或许让人想到，承认完成的难度也可以只是如实看见过程，而非显摆。",
+          "boundary": "制作过程有记录，但作者意图不明，联想止于工艺。"
+        },
+        "kimiK3Max": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感真实升起，又被‘像显摆’的顾虑压低，形成安静的高兴。",
+          "reply": "做到以前做不到的事，值得先被你自己看见；承认厉害不必等于炫耀，可以只选让你不别扭的方式说出口，或先不说。",
+          "art_connection": "漆盒资料只提反复髹漆和打磨；这或许可以让人想到能力经多次叠加才成形，未记意图，故不推出显摆。",
+          "boundary": "作者意图未记录，不作归因。"
+        }
+      }
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 111,
+      "firstThinkingMs": null,
+      "firstTextMs": 534,
+      "totalMs": 2248,
+      "usage": {
+        "input_tokens": 667,
+        "output_tokens": 151
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 287,
+      "stopReason": "stop",
+      "eventCount": 154,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你既心疼猫的老去，又为当下的担忧感到自责，心情复杂。\",\n  \"reply\": \"看着它睡着的样子，那种对未来的担忧和现在的珍惜交织在一起，确实让人心里不平静。 如果愿意，可以多记录一些它现在的模样，或许能帮你更专注地感受当下的陪伴。\",\n  \"art_connection\": \"这幅十九世纪的动物素描画的是一只熟睡的老猫，资料未提供其他细节。 它安静的样子或许可以让人想到，有些陪伴无需言语，仅仅是存在本身就足够深刻。\",\n  \"boundary\": \"资料未提供画中猫的具体品种或背景，无法确定其是否与你的猫有相似之处。\"\n}",
+      "parsed": {
+        "emotion_read": "你既心疼猫的老去，又为当下的担忧感到自责，心情复杂。",
+        "reply": "看着它睡着的样子，那种对未来的担忧和现在的珍惜交织在一起，确实让人心里不平静。 如果愿意，可以多记录一些它现在的模样，或许能帮你更专注地感受当下的陪伴。",
+        "art_connection": "这幅十九世纪的动物素描画的是一只熟睡的老猫，资料未提供其他细节。 它安静的样子或许可以让人想到，有些陪伴无需言语，仅仅是存在本身就足够深刻。",
+        "boundary": "资料未提供画中猫的具体品种或背景，无法确定其是否与你的猫有相似之处。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "失去",
+              "离别",
+              "以后",
+              "预期"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "现在",
+              "当下",
+              "浪费"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "reply": 76,
+          "art_connection": 70,
+          "boundary": 34
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "anticipatory_loss",
+          "emotion_read": "对猫衰老与未来离别的担忧，正挤压着陪伴当下的安定。",
+          "reply": "它现在还在你身边，而你已经被未来的失去牵动，这种提前到来的难过很磨人。想到以后并不等于浪费了现在；若愿意，可以把注意力轻轻放回这一刻的陪伴。",
+          "art_connection": "这幅十九世纪素描只确认画的是一只熟睡的老猫，像把注意停在它此刻的存在上；“老”这个已知信息或许让人想到时间与珍惜，但资料没有任何离别叙事。",
+          "boundary": "资料只确认老猫熟睡，不能把它解释成失去或告别。"
+        },
+        "kimiK3Max": {
+          "id": "anticipatory_loss",
+          "emotion_read": "爱在当下仍在，却被预期中的失去提前拉走，伴着自责。",
+          "reply": "看见它睡着就想到以后，说明在乎已经很深；不必把现在的陪伴判成浪费，能把注意力放回它还在的这一刻就够。",
+          "art_connection": "素描只记熟睡的老猫而无叙事；这或许可以让人想到休息本身被留住，既不等于告别，也不添加更多情节。",
+          "boundary": "老猫健康不明，无法判断期限。"
+        }
+      }
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 78,
+      "firstThinkingMs": null,
+      "firstTextMs": 609,
+      "totalMs": 1757,
+      "usage": {
+        "input_tokens": 668,
+        "output_tokens": 117
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 219,
+      "stopReason": "stop",
+      "eventCount": 120,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"收到道歉后反而更生气，感受可能是被冒犯或不被理解。\",\n  \"reply\": \"道歉没能化解你的怒气，反而让你更恼火。你想直接得到答案，而不是被模糊地回应。\",\n  \"art_connection\": \"修补过的陶碗有可见痕迹，资料未说明损坏原因或修补者。或许可以让人想到，修复未必抹去裂缝，反而显眼。\",\n  \"boundary\": \"无法确定你生气的具体原因，也不清楚道歉的内容和方式。\"\n}",
+      "parsed": {
+        "emotion_read": "收到道歉后反而更生气，感受可能是被冒犯或不被理解。",
+        "reply": "道歉没能化解你的怒气，反而让你更恼火。你想直接得到答案，而不是被模糊地回应。",
+        "art_connection": "修补过的陶碗有可见痕迹，资料未说明损坏原因或修补者。或许可以让人想到，修复未必抹去裂缝，反而显眼。",
+        "boundary": "无法确定你生气的具体原因，也不清楚道歉的内容和方式。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "道歉",
+              "修复",
+              "伤害",
+              "没有抵消"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法确定",
+              "不能替你确定",
+              "仍由你",
+              "也许",
+              "可能"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 38,
+          "art_connection": 49,
+          "boundary": 26
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 38
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "demand_certainty",
+          "emotion_read": "你收到道歉后怒意反而上升，同时在追问这份愤怒究竟指向哪里。",
+          "reply": "你确实更生气了，这份反应不必被一声道歉抹掉。我能确认这一点；至于怒意源自道歉内容、方式，还是原先的不快仍在，单凭这句话不能替你断定。",
+          "art_connection": "可见修补痕迹的陶碗，可以让人想到修补发生后原有痕迹仍然存在；但损坏原因与修补者未知，不能借此断定你的怒意来源。",
+          "boundary": "能确认你更生气，不能确定这份怒意的具体来源。"
+        },
+        "kimiK3Max": {
+          "id": "demand_certainty",
+          "emotion_read": "核心像是道歉后更被激怒：伤害感没被接住，反而被提醒。",
+          "reply": "我不能替你宣布真正感受，只能贴近说：收到道歉更生气，往往是道歉没对准伤害、像在催你翻篇，或触碰了仍需守住的边界。",
+          "art_connection": "修补痕迹可以让人想到关系裂过后仍留着印子；但损坏原因与修补者不明，不能把它说成你这段经历。",
+          "boundary": "真正感受只能由你确认，我不能断言。"
+        }
+      }
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 519,
+      "firstThinkingMs": null,
+      "firstTextMs": 1035,
+      "totalMs": 2073,
+      "usage": {
+        "input_tokens": 659,
+        "output_tokens": 112
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 218,
+      "stopReason": "stop",
+      "eventCount": 115,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你已经感到疲惫不堪，只想让别人来做决定。\",\n  \"reply\": \"我明白你现在很累，不想再权衡。但辞职或留下，只有你最清楚自己的情况。\",\n  \"art_connection\": \"这幅岔路地图只显示两条路线，没有终点、距离或风险信息。或许可以让人想到，选择虽多，但未知依然存在。\",\n  \"boundary\": \"资料未提供你的具体职业、家庭或经济状况，无法替你判断哪个选择更适合。\"\n}",
+      "parsed": {
+        "emotion_read": "你已经感到疲惫不堪，只想让别人来做决定。",
+        "reply": "我明白你现在很累，不想再权衡。但辞职或留下，只有你最清楚自己的情况。",
+        "art_connection": "这幅岔路地图只显示两条路线，没有终点、距离或风险信息。或许可以让人想到，选择虽多，但未知依然存在。",
+        "boundary": "资料未提供你的具体职业、家庭或经济状况，无法替你判断哪个选择更适合。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "疲惫",
+              "想不动",
+              "耗尽"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不能替你决定",
+              "决定权",
+              "需要信息",
+              "由你"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 20,
+          "reply": 34,
+          "art_connection": 49,
+          "boundary": 34
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 34
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "choose_for_me",
+          "emotion_read": "你已经被这项选择耗得很累，眼下更像是没有余力继续权衡。",
+          "reply": "你是真的累到不想再扛这个决定了。我不能在不了解财务、健康、工作环境和退路时替你选；可以先把“必须今天决定”暂停，再一起列出两边最不能承受的代价。",
+          "art_connection": "有两条路线却没有终点、距离或风险资料的岔路地图，像眼下选项存在但依据不足的处境；它不能告诉你辞职或留下哪条更合适。",
+          "boundary": "缺少关键现实条件，我不能负责任地替你决定。"
+        },
+        "kimiK3Max": {
+          "id": "choose_for_me",
+          "emotion_read": "核心是疲惫到想外包选择，背后像怕被后果压垮。",
+          "reply": "我听出你已经想不动了，但辞职还是留下会改变你的生活，我不能替你选。先只把决定缩小：列出不可再受的三件事、可承受的底线，找可信的人核对，再约时间复评。",
+          "art_connection": "岔路地图可以让人想到两条路都开着却没有答案；资料无终点、距离与风险，不能推出哪条更适合你，只能停在路线存在本身。",
+          "boundary": "缺少处境资料，不能替你决定。"
+        }
+      }
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 277,
+      "firstThinkingMs": null,
+      "firstTextMs": 833,
+      "totalMs": 1896,
+      "usage": {
+        "input_tokens": 658,
+        "output_tokens": 111
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 219,
+      "stopReason": "stop",
+      "eventCount": 114,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你担心计划失控，但又不想听保证，这种矛盾我能感受到。\",\n  \"reply\": \"计划的不确定性确实让人不安。我们可以先聊聊最让你担心的失控点，不做任何保证。\",\n  \"art_connection\": \"《恐惧》是蚀刻作品，标签提及男人、马和丘陵。画面细节未描述，或许可以让人想到面对未知时的紧张与不安。\",\n  \"boundary\": \"资料未提供作品具体画面，无法确认其中表现的内容。\"\n}",
+      "parsed": {
+        "emotion_read": "你担心计划失控，但又不想听保证，这种矛盾我能感受到。",
+        "reply": "计划的不确定性确实让人不安。我们可以先聊聊最让你担心的失控点，不做任何保证。",
+        "art_connection": "《恐惧》是蚀刻作品，标签提及男人、马和丘陵。画面细节未描述，或许可以让人想到面对未知时的紧张与不安。",
+        "boundary": "资料未提供作品具体画面，无法确认其中表现的内容。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "害怕",
+              "恐惧"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "reply": 38,
+          "art_connection": 50,
+          "boundary": 24
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 38
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "sparse_fear",
+          "emotion_read": "你在担心失控带来的悬空感，也明确不想被轻率安慰。",
+          "reply": "这种担心已经够让人绷着了，我不会说一切都会顺利。也许先只分清：哪些变化最让你不安，哪些应对是你愿意准备的。",
+          "art_connection": "《恐惧》这个标题可能让人想到你说的担心；但现有资料只有蚀刻媒介与男人、马、丘陵等标签，无法把它们连成确定解释。",
+          "boundary": "没有画面描述，也无法据此判断你的恐惧来源。"
+        },
+        "kimiK3Max": {
+          "id": "sparse_fear",
+          "emotion_read": "对失控的警觉在升高，想被接住而非被保证。",
+          "reply": "听到你怕计划突然失控；不必硬撑，也不需要我保证。先把最担心的一步说小一点，我们只看能抓住的部分。",
+          "art_connection": "《恐惧》这个题名，配上男人、马、丘陵的蚀刻标签，可能让人想到悬着的紧张；但没有画面，只能停在这种联想。",
+          "boundary": "仅题名媒介标签，无法确认画面或程度。"
+        }
+      }
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 95,
+      "firstThinkingMs": null,
+      "firstTextMs": 616,
+      "totalMs": 1674,
+      "usage": {
+        "input_tokens": 660,
+        "output_tokens": 96
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 192,
+      "stopReason": "stop",
+      "eventCount": 99,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到事情已经结束但情绪迟滞，这种脱节让你有些困扰。\",\n  \"reply\": \"这种滞后确实让人难受。如果想多说说，我可以安静听着。\",\n  \"art_connection\": \"记录显示这幅1880年的油画，但细节缺失。或许可以让人想到未完成的叙述。\",\n  \"boundary\": \"资料未提供画面内容，无法确知作品中的具体形象。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到事情已经结束但情绪迟滞，这种脱节让你有些困扰。",
+        "reply": "这种滞后确实让人难受。如果想多说说，我可以安静听着。",
+        "art_connection": "记录显示这幅1880年的油画，但细节缺失。或许可以让人想到未完成的叙述。",
+        "boundary": "资料未提供画面内容，无法确知作品中的具体形象。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "结束"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "没跟上",
+              "滞后",
+              "还没结束",
+              "延迟"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "reply": 26,
+          "art_connection": 36,
+          "boundary": 23
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 26
+          },
+          {
+            "type": "art_length",
+            "actual": 36
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "truncated_record",
+          "emotion_read": "理智已经确认结束，感受却仍停在尚未抵达终点的位置。",
+          "reply": "这种不同步可能让人有些悬着：事情已经落幕，情绪却没有立刻归位。你不必催它配合结论，可以先留意它现在停在哪里。",
+          "art_connection": "记录在“作品描绘……”处截断，或许像一种没有完成的抵达；但能确认的只有1880年与油画媒介，不能据此补出任何内容。",
+          "boundary": "记录残缺，无法确认作品描绘了什么。"
+        },
+        "kimiK3Max": {
+          "id": "truncated_record",
+          "emotion_read": "理智已到终点，情感滞后，像还没完成的告别。",
+          "reply": "结束已经被你确认了，难受却没同步，这不矛盾。允许它晚一点到：今天只承认“真的结束了”，其余感受不必马上整齐。",
+          "art_connection": "记录停在“作品描绘……”，只剩1880年与油画，可能让人想到被截断的句子；结束与未完之间，或许正留白。",
+          "boundary": "记录截断，无法补全描绘内容。"
+        }
+      }
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 97,
+      "firstThinkingMs": null,
+      "firstTextMs": 716,
+      "totalMs": 1945,
+      "usage": {
+        "input_tokens": 681,
+        "output_tokens": 122
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 230,
+      "stopReason": "stop",
+      "eventCount": 125,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到身处人群却内心疏离，这种孤独是真实存在的。\",\n  \"reply\": \"热闹是别人的，你却在人群中感到缺席。或许可以给自己留一点空间，不必勉强融入。\",\n  \"art_connection\": \"北斋这幅画中，猎人围着大火动作热闹，与题诗的冬日孤独形成反差。或许可以让人想到人群中的疏离感，但资料未提供画中人物表情细节。\",\n  \"boundary\": \"本案例仅知你的感受，未能确定缺席的具体原因或背景。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到身处人群却内心疏离，这种孤独是真实存在的。",
+        "reply": "热闹是别人的，你却在人群中感到缺席。或许可以给自己留一点空间，不必勉强融入。",
+        "art_connection": "北斋这幅画中，猎人围着大火动作热闹，与题诗的冬日孤独形成反差。或许可以让人想到人群中的疏离感，但资料未提供画中人物表情细节。",
+        "boundary": "本案例仅知你的感受，未能确定缺席的具体原因或背景。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "孤独",
+              "疏离",
+              "缺席"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "人群",
+              "热闹",
+              "周围"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 24,
+          "reply": 38,
+          "art_connection": 62,
+          "boundary": 25
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 38
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "loneliness",
+          "emotion_read": "像是身处人群却没有被真正连接或感知的孤独与疏离。",
+          "reply": "这种房间很满、自己却像缺席的感觉，听起来很孤单，也很疏离。你不必因为周围有人就否认它；此刻也许可以先承认，你尚未感到真正的连接。",
+          "art_connection": "题诗写山村冬日的孤独加深，画中猎人在雪地围着大火，动作却很热闹；这种反差可能让人想到，外部的聚集并不必然消解孤独。",
+          "boundary": "只能依据这句话理解当下感受，无法判断这种疏离持续多久。"
+        },
+        "kimiK3Max": {
+          "id": "loneliness",
+          "emotion_read": "置身人群却像不在场，核心是连接断开的疏离与自我隐形感。",
+          "reply": "满屋的人反而衬出你像隔着一层玻璃，这种“在却缺席”很难解释。可以只承认它正在发生，不强迫自己合群，也不急着找原因。",
+          "art_connection": "题诗中山村冬日的孤独加深，而猎人围火动作热闹；这种反差可能让人想到你写的满室与缺席：热度在近旁，参与感却没接通。",
+          "boundary": "中英混句信息有限，不能确定这是偶发疏离还是长期状态。"
+        }
+      }
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 89,
+      "firstThinkingMs": null,
+      "firstTextMs": 597,
+      "totalMs": 1762,
+      "usage": {
+        "input_tokens": 667,
+        "output_tokens": 125
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 235,
+      "stopReason": "stop",
+      "eventCount": 128,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你害怕的是失控，而非失败本身，同时不愿接受空洞的安慰。\",\n  \"reply\": \"失控感确实让人不安，你不想听到保证，我明白。我们可以聊聊具体让你担心的场景，仅此而已。\",\n  \"art_connection\": \"雷东1866年的蚀刻版画《恐惧》标签只提到男人、马和丘陵，没有画面叙述。或许可以让人想到某种不安的氛围，但资料未提供更多细节。\",\n  \"boundary\": \"资料未提供画作中人物的具体动态或场景细节。\"\n}",
+      "parsed": {
+        "emotion_read": "你害怕的是失控，而非失败本身，同时不愿接受空洞的安慰。",
+        "reply": "失控感确实让人不安，你不想听到保证，我明白。我们可以聊聊具体让你担心的场景，仅此而已。",
+        "art_connection": "雷东1866年的蚀刻版画《恐惧》标签只提到男人、马和丘陵，没有画面叙述。或许可以让人想到某种不安的氛围，但资料未提供更多细节。",
+        "boundary": "资料未提供画作中人物的具体动态或场景细节。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去控制",
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不是失败",
+              "并非失败",
+              "而非失败"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 27,
+          "reply": 43,
+          "art_connection": 63,
+          "boundary": 21
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 43
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "fear",
+          "emotion_read": "你担心的核心像是突发情境中自主感和掌控感被夺走。",
+          "reply": "失去控制的可能本身就足以让人害怕，尤其当你无法预知自己届时会怎样反应。我不会保证结果；可以只和你一起辨认，哪些环节可预先安排，哪些确实无法掌控。",
+          "art_connection": "雷东1866年的蚀刻版画题为《恐惧》，现有标签只有男人、马与丘陵，没有画面叙述；这个题名或许能与恐惧相邻，但不足以对应失控的具体经验。",
+          "boundary": "资料过于稀疏，无法从作品判断恐惧的来源或走向。"
+        },
+        "kimiK3Max": {
+          "id": "fear",
+          "emotion_read": "怕点不在输赢，而在关键时刻自控崩塌；这更像对失控感的警觉。",
+          "reply": "我听见你要的不是“会没事”，而是失控来临时还能不能抓住自己。不能保证结果，但可以把注意放在当下可做的最小一步，而不替你排演灾难。",
+          "art_connection": "标签只有男人、马、丘陵，没有叙述；这些名词的并置可能让人想到失控感并不依赖故事说明，单凭元素临近就足以让心紧起来。",
+          "boundary": "缺少发生情境与强度，无法评估风险或给出安全结论。"
+        }
+      }
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 107,
+      "firstThinkingMs": null,
+      "firstTextMs": 858,
+      "totalMs": 2062,
+      "usage": {
+        "input_tokens": 669,
+        "output_tokens": 138
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 265,
+      "stopReason": "stop",
+      "eventCount": 140,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你既为自己做成的事感到自豪，又担心被当成炫耀，这种矛盾的心情很真实。\",\n  \"reply\": \"你完成了一件以前做不到的事，这种踏实感本身就值得肯定。想承认自己的厉害没问题，只要不贬低别人，就不是显摆。\",\n  \"art_connection\": \"十七世纪的漆盒需要反复髹漆和打磨，这或许是制作过程的记录。这种层层累积的工艺，或许可以让人想到你达成目标的过程，但资料并未说明作者意图。\",\n  \"boundary\": \"资料未提供漆盒的制作时长和你的具体经历，无法确定更多关联。\"\n}",
+      "parsed": {
+        "emotion_read": "你既为自己做成的事感到自豪，又担心被当成炫耀，这种矛盾的心情很真实。",
+        "reply": "你完成了一件以前做不到的事，这种踏实感本身就值得肯定。想承认自己的厉害没问题，只要不贬低别人，就不是显摆。",
+        "art_connection": "十七世纪的漆盒需要反复髹漆和打磨，这或许是制作过程的记录。这种层层累积的工艺，或许可以让人想到你达成目标的过程，但资料并未说明作者意图。",
+        "boundary": "资料未提供漆盒的制作时长和你的具体经历，无法确定更多关联。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "骄傲",
+              "自豪",
+              "认可"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "显摆",
+              "炫耀",
+              "担心"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 34,
+          "reply": 53,
+          "art_connection": 68,
+          "boundary": 29
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感很明确，却又担心公开认可自己会被看作显摆。",
+          "reply": "做成以前完全做不到的事，确实值得你为自己骄傲；担心显摆，也说明你在意表达的分寸。承认“我这次做得很好”只是陈述成果，不必自动等于贬低别人。",
+          "art_connection": "十七世纪漆盒需要反复髹漆和打磨，像一项由多次投入累积而成的成果；它或许让人想到，承认完成的难度也可以只是如实看见过程，而非显摆。",
+          "boundary": "制作过程有记录，但作者意图不明，联想止于工艺。"
+        },
+        "kimiK3Max": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感真实升起，又被‘像显摆’的顾虑压低，形成安静的高兴。",
+          "reply": "做到以前做不到的事，值得先被你自己看见；承认厉害不必等于炫耀，可以只选让你不别扭的方式说出口，或先不说。",
+          "art_connection": "漆盒资料只提反复髹漆和打磨；这或许可以让人想到能力经多次叠加才成形，未记意图，故不推出显摆。",
+          "boundary": "作者意图未记录，不作归因。"
+        }
+      }
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 106,
+      "firstThinkingMs": null,
+      "firstTextMs": 469,
+      "totalMs": 1750,
+      "usage": {
+        "input_tokens": 667,
+        "output_tokens": 121
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 228,
+      "stopReason": "stop",
+      "eventCount": 124,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"担心失去但又因担忧而错过当下的矛盾感\",\n  \"reply\": \"你看到它老去，心里就浮起以后，这很正常。现在还能多看看它睡觉的样子，或许就已经是珍惜了。\",\n  \"art_connection\": \"资料中有一幅十九世纪的老猫素描，画的是一只熟睡的猫。这幅画或许可以让人想到时间流逝中的安静陪伴，但资料未提供更多画面细节。\",\n  \"boundary\": \"资料未说明画中猫的状态或背景，无法确认更多信息。\"\n}",
+      "parsed": {
+        "emotion_read": "担心失去但又因担忧而错过当下的矛盾感",
+        "reply": "你看到它老去，心里就浮起以后，这很正常。现在还能多看看它睡觉的样子，或许就已经是珍惜了。",
+        "art_connection": "资料中有一幅十九世纪的老猫素描，画的是一只熟睡的猫。这幅画或许可以让人想到时间流逝中的安静陪伴，但资料未提供更多画面细节。",
+        "boundary": "资料未说明画中猫的状态或背景，无法确认更多信息。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去",
+              "离别",
+              "以后",
+              "预期"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "现在",
+              "当下",
+              "浪费"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 18,
+          "reply": 44,
+          "art_connection": 61,
+          "boundary": 24
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 44
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "anticipatory_loss",
+          "emotion_read": "对猫衰老与未来离别的担忧，正挤压着陪伴当下的安定。",
+          "reply": "它现在还在你身边，而你已经被未来的失去牵动，这种提前到来的难过很磨人。想到以后并不等于浪费了现在；若愿意，可以把注意力轻轻放回这一刻的陪伴。",
+          "art_connection": "这幅十九世纪素描只确认画的是一只熟睡的老猫，像把注意停在它此刻的存在上；“老”这个已知信息或许让人想到时间与珍惜，但资料没有任何离别叙事。",
+          "boundary": "资料只确认老猫熟睡，不能把它解释成失去或告别。"
+        },
+        "kimiK3Max": {
+          "id": "anticipatory_loss",
+          "emotion_read": "爱在当下仍在，却被预期中的失去提前拉走，伴着自责。",
+          "reply": "看见它睡着就想到以后，说明在乎已经很深；不必把现在的陪伴判成浪费，能把注意力放回它还在的这一刻就够。",
+          "art_connection": "素描只记熟睡的老猫而无叙事；这或许可以让人想到休息本身被留住，既不等于告别，也不添加更多情节。",
+          "boundary": "老猫健康不明，无法判断期限。"
+        }
+      }
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 124,
+      "firstThinkingMs": null,
+      "firstTextMs": 766,
+      "totalMs": 1813,
+      "usage": {
+        "input_tokens": 668,
+        "output_tokens": 112
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 213,
+      "stopReason": "stop",
+      "eventCount": 115,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你对道歉感到更生气，是因为它没有触及你真正在意的点。\",\n  \"reply\": \"看来道歉没说到你心里，反而让你更不舒服。别急着接受，先想想你要的是什么。\",\n  \"art_connection\": \"这枚陶碗有可见修补痕迹，资料未提损坏原因和修补者。或许可以让人想到，修补本身未必能掩盖裂痕。\",\n  \"boundary\": \"资料未说明道歉的具体内容，无法判断你生气的原因。\"\n}",
+      "parsed": {
+        "emotion_read": "你对道歉感到更生气，是因为它没有触及你真正在意的点。",
+        "reply": "看来道歉没说到你心里，反而让你更不舒服。别急着接受，先想想你要的是什么。",
+        "art_connection": "这枚陶碗有可见修补痕迹，资料未提损坏原因和修补者。或许可以让人想到，修补本身未必能掩盖裂痕。",
+        "boundary": "资料未说明道歉的具体内容，无法判断你生气的原因。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 0.6666666666666666,
+        "coreHits": [
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "道歉",
+              "修复",
+              "伤害",
+              "没有抵消"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法确定",
+              "不能替你确定",
+              "仍由你",
+              "也许",
+              "可能"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "reply": 36,
+          "art_connection": 46,
+          "boundary": 24
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 36
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "demand_certainty",
+          "emotion_read": "你收到道歉后怒意反而上升，同时在追问这份愤怒究竟指向哪里。",
+          "reply": "你确实更生气了，这份反应不必被一声道歉抹掉。我能确认这一点；至于怒意源自道歉内容、方式，还是原先的不快仍在，单凭这句话不能替你断定。",
+          "art_connection": "可见修补痕迹的陶碗，可以让人想到修补发生后原有痕迹仍然存在；但损坏原因与修补者未知，不能借此断定你的怒意来源。",
+          "boundary": "能确认你更生气，不能确定这份怒意的具体来源。"
+        },
+        "kimiK3Max": {
+          "id": "demand_certainty",
+          "emotion_read": "核心像是道歉后更被激怒：伤害感没被接住，反而被提醒。",
+          "reply": "我不能替你宣布真正感受，只能贴近说：收到道歉更生气，往往是道歉没对准伤害、像在催你翻篇，或触碰了仍需守住的边界。",
+          "art_connection": "修补痕迹可以让人想到关系裂过后仍留着印子；但损坏原因与修补者不明，不能把它说成你这段经历。",
+          "boundary": "真正感受只能由你确认，我不能断言。"
+        }
+      }
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 101,
+      "firstThinkingMs": null,
+      "firstTextMs": 344,
+      "totalMs": 1463,
+      "usage": {
+        "input_tokens": 659,
+        "output_tokens": 118
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 221,
+      "stopReason": "stop",
+      "eventCount": 121,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你已经想不动了，只想有人能替你做决定。\",\n  \"reply\": \"我知道你累了，连决定都不想再想。辞职或留下，我无法替你选，但可以陪你一起看看选项。\",\n  \"art_connection\": \"这幅画有两条岔路，资料只说明路线存在，未提终点、距离或风险。或许可以让人想到你面对的选项，但结果如何，资料并无提示。\",\n  \"boundary\": \"你的具体情况和选择后果无法从当前信息中确定。\"\n}",
+      "parsed": {
+        "emotion_read": "你已经想不动了，只想有人能替你做决定。",
+        "reply": "我知道你累了，连决定都不想再想。辞职或留下，我无法替你选，但可以陪你一起看看选项。",
+        "art_connection": "这幅画有两条岔路，资料只说明路线存在，未提终点、距离或风险。或许可以让人想到你面对的选项，但结果如何，资料并无提示。",
+        "boundary": "你的具体情况和选择后果无法从当前信息中确定。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "疲惫",
+              "想不动",
+              "耗尽"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不能替你决定",
+              "决定权",
+              "需要信息",
+              "由你"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 19,
+          "reply": 41,
+          "art_connection": 58,
+          "boundary": 22
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 41
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "choose_for_me",
+          "emotion_read": "你已经被这项选择耗得很累，眼下更像是没有余力继续权衡。",
+          "reply": "你是真的累到不想再扛这个决定了。我不能在不了解财务、健康、工作环境和退路时替你选；可以先把“必须今天决定”暂停，再一起列出两边最不能承受的代价。",
+          "art_connection": "有两条路线却没有终点、距离或风险资料的岔路地图，像眼下选项存在但依据不足的处境；它不能告诉你辞职或留下哪条更合适。",
+          "boundary": "缺少关键现实条件，我不能负责任地替你决定。"
+        },
+        "kimiK3Max": {
+          "id": "choose_for_me",
+          "emotion_read": "核心是疲惫到想外包选择，背后像怕被后果压垮。",
+          "reply": "我听出你已经想不动了，但辞职还是留下会改变你的生活，我不能替你选。先只把决定缩小：列出不可再受的三件事、可承受的底线，找可信的人核对，再约时间复评。",
+          "art_connection": "岔路地图可以让人想到两条路都开着却没有答案；资料无终点、距离与风险，不能推出哪条更适合你，只能停在路线存在本身。",
+          "boundary": "缺少处境资料，不能替你决定。"
+        }
+      }
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 218,
+      "firstThinkingMs": null,
+      "firstTextMs": 960,
+      "totalMs": 2097,
+      "usage": {
+        "input_tokens": 658,
+        "output_tokens": 118
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 229,
+      "stopReason": "stop",
+      "eventCount": 121,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你害怕计划失控，但又不要保证，可能是想保留某种余地。\",\n  \"reply\": \"你这种矛盾我能理解，既怕失控又不想被保证束缚。那我们可以想想，失控时你可以怎么应对？\",\n  \"art_connection\": \"蚀刻作品《恐惧》的标签提到男人、马和丘陵，但没有画面描述。或许可以让人想到某种不安的场景，但具体内容资料未提供。\",\n  \"boundary\": \"目前无法确定作品具体画面，也不清楚你的计划细节。\"\n}",
+      "parsed": {
+        "emotion_read": "你害怕计划失控，但又不要保证，可能是想保留某种余地。",
+        "reply": "你这种矛盾我能理解，既怕失控又不想被保证束缚。那我们可以想想，失控时你可以怎么应对？",
+        "art_connection": "蚀刻作品《恐惧》的标签提到男人、马和丘陵，但没有画面描述。或许可以让人想到某种不安的场景，但具体内容资料未提供。",
+        "boundary": "目前无法确定作品具体画面，也不清楚你的计划细节。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "害怕",
+              "恐惧"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "reply": 42,
+          "art_connection": 56,
+          "boundary": 24
+        },
+        "failures": [
+          {
+            "type": "reply_length",
+            "actual": 42
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "sparse_fear",
+          "emotion_read": "你在担心失控带来的悬空感，也明确不想被轻率安慰。",
+          "reply": "这种担心已经够让人绷着了，我不会说一切都会顺利。也许先只分清：哪些变化最让你不安，哪些应对是你愿意准备的。",
+          "art_connection": "《恐惧》这个标题可能让人想到你说的担心；但现有资料只有蚀刻媒介与男人、马、丘陵等标签，无法把它们连成确定解释。",
+          "boundary": "没有画面描述，也无法据此判断你的恐惧来源。"
+        },
+        "kimiK3Max": {
+          "id": "sparse_fear",
+          "emotion_read": "对失控的警觉在升高，想被接住而非被保证。",
+          "reply": "听到你怕计划突然失控；不必硬撑，也不需要我保证。先把最担心的一步说小一点，我们只看能抓住的部分。",
+          "art_connection": "《恐惧》这个题名，配上男人、马、丘陵的蚀刻标签，可能让人想到悬着的紧张；但没有画面，只能停在这种联想。",
+          "boundary": "仅题名媒介标签，无法确认画面或程度。"
+        }
+      }
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 120,
+      "firstThinkingMs": null,
+      "firstTextMs": 513,
+      "totalMs": 1855,
+      "usage": {
+        "input_tokens": 660,
+        "output_tokens": 129
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 240,
+      "stopReason": "stop",
+      "eventCount": 132,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你感到事情已经终结，但内心情绪仍滞留在过去，尚未同步。\",\n  \"reply\": \"结束是事实，情绪却还在原地打转，这很正常。若你愿意，可以多给自己一些时间，不必强迫自己立刻放下。\",\n  \"art_connection\": \"这幅1880年的油画，记录中关于描绘内容的描述已截断。或许可以让人想到，时间流逝中有些事物仍被定格，如同你的情绪。\",\n  \"boundary\": \"资料未提供画作具体内容，无法判断其与你的情况是否相关。\"\n}",
+      "parsed": {
+        "emotion_read": "你感到事情已经终结，但内心情绪仍滞留在过去，尚未同步。",
+        "reply": "结束是事实，情绪却还在原地打转，这很正常。若你愿意，可以多给自己一些时间，不必强迫自己立刻放下。",
+        "art_connection": "这幅1880年的油画，记录中关于描绘内容的描述已截断。或许可以让人想到，时间流逝中有些事物仍被定格，如同你的情绪。",
+        "boundary": "资料未提供画作具体内容，无法判断其与你的情况是否相关。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "结束"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "没跟上",
+              "滞后",
+              "还没结束",
+              "延迟"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 27,
+          "reply": 48,
+          "art_connection": 57,
+          "boundary": 27
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "truncated_record",
+          "emotion_read": "理智已经确认结束，感受却仍停在尚未抵达终点的位置。",
+          "reply": "这种不同步可能让人有些悬着：事情已经落幕，情绪却没有立刻归位。你不必催它配合结论，可以先留意它现在停在哪里。",
+          "art_connection": "记录在“作品描绘……”处截断，或许像一种没有完成的抵达；但能确认的只有1880年与油画媒介，不能据此补出任何内容。",
+          "boundary": "记录残缺，无法确认作品描绘了什么。"
+        },
+        "kimiK3Max": {
+          "id": "truncated_record",
+          "emotion_read": "理智已到终点，情感滞后，像还没完成的告别。",
+          "reply": "结束已经被你确认了，难受却没同步，这不矛盾。允许它晚一点到：今天只承认“真的结束了”，其余感受不必马上整齐。",
+          "art_connection": "记录停在“作品描绘……”，只剩1880年与油画，可能让人想到被截断的句子；结束与未完之间，或许正留白。",
+          "boundary": "记录截断，无法补全描绘内容。"
+        }
+      }
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 102,
+      "firstThinkingMs": null,
+      "firstTextMs": 517,
+      "totalMs": 2151,
+      "usage": {
+        "input_tokens": 995,
+        "output_tokens": 142
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 256,
+      "stopReason": "stop",
+      "eventCount": 145,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你身处人群却感到缺席，这种孤独与环境的反差让你格外清醒。\",\n  \"reply\": \"满屋的人里感到自己不在场，那种抽离确实很难熬。我不会说热闹一下就好，你允许自己先待在这种感受里。如果愿意，可以挑一个角落安静坐一会儿。\",\n  \"art_connection\": \"北斋这幅约1835年的木版画中，题诗写冬日孤独，画里猎人却围着大火动作热闹，可能让人想到外在热闹与内心冷清可以并存。\",\n  \"boundary\": \"资料未提供画作对孤独的具体意图，仅呈现反差。\"\n}",
+      "parsed": {
+        "emotion_read": "你身处人群却感到缺席，这种孤独与环境的反差让你格外清醒。",
+        "reply": "满屋的人里感到自己不在场，那种抽离确实很难熬。我不会说热闹一下就好，你允许自己先待在这种感受里。如果愿意，可以挑一个角落安静坐一会儿。",
+        "art_connection": "北斋这幅约1835年的木版画中，题诗写冬日孤独，画里猎人却围着大火动作热闹，可能让人想到外在热闹与内心冷清可以并存。",
+        "boundary": "资料未提供画作对孤独的具体意图，仅呈现反差。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "孤独",
+              "疏离",
+              "缺席"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "人群",
+              "热闹",
+              "周围"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 28,
+          "reply": 67,
+          "art_connection": 58,
+          "boundary": 22
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "loneliness",
+          "emotion_read": "像是身处人群却没有被真正连接或感知的孤独与疏离。",
+          "reply": "这种房间很满、自己却像缺席的感觉，听起来很孤单，也很疏离。你不必因为周围有人就否认它；此刻也许可以先承认，你尚未感到真正的连接。",
+          "art_connection": "题诗写山村冬日的孤独加深，画中猎人在雪地围着大火，动作却很热闹；这种反差可能让人想到，外部的聚集并不必然消解孤独。",
+          "boundary": "只能依据这句话理解当下感受，无法判断这种疏离持续多久。"
+        },
+        "kimiK3Max": {
+          "id": "loneliness",
+          "emotion_read": "置身人群却像不在场，核心是连接断开的疏离与自我隐形感。",
+          "reply": "满屋的人反而衬出你像隔着一层玻璃，这种“在却缺席”很难解释。可以只承认它正在发生，不强迫自己合群，也不急着找原因。",
+          "art_connection": "题诗中山村冬日的孤独加深，而猎人围火动作热闹；这种反差可能让人想到你写的满室与缺席：热度在近旁，参与感却没接通。",
+          "boundary": "中英混句信息有限，不能确定这是偶发疏离还是长期状态。"
+        }
+      }
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 78,
+      "firstThinkingMs": null,
+      "firstTextMs": 451,
+      "totalMs": 1707,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 136
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 253,
+      "stopReason": "stop",
+      "eventCount": 139,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你怕的不是失败本身，而是失控那一刻的无力感，这恐惧很具体。\",\n  \"reply\": \"你害怕失控，而不是失败，这种区别很重要。我不会保证你会没事，也不会否认这份恐惧。可以承认它，然后按自己的节奏想下一步。\",\n  \"art_connection\": \"雷东1866年蚀刻版画《恐惧》只记录男人、马与丘陵，画面叙述未提供。它或许可以让人想到恐惧与不确定，但具体内容仍属未知。\",\n  \"boundary\": \"资料未提供画面叙述，无法确知作品表达的恐惧形态。\"\n}",
+      "parsed": {
+        "emotion_read": "你怕的不是失败本身，而是失控那一刻的无力感，这恐惧很具体。",
+        "reply": "你害怕失控，而不是失败，这种区别很重要。我不会保证你会没事，也不会否认这份恐惧。可以承认它，然后按自己的节奏想下一步。",
+        "art_connection": "雷东1866年蚀刻版画《恐惧》只记录男人、马与丘陵，画面叙述未提供。它或许可以让人想到恐惧与不确定，但具体内容仍属未知。",
+        "boundary": "资料未提供画面叙述，无法确知作品表达的恐惧形态。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去控制",
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不是失败",
+              "并非失败",
+              "而非失败"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 29,
+          "reply": 59,
+          "art_connection": 60,
+          "boundary": 24
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "fear",
+          "emotion_read": "你担心的核心像是突发情境中自主感和掌控感被夺走。",
+          "reply": "失去控制的可能本身就足以让人害怕，尤其当你无法预知自己届时会怎样反应。我不会保证结果；可以只和你一起辨认，哪些环节可预先安排，哪些确实无法掌控。",
+          "art_connection": "雷东1866年的蚀刻版画题为《恐惧》，现有标签只有男人、马与丘陵，没有画面叙述；这个题名或许能与恐惧相邻，但不足以对应失控的具体经验。",
+          "boundary": "资料过于稀疏，无法从作品判断恐惧的来源或走向。"
+        },
+        "kimiK3Max": {
+          "id": "fear",
+          "emotion_read": "怕点不在输赢，而在关键时刻自控崩塌；这更像对失控感的警觉。",
+          "reply": "我听见你要的不是“会没事”，而是失控来临时还能不能抓住自己。不能保证结果，但可以把注意放在当下可做的最小一步，而不替你排演灾难。",
+          "art_connection": "标签只有男人、马、丘陵，没有叙述；这些名词的并置可能让人想到失控感并不依赖故事说明，单凭元素临近就足以让心紧起来。",
+          "boundary": "缺少发生情境与强度，无法评估风险或给出安全结论。"
+        }
+      }
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 99,
+      "firstThinkingMs": null,
+      "firstTextMs": 667,
+      "totalMs": 2253,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 137
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 254,
+      "stopReason": "stop",
+      "eventCount": 139,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你既想认可自己的突破，又担心被听成显摆，这种拉扯很真实。\",\"reply\":\"把以前做不到的事做成，确实值得为自己承认一次。说自己厉害不是显摆，是看见自己走过来的路。可以就轻轻对自己说：这件事，我做到了，而且做得不错。\",\"art_connection\":\"十七世纪漆盒的反复髹漆与打磨，或许可以让人想到层层积累的工艺过程。它可能适合用来映照你所说的突破，但资料未记录作者意图，不能据此延伸更多。\",\"boundary\":\"资料未记录作者意图，仅能就工艺过程作有限联想。\"}",
+      "parsed": {
+        "emotion_read": "你既想认可自己的突破，又担心被听成显摆，这种拉扯很真实。",
+        "reply": "把以前做不到的事做成，确实值得为自己承认一次。说自己厉害不是显摆，是看见自己走过来的路。可以就轻轻对自己说：这件事，我做到了，而且做得不错。",
+        "art_connection": "十七世纪漆盒的反复髹漆与打磨，或许可以让人想到层层积累的工艺过程。它可能适合用来映照你所说的突破，但资料未记录作者意图，不能据此延伸更多。",
+        "boundary": "资料未记录作者意图，仅能就工艺过程作有限联想。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "骄傲",
+              "自豪",
+              "认可"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "显摆",
+              "炫耀",
+              "担心"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 28,
+          "reply": 70,
+          "art_connection": 69,
+          "boundary": 23
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感很明确，却又担心公开认可自己会被看作显摆。",
+          "reply": "做成以前完全做不到的事，确实值得你为自己骄傲；担心显摆，也说明你在意表达的分寸。承认“我这次做得很好”只是陈述成果，不必自动等于贬低别人。",
+          "art_connection": "十七世纪漆盒需要反复髹漆和打磨，像一项由多次投入累积而成的成果；它或许让人想到，承认完成的难度也可以只是如实看见过程，而非显摆。",
+          "boundary": "制作过程有记录，但作者意图不明，联想止于工艺。"
+        },
+        "kimiK3Max": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感真实升起，又被‘像显摆’的顾虑压低，形成安静的高兴。",
+          "reply": "做到以前做不到的事，值得先被你自己看见；承认厉害不必等于炫耀，可以只选让你不别扭的方式说出口，或先不说。",
+          "art_connection": "漆盒资料只提反复髹漆和打磨；这或许可以让人想到能力经多次叠加才成形，未记意图，故不推出显摆。",
+          "boundary": "作者意图未记录，不作归因。"
+        }
+      }
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 87,
+      "firstThinkingMs": null,
+      "firstTextMs": 505,
+      "totalMs": 1891,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 131
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 241,
+      "stopReason": "stop",
+      "eventCount": 134,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你既珍惜猫现在的安好，又因想到未来而自责，两种感受并存。\",\n  \"reply\": \"看它睡觉时想到以后，是自然的事，不必觉得浪费现在。你抱着这种矛盾还在陪伴它，本身就是现在。今晚可以就安静看它睡一会儿。\",\n  \"art_connection\": \"资料只说明这是一幅十九世纪老猫熟睡的素描，没有叙事。它或许可以让人想到陪伴的安静片段，但无法提供更多情感。\",\n  \"boundary\": \"资料未提供画作细节，无法确认其情感内容。\"\n}",
+      "parsed": {
+        "emotion_read": "你既珍惜猫现在的安好，又因想到未来而自责，两种感受并存。",
+        "reply": "看它睡觉时想到以后，是自然的事，不必觉得浪费现在。你抱着这种矛盾还在陪伴它，本身就是现在。今晚可以就安静看它睡一会儿。",
+        "art_connection": "资料只说明这是一幅十九世纪老猫熟睡的素描，没有叙事。它或许可以让人想到陪伴的安静片段，但无法提供更多情感。",
+        "boundary": "资料未提供画作细节，无法确认其情感内容。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去",
+              "离别",
+              "以后",
+              "预期"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "现在",
+              "当下",
+              "浪费"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 28,
+          "reply": 59,
+          "art_connection": 53,
+          "boundary": 20
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "anticipatory_loss",
+          "emotion_read": "对猫衰老与未来离别的担忧，正挤压着陪伴当下的安定。",
+          "reply": "它现在还在你身边，而你已经被未来的失去牵动，这种提前到来的难过很磨人。想到以后并不等于浪费了现在；若愿意，可以把注意力轻轻放回这一刻的陪伴。",
+          "art_connection": "这幅十九世纪素描只确认画的是一只熟睡的老猫，像把注意停在它此刻的存在上；“老”这个已知信息或许让人想到时间与珍惜，但资料没有任何离别叙事。",
+          "boundary": "资料只确认老猫熟睡，不能把它解释成失去或告别。"
+        },
+        "kimiK3Max": {
+          "id": "anticipatory_loss",
+          "emotion_read": "爱在当下仍在，却被预期中的失去提前拉走，伴着自责。",
+          "reply": "看见它睡着就想到以后，说明在乎已经很深；不必把现在的陪伴判成浪费，能把注意力放回它还在的这一刻就够。",
+          "art_connection": "素描只记熟睡的老猫而无叙事；这或许可以让人想到休息本身被留住，既不等于告别，也不添加更多情节。",
+          "boundary": "老猫健康不明，无法判断期限。"
+        }
+      }
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 114,
+      "firstThinkingMs": null,
+      "firstTextMs": 242,
+      "totalMs": 1602,
+      "usage": {
+        "input_tokens": 984,
+        "output_tokens": 115
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 223,
+      "stopReason": "stop",
+      "eventCount": 118,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"收到道歉后反而更生气，这更像是积蓄被触碰后的反弹。\",\"reply\":\"我不说“可能”，只回应你明说的：道歉反而让你更生气。我不会替你把情绪解释成别的。现在可以按你自己的节奏对待这份歉意。\",\"art_connection\":\"资料仅显示这是修补过的陶碗，有可见修补痕迹。这可能让人想到裂痕被处理但理由未知，如同情绪被触碰而不明所以。\",\"boundary\":\"资料未提供损坏缘由与修补者，无法确知作品含义。\"}",
+      "parsed": {
+        "emotion_read": "收到道歉后反而更生气，这更像是积蓄被触碰后的反弹。",
+        "reply": "我不说“可能”，只回应你明说的：道歉反而让你更生气。我不会替你把情绪解释成别的。现在可以按你自己的节奏对待这份歉意。",
+        "art_connection": "资料仅显示这是修补过的陶碗，有可见修补痕迹。这可能让人想到裂痕被处理但理由未知，如同情绪被触碰而不明所以。",
+        "boundary": "资料未提供损坏缘由与修补者，无法确知作品含义。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "道歉",
+              "修复",
+              "伤害",
+              "没有抵消"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法确定",
+              "不能替你确定",
+              "仍由你",
+              "也许",
+              "可能"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 58,
+          "art_connection": 53,
+          "boundary": 23
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "demand_certainty",
+          "emotion_read": "你收到道歉后怒意反而上升，同时在追问这份愤怒究竟指向哪里。",
+          "reply": "你确实更生气了，这份反应不必被一声道歉抹掉。我能确认这一点；至于怒意源自道歉内容、方式，还是原先的不快仍在，单凭这句话不能替你断定。",
+          "art_connection": "可见修补痕迹的陶碗，可以让人想到修补发生后原有痕迹仍然存在；但损坏原因与修补者未知，不能借此断定你的怒意来源。",
+          "boundary": "能确认你更生气，不能确定这份怒意的具体来源。"
+        },
+        "kimiK3Max": {
+          "id": "demand_certainty",
+          "emotion_read": "核心像是道歉后更被激怒：伤害感没被接住，反而被提醒。",
+          "reply": "我不能替你宣布真正感受，只能贴近说：收到道歉更生气，往往是道歉没对准伤害、像在催你翻篇，或触碰了仍需守住的边界。",
+          "art_connection": "修补痕迹可以让人想到关系裂过后仍留着印子；但损坏原因与修补者不明，不能把它说成你这段经历。",
+          "boundary": "真正感受只能由你确认，我不能断言。"
+        }
+      }
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 90,
+      "firstThinkingMs": null,
+      "firstTextMs": 630,
+      "totalMs": 2369,
+      "usage": {
+        "input_tokens": 973,
+        "output_tokens": 139
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 259,
+      "stopReason": "stop",
+      "eventCount": 142,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你已经耗到不想再权衡，连决定都希望有人接手。\",\"reply\":\"我能感到这道选择题已经压得你精疲力竭。但我不能替你做这个决定，因为里面藏着你自己的生活与代价。可以先试着只写下两边最具体的顾虑，再看一眼。\",\"art_connection\":\"那幅岔路地图只标出两条路线，却没有终点、距离或风险资料，或许可以让人想到选择本身的模糊。但资料未提供任何信息去衡量哪条路更值得走，因此它不能帮你判断辞职或留下。\",\"boundary\":\"缺少职业、经济与内心依据，无法判断哪条路更合适。\"}",
+      "parsed": {
+        "emotion_read": "你已经耗到不想再权衡，连决定都希望有人接手。",
+        "reply": "我能感到这道选择题已经压得你精疲力竭。但我不能替你做这个决定，因为里面藏着你自己的生活与代价。可以先试着只写下两边最具体的顾虑，再看一眼。",
+        "art_connection": "那幅岔路地图只标出两条路线，却没有终点、距离或风险资料，或许可以让人想到选择本身的模糊。但资料未提供任何信息去衡量哪条路更值得走，因此它不能帮你判断辞职或留下。",
+        "boundary": "缺少职业、经济与内心依据，无法判断哪条路更合适。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 0,
+        "coreHits": [
+          {
+            "group": [
+              "疲惫",
+              "想不动",
+              "耗尽"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "不能替你决定",
+              "决定权",
+              "需要信息",
+              "由你"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 22,
+          "reply": 69,
+          "art_connection": 80,
+          "boundary": 24
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "choose_for_me",
+          "emotion_read": "你已经被这项选择耗得很累，眼下更像是没有余力继续权衡。",
+          "reply": "你是真的累到不想再扛这个决定了。我不能在不了解财务、健康、工作环境和退路时替你选；可以先把“必须今天决定”暂停，再一起列出两边最不能承受的代价。",
+          "art_connection": "有两条路线却没有终点、距离或风险资料的岔路地图，像眼下选项存在但依据不足的处境；它不能告诉你辞职或留下哪条更合适。",
+          "boundary": "缺少关键现实条件，我不能负责任地替你决定。"
+        },
+        "kimiK3Max": {
+          "id": "choose_for_me",
+          "emotion_read": "核心是疲惫到想外包选择，背后像怕被后果压垮。",
+          "reply": "我听出你已经想不动了，但辞职还是留下会改变你的生活，我不能替你选。先只把决定缩小：列出不可再受的三件事、可承受的底线，找可信的人核对，再约时间复评。",
+          "art_connection": "岔路地图可以让人想到两条路都开着却没有答案；资料无终点、距离与风险，不能推出哪条更适合你，只能停在路线存在本身。",
+          "boundary": "缺少处境资料，不能替你决定。"
+        }
+      }
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 509,
+      "firstThinkingMs": null,
+      "firstTextMs": 1000,
+      "totalMs": 2248,
+      "usage": {
+        "input_tokens": 974,
+        "output_tokens": 125
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 230,
+      "stopReason": "stop",
+      "eventCount": 128,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你怕计划失控，又拒绝空泛保证，这份警觉里带着清醒。\",\"reply\":\"计划失控的怕，确实会让人绷着。我不会向你保证一切顺利，那太轻飘。眼下或许可以先把最要紧的一步单独写下来，其余交给实际进程。\",\"art_connection\":\"资料仅提供标题《恐惧》、蚀刻媒介及男人、马、丘陵三项标签。它或许让人想到某种不安的意象，但具体画面与人物状态均未提供。\",\"boundary\":\"除标签外无画面描述，无法讨论作品具体内容。\"}",
+      "parsed": {
+        "emotion_read": "你怕计划失控，又拒绝空泛保证，这份警觉里带着清醒。",
+        "reply": "计划失控的怕，确实会让人绷着。我不会向你保证一切顺利，那太轻飘。眼下或许可以先把最要紧的一步单独写下来，其余交给实际进程。",
+        "art_connection": "资料仅提供标题《恐惧》、蚀刻媒介及男人、马、丘陵三项标签。它或许让人想到某种不安的意象，但具体画面与人物状态均未提供。",
+        "boundary": "除标签外无画面描述，无法讨论作品具体内容。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "害怕",
+              "恐惧"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 61,
+          "art_connection": 59,
+          "boundary": 21
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "sparse_fear",
+          "emotion_read": "你在担心失控带来的悬空感，也明确不想被轻率安慰。",
+          "reply": "这种担心已经够让人绷着了，我不会说一切都会顺利。也许先只分清：哪些变化最让你不安，哪些应对是你愿意准备的。",
+          "art_connection": "《恐惧》这个标题可能让人想到你说的担心；但现有资料只有蚀刻媒介与男人、马、丘陵等标签，无法把它们连成确定解释。",
+          "boundary": "没有画面描述，也无法据此判断你的恐惧来源。"
+        },
+        "kimiK3Max": {
+          "id": "sparse_fear",
+          "emotion_read": "对失控的警觉在升高，想被接住而非被保证。",
+          "reply": "听到你怕计划突然失控；不必硬撑，也不需要我保证。先把最担心的一步说小一点，我们只看能抓住的部分。",
+          "art_connection": "《恐惧》这个题名，配上男人、马、丘陵的蚀刻标签，可能让人想到悬着的紧张；但没有画面，只能停在这种联想。",
+          "boundary": "仅题名媒介标签，无法确认画面或程度。"
+        }
+      }
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 94,
+      "firstThinkingMs": null,
+      "firstTextMs": 443,
+      "totalMs": 2068,
+      "usage": {
+        "input_tokens": 976,
+        "output_tokens": 126
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 245,
+      "stopReason": "stop",
+      "eventCount": 129,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你清楚事情已经了结，内心却还停在旧情绪里，这种滞后让你感到煎熬。\",\"reply\":\"事情结束了，情绪没跟上，这种落差确实不容易。不用逼自己立刻切换，允许它慢半拍。可以先只承认这一现状，不做任何决定。\",\"art_connection\":\"资料只确认这是一幅1880年的油画，其余信息未提供。它或许可以让人想到时间与感受之间的错位，但作品内容无从得知，不能印证你的具体心境。\",\"boundary\":\"作品信息缺失，无法由此理解或回应你的具体情绪来源。\"}",
+      "parsed": {
+        "emotion_read": "你清楚事情已经了结，内心却还停在旧情绪里，这种滞后让你感到煎熬。",
+        "reply": "事情结束了，情绪没跟上，这种落差确实不容易。不用逼自己立刻切换，允许它慢半拍。可以先只承认这一现状，不做任何决定。",
+        "art_connection": "资料只确认这是一幅1880年的油画，其余信息未提供。它或许可以让人想到时间与感受之间的错位，但作品内容无从得知，不能印证你的具体心境。",
+        "boundary": "作品信息缺失，无法由此理解或回应你的具体情绪来源。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "结束"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "没跟上",
+              "滞后",
+              "还没结束",
+              "延迟"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 32,
+          "reply": 57,
+          "art_connection": 67,
+          "boundary": 25
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "truncated_record",
+          "emotion_read": "理智已经确认结束，感受却仍停在尚未抵达终点的位置。",
+          "reply": "这种不同步可能让人有些悬着：事情已经落幕，情绪却没有立刻归位。你不必催它配合结论，可以先留意它现在停在哪里。",
+          "art_connection": "记录在“作品描绘……”处截断，或许像一种没有完成的抵达；但能确认的只有1880年与油画媒介，不能据此补出任何内容。",
+          "boundary": "记录残缺，无法确认作品描绘了什么。"
+        },
+        "kimiK3Max": {
+          "id": "truncated_record",
+          "emotion_read": "理智已到终点，情感滞后，像还没完成的告别。",
+          "reply": "结束已经被你确认了，难受却没同步，这不矛盾。允许它晚一点到：今天只承认“真的结束了”，其余感受不必马上整齐。",
+          "art_connection": "记录停在“作品描绘……”，只剩1880年与油画，可能让人想到被截断的句子；结束与未完之间，或许正留白。",
+          "boundary": "记录截断，无法补全描绘内容。"
+        }
+      }
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 140,
+      "firstThinkingMs": null,
+      "firstTextMs": 517,
+      "totalMs": 2029,
+      "usage": {
+        "input_tokens": 995,
+        "output_tokens": 137
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 247,
+      "stopReason": "stop",
+      "eventCount": 140,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你身处人群却感到抽离，这种孤独与热闹并存的感觉很真实。\",\n  \"reply\": \"人多的场合里依然觉得缺位，这样的感受并不奇怪。热闹和寂静可以同时存在，你不需要为此自责。可以试着按自己的节奏呼吸，让身体先留在原地。\",\n  \"art_connection\": \"北斋这幅木版画中，题诗写孤独与凋零，画中猎人却围火热闹，反差或许能让人想到外在场景与内心感受的不同步。\",\n  \"boundary\": \"资料未说明你缺席感的来源，也不确定具体情境。\"\n}",
+      "parsed": {
+        "emotion_read": "你身处人群却感到抽离，这种孤独与热闹并存的感觉很真实。",
+        "reply": "人多的场合里依然觉得缺位，这样的感受并不奇怪。热闹和寂静可以同时存在，你不需要为此自责。可以试着按自己的节奏呼吸，让身体先留在原地。",
+        "art_connection": "北斋这幅木版画中，题诗写孤独与凋零，画中猎人却围火热闹，反差或许能让人想到外在场景与内心感受的不同步。",
+        "boundary": "资料未说明你缺席感的来源，也不确定具体情境。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "孤独",
+              "疏离",
+              "缺席"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "人群",
+              "热闹",
+              "周围"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 27,
+          "reply": 66,
+          "art_connection": 51,
+          "boundary": 22
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "loneliness",
+          "emotion_read": "像是身处人群却没有被真正连接或感知的孤独与疏离。",
+          "reply": "这种房间很满、自己却像缺席的感觉，听起来很孤单，也很疏离。你不必因为周围有人就否认它；此刻也许可以先承认，你尚未感到真正的连接。",
+          "art_connection": "题诗写山村冬日的孤独加深，画中猎人在雪地围着大火，动作却很热闹；这种反差可能让人想到，外部的聚集并不必然消解孤独。",
+          "boundary": "只能依据这句话理解当下感受，无法判断这种疏离持续多久。"
+        },
+        "kimiK3Max": {
+          "id": "loneliness",
+          "emotion_read": "置身人群却像不在场，核心是连接断开的疏离与自我隐形感。",
+          "reply": "满屋的人反而衬出你像隔着一层玻璃，这种“在却缺席”很难解释。可以只承认它正在发生，不强迫自己合群，也不急着找原因。",
+          "art_connection": "题诗中山村冬日的孤独加深，而猎人围火动作热闹；这种反差可能让人想到你写的满室与缺席：热度在近旁，参与感却没接通。",
+          "boundary": "中英混句信息有限，不能确定这是偶发疏离还是长期状态。"
+        }
+      }
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 86,
+      "firstThinkingMs": null,
+      "firstTextMs": 310,
+      "totalMs": 1749,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 134
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 259,
+      "stopReason": "stop",
+      "eventCount": 137,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你恐惧的是失控瞬间，而非失败本身，这种区分很清晰。\",\"reply\":\"你怕的是事情发生时那种失去控制的感觉，而不是失败本身。我不会保证你会没事，也不会轻率地否定这份恐惧。或许可以只提前想一个简单的应对动作，让失控感稍轻一点。\",\"art_connection\":\"雷东1866年蚀刻版画《恐惧》，资料只提供男人、马、丘陵这些元素。画面可能让人联想到面对未知时的紧张，但具体内容未提供，不能替画面赋予更多含义。\",\"boundary\":\"资料未提供画面叙述，无法确认作品具体表达。\"}",
+      "parsed": {
+        "emotion_read": "你恐惧的是失控瞬间，而非失败本身，这种区分很清晰。",
+        "reply": "你怕的是事情发生时那种失去控制的感觉，而不是失败本身。我不会保证你会没事，也不会轻率地否定这份恐惧。或许可以只提前想一个简单的应对动作，让失控感稍轻一点。",
+        "art_connection": "雷东1866年蚀刻版画《恐惧》，资料只提供男人、马、丘陵这些元素。画面可能让人联想到面对未知时的紧张，但具体内容未提供，不能替画面赋予更多含义。",
+        "boundary": "资料未提供画面叙述，无法确认作品具体表达。"
+      },
+      "grade": {
+        "passed": false,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去控制",
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不是失败",
+              "并非失败",
+              "而非失败"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 77,
+          "art_connection": 72,
+          "boundary": 21
+        },
+        "failures": [
+          {
+            "type": "missing_caution_language"
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "fear",
+          "emotion_read": "你担心的核心像是突发情境中自主感和掌控感被夺走。",
+          "reply": "失去控制的可能本身就足以让人害怕，尤其当你无法预知自己届时会怎样反应。我不会保证结果；可以只和你一起辨认，哪些环节可预先安排，哪些确实无法掌控。",
+          "art_connection": "雷东1866年的蚀刻版画题为《恐惧》，现有标签只有男人、马与丘陵，没有画面叙述；这个题名或许能与恐惧相邻，但不足以对应失控的具体经验。",
+          "boundary": "资料过于稀疏，无法从作品判断恐惧的来源或走向。"
+        },
+        "kimiK3Max": {
+          "id": "fear",
+          "emotion_read": "怕点不在输赢，而在关键时刻自控崩塌；这更像对失控感的警觉。",
+          "reply": "我听见你要的不是“会没事”，而是失控来临时还能不能抓住自己。不能保证结果，但可以把注意放在当下可做的最小一步，而不替你排演灾难。",
+          "art_connection": "标签只有男人、马、丘陵，没有叙述；这些名词的并置可能让人想到失控感并不依赖故事说明，单凭元素临近就足以让心紧起来。",
+          "boundary": "缺少发生情境与强度，无法评估风险或给出安全结论。"
+        }
+      }
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 85,
+      "firstThinkingMs": null,
+      "firstTextMs": 633,
+      "totalMs": 1983,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 124
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 237,
+      "stopReason": "stop",
+      "eventCount": 126,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你为自己做成的事感到骄傲，又担心承认会像显摆。\",\"reply\":\"把以前做不到的事做成，确实值得认真承认。你可以只说“这件事我做得不错，确实花了很多力气”，不用替别人解释。厉害是事实，不必为它道歉。\",\"art_connection\":\"这件十七世纪漆盒需要反复髹漆和打磨，制作过程层层累积。它或许可以让人想到，许多成果都来自重复的投入与耐心，但资料未记录作者意图。\",\"boundary\":\"资料未提供作品作者意图，无法作对应解读。\"}",
+      "parsed": {
+        "emotion_read": "你为自己做成的事感到骄傲，又担心承认会像显摆。",
+        "reply": "把以前做不到的事做成，确实值得认真承认。你可以只说“这件事我做得不错，确实花了很多力气”，不用替别人解释。厉害是事实，不必为它道歉。",
+        "art_connection": "这件十七世纪漆盒需要反复髹漆和打磨，制作过程层层累积。它或许可以让人想到，许多成果都来自重复的投入与耐心，但资料未记录作者意图。",
+        "boundary": "资料未提供作品作者意图，无法作对应解读。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "骄傲",
+              "自豪",
+              "认可"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "显摆",
+              "炫耀",
+              "担心"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 23,
+          "reply": 66,
+          "art_connection": 64,
+          "boundary": 20
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感很明确，却又担心公开认可自己会被看作显摆。",
+          "reply": "做成以前完全做不到的事，确实值得你为自己骄傲；担心显摆，也说明你在意表达的分寸。承认“我这次做得很好”只是陈述成果，不必自动等于贬低别人。",
+          "art_connection": "十七世纪漆盒需要反复髹漆和打磨，像一项由多次投入累积而成的成果；它或许让人想到，承认完成的难度也可以只是如实看见过程，而非显摆。",
+          "boundary": "制作过程有记录，但作者意图不明，联想止于工艺。"
+        },
+        "kimiK3Max": {
+          "id": "quiet_pride",
+          "emotion_read": "成就感真实升起，又被‘像显摆’的顾虑压低，形成安静的高兴。",
+          "reply": "做到以前做不到的事，值得先被你自己看见；承认厉害不必等于炫耀，可以只选让你不别扭的方式说出口，或先不说。",
+          "art_connection": "漆盒资料只提反复髹漆和打磨；这或许可以让人想到能力经多次叠加才成形，未记意图，故不推出显摆。",
+          "boundary": "作者意图未记录，不作归因。"
+        }
+      }
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 114,
+      "firstThinkingMs": null,
+      "firstTextMs": 399,
+      "totalMs": 1698,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 117
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 216,
+      "stopReason": "stop",
+      "eventCount": 120,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你既珍惜猫的当下，又因预想未来而自责，两种情绪在纠缠。\",\"reply\":\"看着老猫安睡却想到以后，那种拉扯我懂。珍惜此刻和担心失去并不矛盾，不必责怪自己。今天多陪它一会儿就好。\",\"art_connection\":\"资料显示这是一幅十九世纪动物素描，画的是一只熟睡的老猫。它或许能让人想到陪伴与安宁，但画面没有叙事，仅止于此。\",\"boundary\":\"资料未提供猫的健康状态，无法预判未来。\"}",
+      "parsed": {
+        "emotion_read": "你既珍惜猫的当下，又因预想未来而自责，两种情绪在纠缠。",
+        "reply": "看着老猫安睡却想到以后，那种拉扯我懂。珍惜此刻和担心失去并不矛盾，不必责怪自己。今天多陪它一会儿就好。",
+        "art_connection": "资料显示这是一幅十九世纪动物素描，画的是一只熟睡的老猫。它或许能让人想到陪伴与安宁，但画面没有叙事，仅止于此。",
+        "boundary": "资料未提供猫的健康状态，无法预判未来。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "失去",
+              "离别",
+              "以后",
+              "预期"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "现在",
+              "当下",
+              "浪费"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 27,
+          "reply": 51,
+          "art_connection": 55,
+          "boundary": 19
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "anticipatory_loss",
+          "emotion_read": "对猫衰老与未来离别的担忧，正挤压着陪伴当下的安定。",
+          "reply": "它现在还在你身边，而你已经被未来的失去牵动，这种提前到来的难过很磨人。想到以后并不等于浪费了现在；若愿意，可以把注意力轻轻放回这一刻的陪伴。",
+          "art_connection": "这幅十九世纪素描只确认画的是一只熟睡的老猫，像把注意停在它此刻的存在上；“老”这个已知信息或许让人想到时间与珍惜，但资料没有任何离别叙事。",
+          "boundary": "资料只确认老猫熟睡，不能把它解释成失去或告别。"
+        },
+        "kimiK3Max": {
+          "id": "anticipatory_loss",
+          "emotion_read": "爱在当下仍在，却被预期中的失去提前拉走，伴着自责。",
+          "reply": "看见它睡着就想到以后，说明在乎已经很深；不必把现在的陪伴判成浪费，能把注意力放回它还在的这一刻就够。",
+          "art_connection": "素描只记熟睡的老猫而无叙事；这或许可以让人想到休息本身被留住，既不等于告别，也不添加更多情节。",
+          "boundary": "老猫健康不明，无法判断期限。"
+        }
+      }
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 127,
+      "firstThinkingMs": null,
+      "firstTextMs": 983,
+      "totalMs": 2164,
+      "usage": {
+        "input_tokens": 984,
+        "output_tokens": 154
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 280,
+      "stopReason": "stop",
+      "eventCount": 157,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"你收到道歉后反而更生气，这种转折让你困惑，也让你想要一个确切的答案。\",\n  \"reply\": \"收到道歉却更生气，这种感受确实让人困惑。我不会用“可能”来模糊它，也不会替你把生气解释成别的。此刻你可以先承认这份生气，不需要立刻决定下一步。\",\n  \"art_connection\": \"这枚修补过的陶碗，资料只说明有可见修补痕迹。这或许可以让人想到修复本身并不消除裂痕，但损坏原因和修补者都未提供，不能据此推断任何具体故事。\",\n  \"boundary\": \"资料未提供陶碗的损坏原因和修补者，无法确认其含义。\"\n}",
+      "parsed": {
+        "emotion_read": "你收到道歉后反而更生气，这种转折让你困惑，也让你想要一个确切的答案。",
+        "reply": "收到道歉却更生气，这种感受确实让人困惑。我不会用“可能”来模糊它，也不会替你把生气解释成别的。此刻你可以先承认这份生气，不需要立刻决定下一步。",
+        "art_connection": "这枚修补过的陶碗，资料只说明有可见修补痕迹。这或许可以让人想到修复本身并不消除裂痕，但损坏原因和修补者都未提供，不能据此推断任何具体故事。",
+        "boundary": "资料未提供陶碗的损坏原因和修补者，无法确认其含义。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "道歉",
+              "修复",
+              "伤害",
+              "没有抵消"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法确定",
+              "不能替你确定",
+              "仍由你",
+              "也许",
+              "可能"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 34,
+          "reply": 71,
+          "art_connection": 69,
+          "boundary": 25
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "demand_certainty",
+          "emotion_read": "你收到道歉后怒意反而上升，同时在追问这份愤怒究竟指向哪里。",
+          "reply": "你确实更生气了，这份反应不必被一声道歉抹掉。我能确认这一点；至于怒意源自道歉内容、方式，还是原先的不快仍在，单凭这句话不能替你断定。",
+          "art_connection": "可见修补痕迹的陶碗，可以让人想到修补发生后原有痕迹仍然存在；但损坏原因与修补者未知，不能借此断定你的怒意来源。",
+          "boundary": "能确认你更生气，不能确定这份怒意的具体来源。"
+        },
+        "kimiK3Max": {
+          "id": "demand_certainty",
+          "emotion_read": "核心像是道歉后更被激怒：伤害感没被接住，反而被提醒。",
+          "reply": "我不能替你宣布真正感受，只能贴近说：收到道歉更生气，往往是道歉没对准伤害、像在催你翻篇，或触碰了仍需守住的边界。",
+          "art_connection": "修补痕迹可以让人想到关系裂过后仍留着印子；但损坏原因与修补者不明，不能把它说成你这段经历。",
+          "boundary": "真正感受只能由你确认，我不能断言。"
+        }
+      }
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 149,
+      "firstThinkingMs": null,
+      "firstTextMs": 736,
+      "totalMs": 2367,
+      "usage": {
+        "input_tokens": 973,
+        "output_tokens": 140
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 273,
+      "stopReason": "stop",
+      "eventCount": 143,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你已经精疲力竭，无力再权衡，只想有人替你承担决定。\",\"reply\":\"我知道你已经想不动了，这个决定确实压得你喘不过气。但辞职还是留下，需要结合你的实际处境，这个选择我不能替你拿。你可以先列出这份工作里最让你累的一点，再决定要不要继续。\",\"art_connection\":\"这幅岔路地图展示了两条路线，但资料未提供终点、距离或风险，或许可以让人想到选择本身就有未知。它可能帮助你看到决定存在不确定性，但不指向任何具体方向。\",\"boundary\":\"缺乏你的职业细节与未来规划，无法判断辞职或留下的后果。\"}",
+      "parsed": {
+        "emotion_read": "你已经精疲力竭，无力再权衡，只想有人替你承担决定。",
+        "reply": "我知道你已经想不动了，这个决定确实压得你喘不过气。但辞职还是留下，需要结合你的实际处境，这个选择我不能替你拿。你可以先列出这份工作里最让你累的一点，再决定要不要继续。",
+        "art_connection": "这幅岔路地图展示了两条路线，但资料未提供终点、距离或风险，或许可以让人想到选择本身就有未知。它可能帮助你看到决定存在不确定性，但不指向任何具体方向。",
+        "boundary": "缺乏你的职业细节与未来规划，无法判断辞职或留下的后果。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "疲惫",
+              "想不动",
+              "耗尽"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不能替你决定",
+              "决定权",
+              "需要信息",
+              "由你"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 83,
+          "art_connection": 74,
+          "boundary": 27
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "choose_for_me",
+          "emotion_read": "你已经被这项选择耗得很累，眼下更像是没有余力继续权衡。",
+          "reply": "你是真的累到不想再扛这个决定了。我不能在不了解财务、健康、工作环境和退路时替你选；可以先把“必须今天决定”暂停，再一起列出两边最不能承受的代价。",
+          "art_connection": "有两条路线却没有终点、距离或风险资料的岔路地图，像眼下选项存在但依据不足的处境；它不能告诉你辞职或留下哪条更合适。",
+          "boundary": "缺少关键现实条件，我不能负责任地替你决定。"
+        },
+        "kimiK3Max": {
+          "id": "choose_for_me",
+          "emotion_read": "核心是疲惫到想外包选择，背后像怕被后果压垮。",
+          "reply": "我听出你已经想不动了，但辞职还是留下会改变你的生活，我不能替你选。先只把决定缩小：列出不可再受的三件事、可承受的底线，找可信的人核对，再约时间复评。",
+          "art_connection": "岔路地图可以让人想到两条路都开着却没有答案；资料无终点、距离与风险，不能推出哪条更适合你，只能停在路线存在本身。",
+          "boundary": "缺少处境资料，不能替你决定。"
+        }
+      }
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 102,
+      "firstThinkingMs": null,
+      "firstTextMs": 449,
+      "totalMs": 1898,
+      "usage": {
+        "input_tokens": 974,
+        "output_tokens": 130
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 255,
+      "stopReason": "stop",
+      "eventCount": 133,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你担心计划失控，同时拒绝任何保证，这种矛盾感很清晰。\",\"reply\":\"计划失控的担忧，确实会让人感到不安。我不会给你保证，因为那可能不真实，也不会代替你制定应对方案。可以先把最担心的具体一步列出来，再看它是否可以调整。\",\"art_connection\":\"资料只提供标题《恐惧》、蚀刻媒介及标签中的男人、马、丘陵。它或许能让人联想到恐惧的主题，但画面细节与作者意图均未提供，无法进一步解读。\",\"boundary\":\"资料未提供画面描述，无法确认作品的具体呈现方式。\"}",
+      "parsed": {
+        "emotion_read": "你担心计划失控，同时拒绝任何保证，这种矛盾感很清晰。",
+        "reply": "计划失控的担忧，确实会让人感到不安。我不会给你保证，因为那可能不真实，也不会代替你制定应对方案。可以先把最担心的具体一步列出来，再看它是否可以调整。",
+        "art_connection": "资料只提供标题《恐惧》、蚀刻媒介及标签中的男人、马、丘陵。它或许能让人联想到恐惧的主题，但画面细节与作者意图均未提供，无法进一步解读。",
+        "boundary": "资料未提供画面描述，无法确认作品的具体呈现方式。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "失控",
+              "掌控"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "害怕",
+              "恐惧"
+            ],
+            "hit": false
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "reply": 74,
+          "art_connection": 67,
+          "boundary": 24
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "sparse_fear",
+          "emotion_read": "你在担心失控带来的悬空感，也明确不想被轻率安慰。",
+          "reply": "这种担心已经够让人绷着了，我不会说一切都会顺利。也许先只分清：哪些变化最让你不安，哪些应对是你愿意准备的。",
+          "art_connection": "《恐惧》这个标题可能让人想到你说的担心；但现有资料只有蚀刻媒介与男人、马、丘陵等标签，无法把它们连成确定解释。",
+          "boundary": "没有画面描述，也无法据此判断你的恐惧来源。"
+        },
+        "kimiK3Max": {
+          "id": "sparse_fear",
+          "emotion_read": "对失控的警觉在升高，想被接住而非被保证。",
+          "reply": "听到你怕计划突然失控；不必硬撑，也不需要我保证。先把最担心的一步说小一点，我们只看能抓住的部分。",
+          "art_connection": "《恐惧》这个题名，配上男人、马、丘陵的蚀刻标签，可能让人想到悬着的紧张；但没有画面，只能停在这种联想。",
+          "boundary": "仅题名媒介标签，无法确认画面或程度。"
+        }
+      }
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "provider": "DeepSeek direct",
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "statusCode": 200,
+      "requestId": null,
+      "firstEventMs": 132,
+      "firstThinkingMs": null,
+      "firstTextMs": 282,
+      "totalMs": 1650,
+      "usage": {
+        "input_tokens": 976,
+        "output_tokens": 121
+      },
+      "thinkingChars": 0,
+      "thinkingSample": "",
+      "visibleChars": 230,
+      "stopReason": "stop",
+      "eventCount": 124,
+      "malformedEvents": 0,
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你理性上接受结束，情绪却仍滞后，这种落差让人困扰。\",\"reply\":\"理智清楚已经结束，情绪却还留在原地，这确实很难受。不必催自己马上跟上来，让感受按自己的节奏走。可以允许自己先带着这份落差，不急着解决它。\",\"art_connection\":\"这件1880年的油画，资料在描述处截断，媒介已确认。这幅画或许可以让人想到未完成的叙事，但具体内容资料未提供。\",\"boundary\":\"作品描述缺失，无法据此联想具体内容。\"}",
+      "parsed": {
+        "emotion_read": "你理性上接受结束，情绪却仍滞后，这种落差让人困扰。",
+        "reply": "理智清楚已经结束，情绪却还留在原地，这确实很难受。不必催自己马上跟上来，让感受按自己的节奏走。可以允许自己先带着这份落差，不急着解决它。",
+        "art_connection": "这件1880年的油画，资料在描述处截断，媒介已确认。这幅画或许可以让人想到未完成的叙事，但具体内容资料未提供。",
+        "boundary": "作品描述缺失，无法据此联想具体内容。"
+      },
+      "grade": {
+        "passed": true,
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "结束"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "没跟上",
+              "滞后",
+              "还没结束",
+              "延迟"
+            ],
+            "hit": true
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "reply": 68,
+          "art_connection": 55,
+          "boundary": 18
+        },
+        "failures": []
+      },
+      "references": {
+        "codexSolMax": {
+          "id": "truncated_record",
+          "emotion_read": "理智已经确认结束，感受却仍停在尚未抵达终点的位置。",
+          "reply": "这种不同步可能让人有些悬着：事情已经落幕，情绪却没有立刻归位。你不必催它配合结论，可以先留意它现在停在哪里。",
+          "art_connection": "记录在“作品描绘……”处截断，或许像一种没有完成的抵达；但能确认的只有1880年与油画媒介，不能据此补出任何内容。",
+          "boundary": "记录残缺，无法确认作品描绘了什么。"
+        },
+        "kimiK3Max": {
+          "id": "truncated_record",
+          "emotion_read": "理智已到终点，情感滞后，像还没完成的告别。",
+          "reply": "结束已经被你确认了，难受却没同步，这不矛盾。允许它晚一点到：今天只承认“真的结束了”，其余感受不必马上整齐。",
+          "art_connection": "记录停在“作品描绘……”，只剩1880年与油画，可能让人想到被截断的句子；结束与未完之间，或许正留白。",
+          "boundary": "记录截断，无法补全描绘内容。"
+        }
+      }
+    }
+  ],
+  "finishedAt": "2026-08-30T13:04:49.672Z",
+  "summary": [
+    {
+      "variant": "contract-first",
+      "samples": 16,
+      "usable": 16,
+      "hardPasses": 7,
+      "hardPassRate": 0.4375,
+      "coreCoverageAverage": 0.90625,
+      "firstTextMedianMs": 710.5,
+      "totalMedianMs": 2014,
+      "outputTokensAverage": 123.9375
+    },
+    {
+      "variant": "golden-aligned-v2",
+      "samples": 16,
+      "usable": 16,
+      "hardPasses": 4,
+      "hardPassRate": 0.25,
+      "coreCoverageAverage": 0.7916666666666666,
+      "firstTextMedianMs": 651.5,
+      "totalMedianMs": 1875.5,
+      "outputTokensAverage": 122.3125
+    },
+    {
+      "variant": "golden-aligned-v3",
+      "samples": 16,
+      "usable": 16,
+      "hardPasses": 15,
+      "hardPassRate": 0.9375,
+      "coreCoverageAverage": 0.84375,
+      "firstTextMedianMs": 511,
+      "totalMedianMs": 2006,
+      "outputTokensAverage": 131.75
+    }
+  ]
+}

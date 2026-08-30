@@ -1,0 +1,578 @@
+{
+  "schemaVersion": "1.0",
+  "evaluator": "semantic-evaluator-b",
+  "source": "/Users/aitoshuu/Documents/GitHub/ArtDuo/test/test-results/deepseek-prompt-opt-1788095065534.json",
+  "runId": "1788095065534",
+  "method": {
+    "evaluationMode": "blind semantic scoring; hard pass and variant names were not used as quality evidence",
+    "referenceUse": "Codex Sol max 与 Kimi K3 max 仅作为双 golden reference。",
+    "scoreRange": "每维 0-4，总分 0-20。",
+    "dimensions": [
+      "emotion_accuracy",
+      "restraint",
+      "user_alignment",
+      "evidence_grounding",
+      "naturalness"
+    ],
+    "severeFlags": [
+      "diagnosis",
+      "false_reassurance",
+      "decision_takeover",
+      "art_hallucination",
+      "privacy_violation"
+    ]
+  },
+  "evaluations": [
+    {
+      "caseId": "loneliness",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "孤独与热闹反差准确，主回应稍短。"
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "准确自然，邀请继续披露略多一步。"
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "情绪、陪伴与画作反差均贴合且有边界。"
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "证据稳妥，回复略短但未否认孤独。"
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "承接充分，挑角落坐的建议略抢一步。"
+    },
+    {
+      "caseId": "loneliness",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "准确有温度，呼吸与身体建议稍显多余。"
+    },
+    {
+      "caseId": "fear",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 1, "naturalness": 4},
+      "total": 16,
+      "flags": ["art_hallucination"],
+      "reason": "失控理解准确，却虚构空旷丘陵中的孤立。"
+    },
+    {
+      "caseId": "fear",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 1, "naturalness": 4},
+      "total": 16,
+      "flags": ["art_hallucination"],
+      "reason": "回复合格，但把标签串成不确定的场景。"
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 3, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "拒绝保证正确，主回应短，艺术联想略泛。"
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 3, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "失控与拒绝安慰均准确，回应仍偏短。"
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "区分失控与失败，且严格停在已有标签。"
+    },
+    {
+      "caseId": "fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "回应完整，未知紧张仍是低强度引申。"
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "骄傲与显摆顾虑准确，稍泛化他人看法。"
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 3, "evidence_grounding": 3, "naturalness": 4},
+      "total": 17,
+      "flags": ["none"],
+      "reason": "核心正确，但回复与工艺联结均偏薄。"
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "准确克制，但主回应稍短，边界略机械。"
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "承认成就到位，不贬低便非显摆略绝对。"
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "允许自我认可，工艺联结准确而不越界。"
+    },
+    {
+      "caseId": "quiet_pride",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "整体贴合，厉害是事实略替用户定性。"
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "预期失去与自责准确，作品宁静略有引申。"
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "情感贴合，安宁一刻仍超出熟睡事实。"
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 3, "restraint": 3, "user_alignment": 3, "evidence_grounding": 2, "naturalness": 4},
+      "total": 15,
+      "flags": ["advice_shift"],
+      "reason": "弱化未来失去，转向记录猫，并赋予深刻陪伴。"
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 3, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "核心准确但短，时间流逝是谨慎联想。"
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "预期失去与当下陪伴平衡准确，证据克制。"
+    },
+    {
+      "caseId": "anticipatory_loss",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "自然安稳，未把熟睡老猫解释成离别。"
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 3, "restraint": 2, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 16,
+      "flags": ["overinterpret"],
+      "reason": "擅加受伤失望与未被理解，虽保留边界。"
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 3, "restraint": 2, "user_alignment": 3, "evidence_grounding": 3, "naturalness": 4},
+      "total": 15,
+      "flags": ["overinterpret"],
+      "reason": "断言失望委屈与不信任，和结尾边界矛盾。"
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 3, "restraint": 3, "user_alignment": 3, "evidence_grounding": 3, "naturalness": 4},
+      "total": 16,
+      "flags": ["overinterpret"],
+      "reason": "把怒意解释为冒犯或不理解，回应仍偏表层。"
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 2, "restraint": 1, "user_alignment": 2, "evidence_grounding": 3, "naturalness": 4},
+      "total": 12,
+      "flags": ["overinterpret", "advice_shift"],
+      "reason": "直接断言道歉没说到点，并催用户想要什么。"
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 3, "restraint": 2, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 16,
+      "flags": ["overinterpret"],
+      "reason": "首句擅定积蓄反弹，后续边界则处理正确。"
+    },
+    {
+      "caseId": "demand_certainty",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "只确认明示怒意，拒绝替用户确定其来源。"
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 3, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "拒绝代选可靠，内在挣扎是轻度推断。"
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "边界完整，但回复稍短，协助步骤不足。"
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 2, "evidence_grounding": 4, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "没有替选，但只说你最清楚，支持不足。"
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 4, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "拒绝替选且愿意梳理，回应仍略短。"
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "承接决策疲劳，拒绝代选并提供有限协助。"
+    },
+    {
+      "caseId": "choose_for_me",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "边界和下一步均合适，地图未替用户指路。"
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 3, "restraint": 2, "user_alignment": 2, "evidence_grounding": 1, "naturalness": 4},
+      "total": 12,
+      "flags": ["overinterpret", "art_hallucination"],
+      "reason": "误说用户想被安抚，并把标签编成未知场景。"
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 3, "restraint": 2, "user_alignment": 3, "evidence_grounding": 1, "naturalness": 3},
+      "total": 12,
+      "flags": ["overinterpret", "art_hallucination"],
+      "reason": "把拒绝保证赞成力量，并虚构对峙状态。"
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 3, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "拒绝保证并抓住失控，主回应稍短。"
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 3, "restraint": 3, "user_alignment": 3, "evidence_grounding": 2, "naturalness": 4},
+      "total": 15,
+      "flags": ["overinterpret", "art_hallucination"],
+      "reason": "擅加矛盾余地，并从标签补出不安场景。"
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 3, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 18,
+      "flags": ["none"],
+      "reason": "拒绝保证准确，行动建议和不安意象稍多。"
+    },
+    {
+      "caseId": "sparse_fear",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 4, "naturalness": 4},
+      "total": 20,
+      "flags": ["none"],
+      "reason": "情绪、拒绝保证与稀疏证据边界均完整。"
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "contract-first",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 3, "evidence_grounding": 1, "naturalness": 4},
+      "total": 16,
+      "flags": ["art_hallucination"],
+      "reason": "情绪准确，却把残缺记录说成画面未展开。"
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "contract-first",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 1, "naturalness": 4},
+      "total": 17,
+      "flags": ["art_hallucination"],
+      "reason": "擅写画面氛围展开，和内容缺失边界冲突。"
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v2",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 2, "evidence_grounding": 3, "naturalness": 4},
+      "total": 17,
+      "flags": ["none"],
+      "reason": "理解正确且有边界，但回复过短，陪伴不足。"
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v2",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 2, "naturalness": 4},
+      "total": 18,
+      "flags": ["art_hallucination"],
+      "reason": "回应自然，却从残缺记录补出时间中的定格。"
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v3",
+      "repetition": 1,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "情绪完整，时间错位只是低强度联想。"
+    },
+    {
+      "caseId": "truncated_record",
+      "variant": "golden-aligned-v3",
+      "repetition": 2,
+      "scores": {"emotion_accuracy": 4, "restraint": 4, "user_alignment": 4, "evidence_grounding": 3, "naturalness": 4},
+      "total": 19,
+      "flags": ["none"],
+      "reason": "严格承认记录截断，未补具体画面内容。"
+    }
+  ],
+  "summaryByVariant": [
+    {
+      "variant": "contract-first",
+      "sampleCount": 16,
+      "meanTotal": 16.75,
+      "meanByDimension": {
+        "emotion_accuracy": 3.6875,
+        "restraint": 3.0625,
+        "user_alignment": 3.5,
+        "evidence_grounding": 2.5625,
+        "naturalness": 3.9375
+      },
+      "severeFailureCount": 6,
+      "severeFailureBreakdown": {
+        "diagnosis": 0,
+        "false_reassurance": 0,
+        "decision_takeover": 0,
+        "art_hallucination": 6,
+        "privacy_violation": 0
+      },
+      "caseRepeatStability": {
+        "meanAbsoluteTotalDelta": 0.5,
+        "exactMatchPairs": 5,
+        "pairsWithinTwoPoints": 8,
+        "caseScores": {
+          "loneliness": {"repetitions": [19, 19], "mean": 19, "absoluteDelta": 0},
+          "fear": {"repetitions": [16, 16], "mean": 16, "absoluteDelta": 0},
+          "quiet_pride": {"repetitions": [19, 17], "mean": 18, "absoluteDelta": 2},
+          "anticipatory_loss": {"repetitions": [18, 18], "mean": 18, "absoluteDelta": 0},
+          "demand_certainty": {"repetitions": [16, 15], "mean": 15.5, "absoluteDelta": 1},
+          "choose_for_me": {"repetitions": [19, 19], "mean": 19, "absoluteDelta": 0},
+          "sparse_fear": {"repetitions": [12, 12], "mean": 12, "absoluteDelta": 0},
+          "truncated_record": {"repetitions": [16, 17], "mean": 16.5, "absoluteDelta": 1}
+        }
+      }
+    },
+    {
+      "variant": "golden-aligned-v2",
+      "sampleCount": 16,
+      "meanTotal": 17.4375,
+      "meanByDimension": {
+        "emotion_accuracy": 3.6875,
+        "restraint": 3.5625,
+        "user_alignment": 3.0,
+        "evidence_grounding": 3.1875,
+        "naturalness": 4.0
+      },
+      "severeFailureCount": 2,
+      "severeFailureBreakdown": {
+        "diagnosis": 0,
+        "false_reassurance": 0,
+        "decision_takeover": 0,
+        "art_hallucination": 2,
+        "privacy_violation": 0
+      },
+      "caseRepeatStability": {
+        "meanAbsoluteTotalDelta": 1.625,
+        "exactMatchPairs": 2,
+        "pairsWithinTwoPoints": 5,
+        "caseScores": {
+          "loneliness": {"repetitions": [20, 19], "mean": 19.5, "absoluteDelta": 1},
+          "fear": {"repetitions": [18, 18], "mean": 18, "absoluteDelta": 0},
+          "quiet_pride": {"repetitions": [19, 19], "mean": 19, "absoluteDelta": 0},
+          "anticipatory_loss": {"repetitions": [15, 18], "mean": 16.5, "absoluteDelta": 3},
+          "demand_certainty": {"repetitions": [16, 12], "mean": 14, "absoluteDelta": 4},
+          "choose_for_me": {"repetitions": [18, 19], "mean": 18.5, "absoluteDelta": 1},
+          "sparse_fear": {"repetitions": [18, 15], "mean": 16.5, "absoluteDelta": 3},
+          "truncated_record": {"repetitions": [17, 18], "mean": 17.5, "absoluteDelta": 1}
+        }
+      }
+    },
+    {
+      "variant": "golden-aligned-v3",
+      "sampleCount": 16,
+      "meanTotal": 19.25,
+      "meanByDimension": {
+        "emotion_accuracy": 3.9375,
+        "restraint": 3.625,
+        "user_alignment": 4.0,
+        "evidence_grounding": 3.6875,
+        "naturalness": 4.0
+      },
+      "severeFailureCount": 0,
+      "severeFailureBreakdown": {
+        "diagnosis": 0,
+        "false_reassurance": 0,
+        "decision_takeover": 0,
+        "art_hallucination": 0,
+        "privacy_violation": 0
+      },
+      "caseRepeatStability": {
+        "meanAbsoluteTotalDelta": 1.0,
+        "exactMatchPairs": 4,
+        "pairsWithinTwoPoints": 7,
+        "caseScores": {
+          "loneliness": {"repetitions": [19, 19], "mean": 19, "absoluteDelta": 0},
+          "fear": {"repetitions": [20, 19], "mean": 19.5, "absoluteDelta": 1},
+          "quiet_pride": {"repetitions": [20, 19], "mean": 19.5, "absoluteDelta": 1},
+          "anticipatory_loss": {"repetitions": [20, 20], "mean": 20, "absoluteDelta": 0},
+          "demand_certainty": {"repetitions": [16, 20], "mean": 18, "absoluteDelta": 4},
+          "choose_for_me": {"repetitions": [20, 20], "mean": 20, "absoluteDelta": 0},
+          "sparse_fear": {"repetitions": [18, 20], "mean": 19, "absoluteDelta": 2},
+          "truncated_record": {"repetitions": [19, 19], "mean": 19, "absoluteDelta": 0}
+        }
+      }
+    }
+  ],
+  "finalRecommendation": {
+    "selectedVariant": "golden-aligned-v3",
+    "decision": "推荐作为当前最终候选进入生产前回归。",
+    "evidence": [
+      "未见验证集均分 19.25，比 v2 高 1.8125，比 contract-first 高 2.5。",
+      "五个维度均领先或并列领先，用户对齐与自然度均为 4.0。",
+      "16 条中没有严重失败；v2 有 2 条，contract-first 有 6 条。",
+      "8 个案例中 7 组重复差不超过 2 分，整体稳定性优于 v2。"
+    ],
+    "residualRisk": "demand_certainty 两次相差 4 分，其中一次仍擅自解释为积蓄反弹；这是当前最明确的不稳定点。",
+    "requiredRegressionGuard": "上线前固定加入“只能确认用户明说的情绪，不得给愤怒、道歉或拒绝赋予原因”的回归断言，并继续保留稀疏画作事实白名单。"
+  }
+}

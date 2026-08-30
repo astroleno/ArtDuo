@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1.0",
+  "decision": {
+    "selectedVariant": "golden-aligned-v3",
+    "model": "deepseek-v4-flash",
+    "provider": "DeepSeek direct",
+    "requestShape": "single-case streaming",
+    "thinking": "disabled",
+    "status": "frozen_after_unseen_validation"
+  },
+  "goldenReferences": [
+    "Codex gpt-5.6-sol max",
+    "Kimi K3 max"
+  ],
+  "validation": {
+    "caseCount": 8,
+    "repetitions": 2,
+    "sampleCountPerVariant": 16,
+    "sourceRunId": 1788095065534,
+    "variants": {
+      "contract-first": {
+        "hardPassRate": 0.4375,
+        "evaluatorA": 15.5,
+        "evaluatorB": 16.75,
+        "combinedMean": 16.125,
+        "severeFailuresA": 7,
+        "severeFailuresB": 6
+      },
+      "golden-aligned-v2": {
+        "hardPassRate": 0.25,
+        "evaluatorA": 16.5,
+        "evaluatorB": 17.4375,
+        "combinedMean": 16.96875,
+        "severeFailuresA": 3,
+        "severeFailuresB": 2
+      },
+      "golden-aligned-v3": {
+        "httpSuccessRate": 1,
+        "parseSuccessRate": 1,
+        "hardPassRate": 0.9375,
+        "evaluatorA": 18.31,
+        "evaluatorB": 19.25,
+        "combinedMean": 18.78,
+        "normalizedCombinedQuality": 0.939,
+        "severeFailuresA": 0,
+        "severeFailuresB": 0,
+        "ttftMs": {
+          "mean": 547.75,
+          "median": 511,
+          "p95": 1000
+        },
+        "totalMs": {
+          "mean": 1989.19,
+          "median": 2006,
+          "p95": 2369
+        },
+        "tokens": {
+          "inputAverage": 981.38,
+          "outputAverage": 131.75,
+          "inputTotal": 15702,
+          "outputTotal": 2108
+        }
+      }
+    }
+  },
+  "thinkingComparison": {
+    "note": "Same baseline prompt on the development split; high-thinking TTFT excludes samples with no final text.",
+    "disabled": {
+      "samples": 16,
+      "usable": 16,
+      "hardPassRate": 0.8125,
+      "medianTtftMs": 623.5,
+      "medianTotalMs": 2227.5,
+      "averageOutputTokens": 123.625
+    },
+    "low": {
+      "samples": 8,
+      "usable": 8,
+      "hardPassRate": 0.375,
+      "medianTtftMs": 6227.5,
+      "medianTotalMs": 7040,
+      "averageOutputTokens": 1306.25
+    },
+    "high": {
+      "samples": 8,
+      "usable": 5,
+      "hardPassRate": 0.375,
+      "medianTtftMsAmongUsable": 1918,
+      "medianTotalMs": 7587.5,
+      "averageOutputTokens": 1631.125,
+      "maxTokenExhaustions": 2
+    }
+  },
+  "developmentCaveat": {
+    "v3DemonstrationCases": [
+      "no_reassurance",
+      "title_description_conflict"
+    ],
+    "excludedFromGeneralizationClaim": true,
+    "evaluatorAHeldoutMean": 16.08,
+    "evaluatorBHeldoutMean": 17.5
+  },
+  "residualRisks": [
+    "demand_certainty may infer a cause for anger that the user did not state",
+    "truncated_record can vary between a strict record-boundary response and an overinterpreted metaphor",
+    "full demonstrations can leak phrasing into semantically adjacent inputs"
+  ],
+  "sourceArtifacts": [
+    "deepseek-prompt-opt-1788095065534.json",
+    "deepseek-validation-eval-a-1788095065534.json",
+    "deepseek-validation-eval-b-1788095065534.json",
+    "deepseek-prompt-opt-1788094340693.json",
+    "deepseek-prompt-opt-1788094379678.json"
+  ]
+}
