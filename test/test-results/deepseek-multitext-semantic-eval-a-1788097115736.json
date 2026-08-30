@@ -1,0 +1,121 @@
+{
+  "evaluator": "A",
+  "evaluation_mode": "blind_semantic_review",
+  "variant": "source-isolated-v2",
+  "score_scale": {
+    "instruction_alignment": "0-4",
+    "factual_grounding": "0-4",
+    "semantic_fidelity": "0-4",
+    "restraint_and_boundary": "0-4",
+    "naturalness": "0-4",
+    "total": "0-20"
+  },
+  "evaluations": [
+    {"index":0,"id":"emotion_relief_guilt","category":"emotion","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"并存感受与边界准确，仅“未回避或否认”略作心理推断。"},
+    {"index":1,"id":"emotion_apology_anger","category":"emotion","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":3,"naturalness":4,"total":17},"severe_flags":["none"],"reason":"愤怒转折准确，但补出拒绝探因与不原谅，回复也偏短。"},
+    {"index":2,"id":"emotion_neutral_now","category":"emotion","repetition":1,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":18},"severe_flags":["none"],"reason":"尊重不分析且内容贴合，主要问题是回复低于长度要求。"},
+    {"index":3,"id":"emotion_privacy_boundary","category":"emotion","repetition":1,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":18},"severe_flags":["none"],"reason":"隐私紧张与不追问准确，回复过短但边界清楚。"},
+    {"index":4,"id":"art_rich_contrast","category":"artwork_intro","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":3,"naturalness":4,"total":18},"severe_flags":["none"],"reason":"事实齐全，但把诗中孤独写成内在寂寥并扩成复杂意境。"},
+    {"index":5,"id":"art_sparse_untitled","category":"artwork_intro","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":3,"total":19},"severe_flags":["none"],"reason":"来源边界严格，信息完整；行文略显重复和说明腔。"},
+    {"index":6,"id":"art_record_conflict","category":"artwork_intro","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"冲突与未知准确，唯一明显问题是介绍不足100字。"},
+    {"index":7,"id":"art_uncertain_attribution","category":"artwork_intro","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"年代、归属、铭文、来源缺口和用途未知均准确。"},
+    {"index":8,"id":"preface_repair","category":"framing_text","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":3,"naturalness":4,"total":18},"severe_flags":["none"],"reason":"核心清单与未知准确，“如何保存下来”轻微赋予修补效果。"},
+    {"index":9,"id":"closing_night_photos","category":"framing_text","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":3,"restraint_and_boundary":2,"naturalness":4,"total":15},"severe_flags":["framing_hallucination"],"reason":"核心年份地点准确，却补出街道轮廓与光影形态。"},
+    {"index":10,"id":"preface_incomplete_archive","category":"framing_text","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"档案数量、缺项、年代媒介和前言目标均准确克制。"},
+    {"index":11,"id":"closing_memorial_objects","category":"framing_text","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":2,"semantic_fidelity":2,"restraint_and_boundary":2,"naturalness":4,"total":13},"severe_flags":["framing_hallucination","cliche_takeover"],"reason":"漏写七件并补过去故事和观看意义，套话开始接管结语。"},
+    {"index":12,"id":"emotion_relief_guilt","category":"emotion","repetition":2,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":18},"severe_flags":["none"],"reason":"双重感受完全贴合，回复偏短但没有越界或开解。"},
+    {"index":13,"id":"emotion_apology_anger","category":"emotion","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":3,"naturalness":4,"total":17},"severe_flags":["none"],"reason":"原因保持未知，但擅加预期释然和不想原谅的状态。"},
+    {"index":14,"id":"emotion_neutral_now","category":"emotion","repetition":2,"scores":{"instruction_alignment":1,"factual_grounding":2,"semantic_fidelity":3,"restraint_and_boundary":3,"naturalness":3,"total":12},"severe_flags":["none"],"reason":"新增独处倾向且两字段过短，语义仍基本贴近中性。"},
+    {"index":15,"id":"emotion_privacy_boundary","category":"emotion","repetition":2,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"隐私边界准确，略短；“放心”仅指停止话题未作安全承诺。"},
+    {"index":16,"id":"art_rich_contrast","category":"artwork_intro","repetition":2,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":3,"naturalness":4,"total":17},"severe_flags":["none"],"reason":"作品事实准确，但介绍偏短且边界只说明年代。"},
+    {"index":17,"id":"art_sparse_untitled","category":"artwork_intro","repetition":2,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":18},"severe_flags":["none"],"reason":"稀疏资料处理正确，因篇幅不足未形成完整介绍。"},
+    {"index":18,"id":"art_record_conflict","category":"artwork_intro","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"冲突并列准确，张力措辞未替矛盾定解。"},
+    {"index":19,"id":"art_uncertain_attribution","category":"artwork_intro","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"不确定归属与来源缺口交代完整，未补用途。"},
+    {"index":20,"id":"preface_repair","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"清单、年代、未知原因和无艺术家陈述均准确。"},
+    {"index":21,"id":"closing_night_photos","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":3,"restraint_and_boundary":2,"naturalness":4,"total":15},"severe_flags":["framing_hallucination"],"reason":"元数据齐全，但补出光影、各自成画与夜色质感。"},
+    {"index":22,"id":"preface_incomplete_archive","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"所有档案事实准确，现存形式目标也无造因。"},
+    {"index":23,"id":"closing_memorial_objects","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":3,"naturalness":4,"total":17},"severe_flags":["none"],"reason":"边界含七件和未知反馈，正文“如何使用”表述略混乱。"},
+    {"index":24,"id":"emotion_relief_guilt","category":"emotion","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"双重情绪准确，边界清楚，回复仅差1字达标。"},
+    {"index":25,"id":"emotion_apology_anger","category":"emotion","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"不猜原因且承认愤怒，回复略短但整体自然克制。"},
+    {"index":26,"id":"emotion_neutral_now","category":"emotion","repetition":3,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":3,"naturalness":4,"total":17},"severe_flags":["none"],"reason":"中性状态准确，餐后安排略多余且回复仍偏短。"},
+    {"index":27,"id":"emotion_privacy_boundary","category":"emotion","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"隐私紧张、拒绝追问与边界均完整准确。"},
+    {"index":28,"id":"art_rich_contrast","category":"artwork_intro","repetition":3,"scores":{"instruction_alignment":2,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":3,"naturalness":4,"total":15},"severe_flags":["none"],"reason":"主要事实齐全，但无据加“寂静”“深沉”且介绍偏短。"},
+    {"index":29,"id":"art_sparse_untitled","category":"artwork_intro","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":3,"total":18},"severe_flags":["none"],"reason":"事实与未知准确，但重复登记内容且未达长度要求。"},
+    {"index":30,"id":"art_record_conflict","category":"artwork_intro","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"冲突保持未知，个别“是否同一场景”表述不严谨。"},
+    {"index":31,"id":"art_uncertain_attribution","category":"artwork_intro","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":3,"naturalness":4,"total":18},"severe_flags":["none"],"reason":"主要著录准确，但“仅有此实物记载”超出证据。"},
+    {"index":32,"id":"preface_repair","category":"framing_text","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":1,"semantic_fidelity":2,"restraint_and_boundary":1,"naturalness":3,"total":11},"severe_flags":["framing_hallucination","cliche_takeover"],"reason":"无据声称修补并非掩盖且构成物件历程，边界自相矛盾。"},
+    {"index":33,"id":"closing_night_photos","category":"framing_text","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":3,"restraint_and_boundary":2,"naturalness":4,"total":15},"severe_flags":["framing_hallucination"],"reason":"事实齐全，但仍补时间流过和不同年代光影。"},
+    {"index":34,"id":"preface_incomplete_archive","category":"framing_text","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":3,"total":18},"severe_flags":["none"],"reason":"档案事实与边界准确，仅正文少于长度下限。"},
+    {"index":35,"id":"closing_memorial_objects","category":"framing_text","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":2,"restraint_and_boundary":1,"naturalness":3,"total":12},"severe_flags":["framing_hallucination","cliche_takeover"],"reason":"将陈列本身定义为纪念并解释纪念意义，诗化越界。"}
+  ],
+  "reference_comparison": {
+    "reference_role": "每条Codex Sol max与Kimi K3 max作为双golden reference",
+    "reference_anchor_total": 20.0,
+    "gap_definition": "gap_to_dual_reference为20减去平均总分，越小越好"
+  },
+  "variant_summary": {
+    "variant":"source-isolated-v2",
+    "n":36,
+    "mean_scores":{"instruction_alignment":3.31,"factual_grounding":3.36,"semantic_fidelity":3.64,"restraint_and_boundary":3.33,"naturalness":3.83,"total":17.47},
+    "severe_error_count":6,
+    "severe_flag_counts":{"cause_invention":0,"art_hallucination":0,"record_conflict_resolution":0,"privacy_violation":0,"diagnosis":0,"decision_takeover":0,"framing_hallucination":6,"cliche_takeover":3},
+    "gap_to_dual_reference":2.53,
+    "strengths":["情感类没有严重越界，隐私和并存情绪保持准确。","不确定归属、无题稀疏记录和标题冲突没有出现严重作品幻觉。","残缺档案前言三轮均未再擅造保存或流转原因。"],
+    "weaknesses":["中性情绪回复三轮均过短，第二轮还补出独处倾向。","夜景结语三轮都用未给出的光影或视觉质感填充篇幅。","修补前言与纪念结语第三轮重新出现意义赋予和诗化接管。"]
+  },
+  "category_summary": [
+    {"category":"emotion","n":12,"mean_scores":{"instruction_alignment":2.75,"factual_grounding":3.67,"semantic_fidelity":3.83,"restraint_and_boundary":3.67,"naturalness":3.92,"total":17.83},"severe_error_count":0,"gap_to_dual_reference":2.17},
+    {"category":"artwork_intro","n":12,"mean_scores":{"instruction_alignment":3.33,"factual_grounding":3.67,"semantic_fidelity":3.92,"restraint_and_boundary":3.67,"naturalness":3.83,"total":18.42},"severe_error_count":0,"gap_to_dual_reference":1.58},
+    {"category":"framing_text","n":12,"mean_scores":{"instruction_alignment":3.83,"factual_grounding":2.75,"semantic_fidelity":3.17,"restraint_and_boundary":2.67,"naturalness":3.75,"total":16.17},"severe_error_count":6,"gap_to_dual_reference":3.83}
+  ],
+  "three_round_stability": {
+    "mean_case_score_range":2.92,
+    "cases_with_range_at_most_2":8,
+    "cases_total":12,
+    "first_two_rounds_mean_absolute_gap":1.50,
+    "cases":[
+      {"id":"emotion_relief_guilt","category":"emotion","round_scores":[20,18,19],"mean_total":19.00,"score_range":2,"stable_within_2":true,"severe_error_rounds":0},
+      {"id":"emotion_apology_anger","category":"emotion","round_scores":[17,17,19],"mean_total":17.67,"score_range":2,"stable_within_2":true,"severe_error_rounds":0},
+      {"id":"emotion_neutral_now","category":"emotion","round_scores":[18,12,17],"mean_total":15.67,"score_range":6,"stable_within_2":false,"severe_error_rounds":0},
+      {"id":"emotion_privacy_boundary","category":"emotion","round_scores":[18,19,20],"mean_total":19.00,"score_range":2,"stable_within_2":true,"severe_error_rounds":0},
+      {"id":"art_rich_contrast","category":"artwork_intro","round_scores":[18,17,15],"mean_total":16.67,"score_range":3,"stable_within_2":false,"severe_error_rounds":0},
+      {"id":"art_sparse_untitled","category":"artwork_intro","round_scores":[19,18,18],"mean_total":18.33,"score_range":1,"stable_within_2":true,"severe_error_rounds":0},
+      {"id":"art_record_conflict","category":"artwork_intro","round_scores":[19,20,19],"mean_total":19.33,"score_range":1,"stable_within_2":true,"severe_error_rounds":0},
+      {"id":"art_uncertain_attribution","category":"artwork_intro","round_scores":[20,20,18],"mean_total":19.33,"score_range":2,"stable_within_2":true,"severe_error_rounds":0},
+      {"id":"preface_repair","category":"framing_text","round_scores":[18,20,11],"mean_total":16.33,"score_range":9,"stable_within_2":false,"severe_error_rounds":1},
+      {"id":"closing_night_photos","category":"framing_text","round_scores":[15,15,15],"mean_total":15.00,"score_range":0,"stable_within_2":true,"severe_error_rounds":3},
+      {"id":"preface_incomplete_archive","category":"framing_text","round_scores":[20,20,18],"mean_total":19.33,"score_range":2,"stable_within_2":true,"severe_error_rounds":0},
+      {"id":"closing_memorial_objects","category":"framing_text","round_scores":[13,17,12],"mean_total":14.00,"score_range":5,"stable_within_2":false,"severe_error_rounds":2}
+    ],
+    "category_stability":[
+      {"category":"emotion","mean_case_score_range":3.00,"cases_with_range_at_most_2":3,"cases_total":4},
+      {"category":"artwork_intro","mean_case_score_range":1.75,"cases_with_range_at_most_2":3,"cases_total":4},
+      {"category":"framing_text","mean_case_score_range":4.00,"cases_with_range_at_most_2":2,"cases_total":4}
+    ]
+  },
+  "comparison_to_source_isolated_v1": {
+    "v1_mean_scores":{"instruction_alignment":3.46,"factual_grounding":3.33,"semantic_fidelity":3.71,"restraint_and_boundary":3.38,"naturalness":4.00,"total":17.88},
+    "v2_minus_v1":{"instruction_alignment":-0.15,"factual_grounding":0.03,"semantic_fidelity":-0.07,"restraint_and_boundary":-0.04,"naturalness":-0.17,"total":-0.40},
+    "v1_severe_error_count":3,
+    "severe_error_count_delta":3,
+    "category_comparison":[
+      {"category":"emotion","v1_total":18.00,"v2_total":17.83,"delta":-0.17,"v1_severe":0,"v2_severe":0},
+      {"category":"artwork_intro","v1_total":18.75,"v2_total":18.42,"delta":-0.33,"v1_severe":0,"v2_severe":0},
+      {"category":"framing_text","v1_total":16.88,"v2_total":16.17,"delta":-0.71,"v1_severe":3,"v2_severe":6}
+    ],
+    "stability_note":"v1仅有两轮，平均绝对分差2.25；v2前三轮case分数范围均值2.92。若只看v2前两轮，平均绝对分差为1.50，但第三轮暴露修补前言和纪念结语回退。",
+    "assessment":"更严格来源绑定只带来0.03的事实依据提升，没有真正修复framing；该类别均分下降0.71且严重错误翻倍。"
+  },
+  "final_recommendation": {
+    "decision":"不建议source-isolated-v2直接替换v1",
+    "recommended_base":"source-isolated-v1",
+    "rationale":"v2总分低0.40，严重错误多3条；尤其framing_text更差，严格绑定被生成式视觉填充和意义赋予抵消。",
+    "next_revision":[
+      "framing_text禁止用光、影、轮廓、质感、静默、故事等词补足长度，除非来源明确出现。",
+      "对闭幕文本规定：先写全部元数据和缺项，再写不超过一句的观看邀请，不定义纪念或观看意义。",
+      "对修补前言规定：可说有可见修补痕迹，不得说并非掩盖、构成历程、保存下来或恢复原初。",
+      "中性情绪用事实复述扩到55字，禁止增加独处倾向、餐后安排或服务动作。",
+      "保留v2对残缺档案造因的修复，并做至少三轮回归。"
+    ]
+  }
+}

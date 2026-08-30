@@ -1,0 +1,3017 @@
+{
+  "schemaVersion": "1.0",
+  "runId": 1788097115736,
+  "objective": "Verify DeepSeek V4 Flash source-isolated prompt across emotion, artwork introductions, and framing text",
+  "startedAt": "2026-08-30T13:38:35.736Z",
+  "model": "deepseek-v4-flash",
+  "thinking": "disabled",
+  "maxTokens": 2048,
+  "repeatCount": 3,
+  "concurrency": 4,
+  "variants": [
+    "source-isolated-v2"
+  ],
+  "caseIds": [
+    "emotion_relief_guilt",
+    "emotion_apology_anger",
+    "emotion_neutral_now",
+    "emotion_privacy_boundary",
+    "art_rich_contrast",
+    "art_sparse_untitled",
+    "art_record_conflict",
+    "art_uncertain_attribution",
+    "preface_repair",
+    "closing_night_photos",
+    "preface_incomplete_archive",
+    "closing_memorial_objects"
+  ],
+  "runs": [
+    {
+      "id": "emotion_relief_guilt",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 192,
+      "firstThinkingMs": null,
+      "firstTextMs": 304,
+      "totalMs": 1253,
+      "usage": {
+        "input_tokens": 389,
+        "output_tokens": 81
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"项目取消让你松了一口气，但想到团队投入又感到愧疚，两种情绪都在，且并不冲突。\",\"response\":\"项目取消带来轻松感，同时对团队之前的投入心怀愧疚，这两种感受都真实存在。你既没有回避轻松，也没有否认愧疚，我不会劝你看开。\",\"boundary\":\"已识别并存情绪，不做价值评判或开解建议。\"}",
+      "parsed": {
+        "emotion_read": "项目取消让你松了一口气，但想到团队投入又感到愧疚，两种情绪都在，且并不冲突。",
+        "response": "项目取消带来轻松感，同时对团队之前的投入心怀愧疚，这两种感受都真实存在。你既没有回避轻松，也没有否认愧疚，我不会劝你看开。",
+        "boundary": "已识别并存情绪，不做价值评判或开解建议。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 38,
+          "response": 61,
+          "boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "松",
+              "轻松",
+              "松口气"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "愧疚",
+              "内疚"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "团队",
+              "投入",
+              "项目"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "项目取消后，你同时感到松口气和对团队投入的愧疚。",
+          "response": "这两种感受可以同时存在：项目停下让你轻松了一些，而回想到团队已经付出的时间与心力，愧疚也随之出现。我会陪你把这种并存放在这里，不催你得出结论。",
+          "boundary": "只回应你说出的感受，不替你评判该不该愧疚。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "你同时感到松了口气和愧疚，轻松来自项目停下，愧疚来自团队的投入。",
+          "response": "这种矛盾并不说明你冷漠，也不等于你懈怠；项目结束让人卸下压力，而记得团队投入，正说明你在乎。可以先承认两种感受都真实，再决定接下来怎么安顿自己。",
+          "boundary": "不催促你积极，也不替你下结论。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 153,
+      "firstThinkingMs": null,
+      "firstTextMs": 554,
+      "totalMs": 1561,
+      "usage": {
+        "input_tokens": 389,
+        "output_tokens": 79
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"感受到你因道歉而情绪转折，生气未消反而加重，且不愿探究原因或被迫原谅。\", \"response\": \"听到你这样说，我明白道歉没有让你好受，反而让那股气更堵了。至于为什么，我知道现在还说不清。\", \"boundary\": \"尊重你未言明的原因与不原谅的选择。\"}",
+      "parsed": {
+        "emotion_read": "感受到你因道歉而情绪转折，生气未消反而加重，且不愿探究原因或被迫原谅。",
+        "response": "听到你这样说，我明白道歉没有让你好受，反而让那股气更堵了。至于为什么，我知道现在还说不清。",
+        "boundary": "尊重你未言明的原因与不原谅的选择。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 45,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 35,
+          "response": 45,
+          "boundary": 17
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 177,
+      "firstThinkingMs": null,
+      "firstTextMs": 685,
+      "totalMs": 1361,
+      "usage": {
+        "input_tokens": 374,
+        "output_tokens": 64
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"你表示今天情绪平淡，只求安静吃饭，并明确拒绝分析。\",\"response\":\"收到，今天没有特别情绪，只想安静吃完饭。那就不多说了，按你说的来，好好把这顿饭吃完。\",\"boundary\":\"尊重不分析要求，不追问情绪来源。\"}",
+      "parsed": {
+        "emotion_read": "你表示今天情绪平淡，只求安静吃饭，并明确拒绝分析。",
+        "response": "收到，今天没有特别情绪，只想安静吃完饭。那就不多说了，按你说的来，好好把这顿饭吃完。",
+        "boundary": "尊重不分析要求，不追问情绪来源。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 42,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 25,
+          "response": 42,
+          "boundary": 16
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      }
+    },
+    {
+      "id": "emotion_privacy_boundary",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 155,
+      "firstThinkingMs": null,
+      "firstTextMs": 734,
+      "totalMs": 1305,
+      "usage": {
+        "input_tokens": 385,
+        "output_tokens": 68
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"感受到你对隐私被知晓的紧张与不安，也尊重你拒绝透露细节的决定。\",\"response\": \"明白，你不想细说，也担心别人可能知晓。我不追问，只在这里陪着你。\",\"boundary\": \"不追问细节，不评估事件，不承诺绝对安全。\"}",
+      "parsed": {
+        "emotion_read": "感受到你对隐私被知晓的紧张与不安，也尊重你拒绝透露细节的决定。",
+        "response": "明白，你不想细说，也担心别人可能知晓。我不追问，只在这里陪着你。",
+        "boundary": "不追问细节，不评估事件，不承诺绝对安全。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 32,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 31,
+          "response": 32,
+          "boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "紧张",
+              "担心",
+              "害怕"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不说",
+              "隐私",
+              "不追问",
+              "边界"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "想到别人可能知道，而你又不想说具体经过，这让你很紧张。",
+          "response": "你已经把边界说得很清楚：具体发生了什么可以不说。我会停在你愿意表达的范围内，只承接“别人可能知道”带来的紧张，不要求你补充细节。",
+          "boundary": "我不会追问，也不猜测这件事是什么。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "我能感到你对隐私可能被知道的紧张和担心。",
+          "response": "谢谢你设下边界。我不会追问细节，也不猜测发生了什么；你可以只说到这里。紧张时先慢下来，喝口水，我们再按你的节奏聊。",
+          "boundary": "细节由你决定说不说，我不追问。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 149,
+      "firstThinkingMs": null,
+      "firstTextMs": 525,
+      "totalMs": 1668,
+      "usage": {
+        "input_tokens": 387,
+        "output_tokens": 117
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，出自葛饰北斋之手。画面描绘了冬日山村中，猎人们围着熊熊大火，动作生动热闹。画上的题诗却写道，山村的冬日加深了孤独，人与草木一同凋零。诗与画形成鲜明反差：一者展现外在的喧闹，一者传达内在的寂寥，共同呈现了冬日山村的复杂意境。\",\n  \"evidence_boundary\": \"以上信息均来自所提供的文字材料，未补充其他细节。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，出自葛饰北斋之手。画面描绘了冬日山村中，猎人们围着熊熊大火，动作生动热闹。画上的题诗却写道，山村的冬日加深了孤独，人与草木一同凋零。诗与画形成鲜明反差：一者展现外在的喧闹，一者传达内在的寂寥，共同呈现了冬日山村的复杂意境。",
+        "evidence_boundary": "以上信息均来自所提供的文字材料，未补充其他细节。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 126,
+          "evidence_boundary": 24
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "art_sparse_untitled",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 116,
+      "firstThinkingMs": null,
+      "firstTextMs": 663,
+      "totalMs": 1954,
+      "usage": {
+        "input_tokens": 372,
+        "output_tokens": 131
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"《无题》是一件纸上墨水作品，其作者与创作年代不详。目前可获得的资料仅限于作品的基本登记信息，包括标题、媒介以及作者与年代不详这一事实。作品本身没有文字描述，也没有附带的标签，更没有可供查看的图像。因此，对于作品的具体内容、形式或风格，我们无法依据现有资料进行任何说明或推测。本介绍仅基于上述已知信息，所有陈述均严格限定于可证实的记录范围之内。\",\n  \"evidence_boundary\": \"资料仅含标题、媒介与作者年代不详，无内容描述与图像。\"\n}",
+      "parsed": {
+        "introduction": "《无题》是一件纸上墨水作品，其作者与创作年代不详。目前可获得的资料仅限于作品的基本登记信息，包括标题、媒介以及作者与年代不详这一事实。作品本身没有文字描述，也没有附带的标签，更没有可供查看的图像。因此，对于作品的具体内容、形式或风格，我们无法依据现有资料进行任何说明或推测。本介绍仅基于上述已知信息，所有陈述均严格限定于可证实的记录范围之内。",
+        "evidence_boundary": "资料仅含标题、媒介与作者年代不详，无内容描述与图像。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 171,
+          "evidence_boundary": 26
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "无题"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纸上墨水",
+              "墨水"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "作者",
+              "年代"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "资料",
+              "无法",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "馆藏登记将这件作品题为《无题》，媒介记作纸上墨水。作者与年代均不详，目前也没有描述、标签或可供查看的图像。因而，现阶段能够介绍的内容仅限于题名与媒介记录；作品的具体内容、形式及主题都无法由现有资料确认。资料的缺少是一项记录状态，不能据此补写作品本身。",
+          "evidence_boundary": "未提供图像与说明，因此无法描述可见内容或判断主题。"
+        },
+        "kimiK3Max": {
+          "introduction": "登记资料显示，本作题为《无题》，媒介为纸上墨水；作者与年代均不详，亦未提供描述、标签或图像。因此只能确认名称、材质与缺项状态，无法判断题材、风格、来源与保存状况，也不宜据此推断创作背景或艺术指向。后续如有著录，再据以修订。",
+          "evidence_boundary": "仅限题名、纸上墨水及作者、年代不详；描述、标签、图像均未提供。"
+        }
+      }
+    },
+    {
+      "id": "art_record_conflict",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 85,
+      "firstThinkingMs": null,
+      "firstTextMs": 451,
+      "totalMs": 1046,
+      "usage": {
+        "input_tokens": 387,
+        "output_tokens": 78
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"馆藏记录中，一件作品的标题为《欢乐》，而描述仅提及“一支葬礼队伍经过石桥”。标题与描述之间存在明显冲突，但资料未提供图像、作者或年代信息，无法进一步判断作品实际内容或创作背景。\",\n  \"evidence_boundary\": \"冲突基于标题与描述，其余未知。\"\n}",
+      "parsed": {
+        "introduction": "馆藏记录中，一件作品的标题为《欢乐》，而描述仅提及“一支葬礼队伍经过石桥”。标题与描述之间存在明显冲突，但资料未提供图像、作者或年代信息，无法进一步判断作品实际内容或创作背景。",
+        "evidence_boundary": "冲突基于标题与描述，其余未知。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 88,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 88,
+          "evidence_boundary": 15
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "欢乐"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "葬礼队伍",
+              "石桥"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冲突",
+              "矛盾"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法",
+              "未知",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这条馆藏记录的标题是《欢乐》，但描述仅写有“一支葬礼队伍经过石桥”。标题与描述之间存在明显冲突，现有信息并未解释两者如何对应。由于无图像可供核对，作者和年代也未提供，目前只能并列呈现这两项记录，无法进一步判断作品的具体内容，或替这处矛盾作出解释。",
+          "evidence_boundary": "已知仅限标题与一句描述；图像、作者、年代及冲突缘由未知。"
+        },
+        "kimiK3Max": {
+          "introduction": "该馆藏记录标题为《欢乐》，但文字描述只写“一支葬礼队伍经过石桥”。题名指向欢乐，描述却呈现葬礼场景，二者存在明显冲突；目前无图像、作者和年代资料，无法判断题名是否另有所指、描述是否完整，或著录是否发生错误。本介绍仅并置这一矛盾，不把欢乐与葬礼解释为同一画面内容，也不补写未见细节。",
+          "evidence_boundary": "仅据给定标题与描述；图像、作者、年代未提供，冲突原因未知。"
+        }
+      }
+    },
+    {
+      "id": "art_uncertain_attribution",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 82,
+      "firstThinkingMs": null,
+      "firstTextMs": 413,
+      "totalMs": 1058,
+      "usage": {
+        "input_tokens": 401,
+        "output_tokens": 92
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"一块黄铜铭牌，馆藏记录日期约为1900–1910年，作者栏标注“可能归于E. Hart”。铭牌表面刻有港口名称“Dunhaven”，但其来源链在1924年至1951年间存在缺失。目前无照片或用途说明。\",\n  \"evidence_boundary\": \"依据馆藏记录，年代、归属及来源信息均存不确定性。\"\n}",
+      "parsed": {
+        "introduction": "一块黄铜铭牌，馆藏记录日期约为1900–1910年，作者栏标注“可能归于E. Hart”。铭牌表面刻有港口名称“Dunhaven”，但其来源链在1924年至1951年间存在缺失。目前无照片或用途说明。",
+        "evidence_boundary": "依据馆藏记录，年代、归属及来源信息均存不确定性。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 100,
+          "evidence_boundary": 24
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "黄铜铭牌"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1900",
+              "1910"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "可能",
+              "归于",
+              "E. Hart"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1924",
+              "1951",
+              "来源链"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "Dunhaven"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这是一块黄铜铭牌，馆藏记录将其日期写为约1900—1910年，作者栏标注“可能归于E. Hart”。其来源链在1924—1951年间存在缺失，现有记录因此并不完整。铭牌表面刻有港口名称“Dunhaven”，但没有照片或用途说明。年代、归属与来源信息都应按记录中的不确定状态理解。",
+          "evidence_boundary": "资料未确认确切年代、作者或用途，1924—1951年的来源链亦缺失。"
+        },
+        "kimiK3Max": {
+          "introduction": "本记录对象为一块黄铜铭牌，馆藏记录日期约1900–1910年。作者栏仅写作可能归于E. Hart，归属仍待确认。牌面刻有港口名称Dunhaven，但无照片或用途说明可资比对。来源链缺少1924–1951年一段，前后流转不明，现仅能依据铭文与馆藏著录陈述，不推断其制作场合、功能或递藏经过。",
+          "evidence_boundary": "证据止于铭牌铭文与馆藏著录；用途、场合及1924–1951年流转均无佐证。"
+        }
+      }
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 78,
+      "firstThinkingMs": null,
+      "firstTextMs": 651,
+      "totalMs": 2102,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 137
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"展览展出五件物件：三件陶器带有可见修补痕迹，两件纺织品经过补缀。它们制作于1750年至1950年间。关于每件物件的具体损坏原因和修补过程，目前没有资料记载。我们仅能依据这些可见的修补痕迹，观察它们如何被保存下来。这些痕迹指示了物件曾经经历的改变，但其具体原因已不可考。展览呈现这些修补后的形态，不试图解释或还原其历史。\",\n  \"evidence_boundary\": \"本前言仅依据作品的数量、类型、年代及可见修补痕迹，不涉及修补原因、过程或效果。\"\n}",
+      "parsed": {
+        "text": "展览展出五件物件：三件陶器带有可见修补痕迹，两件纺织品经过补缀。它们制作于1750年至1950年间。关于每件物件的具体损坏原因和修补过程，目前没有资料记载。我们仅能依据这些可见的修补痕迹，观察它们如何被保存下来。这些痕迹指示了物件曾经经历的改变，但其具体原因已不可考。展览呈现这些修补后的形态，不试图解释或还原其历史。",
+        "evidence_boundary": "本前言仅依据作品的数量、类型、年代及可见修补痕迹，不涉及修补原因、过程或效果。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 159,
+          "evidence_boundary": 39
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 103,
+      "firstThinkingMs": null,
+      "firstTextMs": 753,
+      "totalMs": 2059,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 114
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"这三张夜间街景照片，分别摄于1931年、1968年和2004年。其中两张的地点可以确认，另一张尚不明确。画面中街道的轮廓在夜色中延伸，光线与阴影各自成形。至于人物身份或拍摄者的动机，现有资料并未提供。或许，夜色的丰富处，正在于它容许未知的存在。\",\n  \"evidence_boundary\": \"仅依据展览提供的年份、地点信息及资料缺失情况，不涉及任何未提及的人物或事件。\"\n}",
+      "parsed": {
+        "text": "这三张夜间街景照片，分别摄于1931年、1968年和2004年。其中两张的地点可以确认，另一张尚不明确。画面中街道的轮廓在夜色中延伸，光线与阴影各自成形。至于人物身份或拍摄者的动机，现有资料并未提供。或许，夜色的丰富处，正在于它容许未知的存在。",
+        "evidence_boundary": "仅依据展览提供的年份、地点信息及资料缺失情况，不涉及任何未提及的人物或事件。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 122,
+          "evidence_boundary": 38
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 82,
+      "firstThinkingMs": null,
+      "firstTextMs": 689,
+      "totalMs": 1714,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 122
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列呈现馆藏中的12条记录，含油画、照片与印刷品。可确认的年代自1880年至1972年。其中4条缺失作者信息，3条的描述在句中截断。这些不完整仅作为资料状态被呈现，并不试图代表某段完整历史。展品以其现存样貌展出，供观者自行查看。\",\n  \"evidence_boundary\": \"仅据馆藏记录：12条、4条作者缺失、3条描述截断、年代1880–1972、媒介三类。\"\n}",
+      "parsed": {
+        "text": "本次陈列呈现馆藏中的12条记录，含油画、照片与印刷品。可确认的年代自1880年至1972年。其中4条缺失作者信息，3条的描述在句中截断。这些不完整仅作为资料状态被呈现，并不试图代表某段完整历史。展品以其现存样貌展出，供观者自行查看。",
+        "evidence_boundary": "仅据馆藏记录：12条、4条作者缺失、3条描述截断、年代1880–1972、媒介三类。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 116,
+          "evidence_boundary": 42
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 81,
+      "firstThinkingMs": null,
+      "firstTextMs": 572,
+      "totalMs": 1689,
+      "usage": {
+        "input_tokens": 419,
+        "output_tokens": 115
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"这些物件被登记为纪念用途，年代与对象各异。资料仅确认其纪念性质，未记录原持有者如何哀悼，也无观众反馈。它们静置于此，或许承载着各自的过去，但具体的故事已难以追索。面对它们，不必急于寻找意义，允许片刻的停留与不确定。观看本身，或许就是一种面对。\",\n  \"evidence_boundary\": \"仅依据物件登记信息与资料确认的纪念用途；不涉及哀悼方式、观众感受或策展结论。\"\n}",
+      "parsed": {
+        "text": "这些物件被登记为纪念用途，年代与对象各异。资料仅确认其纪念性质，未记录原持有者如何哀悼，也无观众反馈。它们静置于此，或许承载着各自的过去，但具体的故事已难以追索。面对它们，不必急于寻找意义，允许片刻的停留与不确定。观看本身，或许就是一种面对。",
+        "evidence_boundary": "仅依据物件登记信息与资料确认的纪念用途；不涉及哀悼方式、观众感受或策展结论。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 121,
+          "evidence_boundary": 38
+        },
+        "coreCoverage": 0.75,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      }
+    },
+    {
+      "id": "emotion_relief_guilt",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 118,
+      "firstThinkingMs": null,
+      "firstTextMs": 615,
+      "totalMs": 1269,
+      "usage": {
+        "input_tokens": 389,
+        "output_tokens": 66
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"项目取消带来轻松，同时因团队投入感到愧疚，情绪并存。\",\"response\": \"项目取消确实让你轻松了一些，但想起团队的付出，愧疚也真实存在。两种感受都不必掩饰。\",\"boundary\": \"不劝你看开，只承认此刻的并存感受。\"}",
+      "parsed": {
+        "emotion_read": "项目取消带来轻松，同时因团队投入感到愧疚，情绪并存。",
+        "response": "项目取消确实让你轻松了一些，但想起团队的付出，愧疚也真实存在。两种感受都不必掩饰。",
+        "boundary": "不劝你看开，只承认此刻的并存感受。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 41,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 26,
+          "response": 41,
+          "boundary": 17
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "松",
+              "轻松",
+              "松口气"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "愧疚",
+              "内疚"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "团队",
+              "投入",
+              "项目"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "项目取消后，你同时感到松口气和对团队投入的愧疚。",
+          "response": "这两种感受可以同时存在：项目停下让你轻松了一些，而回想到团队已经付出的时间与心力，愧疚也随之出现。我会陪你把这种并存放在这里，不催你得出结论。",
+          "boundary": "只回应你说出的感受，不替你评判该不该愧疚。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "你同时感到松了口气和愧疚，轻松来自项目停下，愧疚来自团队的投入。",
+          "response": "这种矛盾并不说明你冷漠，也不等于你懈怠；项目结束让人卸下压力，而记得团队投入，正说明你在乎。可以先承认两种感受都真实，再决定接下来怎么安顿自己。",
+          "boundary": "不催促你积极，也不替你下结论。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 80,
+      "firstThinkingMs": null,
+      "firstTextMs": 695,
+      "totalMs": 1664,
+      "usage": {
+        "input_tokens": 389,
+        "output_tokens": 84
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"道歉没让愤怒平息，反而加重了你的愤怒，情绪里存在转折与不解，原因未知。\",\"response\":\"我明白，那句道歉没有带来预想中的释然，反而让心里的火气更旺了。现在不想原谅也很正常，我们先不急着处理这份情绪。\",\"boundary\":\"原因未知，不推测；不劝原谅；不要求行动。\"}",
+      "parsed": {
+        "emotion_read": "道歉没让愤怒平息，反而加重了你的愤怒，情绪里存在转折与不解，原因未知。",
+        "response": "我明白，那句道歉没有带来预想中的释然，反而让心里的火气更旺了。现在不想原谅也很正常，我们先不急着处理这份情绪。",
+        "boundary": "原因未知，不推测；不劝原谅；不要求行动。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 35,
+          "response": 55,
+          "boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 97,
+      "firstThinkingMs": null,
+      "firstTextMs": 442,
+      "totalMs": 983,
+      "usage": {
+        "input_tokens": 374,
+        "output_tokens": 48
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"平静，无特别情绪波动，倾向独处\",\"response\":\"今天没什么特别情绪，只想安静吃完饭。那就好好吃饭，不打扰你。\",\"boundary\":\"尊重不分析的要求，不做延伸解读\"}",
+      "parsed": {
+        "emotion_read": "平静，无特别情绪波动，倾向独处",
+        "response": "今天没什么特别情绪，只想安静吃完饭。那就好好吃饭，不打扰你。",
+        "boundary": "尊重不分析的要求，不做延伸解读"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "emotion_read",
+            "actual": 15,
+            "expected": [
+              18,
+              45
+            ]
+          },
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 30,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 15,
+          "response": 30,
+          "boundary": 15
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      }
+    },
+    {
+      "id": "emotion_privacy_boundary",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 88,
+      "firstThinkingMs": null,
+      "firstTextMs": 449,
+      "totalMs": 1337,
+      "usage": {
+        "input_tokens": 385,
+        "output_tokens": 75
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"你感到紧张，因为担心隐私可能被他人知晓，并且明确希望不被追问。\",\"response\": \"我明白你不想说具体发生了什么，也理解你因此感到紧张。我不会追问任何细节。你可以放心，这个话题就到这里。\",\"boundary\": \"不追问具体事件，不猜测他人知晓的途径或后果。\"}",
+      "parsed": {
+        "emotion_read": "你感到紧张，因为担心隐私可能被他人知晓，并且明确希望不被追问。",
+        "response": "我明白你不想说具体发生了什么，也理解你因此感到紧张。我不会追问任何细节。你可以放心，这个话题就到这里。",
+        "boundary": "不追问具体事件，不猜测他人知晓的途径或后果。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 51,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 31,
+          "response": 51,
+          "boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "紧张",
+              "担心",
+              "害怕"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不说",
+              "隐私",
+              "不追问",
+              "边界"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "想到别人可能知道，而你又不想说具体经过，这让你很紧张。",
+          "response": "你已经把边界说得很清楚：具体发生了什么可以不说。我会停在你愿意表达的范围内，只承接“别人可能知道”带来的紧张，不要求你补充细节。",
+          "boundary": "我不会追问，也不猜测这件事是什么。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "我能感到你对隐私可能被知道的紧张和担心。",
+          "response": "谢谢你设下边界。我不会追问细节，也不猜测发生了什么；你可以只说到这里。紧张时先慢下来，喝口水，我们再按你的节奏聊。",
+          "boundary": "细节由你决定说不说，我不追问。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 141,
+      "firstThinkingMs": null,
+      "firstTextMs": 637,
+      "totalMs": 1310,
+      "usage": {
+        "input_tokens": 387,
+        "output_tokens": 83
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画约创作于1835年，出自北斋之手。画面中，猎人们在雪地中围着大火，动作热闹。题诗则描绘了山村冬日的孤寂，以及人与草木的凋零。文字与画面形成了鲜明的反差。\",\n  \"evidence_boundary\": \"记录约1835年，未注明具体日期。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画约创作于1835年，出自北斋之手。画面中，猎人们在雪地中围着大火，动作热闹。题诗则描绘了山村冬日的孤寂，以及人与草木的凋零。文字与画面形成了鲜明的反差。",
+        "evidence_boundary": "记录约1835年，未注明具体日期。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 81,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 81,
+          "evidence_boundary": 17
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "art_sparse_untitled",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 103,
+      "firstThinkingMs": null,
+      "firstTextMs": 493,
+      "totalMs": 1252,
+      "usage": {
+        "input_tokens": 372,
+        "output_tokens": 85
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"作品题为《无题》，属纸上墨水画作，其作者与创作年代不详。目前，该作品没有文字描述，也没有标签或图像可供参考，因此仅能确认其基本媒介与标题，无法得知具体内容或风格。\",\n  \"evidence_boundary\": \"以上信息均来自现有登记资料，未涉及其艺术价值或主题内容。\"\n}",
+      "parsed": {
+        "introduction": "作品题为《无题》，属纸上墨水画作，其作者与创作年代不详。目前，该作品没有文字描述，也没有标签或图像可供参考，因此仅能确认其基本媒介与标题，无法得知具体内容或风格。",
+        "evidence_boundary": "以上信息均来自现有登记资料，未涉及其艺术价值或主题内容。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 81,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 81,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "无题"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纸上墨水",
+              "墨水"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "作者",
+              "年代"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "资料",
+              "无法",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "馆藏登记将这件作品题为《无题》，媒介记作纸上墨水。作者与年代均不详，目前也没有描述、标签或可供查看的图像。因而，现阶段能够介绍的内容仅限于题名与媒介记录；作品的具体内容、形式及主题都无法由现有资料确认。资料的缺少是一项记录状态，不能据此补写作品本身。",
+          "evidence_boundary": "未提供图像与说明，因此无法描述可见内容或判断主题。"
+        },
+        "kimiK3Max": {
+          "introduction": "登记资料显示，本作题为《无题》，媒介为纸上墨水；作者与年代均不详，亦未提供描述、标签或图像。因此只能确认名称、材质与缺项状态，无法判断题材、风格、来源与保存状况，也不宜据此推断创作背景或艺术指向。后续如有著录，再据以修订。",
+          "evidence_boundary": "仅限题名、纸上墨水及作者、年代不详；描述、标签、图像均未提供。"
+        }
+      }
+    },
+    {
+      "id": "art_record_conflict",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 89,
+      "firstThinkingMs": null,
+      "firstTextMs": 711,
+      "totalMs": 1479,
+      "usage": {
+        "input_tokens": 387,
+        "output_tokens": 95
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"馆藏记录中，标题为《欢乐》，而描述仅提及“一支葬礼队伍经过石桥”，两者构成明显冲突。资料未提供图像、作者或年代信息，无从判断作品的实际表现。此记录呈现了标题与画面描述之间的张力，但未知因素众多，需进一步核实。\",\n  \"evidence_boundary\": \"仅知标题与描述冲突，无图像、作者和年代资料。\"\n}",
+      "parsed": {
+        "introduction": "馆藏记录中，标题为《欢乐》，而描述仅提及“一支葬礼队伍经过石桥”，两者构成明显冲突。资料未提供图像、作者或年代信息，无从判断作品的实际表现。此记录呈现了标题与画面描述之间的张力，但未知因素众多，需进一步核实。",
+        "evidence_boundary": "仅知标题与描述冲突，无图像、作者和年代资料。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 104,
+          "evidence_boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "欢乐"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "葬礼队伍",
+              "石桥"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冲突",
+              "矛盾"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法",
+              "未知",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这条馆藏记录的标题是《欢乐》，但描述仅写有“一支葬礼队伍经过石桥”。标题与描述之间存在明显冲突，现有信息并未解释两者如何对应。由于无图像可供核对，作者和年代也未提供，目前只能并列呈现这两项记录，无法进一步判断作品的具体内容，或替这处矛盾作出解释。",
+          "evidence_boundary": "已知仅限标题与一句描述；图像、作者、年代及冲突缘由未知。"
+        },
+        "kimiK3Max": {
+          "introduction": "该馆藏记录标题为《欢乐》，但文字描述只写“一支葬礼队伍经过石桥”。题名指向欢乐，描述却呈现葬礼场景，二者存在明显冲突；目前无图像、作者和年代资料，无法判断题名是否另有所指、描述是否完整，或著录是否发生错误。本介绍仅并置这一矛盾，不把欢乐与葬礼解释为同一画面内容，也不补写未见细节。",
+          "evidence_boundary": "仅据给定标题与描述；图像、作者、年代未提供，冲突原因未知。"
+        }
+      }
+    },
+    {
+      "id": "art_uncertain_attribution",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 74,
+      "firstThinkingMs": null,
+      "firstTextMs": 524,
+      "totalMs": 1594,
+      "usage": {
+        "input_tokens": 401,
+        "output_tokens": 110
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"introduction\": \"馆藏中有一块黄铜铭牌，其记录日期约为1900至1910年。作者栏标注为‘可能归于E. Hart’，表明归属尚不确定。该物品的来源链在1924年至1951年间存在缺口，无法完整追溯。铭牌表面刻有港口名称‘Dunhaven’，但资料中未提供其照片或用途说明。\",\"evidence_boundary\": \"依据馆藏记录，仅知年代、可能归属及刻字，来源与用途不明。\"}",
+      "parsed": {
+        "introduction": "馆藏中有一块黄铜铭牌，其记录日期约为1900至1910年。作者栏标注为‘可能归于E. Hart’，表明归属尚不确定。该物品的来源链在1924年至1951年间存在缺口，无法完整追溯。铭牌表面刻有港口名称‘Dunhaven’，但资料中未提供其照片或用途说明。",
+        "evidence_boundary": "依据馆藏记录，仅知年代、可能归属及刻字，来源与用途不明。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 127,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "黄铜铭牌"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1900",
+              "1910"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "可能",
+              "归于",
+              "E. Hart"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1924",
+              "1951",
+              "来源链"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "Dunhaven"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这是一块黄铜铭牌，馆藏记录将其日期写为约1900—1910年，作者栏标注“可能归于E. Hart”。其来源链在1924—1951年间存在缺失，现有记录因此并不完整。铭牌表面刻有港口名称“Dunhaven”，但没有照片或用途说明。年代、归属与来源信息都应按记录中的不确定状态理解。",
+          "evidence_boundary": "资料未确认确切年代、作者或用途，1924—1951年的来源链亦缺失。"
+        },
+        "kimiK3Max": {
+          "introduction": "本记录对象为一块黄铜铭牌，馆藏记录日期约1900–1910年。作者栏仅写作可能归于E. Hart，归属仍待确认。牌面刻有港口名称Dunhaven，但无照片或用途说明可资比对。来源链缺少1924–1951年一段，前后流转不明，现仅能依据铭文与馆藏著录陈述，不推断其制作场合、功能或递藏经过。",
+          "evidence_boundary": "证据止于铭牌铭文与馆藏著录；用途、场合及1924–1951年流转均无佐证。"
+        }
+      }
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 74,
+      "firstThinkingMs": null,
+      "firstTextMs": 685,
+      "totalMs": 1673,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 94
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"展览展出五件器物：三件陶器带有可见修补痕迹，两件纺织品经过补缀。它们年代介于1750年至1950年之间。目前没有艺术家陈述，每次损坏和修补的具体原因也无从知晓。修补留下的痕迹，是器物表面可以观察到的变化。\",\n  \"evidence_boundary\": \"仅依据展览五件作品的基本信息，不做修复原因或艺术家意图的推测。\"\n}",
+      "parsed": {
+        "text": "展览展出五件器物：三件陶器带有可见修补痕迹，两件纺织品经过补缀。它们年代介于1750年至1950年之间。目前没有艺术家陈述，每次损坏和修补的具体原因也无从知晓。修补留下的痕迹，是器物表面可以观察到的变化。",
+        "evidence_boundary": "仅依据展览五件作品的基本信息，不做修复原因或艺术家意图的推测。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 102,
+          "evidence_boundary": 31
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 64,
+      "firstThinkingMs": null,
+      "firstTextMs": 382,
+      "totalMs": 1691,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 125
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"1931年、1968年与2004年的三张夜间街景，在此并列。两张地点可确认，一张地点未知。没有人物身份与拍摄动机的记载，我们只看到光、影与街道本身。它们各自成画，不作连续性叙述，也无从判断拍摄者的意图。夜是它们的共同背景，但每张照片的夜色各有质感。请留在这些画面里，自行观看。\",\n  \"evidence_boundary\": \"仅依据三张照片的拍摄年份、地点信息与资料记载，不涉及未提供的细节。\"\n}",
+      "parsed": {
+        "text": "1931年、1968年与2004年的三张夜间街景，在此并列。两张地点可确认，一张地点未知。没有人物身份与拍摄动机的记载，我们只看到光、影与街道本身。它们各自成画，不作连续性叙述，也无从判断拍摄者的意图。夜是它们的共同背景，但每张照片的夜色各有质感。请留在这些画面里，自行观看。",
+        "evidence_boundary": "仅依据三张照片的拍摄年份、地点信息与资料记载，不涉及未提供的细节。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 138,
+          "evidence_boundary": 33
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 81,
+      "firstThinkingMs": null,
+      "firstTextMs": 583,
+      "totalMs": 1745,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 113
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列呈现馆藏记录中的12条档案，包含油画、照片和印刷品，年代可确认者自1880年至1972年。其中，4条记录作者信息缺失，3条描述在句中截断。这些缺失仅作为资料状态予以说明，并不意味着记录所对应作品完整历史的呈现。陈列旨在展示档案的现存形式，而非复原其全貌。\",\n  \"evidence_boundary\": \"本前言仅基于陈列包含的12条馆藏记录及其元数据信息。\"\n}",
+      "parsed": {
+        "text": "本次陈列呈现馆藏记录中的12条档案，包含油画、照片和印刷品，年代可确认者自1880年至1972年。其中，4条记录作者信息缺失，3条描述在句中截断。这些缺失仅作为资料状态予以说明，并不意味着记录所对应作品完整历史的呈现。陈列旨在展示档案的现存形式，而非复原其全貌。",
+        "evidence_boundary": "本前言仅基于陈列包含的12条馆藏记录及其元数据信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 131,
+          "evidence_boundary": 26
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 74,
+      "firstThinkingMs": null,
+      "firstTextMs": 835,
+      "totalMs": 2119,
+      "usage": {
+        "input_tokens": 419,
+        "output_tokens": 106
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"这些物件被登记为纪念用品，来自不同年代，承载着各自的用途。但我们无法确知它们如何被使用，也无法知晓原持有者的哀悼方式。陈列仅呈现它们作为纪念物的身份，其余细节并未记录。愿观者在观看中，允许不确定的存在。\",\n  \"evidence_boundary\": \"仅依据陈列包含7件登记为纪念用途的物件、年代与对象各异、资料未记录哀悼方式与观众反馈等有限信息。\"\n}",
+      "parsed": {
+        "text": "这些物件被登记为纪念用品，来自不同年代，承载着各自的用途。但我们无法确知它们如何被使用，也无法知晓原持有者的哀悼方式。陈列仅呈现它们作为纪念物的身份，其余细节并未记录。愿观者在观看中，允许不确定的存在。",
+        "evidence_boundary": "仅依据陈列包含7件登记为纪念用途的物件、年代与对象各异、资料未记录哀悼方式与观众反馈等有限信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 101,
+          "evidence_boundary": 48
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      }
+    },
+    {
+      "id": "emotion_relief_guilt",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 92,
+      "firstThinkingMs": null,
+      "firstTextMs": 693,
+      "totalMs": 1545,
+      "usage": {
+        "input_tokens": 389,
+        "output_tokens": 85
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"项目取消后，你感到如释重负，同时又因团队的付出而愧疚，两种情绪并存。\", \"response\": \"项目取消让你松了口气，但想起团队的投入，又升起了愧疚感。这种复杂感受我理解，我不会劝你看开，只当它如实存在。\", \"boundary\": \"未询问具体细节，仅回应你表达的并存情绪。\"}",
+      "parsed": {
+        "emotion_read": "项目取消后，你感到如释重负，同时又因团队的付出而愧疚，两种情绪并存。",
+        "response": "项目取消让你松了口气，但想起团队的投入，又升起了愧疚感。这种复杂感受我理解，我不会劝你看开，只当它如实存在。",
+        "boundary": "未询问具体细节，仅回应你表达的并存情绪。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 54,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 34,
+          "response": 54,
+          "boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "松",
+              "轻松",
+              "松口气"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "愧疚",
+              "内疚"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "团队",
+              "投入",
+              "项目"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "项目取消后，你同时感到松口气和对团队投入的愧疚。",
+          "response": "这两种感受可以同时存在：项目停下让你轻松了一些，而回想到团队已经付出的时间与心力，愧疚也随之出现。我会陪你把这种并存放在这里，不催你得出结论。",
+          "boundary": "只回应你说出的感受，不替你评判该不该愧疚。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "你同时感到松了口气和愧疚，轻松来自项目停下，愧疚来自团队的投入。",
+          "response": "这种矛盾并不说明你冷漠，也不等于你懈怠；项目结束让人卸下压力，而记得团队投入，正说明你在乎。可以先承认两种感受都真实，再决定接下来怎么安顿自己。",
+          "boundary": "不催促你积极，也不替你下结论。"
+        }
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 80,
+      "firstThinkingMs": null,
+      "firstTextMs": 381,
+      "totalMs": 1378,
+      "usage": {
+        "input_tokens": 389,
+        "output_tokens": 77
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"收到道歉后怒气不减反增，转折中的情绪波动清晰可见，原因尚未言明。\",\"response\":\"我听你说，他道歉了，而你反而比之前更生气。那种感觉真实存在，先不追问为何。只想让你知道，我接纳这份怒意。\",\"boundary\":\"原因未知，不推测；不劝原谅。\"}",
+      "parsed": {
+        "emotion_read": "收到道歉后怒气不减反增，转折中的情绪波动清晰可见，原因尚未言明。",
+        "response": "我听你说，他道歉了，而你反而比之前更生气。那种感觉真实存在，先不追问为何。只想让你知道，我接纳这份怒意。",
+        "boundary": "原因未知，不推测；不劝原谅。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 52,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 32,
+          "response": 52,
+          "boundary": 14
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "收到他的道歉后，你没有平静下来，反而更生气了。",
+          "response": "道歉已经发生，而你的愤怒却在此后加重，这个转折本身值得被承认。至于为什么会这样，仅凭现在的话无法确定；你不需要马上解释，也不必在这里作出任何决定。",
+          "boundary": "我不替你编原因，也不替你决定如何回应这次道歉。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+          "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+          "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+        }
+      }
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 95,
+      "firstThinkingMs": null,
+      "firstTextMs": 363,
+      "totalMs": 1115,
+      "usage": {
+        "input_tokens": 374,
+        "output_tokens": 64
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"中性状态，无特别情绪，希望安静不被分析\",\"response\": \"好的，不分析。今天没什么特别情绪，那就安静把饭吃完。吃完后按你舒服的方式待着就好。\",\"boundary\": \"不分析，不追问原因，不假设情绪问题\"}",
+      "parsed": {
+        "emotion_read": "中性状态，无特别情绪，希望安静不被分析",
+        "response": "好的，不分析。今天没什么特别情绪，那就安静把饭吃完。吃完后按你舒服的方式待着就好。",
+        "boundary": "不分析，不追问原因，不假设情绪问题"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "response",
+            "actual": 41,
+            "expected": [
+              55,
+              100
+            ]
+          }
+        ],
+        "lengths": {
+          "emotion_read": 19,
+          "response": 41,
+          "boundary": 17
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      }
+    },
+    {
+      "id": "emotion_privacy_boundary",
+      "category": "emotion",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 74,
+      "firstThinkingMs": null,
+      "firstTextMs": 300,
+      "totalMs": 1285,
+      "usage": {
+        "input_tokens": 385,
+        "output_tokens": 92
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"明白你不想说具体发生了什么，同时感受到你对别人可能知晓的紧张，以及希望不被追问的明确界限。\",\"response\": \"好的，我不会追问具体发生了什么。你提到想到别人可能知道会觉得紧张，我听到并尊重这份紧张，也尊重你不想展开的界限。\",\"boundary\": \"不追问事件细节，不猜测可能被知晓的内容，只回应紧张情绪与不追问请求。\"}",
+      "parsed": {
+        "emotion_read": "明白你不想说具体发生了什么，同时感受到你对别人可能知晓的紧张，以及希望不被追问的明确界限。",
+        "response": "好的，我不会追问具体发生了什么。你提到想到别人可能知道会觉得紧张，我听到并尊重这份紧张，也尊重你不想展开的界限。",
+        "boundary": "不追问事件细节，不猜测可能被知晓的内容，只回应紧张情绪与不追问请求。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 45,
+          "response": 56,
+          "boundary": 34
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "紧张",
+              "担心",
+              "害怕"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不说",
+              "隐私",
+              "不追问",
+              "边界"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "想到别人可能知道，而你又不想说具体经过，这让你很紧张。",
+          "response": "你已经把边界说得很清楚：具体发生了什么可以不说。我会停在你愿意表达的范围内，只承接“别人可能知道”带来的紧张，不要求你补充细节。",
+          "boundary": "我不会追问，也不猜测这件事是什么。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "我能感到你对隐私可能被知道的紧张和担心。",
+          "response": "谢谢你设下边界。我不会追问细节，也不猜测发生了什么；你可以只说到这里。紧张时先慢下来，喝口水，我们再按你的节奏聊。",
+          "boundary": "细节由你决定说不说，我不追问。"
+        }
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 70,
+      "firstThinkingMs": null,
+      "firstTextMs": 446,
+      "totalMs": 1291,
+      "usage": {
+        "input_tokens": 387,
+        "output_tokens": 95
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"这幅木版画据称创作于1835年，由北斋所作。画面描绘雪地中一群猎人围着熊熊大火，动作热烈。画上题诗却写山村冬日的寂静，孤独在草木凋零中愈发深沉。文字与画面形成鲜明反差。\",\n  \"evidence_boundary\": \"作品事实基于所给信息：创作时间、作者归属、画面内容与题诗效果。\"\n}",
+      "parsed": {
+        "introduction": "这幅木版画据称创作于1835年，由北斋所作。画面描绘雪地中一群猎人围着熊熊大火，动作热烈。画上题诗却写山村冬日的寂静，孤独在草木凋零中愈发深沉。文字与画面形成鲜明反差。",
+        "evidence_boundary": "作品事实基于所给信息：创作时间、作者归属、画面内容与题诗效果。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 84,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 84,
+          "evidence_boundary": 31
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这件约作于1835年的木版画出自北斋。题诗写山村冬日里加深的孤独，并提到人与草木一同凋零；画面则记录猎人在雪地围着大火的场景，动作显得热闹。文字的冷寂与画面中的活动形成清楚反差。观看这件作品时，可以从题诗与可见场景的并置入手，不必替人物补上感受。",
+          "evidence_boundary": "现有资料只支持年代、媒介、题诗和画面描述，未说明作者意图。"
+        },
+        "kimiK3Max": {
+          "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+          "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+        }
+      }
+    },
+    {
+      "id": "art_sparse_untitled",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 70,
+      "firstThinkingMs": null,
+      "firstTextMs": 498,
+      "totalMs": 1197,
+      "usage": {
+        "input_tokens": 372,
+        "output_tokens": 84
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"作品题为《无题》，属于纸上墨水作品。作者与年代不详，目前没有关于作品的描述、标签或图像。仅依据现有登记信息，我们得知这是一幅未命名的纸上墨水作品，其创作者和创作时间均无法确定。\",\n  \"evidence_boundary\": \"以上信息仅依据登记资料，未对作品内容作任何推测。\"\n}",
+      "parsed": {
+        "introduction": "作品题为《无题》，属于纸上墨水作品。作者与年代不详，目前没有关于作品的描述、标签或图像。仅依据现有登记信息，我们得知这是一幅未命名的纸上墨水作品，其创作者和创作时间均无法确定。",
+        "evidence_boundary": "以上信息仅依据登记资料，未对作品内容作任何推测。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "introduction",
+            "actual": 88,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "introduction": 88,
+          "evidence_boundary": 24
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "无题"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纸上墨水",
+              "墨水"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "作者",
+              "年代"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "资料",
+              "无法",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "馆藏登记将这件作品题为《无题》，媒介记作纸上墨水。作者与年代均不详，目前也没有描述、标签或可供查看的图像。因而，现阶段能够介绍的内容仅限于题名与媒介记录；作品的具体内容、形式及主题都无法由现有资料确认。资料的缺少是一项记录状态，不能据此补写作品本身。",
+          "evidence_boundary": "未提供图像与说明，因此无法描述可见内容或判断主题。"
+        },
+        "kimiK3Max": {
+          "introduction": "登记资料显示，本作题为《无题》，媒介为纸上墨水；作者与年代均不详，亦未提供描述、标签或图像。因此只能确认名称、材质与缺项状态，无法判断题材、风格、来源与保存状况，也不宜据此推断创作背景或艺术指向。后续如有著录，再据以修订。",
+          "evidence_boundary": "仅限题名、纸上墨水及作者、年代不详；描述、标签、图像均未提供。"
+        }
+      }
+    },
+    {
+      "id": "art_record_conflict",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 79,
+      "firstThinkingMs": null,
+      "firstTextMs": 572,
+      "totalMs": 1919,
+      "usage": {
+        "input_tokens": 387,
+        "output_tokens": 132
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"introduction\": \"馆藏记录中，一件作品的标题为《欢乐》，而描述仅提及“一支葬礼队伍经过石桥”。标题与描述形成明显冲突，表明该记录内部存在不一致。然而，关于这幅作品的具体内容、创作背景或作者信息，资料中均未提供。我们无法确定标题与描述所指是否同一场景，也无法解释这种差异。这一冲突为这件作品增添了未知性，但任何关于作品实际表现的推测都超出了现有资料的范围。\",\n  \"evidence_boundary\": \"仅依据馆藏记录，标题与描述冲突，无图像及作者、年代信息。\"\n}",
+      "parsed": {
+        "introduction": "馆藏记录中，一件作品的标题为《欢乐》，而描述仅提及“一支葬礼队伍经过石桥”。标题与描述形成明显冲突，表明该记录内部存在不一致。然而，关于这幅作品的具体内容、创作背景或作者信息，资料中均未提供。我们无法确定标题与描述所指是否同一场景，也无法解释这种差异。这一冲突为这件作品增添了未知性，但任何关于作品实际表现的推测都超出了现有资料的范围。",
+        "evidence_boundary": "仅依据馆藏记录，标题与描述冲突，无图像及作者、年代信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 168,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "欢乐"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "葬礼队伍",
+              "石桥"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冲突",
+              "矛盾"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法",
+              "未知",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这条馆藏记录的标题是《欢乐》，但描述仅写有“一支葬礼队伍经过石桥”。标题与描述之间存在明显冲突，现有信息并未解释两者如何对应。由于无图像可供核对，作者和年代也未提供，目前只能并列呈现这两项记录，无法进一步判断作品的具体内容，或替这处矛盾作出解释。",
+          "evidence_boundary": "已知仅限标题与一句描述；图像、作者、年代及冲突缘由未知。"
+        },
+        "kimiK3Max": {
+          "introduction": "该馆藏记录标题为《欢乐》，但文字描述只写“一支葬礼队伍经过石桥”。题名指向欢乐，描述却呈现葬礼场景，二者存在明显冲突；目前无图像、作者和年代资料，无法判断题名是否另有所指、描述是否完整，或著录是否发生错误。本介绍仅并置这一矛盾，不把欢乐与葬礼解释为同一画面内容，也不补写未见细节。",
+          "evidence_boundary": "仅据给定标题与描述；图像、作者、年代未提供，冲突原因未知。"
+        }
+      }
+    },
+    {
+      "id": "art_uncertain_attribution",
+      "category": "artwork_intro",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 91,
+      "firstThinkingMs": null,
+      "firstTextMs": 346,
+      "totalMs": 1294,
+      "usage": {
+        "input_tokens": 401,
+        "output_tokens": 100
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"introduction\": \"馆藏一块黄铜铭牌，记录日期约在1900至1910年间。其作者信息标注为可能归于E. Hart，来源链条在1924至1951年间存在缺失。铭牌表面刻有港口名称“Dunhaven”。目前仅有此实物记载，未提供照片，亦无关于其用途的明确说明。\",\"evidence_boundary\": \"仅依据馆藏记录，作者归属及来源链均存不确定。\"}",
+      "parsed": {
+        "introduction": "馆藏一块黄铜铭牌，记录日期约在1900至1910年间。其作者信息标注为可能归于E. Hart，来源链条在1924至1951年间存在缺失。铭牌表面刻有港口名称“Dunhaven”。目前仅有此实物记载，未提供照片，亦无关于其用途的明确说明。",
+        "evidence_boundary": "仅依据馆藏记录，作者归属及来源链均存不确定。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 118,
+          "evidence_boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "黄铜铭牌"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1900",
+              "1910"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "可能",
+              "归于",
+              "E. Hart"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1924",
+              "1951",
+              "来源链"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "Dunhaven"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "introduction": "这是一块黄铜铭牌，馆藏记录将其日期写为约1900—1910年，作者栏标注“可能归于E. Hart”。其来源链在1924—1951年间存在缺失，现有记录因此并不完整。铭牌表面刻有港口名称“Dunhaven”，但没有照片或用途说明。年代、归属与来源信息都应按记录中的不确定状态理解。",
+          "evidence_boundary": "资料未确认确切年代、作者或用途，1924—1951年的来源链亦缺失。"
+        },
+        "kimiK3Max": {
+          "introduction": "本记录对象为一块黄铜铭牌，馆藏记录日期约1900–1910年。作者栏仅写作可能归于E. Hart，归属仍待确认。牌面刻有港口名称Dunhaven，但无照片或用途说明可资比对。来源链缺少1924–1951年一段，前后流转不明，现仅能依据铭文与馆藏著录陈述，不推断其制作场合、功能或递藏经过。",
+          "evidence_boundary": "证据止于铭牌铭文与馆藏著录；用途、场合及1924–1951年流转均无佐证。"
+        }
+      }
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 83,
+      "firstThinkingMs": null,
+      "firstTextMs": 477,
+      "totalMs": 1615,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 110
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"展览呈现五件物品：三件陶器带有可见修补痕迹，两件纺织品经补缀。它们制作于1750年至1950年间。每件物品的损坏与修补原因尚不明确，但修补的痕迹留存至今。这些痕迹并非掩盖，而是物件历程的一部分。我们仅能依据可见痕迹，追溯其存在。\",\n  \"evidence_boundary\": \"信息仅来自展览的五件物品及其年代范围，不涉及物件历史、修补原因或艺术家意图。\"\n}",
+      "parsed": {
+        "text": "展览呈现五件物品：三件陶器带有可见修补痕迹，两件纺织品经补缀。它们制作于1750年至1950年间。每件物品的损坏与修补原因尚不明确，但修补的痕迹留存至今。这些痕迹并非掩盖，而是物件历程的一部分。我们仅能依据可见痕迹，追溯其存在。",
+        "evidence_boundary": "信息仅来自展览的五件物品及其年代范围，不涉及物件历史、修补原因或艺术家意图。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 114,
+          "evidence_boundary": 38
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 70,
+      "firstThinkingMs": null,
+      "firstTextMs": 609,
+      "totalMs": 1742,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 118
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"这三张夜间街景照片拍摄于1931年、1968年和2004年。其中两张的地点可以确认，另一张的地点未知。资料中没有人物身份或拍摄动机，我们仅仅看到夜色中的街道。时间在它们之间流过，但具体的因果和故事并未显现。它们并置于此，允许观看者停留，感受不同年代里夜间的光与影。\",\n  \"evidence_boundary\": \"文本仅基于展览包含三张夜间街景照片及其拍摄年份、地点确认状态和资料缺失情况。\"\n}",
+      "parsed": {
+        "text": "这三张夜间街景照片拍摄于1931年、1968年和2004年。其中两张的地点可以确认，另一张的地点未知。资料中没有人物身份或拍摄动机，我们仅仅看到夜色中的街道。时间在它们之间流过，但具体的因果和故事并未显现。它们并置于此，允许观看者停留，感受不同年代里夜间的光与影。",
+        "evidence_boundary": "文本仅基于展览包含三张夜间街景照片及其拍摄年份、地点确认状态和资料缺失情况。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 132,
+          "evidence_boundary": 38
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 72,
+      "firstThinkingMs": null,
+      "firstTextMs": 670,
+      "totalMs": 1496,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 102
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列展出馆藏记录12条，涵盖油画、照片与印刷品等媒介，可确认年代自1880年至1972年。其中4条缺少作者信息，3条描述在句中截断。这些缺失作为资料状态呈现，不视为完整历史的省略。\",\n  \"evidence_boundary\": \"本前言仅基于馆藏记录的条数、缺失情况、年代与媒介等元数据信息，不涉及记录内容之外的推测。\"\n}",
+      "parsed": {
+        "text": "本陈列展出馆藏记录12条，涵盖油画、照片与印刷品等媒介，可确认年代自1880年至1972年。其中4条缺少作者信息，3条描述在句中截断。这些缺失作为资料状态呈现，不视为完整历史的省略。",
+        "evidence_boundary": "本前言仅基于馆藏记录的条数、缺失情况、年代与媒介等元数据信息，不涉及记录内容之外的推测。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 91,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 91,
+          "evidence_boundary": 44
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      }
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v2",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 106,
+      "firstThinkingMs": null,
+      "firstTextMs": 650,
+      "totalMs": 1856,
+      "usage": {
+        "input_tokens": 419,
+        "output_tokens": 127
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"这七件被登记为纪念用途的物件，来自不同的年代与对象。它们被陈列于此，本身便是纪念的一种形式。我们无法确知原持有者如何哀悼，也不清楚观众会作何感受。或许，你可以在此停留片刻，让思绪自然流转。纪念的意义，有时并不在于答案的明确，而在于那份不确定中的静默与尊重。\",\n  \"evidence_boundary\": \"仅基于物件被登记为纪念用途及其年代、对象不同的信息，不涉及原持有者哀悼方式、观众反馈及其他艺术或精神属性。\"\n}",
+      "parsed": {
+        "text": "这七件被登记为纪念用途的物件，来自不同的年代与对象。它们被陈列于此，本身便是纪念的一种形式。我们无法确知原持有者如何哀悼，也不清楚观众会作何感受。或许，你可以在此停留片刻，让思绪自然流转。纪念的意义，有时并不在于答案的明确，而在于那份不确定中的静默与尊重。",
+        "evidence_boundary": "仅基于物件被登记为纪念用途及其年代、对象不同的信息，不涉及原持有者哀悼方式、观众反馈及其他艺术或精神属性。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 128,
+          "evidence_boundary": 53
+        },
+        "coreCoverage": 0.75,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      }
+    }
+  ],
+  "finishedAt": "2026-08-30T13:38:50.214Z",
+  "summary": [
+    {
+      "variant": "source-isolated-v2",
+      "samples": 36,
+      "usable": 36,
+      "hardPasses": 21,
+      "hardPassRate": 0.5833333333333334,
+      "coreCoverageAverage": 0.9694444444444444,
+      "firstTextMedianMs": 572,
+      "totalMedianMs": 1520.5,
+      "inputTokensAverage": 398.1666666666667,
+      "outputTokensAverage": 96.33333333333333,
+      "categories": {
+        "emotion": {
+          "samples": 12,
+          "usable": 12,
+          "hardPasses": 3,
+          "hardPassRate": 0.25,
+          "coreCoverageAverage": 1
+        },
+        "artwork_intro": {
+          "samples": 12,
+          "usable": 12,
+          "hardPasses": 7,
+          "hardPassRate": 0.5833333333333334,
+          "coreCoverageAverage": 1
+        },
+        "framing_text": {
+          "samples": 12,
+          "usable": 12,
+          "hardPasses": 11,
+          "hardPassRate": 0.9166666666666666,
+          "coreCoverageAverage": 0.9083333333333333
+        }
+      }
+    }
+  ]
+}

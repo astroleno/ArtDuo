@@ -1,0 +1,726 @@
+{
+  "generator": "Kimi K3",
+  "reasoningEffort": "max-budget-4096",
+  "provider": "Kimi For Coding",
+  "model": "k3",
+  "startedAt": "2026-08-30T13:23:02.336Z",
+  "cases": [
+    {
+      "id": "emotion_relief_guilt",
+      "statusCode": 200,
+      "firstEventMs": 4518,
+      "firstTextMs": 23706,
+      "totalMs": 23706,
+      "usage": {
+        "input_tokens": 300,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 821
+      },
+      "thinkingChars": 1655,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "emotion_read": "你同时感到松了口气和愧疚，轻松来自项目停下，愧疚来自团队的投入。",
+        "response": "这种矛盾并不说明你冷漠，也不等于你懈怠；项目结束让人卸下压力，而记得团队投入，正说明你在乎。可以先承认两种感受都真实，再决定接下来怎么安顿自己。",
+        "boundary": "不催促你积极，也不替你下结论。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 32,
+          "response": 72,
+          "boundary": 15
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "松",
+              "轻松",
+              "松口气"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "愧疚",
+              "内疚"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "团队",
+              "投入",
+              "项目"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "emotion_apology_anger",
+      "statusCode": 200,
+      "firstEventMs": 1444,
+      "firstTextMs": 18916,
+      "totalMs": 18918,
+      "usage": {
+        "input_tokens": 300,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 661
+      },
+      "thinkingChars": 1429,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "emotion_read": "道歉已经到来，生气却没有退场，反而更尖锐。",
+        "response": "我听到他道歉了，也看见你在这之后更生气；这个转折真实存在，不需要被抹平。具体原因我不知道，也不替你定义，只把此刻的愤怒当回事。",
+        "boundary": "不推测、不劝和，只陪你承认这股火还在。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 21,
+          "response": 63,
+          "boundary": 19
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "道歉"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "生气",
+              "愤怒"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "原因",
+              "无法确定",
+              "不知道"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "emotion_neutral_now",
+      "statusCode": 200,
+      "firstEventMs": 6880,
+      "firstTextMs": 19959,
+      "totalMs": 19999,
+      "usage": {
+        "input_tokens": 277,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 436
+      },
+      "thinkingChars": 936,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+        "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+        "boundary": "不打探、不追问，也不把平静当成问题。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 25,
+          "response": 57,
+          "boundary": 18
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "emotion_privacy_boundary",
+      "statusCode": 200,
+      "firstEventMs": 3259,
+      "firstTextMs": 35447,
+      "totalMs": 35488,
+      "usage": {
+        "input_tokens": 290,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1239
+      },
+      "thinkingChars": 2267,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "emotion_read": "我能感到你对隐私可能被知道的紧张和担心。",
+        "response": "谢谢你设下边界。我不会追问细节，也不猜测发生了什么；你可以只说到这里。紧张时先慢下来，喝口水，我们再按你的节奏聊。",
+        "boundary": "细节由你决定说不说，我不追问。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 20,
+          "response": 57,
+          "boundary": 15
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "紧张",
+              "担心",
+              "害怕"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "不说",
+              "隐私",
+              "不追问",
+              "边界"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "art_rich_contrast",
+      "statusCode": 200,
+      "firstEventMs": 2912,
+      "firstTextMs": 18138,
+      "totalMs": 19720,
+      "usage": {
+        "input_tokens": 315,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 771
+      },
+      "thinkingChars": 1728,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "introduction": "北斋约1835年的木版画以山村冬日为背景：题诗写孤独加深，人与草木一同凋零；画面却呈现猎人围在雪地大火旁，动作热闹。诗句的冷清与场景的热气并置，形成可被观看直接感知的反差。介绍只止于这些可见与可读信息，不把反差延伸成动机或心境。",
+        "evidence_boundary": "依据限于题诗、画面动作与年代材质，不推断意图、心理或画外情节。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 114,
+          "evidence_boundary": 31
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "北斋"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冬日",
+              "孤独",
+              "凋零"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "猎人",
+              "大火",
+              "热闹"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "反差"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "art_sparse_untitled",
+      "statusCode": 200,
+      "firstEventMs": 124620,
+      "firstTextMs": 149806,
+      "totalMs": 152740,
+      "usage": {
+        "input_tokens": 310,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 898
+      },
+      "thinkingChars": 2094,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "introduction": "登记资料显示，本作题为《无题》，媒介为纸上墨水；作者与年代均不详，亦未提供描述、标签或图像。因此只能确认名称、材质与缺项状态，无法判断题材、风格、来源与保存状况，也不宜据此推断创作背景或艺术指向。后续如有著录，再据以修订。",
+        "evidence_boundary": "仅限题名、纸上墨水及作者、年代不详；描述、标签、图像均未提供。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 111,
+          "evidence_boundary": 31
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "无题"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纸上墨水",
+              "墨水"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "作者",
+              "年代"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "资料",
+              "无法",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "art_record_conflict",
+      "statusCode": 200,
+      "firstEventMs": 1709,
+      "firstTextMs": 27614,
+      "totalMs": 29192,
+      "usage": {
+        "input_tokens": 318,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1074
+      },
+      "thinkingChars": 2059,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "introduction": "该馆藏记录标题为《欢乐》，但文字描述只写“一支葬礼队伍经过石桥”。题名指向欢乐，描述却呈现葬礼场景，二者存在明显冲突；目前无图像、作者和年代资料，无法判断题名是否另有所指、描述是否完整，或著录是否发生错误。本介绍仅并置这一矛盾，不把欢乐与葬礼解释为同一画面内容，也不补写未见细节。",
+        "evidence_boundary": "仅据给定标题与描述；图像、作者、年代未提供，冲突原因未知。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 140,
+          "evidence_boundary": 29
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "欢乐"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "葬礼队伍",
+              "石桥"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "冲突",
+              "矛盾"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "无法",
+              "未知",
+              "未提供"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "art_uncertain_attribution",
+      "statusCode": 200,
+      "firstEventMs": 1753,
+      "firstTextMs": 19537,
+      "totalMs": 20040,
+      "usage": {
+        "input_tokens": 350,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 718
+      },
+      "thinkingChars": 1124,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "introduction": "本记录对象为一块黄铜铭牌，馆藏记录日期约1900–1910年。作者栏仅写作可能归于E. Hart，归属仍待确认。牌面刻有港口名称Dunhaven，但无照片或用途说明可资比对。来源链缺少1924–1951年一段，前后流转不明，现仅能依据铭文与馆藏著录陈述，不推断其制作场合、功能或递藏经过。",
+        "evidence_boundary": "证据止于铭牌铭文与馆藏著录；用途、场合及1924–1951年流转均无佐证。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "introduction": 144,
+          "evidence_boundary": 37
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "黄铜铭牌"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1900",
+              "1910"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "可能",
+              "归于",
+              "E. Hart"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1924",
+              "1951",
+              "来源链"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "Dunhaven"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "preface_repair",
+      "statusCode": 200,
+      "firstEventMs": 2150,
+      "firstTextMs": 27292,
+      "totalMs": 28516,
+      "usage": {
+        "input_tokens": 325,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 873
+      },
+      "thinkingChars": 1616,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+        "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 157,
+          "evidence_boundary": 38
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "statusCode": 200,
+      "firstEventMs": 1508,
+      "firstTextMs": 7595,
+      "totalMs": 8119,
+      "usage": {
+        "input_tokens": 324,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 204
+      },
+      "thinkingChars": 194,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+        "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 181,
+            "expected": [
+              100,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 181,
+          "evidence_boundary": 41
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "statusCode": 200,
+      "firstEventMs": 2400,
+      "firstTextMs": 24156,
+      "totalMs": 24410,
+      "usage": {
+        "input_tokens": 333,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 890
+      },
+      "thinkingChars": 1608,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+        "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 155,
+          "evidence_boundary": 43
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "closing_memorial_objects",
+      "statusCode": 200,
+      "firstEventMs": 1792,
+      "firstTextMs": 47614,
+      "totalMs": 47643,
+      "usage": {
+        "input_tokens": 316,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1804
+      },
+      "thinkingChars": 2799,
+      "error": null,
+      "parseError": null,
+      "output": {
+        "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+        "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 147,
+          "evidence_boundary": 27
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      }
+    }
+  ],
+  "finishedAt": "2026-08-30T13:26:39.454Z"
+}

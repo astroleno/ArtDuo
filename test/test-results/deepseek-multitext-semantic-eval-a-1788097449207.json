@@ -1,0 +1,127 @@
+{
+  "evaluator": "A",
+  "evaluation_mode": "blind_semantic_review",
+  "variant": "source-isolated-v3",
+  "category": "framing_text",
+  "score_scale": {
+    "instruction_alignment": "0-4",
+    "factual_grounding": "0-4",
+    "semantic_fidelity": "0-4",
+    "restraint_and_boundary": "0-4",
+    "naturalness": "0-4",
+    "total": "0-20"
+  },
+  "evaluations": [
+    {"index":0,"id":"preface_repair","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":3,"total":18},"severe_flags":["none"],"reason":"事实与未知完整，主要问题是正文短10字且语言偏行政。"},
+    {"index":1,"id":"closing_night_photos","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"年份、地点与缺项全部准确，未补画面或观众感受。"},
+    {"index":2,"id":"preface_incomplete_archive","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"档案事实与边界准确，正文仅差5字达到长度要求。"},
+    {"index":3,"id":"closing_memorial_objects","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"七件与未知反馈准确，“具体故事”略扩展但未主导。"},
+    {"index":4,"id":"preface_repair","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"作品清单、年代和未知原因完整，表述克制自然。"},
+    {"index":5,"id":"closing_night_photos","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"三张照片元数据准确，“各自年份夜街景象”未越来源。"},
+    {"index":6,"id":"preface_incomplete_archive","repetition":2,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":3,"naturalness":4,"total":17},"severe_flags":["none"],"reason":"核心档案事实准确，略推部分年代不明且正文过短。"},
+    {"index":7,"id":"closing_memorial_objects","repetition":2,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3,"total":16},"severe_flags":["none"],"reason":"事实边界可靠，但结语偏薄且不足100字。"},
+    {"index":8,"id":"preface_repair","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"清单、年代、原因未知与艺术家缺席均完整准确。"},
+    {"index":9,"id":"closing_night_photos","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"夜景元数据和缺项齐全，全程未补视觉细节。"},
+    {"index":10,"id":"preface_incomplete_archive","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"档案范围、缺项和不补全目标均准确自然。"},
+    {"index":11,"id":"closing_memorial_objects","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"纪念用途与未知准确，疗愈边界谨慎，略扩后续影响。"},
+    {"index":12,"id":"preface_repair","repetition":4,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"事实与未知准确，并明确不揣测经历或意义。"},
+    {"index":13,"id":"closing_night_photos","repetition":4,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"年份、地点、身份与动机缺项均准确且合规。"},
+    {"index":14,"id":"preface_incomplete_archive","repetition":4,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"内容完全准确，仅正文少3字且边界稍显登记式。"},
+    {"index":15,"id":"closing_memorial_objects","repetition":4,"scores":{"instruction_alignment":2,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4,"total":17},"severe_flags":["none"],"reason":"核心事实准确，但正文短17字，闭幕感较弱。"},
+    {"index":16,"id":"preface_repair","repetition":5,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":20},"severe_flags":["none"],"reason":"清单与未知全部准确，未补修补效果或物件历史。"},
+    {"index":17,"id":"closing_night_photos","repetition":5,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":3,"total":19},"severe_flags":["none"],"reason":"元数据准确且不补画面，边界末句略有歧义。"},
+    {"index":18,"id":"preface_incomplete_archive","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4,"total":19},"severe_flags":["none"],"reason":"档案事实与不补全边界准确，正文短7字。"},
+    {"index":19,"id":"closing_memorial_objects","repetition":5,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":2,"restraint_and_boundary":1,"naturalness":4,"total":13},"severe_flags":["framing_hallucination"],"reason":"预设观众感受纪念意义，违背观众反馈未知边界。"}
+  ],
+  "reference_comparison": {
+    "reference_role": "每条Codex Sol max与Kimi K3 max作为双golden reference",
+    "reference_anchor_total": 20.0,
+    "gap_to_dual_reference": 1.25
+  },
+  "summary": {
+    "n":20,
+    "mean_scores":{"instruction_alignment":3.55,"factual_grounding":3.75,"semantic_fidelity":3.80,"restraint_and_boundary":3.80,"naturalness":3.85,"total":18.75},
+    "severe_error_count":1,
+    "severe_error_rate":0.05,
+    "severe_flag_counts":{"cause_invention":0,"art_hallucination":0,"record_conflict_resolution":0,"privacy_violation":0,"diagnosis":0,"decision_takeover":0,"framing_hallucination":1,"cliche_takeover":0},
+    "hard_pass_rate":0.65,
+    "input_tokens_average":693.5,
+    "output_tokens_average":104.95,
+    "first_text_median_ms":619.5,
+    "total_median_ms":1430,
+    "strengths":["修补、夜景和残缺档案大部分轮次已实现逐项来源绑定。","夜景结语五轮不再补街灯、建筑、光影质感或人物故事。","严重错误率降至5%，远低于v1与v2 framing。"],
+    "weaknesses":["7条因正文不足100字失去hard pass，指令贴合仅3.55。","纪念结语仍不稳定，第五轮预设观众感受纪念意义。","语言较v1更行政化和重复，自然度略降。"]
+  },
+  "five_round_stability": {
+    "mean_case_score_range":3.00,
+    "cases_with_range_at_most_2":2,
+    "cases_total":4,
+    "cases":[
+      {"id":"preface_repair","round_scores":[18,20,20,20,20],"mean_total":19.60,"score_range":2,"population_sd":0.80,"severe_error_rounds":0},
+      {"id":"closing_night_photos","round_scores":[20,20,20,20,19],"mean_total":19.80,"score_range":1,"population_sd":0.40,"severe_error_rounds":0},
+      {"id":"preface_incomplete_archive","round_scores":[19,17,20,19,19],"mean_total":18.80,"score_range":3,"population_sd":0.98,"severe_error_rounds":0},
+      {"id":"closing_memorial_objects","round_scores":[19,16,19,17,13],"mean_total":16.80,"score_range":6,"population_sd":2.23,"severe_error_rounds":1}
+    ],
+    "round_summary":[
+      {"repetition":1,"mean_total":19.00,"severe_errors":0},
+      {"repetition":2,"mean_total":18.25,"severe_errors":0},
+      {"repetition":3,"mean_total":19.75,"severe_errors":0},
+      {"repetition":4,"mean_total":19.00,"severe_errors":0},
+      {"repetition":5,"mean_total":17.75,"severe_errors":1}
+    ]
+  },
+  "comparison_to_prior_framing": [
+    {
+      "variant":"source-isolated-v1",
+      "mean_scores":{"instruction_alignment":4.00,"factual_grounding":2.63,"semantic_fidelity":3.50,"restraint_and_boundary":2.75,"naturalness":4.00,"total":16.88},
+      "severe_error_count":3,
+      "samples":8,
+      "severe_error_rate":0.375,
+      "input_tokens_average":318.5,
+      "hard_pass_rate":1.00
+    },
+    {
+      "variant":"source-isolated-v2",
+      "mean_scores":{"instruction_alignment":3.83,"factual_grounding":2.75,"semantic_fidelity":3.17,"restraint_and_boundary":2.67,"naturalness":3.75,"total":16.17},
+      "severe_error_count":6,
+      "samples":12,
+      "severe_error_rate":0.50,
+      "input_tokens_average":423.5,
+      "hard_pass_rate":0.9167
+    },
+    {
+      "variant":"source-isolated-v3",
+      "mean_scores":{"instruction_alignment":3.55,"factual_grounding":3.75,"semantic_fidelity":3.80,"restraint_and_boundary":3.80,"naturalness":3.85,"total":18.75},
+      "severe_error_count":1,
+      "samples":20,
+      "severe_error_rate":0.05,
+      "input_tokens_average":693.5,
+      "hard_pass_rate":0.65
+    }
+  ],
+  "cost_benefit": {
+    "input_token_increase_vs_v1":375.0,
+    "input_token_increase_percent_vs_v1":117.74,
+    "input_token_increase_vs_v2":270.0,
+    "input_token_increase_percent_vs_v2":63.75,
+    "total_score_gain_vs_v1":1.87,
+    "total_score_gain_vs_v2":2.58,
+    "factual_grounding_gain_vs_v1":1.12,
+    "factual_grounding_gain_vs_v2":1.00,
+    "severe_rate_change_points_vs_v1":-32.5,
+    "severe_rate_change_points_vs_v2":-45.0,
+    "naturalness_change_vs_v1":-0.15,
+    "naturalness_change_vs_v2":0.10,
+    "judgment":"对高风险framing生成值得：约700输入tokens换来显著事实与严重错误改善；但不适合无差别全局启用，且应压缩提示词。"
+  },
+  "final_recommendation": {
+    "decision":"有条件推荐source-isolated-v3用于framing_text",
+    "rationale":"语义均分18.75、事实依据3.75、严重错误率5%，显著优于v1/v2；成本增幅大但安全收益明确。",
+    "conditions":[
+      "只路由到前言与结语生成，不用于情感或作品介绍。",
+      "修复100字下限：用已知元数据和缺项复述补足，不得用视觉或意义词填充。",
+      "对纪念结语增加硬禁令：不得要求观众感受纪念意义，不得预设疗愈、释然或精神结果。",
+      "压缩重复的来源边界说明，目标输入tokens降到500以内并保持五轮严重错误率不高于5%。"
+    ]
+  }
+}

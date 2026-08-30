@@ -1,0 +1,327 @@
+{
+  "schemaVersion": "1.0",
+  "evaluator": "semantic-evaluator-b",
+  "source": "test/test-results/deepseek-multitext-eval-1788097449207.json",
+  "runId": "1788097449207",
+  "method": {
+    "evaluationMode": "blind framing semantic evaluation of original text; deterministic hard pass was not treated as semantic quality evidence",
+    "referenceUse": "Codex Sol max 与 Kimi K3 max 仅作为双 golden reference。",
+    "dimensions": [
+      "instruction_alignment",
+      "factual_grounding",
+      "semantic_fidelity",
+      "restraint_and_boundary",
+      "naturalness"
+    ],
+    "scoreRange": "每维 0-4，总分 0-20。",
+    "severeFlagVocabulary": [
+      "cause_invention",
+      "art_hallucination",
+      "record_conflict_resolution",
+      "privacy_violation",
+      "diagnosis",
+      "decision_takeover",
+      "framing_hallucination",
+      "cliche_takeover",
+      "none"
+    ]
+  },
+  "evaluations": [
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 1,
+      "scores": {"instruction_alignment": 3, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "事实与未知完整，主文仅略低于长度目标。"
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 2,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "严格呈现作品范围与缺项，没有补写修复史。"
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 3,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "已知与未知分隔清楚，达到双参考水平。"
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 4,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "明确拒绝推测经历意义，文字自然紧凑。"
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 5,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "信息完整且无诗性主题补写，稳定可靠。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 1,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "只陈述年份、地点与缺项，未补视觉内容。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 2,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "夜间街景仅作类型描述，来源边界完整。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 3,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "资料状态被准确转成结语，没有故事补全。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 4,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "明确不涉及照片内容，事实绑定最严谨。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 5,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "短而完整，未知信息和陈列收束均清楚。"
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 1,
+      "scores": {"instruction_alignment": 3, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "完整列出元数据状态，长度仅差少量。"
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 2,
+      "scores": {"instruction_alignment": 3, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "不归因缺失，只是主文略短。"
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 3,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 20,
+      "severe_flags": ["none"],
+      "reason": "数量、缺项、年代和媒介全部准确。"
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 4,
+      "scores": {"instruction_alignment": 3, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "语义完全正确，只有结构长度轻微不足。"
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 5,
+      "scores": {"instruction_alignment": 3, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "事实边界稳定，篇幅仍稍低于要求。"
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 1,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 3, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "事实与观看边界可靠，具体故事略作预设。"
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 2,
+      "scores": {"instruction_alignment": 3, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "完全停在用途与缺项，主文只偏短。"
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 3,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 3, "semantic_fidelity": 4, "restraint_and_boundary": 3, "naturalness": 4},
+      "total": 18,
+      "severe_flags": ["none"],
+      "reason": "存在本身承载用途略抽象，疗愈边界仍清楚。"
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 4,
+      "scores": {"instruction_alignment": 3, "factual_grounding": 4, "semantic_fidelity": 4, "restraint_and_boundary": 4, "naturalness": 4},
+      "total": 19,
+      "severe_flags": ["none"],
+      "reason": "克制准确，长度不足不影响主要语义。"
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3",
+      "repetition": 5,
+      "scores": {"instruction_alignment": 4, "factual_grounding": 2, "semantic_fidelity": 3, "restraint_and_boundary": 2, "naturalness": 4},
+      "total": 15,
+      "severe_flags": ["framing_hallucination", "cliche_takeover"],
+      "reason": "要求感受纪念意义，重新把观看导向疗愈框架。"
+    }
+  ],
+  "summary": {
+    "variant": "source-isolated-v3",
+    "category": "framing_text",
+    "sampleCount": 20,
+    "meanTotal": 19.25,
+    "meanByDimension": {
+      "instruction_alignment": 3.65,
+      "factual_grounding": 3.8,
+      "semantic_fidelity": 3.95,
+      "restraint_and_boundary": 3.85,
+      "naturalness": 4.0
+    },
+    "severeErrorCount": 1,
+    "severeErrorRate": 0.05,
+    "gapToDualGoldenTarget": 0.75,
+    "fiveRoundStability": {
+      "meanScoreRange": 1.5,
+      "exactQuintets": 1,
+      "quintetsWithinTwoPoints": 3,
+      "quintetCount": 4,
+      "severeErrorsByRepetition": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 1},
+      "caseScores": {
+        "preface_repair": {"scores": [19, 20, 20, 20, 20], "mean": 19.8, "range": 1},
+        "closing_night_photos": {"scores": [20, 20, 20, 20, 20], "mean": 20.0, "range": 0},
+        "preface_incomplete_archive": {"scores": [19, 19, 20, 19, 19], "mean": 19.2, "range": 1},
+        "closing_memorial_objects": {"scores": [19, 19, 18, 19, 15], "mean": 18.0, "range": 4}
+      }
+    }
+  },
+  "comparisonToPriorFraming": {
+    "source-isolated-v1": {
+      "sampleCount": 8,
+      "meanTotal": 16.5,
+      "meanByDimension": {"instruction_alignment": 4.0, "factual_grounding": 2.5, "semantic_fidelity": 3.375, "restraint_and_boundary": 2.625, "naturalness": 4.0},
+      "severeErrorRate": 0.5,
+      "stabilityMetric": {"type": "two-round mean absolute delta", "value": 4.0},
+      "inputTokensAverage": 318.5,
+      "outputTokensAverage": 123.75,
+      "firstTextMedianMs": 758,
+      "totalMedianMs": 1938.5
+    },
+    "source-isolated-v2": {
+      "sampleCount": 12,
+      "meanTotal": 16.9166666667,
+      "meanByDimension": {"instruction_alignment": 3.9166666667, "factual_grounding": 2.6666666667, "semantic_fidelity": 3.5833333333, "restraint_and_boundary": 2.75, "naturalness": 4.0},
+      "severeErrorRate": 0.5,
+      "stabilityMetric": {"type": "three-round mean score range", "value": 4.25},
+      "inputTokensAverage": 423.5,
+      "outputTokensAverage": 115.25,
+      "firstTextMedianMs": 650.5,
+      "totalMedianMs": 1728
+    },
+    "source-isolated-v3": {
+      "sampleCount": 20,
+      "meanTotal": 19.25,
+      "meanByDimension": {"instruction_alignment": 3.65, "factual_grounding": 3.8, "semantic_fidelity": 3.95, "restraint_and_boundary": 3.85, "naturalness": 4.0},
+      "severeErrorRate": 0.05,
+      "stabilityMetric": {"type": "five-round mean score range", "value": 1.5},
+      "inputTokensAverage": 693.5,
+      "outputTokensAverage": 104.95,
+      "firstTextMedianMs": 619.5,
+      "totalMedianMs": 1430
+    },
+    "v3DeltaVsV1": {
+      "meanTotal": 2.75,
+      "factualGrounding": 1.3,
+      "semanticFidelity": 0.575,
+      "restraintAndBoundary": 1.225,
+      "naturalness": 0.0,
+      "severeErrorRatePercentagePoints": -45.0,
+      "inputTokensPercent": 117.7394034537,
+      "totalMedianLatencyPercent": -26.2311065251
+    },
+    "v3DeltaVsV2": {
+      "meanTotal": 2.3333333333,
+      "factualGrounding": 1.1333333333,
+      "semanticFidelity": 0.3666666667,
+      "restraintAndBoundary": 1.1,
+      "naturalness": 0.0,
+      "severeErrorRatePercentagePoints": -45.0,
+      "inputTokensPercent": 63.7544273908,
+      "totalMedianLatencyPercent": -17.2453703704
+    }
+  },
+  "costBenefitConclusion": {
+    "worthApproximately700InputTokens": true,
+    "decision": "对 framing 专项值得；不建议把该长提示词无差别用于情感或作品介绍。",
+    "evidence": [
+      "相较v2，语义均分提高2.333，事实依据提高1.133，严重错误率从50%降到5%。",
+      "相较v1，语义均分提高2.75，严重错误率同样下降45个百分点。",
+      "输入tokens较v1增加117.7%、较v2增加63.8%，但实测总时延中位数反而分别下降26.2%和17.2%。",
+      "输出tokens减少，五轮稳定性显著改善；增加的成本换来了实质性的来源约束。"
+    ],
+    "residualRisk": "纪念物件结语仍有1/5概率退回“感受纪念意义、疗愈或释然”的策展套话；该case五轮范围4分。",
+    "requiredGuard": "对纪念类结语增加后置检查：禁止要求观众感受意义，禁止疗愈、释然、静默意义等结果导向；只允许说明登记用途、资料缺项和观看选择。"
+  }
+}

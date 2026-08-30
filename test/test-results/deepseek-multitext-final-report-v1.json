@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0",
+  "model": "deepseek-v4-flash",
+  "stream": true,
+  "thinking": "disabled",
+  "deepseekRequests": 104,
+  "http200": 104,
+  "parsable": 104,
+  "golden": {
+    "codexSolMax": { "cases": 12, "deterministicPasses": 12 },
+    "kimiK3Max": { "cases": 12, "deterministicPasses": 11, "caveat": "closing_night_photos is 181 characters against a 180-character maximum" }
+  },
+  "semantic": {
+    "plain": { "samples": 24, "evaluatorA": 14.5, "evaluatorB": 15.875, "mean": 15.1875, "severeErrors": { "evaluatorA": 12, "evaluatorB": 14 } },
+    "source-isolated-v1": { "samples": 24, "evaluatorA": 17.88, "evaluatorB": 17.7917, "mean": 17.83585, "severeErrors": { "evaluatorA": 3, "evaluatorB": 6 } },
+    "source-isolated-v2": { "samples": 36, "evaluatorA": 17.47, "evaluatorB": 17.8056, "mean": 17.6378, "severeErrors": { "evaluatorA": 6, "evaluatorB": 8 } },
+    "source-isolated-v3-framing": { "samples": 20, "evaluatorA": 18.75, "evaluatorB": 19.25, "mean": 19.0, "severeErrors": { "evaluatorA": 1, "evaluatorB": 1 } }
+  },
+  "categoryRecommendation": {
+    "emotion": "source-isolated-v1",
+    "artwork_intro": "source-isolated-v1",
+    "framing_text": "source-isolated-v3"
+  },
+  "technical": {
+    "plain": { "samples": 24, "ttftP50Ms": 641, "ttftP95Ms": 1126, "totalP50Ms": 1735.5, "totalP95Ms": 2916, "inputTokensAverage": 206.5, "outputTokensAverage": 111.4167, "outputTokensPerSecondP50": 98.1 },
+    "source-isolated-v1": { "samples": 24, "ttftP50Ms": 698, "ttftP95Ms": 966, "totalP50Ms": 1710, "totalP95Ms": 2342, "inputTokensAverage": 310.8333, "outputTokensAverage": 103, "outputTokensPerSecondP50": 105.0 },
+    "source-isolated-v2": { "samples": 36, "ttftP50Ms": 572, "ttftP95Ms": 753, "totalP50Ms": 1520.5, "totalP95Ms": 2102, "inputTokensAverage": 398.1667, "outputTokensAverage": 96.3333, "outputTokensPerSecondP50": 99.8 },
+    "source-isolated-v3-framing": { "samples": 20, "ttftP50Ms": 619.5, "ttftP95Ms": 1066, "totalP50Ms": 1430, "totalP95Ms": 1839, "inputTokensAverage": 693.5, "outputTokensAverage": 104.95, "outputTokensPerSecondP50": 124.0 }
+  },
+  "decision": "Route emotion and artwork introductions to source-isolated-v1; route framing text to source-isolated-v3; do not promote source-isolated-v2."
+}
