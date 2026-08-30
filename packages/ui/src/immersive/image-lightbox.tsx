@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
+import { ImmersiveDetailStage, type ImmersiveDetailOrigin } from "./immersive-detail-stage";
 import type { ImmersiveGalleryUnit } from "./scene-orchestrator";
 
 export interface ImageLightboxProps {
@@ -73,9 +74,10 @@ export function ImageLightbox({
   const [imageState, setImageState] = useState<"loading" | "ready" | "error">("loading");
   const [expandedImageSrc, setExpandedImageSrc] = useState(previewSrc);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [entryOrigin, setEntryOrigin] = useState<ImmersiveDetailOrigin | undefined>();
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const artworkFrameRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     setImageState("loading");
@@ -110,33 +112,6 @@ export function ImageLightbox({
       delete document.body.dataset.immersiveLightbox;
     };
   }, [isExpanded]);
-
-  useEffect(() => {
-    if (!isExpanded) {
-      return;
-    }
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        event.stopPropagation();
-        setIsExpanded(false);
-      } else if (event.key === "ArrowLeft" && hasPrevious && onPrevious) {
-        event.preventDefault();
-        event.stopPropagation();
-        onPrevious();
-      } else if (event.key === "ArrowRight" && hasNext && onNext) {
-        event.preventDefault();
-        event.stopPropagation();
-        onNext();
-      }
-    }
-
-    closeButtonRef.current?.focus();
-    window.addEventListener("keydown", handleKeyDown, true);
-
-    return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [hasNext, hasPrevious, isExpanded, onNext, onPrevious]);
 
   useEffect(() => {
     if (!isExpanded || !fullSrc) {
@@ -187,23 +162,38 @@ export function ImageLightbox({
     };
   }, [previewSrc]);
 
+  function openImmersiveDetail() {
+    const bounds = artworkFrameRef.current?.getBoundingClientRect();
+    const viewportWidth = Math.max(1, window.innerWidth);
+    const viewportHeight = Math.max(1, window.innerHeight);
+
+    setEntryOrigin({
+      scale: bounds
+        ? Math.max(0.16, Math.min(0.88, Math.min(bounds.width / viewportWidth, bounds.height / viewportHeight)))
+        : 0.72,
+      x: bounds ? bounds.left + bounds.width / 2 : viewportWidth / 2,
+      y: bounds ? bounds.top + bounds.height / 2 : viewportHeight / 2,
+    });
+    setIsExpanded(true);
+  }
+
   return (
     <figure
       className={`immersive-lightbox ${className}`}
       data-aspect-ratio={aspectHint}
-      data-detail-state="idle"
+      data-detail-state={isExpanded ? "immersive" : "idle"}
       data-display-mode={unit.displayMode ?? "wall-painting"}
       data-image-state={imageState}
       data-lightbox-open={isExpanded ? "true" : "false"}
       data-visual-crop={isBorderTrimmed ? "trim-border" : "none"}
     >
       <button
-        aria-label={`打开《${unit.title}》大图`}
+        aria-label={`放大《${unit.title}》并进入沉浸体验`}
         className="immersive-lightbox-trigger"
-        onClick={() => setIsExpanded(true)}
+        onClick={openImmersiveDetail}
         type="button"
       >
-        <span className="immersive-artwork-frame">
+        <span className="immersive-artwork-frame" ref={artworkFrameRef}>
           {isBorderTrimmed ? (
             <span className="immersive-image-crop" style={cropStyle}>
               <img
@@ -236,58 +226,23 @@ export function ImageLightbox({
             <span className="immersive-image-state is-error" aria-live="polite">画面稍后归位</span>
           ) : null}
           <span className="immersive-canvas-grain" aria-hidden="true" />
+          <span className="immersive-enter-cue" aria-hidden="true">
+            <span>放大</span>
+            进入画中
+          </span>
         </span>
       </button>
       {isExpanded && portalRoot ? createPortal(
-        <div
-          aria-label={`《${unit.title}》大图`}
-          aria-modal="true"
-          className="immersive-lightbox-dialog"
-          onClick={(event) => {
-            if (event.target === event.currentTarget) {
-              setIsExpanded(false);
-            }
-          }}
-          role="dialog"
-        >
-          <button
-            className="immersive-lightbox-close"
-            onClick={() => setIsExpanded(false)}
-            ref={closeButtonRef}
-            type="button"
-          >
-            关闭
-          </button>
-          <button
-            aria-label="上一幅作品"
-            className="immersive-lightbox-jump is-previous"
-            disabled={!hasPrevious}
-            onClick={onPrevious}
-            type="button"
-          >
-            上一幅
-          </button>
-          <img
-            alt={`${unit.title} artwork large view`}
-            className="immersive-expanded-image"
-            decoding="async"
-            fetchPriority="high"
-            src={expandedImageSrc}
-          />
-          <p className="immersive-expanded-caption">
-            <strong>{unit.title}</strong>
-            {byline ? <span>{byline}</span> : null}
-          </p>
-          <button
-            aria-label="下一幅作品"
-            className="immersive-lightbox-jump is-next"
-            disabled={!hasNext}
-            onClick={onNext}
-            type="button"
-          >
-            下一幅
-          </button>
-        </div>,
+        <ImmersiveDetailStage
+          entryOrigin={entryOrigin}
+          hasNext={hasNext}
+          hasPrevious={hasPrevious}
+          imageSrc={expandedImageSrc}
+          onClose={() => setIsExpanded(false)}
+          onNext={onNext}
+          onPrevious={onPrevious}
+          unit={unit}
+        />,
         portalRoot,
       ) : null}
       <figcaption>

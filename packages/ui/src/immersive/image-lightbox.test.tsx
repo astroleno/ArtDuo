@@ -22,7 +22,7 @@ test("image lightbox renders artwork image and caption", () => {
   assert.match(markup, /Quiet Moon/);
   assert.match(markup, /Unknown Artist, 1888/);
   assert.match(markup, /quiet-moon\.jpg/);
-  assert.match(markup, /打开《Quiet Moon》大图/);
+  assert.match(markup, /放大《Quiet Moon》并进入沉浸体验/);
   assert.doesNotMatch(markup, /quiet-moon-full\.jpg/);
   assert.match(markup, /data-detail-state="idle"/);
   assert.match(markup, /data-image-state="loading"/);

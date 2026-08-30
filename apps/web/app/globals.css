@@ -1740,6 +1740,40 @@ h1,
   z-index: 2;
 }
 
+.immersive-enter-cue {
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(8, 7, 6, 0.72);
+  border: 1px solid rgba(255, 250, 241, 0.2);
+  bottom: clamp(12px, 1.6vw, 20px);
+  color: rgba(255, 250, 241, 0.88);
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 700;
+  gap: 7px;
+  letter-spacing: 0.08em;
+  padding: 8px 10px;
+  pointer-events: none;
+  position: absolute;
+  right: clamp(12px, 1.6vw, 20px);
+  text-transform: uppercase;
+  transform: translateY(4px);
+  transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
+  z-index: 4;
+}
+
+.immersive-enter-cue span {
+  color: rgba(255, 250, 241, 0.48);
+  font-size: 0.62rem;
+}
+
+.immersive-lightbox-trigger:hover .immersive-enter-cue,
+.immersive-lightbox-trigger:focus-visible .immersive-enter-cue {
+  background: rgba(8, 7, 6, 0.88);
+  border-color: rgba(255, 250, 241, 0.38);
+  transform: translateY(0);
+}
+
 .immersive-lightbox-dialog {
   align-items: center;
   background: rgba(8, 7, 6, 0.92);
@@ -1837,6 +1871,443 @@ body[data-immersive-lightbox="open"] .immersive-shell {
 .immersive-expanded-caption span {
   color: rgba(255, 250, 241, 0.62);
   font-size: 0.82rem;
+}
+
+.immersive-detail-dialog {
+  --immersive-entry-scale: 0.72;
+  --immersive-entry-x: 50vw;
+  --immersive-entry-y: 50dvh;
+  background: #080706;
+  color: #fffaf1;
+  inset: 0;
+  isolation: isolate;
+  overflow: hidden;
+  position: fixed;
+  z-index: 50;
+}
+
+.immersive-detail-atmosphere,
+.immersive-detail-world {
+  inset: 0;
+  position: absolute;
+}
+
+.immersive-detail-atmosphere {
+  background: #080706;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.immersive-detail-backdrop {
+  filter: blur(42px) saturate(0.72) brightness(0.46);
+  height: 116%;
+  inset: -8%;
+  object-fit: cover;
+  opacity: 0.72;
+  position: absolute;
+  transform: scale(1.08);
+  width: 116%;
+}
+
+.immersive-detail-vignette {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(17, 14, 12, 0.04) 0 24%, rgba(8, 7, 6, 0.46) 70%, rgba(5, 4, 3, 0.9) 100%),
+    linear-gradient(180deg, rgba(8, 7, 6, 0.7), transparent 22%, transparent 72%, rgba(8, 7, 6, 0.82));
+  inset: 0;
+  position: absolute;
+}
+
+.immersive-detail-grain {
+  background-image:
+    repeating-radial-gradient(circle at 17% 28%, rgba(255, 255, 255, 0.04) 0 0.5px, transparent 0.5px 3px),
+    repeating-linear-gradient(115deg, transparent 0 8px, rgba(255, 255, 255, 0.018) 8px 9px);
+  inset: 0;
+  mix-blend-mode: soft-light;
+  opacity: 0.36;
+  position: absolute;
+}
+
+.immersive-detail-header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: max(20px, env(safe-area-inset-top)) clamp(20px, 3.4vw, 48px) 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 54;
+}
+
+.immersive-detail-heading {
+  display: grid;
+  gap: 11px;
+  justify-items: start;
+}
+
+.immersive-detail-stage-label {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+}
+
+.immersive-detail-stage-label span {
+  color: rgba(255, 250, 241, 0.46);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.immersive-detail-stage-label strong {
+  font-family: var(--font-serif);
+  font-size: clamp(0.96rem, 1.5vw, 1.16rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.immersive-detail-motion-toggle {
+  align-items: center;
+  background: rgba(8, 7, 6, 0.38);
+  border: 1px solid rgba(255, 250, 241, 0.14);
+  border-radius: 999px;
+  color: rgba(255, 250, 241, 0.62);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: 0.02em;
+  min-height: 36px;
+  padding: 0 12px;
+  pointer-events: auto;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.immersive-detail-motion-toggle:hover,
+.immersive-detail-motion-toggle:focus-visible {
+  background: rgba(255, 250, 241, 0.1);
+  border-color: rgba(255, 250, 241, 0.28);
+  color: #fffaf1;
+  outline: none;
+}
+
+.immersive-detail-motion-toggle:disabled {
+  cursor: default;
+  opacity: 0.52;
+}
+
+.immersive-detail-motion-mark {
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  display: block;
+  height: 15px;
+  position: relative;
+  transform: rotate(-4deg);
+  transition: transform 260ms ease;
+  width: 9px;
+}
+
+.immersive-detail-motion-mark::after {
+  background: currentColor;
+  border-radius: 50%;
+  bottom: 1px;
+  content: "";
+  height: 1px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 1px;
+}
+
+.immersive-detail-dialog[data-motion-state="calibrating"] .immersive-detail-motion-toggle,
+.immersive-detail-dialog[data-motion-state="enabled"] .immersive-detail-motion-toggle {
+  background: rgba(223, 188, 134, 0.12);
+  border-color: rgba(245, 218, 174, 0.38);
+  color: #f5daae;
+}
+
+.immersive-detail-dialog[data-motion-state="calibrating"] .immersive-detail-motion-mark {
+  animation: immersive-device-calibration 900ms ease-in-out infinite alternate;
+}
+
+.immersive-detail-dialog[data-motion-state="enabled"] .immersive-detail-motion-mark {
+  transform: rotate(4deg);
+}
+
+.immersive-detail-motion-status {
+  color: rgba(255, 250, 241, 0.46);
+  font-size: 0.62rem;
+  line-height: 1.45;
+  margin: -4px 0 0;
+  max-width: 25ch;
+}
+
+.immersive-detail-close {
+  align-items: center;
+  background: rgba(8, 7, 6, 0.42);
+  border: 1px solid rgba(255, 250, 241, 0.18);
+  border-radius: 999px;
+  color: rgba(255, 250, 241, 0.78);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 14px;
+  pointer-events: auto;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.immersive-detail-close:hover,
+.immersive-detail-close:focus-visible {
+  background: rgba(255, 250, 241, 0.1);
+  border-color: rgba(255, 250, 241, 0.32);
+  color: #fffaf1;
+  outline: none;
+}
+
+.immersive-detail-world {
+  display: grid;
+  padding: clamp(70px, 10vh, 112px) clamp(42px, 7vw, 110px) clamp(98px, 13vh, 138px);
+  place-items: center;
+  transform-origin: var(--immersive-entry-x) var(--immersive-entry-y);
+  z-index: 1;
+}
+
+.immersive-detail-frame {
+  --immersive-glow-x: 50%;
+  --immersive-glow-y: 42%;
+  --immersive-tilt-x: 0deg;
+  --immersive-tilt-y: 0deg;
+  aspect-ratio: 4 / 3;
+  box-shadow:
+    0 54px 160px rgba(0, 0, 0, 0.74),
+    0 0 0 1px rgba(255, 250, 241, 0.08);
+  cursor: grab;
+  max-width: 1180px;
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+  transform: perspective(1400px) rotateX(var(--immersive-tilt-x)) rotateY(var(--immersive-tilt-y));
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: min(88vw, calc(76dvh * 1.3333), 1180px);
+}
+
+.immersive-detail-frame[data-aspect-ratio="portrait"] {
+  aspect-ratio: 3 / 4;
+  max-width: 720px;
+  width: min(72vw, calc(78dvh * 0.75), 720px);
+}
+
+.immersive-detail-frame[data-aspect-ratio="square"] {
+  aspect-ratio: 1;
+  max-width: 860px;
+  width: min(78vw, 76dvh, 860px);
+}
+
+.immersive-detail-frame:active {
+  cursor: grabbing;
+  transition-duration: 80ms;
+}
+
+.immersive-detail-fallback,
+.immersive-detail-canvas,
+.immersive-detail-surface-light {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.immersive-detail-fallback {
+  background: rgba(9, 8, 7, 0.74);
+  object-fit: contain;
+  opacity: 1;
+  transition: opacity 420ms ease;
+}
+
+.immersive-detail-canvas {
+  opacity: 0;
+  transition: opacity 520ms ease;
+}
+
+.immersive-detail-dialog[data-depth-status="ready"] .immersive-detail-canvas {
+  opacity: 1;
+}
+
+.immersive-detail-dialog[data-depth-status="ready"] .immersive-detail-fallback {
+  opacity: 0;
+}
+
+.immersive-detail-surface-light {
+  background: radial-gradient(circle at var(--immersive-glow-x) var(--immersive-glow-y), rgba(255, 250, 241, 0.1), transparent 46%);
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  transition: background-position 120ms linear;
+}
+
+.immersive-detail-caption {
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: grid;
+  gap: 4px;
+  left: clamp(20px, 3.4vw, 48px);
+  margin: 0;
+  max-width: min(34vw, 460px);
+  position: fixed;
+  z-index: 54;
+}
+
+.immersive-detail-caption strong {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.8vw, 1.34rem);
+  line-height: 1.14;
+}
+
+.immersive-detail-caption span {
+  color: rgba(255, 250, 241, 0.52);
+  font-size: 0.75rem;
+}
+
+.immersive-detail-hint {
+  align-items: center;
+  bottom: max(28px, env(safe-area-inset-bottom));
+  color: rgba(255, 250, 241, 0.58);
+  display: flex;
+  font-size: 0.72rem;
+  gap: 8px;
+  left: 50%;
+  margin: 0;
+  position: fixed;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 54;
+}
+
+.immersive-detail-hint small {
+  border-left: 1px solid rgba(255, 250, 241, 0.16);
+  color: rgba(255, 250, 241, 0.3);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  margin-left: 4px;
+  padding-left: 10px;
+}
+
+.immersive-detail-touch-mark {
+  border: 1px solid rgba(255, 250, 241, 0.38);
+  border-radius: 50%;
+  height: 11px;
+  position: relative;
+  width: 11px;
+}
+
+.immersive-detail-touch-mark::after {
+  border: 1px solid rgba(255, 250, 241, 0.16);
+  border-radius: 50%;
+  content: "";
+  inset: -5px;
+  position: absolute;
+}
+
+.immersive-detail-navigation button {
+  align-items: center;
+  background: rgba(8, 7, 6, 0.36);
+  border: 1px solid rgba(255, 250, 241, 0.14);
+  border-radius: 999px;
+  color: rgba(255, 250, 241, 0.68);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 700;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 13px;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+  z-index: 54;
+}
+
+.immersive-detail-navigation button:hover,
+.immersive-detail-navigation button:focus-visible {
+  background: rgba(255, 250, 241, 0.1);
+  border-color: rgba(255, 250, 241, 0.3);
+  color: #fffaf1;
+  outline: none;
+}
+
+.immersive-detail-navigation button:disabled {
+  cursor: default;
+  opacity: 0.22;
+}
+
+.immersive-detail-navigation .is-previous {
+  left: clamp(16px, 2.5vw, 34px);
+}
+
+.immersive-detail-navigation .is-next {
+  right: clamp(16px, 2.5vw, 34px);
+}
+
+.immersive-detail-dialog[data-phase="entering"] {
+  animation: immersive-detail-backdrop-in 720ms cubic-bezier(0.2, 0.78, 0.2, 1) both;
+}
+
+.immersive-detail-dialog[data-phase="entering"] .immersive-detail-world {
+  animation: immersive-detail-expand 720ms cubic-bezier(0.18, 0.8, 0.2, 1) both;
+}
+
+.immersive-detail-dialog[data-phase="closing"] {
+  animation: immersive-detail-backdrop-in 520ms cubic-bezier(0.4, 0, 0.3, 1) reverse both;
+}
+
+.immersive-detail-dialog[data-phase="closing"] .immersive-detail-world {
+  animation: immersive-detail-expand 520ms cubic-bezier(0.4, 0, 0.3, 1) reverse both;
+}
+
+@keyframes immersive-detail-backdrop-in {
+  from {
+    background-color: rgba(8, 7, 6, 0);
+    opacity: 0;
+  }
+
+  to {
+    background-color: #080706;
+    opacity: 1;
+  }
+}
+
+@keyframes immersive-detail-expand {
+  0% {
+    filter: blur(3px);
+    opacity: 0.46;
+    transform: scale(var(--immersive-entry-scale));
+  }
+
+  64% {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1.018);
+  }
+
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes immersive-device-calibration {
+  from {
+    transform: rotate(-9deg);
+  }
+
+  to {
+    transform: rotate(9deg);
+  }
 }
 
 .immersive-lightbox figcaption {
@@ -2880,6 +3351,99 @@ body[data-immersive-lightbox="open"] .immersive-shell {
     font-size: 0.92rem;
     min-height: 44px;
     padding: 8px 10px;
+  }
+
+  .immersive-enter-cue {
+    bottom: 10px;
+    font-size: 0.64rem;
+    padding: 7px 9px;
+    right: 10px;
+  }
+
+  .immersive-detail-header {
+    padding: max(14px, env(safe-area-inset-top)) 16px 0;
+  }
+
+  .immersive-detail-heading {
+    gap: 8px;
+  }
+
+  .immersive-detail-stage-label span {
+    font-size: 0.56rem;
+  }
+
+  .immersive-detail-stage-label strong {
+    font-size: 0.92rem;
+  }
+
+  .immersive-detail-motion-toggle {
+    font-size: 0.64rem;
+    min-height: 36px;
+    padding: 0 10px;
+  }
+
+  .immersive-detail-motion-status {
+    max-width: 21ch;
+  }
+
+  .immersive-detail-close {
+    min-height: 44px;
+    padding: 0 12px;
+  }
+
+  .immersive-detail-world {
+    padding: 72px 12px 128px;
+  }
+
+  .immersive-detail-frame {
+    width: min(94vw, calc(62dvh * 1.3333));
+  }
+
+  .immersive-detail-frame[data-aspect-ratio="portrait"] {
+    width: min(78vw, calc(66dvh * 0.75));
+  }
+
+  .immersive-detail-frame[data-aspect-ratio="square"] {
+    width: min(88vw, 62dvh);
+  }
+
+  .immersive-detail-caption {
+    bottom: max(18px, env(safe-area-inset-bottom));
+    left: 18px;
+    max-width: 68vw;
+  }
+
+  .immersive-detail-caption strong {
+    font-size: 1rem;
+  }
+
+  .immersive-detail-hint {
+    bottom: max(118px, calc(env(safe-area-inset-bottom) + 104px));
+    font-size: 0.68rem;
+  }
+
+  .immersive-detail-hint small {
+    display: none;
+  }
+
+  .immersive-detail-navigation button {
+    font-size: 0;
+    height: 44px;
+    justify-content: center;
+    min-width: 44px;
+    padding: 0;
+  }
+
+  .immersive-detail-navigation button span {
+    font-size: 1rem;
+  }
+
+  .immersive-detail-navigation .is-previous {
+    left: 10px;
+  }
+
+  .immersive-detail-navigation .is-next {
+    right: 10px;
   }
 }
 

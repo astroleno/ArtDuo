@@ -401,7 +401,6 @@ export function ImmersiveGalleryClient({
         <ImageLightbox
           hasNext={Boolean(nextScene)}
           hasPrevious={Boolean(previousScene)}
-          key={activeScene.unit.id}
           onExpandedChange={setIsImageExpanded}
           onNext={() => moveTo(currentIndex + 1)}
           onPrevious={() => moveTo(currentIndex - 1)}

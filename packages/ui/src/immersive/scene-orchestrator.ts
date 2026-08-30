@@ -18,6 +18,7 @@ export interface ImmersiveGalleryUnit {
   yearLabel?: string;
   imageUrl: string;
   imageUrlFull?: string;
+  depthMapUrl?: string;
   aspectRatioHint?: string;
   backgroundSceneUrl?: string;
   sceneLabel?: string;
