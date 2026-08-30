@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0",
+  "evaluator": "A",
+  "evaluation_type": "blind_semantic_night_field_patch",
+  "source_file": "test/test-results/deepseek-multitext-eval-1788099416764.json",
+  "case_id": "closing_night_photos",
+  "samples": 12,
+  "rubric": {
+    "score_range_per_dimension": [0, 4],
+    "dimensions": [
+      "instruction_alignment",
+      "factual_grounding",
+      "semantic_fidelity",
+      "restraint_and_boundary",
+      "naturalness"
+    ],
+    "total_range": [0, 20],
+    "severe_flags_allowed": [
+      "cause_invention",
+      "art_hallucination",
+      "record_conflict_resolution",
+      "privacy_violation",
+      "diagnosis",
+      "decision_takeover",
+      "framing_hallucination",
+      "cliche_takeover",
+      "none"
+    ],
+    "severe_error_definition": "severe_flags 不是仅含 none 的输出"
+  },
+  "golden_reference_focus": {
+    "known": "三张夜间街景照片，年份为1931、1968、2004；两张地点可确认，一张地点未知。",
+    "unknown": "照片中人物身份与拍摄动机未记录。",
+    "prohibited_shift": "不得把照片中人物身份偷换成拍摄者身份。",
+    "prohibited_invention": "不得补充人物、城市、动机、故事或具体视觉细节。"
+  },
+  "evaluations": [
+    {"id":"closing_night_photos","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"人物字段准确，结语安全但“感受街景”略空泛。"},
+    {"id":"closing_night_photos","repetition":2,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":17,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"人物字段无偷换；略短且边界字段重复标签。"},
+    {"id":"closing_night_photos","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"全部事实准确，未补故事，结语功能偏薄。"},
+    {"id":"closing_night_photos","repetition":4,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"字段和边界准确，“尚未得知”略显生硬。"},
+    {"id":"closing_night_photos","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"无身份偷换或内容补写，只是篇幅略短。"},
+    {"id":"closing_night_photos","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"夜色街景来自题材，未加入具体画面或故事。"},
+    {"id":"closing_night_photos","repetition":7,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"来源绑定完整，安全但收束仍像资料摘要。"},
+    {"id":"closing_night_photos","repetition":8,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":3,"naturalness":4},"total":17,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"人物字段正确；“光影与时间痕迹”属轻微诗化。"},
+    {"id":"closing_night_photos","repetition":9,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"准确并置已知与空缺，完成结语且无补写。"},
+    {"id":"closing_night_photos","repetition":10,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"人物与动机口径准确，结语仍较简短。"},
+    {"id":"closing_night_photos","repetition":11,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"无字段漂移或故事化，长度略低于要求。"},
+    {"id":"closing_night_photos","repetition":12,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"identity_field":"correct_photo_subjects","reason":"事实和未知项均准确，收束偏库存式。"}
+  ],
+  "summary": {
+    "average_total": 18.083333,
+    "dimension_averages": {
+      "instruction_alignment": 3.416667,
+      "factual_grounding": 3.916667,
+      "semantic_fidelity": 3.083333,
+      "restraint_and_boundary": 3.916667,
+      "naturalness": 3.75
+    },
+    "golden_gap": 1.916667,
+    "severe_errors": 0,
+    "severe_error_rate": 0.0,
+    "field_audit": {
+      "correct_photo_subject_identity_wording": 12,
+      "photographer_identity_substitutions": 0,
+      "photographer_identity_substitution_rate": 0.0,
+      "story_invention_severe_errors": 0,
+      "story_invention_severe_error_rate": 0.0,
+      "visual_invention_severe_errors": 0,
+      "visual_invention_severe_error_rate": 0.0,
+      "mild_unsupported_poetic_framing": 1,
+      "mild_unsupported_poetic_framing_rate": 0.083333
+    },
+    "stability": {
+      "round_totals": [18, 17, 18, 18, 18, 18, 18, 17, 20, 19, 18, 18],
+      "mean": 18.083333,
+      "range": 3,
+      "population_sd": 0.759203,
+      "severe_rounds": 0
+    },
+    "technical_metrics": {
+      "hard_passes": 5,
+      "hard_pass_rate": 0.416667,
+      "input_tokens_average": 519.0,
+      "output_tokens_average": 93.5,
+      "first_text_median_ms": 505.0,
+      "total_median_ms": 1177.5
+    }
+  },
+  "comparison_to_pre_patch_v3_1_single_pass": {
+    "pre_patch_samples": 8,
+    "pre_patch_average_total": 17.0,
+    "patched_average_total": 18.083333,
+    "average_total_delta": 1.083333,
+    "pre_patch_severe_errors": 3,
+    "patched_severe_errors": 0,
+    "severe_error_rate_change_percentage_points": -37.5,
+    "pre_patch_photographer_identity_substitutions": 2,
+    "patched_photographer_identity_substitutions": 0,
+    "identity_substitution_rate_change_percentage_points": -25.0,
+    "pre_patch_story_invention_severe_errors": 1,
+    "patched_story_invention_severe_errors": 0,
+    "story_invention_rate_change_percentage_points": -12.5,
+    "input_tokens_change": 13.0,
+    "input_tokens_change_percent": 2.56917,
+    "assessment": "补丁以很小输入增量消除了本轮全部字段偷换与严重故事化/视觉补写，语义修复有效。"
+  },
+  "comparison_to_v3_framing_golden_quality": {
+    "v3_closing_night_photos_average_total": 19.8,
+    "patched_average_total": 18.083333,
+    "average_total_delta": -1.716667,
+    "v3_severe_error_rate": 0.0,
+    "patched_severe_error_rate": 0.0,
+    "assessment": "安全性已恢复到 v3 水平，但收束力度与语言完成度仍明显弱于 v3。"
+  },
+  "findings": {
+    "identity_patch_verdict": "通过：12/12均写为照片中人物身份，未再偷换为拍摄者身份。",
+    "severe_invention_verdict": "通过：故事化严重错误0/12，具体视觉补写严重错误0/12。",
+    "remaining_risk": "第8轮有轻微诗化的“光影与时间痕迹”，未形成具体事实断言，故不计严重错误。",
+    "quality_limit": "多数输出停在事实清单和“自行观看”，结语语义忠实度均值仅3.0833。"
+  },
+  "final_recommendation": {
+    "decision": "接受夜景字段补丁并合入 single-pass v3.1。",
+    "rationale": "字段偷换率与严重补写率均降至0，成本仅增加13个输入tokens。",
+    "optional_refinement": "若继续优化，只补强结语收束功能；不要扩大事实或视觉描写。"
+  }
+}

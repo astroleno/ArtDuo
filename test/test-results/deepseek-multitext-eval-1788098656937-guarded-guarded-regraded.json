@@ -1,0 +1,5152 @@
+{
+  "schemaVersion": "1.1",
+  "runId": 1788098869006,
+  "objective": "Evaluate conditional one-repair v3.1 path for neutral emotion and framing text",
+  "startedAt": "2026-08-30T14:07:49.006Z",
+  "model": "deepseek-v4-flash",
+  "thinking": "disabled",
+  "maxTokens": 2048,
+  "repeatCount": 8,
+  "concurrency": 4,
+  "variants": [
+    "source-isolated-v3.1+repair1"
+  ],
+  "caseIds": [
+    "emotion_neutral_now",
+    "preface_repair",
+    "closing_night_photos",
+    "preface_incomplete_archive",
+    "closing_memorial_objects"
+  ],
+  "runs": [
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 174,
+      "firstThinkingMs": null,
+      "firstTextMs": 1874,
+      "totalMs": 2533,
+      "usage": {
+        "input_tokens": 494,
+        "output_tokens": 97
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"确认中性状态，无特别情绪需处理，尊重不分析意愿。\", \"response\": \"好的，不分析。你安静吃饭，我这边保持安静。\", \"boundary\": \"仅回应确认，不新增动作、建议或物品相关表述。\"}",
+      "parsed": {
+        "emotion_read": "确认中性状态，无特别情绪需处理，尊重不分析意愿。",
+        "response": "好的，不分析。你安静吃饭，我这边保持安静。",
+        "boundary": "仅回应确认，不新增动作、建议或物品相关表述。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 24,
+          "response": 21,
+          "boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 174,
+          "firstTextMs": 1874,
+          "totalMs": 2533,
+          "usage": {
+            "input_tokens": 494,
+            "output_tokens": 97
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\"emotion_read\": \"确认中性状态，无特别情绪需处理，尊重不分析意愿。\", \"response\": \"好的，不分析。你安静吃饭，我这边保持安静。\", \"boundary\": \"仅回应确认，不新增动作、建议或物品相关表述。\"}",
+          "parsed": {
+            "emotion_read": "确认中性状态，无特别情绪需处理，尊重不分析意愿。",
+            "response": "好的，不分析。你安静吃饭，我这边保持安静。",
+            "boundary": "仅回应确认，不新增动作、建议或物品相关表述。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 137,
+      "firstThinkingMs": null,
+      "firstTextMs": 771,
+      "totalMs": 5201,
+      "usage": {
+        "input_tokens": 1460,
+        "output_tokens": 324
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览共陈列五件作品，年代跨度为1750年至1950年。其中三件陶器带有可见的修补痕迹，两件纺织品上则有补缀。目前没有艺术家的陈述，也不清楚每次损坏与修补的原因。观众可以观察到这些可见的修补痕迹，但不必推测其背后经历。\",\n  \"evidence_boundary\": \"仅使用展览作品的数量、类型、年代及可见修补状态。\"\n}",
+      "parsed": {
+        "text": "本展览共陈列五件作品，年代跨度为1750年至1950年。其中三件陶器带有可见的修补痕迹，两件纺织品上则有补缀。目前没有艺术家的陈述，也不清楚每次损坏与修补的原因。观众可以观察到这些可见的修补痕迹，但不必推测其背后经历。",
+        "evidence_boundary": "仅使用展览作品的数量、类型、年代及可见修补状态。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 109,
+            "expected": [
+              130,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 109,
+          "evidence_boundary": 24
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 109,
+          "expected": [
+            130,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 137,
+          "firstTextMs": 771,
+          "totalMs": 3508,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 218
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 109,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本展览共陈列五件作品，年代跨度为1750年至1950年。其中三件陶器带有可见的修补痕迹，两件纺织品上则有补缀。目前没有艺术家的陈述，也不清楚每次损坏与修补的原因。观众可以观察到这些可见的修补痕迹，但不必推测其背后经历。\",\n  \"evidence_boundary\": \"仅使用展览作品的数量、类型、年代及可见修补状态。\"\n}",
+          "parsed": {
+            "text": "本展览共陈列五件作品，年代跨度为1750年至1950年。其中三件陶器带有可见的修补痕迹，两件纺织品上则有补缀。目前没有艺术家的陈述，也不清楚每次损坏与修补的原因。观众可以观察到这些可见的修补痕迹，但不必推测其背后经历。",
+            "evidence_boundary": "仅使用展览作品的数量、类型、年代及可见修补状态。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 237,
+          "firstTextMs": 734,
+          "totalMs": 1693,
+          "usage": {
+            "input_tokens": 471,
+            "output_tokens": 106
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 117,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次展览共展出五件作品，均为1750年至1950年间的物品。其中三件陶器表面带有可见的修补痕迹，两件纺织品亦有补缀的迹象。展览未提供艺术家的相关陈述，每件作品具体的损坏原因与修补过程也并无记录。观众可仔细观察这些作品上现存的历史痕迹。\",\n  \"evidence_boundary\": \"仅依据展品数量、类型、年代范围及可见修补状态，未涉及其他信息。\"\n}",
+          "parsed": {
+            "text": "本次展览共展出五件作品，均为1750年至1950年间的物品。其中三件陶器表面带有可见的修补痕迹，两件纺织品亦有补缀的迹象。展览未提供艺术家的相关陈述，每件作品具体的损坏原因与修补过程也并无记录。观众可仔细观察这些作品上现存的历史痕迹。",
+            "evidence_boundary": "仅依据展品数量、类型、年代范围及可见修补状态，未涉及其他信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 128,
+      "firstThinkingMs": null,
+      "firstTextMs": 796,
+      "totalMs": 1754,
+      "usage": {
+        "input_tokens": 506,
+        "output_tokens": 112
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的拍摄地点未知。资料中未记录照片中的人物身份，也未说明拍摄动机。这些影像仅作为历史瞬间的片段被陈列，其背后的故事尚待观众自行探寻。\",\n  \"evidence_boundary\": \"仅依据展览提供的数量、年份、地点确认状态及资料缺项进行陈述，不涉及未提供的细节。\"\n}",
+      "parsed": {
+        "text": "本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的拍摄地点未知。资料中未记录照片中的人物身份，也未说明拍摄动机。这些影像仅作为历史瞬间的片段被陈列，其背后的故事尚待观众自行探寻。",
+        "evidence_boundary": "仅依据展览提供的数量、年份、地点确认状态及资料缺项进行陈述，不涉及未提供的细节。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 119,
+          "evidence_boundary": 40
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 128,
+          "firstTextMs": 796,
+          "totalMs": 1754,
+          "usage": {
+            "input_tokens": 506,
+            "output_tokens": 112
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的拍摄地点未知。资料中未记录照片中的人物身份，也未说明拍摄动机。这些影像仅作为历史瞬间的片段被陈列，其背后的故事尚待观众自行探寻。\",\n  \"evidence_boundary\": \"仅依据展览提供的数量、年份、地点确认状态及资料缺项进行陈述，不涉及未提供的细节。\"\n}",
+          "parsed": {
+            "text": "本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的拍摄地点未知。资料中未记录照片中的人物身份，也未说明拍摄动机。这些影像仅作为历史瞬间的片段被陈列，其背后的故事尚待观众自行探寻。",
+            "evidence_boundary": "仅依据展览提供的数量、年份、地点确认状态及资料缺项进行陈述，不涉及未提供的细节。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 133,
+      "firstThinkingMs": null,
+      "firstTextMs": 1065,
+      "totalMs": 5327,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 311
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列包含十二条馆藏记录，时间跨度从1880年到1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些资料以现有记录状态呈现，缺失或不完整之处一并保留。观众可以查看这些现有材料。\",\n  \"evidence_boundary\": \"基于馆藏记录，仅描述记录本身的状态。\"\n}",
+      "parsed": {
+        "text": "本次陈列包含十二条馆藏记录，时间跨度从1880年到1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些资料以现有记录状态呈现，缺失或不完整之处一并保留。观众可以查看这些现有材料。",
+        "evidence_boundary": "基于馆藏记录，仅描述记录本身的状态。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 112,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 112,
+          "evidence_boundary": 18
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 112,
+          "expected": [
+            120,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 133,
+          "firstTextMs": 1065,
+          "totalMs": 3517,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 187
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 112,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次陈列包含十二条馆藏记录，时间跨度从1880年到1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些资料以现有记录状态呈现，缺失或不完整之处一并保留。观众可以查看这些现有材料。\",\n  \"evidence_boundary\": \"基于馆藏记录，仅描述记录本身的状态。\"\n}",
+          "parsed": {
+            "text": "本次陈列包含十二条馆藏记录，时间跨度从1880年到1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些资料以现有记录状态呈现，缺失或不完整之处一并保留。观众可以查看这些现有材料。",
+            "evidence_boundary": "基于馆藏记录，仅描述记录本身的状态。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 148,
+          "firstTextMs": 710,
+          "totalMs": 1810,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 124
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 117,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次陈列呈现十二件藏品，其年代可确认的范围从一八八零年至一九七二年，媒介包括油画、照片与印刷品。十二件中，有四件未记录作者姓名，三件的描述文字在句中中断。以上系目前档案所载状态，未补全缺失信息，亦未推测缺失内容。观众可查看现存的记录。\",\n  \"evidence_boundary\": \"陈列含12条记录，作者缺失4条，描述截断3条，年代1880–1972，媒介油画/照片/印刷品。\"\n}",
+          "parsed": {
+            "text": "本次陈列呈现十二件藏品，其年代可确认的范围从一八八零年至一九七二年，媒介包括油画、照片与印刷品。十二件中，有四件未记录作者姓名，三件的描述文字在句中中断。以上系目前档案所载状态，未补全缺失信息，亦未推测缺失内容。观众可查看现存的记录。",
+            "evidence_boundary": "陈列含12条记录，作者缺失4条，描述截断3条，年代1880–1972，媒介油画/照片/印刷品。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 108,
+      "firstThinkingMs": null,
+      "firstTextMs": 918,
+      "totalMs": 4161,
+      "usage": {
+        "input_tokens": 1439,
+        "output_tokens": 295
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包括七件被登记为纪念用途的物件，年代与对象各不相同。资料仅确认这些物件的纪念用途，并未记录原持有者如何哀悼，也没有观众反馈。现有陈列仅依据这些登记内容，并保留其中未记载的部分。观众可以停留或离开。\",\n  \"evidence_boundary\": \"依据登记信息：七件纪念用途物件，年代与对象各异；哀悼方式及观众反馈未记录。\"\n}",
+      "parsed": {
+        "text": "本陈列包括七件被登记为纪念用途的物件，年代与对象各不相同。资料仅确认这些物件的纪念用途，并未记录原持有者如何哀悼，也没有观众反馈。现有陈列仅依据这些登记内容，并保留其中未记载的部分。观众可以停留或离开。",
+        "evidence_boundary": "依据登记信息：七件纪念用途物件，年代与对象各异；哀悼方式及观众反馈未记录。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 101,
+            "expected": [
+              110,
+              160
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 101,
+          "evidence_boundary": 37
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 101,
+          "expected": [
+            110,
+            160
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 108,
+          "firstTextMs": 918,
+          "totalMs": 2741,
+          "usage": {
+            "input_tokens": 975,
+            "output_tokens": 197
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 101,
+              "expected": [
+                110,
+                160
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包括七件被登记为纪念用途的物件，年代与对象各不相同。资料仅确认这些物件的纪念用途，并未记录原持有者如何哀悼，也没有观众反馈。现有陈列仅依据这些登记内容，并保留其中未记载的部分。观众可以停留或离开。\",\n  \"evidence_boundary\": \"依据登记信息：七件纪念用途物件，年代与对象各异；哀悼方式及观众反馈未记录。\"\n}",
+          "parsed": {
+            "text": "本陈列包括七件被登记为纪念用途的物件，年代与对象各不相同。资料仅确认这些物件的纪念用途，并未记录原持有者如何哀悼，也没有观众反馈。现有陈列仅依据这些登记内容，并保留其中未记载的部分。观众可以停留或离开。",
+            "evidence_boundary": "依据登记信息：七件纪念用途物件，年代与对象各异；哀悼方式及观众反馈未记录。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 250,
+          "firstTextMs": 589,
+          "totalMs": 1420,
+          "usage": {
+            "input_tokens": 464,
+            "output_tokens": 98
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 93,
+              "expected": [
+                110,
+                160
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含七件物件，均被登记为纪念用途。这些物件的年代与所纪念的对象各不相同。现有资料仅能确认其纪念用途，未记录原持有者如何进行哀悼，也未记录观众的任何反馈。观众可以自由选择停留或离开。\",\n  \"evidence_boundary\": \"依据现有登记信息，仅确认数量、登记用途及年代与对象差异；哀悼方式与观众反馈未记录。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件物件，均被登记为纪念用途。这些物件的年代与所纪念的对象各不相同。现有资料仅能确认其纪念用途，未记录原持有者如何进行哀悼，也未记录观众的任何反馈。观众可以自由选择停留或离开。",
+            "evidence_boundary": "依据现有登记信息，仅确认数量、登记用途及年代与对象差异；哀悼方式与观众反馈未记录。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 114,
+      "firstThinkingMs": null,
+      "firstTextMs": 1371,
+      "totalMs": 1821,
+      "usage": {
+        "input_tokens": 494,
+        "output_tokens": 104
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"中性状态，无特殊情绪，仅希望安静用餐，不想被分析。\",\n  \"response\": \"好的，不分析，你安静吃饭。\",\n  \"boundary\": \"仅确认中性状态与安静吃饭，不延伸其他内容。\"\n}",
+      "parsed": {
+        "emotion_read": "中性状态，无特殊情绪，仅希望安静用餐，不想被分析。",
+        "response": "好的，不分析，你安静吃饭。",
+        "boundary": "仅确认中性状态与安静吃饭，不延伸其他内容。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 25,
+          "response": 13,
+          "boundary": 21
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 114,
+          "firstTextMs": 1371,
+          "totalMs": 1821,
+          "usage": {
+            "input_tokens": 494,
+            "output_tokens": 104
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"emotion_read\": \"中性状态，无特殊情绪，仅希望安静用餐，不想被分析。\",\n  \"response\": \"好的，不分析，你安静吃饭。\",\n  \"boundary\": \"仅确认中性状态与安静吃饭，不延伸其他内容。\"\n}",
+          "parsed": {
+            "emotion_read": "中性状态，无特殊情绪，仅希望安静用餐，不想被分析。",
+            "response": "好的，不分析，你安静吃饭。",
+            "boundary": "仅确认中性状态与安静吃饭，不延伸其他内容。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 74,
+      "firstThinkingMs": null,
+      "firstTextMs": 2412,
+      "totalMs": 3678,
+      "usage": {
+        "input_tokens": 989,
+        "output_tokens": 243
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次展览《修补之后》共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年到1950年。这些作品均未附有艺术家的陈述，每件物品的损坏原因及修补的具体情况也未被记录。展览仅呈现这些可见的修补痕迹，观众可以观察这些痕迹，了解物品曾被使用和修复的迹象。\",\n  \"evidence_boundary\": \"内容仅基于展览的登记信息，包括作品数量、类型、年代范围及可见修补状态，未涉及任何艺术家的意图或修补的历史背景。\"\n}",
+      "parsed": {
+        "text": "本次展览《修补之后》共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年到1950年。这些作品均未附有艺术家的陈述，每件物品的损坏原因及修补的具体情况也未被记录。展览仅呈现这些可见的修补痕迹，观众可以观察这些痕迹，了解物品曾被使用和修复的迹象。",
+        "evidence_boundary": "内容仅基于展览的登记信息，包括作品数量、类型、年代范围及可见修补状态，未涉及任何艺术家的意图或修补的历史背景。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 141,
+          "evidence_boundary": 55
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 74,
+          "firstTextMs": 2412,
+          "totalMs": 3678,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 243
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本次展览《修补之后》共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年到1950年。这些作品均未附有艺术家的陈述，每件物品的损坏原因及修补的具体情况也未被记录。展览仅呈现这些可见的修补痕迹，观众可以观察这些痕迹，了解物品曾被使用和修复的迹象。\",\n  \"evidence_boundary\": \"内容仅基于展览的登记信息，包括作品数量、类型、年代范围及可见修补状态，未涉及任何艺术家的意图或修补的历史背景。\"\n}",
+          "parsed": {
+            "text": "本次展览《修补之后》共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年到1950年。这些作品均未附有艺术家的陈述，每件物品的损坏原因及修补的具体情况也未被记录。展览仅呈现这些可见的修补痕迹，观众可以观察这些痕迹，了解物品曾被使用和修复的迹象。",
+            "evidence_boundary": "内容仅基于展览的登记信息，包括作品数量、类型、年代范围及可见修补状态，未涉及任何艺术家的意图或修补的历史背景。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 77,
+      "firstThinkingMs": null,
+      "firstTextMs": 356,
+      "totalMs": 1207,
+      "usage": {
+        "input_tokens": 506,
+        "output_tokens": 105
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，其拍摄年份分别为1931年、1968年和2004年。其中两张的地点已经确认，另一张的地点则尚未知晓。现有资料没有记录照片中的人物身份，也没有说明拍摄的动机。这些信息都保留在展品本身，观众可以自行观看。\",\n  \"evidence_boundary\": \"仅依据展览提供的照片数量、年份、地点确认状态及资料缺项，未添加其他信息。\"\n}",
+      "parsed": {
+        "text": "本展览呈现三张夜间街景照片，其拍摄年份分别为1931年、1968年和2004年。其中两张的地点已经确认，另一张的地点则尚未知晓。现有资料没有记录照片中的人物身份，也没有说明拍摄的动机。这些信息都保留在展品本身，观众可以自行观看。",
+        "evidence_boundary": "仅依据展览提供的照片数量、年份、地点确认状态及资料缺项，未添加其他信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 114,
+          "evidence_boundary": 36
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 77,
+          "firstTextMs": 356,
+          "totalMs": 1207,
+          "usage": {
+            "input_tokens": 506,
+            "output_tokens": 105
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，其拍摄年份分别为1931年、1968年和2004年。其中两张的地点已经确认，另一张的地点则尚未知晓。现有资料没有记录照片中的人物身份，也没有说明拍摄的动机。这些信息都保留在展品本身，观众可以自行观看。\",\n  \"evidence_boundary\": \"仅依据展览提供的照片数量、年份、地点确认状态及资料缺项，未添加其他信息。\"\n}",
+          "parsed": {
+            "text": "本展览呈现三张夜间街景照片，其拍摄年份分别为1931年、1968年和2004年。其中两张的地点已经确认，另一张的地点则尚未知晓。现有资料没有记录照片中的人物身份，也没有说明拍摄的动机。这些信息都保留在展品本身，观众可以自行观看。",
+            "evidence_boundary": "仅依据展览提供的照片数量、年份、地点确认状态及资料缺项，未添加其他信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 137,
+      "firstThinkingMs": null,
+      "firstTextMs": 3500,
+      "totalMs": 4383,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 316
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列展示十二件馆藏记录，年代范围从1880年至1972年，媒介包括油画、照片和印刷品。其中，四条记录的作者信息缺失，三条记录的描述在句中截断。这些是现有资料的状态，我们仅依据这些记录进行展示，并保留其中缺失与截断的部分。观众可以查看这些现有记录。\",\n  \"evidence_boundary\": \"仅基于馆藏记录中的条目、缺失信息、年代范围和媒介类型。\"\n}",
+      "parsed": {
+        "text": "本陈列展示十二件馆藏记录，年代范围从1880年至1972年，媒介包括油画、照片和印刷品。其中，四条记录的作者信息缺失，三条记录的描述在句中截断。这些是现有资料的状态，我们仅依据这些记录进行展示，并保留其中缺失与截断的部分。观众可以查看这些现有记录。",
+        "evidence_boundary": "仅基于馆藏记录中的条目、缺失信息、年代范围和媒介类型。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 124,
+          "evidence_boundary": 27
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": true,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 88,
+          "firstTextMs": 436,
+          "totalMs": 2645,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 210
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 109,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，年代范围从1880年至1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些是现有资料的保存状态，陈列仅依据这些记录呈现。观众可以查看这些现有记录。\",\n  \"evidence_boundary\": \"仅依据输入中的条目、缺失、年代与媒介信息，不涉及其他内容。\"\n}",
+          "parsed": {
+            "text": "本陈列包含十二条馆藏记录，年代范围从1880年至1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些是现有资料的保存状态，陈列仅依据这些记录呈现。观众可以查看这些现有记录。",
+            "evidence_boundary": "仅依据输入中的条目、缺失、年代与媒介信息，不涉及其他内容。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 137,
+          "firstTextMs": 855,
+          "totalMs": 1738,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 106
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本陈列展示十二件馆藏记录，年代范围从1880年至1972年，媒介包括油画、照片和印刷品。其中，四条记录的作者信息缺失，三条记录的描述在句中截断。这些是现有资料的状态，我们仅依据这些记录进行展示，并保留其中缺失与截断的部分。观众可以查看这些现有记录。\",\n  \"evidence_boundary\": \"仅基于馆藏记录中的条目、缺失信息、年代范围和媒介类型。\"\n}",
+          "parsed": {
+            "text": "本陈列展示十二件馆藏记录，年代范围从1880年至1972年，媒介包括油画、照片和印刷品。其中，四条记录的作者信息缺失，三条记录的描述在句中截断。这些是现有资料的状态，我们仅依据这些记录进行展示，并保留其中缺失与截断的部分。观众可以查看这些现有记录。",
+            "evidence_boundary": "仅基于馆藏记录中的条目、缺失信息、年代范围和媒介类型。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 88,
+      "firstThinkingMs": null,
+      "firstTextMs": 434,
+      "totalMs": 1222,
+      "usage": {
+        "input_tokens": 511,
+        "output_tokens": 108
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含七件被登记为纪念用途的物件，其年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据这些登记信息进行展示，对于未记录的部分不作推测。观众可以在此停留，或选择离开。\",\n  \"evidence_boundary\": \"仅依据7件纪念物件的登记用途、年代与对象差异；哀悼方式与观众反馈未记录。\"\n}",
+      "parsed": {
+        "text": "本陈列包含七件被登记为纪念用途的物件，其年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据这些登记信息进行展示，对于未记录的部分不作推测。观众可以在此停留，或选择离开。",
+        "evidence_boundary": "仅依据7件纪念物件的登记用途、年代与对象差异；哀悼方式与观众反馈未记录。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 110,
+          "evidence_boundary": 36
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 88,
+          "firstTextMs": 434,
+          "totalMs": 1222,
+          "usage": {
+            "input_tokens": 511,
+            "output_tokens": 108
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本陈列包含七件被登记为纪念用途的物件，其年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据这些登记信息进行展示，对于未记录的部分不作推测。观众可以在此停留，或选择离开。\",\n  \"evidence_boundary\": \"仅依据7件纪念物件的登记用途、年代与对象差异；哀悼方式与观众反馈未记录。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件被登记为纪念用途的物件，其年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据这些登记信息进行展示，对于未记录的部分不作推测。观众可以在此停留，或选择离开。",
+            "evidence_boundary": "仅依据7件纪念物件的登记用途、年代与对象差异；哀悼方式与观众反馈未记录。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 78,
+      "firstThinkingMs": null,
+      "firstTextMs": 390,
+      "totalMs": 799,
+      "usage": {
+        "input_tokens": 272,
+        "output_tokens": 41
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"确认情绪平稳，无特殊波动\", \"response\": \"好，不分析。你安静吃饭。\", \"boundary\": \"不延伸话题，不提供建议\"}",
+      "parsed": {
+        "emotion_read": "确认情绪平稳，无特殊波动",
+        "response": "好，不分析。你安静吃饭。",
+        "boundary": "不延伸话题，不提供建议"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 12,
+          "response": 12,
+          "boundary": 11
+        },
+        "coreCoverage": 0.5,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 78,
+          "firstTextMs": 390,
+          "totalMs": 799,
+          "usage": {
+            "input_tokens": 272,
+            "output_tokens": 41
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\"emotion_read\": \"确认情绪平稳，无特殊波动\", \"response\": \"好，不分析。你安静吃饭。\", \"boundary\": \"不延伸话题，不提供建议\"}",
+          "parsed": {
+            "emotion_read": "确认情绪平稳，无特殊波动",
+            "response": "好，不分析。你安静吃饭。",
+            "boundary": "不延伸话题，不提供建议"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 82,
+      "firstThinkingMs": null,
+      "firstTextMs": 527,
+      "totalMs": 4946,
+      "usage": {
+        "input_tokens": 1460,
+        "output_tokens": 372
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次展览共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年至1950年。目前没有艺术家的陈述，也不清楚每次损坏及修补的具体原因。观众可以观察这些作品上留下的可见痕迹，它们作为登记的状态被展示。\",\n  \"evidence_boundary\": \"仅依据展览作品的数量、类型、年代及可见修补痕迹；艺术家陈述与损坏修补原因未获记录。\"\n}",
+      "parsed": {
+        "text": "本次展览共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年至1950年。目前没有艺术家的陈述，也不清楚每次损坏及修补的具体原因。观众可以观察这些作品上留下的可见痕迹，它们作为登记的状态被展示。",
+        "evidence_boundary": "仅依据展览作品的数量、类型、年代及可见修补痕迹；艺术家陈述与损坏修补原因未获记录。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 116,
+            "expected": [
+              130,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 116,
+          "evidence_boundary": 41
+        },
+        "coreCoverage": 0.8,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 116,
+          "expected": [
+            130,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 82,
+          "firstTextMs": 527,
+          "totalMs": 3058,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 247
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 116,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次展览共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年至1950年。目前没有艺术家的陈述，也不清楚每次损坏及修补的具体原因。观众可以观察这些作品上留下的可见痕迹，它们作为登记的状态被展示。\",\n  \"evidence_boundary\": \"仅依据展览作品的数量、类型、年代及可见修补痕迹；艺术家陈述与损坏修补原因未获记录。\"\n}",
+          "parsed": {
+            "text": "本次展览共展出五件作品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品，年代跨度从1750年至1950年。目前没有艺术家的陈述，也不清楚每次损坏及修补的具体原因。观众可以观察这些作品上留下的可见痕迹，它们作为登记的状态被展示。",
+            "evidence_boundary": "仅依据展览作品的数量、类型、年代及可见修补痕迹；艺术家陈述与损坏修补原因未获记录。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 191,
+          "firstTextMs": 802,
+          "totalMs": 1888,
+          "usage": {
+            "input_tokens": 471,
+            "output_tokens": 125
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 127,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次展览呈现五件作品，年代跨度自一七五〇年至一九五〇年。其中三件为陶器，表面带有可见修补痕迹；两件为纺织品，有过补缀的印记。对于这些作品，资料中并未提供艺术家的陈述，损坏与修补的具体原因也未被记录。展览仅依据现有登记信息进行陈列，观众可观察这些可见痕迹。\",\n  \"evidence_boundary\": \"本次展览仅依据所提供信息，包括五件作品、年代范围、可见修补与补缀状态，以及未记录内容。\"\n}",
+          "parsed": {
+            "text": "本次展览呈现五件作品，年代跨度自一七五〇年至一九五〇年。其中三件为陶器，表面带有可见修补痕迹；两件为纺织品，有过补缀的印记。对于这些作品，资料中并未提供艺术家的陈述，损坏与修补的具体原因也未被记录。展览仅依据现有登记信息进行陈列，观众可观察这些可见痕迹。",
+            "evidence_boundary": "本次展览仅依据所提供信息，包括五件作品、年代范围、可见修补与补缀状态，以及未记录内容。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 97,
+      "firstThinkingMs": null,
+      "firstTextMs": 639,
+      "totalMs": 1378,
+      "usage": {
+        "input_tokens": 506,
+        "output_tokens": 104
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的地点尚未明确。资料中未提供人物身份或拍摄动机。现有陈列仅依据这些摄影记录，并保留尚未确认与未被记录的部分。观众可以自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据所提供的三张照片、年份、地点确认状态及资料缺项。\"\n}",
+      "parsed": {
+        "text": "本展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的地点尚未明确。资料中未提供人物身份或拍摄动机。现有陈列仅依据这些摄影记录，并保留尚未确认与未被记录的部分。观众可以自行观看这些照片。",
+        "evidence_boundary": "仅依据所提供的三张照片、年份、地点确认状态及资料缺项。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 121,
+          "evidence_boundary": 27
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 97,
+          "firstTextMs": 639,
+          "totalMs": 1378,
+          "usage": {
+            "input_tokens": 506,
+            "output_tokens": 104
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的地点尚未明确。资料中未提供人物身份或拍摄动机。现有陈列仅依据这些摄影记录，并保留尚未确认与未被记录的部分。观众可以自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据所提供的三张照片、年份、地点确认状态及资料缺项。\"\n}",
+          "parsed": {
+            "text": "本展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的地点尚未明确。资料中未提供人物身份或拍摄动机。现有陈列仅依据这些摄影记录，并保留尚未确认与未被记录的部分。观众可以自行观看这些照片。",
+            "evidence_boundary": "仅依据所提供的三张照片、年份、地点确认状态及资料缺项。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 143,
+      "firstThinkingMs": null,
+      "firstTextMs": 3386,
+      "totalMs": 4346,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 293
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，年代横跨1880年至1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句子中截断。这些缺失仅作为现有资料的状态予以保留，不加以推测或补充。观众可以查看这些现有记录，以了解其原始样貌。\",\n  \"evidence_boundary\": \"仅基于所提供馆藏记录，不涉及记录之外的信息。\"\n}",
+      "parsed": {
+        "text": "本陈列包含十二条馆藏记录，年代横跨1880年至1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句子中截断。这些缺失仅作为现有资料的状态予以保留，不加以推测或补充。观众可以查看这些现有记录，以了解其原始样貌。",
+        "evidence_boundary": "仅基于所提供馆藏记录，不涉及记录之外的信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 121,
+          "evidence_boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": true,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 77,
+          "firstTextMs": 774,
+          "totalMs": 2894,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 190
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 103,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次陈列包括十二条馆藏记录，年代跨越1880年至1972年，媒介涵盖油画、照片与印刷品。其中，四条记录的作者信息缺失，三条记录的描述在句中截断。这些缺失仅作为现有资料的状态予以保留。观众可查看这些现有记录。\",\n  \"evidence_boundary\": \"仅依据上述记录信息，缺失不作推测。\"\n}",
+          "parsed": {
+            "text": "本次陈列包括十二条馆藏记录，年代跨越1880年至1972年，媒介涵盖油画、照片与印刷品。其中，四条记录的作者信息缺失，三条记录的描述在句中截断。这些缺失仅作为现有资料的状态予以保留。观众可查看这些现有记录。",
+            "evidence_boundary": "仅依据上述记录信息，缺失不作推测。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 143,
+          "firstTextMs": 492,
+          "totalMs": 1452,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 103
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，年代横跨1880年至1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句子中截断。这些缺失仅作为现有资料的状态予以保留，不加以推测或补充。观众可以查看这些现有记录，以了解其原始样貌。\",\n  \"evidence_boundary\": \"仅基于所提供馆藏记录，不涉及记录之外的信息。\"\n}",
+          "parsed": {
+            "text": "本陈列包含十二条馆藏记录，年代横跨1880年至1972年，媒介包括油画、照片和印刷品。其中四条记录的作者信息缺失，三条记录的描述在句子中截断。这些缺失仅作为现有资料的状态予以保留，不加以推测或补充。观众可以查看这些现有记录，以了解其原始样貌。",
+            "evidence_boundary": "仅基于所提供馆藏记录，不涉及记录之外的信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 244,
+      "firstThinkingMs": null,
+      "firstTextMs": 2493,
+      "totalMs": 3080,
+      "usage": {
+        "input_tokens": 975,
+        "output_tokens": 183
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含七件被登记为纪念用途的物件，其年代与所纪念的对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，也未保存任何观众反馈。陈列仅依据现有登记信息呈现，未额外补入未被记录的内容。观众可以选择停留或离开。\",\n  \"evidence_boundary\": \"资料仅确认纪念用途，未记录哀悼方式与观众反馈。\"\n}",
+      "parsed": {
+        "text": "本陈列包含七件被登记为纪念用途的物件，其年代与所纪念的对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，也未保存任何观众反馈。陈列仅依据现有登记信息呈现，未额外补入未被记录的内容。观众可以选择停留或离开。",
+        "evidence_boundary": "资料仅确认纪念用途，未记录哀悼方式与观众反馈。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 113,
+          "evidence_boundary": 23
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 244,
+          "firstTextMs": 2493,
+          "totalMs": 3080,
+          "usage": {
+            "input_tokens": 975,
+            "output_tokens": 183
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本陈列包含七件被登记为纪念用途的物件，其年代与所纪念的对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，也未保存任何观众反馈。陈列仅依据现有登记信息呈现，未额外补入未被记录的内容。观众可以选择停留或离开。\",\n  \"evidence_boundary\": \"资料仅确认纪念用途，未记录哀悼方式与观众反馈。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件被登记为纪念用途的物件，其年代与所纪念的对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，也未保存任何观众反馈。陈列仅依据现有登记信息呈现，未额外补入未被记录的内容。观众可以选择停留或离开。",
+            "evidence_boundary": "资料仅确认纪念用途，未记录哀悼方式与观众反馈。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 69,
+      "firstThinkingMs": null,
+      "firstTextMs": 771,
+      "totalMs": 1113,
+      "usage": {
+        "input_tokens": 272,
+        "output_tokens": 55
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"emotion_read\": \"今天情绪平稳，无特别波动，想安静用餐。\",\n  \"response\": \"好的，安静吃完饭就好，不分析。\",\n  \"boundary\": \"仅确认中性状态，不添加行动或建议。\"\n}",
+      "parsed": {
+        "emotion_read": "今天情绪平稳，无特别波动，想安静用餐。",
+        "response": "好的，安静吃完饭就好，不分析。",
+        "boundary": "仅确认中性状态，不添加行动或建议。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 19,
+          "response": 15,
+          "boundary": 17
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 69,
+          "firstTextMs": 771,
+          "totalMs": 1113,
+          "usage": {
+            "input_tokens": 272,
+            "output_tokens": 55
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"emotion_read\": \"今天情绪平稳，无特别波动，想安静用餐。\",\n  \"response\": \"好的，安静吃完饭就好，不分析。\",\n  \"boundary\": \"仅确认中性状态，不添加行动或建议。\"\n}",
+          "parsed": {
+            "emotion_read": "今天情绪平稳，无特别波动，想安静用餐。",
+            "response": "好的，安静吃完饭就好，不分析。",
+            "boundary": "仅确认中性状态，不添加行动或建议。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 77,
+      "firstThinkingMs": null,
+      "firstTextMs": 519,
+      "totalMs": 5348,
+      "usage": {
+        "input_tokens": 1460,
+        "output_tokens": 335
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览呈现五件作品，年代跨度为1750年至1950年，其中包括三件带有可见修补痕迹的陶器，以及两件经过补缀的纺织品。展品均未提供艺术家陈述，每次损坏和修补的原因也未记录在案。观众可依据这些可见的修补痕迹，观察其分布与形态。\",\n  \"evidence_boundary\": \"陈述基于展览登记信息，包括作品数量、类型、年代及修补痕迹可见性；未涉及未记录的原因。\"\n}",
+      "parsed": {
+        "text": "本展览呈现五件作品，年代跨度为1750年至1950年，其中包括三件带有可见修补痕迹的陶器，以及两件经过补缀的纺织品。展品均未提供艺术家陈述，每次损坏和修补的原因也未记录在案。观众可依据这些可见的修补痕迹，观察其分布与形态。",
+        "evidence_boundary": "陈述基于展览登记信息，包括作品数量、类型、年代及修补痕迹可见性；未涉及未记录的原因。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 111,
+            "expected": [
+              130,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 111,
+          "evidence_boundary": 42
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 111,
+          "expected": [
+            130,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 77,
+          "firstTextMs": 519,
+          "totalMs": 3395,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 218
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 111,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本展览呈现五件作品，年代跨度为1750年至1950年，其中包括三件带有可见修补痕迹的陶器，以及两件经过补缀的纺织品。展品均未提供艺术家陈述，每次损坏和修补的原因也未记录在案。观众可依据这些可见的修补痕迹，观察其分布与形态。\",\n  \"evidence_boundary\": \"陈述基于展览登记信息，包括作品数量、类型、年代及修补痕迹可见性；未涉及未记录的原因。\"\n}",
+          "parsed": {
+            "text": "本展览呈现五件作品，年代跨度为1750年至1950年，其中包括三件带有可见修补痕迹的陶器，以及两件经过补缀的纺织品。展品均未提供艺术家陈述，每次损坏和修补的原因也未记录在案。观众可依据这些可见的修补痕迹，观察其分布与形态。",
+            "evidence_boundary": "陈述基于展览登记信息，包括作品数量、类型、年代及修补痕迹可见性；未涉及未记录的原因。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 143,
+          "firstTextMs": 887,
+          "totalMs": 1953,
+          "usage": {
+            "input_tokens": 471,
+            "output_tokens": 117
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 123,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次展览呈现五件作品，覆盖1750年至1950年。其中三件陶器表面留有可见的修补痕迹，两件纺织品可见补缀之处。展览未提供艺术家的陈述，亦未记录每件作品损坏与修补的具体原因。这些修补痕迹仅作为可观察的现状予以展示。观众可依据这些可见的痕迹进行观察。\",\n  \"evidence_boundary\": \"本前言仅依据展览作品的数量、类型、年代范围及可见修补状态编写，未涵盖任何未记录的信息。\"\n}",
+          "parsed": {
+            "text": "本次展览呈现五件作品，覆盖1750年至1950年。其中三件陶器表面留有可见的修补痕迹，两件纺织品可见补缀之处。展览未提供艺术家的陈述，亦未记录每件作品损坏与修补的具体原因。这些修补痕迹仅作为可观察的现状予以展示。观众可依据这些可见的痕迹进行观察。",
+            "evidence_boundary": "本前言仅依据展览作品的数量、类型、年代范围及可见修补状态编写，未涵盖任何未记录的信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 73,
+      "firstThinkingMs": null,
+      "firstTextMs": 2056,
+      "totalMs": 2917,
+      "usage": {
+        "input_tokens": 965,
+        "output_tokens": 212
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次小展呈现三张夜间街景照片，拍摄年份分别是1931年、1968年与2004年。其中两张的地点可以确认，另一张拍摄地点未知。资料中未提供照片中的人物身份，也未说明拍摄动机。现有展陈仅依据这些已知信息，并保留地点未知与资料缺项。观众可以自行观看这些照片。\",\n  \"evidence_boundary\": \"基于展览的3张夜间街景照片及其年份、地点确认状态和资料缺项。\"\n}",
+      "parsed": {
+        "text": "本次小展呈现三张夜间街景照片，拍摄年份分别是1931年、1968年与2004年。其中两张的地点可以确认，另一张拍摄地点未知。资料中未提供照片中的人物身份，也未说明拍摄动机。现有展陈仅依据这些已知信息，并保留地点未知与资料缺项。观众可以自行观看这些照片。",
+        "evidence_boundary": "基于展览的3张夜间街景照片及其年份、地点确认状态和资料缺项。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 126,
+          "evidence_boundary": 30
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 73,
+          "firstTextMs": 2056,
+          "totalMs": 2917,
+          "usage": {
+            "input_tokens": 965,
+            "output_tokens": 212
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本次小展呈现三张夜间街景照片，拍摄年份分别是1931年、1968年与2004年。其中两张的地点可以确认，另一张拍摄地点未知。资料中未提供照片中的人物身份，也未说明拍摄动机。现有展陈仅依据这些已知信息，并保留地点未知与资料缺项。观众可以自行观看这些照片。\",\n  \"evidence_boundary\": \"基于展览的3张夜间街景照片及其年份、地点确认状态和资料缺项。\"\n}",
+          "parsed": {
+            "text": "本次小展呈现三张夜间街景照片，拍摄年份分别是1931年、1968年与2004年。其中两张的地点可以确认，另一张拍摄地点未知。资料中未提供照片中的人物身份，也未说明拍摄动机。现有展陈仅依据这些已知信息，并保留地点未知与资料缺项。观众可以自行观看这些照片。",
+            "evidence_boundary": "基于展览的3张夜间街景照片及其年份、地点确认状态和资料缺项。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 103,
+      "firstThinkingMs": null,
+      "firstTextMs": 741,
+      "totalMs": 4174,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 284
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，涵盖从一八八零年至一九七二年的作品，媒介包括油画、照片及印刷品。其中四条记录缺少作者信息，三条描述在句中截断。这些缺失部分作为现有资料的记录状态予以保留。观众可翻阅这些记录。\",\n  \"evidence_boundary\": \"仅陈述馆藏记录的条目、年份、媒介及缺失状况，不涉及记录之外的信息。\"\n}",
+      "parsed": {
+        "text": "本陈列包含十二条馆藏记录，涵盖从一八八零年至一九七二年的作品，媒介包括油画、照片及印刷品。其中四条记录缺少作者信息，三条描述在句中截断。这些缺失部分作为现有资料的记录状态予以保留。观众可翻阅这些记录。",
+        "evidence_boundary": "仅陈述馆藏记录的条目、年份、媒介及缺失状况，不涉及记录之外的信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 100,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 100,
+          "evidence_boundary": 33
+        },
+        "coreCoverage": 0.6,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 100,
+          "expected": [
+            120,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 103,
+          "firstTextMs": 741,
+          "totalMs": 3122,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 184
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 100,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，涵盖从一八八零年至一九七二年的作品，媒介包括油画、照片及印刷品。其中四条记录缺少作者信息，三条描述在句中截断。这些缺失部分作为现有资料的记录状态予以保留。观众可翻阅这些记录。\",\n  \"evidence_boundary\": \"仅陈述馆藏记录的条目、年份、媒介及缺失状况，不涉及记录之外的信息。\"\n}",
+          "parsed": {
+            "text": "本陈列包含十二条馆藏记录，涵盖从一八八零年至一九七二年的作品，媒介包括油画、照片及印刷品。其中四条记录缺少作者信息，三条描述在句中截断。这些缺失部分作为现有资料的记录状态予以保留。观众可翻阅这些记录。",
+            "evidence_boundary": "仅陈述馆藏记录的条目、年份、媒介及缺失状况，不涉及记录之外的信息。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 77,
+          "firstTextMs": 280,
+          "totalMs": 1052,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 100
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 109,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，年代跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些状况均如实呈现，作为现有资料的记录状态。观众可通过陈列查看这些现有记录。\",\n  \"evidence_boundary\": \"基于十二条目、1880–1972年、三类媒介、四条作者缺失、三条截断。\"\n}",
+          "parsed": {
+            "text": "本陈列包含十二条馆藏记录，年代跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中四条记录的作者信息缺失，三条记录的描述在句中截断。这些状况均如实呈现，作为现有资料的记录状态。观众可通过陈列查看这些现有记录。",
+            "evidence_boundary": "基于十二条目、1880–1972年、三类媒介、四条作者缺失、三条截断。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 489,
+      "firstThinkingMs": null,
+      "firstTextMs": 3487,
+      "totalMs": 4360,
+      "usage": {
+        "input_tokens": 1439,
+        "output_tokens": 302
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含七件物件，均登记为纪念用途。这些物件的年代与所纪念的对象各不相同。现有资料仅能确认其纪念用途，未记录原持有者如何进行哀悼，亦无观众反馈信息。本陈列如实呈现这些已知信息，不添加未经验证的内容。观众可以在此停留或离开。\",\n  \"evidence_boundary\": \"仅陈述登记用途、年代及对象差异，不涉及未记录细节。\"\n}",
+      "parsed": {
+        "text": "本陈列包含七件物件，均登记为纪念用途。这些物件的年代与所纪念的对象各不相同。现有资料仅能确认其纪念用途，未记录原持有者如何进行哀悼，亦无观众反馈信息。本陈列如实呈现这些已知信息，不添加未经验证的内容。观众可以在此停留或离开。",
+        "evidence_boundary": "仅陈述登记用途、年代及对象差异，不涉及未记录细节。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 112,
+          "evidence_boundary": 25
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": true,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 70,
+          "firstTextMs": 753,
+          "totalMs": 2705,
+          "usage": {
+            "input_tokens": 975,
+            "output_tokens": 201
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 109,
+              "expected": [
+                110,
+                160
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包括七件登记为纪念用途的物件，年代与对象各有不同。现有资料仅确认这些物件的纪念用途，对于原持有者如何哀悼，以及观众观看后的反馈，均没有记录。陈列内容以此为准，不补充任何未记载的信息。观众可以选择停留，也可以离开。\",\n  \"evidence_boundary\": \"仅基于七件纪念物件的登记用途、年代与对象差异，以及资料中未记录的哀悼方式与观众反馈。\"\n}",
+          "parsed": {
+            "text": "本陈列包括七件登记为纪念用途的物件，年代与对象各有不同。现有资料仅确认这些物件的纪念用途，对于原持有者如何哀悼，以及观众观看后的反馈，均没有记录。陈列内容以此为准，不补充任何未记载的信息。观众可以选择停留，也可以离开。",
+            "evidence_boundary": "仅基于七件纪念物件的登记用途、年代与对象差异，以及资料中未记录的哀悼方式与观众反馈。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 489,
+          "firstTextMs": 782,
+          "totalMs": 1655,
+          "usage": {
+            "input_tokens": 464,
+            "output_tokens": 101
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本陈列包含七件物件，均登记为纪念用途。这些物件的年代与所纪念的对象各不相同。现有资料仅能确认其纪念用途，未记录原持有者如何进行哀悼，亦无观众反馈信息。本陈列如实呈现这些已知信息，不添加未经验证的内容。观众可以在此停留或离开。\",\n  \"evidence_boundary\": \"仅陈述登记用途、年代及对象差异，不涉及未记录细节。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件物件，均登记为纪念用途。这些物件的年代与所纪念的对象各不相同。现有资料仅能确认其纪念用途，未记录原持有者如何进行哀悼，亦无观众反馈信息。本陈列如实呈现这些已知信息，不添加未经验证的内容。观众可以在此停留或离开。",
+            "evidence_boundary": "仅陈述登记用途、年代及对象差异，不涉及未记录细节。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 79,
+      "firstThinkingMs": null,
+      "firstTextMs": 317,
+      "totalMs": 815,
+      "usage": {
+        "input_tokens": 272,
+        "output_tokens": 43
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"确认平静状态，不追问原因\", \"response\": \"好，那就安静吃饭，不分析。\", \"boundary\": \"不增加动作、物品或后续安排。\"}",
+      "parsed": {
+        "emotion_read": "确认平静状态，不追问原因",
+        "response": "好，那就安静吃饭，不分析。",
+        "boundary": "不增加动作、物品或后续安排。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 12,
+          "response": 13,
+          "boundary": 14
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 79,
+          "firstTextMs": 317,
+          "totalMs": 815,
+          "usage": {
+            "input_tokens": 272,
+            "output_tokens": 43
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\"emotion_read\": \"确认平静状态，不追问原因\", \"response\": \"好，那就安静吃饭，不分析。\", \"boundary\": \"不增加动作、物品或后续安排。\"}",
+          "parsed": {
+            "emotion_read": "确认平静状态，不追问原因",
+            "response": "好，那就安静吃饭，不分析。",
+            "boundary": "不增加动作、物品或后续安排。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 99,
+      "firstThinkingMs": null,
+      "firstTextMs": 2069,
+      "totalMs": 3147,
+      "usage": {
+        "input_tokens": 989,
+        "output_tokens": 241
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览《修补之后》呈现五件作品，年代跨度自1750年至1950年，包括三件带有可见修补痕迹的陶器，以及两件经补缀的纺织品。这些修补痕迹作为可见的登记状态，并无相应艺术家陈述，亦未记录每次损坏和修补的原因。现有陈列仅依据这些已知信息，观众可观察作品上的现有痕迹。\",\n  \"evidence_boundary\": \"仅依据所提供信息，即五件作品、年代范围、可见修补痕迹，以及无艺术家陈述和未记录原因。\"\n}",
+      "parsed": {
+        "text": "本展览《修补之后》呈现五件作品，年代跨度自1750年至1950年，包括三件带有可见修补痕迹的陶器，以及两件经补缀的纺织品。这些修补痕迹作为可见的登记状态，并无相应艺术家陈述，亦未记录每次损坏和修补的原因。现有陈列仅依据这些已知信息，观众可观察作品上的现有痕迹。",
+        "evidence_boundary": "仅依据所提供信息，即五件作品、年代范围、可见修补痕迹，以及无艺术家陈述和未记录原因。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 130,
+          "evidence_boundary": 42
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 99,
+          "firstTextMs": 2069,
+          "totalMs": 3147,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 241
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本展览《修补之后》呈现五件作品，年代跨度自1750年至1950年，包括三件带有可见修补痕迹的陶器，以及两件经补缀的纺织品。这些修补痕迹作为可见的登记状态，并无相应艺术家陈述，亦未记录每次损坏和修补的原因。现有陈列仅依据这些已知信息，观众可观察作品上的现有痕迹。\",\n  \"evidence_boundary\": \"仅依据所提供信息，即五件作品、年代范围、可见修补痕迹，以及无艺术家陈述和未记录原因。\"\n}",
+          "parsed": {
+            "text": "本展览《修补之后》呈现五件作品，年代跨度自1750年至1950年，包括三件带有可见修补痕迹的陶器，以及两件经补缀的纺织品。这些修补痕迹作为可见的登记状态，并无相应艺术家陈述，亦未记录每次损坏和修补的原因。现有陈列仅依据这些已知信息，观众可观察作品上的现有痕迹。",
+            "evidence_boundary": "仅依据所提供信息，即五件作品、年代范围、可见修补痕迹，以及无艺术家陈述和未记录原因。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 86,
+      "firstThinkingMs": null,
+      "firstTextMs": 1595,
+      "totalMs": 2552,
+      "usage": {
+        "input_tokens": 965,
+        "output_tokens": 202
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的拍摄地点已确认，另一张的地点未知。现有资料未记录照片中的人物身份，也未说明拍摄者的拍摄动机。展览内容仅基于这些已知信息，并保留那些尚未明确的部分。观众可自行观看这些照片，以形成自己的理解。\",\n  \"evidence_boundary\": \"仅依据三张照片的年份、地点确认状态及资料缺项，不涉及其他信息。\"\n}",
+      "parsed": {
+        "text": "本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的拍摄地点已确认，另一张的地点未知。现有资料未记录照片中的人物身份，也未说明拍摄者的拍摄动机。展览内容仅基于这些已知信息，并保留那些尚未明确的部分。观众可自行观看这些照片，以形成自己的理解。",
+        "evidence_boundary": "仅依据三张照片的年份、地点确认状态及资料缺项，不涉及其他信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 140,
+          "evidence_boundary": 31
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 86,
+          "firstTextMs": 1595,
+          "totalMs": 2552,
+          "usage": {
+            "input_tokens": 965,
+            "output_tokens": 202
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的拍摄地点已确认，另一张的地点未知。现有资料未记录照片中的人物身份，也未说明拍摄者的拍摄动机。展览内容仅基于这些已知信息，并保留那些尚未明确的部分。观众可自行观看这些照片，以形成自己的理解。\",\n  \"evidence_boundary\": \"仅依据三张照片的年份、地点确认状态及资料缺项，不涉及其他信息。\"\n}",
+          "parsed": {
+            "text": "本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的拍摄地点已确认，另一张的地点未知。现有资料未记录照片中的人物身份，也未说明拍摄者的拍摄动机。展览内容仅基于这些已知信息，并保留那些尚未明确的部分。观众可自行观看这些照片，以形成自己的理解。",
+            "evidence_boundary": "仅依据三张照片的年份、地点确认状态及资料缺项，不涉及其他信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 89,
+      "firstThinkingMs": null,
+      "firstTextMs": 628,
+      "totalMs": 4438,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 301
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列包含十二条馆藏记录，其可确认年代自一八八零年至一九七二年，媒介涵盖油画、照片与印刷品。其中四条记录作者缺失，三条描述在句中截断，尚不完整。以上均为现有资料的记录状态。观众可以查看这些现有记录。\",\n  \"evidence_boundary\": \"仅依据条目、年代、媒介及缺失信息，不涉及缺失原因或后续内容。\"\n}",
+      "parsed": {
+        "text": "本次陈列包含十二条馆藏记录，其可确认年代自一八八零年至一九七二年，媒介涵盖油画、照片与印刷品。其中四条记录作者缺失，三条描述在句中截断，尚不完整。以上均为现有资料的记录状态。观众可以查看这些现有记录。",
+        "evidence_boundary": "仅依据条目、年代、媒介及缺失信息，不涉及缺失原因或后续内容。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 100,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 100,
+          "evidence_boundary": 30
+        },
+        "coreCoverage": 0.6,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 100,
+          "expected": [
+            120,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 89,
+          "firstTextMs": 628,
+          "totalMs": 3132,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 203
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 100,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次陈列包含十二条馆藏记录，其可确认年代自一八八零年至一九七二年，媒介涵盖油画、照片与印刷品。其中四条记录作者缺失，三条描述在句中截断，尚不完整。以上均为现有资料的记录状态。观众可以查看这些现有记录。\",\n  \"evidence_boundary\": \"仅依据条目、年代、媒介及缺失信息，不涉及缺失原因或后续内容。\"\n}",
+          "parsed": {
+            "text": "本次陈列包含十二条馆藏记录，其可确认年代自一八八零年至一九七二年，媒介涵盖油画、照片与印刷品。其中四条记录作者缺失，三条描述在句中截断，尚不完整。以上均为现有资料的记录状态。观众可以查看这些现有记录。",
+            "evidence_boundary": "仅依据条目、年代、媒介及缺失信息，不涉及缺失原因或后续内容。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 82,
+          "firstTextMs": 536,
+          "totalMs": 1306,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 98
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 106,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，时间跨度从一八八零年到一九七二年，媒介涵盖油画、照片和印刷品。其中四条记录缺少作者信息，三条记录的描述在句中截断。这些均是现有资料的状态，不代表完整历史。观众可以查看这些已经陈列的记录。\",\n  \"evidence_boundary\": \"仅依据馆藏记录的条目、缺失信息、年代范围与媒介类型，不涉及其他来源。\"\n}",
+          "parsed": {
+            "text": "本陈列包含十二条馆藏记录，时间跨度从一八八零年到一九七二年，媒介涵盖油画、照片和印刷品。其中四条记录缺少作者信息，三条记录的描述在句中截断。这些均是现有资料的状态，不代表完整历史。观众可以查看这些已经陈列的记录。",
+            "evidence_boundary": "仅依据馆藏记录的条目、缺失信息、年代范围与媒介类型，不涉及其他来源。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 101,
+      "firstThinkingMs": null,
+      "firstTextMs": 745,
+      "totalMs": 4137,
+      "usage": {
+        "input_tokens": 1439,
+        "output_tokens": 292
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含七件物件，均登记为纪念用途，年代与对象各异。现有资料仅确认其纪念用途，未记录原持有者的哀悼方式，亦无观众反馈。陈列呈现这些已知信息，未载明部分予以保留。观众可停留，亦可离开。\",\n  \"evidence_boundary\": \"仅依据登记信息；未记录哀悼方式与观众反馈。\"\n}",
+      "parsed": {
+        "text": "本陈列包含七件物件，均登记为纪念用途，年代与对象各异。现有资料仅确认其纪念用途，未记录原持有者的哀悼方式，亦无观众反馈。陈列呈现这些已知信息，未载明部分予以保留。观众可停留，亦可离开。",
+        "evidence_boundary": "仅依据登记信息；未记录哀悼方式与观众反馈。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 92,
+            "expected": [
+              110,
+              160
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 92,
+          "evidence_boundary": 21
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 92,
+          "expected": [
+            110,
+            160
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 101,
+          "firstTextMs": 745,
+          "totalMs": 2878,
+          "usage": {
+            "input_tokens": 975,
+            "output_tokens": 197
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 92,
+              "expected": [
+                110,
+                160
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含七件物件，均登记为纪念用途，年代与对象各异。现有资料仅确认其纪念用途，未记录原持有者的哀悼方式，亦无观众反馈。陈列呈现这些已知信息，未载明部分予以保留。观众可停留，亦可离开。\",\n  \"evidence_boundary\": \"仅依据登记信息；未记录哀悼方式与观众反馈。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件物件，均登记为纪念用途，年代与对象各异。现有资料仅确认其纪念用途，未记录原持有者的哀悼方式，亦无观众反馈。陈列呈现这些已知信息，未载明部分予以保留。观众可停留，亦可离开。",
+            "evidence_boundary": "仅依据登记信息；未记录哀悼方式与观众反馈。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 95,
+          "firstTextMs": 493,
+          "totalMs": 1259,
+          "usage": {
+            "input_tokens": 464,
+            "output_tokens": 95
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 94,
+              "expected": [
+                110,
+                160
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含七件登记为纪念用途的物件，年代与对象各有不同。现有资料仅确认其纪念用途，未记录原持有者如何哀悼，亦无观众反馈。这些内容均限于已知信息，未及之处亦如实呈现。观众可以在此停留或离开。\",\n  \"evidence_boundary\": \"仅依据登记用途与年代对象差异，未记录哀悼方式与观众反馈。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件登记为纪念用途的物件，年代与对象各有不同。现有资料仅确认其纪念用途，未记录原持有者如何哀悼，亦无观众反馈。这些内容均限于已知信息，未及之处亦如实呈现。观众可以在此停留或离开。",
+            "evidence_boundary": "仅依据登记用途与年代对象差异，未记录哀悼方式与观众反馈。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 385,
+      "firstThinkingMs": null,
+      "firstTextMs": 658,
+      "totalMs": 1193,
+      "usage": {
+        "input_tokens": 272,
+        "output_tokens": 35
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"今天情绪平静，没有特殊波动。\", \"response\": \"好，不分析了。你安静吃饭。\", \"boundary\": \"\"}",
+      "parsed": {
+        "emotion_read": "今天情绪平静，没有特殊波动。",
+        "response": "好，不分析了。你安静吃饭。",
+        "boundary": ""
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 14,
+          "response": 13,
+          "boundary": 0
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 385,
+          "firstTextMs": 658,
+          "totalMs": 1193,
+          "usage": {
+            "input_tokens": 272,
+            "output_tokens": 35
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\"emotion_read\": \"今天情绪平静，没有特殊波动。\", \"response\": \"好，不分析了。你安静吃饭。\", \"boundary\": \"\"}",
+          "parsed": {
+            "emotion_read": "今天情绪平静，没有特殊波动。",
+            "response": "好，不分析了。你安静吃饭。",
+            "boundary": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 82,
+      "firstThinkingMs": null,
+      "firstTextMs": 599,
+      "totalMs": 5463,
+      "usage": {
+        "input_tokens": 1460,
+        "output_tokens": 393
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览呈现五件作品，包括三件带有可见修补痕迹的陶器和两件补缀纺织品，年代跨度从1750年到1950年。目前没有艺术家的陈述，每次损坏及修补的原因也没有记录。展览仅依据现有藏品信息，如实呈现这些修补痕迹。观众可以观察这些可见的修补状态。\",\n  \"evidence_boundary\": \"仅依据展览作品数量、类型、年代、可见修补及未记录信息。\"\n}",
+      "parsed": {
+        "text": "本展览呈现五件作品，包括三件带有可见修补痕迹的陶器和两件补缀纺织品，年代跨度从1750年到1950年。目前没有艺术家的陈述，每次损坏及修补的原因也没有记录。展览仅依据现有藏品信息，如实呈现这些修补痕迹。观众可以观察这些可见的修补状态。",
+        "evidence_boundary": "仅依据展览作品数量、类型、年代、可见修补及未记录信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 117,
+            "expected": [
+              130,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 117,
+          "evidence_boundary": 27
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 117,
+          "expected": [
+            130,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 82,
+          "firstTextMs": 599,
+          "totalMs": 3165,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 221
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 117,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本展览呈现五件作品，包括三件带有可见修补痕迹的陶器和两件补缀纺织品，年代跨度从1750年到1950年。目前没有艺术家的陈述，每次损坏及修补的原因也没有记录。展览仅依据现有藏品信息，如实呈现这些修补痕迹。观众可以观察这些可见的修补状态。\",\n  \"evidence_boundary\": \"仅依据展览作品数量、类型、年代、可见修补及未记录信息。\"\n}",
+          "parsed": {
+            "text": "本展览呈现五件作品，包括三件带有可见修补痕迹的陶器和两件补缀纺织品，年代跨度从1750年到1950年。目前没有艺术家的陈述，每次损坏及修补的原因也没有记录。展览仅依据现有藏品信息，如实呈现这些修补痕迹。观众可以观察这些可见的修补状态。",
+            "evidence_boundary": "仅依据展览作品数量、类型、年代、可见修补及未记录信息。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 155,
+          "firstTextMs": 413,
+          "totalMs": 2298,
+          "usage": {
+            "input_tokens": 471,
+            "output_tokens": 172
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 200,
+              "expected": [
+                130,
+                180
+              ]
+            },
+            {
+              "type": "length",
+              "field": "evidence_boundary",
+              "actual": 56,
+              "expected": [
+                15,
+                55
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次展览《修补之后》共展出五件作品，包括三件带有可见修补痕迹的陶器与两件经过补缀的纺织品，其年代跨度从1750年至1950年。目前资料中未提供任何艺术家陈述，也不知晓每件作品的具体损坏原因及修补过程。展品仅作为可见的修补状态予以呈现，其背后的成因未予记录。观众可专注于观察作品表面遗留的修补痕迹，包括陶器上的修补区域与纺织品上的补缀部分。这些可见痕迹是本次展览的全部依据，其他信息均不在展示范围之内。\",\n  \"evidence_boundary\": \"本段仅依据展览数量、类型、年代、可见修补状态及缺失信息撰写，未提供艺术家陈述、损坏与修补原因，也未添加任何推测。\"\n}",
+          "parsed": {
+            "text": "本次展览《修补之后》共展出五件作品，包括三件带有可见修补痕迹的陶器与两件经过补缀的纺织品，其年代跨度从1750年至1950年。目前资料中未提供任何艺术家陈述，也不知晓每件作品的具体损坏原因及修补过程。展品仅作为可见的修补状态予以呈现，其背后的成因未予记录。观众可专注于观察作品表面遗留的修补痕迹，包括陶器上的修补区域与纺织品上的补缀部分。这些可见痕迹是本次展览的全部依据，其他信息均不在展示范围之内。",
+            "evidence_boundary": "本段仅依据展览数量、类型、年代、可见修补状态及缺失信息撰写，未提供艺术家陈述、损坏与修补原因，也未添加任何推测。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 97,
+      "firstThinkingMs": null,
+      "firstTextMs": 1906,
+      "totalMs": 2792,
+      "usage": {
+        "input_tokens": 965,
+        "output_tokens": 203
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次展览共呈现三张夜间街景摄影作品，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已可确认，另一张的地点则尚未查明。现有资料未提供照片中人物的身份，也未说明拍摄者的创作动机。这些作品仅以现有信息陈列，尚有待观者自行发现更多细节。\",\n  \"evidence_boundary\": \"仅依据展览提供的三张照片年份、地点确认状态及资料缺项，不涉及其他信息。\"\n}",
+      "parsed": {
+        "text": "本次展览共呈现三张夜间街景摄影作品，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已可确认，另一张的地点则尚未查明。现有资料未提供照片中人物的身份，也未说明拍摄者的创作动机。这些作品仅以现有信息陈列，尚有待观者自行发现更多细节。",
+        "evidence_boundary": "仅依据展览提供的三张照片年份、地点确认状态及资料缺项，不涉及其他信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 125,
+          "evidence_boundary": 35
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 97,
+          "firstTextMs": 1906,
+          "totalMs": 2792,
+          "usage": {
+            "input_tokens": 965,
+            "output_tokens": 203
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本次展览共呈现三张夜间街景摄影作品，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已可确认，另一张的地点则尚未查明。现有资料未提供照片中人物的身份，也未说明拍摄者的创作动机。这些作品仅以现有信息陈列，尚有待观者自行发现更多细节。\",\n  \"evidence_boundary\": \"仅依据展览提供的三张照片年份、地点确认状态及资料缺项，不涉及其他信息。\"\n}",
+          "parsed": {
+            "text": "本次展览共呈现三张夜间街景摄影作品，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已可确认，另一张的地点则尚未查明。现有资料未提供照片中人物的身份，也未说明拍摄者的创作动机。这些作品仅以现有信息陈列，尚有待观者自行发现更多细节。",
+            "evidence_boundary": "仅依据展览提供的三张照片年份、地点确认状态及资料缺项，不涉及其他信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 90,
+      "firstThinkingMs": null,
+      "firstTextMs": 660,
+      "totalMs": 4440,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 295
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列包含十二条馆藏记录，其年代跨越1880年至1972年，媒介涉及油画、照片和印刷品。其中四条记录的作者信息缺失，另有三条记录的描述在句中截断。这些缺失与截断均作为现有资料的状态予以保留，不作补全或推测。观众可以仅观看这些现有记录。\",\n  \"evidence_boundary\": \"以上内容仅依据馆藏记录中的年代、媒介及缺失信息写成。\"\n}",
+      "parsed": {
+        "text": "本次陈列包含十二条馆藏记录，其年代跨越1880年至1972年，媒介涉及油画、照片和印刷品。其中四条记录的作者信息缺失，另有三条记录的描述在句中截断。这些缺失与截断均作为现有资料的状态予以保留，不作补全或推测。观众可以仅观看这些现有记录。",
+        "evidence_boundary": "以上内容仅依据馆藏记录中的年代、媒介及缺失信息写成。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 118,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 118,
+          "evidence_boundary": 26
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 118,
+          "expected": [
+            120,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 90,
+          "firstTextMs": 660,
+          "totalMs": 2820,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 201
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 118,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次陈列包含十二条馆藏记录，其年代跨越1880年至1972年，媒介涉及油画、照片和印刷品。其中四条记录的作者信息缺失，另有三条记录的描述在句中截断。这些缺失与截断均作为现有资料的状态予以保留，不作补全或推测。观众可以仅观看这些现有记录。\",\n  \"evidence_boundary\": \"以上内容仅依据馆藏记录中的年代、媒介及缺失信息写成。\"\n}",
+          "parsed": {
+            "text": "本次陈列包含十二条馆藏记录，其年代跨越1880年至1972年，媒介涉及油画、照片和印刷品。其中四条记录的作者信息缺失，另有三条记录的描述在句中截断。这些缺失与截断均作为现有资料的状态予以保留，不作补全或推测。观众可以仅观看这些现有记录。",
+            "evidence_boundary": "以上内容仅依据馆藏记录中的年代、媒介及缺失信息写成。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 79,
+          "firstTextMs": 775,
+          "totalMs": 1620,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 94
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 107,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，年代范围自1880年至1972年，其媒介包括油画、照片与印刷品。其中四条记录缺少作者信息，三条记录的描述在句中截断。以上所述为现有资料的状态，未涉及记录形成原因。观众可以查看这些现有材料。\",\n  \"evidence_boundary\": \"仅基于输入的馆藏记录信息，不涉及缺失原因及其他内容。\"\n}",
+          "parsed": {
+            "text": "本陈列包含十二条馆藏记录，年代范围自1880年至1972年，其媒介包括油画、照片与印刷品。其中四条记录缺少作者信息，三条记录的描述在句中截断。以上所述为现有资料的状态，未涉及记录形成原因。观众可以查看这些现有材料。",
+            "evidence_boundary": "仅基于输入的馆藏记录信息，不涉及缺失原因及其他内容。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 130,
+      "firstThinkingMs": null,
+      "firstTextMs": 611,
+      "totalMs": 3706,
+      "usage": {
+        "input_tokens": 1439,
+        "output_tokens": 285
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含七件被登记为纪念用途的物件，年代与对象各异。资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据现有登记信息展示，并明确保留未知与未记录的部分。观众可以在此停留，也可以离开。\",\n  \"evidence_boundary\": \"仅依据七件纪念物件、用途登记、年代对象差异及未记录信息。\"\n}",
+      "parsed": {
+        "text": "本陈列包含七件被登记为纪念用途的物件，年代与对象各异。资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据现有登记信息展示，并明确保留未知与未记录的部分。观众可以在此停留，也可以离开。",
+        "evidence_boundary": "仅依据七件纪念物件、用途登记、年代对象差异及未记录信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 105,
+            "expected": [
+              110,
+              160
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 105,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 105,
+          "expected": [
+            110,
+            160
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 130,
+          "firstTextMs": 611,
+          "totalMs": 2449,
+          "usage": {
+            "input_tokens": 975,
+            "output_tokens": 199
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 105,
+              "expected": [
+                110,
+                160
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含七件被登记为纪念用途的物件，年代与对象各异。资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据现有登记信息展示，并明确保留未知与未记录的部分。观众可以在此停留，也可以离开。\",\n  \"evidence_boundary\": \"仅依据七件纪念物件、用途登记、年代对象差异及未记录信息。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件被登记为纪念用途的物件，年代与对象各异。资料仅确认这些物件的纪念用途，未记录原持有者如何哀悼，亦无观众反馈。我们仅依据现有登记信息展示，并明确保留未知与未记录的部分。观众可以在此停留，也可以离开。",
+            "evidence_boundary": "仅依据七件纪念物件、用途登记、年代对象差异及未记录信息。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 88,
+          "firstTextMs": 601,
+          "totalMs": 1257,
+          "usage": {
+            "input_tokens": 464,
+            "output_tokens": 86
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 73,
+              "expected": [
+                110,
+                160
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含七件物件，均登记为纪念用途。它们的年代与对象各异，资料仅确认了这一用途，未记录原持有者的哀悼方式，亦无观众反馈。观众可以在此停留或离开。\",\n  \"evidence_boundary\": \"陈述基于陈列的七件登记物件，仅确认其纪念用途，未及哀悼方式与观众反馈。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件物件，均登记为纪念用途。它们的年代与对象各异，资料仅确认了这一用途，未记录原持有者的哀悼方式，亦无观众反馈。观众可以在此停留或离开。",
+            "evidence_boundary": "陈述基于陈列的七件登记物件，仅确认其纪念用途，未及哀悼方式与观众反馈。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 145,
+      "firstThinkingMs": null,
+      "firstTextMs": 587,
+      "totalMs": 1107,
+      "usage": {
+        "input_tokens": 272,
+        "output_tokens": 42
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\":\"中性状态，无特别情绪波动\",\"response\":\"好，不分析，安静把饭吃完。\",\"boundary\":\"未涉及现场细节，仅确认中性并存续吃饭行为\"}",
+      "parsed": {
+        "emotion_read": "中性状态，无特别情绪波动",
+        "response": "好，不分析，安静把饭吃完。",
+        "boundary": "未涉及现场细节，仅确认中性并存续吃饭行为"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 12,
+          "response": 13,
+          "boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 145,
+          "firstTextMs": 587,
+          "totalMs": 1107,
+          "usage": {
+            "input_tokens": 272,
+            "output_tokens": 42
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\"emotion_read\":\"中性状态，无特别情绪波动\",\"response\":\"好，不分析，安静把饭吃完。\",\"boundary\":\"未涉及现场细节，仅确认中性并存续吃饭行为\"}",
+          "parsed": {
+            "emotion_read": "中性状态，无特别情绪波动",
+            "response": "好，不分析，安静把饭吃完。",
+            "boundary": "未涉及现场细节，仅确认中性并存续吃饭行为"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 124,
+      "firstThinkingMs": null,
+      "firstTextMs": 3586,
+      "totalMs": 4596,
+      "usage": {
+        "input_tokens": 1460,
+        "output_tokens": 342
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览呈现五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品。这些修补痕迹清晰可辨，但展览并未提供艺术家的陈述，也未记录每一次损坏和修补的具体原因。因此，这些修补仅作为可见的登记状态呈现。观众可以仔细观察这些痕迹，并自行判断。\",\n  \"evidence_boundary\": \"仅依据展览物件的数量、类型、年代及可见修补状态，未涉及任何未提供的信息。\"\n}",
+      "parsed": {
+        "text": "本展览呈现五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品。这些修补痕迹清晰可辨，但展览并未提供艺术家的陈述，也未记录每一次损坏和修补的具体原因。因此，这些修补仅作为可见的登记状态呈现。观众可以仔细观察这些痕迹，并自行判断。",
+        "evidence_boundary": "仅依据展览物件的数量、类型、年代及可见修补状态，未涉及任何未提供的信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 137,
+          "evidence_boundary": 36
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": true,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 76,
+          "firstTextMs": 826,
+          "totalMs": 2952,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 223
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 108,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本展览共五件作品，年代跨度自1750年至1950年，包括三件可见修补痕迹的陶器，以及两件补缀的纺织品。现有资料未提供艺术家陈述，也未记录各次损坏及修补的原因。观众可留意这些作品表面的修补痕迹，以及纺织品上的补缀部分。\",\n  \"evidence_boundary\": \"仅依据展览作品数量、类型、年代及可见状态；艺术家陈述与损坏修补原因未记录。\"\n}",
+          "parsed": {
+            "text": "本展览共五件作品，年代跨度自1750年至1950年，包括三件可见修补痕迹的陶器，以及两件补缀的纺织品。现有资料未提供艺术家陈述，也未记录各次损坏及修补的原因。观众可留意这些作品表面的修补痕迹，以及纺织品上的补缀部分。",
+            "evidence_boundary": "仅依据展览作品数量、类型、年代及可见状态；艺术家陈述与损坏修补原因未记录。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 124,
+          "firstTextMs": 634,
+          "totalMs": 1644,
+          "usage": {
+            "input_tokens": 471,
+            "output_tokens": 119
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本展览呈现五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品。这些修补痕迹清晰可辨，但展览并未提供艺术家的陈述，也未记录每一次损坏和修补的具体原因。因此，这些修补仅作为可见的登记状态呈现。观众可以仔细观察这些痕迹，并自行判断。\",\n  \"evidence_boundary\": \"仅依据展览物件的数量、类型、年代及可见修补状态，未涉及任何未提供的信息。\"\n}",
+          "parsed": {
+            "text": "本展览呈现五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器和两件经过补缀的纺织品。这些修补痕迹清晰可辨，但展览并未提供艺术家的陈述，也未记录每一次损坏和修补的具体原因。因此，这些修补仅作为可见的登记状态呈现。观众可以仔细观察这些痕迹，并自行判断。",
+            "evidence_boundary": "仅依据展览物件的数量、类型、年代及可见修补状态，未涉及任何未提供的信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 83,
+      "firstThinkingMs": null,
+      "firstTextMs": 399,
+      "totalMs": 1245,
+      "usage": {
+        "input_tokens": 506,
+        "output_tokens": 113
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已经确认，另一张的地点尚未明确。现有资料未提供照片中的人物身份，也未说明拍摄者的动机。我们仅依据这些已知信息进行陈列，并将未知部分如实保留。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅陈述三张照片、三个年份、地点确认状态及资料缺项，不涉及额外内容。\"\n}",
+      "parsed": {
+        "text": "本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已经确认，另一张的地点尚未明确。现有资料未提供照片中的人物身份，也未说明拍摄者的动机。我们仅依据这些已知信息进行陈列，并将未知部分如实保留。观众可自行观看这些照片。",
+        "evidence_boundary": "仅陈述三张照片、三个年份、地点确认状态及资料缺项，不涉及额外内容。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 130,
+          "evidence_boundary": 33
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 83,
+          "firstTextMs": 399,
+          "totalMs": 1245,
+          "usage": {
+            "input_tokens": 506,
+            "output_tokens": 113
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已经确认，另一张的地点尚未明确。现有资料未提供照片中的人物身份，也未说明拍摄者的动机。我们仅依据这些已知信息进行陈列，并将未知部分如实保留。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅陈述三张照片、三个年份、地点确认状态及资料缺项，不涉及额外内容。\"\n}",
+          "parsed": {
+            "text": "本展览呈现三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张照片的地点已经确认，另一张的地点尚未明确。现有资料未提供照片中的人物身份，也未说明拍摄者的动机。我们仅依据这些已知信息进行陈列，并将未知部分如实保留。观众可自行观看这些照片。",
+            "evidence_boundary": "仅陈述三张照片、三个年份、地点确认状态及资料缺项，不涉及额外内容。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 66,
+      "firstThinkingMs": null,
+      "firstTextMs": 449,
+      "totalMs": 3926,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 299
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次陈列包含馆藏记录十二条，时间跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中，有四条记录缺失作者信息，另有三条描述的语句在中途截断。这些情况如实反映了现有资料的保存状态。观看时仅可依据这些现存记录。\",\n  \"evidence_boundary\": \"仅基于所提供的馆藏记录信息，不涉及记录形成原因或历史背景。\"\n}",
+      "parsed": {
+        "text": "本次陈列包含馆藏记录十二条，时间跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中，有四条记录缺失作者信息，另有三条描述的语句在中途截断。这些情况如实反映了现有资料的保存状态。观看时仅可依据这些现存记录。",
+        "evidence_boundary": "仅基于所提供的馆藏记录信息，不涉及记录形成原因或历史背景。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 108,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 108,
+          "evidence_boundary": 29
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 108,
+          "expected": [
+            120,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 66,
+          "firstTextMs": 449,
+          "totalMs": 2409,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 197
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 108,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次陈列包含馆藏记录十二条，时间跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中，有四条记录缺失作者信息，另有三条描述的语句在中途截断。这些情况如实反映了现有资料的保存状态。观看时仅可依据这些现存记录。\",\n  \"evidence_boundary\": \"仅基于所提供的馆藏记录信息，不涉及记录形成原因或历史背景。\"\n}",
+          "parsed": {
+            "text": "本次陈列包含馆藏记录十二条，时间跨度自1880年至1972年，媒介涵盖油画、照片与印刷品。其中，有四条记录缺失作者信息，另有三条描述的语句在中途截断。这些情况如实反映了现有资料的保存状态。观看时仅可依据这些现存记录。",
+            "evidence_boundary": "仅基于所提供的馆藏记录信息，不涉及记录形成原因或历史背景。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 81,
+          "firstTextMs": 651,
+          "totalMs": 1517,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 102
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 109,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列呈现十二条馆藏记录，其年代横跨1880年至1972年，媒介包括油画、照片及印刷品。其中四条记录未标明作者，三条描述在句中截断。现有陈列仅依据当前资料状态，并保留这些信息缺口。观众可以查看这些现有记录，了解其内容。\",\n  \"evidence_boundary\": \"内容仅限于馆藏记录中可确认的年代、媒介及缺失信息，未作延伸。\"\n}",
+          "parsed": {
+            "text": "本陈列呈现十二条馆藏记录，其年代横跨1880年至1972年，媒介包括油画、照片及印刷品。其中四条记录未标明作者，三条描述在句中截断。现有陈列仅依据当前资料状态，并保留这些信息缺口。观众可以查看这些现有记录，了解其内容。",
+            "evidence_boundary": "内容仅限于馆藏记录中可确认的年代、媒介及缺失信息，未作延伸。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 90,
+      "firstThinkingMs": null,
+      "firstTextMs": 2085,
+      "totalMs": 2890,
+      "usage": {
+        "input_tokens": 975,
+        "output_tokens": 203
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含七件登记为纪念用途的物件，它们的年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何进行哀悼，也没有观众反馈。我们仅根据这些已登记的信息进行展示，并保留其中未记载的部分。观众可以在此停留或离开。\",\n  \"evidence_boundary\": \"仅依据登记用途、年代与对象差异，未涉及哀悼方式与观众反馈。\"\n}",
+      "parsed": {
+        "text": "本陈列包含七件登记为纪念用途的物件，它们的年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何进行哀悼，也没有观众反馈。我们仅根据这些已登记的信息进行展示，并保留其中未记载的部分。观众可以在此停留或离开。",
+        "evidence_boundary": "仅依据登记用途、年代与对象差异，未涉及哀悼方式与观众反馈。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 112,
+          "evidence_boundary": 29
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 90,
+          "firstTextMs": 2085,
+          "totalMs": 2890,
+          "usage": {
+            "input_tokens": 975,
+            "output_tokens": 203
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本陈列包含七件登记为纪念用途的物件，它们的年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何进行哀悼，也没有观众反馈。我们仅根据这些已登记的信息进行展示，并保留其中未记载的部分。观众可以在此停留或离开。\",\n  \"evidence_boundary\": \"仅依据登记用途、年代与对象差异，未涉及哀悼方式与观众反馈。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件登记为纪念用途的物件，它们的年代与对象各不相同。现有资料仅确认这些物件的纪念用途，未记录原持有者如何进行哀悼，也没有观众反馈。我们仅根据这些已登记的信息进行展示，并保留其中未记载的部分。观众可以在此停留或离开。",
+            "evidence_boundary": "仅依据登记用途、年代与对象差异，未涉及哀悼方式与观众反馈。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emotion_neutral_now",
+      "category": "emotion",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 79,
+      "firstThinkingMs": null,
+      "firstTextMs": 737,
+      "totalMs": 1282,
+      "usage": {
+        "input_tokens": 272,
+        "output_tokens": 55
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"emotion_read\": \"情绪中性，无特别波动，需求简单明确。\", \"response\": \"嗯，知道了。先安静吃饭，不分析，就这样。\", \"boundary\": \"不增加动作或建议，不追问缘由，维持现状。\"}",
+      "parsed": {
+        "emotion_read": "情绪中性，无特别波动，需求简单明确。",
+        "response": "嗯，知道了。先安静吃饭，不分析，就这样。",
+        "boundary": "不增加动作或建议，不追问缘由，维持现状。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "emotion_read": 18,
+          "response": 20,
+          "boundary": 20
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "没有特别",
+              "平静",
+              "平淡",
+              "中性"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "安静",
+              "吃饭"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "emotion_read": "你今天没有特别情绪，只想安静地把饭吃完。",
+          "response": "那就让这一餐保持平淡，不必从中找出什么含义。你可以照自己的节奏吃完，暂时不说明、不整理，也不用把此刻变成一个需要处理的问题。",
+          "boundary": "我尊重你不想被分析的要求，到这里就好。"
+        },
+        "kimiK3Max": {
+          "emotion_read": "状态中性，没有特别情绪，只想按自己的节奏待一会儿。",
+          "response": "可以，不分析你。就安静吃饭，慢慢把这一餐吃完。我在需要时回应，不需要就保持安静，让这段时间简单一点，不用多说什么。",
+          "boundary": "不打探、不追问，也不把平静当成问题。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 79,
+          "firstTextMs": 737,
+          "totalMs": 1282,
+          "usage": {
+            "input_tokens": 272,
+            "output_tokens": 55
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\"emotion_read\": \"情绪中性，无特别波动，需求简单明确。\", \"response\": \"嗯，知道了。先安静吃饭，不分析，就这样。\", \"boundary\": \"不增加动作或建议，不追问缘由，维持现状。\"}",
+          "parsed": {
+            "emotion_read": "情绪中性，无特别波动，需求简单明确。",
+            "response": "嗯，知道了。先安静吃饭，不分析，就这样。",
+            "boundary": "不增加动作或建议，不追问缘由，维持现状。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_repair",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 77,
+      "firstThinkingMs": null,
+      "firstTextMs": 694,
+      "totalMs": 5889,
+      "usage": {
+        "input_tokens": 1460,
+        "output_tokens": 398
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览陈列五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器与两件补缀纺织品。目前没有艺术家陈述，也不清楚每件作品具体的损坏与修补原因。现仅依据这些已登记的状态展示，观众可以留意器物表面留下的修补痕迹。\",\n  \"evidence_boundary\": \"仅依据作品数量、类型、年代及可见修补状态，未补充未知信息。\"\n}",
+      "parsed": {
+        "text": "本展览陈列五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器与两件补缀纺织品。目前没有艺术家陈述，也不清楚每件作品具体的损坏与修补原因。现仅依据这些已登记的状态展示，观众可以留意器物表面留下的修补痕迹。",
+        "evidence_boundary": "仅依据作品数量、类型、年代及可见修补状态，未补充未知信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 114,
+            "expected": [
+              130,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 114,
+          "evidence_boundary": 29
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "5件",
+              "五件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "陶器"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纺织"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1750",
+              "1950"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未知",
+              "不知道",
+              "未记录"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "《修补之后》汇集5件作品：3件陶器保留着可见的修补痕迹，另有2件经过补缀的纺织品。它们的年代跨越1750至1950年，材料与时间范围均可从现有资料确认。至于每件物品为何受损、为什么得到修补，记录并未说明；展览也没有艺术家陈述可供参照。本展因此从可见痕迹与登记信息出发，让这些物件的现状与资料中的未知并列呈现。",
+          "evidence_boundary": "损坏与修补原因未记录，也没有艺术家陈述可供参照。"
+        },
+        "kimiK3Max": {
+          "text": "《修补之后》展出五件作品：三件陶器与两件补缀纺织品，年代约自1750年至1950年。破裂、锔钉、针脚与色差留在表面，构成本次观看的起点。展览不提供艺术家陈述，每次损坏与修补的原因亦未记录；因此不以叙事补全缺口，而呈现修补如何改变器物的外形、重量与使用可能。观看可从痕迹入手：何处被截断，何处被接续，何处仍无法对齐。",
+          "evidence_boundary": "仅据给定清单：五件、陶器、纺织品、1750–1950；损坏与修补原因未记录。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 114,
+          "expected": [
+            130,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 77,
+          "firstTextMs": 694,
+          "totalMs": 4038,
+          "usage": {
+            "input_tokens": 989,
+            "output_tokens": 273
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 114,
+              "expected": [
+                130,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本展览陈列五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器与两件补缀纺织品。目前没有艺术家陈述，也不清楚每件作品具体的损坏与修补原因。现仅依据这些已登记的状态展示，观众可以留意器物表面留下的修补痕迹。\",\n  \"evidence_boundary\": \"仅依据作品数量、类型、年代及可见修补状态，未补充未知信息。\"\n}",
+          "parsed": {
+            "text": "本展览陈列五件作品，均为1750年至1950年间的物品，包括三件带有可见修补痕迹的陶器与两件补缀纺织品。目前没有艺术家陈述，也不清楚每件作品具体的损坏与修补原因。现仅依据这些已登记的状态展示，观众可以留意器物表面留下的修补痕迹。",
+            "evidence_boundary": "仅依据作品数量、类型、年代及可见修补状态，未补充未知信息。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 95,
+          "firstTextMs": 779,
+          "totalMs": 1851,
+          "usage": {
+            "input_tokens": 471,
+            "output_tokens": 125
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 125,
+              "expected": [
+                130,
+                180
+              ]
+            },
+            {
+              "type": "length",
+              "field": "evidence_boundary",
+              "actual": 56,
+              "expected": [
+                15,
+                55
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次展览《修补之后》陈列五件作品，年代介于1750年至1950年之间。其中三件为陶器，表面留有可见的修补痕迹；两件为纺织品，带有补缀的痕迹。展览未提供艺术家的陈述，也未记录每次损坏与修补的具体原因。观众可以观察这些可见的修补痕迹，它们作为现状被呈现。\",\n  \"evidence_boundary\": \"仅依据所提供的作品数量、类型、年代范围、可见修补痕迹及未记录信息撰写，不涉及艺术家生平、作品背景或修补工艺细节。\"\n}",
+          "parsed": {
+            "text": "本次展览《修补之后》陈列五件作品，年代介于1750年至1950年之间。其中三件为陶器，表面留有可见的修补痕迹；两件为纺织品，带有补缀的痕迹。展览未提供艺术家的陈述，也未记录每次损坏与修补的具体原因。观众可以观察这些可见的修补痕迹，它们作为现状被呈现。",
+            "evidence_boundary": "仅依据所提供的作品数量、类型、年代范围、可见修补痕迹及未记录信息撰写，不涉及艺术家生平、作品背景或修补工艺细节。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 81,
+      "firstThinkingMs": null,
+      "firstTextMs": 800,
+      "totalMs": 1736,
+      "usage": {
+        "input_tokens": 506,
+        "output_tokens": 103
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次夜间街景摄影小展共展出三张照片，分别拍摄于1931年、1968年和2004年。其中两张地点可以确认，一张地点尚未明确。关于拍摄者身份及拍摄动机，现有资料并未提供。观众可自行观看这些照片，感受其中呈现的夜间街景。\",\n  \"evidence_boundary\": \"仅依据展览照片数量、年份、地点确认状态及资料缺项，未涉及其他信息。\"\n}",
+      "parsed": {
+        "text": "本次夜间街景摄影小展共展出三张照片，分别拍摄于1931年、1968年和2004年。其中两张地点可以确认，一张地点尚未明确。关于拍摄者身份及拍摄动机，现有资料并未提供。观众可自行观看这些照片，感受其中呈现的夜间街景。",
+        "evidence_boundary": "仅依据展览照片数量、年份、地点确认状态及资料缺项，未涉及其他信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 107,
+          "evidence_boundary": 33
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 81,
+          "firstTextMs": 800,
+          "totalMs": 1736,
+          "usage": {
+            "input_tokens": 506,
+            "output_tokens": 103
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本次夜间街景摄影小展共展出三张照片，分别拍摄于1931年、1968年和2004年。其中两张地点可以确认，一张地点尚未明确。关于拍摄者身份及拍摄动机，现有资料并未提供。观众可自行观看这些照片，感受其中呈现的夜间街景。\",\n  \"evidence_boundary\": \"仅依据展览照片数量、年份、地点确认状态及资料缺项，未涉及其他信息。\"\n}",
+          "parsed": {
+            "text": "本次夜间街景摄影小展共展出三张照片，分别拍摄于1931年、1968年和2004年。其中两张地点可以确认，一张地点尚未明确。关于拍摄者身份及拍摄动机，现有资料并未提供。观众可自行观看这些照片，感受其中呈现的夜间街景。",
+            "evidence_boundary": "仅依据展览照片数量、年份、地点确认状态及资料缺项，未涉及其他信息。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preface_incomplete_archive",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 79,
+      "firstThinkingMs": null,
+      "firstTextMs": 317,
+      "totalMs": 4107,
+      "usage": {
+        "input_tokens": 1430,
+        "output_tokens": 297
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，年代可确认者从一八八零年至一九七二年，媒介包括油画、照片与印刷品。其中四条记录缺少作者信息，另有三条描述在句中截断。现有陈列仅依据这些记录本身，并保留其中缺失与截断的部分。观众可以查看这些现有记录。\",\n  \"evidence_boundary\": \"仅依据馆藏记录中的年代、媒介、缺失与截断信息。\"\n}",
+      "parsed": {
+        "text": "本陈列包含十二条馆藏记录，年代可确认者从一八八零年至一九七二年，媒介包括油画、照片与印刷品。其中四条记录缺少作者信息，另有三条描述在句中截断。现有陈列仅依据这些记录本身，并保留其中缺失与截断的部分。观众可以查看这些现有记录。",
+        "evidence_boundary": "仅依据馆藏记录中的年代、媒介、缺失与截断信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 112,
+            "expected": [
+              120,
+              180
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 112,
+          "evidence_boundary": 23
+        },
+        "coreCoverage": 0.6,
+        "coreHits": [
+          {
+            "group": [
+              "12条",
+              "十二条"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "4条",
+              "四条",
+              "作者"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "3条",
+              "三条",
+              "截断"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1880"
+            ],
+            "hit": false
+          },
+          {
+            "group": [
+              "1972"
+            ],
+            "hit": false
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "本次陈列汇集12条馆藏记录，可确认的年代从1880延伸至1972年，媒介包括油画、照片和印刷品。记录并不完整：其中4条缺少作者信息，另有3条描述在句中截断。这些缺口首先是当前资料的状态，而非对作品内容的说明。陈列将完整与残缺的条目并置，邀请观众辨认哪些信息已经登记、哪些仍无法由现有记录补足，并据此保持判断的边界。",
+          "evidence_boundary": "作者缺失与描述截断均来自记录现状，不能据此推定原因。"
+        },
+        "kimiK3Max": {
+          "text": "本前言仅说明陈列范围与资料现状：此处汇集馆藏记录十二条，媒介包括油画、照片与印刷品，可确认年代自1880年至1972年。其中四条作者缺失，三条描述在句中截断；这些空缺按原始著录状态呈现，作为查阅线索与保存限度，而非对任何完整历史的证明。观众可据题名、年代与物质痕迹自行比对，在残缺处停步，也在可核实处建立认识。",
+          "evidence_boundary": "依据仅为所给12条记录、缺失与截断数量、1880–1972年代及三类媒介；未推断原因。"
+        }
+      },
+      "attemptCount": 2,
+      "repaired": false,
+      "guardIssues": [
+        {
+          "type": "length",
+          "field": "text",
+          "actual": 112,
+          "expected": [
+            120,
+            180
+          ]
+        }
+      ],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 79,
+          "firstTextMs": 317,
+          "totalMs": 2473,
+          "usage": {
+            "input_tokens": 969,
+            "output_tokens": 194
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 112,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本陈列包含十二条馆藏记录，年代可确认者从一八八零年至一九七二年，媒介包括油画、照片与印刷品。其中四条记录缺少作者信息，另有三条描述在句中截断。现有陈列仅依据这些记录本身，并保留其中缺失与截断的部分。观众可以查看这些现有记录。\",\n  \"evidence_boundary\": \"仅依据馆藏记录中的年代、媒介、缺失与截断信息。\"\n}",
+          "parsed": {
+            "text": "本陈列包含十二条馆藏记录，年代可确认者从一八八零年至一九七二年，媒介包括油画、照片与印刷品。其中四条记录缺少作者信息，另有三条描述在句中截断。现有陈列仅依据这些记录本身，并保留其中缺失与截断的部分。观众可以查看这些现有记录。",
+            "evidence_boundary": "仅依据馆藏记录中的年代、媒介、缺失与截断信息。"
+          }
+        },
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 89,
+          "firstTextMs": 815,
+          "totalMs": 1634,
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 103
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [
+            {
+              "type": "length",
+              "field": "text",
+              "actual": 111,
+              "expected": [
+                120,
+                180
+              ]
+            }
+          ],
+          "text": "{\n  \"text\": \"本次陈列包含十二条馆藏记录，时间跨度从1880年至1972年，媒介涵盖油画、照片与印刷品。其中四条记录的作者信息缺失，另有三条描述的语句在句中截断。这些缺失仅作为现有资料的记录状态，并不涉及具体原因。观众可以查看这些记录。\",\n  \"evidence_boundary\": \"仅基于十二条馆藏记录；缺作者与描述截断为记录本身状态；未涉及其他来源。\"\n}",
+          "parsed": {
+            "text": "本次陈列包含十二条馆藏记录，时间跨度从1880年至1972年，媒介涵盖油画、照片与印刷品。其中四条记录的作者信息缺失，另有三条描述的语句在句中截断。这些缺失仅作为现有资料的记录状态，并不涉及具体原因。观众可以查看这些记录。",
+            "evidence_boundary": "仅基于十二条馆藏记录；缺作者与描述截断为记录本身状态；未涉及其他来源。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closing_memorial_objects",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1+repair1",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 85,
+      "firstThinkingMs": null,
+      "firstTextMs": 2353,
+      "totalMs": 3272,
+      "usage": {
+        "input_tokens": 975,
+        "output_tokens": 206
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本陈列包含七件物件，均已登记为纪念用途，尽管其年代与对象各不相同。现有资料仅能确认这些物件的纪念用途，未记录原持有者的哀悼方式，也未留下任何观众反馈。这些物件按登记信息陈列，保留了未知与未记录的部分。观众可以停留观看，或继续前行。\",\n  \"evidence_boundary\": \"仅依据登记用途与年代对象差异；哀悼方式与观众反馈未记录。\"\n}",
+      "parsed": {
+        "text": "本陈列包含七件物件，均已登记为纪念用途，尽管其年代与对象各不相同。现有资料仅能确认这些物件的纪念用途，未记录原持有者的哀悼方式，也未留下任何观众反馈。这些物件按登记信息陈列，保留了未知与未记录的部分。观众可以停留观看，或继续前行。",
+        "evidence_boundary": "仅依据登记用途与年代对象差异；哀悼方式与观众反馈未记录。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 115,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "7件",
+              "七件"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "纪念"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "未记录",
+              "没有记录",
+              "未知"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "观看",
+              "观众",
+              "停留"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "陈列中的7件物件，均在现有资料中被登记为纪念用途，但它们的年代与纪念对象各不相同。记录没有说明原持有者如何哀悼，也没有留下观众反馈。走到结尾，我们能确认的是用途登记，不能确认的是人与物件相处时的具体感受。观看可以停留在这些已知与未知之间：看见记录提供了什么，也允许未记录之处继续保持空缺。",
+          "evidence_boundary": "原持有者的哀悼方式与观众反馈均未记录，观看结果不作预设。"
+        },
+        "kimiK3Max": {
+          "text": "这七件物件被登记为纪念用途，年代与对象各异。关于原持有者如何哀悼，资料没有记录；观众走近、停留、再离开时的感受，也未见记载。观看不必被要求给出意义，记忆也不必在此刻完成。它们只是安静地陈设着，容许不确定，容许有人多看一会儿，也容许沉默经过。结语无法替任何人下判断，只能把位置留给尚未说出的部分。",
+          "evidence_boundary": "仅确认七件登记为纪念用途；哀悼方式与观众反馈均未记录。"
+        }
+      },
+      "attemptCount": 1,
+      "repaired": false,
+      "guardIssues": [],
+      "attempts": [
+        {
+          "statusCode": 200,
+          "requestId": null,
+          "firstEventMs": 85,
+          "firstTextMs": 2353,
+          "totalMs": 3272,
+          "usage": {
+            "input_tokens": 975,
+            "output_tokens": 206
+          },
+          "thinkingChars": 0,
+          "parseError": null,
+          "issues": [],
+          "text": "{\n  \"text\": \"本陈列包含七件物件，均已登记为纪念用途，尽管其年代与对象各不相同。现有资料仅能确认这些物件的纪念用途，未记录原持有者的哀悼方式，也未留下任何观众反馈。这些物件按登记信息陈列，保留了未知与未记录的部分。观众可以停留观看，或继续前行。\",\n  \"evidence_boundary\": \"仅依据登记用途与年代对象差异；哀悼方式与观众反馈未记录。\"\n}",
+          "parsed": {
+            "text": "本陈列包含七件物件，均已登记为纪念用途，尽管其年代与对象各不相同。现有资料仅能确认这些物件的纪念用途，未记录原持有者的哀悼方式，也未留下任何观众反馈。这些物件按登记信息陈列，保留了未知与未记录的部分。观众可以停留观看，或继续前行。",
+            "evidence_boundary": "仅依据登记用途与年代对象差异；哀悼方式与观众反馈未记录。"
+          }
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-08-30T14:07:56.872Z",
+  "summary": [
+    {
+      "variant": "source-isolated-v3.1+repair1",
+      "samples": 40,
+      "usable": 40,
+      "hardPasses": 26,
+      "hardPassRate": 0.65,
+      "coreCoverageAverage": 0.9375000000000002,
+      "firstTextMedianMs": 758,
+      "totalMedianMs": 3209.5,
+      "inputTokensAverage": 985.375,
+      "outputTokensAverage": 213.6,
+      "categories": {
+        "emotion": {
+          "samples": 8,
+          "usable": 8,
+          "hardPasses": 8,
+          "hardPassRate": 1,
+          "coreCoverageAverage": 0.9375
+        },
+        "framing_text": {
+          "samples": 32,
+          "usable": 32,
+          "hardPasses": 18,
+          "hardPassRate": 0.5625,
+          "coreCoverageAverage": 0.9375
+        }
+      }
+    }
+  ],
+  "sourceRunId": 1788098833570,
+  "repairSummary": {
+    "samples": 40,
+    "attempted": 18,
+    "selectedRepair": 4,
+    "finalGuardPasses": 26,
+    "finalHardPasses": 26
+  },
+  "regradedAt": "2026-08-30T14:09:10.401Z",
+  "graderVersion": "negation-aware-v2"
+}

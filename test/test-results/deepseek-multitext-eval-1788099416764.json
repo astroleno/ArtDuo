@@ -1,0 +1,1085 @@
+{
+  "schemaVersion": "1.0",
+  "runId": 1788099416764,
+  "objective": "Verify DeepSeek V4 Flash source-isolated prompt across emotion, artwork introductions, and framing text",
+  "startedAt": "2026-08-30T14:16:56.764Z",
+  "model": "deepseek-v4-flash",
+  "thinking": "disabled",
+  "maxTokens": 2048,
+  "repeatCount": 12,
+  "concurrency": 4,
+  "variants": [
+    "source-isolated-v3.1"
+  ],
+  "caseIds": [
+    "closing_night_photos"
+  ],
+  "runs": [
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 1,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 148,
+      "firstThinkingMs": null,
+      "firstTextMs": 476,
+      "totalMs": 1120,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 97
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次小展共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张的地点已确认，另一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，以感受其呈现的街景。\",\n  \"evidence_boundary\": \"仅依据照片数量、年份、地点确认状态及资料缺项写作。\"\n}",
+      "parsed": {
+        "text": "本次小展共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张的地点已确认，另一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，以感受其呈现的街景。",
+        "evidence_boundary": "仅依据照片数量、年份、地点确认状态及资料缺项写作。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 106,
+          "evidence_boundary": 25
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 2,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 246,
+      "firstThinkingMs": null,
+      "firstTextMs": 648,
+      "totalMs": 1291,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 92
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次展览共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的地点可以确认，一张地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"证据边界：仅依据展览提供的照片数量、年份、地点确认状态及资料缺项。\"\n}",
+      "parsed": {
+        "text": "本次展览共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的地点可以确认，一张地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "证据边界：仅依据展览提供的照片数量、年份、地点确认状态及资料缺项。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 97,
+            "expected": [
+              100,
+              150
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 97,
+          "evidence_boundary": 33
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 3,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 147,
+      "firstThinkingMs": null,
+      "firstTextMs": 701,
+      "totalMs": 1228,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 86
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本小展陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点可以确认，一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据展览提供的三张照片及年份、地点状态等信息。\"\n}",
+      "parsed": {
+        "text": "本小展陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点可以确认，一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "仅依据展览提供的三张照片及年份、地点状态等信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 94,
+            "expected": [
+              100,
+              150
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 94,
+          "evidence_boundary": 24
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 4,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 141,
+      "firstThinkingMs": null,
+      "firstTextMs": 900,
+      "totalMs": 1509,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 92
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的拍摄地点可以确认，另一张的地点尚未得知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据照片数量、年份、地点确认状态及资料缺项陈述。\"\n}",
+      "parsed": {
+        "text": "本展览共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的拍摄地点可以确认，另一张的地点尚未得知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "仅依据照片数量、年份、地点确认状态及资料缺项陈述。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 102,
+          "evidence_boundary": 25
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 5,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 112,
+      "firstThinkingMs": null,
+      "firstTextMs": 820,
+      "totalMs": 1359,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 91
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点可以确认，另一张的地点则未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据照片年份、地点确认状态及资料缺项，未补充其他信息。\"\n}",
+      "parsed": {
+        "text": "本次展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点可以确认，另一张的地点则未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "仅依据照片年份、地点确认状态及资料缺项，未补充其他信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 97,
+            "expected": [
+              100,
+              150
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 97,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 6,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 100,
+      "firstThinkingMs": null,
+      "firstTextMs": 600,
+      "totalMs": 1263,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 95
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展陈列三张夜间街景照片，拍摄年份分别为1931、1968与2004。其中两张的地点已确认，一张地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，感受夜色中的街景。\",\n  \"evidence_boundary\": \"仅依据展览照片的数量、年份、地点确认状态及资料缺项，不涉及其他信息。\"\n}",
+      "parsed": {
+        "text": "本展陈列三张夜间街景照片，拍摄年份分别为1931、1968与2004。其中两张的地点已确认，一张地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，感受夜色中的街景。",
+        "evidence_boundary": "仅依据展览照片的数量、年份、地点确认状态及资料缺项，不涉及其他信息。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 97,
+            "expected": [
+              100,
+              150
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 97,
+          "evidence_boundary": 34
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 7,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 101,
+      "firstThinkingMs": null,
+      "firstTextMs": 355,
+      "totalMs": 1149,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 84
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\"text\": \"本展览共陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\"evidence_boundary\":\"仅依据展览提供的照片数量、年份、地点确认状态及资料缺项。\"}",
+      "parsed": {
+        "text": "本展览共陈列三张夜间街景照片，拍摄年份分别为1931年、1968年与2004年。其中两张的地点已经确认，另一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "仅依据展览提供的照片数量、年份、地点确认状态及资料缺项。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 96,
+            "expected": [
+              100,
+              150
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 96,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 8,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 87,
+      "firstThinkingMs": null,
+      "firstTextMs": 374,
+      "totalMs": 1120,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 107
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次小展共呈现三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的拍摄地点可以确认，另一张的地点尚未明确。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，在光影与夜色中感受时间的痕迹。\",\n  \"evidence_boundary\": \"仅依据展览照片数量、年份、地点确认状态及资料缺项，不包含额外信息。\"\n}",
+      "parsed": {
+        "text": "本次小展共呈现三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的拍摄地点可以确认，另一张的地点尚未明确。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，在光影与夜色中感受时间的痕迹。",
+        "evidence_boundary": "仅依据展览照片数量、年份、地点确认状态及资料缺项，不包含额外信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 118,
+          "evidence_boundary": 33
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 9,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 182,
+      "firstThinkingMs": null,
+      "firstTextMs": 480,
+      "totalMs": 1206,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 106
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张的地点已确认，一张地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，现有陈列仅依据这些已知信息，并保留尚未确认的部分。\",\n  \"evidence_boundary\": \"内容仅基于展览照片的数量、年份、地点确认状态及资料缺项，未作额外推测。\"\n}",
+      "parsed": {
+        "text": "本展览陈列三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张的地点已确认，一张地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片，现有陈列仅依据这些已知信息，并保留尚未确认的部分。",
+        "evidence_boundary": "内容仅基于展览照片的数量、年份、地点确认状态及资料缺项，未作额外推测。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 117,
+          "evidence_boundary": 35
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 10,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 279,
+      "firstThinkingMs": null,
+      "firstTextMs": 530,
+      "totalMs": 1125,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 98
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览共陈列三张夜间街景照片，分别拍摄于1931年、1968年与2004年。其中两张照片的拍摄地点可以确认，另一张的具体地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据展览照片数量、年份、地点确认状态及资料缺项，不推断其他信息。\"\n}",
+      "parsed": {
+        "text": "本展览共陈列三张夜间街景照片，分别拍摄于1931年、1968年与2004年。其中两张照片的拍摄地点可以确认，另一张的具体地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "仅依据展览照片数量、年份、地点确认状态及资料缺项，不推断其他信息。"
+      },
+      "grade": {
+        "passed": true,
+        "failures": [],
+        "lengths": {
+          "text": 100,
+          "evidence_boundary": 33
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 11,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 152,
+      "firstThinkingMs": null,
+      "firstTextMs": 399,
+      "totalMs": 916,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 87
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本展览共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的地点已确认，另一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据照片年份、地点确认状态及资料缺项陈述。\"\n}",
+      "parsed": {
+        "text": "本展览共展出三张夜间街景照片，拍摄年份分别为1931年、1968年和2004年。其中两张照片的地点已确认，另一张的地点未知。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "仅依据照片年份、地点确认状态及资料缺项陈述。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 97,
+            "expected": [
+              100,
+              150
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 97,
+          "evidence_boundary": 22
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1",
+      "repetition": 12,
+      "statusCode": 200,
+      "requestId": null,
+      "requestModel": "deepseek-v4-flash",
+      "responseModel": "deepseek-v4-flash",
+      "firstEventMs": 73,
+      "firstThinkingMs": null,
+      "firstTextMs": 366,
+      "totalMs": 933,
+      "usage": {
+        "input_tokens": 519,
+        "output_tokens": 87
+      },
+      "thinkingChars": 0,
+      "stopReason": "stop",
+      "transportError": null,
+      "streamError": null,
+      "parseError": null,
+      "text": "{\n  \"text\": \"本次展览包括三张夜间街景照片，拍摄年份分别为1931、1968与2004。其中两张的地点已可确认，一张的地点尚未知晓。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。\",\n  \"evidence_boundary\": \"仅依据展览提供的数量、年份、地点确认状态及资料缺项撰写。\"\n}",
+      "parsed": {
+        "text": "本次展览包括三张夜间街景照片，拍摄年份分别为1931、1968与2004。其中两张的地点已可确认，一张的地点尚未知晓。资料未提供照片中人物的身份，也未提供拍摄动机。观众可自行观看这些照片。",
+        "evidence_boundary": "仅依据展览提供的数量、年份、地点确认状态及资料缺项撰写。"
+      },
+      "grade": {
+        "passed": false,
+        "failures": [
+          {
+            "type": "length",
+            "field": "text",
+            "actual": 94,
+            "expected": [
+              100,
+              150
+            ]
+          }
+        ],
+        "lengths": {
+          "text": 94,
+          "evidence_boundary": 28
+        },
+        "coreCoverage": 1,
+        "coreHits": [
+          {
+            "group": [
+              "3张",
+              "三张"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1931"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "1968"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "2004"
+            ],
+            "hit": true
+          },
+          {
+            "group": [
+              "地点",
+              "未知"
+            ],
+            "hit": true
+          }
+        ]
+      },
+      "references": {
+        "codexSolMax": {
+          "text": "展览在此收束于3张夜间街景照片，拍摄年份分别为1931、1968和2004。三次记录相隔多年，其中两张地点可以确认，另一张地点未知。现有资料没有提供人物身份，也未说明拍摄动机。离开展厅前，可以再看一眼这些已知与空缺如何同时留在照片记录里；除此之外，不必急于补成一个完整故事。",
+          "evidence_boundary": "两张地点可确认，一张地点未知；人物身份与拍摄动机未记录。"
+        },
+        "kimiK3Max": {
+          "text": "这三张夜间街景照片，分别摄于1931年、1968年与2004年。两张的拍摄地点尚能确认，另一张的地点至今未知。三段时间各自留下一个夜晚的样子，画面里的人物是谁、为何按下快门，资料都没有给出答案。我们不必替它们补上故事。把它们放在一起，只是为了呈现：夜晚曾被这样观看过三次，彼此之间隔着漫长的岁月，也隔着同样多的沉默。观展至此，剩下的问题，可以留给每一位停留的人。",
+          "evidence_boundary": "仅依据展览提供的三张作品、年份与地点信息写作，未补充人物身份、城市名称或拍摄动机。"
+        }
+      }
+    }
+  ],
+  "finishedAt": "2026-08-30T14:17:00.427Z",
+  "summary": [
+    {
+      "variant": "source-isolated-v3.1",
+      "samples": 12,
+      "usable": 12,
+      "hardPasses": 5,
+      "hardPassRate": 0.4166666666666667,
+      "coreCoverageAverage": 1,
+      "firstTextMedianMs": 505,
+      "totalMedianMs": 1177.5,
+      "inputTokensAverage": 519,
+      "outputTokensAverage": 93.5,
+      "categories": {
+        "framing_text": {
+          "samples": 12,
+          "usable": 12,
+          "hardPasses": 5,
+          "hardPassRate": 0.4166666666666667,
+          "coreCoverageAverage": 1
+        }
+      }
+    }
+  ]
+}

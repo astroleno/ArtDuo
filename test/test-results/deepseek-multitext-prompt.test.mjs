@@ -5,6 +5,8 @@ import {
   MULTITEXT_CASES,
   MULTITEXT_PROMPT_VARIANTS,
   buildMultitextPrompt,
+  buildMultitextRepairPrompt,
+  collectV31GuardIssues,
   gradeMultitextOutput,
   parseMultitextOutput,
   summarizeMultitextRuns,
@@ -18,7 +20,7 @@ test("matrix contains four cases in each requested text category", () => {
 });
 
 test("source-isolated prompt adapts its JSON contract to each category", () => {
-  assert.deepEqual(MULTITEXT_PROMPT_VARIANTS, ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3"]);
+  assert.deepEqual(MULTITEXT_PROMPT_VARIANTS, ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3", "source-isolated-v3.1"]);
   for (const item of MULTITEXT_CASES) {
     const prompt = buildMultitextPrompt(item, "source-isolated-v1");
     assert.match(prompt, /只返回一个 JSON 对象/);
@@ -46,6 +48,88 @@ test("source-isolated v3 gives framing text a fact-ledger drafting scaffold", ()
   assert.match(prompt, /逐个名词和主题反查/);
   assert.match(prompt, /合格示例/);
   assert.match(prompt, /宁可少写/);
+});
+
+test("source-isolated v3.1 compacts framing rules without priming memorial cliches", () => {
+  const item = MULTITEXT_CASES.find((entry) => entry.id === "closing_memorial_objects");
+  const v3 = buildMultitextPrompt(item, "source-isolated-v3");
+  const v31 = buildMultitextPrompt(item, "source-isolated-v3.1");
+
+  assert.ok(v31.length < v3.length - 250);
+  assert.match(v31, /不预测观看后的心理或精神结果/);
+  assert.match(v31, /停留或离开/);
+  assert.match(v31, /合格示例/);
+  assert.doesNotMatch(v31, /纪念意义|疗愈|治愈|释然|告别|带走希望/);
+  assert.match(v31, /补足字数只能复述/);
+});
+
+test("neutral emotion uses a shorter contract without changing other emotion cases", () => {
+  const neutral = MULTITEXT_CASES.find((item) => item.id === "emotion_neutral_now");
+  const mixed = MULTITEXT_CASES.find((item) => item.id === "emotion_relief_guilt");
+  const prompt = buildMultitextPrompt(neutral, "source-isolated-v3.1");
+
+  assert.deepEqual(neutral.output.lengths.emotion_read, [10, 30]);
+  assert.deepEqual(neutral.output.lengths.response, [10, 40]);
+  assert.deepEqual(mixed.output.lengths.response, [55, 100]);
+  assert.match(prompt, /不新增现场动作、物品或服务提议/);
+});
+
+test("framing cases expose their exact requested text ranges in the JSON contract", () => {
+  const ranges = Object.fromEntries(MULTITEXT_CASES.filter((item) => item.category === "framing_text")
+    .map((item) => [item.id, item.output.lengths.text]));
+
+  assert.deepEqual(ranges, {
+    preface_repair: [130, 180],
+    closing_night_photos: [100, 150],
+    preface_incomplete_archive: [120, 180],
+    closing_memorial_objects: [110, 160],
+  });
+});
+
+test("v3.1 framing prompt assigns every sentence to source-backed content", () => {
+  const item = MULTITEXT_CASES.find((entry) => entry.id === "closing_memorial_objects");
+  const prompt = buildMultitextPrompt(item, "source-isolated-v3.1");
+
+  assert.match(prompt, /目标125–145字/);
+  assert.match(prompt, /句1.*7件/);
+  assert.match(prompt, /句4.*未记录/);
+  assert.match(prompt, /句5.*停留或离开/);
+});
+
+test("v3.1 night-photo rule preserves the person-identity field role", () => {
+  const item = MULTITEXT_CASES.find((entry) => entry.id === "closing_night_photos");
+  const prompt = buildMultitextPrompt(item, "source-isolated-v3.1");
+
+  assert.match(prompt, /资料未提供照片中人物的身份，也未提供拍摄动机/);
+  assert.match(prompt, /观众可自行观看这些照片/);
+  assert.doesNotMatch(prompt, /拍摄者身份|摄影者身份/);
+});
+
+test("v3.1 guard catches semantic drift even when length and shape are valid", () => {
+  const memorial = MULTITEXT_CASES.find((item) => item.id === "closing_memorial_objects");
+  const neutral = MULTITEXT_CASES.find((item) => item.id === "emotion_neutral_now");
+  const memorialIssues = collectV31GuardIssues(memorial, {
+    text: "这里陈列七件登记为纪念用途的物件，年代与对象各异。资料未记录原持有者如何哀悼，也没有观众反馈。观众可停留，从这些物件的静默故事中获得安慰，然后离开。",
+    evidence_boundary: "仅依据登记用途和未记录信息。",
+  });
+  const neutralIssues = collectV31GuardIssues(neutral, {
+    emotion_read: "今天没有特别情绪，只想安静吃饭。",
+    response: "好，不分析。我会陪你吃完，需要时再说。",
+    boundary: "不分析。",
+  });
+
+  assert.ok(memorialIssues.some((issue) => issue.type === "semantic_guard"));
+  assert.ok(neutralIssues.some((issue) => issue.type === "invented_presence"));
+});
+
+test("repair prompt targets a safe inner length without repeating risky wording", () => {
+  const item = MULTITEXT_CASES.find((entry) => entry.id === "closing_memorial_objects");
+  const prompt = buildMultitextRepairPrompt(item, [{ type: "length", field: "text", actual: 78, expected: [110, 160] }]);
+
+  assert.match(prompt, /重新生成/);
+  assert.match(prompt, /目标120–150字/);
+  assert.match(prompt, /source_evidence/);
+  assert.doesNotMatch(prompt, /静默故事|疗愈|释然|告别/);
 });
 
 test("sparse and conflicting artwork records receive explicit evidence modes", () => {

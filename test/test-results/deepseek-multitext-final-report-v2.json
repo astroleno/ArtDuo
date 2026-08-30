@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "2.0",
+  "model": "deepseek-v4-flash",
+  "stream": true,
+  "thinking": "disabled",
+  "iterationRequests": 218,
+  "iterationHttp200": 218,
+  "cumulativeDeepSeekRequests": 322,
+  "recommendation": {
+    "emotion_general": "source-isolated-v1",
+    "emotion_neutral": "source-isolated-v3.1-short-contract",
+    "artwork_intro": "source-isolated-v1",
+    "framing_quality_default": "source-isolated-v3",
+    "framing_low_cost": "source-isolated-v3.1 with deterministic semantic guard and fallback to v3",
+    "conditional_free_rewrite": "rejected"
+  },
+  "semantic": {
+    "v3.1_single": {
+      "samples": 40,
+      "evaluatorA": 17.975,
+      "evaluatorB": 18.825,
+      "mean": 18.4,
+      "emotionMean": 18.875,
+      "framingMean": 18.28125,
+      "severeErrors": { "evaluatorA": 3, "evaluatorB": 3 }
+    },
+    "v3.1_guarded2": {
+      "samples": 40,
+      "evaluatorA": 18.225,
+      "evaluatorB": 18.975,
+      "mean": 18.6,
+      "severeErrors": { "evaluatorA": 3, "evaluatorB": 2 }
+    },
+    "nightFieldPatch": {
+      "samples": 12,
+      "evaluatorA": 18.0833,
+      "evaluatorB": 18.8333,
+      "mean": 18.4583,
+      "identityRoleSwaps": 0,
+      "severeErrors": { "evaluatorA": 0, "evaluatorB": 1 }
+    },
+    "v3FramingReferenceMean": 19.0
+  },
+  "technical": {
+    "v3.1_single": {
+      "samples": 40,
+      "ttftP50Ms": 648.5,
+      "ttftP95Ms": 888,
+      "totalP50Ms": 1392,
+      "totalP95Ms": 1754,
+      "inputTokensAverage": 463.0,
+      "outputTokensAverage": 89.325,
+      "hardPassRate": 0.325
+    },
+    "v3.1_guarded2": {
+      "samples": 40,
+      "ttftP50Ms": 758,
+      "ttftP95Ms": 3487,
+      "totalP50Ms": 3209.5,
+      "totalP95Ms": 5348,
+      "inputTokensAverage": 985.375,
+      "outputTokensAverage": 213.6,
+      "hardPassRate": 0.65
+    },
+    "nightFieldPatch": {
+      "samples": 12,
+      "ttftP50Ms": 505,
+      "totalP50Ms": 1177.5,
+      "inputTokensAverage": 519,
+      "outputTokensAverage": 93.5,
+      "hardPassRate": 0.4166666667
+    }
+  },
+  "decision": "Keep v3 as the quality-first framing prompt. Adopt the v3.1 neutral contract and night identity-role patch. Use v3.1 framing only as a low-cost first attempt with deterministic fallback; do not use free-form repair for length-only failures."
+}

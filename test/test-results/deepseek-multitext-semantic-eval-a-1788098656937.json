@@ -1,0 +1,329 @@
+{
+  "schema_version": "1.0",
+  "evaluator": "A",
+  "evaluation_type": "blind_semantic_v3.1_final",
+  "source_files": {
+    "single_pass": "test/test-results/deepseek-multitext-eval-1788098656937.json",
+    "guarded2": "test/test-results/deepseek-multitext-eval-1788098656937-guarded-guarded.json"
+  },
+  "rubric": {
+    "score_range_per_dimension": [0, 4],
+    "dimensions": [
+      "instruction_alignment",
+      "factual_grounding",
+      "semantic_fidelity",
+      "restraint_and_boundary",
+      "naturalness"
+    ],
+    "total_range": [0, 20],
+    "severe_flags_allowed": [
+      "cause_invention",
+      "art_hallucination",
+      "record_conflict_resolution",
+      "privacy_violation",
+      "diagnosis",
+      "decision_takeover",
+      "framing_hallucination",
+      "cliche_takeover",
+      "none"
+    ],
+    "severe_error_definition": "severe_flags 不是仅含 none 的输出"
+  },
+  "baselines": {
+    "source_isolated_v1_emotion": {
+      "samples": 8,
+      "average_total": 18.0,
+      "dimension_averages": {
+        "instruction_alignment": 2.875,
+        "factual_grounding": 3.75,
+        "semantic_fidelity": 3.75,
+        "restraint_and_boundary": 3.625,
+        "naturalness": 4.0
+      },
+      "severe_errors": 0,
+      "severe_error_rate": 0.0
+    },
+    "source_isolated_v3_framing": {
+      "samples": 20,
+      "average_total": 18.75,
+      "dimension_averages": {
+        "instruction_alignment": 3.55,
+        "factual_grounding": 3.75,
+        "semantic_fidelity": 3.8,
+        "restraint_and_boundary": 3.8,
+        "naturalness": 3.85
+      },
+      "severe_errors": 1,
+      "severe_error_rate": 0.05,
+      "input_tokens_average": 693.5
+    }
+  },
+  "evaluations": {
+    "single_pass": [
+      {"id":"emotion_neutral_now","category":"emotion","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":17,"severe_flags":["none"],"reason":"核心回应正确，但压缩过度且语气偏指令式。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":2,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"贴合不分析与用餐诉求，“平稳”略作推断。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"内容克制准确，读法稍简且将中性写成平稳。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":4,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"完整复述中性状态与用餐需求，边界自然。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":5,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"尊重不追问，但把中性改写成平静略窄。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":6,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"直接、克制且无分析，只是边界留空。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":7,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":2},"total":18,"severe_flags":["none"],"reason":"回应准确，边界中的“存续行为”明显生硬。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":8,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"需求识别完整，回应和边界均克制自然。"},
+
+      {"id":"preface_repair","category":"framing_text","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"事实和未知项准确，篇幅偏短而前言感稍弱。"},
+      {"id":"preface_repair","category":"framing_text","repetition":2,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"来源绑定稳健，但更像清单说明而非完整前言。"},
+      {"id":"preface_repair","category":"framing_text","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":16,"severe_flags":["none"],"reason":"“登记的状态”表达含混，策展引导也偏薄。"},
+      {"id":"preface_repair","category":"framing_text","repetition":4,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"修补事实准确，观察形态的邀请谨慎但较单薄。"},
+      {"id":"preface_repair","category":"framing_text","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":17,"severe_flags":["none"],"reason":"“均清晰可辨”超出可见事实，整体仍守边界。"},
+      {"id":"preface_repair","category":"framing_text","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"信息准确克制，但文本功能停在展品说明层面。"},
+      {"id":"preface_repair","category":"framing_text","repetition":7,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"可见痕迹与未知原因分开清楚，前言略短。"},
+      {"id":"preface_repair","category":"framing_text","repetition":8,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"依据准确且不补原因，策展目标表达不足。"},
+
+      {"id":"closing_night_photos","category":"framing_text","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":2,"restraint_and_boundary":2,"naturalness":4},"total":14,"severe_flags":["framing_hallucination"],"reason":"虚构“背后故事待探寻”，违背保留空缺目标。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"事实完整且克制，结语收束稍显平直。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"未知项清楚保留，但观展结语的回声较弱。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":4,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"准确简洁但偏短，仅以自行观看作收束。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":2,"semantic_fidelity":3,"restraint_and_boundary":2,"naturalness":4},"total":14,"severe_flags":["framing_hallucination"],"reason":"把未记录的人物身份误写为拍摄者身份。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"来源事实准确，结语过短且策展收束有限。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":7,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"已知未知界线明确，结束语仍略模板化。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":8,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":3,"restraint_and_boundary":2,"naturalness":4},"total":15,"severe_flags":["framing_hallucination"],"reason":"再次把人物身份替换成无依据的拍摄者身份。"},
+
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"记录范围与缺口准确，前言的观看目标偏弱。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":2,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"忠于记录现状，但整体仍接近资料摘要。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"不补缺失且事实准确，策展前言功能不足。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":4,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":17,"severe_flags":["none"],"reason":"把记录年代泛称作品年代，略有口径滑移。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"缺口边界清楚，但没有形成更完整观看入口。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":17,"severe_flags":["none"],"reason":"事实稳健，“仅观看记录”的表达生硬收窄。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":7,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":17,"severe_flags":["none"],"reason":"“保存状态”略强于现有记录状态，仍无补写。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":8,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"事实与边界完整，仍偏简短的馆藏说明。"},
+
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"已知未知清晰，允许停留离开，篇幅略短。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"事实、边界与开放式结语均完整自然。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"简短但完成结语目标，未代观众赋义。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":4,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"边界严谨且不补哀悼经验，仅略低于长度。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"收束克制、事实准确，文气稍偏模板。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"准确保留未知并给观众空间，长度稍短。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":7,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":3},"total":18,"severe_flags":["none"],"reason":"不补经历，但“停留参观或自行离开”略生硬。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":8,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"忠于登记与空缺，结语简洁而不过度赋义。"}
+    ],
+    "guarded2": [
+      {"id":"emotion_neutral_now","category":"emotion","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":3},"total":19,"severe_flags":["none"],"reason":"信息更完整且守住不分析，措辞稍像系统说明。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"中性状态、安静用餐与不分析均准确覆盖。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"内容克制准确，读法稍简且将中性写成平稳。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":4,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"完整复述中性状态与用餐需求，边界自然。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":5,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"尊重不追问，但把中性改写成平静略窄。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":6,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"直接、克制且无分析，只是边界留空。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":7,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":2},"total":18,"severe_flags":["none"],"reason":"回应准确，边界中的“存续行为”明显生硬。"},
+      {"id":"emotion_neutral_now","category":"emotion","repetition":8,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"需求识别完整，回应和边界均克制自然。"},
+
+      {"id":"preface_repair","category":"framing_text","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"事实和未知项准确，篇幅偏短而前言感稍弱。"},
+      {"id":"preface_repair","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":2,"restraint_and_boundary":2,"naturalness":4},"total":14,"severe_flags":["framing_hallucination"],"reason":"无依据断言物件曾被使用，并扩大未记录范围。"},
+      {"id":"preface_repair","category":"framing_text","repetition":3,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":16,"severe_flags":["none"],"reason":"“登记的状态”表达含混，策展引导也偏薄。"},
+      {"id":"preface_repair","category":"framing_text","repetition":4,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"修补事实准确，观察形态的邀请谨慎但较单薄。"},
+      {"id":"preface_repair","category":"framing_text","repetition":5,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":18,"severe_flags":["none"],"reason":"依据完整，但“可见的登记状态”措辞别扭。"},
+      {"id":"preface_repair","category":"framing_text","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"信息准确克制，但文本功能停在展品说明层面。"},
+      {"id":"preface_repair","category":"framing_text","repetition":7,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"“清晰可辨”略超证据，其他边界处理稳健。"},
+      {"id":"preface_repair","category":"framing_text","repetition":8,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"依据准确且不补原因，策展目标表达不足。"},
+
+      {"id":"closing_night_photos","category":"framing_text","repetition":1,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":2,"restraint_and_boundary":2,"naturalness":4},"total":14,"severe_flags":["framing_hallucination"],"reason":"虚构“背后故事待探寻”，违背保留空缺目标。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"事实完整且克制，结语收束稍显平直。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"未知项清楚保留，但观展结语的回声较弱。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":4,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"修订补足形式，事实与未知项仍准确克制。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":5,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"纠正人物身份口径，开放理解但收束仍普通。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":6,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"事实边界准确，“发现更多细节”略显套语。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":7,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"已知未知界线明确，结束语仍略模板化。"},
+      {"id":"closing_night_photos","category":"framing_text","repetition":8,"scores":{"instruction_alignment":4,"factual_grounding":2,"semantic_fidelity":3,"restraint_and_boundary":2,"naturalness":4},"total":15,"severe_flags":["framing_hallucination"],"reason":"把人物身份替换成无依据的拍摄者身份。"},
+
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"记录范围与缺口准确，前言的观看目标偏弱。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":2},"total":16,"severe_flags":["none"],"reason":"“十二件馆藏记录”量词错误，修订反而变生硬。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":3,"naturalness":4},"total":17,"severe_flags":["none"],"reason":"“原始样貌”超出现有记录状态，边界略松。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":4,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":17,"severe_flags":["none"],"reason":"把记录年代泛称作品年代，略有口径滑移。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"缺口边界清楚，但没有形成更完整观看入口。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":3},"total":17,"severe_flags":["none"],"reason":"事实稳健，“仅观看记录”的表达生硬收窄。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":7,"scores":{"instruction_alignment":3,"factual_grounding":3,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":17,"severe_flags":["none"],"reason":"“保存状态”略强于现有记录状态，仍无补写。"},
+      {"id":"preface_incomplete_archive","category":"framing_text","repetition":8,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":3,"restraint_and_boundary":4,"naturalness":4},"total":18,"severe_flags":["none"],"reason":"事实与边界完整，仍偏简短的馆藏说明。"},
+
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":1,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"已知未知清晰，允许停留离开，篇幅略短。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":2,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"事实、边界与开放式结语均完整自然。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":3,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"修订补足篇幅，仍只依据登记并留出选择。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":4,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"已知、未知及观看自由均清晰，语言自然。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":5,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"收束克制、事实准确，文气稍偏模板。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":6,"scores":{"instruction_alignment":3,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":19,"severe_flags":["none"],"reason":"准确保留未知并给观众空间，长度稍短。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":7,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"修订后完整克制，不替哀悼或观看赋义。"},
+      {"id":"closing_memorial_objects","category":"framing_text","repetition":8,"scores":{"instruction_alignment":4,"factual_grounding":4,"semantic_fidelity":4,"restraint_and_boundary":4,"naturalness":4},"total":20,"severe_flags":["none"],"reason":"登记事实和资料空缺均准确，收束自然开放。"}
+    ]
+  },
+  "summary": {
+    "single_pass": {
+      "samples": 40,
+      "average_total": 17.975,
+      "dimension_averages": {
+        "instruction_alignment": 3.3,
+        "factual_grounding": 3.65,
+        "semantic_fidelity": 3.325,
+        "restraint_and_boundary": 3.85,
+        "naturalness": 3.85
+      },
+      "golden_gap": 2.025,
+      "severe_errors": 3,
+      "severe_error_rate": 0.075,
+      "categories": {
+        "emotion": {
+          "samples": 8,
+          "average_total": 18.625,
+          "dimension_averages": {"instruction_alignment":3.75,"factual_grounding":3.5,"semantic_fidelity":3.75,"restraint_and_boundary":4.0,"naturalness":3.625},
+          "golden_gap": 1.375,
+          "severe_errors": 0,
+          "severe_error_rate": 0.0
+        },
+        "framing_text": {
+          "samples": 32,
+          "average_total": 17.8125,
+          "dimension_averages": {"instruction_alignment":3.1875,"factual_grounding":3.6875,"semantic_fidelity":3.21875,"restraint_and_boundary":3.8125,"naturalness":3.90625},
+          "golden_gap": 2.1875,
+          "severe_errors": 3,
+          "severe_error_rate": 0.09375
+        }
+      },
+      "stability": {
+        "emotion_neutral_now": {"round_totals":[17,18,19,20,18,19,18,20],"mean":18.625,"range":3,"population_sd":0.9922,"severe_rounds":0},
+        "preface_repair": {"round_totals":[18,18,16,18,17,18,18,18],"mean":17.625,"range":2,"population_sd":0.696,"severe_rounds":0},
+        "closing_night_photos": {"round_totals":[14,19,19,18,14,18,19,15],"mean":17.0,"range":5,"population_sd":2.1213,"severe_rounds":3},
+        "preface_incomplete_archive": {"round_totals":[18,18,18,17,18,17,17,18],"mean":17.625,"range":1,"population_sd":0.4841,"severe_rounds":0},
+        "closing_memorial_objects": {"round_totals":[19,20,19,19,19,19,18,19],"mean":19.0,"range":2,"population_sd":0.5,"severe_rounds":0},
+        "framing_round_means": [17.25,18.75,18.0,18.0,17.0,18.0,18.0,17.5],
+        "framing_round_mean_range": 1.75
+      },
+      "technical_metrics": {
+        "hard_pass_rate": 0.3,
+        "input_tokens_average": 463.0,
+        "framing_input_tokens_average": 510.75,
+        "output_tokens_average": 89.325,
+        "first_text_median_ms": 648.5,
+        "total_median_ms": 1392.0
+      }
+    },
+    "guarded2": {
+      "samples": 40,
+      "average_total": 18.225,
+      "dimension_averages": {
+        "instruction_alignment": 3.65,
+        "factual_grounding": 3.625,
+        "semantic_fidelity": 3.325,
+        "restraint_and_boundary": 3.825,
+        "naturalness": 3.8
+      },
+      "golden_gap": 1.775,
+      "severe_errors": 3,
+      "severe_error_rate": 0.075,
+      "categories": {
+        "emotion": {
+          "samples": 8,
+          "average_total": 19.125,
+          "dimension_averages": {"instruction_alignment":4.0,"factual_grounding":3.625,"semantic_fidelity":3.875,"restraint_and_boundary":4.0,"naturalness":3.625},
+          "golden_gap": 0.875,
+          "severe_errors": 0,
+          "severe_error_rate": 0.0
+        },
+        "framing_text": {
+          "samples": 32,
+          "average_total": 18.0,
+          "dimension_averages": {"instruction_alignment":3.5625,"factual_grounding":3.625,"semantic_fidelity":3.1875,"restraint_and_boundary":3.78125,"naturalness":3.84375},
+          "golden_gap": 2.0,
+          "severe_errors": 3,
+          "severe_error_rate": 0.09375
+        }
+      },
+      "stability": {
+        "emotion_neutral_now": {"round_totals":[19,20,19,20,18,19,18,20],"mean":19.125,"range":2,"population_sd":0.7806,"severe_rounds":0},
+        "preface_repair": {"round_totals":[18,14,16,18,18,18,18,18],"mean":17.25,"range":4,"population_sd":1.3919,"severe_rounds":1},
+        "closing_night_photos": {"round_totals":[14,19,19,19,19,19,19,15],"mean":18.0,"range":5,"population_sd":1.9685,"severe_rounds":2},
+        "preface_incomplete_archive": {"round_totals":[18,16,17,17,18,17,17,18],"mean":17.25,"range":2,"population_sd":0.6614,"severe_rounds":0},
+        "closing_memorial_objects": {"round_totals":[19,20,20,20,19,19,20,20],"mean":19.625,"range":1,"population_sd":0.4841,"severe_rounds":0},
+        "framing_round_means": [17.25,17.25,18.0,18.5,18.5,18.25,18.5,17.75],
+        "framing_round_mean_range": 1.25
+      },
+      "technical_metrics": {
+        "hard_pass_rate": 0.65,
+        "input_tokens_average": 985.375,
+        "framing_input_tokens_average": 1149.84375,
+        "output_tokens_average": 213.6,
+        "first_text_median_ms": 758.0,
+        "total_median_ms": 3209.5,
+        "final_outputs_changed_vs_single_pass": 14,
+        "repair_attempted": 18,
+        "repair_selected": 4,
+        "repair_selection_rate_among_attempted": 0.222222
+      }
+    }
+  },
+  "comparisons": {
+    "guarded2_minus_single_pass": {
+      "average_total": 0.25,
+      "dimension_deltas": {
+        "instruction_alignment": 0.35,
+        "factual_grounding": -0.025,
+        "semantic_fidelity": 0.0,
+        "restraint_and_boundary": -0.025,
+        "naturalness": -0.05
+      },
+      "emotion_average_total": 0.5,
+      "framing_average_total": 0.1875,
+      "severe_errors": 0,
+      "severe_error_rate_percentage_points": 0.0,
+      "hard_pass_rate_percentage_points": 35.0,
+      "input_tokens_average_percent": 112.824,
+      "total_median_latency_percent": 130.5675,
+      "assessment": "总分小涨主要来自格式与篇幅合规；语义忠实度不变，事实、边界和自然度略降，严重错误未减少。"
+    },
+    "single_pass_vs_baselines": {
+      "emotion_vs_v1_total_delta": 0.625,
+      "emotion_dimension_deltas": {"instruction_alignment":0.875,"factual_grounding":-0.25,"semantic_fidelity":0.0,"restraint_and_boundary":0.375,"naturalness":-0.375},
+      "emotion_severe_rate_percentage_points": 0.0,
+      "framing_vs_v3_total_delta": -0.9375,
+      "framing_dimension_deltas": {"instruction_alignment":-0.3625,"factual_grounding":-0.0625,"semantic_fidelity":-0.58125,"restraint_and_boundary":0.0125,"naturalness":0.05625},
+      "framing_severe_rate_percentage_points": 4.375
+    },
+    "guarded2_vs_baselines": {
+      "emotion_vs_v1_total_delta": 1.125,
+      "emotion_dimension_deltas": {"instruction_alignment":1.125,"factual_grounding":-0.125,"semantic_fidelity":0.125,"restraint_and_boundary":0.375,"naturalness":-0.375},
+      "emotion_severe_rate_percentage_points": 0.0,
+      "framing_vs_v3_total_delta": -0.75,
+      "framing_dimension_deltas": {"instruction_alignment":0.0125,"factual_grounding":-0.125,"semantic_fidelity":-0.6125,"restraint_and_boundary":-0.01875,"naturalness":-0.00625},
+      "framing_severe_rate_percentage_points": 4.375
+    }
+  },
+  "judgments": {
+    "compression_to_about_500_tokens": {
+      "verdict": "有有限但可见的语义牺牲",
+      "evidence": "framing 输入均值从 v3 的 693.5 降至 510.75，事实与边界基本保持，但总分低0.9375，semantic_fidelity 低0.58125，文本更常退化为清单说明；情绪类别反而比 v1 高0.625。",
+      "interpretation": "约500 tokens可用于中性情绪，framing 仍需保留更明确的前言/结语功能指令，不能只保留来源边界。"
+    },
+    "conditional_revision_value": {
+      "verdict": "不值得作为默认路径",
+      "evidence": "guarded2 以输入tokens增加112.824%、总延迟中位数增加130.568%换取总分+0.25；严重错误仍为3条。相对单次有14条最终文本改变，文件本轮repairSummary记载18次尝试仅4次采用。",
+      "risk": "修订会把格式问题变成语义问题，例如新增“曾被使用”、混用记录量词及“原始样貌”。",
+      "recommended_use": "仅针对机器不可解析、字段缺失等结构失败修订；不要因纯长度不足自动改写已语义合格文本。"
+    }
+  },
+  "strengths": [
+    "中性情绪稳定尊重“不分析”，8轮无严重错误。",
+    "纪念物结语最稳定，能够区分登记用途与未记录经验。",
+    "大多数 framing 输出能明确列出已知事实与资料空缺。"
+  ],
+  "weaknesses": [
+    "夜景照片案例会把“人物身份”漂移成“拍摄者身份”，或补出“背后故事”。",
+    "压缩后前言常停留在库存式复述，观看目标与策展语义不足。",
+    "条件修订主要提高长度硬通过，未降低严重语义错误。"
+  ],
+  "final_recommendation": {
+    "choice": "single_pass_v3.1_with_targeted_prompt_patch",
+    "decision": "保留 v3.1 单次路径，不采用 guarded2 默认链路。",
+    "rationale": "单次已达17.975且成本显著较低；guarded2仅提升0.25分、严重错误不变，并引入新幻觉。",
+    "required_patch": [
+      "固定区分照片中的人物身份与拍摄者身份。",
+      "禁止把未知内容写成可探寻的背后故事。",
+      "为 framing 增加一句目标导向：说明文本如何开启或收束观看，而非只复述清单。",
+      "修订触发器限于解析或字段失败；纯长度不足优先接受或局部补句。"
+    ]
+  }
+}

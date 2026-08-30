@@ -1,17 +1,21 @@
-export const MULTITEXT_PROMPT_VARIANTS = ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3"];
+export const MULTITEXT_PROMPT_VARIANTS = ["plain", "source-isolated-v1", "source-isolated-v2", "source-isolated-v3", "source-isolated-v3.1"];
 
 const emotionOutput = {
   fields: ["emotion_read", "response", "boundary"],
   lengths: { emotion_read: [18, 45], response: [55, 100], boundary: [0, 45] },
 };
+const neutralEmotionOutput = {
+  fields: ["emotion_read", "response", "boundary"],
+  lengths: { emotion_read: [10, 30], response: [10, 40], boundary: [0, 45] },
+};
 const artworkOutput = {
   fields: ["introduction", "evidence_boundary"],
   lengths: { introduction: [100, 180], evidence_boundary: [15, 55] },
 };
-const framingOutput = {
+const framingOutput = (min, max) => ({
   fields: ["text", "evidence_boundary"],
-  lengths: { text: [100, 180], evidence_boundary: [15, 55] },
-};
+  lengths: { text: [min, max], evidence_boundary: [15, 55] },
+});
 
 export const MULTITEXT_CASES = [
   {
@@ -42,7 +46,7 @@ export const MULTITEXT_CASES = [
     task: "回应中性状态，不把没有特别情绪解释成问题。",
     source: "今天没什么特别情绪，只想安静吃完饭。不要分析我。",
     constraints: "保持平淡、简短、尊重不分析要求。",
-    output: emotionOutput,
+    output: neutralEmotionOutput,
     requiredGroups: [["没有特别", "平静", "平淡", "中性"], ["安静", "吃饭"]],
     forbidden: ["压抑", "麻木", "低落", "逃避", "内心深处"],
     unsupported: ["需要陪伴", "害怕交流"],
@@ -108,7 +112,7 @@ export const MULTITEXT_CASES = [
     task: "写展览《修补之后》的中文前言。",
     source: "展览共5件作品：3件带可见修补痕迹的陶器、2件补缀纺织品；年代跨度1750–1950年；没有艺术家陈述，也不知道每次损坏和修补原因。",
     constraints: "130–180字；克制、具体，不把修补写成疗愈，不发明艺术家共同主张。",
-    output: framingOutput,
+    output: framingOutput(130, 180),
     requiredGroups: [["5件", "五件"], ["陶器"], ["纺织"], ["1750", "1950"], ["未知", "不知道", "未记录"]],
     forbidden: ["疗愈", "重生", "共同诉说", "艺术家们希望"],
     unsupported: ["战争创伤", "家族传承", "女性劳动"],
@@ -119,7 +123,7 @@ export const MULTITEXT_CASES = [
     task: "为夜间街景摄影小展写中文结语。",
     source: "展览有3张夜间街景照片，拍摄年份为1931、1968、2004；两张地点可确认，一张地点未知；资料没有人物身份或拍摄动机。",
     constraints: "100–150字；开放、克制，不作口号式总结，不发明城市或人物故事。",
-    output: framingOutput,
+    output: framingOutput(100, 150),
     requiredGroups: [["3张", "三张"], ["1931"], ["1968"], ["2004"], ["地点", "未知"]],
     forbidden: ["穿越时空", "城市永不眠", "每个人都有故事", "摄影师想要"],
     unsupported: ["纽约", "上海", "工人", "恋人", "霓虹"],
@@ -130,7 +134,7 @@ export const MULTITEXT_CASES = [
     task: "为档案残片陈列写中文前言。",
     source: "陈列包含12条馆藏记录；其中4条作者缺失，3条描述在句中截断；可确认的年代从1880到1972年，媒介包括油画、照片和印刷品。",
     constraints: "120–180字；把缺失作为资料状态说明，不宣称它们代表集体记忆或被抹去的历史。",
-    output: framingOutput,
+    output: framingOutput(120, 180),
     requiredGroups: [["12条", "十二条"], ["4条", "四条", "作者"], ["3条", "三条", "截断"], ["1880"], ["1972"]],
     forbidden: ["集体记忆", "被抹去的历史", "沉默发声", "共同命运"],
     unsupported: ["殖民", "战争", "审查", "遗忘"],
@@ -141,7 +145,7 @@ export const MULTITEXT_CASES = [
     task: "为纪念物件陈列写中文结语。",
     source: "陈列包含7件被登记为纪念用途的物件，年代与对象各异；资料只确认纪念用途，没有记录原持有者如何哀悼，也没有观众反馈。",
     constraints: "110–160字；允许停留与不确定，不保证观看带来疗愈、告别或释然。",
-    output: framingOutput,
+    output: framingOutput(110, 160),
     requiredGroups: [["7件", "七件"], ["纪念"], ["未记录", "没有记录", "未知"], ["观看", "观众", "停留"]],
     forbidden: ["得到疗愈", "完成告别", "终将释然", "带走希望", "治愈"],
     unsupported: ["战争死者", "亲人遗物", "宗教仪式"],
@@ -187,20 +191,90 @@ source_evidence="陈列4张活动单，年份为1978、1986、1991、2003；其�
 text="本陈列包括四张活动单，年份分别为1978、1986、1991与2003。其中两张的地点尚未确认，资料也没有记录组织者与活动目的。陈列按现有信息呈现这些材料，并保留记录中的未知部分。"
 这个示例只写输入事实与明确缺项，没有补现场、人物、时代意义或观看效果。`;
 
+const framingV31CaseRule = {
+  preface_repair: "修补只作为可见的登记状态，不解释它的形成原因、实际效果、经历或象征。",
+  closing_night_photos: "没有图像可供补写，只陈述照片数量、年份、地点确认状态及资料缺项。",
+  preface_incomplete_archive: "缺失只作为记录状态，不解释其形成原因，也不扩展成历史判断。",
+  closing_memorial_objects: "结尾只允许说明观众可以停留或离开；不预测观看后的心理或精神结果，也不解释这些物件对观众代表什么。",
+};
+
+const framingV31SentencePlan = {
+  preface_repair: "目标145–165字。句1写5件作品与1750–1950年；句2分别写3件陶器的可见修补和2件纺织品的补缀；句3写未提供艺术家陈述；句4写损坏与修补原因未记录；句5只邀请观察已知痕迹。",
+  closing_night_photos: "目标115–135字。句1写3张照片及1931、1968、2004年；句2写两张地点可确认、一张未知；句3原样写“资料未提供照片中人物的身份，也未提供拍摄动机”；句4原样写“观众可自行观看这些照片”。",
+  preface_incomplete_archive: "目标135–160字。句1写12条记录、1880–1972年与三类媒介；句2写4条作者缺失；句3写3条描述截断；句4说明这些是现有资料状态；句5只允许观看现有记录。",
+  closing_memorial_objects: "目标125–145字。句1写7件及登记用途；句2写年代与对象各异；句3写资料只确认用途；句4写哀悼方式与观众反馈未记录；句5只允许停留或离开。",
+};
+
+const framingV31Example = `合格示例：source="4张活动单，年份为1978、1986、1991、2003；2张地点未知；没有组织者和活动目的记录。" text="本陈列包括四张活动单，年份分别为1978、1986、1991与2003。其中两张的地点尚未确认，资料也没有记录组织者与活动目的。现有陈列仅依据这些登记内容，并保留其中尚未确认与未被记录的部分。观众可以查看这些现有材料。" 示例只复述输入事实和缺项。`;
+
+const v31Constraints = {
+  emotion_neutral_now: "保持平淡、简短；确认不分析与安静吃饭，不增加行动或建议。",
+  preface_repair: "130–180字；具体陈述数量、类型、年代、可见状态及未记录信息。",
+  closing_night_photos: "100–150字；陈述数量、年份、地点状态与资料缺项，结尾保持开放。",
+  preface_incomplete_archive: "120–180字；说明条目、缺失、年代与媒介，把缺失保留为资料状态。",
+  closing_memorial_objects: "110–160字；只陈述数量、登记用途、年代对象差异及未记录信息，结尾允许停留或离开。",
+};
+
+const v31SemanticRiskPatterns = {
+  preface_repair: /故事|岁月|时间留下|使用与维护|见证|静默诉说|自行感受/,
+  closing_night_photos: /想象|谜题|答案|意味|时间痕迹|时代印记|街灯|建筑|光影|夜色中|静候/,
+  preface_incomplete_archive: /等待补充|历史判断|原貌|残片性质|集体记忆|被抹去/,
+  closing_memorial_objects: /故事|安慰|意义|情感|疗愈|治愈|释然|告别|个人记忆|静默|无声/,
+};
+
+function v31CategoryRule(item) {
+  if (item.category === "emotion") {
+    const neutralGuard = item.id === "emotion_neutral_now"
+      ? "本例只确认中性状态、安静吃饭和不分析；不新增现场动作、物品或服务提议，也不安排之后做什么。"
+      : "只承接原话中的情绪、对象和请求；不诊断、不编原因、不强行积极、不替用户决定。";
+    return `情感回应以用户原话为封闭信息源。${neutralGuard}`;
+  }
+  if (item.category === "artwork_intro") return categoryInstructions.artwork_intro;
+  return `内部先列已知事实和明确缺项，再写正文；清单不要输出。${framingV31SentencePlan[item.id] ?? ""}观看引导最多一句，不能引入新实体、画面、因果、历史或观众感受。补足字数只能复述、拆分或重组输入事实，不得增加主题和意象。逐个名词反查 source_evidence，无法映射就删除。${framingV31CaseRule[item.id] ?? ""}${framingV31Example}`;
+}
+
 export function buildMultitextPrompt(item, variant = "source-isolated-v1") {
   if (!MULTITEXT_PROMPT_VARIANTS.includes(variant)) throw new Error(`Unknown prompt variant: ${variant}`);
-  const base = `${contractText(item)}\n任务：${item.task}\n要求：${item.constraints}`;
+  const constraints = variant === "source-isolated-v3.1" ? v31Constraints[item.id] ?? item.constraints : item.constraints;
+  const base = `${contractText(item)}\n任务：${item.task}\n要求：${constraints}`;
   const input = `<input>\ncategory=${JSON.stringify(item.category)}\nsource_evidence=${JSON.stringify(item.source)}\nevidence_mode="${classifyEvidence(item.source)}"\n</input>`;
   if (variant === "plain") return `请完成下面的中文写作任务。${base}\n${input}`;
-  const categoryRule = variant === "source-isolated-v2"
+  const categoryRule = variant === "source-isolated-v3.1"
+    ? v31CategoryRule(item)
+    : variant === "source-isolated-v2"
     ? `${categoryInstructions[item.category]}\n${strictCategoryInstructions[item.category]}`
     : variant === "source-isolated-v3" && item.category === "framing_text"
       ? `${categoryInstructions[item.category]}\n${strictCategoryInstructions[item.category]}\n${framingLedgerInstructions}`
       : categoryInstructions[item.category];
-  const finalCheck = variant === "source-isolated-v2" || variant === "source-isolated-v3"
+  const finalCheck = variant === "source-isolated-v3.1"
+    ? "只返回最终 JSON；不输出清单或检查过程。"
+    : variant === "source-isolated-v2" || variant === "source-isolated-v3"
     ? "逐句检查：先删除不能回指输入的事实、因果和意象，再检查字段、字符范围、用户禁令与未知边界。不要展示检查过程，只返回最终 JSON。"
     : "输出前检查一次：字段、字符范围、用户禁令、事实来源和未知边界。检查后只返回最终 JSON。";
   return `完成一次自然、具体、克制的中文写作。把任务要求与 source_evidence 当作封闭信息源，不使用外部知识，也不把缺失内容补成事实。\n\n${categoryRule}\n\n${base}\n${finalCheck}\n\n${input}`;
+}
+
+export function collectV31GuardIssues(item, row) {
+  const issues = [...(gradeMultitextOutput(item, row).failures ?? [])];
+  const allText = item.output.fields.map((field) => String(row?.[field] ?? "")).join("\n");
+  const semanticPattern = v31SemanticRiskPatterns[item.id];
+  if (semanticPattern?.test(allText)) issues.push({ type: "semantic_guard", rule: item.id });
+  if (item.id === "emotion_neutral_now" && /我在|陪你|等你|需要时|慢慢吃|之后|吃完再/.test(allText)) {
+    issues.push({ type: "invented_presence", rule: item.id });
+  }
+  return issues;
+}
+
+export function buildMultitextRepairPrompt(item, issues) {
+  const targetLines = item.output.fields.map((field) => {
+    const [min, max] = item.output.lengths[field];
+    const innerMin = min ? Math.min(max, min + Math.max(2, Math.round((max - min) * 0.2))) : min;
+    const innerMax = max - Math.max(2, Math.round((max - min) * 0.2));
+    return `- ${field}: 目标${innerMin}–${Math.max(innerMin, innerMax)}字`;
+  }).join("\n");
+  const issueTypes = [...new Set((issues ?? []).map((issue) => issue.type))].join("、") || "边界检查未通过";
+  const constraints = v31Constraints[item.id] ?? item.constraints;
+  return `上一次输出未通过 ${issueTypes} 检查。请从零重新生成，不要解释失败原因，也不要复用上一次措辞。\n\n${v31CategoryRule(item)}\n\n只返回一个 JSON 对象，只含 ${item.output.fields.join("、")} 字段：\n${targetLines}\n任务：${item.task}\n要求：${constraints}\n\n<input>\ncategory=${JSON.stringify(item.category)}\nsource_evidence=${JSON.stringify(item.source)}\nevidence_mode="${classifyEvidence(item.source)}"\n</input>`;
 }
 
 export function parseMultitextOutput(text) {

@@ -1,0 +1,2065 @@
+{
+  "schemaVersion": "1.0",
+  "evaluator": "B",
+  "sources": [
+    "test/test-results/deepseek-multitext-eval-1788098656937.json",
+    "test/test-results/deepseek-multitext-eval-1788098656937-guarded-guarded.json"
+  ],
+  "method": {
+    "evaluationMode": "blind semantic review of every final parsed/text output",
+    "referenceUse": "Codex Sol max and Kimi K3 max used only as dual golden references",
+    "scoreRange": [
+      0,
+      4
+    ],
+    "dimensions": [
+      "instruction_alignment",
+      "factual_grounding",
+      "semantic_fidelity",
+      "restraint_and_boundary",
+      "naturalness"
+    ],
+    "severeFlagVocabulary": [
+      "cause_invention",
+      "art_hallucination",
+      "record_conflict_resolution",
+      "privacy_violation",
+      "diagnosis",
+      "decision_takeover",
+      "framing_hallucination",
+      "cliche_takeover",
+      "none"
+    ]
+  },
+  "evaluations": [
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 18,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确接受中性与不分析要求，但字段略短。"
+    },
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "完全承接需求，语气稍像规则确认。"
+    },
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不分析不追问，表达简短而略机械。"
+    },
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确、克制且自然地维持安静用餐。"
+    },
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "边界正确，措辞偏结构化说明。"
+    },
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "最小回应自然，没有增添行动或含义。"
+    },
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 2
+      },
+      "total": 18,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "语义准确，但“存续行为”明显生硬。"
+    },
+    {
+      "path": "single-pass",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "贴合中性状态，确认后及时收束。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实与未知边界完整，主要不足是偏短。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "数量、媒介、年代和缺项均准确。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "忠实呈现登记状态，不补写修补原因。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "来源约束清楚，观看引导保持克制。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "信息完整、事实可靠，前言自然收束。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "忠实且克制，仅在篇幅要求上不足。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "已知与未记录项准确，表达自然。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不填补背景，完整保留证据边界。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 3,
+        "semantic_fidelity": 2,
+        "restraint_and_boundary": 2,
+        "naturalness": 4
+      },
+      "total": 14,
+      "severe_flags": [
+        "framing_hallucination",
+        "cliche_takeover"
+      ],
+      "reason": "把未知改写为待探寻的背后故事，越过边界。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "三张照片及全部资料缺项均准确保留。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确并列已知与未知，没有补全故事。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实和边界完整，主要不足是篇幅偏短。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 2,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 3,
+        "naturalness": 4
+      },
+      "total": 15,
+      "severe_flags": [
+        "framing_hallucination"
+      ],
+      "reason": "误将画中人物身份写成拍摄者身份。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实准确，简短结语仍保持观看开放。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不补城市、人物和动机，结语克制。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 2,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 3,
+        "naturalness": 4
+      },
+      "total": 16,
+      "severe_flags": [
+        "framing_hallucination"
+      ],
+      "reason": "把未记录人物身份替换成拍摄者身份。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "记录数量、年代、媒介和缺项均准确。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "把缺失保持为资料状态，不推断原因。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "忠实说明不完整档案，篇幅略短。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 18,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "将记录年代稍写成作品年代，轻微偏移。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "可确认范围与记录缺项表达准确。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不补全截断描述，边界明确。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实可靠，保存状态措辞略泛但可接受。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "完整保留缺失与截断，未引入原因。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "登记用途与未记录项准确，篇幅略短。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不预设哀悼与观看结果，结语克制。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确保留未知，观看选择不被规定。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实边界完整，仅篇幅略少一档。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不引导疗愈或意义，保持资料空缺。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "登记事实明确，未知部分没有被补写。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不替原持有者与观众规定感受。"
+    },
+    {
+      "path": "single-pass",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确而克制，停留或离开的选择开放。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "信息密度补足，但边界句略显规则化。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确承接中性与安静需求，稍机械。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不分析不追问，表达简短而略机械。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确、克制且自然地维持安静用餐。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "边界正确，措辞偏结构化说明。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "最小回应自然，没有增添行动或含义。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 2
+      },
+      "total": 18,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "语义准确，但“存续行为”明显生硬。"
+    },
+    {
+      "path": "guarded2",
+      "category": "emotion",
+      "id": "emotion_neutral_now",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "贴合中性状态，确认后及时收束。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实与未知边界完整，主要不足是偏短。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 3,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 3,
+        "naturalness": 4
+      },
+      "total": 17,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "新增“曾被使用”推断，修订扩写反而越界。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "忠实呈现登记状态，不补写修补原因。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "来源约束清楚，观看引导保持克制。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "信息完整、事实可靠，前言自然收束。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "忠实且克制，仅在篇幅要求上不足。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 3,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 3,
+        "naturalness": 4
+      },
+      "total": 18,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "“清晰可辨、自行判断”带来轻微扩写偏移。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_repair",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不填补背景，完整保留证据边界。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 3,
+        "semantic_fidelity": 2,
+        "restraint_and_boundary": 2,
+        "naturalness": 4
+      },
+      "total": 14,
+      "severe_flags": [
+        "framing_hallucination",
+        "cliche_takeover"
+      ],
+      "reason": "把未知改写为待探寻的背后故事，越过边界。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "三张照片及全部资料缺项均准确保留。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确并列已知与未知，没有补全故事。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "扩写补足篇幅，仍守住全部事实边界。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "正确区分画中人物身份与拍摄动机。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 3,
+        "naturalness": 4
+      },
+      "total": 18,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "“自行发现更多细节”略带泛化观看引导。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不补城市、人物和动机，结语克制。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_night_photos",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 2,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 3,
+        "naturalness": 4
+      },
+      "total": 16,
+      "severe_flags": [
+        "framing_hallucination"
+      ],
+      "reason": "把未记录人物身份替换成拍摄者身份。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "记录数量、年代、媒介和缺项均准确。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 3,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 4,
+        "naturalness": 3
+      },
+      "total": 17,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "将十二条记录写成十二件，修订造成类别混淆。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "扩写后仍准确保留资料状态与未知边界。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 18,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "将记录年代稍写成作品年代，轻微偏移。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "可确认范围与记录缺项表达准确。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不补全截断描述，边界明确。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实可靠，保存状态措辞略泛但可接受。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "preface_incomplete_archive",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "完整保留缺失与截断，未引入原因。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "登记用途与未记录项准确，篇幅略短。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不预设哀悼与观看结果，结语克制。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "扩写补足信息密度，仍完整保留未知。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "条件修订补足篇幅且未引入意义套话。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "不引导疗愈或意义，保持资料空缺。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "登记事实明确，未知部分没有被补写。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "观看选择开放，未替任何人规定感受。"
+    },
+    {
+      "path": "guarded2",
+      "category": "framing_text",
+      "id": "closing_memorial_objects",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确而自然地以继续前行保留选择。"
+    }
+  ],
+  "summaryByPath": {
+    "single-pass": {
+      "overall": {
+        "sampleCount": 40,
+        "meanTotal": 18.825,
+        "meanByDimension": {
+          "instruction_alignment": 3.325,
+          "factual_grounding": 3.875,
+          "semantic_fidelity": 3.875,
+          "restraint_and_boundary": 3.9,
+          "naturalness": 3.85
+        },
+        "severeErrorCount": 3,
+        "severeErrorRate": 0.075,
+        "gapToDualGoldenTarget": 1.1750000000000007,
+        "meanCaseScoreRange": 2.2,
+        "caseStability": {
+          "emotion_neutral_now": {
+            "scores": [
+              18,
+              19,
+              19,
+              20,
+              19,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.125,
+            "range": 2,
+            "severeErrors": 0
+          },
+          "preface_repair": {
+            "scores": [
+              19,
+              19,
+              19,
+              19,
+              20,
+              19,
+              19,
+              19
+            ],
+            "mean": 19.125,
+            "range": 1,
+            "severeErrors": 0
+          },
+          "closing_night_photos": {
+            "scores": [
+              14,
+              20,
+              20,
+              19,
+              15,
+              19,
+              20,
+              16
+            ],
+            "mean": 17.875,
+            "range": 6,
+            "severeErrors": 3
+          },
+          "preface_incomplete_archive": {
+            "scores": [
+              19,
+              19,
+              19,
+              18,
+              19,
+              19,
+              19,
+              19
+            ],
+            "mean": 18.875,
+            "range": 1,
+            "severeErrors": 0
+          },
+          "closing_memorial_objects": {
+            "scores": [
+              19,
+              20,
+              19,
+              19,
+              19,
+              19,
+              19,
+              19
+            ],
+            "mean": 19.125,
+            "range": 1,
+            "severeErrors": 0
+          }
+        }
+      },
+      "emotion": {
+        "sampleCount": 8,
+        "meanTotal": 19.125,
+        "meanByDimension": {
+          "instruction_alignment": 3.875,
+          "factual_grounding": 4,
+          "semantic_fidelity": 4,
+          "restraint_and_boundary": 4,
+          "naturalness": 3.25
+        },
+        "severeErrorCount": 0,
+        "severeErrorRate": 0,
+        "gapToDualGoldenTarget": 0.875,
+        "meanCaseScoreRange": 2,
+        "caseStability": {
+          "emotion_neutral_now": {
+            "scores": [
+              18,
+              19,
+              19,
+              20,
+              19,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.125,
+            "range": 2,
+            "severeErrors": 0
+          }
+        }
+      },
+      "framing_text": {
+        "sampleCount": 32,
+        "meanTotal": 18.75,
+        "meanByDimension": {
+          "instruction_alignment": 3.1875,
+          "factual_grounding": 3.84375,
+          "semantic_fidelity": 3.84375,
+          "restraint_and_boundary": 3.875,
+          "naturalness": 4
+        },
+        "severeErrorCount": 3,
+        "severeErrorRate": 0.09375,
+        "gapToDualGoldenTarget": 1.25,
+        "meanCaseScoreRange": 2.25,
+        "caseStability": {
+          "preface_repair": {
+            "scores": [
+              19,
+              19,
+              19,
+              19,
+              20,
+              19,
+              19,
+              19
+            ],
+            "mean": 19.125,
+            "range": 1,
+            "severeErrors": 0
+          },
+          "closing_night_photos": {
+            "scores": [
+              14,
+              20,
+              20,
+              19,
+              15,
+              19,
+              20,
+              16
+            ],
+            "mean": 17.875,
+            "range": 6,
+            "severeErrors": 3
+          },
+          "preface_incomplete_archive": {
+            "scores": [
+              19,
+              19,
+              19,
+              18,
+              19,
+              19,
+              19,
+              19
+            ],
+            "mean": 18.875,
+            "range": 1,
+            "severeErrors": 0
+          },
+          "closing_memorial_objects": {
+            "scores": [
+              19,
+              20,
+              19,
+              19,
+              19,
+              19,
+              19,
+              19
+            ],
+            "mean": 19.125,
+            "range": 1,
+            "severeErrors": 0
+          }
+        }
+      }
+    },
+    "guarded2": {
+      "overall": {
+        "sampleCount": 40,
+        "meanTotal": 18.975,
+        "meanByDimension": {
+          "instruction_alignment": 3.625,
+          "factual_grounding": 3.85,
+          "semantic_fidelity": 3.825,
+          "restraint_and_boundary": 3.85,
+          "naturalness": 3.825
+        },
+        "severeErrorCount": 2,
+        "severeErrorRate": 0.05,
+        "gapToDualGoldenTarget": 1.0249999999999986,
+        "meanCaseScoreRange": 3,
+        "caseStability": {
+          "emotion_neutral_now": {
+            "scores": [
+              19,
+              19,
+              19,
+              20,
+              19,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.25,
+            "range": 2,
+            "severeErrors": 0
+          },
+          "preface_repair": {
+            "scores": [
+              19,
+              17,
+              19,
+              19,
+              20,
+              19,
+              18,
+              19
+            ],
+            "mean": 18.75,
+            "range": 3,
+            "severeErrors": 0
+          },
+          "closing_night_photos": {
+            "scores": [
+              14,
+              20,
+              20,
+              20,
+              20,
+              18,
+              20,
+              16
+            ],
+            "mean": 18.5,
+            "range": 6,
+            "severeErrors": 2
+          },
+          "preface_incomplete_archive": {
+            "scores": [
+              19,
+              17,
+              20,
+              18,
+              19,
+              19,
+              19,
+              19
+            ],
+            "mean": 18.75,
+            "range": 3,
+            "severeErrors": 0
+          },
+          "closing_memorial_objects": {
+            "scores": [
+              19,
+              20,
+              20,
+              20,
+              19,
+              19,
+              20,
+              20
+            ],
+            "mean": 19.625,
+            "range": 1,
+            "severeErrors": 0
+          }
+        }
+      },
+      "emotion": {
+        "sampleCount": 8,
+        "meanTotal": 19.25,
+        "meanByDimension": {
+          "instruction_alignment": 4,
+          "factual_grounding": 4,
+          "semantic_fidelity": 4,
+          "restraint_and_boundary": 4,
+          "naturalness": 3.25
+        },
+        "severeErrorCount": 0,
+        "severeErrorRate": 0,
+        "gapToDualGoldenTarget": 0.75,
+        "meanCaseScoreRange": 2,
+        "caseStability": {
+          "emotion_neutral_now": {
+            "scores": [
+              19,
+              19,
+              19,
+              20,
+              19,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.25,
+            "range": 2,
+            "severeErrors": 0
+          }
+        }
+      },
+      "framing_text": {
+        "sampleCount": 32,
+        "meanTotal": 18.90625,
+        "meanByDimension": {
+          "instruction_alignment": 3.53125,
+          "factual_grounding": 3.8125,
+          "semantic_fidelity": 3.78125,
+          "restraint_and_boundary": 3.8125,
+          "naturalness": 3.96875
+        },
+        "severeErrorCount": 2,
+        "severeErrorRate": 0.0625,
+        "gapToDualGoldenTarget": 1.09375,
+        "meanCaseScoreRange": 3.25,
+        "caseStability": {
+          "preface_repair": {
+            "scores": [
+              19,
+              17,
+              19,
+              19,
+              20,
+              19,
+              18,
+              19
+            ],
+            "mean": 18.75,
+            "range": 3,
+            "severeErrors": 0
+          },
+          "closing_night_photos": {
+            "scores": [
+              14,
+              20,
+              20,
+              20,
+              20,
+              18,
+              20,
+              16
+            ],
+            "mean": 18.5,
+            "range": 6,
+            "severeErrors": 2
+          },
+          "preface_incomplete_archive": {
+            "scores": [
+              19,
+              17,
+              20,
+              18,
+              19,
+              19,
+              19,
+              19
+            ],
+            "mean": 18.75,
+            "range": 3,
+            "severeErrors": 0
+          },
+          "closing_memorial_objects": {
+            "scores": [
+              19,
+              20,
+              20,
+              20,
+              19,
+              19,
+              20,
+              20
+            ],
+            "mean": 19.625,
+            "range": 1,
+            "severeErrors": 0
+          }
+        }
+      }
+    }
+  },
+  "baselines": {
+    "source-isolated-v1-emotion": {
+      "sampleCount": 8,
+      "meanTotal": 18.625,
+      "meanByDimension": {
+        "instruction_alignment": 3.25,
+        "factual_grounding": 3.75,
+        "semantic_fidelity": 3.875,
+        "restraint_and_boundary": 3.75,
+        "naturalness": 4
+      },
+      "severeErrorRate": 0.125,
+      "stabilityMetric": {
+        "type": "two-repeat mean absolute delta across four emotion cases",
+        "value": 1.25
+      },
+      "neutralCaseOnly": {
+        "sampleCount": 2,
+        "meanTotal": 16.5,
+        "severeErrorRate": 0.5,
+        "scoreRange": 3
+      }
+    },
+    "source-isolated-v3-framing": {
+      "sampleCount": 20,
+      "meanTotal": 19.25,
+      "meanByDimension": {
+        "instruction_alignment": 3.65,
+        "factual_grounding": 3.8,
+        "semantic_fidelity": 3.95,
+        "restraint_and_boundary": 3.85,
+        "naturalness": 4
+      },
+      "severeErrorRate": 0.05,
+      "stabilityMetric": {
+        "type": "five-round mean case score range",
+        "value": 1.5
+      },
+      "inputTokensAverage": 693.5
+    }
+  },
+  "changesVsBaseline": {
+    "singlePass": {
+      "emotionVsV1AllEmotion": {
+        "meanTotalDelta": 0.5,
+        "severeRatePercentagePoints": -12.5,
+        "caveat": "v3.1本轮仅含中性case，不能代表完整情感集泛化。"
+      },
+      "emotionNeutralVsV1SameCase": {
+        "meanTotalDelta": 2.625,
+        "severeRatePercentagePoints": -50
+      },
+      "framingVsV3": {
+        "meanTotalDelta": -0.5,
+        "severeRatePercentagePoints": 4.375,
+        "meanCaseScoreRangeDelta": 0.75,
+        "inputTokensDelta": -230.5,
+        "inputTokensPercent": -33.23720259552992
+      }
+    },
+    "guarded2": {
+      "emotionVsV1AllEmotion": {
+        "meanTotalDelta": 0.625,
+        "severeRatePercentagePoints": -12.5,
+        "caveat": "v3.1本轮仅含中性case，不能代表完整情感集泛化。"
+      },
+      "emotionNeutralVsV1SameCase": {
+        "meanTotalDelta": 2.75,
+        "severeRatePercentagePoints": -50
+      },
+      "framingVsV3": {
+        "meanTotalDelta": -0.34375,
+        "severeRatePercentagePoints": 1.2499999999999998,
+        "meanCaseScoreRangeDelta": 1.75,
+        "inputTokensDelta": 291.875,
+        "inputTokensPercent": 42.08723864455659
+      }
+    }
+  },
+  "transport": {
+    "singlePass": {
+      "inputTokensAverage": 463,
+      "outputTokensAverage": 89.325,
+      "firstTextMedianMs": 648.5,
+      "totalMedianMs": 1392,
+      "hardPassRate": 0.3
+    },
+    "guarded2Cumulative": {
+      "inputTokensAverage": 985.375,
+      "outputTokensAverage": 213.6,
+      "firstTextMedianMs": 758,
+      "totalMedianMs": 3209.5,
+      "hardPassRate": 0.65
+    },
+    "guarded2DeltaVsSingle": {
+      "inputTokens": 522.375,
+      "inputTokensPercent": 112.82397408207343,
+      "outputTokens": 124.275,
+      "outputTokensPercent": 139.12678421494542,
+      "firstTextMs": 109.5,
+      "firstTextPercent": 16.88511950655358,
+      "totalMs": 1817.5,
+      "totalPercent": 130.56752873563218,
+      "hardPassPercentagePoints": 35
+    }
+  },
+  "conditionalRevisionAnalysis": {
+    "attempted": 18,
+    "selectedRepair": 4,
+    "selectionRate": 0.1,
+    "selectedRepairSemanticPairing": {
+      "cases": [
+        {
+          "id": "preface_incomplete_archive",
+          "repetition": 2,
+          "before": 19,
+          "after": 17,
+          "delta": -2,
+          "note": "为达长度把十二条记录改成十二件。"
+        },
+        {
+          "id": "preface_incomplete_archive",
+          "repetition": 3,
+          "before": 19,
+          "after": 20,
+          "delta": 1,
+          "note": "补足篇幅且保持边界。"
+        },
+        {
+          "id": "closing_memorial_objects",
+          "repetition": 4,
+          "before": 19,
+          "after": 20,
+          "delta": 1,
+          "note": "补足篇幅且无意义套话。"
+        },
+        {
+          "id": "preface_repair",
+          "repetition": 7,
+          "before": 19,
+          "after": 18,
+          "delta": -1,
+          "note": "新增清晰可辨和自行判断等扩写。"
+        }
+      ],
+      "meanBefore": 19,
+      "meanAfter": 18.75,
+      "meanDelta": -0.25
+    },
+    "observedFinalDeltaVsIndependentSingle": {
+      "overallMean": 0.15000000000000213,
+      "emotionMean": 0.125,
+      "framingMean": 0.15625,
+      "severeRatePercentagePoints": -2.4999999999999996,
+      "stabilityMeanCaseRange": 0.7999999999999998,
+      "caveat": "两路径来自独立采样；只有4条被选中修订可做同样本前后比较。"
+    }
+  },
+  "decisions": {
+    "compressionToAbout500Tokens": {
+      "verdict": "有轻微但可见的 framing 语义牺牲；情感中性case未见牺牲。",
+      "evidence": [
+        "single-pass framing较v3下降0.50分，严重错误率由5%升至9.375%。",
+        "压缩节省230.5 input tokens（-33.24%），主要回退集中在夜间照片结语的身份字段替换和故事化引导。",
+        "其余三个framing case仍在18.875至19.125之间，说明损失不是全面崩溃，而是弱case边界变薄。"
+      ]
+    },
+    "guarded2WorthCost": {
+      "verdict": false,
+      "decision": "不值得作为默认路径；只提高硬格式通过率，语义收益小且被选修订净负。",
+      "evidence": [
+        "相对single-pass，总体仅+0.15分、framing仅+0.156分，严重错误率仅下降2.5个百分点。",
+        "累计成本升至985.375 input tokens与3209.5ms，总时延增加130.57%。",
+        "被实际选中的4条修订，语义均分从19.0降至18.75；长度修复会引入类别混淆或扩写越界。",
+        "guarded2 framing仍低于v3 0.344分，严重错误率6.25%且平均case极差更高。"
+      ],
+      "preferredPath": "默认single-pass v3.1；对身份字段和故事化词汇做确定性后置校验，失败时回退完整v3，而非继续自由改写。"
+    }
+  }
+}

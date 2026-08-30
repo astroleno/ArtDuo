@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "1.0",
+  "evaluator": "B",
+  "source": "test/test-results/deepseek-multitext-eval-1788099416764.json",
+  "runId": 1788099416764,
+  "method": {
+    "evaluationMode": "blind semantic review of all 12 final outputs",
+    "referenceUse": "Codex Sol max and Kimi K3 max used only as dual golden references",
+    "scoreRange": [
+      0,
+      4
+    ],
+    "dimensions": [
+      "instruction_alignment",
+      "factual_grounding",
+      "semantic_fidelity",
+      "restraint_and_boundary",
+      "naturalness"
+    ],
+    "severeFlagVocabulary": [
+      "cause_invention",
+      "art_hallucination",
+      "record_conflict_resolution",
+      "privacy_violation",
+      "diagnosis",
+      "decision_takeover",
+      "framing_hallucination",
+      "cliche_takeover",
+      "none"
+    ]
+  },
+  "evaluations": [
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 1,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "人物身份字段准确；感受街景属最低限度观看引导。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 2,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "字段、年份与缺项全部准确，主要不足是篇幅偏短。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 3,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "未偷换人物身份，也未补写城市、故事或动机。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 4,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "事实与证据边界完整，结语克制自然。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 5,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "人物身份明确落在照片中，未产生故事化扩写。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 6,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 3,
+        "restraint_and_boundary": 3,
+        "naturalness": 4
+      },
+      "total": 17,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "字段准确，但“感受夜色”带来轻微视觉引导。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 7,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "准确保留人物身份与拍摄动机两项缺口。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 8,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 3,
+        "semantic_fidelity": 2,
+        "restraint_and_boundary": 2,
+        "naturalness": 4
+      },
+      "total": 15,
+      "severe_flags": [
+        "framing_hallucination",
+        "cliche_takeover"
+      ],
+      "reason": "“光影、时间痕迹”是来源外视觉与意义补写。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 9,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "已知与未确认部分并列，未替照片补故事。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 10,
+      "scores": {
+        "instruction_alignment": 4,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 20,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "人物、地点与动机字段准确且不作推断。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 11,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "内容完全守边界，仅未满足目标篇幅。"
+    },
+    {
+      "id": "closing_night_photos",
+      "category": "framing_text",
+      "variant": "source-isolated-v3.1-night-field-patch",
+      "repetition": 12,
+      "scores": {
+        "instruction_alignment": 3,
+        "factual_grounding": 4,
+        "semantic_fidelity": 4,
+        "restraint_and_boundary": 4,
+        "naturalness": 4
+      },
+      "total": 19,
+      "severe_flags": [
+        "none"
+      ],
+      "reason": "没有身份偷换或故事化，表达简洁可靠。"
+    }
+  ],
+  "summary": {
+    "sampleCount": 12,
+    "meanTotal": 18.833333333333332,
+    "medianTotal": 19,
+    "minTotal": 15,
+    "maxTotal": 20,
+    "scoreRange": 5,
+    "scores": [
+      20,
+      19,
+      19,
+      20,
+      19,
+      17,
+      19,
+      15,
+      20,
+      20,
+      19,
+      19
+    ],
+    "meanByDimension": {
+      "instruction_alignment": 3.4166666666666665,
+      "factual_grounding": 3.9166666666666665,
+      "semantic_fidelity": 3.75,
+      "restraint_and_boundary": 3.75,
+      "naturalness": 4
+    },
+    "severeErrorCount": 1,
+    "severeErrorRate": 0.08333333333333333,
+    "samplesAtLeast19": 10,
+    "samplesAtLeast19Rate": 0.8333333333333334,
+    "gapToDualGoldenTarget": 1.1666666666666679
+  },
+  "targetedChecks": {
+    "photoSubjectIdentitySubstitution": {
+      "count": 0,
+      "rate": 0,
+      "verdict": "已修复。12/12均明确写为“照片中人物的身份”，未再偷换成拍摄者身份。"
+    },
+    "storyInvention": {
+      "count": 0,
+      "rate": 0,
+      "verdict": "已修复。未出现背后故事、等待探寻或补全叙事。"
+    },
+    "severeVisualOrMeaningExpansion": {
+      "count": 1,
+      "rate": 0.08333333333333333,
+      "repetitions": [
+        8
+      ],
+      "verdict": "仍有1/12把观看扩写为“光影与夜色中感受时间的痕迹”，属于来源外视觉和意义套话。"
+    },
+    "mildVisualPrompting": {
+      "count": 1,
+      "rate": 0.08333333333333333,
+      "repetitions": [
+        6
+      ],
+      "verdict": "第6轮“感受夜色中的街景”是轻微视觉引导，但夜间街景由题面直接支持，未计严重错误。"
+    },
+    "combinedSevereFramingError": {
+      "count": 1,
+      "rate": 0.08333333333333333,
+      "verdict": "专项严重错误率8.33%，错误类型已从字段偷换/故事化转为单点视觉意义补写。"
+    }
+  },
+  "comparison": {
+    "previousV31SinglePassNight": {
+      "sampleCount": 8,
+      "meanTotal": 17.875,
+      "severeErrorCount": 3,
+      "severeErrorRate": 0.375,
+      "identitySubstitutionCount": 2,
+      "storyInventionCount": 1,
+      "patchDelta": {
+        "meanTotal": 0.9583333333333321,
+        "severeRatePercentagePoints": -29.166666666666668
+      }
+    },
+    "previousV31Guarded2Night": {
+      "sampleCount": 8,
+      "meanTotal": 18.5,
+      "severeErrorCount": 2,
+      "severeErrorRate": 0.25,
+      "identitySubstitutionCount": 1,
+      "storyInventionCount": 1,
+      "patchDelta": {
+        "meanTotal": 0.33333333333333215,
+        "severeRatePercentagePoints": -16.666666666666668
+      }
+    },
+    "fullV3Night": {
+      "sampleCount": 5,
+      "meanTotal": 20,
+      "severeErrorCount": 0,
+      "severeErrorRate": 0,
+      "scoreRange": 0,
+      "patchDelta": {
+        "meanTotal": -1.1666666666666679,
+        "severeRatePercentagePoints": 8.333333333333332
+      }
+    }
+  },
+  "transport": {
+    "inputTokensAverage": 519,
+    "outputTokensAverage": 93.5,
+    "firstTextMedianMs": 505,
+    "totalMedianMs": 1177.5,
+    "hardPassRate": 0.4166666666666667,
+    "coreCoverageAverage": 1
+  },
+  "decision": {
+    "fieldPatchVerdict": "通过",
+    "productionVerdict": "字段补丁有效，但需再加一条确定性视觉/意义短语禁用规则后冻结。",
+    "evidence": [
+      "照片中人物身份偷换率由single-pass的2/8降至0/12。",
+      "故事化严重错误由1/8降至0/12。",
+      "总体均分较旧single-pass夜景提高0.958，严重错误率下降29.17个百分点。",
+      "剩余唯一严重回退是第8轮的“光影、时间痕迹”套话，不属于字段补丁失效。"
+    ],
+    "requiredGuard": "删除或拒绝来源未给出的“光影、时间痕迹、感受夜色、背后故事”等观看结果短语；结尾限定为自行观看、保留未知或不补故事。",
+    "retryRecommendation": "无需自由改写重试；使用确定性短语清理，避免重新引入字段错误。"
+  }
+}
