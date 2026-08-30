@@ -1,0 +1,5879 @@
+{
+  "evaluation_id": "deepseek-hybrid-v6-semantic-eval-a",
+  "evaluator": "A",
+  "evaluation_date": "2026-08-30",
+  "source_files": [
+    "test/test-results/deepseek-hybrid-v6-1788104955826.json",
+    "test/test-results/k3-256k-hybrid-v6-1788104483791.json",
+    "test/test-results/deepseek-hybrid-v6.mjs"
+  ],
+  "methodology": {
+    "blind_scoring": true,
+    "shuffle_key": "sha256(blind-v6|item_id|source_marker|variant_or_comparator|repetition)",
+    "identity_revealed_after_scoring": true,
+    "performance_metrics_ignored_during_scoring": true,
+    "reference_use": "Evidence and constraints judged from the test script; K3 was scored as a comparator, not treated as a gold answer.",
+    "similarity_policy": "No score was based on wording similarity.",
+    "serious_error_definition": "Material factual invention, semantic strengthening, unknown-state rewrite, capability/role inference, hard-boundary violation, or framing that changes the task meaning."
+  },
+  "rubric": {
+    "holdout": {
+      "dimensions": [
+        "evidence_fidelity",
+        "task_function",
+        "semantic_discernment",
+        "naturalness",
+        "boundary_constraints"
+      ],
+      "range_per_dimension": "0-4",
+      "total_range": "0-20"
+    },
+    "narration": {
+      "dimensions": [
+        "evidence_fidelity",
+        "preface_function",
+        "closing_function",
+        "cross_segment_consistency",
+        "naturalness_boundary"
+      ],
+      "range_per_dimension": "0-4",
+      "total_range": "0-20"
+    }
+  },
+  "counts": {
+    "holdout": 144,
+    "narration": 44,
+    "total": 188
+  },
+  "item_scores": {
+    "holdout": [
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确并列两种情绪；略带评估式元话语。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "忠实克制，敬语与模板句稍显生硬。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "完整承接轻松与难受，无归因或安慰。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "并列情绪自然，边界执行完整。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "证据完整，称谓与收束稍显公文化。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "明确区分已知情绪与未知原因。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "边界正确，但再次点出禁用标签略显元化。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "简洁自然，准确保留两种感受并存。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_sadness",
+        "task_type": "emotion_response",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "回应贴近原话，不增加解释或方向。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确承接生气与想念，表述略模板化。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "两种情绪并存且未导向和解。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "内容正确，emotion_read略像规则复述。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 3,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "情绪辨析准确，但“无需否定”略带引导。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "将生气直接归因于争吵，轻度强化因果。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 14,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification"
+        ],
+        "rationale": "把争吵设为生气原因，越过已知并列事实。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "忠实承接且明确不劝和、不解读嘴硬。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "短而自然，保留尖锐情绪的并存。"
+      },
+      {
+        "id": "confirm_emotion_anger_and_missing",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "语义正确，第一人称读法和“不和好”略拗口。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实准确，“可以理解”略泛化。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 15,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "加入“正常、不必填满”，形成轻度安慰和建议。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "只承接轻松与空，明确不归因不规划。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“随之而来”建立时间因果，且稍带建议。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "细致区分两种状态，不替用户定性。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 3,
+          "boundary_constraints": 2
+        },
+        "total": 13,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "加入接纳与自然流动，偏离单纯回应。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 14,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification"
+        ],
+        "rationale": "把“空”改写成空落感并称自然，新增情绪色彩。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "原样复述两种感受，克制自然。"
+      },
+      {
+        "id": "confirm_emotion_relief_and_emptiness",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "语义忠实，但“标记”措辞偏系统化。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 2,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "boundary_violation"
+        ],
+        "rationale": "追问承诺细节，越过只回应当下情绪的要求。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 15,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确识别，但“慢慢确认”加入行动方向。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "高兴与不确定并置，无关系推断。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "task_function": 1,
+          "semantic_discernment": 2,
+          "naturalness": 2,
+          "boundary_constraints": 3
+        },
+        "total": 9,
+        "serious_error": true,
+        "serious_error_flags": [
+          "role_confusion"
+        ],
+        "rationale": "将用户感受改成助手本人对承诺的回应，角色错置。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 16,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "保留两种感受，第一人称镜像稍显不自然。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 3
+        },
+        "total": 13,
+        "serious_error": true,
+        "serious_error_flags": [
+          "role_confusion"
+        ],
+        "rationale": "“谢谢你这样说”把助手置于朋友角色。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "semantic_intensification"
+        ],
+        "rationale": "虚构承诺尚未兑现，并据此解释不确定。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 3,
+          "semantic_discernment": 4,
+          "naturalness": 2,
+          "boundary_constraints": 4
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "语义细腻，但以第一人称代说用户降低自然度。"
+      },
+      {
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "task_type": "emotion_response",
+        "category": "emotion",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 3,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "内容忠实，第一人称代说略弱于直接回应。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实齐全，但加入“色彩对比、特定空间”解释。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "完整呈现标题、作者、年份、媒介与可见内容。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实准确，“简洁构图”是轻度形式判断。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "主体描述准确，“现藏于馆内”未由记录直接给出。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "介绍完整克制，证据边界清楚。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "无主题化或场景化扩写。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实忠实，“可见元素构成”略空泛。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "精确说明可见与未提供内容。"
+      },
+      {
+        "id": "confirm_art_blue_chairs",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "自然介绍作品，不推断意图地点。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "已知与未知分界准确，未解释旧标签。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实完备，结尾“有待考证”略惯常。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "主动防止将“第三箱”解释成来源或位置。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确列出稀少记录，无背景补写。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "信息完整，标签用途和日期保持未知。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "忠实但语序稍机械。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实准确，boundary对未知项覆盖略少。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "克制、清晰，不延伸器形与标签含义。"
+      },
+      {
+        "id": "confirm_art_sparse_fragment",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“历史背景、具体性质待考”略泛化与冗余。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "称两者指向不同情境，较“关系未说明”更强。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“明显差异”略作判断，仍未解释二者关系。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "仅并列标题与描述，明确不建立解释。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“未解决状态”强化冲突框架且略重复。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "完全停留在登记事实与未知关系。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "精炼并列，不作象征或反差解释。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "证据与边界均清楚。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 4,
+          "semantic_discernment": 2,
+          "naturalness": 3,
+          "boundary_constraints": 3
+        },
+        "total": 14,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "把未说明关系称为“冲突”，语义强化但未解释。"
+      },
+      {
+        "id": "confirm_art_title_description_conflict",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确、自然且无额外推断。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "区分登记日期、可能归属与来源缺口。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "主体准确，boundary将可确认项说得过窄。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "不把记录日期转成制作年代。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“制作方推测”略简化可能关联，整体忠实。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "对日期、归属、来源与用途边界最完整。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确保留制作年代和制作方的不确定性。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "数字27未被解释，来源缺口处理正确。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "所有不确定状态均有明确限定。"
+      },
+      {
+        "id": "confirm_art_uncertain_textile",
+        "task_type": "artwork_intro",
+        "category": "artwork_intro",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“导致流转不明、待考证”略作因果与套话。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "以可见状态建立入口并清楚限定未知。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 3,
+          "boundary_constraints": 2
+        },
+        "total": 13,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "加入历史文档原貌和时间留痕，主题化偏重。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 3,
+          "boundary_constraints": 2
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "framing_hallucination",
+          "factual_invention"
+        ],
+        "rationale": "虚构常见形态、处理方式及历史叙述功能。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实完整，“留白记录状态”有轻度意象化。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "忠实列项，“文字记录被调整”略宽泛。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 3,
+          "boundary_constraints": 3
+        },
+        "total": 13,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification"
+        ],
+        "rationale": "把复核章定为已核对并扩写为多次数额调整。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "简洁准确，未将划改原因故事化。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 3,
+          "boundary_constraints": 1
+        },
+        "total": 9,
+        "serious_error": true,
+        "serious_error_flags": [
+          "framing_hallucination",
+          "cliche_takeover"
+        ],
+        "rationale": "扩写交易、时代票据与“背后故事”，鼓励臆想。"
+      },
+      {
+        "id": "confirm_preface_repair_receipts",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "观看入口明确，未知项原样保留。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 14,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification"
+        ],
+        "rationale": "把标签空白写成历史与时间流逝提示。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "framing_hallucination",
+          "cliche_takeover"
+        ],
+        "rationale": "用“历史温度、未尽叙事”包装未记录内容。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 3,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实准确，前言对未知边界交代不足。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "以盒体与标签状态建立清晰观看入口。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 16,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“时代见证、保存状态”略主题化。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "已知和未记录项分界准确。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "功能清楚，未把空栏解释为遗忘。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 15,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“时间留痕”是轻度陈词化框架。"
+      },
+      {
+        "id": "confirm_preface_glass_negative_boxes",
+        "task_type": "exhibition_preface",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 16,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“往昔影像档案”略扩写，但未具体虚构内容。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 14,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite"
+        ],
+        "rationale": "把未记录项概括为“记录不完整”。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 3,
+          "boundary_constraints": 1
+        },
+        "total": 9,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "framing_hallucination"
+        ],
+        "rationale": "虚构玻璃展柜、保存安排与完好标本状态。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确收束已知并明确未知不等于不存在。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实齐全，时间与信息痕迹略意象化。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite",
+          "cliche_takeover"
+        ],
+        "rationale": "把未知写成未追溯过往并引导想象故事。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "未知项正确，“原初状态”未有直接证据。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实完整，“未言之事”略作叙事暗示。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 15,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“见证时间沉淀”偏陈词，未虚构具体内容。"
+      },
+      {
+        "id": "confirm_closing_sealed_envelopes",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "总体忠实，“完整封存历史物件”略强化。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "framing_hallucination"
+        ],
+        "rationale": "虚构种子收集与保存工作及品种记录功能。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "严格区分样本袋事实与种植未知。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 15,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "把年代说成采集记录，轻度补写来源功能。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实完整，结语只收束可见与未记录。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 1,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "framing_hallucination"
+        ],
+        "rationale": "将样本袋写成种子收集、保存信息的载体。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "简洁忠实，不推断袋内种子或播种结果。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "未知项保持未记载，收束自然。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 13,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention"
+        ],
+        "rationale": "虚构品种登记保存记录及“后续命运”。"
+      },
+      {
+        "id": "confirm_closing_seed_packets",
+        "task_type": "exhibition_closing",
+        "category": "framing_text",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "主体准确，“历史背景部分缺失”略改写未知。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 2
+        },
+        "total": 14,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "总体满足约束，但补入高潮、具体媒介与安全间距。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 11,
+        "serious_error": true,
+        "serious_error_flags": [
+          "capability_inference"
+        ],
+        "rationale": "把八岁儿童与拄杖叔叔改成幼儿和长者。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 13,
+        "serious_error": true,
+        "serious_error_flags": [
+          "capability_inference"
+        ],
+        "rationale": "将同行者概括为长辈并推断无需久站和注视屏幕。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确转译座位、时长、防闪烁和多通道信息。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "以环境可达性组织方案，不推断个人能力。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 2
+        },
+        "total": 15,
+        "serious_error": true,
+        "serious_error_flags": [
+          "boundary_violation"
+        ],
+        "rationale": "把“避免闪烁”降为低闪烁，未完全满足硬约束。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 11,
+        "serious_error": true,
+        "serious_error_flags": [
+          "capability_inference"
+        ],
+        "rationale": "将成年叔叔无依据地改写为长者。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 11,
+        "serious_error": true,
+        "serious_error_flags": [
+          "capability_inference"
+        ],
+        "rationale": "直接写“老龄需求”，形成年龄能力推断。"
+      },
+      {
+        "id": "confirm_curation_family_access",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 1
+        },
+        "total": 11,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "capability_inference"
+        ],
+        "rationale": "boundary虚构轮椅，并扩写低刺激需求。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "色调、照度、媒介、文字与节奏均准确。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“视觉张力、静谧通透”略加入感受预设。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "明确分离深色作品与明亮空间。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“视觉对比”是轻度形式解释，边界仍稳。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“静谧而不压抑”加入未经要求的情绪判断。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 3,
+          "boundary_constraints": 4
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "加入沉浸、舒适、层次细节等体验推断。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "只承接明示筛选条件，语义最克制。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "boundary误提距离参数，主体方案仍准确。"
+      },
+      {
+        "id": "confirm_curation_dark_colors_bright_space",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "短而完整，无悲伤或低照度联想。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "将需求准确转为空间节奏，不诊断身体。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "单层、短段、停留与时长全部落实。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "动线可执行且不扩写辅具或病因。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "边界最完整，明确排除具体作品与身体叙事。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "简洁可执行，严格贴合条件。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“短期步行限制”比近期膝不适略作概括。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "短步行与停顿节奏清楚。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“闭环”是未给出的路线形态，影响轻微。"
+      },
+      {
+        "id": "confirm_curation_single_floor_pause",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "功能与边界均准确。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 3,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 3,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 15,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "虚设触发、延展与循环结构，略强化机制。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 1,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "保留未解决愤怒，不导向宣泄和解。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 2,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 16,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "强度递增和排除任何暗示，略过度强化。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 4,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 2,
+          "naturalness": 4,
+          "boundary_constraints": 3
+        },
+        "total": 16,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“深化”与强化空间张力超出明示偏好。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 4,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "task_function": 4,
+          "semantic_discernment": 3,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "迸发与回响略修辞化，整体边界正确。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 2,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "task_function": 2,
+          "semantic_discernment": 2,
+          "naturalness": 3,
+          "boundary_constraints": 2
+        },
+        "total": 11,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification",
+          "task_distortion"
+        ],
+        "rationale": "加入扭曲、抵抗并阻止观众理解，改变策展目标。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": null,
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "精准保持愤怒悬置且排除伤害画面。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "repetition": 1,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "方案完整克制，不推断个人经历。"
+      },
+      {
+        "id": "confirm_curation_anger_without_release",
+        "task_type": "curation_analysis",
+        "category": "curation_analysis",
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "repetition": 3,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "简短准确，媒介开放与禁项均落实。"
+      }
+    ],
+    "narration": [
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 4,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实完整，前言提前列未知且两段区分略弱。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 5,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "preface_function": 3,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 13,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite"
+        ],
+        "rationale": "把未记录项包装成未解之谜并交给观者揣摩。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 3
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "功能分工、未知状态和跨段一致性均严谨，稍技术化。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 2,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "两段忠实但偏简短重复，前言未充分建立观看路径。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 3,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "preface_function": 2,
+          "closing_function": 2,
+          "cross_segment_consistency": 2,
+          "naturalness_boundary": 3
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "framing_hallucination"
+        ],
+        "rationale": "虚构手绘原件、制图实践、存续与变迁过程。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 1,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实准确，前言和结语均偏资料复述。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 2,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "preface_function": 1,
+          "closing_function": 1,
+          "cross_segment_consistency": 2,
+          "naturalness_boundary": 3
+        },
+        "total": 8,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "framing_hallucination"
+        ],
+        "rationale": "虚构规划用途、时间选择主题、物证与问题叙事。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 5,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "边界正确，但前言和结语功能较平。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 1,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 4
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite",
+          "framing_hallucination"
+        ],
+        "rationale": "把改线写成变迁，并以秘密和未竟包装未知。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 3,
+        "blind_label": "J",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 4
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "unknown_state_rewrite"
+        ],
+        "rationale": "虚构墙面陈列、保持原样、等待及自行揣摩。"
+      },
+      {
+        "id": "hybrid_narration_corrected_maps",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 4,
+        "blind_label": "K",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 2,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite",
+          "framing_hallucination"
+        ],
+        "rationale": "用时间印记、沉默和缺失标记改写证据状态。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "前言建立核对顺序，结语严格收束已知与未知。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 5,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 4
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite",
+          "cliche_takeover"
+        ],
+        "rationale": "用时间对话、隐藏和沉默重写未记录状态。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 2,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "preface_function": 3,
+          "closing_function": 2,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 16,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite"
+        ],
+        "rationale": "将未记录项与明确空白并列为同一空白。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 4,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实完整，前言稍多未知项，结语略泛。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "忠实自然，功能分工与观看入口较弱。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确但两段接近清单复述。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 3,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 2,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite",
+          "semantic_intensification"
+        ],
+        "rationale": "把未记录交易物和付款人写成未呈现，并主题化时间痕迹。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 5,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "前言观看入口清楚，结语准确但收束较平。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 2,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "边界无误，前后段功能差异有限。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 4,
+        "blind_label": "J",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "前言自然，结语“各自形成认识”略开放解释。"
+      },
+      {
+        "id": "hybrid_narration_unsigned_receipts",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 1,
+        "blind_label": "K",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 2,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "semantic_intensification"
+        ],
+        "rationale": "把签名当姓名，并把空栏推成未签行为。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 3,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 3
+        },
+        "total": 16,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实主体正确，“时间地域标记”略主题化。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 4,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 11,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite"
+        ],
+        "rationale": "把未记录称为未载空白并要求想象。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 2,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "前言只建入口，结语准确并列已知与未记录。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 1,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "preface_function": 1,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 9,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "unknown_state_rewrite",
+          "framing_hallucination"
+        ],
+        "rationale": "虚构投影记录、用途与未完成信息，结尾诉诸沉默。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "两段分工明确，严格限定哪些栏可称空白。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 2,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification",
+          "framing_hallucination"
+        ],
+        "rationale": "把盒子称全部物证，并把已知未知构成完整档案。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 5,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实忠实但更像前后清单。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 5,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "preface_function": 2,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 10,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "unknown_state_rewrite"
+        ],
+        "rationale": "误称片数一半，且把未记录与未填写统称缺失。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 1,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确自然，前言入口和结语收束偏基础。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 4,
+        "blind_label": "J",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "边界无误，但前后段功能较弱。"
+      },
+      {
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 2,
+        "blind_label": "K",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 2,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite",
+          "framing_hallucination"
+        ],
+        "rationale": "用物质遗存、记录缺失和无言框架包装物件。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 1,
+        "blind_label": "A",
+        "dimensions": {
+          "evidence_fidelity": 1,
+          "preface_function": 1,
+          "closing_function": 1,
+          "cross_segment_consistency": 2,
+          "naturalness_boundary": 3
+        },
+        "total": 8,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "unknown_state_rewrite",
+          "framing_hallucination"
+        ],
+        "rationale": "把无订购表写成缺失，并虚构选择、期待和未完成叙事。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 5,
+        "blind_label": "B",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 14,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification",
+          "capability_inference"
+        ],
+        "rationale": "将订购表和圈记推断为翻阅、勾选与使用动作。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 5,
+        "blind_label": "C",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "事实正确，结语“留待他证”略弱化闭合。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "K3",
+        "variant": "k3-256k-comparator",
+        "repetition": 1,
+        "blind_label": "D",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 20,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "观看入口、事实收束与未知状态均严格。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 3,
+        "blind_label": "E",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 1,
+          "closing_function": 2,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 4
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "factual_invention",
+          "framing_hallucination"
+        ],
+        "rationale": "虚构人与植物的约定和等待用途。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 3,
+        "blind_label": "F",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 19,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "前言功能清楚，结语忠实但较清单化。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 4,
+        "blind_label": "G",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "total": 18,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "准确克制，段落功能区分有限。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 4,
+        "blind_label": "H",
+        "dimensions": {
+          "evidence_fidelity": 3,
+          "preface_function": 3,
+          "closing_function": 2,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 3
+        },
+        "total": 15,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "“留待细察”误示未知可见，跨度措辞略松。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "repetition": 2,
+        "blind_label": "I",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 1,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 4
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "unknown_state_rewrite",
+          "framing_hallucination"
+        ],
+        "rationale": "把未知写成未言痕迹、想象与未完成故事。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 1,
+        "blind_label": "J",
+        "dimensions": {
+          "evidence_fidelity": 2,
+          "preface_function": 2,
+          "closing_function": 2,
+          "cross_segment_consistency": 3,
+          "naturalness_boundary": 3
+        },
+        "total": 12,
+        "serious_error": true,
+        "serious_error_flags": [
+          "semantic_intensification",
+          "framing_hallucination"
+        ],
+        "rationale": "虚构农业资料序列与使用痕迹，鼓励更多解读。"
+      },
+      {
+        "id": "hybrid_narration_seed_catalogues",
+        "task_type": "combined_narration",
+        "category": "narration",
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "repetition": 2,
+        "blind_label": "K",
+        "dimensions": {
+          "evidence_fidelity": 4,
+          "preface_function": 3,
+          "closing_function": 3,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 3
+        },
+        "total": 17,
+        "serious_error": false,
+        "serious_error_flags": [],
+        "rationale": "主体准确，boundary“记录存续”含糊。"
+      }
+    ]
+  },
+  "summary": {
+    "holdout": {
+      "overall": {
+        "count": 144,
+        "mean_total": 17.5,
+        "dimension_means": {
+          "evidence_fidelity": 3.44,
+          "task_function": 3.61,
+          "semantic_discernment": 3.27,
+          "naturalness": 3.77,
+          "boundary_constraints": 3.41
+        },
+        "serious_errors": 24,
+        "serious_error_rate": 0.17,
+        "min_total": 9,
+        "max_total": 20,
+        "stddev_total": 3.2
+      },
+      "by_provider_variant": {
+        "DeepSeek | generic-task-routed-v5": {
+          "count": 64,
+          "mean_total": 16.67,
+          "dimension_means": {
+            "evidence_fidelity": 3.2,
+            "task_function": 3.48,
+            "semantic_discernment": 3.02,
+            "naturalness": 3.73,
+            "boundary_constraints": 3.23
+          },
+          "serious_errors": 15,
+          "serious_error_rate": 0.23,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 3.35
+        },
+        "DeepSeek | recommended-hybrid-v6": {
+          "count": 64,
+          "mean_total": 17.83,
+          "dimension_means": {
+            "evidence_fidelity": 3.55,
+            "task_function": 3.67,
+            "semantic_discernment": 3.38,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.48
+          },
+          "serious_errors": 8,
+          "serious_error_rate": 0.12,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 3.01
+        },
+        "K3 | k3-256k-comparator": {
+          "count": 16,
+          "mean_total": 19.5,
+          "dimension_means": {
+            "evidence_fidelity": 3.94,
+            "task_function": 3.88,
+            "semantic_discernment": 3.88,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.81
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.06,
+          "min_total": 12,
+          "max_total": 20,
+          "stddev_total": 1.94
+        }
+      },
+      "by_provider_variant_task_type": {
+        "DeepSeek | generic-task-routed-v5 | artwork_intro": {
+          "count": 16,
+          "mean_total": 18.69,
+          "dimension_means": {
+            "evidence_fidelity": 3.75,
+            "task_function": 4.0,
+            "semantic_discernment": 3.38,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.81
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 14,
+          "max_total": 20,
+          "stddev_total": 1.53
+        },
+        "DeepSeek | generic-task-routed-v5 | curation_analysis": {
+          "count": 16,
+          "mean_total": 16.12,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "task_function": 3.38,
+            "semantic_discernment": 2.94,
+            "naturalness": 3.81,
+            "boundary_constraints": 3.0
+          },
+          "serious_errors": 5,
+          "serious_error_rate": 0.31,
+          "min_total": 11,
+          "max_total": 20,
+          "stddev_total": 3.67
+        },
+        "DeepSeek | generic-task-routed-v5 | emotion_response": {
+          "count": 16,
+          "mean_total": 17.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.19,
+            "task_function": 3.44,
+            "semantic_discernment": 3.25,
+            "naturalness": 3.62,
+            "boundary_constraints": 3.5
+          },
+          "serious_errors": 4,
+          "serious_error_rate": 0.25,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 2.94
+        },
+        "DeepSeek | generic-task-routed-v5 | exhibition_closing": {
+          "count": 8,
+          "mean_total": 15.12,
+          "dimension_means": {
+            "evidence_fidelity": 2.88,
+            "task_function": 3.25,
+            "semantic_discernment": 2.5,
+            "naturalness": 3.88,
+            "boundary_constraints": 2.62
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.38,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 4.37
+        },
+        "DeepSeek | generic-task-routed-v5 | exhibition_preface": {
+          "count": 8,
+          "mean_total": 14.62,
+          "dimension_means": {
+            "evidence_fidelity": 2.88,
+            "task_function": 3.0,
+            "semantic_discernment": 2.5,
+            "naturalness": 3.62,
+            "boundary_constraints": 2.62
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.38,
+          "min_total": 10,
+          "max_total": 18,
+          "stddev_total": 2.45
+        },
+        "DeepSeek | recommended-hybrid-v6 | artwork_intro": {
+          "count": 16,
+          "mean_total": 19.44,
+          "dimension_means": {
+            "evidence_fidelity": 3.81,
+            "task_function": 4.0,
+            "semantic_discernment": 3.88,
+            "naturalness": 3.81,
+            "boundary_constraints": 3.94
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 17,
+          "max_total": 20,
+          "stddev_total": 0.93
+        },
+        "DeepSeek | recommended-hybrid-v6 | curation_analysis": {
+          "count": 16,
+          "mean_total": 18.19,
+          "dimension_means": {
+            "evidence_fidelity": 3.62,
+            "task_function": 3.81,
+            "semantic_discernment": 3.38,
+            "naturalness": 3.88,
+            "boundary_constraints": 3.5
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.12,
+          "min_total": 13,
+          "max_total": 20,
+          "stddev_total": 2.43
+        },
+        "DeepSeek | recommended-hybrid-v6 | emotion_response": {
+          "count": 16,
+          "mean_total": 17.88,
+          "dimension_means": {
+            "evidence_fidelity": 3.69,
+            "task_function": 3.56,
+            "semantic_discernment": 3.62,
+            "naturalness": 3.38,
+            "boundary_constraints": 3.62
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.06,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 2.98
+        },
+        "DeepSeek | recommended-hybrid-v6 | exhibition_closing": {
+          "count": 8,
+          "mean_total": 15.12,
+          "dimension_means": {
+            "evidence_fidelity": 2.88,
+            "task_function": 3.25,
+            "semantic_discernment": 2.38,
+            "naturalness": 4.0,
+            "boundary_constraints": 2.62
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.38,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 2.8
+        },
+        "DeepSeek | recommended-hybrid-v6 | exhibition_preface": {
+          "count": 8,
+          "mean_total": 16.5,
+          "dimension_means": {
+            "evidence_fidelity": 3.25,
+            "task_function": 3.38,
+            "semantic_discernment": 2.88,
+            "naturalness": 3.88,
+            "boundary_constraints": 3.12
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.25,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 4.36
+        },
+        "K3 | k3-256k-comparator | artwork_intro": {
+          "count": 4,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | curation_analysis": {
+          "count": 4,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | emotion_response": {
+          "count": 4,
+          "mean_total": 18.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.75,
+            "task_function": 3.5,
+            "semantic_discernment": 3.5,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.25
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 12,
+          "max_total": 20,
+          "stddev_total": 3.46
+        },
+        "K3 | k3-256k-comparator | exhibition_closing": {
+          "count": 2,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | exhibition_preface": {
+          "count": 2,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        }
+      },
+      "case_stability": {
+        "DeepSeek | generic-task-routed-v5 | confirm_art_blue_chairs": {
+          "count": 4,
+          "mean_total": 18.75,
+          "dimension_means": {
+            "evidence_fidelity": 3.75,
+            "task_function": 4.0,
+            "semantic_discernment": 3.25,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 17,
+          "max_total": 20,
+          "stddev_total": 1.09
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_art_sparse_fragment": {
+          "count": 4,
+          "mean_total": 19.25,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 3.75,
+            "naturalness": 3.5,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 20,
+          "stddev_total": 0.83
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_art_title_description_conflict": {
+          "count": 4,
+          "mean_total": 18.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.25,
+            "task_function": 4.0,
+            "semantic_discernment": 3.25,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 14,
+          "max_total": 20,
+          "stddev_total": 2.45
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_art_uncertain_textile": {
+          "count": 4,
+          "mean_total": 18.75,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 3.25,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 20,
+          "stddev_total": 0.83
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_closing_sealed_envelopes": {
+          "count": 4,
+          "mean_total": 13.25,
+          "dimension_means": {
+            "evidence_fidelity": 2.5,
+            "task_function": 3.0,
+            "semantic_discernment": 2.0,
+            "naturalness": 3.75,
+            "boundary_constraints": 2.0
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.5,
+          "min_total": 9,
+          "max_total": 17,
+          "stddev_total": 3.77
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_closing_seed_packets": {
+          "count": 4,
+          "mean_total": 17.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.25,
+            "task_function": 3.5,
+            "semantic_discernment": 3.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.25
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 4.12
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_curation_anger_without_release": {
+          "count": 4,
+          "mean_total": 16.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "task_function": 3.25,
+            "semantic_discernment": 2.75,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.25
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 11,
+          "max_total": 20,
+          "stddev_total": 3.39
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_curation_dark_colors_bright_space": {
+          "count": 4,
+          "mean_total": 18.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.5,
+            "task_function": 4.0,
+            "semantic_discernment": 3.25,
+            "naturalness": 3.5,
+            "boundary_constraints": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 17,
+          "max_total": 19,
+          "stddev_total": 0.71
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_curation_family_access": {
+          "count": 4,
+          "mean_total": 11.0,
+          "dimension_means": {
+            "evidence_fidelity": 1.75,
+            "task_function": 2.25,
+            "semantic_discernment": 2.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 1.0
+          },
+          "serious_errors": 4,
+          "serious_error_rate": 1.0,
+          "min_total": 11,
+          "max_total": 11,
+          "stddev_total": 0.0
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_curation_single_floor_pause": {
+          "count": 4,
+          "mean_total": 19.5,
+          "dimension_means": {
+            "evidence_fidelity": 3.75,
+            "task_function": 4.0,
+            "semantic_discernment": 3.75,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 20,
+          "stddev_total": 0.87
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_emotion_anger_and_missing": {
+          "count": 4,
+          "mean_total": 17.75,
+          "dimension_means": {
+            "evidence_fidelity": 3.25,
+            "task_function": 3.75,
+            "semantic_discernment": 3.25,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.75
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 14,
+          "max_total": 20,
+          "stddev_total": 2.28
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_emotion_pleased_and_uncertain": {
+          "count": 4,
+          "mean_total": 14.25,
+          "dimension_means": {
+            "evidence_fidelity": 2.5,
+            "task_function": 2.5,
+            "semantic_discernment": 2.75,
+            "naturalness": 3.25,
+            "boundary_constraints": 3.25
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.5,
+          "min_total": 10,
+          "max_total": 18,
+          "stddev_total": 3.03
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_emotion_relief_and_emptiness": {
+          "count": 4,
+          "mean_total": 16.25,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "task_function": 3.5,
+            "semantic_discernment": 3.0,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.0
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 14,
+          "max_total": 19,
+          "stddev_total": 1.92
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_emotion_relief_and_sadness": {
+          "count": 4,
+          "mean_total": 19.75,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 3.75,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 20,
+          "stddev_total": 0.43
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_preface_glass_negative_boxes": {
+          "count": 4,
+          "mean_total": 16.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.25,
+            "task_function": 3.0,
+            "semantic_discernment": 3.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 2.75
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 14,
+          "max_total": 18,
+          "stddev_total": 1.41
+        },
+        "DeepSeek | generic-task-routed-v5 | confirm_preface_repair_receipts": {
+          "count": 4,
+          "mean_total": 13.25,
+          "dimension_means": {
+            "evidence_fidelity": 2.5,
+            "task_function": 3.0,
+            "semantic_discernment": 2.0,
+            "naturalness": 3.25,
+            "boundary_constraints": 2.5
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.5,
+          "min_total": 10,
+          "max_total": 17,
+          "stddev_total": 2.49
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_art_blue_chairs": {
+          "count": 4,
+          "mean_total": 19.5,
+          "dimension_means": {
+            "evidence_fidelity": 3.75,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 20,
+          "stddev_total": 0.87
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_art_sparse_fragment": {
+          "count": 4,
+          "mean_total": 19.5,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 3.5,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 20,
+          "stddev_total": 0.5
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_art_title_description_conflict": {
+          "count": 4,
+          "mean_total": 18.75,
+          "dimension_means": {
+            "evidence_fidelity": 3.5,
+            "task_function": 4.0,
+            "semantic_discernment": 3.5,
+            "naturalness": 3.75,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 17,
+          "max_total": 20,
+          "stddev_total": 1.3
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_art_uncertain_textile": {
+          "count": 4,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_closing_sealed_envelopes": {
+          "count": 4,
+          "mean_total": 15.75,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "task_function": 3.5,
+            "semantic_discernment": 2.5,
+            "naturalness": 4.0,
+            "boundary_constraints": 2.75
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 14,
+          "max_total": 17,
+          "stddev_total": 1.3
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_closing_seed_packets": {
+          "count": 4,
+          "mean_total": 14.5,
+          "dimension_means": {
+            "evidence_fidelity": 2.75,
+            "task_function": 3.0,
+            "semantic_discernment": 2.25,
+            "naturalness": 4.0,
+            "boundary_constraints": 2.5
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.5,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 3.64
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_curation_anger_without_release": {
+          "count": 4,
+          "mean_total": 18.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.5,
+            "task_function": 4.0,
+            "semantic_discernment": 3.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.5
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 16,
+          "max_total": 20,
+          "stddev_total": 2.0
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_curation_dark_colors_bright_space": {
+          "count": 4,
+          "mean_total": 19.5,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 3.75,
+            "naturalness": 3.75,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 20,
+          "stddev_total": 0.87
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_curation_family_access": {
+          "count": 4,
+          "mean_total": 15.5,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "task_function": 3.25,
+            "semantic_discernment": 3.0,
+            "naturalness": 3.75,
+            "boundary_constraints": 2.5
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.5,
+          "min_total": 13,
+          "max_total": 20,
+          "stddev_total": 2.69
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_curation_single_floor_pause": {
+          "count": 4,
+          "mean_total": 19.75,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 3.75,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 20,
+          "stddev_total": 0.43
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_emotion_anger_and_missing": {
+          "count": 4,
+          "mean_total": 19.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 3.75,
+            "semantic_discernment": 4.0,
+            "naturalness": 3.5,
+            "boundary_constraints": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 20,
+          "stddev_total": 0.71
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_emotion_pleased_and_uncertain": {
+          "count": 4,
+          "mean_total": 15.25,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "task_function": 2.75,
+            "semantic_discernment": 3.25,
+            "naturalness": 3.0,
+            "boundary_constraints": 3.25
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 4.02
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_emotion_relief_and_emptiness": {
+          "count": 4,
+          "mean_total": 18.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.75,
+            "task_function": 3.75,
+            "semantic_discernment": 3.25,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.5
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 13,
+          "max_total": 20,
+          "stddev_total": 2.92
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_emotion_relief_and_sadness": {
+          "count": 4,
+          "mean_total": 19.25,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 3.25,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 20,
+          "stddev_total": 0.43
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_preface_glass_negative_boxes": {
+          "count": 4,
+          "mean_total": 16.25,
+          "dimension_means": {
+            "evidence_fidelity": 3.25,
+            "task_function": 3.25,
+            "semantic_discernment": 2.75,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.0
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 4.15
+        },
+        "DeepSeek | recommended-hybrid-v6 | confirm_preface_repair_receipts": {
+          "count": 4,
+          "mean_total": 16.75,
+          "dimension_means": {
+            "evidence_fidelity": 3.25,
+            "task_function": 3.5,
+            "semantic_discernment": 3.0,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.25
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.25,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 4.55
+        },
+        "K3 | k3-256k-comparator | confirm_art_blue_chairs": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_art_sparse_fragment": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_art_title_description_conflict": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_art_uncertain_textile": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_closing_sealed_envelopes": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_closing_seed_packets": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_curation_anger_without_release": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_curation_dark_colors_bright_space": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_curation_family_access": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_curation_single_floor_pause": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_emotion_anger_and_missing": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_emotion_pleased_and_uncertain": {
+          "count": 1,
+          "mean_total": 12.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "task_function": 2.0,
+            "semantic_discernment": 2.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 1.0
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 1.0,
+          "min_total": 12,
+          "max_total": 12,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_emotion_relief_and_emptiness": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_emotion_relief_and_sadness": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_preface_glass_negative_boxes": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | confirm_preface_repair_receipts": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "task_function": 4.0,
+            "semantic_discernment": 4.0,
+            "naturalness": 4.0,
+            "boundary_constraints": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        }
+      }
+    },
+    "narration": {
+      "overall": {
+        "count": 44,
+        "mean_total": 15.2,
+        "dimension_means": {
+          "evidence_fidelity": 2.98,
+          "preface_function": 2.7,
+          "closing_function": 2.43,
+          "cross_segment_consistency": 3.5,
+          "naturalness_boundary": 3.59
+        },
+        "serious_errors": 20,
+        "serious_error_rate": 0.45,
+        "min_total": 8,
+        "max_total": 20,
+        "stddev_total": 3.66
+      },
+      "by_provider_variant": {
+        "DeepSeek | combined-baseline-v5": {
+          "count": 20,
+          "mean_total": 12.45,
+          "dimension_means": {
+            "evidence_fidelity": 2.2,
+            "preface_function": 2.05,
+            "closing_function": 1.65,
+            "cross_segment_consistency": 3.1,
+            "naturalness_boundary": 3.45
+          },
+          "serious_errors": 17,
+          "serious_error_rate": 0.85,
+          "min_total": 8,
+          "max_total": 18,
+          "stddev_total": 2.89
+        },
+        "DeepSeek | combined-guarded-v6": {
+          "count": 20,
+          "mean_total": 17.05,
+          "dimension_means": {
+            "evidence_fidelity": 3.55,
+            "preface_function": 3.1,
+            "closing_function": 2.9,
+            "cross_segment_consistency": 3.8,
+            "naturalness_boundary": 3.7
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.15,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 2.44
+        },
+        "K3 | k3-256k-comparator": {
+          "count": 4,
+          "mean_total": 19.75,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 20,
+          "stddev_total": 0.43
+        }
+      },
+      "by_provider_variant_packet": {
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_corrected_maps": {
+          "count": 5,
+          "mean_total": 11.4,
+          "dimension_means": {
+            "evidence_fidelity": 2.0,
+            "preface_function": 2.0,
+            "closing_function": 1.2,
+            "cross_segment_consistency": 2.8,
+            "naturalness_boundary": 3.4
+          },
+          "serious_errors": 5,
+          "serious_error_rate": 1.0,
+          "min_total": 8,
+          "max_total": 13,
+          "stddev_total": 1.74
+        },
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_lantern_slide_boxes": {
+          "count": 5,
+          "mean_total": 10.8,
+          "dimension_means": {
+            "evidence_fidelity": 1.6,
+            "preface_function": 1.8,
+            "closing_function": 1.4,
+            "cross_segment_consistency": 3.0,
+            "naturalness_boundary": 3.0
+          },
+          "serious_errors": 5,
+          "serious_error_rate": 1.0,
+          "min_total": 9,
+          "max_total": 12,
+          "stddev_total": 1.17
+        },
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_seed_catalogues": {
+          "count": 5,
+          "mean_total": 13.6,
+          "dimension_means": {
+            "evidence_fidelity": 2.6,
+            "preface_function": 2.0,
+            "closing_function": 2.0,
+            "cross_segment_consistency": 3.2,
+            "naturalness_boundary": 3.8
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.6,
+          "min_total": 8,
+          "max_total": 18,
+          "stddev_total": 3.88
+        },
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_unsigned_receipts": {
+          "count": 5,
+          "mean_total": 14.0,
+          "dimension_means": {
+            "evidence_fidelity": 2.6,
+            "preface_function": 2.4,
+            "closing_function": 2.0,
+            "cross_segment_consistency": 3.4,
+            "naturalness_boundary": 3.6
+          },
+          "serious_errors": 4,
+          "serious_error_rate": 0.8,
+          "min_total": 12,
+          "max_total": 18,
+          "stddev_total": 2.53
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_corrected_maps": {
+          "count": 5,
+          "mean_total": 16.4,
+          "dimension_means": {
+            "evidence_fidelity": 3.4,
+            "preface_function": 2.8,
+            "closing_function": 2.8,
+            "cross_segment_consistency": 3.6,
+            "naturalness_boundary": 3.8
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.2,
+          "min_total": 10,
+          "max_total": 18,
+          "stddev_total": 3.2
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_lantern_slide_boxes": {
+          "count": 5,
+          "mean_total": 18.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.8,
+            "preface_function": 3.2,
+            "closing_function": 3.2,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 3.8
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 16,
+          "max_total": 20,
+          "stddev_total": 1.26
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_seed_catalogues": {
+          "count": 5,
+          "mean_total": 15.4,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "preface_function": 3.0,
+            "closing_function": 2.6,
+            "cross_segment_consistency": 3.6,
+            "naturalness_boundary": 3.2
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.4,
+          "min_total": 12,
+          "max_total": 19,
+          "stddev_total": 2.42
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_unsigned_receipts": {
+          "count": 5,
+          "mean_total": 18.4,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 3.4,
+            "closing_function": 3.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 19,
+          "stddev_total": 0.49
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_corrected_maps": {
+          "count": 1,
+          "mean_total": 19.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 3.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 19,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_lantern_slide_boxes": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_seed_catalogues": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_unsigned_receipts": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        }
+      },
+      "packet_stability": {
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_corrected_maps": {
+          "count": 5,
+          "mean_total": 11.4,
+          "dimension_means": {
+            "evidence_fidelity": 2.0,
+            "preface_function": 2.0,
+            "closing_function": 1.2,
+            "cross_segment_consistency": 2.8,
+            "naturalness_boundary": 3.4
+          },
+          "serious_errors": 5,
+          "serious_error_rate": 1.0,
+          "min_total": 8,
+          "max_total": 13,
+          "stddev_total": 1.74
+        },
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_lantern_slide_boxes": {
+          "count": 5,
+          "mean_total": 10.8,
+          "dimension_means": {
+            "evidence_fidelity": 1.6,
+            "preface_function": 1.8,
+            "closing_function": 1.4,
+            "cross_segment_consistency": 3.0,
+            "naturalness_boundary": 3.0
+          },
+          "serious_errors": 5,
+          "serious_error_rate": 1.0,
+          "min_total": 9,
+          "max_total": 12,
+          "stddev_total": 1.17
+        },
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_seed_catalogues": {
+          "count": 5,
+          "mean_total": 13.6,
+          "dimension_means": {
+            "evidence_fidelity": 2.6,
+            "preface_function": 2.0,
+            "closing_function": 2.0,
+            "cross_segment_consistency": 3.2,
+            "naturalness_boundary": 3.8
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.6,
+          "min_total": 8,
+          "max_total": 18,
+          "stddev_total": 3.88
+        },
+        "DeepSeek | combined-baseline-v5 | hybrid_narration_unsigned_receipts": {
+          "count": 5,
+          "mean_total": 14.0,
+          "dimension_means": {
+            "evidence_fidelity": 2.6,
+            "preface_function": 2.4,
+            "closing_function": 2.0,
+            "cross_segment_consistency": 3.4,
+            "naturalness_boundary": 3.6
+          },
+          "serious_errors": 4,
+          "serious_error_rate": 0.8,
+          "min_total": 12,
+          "max_total": 18,
+          "stddev_total": 2.53
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_corrected_maps": {
+          "count": 5,
+          "mean_total": 16.4,
+          "dimension_means": {
+            "evidence_fidelity": 3.4,
+            "preface_function": 2.8,
+            "closing_function": 2.8,
+            "cross_segment_consistency": 3.6,
+            "naturalness_boundary": 3.8
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.2,
+          "min_total": 10,
+          "max_total": 18,
+          "stddev_total": 3.2
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_lantern_slide_boxes": {
+          "count": 5,
+          "mean_total": 18.0,
+          "dimension_means": {
+            "evidence_fidelity": 3.8,
+            "preface_function": 3.2,
+            "closing_function": 3.2,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 3.8
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 16,
+          "max_total": 20,
+          "stddev_total": 1.26
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_seed_catalogues": {
+          "count": 5,
+          "mean_total": 15.4,
+          "dimension_means": {
+            "evidence_fidelity": 3.0,
+            "preface_function": 3.0,
+            "closing_function": 2.6,
+            "cross_segment_consistency": 3.6,
+            "naturalness_boundary": 3.2
+          },
+          "serious_errors": 2,
+          "serious_error_rate": 0.4,
+          "min_total": 12,
+          "max_total": 19,
+          "stddev_total": 2.42
+        },
+        "DeepSeek | combined-guarded-v6 | hybrid_narration_unsigned_receipts": {
+          "count": 5,
+          "mean_total": 18.4,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 3.4,
+            "closing_function": 3.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 18,
+          "max_total": 19,
+          "stddev_total": 0.49
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_corrected_maps": {
+          "count": 1,
+          "mean_total": 19.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 3.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 19,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_lantern_slide_boxes": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_seed_catalogues": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        },
+        "K3 | k3-256k-comparator | hybrid_narration_unsigned_receipts": {
+          "count": 1,
+          "mean_total": 20.0,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 4.0
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 20,
+          "max_total": 20,
+          "stddev_total": 0.0
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "deepseek_v6_minus_v5": {
+      "holdout": {
+        "left": {
+          "count": 64,
+          "mean_total": 17.83,
+          "dimension_means": {
+            "evidence_fidelity": 3.55,
+            "task_function": 3.67,
+            "semantic_discernment": 3.38,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.48
+          },
+          "serious_errors": 8,
+          "serious_error_rate": 0.12,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 3.01
+        },
+        "right": {
+          "count": 64,
+          "mean_total": 16.67,
+          "dimension_means": {
+            "evidence_fidelity": 3.2,
+            "task_function": 3.48,
+            "semantic_discernment": 3.02,
+            "naturalness": 3.73,
+            "boundary_constraints": 3.23
+          },
+          "serious_errors": 15,
+          "serious_error_rate": 0.23,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 3.35
+        },
+        "mean_total_delta_left_minus_right": 1.16,
+        "dimension_deltas_left_minus_right": {
+          "evidence_fidelity": 0.35,
+          "task_function": 0.19,
+          "semantic_discernment": 0.36,
+          "naturalness": 0.02,
+          "boundary_constraints": 0.25
+        },
+        "serious_error_rate_delta_pp_left_minus_right": -11.0
+      },
+      "narration": {
+        "left": {
+          "count": 20,
+          "mean_total": 17.05,
+          "dimension_means": {
+            "evidence_fidelity": 3.55,
+            "preface_function": 3.1,
+            "closing_function": 2.9,
+            "cross_segment_consistency": 3.8,
+            "naturalness_boundary": 3.7
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.15,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 2.44
+        },
+        "right": {
+          "count": 20,
+          "mean_total": 12.45,
+          "dimension_means": {
+            "evidence_fidelity": 2.2,
+            "preface_function": 2.05,
+            "closing_function": 1.65,
+            "cross_segment_consistency": 3.1,
+            "naturalness_boundary": 3.45
+          },
+          "serious_errors": 17,
+          "serious_error_rate": 0.85,
+          "min_total": 8,
+          "max_total": 18,
+          "stddev_total": 2.89
+        },
+        "mean_total_delta_left_minus_right": 4.6,
+        "dimension_deltas_left_minus_right": {
+          "evidence_fidelity": 1.35,
+          "preface_function": 1.05,
+          "closing_function": 1.25,
+          "cross_segment_consistency": 0.7,
+          "naturalness_boundary": 0.25
+        },
+        "serious_error_rate_delta_pp_left_minus_right": -70.0
+      },
+      "holdout_by_task_type": {
+        "artwork_intro": {
+          "left": {
+            "count": 16,
+            "mean_total": 19.44,
+            "dimension_means": {
+              "evidence_fidelity": 3.81,
+              "task_function": 4.0,
+              "semantic_discernment": 3.88,
+              "naturalness": 3.81,
+              "boundary_constraints": 3.94
+            },
+            "serious_errors": 0,
+            "serious_error_rate": 0.0,
+            "min_total": 17,
+            "max_total": 20,
+            "stddev_total": 0.93
+          },
+          "right": {
+            "count": 16,
+            "mean_total": 18.69,
+            "dimension_means": {
+              "evidence_fidelity": 3.75,
+              "task_function": 4.0,
+              "semantic_discernment": 3.38,
+              "naturalness": 3.75,
+              "boundary_constraints": 3.81
+            },
+            "serious_errors": 0,
+            "serious_error_rate": 0.0,
+            "min_total": 14,
+            "max_total": 20,
+            "stddev_total": 1.53
+          },
+          "mean_total_delta_left_minus_right": 0.75,
+          "dimension_deltas_left_minus_right": {
+            "evidence_fidelity": 0.06,
+            "task_function": 0.0,
+            "semantic_discernment": 0.5,
+            "naturalness": 0.06,
+            "boundary_constraints": 0.13
+          },
+          "serious_error_rate_delta_pp_left_minus_right": 0.0
+        },
+        "curation_analysis": {
+          "left": {
+            "count": 16,
+            "mean_total": 18.19,
+            "dimension_means": {
+              "evidence_fidelity": 3.62,
+              "task_function": 3.81,
+              "semantic_discernment": 3.38,
+              "naturalness": 3.88,
+              "boundary_constraints": 3.5
+            },
+            "serious_errors": 2,
+            "serious_error_rate": 0.12,
+            "min_total": 13,
+            "max_total": 20,
+            "stddev_total": 2.43
+          },
+          "right": {
+            "count": 16,
+            "mean_total": 16.12,
+            "dimension_means": {
+              "evidence_fidelity": 3.0,
+              "task_function": 3.38,
+              "semantic_discernment": 2.94,
+              "naturalness": 3.81,
+              "boundary_constraints": 3.0
+            },
+            "serious_errors": 5,
+            "serious_error_rate": 0.31,
+            "min_total": 11,
+            "max_total": 20,
+            "stddev_total": 3.67
+          },
+          "mean_total_delta_left_minus_right": 2.07,
+          "dimension_deltas_left_minus_right": {
+            "evidence_fidelity": 0.62,
+            "task_function": 0.43,
+            "semantic_discernment": 0.44,
+            "naturalness": 0.07,
+            "boundary_constraints": 0.5
+          },
+          "serious_error_rate_delta_pp_left_minus_right": -19.0
+        },
+        "emotion_response": {
+          "left": {
+            "count": 16,
+            "mean_total": 17.88,
+            "dimension_means": {
+              "evidence_fidelity": 3.69,
+              "task_function": 3.56,
+              "semantic_discernment": 3.62,
+              "naturalness": 3.38,
+              "boundary_constraints": 3.62
+            },
+            "serious_errors": 1,
+            "serious_error_rate": 0.06,
+            "min_total": 9,
+            "max_total": 20,
+            "stddev_total": 2.98
+          },
+          "right": {
+            "count": 16,
+            "mean_total": 17.0,
+            "dimension_means": {
+              "evidence_fidelity": 3.19,
+              "task_function": 3.44,
+              "semantic_discernment": 3.25,
+              "naturalness": 3.62,
+              "boundary_constraints": 3.5
+            },
+            "serious_errors": 4,
+            "serious_error_rate": 0.25,
+            "min_total": 10,
+            "max_total": 20,
+            "stddev_total": 2.94
+          },
+          "mean_total_delta_left_minus_right": 0.88,
+          "dimension_deltas_left_minus_right": {
+            "evidence_fidelity": 0.5,
+            "task_function": 0.12,
+            "semantic_discernment": 0.37,
+            "naturalness": -0.24,
+            "boundary_constraints": 0.12
+          },
+          "serious_error_rate_delta_pp_left_minus_right": -19.0
+        },
+        "exhibition_closing": {
+          "left": {
+            "count": 8,
+            "mean_total": 15.12,
+            "dimension_means": {
+              "evidence_fidelity": 2.88,
+              "task_function": 3.25,
+              "semantic_discernment": 2.38,
+              "naturalness": 4.0,
+              "boundary_constraints": 2.62
+            },
+            "serious_errors": 3,
+            "serious_error_rate": 0.38,
+            "min_total": 10,
+            "max_total": 20,
+            "stddev_total": 2.8
+          },
+          "right": {
+            "count": 8,
+            "mean_total": 15.12,
+            "dimension_means": {
+              "evidence_fidelity": 2.88,
+              "task_function": 3.25,
+              "semantic_discernment": 2.5,
+              "naturalness": 3.88,
+              "boundary_constraints": 2.62
+            },
+            "serious_errors": 3,
+            "serious_error_rate": 0.38,
+            "min_total": 9,
+            "max_total": 20,
+            "stddev_total": 4.37
+          },
+          "mean_total_delta_left_minus_right": 0.0,
+          "dimension_deltas_left_minus_right": {
+            "evidence_fidelity": 0.0,
+            "task_function": 0.0,
+            "semantic_discernment": -0.12,
+            "naturalness": 0.12,
+            "boundary_constraints": 0.0
+          },
+          "serious_error_rate_delta_pp_left_minus_right": 0.0
+        },
+        "exhibition_preface": {
+          "left": {
+            "count": 8,
+            "mean_total": 16.5,
+            "dimension_means": {
+              "evidence_fidelity": 3.25,
+              "task_function": 3.38,
+              "semantic_discernment": 2.88,
+              "naturalness": 3.88,
+              "boundary_constraints": 3.12
+            },
+            "serious_errors": 2,
+            "serious_error_rate": 0.25,
+            "min_total": 9,
+            "max_total": 20,
+            "stddev_total": 4.36
+          },
+          "right": {
+            "count": 8,
+            "mean_total": 14.62,
+            "dimension_means": {
+              "evidence_fidelity": 2.88,
+              "task_function": 3.0,
+              "semantic_discernment": 2.5,
+              "naturalness": 3.62,
+              "boundary_constraints": 2.62
+            },
+            "serious_errors": 3,
+            "serious_error_rate": 0.38,
+            "min_total": 10,
+            "max_total": 18,
+            "stddev_total": 2.45
+          },
+          "mean_total_delta_left_minus_right": 1.88,
+          "dimension_deltas_left_minus_right": {
+            "evidence_fidelity": 0.37,
+            "task_function": 0.38,
+            "semantic_discernment": 0.38,
+            "naturalness": 0.26,
+            "boundary_constraints": 0.5
+          },
+          "serious_error_rate_delta_pp_left_minus_right": -13.0
+        }
+      }
+    },
+    "deepseek_v6_minus_k3": {
+      "holdout": {
+        "left": {
+          "count": 64,
+          "mean_total": 17.83,
+          "dimension_means": {
+            "evidence_fidelity": 3.55,
+            "task_function": 3.67,
+            "semantic_discernment": 3.38,
+            "naturalness": 3.75,
+            "boundary_constraints": 3.48
+          },
+          "serious_errors": 8,
+          "serious_error_rate": 0.12,
+          "min_total": 9,
+          "max_total": 20,
+          "stddev_total": 3.01
+        },
+        "right": {
+          "count": 16,
+          "mean_total": 19.5,
+          "dimension_means": {
+            "evidence_fidelity": 3.94,
+            "task_function": 3.88,
+            "semantic_discernment": 3.88,
+            "naturalness": 4.0,
+            "boundary_constraints": 3.81
+          },
+          "serious_errors": 1,
+          "serious_error_rate": 0.06,
+          "min_total": 12,
+          "max_total": 20,
+          "stddev_total": 1.94
+        },
+        "mean_total_delta_left_minus_right": -1.67,
+        "dimension_deltas_left_minus_right": {
+          "evidence_fidelity": -0.39,
+          "task_function": -0.21,
+          "semantic_discernment": -0.5,
+          "naturalness": -0.25,
+          "boundary_constraints": -0.33
+        },
+        "serious_error_rate_delta_pp_left_minus_right": 6.0
+      },
+      "narration": {
+        "left": {
+          "count": 20,
+          "mean_total": 17.05,
+          "dimension_means": {
+            "evidence_fidelity": 3.55,
+            "preface_function": 3.1,
+            "closing_function": 2.9,
+            "cross_segment_consistency": 3.8,
+            "naturalness_boundary": 3.7
+          },
+          "serious_errors": 3,
+          "serious_error_rate": 0.15,
+          "min_total": 10,
+          "max_total": 20,
+          "stddev_total": 2.44
+        },
+        "right": {
+          "count": 4,
+          "mean_total": 19.75,
+          "dimension_means": {
+            "evidence_fidelity": 4.0,
+            "preface_function": 4.0,
+            "closing_function": 4.0,
+            "cross_segment_consistency": 4.0,
+            "naturalness_boundary": 3.75
+          },
+          "serious_errors": 0,
+          "serious_error_rate": 0.0,
+          "min_total": 19,
+          "max_total": 20,
+          "stddev_total": 0.43
+        },
+        "mean_total_delta_left_minus_right": -2.7,
+        "dimension_deltas_left_minus_right": {
+          "evidence_fidelity": -0.45,
+          "preface_function": -0.9,
+          "closing_function": -1.1,
+          "cross_segment_consistency": -0.2,
+          "naturalness_boundary": -0.05
+        },
+        "serious_error_rate_delta_pp_left_minus_right": 15.0
+      },
+      "combined_total_only": {
+        "deepseek_v6_count": 84,
+        "k3_count": 20,
+        "deepseek_v6_mean_total": 17.64,
+        "k3_mean_total": 19.55,
+        "mean_total_delta": -1.91,
+        "deepseek_v6_serious_error_rate": 0.13,
+        "k3_serious_error_rate": 0.05
+      }
+    }
+  },
+  "conclusion": {
+    "recommendation": "Use recommended-hybrid-v6 for holdout routing and combined-guarded-v6 for narration. Keep the evidence-boundary audit because residual failures cluster in emotion role/causal drift, accessibility capability inference, and narration unknown-state framing.",
+    "holdout_read": "The v6 hybrid materially improves average quality and/or serious-error rate where its routing guard is active, but family-access and subtle emotion cases remain the main regression surface.",
+    "narration_read": "The guarded v6 narration substantially reduces story/cliche takeover and unknown-state rewrites versus the baseline; remaining misses should be caught by explicit phrase-level guards for “秘密/留白/想象/时间见证” and usage/action inference.",
+    "k3_read": "K3 is a strong comparator on strict evidence framing, but not uniformly perfect; report its one-run-per-case estimates with wider uncertainty than DeepSeek repeated runs."
+  }
+}

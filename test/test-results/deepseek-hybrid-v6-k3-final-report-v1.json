@@ -1,0 +1,274 @@
+{
+  "schemaVersion": "1.0",
+  "evaluationDate": "2026-08-31",
+  "objective": "Evaluate the recommended hybrid-v6 prompt framework for DeepSeek V4 Flash against generic v5 and K3-256k.",
+  "requests": {
+    "total": 188,
+    "deepseek": 168,
+    "k3_256k": 20,
+    "http200": 188,
+    "parseableJson": 188,
+    "firstTextReceived": 188,
+    "deepseekThinkingChars": 0,
+    "k3RequestsWithThinking": 20,
+    "retries": 0
+  },
+  "deepseek": {
+    "model": "deepseek-v4-flash",
+    "stream": true,
+    "thinking": "disabled",
+    "holdout": {
+      "generic-task-routed-v5": {
+        "samples": 64,
+        "inputTokensAverage": 350.25,
+        "outputTokensAverage": 107.046875,
+        "firstTextMedianMs": 605,
+        "totalMedianMs": 1586.5,
+        "parseRate": 1,
+        "hardPassRate": 0.796875,
+        "coreCoverageAverage": 0.9220610119047619,
+        "dualJudgeMean": 16.3897,
+        "dualJudgeSeriousErrorRate": 0.328125
+      },
+      "recommended-hybrid-v6": {
+        "samples": 64,
+        "inputTokensAverage": 529.75,
+        "outputTokensAverage": 107.40625,
+        "firstTextMedianMs": 617,
+        "totalMedianMs": 1602.5,
+        "parseRate": 1,
+        "hardPassRate": 0.796875,
+        "coreCoverageAverage": 0.9592633928571429,
+        "dualJudgeMean": 17.70405,
+        "dualJudgeSeriousErrorRate": 0.171875
+      },
+      "deltaV6MinusV5": {
+        "inputTokensPercent": 51.24910778015703,
+        "outputTokensPercent": 0.33572110742897234,
+        "firstTextPercent": 1.9834710743801653,
+        "totalTimePercent": 1.0085092971950834,
+        "hardPassPercentagePoints": 0,
+        "coreCoveragePercentagePoints": 3.720238095238104,
+        "dualJudgeMean": 1.31435,
+        "dualJudgeSeriousErrorPercentagePoints": -15.625
+      }
+    },
+    "narration": {
+      "combined-baseline-v5": {
+        "samples": 20,
+        "inputTokensAverage": 314.25,
+        "outputTokensAverage": 180.55,
+        "firstTextMedianMs": 601.5,
+        "totalMedianMs": 2061.5,
+        "parseRate": 1,
+        "dualJudgeMean": 13.675,
+        "dualJudgeSeriousErrorRate": 0.75
+      },
+      "combined-guarded-v6": {
+        "samples": 20,
+        "inputTokensAverage": 517.75,
+        "outputTokensAverage": 176.35,
+        "firstTextMedianMs": 791,
+        "totalMedianMs": 2061,
+        "parseRate": 1,
+        "dualJudgeMean": 17.85,
+        "dualJudgeSeriousErrorRate": 0.15
+      },
+      "deltaV6MinusV5": {
+        "inputTokensPercent": 64.75735879077168,
+        "outputTokensPercent": -2.3262254223206894,
+        "firstTextPercent": 31.504571903574397,
+        "totalTimePercent": -0.024254183846713557,
+        "dualJudgeMean": 4.175,
+        "dualJudgeSeriousErrorPercentagePoints": -60
+      }
+    }
+  },
+  "k3_256k": {
+    "model": "k3-256k",
+    "stream": true,
+    "thinking": {
+      "type": "enabled",
+      "budgetTokens": 4096
+    },
+    "holdout": {
+      "samples": 16,
+      "inputTokensAverage": 488.4375,
+      "outputTokensAverage": 898.75,
+      "firstTextMedianMs": 26416,
+      "totalMedianMs": 28448,
+      "thinkingCharsAverage": 1656.1875,
+      "parseRate": 1,
+      "hardPassRate": 1,
+      "dualJudgeMean": 19.625,
+      "dualJudgeSeriousErrorRate": 0.03125
+    },
+    "narration": {
+      "samples": 4,
+      "inputTokensAverage": 422.75,
+      "outputTokensAverage": 1845.25,
+      "firstTextMedianMs": 64849.5,
+      "totalMedianMs": 70602,
+      "thinkingCharsAverage": 2816,
+      "parseRate": 1,
+      "hardPassRate": 1,
+      "dualJudgeMean": 19.625,
+      "dualJudgeSeriousErrorRate": 0
+    },
+    "samplingCaveat": "K3 has one output per case or packet, so the comparison does not estimate repeated-run stability. Provider token counts are not directly comparable because tokenizers differ and K3 output usage includes thinking."
+  },
+  "dualJudgeByTask": [
+    {
+      "taskType": "emotion_response",
+      "v5Mean": 16.59375,
+      "v6Mean": 17.53375,
+      "k3Mean": 18.875,
+      "v6MinusV5": 0.94,
+      "v6MinusK3": -1.34125,
+      "v5SeriousErrorRate": 0.3125,
+      "v6SeriousErrorRate": 0.09375,
+      "k3SeriousErrorRate": 0.125,
+      "decision": "iterate"
+    },
+    {
+      "taskType": "artwork_intro",
+      "v5Mean": 18.845,
+      "v6Mean": 19.31375,
+      "k3Mean": 19.75,
+      "v6MinusV5": 0.46875,
+      "v6MinusK3": -0.43625,
+      "v5SeriousErrorRate": 0.03125,
+      "v6SeriousErrorRate": 0.03125,
+      "k3SeriousErrorRate": 0,
+      "decision": "adopt_candidate"
+    },
+    {
+      "taskType": "exhibition_preface",
+      "v5Mean": 14.06,
+      "v6Mean": 16.5625,
+      "k3Mean": 20,
+      "v6MinusV5": 2.5025,
+      "v6MinusK3": -3.4375,
+      "v5SeriousErrorRate": 0.5625,
+      "v6SeriousErrorRate": 0.3125,
+      "k3SeriousErrorRate": 0,
+      "decision": "do_not_use_standalone"
+    },
+    {
+      "taskType": "exhibition_closing",
+      "v5Mean": 13.9975,
+      "v6Mean": 15.185,
+      "k3Mean": 20,
+      "v6MinusV5": 1.1875,
+      "v6MinusK3": -4.815,
+      "v5SeriousErrorRate": 0.625,
+      "v6SeriousErrorRate": 0.4375,
+      "k3SeriousErrorRate": 0,
+      "decision": "do_not_use_standalone"
+    },
+    {
+      "taskType": "curation_analysis",
+      "v5Mean": 16.09125,
+      "v6Mean": 18.095,
+      "k3Mean": 19.875,
+      "v6MinusV5": 2.00375,
+      "v6MinusK3": -1.78,
+      "v5SeriousErrorRate": 0.375,
+      "v6SeriousErrorRate": 0.1875,
+      "k3SeriousErrorRate": 0,
+      "decision": "iterate_accessibility_profile"
+    }
+  ],
+  "dualJudgeByNarrationPacket": [
+    {
+      "packet": "corrected_maps",
+      "baselineMean": 12.7,
+      "guardedMean": 17.6,
+      "k3Mean": 19,
+      "guardedMinusBaseline": 4.9,
+      "guardedMinusK3": -1.4,
+      "baselineSeriousErrorRate": 0.9,
+      "guardedSeriousErrorRate": 0.2
+    },
+    {
+      "packet": "unsigned_receipts",
+      "baselineMean": 15.1,
+      "guardedMean": 18.6,
+      "k3Mean": 20,
+      "guardedMinusBaseline": 3.5,
+      "guardedMinusK3": -1.4,
+      "baselineSeriousErrorRate": 0.7,
+      "guardedSeriousErrorRate": 0
+    },
+    {
+      "packet": "lantern_slide_boxes",
+      "baselineMean": 12.8,
+      "guardedMean": 18.7,
+      "k3Mean": 20,
+      "guardedMinusBaseline": 5.9,
+      "guardedMinusK3": -1.3,
+      "baselineSeriousErrorRate": 0.8,
+      "guardedSeriousErrorRate": 0
+    },
+    {
+      "packet": "seed_catalogues",
+      "baselineMean": 14.1,
+      "guardedMean": 16.5,
+      "k3Mean": 19.5,
+      "guardedMinusBaseline": 2.4,
+      "guardedMinusK3": -3,
+      "baselineSeriousErrorRate": 0.6,
+      "guardedSeriousErrorRate": 0.4
+    }
+  ],
+  "preRegisteredGate": {
+    "framework": "hold",
+    "blockers": [
+      "holdout_quality",
+      "holdout_severe_rate",
+      "holdout_k3_gap",
+      "holdout_input_cost",
+      "narration_input_cost"
+    ],
+    "metrics": {
+      "holdoutQuality": 17.70405,
+      "holdoutQualityDelta": 1.31435,
+      "holdoutSevereRate": 0.171875,
+      "holdoutGapToK3": 1.92095,
+      "holdoutParseRate": 1,
+      "holdoutInputIncrease": 0.5124910778015703,
+      "holdoutTtftRegression": 0.019834710743801654,
+      "narrationQuality": 17.85,
+      "narrationQualityDelta": 4.175,
+      "narrationSevereRate": 0.15,
+      "narrationSevereDelta": -0.6,
+      "narrationInputIncrease": 0.6475735879077168,
+      "narrationTotalRegression": -0.00024254183846713557
+    }
+  },
+  "decision": {
+    "confirmWholeFramework": false,
+    "productionChange": false,
+    "adoptAsCandidate": [
+      "recommended-hybrid-v6 artwork_intro",
+      "combined-guarded-v6 narration"
+    ],
+    "doNotAdopt": [
+      "standalone exhibition_preface",
+      "standalone exhibition_closing",
+      "unified hybrid-v6 routing"
+    ],
+    "nextIteration": [
+      "Lock speaker roles and pronouns in emotion responses.",
+      "Preserve age, relationship, mobility-aid and environmental requirements without converting them into capability labels.",
+      "Reject unsupported narration defaults such as time traces, historical witness, silence, waiting, secrets, stories and imagination.",
+      "Compact task-specific guards to remove the 51-65 percent input-token overhead before production consideration."
+    ]
+  },
+  "sources": [
+    "deepseek-hybrid-v6-1788104955826.json",
+    "k3-256k-hybrid-v6-1788104483791.json",
+    "deepseek-hybrid-v6-semantic-eval-a.json",
+    "deepseek-hybrid-v6-semantic-eval-b.json"
+  ]
+}

@@ -1,0 +1,5401 @@
+{
+  "schema_version": "hybrid-v6-semantic-eval-b-v1",
+  "sources": [
+    "deepseek-hybrid-v6-1788104955826.json",
+    "k3-256k-hybrid-v6-1788104483791.json",
+    "deepseek-hybrid-v6.mjs"
+  ],
+  "evaluator": "B",
+  "methodology": {
+    "blind_ordering": "Scores were assigned to SHA-256 blind keys after provider and variant labels were removed and rows shuffled within each evidence case. Labels were restored only after all 188 rows had fixed scores.",
+    "performance_excluded": true,
+    "wording_similarity_excluded": true,
+    "k3_not_assumed_golden": true
+  },
+  "rubrics": {
+    "holdout": {
+      "dimensions": [
+        "evidence_fidelity",
+        "task_function",
+        "semantic_discernment",
+        "naturalness",
+        "boundary_constraints"
+      ],
+      "score_range_per_dimension": [
+        0,
+        4
+      ],
+      "total_range": [
+        0,
+        20
+      ]
+    },
+    "narration": {
+      "dimensions": [
+        "evidence_fidelity",
+        "preface_function",
+        "closing_function",
+        "cross_segment_consistency",
+        "naturalness_boundary"
+      ],
+      "score_range_per_dimension": [
+        0,
+        4
+      ],
+      "total_range": [
+        0,
+        20
+      ]
+    },
+    "serious_error_types": [
+      "factual_hallucination",
+      "semantic_amplification",
+      "unknown_state_miswrite",
+      "capability_inference",
+      "role_shift",
+      "none"
+    ]
+  },
+  "evaluations": [
+    {
+      "blind_key": "db2ef15d5d",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "4c7d73c100",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e7917adde1",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 16,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "d084a60a06",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 12,
+      "serious_error": true,
+      "serious_error_types": [
+        "role_shift"
+      ]
+    },
+    {
+      "blind_key": "6c4be9761b",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "1f99701d03",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "6087564837",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "a616366f47",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "617a1a416e",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 1,
+        "naturalness": 2,
+        "boundary_constraints": 2
+      },
+      "total": 8,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "f296bab344",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 3,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 11,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "1509513b43",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 1,
+        "naturalness": 3,
+        "boundary_constraints": 2
+      },
+      "total": 9,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "7703b1b126",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "c13c3a8c62",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "7fde71bfeb",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 15,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "9a0ef4c6bf",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 15,
+      "serious_error": true,
+      "serious_error_types": [
+        "capability_inference"
+      ]
+    },
+    {
+      "blind_key": "04e2625bca",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "7134ae3182",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "5cd468c230",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "b55aa0d843",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "0f07a12d85",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "81d674f38c",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "40246d0ce5",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "ff2a135918",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "008439102f",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "9431569965",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "46017e23af",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "d94ff45606",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "ceca894bbe",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "fe0fb0a831",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "capability_inference"
+      ]
+    },
+    {
+      "blind_key": "61b3f98baa",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "40c4317e00",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "246cfbfb64",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 3,
+        "semantic_discernment": 1,
+        "naturalness": 3,
+        "boundary_constraints": 2
+      },
+      "total": 10,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "ed0812df6c",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "0d01ac70c5",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "d7d8bd8754",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "4eee620f29",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 1,
+        "naturalness": 3,
+        "boundary_constraints": 2
+      },
+      "total": 9,
+      "serious_error": true,
+      "serious_error_types": [
+        "role_shift"
+      ]
+    },
+    {
+      "blind_key": "5d8cb43bce",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "040861b7a0",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "56537cea03",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "7f887196ce",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "983a59a837",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "9225445498",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "adae8a3ea0",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 3,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 11,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "32058dfe37",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "81dac0d6dd",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 3,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 10,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "capability_inference"
+      ]
+    },
+    {
+      "blind_key": "adcc12a2f2",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "6000f5e312",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "6fd9192eb1",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "ef388bca95",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "51238d3674",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 3,
+        "boundary_constraints": 3
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "role_shift",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "0baf97b73d",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "eb5f0d9982",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 12,
+      "serious_error": true,
+      "serious_error_types": [
+        "role_shift"
+      ]
+    },
+    {
+      "blind_key": "b420786b29",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "c52b6c0080",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "90e0c97bd3",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e8c79b4f0a",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "8bc773d1b3",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "b800363060",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "a10dc00c3d",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 15,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "a1ea5cebc5",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 3,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 11,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "unknown_state_miswrite"
+      ]
+    },
+    {
+      "blind_key": "96683600e8",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "capability_inference"
+      ]
+    },
+    {
+      "blind_key": "b8653597f7",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "2d4499e068",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "ea237f12ea",
+      "provider": "DeepSeek",
+      "variant": "generic-task-routed-v5",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "16cf6317c1",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "9d55cd6e26",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "d38b8f3727",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 2,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "6710a10c25",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 1,
+        "naturalness": 3,
+        "boundary_constraints": 3
+      },
+      "total": 10,
+      "serious_error": true,
+      "serious_error_types": [
+        "role_shift"
+      ]
+    },
+    {
+      "blind_key": "85c20b2541",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "00b36ef4ab",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "104e09ac2c",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e3d3029ea2",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "7c2567f7dd",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "94b77d828c",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 10,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "2f4e9052ba",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "dc3e37d29e",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "1eea20762f",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "capability_inference"
+      ]
+    },
+    {
+      "blind_key": "a14a5a9b10",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "0f6f06696b",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "94e62f69fc",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e85f1493a7",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "0da1b28502",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "f41fd9adef",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "cbfd789361",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 0,
+        "task_function": 1,
+        "semantic_discernment": 1,
+        "naturalness": 3,
+        "boundary_constraints": 2
+      },
+      "total": 7,
+      "serious_error": true,
+      "serious_error_types": [
+        "role_shift"
+      ]
+    },
+    {
+      "blind_key": "6cdacfa716",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "b38bd596a4",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "95c04fb72f",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "1e606cff05",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "42eec0f402",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "db3898f240",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "cf5789475a",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "3b0f2b34f3",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 3,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 11,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "d70adea687",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "d7016101e9",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "204fca6a04",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "acc98c35fb",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "b34a0fc728",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "1bce403040",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "dd531dd296",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 3,
+        "boundary_constraints": 3
+      },
+      "total": 15,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "1e8659b1f4",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "84ed44b1d1",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination"
+      ]
+    },
+    {
+      "blind_key": "a855f57ae3",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "09fc7d1ffa",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "6ac0bc42ec",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "64eb3b3a77",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "bd5f17620f",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "3a94eeb04b",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "139416641a",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "79f4b12e7d",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "capability_inference",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "c183cf71c6",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 15,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "ecc20492cd",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e6e81dbfff",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "346d61dd2f",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "c31a453650",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "f373f40fda",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "9ee5582c20",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "9a6e8a1763",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "bb5b7dac75",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "c3330f39cf",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "8d8931cbdb",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "d87c8ba04b",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 3,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 11,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "4271732474",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "2afe39b599",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "0edab99122",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 15,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "d29e0b2322",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 4,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 15,
+      "serious_error": true,
+      "serious_error_types": [
+        "capability_inference"
+      ]
+    },
+    {
+      "blind_key": "bdbc0d1ba7",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "ee92530c49",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "60aa04687a",
+      "provider": "DeepSeek",
+      "variant": "recommended-hybrid-v6",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "2ae54afb03",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "preface_function": 3,
+        "closing_function": 2,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 1
+      },
+      "total": 11,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification",
+        "unknown_state_miswrite"
+      ]
+    },
+    {
+      "blind_key": "d075b014f7",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "741d5fc5a9",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "685dfa85a4",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 1,
+        "preface_function": 2,
+        "closing_function": 1,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 1
+      },
+      "total": 9,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification",
+        "unknown_state_miswrite"
+      ]
+    },
+    {
+      "blind_key": "78a708b5de",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "1089cc75fb",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "45df8e5680",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "361efd68c9",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "862ef791cb",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "faa127bd63",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "f1b6e21224",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 16,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "dad0d5f58d",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 1,
+        "preface_function": 3,
+        "closing_function": 2,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "05cf2f8ca0",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "edb3249316",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "6d5ce598a9",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 4,
+        "closing_function": 2,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "unknown_state_miswrite",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "d44b17f289",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "8e99d697d5",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "44b6b2e473",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "c981b3041f",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "135e9ba14c",
+      "provider": "DeepSeek",
+      "variant": "combined-baseline-v5",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "21e5ef6bc1",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "dae5f1d9d0",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "fd53914279",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "ee6c0e0a5f",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "4cf8e7059e",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "04c9b98d6d",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 2,
+        "naturalness_boundary": 4
+      },
+      "total": 16,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "cec5cd66eb",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "eafbe1ffb8",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e27f963e92",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "factual_hallucination",
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "83e147f201",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "1c5603e0f2",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "cdf51e59bd",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "deda7ec7ee",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "82b875d865",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "73a7d4b219",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "a04dc51f06",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "b863cf1fd0",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "88cb237b13",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "84141330ea",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "788a284016",
+      "provider": "DeepSeek",
+      "variant": "combined-guarded-v6",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 5,
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 3,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_error": true,
+      "serious_error_types": [
+        "semantic_amplification"
+      ]
+    },
+    {
+      "blind_key": "2cd43acfc0",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_sadness",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "4f98e1391c",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_emotion_anger_and_missing",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "a8759960f2",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_emotion_relief_and_emptiness",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "047aee3346",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_emotion_pleased_and_uncertain",
+      "taskType": "emotion_response",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "28771563bd",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_art_blue_chairs",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "281748a885",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_art_sparse_fragment",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "fa19429b38",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_art_title_description_conflict",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "c282496217",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_art_uncertain_textile",
+      "taskType": "artwork_intro",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "965f99b1b1",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_preface_repair_receipts",
+      "taskType": "exhibition_preface",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "c8ea1cfee8",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_preface_glass_negative_boxes",
+      "taskType": "exhibition_preface",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "cacc4c4436",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_closing_sealed_envelopes",
+      "taskType": "exhibition_closing",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "b5c66dbddd",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_closing_seed_packets",
+      "taskType": "exhibition_closing",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "97c624819f",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_curation_family_access",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e134c58903",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_curation_dark_colors_bright_space",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "61970e8388",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_curation_single_floor_pause",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "9e67d8fa81",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "holdout",
+      "id": "confirm_curation_anger_without_release",
+      "taskType": "curation_analysis",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "e5ffc9491f",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "narration",
+      "id": "hybrid_narration_corrected_maps",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "3b32a4dacc",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "narration",
+      "id": "hybrid_narration_unsigned_receipts",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "fd5c88d342",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "narration",
+      "id": "hybrid_narration_lantern_slide_boxes",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    },
+    {
+      "blind_key": "003485f1ce",
+      "provider": "Kimi K3",
+      "variant": "k3-256k-comparator",
+      "kind": "narration",
+      "id": "hybrid_narration_seed_catalogues",
+      "taskType": "combined_narration",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 4,
+        "cross_segment_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 19,
+      "serious_error": false,
+      "serious_error_types": [
+        "none"
+      ]
+    }
+  ],
+  "summary": {
+    "provider_overall": [
+      {
+        "provider": "DeepSeek",
+        "n": 168,
+        "mean_total": 16.8274,
+        "serious_errors": 57,
+        "serious_error_rate_pct": 33.9286
+      },
+      {
+        "provider": "Kimi K3",
+        "n": 20,
+        "mean_total": 19.7,
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      }
+    ],
+    "by_variant_provider_kind": [
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "kind": "narration",
+        "n": 20,
+        "mean_total": 14.9,
+        "dimension_means": {
+          "evidence_fidelity": 2.4,
+          "preface_function": 3.3,
+          "closing_function": 2.8,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 2.4
+        },
+        "serious_errors": 13,
+        "serious_error_rate_pct": 65
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "kind": "narration",
+        "n": 20,
+        "mean_total": 18.65,
+        "dimension_means": {
+          "evidence_fidelity": 3.6,
+          "preface_function": 3.8,
+          "closing_function": 3.8,
+          "cross_segment_consistency": 3.9,
+          "naturalness_boundary": 3.55
+        },
+        "serious_errors": 3,
+        "serious_error_rate_pct": 15
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "n": 64,
+        "mean_total": 16.1094,
+        "dimension_means": {
+          "evidence_fidelity": 2.7813,
+          "task_function": 3.4531,
+          "semantic_discernment": 2.75,
+          "naturalness": 3.8281,
+          "boundary_constraints": 3.2969
+        },
+        "serious_errors": 27,
+        "serious_error_rate_pct": 42.1875
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "n": 64,
+        "mean_total": 17.5781,
+        "dimension_means": {
+          "evidence_fidelity": 3.2188,
+          "task_function": 3.75,
+          "semantic_discernment": 3.2188,
+          "naturalness": 3.875,
+          "boundary_constraints": 3.5156
+        },
+        "serious_errors": 14,
+        "serious_error_rate_pct": 21.875
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "n": 16,
+        "mean_total": 19.75,
+        "dimension_means": {
+          "evidence_fidelity": 3.9375,
+          "task_function": 3.9375,
+          "semantic_discernment": 3.875,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "narration",
+        "n": 4,
+        "mean_total": 19.5,
+        "dimension_means": {
+          "evidence_fidelity": 3.5,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      }
+    ],
+    "holdout_by_task": [
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "taskType": "artwork_intro",
+        "n": 16,
+        "mean_total": 19,
+        "dimension_means": {
+          "evidence_fidelity": 3.75,
+          "task_function": 3.875,
+          "semantic_discernment": 3.75,
+          "naturalness": 3.75,
+          "boundary_constraints": 3.875
+        },
+        "serious_errors": 1,
+        "serious_error_rate_pct": 6.25
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "taskType": "curation_analysis",
+        "n": 16,
+        "mean_total": 16.0625,
+        "dimension_means": {
+          "evidence_fidelity": 2.625,
+          "task_function": 3.625,
+          "semantic_discernment": 2.5,
+          "naturalness": 3.9375,
+          "boundary_constraints": 3.375
+        },
+        "serious_errors": 7,
+        "serious_error_rate_pct": 43.75
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "taskType": "emotion_response",
+        "n": 16,
+        "mean_total": 16.1875,
+        "dimension_means": {
+          "evidence_fidelity": 2.8125,
+          "task_function": 3.3125,
+          "semantic_discernment": 2.8125,
+          "naturalness": 3.8125,
+          "boundary_constraints": 3.4375
+        },
+        "serious_errors": 6,
+        "serious_error_rate_pct": 37.5
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "taskType": "exhibition_closing",
+        "n": 8,
+        "mean_total": 12.875,
+        "dimension_means": {
+          "evidence_fidelity": 1.75,
+          "task_function": 3.125,
+          "semantic_discernment": 1.75,
+          "naturalness": 3.875,
+          "boundary_constraints": 2.375
+        },
+        "serious_errors": 7,
+        "serious_error_rate_pct": 87.5
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "taskType": "exhibition_preface",
+        "n": 8,
+        "mean_total": 13.5,
+        "dimension_means": {
+          "evidence_fidelity": 2.125,
+          "task_function": 2.875,
+          "semantic_discernment": 2.125,
+          "naturalness": 3.75,
+          "boundary_constraints": 2.625
+        },
+        "serious_errors": 6,
+        "serious_error_rate_pct": 75
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "taskType": "artwork_intro",
+        "n": 16,
+        "mean_total": 19.1875,
+        "dimension_means": {
+          "evidence_fidelity": 3.6875,
+          "task_function": 4,
+          "semantic_discernment": 3.75,
+          "naturalness": 3.9375,
+          "boundary_constraints": 3.8125
+        },
+        "serious_errors": 1,
+        "serious_error_rate_pct": 6.25
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "taskType": "curation_analysis",
+        "n": 16,
+        "mean_total": 18,
+        "dimension_means": {
+          "evidence_fidelity": 3.25,
+          "task_function": 4,
+          "semantic_discernment": 3.1875,
+          "naturalness": 4,
+          "boundary_constraints": 3.5625
+        },
+        "serious_errors": 4,
+        "serious_error_rate_pct": 25
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "taskType": "emotion_response",
+        "n": 16,
+        "mean_total": 17.1875,
+        "dimension_means": {
+          "evidence_fidelity": 3.3125,
+          "task_function": 3.4375,
+          "semantic_discernment": 3.3125,
+          "naturalness": 3.5625,
+          "boundary_constraints": 3.5625
+        },
+        "serious_errors": 2,
+        "serious_error_rate_pct": 12.5
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "taskType": "exhibition_closing",
+        "n": 8,
+        "mean_total": 15.25,
+        "dimension_means": {
+          "evidence_fidelity": 2.375,
+          "task_function": 3.625,
+          "semantic_discernment": 2.375,
+          "naturalness": 4,
+          "boundary_constraints": 2.875
+        },
+        "serious_errors": 4,
+        "serious_error_rate_pct": 50
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "taskType": "exhibition_preface",
+        "n": 8,
+        "mean_total": 16.625,
+        "dimension_means": {
+          "evidence_fidelity": 2.875,
+          "task_function": 3.5,
+          "semantic_discernment": 2.875,
+          "naturalness": 4,
+          "boundary_constraints": 3.375
+        },
+        "serious_errors": 3,
+        "serious_error_rate_pct": 37.5
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "taskType": "artwork_intro",
+        "n": 4,
+        "mean_total": 19.5,
+        "dimension_means": {
+          "evidence_fidelity": 3.75,
+          "task_function": 4,
+          "semantic_discernment": 3.75,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "taskType": "curation_analysis",
+        "n": 4,
+        "mean_total": 19.75,
+        "dimension_means": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 3.75,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "taskType": "emotion_response",
+        "n": 4,
+        "mean_total": 19.75,
+        "dimension_means": {
+          "evidence_fidelity": 4,
+          "task_function": 3.75,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "taskType": "exhibition_closing",
+        "n": 2,
+        "mean_total": 20,
+        "dimension_means": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "taskType": "exhibition_preface",
+        "n": 2,
+        "mean_total": 20,
+        "dimension_means": {
+          "evidence_fidelity": 4,
+          "task_function": 4,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      }
+    ],
+    "narration_by_packet": [
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "id": "hybrid_narration_corrected_maps",
+        "n": 5,
+        "mean_total": 14,
+        "dimension_means": {
+          "evidence_fidelity": 2,
+          "preface_function": 3.2,
+          "closing_function": 2.8,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 2
+        },
+        "serious_errors": 4,
+        "serious_error_rate_pct": 80
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "n": 5,
+        "mean_total": 14.8,
+        "dimension_means": {
+          "evidence_fidelity": 2.4,
+          "preface_function": 3.4,
+          "closing_function": 2.6,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 2.4
+        },
+        "serious_errors": 3,
+        "serious_error_rate_pct": 60
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "id": "hybrid_narration_seed_catalogues",
+        "n": 5,
+        "mean_total": 14.6,
+        "dimension_means": {
+          "evidence_fidelity": 2.4,
+          "preface_function": 3.2,
+          "closing_function": 2.6,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 2.4
+        },
+        "serious_errors": 3,
+        "serious_error_rate_pct": 60
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "id": "hybrid_narration_unsigned_receipts",
+        "n": 5,
+        "mean_total": 16.2,
+        "dimension_means": {
+          "evidence_fidelity": 2.8,
+          "preface_function": 3.4,
+          "closing_function": 3.2,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 2.8
+        },
+        "serious_errors": 3,
+        "serious_error_rate_pct": 60
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "id": "hybrid_narration_corrected_maps",
+        "n": 5,
+        "mean_total": 18.8,
+        "dimension_means": {
+          "evidence_fidelity": 3.6,
+          "preface_function": 3.8,
+          "closing_function": 3.8,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 3.6
+        },
+        "serious_errors": 1,
+        "serious_error_rate_pct": 20
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "n": 5,
+        "mean_total": 19.4,
+        "dimension_means": {
+          "evidence_fidelity": 3.8,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 3.6
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "id": "hybrid_narration_seed_catalogues",
+        "n": 5,
+        "mean_total": 17.6,
+        "dimension_means": {
+          "evidence_fidelity": 3.2,
+          "preface_function": 3.6,
+          "closing_function": 3.6,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 3.2
+        },
+        "serious_errors": 2,
+        "serious_error_rate_pct": 40
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "id": "hybrid_narration_unsigned_receipts",
+        "n": 5,
+        "mean_total": 18.8,
+        "dimension_means": {
+          "evidence_fidelity": 3.8,
+          "preface_function": 3.8,
+          "closing_function": 3.8,
+          "cross_segment_consistency": 3.6,
+          "naturalness_boundary": 3.8
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "id": "hybrid_narration_corrected_maps",
+        "n": 1,
+        "mean_total": 19,
+        "dimension_means": {
+          "evidence_fidelity": 3,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "n": 1,
+        "mean_total": 20,
+        "dimension_means": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "id": "hybrid_narration_seed_catalogues",
+        "n": 1,
+        "mean_total": 19,
+        "dimension_means": {
+          "evidence_fidelity": 3,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "id": "hybrid_narration_unsigned_receipts",
+        "n": 1,
+        "mean_total": 20,
+        "dimension_means": {
+          "evidence_fidelity": 4,
+          "preface_function": 4,
+          "closing_function": 4,
+          "cross_segment_consistency": 4,
+          "naturalness_boundary": 4
+        },
+        "serious_errors": 0,
+        "serious_error_rate_pct": 0
+      }
+    ],
+    "case_variability": [
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "kind": "narration",
+        "id": "hybrid_narration_corrected_maps",
+        "n": 5,
+        "mean_total": 14,
+        "min_total": 11,
+        "max_total": 17,
+        "range": 6,
+        "serious_errors": 4
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "kind": "narration",
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "n": 5,
+        "mean_total": 14.8,
+        "min_total": 13,
+        "max_total": 18,
+        "range": 5,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "kind": "narration",
+        "id": "hybrid_narration_seed_catalogues",
+        "n": 5,
+        "mean_total": 14.6,
+        "min_total": 9,
+        "max_total": 20,
+        "range": 11,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-baseline-v5",
+        "kind": "narration",
+        "id": "hybrid_narration_unsigned_receipts",
+        "n": 5,
+        "mean_total": 16.2,
+        "min_total": 13,
+        "max_total": 20,
+        "range": 7,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "kind": "narration",
+        "id": "hybrid_narration_corrected_maps",
+        "n": 5,
+        "mean_total": 18.8,
+        "min_total": 14,
+        "max_total": 20,
+        "range": 6,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "kind": "narration",
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "n": 5,
+        "mean_total": 19.4,
+        "min_total": 18,
+        "max_total": 20,
+        "range": 2,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "kind": "narration",
+        "id": "hybrid_narration_seed_catalogues",
+        "n": 5,
+        "mean_total": 17.6,
+        "min_total": 14,
+        "max_total": 20,
+        "range": 6,
+        "serious_errors": 2
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "combined-guarded-v6",
+        "kind": "narration",
+        "id": "hybrid_narration_unsigned_receipts",
+        "n": 5,
+        "mean_total": 18.8,
+        "min_total": 16,
+        "max_total": 20,
+        "range": 4,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_art_blue_chairs",
+        "n": 4,
+        "mean_total": 17.5,
+        "min_total": 14,
+        "max_total": 20,
+        "range": 6,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_art_sparse_fragment",
+        "n": 4,
+        "mean_total": 19.25,
+        "min_total": 19,
+        "max_total": 20,
+        "range": 1,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_art_title_description_conflict",
+        "n": 4,
+        "mean_total": 19.5,
+        "min_total": 18,
+        "max_total": 20,
+        "range": 2,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_art_uncertain_textile",
+        "n": 4,
+        "mean_total": 19.75,
+        "min_total": 19,
+        "max_total": 20,
+        "range": 1,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_closing_sealed_envelopes",
+        "n": 4,
+        "mean_total": 12.25,
+        "min_total": 9,
+        "max_total": 15,
+        "range": 6,
+        "serious_errors": 4
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_closing_seed_packets",
+        "n": 4,
+        "mean_total": 13.5,
+        "min_total": 11,
+        "max_total": 17,
+        "range": 6,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_curation_anger_without_release",
+        "n": 4,
+        "mean_total": 15,
+        "min_total": 10,
+        "max_total": 18,
+        "range": 8,
+        "serious_errors": 2
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_curation_dark_colors_bright_space",
+        "n": 4,
+        "mean_total": 17.5,
+        "min_total": 15,
+        "max_total": 19,
+        "range": 4,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_curation_family_access",
+        "n": 4,
+        "mean_total": 13.75,
+        "min_total": 10,
+        "max_total": 17,
+        "range": 7,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_curation_single_floor_pause",
+        "n": 4,
+        "mean_total": 18,
+        "min_total": 15,
+        "max_total": 20,
+        "range": 5,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_emotion_anger_and_missing",
+        "n": 4,
+        "mean_total": 17.5,
+        "min_total": 13,
+        "max_total": 20,
+        "range": 7,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "n": 4,
+        "mean_total": 11.75,
+        "min_total": 9,
+        "max_total": 14,
+        "range": 5,
+        "serious_errors": 4
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_emotion_relief_and_emptiness",
+        "n": 4,
+        "mean_total": 15.5,
+        "min_total": 13,
+        "max_total": 17,
+        "range": 4,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_emotion_relief_and_sadness",
+        "n": 4,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_preface_glass_negative_boxes",
+        "n": 4,
+        "mean_total": 14.25,
+        "min_total": 11,
+        "max_total": 18,
+        "range": 7,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "generic-task-routed-v5",
+        "kind": "holdout",
+        "id": "confirm_preface_repair_receipts",
+        "n": 4,
+        "mean_total": 12.75,
+        "min_total": 8,
+        "max_total": 16,
+        "range": 8,
+        "serious_errors": 3
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_art_blue_chairs",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_art_sparse_fragment",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_art_title_description_conflict",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_art_uncertain_textile",
+        "n": 1,
+        "mean_total": 18,
+        "min_total": 18,
+        "max_total": 18,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_closing_sealed_envelopes",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_closing_seed_packets",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_curation_anger_without_release",
+        "n": 1,
+        "mean_total": 19,
+        "min_total": 19,
+        "max_total": 19,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_curation_dark_colors_bright_space",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_curation_family_access",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_curation_single_floor_pause",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_emotion_anger_and_missing",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "n": 1,
+        "mean_total": 19,
+        "min_total": 19,
+        "max_total": 19,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_emotion_relief_and_emptiness",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_emotion_relief_and_sadness",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_preface_glass_negative_boxes",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "holdout",
+        "id": "confirm_preface_repair_receipts",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "narration",
+        "id": "hybrid_narration_corrected_maps",
+        "n": 1,
+        "mean_total": 19,
+        "min_total": 19,
+        "max_total": 19,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "narration",
+        "id": "hybrid_narration_lantern_slide_boxes",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "narration",
+        "id": "hybrid_narration_seed_catalogues",
+        "n": 1,
+        "mean_total": 19,
+        "min_total": 19,
+        "max_total": 19,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "Kimi K3",
+        "variant": "k3-256k-comparator",
+        "kind": "narration",
+        "id": "hybrid_narration_unsigned_receipts",
+        "n": 1,
+        "mean_total": 20,
+        "min_total": 20,
+        "max_total": 20,
+        "range": 0,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_art_blue_chairs",
+        "n": 4,
+        "mean_total": 19,
+        "min_total": 16,
+        "max_total": 20,
+        "range": 4,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_art_sparse_fragment",
+        "n": 4,
+        "mean_total": 19.75,
+        "min_total": 19,
+        "max_total": 20,
+        "range": 1,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_art_title_description_conflict",
+        "n": 4,
+        "mean_total": 19.5,
+        "min_total": 18,
+        "max_total": 20,
+        "range": 2,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_art_uncertain_textile",
+        "n": 4,
+        "mean_total": 18.5,
+        "min_total": 17,
+        "max_total": 20,
+        "range": 3,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_closing_sealed_envelopes",
+        "n": 4,
+        "mean_total": 16.25,
+        "min_total": 14,
+        "max_total": 17,
+        "range": 3,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_closing_seed_packets",
+        "n": 4,
+        "mean_total": 14.25,
+        "min_total": 11,
+        "max_total": 18,
+        "range": 7,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_curation_anger_without_release",
+        "n": 4,
+        "mean_total": 19,
+        "min_total": 18,
+        "max_total": 20,
+        "range": 2,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_curation_dark_colors_bright_space",
+        "n": 4,
+        "mean_total": 18.25,
+        "min_total": 15,
+        "max_total": 20,
+        "range": 5,
+        "serious_errors": 1
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_curation_family_access",
+        "n": 4,
+        "mean_total": 15,
+        "min_total": 14,
+        "max_total": 17,
+        "range": 3,
+        "serious_errors": 3
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_curation_single_floor_pause",
+        "n": 4,
+        "mean_total": 19.75,
+        "min_total": 19,
+        "max_total": 20,
+        "range": 1,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_emotion_anger_and_missing",
+        "n": 4,
+        "mean_total": 19.5,
+        "min_total": 19,
+        "max_total": 20,
+        "range": 1,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_emotion_pleased_and_uncertain",
+        "n": 4,
+        "mean_total": 13,
+        "min_total": 7,
+        "max_total": 19,
+        "range": 12,
+        "serious_errors": 2
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_emotion_relief_and_emptiness",
+        "n": 4,
+        "mean_total": 17.5,
+        "min_total": 15,
+        "max_total": 20,
+        "range": 5,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_emotion_relief_and_sadness",
+        "n": 4,
+        "mean_total": 18.75,
+        "min_total": 17,
+        "max_total": 20,
+        "range": 3,
+        "serious_errors": 0
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_preface_glass_negative_boxes",
+        "n": 4,
+        "mean_total": 16,
+        "min_total": 10,
+        "max_total": 20,
+        "range": 10,
+        "serious_errors": 2
+      },
+      {
+        "provider": "DeepSeek",
+        "variant": "recommended-hybrid-v6",
+        "kind": "holdout",
+        "id": "confirm_preface_repair_receipts",
+        "n": 4,
+        "mean_total": 17.25,
+        "min_total": 11,
+        "max_total": 20,
+        "range": 9,
+        "serious_errors": 1
+      }
+    ]
+  },
+  "comparisons": {
+    "deepseek_v6_minus_v5_holdout": {
+      "mean_total": 1.4687,
+      "dimension_means": {
+        "evidence_fidelity": 0.4375,
+        "task_function": 0.2969,
+        "semantic_discernment": 0.4688,
+        "naturalness": 0.0469,
+        "boundary_constraints": 0.2187
+      },
+      "serious_errors": -13,
+      "serious_error_rate_percentage_points": -20.3125,
+      "by_task_mean_total": {
+        "artwork_intro": 0.1875,
+        "curation_analysis": 1.9375,
+        "emotion_response": 1,
+        "exhibition_closing": 2.375,
+        "exhibition_preface": 3.125
+      }
+    },
+    "deepseek_v6_minus_v5_narration": {
+      "mean_total": 3.75,
+      "dimension_means": {
+        "evidence_fidelity": 1.2,
+        "preface_function": 0.5,
+        "closing_function": 1,
+        "cross_segment_consistency": -0.1,
+        "naturalness_boundary": 1.15
+      },
+      "serious_errors": -10,
+      "serious_error_rate_percentage_points": -50,
+      "by_packet_mean_total": {
+        "hybrid_narration_corrected_maps": 4.8,
+        "hybrid_narration_lantern_slide_boxes": 4.6,
+        "hybrid_narration_seed_catalogues": 3,
+        "hybrid_narration_unsigned_receipts": 2.6
+      }
+    },
+    "deepseek_v6_minus_k3_holdout": {
+      "mean_total": -2.1719,
+      "dimension_means": {
+        "evidence_fidelity": -0.7187,
+        "task_function": -0.1875,
+        "semantic_discernment": -0.6562,
+        "naturalness": -0.125,
+        "boundary_constraints": -0.4844
+      },
+      "serious_errors": 14,
+      "serious_error_rate_percentage_points": 21.875,
+      "by_task_mean_total": {
+        "artwork_intro": -0.3125,
+        "curation_analysis": -1.75,
+        "emotion_response": -2.5625,
+        "exhibition_closing": -4.75,
+        "exhibition_preface": -3.375
+      }
+    },
+    "deepseek_v6_minus_k3_narration": {
+      "mean_total": -0.85,
+      "dimension_means": {
+        "evidence_fidelity": 0.1,
+        "preface_function": -0.2,
+        "closing_function": -0.2,
+        "cross_segment_consistency": -0.1,
+        "naturalness_boundary": -0.45
+      },
+      "serious_errors": 3,
+      "serious_error_rate_percentage_points": 15,
+      "by_packet_mean_total": {
+        "hybrid_narration_corrected_maps": -0.2,
+        "hybrid_narration_lantern_slide_boxes": -0.6,
+        "hybrid_narration_seed_catalogues": -1.4,
+        "hybrid_narration_unsigned_receipts": -1.2
+      }
+    }
+  },
+  "final_assessment": {
+    "decision": "hold_full_hybrid_v6_adoption",
+    "semantic_verdict": "v6相对同轮v5是明确而非表面性的改进，但holdout仍未达到统一替换条件；guarded narration可条件采用。",
+    "holdout": {
+      "recommendation": "do_not_use_as_universal_route_yet",
+      "reason": "均分17.5781，严重错误14/64（21.875%），且较K3 comparator低2.1719分。作品介绍已接近可用，但情绪视角、前言/结语未知状态和无障碍能力推断仍不稳定。",
+      "highest_priority_fixes": [
+        "锁定情绪回应的人称：不得把用户的‘我’复述成助手自身感受。",
+        "前言与结语删除历史见证、时间痕迹、沉默、想象、故事等默认修辞。",
+        "把‘未记录’与明确空白、缺失、未发生严格分开。",
+        "无障碍策展只转写环境条件，禁止从年龄、手杖和亲属称谓推能力或需求。"
+      ]
+    },
+    "narration": {
+      "recommendation": "conditionally_adopt_combined_guarded_v6",
+      "reason": "均分18.65，较baseline提高3.75分，严重错误率由65%降至15%；但种子目录仍有2/5轮语义强化，改线地图有1轮补‘原件’与制图实践。"
+    },
+    "k3_comparison_caveat": "K3每个case仅一条，不能估计重复稳定性；其holdout与narration均无严重错误，但不是自动满分，四条作品/叙事样本各有轻微证据或表达扣分。",
+    "performance_note": "本结论完全未使用时延、token、吞吐、hard pass或解析率调整质量分。"
+  }
+}
