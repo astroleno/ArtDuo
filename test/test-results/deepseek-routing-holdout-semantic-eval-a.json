@@ -1,0 +1,3322 @@
+{
+  "schemaVersion": "1.0",
+  "evaluator": "Evaluator A",
+  "source": "test/test-results/deepseek-routing-holdout-1788102405634.json",
+  "runId": 1788102405634,
+  "method": {
+    "blind": true,
+    "performanceExcludedUntilAfterScoring": true,
+    "referenceUse": "row.reference Codex Sol max used for facts and task function, not wording similarity",
+    "dimensions": [
+      "evidence_fidelity",
+      "task_function",
+      "semantic_discernment",
+      "naturalness",
+      "boundary_constraints"
+    ],
+    "scoreRange": [
+      0,
+      4
+    ],
+    "seriousFlagVocabulary": [
+      "factual_invention",
+      "semantic_overreach",
+      "visibility_confusion",
+      "record_status_confusion",
+      "ability_inference",
+      "none"
+    ]
+  },
+  "evaluations": [
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "并列肯定、道谢与想哭，不替眼泪命名。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把想哭归为喜悦并称由肯定触发，违反未知原因。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 14,
+      "serious_flags": [
+        "factual_invention",
+        "semantic_overreach"
+      ],
+      "reason": "虚构肯定仍暖与眼眶发酸，补写身体感受。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把肯定命名为喜悦并建立因果。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "将未知感受命名为温暖与酸涩。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "只并列笑着道谢与想哭，不作解释。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "“被认可、情绪涌动”略概括，仍明确原因未知。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_praise_tears",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "承接当前想哭且明确不解释为喜极而泣。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "并存情绪准确，“喘息”略加强轻松含义。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "担心与轻松并列，不推原因或建议。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "准确承接两种感受并保持行动开放。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "关系与失联原因保持未知，回应自然。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "情绪准确，但“允许自己感受”略带建议。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不急于解决，只承接复杂感受。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "事实与边界完整，表达简洁。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_silence_relief",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "正常化并存感受，不推测朋友原因。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "决定与平静准确，元话语略显规则化。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "尊重既定选择，不分析动机或劝改变。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "平静未被问题化，任务功能完整。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "选择权清楚归于用户，语气自然。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 3,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "事实准确，敬语与模板句稍显生硬。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 2,
+        "boundary_constraints": 4
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "“已记录”不合对话语境，但边界正确。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "简洁尊重决定，不增加解释。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_calm_decision",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不将平静视为问题，也不劝改变。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "只回应通知紧张，隐私与无保证边界完整。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "手心发紧是轻微身体扩写，未影响隐私功能。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "虚构压制情绪及拒绝安慰，超出明示内容。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不谈内容、不猜结果，陪伴选择开放。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "结果内容保持私密，不判断或保证。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "准确尊重暂不透露，并明确不追问。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "医疗判断与结果保证均被排除。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "emotion_response",
+      "id": "holdout_emotion_result_privacy",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "称紧张原因不明略不准确，但不触及结果隐私。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "静物般场景属轻微形式判断，事实主体准确。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "虚构艺术家观察、雨后静谧与色彩意图。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "色彩焦点是可推观察，但超出登记描述。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "构图和视觉焦点略作解释，未补主题。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "作者年份媒介与可见元素全部准确。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "只复述馆藏描述并明确无艺术家陈述。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "事实忠实，作品介绍略显简短。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_known_description",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "证据边界完整，不为伞墙水迹附义。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "题名媒介标签残文与缺项均准确。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不由仓库B推断来源、地点或用途。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "资料状态完整，未补图像内容。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "所有可确认字段准确且克制。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "标签含义与用途保持未知，信息完整。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "题名媒介和残余标签均忠实。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "无图像条件下未补写视觉内容。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_sparse_label",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "用途不明且没有把仓库B当来源。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "标题与描述并列，不解释冲突关系。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "缺项和关系未知均准确呈现。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "记录冲突清楚，无场景或主题补写。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 2,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 11,
+      "serious_flags": [
+        "factual_invention",
+        "visibility_confusion"
+      ],
+      "reason": "把文字描述断言为作品实际展示的画面。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "描述字段与作品画面保持区分。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "关系未明，不解释标题或场景。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "明确冲突未解决且无图像核对。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_description_conflict",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "并列记录，未知作者年代与关系。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "记录日期、可能工作室与来源缺环准确。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不确定归属和用途边界完整。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "遗漏无照片缺项，其他记录字段可靠。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "未把记录日期写成确定制作年代。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "制作年代与工作室均保持不确定。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "铭文、来源缺环和用途缺项完整。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "没有借North Quay补用途或来源。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "artwork_intro",
+      "id": "holdout_art_uncertain_workshop",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "全部字段状态忠实自然。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "事实完整，但前言更像登记清单。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "已知状态与使用信息缺项并列清楚。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "以物件和记录状态建立入口，不附磨损原因。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "数量年代状态和未知边界完整。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "称痕迹记录自身历史，为磨损附加叙事意义。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "只观察物理痕迹，不补使用者与成因。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "存在状态措辞略抽象，证据仍可靠。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_measurement_marks",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "记录字段完整，前言语义稍薄。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "空白覆盖及未知缘由完整呈现。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不补覆盖时间原因与原编号。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "记录状态准确，观看边界清楚。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "只以卡片和未知缺项建立前言。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "“原始样貌”略强，但当前记录状态仍清楚。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 14,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把卡片升为历史载体并引导思考记录多样性。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "“原始状态”与自行理解略作策展扩写。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_preface",
+      "id": "holdout_preface_uncatalogued_index",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 14,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "以时间痕迹套话替代对覆盖未知的克制。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "年份身份转写与场合缺项准确收束。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不补录音内容、质感或历史背景。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "记录完整度与未知边界清晰。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "结语只停在现有声音材料状态。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 15,
+      "serious_flags": [
+        "record_status_confusion"
+      ],
+      "reason": "把仅一段完整转写改写成其余转写均缺失。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "称独立史料略作定性，背景待考仍保留未知。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 2,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 11,
+      "serious_flags": [
+        "factual_invention",
+        "record_status_confusion"
+      ],
+      "reason": "把未说明的转写状态写成录音内容无法还原。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_voice_fragments",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 12,
+      "serious_flags": [
+        "record_status_confusion"
+      ],
+      "reason": "断言其余转写内容缺失，超出仅一段完整的事实。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "事实边界完整，结语观看收束略弱。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "用途年代学校与全部关系缺项准确。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 3,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "遗漏观众反馈于正文但边界仍明确。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "不预设物件经历或观看结果。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把登记用途扩成实物见证和承载纪念意涵。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "称织物见证毕业实践，补写资料未载的经历。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 16,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "保存纪念信息与研究方向略作功能扩写。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "exhibition_closing",
+      "id": "holdout_closing_graduation_textiles",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "只确认登记用途年代与缺项，结语克制。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "擅加低对比、材质肌理和冥想审美。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "虚构冷调、横向构图、抽象与低对比偏好。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "擅定沉稳色彩、抽象或自然意象。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把无人物扩成自然静物、留白与低对比风格。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "只规定低叙事、少解释与平缓节奏。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 19,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "沉浸与低沉措辞略扩写，媒介仍开放。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "选择逻辑和二十分钟节奏均贴合需求。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_quiet_visit",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "排除任何叙事略绝对，但无风格媒介臆测。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "限定当代、遗物与抽象隐喻，超出未知媒介年代。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "擅定残缺物、废弃空间及非生物性边界。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "虚构空椅信件等作品类型并扩展伦理排除项。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "擅定艺术流派、技法与理性到情绪的弧线。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "偏好抽象间接略收窄媒介，非疗愈边界正确。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "隐喻留白为建议而非硬事实，结尾保持悬置。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "非写实象征略作风格偏好，未承诺康复。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_grief_no_resolution",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 3,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "具象到隐喻稍具体，但未知对象媒介未被断言。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "擅加低刺激、环形动线、口述和六至八站。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "推断儿童好奇心与长者需求，并设计情感流。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 1,
+        "task_function": 2,
+        "semantic_discernment": 1,
+        "naturalness": 4,
+        "boundary_constraints": 1
+      },
+      "total": 9,
+      "serious_flags": [
+        "semantic_overreach",
+        "ability_inference"
+      ],
+      "reason": "虚构轮椅、触觉模型、声景与参与式装置。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "固定影像、自然意象和情绪弧线均无依据。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "ability_inference",
+        "semantic_overreach"
+      ],
+      "reason": "以儿童老人推断认知负荷并限定静态影像。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "ability_inference",
+        "semantic_overreach"
+      ],
+      "reason": "低认知负荷与影像媒介均未由需求支持。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "ability_inference",
+        "semantic_overreach"
+      ],
+      "reason": "推断年龄注意力并以视觉语言降低信息负担。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_intergenerational_access",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "ability_inference",
+        "semantic_overreach"
+      ],
+      "reason": "擅加听觉信息与低负担，仍在推断能力。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "虚构高饱和、小尺寸、高低布局与愉悦目标。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 14,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把颜色条件扩成温馨和谐的情绪终点。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 2,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "擅造晨曦正午黄昏主题叙事。"
+    },
+    {
+      "variant": "source-isolated-v3",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 2,
+        "task_function": 3,
+        "semantic_discernment": 2,
+        "naturalness": 4,
+        "boundary_constraints": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "限定高饱和油画、均匀光影与线性动线。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 1,
+      "scores": {
+        "evidence_fidelity": 3,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 3
+      },
+      "total": 18,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "“雕塑不适”略作原因判断，选择逻辑仍准确。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 2,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "照片绘画、明亮低对比和温和变化完整。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 3,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "色彩层次制造变化，不引入主题年代。"
+    },
+    {
+      "variant": "generic-task-routed-v5",
+      "taskType": "curation_analysis",
+      "id": "holdout_curation_bright_low_contrast",
+      "repetition": 4,
+      "scores": {
+        "evidence_fidelity": 4,
+        "task_function": 4,
+        "semantic_discernment": 4,
+        "naturalness": 4,
+        "boundary_constraints": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "媒介范围和非戏剧化节奏均守住。"
+    }
+  ],
+  "summaryByVariantAndTaskType": {
+    "source-isolated-v3": {
+      "overall": {
+        "sampleCount": 64,
+        "meanTotal": 17.171875,
+        "meanByDimension": {
+          "evidence_fidelity": 3.265625,
+          "task_function": 3.546875,
+          "semantic_discernment": 3.203125,
+          "naturalness": 3.984375,
+          "boundary_constraints": 3.171875
+        },
+        "seriousErrorCount": 22,
+        "seriousErrorRate": 0.34375,
+        "gapToDualGoldenTarget": 2.828125,
+        "meanCaseScoreRange": 2.6875,
+        "caseStability": {
+          "holdout_emotion_praise_tears": {
+            "scores": [
+              20,
+              13,
+              14,
+              13
+            ],
+            "mean": 15,
+            "range": 7,
+            "seriousErrorCount": 3
+          },
+          "holdout_emotion_silence_relief": {
+            "scores": [
+              19,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.75,
+            "range": 1,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_calm_decision": {
+            "scores": [
+              19,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.75,
+            "range": 1,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_result_privacy": {
+            "scores": [
+              20,
+              18,
+              13,
+              20
+            ],
+            "mean": 17.75,
+            "range": 7,
+            "seriousErrorCount": 1
+          },
+          "holdout_art_known_description": {
+            "scores": [
+              18,
+              13,
+              17,
+              17
+            ],
+            "mean": 16.25,
+            "range": 5,
+            "seriousErrorCount": 1
+          },
+          "holdout_art_sparse_label": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_description_conflict": {
+            "scores": [
+              20,
+              20,
+              20,
+              11
+            ],
+            "mean": 17.75,
+            "range": 9,
+            "seriousErrorCount": 1
+          },
+          "holdout_art_uncertain_workshop": {
+            "scores": [
+              20,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_preface_measurement_marks": {
+            "scores": [
+              18,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_preface_uncatalogued_index": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_closing_voice_fragments": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_closing_graduation_textiles": {
+            "scores": [
+              19,
+              20,
+              19,
+              20
+            ],
+            "mean": 19.5,
+            "range": 1,
+            "seriousErrorCount": 0
+          },
+          "holdout_curation_quiet_visit": {
+            "scores": [
+              13,
+              12,
+              13,
+              13
+            ],
+            "mean": 12.75,
+            "range": 1,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_grief_no_resolution": {
+            "scores": [
+              13,
+              12,
+              12,
+              12
+            ],
+            "mean": 12.25,
+            "range": 1,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_intergenerational_access": {
+            "scores": [
+              13,
+              13,
+              9,
+              13
+            ],
+            "mean": 12,
+            "range": 4,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_bright_low_contrast": {
+            "scores": [
+              13,
+              14,
+              12,
+              13
+            ],
+            "mean": 13,
+            "range": 2,
+            "seriousErrorCount": 4
+          }
+        }
+      },
+      "emotion_response": {
+        "sampleCount": 16,
+        "meanTotal": 18.0625,
+        "meanByDimension": {
+          "evidence_fidelity": 3.4375,
+          "task_function": 3.75,
+          "semantic_discernment": 3.4375,
+          "naturalness": 3.9375,
+          "boundary_constraints": 3.5
+        },
+        "seriousErrorCount": 4,
+        "seriousErrorRate": 0.25,
+        "gapToDualGoldenTarget": 1.9375,
+        "meanCaseScoreRange": 4,
+        "caseStability": {
+          "holdout_emotion_praise_tears": {
+            "scores": [
+              20,
+              13,
+              14,
+              13
+            ],
+            "mean": 15,
+            "range": 7,
+            "seriousErrorCount": 3
+          },
+          "holdout_emotion_silence_relief": {
+            "scores": [
+              19,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.75,
+            "range": 1,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_calm_decision": {
+            "scores": [
+              19,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.75,
+            "range": 1,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_result_privacy": {
+            "scores": [
+              20,
+              18,
+              13,
+              20
+            ],
+            "mean": 17.75,
+            "range": 7,
+            "seriousErrorCount": 1
+          }
+        }
+      },
+      "artwork_intro": {
+        "sampleCount": 16,
+        "meanTotal": 18.375,
+        "meanByDimension": {
+          "evidence_fidelity": 3.625,
+          "task_function": 3.75,
+          "semantic_discernment": 3.5,
+          "naturalness": 4,
+          "boundary_constraints": 3.5
+        },
+        "seriousErrorCount": 2,
+        "seriousErrorRate": 0.125,
+        "gapToDualGoldenTarget": 1.625,
+        "meanCaseScoreRange": 4,
+        "caseStability": {
+          "holdout_art_known_description": {
+            "scores": [
+              18,
+              13,
+              17,
+              17
+            ],
+            "mean": 16.25,
+            "range": 5,
+            "seriousErrorCount": 1
+          },
+          "holdout_art_sparse_label": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_description_conflict": {
+            "scores": [
+              20,
+              20,
+              20,
+              11
+            ],
+            "mean": 17.75,
+            "range": 9,
+            "seriousErrorCount": 1
+          },
+          "holdout_art_uncertain_workshop": {
+            "scores": [
+              20,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          }
+        }
+      },
+      "exhibition_preface": {
+        "sampleCount": 8,
+        "meanTotal": 19.75,
+        "meanByDimension": {
+          "evidence_fidelity": 4,
+          "task_function": 3.875,
+          "semantic_discernment": 3.875,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "seriousErrorCount": 0,
+        "seriousErrorRate": 0,
+        "gapToDualGoldenTarget": 0.25,
+        "meanCaseScoreRange": 1,
+        "caseStability": {
+          "holdout_preface_measurement_marks": {
+            "scores": [
+              18,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_preface_uncatalogued_index": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          }
+        }
+      },
+      "exhibition_closing": {
+        "sampleCount": 8,
+        "meanTotal": 19.75,
+        "meanByDimension": {
+          "evidence_fidelity": 4,
+          "task_function": 3.75,
+          "semantic_discernment": 4,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "seriousErrorCount": 0,
+        "seriousErrorRate": 0,
+        "gapToDualGoldenTarget": 0.25,
+        "meanCaseScoreRange": 0.5,
+        "caseStability": {
+          "holdout_closing_voice_fragments": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_closing_graduation_textiles": {
+            "scores": [
+              19,
+              20,
+              19,
+              20
+            ],
+            "mean": 19.5,
+            "range": 1,
+            "seriousErrorCount": 0
+          }
+        }
+      },
+      "curation_analysis": {
+        "sampleCount": 16,
+        "meanTotal": 12.5,
+        "meanByDimension": {
+          "evidence_fidelity": 2,
+          "task_function": 2.875,
+          "semantic_discernment": 1.9375,
+          "naturalness": 4,
+          "boundary_constraints": 1.6875
+        },
+        "seriousErrorCount": 16,
+        "seriousErrorRate": 1,
+        "gapToDualGoldenTarget": 7.5,
+        "meanCaseScoreRange": 2,
+        "caseStability": {
+          "holdout_curation_quiet_visit": {
+            "scores": [
+              13,
+              12,
+              13,
+              13
+            ],
+            "mean": 12.75,
+            "range": 1,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_grief_no_resolution": {
+            "scores": [
+              13,
+              12,
+              12,
+              12
+            ],
+            "mean": 12.25,
+            "range": 1,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_intergenerational_access": {
+            "scores": [
+              13,
+              13,
+              9,
+              13
+            ],
+            "mean": 12,
+            "range": 4,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_bright_low_contrast": {
+            "scores": [
+              13,
+              14,
+              12,
+              13
+            ],
+            "mean": 13,
+            "range": 2,
+            "seriousErrorCount": 4
+          }
+        }
+      }
+    },
+    "generic-task-routed-v5": {
+      "overall": {
+        "sampleCount": 64,
+        "meanTotal": 17.890625,
+        "meanByDimension": {
+          "evidence_fidelity": 3.46875,
+          "task_function": 3.703125,
+          "semantic_discernment": 3.328125,
+          "naturalness": 3.953125,
+          "boundary_constraints": 3.4375
+        },
+        "seriousErrorCount": 13,
+        "seriousErrorRate": 0.203125,
+        "gapToDualGoldenTarget": 2.109375,
+        "meanCaseScoreRange": 2.75,
+        "caseStability": {
+          "holdout_emotion_praise_tears": {
+            "scores": [
+              13,
+              20,
+              18,
+              20
+            ],
+            "mean": 17.75,
+            "range": 7,
+            "seriousErrorCount": 1
+          },
+          "holdout_emotion_silence_relief": {
+            "scores": [
+              18,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_calm_decision": {
+            "scores": [
+              18,
+              17,
+              20,
+              20
+            ],
+            "mean": 18.75,
+            "range": 3,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_result_privacy": {
+            "scores": [
+              20,
+              20,
+              20,
+              18
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_known_description": {
+            "scores": [
+              20,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_sparse_label": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_description_conflict": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_uncertain_workshop": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_preface_measurement_marks": {
+            "scores": [
+              13,
+              20,
+              19,
+              19
+            ],
+            "mean": 17.75,
+            "range": 7,
+            "seriousErrorCount": 1
+          },
+          "holdout_preface_uncatalogued_index": {
+            "scores": [
+              19,
+              14,
+              16,
+              14
+            ],
+            "mean": 15.75,
+            "range": 5,
+            "seriousErrorCount": 2
+          },
+          "holdout_closing_voice_fragments": {
+            "scores": [
+              15,
+              16,
+              11,
+              12
+            ],
+            "mean": 13.5,
+            "range": 5,
+            "seriousErrorCount": 3
+          },
+          "holdout_closing_graduation_textiles": {
+            "scores": [
+              13,
+              13,
+              16,
+              20
+            ],
+            "mean": 15.5,
+            "range": 7,
+            "seriousErrorCount": 2
+          },
+          "holdout_curation_quiet_visit": {
+            "scores": [
+              20,
+              19,
+              20,
+              18
+            ],
+            "mean": 19.25,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_curation_grief_no_resolution": {
+            "scores": [
+              17,
+              17,
+              17,
+              17
+            ],
+            "mean": 17,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_curation_intergenerational_access": {
+            "scores": [
+              13,
+              13,
+              13,
+              13
+            ],
+            "mean": 13,
+            "range": 0,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_bright_low_contrast": {
+            "scores": [
+              18,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          }
+        }
+      },
+      "emotion_response": {
+        "sampleCount": 16,
+        "meanTotal": 18.875,
+        "meanByDimension": {
+          "evidence_fidelity": 3.75,
+          "task_function": 3.875,
+          "semantic_discernment": 3.5625,
+          "naturalness": 3.8125,
+          "boundary_constraints": 3.875
+        },
+        "seriousErrorCount": 1,
+        "seriousErrorRate": 0.0625,
+        "gapToDualGoldenTarget": 1.125,
+        "meanCaseScoreRange": 3.5,
+        "caseStability": {
+          "holdout_emotion_praise_tears": {
+            "scores": [
+              13,
+              20,
+              18,
+              20
+            ],
+            "mean": 17.75,
+            "range": 7,
+            "seriousErrorCount": 1
+          },
+          "holdout_emotion_silence_relief": {
+            "scores": [
+              18,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_calm_decision": {
+            "scores": [
+              18,
+              17,
+              20,
+              20
+            ],
+            "mean": 18.75,
+            "range": 3,
+            "seriousErrorCount": 0
+          },
+          "holdout_emotion_result_privacy": {
+            "scores": [
+              20,
+              20,
+              20,
+              18
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          }
+        }
+      },
+      "artwork_intro": {
+        "sampleCount": 16,
+        "meanTotal": 19.875,
+        "meanByDimension": {
+          "evidence_fidelity": 4,
+          "task_function": 3.9375,
+          "semantic_discernment": 3.9375,
+          "naturalness": 4,
+          "boundary_constraints": 4
+        },
+        "seriousErrorCount": 0,
+        "seriousErrorRate": 0,
+        "gapToDualGoldenTarget": 0.125,
+        "meanCaseScoreRange": 0.5,
+        "caseStability": {
+          "holdout_art_known_description": {
+            "scores": [
+              20,
+              20,
+              18,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_sparse_label": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_description_conflict": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_art_uncertain_workshop": {
+            "scores": [
+              20,
+              20,
+              20,
+              20
+            ],
+            "mean": 20,
+            "range": 0,
+            "seriousErrorCount": 0
+          }
+        }
+      },
+      "exhibition_preface": {
+        "sampleCount": 8,
+        "meanTotal": 16.75,
+        "meanByDimension": {
+          "evidence_fidelity": 3.375,
+          "task_function": 3.5,
+          "semantic_discernment": 2.75,
+          "naturalness": 4,
+          "boundary_constraints": 3.125
+        },
+        "seriousErrorCount": 3,
+        "seriousErrorRate": 0.375,
+        "gapToDualGoldenTarget": 3.25,
+        "meanCaseScoreRange": 6,
+        "caseStability": {
+          "holdout_preface_measurement_marks": {
+            "scores": [
+              13,
+              20,
+              19,
+              19
+            ],
+            "mean": 17.75,
+            "range": 7,
+            "seriousErrorCount": 1
+          },
+          "holdout_preface_uncatalogued_index": {
+            "scores": [
+              19,
+              14,
+              16,
+              14
+            ],
+            "mean": 15.75,
+            "range": 5,
+            "seriousErrorCount": 2
+          }
+        }
+      },
+      "exhibition_closing": {
+        "sampleCount": 8,
+        "meanTotal": 14.5,
+        "meanByDimension": {
+          "evidence_fidelity": 2.625,
+          "task_function": 3,
+          "semantic_discernment": 2.625,
+          "naturalness": 4,
+          "boundary_constraints": 2.25
+        },
+        "seriousErrorCount": 5,
+        "seriousErrorRate": 0.625,
+        "gapToDualGoldenTarget": 5.5,
+        "meanCaseScoreRange": 6,
+        "caseStability": {
+          "holdout_closing_voice_fragments": {
+            "scores": [
+              15,
+              16,
+              11,
+              12
+            ],
+            "mean": 13.5,
+            "range": 5,
+            "seriousErrorCount": 3
+          },
+          "holdout_closing_graduation_textiles": {
+            "scores": [
+              13,
+              13,
+              16,
+              20
+            ],
+            "mean": 15.5,
+            "range": 7,
+            "seriousErrorCount": 2
+          }
+        }
+      },
+      "curation_analysis": {
+        "sampleCount": 16,
+        "meanTotal": 17.1875,
+        "meanByDimension": {
+          "evidence_fidelity": 3.125,
+          "task_function": 3.75,
+          "semantic_discernment": 3.125,
+          "naturalness": 4,
+          "boundary_constraints": 3.1875
+        },
+        "seriousErrorCount": 4,
+        "seriousErrorRate": 0.25,
+        "gapToDualGoldenTarget": 2.8125,
+        "meanCaseScoreRange": 1,
+        "caseStability": {
+          "holdout_curation_quiet_visit": {
+            "scores": [
+              20,
+              19,
+              20,
+              18
+            ],
+            "mean": 19.25,
+            "range": 2,
+            "seriousErrorCount": 0
+          },
+          "holdout_curation_grief_no_resolution": {
+            "scores": [
+              17,
+              17,
+              17,
+              17
+            ],
+            "mean": 17,
+            "range": 0,
+            "seriousErrorCount": 0
+          },
+          "holdout_curation_intergenerational_access": {
+            "scores": [
+              13,
+              13,
+              13,
+              13
+            ],
+            "mean": 13,
+            "range": 0,
+            "seriousErrorCount": 4
+          },
+          "holdout_curation_bright_low_contrast": {
+            "scores": [
+              18,
+              20,
+              20,
+              20
+            ],
+            "mean": 19.5,
+            "range": 2,
+            "seriousErrorCount": 0
+          }
+        }
+      }
+    }
+  },
+  "qualityDeltaV5MinusV3": {
+    "overall": {
+      "meanTotal": 0.71875,
+      "seriousRatePercentagePoints": -14.0625,
+      "meanCaseScoreRange": 0.0625
+    },
+    "byTaskType": {
+      "emotion_response": {
+        "meanTotal": 0.8125,
+        "seriousRatePercentagePoints": -18.75,
+        "meanCaseScoreRange": -0.5
+      },
+      "artwork_intro": {
+        "meanTotal": 1.5,
+        "seriousRatePercentagePoints": -12.5,
+        "meanCaseScoreRange": -3.5
+      },
+      "exhibition_preface": {
+        "meanTotal": -3,
+        "seriousRatePercentagePoints": 37.5,
+        "meanCaseScoreRange": 5
+      },
+      "exhibition_closing": {
+        "meanTotal": -5.25,
+        "seriousRatePercentagePoints": 62.5,
+        "meanCaseScoreRange": 5.5
+      },
+      "curation_analysis": {
+        "meanTotal": 4.6875,
+        "seriousRatePercentagePoints": -75,
+        "meanCaseScoreRange": -1
+      }
+    }
+  },
+  "performanceContextAfterScoring": {
+    "source-isolated-v3": {
+      "inputTokensAverage": 395,
+      "outputTokensAverage": 103.53125,
+      "firstTextMedianMs": 475.5,
+      "totalMedianMs": 1451
+    },
+    "generic-task-routed-v5": {
+      "inputTokensAverage": 328.3125,
+      "outputTokensAverage": 100.25,
+      "firstTextMedianMs": 476.5,
+      "totalMedianMs": 1422.5
+    }
+  },
+  "decision": {
+    "overall": "v5在未见集总体优于v3，但质量迁移极不均匀，不能整包替换。",
+    "evidence": [
+      "v5总体均分提高0.719，严重错误率下降14.06个百分点。",
+      "emotion与artwork_intro改善；curation_analysis大幅改善，但代际可访问性仍全轮能力推断。",
+      "exhibition_preface/closing显著退化，尤其声音转写状态和毕业织物意义扩写。"
+    ],
+    "routingRecommendation": {
+      "emotion_response": "优先v5，但赞誉后想哭仍需禁用情绪命名。",
+      "artwork_intro": "优先v5；其事实忠实度在四个未见case上稳定。",
+      "exhibition_preface": "保留v3；v5出现历史意义与时间痕迹套话。",
+      "exhibition_closing": "保留v3；v5误读转写状态并把登记用途升为物件意义。",
+      "curation_analysis": "优先v5，但单独重写intergenerational_access，禁止认知/注意力推断和媒介预设。"
+    },
+    "finalRecommendation": "按taskType与风险子族混合路由：v5用于emotion/artwork/大部分curation，v3用于preface/closing；代际可访问性另设确定性无障碍模板。"
+  }
+}

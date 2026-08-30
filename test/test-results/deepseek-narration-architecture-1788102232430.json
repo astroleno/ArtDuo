@@ -1,0 +1,1909 @@
+{
+  "schemaVersion": "1.0",
+  "runId": 1788102232430,
+  "objective": "Compare combined narration with parallel split preface and closing requests",
+  "startedAt": "2026-08-30T15:03:52.430Z",
+  "model": "deepseek-v4-flash",
+  "thinking": "disabled",
+  "repeatCount": 5,
+  "runs": [
+    {
+      "packetId": "narration_navigation_tools",
+      "repetition": 1,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"展览呈现1885至1962年间六件导航工具：两件罗盘、两件六分仪、两张航线计算表。其中三件带有修正刻痕，一张表缺失末页。这些工具静默陈列，其使用与修正的具体情境已不可考。请观者自行观察器物细节，思考它们曾经服务的航行与计算。\",\n  \"closing\": \"六件工具，三件留痕，一册缺页。它们来自特定年代，却未记录使用者、航次或修正缘由。器物本身保存了制作与使用的痕迹，但缺失的信息使之成为开放档案。展览至此结束，未知与已知共同构成这段偏差的记录。\",\n  \"preface_boundary\": \"仅限展品数量、年代与可见物证；不含推测与体验。\",\n  \"closing_boundary\": \"仅归纳已知与未知，不补原因或象征。\"\n}",
+        "firstEventMs": 129,
+        "firstTextMs": 583,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 299,
+          "output_tokens": 198
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "展览呈现1885至1962年间六件导航工具：两件罗盘、两件六分仪、两张航线计算表。其中三件带有修正刻痕，一张表缺失末页。这些工具静默陈列，其使用与修正的具体情境已不可考。请观者自行观察器物细节，思考它们曾经服务的航行与计算。",
+          "closing": "六件工具，三件留痕，一册缺页。它们来自特定年代，却未记录使用者、航次或修正缘由。器物本身保存了制作与使用的痕迹，但缺失的信息使之成为开放档案。展览至此结束，未知与已知共同构成这段偏差的记录。",
+          "preface_boundary": "仅限展品数量、年代与可见物证；不含推测与体验。",
+          "closing_boundary": "仅归纳已知与未知，不补原因或象征。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2560,
+        "normalized": {
+          "preface": "展览呈现1885至1962年间六件导航工具：两件罗盘、两件六分仪、两张航线计算表。其中三件带有修正刻痕，一张表缺失末页。这些工具静默陈列，其使用与修正的具体情境已不可考。请观者自行观察器物细节，思考它们曾经服务的航行与计算。",
+          "closing": "六件工具，三件留痕，一册缺页。它们来自特定年代，却未记录使用者、航次或修正缘由。器物本身保存了制作与使用的痕迹，但缺失的信息使之成为开放档案。展览至此结束，未知与已知共同构成这段偏差的记录。",
+          "preface_boundary": "仅限展品数量、年代与可见物证；不含推测与体验。",
+          "closing_boundary": "仅归纳已知与未知，不补原因或象征。"
+        },
+        "inputTokens": 299,
+        "outputTokens": 198
+      },
+      "split": {
+        "firstTextMs": 822,
+        "allCompleteMs": 1789,
+        "inputTokens": 675,
+        "outputTokens": 203,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览呈现六件1885至1962年间的导航工具，包括罗盘、六分仪与航线计算表。其中三件带有修正刻痕，一张计算表缺末页。这些物品静默陈列，记录着航海的痕迹与时间的磨损。",
+          "closing": "展览呈现六件导航工具：两件罗盘、两件六分仪和两张航线计算表，年代自1885年至1962年。其中三件带有修正刻痕，一张表缺少末页。它们的具体使用者、航次及修正原因均无记录。这些工具的用途和背后故事，或许只能留待想象。",
+          "preface_boundary": "仅依据展览记录，未涉及使用者、航次及修正原因。",
+          "closing_boundary": "仅基于展品数量、类型、年代、修正刻痕及缺页情况，未涉及使用者、航次与修正原因。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览呈现六件1885至1962年间的导航工具，包括罗盘、六分仪与航线计算表。其中三件带有修正刻痕，一张计算表缺末页。这些物品静默陈列，记录着航海的痕迹与时间的磨损。\",\n  \"evidence_boundary\": \"仅依据展览记录，未涉及使用者、航次及修正原因。\"\n}",
+          "firstEventMs": 168,
+          "firstTextMs": 822,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 340,
+            "output_tokens": 87
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现六件1885至1962年间的导航工具，包括罗盘、六分仪与航线计算表。其中三件带有修正刻痕，一张计算表缺末页。这些物品静默陈列，记录着航海的痕迹与时间的磨损。",
+            "evidence_boundary": "仅依据展览记录，未涉及使用者、航次及修正原因。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1471
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览呈现六件导航工具：两件罗盘、两件六分仪和两张航线计算表，年代自1885年至1962年。其中三件带有修正刻痕，一张表缺少末页。它们的具体使用者、航次及修正原因均无记录。这些工具的用途和背后故事，或许只能留待想象。\",\n  \"evidence_boundary\": \"仅基于展品数量、类型、年代、修正刻痕及缺页情况，未涉及使用者、航次与修正原因。\"\n}",
+          "firstEventMs": 147,
+          "firstTextMs": 836,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 335,
+            "output_tokens": 116
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现六件导航工具：两件罗盘、两件六分仪和两张航线计算表，年代自1885年至1962年。其中三件带有修正刻痕，一张表缺少末页。它们的具体使用者、航次及修正原因均无记录。这些工具的用途和背后故事，或许只能留待想象。",
+            "evidence_boundary": "仅基于展品数量、类型、年代、修正刻痕及缺页情况，未涉及使用者、航次与修正原因。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1789
+        }
+      }
+    },
+    {
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 1,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"这里陈列着9张明信片，时间跨越1904年到1978年。它们或因地址不全，或因背面空白，始终未能寄出。没有收件人姓名，没有书写者信息，只有未完成的沟通。请从这些沉默的纸片开始，进入一段未抵达的旅程。\",\n  \"closing\": \"九张明信片，从1904到1978，见证了一个世纪的静默。它们有地址，却无姓名；有空白，却无言语。未寄出的原因已不可考，书写者亦无踪迹。留下的，是等待被解读的片段，和无法抵达的想象。\",\n  \"preface_boundary\": \"信息严格依据展品：9张明信片，日期范围，地址与空白状态。\",\n  \"closing_boundary\": \"结语仅重申已知信息，不推测未寄原因或书写者身份。\"\n}",
+        "firstEventMs": 81,
+        "firstTextMs": 790,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 274,
+          "output_tokens": 198
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "这里陈列着9张明信片，时间跨越1904年到1978年。它们或因地址不全，或因背面空白，始终未能寄出。没有收件人姓名，没有书写者信息，只有未完成的沟通。请从这些沉默的纸片开始，进入一段未抵达的旅程。",
+          "closing": "九张明信片，从1904到1978，见证了一个世纪的静默。它们有地址，却无姓名；有空白，却无言语。未寄出的原因已不可考，书写者亦无踪迹。留下的，是等待被解读的片段，和无法抵达的想象。",
+          "preface_boundary": "信息严格依据展品：9张明信片，日期范围，地址与空白状态。",
+          "closing_boundary": "结语仅重申已知信息，不推测未寄原因或书写者身份。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2563,
+        "normalized": {
+          "preface": "这里陈列着9张明信片，时间跨越1904年到1978年。它们或因地址不全，或因背面空白，始终未能寄出。没有收件人姓名，没有书写者信息，只有未完成的沟通。请从这些沉默的纸片开始，进入一段未抵达的旅程。",
+          "closing": "九张明信片，从1904到1978，见证了一个世纪的静默。它们有地址，却无姓名；有空白，却无言语。未寄出的原因已不可考，书写者亦无踪迹。留下的，是等待被解读的片段，和无法抵达的想象。",
+          "preface_boundary": "信息严格依据展品：9张明信片，日期范围，地址与空白状态。",
+          "closing_boundary": "结语仅重申已知信息，不推测未寄原因或书写者身份。"
+        },
+        "inputTokens": 274,
+        "outputTokens": 198
+      },
+      "split": {
+        "firstTextMs": 512,
+        "allCompleteMs": 1680,
+        "inputTokens": 625,
+        "outputTokens": 179,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览呈现九张未寄出的明信片，时间跨越1904至1978年。其中六张写有地址，却未留下收件人姓名；三张背面空白。它们静默陈列，等待被观看。",
+          "closing": "展览陈列的九张明信片，跨越1904年至1978年。其中六张写有地址却无收件人姓名，三张背面空白。它们为何未寄出，书写者是谁，资料未提及。这些沉默的物件，静静地等待着未被讲述的故事。",
+          "preface_boundary": "九张明信片，日期1904-1978；六张有地址无姓名，三张空白。",
+          "closing_boundary": "基于展览记录；未寄原因与书写者信息未提供。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览呈现九张未寄出的明信片，时间跨越1904至1978年。其中六张写有地址，却未留下收件人姓名；三张背面空白。它们静默陈列，等待被观看。\",\n  \"evidence_boundary\": \"九张明信片，日期1904-1978；六张有地址无姓名，三张空白。\"\n}",
+          "firstEventMs": 82,
+          "firstTextMs": 1040,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 315,
+            "output_tokens": 89
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现九张未寄出的明信片，时间跨越1904至1978年。其中六张写有地址，却未留下收件人姓名；三张背面空白。它们静默陈列，等待被观看。",
+            "evidence_boundary": "九张明信片，日期1904-1978；六张有地址无姓名，三张空白。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1680
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览陈列的九张明信片，跨越1904年至1978年。其中六张写有地址却无收件人姓名，三张背面空白。它们为何未寄出，书写者是谁，资料未提及。这些沉默的物件，静静地等待着未被讲述的故事。\",\n  \"evidence_boundary\": \"基于展览记录；未寄原因与书写者信息未提供。\"\n}",
+          "firstEventMs": 89,
+          "firstTextMs": 512,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 310,
+            "output_tokens": 90
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览陈列的九张明信片，跨越1904年至1978年。其中六张写有地址却无收件人姓名，三张背面空白。它们为何未寄出，书写者是谁，资料未提及。这些沉默的物件，静静地等待着未被讲述的故事。",
+            "evidence_boundary": "基于展览记录；未寄原因与书写者信息未提供。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1182
+        }
+      }
+    },
+    {
+      "packetId": "narration_field_recordings",
+      "repetition": 1,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"展览呈现四段环境录音，录制年份分别为1961、1980、1997、2015。其中两段地点可确认，两段地点未知。资料仅标注时长，无声音内容说明及录制目的。观众将面对这些声音记录，关注其时间跨度与地理信息的不确定性。\",\n  \"closing\": \"四段录音，时间明确，地点部分确知。声音内容与录制目的未被揭示，留下空白。已知年份与时长，未知的声响与意图，构成展览的边界。\",\n  \"preface_boundary\": \"仅依据录音的年份、地点可知性及时长信息引导观看。\",\n  \"closing_boundary\": \"仅总结已知信息，指出未知部分，不补充任何推测或解释。\"\n}",
+        "firstEventMs": 81,
+        "firstTextMs": 577,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 273,
+          "output_tokens": 168
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "展览呈现四段环境录音，录制年份分别为1961、1980、1997、2015。其中两段地点可确认，两段地点未知。资料仅标注时长，无声音内容说明及录制目的。观众将面对这些声音记录，关注其时间跨度与地理信息的不确定性。",
+          "closing": "四段录音，时间明确，地点部分确知。声音内容与录制目的未被揭示，留下空白。已知年份与时长，未知的声响与意图，构成展览的边界。",
+          "preface_boundary": "仅依据录音的年份、地点可知性及时长信息引导观看。",
+          "closing_boundary": "仅总结已知信息，指出未知部分，不补充任何推测或解释。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2012,
+        "normalized": {
+          "preface": "展览呈现四段环境录音，录制年份分别为1961、1980、1997、2015。其中两段地点可确认，两段地点未知。资料仅标注时长，无声音内容说明及录制目的。观众将面对这些声音记录，关注其时间跨度与地理信息的不确定性。",
+          "closing": "四段录音，时间明确，地点部分确知。声音内容与录制目的未被揭示，留下空白。已知年份与时长，未知的声响与意图，构成展览的边界。",
+          "preface_boundary": "仅依据录音的年份、地点可知性及时长信息引导观看。",
+          "closing_boundary": "仅总结已知信息，指出未知部分，不补充任何推测或解释。"
+        },
+        "inputTokens": 273,
+        "outputTokens": 168
+      },
+      "split": {
+        "firstTextMs": 297,
+        "allCompleteMs": 1747,
+        "inputTokens": 623,
+        "outputTokens": 239,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览呈现四段环境录音，录制时间跨越1961年至2015年。其中两段的地点可确认，另两段则无从知晓。录音仅标注了时长，未附内容说明或录制目的。它们如同一组时间的切片，等待被聆听。",
+          "closing": "展览《地点待定》呈现了四段环境录音，分别录制于1961、1980、1997和2015年。其中两段录音的地点可以确认，另外两段则地点未知。资料仅标注了每段录音的时长，没有说明声音内容或录制目的。这些录音作为展品，以时间与地点的部分明确提示了其存在，但具体内容与意图仍留待观众自行感知与想象。",
+          "preface_boundary": "四段录音，时间跨度为1961至2015年；两段地点确认，两段地点未知；仅标注时长，无内容及目的信息。",
+          "closing_boundary": "仅基于展览中四段录音的年份、地点确认状态及标注信息，不涉及声音内容、录制目的或观众反应。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览呈现四段环境录音，录制时间跨越1961年至2015年。其中两段的地点可确认，另两段则无从知晓。录音仅标注了时长，未附内容说明或录制目的。它们如同一组时间的切片，等待被聆听。\",\n  \"evidence_boundary\": \"四段录音，时间跨度为1961至2015年；两段地点确认，两段地点未知；仅标注时长，无内容及目的信息。\"\n}",
+          "firstEventMs": 428,
+          "firstTextMs": 847,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 314,
+            "output_tokens": 105
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现四段环境录音，录制时间跨越1961年至2015年。其中两段的地点可确认，另两段则无从知晓。录音仅标注了时长，未附内容说明或录制目的。它们如同一组时间的切片，等待被聆听。",
+            "evidence_boundary": "四段录音，时间跨度为1961至2015年；两段地点确认，两段地点未知；仅标注时长，无内容及目的信息。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1747
+        },
+        "closing": {
+          "text": "{\"text\": \"展览《地点待定》呈现了四段环境录音，分别录制于1961、1980、1997和2015年。其中两段录音的地点可以确认，另外两段则地点未知。资料仅标注了每段录音的时长，没有说明声音内容或录制目的。这些录音作为展品，以时间与地点的部分明确提示了其存在，但具体内容与意图仍留待观众自行感知与想象。\", \"evidence_boundary\": \"仅基于展览中四段录音的年份、地点确认状态及标注信息，不涉及声音内容、录制目的或观众反应。\"}",
+          "firstEventMs": 109,
+          "firstTextMs": 297,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 309,
+            "output_tokens": 134
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《地点待定》呈现了四段环境录音，分别录制于1961、1980、1997和2015年。其中两段录音的地点可以确认，另外两段则地点未知。资料仅标注了每段录音的时长，没有说明声音内容或录制目的。这些录音作为展品，以时间与地点的部分明确提示了其存在，但具体内容与意图仍留待观众自行感知与想象。",
+            "evidence_boundary": "仅基于展览中四段录音的年份、地点确认状态及标注信息，不涉及声音内容、录制目的或观众反应。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1610
+        }
+      }
+    },
+    {
+      "packetId": "narration_printed_notices",
+      "repetition": 1,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"这些印刷通知来自1938年至2001年，共11张，其中7张留有发布日期，4张缺失；8张标注发布机构，3张机构不明。它们未记录张贴地点与受众反馈，仅以文本自身呈现历史片段。\",\n  \"closing\": \"所展通知止于2001年，但时间跨度与信息缺失并存：日期与机构并非完整，张贴场景与回应亦无记载。已知者有限，未知者悬置，留待观者自察。\",\n  \"preface_boundary\": \"起点为11张通知及年代、日期、机构等记录信息；不含地点与反馈。\",\n  \"closing_boundary\": \"终点为资料已知项与缺失项并置；不含对历史影响或观感的引申。\"\n}",
+        "firstEventMs": 82,
+        "firstTextMs": 804,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 272,
+          "output_tokens": 174
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "这些印刷通知来自1938年至2001年，共11张，其中7张留有发布日期，4张缺失；8张标注发布机构，3张机构不明。它们未记录张贴地点与受众反馈，仅以文本自身呈现历史片段。",
+          "closing": "所展通知止于2001年，但时间跨度与信息缺失并存：日期与机构并非完整，张贴场景与回应亦无记载。已知者有限，未知者悬置，留待观者自察。",
+          "preface_boundary": "起点为11张通知及年代、日期、机构等记录信息；不含地点与反馈。",
+          "closing_boundary": "终点为资料已知项与缺失项并置；不含对历史影响或观感的引申。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2444,
+        "normalized": {
+          "preface": "这些印刷通知来自1938年至2001年，共11张，其中7张留有发布日期，4张缺失；8张标注发布机构，3张机构不明。它们未记录张贴地点与受众反馈，仅以文本自身呈现历史片段。",
+          "closing": "所展通知止于2001年，但时间跨度与信息缺失并存：日期与机构并非完整，张贴场景与回应亦无记载。已知者有限，未知者悬置，留待观者自察。",
+          "preface_boundary": "起点为11张通知及年代、日期、机构等记录信息；不含地点与反馈。",
+          "closing_boundary": "终点为资料已知项与缺失项并置；不含对历史影响或观感的引申。"
+        },
+        "inputTokens": 272,
+        "outputTokens": 174
+      },
+      "split": {
+        "firstTextMs": 585,
+        "allCompleteMs": 1674,
+        "inputTokens": 621,
+        "outputTokens": 192,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览《临时通知》汇集十一张印刷通知，时间跨度自1938年至2001年。这些通知中，七张保留了发布日期，四张日期缺失；八张标有发布机构，三张机构不详。它们呈现了通知这一日常文本形式的片段，静待观众细观。",
+          "closing": "展览《临时通知》汇集了1938年至2001年间的11张印刷通知，其中7张留有发布日期，4张日期缺失；8张标注了发布机构，3张机构不明。这些通知见证了一段历史时期的公共沟通方式，但它们的张贴地点与受众反应尚不可知。这些未解之处，留待观者想象。",
+          "preface_boundary": "依据所陈列的11张印刷通知及其日期与机构信息",
+          "closing_boundary": "仅依据所列资料，未知项不作推测。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览《临时通知》汇集十一张印刷通知，时间跨度自1938年至2001年。这些通知中，七张保留了发布日期，四张日期缺失；八张标有发布机构，三张机构不详。它们呈现了通知这一日常文本形式的片段，静待观众细观。\",\n  \"evidence_boundary\": \"依据所陈列的11张印刷通知及其日期与机构信息\"\n}",
+          "firstEventMs": 93,
+          "firstTextMs": 1076,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 313,
+            "output_tokens": 92
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《临时通知》汇集十一张印刷通知，时间跨度自1938年至2001年。这些通知中，七张保留了发布日期，四张日期缺失；八张标有发布机构，三张机构不详。它们呈现了通知这一日常文本形式的片段，静待观众细观。",
+            "evidence_boundary": "依据所陈列的11张印刷通知及其日期与机构信息"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1674
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览《临时通知》汇集了1938年至2001年间的11张印刷通知，其中7张留有发布日期，4张日期缺失；8张标注了发布机构，3张机构不明。这些通知见证了一段历史时期的公共沟通方式，但它们的张贴地点与受众反应尚不可知。这些未解之处，留待观者想象。\",\n  \"evidence_boundary\": \"仅依据所列资料，未知项不作推测。\"\n}",
+          "firstEventMs": 166,
+          "firstTextMs": 585,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 308,
+            "output_tokens": 100
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《临时通知》汇集了1938年至2001年间的11张印刷通知，其中7张留有发布日期，4张日期缺失；8张标注了发布机构，3张机构不明。这些通知见证了一段历史时期的公共沟通方式，但它们的张贴地点与受众反应尚不可知。这些未解之处，留待观者想象。",
+            "evidence_boundary": "仅依据所列资料，未知项不作推测。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1362
+        }
+      }
+    },
+    {
+      "packetId": "narration_navigation_tools",
+      "repetition": 2,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本展览呈现1885年至1962年间六件导航工具，含两件罗盘、两件六分仪与两张航线计算表。其中三件留有修正刻痕，一张计算表缺失末页。这些工具与痕迹，构成一次对导航实践的记录。\",\n  \"closing\": \"六件工具，三处刻痕，一页缺失，共同构成此次记录。资料未载使用者、航次及修正缘由，留白之处，或为另一次记录的开端。\",\n  \"preface_boundary\": \"已知：年代、数量、类型、三件刻痕、一张缺页。\",\n  \"closing_boundary\": \"未知：使用者、航次、修正原因。\"\n}",
+        "firstEventMs": 74,
+        "firstTextMs": 589,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 299,
+          "output_tokens": 160
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本展览呈现1885年至1962年间六件导航工具，含两件罗盘、两件六分仪与两张航线计算表。其中三件留有修正刻痕，一张计算表缺失末页。这些工具与痕迹，构成一次对导航实践的记录。",
+          "closing": "六件工具，三处刻痕，一页缺失，共同构成此次记录。资料未载使用者、航次及修正缘由，留白之处，或为另一次记录的开端。",
+          "preface_boundary": "已知：年代、数量、类型、三件刻痕、一张缺页。",
+          "closing_boundary": "未知：使用者、航次、修正原因。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 1765,
+        "normalized": {
+          "preface": "本展览呈现1885年至1962年间六件导航工具，含两件罗盘、两件六分仪与两张航线计算表。其中三件留有修正刻痕，一张计算表缺失末页。这些工具与痕迹，构成一次对导航实践的记录。",
+          "closing": "六件工具，三处刻痕，一页缺失，共同构成此次记录。资料未载使用者、航次及修正缘由，留白之处，或为另一次记录的开端。",
+          "preface_boundary": "已知：年代、数量、类型、三件刻痕、一张缺页。",
+          "closing_boundary": "未知：使用者、航次、修正原因。"
+        },
+        "inputTokens": 299,
+        "outputTokens": 160
+      },
+      "split": {
+        "firstTextMs": 349,
+        "allCompleteMs": 1565,
+        "inputTokens": 675,
+        "outputTokens": 229,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览呈现6件导航工具，包括2件罗盘、2件六分仪和2张航线计算表，年代横跨1885至1962年。其中3件工具带有修正刻痕，1张计算表缺少末页。这些物件记录了时间与痕迹，静待观者细察。",
+          "closing": "展览至此，我们看见了六件导航工具：两件罗盘、两件六分仪、两张航线计算表，年代跨度从1885年到1962年。其中三件带有修正刻痕，一张表缺了末页。它们静默不语，使用者、航次与修正的原因，都已散佚。我们只能凝视这些痕迹，承认未知的存在，并在不完整中，保留对过往航程的想象。",
+          "preface_boundary": "依据展览记录，仅述及工具数量、类型、年代及表面状态。",
+          "closing_boundary": "仅依据6件展品、年代、刻痕与缺页等记录，不涉及其余信息。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览呈现6件导航工具，包括2件罗盘、2件六分仪和2张航线计算表，年代横跨1885至1962年。其中3件工具带有修正刻痕，1张计算表缺少末页。这些物件记录了时间与痕迹，静待观者细察。\",\n  \"evidence_boundary\": \"依据展览记录，仅述及工具数量、类型、年代及表面状态。\"\n}",
+          "firstEventMs": 67,
+          "firstTextMs": 481,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 340,
+            "output_tokens": 99
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现6件导航工具，包括2件罗盘、2件六分仪和2张航线计算表，年代横跨1885至1962年。其中3件工具带有修正刻痕，1张计算表缺少末页。这些物件记录了时间与痕迹，静待观者细察。",
+            "evidence_boundary": "依据展览记录，仅述及工具数量、类型、年代及表面状态。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1264
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览至此，我们看见了六件导航工具：两件罗盘、两件六分仪、两张航线计算表，年代跨度从1885年到1962年。其中三件带有修正刻痕，一张表缺了末页。它们静默不语，使用者、航次与修正的原因，都已散佚。我们只能凝视这些痕迹，承认未知的存在，并在不完整中，保留对过往航程的想象。\",\n  \"evidence_boundary\": \"仅依据6件展品、年代、刻痕与缺页等记录，不涉及其余信息。\"\n}",
+          "firstEventMs": 90,
+          "firstTextMs": 349,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 335,
+            "output_tokens": 130
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览至此，我们看见了六件导航工具：两件罗盘、两件六分仪、两张航线计算表，年代跨度从1885年到1962年。其中三件带有修正刻痕，一张表缺了末页。它们静默不语，使用者、航次与修正的原因，都已散佚。我们只能凝视这些痕迹，承认未知的存在，并在不完整中，保留对过往航程的想象。",
+            "evidence_boundary": "仅依据6件展品、年代、刻痕与缺页等记录，不涉及其余信息。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1565
+        }
+      }
+    },
+    {
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 2,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"这九张明信片，从1904年到1978年，未曾抵达它们的收件人。六张写有地址，却未署姓名；三张背面空白，未留只言片语。它们静立于此，等待被阅读。\",\n  \"closing\": \"九张明信片，六段地址，三片空白。它们未寄出的原因，书写者的身份，都已湮没。然而，这些沉默的纸片，依然指向某个远方，某个未完成的通信。\",\n  \"preface_boundary\": \"仅陈述展览物品的客观信息，不涉及其未寄原因或书写者身份。\",\n  \"closing_boundary\": \"仅总结已知事实，明确指出来源未说明的信息，不补充任何推测。\"\n}",
+        "firstEventMs": 86,
+        "firstTextMs": 823,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 274,
+          "output_tokens": 171
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "这九张明信片，从1904年到1978年，未曾抵达它们的收件人。六张写有地址，却未署姓名；三张背面空白，未留只言片语。它们静立于此，等待被阅读。",
+          "closing": "九张明信片，六段地址，三片空白。它们未寄出的原因，书写者的身份，都已湮没。然而，这些沉默的纸片，依然指向某个远方，某个未完成的通信。",
+          "preface_boundary": "仅陈述展览物品的客观信息，不涉及其未寄原因或书写者身份。",
+          "closing_boundary": "仅总结已知事实，明确指出来源未说明的信息，不补充任何推测。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2448,
+        "normalized": {
+          "preface": "这九张明信片，从1904年到1978年，未曾抵达它们的收件人。六张写有地址，却未署姓名；三张背面空白，未留只言片语。它们静立于此，等待被阅读。",
+          "closing": "九张明信片，六段地址，三片空白。它们未寄出的原因，书写者的身份，都已湮没。然而，这些沉默的纸片，依然指向某个远方，某个未完成的通信。",
+          "preface_boundary": "仅陈述展览物品的客观信息，不涉及其未寄原因或书写者身份。",
+          "closing_boundary": "仅总结已知事实，明确指出来源未说明的信息，不补充任何推测。"
+        },
+        "inputTokens": 274,
+        "outputTokens": 171
+      },
+      "split": {
+        "firstTextMs": 478,
+        "allCompleteMs": 1365,
+        "inputTokens": 625,
+        "outputTokens": 220,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览《未寄出的地址》呈现九张明信片，时间跨度从1904年到1978年。其中六张写有地址，但未注明收件人姓名；另外三张背面空白。这些明信片未曾寄出，静置于此，等待观众的目光。",
+          "closing": "这九张明信片，从1904年到1978年，静默陈列。六张写有地址，却无收件人姓名；三张背面空白。它们为何未寄出，书写者是谁，都已无从知晓。它们只是停留在这里，等待着也许永远不会到来的解读。",
+          "preface_boundary": "九张明信片，1904至1978年，六张有地址无姓名，三张空白，未寄出。",
+          "closing_boundary": "依据展览资料：9张明信片，日期1904–1978，6张有地址无姓名，3张背面空白；未寄原因与书写者未知。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览《未寄出的地址》呈现九张明信片，时间跨度从1904年到1978年。其中六张写有地址，但未注明收件人姓名；另外三张背面空白。这些明信片未曾寄出，静置于此，等待观众的目光。\",\n  \"evidence_boundary\": \"九张明信片，1904至1978年，六张有地址无姓名，三张空白，未寄出。\"\n}",
+          "firstEventMs": 66,
+          "firstTextMs": 917,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 315,
+            "output_tokens": 105
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《未寄出的地址》呈现九张明信片，时间跨度从1904年到1978年。其中六张写有地址，但未注明收件人姓名；另外三张背面空白。这些明信片未曾寄出，静置于此，等待观众的目光。",
+            "evidence_boundary": "九张明信片，1904至1978年，六张有地址无姓名，三张空白，未寄出。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1365
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"这九张明信片，从1904年到1978年，静默陈列。六张写有地址，却无收件人姓名；三张背面空白。它们为何未寄出，书写者是谁，都已无从知晓。它们只是停留在这里，等待着也许永远不会到来的解读。\",\n  \"evidence_boundary\": \"依据展览资料：9张明信片，日期1904–1978，6张有地址无姓名，3张背面空白；未寄原因与书写者未知。\"\n}",
+          "firstEventMs": 75,
+          "firstTextMs": 478,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 310,
+            "output_tokens": 115
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "这九张明信片，从1904年到1978年，静默陈列。六张写有地址，却无收件人姓名；三张背面空白。它们为何未寄出，书写者是谁，都已无从知晓。它们只是停留在这里，等待着也许永远不会到来的解读。",
+            "evidence_boundary": "依据展览资料：9张明信片，日期1904–1978，6张有地址无姓名，3张背面空白；未寄原因与书写者未知。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1207
+        }
+      }
+    },
+    {
+      "packetId": "narration_field_recordings",
+      "repetition": 2,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本展览呈现四段环境录音，录制于1961、1980、1997和2015年。其中两段地点已确认，两段地点未知。每段录音仅标注时长，声音内容与录制目的未予说明。观众将面对不确定的声音档案，在有限信息中建立观看的起点。\",\n  \"closing\": \"四段录音，跨越半个多世纪，地点部分确认，部分未知。声音内容与录制目的始终未明，留下开放的档案。已知与未知在此收束，展览至此结束，而疑问延续。\",\n  \"preface_boundary\": \"仅基于展览资料；不涉及声音内容、原因、象征或观众体验。\",\n  \"closing_boundary\": \"仅基于展览资料；不补充未知信息、原因、象征或情绪结果。\"\n}",
+        "firstEventMs": 71,
+        "firstTextMs": 710,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 273,
+          "output_tokens": 179
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本展览呈现四段环境录音，录制于1961、1980、1997和2015年。其中两段地点已确认，两段地点未知。每段录音仅标注时长，声音内容与录制目的未予说明。观众将面对不确定的声音档案，在有限信息中建立观看的起点。",
+          "closing": "四段录音，跨越半个多世纪，地点部分确认，部分未知。声音内容与录制目的始终未明，留下开放的档案。已知与未知在此收束，展览至此结束，而疑问延续。",
+          "preface_boundary": "仅基于展览资料；不涉及声音内容、原因、象征或观众体验。",
+          "closing_boundary": "仅基于展览资料；不补充未知信息、原因、象征或情绪结果。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2219,
+        "normalized": {
+          "preface": "本展览呈现四段环境录音，录制于1961、1980、1997和2015年。其中两段地点已确认，两段地点未知。每段录音仅标注时长，声音内容与录制目的未予说明。观众将面对不确定的声音档案，在有限信息中建立观看的起点。",
+          "closing": "四段录音，跨越半个多世纪，地点部分确认，部分未知。声音内容与录制目的始终未明，留下开放的档案。已知与未知在此收束，展览至此结束，而疑问延续。",
+          "preface_boundary": "仅基于展览资料；不涉及声音内容、原因、象征或观众体验。",
+          "closing_boundary": "仅基于展览资料；不补充未知信息、原因、象征或情绪结果。"
+        },
+        "inputTokens": 273,
+        "outputTokens": 179
+      },
+      "split": {
+        "firstTextMs": 671,
+        "allCompleteMs": 1762,
+        "inputTokens": 623,
+        "outputTokens": 270,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览“地点待定”呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段地点未知。每段录音仅标注时长，未提供声音内容的说明，也未说明录制的目的。观众将面对这些来源与意图不明的声景，在时间刻度与地理线索的间隙中，自行建立聆听的路径。",
+          "closing": "展览《地点待定》呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段的地点可以确认，另两段则未知。资料仅标注了时长，未说明声音内容与录制目的。这些录音在时间上相隔数十年，地点有明确也有模糊，共同构成一种关于记录与缺失的展示。",
+          "preface_boundary": "仅依据展览包含4段录音，年份分别为1961、1980、1997、2015；两段地点确认，两段未知；资料仅标时长。",
+          "closing_boundary": "基于展览信息：4段录音、年份、地点确认情况、时长标注。未涉及声音内容、录制目的、意义或观众反馈。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览“地点待定”呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段地点未知。每段录音仅标注时长，未提供声音内容的说明，也未说明录制的目的。观众将面对这些来源与意图不明的声景，在时间刻度与地理线索的间隙中，自行建立聆听的路径。\",\n  \"evidence_boundary\": \"仅依据展览包含4段录音，年份分别为1961、1980、1997、2015；两段地点确认，两段未知；资料仅标时长。\"\n}",
+          "firstEventMs": 207,
+          "firstTextMs": 671,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 314,
+            "output_tokens": 142
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览“地点待定”呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段地点未知。每段录音仅标注时长，未提供声音内容的说明，也未说明录制的目的。观众将面对这些来源与意图不明的声景，在时间刻度与地理线索的间隙中，自行建立聆听的路径。",
+            "evidence_boundary": "仅依据展览包含4段录音，年份分别为1961、1980、1997、2015；两段地点确认，两段未知；资料仅标时长。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1658
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览《地点待定》呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段的地点可以确认，另两段则未知。资料仅标注了时长，未说明声音内容与录制目的。这些录音在时间上相隔数十年，地点有明确也有模糊，共同构成一种关于记录与缺失的展示。\",\n  \"evidence_boundary\": \"基于展览信息：4段录音、年份、地点确认情况、时长标注。未涉及声音内容、录制目的、意义或观众反馈。\"\n}",
+          "firstEventMs": 95,
+          "firstTextMs": 713,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 309,
+            "output_tokens": 128
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《地点待定》呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段的地点可以确认，另两段则未知。资料仅标注了时长，未说明声音内容与录制目的。这些录音在时间上相隔数十年，地点有明确也有模糊，共同构成一种关于记录与缺失的展示。",
+            "evidence_boundary": "基于展览信息：4段录音、年份、地点确认情况、时长标注。未涉及声音内容、录制目的、意义或观众反馈。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1762
+        }
+      }
+    },
+    {
+      "packetId": "narration_printed_notices",
+      "repetition": 2,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本次展览汇集11张印刷通知，时间跨度自1938年至2001年。在已知的7张中，日期明确；另有4张缺失日期。发布机构方面，8张可辨，3张不详。这些通知原件承载着特定历史时刻的讯息，其内容与形式，静待观者细读。\",\n  \"closing\": \"展出的11张通知，年代跨越六十余载，其中7张日期可考，8张机构可寻，然4张无期，3张无属。关于它们的张贴地点与受众反馈，资料未载。这些未尽的细节，留作后续研究的线索。\",\n  \"preface_boundary\": \"依据现有资料：11张通知、年代、日期与机构信息；未知：张贴地点与受众反馈。\",\n  \"closing_boundary\": \"已知：11张、年代范围、日期与机构数量；未知：张贴地点与受众反馈。\"\n}",
+        "firstEventMs": 68,
+        "firstTextMs": 406,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 272,
+          "output_tokens": 208
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本次展览汇集11张印刷通知，时间跨度自1938年至2001年。在已知的7张中，日期明确；另有4张缺失日期。发布机构方面，8张可辨，3张不详。这些通知原件承载着特定历史时刻的讯息，其内容与形式，静待观者细读。",
+          "closing": "展出的11张通知，年代跨越六十余载，其中7张日期可考，8张机构可寻，然4张无期，3张无属。关于它们的张贴地点与受众反馈，资料未载。这些未尽的细节，留作后续研究的线索。",
+          "preface_boundary": "依据现有资料：11张通知、年代、日期与机构信息；未知：张贴地点与受众反馈。",
+          "closing_boundary": "已知：11张、年代范围、日期与机构数量；未知：张贴地点与受众反馈。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2293,
+        "normalized": {
+          "preface": "本次展览汇集11张印刷通知，时间跨度自1938年至2001年。在已知的7张中，日期明确；另有4张缺失日期。发布机构方面，8张可辨，3张不详。这些通知原件承载着特定历史时刻的讯息，其内容与形式，静待观者细读。",
+          "closing": "展出的11张通知，年代跨越六十余载，其中7张日期可考，8张机构可寻，然4张无期，3张无属。关于它们的张贴地点与受众反馈，资料未载。这些未尽的细节，留作后续研究的线索。",
+          "preface_boundary": "依据现有资料：11张通知、年代、日期与机构信息；未知：张贴地点与受众反馈。",
+          "closing_boundary": "已知：11张、年代范围、日期与机构数量；未知：张贴地点与受众反馈。"
+        },
+        "inputTokens": 272,
+        "outputTokens": 208
+      },
+      "split": {
+        "firstTextMs": 398,
+        "allCompleteMs": 1509,
+        "inputTokens": 621,
+        "outputTokens": 205,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "本次展览呈现11张印刷通知，时间跨度从1938年至2001年。其中7张保留了明确的发布日期，而4张日期缺失。8张通知注明了发布机构，另有3张机构信息不详。这些通知作为历史片段，静候观者凝视。",
+          "closing": "展览《临时通知》以11张印刷通知为线索，覆盖1938至2001年。其中7张留有发布日期，4张日期缺失；8张标注了发布机构，3张机构未知。这些纸张保留着特定时刻的信息，其张贴地点与观众反应已难以考据。我们仅能依据眼前实物，感知通知作为临时媒介的存续。",
+          "preface_boundary": "仅依据11张通知的年代、日期与机构信息，不涉及张贴地点与受众反馈。",
+          "closing_boundary": "仅陈述11张通知的年代、日期与机构信息，不涉及张贴地点及受众反馈。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"本次展览呈现11张印刷通知，时间跨度从1938年至2001年。其中7张保留了明确的发布日期，而4张日期缺失。8张通知注明了发布机构，另有3张机构信息不详。这些通知作为历史片段，静候观者凝视。\",\n  \"evidence_boundary\": \"仅依据11张通知的年代、日期与机构信息，不涉及张贴地点与受众反馈。\"\n}",
+          "firstEventMs": 75,
+          "firstTextMs": 486,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 313,
+            "output_tokens": 94
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "本次展览呈现11张印刷通知，时间跨度从1938年至2001年。其中7张保留了明确的发布日期，而4张日期缺失。8张通知注明了发布机构，另有3张机构信息不详。这些通知作为历史片段，静候观者凝视。",
+            "evidence_boundary": "仅依据11张通知的年代、日期与机构信息，不涉及张贴地点与受众反馈。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1207
+        },
+        "closing": {
+          "text": "{\"text\": \"展览《临时通知》以11张印刷通知为线索，覆盖1938至2001年。其中7张留有发布日期，4张日期缺失；8张标注了发布机构，3张机构未知。这些纸张保留着特定时刻的信息，其张贴地点与观众反应已难以考据。我们仅能依据眼前实物，感知通知作为临时媒介的存续。\", \"evidence_boundary\": \"仅陈述11张通知的年代、日期与机构信息，不涉及张贴地点及受众反馈。\"}",
+          "firstEventMs": 153,
+          "firstTextMs": 398,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 308,
+            "output_tokens": 111
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《临时通知》以11张印刷通知为线索，覆盖1938至2001年。其中7张留有发布日期，4张日期缺失；8张标注了发布机构，3张机构未知。这些纸张保留着特定时刻的信息，其张贴地点与观众反应已难以考据。我们仅能依据眼前实物，感知通知作为临时媒介的存续。",
+            "evidence_boundary": "仅陈述11张通知的年代、日期与机构信息，不涉及张贴地点及受众反馈。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1509
+        }
+      }
+    },
+    {
+      "packetId": "narration_navigation_tools",
+      "repetition": 3,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"1885至1962年间，六件导航工具——两件罗盘、两件六分仪、两张航线计算表——在此陈列。其中三件留有修正刻痕，一张表缺末页。它们构成一组关于航迹记录与偏差修正的物质证据。\",\n  \"closing\": \"六件工具，三件带修正，一张缺页。偏差被刻写，记录不完整。未知的使用者与航次，留给观察者自行追问。\",\n  \"preface_boundary\": \"仅描述展品类型、数量、年代、特征，不涉及用途、使用者或修正原因。\",\n  \"closing_boundary\": \"仅回顾已知特征，指出未知项，不推断理由或意义。\"\n}",
+        "firstEventMs": 76,
+        "firstTextMs": 435,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 299,
+          "output_tokens": 163
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "1885至1962年间，六件导航工具——两件罗盘、两件六分仪、两张航线计算表——在此陈列。其中三件留有修正刻痕，一张表缺末页。它们构成一组关于航迹记录与偏差修正的物质证据。",
+          "closing": "六件工具，三件带修正，一张缺页。偏差被刻写，记录不完整。未知的使用者与航次，留给观察者自行追问。",
+          "preface_boundary": "仅描述展品类型、数量、年代、特征，不涉及用途、使用者或修正原因。",
+          "closing_boundary": "仅回顾已知特征，指出未知项，不推断理由或意义。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 1872,
+        "normalized": {
+          "preface": "1885至1962年间，六件导航工具——两件罗盘、两件六分仪、两张航线计算表——在此陈列。其中三件留有修正刻痕，一张表缺末页。它们构成一组关于航迹记录与偏差修正的物质证据。",
+          "closing": "六件工具，三件带修正，一张缺页。偏差被刻写，记录不完整。未知的使用者与航次，留给观察者自行追问。",
+          "preface_boundary": "仅描述展品类型、数量、年代、特征，不涉及用途、使用者或修正原因。",
+          "closing_boundary": "仅回顾已知特征，指出未知项，不推断理由或意义。"
+        },
+        "inputTokens": 299,
+        "outputTokens": 163
+      },
+      "split": {
+        "firstTextMs": 373,
+        "allCompleteMs": 1169,
+        "inputTokens": 675,
+        "outputTokens": 181,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览呈现六件导航工具，包括两件罗盘、两件六分仪和两张航线计算表，年代从1885年至1962年。其中三件带有修正刻痕，一张计算表缺少末页。这些工具记录了航海时代的测量方式，刻痕与缺失的页面暗示着使用中的调整与磨损。",
+          "closing": "这批导航工具共六件，跨越1885至1962年，包含罗盘、六分仪与航线计算表。其中三件带有修正刻痕，一张表缺末页。它们的使用者、航次与修正原因未见于记录。",
+          "preface_boundary": "依据展览资料，仅描述可见事实，不推测使用者或原因。",
+          "closing_boundary": "基于展览记录，未知部分不设推断。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览呈现六件导航工具，包括两件罗盘、两件六分仪和两张航线计算表，年代从1885年至1962年。其中三件带有修正刻痕，一张计算表缺少末页。这些工具记录了航海时代的测量方式，刻痕与缺失的页面暗示着使用中的调整与磨损。\",\n  \"evidence_boundary\": \"依据展览资料，仅描述可见事实，不推测使用者或原因。\"\n}",
+          "firstEventMs": 80,
+          "firstTextMs": 373,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 340,
+            "output_tokens": 101
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现六件导航工具，包括两件罗盘、两件六分仪和两张航线计算表，年代从1885年至1962年。其中三件带有修正刻痕，一张计算表缺少末页。这些工具记录了航海时代的测量方式，刻痕与缺失的页面暗示着使用中的调整与磨损。",
+            "evidence_boundary": "依据展览资料，仅描述可见事实，不推测使用者或原因。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1169
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"这批导航工具共六件，跨越1885至1962年，包含罗盘、六分仪与航线计算表。其中三件带有修正刻痕，一张表缺末页。它们的使用者、航次与修正原因未见于记录。\",\n  \"evidence_boundary\": \"基于展览记录，未知部分不设推断。\"\n}",
+          "firstEventMs": 82,
+          "firstTextMs": 403,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 335,
+            "output_tokens": 80
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "这批导航工具共六件，跨越1885至1962年，包含罗盘、六分仪与航线计算表。其中三件带有修正刻痕，一张表缺末页。它们的使用者、航次与修正原因未见于记录。",
+            "evidence_boundary": "基于展览记录，未知部分不设推断。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1128
+        }
+      }
+    },
+    {
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 3,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"九张明信片，跨越七十四年，或写有地址，或背面空白。它们静置于此，等待被投递，却始终未能抵达。\",\n  \"closing\": \"这些明信片最终成为未寄出的地址，归属未明，原因不知。它们沉默地陈列，邀请我们面对已知与未知的边界。\",\n  \"preface_boundary\": \"仅依据展览资料，描述明信片的数量、年代与状态，不涉及未寄原因与书写者。\",\n  \"closing_boundary\": \"结语仅总结已知信息，不推测未寄原因与书写者身份。\"\n}",
+        "firstEventMs": 87,
+        "firstTextMs": 264,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 274,
+          "output_tokens": 142
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "九张明信片，跨越七十四年，或写有地址，或背面空白。它们静置于此，等待被投递，却始终未能抵达。",
+          "closing": "这些明信片最终成为未寄出的地址，归属未明，原因不知。它们沉默地陈列，邀请我们面对已知与未知的边界。",
+          "preface_boundary": "仅依据展览资料，描述明信片的数量、年代与状态，不涉及未寄原因与书写者。",
+          "closing_boundary": "结语仅总结已知信息，不推测未寄原因与书写者身份。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 1543,
+        "normalized": {
+          "preface": "九张明信片，跨越七十四年，或写有地址，或背面空白。它们静置于此，等待被投递，却始终未能抵达。",
+          "closing": "这些明信片最终成为未寄出的地址，归属未明，原因不知。它们沉默地陈列，邀请我们面对已知与未知的边界。",
+          "preface_boundary": "仅依据展览资料，描述明信片的数量、年代与状态，不涉及未寄原因与书写者。",
+          "closing_boundary": "结语仅总结已知信息，不推测未寄原因与书写者身份。"
+        },
+        "inputTokens": 274,
+        "outputTokens": 142
+      },
+      "split": {
+        "firstTextMs": 571,
+        "allCompleteMs": 1548,
+        "inputTokens": 625,
+        "outputTokens": 218,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览陈列九张未寄出的明信片，时间跨度从1904年到1978年。其中六张写有地址，却未留下收件人姓名；另三张背面空白。它们静静躺在展柜中，仿佛等待一个永远不会到来的投递。观众或可驻足，想象这些纸片曾经历的旅途，以及沉默背后未曾言明的故事。",
+          "closing": "展览陈列了9张未寄出的明信片，时间跨度从1904年到1978年。其中6张写有地址但无收件人姓名，3张背面空白。它们为何未寄出，书写者是谁，皆无从知晓。这些沉默的纸片，只留下时间的痕迹与未尽的地址。",
+          "preface_boundary": "仅依据资料所述：9张、1904-1978年、部分有地址无姓名、部分空白。",
+          "closing_boundary": "仅依据陈列信息，未涉及未寄原因与书写者身份。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览陈列九张未寄出的明信片，时间跨度从1904年到1978年。其中六张写有地址，却未留下收件人姓名；另三张背面空白。它们静静躺在展柜中，仿佛等待一个永远不会到来的投递。观众或可驻足，想象这些纸片曾经历的旅途，以及沉默背后未曾言明的故事。\",\n  \"evidence_boundary\": \"仅依据资料所述：9张、1904-1978年、部分有地址无姓名、部分空白。\"\n}",
+          "firstEventMs": 72,
+          "firstTextMs": 571,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 315,
+            "output_tokens": 118
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览陈列九张未寄出的明信片，时间跨度从1904年到1978年。其中六张写有地址，却未留下收件人姓名；另三张背面空白。它们静静躺在展柜中，仿佛等待一个永远不会到来的投递。观众或可驻足，想象这些纸片曾经历的旅途，以及沉默背后未曾言明的故事。",
+            "evidence_boundary": "仅依据资料所述：9张、1904-1978年、部分有地址无姓名、部分空白。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1548
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览陈列了9张未寄出的明信片，时间跨度从1904年到1978年。其中6张写有地址但无收件人姓名，3张背面空白。它们为何未寄出，书写者是谁，皆无从知晓。这些沉默的纸片，只留下时间的痕迹与未尽的地址。\",\n  \"evidence_boundary\": \"仅依据陈列信息，未涉及未寄原因与书写者身份。\"\n}",
+          "firstEventMs": 76,
+          "firstTextMs": 766,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 310,
+            "output_tokens": 100
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览陈列了9张未寄出的明信片，时间跨度从1904年到1978年。其中6张写有地址但无收件人姓名，3张背面空白。它们为何未寄出，书写者是谁，皆无从知晓。这些沉默的纸片，只留下时间的痕迹与未尽的地址。",
+            "evidence_boundary": "仅依据陈列信息，未涉及未寄原因与书写者身份。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1479
+        }
+      }
+    },
+    {
+      "packetId": "narration_field_recordings",
+      "repetition": 3,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本展览呈现四段环境录音，分别录制于1961、1980、1997和2015年。其中两段的地点可确认，两段地点未知。资料仅标注时长，未提供声音内容说明或录制目的。这些录音作为独立的声学片段，邀请观众进入其时间与空间的不确定之中。\",\n  \"closing\": \"四段录音，两处已知地，两处未知地。它们各自承载着特定年份的声景，却因缺乏内容说明与目的记录，而保持其开放性。展览在此结束，但录音所提示的已知与未知，仍待观众在聆听中自行分辨。\",\n  \"preface_boundary\": \"已知：4段录音、年份、2段地点确认；未知：声音内容、录制目的\",\n  \"closing_boundary\": \"已知：年份与部分地点；未知：内容与目的；展览结束，但未知未解\"\n}",
+        "firstEventMs": 72,
+        "firstTextMs": 694,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 273,
+          "output_tokens": 203
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本展览呈现四段环境录音，分别录制于1961、1980、1997和2015年。其中两段的地点可确认，两段地点未知。资料仅标注时长，未提供声音内容说明或录制目的。这些录音作为独立的声学片段，邀请观众进入其时间与空间的不确定之中。",
+          "closing": "四段录音，两处已知地，两处未知地。它们各自承载着特定年份的声景，却因缺乏内容说明与目的记录，而保持其开放性。展览在此结束，但录音所提示的已知与未知，仍待观众在聆听中自行分辨。",
+          "preface_boundary": "已知：4段录音、年份、2段地点确认；未知：声音内容、录制目的",
+          "closing_boundary": "已知：年份与部分地点；未知：内容与目的；展览结束，但未知未解"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2477,
+        "normalized": {
+          "preface": "本展览呈现四段环境录音，分别录制于1961、1980、1997和2015年。其中两段的地点可确认，两段地点未知。资料仅标注时长，未提供声音内容说明或录制目的。这些录音作为独立的声学片段，邀请观众进入其时间与空间的不确定之中。",
+          "closing": "四段录音，两处已知地，两处未知地。它们各自承载着特定年份的声景，却因缺乏内容说明与目的记录，而保持其开放性。展览在此结束，但录音所提示的已知与未知，仍待观众在聆听中自行分辨。",
+          "preface_boundary": "已知：4段录音、年份、2段地点确认；未知：声音内容、录制目的",
+          "closing_boundary": "已知：年份与部分地点；未知：内容与目的；展览结束，但未知未解"
+        },
+        "inputTokens": 273,
+        "outputTokens": 203
+      },
+      "split": {
+        "firstTextMs": 404,
+        "allCompleteMs": 1730,
+        "inputTokens": 623,
+        "outputTokens": 273,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "本次展览呈现四段环境录音，它们分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段的地点未知。资料中仅标注了每段录音的时长，未说明声音的内容与录制目的。这些录音以时间与地点为经纬，构建出一个开放的聆听场域，邀请观众在已知与未知之间，静心聆听时间的痕迹。",
+          "closing": "展览《地点待定》呈现了四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段的地点未知。资料中仅标注了每段录音的时长，未说明声音的具体内容，也未提及录制的目的。这些录音构成了一种时间上的序列，但地点与内容的缺失，使得它们成为待定的片段。",
+          "preface_boundary": "依据展览资料：4段环境录音，年份1961、1980、1997、2015；两段地点可确认，两段地点未知；仅标注时长。",
+          "closing_boundary": "仅基于展览记录：4段录音、年份、地点确认状态及时长标注；未知内容与目的未涉及。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"本次展览呈现四段环境录音，它们分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段的地点未知。资料中仅标注了每段录音的时长，未说明声音的内容与录制目的。这些录音以时间与地点为经纬，构建出一个开放的聆听场域，邀请观众在已知与未知之间，静心聆听时间的痕迹。\",\n  \"evidence_boundary\": \"依据展览资料：4段环境录音，年份1961、1980、1997、2015；两段地点可确认，两段地点未知；仅标注时长。\"\n}",
+          "firstEventMs": 102,
+          "firstTextMs": 404,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 314,
+            "output_tokens": 143
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "本次展览呈现四段环境录音，它们分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段的地点未知。资料中仅标注了每段录音的时长，未说明声音的内容与录制目的。这些录音以时间与地点为经纬，构建出一个开放的聆听场域，邀请观众在已知与未知之间，静心聆听时间的痕迹。",
+            "evidence_boundary": "依据展览资料：4段环境录音，年份1961、1980、1997、2015；两段地点可确认，两段地点未知；仅标注时长。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1550
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览《地点待定》呈现了四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段的地点未知。资料中仅标注了每段录音的时长，未说明声音的具体内容，也未提及录制的目的。这些录音构成了一种时间上的序列，但地点与内容的缺失，使得它们成为待定的片段。\",\n  \"evidence_boundary\": \"仅基于展览记录：4段录音、年份、地点确认状态及时长标注；未知内容与目的未涉及。\"\n}",
+          "firstEventMs": 201,
+          "firstTextMs": 684,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 309,
+            "output_tokens": 130
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《地点待定》呈现了四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段录音的地点可以确认，另外两段的地点未知。资料中仅标注了每段录音的时长，未说明声音的具体内容，也未提及录制的目的。这些录音构成了一种时间上的序列，但地点与内容的缺失，使得它们成为待定的片段。",
+            "evidence_boundary": "仅基于展览记录：4段录音、年份、地点确认状态及时长标注；未知内容与目的未涉及。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1730
+        }
+      }
+    },
+    {
+      "packetId": "narration_printed_notices",
+      "repetition": 3,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本展览陈列11张印刷通知，时间跨度从1938年至2001年。其中7张保留发布日期，4张日期缺失；8张有发布机构，3张机构未知。这些通知作为历史文书，呈现了特定时期的信息传播方式。\",\n  \"closing\": \"展览中的11张通知，从1938年至2001年，见证了不同年代的印刷与发布实践。7张标有日期，4张缺失；8张附带机构，3张来源不明。它们静默地留存，其张贴地点与受众反馈已无从知晓，但作为实物，仍为研究提供了物质证据。\",\n  \"preface_boundary\": \"已知：11张通知，年代1938–2001，7张有日期，4张缺失，8张有机构，3张未知。未知：张贴地点、受众反馈。\",\n  \"closing_boundary\": \"仅基于展览资料，未提及未知信息。\"\n}",
+        "firstEventMs": 77,
+        "firstTextMs": 599,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 272,
+          "output_tokens": 206
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本展览陈列11张印刷通知，时间跨度从1938年至2001年。其中7张保留发布日期，4张日期缺失；8张有发布机构，3张机构未知。这些通知作为历史文书，呈现了特定时期的信息传播方式。",
+          "closing": "展览中的11张通知，从1938年至2001年，见证了不同年代的印刷与发布实践。7张标有日期，4张缺失；8张附带机构，3张来源不明。它们静默地留存，其张贴地点与受众反馈已无从知晓，但作为实物，仍为研究提供了物质证据。",
+          "preface_boundary": "已知：11张通知，年代1938–2001，7张有日期，4张缺失，8张有机构，3张未知。未知：张贴地点、受众反馈。",
+          "closing_boundary": "仅基于展览资料，未提及未知信息。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2206,
+        "normalized": {
+          "preface": "本展览陈列11张印刷通知，时间跨度从1938年至2001年。其中7张保留发布日期，4张日期缺失；8张有发布机构，3张机构未知。这些通知作为历史文书，呈现了特定时期的信息传播方式。",
+          "closing": "展览中的11张通知，从1938年至2001年，见证了不同年代的印刷与发布实践。7张标有日期，4张缺失；8张附带机构，3张来源不明。它们静默地留存，其张贴地点与受众反馈已无从知晓，但作为实物，仍为研究提供了物质证据。",
+          "preface_boundary": "已知：11张通知，年代1938–2001，7张有日期，4张缺失，8张有机构，3张未知。未知：张贴地点、受众反馈。",
+          "closing_boundary": "仅基于展览资料，未提及未知信息。"
+        },
+        "inputTokens": 272,
+        "outputTokens": 206
+      },
+      "split": {
+        "firstTextMs": 391,
+        "allCompleteMs": 1546,
+        "inputTokens": 621,
+        "outputTokens": 212,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览《临时通知》陈列了11张印刷通知，时间跨度从1938年到2001年。其中，7张保留了发布日期，4张日期缺失；8张可识别发布机构，3张机构未知。这些通知以印刷品的形式留存，构成了对过往公共信息传播的片段性记录。",
+          "closing": "展览展示了1938至2001年间的11张印刷通知，其中7张留有日期，4张缺失，8张有发布机构，3张未知。这些作品虽未记录张贴地点和受众反馈，却以实物形态留存了不同年代的公共信息。它们见证了通知这一形式的演变，也留下了诸多未解之谜。",
+          "preface_boundary": "11张印刷通知，1938–2001，7张有日期，4张无日期，8张有机构，3张未知。",
+          "closing_boundary": "仅依据记录，未涉及张贴地点、受众反馈等未知信息。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览《临时通知》陈列了11张印刷通知，时间跨度从1938年到2001年。其中，7张保留了发布日期，4张日期缺失；8张可识别发布机构，3张机构未知。这些通知以印刷品的形式留存，构成了对过往公共信息传播的片段性记录。\",\n  \"evidence_boundary\": \"11张印刷通知，1938–2001，7张有日期，4张无日期，8张有机构，3张未知。\"\n}",
+          "firstEventMs": 88,
+          "firstTextMs": 391,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 313,
+            "output_tokens": 111
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《临时通知》陈列了11张印刷通知，时间跨度从1938年到2001年。其中，7张保留了发布日期，4张日期缺失；8张可识别发布机构，3张机构未知。这些通知以印刷品的形式留存，构成了对过往公共信息传播的片段性记录。",
+            "evidence_boundary": "11张印刷通知，1938–2001，7张有日期，4张无日期，8张有机构，3张未知。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1136
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览展示了1938至2001年间的11张印刷通知，其中7张留有日期，4张缺失，8张有发布机构，3张未知。这些作品虽未记录张贴地点和受众反馈，却以实物形态留存了不同年代的公共信息。它们见证了通知这一形式的演变，也留下了诸多未解之谜。\",\n  \"evidence_boundary\": \"仅依据记录，未涉及张贴地点、受众反馈等未知信息。\"\n}",
+          "firstEventMs": 192,
+          "firstTextMs": 628,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 308,
+            "output_tokens": 101
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览展示了1938至2001年间的11张印刷通知，其中7张留有日期，4张缺失，8张有发布机构，3张未知。这些作品虽未记录张贴地点和受众反馈，却以实物形态留存了不同年代的公共信息。它们见证了通知这一形式的演变，也留下了诸多未解之谜。",
+            "evidence_boundary": "仅依据记录，未涉及张贴地点、受众反馈等未知信息。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1546
+        }
+      }
+    },
+    {
+      "packetId": "narration_navigation_tools",
+      "repetition": 4,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"1885至1962年间，六件导航工具——两件罗盘、两件六分仪、两张航线计算表——在此陈列。其中三件带有修正刻痕，一张计算表缺末页。它们共同构成一组关于航行定位与记录偏差的物证，其具体用途与修正缘由，尚待细察。\",\n  \"closing\": \"六件工具，年代跨越近八十年，保存着修正的痕迹与缺失的页张。它们所记录的偏差，指向无数未被记载的航行瞬间。至于使用者是谁、修正为何，在此止步，留待他处。\",\n  \"preface_boundary\": \"不涉及使用者、航次及修正原因。\",\n  \"closing_boundary\": \"不提及具体故事或未记载的内容。\"\n}",
+        "firstEventMs": 78,
+        "firstTextMs": 645,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 299,
+          "output_tokens": 175
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "1885至1962年间，六件导航工具——两件罗盘、两件六分仪、两张航线计算表——在此陈列。其中三件带有修正刻痕，一张计算表缺末页。它们共同构成一组关于航行定位与记录偏差的物证，其具体用途与修正缘由，尚待细察。",
+          "closing": "六件工具，年代跨越近八十年，保存着修正的痕迹与缺失的页张。它们所记录的偏差，指向无数未被记载的航行瞬间。至于使用者是谁、修正为何，在此止步，留待他处。",
+          "preface_boundary": "不涉及使用者、航次及修正原因。",
+          "closing_boundary": "不提及具体故事或未记载的内容。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2185,
+        "normalized": {
+          "preface": "1885至1962年间，六件导航工具——两件罗盘、两件六分仪、两张航线计算表——在此陈列。其中三件带有修正刻痕，一张计算表缺末页。它们共同构成一组关于航行定位与记录偏差的物证，其具体用途与修正缘由，尚待细察。",
+          "closing": "六件工具，年代跨越近八十年，保存着修正的痕迹与缺失的页张。它们所记录的偏差，指向无数未被记载的航行瞬间。至于使用者是谁、修正为何，在此止步，留待他处。",
+          "preface_boundary": "不涉及使用者、航次及修正原因。",
+          "closing_boundary": "不提及具体故事或未记载的内容。"
+        },
+        "inputTokens": 299,
+        "outputTokens": 175
+      },
+      "split": {
+        "firstTextMs": 440,
+        "allCompleteMs": 1391,
+        "inputTokens": 675,
+        "outputTokens": 219,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览《偏差记录》呈现六件导航工具：两件罗盘、两件六分仪、两张航线计算表，年代自1885年至1962年。其中三件带有修正刻痕，一张计算表缺少末页。工具的具体使用者、航次及修正原因未记录。这些物件静默地展示着航海时代的痕迹，邀请观者自行观察与思考。",
+          "closing": "展览呈现六件导航工具，含两件罗盘、两件六分仪及两张航线计算表，年代从1885年至1962年。其中三件带有修正刻痕，一张计算表缺失末页。关于它们的使用者、具体航次及修正原因，资料并无记载。这些工具静默陈列，记录着未被言说的航行片段。",
+          "preface_boundary": "仅依据展览物品信息，不涉及未知的使用者、航次或修正原因。",
+          "closing_boundary": "依赖资料所述，未涉及未知信息。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览《偏差记录》呈现六件导航工具：两件罗盘、两件六分仪、两张航线计算表，年代自1885年至1962年。其中三件带有修正刻痕，一张计算表缺少末页。工具的具体使用者、航次及修正原因未记录。这些物件静默地展示着航海时代的痕迹，邀请观者自行观察与思考。\",\n  \"evidence_boundary\": \"仅依据展览物品信息，不涉及未知的使用者、航次或修正原因。\"\n}",
+          "firstEventMs": 76,
+          "firstTextMs": 440,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 340,
+            "output_tokens": 116
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《偏差记录》呈现六件导航工具：两件罗盘、两件六分仪、两张航线计算表，年代自1885年至1962年。其中三件带有修正刻痕，一张计算表缺少末页。工具的具体使用者、航次及修正原因未记录。这些物件静默地展示着航海时代的痕迹，邀请观者自行观察与思考。",
+            "evidence_boundary": "仅依据展览物品信息，不涉及未知的使用者、航次或修正原因。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1391
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览呈现六件导航工具，含两件罗盘、两件六分仪及两张航线计算表，年代从1885年至1962年。其中三件带有修正刻痕，一张计算表缺失末页。关于它们的使用者、具体航次及修正原因，资料并无记载。这些工具静默陈列，记录着未被言说的航行片段。\",\n  \"evidence_boundary\": \"依赖资料所述，未涉及未知信息。\"\n}",
+          "firstEventMs": 74,
+          "firstTextMs": 504,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 335,
+            "output_tokens": 103
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现六件导航工具，含两件罗盘、两件六分仪及两张航线计算表，年代从1885年至1962年。其中三件带有修正刻痕，一张计算表缺失末页。关于它们的使用者、具体航次及修正原因，资料并无记载。这些工具静默陈列，记录着未被言说的航行片段。",
+            "evidence_boundary": "依赖资料所述，未涉及未知信息。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1327
+        }
+      }
+    },
+    {
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 4,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"这些明信片从未被寄出，它们停留在收信人尚未被写下的地址上。从1904到1978年，九张卡片穿越时间的缝隙，六张背面留有地址却无人认领，三张则完全空白。它们不诉说故事，只呈现存在本身——等待被观看，也等待被解读。现在，请允许这些沉默的纸片，成为你们目光的起点。\",\n  \"closing\": \"展览至此，九张明信片依然沉默。它们没有收件人，没有书写者，也未被解释。我们已知它们的年代与形态，却不知它们为何停留。这些未寄出的地址，最终指向的不是目的地，而是未知的空白。愿这份未被解答的谜，成为你离开后仍在思考的余音。\",\n  \"preface_boundary\": \"仅描述展品信息，不涉及其背景故事与象征意义。\",\n  \"closing_boundary\": \"仅总结已知与未知，不作推测或情感渲染。\"\n}",
+        "firstEventMs": 65,
+        "firstTextMs": 423,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 274,
+          "output_tokens": 219
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "这些明信片从未被寄出，它们停留在收信人尚未被写下的地址上。从1904到1978年，九张卡片穿越时间的缝隙，六张背面留有地址却无人认领，三张则完全空白。它们不诉说故事，只呈现存在本身——等待被观看，也等待被解读。现在，请允许这些沉默的纸片，成为你们目光的起点。",
+          "closing": "展览至此，九张明信片依然沉默。它们没有收件人，没有书写者，也未被解释。我们已知它们的年代与形态，却不知它们为何停留。这些未寄出的地址，最终指向的不是目的地，而是未知的空白。愿这份未被解答的谜，成为你离开后仍在思考的余音。",
+          "preface_boundary": "仅描述展品信息，不涉及其背景故事与象征意义。",
+          "closing_boundary": "仅总结已知与未知，不作推测或情感渲染。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2603,
+        "normalized": {
+          "preface": "这些明信片从未被寄出，它们停留在收信人尚未被写下的地址上。从1904到1978年，九张卡片穿越时间的缝隙，六张背面留有地址却无人认领，三张则完全空白。它们不诉说故事，只呈现存在本身——等待被观看，也等待被解读。现在，请允许这些沉默的纸片，成为你们目光的起点。",
+          "closing": "展览至此，九张明信片依然沉默。它们没有收件人，没有书写者，也未被解释。我们已知它们的年代与形态，却不知它们为何停留。这些未寄出的地址，最终指向的不是目的地，而是未知的空白。愿这份未被解答的谜，成为你离开后仍在思考的余音。",
+          "preface_boundary": "仅描述展品信息，不涉及其背景故事与象征意义。",
+          "closing_boundary": "仅总结已知与未知，不作推测或情感渲染。"
+        },
+        "inputTokens": 274,
+        "outputTokens": 219
+      },
+      "split": {
+        "firstTextMs": 515,
+        "allCompleteMs": 1743,
+        "inputTokens": 625,
+        "outputTokens": 256,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "这里陈列着九张明信片，时间从1904年跨越至1978年。六张写有地址，却未留下收件人的姓名；三张背面空白，无言以对。它们静静地躺着，不知为何未能寄出，书写者亦无从知晓。这些未寄出的地址，成为时间的谜语，邀请你驻足凝视，想象那些未曾抵达的旅程。",
+          "closing": "展览陈列了九张未寄出的明信片，时间跨越一九〇四至一九七八年。其中六张写有地址，却无收件人姓名；三张背面空白。它们因何未寄出，由谁书写，均无记录。这些明信片静静陈列，每一张都可能承载着一个未完成的故事，但真相已不可考。",
+          "preface_boundary": "仅依据陈列的9张明信片、日期1904–1978、6张有地址无姓名、3张空白；未涉及未寄原因与书写者信息。",
+          "closing_boundary": "仅依据展览所陈列明信片之数量、年代及表面信息，未涉及未寄原因与书写者身份。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"这里陈列着九张明信片，时间从1904年跨越至1978年。六张写有地址，却未留下收件人的姓名；三张背面空白，无言以对。它们静静地躺着，不知为何未能寄出，书写者亦无从知晓。这些未寄出的地址，成为时间的谜语，邀请你驻足凝视，想象那些未曾抵达的旅程。\",\n  \"evidence_boundary\": \"仅依据陈列的9张明信片、日期1904–1978、6张有地址无姓名、3张空白；未涉及未寄原因与书写者信息。\"\n}",
+          "firstEventMs": 75,
+          "firstTextMs": 515,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 315,
+            "output_tokens": 136
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "这里陈列着九张明信片，时间从1904年跨越至1978年。六张写有地址，却未留下收件人的姓名；三张背面空白，无言以对。它们静静地躺着，不知为何未能寄出，书写者亦无从知晓。这些未寄出的地址，成为时间的谜语，邀请你驻足凝视，想象那些未曾抵达的旅程。",
+            "evidence_boundary": "仅依据陈列的9张明信片、日期1904–1978、6张有地址无姓名、3张空白；未涉及未寄原因与书写者信息。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1711
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览陈列了九张未寄出的明信片，时间跨越一九〇四至一九七八年。其中六张写有地址，却无收件人姓名；三张背面空白。它们因何未寄出，由谁书写，均无记录。这些明信片静静陈列，每一张都可能承载着一个未完成的故事，但真相已不可考。\",\n  \"evidence_boundary\": \"仅依据展览所陈列明信片之数量、年代及表面信息，未涉及未寄原因与书写者身份。\"\n}",
+          "firstEventMs": 101,
+          "firstTextMs": 766,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 310,
+            "output_tokens": 120
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览陈列了九张未寄出的明信片，时间跨越一九〇四至一九七八年。其中六张写有地址，却无收件人姓名；三张背面空白。它们因何未寄出，由谁书写，均无记录。这些明信片静静陈列，每一张都可能承载着一个未完成的故事，但真相已不可考。",
+            "evidence_boundary": "仅依据展览所陈列明信片之数量、年代及表面信息，未涉及未寄原因与书写者身份。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1743
+        }
+      }
+    },
+    {
+      "packetId": "narration_field_recordings",
+      "repetition": 4,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"展览呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段地点可确认，两段地点未知。资料仅标注时长，未说明声音内容与录制目的。这些录音作为时间与地点的记录，静候观众的聆听与辨识。\",\n  \"closing\": \"四段录音，跨越半个多世纪，两处地点明确，两处未知。已知的年份与时长，未知的声音内涵。展览至此，已知与未知并存，思辨于此延续。\",\n  \"preface_boundary\": \"仅依据展览资料，未涉及声音内容与目的。\",\n  \"closing_boundary\": \"仅依据展览资料，未补充未知信息。\"\n}",
+        "firstEventMs": 103,
+        "firstTextMs": 684,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 273,
+          "output_tokens": 163
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "展览呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段地点可确认，两段地点未知。资料仅标注时长，未说明声音内容与录制目的。这些录音作为时间与地点的记录，静候观众的聆听与辨识。",
+          "closing": "四段录音，跨越半个多世纪，两处地点明确，两处未知。已知的年份与时长，未知的声音内涵。展览至此，已知与未知并存，思辨于此延续。",
+          "preface_boundary": "仅依据展览资料，未涉及声音内容与目的。",
+          "closing_boundary": "仅依据展览资料，未补充未知信息。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2168,
+        "normalized": {
+          "preface": "展览呈现四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段地点可确认，两段地点未知。资料仅标注时长，未说明声音内容与录制目的。这些录音作为时间与地点的记录，静候观众的聆听与辨识。",
+          "closing": "四段录音，跨越半个多世纪，两处地点明确，两处未知。已知的年份与时长，未知的声音内涵。展览至此，已知与未知并存，思辨于此延续。",
+          "preface_boundary": "仅依据展览资料，未涉及声音内容与目的。",
+          "closing_boundary": "仅依据展览资料，未补充未知信息。"
+        },
+        "inputTokens": 273,
+        "outputTokens": 163
+      },
+      "split": {
+        "firstTextMs": 462,
+        "allCompleteMs": 1977,
+        "inputTokens": 623,
+        "outputTokens": 266,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览《地点待定》呈现的四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段的地点可以确认，另两段的地点未知。这些录音仅标注了时长，未说明声音内容或录制目的。观众可以聆听到来自不同年代的声音片段，感受时间与地点留下的痕迹。",
+          "closing": "展览《地点待定》呈现了四段环境录音，分别录制于1961、1980、1997和2015年。其中两段的地点已确认，而另外两段则无从知晓。每段录音仅标注了时长，没有声音内容的说明，也不清楚当初录制的目的。这些声音来自不同的时间，却同样悬置在未知之中——它们没有被解释，也没有被定位，仅仅作为时间的痕迹留存。也许，地点的待定，正是让声音本身成为唯一的确证。",
+          "preface_boundary": "依据展览资料，含四段录音及其年份、地点确认状态和标注时长，不涉及声音内容和录制目的。",
+          "closing_boundary": "基于展览记录：4段录音、年份、地点确认与否、时长标注；未述及声音内容与录制目的。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览《地点待定》呈现的四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段的地点可以确认，另两段的地点未知。这些录音仅标注了时长，未说明声音内容或录制目的。观众可以聆听到来自不同年代的声音片段，感受时间与地点留下的痕迹。\",\n  \"evidence_boundary\": \"依据展览资料，含四段录音及其年份、地点确认状态和标注时长，不涉及声音内容和录制目的。\"\n}",
+          "firstEventMs": 82,
+          "firstTextMs": 662,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 314,
+            "output_tokens": 116
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《地点待定》呈现的四段环境录音，分别录制于1961年、1980年、1997年和2015年。其中两段的地点可以确认，另两段的地点未知。这些录音仅标注了时长，未说明声音内容或录制目的。观众可以聆听到来自不同年代的声音片段，感受时间与地点留下的痕迹。",
+            "evidence_boundary": "依据展览资料，含四段录音及其年份、地点确认状态和标注时长，不涉及声音内容和录制目的。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1569
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览《地点待定》呈现了四段环境录音，分别录制于1961、1980、1997和2015年。其中两段的地点已确认，而另外两段则无从知晓。每段录音仅标注了时长，没有声音内容的说明，也不清楚当初录制的目的。这些声音来自不同的时间，却同样悬置在未知之中——它们没有被解释，也没有被定位，仅仅作为时间的痕迹留存。也许，地点的待定，正是让声音本身成为唯一的确证。\",\n  \"evidence_boundary\": \"基于展览记录：4段录音、年份、地点确认与否、时长标注；未述及声音内容与录制目的。\"\n}",
+          "firstEventMs": 103,
+          "firstTextMs": 462,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 309,
+            "output_tokens": 150
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《地点待定》呈现了四段环境录音，分别录制于1961、1980、1997和2015年。其中两段的地点已确认，而另外两段则无从知晓。每段录音仅标注了时长，没有声音内容的说明，也不清楚当初录制的目的。这些声音来自不同的时间，却同样悬置在未知之中——它们没有被解释，也没有被定位，仅仅作为时间的痕迹留存。也许，地点的待定，正是让声音本身成为唯一的确证。",
+            "evidence_boundary": "基于展览记录：4段录音、年份、地点确认与否、时长标注；未述及声音内容与录制目的。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1977
+        }
+      }
+    },
+    {
+      "packetId": "narration_printed_notices",
+      "repetition": 4,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本展呈现11张印刷通知，时间跨度自1938年至2001年。其中7张保留了发布日期，4张日期缺失；8张显示发布机构，3张机构未知。这些通知作为历史物件，承载着特定时期的信息传递功能。展览仅依据现有资料，呈现通知本身，不涉及张贴地点与受众反馈。\",\n  \"closing\": \"这11张通知，以印刷形态留存了1938至2001年间的一些信息片段。日期与机构的缺失，使得部分通知的上下文难以确定。它们静静地陈列于此，等待观众自行解读。\",\n  \"preface_boundary\": \"陈述11张通知的年份与信息完整度，不涉及其内容与背景。\",\n  \"closing_boundary\": \"概括展品特征，强调信息缺失，不推测通知内容与影响。\"\n}",
+        "firstEventMs": 74,
+        "firstTextMs": 757,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 272,
+          "output_tokens": 183
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本展呈现11张印刷通知，时间跨度自1938年至2001年。其中7张保留了发布日期，4张日期缺失；8张显示发布机构，3张机构未知。这些通知作为历史物件，承载着特定时期的信息传递功能。展览仅依据现有资料，呈现通知本身，不涉及张贴地点与受众反馈。",
+          "closing": "这11张通知，以印刷形态留存了1938至2001年间的一些信息片段。日期与机构的缺失，使得部分通知的上下文难以确定。它们静静地陈列于此，等待观众自行解读。",
+          "preface_boundary": "陈述11张通知的年份与信息完整度，不涉及其内容与背景。",
+          "closing_boundary": "概括展品特征，强调信息缺失，不推测通知内容与影响。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2744,
+        "normalized": {
+          "preface": "本展呈现11张印刷通知，时间跨度自1938年至2001年。其中7张保留了发布日期，4张日期缺失；8张显示发布机构，3张机构未知。这些通知作为历史物件，承载着特定时期的信息传递功能。展览仅依据现有资料，呈现通知本身，不涉及张贴地点与受众反馈。",
+          "closing": "这11张通知，以印刷形态留存了1938至2001年间的一些信息片段。日期与机构的缺失，使得部分通知的上下文难以确定。它们静静地陈列于此，等待观众自行解读。",
+          "preface_boundary": "陈述11张通知的年份与信息完整度，不涉及其内容与背景。",
+          "closing_boundary": "概括展品特征，强调信息缺失，不推测通知内容与影响。"
+        },
+        "inputTokens": 272,
+        "outputTokens": 183
+      },
+      "split": {
+        "firstTextMs": 291,
+        "allCompleteMs": 1849,
+        "inputTokens": 621,
+        "outputTokens": 183,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览《临时通知》呈现了11张跨越1938年至2001年的印刷通知。其中7张留有发布日期，4张日期缺失；8张标有发布机构，3张机构不明。这些通知静默陈列，等待观看者自行解读。",
+          "closing": "展览以11张印刷通知呈现1938至2001年的片段。七张保留日期，四张日期缺失；八张有机构，三张机构未知。这些通知悬置于时间中，其张贴之处与受众反应未留记载。我们仅能借助现存实物，窥见通知这一形式曾如何介入日常。",
+          "preface_boundary": "基于11张通知、年代、日期与机构记录的描述",
+          "closing_boundary": "仅依据通知数量、年代、日期与机构信息；未涉及张贴地点和受众反馈。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览《临时通知》呈现了11张跨越1938年至2001年的印刷通知。其中7张留有发布日期，4张日期缺失；8张标有发布机构，3张机构不明。这些通知静默陈列，等待观看者自行解读。\",\n  \"evidence_boundary\": \"基于11张通知、年代、日期与机构记录的描述\"\n}",
+          "firstEventMs": 79,
+          "firstTextMs": 291,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 313,
+            "output_tokens": 82
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《临时通知》呈现了11张跨越1938年至2001年的印刷通知。其中7张留有发布日期，4张日期缺失；8张标有发布机构，3张机构不明。这些通知静默陈列，等待观看者自行解读。",
+            "evidence_boundary": "基于11张通知、年代、日期与机构记录的描述"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 885
+        },
+        "closing": {
+          "text": "{\"text\": \"展览以11张印刷通知呈现1938至2001年的片段。七张保留日期，四张日期缺失；八张有机构，三张机构未知。这些通知悬置于时间中，其张贴之处与受众反应未留记载。我们仅能借助现存实物，窥见通知这一形式曾如何介入日常。\", \"evidence_boundary\": \"仅依据通知数量、年代、日期与机构信息；未涉及张贴地点和受众反馈。\"}",
+          "firstEventMs": 77,
+          "firstTextMs": 683,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 308,
+            "output_tokens": 101
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览以11张印刷通知呈现1938至2001年的片段。七张保留日期，四张日期缺失；八张有机构，三张机构未知。这些通知悬置于时间中，其张贴之处与受众反应未留记载。我们仅能借助现存实物，窥见通知这一形式曾如何介入日常。",
+            "evidence_boundary": "仅依据通知数量、年代、日期与机构信息；未涉及张贴地点和受众反馈。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1849
+        }
+      }
+    },
+    {
+      "packetId": "narration_navigation_tools",
+      "repetition": 5,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本展呈现1885至1962年间六件导航工具：两件罗盘、两件六分仪、两张航线计算表。其中三件带有修正刻痕，一张计算表缺少末页。这些工具本身并无记录其使用者、航次或修正原因，仅以物质形态保存了航海活动中修正与偏差的痕迹。请观众在观看时，留意这些工具上的使用痕迹与缺失，思考它们所经历的航行与修正，但展览不提供确切的叙事，只呈现物证本身。\",\n  \"closing\": \"六件导航工具，年代跨度近八十年，三件修正刻痕与一张缺页，是已知的全部。它们的使用者、航次与修正原因，均无记录。这些痕迹与缺失，或为航行中的调整，或为使用中的磨损，但其具体情境已不可考。展览至此，已知止于物证，未知留于想象。感谢观看。\",\n  \"preface_boundary\": \"仅依据展品年代、类型、数量、痕迹与缺页；不含使用者、航次、修正原因。\",\n  \"closing_boundary\": \"总结已知（数量、年代、痕迹、缺页），明确未知（使用者、航次、原因），不补故事。\"\n}",
+        "firstEventMs": 118,
+        "firstTextMs": 350,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 299,
+          "output_tokens": 274
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本展呈现1885至1962年间六件导航工具：两件罗盘、两件六分仪、两张航线计算表。其中三件带有修正刻痕，一张计算表缺少末页。这些工具本身并无记录其使用者、航次或修正原因，仅以物质形态保存了航海活动中修正与偏差的痕迹。请观众在观看时，留意这些工具上的使用痕迹与缺失，思考它们所经历的航行与修正，但展览不提供确切的叙事，只呈现物证本身。",
+          "closing": "六件导航工具，年代跨度近八十年，三件修正刻痕与一张缺页，是已知的全部。它们的使用者、航次与修正原因，均无记录。这些痕迹与缺失，或为航行中的调整，或为使用中的磨损，但其具体情境已不可考。展览至此，已知止于物证，未知留于想象。感谢观看。",
+          "preface_boundary": "仅依据展品年代、类型、数量、痕迹与缺页；不含使用者、航次、修正原因。",
+          "closing_boundary": "总结已知（数量、年代、痕迹、缺页），明确未知（使用者、航次、原因），不补故事。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2993,
+        "normalized": {
+          "preface": "本展呈现1885至1962年间六件导航工具：两件罗盘、两件六分仪、两张航线计算表。其中三件带有修正刻痕，一张计算表缺少末页。这些工具本身并无记录其使用者、航次或修正原因，仅以物质形态保存了航海活动中修正与偏差的痕迹。请观众在观看时，留意这些工具上的使用痕迹与缺失，思考它们所经历的航行与修正，但展览不提供确切的叙事，只呈现物证本身。",
+          "closing": "六件导航工具，年代跨度近八十年，三件修正刻痕与一张缺页，是已知的全部。它们的使用者、航次与修正原因，均无记录。这些痕迹与缺失，或为航行中的调整，或为使用中的磨损，但其具体情境已不可考。展览至此，已知止于物证，未知留于想象。感谢观看。",
+          "preface_boundary": "仅依据展品年代、类型、数量、痕迹与缺页；不含使用者、航次、修正原因。",
+          "closing_boundary": "总结已知（数量、年代、痕迹、缺页），明确未知（使用者、航次、原因），不补故事。"
+        },
+        "inputTokens": 299,
+        "outputTokens": 274
+      },
+      "split": {
+        "firstTextMs": 385,
+        "allCompleteMs": 1428,
+        "inputTokens": 675,
+        "outputTokens": 197,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "此次展览呈现6件导航工具，包括2件罗盘、2件六分仪和2张航线计算表，年代跨度为1885年至1962年。其中3件带有修正刻痕，1张表缺末页。这些物品记录了导航工具本身的状态，但相关信息中未包含使用者、航次及修正原因。",
+          "closing": "六件导航工具跨越近八十年，其中三件留有修正刻痕，一张表缺了末页。它们来自怎样的航程，被谁握持，为何修正，都已无从得知。时光剥落了答案，只留下这些沉默的器具与未竟的痕迹。我们在此驻足，看见的恰是历史本身的含蓄与克制。",
+          "preface_boundary": "仅依据展览资料，未涉及未知信息。",
+          "closing_boundary": "仅依据展览资料，未涉及其它信息"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"此次展览呈现6件导航工具，包括2件罗盘、2件六分仪和2张航线计算表，年代跨度为1885年至1962年。其中3件带有修正刻痕，1张表缺末页。这些物品记录了导航工具本身的状态，但相关信息中未包含使用者、航次及修正原因。\",\n  \"evidence_boundary\": \"仅依据展览资料，未涉及未知信息。\"\n}",
+          "firstEventMs": 85,
+          "firstTextMs": 642,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 340,
+            "output_tokens": 98
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "此次展览呈现6件导航工具，包括2件罗盘、2件六分仪和2张航线计算表，年代跨度为1885年至1962年。其中3件带有修正刻痕，1张表缺末页。这些物品记录了导航工具本身的状态，但相关信息中未包含使用者、航次及修正原因。",
+            "evidence_boundary": "仅依据展览资料，未涉及未知信息。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1356
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"六件导航工具跨越近八十年，其中三件留有修正刻痕，一张表缺了末页。它们来自怎样的航程，被谁握持，为何修正，都已无从得知。时光剥落了答案，只留下这些沉默的器具与未竟的痕迹。我们在此驻足，看见的恰是历史本身的含蓄与克制。\",\n  \"evidence_boundary\": \"仅依据展览资料，未涉及其它信息\"\n}",
+          "firstEventMs": 99,
+          "firstTextMs": 385,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 335,
+            "output_tokens": 99
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "六件导航工具跨越近八十年，其中三件留有修正刻痕，一张表缺了末页。它们来自怎样的航程，被谁握持，为何修正，都已无从得知。时光剥落了答案，只留下这些沉默的器具与未竟的痕迹。我们在此驻足，看见的恰是历史本身的含蓄与克制。",
+            "evidence_boundary": "仅依据展览资料，未涉及其它信息"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1428
+        }
+      }
+    },
+    {
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 5,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"九张明信片，从1904到1978年，静置于此。六张写有地址，却无收件人姓名；三张背面空白。它们未被寄出，原因不明。在这里，您将看到它们本身——邮戳、笔迹、画面，以及那些未竟的地址。\",\n  \"closing\": \"九张明信片，时间跨度七十余年。六张有址无名，三张空白。它们为何未寄出，书写者是谁，均已无从知晓。但每一张都以其存在，指向一个未被送达的瞬间。\",\n  \"preface_boundary\": \"本部分仅陈述展品物理特征，不涉及其情感或叙事联想。\",\n  \"closing_boundary\": \"此总结仅重申已知信息，明确指出来源未提供未寄原因与书写者信息。\"\n}",
+        "firstEventMs": 127,
+        "firstTextMs": 774,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 274,
+          "output_tokens": 188
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "九张明信片，从1904到1978年，静置于此。六张写有地址，却无收件人姓名；三张背面空白。它们未被寄出，原因不明。在这里，您将看到它们本身——邮戳、笔迹、画面，以及那些未竟的地址。",
+          "closing": "九张明信片，时间跨度七十余年。六张有址无名，三张空白。它们为何未寄出，书写者是谁，均已无从知晓。但每一张都以其存在，指向一个未被送达的瞬间。",
+          "preface_boundary": "本部分仅陈述展品物理特征，不涉及其情感或叙事联想。",
+          "closing_boundary": "此总结仅重申已知信息，明确指出来源未提供未寄原因与书写者信息。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2478,
+        "normalized": {
+          "preface": "九张明信片，从1904到1978年，静置于此。六张写有地址，却无收件人姓名；三张背面空白。它们未被寄出，原因不明。在这里，您将看到它们本身——邮戳、笔迹、画面，以及那些未竟的地址。",
+          "closing": "九张明信片，时间跨度七十余年。六张有址无名，三张空白。它们为何未寄出，书写者是谁，均已无从知晓。但每一张都以其存在，指向一个未被送达的瞬间。",
+          "preface_boundary": "本部分仅陈述展品物理特征，不涉及其情感或叙事联想。",
+          "closing_boundary": "此总结仅重申已知信息，明确指出来源未提供未寄原因与书写者信息。"
+        },
+        "inputTokens": 274,
+        "outputTokens": 188
+      },
+      "split": {
+        "firstTextMs": 198,
+        "allCompleteMs": 1319,
+        "inputTokens": 625,
+        "outputTokens": 198,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览呈现九张未寄出的明信片，时间跨度从1904年至1978年。其中六张写有地址，但未注明收件人姓名，另三张背面空白。这些明信片静置于此，等待观众的目光。",
+          "closing": "这九张明信片，从1904年到1978年，静默陈列。六张写着地址，却没有收件人的姓名；三张背面空白，未留一言。它们为何未寄出，书写者是谁，均已无从知晓。我们只能看到这些地址与空白，如同未完成的句子。",
+          "preface_boundary": "陈列九张明信片，日期1904至1978年；六张有地址无姓名，三张空白；未说明未寄原因与书写者。",
+          "closing_boundary": "基于展览所见，未寄原因与书写者信息未见于记录。"
+        },
+        "preface": {
+          "text": "{\"text\": \"展览呈现九张未寄出的明信片，时间跨度从1904年至1978年。其中六张写有地址，但未注明收件人姓名，另三张背面空白。这些明信片静置于此，等待观众的目光。\", \"evidence_boundary\": \"陈列九张明信片，日期1904至1978年；六张有地址无姓名，三张空白；未说明未寄原因与书写者。\"}",
+          "firstEventMs": 71,
+          "firstTextMs": 198,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 315,
+            "output_tokens": 101
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现九张未寄出的明信片，时间跨度从1904年至1978年。其中六张写有地址，但未注明收件人姓名，另三张背面空白。这些明信片静置于此，等待观众的目光。",
+            "evidence_boundary": "陈列九张明信片，日期1904至1978年；六张有地址无姓名，三张空白；未说明未寄原因与书写者。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 973
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"这九张明信片，从1904年到1978年，静默陈列。六张写着地址，却没有收件人的姓名；三张背面空白，未留一言。它们为何未寄出，书写者是谁，均已无从知晓。我们只能看到这些地址与空白，如同未完成的句子。\",\n  \"evidence_boundary\": \"基于展览所见，未寄原因与书写者信息未见于记录。\"\n}",
+          "firstEventMs": 109,
+          "firstTextMs": 402,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 310,
+            "output_tokens": 97
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "这九张明信片，从1904年到1978年，静默陈列。六张写着地址，却没有收件人的姓名；三张背面空白，未留一言。它们为何未寄出，书写者是谁，均已无从知晓。我们只能看到这些地址与空白，如同未完成的句子。",
+            "evidence_boundary": "基于展览所见，未寄原因与书写者信息未见于记录。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1319
+        }
+      }
+    },
+    {
+      "packetId": "narration_field_recordings",
+      "repetition": 5,
+      "order": "split_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本展呈现四段环境录音，录制年份依次为1961、1980、1997、2015。其中两段地点可确认，另两段未知。资料仅标注时长，未提供声音内容说明与录制目的。请观众以倾听开启探索。\",\n  \"closing\": \"四段录音，时间跨度半个世纪，地点部分明确，内容与目的未知。已知仅存于时长与年份，未知静默于声音之外。展览在此收束，疑问留待聆听。\",\n  \"preface_boundary\": \"前言仅陈述已知信息：四段录音、年份、地点状态及资料标注情况。\",\n  \"closing_boundary\": \"结语仅总结已知与未知，不推测内容或目的。\"\n}",
+        "firstEventMs": 394,
+        "firstTextMs": 898,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 273,
+          "output_tokens": 167
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本展呈现四段环境录音，录制年份依次为1961、1980、1997、2015。其中两段地点可确认，另两段未知。资料仅标注时长，未提供声音内容说明与录制目的。请观众以倾听开启探索。",
+          "closing": "四段录音，时间跨度半个世纪，地点部分明确，内容与目的未知。已知仅存于时长与年份，未知静默于声音之外。展览在此收束，疑问留待聆听。",
+          "preface_boundary": "前言仅陈述已知信息：四段录音、年份、地点状态及资料标注情况。",
+          "closing_boundary": "结语仅总结已知与未知，不推测内容或目的。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2435,
+        "normalized": {
+          "preface": "本展呈现四段环境录音，录制年份依次为1961、1980、1997、2015。其中两段地点可确认，另两段未知。资料仅标注时长，未提供声音内容说明与录制目的。请观众以倾听开启探索。",
+          "closing": "四段录音，时间跨度半个世纪，地点部分明确，内容与目的未知。已知仅存于时长与年份，未知静默于声音之外。展览在此收束，疑问留待聆听。",
+          "preface_boundary": "前言仅陈述已知信息：四段录音、年份、地点状态及资料标注情况。",
+          "closing_boundary": "结语仅总结已知与未知，不推测内容或目的。"
+        },
+        "inputTokens": 273,
+        "outputTokens": 167
+      },
+      "split": {
+        "firstTextMs": 332,
+        "allCompleteMs": 1317,
+        "inputTokens": 623,
+        "outputTokens": 217,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "展览呈现四段环境录音，录制年份依次为1961、1980、1997、2015。其中两段的地点可以确认，另两段地点未知。资料仅标注了录音时长，未说明声音内容或录制目的。这些录音如同时间的切片，等待着观众的聆听与想象。",
+          "closing": "展览《地点待定》呈现四段环境录音，录制年份分别为1961、1980、1997和2015。其中两段的地点已确认，另外两段则未知。这些录音仅标注了时长，没有说明声音内容或录制目的。展览收束于已知与未知之间，留给观众的是对声音与地点关系的静默思考。",
+          "preface_boundary": "仅依据展览包含4段录音及年份、地点确认情况、时长标注等记录。",
+          "closing_boundary": "基于展览资料，仅提及录音数量、年份、地点确认状态、时长标注及信息缺失，不推测内容与意图。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"展览呈现四段环境录音，录制年份依次为1961、1980、1997、2015。其中两段的地点可以确认，另两段地点未知。资料仅标注了录音时长，未说明声音内容或录制目的。这些录音如同时间的切片，等待着观众的聆听与想象。\",\n  \"evidence_boundary\": \"仅依据展览包含4段录音及年份、地点确认情况、时长标注等记录。\"\n}",
+          "firstEventMs": 75,
+          "firstTextMs": 489,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 314,
+            "output_tokens": 98
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览呈现四段环境录音，录制年份依次为1961、1980、1997、2015。其中两段的地点可以确认，另两段地点未知。资料仅标注了录音时长，未说明声音内容或录制目的。这些录音如同时间的切片，等待着观众的聆听与想象。",
+            "evidence_boundary": "仅依据展览包含4段录音及年份、地点确认情况、时长标注等记录。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1317
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览《地点待定》呈现四段环境录音，录制年份分别为1961、1980、1997和2015。其中两段的地点已确认，另外两段则未知。这些录音仅标注了时长，没有说明声音内容或录制目的。展览收束于已知与未知之间，留给观众的是对声音与地点关系的静默思考。\",\n  \"evidence_boundary\": \"基于展览资料，仅提及录音数量、年份、地点确认状态、时长标注及信息缺失，不推测内容与意图。\"\n}",
+          "firstEventMs": 75,
+          "firstTextMs": 332,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 309,
+            "output_tokens": 119
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览《地点待定》呈现四段环境录音，录制年份分别为1961、1980、1997和2015。其中两段的地点已确认，另外两段则未知。这些录音仅标注了时长，没有说明声音内容或录制目的。展览收束于已知与未知之间，留给观众的是对声音与地点关系的静默思考。",
+            "evidence_boundary": "基于展览资料，仅提及录音数量、年份、地点确认状态、时长标注及信息缺失，不推测内容与意图。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1260
+        }
+      }
+    },
+    {
+      "packetId": "narration_printed_notices",
+      "repetition": 5,
+      "order": "combined_first",
+      "combined": {
+        "text": "{\n  \"preface\": \"本次展览呈现11张印刷通知，时间跨度从1938年至2001年。其中7张保留了明确的发布日期，4张日期缺失；8张标注了发布机构，3张机构未知。这些通知作为历史文献，记录了不同时期的公告内容。展览依据现有资料，展示其原始信息，不作额外推测。\",\n  \"closing\": \"11张通知，年代跨越1938至2001年，其中7张有日期，4张缺失；8张有机构，3张未知。这些资料呈现了通知的基本面貌，但张贴地点与受众反馈尚不明确。展览至此，已知与未知并存，留给观众自行审视。\",\n  \"preface_boundary\": \"仅依据11张通知的年份、日期与机构信息，不涉及地点与反馈。\",\n  \"closing_boundary\": \"仅总结已知数量与缺失信息，不补充未知内容。\"\n}",
+        "firstEventMs": 67,
+        "firstTextMs": 673,
+        "firstThinkingMs": null,
+        "thinkingChars": 0,
+        "usage": {
+          "input_tokens": 272,
+          "output_tokens": 197
+        },
+        "responseModel": "deepseek-v4-flash",
+        "stopReason": "stop",
+        "parsed": {
+          "preface": "本次展览呈现11张印刷通知，时间跨度从1938年至2001年。其中7张保留了明确的发布日期，4张日期缺失；8张标注了发布机构，3张机构未知。这些通知作为历史文献，记录了不同时期的公告内容。展览依据现有资料，展示其原始信息，不作额外推测。",
+          "closing": "11张通知，年代跨越1938至2001年，其中7张有日期，4张缺失；8张有机构，3张未知。这些资料呈现了通知的基本面貌，但张贴地点与受众反馈尚不明确。展览至此，已知与未知并存，留给观众自行审视。",
+          "preface_boundary": "仅依据11张通知的年份、日期与机构信息，不涉及地点与反馈。",
+          "closing_boundary": "仅总结已知数量与缺失信息，不补充未知内容。"
+        },
+        "parseError": null,
+        "statusCode": 200,
+        "requestId": null,
+        "transportError": null,
+        "totalMs": 2312,
+        "normalized": {
+          "preface": "本次展览呈现11张印刷通知，时间跨度从1938年至2001年。其中7张保留了明确的发布日期，4张日期缺失；8张标注了发布机构，3张机构未知。这些通知作为历史文献，记录了不同时期的公告内容。展览依据现有资料，展示其原始信息，不作额外推测。",
+          "closing": "11张通知，年代跨越1938至2001年，其中7张有日期，4张缺失；8张有机构，3张未知。这些资料呈现了通知的基本面貌，但张贴地点与受众反馈尚不明确。展览至此，已知与未知并存，留给观众自行审视。",
+          "preface_boundary": "仅依据11张通知的年份、日期与机构信息，不涉及地点与反馈。",
+          "closing_boundary": "仅总结已知数量与缺失信息，不补充未知内容。"
+        },
+        "inputTokens": 272,
+        "outputTokens": 197
+      },
+      "split": {
+        "firstTextMs": 569,
+        "allCompleteMs": 1537,
+        "inputTokens": 621,
+        "outputTokens": 181,
+        "thinkingChars": 0,
+        "normalized": {
+          "preface": "本次展览汇集了1938年至2001年间的11张印刷通知。其中7张保留了明确的发布日期，4张日期信息缺失；8张标注了发布机构，3张机构信息不详。这些通知作为历史的片段，其内容与背景有待观众自行探索。",
+          "closing": "展览收录11张印刷通知，时间跨度从1938年到2001年。其中7张保留了发布日期，4张日期缺失；8张有发布机构，3张机构未知。这些通知的具体张贴地点与受众反馈未见于资料。",
+          "preface_boundary": "仅依据所陈列的通知实物，其年代、日期与机构信息以实物为准。",
+          "closing_boundary": "本结语仅基于展览资料中的通知数量、年代、日期与机构信息，未知内容未涉及。"
+        },
+        "preface": {
+          "text": "{\n  \"text\": \"本次展览汇集了1938年至2001年间的11张印刷通知。其中7张保留了明确的发布日期，4张日期信息缺失；8张标注了发布机构，3张机构信息不详。这些通知作为历史的片段，其内容与背景有待观众自行探索。\",\n  \"evidence_boundary\": \"仅依据所陈列的通知实物，其年代、日期与机构信息以实物为准。\"\n}",
+          "firstEventMs": 87,
+          "firstTextMs": 712,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 313,
+            "output_tokens": 91
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "本次展览汇集了1938年至2001年间的11张印刷通知。其中7张保留了明确的发布日期，4张日期信息缺失；8张标注了发布机构，3张机构信息不详。这些通知作为历史的片段，其内容与背景有待观众自行探索。",
+            "evidence_boundary": "仅依据所陈列的通知实物，其年代、日期与机构信息以实物为准。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1537
+        },
+        "closing": {
+          "text": "{\n  \"text\": \"展览收录11张印刷通知，时间跨度从1938年到2001年。其中7张保留了发布日期，4张日期缺失；8张有发布机构，3张机构未知。这些通知的具体张贴地点与受众反馈未见于资料。\",\n  \"evidence_boundary\": \"本结语仅基于展览资料中的通知数量、年代、日期与机构信息，未知内容未涉及。\"\n}",
+          "firstEventMs": 129,
+          "firstTextMs": 569,
+          "firstThinkingMs": null,
+          "thinkingChars": 0,
+          "usage": {
+            "input_tokens": 308,
+            "output_tokens": 90
+          },
+          "responseModel": "deepseek-v4-flash",
+          "stopReason": "stop",
+          "parsed": {
+            "text": "展览收录11张印刷通知，时间跨度从1938年到2001年。其中7张保留了发布日期，4张日期缺失；8张有发布机构，3张机构未知。这些通知的具体张贴地点与受众反馈未见于资料。",
+            "evidence_boundary": "本结语仅基于展览资料中的通知数量、年代、日期与机构信息，未知内容未涉及。"
+          },
+          "parseError": null,
+          "statusCode": 200,
+          "requestId": null,
+          "transportError": null,
+          "totalMs": 1275
+        }
+      }
+    }
+  ],
+  "finishedAt": "2026-08-30T15:05:10.446Z",
+  "summary": {
+    "samples": 20,
+    "combined": {
+      "firstTextMedianMs": 659,
+      "allCompleteMedianMs": 2373.5,
+      "inputTokensAverage": 279.5,
+      "outputTokensAverage": 186.8,
+      "parseRate": 1
+    },
+    "split": {
+      "firstTextMedianMs": 422,
+      "allCompleteMedianMs": 1556.5,
+      "inputTokensAverage": 636,
+      "outputTokensAverage": 216.9,
+      "parseRate": 1
+    }
+  }
+}

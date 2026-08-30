@@ -1,0 +1,86 @@
+{
+  "schema_version": "semantic-eval-b-v1",
+  "source": "deepseek-narration-architecture-1788102232430.json",
+  "evaluator": "B",
+  "rubric": {
+    "dimensions": ["evidence_fidelity","preface_function","closing_function","cross_segment_consistency","naturalness_and_boundary"],
+    "score_range_per_dimension": [0,4],
+    "total_range": [0,20],
+    "serious_error_types": ["factual_hallucination","story_invention","semantic_distortion","none"],
+    "performance_excluded_from_quality": true
+  },
+  "evaluations": [
+    {"packetId":"narration_navigation_tools","repetition":1,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"事实齐全；航行联想略超资料，但保留未知。"},
+    {"packetId":"narration_navigation_tools","repetition":1,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":3,"closing_function":2,"cross_segment_consistency":3,"naturalness_and_boundary":2},"total":12,"serious_error":true,"error_types":["story_invention"],"note":"补时间磨损，并将用途与背后故事交给想象。"},
+    {"packetId":"narration_navigation_tools","repetition":2,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"将展品组织为导航实践记录，联想可控。"},
+    {"packetId":"narration_navigation_tools","repetition":2,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":14,"serious_error":true,"error_types":["story_invention"],"note":"时间痕迹与昔日航行均不是资料所证。"},
+    {"packetId":"narration_navigation_tools","repetition":3,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"能以已知物证引向未知，没有补具体因果。"},
+    {"packetId":"narration_navigation_tools","repetition":3,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":3,"closing_function":4,"cross_segment_consistency":3,"naturalness_and_boundary":2},"total":14,"serious_error":false,"error_types":["none"],"note":"把修正刻痕扩大为时代测量与磨损痕迹。"},
+    {"packetId":"narration_navigation_tools","repetition":4,"strategy":"combined","scores":{"evidence_fidelity":2,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":14,"serious_error":true,"error_types":["story_invention"],"note":"补出无数未记录的导航时刻。"},
+    {"packetId":"narration_navigation_tools","repetition":4,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":14,"serious_error":true,"error_types":["story_invention"],"note":"航海时代痕迹与未说出的航程均属补叙事。"},
+    {"packetId":"narration_navigation_tools","repetition":5,"strategy":"combined","scores":{"evidence_fidelity":1,"preface_function":3,"closing_function":2,"cross_segment_consistency":4,"naturalness_and_boundary":1},"total":11,"serious_error":true,"error_types":["story_invention","semantic_distortion"],"note":"补航次，并为刻痕提出调整或磨损成因。"},
+    {"packetId":"narration_navigation_tools","repetition":5,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":14,"serious_error":true,"error_types":["story_invention"],"note":"结语补旧航次与时间剥离答案的叙事。"},
+
+    {"packetId":"narration_unsent_postcards","repetition":1,"strategy":"combined","scores":{"evidence_fidelity":2,"preface_function":4,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":15,"serious_error":true,"error_types":["factual_hallucination","story_invention"],"note":"74年跨度写成一个世纪，并赋予等待与旅程。"},
+    {"packetId":"narration_unsent_postcards","repetition":1,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":17,"serious_error":true,"error_types":["story_invention"],"note":"事实准确，但把未知转为等待讲述的故事。"},
+    {"packetId":"narration_unsent_postcards","repetition":2,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"未寄达的表达稍强，但与未寄出基本相容。"},
+    {"packetId":"narration_unsent_postcards","repetition":2,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"已知与未知区分清楚，联想程度可控。"},
+    {"packetId":"narration_unsent_postcards","repetition":3,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":4},"total":17,"serious_error":false,"error_types":["none"],"note":"边界清楚，但前言漏掉六与三的结构信息。"},
+    {"packetId":"narration_unsent_postcards","repetition":3,"strategy":"split","scores":{"evidence_fidelity":1,"preface_function":3,"closing_function":3,"cross_segment_consistency":3,"naturalness_and_boundary":1},"total":11,"serious_error":true,"error_types":["story_invention"],"note":"补想象中的旅程及永远等不到的投递。"},
+    {"packetId":"narration_unsent_postcards","repetition":4,"strategy":"combined","scores":{"evidence_fidelity":1,"preface_function":3,"closing_function":2,"cross_segment_consistency":4,"naturalness_and_boundary":1},"total":11,"serious_error":true,"error_types":["factual_hallucination","story_invention"],"note":"混淆地址与收件人，并补认领和情感谜题。"},
+    {"packetId":"narration_unsent_postcards","repetition":4,"strategy":"split","scores":{"evidence_fidelity":1,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":1},"total":12,"serious_error":true,"error_types":["story_invention"],"note":"补旅程、时间谜题与未完成故事。"},
+    {"packetId":"narration_unsent_postcards","repetition":5,"strategy":"combined","scores":{"evidence_fidelity":1,"preface_function":3,"closing_function":3,"cross_segment_consistency":3,"naturalness_and_boundary":1},"total":11,"serious_error":true,"error_types":["factual_hallucination"],"note":"资料没有邮戳、手写字迹与图像信息。"},
+    {"packetId":"narration_unsent_postcards","repetition":5,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"事实与功能完整，未完成句只作温和修辞。"},
+
+    {"packetId":"narration_environment_audio","repetition":1,"strategy":"combined","scores":{"evidence_fidelity":4,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":4},"total":20,"serious_error":false,"error_types":["none"],"note":"准确组织四条记录，并明确内容和目的未知。"},
+    {"packetId":"narration_environment_audio","repetition":1,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":17,"serious_error":false,"error_types":["none"],"note":"时间切片与想象稍作阐释，仍守住未知内容。"},
+    {"packetId":"narration_environment_audio","repetition":2,"strategy":"combined","scores":{"evidence_fidelity":4,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":4},"total":20,"serious_error":false,"error_types":["none"],"note":"前言建立观看入口，结语准确回收证据边界。"},
+    {"packetId":"narration_environment_audio","repetition":2,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"声景用词略有解释性，整体忠实且协调。"},
+    {"packetId":"narration_environment_audio","repetition":3,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"声学片段与声景略超目录事实，但未补内容。"},
+    {"packetId":"narration_environment_audio","repetition":3,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"时间痕迹和聆听场域属轻度策展阐释。"},
+    {"packetId":"narration_environment_audio","repetition":4,"strategy":"combined","scores":{"evidence_fidelity":4,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":4},"total":20,"serious_error":false,"error_types":["none"],"note":"只陈述年代、地点确认状态与未知项。"},
+    {"packetId":"narration_environment_audio","repetition":4,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":4,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":15,"serious_error":true,"error_types":["semantic_distortion"],"note":"把录音断言为可听见的往年声音与时间痕迹。"},
+    {"packetId":"narration_environment_audio","repetition":5,"strategy":"combined","scores":{"evidence_fidelity":4,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":4},"total":20,"serious_error":false,"error_types":["none"],"note":"简洁、功能明确，未替未知内容作说明。"},
+    {"packetId":"narration_environment_audio","repetition":5,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"时间切片是轻度修辞，事实边界仍可辨。"},
+
+    {"packetId":"narration_printed_notices","repetition":1,"strategy":"combined","scores":{"evidence_fidelity":4,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":4},"total":20,"serious_error":false,"error_types":["none"],"note":"数量、年代与缺失项准确，功能完整。"},
+    {"packetId":"narration_printed_notices","repetition":1,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":4,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":15,"serious_error":true,"error_types":["story_invention"],"note":"把通知说成传播方式见证，并邀请补想象。"},
+    {"packetId":"narration_printed_notices","repetition":2,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"历史时刻与研究线索稍作解释，未补具体事实。"},
+    {"packetId":"narration_printed_notices","repetition":2,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":4,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":15,"serious_error":true,"error_types":["semantic_distortion"],"note":"把材料扩大为公共传播媒介存续史。"},
+    {"packetId":"narration_printed_notices","repetition":3,"strategy":"combined","scores":{"evidence_fidelity":1,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":1},"total":12,"serious_error":true,"error_types":["semantic_distortion"],"note":"断言历史文献、传播实践见证与物质证据。"},
+    {"packetId":"narration_printed_notices","repetition":3,"strategy":"split","scores":{"evidence_fidelity":1,"preface_function":3,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":1},"total":12,"serious_error":true,"error_types":["semantic_distortion"],"note":"将通知归入公共信息传播演变，依据不足。"},
+    {"packetId":"narration_printed_notices","repetition":4,"strategy":"combined","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"信息载体是合理概括，未知项仍清楚。"},
+    {"packetId":"narration_printed_notices","repetition":4,"strategy":"split","scores":{"evidence_fidelity":2,"preface_function":4,"closing_function":3,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":15,"serious_error":true,"error_types":["semantic_distortion"],"note":"补通知介入日常生活的作用判断。"},
+    {"packetId":"narration_printed_notices","repetition":5,"strategy":"combined","scores":{"evidence_fidelity":2,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":2},"total":16,"serious_error":true,"error_types":["factual_hallucination"],"note":"称其记录公告内容与原始信息，资料未给内容。"},
+    {"packetId":"narration_printed_notices","repetition":5,"strategy":"split","scores":{"evidence_fidelity":3,"preface_function":4,"closing_function":4,"cross_segment_consistency":4,"naturalness_and_boundary":3},"total":18,"serious_error":false,"error_types":["none"],"note":"历史碎片略带阐释，结语能回到已知事实。"}
+  ],
+  "summary": {
+    "by_strategy": [
+      {"strategy":"combined","n":20,"mean_total":16.65,"dimension_means":{"evidence_fidelity":2.7,"preface_function":3.7,"closing_function":3.55,"cross_segment_consistency":3.95,"naturalness_and_boundary":2.75},"serious_errors":7,"serious_error_rate_pct":35.0},
+      {"strategy":"split","n":20,"mean_total":15.25,"dimension_means":{"evidence_fidelity":2.25,"preface_function":3.6,"closing_function":3.3,"cross_segment_consistency":3.85,"naturalness_and_boundary":2.25},"serious_errors":12,"serious_error_rate_pct":60.0}
+    ],
+    "by_strategy_packet": [
+      {"strategy":"combined","packetId":"narration_navigation_tools","n":5,"mean_total":15.8,"range":7,"serious_errors":2},
+      {"strategy":"split","packetId":"narration_navigation_tools","n":5,"mean_total":13.6,"range":2,"serious_errors":4},
+      {"strategy":"combined","packetId":"narration_unsent_postcards","n":5,"mean_total":14.4,"range":7,"serious_errors":3},
+      {"strategy":"split","packetId":"narration_unsent_postcards","n":5,"mean_total":15.2,"range":7,"serious_errors":3},
+      {"strategy":"combined","packetId":"narration_environment_audio","n":5,"mean_total":19.6,"range":2,"serious_errors":0},
+      {"strategy":"split","packetId":"narration_environment_audio","n":5,"mean_total":17.2,"range":3,"serious_errors":1},
+      {"strategy":"combined","packetId":"narration_printed_notices","n":5,"mean_total":16.8,"range":8,"serious_errors":2},
+      {"strategy":"split","packetId":"narration_printed_notices","n":5,"mean_total":15.0,"range":6,"serious_errors":4}
+    ],
+    "paired_quality": {"combined_wins":11,"ties":4,"split_wins":5,"mean_combined_minus_split":1.4},
+    "five_run_stability": {"combined_mean_packet_range":6.0,"split_mean_packet_range":4.5,"interpretation":"combined均分更高但坏轮次更尖锐；split更稳定地停留在偏低质量。"}
+  },
+  "comparison": {
+    "combined_minus_split": {"mean_total":1.4,"evidence_fidelity":0.45,"preface_function":0.1,"closing_function":0.25,"cross_segment_consistency":0.1,"naturalness_and_boundary":0.5,"serious_errors":-5,"serious_error_rate_percentage_points":-25.0},
+    "strengths": "combined更能让前言与结语共享同一证据边界，尤其在环境录音包上接近满分；事实忠实和自然边界的优势最明显。",
+    "weaknesses": "两种策略都会把目录事实扩写成航行故事、等待情感、传播史或时间痕迹；明信片包是combined唯一落后split的类别。"
+  },
+  "final_assessment": {
+    "recommendation": "prefer_combined_with_stricter_narrative_guard",
+    "decision": "优先采用combined；其质量更高、严重错误更少，且原始统计显示输入token也更低。",
+    "required_fix": "对前言和结语共同加入禁止故事化、禁止历史作用断言、禁止从刻痕或缺页推因的规则；已知和未知应直接并列，不把未知改写为等待、沉默或想象空间。",
+    "quality_only_note": "策略质量分未受时延、token与解析性能影响。"
+  }
+}

@@ -1,0 +1,942 @@
+{
+  "schemaVersion": "1.0",
+  "evaluator": "Evaluator A",
+  "source": "test/test-results/deepseek-narration-architecture-1788102232430.json",
+  "runId": 1788102232430,
+  "method": {
+    "blind": true,
+    "performanceExcludedUntilAfterScoring": true,
+    "evaluationUnit": "each strategy normalized preface+closing pair",
+    "dimensions": [
+      "evidence_fidelity",
+      "preface_function",
+      "closing_function",
+      "two_part_consistency",
+      "naturalness_boundary"
+    ],
+    "scoreRange": [
+      0,
+      4
+    ],
+    "seriousFlagVocabulary": [
+      "factual_invention",
+      "semantic_overreach",
+      "none"
+    ]
+  },
+  "evaluations": [
+    {
+      "strategy": "combined",
+      "packetId": "narration_navigation_tools",
+      "repetition": 1,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把器物痕迹扩成航行历史、开放档案与偏差记录。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_navigation_tools",
+      "repetition": 2,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "导航实践与记录开端略作引申，双段仍一致。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_navigation_tools",
+      "repetition": 3,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "物证与偏差修正略有策展解释，未知保持清楚。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_navigation_tools",
+      "repetition": 4,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "虚构无数航行瞬间和偏差意义。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_navigation_tools",
+      "repetition": 5,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "邀请想象航行，并提出修正或磨损的未证解释。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_navigation_tools",
+      "repetition": 1,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "前言写时间磨损，结语要求想象背后故事。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_navigation_tools",
+      "repetition": 2,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "两段共同把痕迹导向过往航程想象。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_navigation_tools",
+      "repetition": 3,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 2,
+        "closing_function": 4,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "前言断言航海时代测量方式并解释刻痕磨损。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_navigation_tools",
+      "repetition": 4,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "航海时代痕迹与未言说航行片段均无来源支持。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_navigation_tools",
+      "repetition": 5,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 4,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "结语加入时光剥落答案及历史含蓄意义。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 1,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 2,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "factual_invention",
+        "semantic_overreach"
+      ],
+      "reason": "把地址不全或背面空白写成未寄出的原因。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 2,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "未完成通信略带叙事，但事实和未知仍对齐。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 3,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "前言与结语均停在未寄状态和未知边界。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 4,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把空白升为谜与离场余音，策展意义过强。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 5,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 1,
+        "preface_function": 2,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 1
+      },
+      "total": 11,
+      "serious_flags": [
+        "factual_invention"
+      ],
+      "reason": "虚构邮戳、笔迹和画面等未提供物理特征。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 1,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "结语断言存在未讲故事，偏离未知原因。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 2,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "等待目光与解读稍套话，双段事实一致。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 3,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 2,
+        "closing_function": 4,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "factual_invention",
+        "semantic_overreach"
+      ],
+      "reason": "虚构展柜并邀请想象旅途与沉默故事。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 4,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 2,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "前言旅程谜语与结语未完成故事共同越界。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_anonymous_postcards",
+      "repetition": 5,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "未完成句子是轻微比喻，事实边界仍可辨。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_field_recordings",
+      "repetition": 1,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "两段完整并列年份、地点与内容目的缺项。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_field_recordings",
+      "repetition": 2,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "未知档案措辞克制，前后功能清楚。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_field_recordings",
+      "repetition": 3,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "声学片段与声景稍作定性，未补具体内容。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_field_recordings",
+      "repetition": 4,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "思辨延续略抽象，事实和双段边界一致。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_field_recordings",
+      "repetition": 5,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 4,
+        "preface_function": 4,
+        "closing_function": 4,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 4
+      },
+      "total": 20,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "以倾听起始、以未知收束，不填声音内容。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_field_recordings",
+      "repetition": 1,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "时间切片与想象把资料缺项转成观看意义。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_field_recordings",
+      "repetition": 2,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "记录与缺失主题略扩写，双段仍相容。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_field_recordings",
+      "repetition": 3,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 3,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 16,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "聆听时间痕迹略套话，结语事实可靠。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_field_recordings",
+      "repetition": 4,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把声音定为时间痕迹和唯一确证。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_field_recordings",
+      "repetition": 5,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 14,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "前言邀请想象，结语规定声音地点关系思考。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_printed_notices",
+      "repetition": 1,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "历史片段略作定性，双段仍守张贴反馈缺项。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_printed_notices",
+      "repetition": 2,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "历史时刻与研究线索是轻微功能扩写。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_printed_notices",
+      "repetition": 3,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "虚构信息传播实践、见证演变与研究证据。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_printed_notices",
+      "repetition": 4,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 4,
+        "closing_function": 3,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 3
+      },
+      "total": 17,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "信息传递功能可理解，未补具体地点反馈。"
+    },
+    {
+      "strategy": "combined",
+      "packetId": "narration_printed_notices",
+      "repetition": 5,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2
+      },
+      "total": 13,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "把通知定性为历史文献并称记录公告内容。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_printed_notices",
+      "repetition": 1,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "结语虚构公共沟通见证并邀请想象未知。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_printed_notices",
+      "repetition": 2,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "两段把通知提升为历史片段和临时媒介存续。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_printed_notices",
+      "repetition": 3,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 2,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 1
+      },
+      "total": 10,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "公共传播记录、形式演变及未解谜均无来源支持。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_printed_notices",
+      "repetition": 4,
+      "order": "split_first",
+      "scores": {
+        "evidence_fidelity": 2,
+        "preface_function": 3,
+        "closing_function": 2,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 2
+      },
+      "total": 12,
+      "serious_flags": [
+        "semantic_overreach"
+      ],
+      "reason": "结语断言通知曾介入日常生活。"
+    },
+    {
+      "strategy": "split",
+      "packetId": "narration_printed_notices",
+      "repetition": 5,
+      "order": "combined_first",
+      "scores": {
+        "evidence_fidelity": 3,
+        "preface_function": 2,
+        "closing_function": 4,
+        "two_part_consistency": 3,
+        "naturalness_boundary": 3
+      },
+      "total": 15,
+      "serious_flags": [
+        "none"
+      ],
+      "reason": "前言让观众探索背景过度开放，结语事实准确。"
+    }
+  ],
+  "summaryByStrategy": {
+    "combined": {
+      "sampleCount": 20,
+      "meanTotal": 15.9,
+      "meanByDimension": {
+        "evidence_fidelity": 2.8,
+        "preface_function": 3.5,
+        "closing_function": 2.85,
+        "two_part_consistency": 4,
+        "naturalness_boundary": 2.75
+      },
+      "seriousErrorCount": 8,
+      "seriousErrorRate": 0.4,
+      "gapToTarget": 4.1,
+      "meanPacketScoreRange": 5,
+      "packetStability": {
+        "narration_navigation_tools": {
+          "scores": [
+            13,
+            17,
+            17,
+            13,
+            13
+          ],
+          "mean": 14.6,
+          "range": 4,
+          "seriousErrorCount": 3
+        },
+        "narration_anonymous_postcards": {
+          "scores": [
+            12,
+            17,
+            20,
+            14,
+            11
+          ],
+          "mean": 14.8,
+          "range": 9,
+          "seriousErrorCount": 3
+        },
+        "narration_field_recordings": {
+          "scores": [
+            20,
+            20,
+            17,
+            17,
+            20
+          ],
+          "mean": 18.8,
+          "range": 3,
+          "seriousErrorCount": 0
+        },
+        "narration_printed_notices": {
+          "scores": [
+            17,
+            17,
+            13,
+            17,
+            13
+          ],
+          "mean": 15.4,
+          "range": 4,
+          "seriousErrorCount": 2
+        }
+      },
+      "byExecutionOrder": {
+        "combined_first": {
+          "sampleCount": 10,
+          "meanTotal": 15.3,
+          "seriousErrorCount": 5
+        },
+        "split_first": {
+          "sampleCount": 10,
+          "meanTotal": 16.5,
+          "seriousErrorCount": 3
+        }
+      }
+    },
+    "split": {
+      "sampleCount": 20,
+      "meanTotal": 13.5,
+      "meanByDimension": {
+        "evidence_fidelity": 2.4,
+        "preface_function": 3,
+        "closing_function": 2.5,
+        "two_part_consistency": 3.4,
+        "naturalness_boundary": 2.2
+      },
+      "seriousErrorCount": 15,
+      "seriousErrorRate": 0.75,
+      "gapToTarget": 6.5,
+      "meanPacketScoreRange": 3.75,
+      "packetStability": {
+        "narration_navigation_tools": {
+          "scores": [
+            12,
+            12,
+            13,
+            13,
+            13
+          ],
+          "mean": 12.6,
+          "range": 1,
+          "seriousErrorCount": 5
+        },
+        "narration_anonymous_postcards": {
+          "scores": [
+            14,
+            17,
+            13,
+            12,
+            17
+          ],
+          "mean": 14.6,
+          "range": 5,
+          "seriousErrorCount": 3
+        },
+        "narration_field_recordings": {
+          "scores": [
+            13,
+            17,
+            16,
+            13,
+            14
+          ],
+          "mean": 14.6,
+          "range": 4,
+          "seriousErrorCount": 3
+        },
+        "narration_printed_notices": {
+          "scores": [
+            12,
+            12,
+            10,
+            12,
+            15
+          ],
+          "mean": 12.2,
+          "range": 5,
+          "seriousErrorCount": 4
+        }
+      },
+      "byExecutionOrder": {
+        "combined_first": {
+          "sampleCount": 10,
+          "meanTotal": 13.6,
+          "seriousErrorCount": 7
+        },
+        "split_first": {
+          "sampleCount": 10,
+          "meanTotal": 13.4,
+          "seriousErrorCount": 8
+        }
+      }
+    }
+  },
+  "deltaSplitMinusCombined": {
+    "meanTotal": -2.4000000000000004,
+    "seriousRatePercentagePoints": 35,
+    "meanPacketScoreRange": -1.25
+  },
+  "performanceContextAfterScoring": {
+    "combined": {
+      "inputTokensAverage": 279.5,
+      "outputTokensAverage": 186.8,
+      "firstTextMedianMs": 659,
+      "allCompleteMedianMs": 2373.5
+    },
+    "split": {
+      "inputTokensAverage": 636,
+      "outputTokensAverage": 216.9,
+      "firstTextMedianMs": 422,
+      "allCompleteMedianMs": 1556.5
+    },
+    "splitDelta": {
+      "inputTokensPercent": 127.54919499105543,
+      "outputTokensPercent": 16.113490364025694,
+      "firstTextPercent": -35.96358118361154,
+      "allCompletePercent": -34.421740046345064
+    }
+  },
+  "decision": {
+    "qualityWinner": "combined",
+    "evidence": [
+      "combined均分15.90，split为13.50；combined高2.40分。",
+      "combined严重错误8/20（40%），split为15/20（75%）。",
+      "split并行更快，但更频繁出现前言与结语各自扩写并相互叠加的故事化问题。"
+    ],
+    "architectureRecommendation": "默认combined生成同源前言与结语；如需split并行，只能共享不可变事实表与禁用语义清单，并增加双段联合校验。",
+    "residualRisk": "combined本身仍有40%严重错误，尤其导航工具和匿名明信片；架构胜出不等于可直接生产。"
+  }
+}

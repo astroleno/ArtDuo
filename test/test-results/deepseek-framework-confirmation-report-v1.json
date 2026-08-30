@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "1.0",
+  "model": "deepseek-v4-flash",
+  "stream": true,
+  "thinking": "disabled",
+  "evaluationDate": "2026-08-30",
+  "requests": {
+    "total": 188,
+    "holdoutRouting": 128,
+    "narrationArchitecture": 60,
+    "http200": 188,
+    "parseableJson": 188,
+    "thinkingChars": 0
+  },
+  "holdoutRouting": {
+    "cases": 16,
+    "repetitionsPerVariant": 4,
+    "source-isolated-v3": {
+      "samples": 64,
+      "inputTokensAverage": 395,
+      "outputTokensAverage": 103.53125,
+      "firstTextMedianMs": 475.5,
+      "totalMedianMs": 1451,
+      "parseRate": 1,
+      "hardPassRate": 0.78125,
+      "coreCoverageAverage": 0.8925223214285715,
+      "dualJudgeMean": 16.9531375,
+      "dualJudgeSeriousErrorRate": 0.3359375
+    },
+    "generic-task-routed-v5": {
+      "samples": 64,
+      "inputTokensAverage": 328.3125,
+      "outputTokensAverage": 100.25,
+      "firstTextMedianMs": 476.5,
+      "totalMedianMs": 1422.5,
+      "parseRate": 1,
+      "hardPassRate": 0.6875,
+      "coreCoverageAverage": 0.9443452380952382,
+      "dualJudgeMean": 18.1406125,
+      "dualJudgeSeriousErrorRate": 0.125
+    },
+    "deltaV5MinusV3": {
+      "inputTokensPercent": -16.88354430379747,
+      "outputTokensPercent": -3.1696267389557,
+      "firstTextPercent": 0.2103049421661409,
+      "totalTimePercent": -1.9641626464507237,
+      "hardPassPercentagePoints": -9.375,
+      "coreCoverage": 0.05182291666666674,
+      "dualJudgeMean": 1.187475,
+      "dualJudgeSeriousErrorPercentagePoints": -21.09375
+    },
+    "dualJudgeByTask": [
+      {
+        "taskType": "emotion_response",
+        "v3Mean": 18.03125,
+        "v5Mean": 19.03125,
+        "delta": 1,
+        "v3SeriousErrorRate": 0.21875,
+        "v5SeriousErrorRate": 0.03125,
+        "recommendation": "v5"
+      },
+      {
+        "taskType": "artwork_intro",
+        "v3Mean": 18.0625,
+        "v5Mean": 19.84375,
+        "delta": 1.78125,
+        "v3SeriousErrorRate": 0.1875,
+        "v5SeriousErrorRate": 0,
+        "recommendation": "v5"
+      },
+      {
+        "taskType": "exhibition_preface",
+        "v3Mean": 19.25,
+        "v5Mean": 17.0625,
+        "delta": -2.1875,
+        "v3SeriousErrorRate": 0,
+        "v5SeriousErrorRate": 0.1875,
+        "recommendation": "v3"
+      },
+      {
+        "taskType": "exhibition_closing",
+        "v3Mean": 18.8125,
+        "v5Mean": 14.6875,
+        "delta": -4.125,
+        "v3SeriousErrorRate": 0,
+        "v5SeriousErrorRate": 0.5,
+        "recommendation": "v3"
+      },
+      {
+        "taskType": "curation_analysis",
+        "v3Mean": 12.6875,
+        "v5Mean": 17.8125,
+        "delta": 5.125,
+        "v3SeriousErrorRate": 0.9375,
+        "v5SeriousErrorRate": 0.125,
+        "recommendation": "v5_with_accessibility_profile"
+      }
+    ]
+  },
+  "narrationArchitecture": {
+    "packets": 4,
+    "repetitions": 5,
+    "combined": {
+      "samples": 20,
+      "inputTokensAverage": 279.5,
+      "outputTokensAverage": 186.8,
+      "firstTextMedianMs": 659,
+      "allCompleteMedianMs": 2373.5,
+      "parseRate": 1,
+      "dualJudgeMean": 16.275,
+      "dualJudgeSeriousErrorRate": 0.375
+    },
+    "split": {
+      "samples": 20,
+      "requests": 40,
+      "inputTokensAverage": 636,
+      "outputTokensAverage": 216.9,
+      "firstTextMedianMs": 422,
+      "allCompleteMedianMs": 1556.5,
+      "parseRate": 1,
+      "dualJudgeMean": 14.375,
+      "dualJudgeSeriousErrorRate": 0.675
+    },
+    "deltaSplitMinusCombined": {
+      "inputTokensPercent": 127.54919499105543,
+      "outputTokensPercent": 16.113490364025694,
+      "firstTextPercent": -35.96358118361154,
+      "allCompletePercent": -34.421740046345064,
+      "dualJudgeMean": -1.9,
+      "dualJudgeSeriousErrorPercentagePoints": 30
+    }
+  },
+  "preRegisteredGate": {
+    "taskRouter": "hold",
+    "splitNarration": "hold",
+    "framework": "hold",
+    "blockers": [
+      "holdout_ttft",
+      "narration_quality",
+      "narration_severe_errors"
+    ],
+    "metrics": {
+      "holdoutQualityDelta": 1.187475,
+      "holdoutSevereErrorDelta": -0.2109375,
+      "holdoutParseRate": 1,
+      "holdoutTtftImprovement": -0.002103049421661409,
+      "narrationQualityDelta": -1.9,
+      "narrationSevereErrorDelta": 0.3,
+      "narrationAllCompleteImprovement": 0.34421740046345064
+    }
+  },
+  "decision": {
+    "confirmWholeFramework": false,
+    "productionChange": false,
+    "recommended": "hybrid task routing with combined narration",
+    "routing": {
+      "generic-task-routed-v5": [
+        "emotion_response",
+        "artwork_intro",
+        "curation_analysis_except_accessibility_risk"
+      ],
+      "source-isolated-v3": [
+        "exhibition_preface",
+        "exhibition_closing"
+      ],
+      "dedicatedProfileRequired": [
+        "intergenerational_accessibility"
+      ]
+    },
+    "narration": "Keep preface and closing in one combined request. Add shared evidence guards and joint validation before production use.",
+    "nextIteration": [
+      "Add a no-capability-inference accessibility profile.",
+      "Add narration guards against story, cause, symbolic meaning, audience experience, and unknown-state rewriting.",
+      "Repeat unseen holdout evaluation for preface and closing before freezing the architecture."
+    ]
+  },
+  "sources": [
+    "deepseek-routing-holdout-1788102405634.json",
+    "deepseek-routing-holdout-semantic-eval-a.json",
+    "deepseek-routing-holdout-semantic-eval-b.json",
+    "deepseek-narration-architecture-1788102232430.json",
+    "deepseek-narration-architecture-semantic-eval-a.json",
+    "deepseek-narration-architecture-semantic-eval-b.json",
+    "deepseek-routing-holdout-golden-sol-max.json"
+  ]
+}
