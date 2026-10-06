@@ -63,6 +63,14 @@ export interface ArtworkVisualPresentation {
   notes?: string[];
 }
 
+export interface ArtworkDepthMapRef {
+  /** Relative file path inside the release artifact directory. */
+  url: string;
+  version: string;
+  sourceAssetFingerprint: string;
+  method: "estimated" | "model";
+}
+
 export interface ArtworkMetadata {
   title: string;
   artistDisplayName?: string;
@@ -106,6 +114,7 @@ export interface ArtworkMediaRefs {
   videoPosterUrl?: string;
   aspectRatioHint?: AspectRatioHint;
   visualPresentation?: ArtworkVisualPresentation;
+  depthMap?: ArtworkDepthMapRef;
   hasMotionAsset: boolean;
   mediaVersion?: string;
   sourceAssetFingerprint?: string;
@@ -219,6 +228,7 @@ function parseArtworkRetrieval(value: unknown, path: string): ArtworkRetrieval {
 function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
   const media = expectObject(value, path);
   const visualPresentation = readOptionalObject(media, "visualPresentation", path);
+  const depthMap = readOptionalObject(media, "depthMap", path);
 
   const parsed: ArtworkMediaRefs = {
     baseImageUrl: readOptionalString(media, "baseImageUrl", path),
@@ -232,6 +242,28 @@ function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
     visualPresentation: visualPresentation
       ? parseArtworkVisualPresentation(visualPresentation, `${path}.visualPresentation`)
       : undefined,
+    depthMap: depthMap
+      ? (() => {
+        const url = readString(depthMap, "url", `${path}.depthMap`);
+        const normalizedPath = url.replaceAll("\\", "/");
+        if (
+          normalizedPath.startsWith("/") ||
+          normalizedPath.includes(":") ||
+          normalizedPath.includes("?") ||
+          normalizedPath.includes("#") ||
+          normalizedPath.split("/").some((segment) => segment === ".." || segment === ".")
+        ) {
+          throw new TypeError(`${path}.depthMap.url: expected a relative path inside the release`);
+        }
+
+        return {
+          url: normalizedPath,
+          version: readString(depthMap, "version", `${path}.depthMap`),
+          sourceAssetFingerprint: readString(depthMap, "sourceAssetFingerprint", `${path}.depthMap`),
+          method: readLiteral(depthMap, "method", ["estimated", "model"] as const, `${path}.depthMap`),
+        };
+      })()
+      : undefined,
     hasMotionAsset: readBoolean(media, "hasMotionAsset", path),
     mediaVersion: readOptionalString(media, "mediaVersion", path),
     sourceAssetFingerprint: readOptionalString(media, "sourceAssetFingerprint", path),
@@ -243,6 +275,10 @@ function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
 
   if (!parsed.mediaVersion && !parsed.sourceAssetFingerprint) {
     throw new TypeError(`${path}: expected mediaVersion or sourceAssetFingerprint`);
+  }
+
+  if (parsed.depthMap && parsed.sourceAssetFingerprint !== parsed.depthMap.sourceAssetFingerprint) {
+    throw new TypeError(`${path}.depthMap.sourceAssetFingerprint: must match the artwork sourceAssetFingerprint`);
   }
 
   return parsed;
@@ -332,7 +368,7 @@ function parseArtworkPresentation(value: unknown, path: string): ArtworkPresenta
 export function parseArtworkRecord(value: unknown, path = "ArtworkRecord"): ArtworkRecord {
   const record = expectObject(value, path);
 
-  return {
+  const parsed: ArtworkRecord = {
     id: readString(record, "id", path),
     source: readLiteral(record, "source", ARTWORK_SOURCES, path),
     sourceArtworkId: readString(record, "sourceArtworkId", path),
@@ -343,6 +379,12 @@ export function parseArtworkRecord(value: unknown, path = "ArtworkRecord"): Artw
     media: parseArtworkMediaRefs(readObject(record, "media", path), `${path}.media`),
     presentation: parseArtworkPresentation(readObject(record, "presentation", path), `${path}.presentation`),
   };
+
+  if (parsed.media.depthMap && parsed.media.depthMap.version !== parsed.version) {
+    throw new TypeError(`${path}.media.depthMap.version: must match artwork version ${parsed.version}`);
+  }
+
+  return parsed;
 }
 
 export function parseArtworkRecords(value: unknown, path = "ArtworkRecord[]"): ArtworkRecord[] {

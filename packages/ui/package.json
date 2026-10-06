@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
+    "@artduo/contracts": "workspace:*",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

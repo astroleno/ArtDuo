@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { buildAffectiveGrowthForm } from "../../lib/affective-negotiation";
+import { buildAffectiveGrowthForm, orderSearchForGrowth } from "../../lib/affective-negotiation";
 import type { WebBackgroundScene, WebSearchResult } from "../../lib/release-catalog";
 
 const quietScene: WebBackgroundScene = {
@@ -14,6 +14,21 @@ const quietScene: WebBackgroundScene = {
   artworkPaletteModes: ["dark-rich"],
   searchText: "quiet dark room",
 };
+
+test("all rejected candidates stay rejected, and accepted works each get one stage", () => {
+  const rejected = buildAffectiveGrowthForm({ query: "不要太明亮", results: [result("bright", { mood: ["joy"], color: ["bright"] })], backgroundScenes: [] });
+  assert.deepEqual(rejected.supportingArtworkIds, []);
+  assert.ok(rejected.stages.every((stage) => stage.artworkIds.length === 0));
+  const results = Array.from({ length: 12 }, (_, index) => result(`quiet-${index}`, { mood: ["quiet"] }, index + 1));
+  const form = buildAffectiveGrowthForm({ query: "安静", results, backgroundScenes: [] });
+  const assigned = form.stages.flatMap((stage) => stage.artworkIds);
+  assert.equal(assigned.length, 12);
+  assert.equal(new Set(assigned).size, 12);
+  const ordered = orderSearchForGrowth({ query: "安静", normalizedQuery: "安静", model: "test", dimensions: 1, results }, form);
+  const stages = ordered.results.map((entry) => form.stages.findIndex((stage) => stage.artworkIds.includes(entry.artwork.id)));
+  assert.deepEqual(stages, [...stages].sort((a, b) => a - b));
+  assert.deepEqual(ordered.results.map((entry) => entry.rank), Array.from({ length: 12 }, (_, index) => index + 1));
+});
 
 function result(
   id: string,

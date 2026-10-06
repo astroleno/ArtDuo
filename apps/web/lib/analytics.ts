@@ -1,5 +1,5 @@
 export type CurationFallbackMode = "stream" | "polling" | "local-state";
-export type AnalyticsEventName = "curation.created" | "curation.explanation_ready" | "curation.degraded";
+export type AnalyticsEventName = "curation.created" | "curation.explanation_ready" | "curation.degraded" | "experience.performance" | "experience.degraded";
 
 export interface AnalyticsEvent {
   name: AnalyticsEventName;

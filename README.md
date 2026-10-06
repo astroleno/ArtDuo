@@ -10,12 +10,13 @@ V2 Phase 1 is closed as a product thin slice.
 
 - `apps/web` is a real Next App Router application.
 - Landing -> Gallery -> Detail works against release artifacts.
-- Runtime truth source is `data/releases/2026-04-25-curation-b/manifest.json`.
+- Runtime truth source is `data/releases/2026-10-06-paintings/manifest.json` (236 records; 144 eligible flat artworks, including 15 newly verified paintings/prints). Earlier release links remain available.
 - The web thin slice currently uses a server-side release bridge: Next.js reads local release shards and runs retrieval on the server.
 - Browser-local IndexedDB/Worker retrieval is explicitly deferred; it is not claimed as complete.
 - Repeatable acceptance is wired through `pnpm preflight:check`.
+- The four-act experience is available at `/?view=experience`; the classic flow remains the default until the touch-device, accessibility, media-source, and performance gates in the acceptance record are complete.
 
-Phase 1 closeout evidence:
+Historical Phase 1 closeout evidence (these scores do not describe the refreshed corpus):
 
 - Closeout report: `data/curation/reports/phase1-closeout-report.md`
 - Release: `data/releases/2026-04-25-curation-b/`
@@ -109,6 +110,8 @@ reference/    External and donor references
 - `packages/corpus/src/vector-search.ts`: Vector search.
 - `packages/corpus/src/rerank.ts`: Vector/lexical/grade reranking.
 - `apps/web/e2e/`: Playwright E2E coverage for the thin slice and Phase 1 states.
+- `apps/web/lib/experience-adapter.ts`: Builds a version-pinned server snapshot from the formal release records.
+- `packages/ui/src/experience/`: Four-act experience, room layout, transitions, motion policy, and share card.
 
 ## Planning Documents
 
@@ -118,6 +121,7 @@ reference/    External and donor references
 - Roadmap: `docs/roadmaps/artduo-v2-three-phase-roadmap.md`
 - Shared contracts/API spec: `docs/specs/artduo-v2-shared-contracts-and-api.md`
 - UX state matrix: `docs/specs/artduo-v2-ux-flow-and-state-matrix.md`
+- Experience integration and acceptance: `docs/plans/artduo-v2-experience-integration-plan.md` and `docs/reviews/artduo-experience-integration-acceptance.md`
 - Local corpus/media schema: `docs/specs/artduo-v2-local-corpus-and-media-schema.md`
 - Background scene schema: `docs/specs/artduo-v2-background-scene-schema.md`
 

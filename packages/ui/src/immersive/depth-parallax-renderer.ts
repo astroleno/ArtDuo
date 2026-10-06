@@ -8,6 +8,8 @@ interface CreateDepthParallaxRendererOptions {
   canvas: HTMLCanvasElement;
   depthMapUrl?: string;
   imageUrl: string;
+  requireDepthMap?: boolean;
+  signal?: AbortSignal;
 }
 
 const VERTEX_SHADER = `
@@ -120,8 +122,9 @@ function createProgram(gl: WebGLRenderingContext): WebGLProgram {
   return program;
 }
 
-function loadImage(src: string): Promise<HTMLImageElement> {
+function loadImage(src: string, signal?: AbortSignal): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
+    if (signal?.aborted) { reject(new DOMException("Image loading cancelled", "AbortError")); return; }
     const image = new Image();
     image.decoding = "async";
 
@@ -134,8 +137,15 @@ function loadImage(src: string): Promise<HTMLImageElement> {
       // Relative and data URLs can load without CORS configuration.
     }
 
-    image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error(`Unable to load depth-stage image: ${src}`));
+    const cleanup = () => { image.onload = null; image.onerror = null; signal?.removeEventListener("abort", cancel); };
+    const cancel = () => {
+      cleanup();
+      image.src = "";
+      reject(new DOMException("Image loading cancelled", "AbortError"));
+    };
+    image.onload = () => { cleanup(); resolve(image); };
+    image.onerror = () => { cleanup(); reject(new Error(`Unable to load depth-stage image: ${src}`)); };
+    signal?.addEventListener("abort", cancel, { once: true });
     image.src = src;
   });
 }
@@ -166,7 +176,18 @@ export async function createDepthParallaxRenderer({
   canvas,
   depthMapUrl,
   imageUrl,
+  requireDepthMap = false,
+  signal,
 }: CreateDepthParallaxRendererOptions): Promise<DepthParallaxController> {
+  if (requireDepthMap && !depthMapUrl) {
+    throw new Error("A validated depth map is required for this renderer");
+  }
+  const [image, depthImage] = await Promise.all([
+    loadImage(imageUrl, signal),
+    depthMapUrl ? loadImage(depthMapUrl, signal).catch(() => undefined) : Promise.resolve(undefined),
+  ]);
+  if (signal?.aborted) throw new DOMException("Depth renderer cancelled", "AbortError");
+  if (requireDepthMap && !depthImage) throw new Error("The depth map could not be loaded");
   const context = canvas.getContext("webgl", {
     alpha: true,
     antialias: false,
@@ -180,10 +201,6 @@ export async function createDepthParallaxRenderer({
   }
   const gl: WebGLRenderingContext = context;
 
-  const [image, depthImage] = await Promise.all([
-    loadImage(imageUrl),
-    depthMapUrl ? loadImage(depthMapUrl).catch(() => undefined) : Promise.resolve(undefined),
-  ]);
   const program = createProgram(gl);
   const positionBuffer = gl.createBuffer();
 
@@ -240,6 +257,7 @@ export async function createDepthParallaxRenderer({
   }
 
   function draw() {
+    if (destroyed) return;
     resize();
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -277,6 +295,7 @@ export async function createDepthParallaxRenderer({
 
   return {
     destroy() {
+      if (destroyed) return;
       destroyed = true;
       if (animationFrame !== undefined) {
         window.cancelAnimationFrame(animationFrame);
@@ -289,6 +308,7 @@ export async function createDepthParallaxRenderer({
       }
       gl.deleteBuffer(positionBuffer);
       gl.deleteProgram(program);
+      if (!gl.isContextLost()) gl.getExtension("WEBGL_lose_context")?.loseContext();
     },
     reset() {
       targetX = 0;

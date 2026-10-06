@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "@artduo/corpus": "workspace:*",
-    "@artduo/contracts": "workspace:*"
+    "@artduo/contracts": "workspace:*",
+    "sharp": "^0.32.6"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -29,6 +30,7 @@
     "build:quantity-preview": "pnpm run workspace:prepare && tsx src/build-quantity-preview.ts",
     "build:release-ready": "pnpm run workspace:prepare && tsx src/build-release-ready-corpus.ts",
     "build:release": "pnpm run workspace:prepare && tsx src/build-release-manifest.ts",
+    "depth:estimate": "tsx src/depth-map-cli.ts",
     "met:probe": "node ../../scripts/collect/met-probe.js",
     "met:batch": "node ../../scripts/collect/met-batch.js",
     "met:backfill-batch-probe-approval": "node ../../scripts/collect/backfill-batch-probe-approval.js"

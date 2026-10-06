@@ -1,5 +1,18 @@
-export function artworkImageUrl(id: string, variant: "preview" | "full" = "preview"): string {
-  const params = variant === "full" ? "?variant=full" : "";
+export type ArtworkImageVariant = "preview" | "full" | "depth";
 
-  return `/artduo-artwork/${encodeURIComponent(id)}${params}`;
+export function artworkImageUrl(
+  id: string,
+  variant: ArtworkImageVariant = "preview",
+  releaseVersion?: string,
+): string {
+  const params = new URLSearchParams();
+  if (variant !== "preview") {
+    params.set("variant", variant);
+  }
+  if (releaseVersion) {
+    params.set("releaseVersion", releaseVersion);
+  }
+  const query = params.size > 0 ? `?${params.toString()}` : "";
+
+  return `/artduo-artwork/${encodeURIComponent(id)}${query}`;
 }

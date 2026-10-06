@@ -1,0 +1,2638 @@
+{
+  "version": "2026-10-06-paintings",
+  "sources": [
+    {
+      "id": "met-10036",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/10036",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/10036",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-10036.json"
+    },
+    {
+      "id": "met-10065",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/10065",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/10065",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-10065.json"
+    },
+    {
+      "id": "met-10239",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/10239",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/10239",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-10239.json"
+    },
+    {
+      "id": "met-10790",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/10790",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/10790",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-10790.json"
+    },
+    {
+      "id": "met-10821",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/10821",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/10821",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-10821.json"
+    },
+    {
+      "id": "met-11145",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/11145",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/11145",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-11145.json"
+    },
+    {
+      "id": "met-11605",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/11605",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/11605",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-11605.json"
+    },
+    {
+      "id": "met-12110",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/12110",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/12110",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-12110.json"
+    },
+    {
+      "id": "met-12158",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/12158",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/12158",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-12158.json"
+    },
+    {
+      "id": "met-13349",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/13349",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/13349",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-13349.json"
+    },
+    {
+      "id": "met-13350",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/13350",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/13350",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-13350.json"
+    },
+    {
+      "id": "met-17449",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/17449",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/17449",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-17449.json"
+    },
+    {
+      "id": "met-35994",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/35994",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/35994",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-35994.json"
+    },
+    {
+      "id": "met-37123",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/37123",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/37123",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-37123.json"
+    },
+    {
+      "id": "met-37789",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/37789",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/37789",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-37789.json"
+    },
+    {
+      "id": "met-38012",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38012",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38012",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38012.json"
+    },
+    {
+      "id": "met-38126",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38126",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38126",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38126.json"
+    },
+    {
+      "id": "met-38141",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38141",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38141",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38141.json"
+    },
+    {
+      "id": "met-38451",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38451",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38451",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38451.json"
+    },
+    {
+      "id": "met-38574",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38574",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38574",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38574.json"
+    },
+    {
+      "id": "met-38577",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38577",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38577",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38577.json"
+    },
+    {
+      "id": "met-38640",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38640",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38640",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38640.json"
+    },
+    {
+      "id": "met-38978",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/38978",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/38978",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-38978.json"
+    },
+    {
+      "id": "met-39020",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/39020",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/39020",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-39020.json"
+    },
+    {
+      "id": "met-39181",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/39181",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/39181",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-39181.json"
+    },
+    {
+      "id": "met-39193",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/39193",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/39193",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-39193.json"
+    },
+    {
+      "id": "met-39328",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/39328",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/39328",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-39328.json"
+    },
+    {
+      "id": "met-39346",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/39346",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/39346",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-39346.json"
+    },
+    {
+      "id": "met-39489",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/39489",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/39489",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-39489.json"
+    },
+    {
+      "id": "met-42547",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/42547",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/42547",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-42547.json"
+    },
+    {
+      "id": "met-42562",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/42562",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/42562",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-42562.json"
+    },
+    {
+      "id": "met-42708",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/42708",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/42708",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-42708.json"
+    },
+    {
+      "id": "met-42725",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/42725",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/42725",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-42725.json"
+    },
+    {
+      "id": "met-44858",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/44858",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/44858",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-44858.json"
+    },
+    {
+      "id": "met-45434",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/45434",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/45434",
+      "isPublicDomain": true,
+      "new": true,
+      "rawRecord": "sources/met-45434.json",
+      "imageDelivery": {
+        "museumUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/45434",
+        "publicCopy": null,
+        "sourceSha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+        "previewSha256": "sha256:0f0a0ad2ce94bd8a2efe154b89dbacfa00325fb17e8bf2098437f94acdb6808d",
+        "fullSha256": "eec2b40b534c25c687f7f16f8d06efea60a763aa1a8d3d2b6fb76298475c5e96",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "met-49471",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/49471",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/49471",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-49471.json"
+    },
+    {
+      "id": "met-50334",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/50334",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/50334",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-50334.json"
+    },
+    {
+      "id": "met-50897",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/50897",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/50897",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-50897.json"
+    },
+    {
+      "id": "met-54081",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/54081",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/54081",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-54081.json"
+    },
+    {
+      "id": "met-55233",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/55233",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/55233",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-55233.json"
+    },
+    {
+      "id": "met-61535",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/61535",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/61535",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-61535.json"
+    },
+    {
+      "id": "met-61821",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/61821",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/61821",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-61821.json"
+    },
+    {
+      "id": "met-65397",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/65397",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/65397",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-65397.json"
+    },
+    {
+      "id": "met-72301",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/72301",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/72301",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-72301.json"
+    },
+    {
+      "id": "met-73646",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/73646",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/73646",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-73646.json"
+    },
+    {
+      "id": "met-74100",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/74100",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/74100",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-74100.json"
+    },
+    {
+      "id": "met-78057",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/78057",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/78057",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-78057.json"
+    },
+    {
+      "id": "met-78192",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/78192",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/78192",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-78192.json"
+    },
+    {
+      "id": "met-188893",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/188893",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/188893",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-188893.json"
+    },
+    {
+      "id": "met-193345",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/193345",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/193345",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-193345.json"
+    },
+    {
+      "id": "met-193346",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/193346",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/193346",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-193346.json"
+    },
+    {
+      "id": "met-195818",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/195818",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/195818",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-195818.json"
+    },
+    {
+      "id": "met-197459",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/197459",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/197459",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-197459.json"
+    },
+    {
+      "id": "met-198349",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/198349",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/198349",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-198349.json"
+    },
+    {
+      "id": "met-198711",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/198711",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/198711",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-198711.json"
+    },
+    {
+      "id": "met-199674",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/199674",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/199674",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-199674.json"
+    },
+    {
+      "id": "met-204605",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/204605",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/204605",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-204605.json"
+    },
+    {
+      "id": "met-204608",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/204608",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/204608",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-204608.json"
+    },
+    {
+      "id": "met-207106",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/207106",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/207106",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-207106.json"
+    },
+    {
+      "id": "met-207121",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/207121",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/207121",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-207121.json"
+    },
+    {
+      "id": "met-208539",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/208539",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/208539",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-208539.json"
+    },
+    {
+      "id": "met-211462",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/211462",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/211462",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-211462.json"
+    },
+    {
+      "id": "met-241205",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/241205",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/241205",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-241205.json"
+    },
+    {
+      "id": "met-246311",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/246311",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/246311",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-246311.json"
+    },
+    {
+      "id": "met-247010",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/247010",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/247010",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-247010.json"
+    },
+    {
+      "id": "met-247487",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/247487",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/247487",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-247487.json"
+    },
+    {
+      "id": "met-248160",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/248160",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/248160",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-248160.json"
+    },
+    {
+      "id": "met-248420",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/248420",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/248420",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-248420.json"
+    },
+    {
+      "id": "met-248601",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/248601",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/248601",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-248601.json"
+    },
+    {
+      "id": "met-248609",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/248609",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/248609",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-248609.json"
+    },
+    {
+      "id": "met-251395",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/251395",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/251395",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-251395.json"
+    },
+    {
+      "id": "met-253483",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/253483",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/253483",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-253483.json"
+    },
+    {
+      "id": "met-255973",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/255973",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/255973",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-255973.json"
+    },
+    {
+      "id": "met-261511",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/261511",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/261511",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-261511.json"
+    },
+    {
+      "id": "met-264711",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/264711",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/264711",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-264711.json"
+    },
+    {
+      "id": "met-267087",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/267087",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/267087",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-267087.json"
+    },
+    {
+      "id": "met-282190",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/282190",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/282190",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-282190.json"
+    },
+    {
+      "id": "met-285610",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/285610",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/285610",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-285610.json"
+    },
+    {
+      "id": "met-310870",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/310870",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/310870",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-310870.json"
+    },
+    {
+      "id": "met-320053",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/320053",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/320053",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-320053.json"
+    },
+    {
+      "id": "met-321295",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/321295",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/321295",
+      "isPublicDomain": true,
+      "new": false,
+      "rawRecord": "sources/met-321295.json"
+    },
+    {
+      "id": "met-323800",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/323800",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/323800",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-335240",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/335240",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/335240",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-336007",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/336007",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/336007",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-336228",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/336228",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/336228",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-336540",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/336540",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/336540",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-337058",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/337058",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/337058",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-337462",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/337462",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/337462",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-337542",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/337542",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/337542",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-337674",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/337674",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/337674",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-340273",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/340273",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/340273",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-340850",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/340850",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/340850",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-341487",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/341487",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/341487",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-342317",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/342317",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/342317",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-343218",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/343218",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/343218",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-353543",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/353543",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/353543",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-361887",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/361887",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/361887",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-366377",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/366377",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/366377",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-372886",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/372886",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/372886",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-376264",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/376264",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/376264",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-382544",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/382544",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/382544",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-382737",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/382737",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/382737",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-382741",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/382741",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/382741",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-383409",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/383409",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/383409",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-391598",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/391598",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/391598",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-392339",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/392339",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/392339",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-392595",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/392595",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/392595",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-392660",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/392660",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/392660",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-395293",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/395293",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/395293",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-396220",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/396220",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/396220",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-397990",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/397990",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/397990",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-400260",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/400260",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/400260",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-435713",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/435713",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/435713",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-435739",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/435739",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/435739",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-435851",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/435851",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/435851",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-435894",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/435894",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/435894",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-435907",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/435907",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/435907",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-435989",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/435989",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/435989",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436101",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436101",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436101",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436131",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436131",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436131",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436141",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436141",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436141",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436203",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436203",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436203",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436267",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436267",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436267",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436293",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436293",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436293",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436504",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436504",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436504",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436563",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436563",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436563",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436564",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436564",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436564",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436580",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436580",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436580",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436582",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436582",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436582",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436603",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436603",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436603",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436615",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436615",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436615",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436616",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436616",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436616",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436622",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436622",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436622",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436679",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436679",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/436679",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437097",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437097",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437097",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437175",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437175",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437175",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437180",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437180",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437180",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437181",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437181",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437181",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437246",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437246",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437246",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437330",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437330",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437330",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437393",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437393",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437393",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437394",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437394",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437394",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437506",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437506",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437506",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437748",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437748",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437748",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437749",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437749",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437749",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437812",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437812",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437812",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437891",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437891",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437891",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437900",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437900",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437900",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437903",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437903",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437903",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437941",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437941",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437941",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437990",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/437990",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/437990",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438105",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438105",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438105",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438120",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438120",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438120",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438127",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438127",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438127",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438156",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438156",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438156",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438159",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438159",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438159",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438417",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438417",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438417",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438661",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438661",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438661",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438816",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/438816",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/438816",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-439122",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/439122",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/439122",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-439344",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/439344",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/439344",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-443577",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/443577",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/443577",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-446183",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/446183",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/446183",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-450536",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/450536",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/450536",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-451023",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/451023",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/451023",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-451728",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/451728",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/451728",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-459024",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/459024",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/459024",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-459093",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/459093",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/459093",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-459100",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/459100",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/459100",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-459110",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/459110",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/459110",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-459187",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/459187",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/459187",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-459376",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/459376",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/459376",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-459435",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/459435",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/459435",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-460524",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/460524",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/460524",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-464607",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/464607",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/464607",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-468697",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/468697",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/468697",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-470309",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/470309",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/470309",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-470314",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/470314",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/470314",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-470599",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/470599",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/470599",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-471179",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/471179",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/471179",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-471848",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/471848",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/471848",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-471853",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/471853",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/471853",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-471869",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/471869",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/471869",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-471987",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/471987",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/471987",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-472181",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/472181",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/472181",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-472301",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/472301",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/472301",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-473047",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/473047",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/473047",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-474091",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/474091",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/474091",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-474436",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/474436",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/474436",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-477499",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/477499",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/477499",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-479089",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/479089",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/479089",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-545393",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/545393",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/545393",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-549169",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/549169",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/549169",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-551786",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/551786",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/551786",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-577372",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/577372",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/577372",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-623057",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/623057",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/623057",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-623059",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/623059",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/623059",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-643364",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/643364",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/643364",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-647875",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/647875",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/647875",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-662131",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/662131",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/662131",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-678013",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/678013",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/678013",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-700439",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/700439",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/700439",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-707475",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/707475",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/707475",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-729602",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/729602",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/729602",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-729663",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/729663",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/729663",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-737764",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/737764",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/737764",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-737790",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/737790",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/737790",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-739059",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/739059",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/739059",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-739090",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/739090",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/739090",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-742689",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/742689",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/742689",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-771388",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/771388",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/771388",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-816515",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/816515",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/816515",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-817550",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/817550",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/817550",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-820411",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/820411",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/820411",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-821109",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/821109",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/821109",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-828241",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/828241",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/828241",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-828433",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/828433",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/828433",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-829412",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/829412",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/829412",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-838139",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/838139",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/838139",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-854846",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/854846",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/854846",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-902212",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/902212",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/902212",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-923689",
+      "institution": "The Metropolitan Museum of Art",
+      "sourceUrl": "https://collectionapi.metmuseum.org/public/collection/v1/objects/923689",
+      "objectUrl": "https://www.metmuseum.org/art/collection/search/923689",
+      "rawRecord": "../../release-ready/2026-04-25-curation-b.json",
+      "status": "existing-source-refresh-unavailable",
+      "error": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "artic-16568",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/16568",
+      "objectUrl": "https://www.artic.edu/artworks/16568",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Mr. and Mrs. Martin A. Ryerson Collection",
+      "new": true,
+      "rawRecord": "sources/artic-16568.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/16568",
+        "publicCopy": {
+          "id": "artic-16568",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1933.1157_-_Art_Institute_of_Chicago.jpg",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/6/65/Claude_Monet_-_Water_Lilies_-_1933.1157_-_Art_Institute_of_Chicago.jpg",
+          "license": "CC0",
+          "accession": "1933.1157",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "filename": "Claude_Monet_-_Water_Lilies_-_1933.1157_-_Art_Institute_of_Chicago.jpg",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 3929524,
+            "sha256": "fa27f5bd28790b35cdd4e4ca044562c4e391bc64dd7c3165dcf8ac056adb75e2"
+          }
+        },
+        "sourceSha256": "fa27f5bd28790b35cdd4e4ca044562c4e391bc64dd7c3165dcf8ac056adb75e2",
+        "previewSha256": "sha256:11882d0eab5575df029f62f44088e47032488d42a4e3038adc079d10d0eb62cb",
+        "fullSha256": "28716da90640787343059354d26fcedf8a5fb89d064443e0bae374cae1e88f66",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-16571",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/16571",
+      "objectUrl": "https://www.artic.edu/artworks/16571",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Mr. and Mrs. Martin A. Ryerson Collection",
+      "new": true,
+      "rawRecord": "sources/artic-16571.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/16571",
+        "publicCopy": {
+          "id": "artic-16571",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Claude_Monet_003.jpg",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Claude_Monet_003.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "Public domain faithful reproduction",
+          "filename": "Claude_Monet_003.jpg",
+          "accession": "1933.1158",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 307491,
+            "sha256": "f10c49cea18b52c388b7d5ecc776991521f49af4375fb2c7a8e6d60fd6b61775"
+          }
+        },
+        "sourceSha256": "f10c49cea18b52c388b7d5ecc776991521f49af4375fb2c7a8e6d60fd6b61775",
+        "previewSha256": "sha256:71f218cf2887aa9c4d827ef9a3bd46125254a8e4c30572e4c75e544b9b86e9d7",
+        "fullSha256": "7a447e1031f556b3779c5efb48a544da1a1f730e6dcd028dcd1a14cecb8747ac",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-64818",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/64818",
+      "objectUrl": "https://www.artic.edu/artworks/64818",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Gift of Arthur M. Wood, Sr. in memory of Pauline Palmer Wood",
+      "new": true,
+      "rawRecord": "sources/artic-64818.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/64818",
+        "publicCopy": {
+          "id": "artic-64818",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Stacks_of_Wheat_(End_of_Summer)_-_1985.1103_-_Art_Institute_of_Chicago.jpg",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/6/68/Claude_Monet_-_Stacks_of_Wheat_%28End_of_Summer%29_-_1985.1103_-_Art_Institute_of_Chicago.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "filename": "Claude_Monet_-_Stacks_of_Wheat_(End_of_Summer)_-_1985.1103_-_Art_Institute_of_Chicago.jpg",
+          "accession": "1985.1103",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 3806756,
+            "sha256": "b9a5417d553abb200974f9386fd10a0bac26ca9dfeaa92ab7a8e905c3a2fa938"
+          }
+        },
+        "sourceSha256": "b9a5417d553abb200974f9386fd10a0bac26ca9dfeaa92ab7a8e905c3a2fa938",
+        "previewSha256": "sha256:f530b78c506981d65e3294ab489e615f1dba583cd765416f77fa4795e4d5a8d1",
+        "fullSha256": "d240e1b202131584fc6ef534bb414412cf008353a559fab6c3b8bea29af0c2d1",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-14620",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/14620",
+      "objectUrl": "https://www.artic.edu/artworks/14620",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Mr. and Mrs. Lewis Larned Coburn Memorial Collection",
+      "new": true,
+      "rawRecord": "sources/artic-14620.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/14620",
+        "publicCopy": {
+          "id": "artic-14620",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Cliff_Walk_at_Pourville_-_Google_Art_Project.jpg",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Claude_Monet_-_Cliff_Walk_at_Pourville_-_Google_Art_Project.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "Public domain faithful reproduction",
+          "filename": "Claude_Monet_-_Cliff_Walk_at_Pourville_-_Google_Art_Project.jpg",
+          "accession": "1933.443",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 3284146,
+            "sha256": "f2953408154b2d8d39b4da88a4492463b3a987b21f7cf7ea00a9346b407982c7"
+          }
+        },
+        "sourceSha256": "f2953408154b2d8d39b4da88a4492463b3a987b21f7cf7ea00a9346b407982c7",
+        "previewSha256": "sha256:384780d3ab1a90f5217ece56b5a9649a99240157be090b4a5cc6ed04300bcfdf",
+        "fullSha256": "19afff4f118773b6ff41124945a7b064197e784e80323554e6d815defbd52a17",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-87088",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/87088",
+      "objectUrl": "https://www.artic.edu/artworks/87088",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Mr. and Mrs. Lewis Larned Coburn Memorial Collection",
+      "new": true,
+      "rawRecord": "sources/artic-87088.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/87088",
+        "publicCopy": {
+          "id": "artic-87088",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Water_Lilly_Pond_by_Claude_Monet.jpg",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Water_Lilly_Pond_by_Claude_Monet.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "filename": "Water_Lilly_Pond_by_Claude_Monet.jpg",
+          "accession": "1933.441",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 3238727,
+            "sha256": "b843594e7b7e30543890ed18dc9af17fb93ad88245caedc3d34f166fbf482775"
+          }
+        },
+        "sourceSha256": "b843594e7b7e30543890ed18dc9af17fb93ad88245caedc3d34f166fbf482775",
+        "previewSha256": "sha256:e6ba210f714477b85f7a54d0d417f49286fa5295290927b7198c6e8b85f7be46",
+        "fullSha256": "cf9d188add4ca21fe8bc343ba81a30cfc5eaf7436e74e23b0cfe7f26630a6dbd",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-28560",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/28560",
+      "objectUrl": "https://www.artic.edu/artworks/28560",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Helen Birch Bartlett Memorial Collection",
+      "new": true,
+      "rawRecord": "sources/artic-28560.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/28560",
+        "publicCopy": {
+          "id": "artic-28560",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:1926.417_-_The_Bedroom_Vincent_van_Gogh_1889.jpg",
+          "filename": "1926.417_-_The_Bedroom_Vincent_van_Gogh_1889.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "Public domain faithful reproduction",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/1926.417_-_The_Bedroom_Vincent_van_Gogh_1889.jpg",
+          "accession": "1926.417",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 3219913,
+            "sha256": "e1c8f8a931d932dae8bdf2d244deae6efa8117b37a217983c1b66b9bf39004bc"
+          }
+        },
+        "sourceSha256": "e1c8f8a931d932dae8bdf2d244deae6efa8117b37a217983c1b66b9bf39004bc",
+        "previewSha256": "sha256:620f8a6943c811855dcedcb5888254434be1bd00538f2d5547ea06971cccc40d",
+        "fullSha256": "3eb08d792f6b75d40ada98475afbd684f0ff53952efdf9dac755ae3879725fbe",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-27992",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/27992",
+      "objectUrl": "https://www.artic.edu/artworks/27992",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Helen Birch Bartlett Memorial Collection",
+      "new": true,
+      "rawRecord": "sources/artic-27992.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/27992",
+        "publicCopy": {
+          "id": "artic-27992",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Georges_Seurat_-_Un_dimanche_apr%C3%A8s-midi_%C3%A0_l'%C3%AEle_de_la_Grande_Jatte.jpg",
+          "filename": "Georges_Seurat_-_Un_dimanche_après-midi_à_l'île_de_la_Grande_Jatte.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "Public domain faithful reproduction",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/0/03/Georges_Seurat_-_Un_dimanche_apr%C3%A8s-midi_%C3%A0_l%27%C3%AEle_de_la_Grande_Jatte.jpg",
+          "accession": "1926.224",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 2738526,
+            "sha256": "a64ae27383dba59f01b4088676ef64ba43833e5652a401870842b4001b65bee6"
+          }
+        },
+        "sourceSha256": "a64ae27383dba59f01b4088676ef64ba43833e5652a401870842b4001b65bee6",
+        "previewSha256": "sha256:1875d6e024ab961929186df5510994a336571e196196d820c07a9e532a3f4ae0",
+        "fullSha256": "1d8931386540779508287be5b0c657d7c205fe2642b08c4684e1eebc03b7f8c3",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-80607",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/80607",
+      "objectUrl": "https://www.artic.edu/artworks/80607",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Joseph Winterbotham Collection",
+      "new": true,
+      "rawRecord": "sources/artic-80607.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/80607",
+        "publicCopy": {
+          "id": "artic-80607",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_1954.326_-_Art_Institute_of_Chicago.jpg",
+          "filename": "Vincent_van_Gogh_-_Self-Portrait_-_1954.326_-_Art_Institute_of_Chicago.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/3/37/Vincent_van_Gogh_-_Self-Portrait_-_1954.326_-_Art_Institute_of_Chicago.jpg",
+          "accession": "1954.326",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 2204724,
+            "sha256": "49f6f3d6a5894500a869df0d26c0c21da0aca386af4a96b3f1cd87537fbad9ef"
+          }
+        },
+        "sourceSha256": "49f6f3d6a5894500a869df0d26c0c21da0aca386af4a96b3f1cd87537fbad9ef",
+        "previewSha256": "sha256:94ff5232f4d0610bd0069ec384d88657d28523dbc783fb3422f7bc390ee3d409",
+        "fullSha256": "61a5ecead8418ca923981e8d7fcae411f4d46ca501bd401068222f1e00c90d2c",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-16487",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/16487",
+      "objectUrl": "https://www.artic.edu/artworks/16487",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Mr. and Mrs. Martin A. Ryerson Collection",
+      "new": true,
+      "rawRecord": "sources/artic-16487.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/16487",
+        "publicCopy": {
+          "id": "artic-16487",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Paul_C%C3%A9zanne_-_The_Bay_of_Marseille,_Seen_from_L'Estaque_-_1933.1116_-_Art_Institute_of_Chicago.jpg",
+          "filename": "Paul_Cézanne_-_The_Bay_of_Marseille,_Seen_from_L'Estaque_-_1933.1116_-_Art_Institute_of_Chicago.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/Paul_C%C3%A9zanne_-_The_Bay_of_Marseille%2C_Seen_from_L%27Estaque_-_1933.1116_-_Art_Institute_of_Chicago.jpg",
+          "accession": "1933.1116",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 1996232,
+            "sha256": "a52e14d9922f8eaed2d14e40fea2711da380a2ef7876f058a0df0f89f02c3f30"
+          }
+        },
+        "sourceSha256": "a52e14d9922f8eaed2d14e40fea2711da380a2ef7876f058a0df0f89f02c3f30",
+        "previewSha256": "sha256:c7140ff4841d33dda853b3036bd8853e471cb08208698461614024081fd91dfc",
+        "fullSha256": "179448832cdb1f6ca8f12a6b912a30278ed5998436b53c7438e114c773c9e744",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-16648",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/16648",
+      "objectUrl": "https://www.artic.edu/artworks/16648",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Joseph Winterbotham Collection",
+      "new": true,
+      "rawRecord": "sources/artic-16648.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/16648",
+        "publicCopy": {
+          "id": "artic-16648",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Paul_Gauguin_-_Woman_in_front_of_a_Still_Life_by_C%C3%A9zanne_-_1925.753_-_Art_Institute_of_Chicago.jpg",
+          "filename": "Paul_Gauguin_-_Woman_in_front_of_a_Still_Life_by_Cézanne_-_1925.753_-_Art_Institute_of_Chicago.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/5/58/Paul_Gauguin_-_Woman_in_front_of_a_Still_Life_by_C%C3%A9zanne_-_1925.753_-_Art_Institute_of_Chicago.jpg",
+          "accession": "1925.753",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 2240390,
+            "sha256": "852a16bd69c8da22596b19e5919dda04701664b7d1973e5670252234a5078d4e"
+          }
+        },
+        "sourceSha256": "852a16bd69c8da22596b19e5919dda04701664b7d1973e5670252234a5078d4e",
+        "previewSha256": "sha256:8a6fa4242c1cf52816f5d8d895f9d6a1da565134f1e0000b472be7ee98044d7c",
+        "fullSha256": "a688e151edc974efd2c4a5356396f0535bf2a3e1a0152052a3510c28a09f04fa",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-14598",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/14598",
+      "objectUrl": "https://www.artic.edu/artworks/14598",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Mr. and Mrs. Lewis Larned Coburn Memorial Collection",
+      "new": true,
+      "rawRecord": "sources/artic-14598.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/14598",
+        "publicCopy": {
+          "id": "artic-14598",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_The_Beach_at_Sainte-Adresse_-_1933.439_-_Art_Institute_of_Chicago.jpg",
+          "filename": "Claude_Monet_-_The_Beach_at_Sainte-Adresse_-_1933.439_-_Art_Institute_of_Chicago.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Claude_Monet_-_The_Beach_at_Sainte-Adresse_-_1933.439_-_Art_Institute_of_Chicago.jpg",
+          "accession": "1933.439",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 4034445,
+            "sha256": "4332e869cd776e4fcab51adb2efc7d7f84db01fa1b76d9382237113222379e42"
+          }
+        },
+        "sourceSha256": "4332e869cd776e4fcab51adb2efc7d7f84db01fa1b76d9382237113222379e42",
+        "previewSha256": "sha256:02371fe75726b1c46a1a01b137eea8940e15d049d3ea432d9b8b95ba3c6e7b8b",
+        "fullSha256": "2d142e27a9e8a1d70e456182218d09c44f150fd18d36a49dda149913778504ec",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-20684",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/20684",
+      "objectUrl": "https://www.artic.edu/artworks/20684",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Charles H. and Mary F. S. Worcester Collection",
+      "new": true,
+      "rawRecord": "sources/artic-20684.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/20684",
+        "publicCopy": {
+          "id": "artic-20684",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Gustave_Caillebotte_-_Paris_Street,_Rainy_Day_-_1964.336_-_Art_Institute_of_Chicago.jpg",
+          "filename": "Gustave_Caillebotte_-_Paris_Street,_Rainy_Day_-_1964.336_-_Art_Institute_of_Chicago.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Gustave_Caillebotte_-_Paris_Street%2C_Rainy_Day_-_1964.336_-_Art_Institute_of_Chicago.jpg",
+          "accession": "1964.336",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 2261166,
+            "sha256": "db0c8390df306b74dbd76eac0b4df29d4212df47a3eadbc3fa7600d5ebc86ed5"
+          }
+        },
+        "sourceSha256": "db0c8390df306b74dbd76eac0b4df29d4212df47a3eadbc3fa7600d5ebc86ed5",
+        "previewSha256": "sha256:852a7829ec4657283f18131b494b9e02937599e8737850b54f45293a4c3b49f5",
+        "fullSha256": "810e3b49a0f25b23cb32c218a56fdb707e381c459b4487eef18fe5a40af04995",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-81558",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/81558",
+      "objectUrl": "https://www.artic.edu/artworks/81558",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Potter Palmer Collection",
+      "new": true,
+      "rawRecord": "sources/artic-81558.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/81558",
+        "publicCopy": {
+          "id": "artic-81558",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Pierre-Auguste_Renoir_-_Acrobats_at_the_Cirque_Fernando_(Francisca_and_Angelina_Wartenberg)_-_Google_Art_Project.jpg",
+          "filename": "Pierre-Auguste_Renoir_-_Acrobats_at_the_Cirque_Fernando_(Francisca_and_Angelina_Wartenberg)_-_Google_Art_Project.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "Public domain faithful reproduction",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Pierre-Auguste_Renoir_-_Acrobats_at_the_Cirque_Fernando_%28Francisca_and_Angelina_Wartenberg%29_-_Google_Art_Project.jpg",
+          "accession": "1922.440",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 3193202,
+            "sha256": "476a0f534c57cb1f0fea3629a6e5c7650a1828c78d178eecce5a6992eb3489c8"
+          }
+        },
+        "sourceSha256": "476a0f534c57cb1f0fea3629a6e5c7650a1828c78d178eecce5a6992eb3489c8",
+        "previewSha256": "sha256:34fc73129359376c9ba078f3a0788b767227e82596a6aa0beace9d58b3b964d1",
+        "fullSha256": "24892524a20353286c44ea64c38d1d95ca9288a697509933bc3355dfba031f3b",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-111436",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/111436",
+      "objectUrl": "https://www.artic.edu/artworks/111436",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Helen Birch Bartlett Memorial Collection",
+      "new": true,
+      "rawRecord": "sources/artic-111436.json",
+      "imageDelivery": {
+        "museumUrl": "https://api.artic.edu/api/v1/artworks/111436",
+        "publicCopy": {
+          "id": "artic-111436",
+          "pageUrl": "https://commons.wikimedia.org/wiki/File:Paul_C%C3%A9zanne_-_The_Basket_of_Apples_-_1926.252_-_Art_Institute_of_Chicago.jpg",
+          "filename": "Paul_Cézanne_-_The_Basket_of_Apples_-_1926.252_-_Art_Institute_of_Chicago.jpg",
+          "identityCheckedAgainst": "Museum API artwork id / accession number",
+          "license": "CC0",
+          "fullUrl": "https://upload.wikimedia.org/wikipedia/commons/3/38/Paul_C%C3%A9zanne_-_The_Basket_of_Apples_-_1926.252_-_Art_Institute_of_Chicago.jpg",
+          "accession": "1926.252",
+          "checkedOn": "2026-10-06",
+          "imageCheck": {
+            "status": "downloaded",
+            "bytes": 3082504,
+            "sha256": "c6a0d4093e87e6d2f629ea6cf511fee177817286b997b075a6c8f5768385dbe2"
+          }
+        },
+        "sourceSha256": "c6a0d4093e87e6d2f629ea6cf511fee177817286b997b075a6c8f5768385dbe2",
+        "previewSha256": "sha256:a347dbddbe2fda10b00c87b5c29c8ef493afc42cb39a0765b12d611ea730a49f",
+        "fullSha256": "101826d1b0d4188b53866b5e661b51ee49b8cef49efa63f05288ac46abb75037",
+        "noCrop": true
+      },
+      "curation": {
+        "owner": "ArtDuo",
+        "notesFile": "curator-notes.json",
+        "visuallyReviewed": true
+      }
+    },
+    {
+      "id": "artic-66042",
+      "institution": "Art Institute of Chicago",
+      "sourceUrl": "https://api.artic.edu/api/v1/artworks/66042",
+      "objectUrl": "https://www.artic.edu/artworks/66042",
+      "isPublicDomain": true,
+      "imageLicense": "CC0",
+      "creditLine": "Wirt D. Walker Fund",
+      "new": true,
+      "rawRecord": "sources/artic-66042.json"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "met-435882",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436121",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436244",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436524",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436532",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436535",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436838",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-436965",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437112",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437133",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437329",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437494",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-437881",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438008",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "met-438158",
+      "reason": "Met API returned an access challenge; existing catalog facts retained, no bypass attempted"
+    },
+    {
+      "id": "artic-111628",
+      "reason": "not a public-domain painting with image"
+    },
+    {
+      "id": "artic-10967",
+      "reason": "not a public-domain painting with image"
+    },
+    {
+      "id": "artic-28067",
+      "reason": "not a public-domain painting with image"
+    },
+    {
+      "id": "artic-66042",
+      "reason": "No decoded, visually reviewed image or curation notes"
+    }
+  ],
+  "curationNote": "Descriptions combine catalog facts only; mood labels are ArtDuo interpretations, not museum assertions. AIC description text is not reused."
+}

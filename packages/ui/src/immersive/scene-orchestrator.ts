@@ -19,6 +19,7 @@ export interface ImmersiveGalleryUnit {
   imageUrl: string;
   imageUrlFull?: string;
   depthMapUrl?: string;
+  requireDepthMap?: boolean;
   aspectRatioHint?: string;
   backgroundSceneUrl?: string;
   sceneLabel?: string;

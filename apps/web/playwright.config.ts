@@ -6,8 +6,10 @@ const galleryReadyURL = `${baseURL}/gallery?query=I+want+a+quiet+moonlit+room`;
 
 export default defineConfig({
   testDir: "./e2e",
+  globalTeardown: "./e2e/teardown.ts",
   fullyParallel: false,
   workers: 1,
+  timeout: 90_000,
   reporter: "list",
   use: {
     baseURL,

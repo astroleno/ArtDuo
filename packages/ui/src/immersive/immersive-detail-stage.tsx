@@ -26,6 +26,7 @@ interface ImmersiveDetailStageProps {
   onClose: () => void;
   onNext?: () => void;
   onPrevious?: () => void;
+  requireDepthMap?: boolean;
   unit: ImmersiveGalleryUnit;
 }
 
@@ -54,6 +55,7 @@ export function ImmersiveDetailStage({
   onClose,
   onNext,
   onPrevious,
+  requireDepthMap = false,
   unit,
 }: ImmersiveDetailStageProps) {
   const [depthStatus, setDepthStatus] = useState<DepthStatus>("loading");
@@ -61,6 +63,7 @@ export function ImmersiveDetailStage({
   const [motionState, setMotionState] = useState<MotionState>("idle");
   const [phase, setPhase] = useState<StagePhase>("entering");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const rendererRef = useRef<DepthParallaxController | null>(null);
@@ -69,7 +72,7 @@ export function ImmersiveDetailStage({
   const motionTrackerRef = useRef<DeviceParallaxTracker>(createDeviceParallaxTracker());
   const motionVectorRef = useRef({ x: 0, y: 0 });
   const byline = [unit.artistDisplayName, unit.yearLabel].filter(Boolean).join(", ");
-  const depthSource = unit.depthMapUrl ? "depth-map" : "simulated";
+  const depthSource = unit.depthMapUrl ? "depth-map" : requireDepthMap ? "static" : "simulated";
   const originStyle = {
     "--immersive-entry-scale": String(entryOrigin?.scale ?? 0.72),
     "--immersive-entry-x": `${entryOrigin?.x ?? 0}px`,
@@ -121,18 +124,40 @@ export function ImmersiveDetailStage({
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Tab") {
+        const dialog = dialogRef.current;
+        const focusable = dialog?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (!focusable?.length) {
+          event.preventDefault();
+          dialog?.focus();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        if (event.shiftKey && (active === first || !dialog?.contains(active))) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && (active === last || !dialog?.contains(active))) {
+          event.preventDefault();
+          first?.focus();
+        }
+        return;
+      }
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopPropagation();
         requestClose();
-      } else if (event.key === "ArrowLeft" && hasPrevious && onPrevious) {
+      } else if (event.key === "ArrowLeft") {
         event.preventDefault();
         event.stopPropagation();
-        onPrevious();
-      } else if (event.key === "ArrowRight" && hasNext && onNext) {
+        if (hasPrevious) onPrevious?.();
+      } else if (event.key === "ArrowRight") {
         event.preventDefault();
         event.stopPropagation();
-        onNext();
+        if (hasNext) onNext?.();
       }
     }
 
@@ -192,12 +217,13 @@ export function ImmersiveDetailStage({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || prefersReducedMotion()) {
+    if (!canvas || prefersReducedMotion() || (requireDepthMap && !unit.depthMapUrl)) {
       setDepthStatus("static");
       return;
     }
 
     let disposed = false;
+    const abort = new AbortController();
     setDepthStatus("loading");
 
     void import("./depth-parallax-renderer")
@@ -205,6 +231,8 @@ export function ImmersiveDetailStage({
         canvas,
         depthMapUrl: unit.depthMapUrl,
         imageUrl: imageSrc,
+        requireDepthMap,
+        signal: abort.signal,
       }))
       .then((renderer) => {
         if (disposed) {
@@ -223,10 +251,11 @@ export function ImmersiveDetailStage({
 
     return () => {
       disposed = true;
+      abort.abort();
       rendererRef.current?.destroy();
       rendererRef.current = null;
     };
-  }, [imageSrc, unit.depthMapUrl, unit.id]);
+  }, [imageSrc, requireDepthMap, unit.depthMapUrl, unit.id]);
 
   useEffect(() => {
     if (motionState === "enabled") {
@@ -369,8 +398,10 @@ export function ImmersiveDetailStage({
       data-experience-stage="immersive-detail"
       data-motion-state={motionState}
       data-phase={phase}
+      ref={dialogRef}
       role="dialog"
       style={originStyle}
+      tabIndex={-1}
     >
       <div className="immersive-detail-atmosphere" aria-hidden="true">
         <img alt="" className="immersive-detail-backdrop" src={imageSrc} />
@@ -448,7 +479,7 @@ export function ImmersiveDetailStage({
       <p className="immersive-detail-hint" aria-hidden="true">
         <span className="immersive-detail-touch-mark" />
         {depthStatus === "static" ? "静静观看这幅作品" : "拖动画面，感受空间层次"}
-        <small>{depthSource === "depth-map" ? "DEPTH MAP" : "SPIKE · 模拟深度"}</small>
+        <small>{depthSource === "depth-map" ? "DEPTH MAP" : depthSource === "static" ? "STATIC VIEW" : "SPIKE · 模拟深度"}</small>
       </p>
 
       <nav aria-label="沉浸作品切换" className="immersive-detail-navigation">

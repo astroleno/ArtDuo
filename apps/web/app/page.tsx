@@ -1,13 +1,26 @@
 import { ArrowRight, Search } from "lucide-react";
 
+import { ExperienceEntryClient } from "../components/experience-entry-client";
 import { artworkImageUrl } from "../lib/artwork-image-url";
+import { isGalleryArtwork } from "../lib/artwork-eligibility";
+import { resolveExperienceView } from "../lib/experience-config";
 import { STARTER_PROMPTS } from "../lib/prompts";
 import { loadWebReleaseCatalog } from "../lib/release-catalog";
 
-export default function HomePage() {
+interface HomePageProps {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const params = await searchParams;
+  const selectedViewValue = Array.isArray(params?.view) ? params?.view[0] : params?.view;
+  const requestedQuery = Array.isArray(params?.query) ? params?.query[0] : params?.query;
+  const selectedView = resolveExperienceView(selectedViewValue);
+  if (selectedView === "experience") return <ExperienceEntryClient initialQuery={requestedQuery ?? ""} />;
+
   const catalog = loadWebReleaseCatalog();
-  const heroArtworks = catalog.artworks.slice(0, 3);
-  const heroImage = heroArtworks[0] ? artworkImageUrl(heroArtworks[0].id) : "";
+  const heroArtworks = catalog.artworks.filter(isGalleryArtwork).slice(0, 3);
+  const heroImage = heroArtworks[0] ? artworkImageUrl(heroArtworks[0].id, "preview", catalog.releaseVersion) : "";
 
   return (
     <main className="shell">
@@ -18,7 +31,7 @@ export default function HomePage() {
               alt=""
               className="hero-artwork-slice"
               key={artwork.id}
-              src={artworkImageUrl(artwork.id)}
+              src={artworkImageUrl(artwork.id, "preview", catalog.releaseVersion)}
             />
           ))}
         </div>
@@ -29,6 +42,7 @@ export default function HomePage() {
             输入一句情绪、场景或观看愿望，ArtDuo 会从当前馆藏中展开一场安静的观展。
           </p>
           <form className="intent-form" action="/gallery/local/immersive">
+            <input name="view" type="hidden" value="classic" />
             <div className="field">
               <label htmlFor="query">
                 <Search aria-hidden="true" size={16} /> 策展意图

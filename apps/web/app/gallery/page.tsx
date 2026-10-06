@@ -3,8 +3,11 @@ import { redirect } from "next/navigation";
 
 import { ArtworkImage } from "../../components/artwork-image";
 import { artworkImageUrl } from "../../lib/artwork-image-url";
+import { resolveExperienceView } from "../../lib/experience-config";
+import { buildExperienceHref } from "../../lib/experience-navigation";
 import { searchGalleryWithRuntime } from "../../lib/browser-curation";
 import { buildCurationNarrative } from "../../lib/curation-narrative";
+import { orderSearchForGrowth } from "../../lib/affective-negotiation";
 import { buildGallerySceneRoute, type GallerySceneRouteStop } from "../../lib/gallery-route";
 import { DEFAULT_CURATION_PROMPT, STARTER_PROMPTS } from "../../lib/prompts";
 import { loadWebReleaseCatalog, searchBackgroundScenes, type WebReleaseCatalog, type WebSearchResult } from "../../lib/release-catalog";
@@ -62,14 +65,13 @@ function buildRoomHref(
   query: string,
   stop: GallerySceneRouteStop,
   results: WebSearchResult["results"],
+  releaseVersion: string,
+  view: "classic" | "experience",
 ): string {
-  const params = new URLSearchParams({ query });
   const unit = results[stop.startIndex]?.artwork.id;
-
-  if (unit && stop.startIndex > 0) {
-    params.set("unit", unit);
-  }
-
+  if (view === "experience") return buildExperienceHref({ query, releaseVersion, phase: unit ? "walk" : "preface", artworkId: unit });
+  const params = new URLSearchParams({ query, releaseVersion, view: "classic" });
+  if (unit && stop.startIndex > 0) params.set("unit", unit);
   return `/gallery/local/immersive?${params.toString()}`;
 }
 
@@ -92,11 +94,15 @@ function GallerySceneRoute({
   query,
   results,
   route,
+  releaseVersion,
+  view,
 }: {
   featured?: WebSearchResult["results"][number];
   query: string;
   results: WebSearchResult["results"];
   route: GallerySceneRouteStop[];
+  releaseVersion: string;
+  view: "classic" | "experience";
 }) {
   if (route.length === 0) {
     return null;
@@ -119,7 +125,7 @@ function GallerySceneRoute({
                 aria-label={`从${stop.scene.label}开始观展`}
                 className="gallery-route-stop"
                 data-testid="gallery-route-stop"
-                href={buildRoomHref(query, stop, results)}
+                href={buildRoomHref(query, stop, results, releaseVersion, view)}
               >
                 <span aria-hidden="true" className="gallery-route-thumb">
                   {stop.scene.imageUrl ? <img alt="" loading="eager" src={stop.scene.imageUrl} /> : null}
@@ -141,7 +147,7 @@ function GallerySceneRoute({
                       fallbackMeta={buildFallbackMeta(featured)}
                       fetchPriority="high"
                       loading="eager"
-                      src={artworkImageUrl(featured.artwork.id)}
+                      src={artworkImageUrl(featured.artwork.id, "preview", releaseVersion)}
                     />
                     <span className="route-opening-work-copy">
                       <span>当前第一幅</span>
@@ -165,9 +171,12 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const hasQuery = query.length > 0;
   const runtimeMode = readRuntime(params);
   const routePreview = readView(params) === "route";
+  const presentationView = resolveExperienceView(readView(params));
   const catalog = loadWebReleaseCatalog();
-  const immersiveHref = `/gallery/local/immersive?${new URLSearchParams({ query }).toString()}`;
-  const { search, runtime } = hasQuery
+  const immersiveHref = presentationView === "experience"
+    ? buildExperienceHref({ query, releaseVersion: catalog.releaseVersion, phase: "preface" })
+    : `/gallery/local/immersive?${new URLSearchParams({ query, releaseVersion: catalog.releaseVersion, view: "classic" }).toString()}`;
+  const { search: initialSearch, runtime } = hasQuery
     ? searchGalleryWithRuntime({
       catalog,
       query,
@@ -175,9 +184,10 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
       runtimeMode,
     })
     : { search: buildIdleSearch(catalog, query), runtime: "idle" };
+  const narrative = hasQuery && initialSearch.results.length > 0 ? buildCurationNarrative(initialSearch) : undefined;
+  const search = narrative ? orderSearchForGrowth(initialSearch, narrative.growthForm) : initialSearch;
   const hasCuratedResults = hasQuery && search.results.length > 0;
   const featured = search.results[0];
-  const narrative = hasQuery && search.results.length > 0 ? buildCurationNarrative(search) : undefined;
   const sceneSearch = hasQuery ? searchBackgroundScenes(catalog, query, { limit: 12 }) : undefined;
   const sceneRoute = hasCuratedResults ? buildGallerySceneRoute(search, catalog.backgroundScenes, {
     sceneResults: sceneSearch?.results,
@@ -283,7 +293,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <div className="curation-experience">
             <section className="gallery-exhibition-hero" aria-label="Curated exhibition opening">
               <div className="gallery-hero-copy">
-                <GallerySceneRoute featured={featured} query={query} results={search.results} route={sceneRoute} />
+                <GallerySceneRoute featured={featured} query={query} results={search.results} route={sceneRoute} releaseVersion={catalog.releaseVersion} view={presentationView} />
               </div>
             </section>
             {narrative ? (

@@ -2,30 +2,23 @@ import { expect, test } from "@playwright/test";
 
 import { gotoApp } from "./helpers";
 
-test("visitor can turn a sentence into a gallery and open artwork detail", async ({ page }) => {
+test("visitor can enter the classic gallery and return to the route preview", async ({ page }) => {
   await gotoApp(page, "/");
 
   await expect(page.getByRole("heading", { name: "ArtDuo" })).toBeVisible();
   await page.getByLabel("策展意图").fill("I want a quiet moonlit room");
-  await page.getByRole("button", { name: "生成展览" }).click();
+  await page.getByRole("button", { name: /生成观展路线/ }).click();
 
-  await expect(page).toHaveURL(/\/gallery\?query=I\+want\+a\+quiet\+moonlit\+room/);
-  await expect(page.getByRole("heading", { name: /Gallery/ })).toBeVisible();
-  await expect(page.getByText("Primary work")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Opening" })).toBeVisible();
+  await expect(page).toHaveURL(/\/gallery\/local\/immersive\?view=classic&query=I\+want\+a\+quiet\+moonlit\+room/);
+  await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
+  await page.getByRole("link", { name: "换一句愿望" }).click();
+  await expect(page).toHaveURL(/\/gallery\?view=route/);
+  await expect(page.getByRole("heading", { name: "导览画廊" })).toBeVisible();
+  await expect(page.getByTestId("gallery-route")).toBeVisible();
+  await expect(page.getByTestId("gallery-route-stop")).toHaveCount(3);
   await expect(page.getByTestId("curation-preface")).toBeVisible();
-  await expect(page.getByTestId("emotion-curve")).toBeVisible();
   await expect(page.getByTestId("curation-closing")).toBeVisible();
-  await expect(page.getByTestId("result-card")).toHaveCount(12);
-  await expect(page.locator('[data-testid="result-card"]:visible')).toHaveCount(7);
-  await expect(page.locator(".stage-more").first()).toBeVisible();
-
-  const firstCard = page.getByTestId("result-card").first();
-  await expect(firstCard.getByRole("img")).toBeVisible();
-  await firstCard.getByRole("link", { name: /打开详情/ }).click();
-
-  await expect(page).toHaveURL(/\/artwork\/met-/);
-  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(page.getByText(/Release \d{4}-\d{2}-\d{2}/).first()).toBeVisible();
-  await expect(page.getByRole("link", { name: "返回 Gallery" })).toBeVisible();
+  await page.getByTestId("gallery-route-stop").first().click();
+  await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
+  await expect(page.getByRole("img")).toBeVisible();
 });

@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import net from "node:net";
+import { installExperienceFixtures } from "./experience-e2e-fixtures.mjs";
 
 const host = "127.0.0.1";
 const port = Number(process.env.ARTDUO_WEB_E2E_PORT ?? "3211");
@@ -56,8 +57,11 @@ if (await isUrlReady()) {
     process.exit(1);
   }
 } else {
+  const cleanupFixtures = installExperienceFixtures();
+  process.once("exit", cleanupFixtures);
   const child = spawn("pnpm", ["exec", "next", "dev", "-p", String(port), "-H", host], {
     stdio: "inherit",
+    env: { ...process.env, ARTDUO_DISABLE_BUILD_CACHE: "1" },
     shell: process.platform === "win32",
   });
 

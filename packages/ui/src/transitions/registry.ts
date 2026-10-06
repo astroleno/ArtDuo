@@ -2,8 +2,11 @@ import { depthPushTransition } from "./depth-push-transition";
 import { dissolveTransition } from "./dissolve-transition";
 import { fadeTransition } from "./fade-transition";
 import { lightSwellTransition } from "./light-swell-transition";
+import { lateralPanTransition } from "./lateral-pan-transition";
+import { matchCutTransition } from "./match-cut-transition";
+import { scaleFocusTransition } from "./scale-focus-transition";
 
-export type TransitionFamily = "fade" | "dissolve" | "light-swell" | "depth-push";
+export type TransitionFamily = "fade" | "dissolve" | "match-cut" | "depth-push" | "lateral-pan" | "light-swell" | "scale-focus";
 
 export interface TransitionModule {
   family: TransitionFamily;
@@ -18,6 +21,9 @@ export const DEFAULT_TRANSITION_REGISTRY: Record<TransitionFamily, TransitionMod
   dissolve: dissolveTransition,
   "light-swell": lightSwellTransition,
   "depth-push": depthPushTransition,
+  "match-cut": matchCutTransition,
+  "lateral-pan": lateralPanTransition,
+  "scale-focus": scaleFocusTransition,
 };
 
 export function resolveTransitionModule(

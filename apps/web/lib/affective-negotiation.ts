@@ -14,7 +14,7 @@ import type {
 } from "@artduo/contracts";
 import { parseGrowthForm } from "@artduo/contracts";
 
-import type { WebBackgroundScene, WebSearchResult } from "./release-catalog";
+import type { WebArtwork, WebBackgroundScene, WebSearchResult } from "./release-catalog";
 
 const ROLE_SEQUENCE: GrowthStageRole[] = ["threshold", "mirror", "turn", "release", "afterglow"];
 const TRANSITION_SEQUENCE: TransitionIntent[] = ["fade", "drift", "push", "hold", "return"];
@@ -105,8 +105,8 @@ function resistanceAliases(value: string): string[] {
   return [value];
 }
 
-function conflictsWithHardRule(candidate: Candidate, hardSignals: string[]): string | undefined {
-  const signals = new Set(candidateSignals(candidate));
+export function artworkHardConflict(artwork: WebArtwork, hardSignals: string[]): string | undefined {
+  const signals = new Set([...artwork.moodTags, ...artwork.emotionLabels, ...artwork.colorTags, ...artwork.subjectTags, ...artwork.compositionTags].map(normalize));
 
   return hardSignals.find((signal) => resistanceAliases(signal).some((alias) => signals.has(alias)));
 }
@@ -181,7 +181,7 @@ function assignArtworkIds(stages: Array<{ signals: AffectSignal[] }>, candidates
 
   const assigned = new Set<string>();
 
-  return stages.map((stage, index) => {
+  const assignments = stages.map((stage) => {
     const ranked = candidates
       .filter((candidate) => !assigned.has(candidate.artwork.id))
       .map((candidate) => ({ candidate, score: scoreCandidateForStage(candidate, stage.signals) }))
@@ -192,11 +192,17 @@ function assignArtworkIds(stages: Array<{ signals: AffectSignal[] }>, candidates
 
         return left.candidate.rank - right.candidate.rank;
       });
-    const selected = ranked[0]?.candidate ?? candidates[index % candidates.length];
+    const selected = ranked[0]?.candidate;
+    if (!selected) return [];
     assigned.add(selected.artwork.id);
 
     return [selected.artwork.id];
   });
+  for (const candidate of candidates.filter((entry) => !assigned.has(entry.artwork.id))) {
+    const rankedStages = stages.map((stage, index) => ({ index, score: scoreCandidateForStage(candidate, stage.signals) - assignments[index]!.length * 0.5 })).sort((a, b) => b.score - a.score || a.index - b.index);
+    if (rankedStages[0]) assignments[rankedStages[0].index]!.push(candidate.artwork.id);
+  }
+  return assignments;
 }
 
 function stageRole(index: number, total: number): GrowthStageRole {
@@ -293,7 +299,7 @@ export function buildAffectiveGrowthForm(input: {
   const accepted: Candidate[] = [];
 
   for (const candidate of input.results) {
-    const conflict = conflictsWithHardRule(candidate, hardSignals);
+    const conflict = artworkHardConflict(candidate.artwork, hardSignals);
     if (conflict) {
       rejectedArtworkIds.push(candidate.artwork.id);
       trace.push({
@@ -315,8 +321,7 @@ export function buildAffectiveGrowthForm(input: {
     }
   }
 
-  const stageCandidates = accepted.length > 0 ? accepted : input.results;
-  const stages = buildStages(userAgent, stageCandidates, input.backgroundScenes);
+  const stages = buildStages(userAgent, accepted, input.backgroundScenes);
   for (const stage of stages) {
     trace.push({
       id: `trace-stage-${stage.id}`,
@@ -339,4 +344,13 @@ export function buildAffectiveGrowthForm(input: {
   };
 
   return parseGrowthForm(form);
+}
+
+/** Stage members must be contiguous before a route assigns scene ranges. */
+export function orderSearchForGrowth(search: WebSearchResult, growth: GrowthForm): WebSearchResult {
+  const stageOrder = new Map(growth.stages.flatMap((stage, index) => stage.artworkIds.map((id) => [id, index] as const)));
+  const rejected = new Set(growth.rejectedArtworkIds);
+  return { ...search, results: search.results.filter((entry) => !rejected.has(entry.artwork.id))
+    .sort((a, b) => (stageOrder.get(a.artwork.id) ?? growth.stages.length) - (stageOrder.get(b.artwork.id) ?? growth.stages.length) || a.rank - b.rank)
+    .map((entry, index) => ({ ...entry, rank: index + 1 })) };
 }

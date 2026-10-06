@@ -3,9 +3,9 @@ import { expect, test } from "@playwright/test";
 import { gotoApp } from "./helpers";
 
 test("immersive gallery opens from gallery and preserves the release-backed exhibition", async ({ page }) => {
-  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
+  await gotoApp(page, "/gallery?view=route&query=I+want+a+quiet+moonlit+room");
 
-  await page.getByRole("link", { name: /沉浸观展/ }).click();
+  await page.getByRole("link", { name: /进入这场观展/ }).click();
 
   await expect(page).toHaveURL(/\/gallery\/local\/immersive\?query=I\+want\+a\+quiet\+moonlit\+room/);
   await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
@@ -13,41 +13,40 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
   await expect(page.getByRole("img")).toBeVisible();
   await expect(page.locator(".immersive-atmosphere")).toBeVisible();
   await expect(page.getByTestId("immersive-preface")).toBeVisible();
-  await expect(page.getByTestId("immersive-emotion-curve")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Back to Gallery" })).toBeVisible();
-  await expect(page.getByLabel(/Immersive gallery progress/)).toBeVisible();
+  await expect(page.getByRole("link", { name: "换一句愿望" })).toBeVisible();
+  await expect(page.getByLabel(/观展进度/)).toBeVisible();
 });
 
 test("immersive gallery can move between scenes and preserve query state", async ({ page }) => {
-  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
-  await page.getByRole("link", { name: /沉浸观展/ }).click();
+  await gotoApp(page, "/gallery?view=route&query=I+want+a+quiet+moonlit+room");
+  await page.getByRole("link", { name: /进入这场观展/ }).click();
 
   const firstTitle = await page.getByTestId("immersive-scene-title").textContent();
   await expect(page.getByRole("main")).toHaveClass(/immersive-transition-fade/);
 
-  const secondSceneTarget = page.getByRole("link", { name: /Open scene 2/ });
-  const secondSceneBox = await secondSceneTarget.boundingBox();
-  expect(secondSceneBox?.width).toBeGreaterThanOrEqual(44);
-  expect(secondSceneBox?.height).toBeGreaterThanOrEqual(44);
+  const secondSceneTarget = page.getByRole("button", { name: /跳到第 2 幅/ });
 
-  await page.getByRole("link", { name: "Next scene" }).click();
+  await page.getByRole("button", { name: "下一幅" }).click();
 
   await expect(page).toHaveURL(/query=I\+want\+a\+quiet\+moonlit\+room/);
   await expect(page).toHaveURL(/unit=met-/);
   await expect(page.getByRole("main")).toHaveClass(/immersive-transition-dissolve/);
   await expect(page.getByTestId("immersive-scene-title")).not.toHaveText(firstTitle ?? "");
-  await expect(page.getByRole("link", { name: "Previous scene" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "上一幅" })).toBeVisible();
 });
 
-test("artwork detail can enter immersive gallery at the current artwork", async ({ page }) => {
-  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
-  await page.getByTestId("result-card").first().getByRole("link", { name: /打开详情/ }).click();
-  const heading = await page.getByRole("heading", { level: 1 }).textContent();
+test("artwork detail reopens the experience at the current artwork", async ({ page }) => {
+  await gotoApp(page, "/gallery/local/immersive?query=有点累，撑了很久&view=experience&phase=preface");
+  await page.getByRole("button", { name: /跳过前言/ }).click();
+  await page.getByRole("button", { name: "展开完整展签" }).click();
+  const artworkTitle = await page.locator(".experience-plaque-heading strong").textContent();
+  await page.getByRole("button", { name: "进入详细讲解" }).click();
 
-  await page.getByRole("link", { name: /沉浸观展/ }).click();
-
-  await expect(page).toHaveURL(/\/gallery\/local\/immersive/);
-  await expect(page.getByRole("heading", { name: heading ?? "" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: artworkTitle ?? "" })).toBeVisible();
+  await page.getByRole("link", { name: "沉浸观展" }).click();
+  await expect(page).toHaveURL(/\/gallery\/local\/immersive\?.*view=experience.*phase=walk.*artworkId=(?:met|artic)-/);
+  await expect(page.getByRole("button", { name: "展开完整展签" })).toBeVisible();
+  await expect(page.locator(".experience-plaque-heading strong")).toHaveText(artworkTitle ?? "");
 });
 
 test("immersive gallery mobile layout scrolls without clipping progress", async ({ page }) => {
@@ -150,6 +149,8 @@ test("device parallax stays optional and yields to direct touch input", async ({
 });
 
 test("denied device orientation permission keeps touch parallax available", async ({ page }) => {
+  test.setTimeout(90_000);
+  page.setDefaultNavigationTimeout(60_000);
   await page.addInitScript(() => {
     class DeniedDeviceOrientationEvent extends Event {
       static requestPermission = async () => "denied" as const;

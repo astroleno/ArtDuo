@@ -86,3 +86,62 @@ test("artwork parser rejects visual presentation bounds outside the image", () =
     /expected bounds to fit inside the image/,
   );
 });
+
+test("artwork parser preserves a release and source-bound depth map", () => {
+  const sourceAssetFingerprint = "sha256:source-image";
+  const record = parseArtworkRecords([
+    {
+      ...baseArtworkRecord,
+      media: {
+        ...baseArtworkRecord.media,
+        sourceAssetFingerprint,
+        depthMap: {
+          url: "depth-maps/met-crop.png",
+          version: baseArtworkRecord.version,
+          sourceAssetFingerprint,
+          method: "estimated",
+        },
+      },
+    },
+  ])[0];
+
+  assert.deepEqual(record?.media.depthMap, {
+    url: "depth-maps/met-crop.png",
+    version: baseArtworkRecord.version,
+    sourceAssetFingerprint,
+    method: "estimated",
+  });
+});
+
+test("artwork parser rejects stale or uncontained depth maps", () => {
+  const sourceAssetFingerprint = "sha256:source-image";
+  const depthMap = {
+    url: "depth-maps/met-crop.png",
+    version: baseArtworkRecord.version,
+    sourceAssetFingerprint,
+    method: "model",
+  };
+
+  assert.throws(
+    () => parseArtworkRecords([{
+      ...baseArtworkRecord,
+      media: {
+        ...baseArtworkRecord.media,
+        sourceAssetFingerprint,
+        depthMap: { ...depthMap, version: "older-release" },
+      },
+    }]),
+    /must match artwork version/,
+  );
+  assert.throws(
+    () => parseArtworkRecords([{
+      ...baseArtworkRecord,
+      media: {
+        ...baseArtworkRecord.media,
+        sourceAssetFingerprint,
+        depthMap: { ...depthMap, url: "../outside.png" },
+      },
+    }]),
+    /relative path inside the release/,
+  );
+});

@@ -1,5 +1,14 @@
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import {
+  copyFileSync,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  realpathSync,
+  writeFileSync,
+} from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
@@ -501,6 +510,12 @@ export function loadCuratedArtworkRecords(corpusPath: string, version: string, l
   return source.map((record) => ({
     ...record,
     version,
+    media: {
+      ...record.media,
+      depthMap: record.media.depthMap
+        ? { ...record.media.depthMap, version }
+        : undefined,
+    },
   }));
 }
 
@@ -527,6 +542,79 @@ export function loadArtworkRecords(rootDir: string, version: string, limit?: num
     .filter(isUsableArtwork);
 }
 
+function copyArtworkImageAssets(records: ArtworkRecord[], corpusPath: string, outputDir: string): void {
+  const sourceRoot = path.dirname(path.resolve(corpusPath));
+  const sourceRootReal = realpathSync(sourceRoot);
+  const copied = new Set<string>();
+  for (const record of records) {
+    for (const url of [record.media.baseImageUrl, record.media.imageUrlPreview, record.media.imageUrlFull]) {
+      if (!url || /^https?:\/\//i.test(url) || copied.has(url)) continue;
+      const segments = url.replaceAll("\\", "/").split("/");
+      if (url.includes(":") || url.includes("?") || url.includes("#") || segments.some((part) => !part || part === "." || part === "..") || !/\.(?:jpe?g|png|webp)$/i.test(url)) {
+        throw new Error(`${record.id}: invalid release image path ${url}`);
+      }
+      const sourcePath = path.resolve(sourceRoot, ...segments);
+      if (!existsSync(sourcePath) || !lstatSync(sourcePath).isFile()) throw new Error(`${record.id}: missing release image ${url}`);
+      const sourceRealPath = realpathSync(sourcePath);
+      const relative = path.relative(sourceRootReal, sourceRealPath);
+      if (relative.startsWith("..") || path.isAbsolute(relative)) throw new Error(`${record.id}: release image escapes corpus directory`);
+      const targetPath = path.resolve(outputDir, ...segments);
+      mkdirSync(path.dirname(targetPath), { recursive: true });
+      copyFileSync(sourceRealPath, targetPath);
+      copied.add(url);
+    }
+  }
+}
+
+function copyDepthMapAssets(records: ArtworkRecord[], corpusPath: string, outputDir: string): ArtworkRecord[] {
+  const sourceRoot = path.dirname(path.resolve(corpusPath));
+  const outputRoot = path.resolve(outputDir);
+
+  return records.map((record) => {
+    const depthMap = record.media.depthMap;
+    if (!depthMap) {
+      return record;
+    }
+
+    const normalizedUrl = depthMap.url.replaceAll("\\", "/");
+    const segments = normalizedUrl.split("/");
+    if (normalizedUrl.startsWith("/") || segments.some((segment) => !segment || segment === "." || segment === "..")) {
+      return { ...record, media: { ...record.media, depthMap: undefined } };
+    }
+
+    const sourcePath = path.resolve(sourceRoot, ...segments);
+    const relativeSourcePath = path.relative(sourceRoot, sourcePath);
+    if (relativeSourcePath.startsWith("..") || path.isAbsolute(relativeSourcePath) || !existsSync(sourcePath)) {
+      return { ...record, media: { ...record.media, depthMap: undefined } };
+    }
+
+    try {
+      if (!lstatSync(sourcePath).isFile()) {
+        return { ...record, media: { ...record.media, depthMap: undefined } };
+      }
+
+      const sourceRootRealPath = realpathSync(sourceRoot);
+      const sourceRealPath = realpathSync(sourcePath);
+      const realRelativePath = path.relative(sourceRootRealPath, sourceRealPath);
+      if (realRelativePath.startsWith("..") || path.isAbsolute(realRelativePath)) {
+        return { ...record, media: { ...record.media, depthMap: undefined } };
+      }
+
+      const targetPath = path.resolve(outputRoot, ...segments);
+      const relativeTargetPath = path.relative(outputRoot, targetPath);
+      if (relativeTargetPath.startsWith("..") || path.isAbsolute(relativeTargetPath)) {
+        return { ...record, media: { ...record.media, depthMap: undefined } };
+      }
+
+      mkdirSync(path.dirname(targetPath), { recursive: true });
+      copyFileSync(sourceRealPath, targetPath);
+      return record;
+    } catch {
+      return { ...record, media: { ...record.media, depthMap: undefined } };
+    }
+  });
+}
+
 function writeJsonFile(filePath: string, data: unknown): ShardInfo {
   const serialized = JSON.stringify(data, null, 2);
   writeFileSync(filePath, `${serialized}\n`);
@@ -551,7 +639,11 @@ export function buildReleaseArtifact(options: ReleaseBuildOptions = {}): Release
   const corpusSource = resolvedCorpusPath ? "curated" : "legacy";
   ensureDir(outputDir);
 
-  const artworks = loadArtworkRecords(rootDir, corpusVersion, options.limit, resolvedCorpusPath);
+  const loadedArtworks = loadArtworkRecords(rootDir, corpusVersion, options.limit, resolvedCorpusPath);
+  if (resolvedCorpusPath) copyArtworkImageAssets(loadedArtworks, resolvedCorpusPath, outputDir);
+  const artworks = resolvedCorpusPath
+    ? copyDepthMapAssets(loadedArtworks, resolvedCorpusPath, outputDir)
+    : loadedArtworks;
   const backgroundScenes = loadBackgroundScenes(rootDir);
   const metadata = artworks.map(toMetadataShardRecord);
   const search = artworks.map(toSearchShardRecord);

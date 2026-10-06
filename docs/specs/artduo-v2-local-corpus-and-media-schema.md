@@ -176,6 +176,13 @@ type ArtworkMediaRefs = {
   baseImageUrl?: string
   imageUrlPreview?: string
   imageUrlFull?: string
+  depthMap?: {
+    /** Relative file path inside the versioned release artifact. */
+    url: string
+    version: string
+    sourceAssetFingerprint: string
+    method: "estimated" | "model"
+  }
 
   videoUrlMain?: string
   videoUrlVertical?: string
@@ -195,6 +202,9 @@ type ArtworkMediaRefs = {
 - `mediaVersion` 是媒体版本号
 - `sourceAssetFingerprint` 可使用 checksum、etag、尺寸哈希或托管后的版本化 key
 - 这两个字段至少要有一个，才能支撑 release 可重放
+- `depthMap` 是可选的静态视差增强；runtime 仅在地图版本和源图 fingerprint 同时匹配时加载
+- `depthMap.method: "estimated"` 表示自动估算，不代表实测景深；发布前仍需来源、质量和资产许可审阅
+- Web 客户端通过同源版本化媒体路由读取深度图，不能直接拼接 release 文件路径
 
 ## ArtworkPresentation
 

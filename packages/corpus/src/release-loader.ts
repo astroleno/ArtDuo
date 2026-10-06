@@ -68,6 +68,7 @@ export function resolveLatestReleaseVersion(releasesRoot: string): string {
   const versions = readdirSync(releasesRoot, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
+    .filter((version) => /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/.test(version) && version !== "." && version !== "..")
     .sort();
   const latest = versions.at(-1);
 
@@ -78,6 +79,14 @@ export function resolveLatestReleaseVersion(releasesRoot: string): string {
   return latest;
 }
 
+export function assertSafeReleaseVersion(releaseVersion: string): string {
+  if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/.test(releaseVersion) || releaseVersion === "." || releaseVersion === "..") {
+    throw new TypeError(`Invalid release version: ${releaseVersion}`);
+  }
+
+  return releaseVersion;
+}
+
 export function resolveReleaseManifestPath(options: ReleaseLoaderOptions = {}): string {
   if (options.manifestPath) {
     return path.resolve(options.manifestPath);
@@ -85,7 +94,15 @@ export function resolveReleaseManifestPath(options: ReleaseLoaderOptions = {}): 
 
   const rootDir = resolveRootDir(options.rootDir);
   const releasesRoot = resolveReleasesRoot(rootDir, options.releasesRoot);
-  const releaseVersion = options.releaseVersion ?? resolveLatestReleaseVersion(releasesRoot);
+  const releaseVersion = options.releaseVersion !== undefined
+    ? assertSafeReleaseVersion(options.releaseVersion)
+    : resolveLatestReleaseVersion(releasesRoot);
+  const availableRelease = readdirSync(releasesRoot, { withFileTypes: true })
+    .some((entry) => entry.isDirectory() && entry.name === releaseVersion);
+
+  if (!availableRelease) {
+    throw new Error(`Release version is not available: ${releaseVersion}`);
+  }
 
   return path.join(releasesRoot, releaseVersion, "manifest.json");
 }
@@ -94,10 +111,15 @@ export function loadReleaseManifest(options: ReleaseLoaderOptions = {}): LoadedR
   const manifestPath = resolveReleaseManifestPath(options);
   const manifest = parseReleaseManifest(JSON.parse(readFileSync(manifestPath, "utf8")) as unknown, manifestPath);
   const releaseDir = path.dirname(manifestPath);
+  const releaseVersion = path.basename(releaseDir);
+
+  if (manifest.release.corpusVersion !== releaseVersion) {
+    throw new Error(`Release manifest version ${manifest.release.corpusVersion} does not match directory ${releaseVersion}`);
+  }
 
   return {
     manifestPath,
-    releaseVersion: path.basename(releaseDir),
+    releaseVersion,
     releaseDir,
     manifest,
   };

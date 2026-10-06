@@ -6,7 +6,12 @@ import { test } from "node:test";
 
 import type { RelationshipGraphShard } from "@artduo/contracts";
 
-import { loadEmbeddingShards, loadRelationshipGraphShard, readJsonObject } from "./release-loader";
+import {
+  loadEmbeddingShards,
+  loadRelationshipGraphShard,
+  readJsonObject,
+  resolveReleaseManifestPath,
+} from "./release-loader";
 
 function validRelationshipGraph(): RelationshipGraphShard {
   return {
@@ -167,6 +172,24 @@ test("release loader resolves embeddings from the manifest", () => {
   assert.equal(loaded.records[0]?.dimensions, 4);
   assert.equal(loaded.records[0]?.theme, "mystery");
   assert.ok(readFileSync(loaded.shardPaths[0] ?? "", "utf8").includes("local-hash-embedding-v1"));
+});
+
+test("release loader rejects unsafe or unavailable release versions", () => {
+  const rootDir = mkdtempSync(path.join(os.tmpdir(), "artduo-release-version-"));
+  mkdirSync(path.join(rootDir, "data", "releases", "safe-release"), { recursive: true });
+
+  assert.throws(
+    () => resolveReleaseManifestPath({ rootDir, releaseVersion: "../safe-release" }),
+    /Invalid release version/,
+  );
+  assert.throws(
+    () => resolveReleaseManifestPath({ rootDir, releaseVersion: "missing-release" }),
+    /not available/,
+  );
+  assert.equal(
+    path.basename(path.dirname(resolveReleaseManifestPath({ rootDir, releaseVersion: "safe-release" }))),
+    "safe-release",
+  );
 });
 
 test("release loader backfills legacy embeddings from metadata and search shards", () => {

@@ -1,0 +1,140 @@
+{
+  "measuredAt": "2026-10-02T15:50:27.257Z",
+  "runtime": "Next production server",
+  "browser": "Chromium",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "cache": "Fresh browser context per run; warmed server code and data",
+  "releaseVersion": "2026-04-25-curation-b",
+  "query": "有点累，撑了很久",
+  "prefacePolicy": "Continue immediately after all preface text is revealed; no human reading-time assumption",
+  "budgetMs": 500,
+  "additionalActionableMs": 54,
+  "passesBudget": true,
+  "summary": {
+    "classic": {
+      "visibleMs": {
+        "median": 991,
+        "worst": 1496
+      },
+      "actionableMs": {
+        "median": 991,
+        "worst": 1496
+      }
+    },
+    "experience-skip": {
+      "visibleMs": {
+        "median": 1045,
+        "worst": 1100
+      },
+      "actionableMs": {
+        "median": 1045,
+        "worst": 1100
+      }
+    },
+    "experience-preface": {
+      "visibleMs": {
+        "median": 2950,
+        "worst": 3139
+      },
+      "actionableMs": {
+        "median": 2950,
+        "worst": 3139
+      }
+    }
+  },
+  "runs": [
+    {
+      "round": 1,
+      "mode": "classic",
+      "visibleMs": 883.60009765625,
+      "actionableMs": 883.60009765625
+    },
+    {
+      "round": 1,
+      "mode": "experience-skip",
+      "visibleMs": 1086,
+      "actionableMs": 1086
+    },
+    {
+      "round": 1,
+      "mode": "experience-preface",
+      "visibleMs": 2949.5,
+      "actionableMs": 2949.5
+    },
+    {
+      "round": 2,
+      "mode": "classic",
+      "visibleMs": 1496,
+      "actionableMs": 1496
+    },
+    {
+      "round": 2,
+      "mode": "experience-skip",
+      "visibleMs": 1010.699951171875,
+      "actionableMs": 1010.699951171875
+    },
+    {
+      "round": 2,
+      "mode": "experience-preface",
+      "visibleMs": 3138.800048828125,
+      "actionableMs": 3138.800048828125
+    },
+    {
+      "round": 3,
+      "mode": "classic",
+      "visibleMs": 971.699951171875,
+      "actionableMs": 971.699951171875
+    },
+    {
+      "round": 3,
+      "mode": "experience-skip",
+      "visibleMs": 1100.10009765625,
+      "actionableMs": 1100.10009765625
+    },
+    {
+      "round": 3,
+      "mode": "experience-preface",
+      "visibleMs": 2847,
+      "actionableMs": 2847
+    },
+    {
+      "round": 4,
+      "mode": "classic",
+      "visibleMs": 991.100341796875,
+      "actionableMs": 991.100341796875
+    },
+    {
+      "round": 4,
+      "mode": "experience-skip",
+      "visibleMs": 1045.199951171875,
+      "actionableMs": 1045.199951171875
+    },
+    {
+      "round": 4,
+      "mode": "experience-preface",
+      "visibleMs": 2867.699951171875,
+      "actionableMs": 2867.699951171875
+    },
+    {
+      "round": 5,
+      "mode": "classic",
+      "visibleMs": 1120.699951171875,
+      "actionableMs": 1120.699951171875
+    },
+    {
+      "round": 5,
+      "mode": "experience-skip",
+      "visibleMs": 1041.5,
+      "actionableMs": 1041.5
+    },
+    {
+      "round": 5,
+      "mode": "experience-preface",
+      "visibleMs": 3043.199951171875,
+      "actionableMs": 3043.199951171875
+    }
+  ]
+}

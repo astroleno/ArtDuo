@@ -138,6 +138,8 @@ Phase 2 才引入以下会话类合同：
 - 远端媒体引用
 - scene 匹配提示
 
+体验层的可选 `ArtworkMediaRefs.depthMap` 只用于视差增强，结构定义在 `packages/contracts/src/artwork.ts`。它带 release-relative URL、版本、源图 fingerprint 和 `estimated | model` 方法；只有 release 与 fingerprint 同时匹配时才启用，缺失或失配时回退静态图。
+
 ### BackgroundSceneRecord
 
 来源：`docs/specs/artduo-v2-background-scene-schema.md`

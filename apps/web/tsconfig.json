@@ -24,6 +24,7 @@
     "lib/**/*.ts",
     "test/**/*.ts",
     "e2e/**/*.ts",
+    "e2e/**/*.tsx",
     "playwright.config.ts"
   ],
   "exclude": ["node_modules"]

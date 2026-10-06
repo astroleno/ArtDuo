@@ -16,18 +16,16 @@ origin: docs/brainstorms/artduo-v2-lightweight-rebuild-requirements.md
 
 ## 主路径 IA
 
-V2 的主导航顺序统一为：
+经典入口保持默认；新四幕体验以明确视图参数进入，待触摸设备、无障碍、媒体许可和性能门槛补齐后再评估默认切换。
 
-1. `/`
-2. `/gallery/[exhibitionId]`
-3. `/artworks/[artworkId]?from=[exhibitionId]`
-4. `/gallery/[exhibitionId]/immersive`
+| 视图 | 路径 | 用途 |
+| --- | --- | --- |
+| Landing | `/` 或 `/?view=classic` | 经典入口；`/?view=experience` 打开体验入口。 |
+| Route preview | `/gallery?view=route&query=…&releaseVersion=…` | 经典路线预览；不会与体验详情路径混用。 |
+| Artwork detail | `/artwork/[artworkId]?releaseVersion=…&returnTo=…` | 展示正式 release 元数据，讲解按需请求；`returnTo` 只接受站内 `/gallery…` 路径。 |
+| Experience | `/gallery/local/immersive?query=…&view=experience&releaseVersion=…&recipeVersion=experience-v1&phase=preface\|walk\|closing&artworkId=…` | 完整快照驱动前言、观展、结语；观展位置和 release 可从 URL 恢复。 |
 
-说明：
-
-- `exhibitionId` 在 Phase 1 可以是本地生成 id，不要求后端 session
-- Phase 2 开始可以把 `exhibitionId` 映射到服务端 `sessionId`
-- 详情页和沉浸式都必须能从当前 exhibition snapshot 返回，而不是丢失上下文
+体验四幕为 `threshold → preface → walk → closing`。空结果停留在可重试的空态；详情返回应恢复同一版本和作品位置；`/?view=classic` 或“退出新版体验”可随时回到经典流。体验默认值由 `ARTDUO_EXPERIENCE_DEFAULT` 控制，当前只在值为 `experience` 时启用，否则保持经典。
 
 ## 页面角色
 
@@ -104,6 +102,14 @@ V2 的主导航顺序统一为：
 - `ready`: transition、media、explanation 都可用
 - `error`: 单个 unit 媒体失败时降级，不中断全局沉浸式
 - `offline`: 仅消费本地 scene unit 和静态资源
+
+四幕体验的额外降级规则：
+
+- `threshold`: 输入无效或策展请求失败时显示可编辑提示和重试
+- `preface`: 仅显式前言链接展示一句引导，文字立即可见；一个按钮进入首件。首次输入默认进入 `walk`，展览说明和阶段导航可按需展开。
+- `walk`: 单件图像失败可重试、略过或继续；背景/景深失败只降级该件场景
+- `closing`: 分享图生成失败可重试或复制文字；重新开始保留输入
+- `offline`: 已装载快照仍可用浏览器历史恢复作品位置；失联资源显示静态占位
 
 ## 状态语义
 

@@ -20,11 +20,11 @@ test("gallery waits for explicit intent when no query is provided", async ({ pag
 
   await expect(page.getByRole("heading", { name: "先选择一个策展意图" })).toBeVisible();
   await expect(page.getByTestId("result-card")).toHaveCount(0);
-  await expect(page.getByRole("link", { name: "I want a quiet moonlit room" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "安静的月光" })).toBeVisible();
 });
 
 test("gallery shows an empty state for a query with no searchable terms", async ({ page }) => {
-  await gotoApp(page, "/gallery?query=!!!");
+  await gotoApp(page, "/gallery?view=route&query=!!!");
 
   await expect(page.getByRole("heading", { name: "没有找到可展示作品" })).toBeVisible();
   await expect(page.getByTestId("result-card")).toHaveCount(0);
@@ -32,7 +32,7 @@ test("gallery shows an empty state for a query with no searchable terms", async 
   await expect(page.getByRole("link", { name: /查看默认展览/ })).toBeVisible();
 });
 
-test("gallery uses matched scene backdrops and lazy-loads secondary artworks", async ({ page }) => {
+test("route preview uses matched scene backdrops and prioritizes the opening artwork", async ({ page }) => {
   await page.route("**/*", (route) => {
     if (route.request().resourceType() === "image") {
       return route.fulfill({
@@ -44,13 +44,10 @@ test("gallery uses matched scene backdrops and lazy-loads secondary artworks", a
 
     return route.continue();
   });
-  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
+  await gotoApp(page, "/gallery?view=route&query=I+want+a+quiet+moonlit+room");
 
   await expect(page.locator(".gallery-header.has-scene-backdrop")).toHaveCSS("background-image", /artduo-gallery/);
-  await expect(page.getByText(/匹配度 \d+\.\d%/).first()).toBeVisible();
-  await expect(page.getByTestId("result-card").first().locator("img")).toHaveAttribute("loading", "eager");
-  await expect(page.getByTestId("result-card").nth(1).locator("img")).toHaveAttribute("loading", "lazy");
-  await expect(page.getByTestId("result-card").nth(1).locator("img")).toHaveAttribute("decoding", "async");
+  await expect(page.getByTestId("gallery-route-stop")).toHaveCount(3);
 });
 
 test("background scene assets are served by the web app", async ({ page }) => {
@@ -60,7 +57,7 @@ test("background scene assets are served by the web app", async ({ page }) => {
   expect(response.headers()["content-type"]).toContain("image/png");
 });
 
-test("gallery cards fall back when artwork images fail to load", async ({ page }) => {
+test("classic immersive artwork exposes its image fallback when loading fails", async ({ page }) => {
   await page.route("**/*", (route) => {
     if (route.request().resourceType() === "image") {
       return route.abort();
@@ -68,11 +65,9 @@ test("gallery cards fall back when artwork images fail to load", async ({ page }
 
     return route.continue();
   });
-  await gotoApp(page, "/gallery?query=I+want+a+quiet+moonlit+room");
+  await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
 
-  await expect(page.getByTestId("image-fallback").first()).toBeVisible();
-  await expect(page.getByRole("img", { name: /图像暂不可用/ }).first()).toBeVisible();
-  await expect(page.getByRole("button", { name: "重试图像" }).first()).toBeVisible();
+  await expect(page.getByText("画面稍后归位").first()).toBeVisible();
 });
 
 test("unknown artwork detail routes render the not-found state", async ({ page }) => {

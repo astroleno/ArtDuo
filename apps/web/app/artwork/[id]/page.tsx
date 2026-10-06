@@ -2,10 +2,10 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { ArtworkImage } from "../../../components/artwork-image";
+import { ArtworkExplanationPanel } from "../../../components/artwork-explanation-panel";
 import { artworkImageUrl } from "../../../lib/artwork-image-url";
-import { buildRecommendationReason } from "../../../lib/artwork-page-copy";
-import { getArtworkExplanationClient } from "../../../lib/explanation-client";
 import { getArtworkDetail, loadWebReleaseCatalog } from "../../../lib/release-catalog";
+import { sanitizeReturnTo } from "../../../lib/experience-navigation";
 
 interface ArtworkPageProps {
   params: Promise<{ id: string }>;
@@ -52,32 +52,19 @@ function readRepeatedParam(
   return values.flatMap((entry) => entry.split(",")).map((entry) => entry.trim()).filter(Boolean);
 }
 
-function formatEvidenceScore(score: number): string {
-  return `${Math.max(0, Math.min(100, score * 100)).toFixed(1)}%`;
-}
-
-function formatEvidenceTokens(tokens: string[]): string {
-  return tokens.length > 0 ? tokens.slice(0, 6).join(", ") : "No lexical token match";
-}
-
-function renderExplanationStatus(explanation: Awaited<ReturnType<typeof getArtworkExplanationClient>>): string {
-  if (explanation.status === "ready") {
-    return explanation.content?.shortText ?? "Explanation ready";
-  }
-  if (explanation.status === "pending") {
-    return "Explanation pending";
-  }
-
-  return "Explanation unavailable";
-}
-
 export default async function ArtworkPage({ params, searchParams }: ArtworkPageProps) {
   const [{ id }, queryParams] = await Promise.all([params, searchParams]);
   const query = readQuery(queryParams);
   const backgroundSceneId = readParam(queryParams, "backgroundSceneId");
   const retrievalScore = readNumberParam(queryParams, "retrievalScore");
   const matchedTokens = readRepeatedParam(queryParams, "matchedTokens");
-  const catalog = loadWebReleaseCatalog();
+  const requestedVersion = readParam(queryParams, "releaseVersion");
+  let catalog;
+  try {
+    catalog = loadWebReleaseCatalog({ releaseVersion: requestedVersion });
+  } catch {
+    notFound();
+  }
   const detail = getArtworkDetail(catalog, id, query);
 
   if (!detail) {
@@ -89,20 +76,16 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     ? catalog.backgroundScenes.find((candidate) => candidate.id === backgroundSceneId)
     : undefined;
   const scene = requestedScene ?? detail.scene;
-  const explanation = await getArtworkExplanationClient({
-    artworkId: artwork.id,
-    releaseVersion: catalog.releaseVersion,
-    contextText: query ?? artwork.searchText,
-    backgroundSceneId: scene?.id,
-    retrievalScore,
-    matchedTokens,
-  });
-  const galleryHref = query ? `/gallery?${new URLSearchParams({ query }).toString()}` : "/gallery";
-  const immersiveHref = `/gallery/local/immersive?${new URLSearchParams({
-    query: query ?? artwork.searchText,
-    unit: artwork.id,
-  }).toString()}`;
-  const stageImage = scene?.imageUrl ?? artworkImageUrl(artwork.id);
+  const defaultReturn = query
+    ? `/gallery?${new URLSearchParams({ query, view: "route", releaseVersion: catalog.releaseVersion }).toString()}`
+    : "/gallery?view=route";
+  const returnTo = sanitizeReturnTo(readParam(queryParams, "returnTo"), defaultReturn);
+  const returnView = new URL(returnTo, "https://artduo.invalid").searchParams.get("view");
+  const immersiveParams = returnView === "experience"
+    ? new URLSearchParams({ query: query ?? artwork.searchText, releaseVersion: catalog.releaseVersion, view: "experience", recipeVersion: "experience-v1", phase: "walk", artworkId: artwork.id })
+    : new URLSearchParams({ query: query ?? artwork.searchText, releaseVersion: catalog.releaseVersion, view: "classic", unit: artwork.id });
+  const immersiveHref = `/gallery/local/immersive?${immersiveParams.toString()}`;
+  const stageImage = scene?.imageUrl ?? artworkImageUrl(artwork.id, "preview", catalog.releaseVersion);
   const fallbackMeta = [
     `馆藏编号 ${artwork.id}`,
     artwork.artistDisplayName,
@@ -118,7 +101,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
         </a>
         <nav className="nav" aria-label="Primary">
           <a href="/">首页</a>
-          <a href={galleryHref}>画廊</a>
+          <a href={returnTo}>画廊</a>
         </nav>
       </header>
 
@@ -131,7 +114,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               fallbackLabel={artwork.title}
               fallbackMeta={fallbackMeta}
               loading="eager"
-              src={artworkImageUrl(artwork.id)}
+              src={artworkImageUrl(artwork.id, "preview", catalog.releaseVersion)}
             />
             <figcaption className="artwork-caption">
               <strong>{artwork.title}</strong>
@@ -144,9 +127,10 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
             <p>{[artwork.artistDisplayName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ")}</p>
             <p>{artwork.storySnippet ?? "这件作品适合作为本次观展路线中的一个停留点。"}</p>
             <div className="detail-actions">
-              <a className="secondary-link" href={galleryHref}>
-                <ArrowLeft aria-hidden="true" size={17} /> 返回 Gallery
+              <a className="secondary-link" href={returnTo}>
+                <ArrowLeft aria-hidden="true" size={17} /> 返回刚才的位置
               </a>
+              <a className="secondary-link" href="/gallery?view=route">画廊路线</a>
               <a className="secondary-link" href={immersiveHref}>
                 沉浸观展 <ExternalLink aria-hidden="true" size={17} />
               </a>
@@ -170,38 +154,14 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               </div>
             </div>
             <p>{artwork.description ?? artwork.searchText}</p>
-            <div className="explanation-card" data-testid="explanation-slot" style={{ marginTop: 16 }}>
-              <p className="meta">{renderExplanationStatus(explanation)}</p>
-              {explanation.status === "ready" && explanation.content?.evidence ? (
-                <>
-                  <p className="explanation-detail">{explanation.content.detailText}</p>
-                  <div className="recommendation-reason">
-                    <p className="evidence-label">为什么推荐这件作品</p>
-                    <p>{buildRecommendationReason(explanation)}</p>
-                  </div>
-                  <details className="explanation-evidence" data-testid="explanation-evidence">
-                    <summary>检索依据</summary>
-                    <div className="evidence-summary">
-                      <span>展厅：{explanation.content.evidence.grounding.scene?.label ?? "作品自身"}</span>
-                      <span>匹配度：{formatEvidenceScore(explanation.content.evidence.grounding.retrievalScore)}</span>
-                      <span>线索：{formatEvidenceTokens(explanation.content.evidence.grounding.matchedTokens)}</span>
-                    </div>
-                    <ul className="citation-list" aria-label="Explanation citations">
-                      {explanation.content.evidence.citations.map((citation) => (
-                        <li key={`${citation.kind}-${citation.sourceId}`}>
-                          <span>{citation.kind}</span>
-                          {citation.url ? (
-                            <a href={citation.url} target="_blank" rel="noreferrer">{citation.label}</a>
-                          ) : (
-                            <strong>{citation.label}</strong>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                </>
-              ) : null}
-            </div>
+            <ArtworkExplanationPanel
+              artworkId={artwork.id}
+              backgroundSceneId={scene?.id}
+              matchedTokens={matchedTokens}
+              query={query ?? artwork.searchText}
+              releaseVersion={catalog.releaseVersion}
+              retrievalScore={retrievalScore}
+            />
             <div className="tag-row" style={{ marginTop: 18 }}>
               {[...artwork.moodTags, ...artwork.subjectTags.slice(0, 4)].map((tag, index) => (
                 <span className="tag" key={`${tag}-${index}`}>{tag}</span>

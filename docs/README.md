@@ -14,6 +14,10 @@
 - `docs/plans/artduo-v2-frontend-backend-workstreams.md`
 - `docs/plans/artduo-v2-artwork-collection-runbook.md`
 - `docs/plans/artduo-v2-affective-a2a-growth-form-plan.md`
+- [experience 前端接入落地文档（文件、接口、实施任务与验收）](plans/artduo-v2-experience-integration-plan.md)
+- [experience 接入验收记录（自动化结果与待完成人工门槛）](reviews/artduo-experience-integration-acceptance.md)
+- [experience 前端评估记录与截图（2026-10-01）](reviews/artduo-experience-review-2026-10-01.md)
+- [经典画作数据整理提示词（交给数据 agent）](prompts/artduo-classics-corpus-handoff.md)
 - `docs/roadmaps/artduo-v2-three-phase-roadmap.md`
 - `docs/specs/artduo-v2-shared-contracts-and-api.md`
 - `docs/specs/artduo-v2-ux-flow-and-state-matrix.md`
@@ -31,7 +35,9 @@
 7. 背景匹配和转场实现前看 `docs/specs/artduo-v2-background-scene-schema.md`
 8. 开始收集名画时看 `docs/plans/artduo-v2-artwork-collection-runbook.md`
 9. 情绪 A2A 和沉浸式个性化升级前看 `docs/plans/artduo-v2-affective-a2a-growth-form-plan.md`
-10. 最后用 `docs/roadmaps/artduo-v2-three-phase-roadmap.md` 对齐节奏和阶段边界
+10. 接入新版四幕体验时看 [experience 前端接入落地文档](plans/artduo-v2-experience-integration-plan.md)
+    本轮续作见[画作、检索与沉浸方案](plans/artduo-painting-curation-and-immersion-2026-10-06.md)与[验收记录](reviews/artduo-painting-curation-2026-10-06.md)。
+11. 最后用 `docs/roadmaps/artduo-v2-three-phase-roadmap.md` 对齐节奏和阶段边界
 
 ## 当前共识
 

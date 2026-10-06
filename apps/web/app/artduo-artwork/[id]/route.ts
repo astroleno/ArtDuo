@@ -1,6 +1,10 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { NextResponse } from "next/server";
 
 import { metImageVariantUrl } from "../../../lib/met-image-url";
+import { resolveReleaseAssetPath } from "../../../lib/release-media-path";
 import { loadWebReleaseCatalog } from "../../../lib/release-catalog";
 
 const IMAGE_HEADER_TIMEOUT_MS = 12000;
@@ -74,17 +78,61 @@ export async function GET(
   context: { params: Promise<{ id: string }> },
 ) {
   const { id } = await context.params;
-  const catalog = loadWebReleaseCatalog();
-  const artwork = catalog.artworkById.get(id);
+  const requestUrl = new URL(request.url);
+  const requestedReleaseVersion = requestUrl.searchParams.get("releaseVersion") ?? undefined;
+  let catalog;
 
-  if (!artwork) {
+  try {
+    catalog = loadWebReleaseCatalog({ releaseVersion: requestedReleaseVersion });
+  } catch {
+    return new NextResponse("Release version is not available", { status: requestedReleaseVersion ? 404 : 503 });
+  }
+
+  const artwork = catalog.artworkById.get(id);
+  const artworkRecord = catalog.artworkRecordById.get(id);
+
+  if (!artwork || !artworkRecord) {
     return new NextResponse("Not found", { status: 404 });
   }
 
-  const variant = new URL(request.url).searchParams.get("variant") === "full" ? "full" : "preview";
+  const requestedVariant = requestUrl.searchParams.get("variant");
+  const variant = requestedVariant === "full" ? "full" : requestedVariant === "depth" ? "depth" : "preview";
+
+  if (variant === "depth") {
+    const depthMap = artworkRecord.media.depthMap;
+    if (!depthMap || depthMap.version !== catalog.releaseVersion || depthMap.sourceAssetFingerprint !== artworkRecord.media.sourceAssetFingerprint) {
+      return new NextResponse("Depth map is not available for this release", { status: 404 });
+    }
+
+    const depthMapPath = resolveReleaseAssetPath(catalog.releaseDir, depthMap.url);
+    if (!depthMapPath) {
+      return new NextResponse("Depth map is not available for this release", { status: 404 });
+    }
+
+    const body = readFileSync(depthMapPath);
+    return new NextResponse(body, {
+      headers: {
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "Content-Type": "image/png",
+        "X-ArtDuo-Release-Version": catalog.releaseVersion,
+      },
+    });
+  }
+
   const releaseImageUrl = variant === "full"
     ? artwork.imageUrlFull ?? artwork.imageUrl
     : artwork.imageUrl;
+  if (!/^https?:\/\//i.test(releaseImageUrl)) {
+    const imagePath = resolveReleaseAssetPath(catalog.releaseDir, releaseImageUrl);
+    const contentTypes: Record<string, string> = { ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };
+    const contentType = imagePath && contentTypes[path.extname(imagePath).toLowerCase()];
+    if (!imagePath || !contentType) return new NextResponse("Artwork image is unavailable", { status: 404 });
+    return new NextResponse(readFileSync(imagePath), { headers: {
+      "Cache-Control": "public, max-age=31536000, immutable",
+      "Content-Type": contentType,
+      "X-ArtDuo-Release-Version": catalog.releaseVersion,
+    } });
+  }
   const sourceUrl = metImageVariantUrl(releaseImageUrl, variant);
   const meta = [artwork.artistDisplayName, artwork.yearLabel].filter(Boolean).join(", ");
 
@@ -93,6 +141,7 @@ export async function GET(
     const headers = new Headers({
       "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
       "Content-Type": image.contentType,
+      "X-ArtDuo-Release-Version": catalog.releaseVersion,
     });
 
     if (image.contentLength) {
@@ -107,6 +156,7 @@ export async function GET(
       headers: {
         "Cache-Control": "no-store",
         "Content-Type": "image/svg+xml; charset=utf-8",
+        "X-ArtDuo-Release-Version": catalog.releaseVersion,
       },
     });
   }

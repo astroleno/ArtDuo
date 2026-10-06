@@ -8,6 +8,25 @@ import { embedText } from "@artduo/corpus";
 
 import { loadWebReleaseCatalog, searchBackgroundScenes, searchReleaseCatalog } from "../../lib/release-catalog";
 
+test("gallery search excludes objects before vector candidate limits and never fills a short route with them", () => {
+  const rootDir = buildReleaseFixture();
+  try {
+    const catalog = loadWebReleaseCatalog({ rootDir });
+    const object = catalog.artworkById.get("met-joy")!;
+    object.medium = "Bronze";
+    object.subjectTags = ["Sculpture"];
+    const search = searchReleaseCatalog(catalog, "bright joy music spring", { limit: 12, vectorCandidateCount: 1 });
+    assert.deepEqual(search.results.map((result) => result.artwork.id), ["met-moon"]);
+    assert.equal(search.results[0]!.rank, 1);
+    const other = catalog.artworkById.get("met-moon")!;
+    other.medium = "Limestone";
+    other.subjectTags = ["Sculpture-Architectural"];
+    assert.deepEqual(searchReleaseCatalog(catalog, "quiet moon").results, []);
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
 function writeJson(filePath: string, value: unknown): void {
   writeFileSync(filePath, JSON.stringify(value, null, 2));
 }
@@ -178,13 +197,19 @@ function buildReleaseFixture(): string {
     {
       id: "bg-moon",
       asset: {
+        original_filename: "bg-moon.png",
         local_public_path: "/artduo-gallery/bg-moon.png",
         label_cn: "月光静室",
       },
+      image_info: { width: 1600, height: 900, aspect_ratio: "16:9", orientation: "landscape" },
       visual_profile: {
         scene_type: "gallery_interior",
+        styles: ["classical"],
+        materials: ["stone"],
+        lighting: ["moonlight"],
         mood: ["serene", "quiet"],
         palette: ["cool-dark"],
+        composition: ["centered"],
       },
       curation_profile: {
         emotion_ids: ["contemplation"],
@@ -195,6 +220,18 @@ function buildReleaseFixture(): string {
         safe_text_zones: ["left", "center"],
         mobile_crop_tolerance: "good",
         visual_busyness: 0.2,
+      },
+      stage_profile: {
+        primary_mount_zone: { shape: "rect", rect: { x: 0.32, y: 0.2, width: 0.4, height: 0.55 } },
+        preferred_artwork_scale: "medium",
+        depth_strategy: "layered-room",
+      },
+      transition_profile: {
+        entry_families: ["fade", "dissolve"],
+        exit_families: ["dissolve", "depth-push"],
+        transition_tempo: "slow",
+        transition_intensity: "soft",
+        implementation_hint: "css",
       },
       retrieval_profile: {
         search_text: "quiet moon contemplation cool dark gallery",
@@ -255,7 +292,9 @@ test("loads the release manifest into gallery-ready artwork records", () => {
   assert.equal(catalog.artworks[0]?.imageUrl, "https://images.example.test/moon-preview.jpg");
   assert.equal(catalog.artworks[0]?.visualPresentation?.cropStrategy, "trim-border");
   assert.deepEqual(catalog.artworks[0]?.visualPresentation?.contentBounds, { x: 0.08, y: 0.12, width: 0.84, height: 0.74 });
-  assert.equal(catalog.artworks[0]?.detailHref, "/artwork/met-moon");
+  assert.equal(catalog.artworks[0]?.detailHref, "/artwork/met-moon?releaseVersion=2026-04-25-curation-b");
+  assert.equal(catalog.backgroundSceneRecordById.get("bg-moon")?.stage_profile.primary_mount_zone.rect?.x, 0.32);
+  assert.equal(catalog.artworkRecordById.get("met-moon")?.metadata.title, "Two Men Contemplating the Moon");
   assert.match(catalog.backgroundScenes[0]?.embeddingText ?? "", /moonlight/);
 });
 
@@ -266,12 +305,22 @@ test("searches a visitor sentence into ranked gallery cards with detail links", 
 
   assert.equal(result.query, "I want a quiet moonlit room");
   assert.equal(result.normalizedQuery, "i want a quiet moonlit room");
-  assert.equal(result.results.length, 2);
+  assert.equal(result.results.length, 1);
   assert.equal(result.results[0]?.artwork.id, "met-moon");
-  assert.equal(result.results[0]?.artwork.detailHref, "/artwork/met-moon?query=I+want+a+quiet+moonlit+room");
+  assert.equal(result.results[0]?.artwork.detailHref, "/artwork/met-moon?query=I+want+a+quiet+moonlit+room&releaseVersion=2026-04-25-curation-b");
   assert.deepEqual(result.results[0]?.artwork.moodTags, ["contemplation"]);
   assert.equal(result.results[0]?.scene?.imageUrl, "/artduo-gallery/bg-moon.png");
-  assert.ok((result.results[0]?.combinedScore ?? 0) > (result.results[1]?.combinedScore ?? 0));
+  assert.ok(result.results[0]?.matchedTokens.includes("subject:moon"));
+});
+
+test("hard subject constraints run before vector truncation and do not pad unmatched results", () => {
+  const rootDir = buildReleaseFixture();
+  try {
+    const catalog = loadWebReleaseCatalog({ rootDir });
+    assert.equal(searchReleaseCatalog(catalog, "想看月光", { limit: 12, vectorCandidateCount: 1 }).results[0]?.artwork.id, "met-moon");
+    assert.deepEqual(searchReleaseCatalog(catalog, "想看海", { limit: 12 }).results, []);
+    assert.deepEqual(searchReleaseCatalog(catalog, "不要太明亮").results.map((entry) => entry.artwork.id), ["met-moon"]);
+  } finally { rmSync(rootDir, { recursive: true, force: true }); }
 });
 
 test("searches background scenes directly from the visitor query", () => {

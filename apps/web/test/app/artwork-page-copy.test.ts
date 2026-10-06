@@ -46,7 +46,7 @@ test("artwork recommendation copy describes retrieval evidence without claiming 
   assert.doesNotMatch(text, /情绪、主题与画面气质|作者意图相互靠近/);
 });
 
-test("artwork page renders the generated detail text instead of discarding it", async () => {
+test("artwork page renders detail text before offering an asynchronous explanation", async () => {
   (globalThis as typeof globalThis & { React: typeof React }).React = React;
   const page = await artworkPage({
     params: Promise.resolve({ id: "met-438417" }),
@@ -54,5 +54,8 @@ test("artwork page renders the generated detail text instead of discarding it", 
   });
   const html = renderToStaticMarkup(page);
 
-  assert.match(html, /release-grounded artwork metadata/);
+  assert.match(html, /Two Men Contemplating the Moon\. Caspar David Friedrich\. Oil on canvas\./);
+  assert.doesNotMatch(html, /Strong contemplation fit with usable image and title signal/);
+  assert.match(html, /aria-label="作品讲解"/);
+  assert.match(html, /生成这件作品的讲解/);
 });

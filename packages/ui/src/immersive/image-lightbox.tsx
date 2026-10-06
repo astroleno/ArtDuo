@@ -15,6 +15,8 @@ export interface ImageLightboxProps {
   onPrevious?: () => void;
   onNext?: () => void;
   onExpandedChange?: (isExpanded: boolean) => void;
+  onImageReady?: (size: { width: number; height: number }) => void;
+  onImageError?: () => void;
 }
 
 function normalizeAspectHint(value: string | undefined): "landscape" | "portrait" | "square" {
@@ -64,6 +66,8 @@ export function ImageLightbox({
   onPrevious,
   onNext,
   onExpandedChange,
+  onImageReady,
+  onImageError,
 }: ImageLightboxProps) {
   const byline = [unit.artistDisplayName, unit.yearLabel].filter(Boolean).join(", ");
   const previewSrc = unit.imageUrl;
@@ -77,19 +81,26 @@ export function ImageLightbox({
   const [entryOrigin, setEntryOrigin] = useState<ImmersiveDetailOrigin | undefined>();
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const decodedSourceRef = useRef<string | null>(null);
   const artworkFrameRef = useRef<HTMLSpanElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const restoreTriggerFocusRef = useRef(false);
 
   useEffect(() => {
     setImageState("loading");
+    decodedSourceRef.current = null;
     setExpandedImageSrc(previewSrc);
-  }, [fullSrc, previewSrc, unit.id]);
+  }, [previewSrc, unit.id]);
 
   useEffect(() => {
     setPortalRoot(document.body);
   }, []);
 
   useEffect(() => {
-    onExpandedChange?.(isExpanded);
+    if (!isExpanded && restoreTriggerFocusRef.current) {
+      restoreTriggerFocusRef.current = false;
+      triggerRef.current?.focus();
+    }
 
     return () => {
       if (isExpanded) {
@@ -139,28 +150,38 @@ export function ImageLightbox({
 
   useEffect(() => {
     let cancelled = false;
-
-    function syncImageState() {
+    async function syncImageState() {
       const image = imageRef.current;
       if (!image?.complete || cancelled) {
         return;
       }
-
-      setImageState(image.naturalWidth > 0 ? "ready" : "error");
+      try {
+        await image.decode();
+        if (!cancelled) {
+          decodedSourceRef.current = previewSrc;
+          setImageState(image.naturalWidth > 0 ? "ready" : "error");
+        }
+      } catch {
+        if (!cancelled) setImageState("error");
+      }
     }
-
-    syncImageState();
-    const quickCheck = window.setTimeout(syncImageState, 120);
-    const finalCheck = window.setTimeout(syncImageState, 900);
-
-    imageRef.current?.decode?.().then(syncImageState).catch(syncImageState);
+    const image = imageRef.current;
+    image?.addEventListener("load", syncImageState);
+    image?.addEventListener("error", syncImageState);
+    void syncImageState();
 
     return () => {
       cancelled = true;
-      window.clearTimeout(quickCheck);
-      window.clearTimeout(finalCheck);
+      image?.removeEventListener("load", syncImageState);
+      image?.removeEventListener("error", syncImageState);
     };
   }, [previewSrc]);
+
+  useEffect(() => {
+    const image = imageRef.current;
+    if (imageState === "ready" && decodedSourceRef.current === previewSrc && image?.naturalWidth) onImageReady?.({ width: image.naturalWidth, height: image.naturalHeight });
+    if (imageState === "error") onImageError?.();
+  }, [imageState, previewSrc, onImageReady, onImageError]);
 
   function openImmersiveDetail() {
     const bounds = artworkFrameRef.current?.getBoundingClientRect();
@@ -174,6 +195,9 @@ export function ImageLightbox({
       x: bounds ? bounds.left + bounds.width / 2 : viewportWidth / 2,
       y: bounds ? bounds.top + bounds.height / 2 : viewportHeight / 2,
     });
+    restoreTriggerFocusRef.current = true;
+    // Notify the room in this same update, before the detail renderer mounts.
+    onExpandedChange?.(true);
     setIsExpanded(true);
   }
 
@@ -191,6 +215,7 @@ export function ImageLightbox({
         aria-label={`放大《${unit.title}》并进入沉浸体验`}
         className="immersive-lightbox-trigger"
         onClick={openImmersiveDetail}
+        ref={triggerRef}
         type="button"
       >
         <span className="immersive-artwork-frame" ref={artworkFrameRef}>
@@ -201,8 +226,6 @@ export function ImageLightbox({
                 className="immersive-preview-image"
                 decoding="async"
                 fetchPriority="high"
-                onError={() => setImageState("error")}
-                onLoad={() => setImageState("ready")}
                 ref={imageRef}
                 src={previewSrc}
               />
@@ -213,8 +236,6 @@ export function ImageLightbox({
               className="immersive-preview-image"
               decoding="async"
               fetchPriority="high"
-              onError={() => setImageState("error")}
-              onLoad={() => setImageState("ready")}
               ref={imageRef}
               src={previewSrc}
             />
@@ -238,9 +259,10 @@ export function ImageLightbox({
           hasNext={hasNext}
           hasPrevious={hasPrevious}
           imageSrc={expandedImageSrc}
-          onClose={() => setIsExpanded(false)}
+          onClose={() => { onExpandedChange?.(false); setIsExpanded(false); }}
           onNext={onNext}
           onPrevious={onPrevious}
+          requireDepthMap={unit.requireDepthMap}
           unit={unit}
         />,
         portalRoot,
