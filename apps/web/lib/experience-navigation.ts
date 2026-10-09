@@ -7,6 +7,7 @@ export interface ExperienceRouteParams {
   phase: ExperiencePhase;
   artworkId?: string;
   recipeVersion?: string;
+  routeOrder?: string[];
 }
 
 export function buildExperienceHref(input: ExperienceRouteParams): string {
@@ -18,6 +19,7 @@ export function buildExperienceHref(input: ExperienceRouteParams): string {
     phase: input.phase,
   });
   if (input.artworkId) params.set("artworkId", input.artworkId);
+  if (input.routeOrder?.length) params.set("route", input.routeOrder.join(","));
   return `/gallery/local/immersive?${params.toString()}`;
 }
 
@@ -53,6 +55,7 @@ export function experienceHrefForPosition(snapshot: ExhibitionSnapshot, position
     releaseVersion: snapshot.releaseVersion,
     phase: position.phase,
     artworkId,
+    routeOrder: snapshot.routeOrder,
   });
 }
 

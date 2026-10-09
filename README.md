@@ -15,6 +15,7 @@ V2 Phase 1 is closed as a product thin slice.
 - Browser-local IndexedDB/Worker retrieval is explicitly deferred; it is not claimed as complete.
 - Repeatable acceptance is wired through `pnpm preflight:check`.
 - The four-act experience is available at `/?view=experience`; the classic flow remains the default until the touch-device, accessibility, media-source, and performance gates in the acceptance record are complete.
+- The experience now supports explicit feedback on the unseen part of a route, tab-local viewing pace, shareable route order, and a separate artwork reading layer. See the [viewing adaptation acceptance record](docs/reviews/artduo-viewing-adaptation-2026-10-09.md).
 
 Historical Phase 1 closeout evidence (these scores do not describe the refreshed corpus):
 

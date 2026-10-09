@@ -131,6 +131,6 @@ export function calculateRoomLayout(input: RoomLayoutInput): RoomLayout {
   const frame = { x: mount.x + (mount.width - width) / 2, y: mount.y + Math.max(0, (frameAreaHeight - height) / 2), width, height };
   const plaque = mobilePlaque
     ? { x: safeLeft + (safeWidth - Math.min(safeWidth, 440)) / 2, y: Math.min(viewport.height - safeBottom - plaqueHeight, mount.y + frameAreaHeight + 12), width: Math.min(safeWidth, 440), height: Math.min(plaqueHeight, safeHeight) }
-    : { x: Math.min(viewport.width - safeRight - 250, Math.max(safeLeft, frame.x + frame.width + 24)), y: frame.y + frame.height / 2 - plaqueHeight / 2, width: Math.min(230, safeWidth), height: plaqueHeight };
+    : { x: Math.min(viewport.width - safeRight - 192, Math.max(safeLeft, frame.x + frame.width + 28)), y: Math.max(frame.y, frame.y + frame.height - plaqueHeight - 12), width: Math.min(172, safeWidth), height: plaqueHeight };
   return { frame, plaque, mount, mobilePlaque, staticFallback };
 }

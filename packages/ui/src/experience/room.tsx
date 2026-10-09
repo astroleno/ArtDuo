@@ -9,6 +9,7 @@ import { DepthParallaxCanvas } from "./depth-parallax-canvas";
 import type { ExperienceUnit } from "./types";
 import { AtmosphereLayer } from "./atmosphere-layer";
 import { Plaque } from "./plaque";
+import type { ViewingPace } from "./viewing-session";
 
 function aspectOf(value: string | undefined): number {
   if (value === "portrait" || value === "9:16") return 0.72;
@@ -17,7 +18,7 @@ function aspectOf(value: string | undefined): number {
   return 1.2;
 }
 
-export function Room({ unit, index, count, stageLabel, reducedMotion, plaqueOpen, onTogglePlaque, onDetail, onPrevious, onNext, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, mediaFailed, transitioning = false }: {
+export function Room({ unit, index, count, stageLabel, reducedMotion, plaqueOpen, onTogglePlaque, onDetail, onPrevious, onNext, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, mediaFailed, transitioning = false, pace = "steady" }: {
   unit: ExperienceUnit;
   index: number;
   count: number;
@@ -34,6 +35,7 @@ export function Room({ unit, index, count, stageLabel, reducedMotion, plaqueOpen
   onArtworkReady: (unitId: string) => void;
   mediaFailed: boolean;
   transitioning?: boolean;
+  pace?: ViewingPace;
 }) {
   const [viewport, setViewport] = useState({ width: 1440, height: 900 });
   const [sceneSize, setSceneSize] = useState({ width: unit.scene?.image_info.width ?? 1600, height: unit.scene?.image_info.height ?? 900 });
@@ -84,7 +86,7 @@ export function Room({ unit, index, count, stageLabel, reducedMotion, plaqueOpen
   }, [onRetryMedia]);
   const layout = useMemo(() => calculateRoomLayout({
     viewport, sceneSize, mountZone: backgroundFailed ? undefined : sceneMountZone(unit.scene), artworkAspectRatio: artworkSize ? artworkSize.width / artworkSize.height : aspectOf(unit.artwork.media.aspectRatioHint),
-    navigationHeight: 76, plaqueHeight: 168,
+    navigationHeight: 76, plaqueHeight: 92,
   }), [viewport, sceneSize, unit, artworkSize, backgroundFailed]);
   const viewUnit: ImmersiveGalleryUnit = {
     id: unit.artwork.id,
@@ -106,15 +108,16 @@ export function Room({ unit, index, count, stageLabel, reducedMotion, plaqueOpen
     visualPresentation: undefined,
   };
   const imageRatio = `${Math.max(1, layout.frame.width)} / ${Math.max(1, layout.frame.height)}`;
-  const mobileDrawerHeight = Math.min(280, Math.max(220, viewport.height * 0.34));
-  const plaqueTop = layout.mobilePlaque && plaqueOpen
-    ? Math.min(layout.plaque.y, viewport.height - mobileDrawerHeight - 88)
-    : layout.plaque.y;
+  const plaqueTop = layout.plaque.y;
+  const paper = /paper|woodblock|etching|engraving|lithograph|watercolou?r|ink|drawing|print/i.test(unit.artwork.metadata.medium ?? "");
 
   return <section
     className={`experience-room ${layout.staticFallback ? "is-static-fallback" : ""} ${reducedMotion ? "is-reduced-motion" : ""} ${transitioning ? "is-transitioning" : ""}`}
     data-display-mode={unit.displayCategory}
     data-transition-family={unit.transitionFamily}
+    data-viewing-pace={pace}
+    data-frame-material={paper ? "paper" : "canvas"}
+    data-wall-light={unit.scene?.id === "bg-004" ? "left" : "top"}
     data-testid="experience-room"
     ref={roomRef}
     onPointerMove={(event) => {

@@ -57,6 +57,8 @@ export interface ExhibitionSnapshot {
   stages: ExperienceStage[];
   units: ExperienceUnit[];
   omittedUnitCount: number;
+  /** Validated artwork order supplied by a URL; observations never enter URLs. */
+  routeOrder?: string[];
 }
 
 export type ExperiencePosition =

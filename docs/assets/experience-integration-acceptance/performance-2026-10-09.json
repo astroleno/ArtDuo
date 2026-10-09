@@ -1,0 +1,100 @@
+{
+  "measuredAt": "2026-10-09T15:03:39.911Z",
+  "runtime": "Next production server",
+  "browser": "Chromium",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "cache": "Fresh browser context per run; warmed server code and data",
+  "releaseVersion": "2026-10-06-paintings",
+  "query": "有点累，撑了很久",
+  "prefacePolicy": "Entry opens the first artwork directly; exhibition notes are optional",
+  "budgetMs": 500,
+  "additionalActionableMs": -182,
+  "passesBudget": true,
+  "summary": {
+    "classic": {
+      "visibleMs": {
+        "median": 738,
+        "worst": 883
+      },
+      "actionableMs": {
+        "median": 738,
+        "worst": 883
+      }
+    },
+    "experience-direct": {
+      "visibleMs": {
+        "median": 556,
+        "worst": 564
+      },
+      "actionableMs": {
+        "median": 556,
+        "worst": 564
+      }
+    }
+  },
+  "runs": [
+    {
+      "round": 1,
+      "mode": "classic",
+      "visibleMs": 822.900146484375,
+      "actionableMs": 822.900146484375
+    },
+    {
+      "round": 1,
+      "mode": "experience-direct",
+      "visibleMs": 564,
+      "actionableMs": 564
+    },
+    {
+      "round": 2,
+      "mode": "classic",
+      "visibleMs": 738.10009765625,
+      "actionableMs": 738.10009765625
+    },
+    {
+      "round": 2,
+      "mode": "experience-direct",
+      "visibleMs": 562.699951171875,
+      "actionableMs": 562.699951171875
+    },
+    {
+      "round": 3,
+      "mode": "classic",
+      "visibleMs": 696.499755859375,
+      "actionableMs": 696.499755859375
+    },
+    {
+      "round": 3,
+      "mode": "experience-direct",
+      "visibleMs": 556.2998046875,
+      "actionableMs": 556.2998046875
+    },
+    {
+      "round": 4,
+      "mode": "classic",
+      "visibleMs": 883.10009765625,
+      "actionableMs": 883.10009765625
+    },
+    {
+      "round": 4,
+      "mode": "experience-direct",
+      "visibleMs": 540.60009765625,
+      "actionableMs": 540.60009765625
+    },
+    {
+      "round": 5,
+      "mode": "classic",
+      "visibleMs": 648.000244140625,
+      "actionableMs": 648.000244140625
+    },
+    {
+      "round": 5,
+      "mode": "experience-direct",
+      "visibleMs": 445.800048828125,
+      "actionableMs": 445.800048828125
+    }
+  ]
+}

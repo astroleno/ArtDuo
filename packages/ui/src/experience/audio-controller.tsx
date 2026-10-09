@@ -12,13 +12,14 @@ function releaseAudio(audio: HTMLAudioElement) {
   audio.load();
 }
 
-export function useAmbientAudio() {
+export function useAmbientAudio(reading = false) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const frameRef = useRef<number | null>(null);
   const pendingRef = useRef(false);
   const stateRef = useRef<"off" | "on" | "error">("off");
   const [state, setState] = useState<"off" | "on" | "error">("off");
   const [volume, setVolume] = useState(LOOP_VOLUME);
+  const targetVolume = volume * (reading ? 0.4 : 1);
 
   const stop = useCallback((): "off" => {
     if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
@@ -41,7 +42,7 @@ export function useAmbientAudio() {
       audio = new Audio(`/ambient-audio/${encodeURIComponent(track)}`);
       audio.loop = true;
       audio.preload = "none";
-      audio.volume = volume;
+      audio.volume = targetVolume;
       audioRef.current = audio;
       audio.onerror = () => {
         if (audioRef.current !== audio) return;
@@ -74,7 +75,7 @@ export function useAmbientAudio() {
       setState("error");
       return "error";
     }
-  }, [stop, volume]);
+  }, [stop, targetVolume]);
 
   const dip = useCallback((durationMs = 700) => {
     const audio = audioRef.current;
@@ -84,15 +85,30 @@ export function useAmbientAudio() {
     const tick = (now: number) => {
       const progress = Math.min(1, (now - start) / durationMs);
       const envelope = progress < 0.5 ? 1 - progress * 1.2 : 0.4 + (progress - 0.5) * 1.2;
-      audio.volume = Math.max(0, Math.min(1, volume * envelope));
+      audio.volume = Math.max(0, Math.min(1, targetVolume * envelope));
       if (progress < 1) frameRef.current = requestAnimationFrame(tick);
       else {
-        audio.volume = volume;
+        audio.volume = targetVolume;
         frameRef.current = null;
       }
     };
     frameRef.current = requestAnimationFrame(tick);
-  }, [volume]);
+  }, [targetVolume]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || stateRef.current !== "on") return;
+    if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    const from = audio.volume;
+    const start = performance.now();
+    const fade = (now: number) => {
+      const progress = Math.min(1, (now - start) / 300);
+      audio.volume = from + (targetVolume - from) * progress;
+      frameRef.current = progress < 1 ? requestAnimationFrame(fade) : null;
+    };
+    frameRef.current = requestAnimationFrame(fade);
+    return () => { if (frameRef.current !== null) cancelAnimationFrame(frameRef.current); };
+  }, [targetVolume]);
 
   useEffect(() => {
     const onVisibilityChange = () => { if (document.visibilityState !== "visible") stop(); };

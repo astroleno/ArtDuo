@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { AudioButton, useAmbientAudio } from "./audio-controller";
 import { Closing } from "./closing";
@@ -8,6 +8,8 @@ import { Preface } from "./preface";
 import { Walk } from "./walk";
 import { createExperienceState, experienceReducer, positionOfExperienceState, type ExperienceEvent } from "./state";
 import type { ExperiencePosition, ExhibitionSnapshot } from "./types";
+import { applyPendingPreference, createViewingSession, observedPace, queuePreference, snapshotForSession, type ViewingPreference } from "./viewing-session";
+import { useViewingObservation, useViewingSession } from "./use-viewing-session";
 
 function useReducedMotion(): boolean {
   const [reduced, setReduced] = useState(false);
@@ -21,43 +23,60 @@ function useReducedMotion(): boolean {
   return reduced;
 }
 
-export function ExperienceShell({ snapshot, initialPosition, onPositionChange, onDetail, onRestart, onMilestone }: {
+export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPositionChange, onDetail, onRestart, onMilestone }: {
   snapshot: ExhibitionSnapshot;
   initialPosition: ExperiencePosition;
-  onPositionChange: (position: ExperiencePosition) => void;
-  onDetail: (artworkId: string, position: ExperiencePosition) => void;
+  onPositionChange: (position: ExperiencePosition, snapshot: ExhibitionSnapshot) => void;
+  onDetail: (artworkId: string, position: ExperiencePosition, snapshot: ExhibitionSnapshot) => void;
   onRestart: () => void;
   onMilestone?: (phase: "first-artwork-visible" | "first-artwork-actionable") => void;
 }) {
   const reducedMotion = useReducedMotion();
-  const [state, rawDispatch] = useReducer(
-    (current: ReturnType<typeof createExperienceState>, event: ExperienceEvent) => experienceReducer(current, event, snapshot),
-    undefined,
-    () => createExperienceState(snapshot, initialPosition),
-  );
-  const audio = useAmbientAudio();
+  const viewing = useViewingSession(baseSnapshot);
+  const snapshot = useMemo(() => snapshotForSession(baseSnapshot, viewing.session), [baseSnapshot, viewing.session.order]);
+  const snapshotRef = useRef(snapshot);
+  snapshotRef.current = snapshot;
+  const [state, setState] = useState(() => createExperienceState(snapshot, initialPosition));
+  const [readingOpen, setReadingOpen] = useState(false);
+  const [readyUnitId, setReadyUnitId] = useState<string>();
+  const audio = useAmbientAudio(readingOpen || state.overlay === "plaque");
+  const flushObservation = useViewingObservation({ controller: viewing, state, snapshot, readyUnitId, readingOpen });
+  const pace = observedPace(viewing.session);
   const previousUnitRef = useRef(state.unitId);
   const firstWalkMarkedRef = useRef(false);
-  const positionKey = `${state.act}:${state.unitId ?? ""}:${state.lastUnitId ?? ""}`;
+  const positionKey = `${state.act}:${state.unitId ?? ""}:${state.lastUnitId ?? ""}:${viewing.session.order.join(",")}`;
   const publishedPositionRef = useRef(positionKey);
   const [statusMessage, setStatusMessage] = useState("");
   const stateRef = useRef(state);
+  const rawDispatch = useCallback((event: ExperienceEvent) => {
+    const next = experienceReducer(stateRef.current, event, snapshotRef.current);
+    stateRef.current = next;
+    setState(next);
+  }, []);
   const navigationLockedRef = useRef(false);
   const queuedNavigationRef = useRef<ExperienceEvent | null>(null);
   const dispatch = useCallback((event: ExperienceEvent) => {
     const isNavigation = event.type === "NEXT" || event.type === "PREVIOUS" || event.type === "SELECT_UNIT";
     const current = stateRef.current;
     if (event.type === "OPEN_LIGHTBOX") queuedNavigationRef.current = null;
-    if (isNavigation && current.overlay === "lightbox") return;
+    if (isNavigation && (current.overlay !== "none" || (readingOpen && event.type !== "SELECT_UNIT"))) return;
     if (isNavigation && (navigationLockedRef.current || current.transitioning)) {
       queuedNavigationRef.current = event;
       return;
     }
-    const next = experienceReducer(current, event, snapshot);
+    flushObservation();
+    if (event.type === "NEXT" && !current.transitioning) {
+      const currentId = snapshotRef.current.units.find((unit) => unit.exhibition.unitId === current.unitId)?.artwork.id;
+      if (currentId) {
+        const updated = viewing.commit((session) => applyPendingPreference(session, baseSnapshot, currentId));
+        snapshotRef.current = snapshotForSession(baseSnapshot, updated);
+      }
+    }
+    const next = experienceReducer(current, event, snapshotRef.current);
     stateRef.current = next;
     if (next.transitioning) navigationLockedRef.current = true;
-    rawDispatch(event);
-  }, [rawDispatch, snapshot]);
+    setState(next);
+  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen]);
 
   useEffect(() => {
     stateRef.current = state;
@@ -65,11 +84,8 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
     if (state.transitioning || !queuedNavigationRef.current) return;
     const queued = queuedNavigationRef.current;
     queuedNavigationRef.current = null;
-    const next = experienceReducer(state, queued, snapshot);
-    stateRef.current = next;
-    if (next.transitioning) navigationLockedRef.current = true;
-    rawDispatch(queued);
-  }, [rawDispatch, snapshot, state]);
+    dispatch(queued);
+  }, [dispatch, state]);
 
   useEffect(() => () => {
     queuedNavigationRef.current = null;
@@ -78,6 +94,7 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
 
   const onArtworkReady = useCallback((unitId: string) => {
     const current = stateRef.current;
+    if (current.act === "walk" && current.unitId === unitId && !current.transitioning) setReadyUnitId(unitId);
     if (current.act !== "walk" || current.unitId !== unitId || current.transitioning || current.overlay === "lightbox" || firstWalkMarkedRef.current || !onMilestone) return;
     firstWalkMarkedRef.current = true;
     onMilestone("first-artwork-visible");
@@ -85,13 +102,15 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
   }, [onMilestone]);
 
   const incomingPositionKey = `${initialPosition.phase}:${initialPosition.phase === "walk" ? initialPosition.unitId : initialPosition.phase === "closing" ? initialPosition.lastUnitId ?? "" : ""}`;
-  const lastIncomingPositionKey = useRef(incomingPositionKey);
+  const lastIncomingPosition = useRef(initialPosition);
+  const restoringPositionKey = useRef<string | undefined>(undefined);
   useEffect(() => {
-    if (lastIncomingPositionKey.current === incomingPositionKey) return;
-    lastIncomingPositionKey.current = incomingPositionKey;
+    if (lastIncomingPosition.current === initialPosition) return;
+    lastIncomingPosition.current = initialPosition;
     const currentPosition = positionOfExperienceState(state);
     const currentPositionKey = `${currentPosition.phase}:${currentPosition.phase === "walk" ? currentPosition.unitId : currentPosition.phase === "closing" ? currentPosition.lastUnitId ?? "" : ""}`;
     if (currentPositionKey !== incomingPositionKey) {
+      restoringPositionKey.current = incomingPositionKey;
       queuedNavigationRef.current = null;
       navigationLockedRef.current = false;
       const restored = createExperienceState(snapshot, initialPosition);
@@ -116,10 +135,16 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
   }, []);
 
   useEffect(() => {
-    if (publishedPositionRef.current === positionKey) return;
+    const position = positionOfExperienceState(state);
+    const currentKey = `${position.phase}:${position.phase === "walk" ? position.unitId : position.phase === "closing" ? position.lastUnitId ?? "" : ""}`;
+    // A popstate restoration updates local state in an effect. Never publish
+    // the previous render's position over the URL while that update is pending.
+    if (restoringPositionKey.current && restoringPositionKey.current !== currentKey) return;
+    restoringPositionKey.current = undefined;
+    if (!viewing.hydrated || publishedPositionRef.current === positionKey) return;
     publishedPositionRef.current = positionKey;
-    onPositionChange(positionOfExperienceState(state));
-  }, [onPositionChange, positionKey, state]);
+    onPositionChange(position, snapshot);
+  }, [onPositionChange, positionKey, state, snapshot, viewing.hydrated]);
 
   useEffect(() => {
     if (previousUnitRef.current !== state.unitId) {
@@ -139,7 +164,7 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" && state.overlay === "plaque") rawDispatch({ type: "CLOSE_OVERLAY" });
-      if (state.act !== "walk" || state.overlay !== "none") return;
+      if (state.act !== "walk" || state.overlay !== "none" || readingOpen) return;
       if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
       const target = event.target;
       if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) return;
@@ -150,7 +175,16 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [dispatch, state.act, state.overlay]);
+  }, [dispatch, state.act, state.overlay, readingOpen]);
+
+  const choosePreference = (preference: ViewingPreference) => {
+    const currentId = snapshot.units.find((unit) => unit.exhibition.unitId === state.unitId)?.artwork.id;
+    if (currentId) viewing.commit((session) => queuePreference(session, preference, currentId));
+  };
+  const restart = () => {
+    viewing.commit(createViewingSession({ ...baseSnapshot, routeOrder: undefined }));
+    onRestart();
+  };
 
   const stageForLast = snapshot.units.find((unit) => unit.exhibition.unitId === state.lastUnitId);
   useEffect(() => rawDispatch({ type: "AUDIO_STATE", state: audio.state }), [audio.state]);
@@ -165,12 +199,12 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
       <h1>这次暂时没有可展示的作品</h1>
       <p>试试换一种情绪、光线或主题，再从当前馆藏里策展。</p>
       {snapshot.omittedUnitCount ? <p>另有 {snapshot.omittedUnitCount} 件记录暂不可用。</p> : null}
-      <button className="experience-primary" onClick={onRestart} type="button">重新写一句</button>
+      <button className="experience-primary" onClick={restart} type="button">重新写一句</button>
       <a className="experience-text-button" href="/gallery?view=route">查看经典路线</a>
     </main>;
   }
 
-  return <main className={`artduo-experience experience-act-${state.act}`} data-testid="experience-shell">
+  return <main className={`artduo-experience experience-act-${state.act}`} data-testid="experience-shell" data-viewing-pace={pace}>
     {state.act === "preface" ? <link rel="preload" as="image" href={snapshot.units[0]!.media.previewUrl} fetchPriority="high" /> : null}
     <div className="experience-global-controls"><AudioButton onToggle={() => void toggleAudio()} state={audio.state} /></div>
     {!state.online ? <p className="experience-offline" role="status">离线浏览 · 作品讲解和未缓存媒体可能暂不可用</p> : null}
@@ -178,16 +212,24 @@ export function ExperienceShell({ snapshot, initialPosition, onPositionChange, o
     {state.act === "preface" ? <Preface block={snapshot.preface} onContinue={() => dispatch({ type: "SKIP" })} reducedMotion={reducedMotion} /> : null}
     {state.act === "walk" ? <Walk
       dispatch={dispatch}
-      onDetail={(artworkId) => onDetail(artworkId, positionOfExperienceState(state))}
-      onMediaRetry={(artworkId) => rawDispatch({ type: "MEDIA_RETRIED", artworkId })}
+      onDetail={(artworkId) => { flushObservation(); onDetail(artworkId, positionOfExperienceState(state), snapshot); }}
+      onMediaRetry={(artworkId) => { setReadyUnitId(undefined); rawDispatch({ type: "MEDIA_RETRIED", artworkId }); }}
       onArtworkReady={onArtworkReady}
       reducedMotion={reducedMotion}
       snapshot={snapshot}
       state={state}
+      viewingSession={viewing.session}
+      onPreference={choosePreference}
+      onCancelPreference={() => viewing.commit((session) => ({ ...session, pending: undefined, message: "待应用的调整已取消。" }))}
+      onReadingChange={setReadingOpen}
+      onTogglePace={() => viewing.commit((session) => ({ ...session, paceEnabled: !session.paceEnabled }))}
+      onClearObservations={() => { flushObservation(); viewing.clear(); }}
+      storageAvailable={viewing.storageAvailable}
+      pace={pace}
     /> : null}
     {state.act === "closing" ? <Closing
       lastUnit={stageForLast}
-      onRestart={onRestart}
+      onRestart={restart}
       onRevisit={() => dispatch({ type: "REVISIT" })}
       reducedMotion={reducedMotion}
       snapshot={snapshot}

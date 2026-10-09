@@ -42,3 +42,9 @@ test("experience opens the first artwork by default while explicit preface links
     position: { phase: "preface" }, corrected: false,
   });
 });
+
+test("detail and refresh links carry the revised artwork order without behavioral records", () => {
+  const href = experienceHrefForPosition({ ...snapshot, routeOrder: ["met-2", "met-1"] }, { phase: "walk", unitId: "u-2" });
+  assert.equal(new URL(href, "http://localhost").searchParams.get("route"), "met-2,met-1");
+  assert.doesNotMatch(href, /dwell|observation|viewingMs/);
+});

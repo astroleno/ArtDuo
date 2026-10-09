@@ -1,5 +1,7 @@
 import type { ExhibitionUnit, TransitionFamily, TransitionIntent } from "@artduo/contracts";
 import type { ExhibitionSnapshot, ExperienceStage, ExperienceUnit, NarrativeBlock } from "@artduo/ui";
+import { sequenceExhibition } from "@artduo/ui";
+import { parseViewingIntent } from "./viewing-intent";
 
 import type { CurationNarrative } from "./curation-narrative";
 import { isGalleryArtwork } from "./artwork-eligibility";
@@ -102,17 +104,18 @@ export function buildExperienceSnapshot(input: {
   route: GallerySceneRouteStop[];
 }): ExhibitionSnapshot {
   const { catalog, search, narrative, query } = input;
+  const quietJourney = parseViewingIntent(query).rest;
   const stages: ExperienceStage[] = narrative.growthForm.stages.map((stage) => ({
     id: stage.id,
     role: stage.role,
-    label: stageLabel(stage.label, stage.role),
+    label: quietJourney ? (stage.role === "threshold" ? "入场" : stage.role === "afterglow" ? "余韵" : "停留") : stageLabel(stage.label, stage.role),
     valence: stage.valence,
     arousal: stage.arousal,
     tension: stage.tension,
     wonder: stage.wonder,
     intimacy: stage.intimacy,
-    intensity: stage.intensity,
-    transitionIntent: stage.transitionIntent,
+    intensity: quietJourney ? Math.min(stage.intensity, 0.35) : stage.intensity,
+    transitionIntent: quietJourney ? "hold" : stage.transitionIntent,
   }));
   const artworkIdsByStage = new Map(narrative.growthForm.stages.map((stage) => [stage.id, stage.artworkIds]));
   const unitIds = new Set<string>();
@@ -126,7 +129,7 @@ export function buildExperienceSnapshot(input: {
       return [];
     }
 
-    const unitId = `unit-${result.rank}-${record.id}`;
+    const unitId = `unit-${record.id}`;
     if (unitIds.has(unitId) || artworkIds.has(record.id)) {
       throw new TypeError(`Duplicate experience unit reference: ${unitId}`);
     }
@@ -147,7 +150,7 @@ export function buildExperienceSnapshot(input: {
       role: index === 0 ? "opening" : last ? "closing" : index % 3 === 0 ? "bridge" : "focus",
       displayMode: inferDisplayMode(result),
       transitionIn: {
-        family: INTENT_FAMILY[stop?.transitionIntent ?? "fade"],
+        family: quietJourney ? "dissolve" : INTENT_FAMILY[stop?.transitionIntent ?? "fade"],
         durationMs: 1400,
         intensity: "moderate",
         implementationHint: "auto",
@@ -173,7 +176,7 @@ export function buildExperienceSnapshot(input: {
           ? artworkImageUrl(record.id, "depth", catalog.releaseVersion)
           : undefined,
       },
-      transitionFamily: INTENT_FAMILY[stop?.transitionIntent ?? "fade"],
+      transitionFamily: quietJourney ? "dissolve" : INTENT_FAMILY[stop?.transitionIntent ?? "fade"],
       displayCategory: inferDisplayCategory(result),
       retrievalEvidence: { score: result.combinedScore, matchedTokens: result.matchedTokens },
     }];
@@ -204,7 +207,7 @@ export function buildExperienceSnapshot(input: {
     preface,
     closing,
     stages,
-    units,
+    units: sequenceExhibition(units),
     omittedUnitCount,
   };
 }

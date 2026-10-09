@@ -74,6 +74,19 @@ test("experience adapter binds records and versioned media, and keeps missing sc
   assert.equal(unit.exhibition.backgroundSceneId, "unavailable-scene");
 });
 
+test("experience identity survives reranking and a resting intent keeps every stage gentle", () => {
+  const input = fixture(5);
+  const original = buildExperienceSnapshot({ query: "有点累，撑了很久", ...input });
+  const reranked = buildExperienceSnapshot({ ...input, query: "有点累，撑了很久", search: {
+    ...input.search, results: [...input.search.results].reverse().map((result, index) => ({ ...result, rank: index + 1 })),
+  } });
+  const identities = (snapshot: typeof original) => Object.fromEntries(snapshot.units.map((unit) => [unit.artwork.id, unit.exhibition.unitId]));
+  assert.deepEqual(identities(reranked), identities(original));
+  assert.ok(original.stages.every((stage) => stage.intensity <= 0.35 && stage.transitionIntent === "hold"));
+  assert.ok(original.units.every((unit) => unit.transitionFamily === "dissolve"));
+  assert.ok(original.stages.every((stage) => ["入场", "停留", "余韵"].includes(stage.label)));
+});
+
 test("experience adapter counts missing records and rejects duplicate artwork references", () => {
   const missing = fixture(2, true);
   const snapshot = buildExperienceSnapshot({ query: missing.search.query, ...missing });

@@ -29,3 +29,4 @@ export * from "./experience/depth-parallax-canvas";
 export * from "./experience/audio-controller";
 export * from "./experience/char-reveal";
 export * from "./experience/experience-shell";
+export * from "./experience/viewing-session";

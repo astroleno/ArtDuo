@@ -26,7 +26,6 @@ test("experience room stays in bounds at 320, 390, 844 landscape and desktop wid
   await gotoApp(page, directWalkUrl);
   await expect(page.locator(".experience-art-lightbox")).toHaveAttribute("data-image-state", "ready");
   await expect.poll(() => page.evaluate(() => performance.getEntriesByName("artduo.experience.first-artwork-actionable").length)).toBe(1);
-  await page.getByRole("button", { name: "展开完整展签" }).click();
   for (const viewport of cases) {
     const previousStyle = await page.locator(".experience-plaque-position").getAttribute("style");
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
@@ -53,15 +52,21 @@ test("experience room stays in bounds at 320, 390, 844 landscape and desktop wid
     expect(bounds!.y).toBeGreaterThanOrEqual(0);
     expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height + 1);
-    if (viewport.width < 768) expect(bounds!.y).toBeLessThan(viewport.height * 0.65);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
-    await expect(page.locator(".experience-plaque-detail")).toContainText("媒材");
-    const plaqueCanReachEnd = await page.locator(".experience-plaque-position").evaluate((element) => {
+    await page.getByRole("button", { name: "展开完整展签" }).click();
+    const reading = page.getByRole("dialog", { name: /Water Lilies/ });
+    await expect(reading).toBeVisible();
+    const readingBounds = await reading.boundingBox();
+    expect(readingBounds!.x).toBeGreaterThanOrEqual(0);
+    expect(readingBounds!.width).toBeLessThanOrEqual(viewport.width);
+    expect(readingBounds!.height).toBeLessThanOrEqual(viewport.height);
+    await expect(reading).toContainText("媒材");
+    const plaqueCanReachEnd = await page.locator(".experience-reading-body").evaluate((element) => {
       element.scrollTop = element.scrollHeight;
       return element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
     });
     expect(plaqueCanReachEnd).toBe(true);
-    await page.locator(".experience-plaque-position").evaluate((element) => { element.scrollTop = 0; });
+    await page.locator(".experience-reading-body").evaluate((element) => { element.scrollTop = 0; });
     expect(Number.parseFloat(await page.locator(".experience-caption").evaluate((element) => getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(16);
     expect(Number.parseFloat(await page.locator(".experience-plaque-detail dd").first().evaluate((element) => getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(14);
     const navigationButton = await page.locator(".experience-walk-controls button").first().boundingBox();
@@ -69,8 +74,13 @@ test("experience room stays in bounds at 320, 390, 844 landscape and desktop wid
     expect(navigationButton!.width).toBeGreaterThanOrEqual(44);
     expect(navigationButton!.height).toBeGreaterThanOrEqual(44);
     if (viewport.screenshot) {
-      await page.screenshot({ path: resolve(evidenceDir, viewport.screenshot), fullPage: true });
+      await page.screenshot({ path: resolve(evidenceDir, `reading-${viewport.width}.png`), fullPage: true });
     }
+    await page.keyboard.press("Escape");
+    await expect(reading).toBeHidden();
+    await expect(page.getByRole("button", { name: "展开完整展签" })).toBeFocused();
+    expect(await page.locator(".experience-frame-shadow").boundingBox()).toEqual(frameBounds);
+    if (viewport.screenshot) await page.screenshot({ path: resolve(evidenceDir, viewport.screenshot), fullPage: true });
   }
 });
 

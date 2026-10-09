@@ -6,8 +6,10 @@ import type { ExperienceEvent, ExperienceState } from "./state";
 import type { ExhibitionSnapshot } from "./types";
 import { EmotionRail } from "./emotion-rail";
 import { Room } from "./room";
+import { ViewingControls } from "./viewing-controls";
+import type { ViewingSession, ViewingPreference, ViewingPace } from "./viewing-session";
 
-export function Walk({ snapshot, state, dispatch, onDetail, onMediaRetry, onArtworkReady, reducedMotion }: {
+export function Walk({ snapshot, state, dispatch, onDetail, onMediaRetry, onArtworkReady, reducedMotion, viewingSession, onPreference, onCancelPreference, onReadingChange, onTogglePace, onClearObservations, storageAvailable, pace }: {
   snapshot: ExhibitionSnapshot;
   state: ExperienceState;
   dispatch: (event: ExperienceEvent) => void;
@@ -15,6 +17,14 @@ export function Walk({ snapshot, state, dispatch, onDetail, onMediaRetry, onArtw
   onMediaRetry: (artworkId: string) => void;
   onArtworkReady: (unitId: string) => void;
   reducedMotion: boolean;
+  viewingSession: ViewingSession;
+  onPreference: (preference: ViewingPreference) => void;
+  onCancelPreference: () => void;
+  onReadingChange: (open: boolean) => void;
+  onTogglePace: () => void;
+  onClearObservations: () => void;
+  storageAvailable: boolean;
+  pace: ViewingPace;
 }) {
   const index = snapshot.units.findIndex((unit) => unit.exhibition.unitId === state.unitId);
   const unit = snapshot.units[index >= 0 ? index : 0];
@@ -57,10 +67,15 @@ export function Walk({ snapshot, state, dispatch, onDetail, onMediaRetry, onArtw
   const stage = snapshot.stages.find((candidate) => candidate.id === unit.stageId);
   const selectStage = (stageId: string) => {
     const stageUnit = snapshot.units.find((candidate) => candidate.stageId === stageId);
-    if (stageUnit) dispatch({ type: "SELECT_UNIT", unitId: stageUnit.exhibition.unitId });
+    if (stageUnit) {
+      const notes = walkRef.current?.querySelector("details");
+      if (notes) notes.open = false;
+      onReadingChange(false);
+      dispatch({ type: "SELECT_UNIT", unitId: stageUnit.exhibition.unitId });
+    }
   };
   return <div className={`experience-walk ${state.transitioning ? "is-transitioning" : ""}`} ref={walkRef}>
-    <details className="experience-route-notes" onKeyDown={(event) => {
+    <details className="experience-route-notes" onToggle={(event) => onReadingChange(event.currentTarget.open)} onKeyDown={(event) => {
       if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); }
       event.stopPropagation();
     }}>
@@ -74,6 +89,7 @@ export function Walk({ snapshot, state, dispatch, onDetail, onMediaRetry, onArtw
           onSelect={selectStage}
           stages={snapshot.stages}
         />
+        <ViewingControls session={viewingSession} onPreference={onPreference} onCancel={onCancelPreference} onTogglePace={onTogglePace} onClear={onClearObservations} storageAvailable={storageAvailable} />
       </div>
     </details>
     <Room
@@ -93,6 +109,7 @@ export function Walk({ snapshot, state, dispatch, onDetail, onMediaRetry, onArtw
       stageLabel={stage?.label}
       transitioning={state.transitioning}
       unit={unit}
+      pace={pace}
     />
     <div aria-live="polite" className="sr-only">正在观看第 {index + 1} 件，共 {snapshot.units.length} 件作品：{unit.artwork.metadata.title}</div>
   </div>;

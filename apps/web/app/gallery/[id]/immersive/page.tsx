@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { ImmersiveGallery, type ImmersiveGalleryUnit, type TransitionFamily } from "@artduo/ui";
+import { ImmersiveGallery, validRouteOrder, type ImmersiveGalleryUnit, type TransitionFamily } from "@artduo/ui";
 import { ExperienceRouteClient } from "../../../../components/experience-route-client";
 
 import { artworkImageUrl } from "../../../../lib/artwork-image-url";
@@ -242,13 +242,18 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
     search = orderSearchForGrowth(search, narrative.growthForm);
     const sceneMatchStartedAt = performance.now();
     const sceneSearch = searchBackgroundScenes(catalog, query, { limit: 12 });
-    const route = buildGallerySceneRoute(search, catalog.backgroundScenes, {
+    // These front-facing walls were visually checked for a clear mount surface.
+    const exhibitionRooms = catalog.backgroundScenes.filter((scene) => ["bg-004", "bg-027", "bg-034"].includes(scene.id));
+    const route = buildGallerySceneRoute(search, exhibitionRooms.length ? exhibitionRooms : catalog.backgroundScenes, {
       sceneResults: sceneSearch.results,
       growthForm: narrative.growthForm,
     });
     recordExperienceTiming("scene-match", performance.now() - sceneMatchStartedAt, catalog.releaseVersion);
     const adapterStartedAt = performance.now();
     const snapshot = buildExperienceSnapshot({ query, catalog, search, narrative, route });
+    const requestedRoute = readSingle(queryParams, "route");
+    const routeOrder = requestedRoute && requestedRoute.length < 4096 ? requestedRoute.split(",") : undefined;
+    if (validRouteOrder(routeOrder, snapshot)) snapshot.routeOrder = routeOrder;
     recordExperienceTiming("snapshot-adapter", performance.now() - adapterStartedAt, catalog.releaseVersion);
     if (snapshot.omittedUnitCount > 0) recordExperienceDegradation("release-records-omitted", catalog.releaseVersion);
     const { position, corrected } = resolveExperiencePosition(queryParams, snapshot);
@@ -259,6 +264,7 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
         phase: position.phase,
         artworkId: position.phase === "walk" ? snapshot.units.find((unit) => unit.exhibition.unitId === position.unitId)?.artwork.id
           : position.phase === "closing" && position.lastUnitId ? snapshot.units.find((unit) => unit.exhibition.unitId === position.lastUnitId)?.artwork.id : undefined,
+        routeOrder: snapshot.routeOrder,
       }));
     }
     return <ExperienceRouteClient key={snapshot.exhibitionId} initialPosition={position} snapshot={snapshot} />;

@@ -88,9 +88,9 @@ test("audio recovers from play rejection and stops on mute, hidden page and unmo
       if (failOnce) { failOnce = false; return Promise.reject(new DOMException("Injected play denial", "NotAllowedError")); }
       return play.call(this).catch((error: Error) => { failures.push(`${error.name}: ${error.message}`); throw error; });
     };
-    Object.assign(window, { experienceAudio: () => ({ playing: media.filter((audio) => !audio.paused).length, loaded: media.filter((audio) => audio.hasAttribute("src")).length, progressed: media.some((audio) => audio.currentTime > 0), failures }) });
+    Object.assign(window, { experienceAudio: () => ({ playing: media.filter((audio) => !audio.paused).length, loaded: media.filter((audio) => audio.hasAttribute("src")).length, progressed: media.some((audio) => audio.currentTime > 0), volume: media.find((audio) => !audio.paused)?.volume, rate: media.find((audio) => !audio.paused)?.playbackRate, failures }) });
   });
-  const audio = () => page.evaluate(() => (window as unknown as { experienceAudio: () => { playing: number; loaded: number; progressed: boolean } }).experienceAudio());
+  const audio = () => page.evaluate(() => (window as unknown as { experienceAudio: () => { playing: number; loaded: number; progressed: boolean; volume?: number; rate?: number } }).experienceAudio());
   await page.request.get("/ambient-audio/Awakening.mp3");
   await page.goto(fixtureUrl.replace("&depth=valid", ""));
   expect((await audio()).loaded).toBe(0);
@@ -101,6 +101,11 @@ test("audio recovers from play rejection and stops on mute, hidden page and unmo
   await expect(page.getByRole("button", { name: "关闭环境音" })).toBeVisible();
   await expect.poll(async () => (await audio()).progressed).toBe(true);
   expect((await audio()).playing).toBe(1);
+  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await expect.poll(async () => (await audio()).volume).toBeCloseTo(0.064, 3);
+  expect((await audio()).rate).toBe(1);
+  await page.keyboard.press("Escape");
+  await expect.poll(async () => (await audio()).volume).toBeCloseTo(0.16, 3);
   await page.getByRole("button", { name: "下一件作品" }).click();
   expect((await audio()).playing).toBe(1);
   await page.getByRole("button", { name: "关闭环境音" }).click();
