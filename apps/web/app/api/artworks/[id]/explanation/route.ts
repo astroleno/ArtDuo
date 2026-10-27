@@ -1,13 +1,16 @@
 import { NextResponse } from "next/server";
 
 import { getArtworkExplanationClient } from "../../../../../lib/explanation-client";
+import { enforcePublicRequest, publicRequestError, readBoundedRequestJson, RuntimeLimitError } from "../../../../../lib/public-runtime";
 
 export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
+  try { await enforcePublicRequest(request.headers, "explanation"); } catch (error) { return publicRequestError(error); }
   const { id } = await context.params;
   let value: unknown;
   try {
-    value = await request.json();
-  } catch {
+    value = await readBoundedRequestJson(request);
+  } catch (error) {
+    if (error instanceof RuntimeLimitError) return publicRequestError(error);
     return NextResponse.json({ message: "Invalid request body" }, { status: 400 });
   }
   if (!value || typeof value !== "object" || Array.isArray(value)) return NextResponse.json({ message: "Invalid request body" }, { status: 400 });

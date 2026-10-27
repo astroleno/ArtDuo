@@ -1,13 +1,15 @@
+import { appPath } from "@artduo/contracts";
 import { ArrowRight, Search } from "lucide-react";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { enforcePublicRequest, RuntimeLimitError } from "../../lib/public-runtime";
 
 import { ArtworkImage } from "../../components/artwork-image";
 import { artworkImageUrl } from "../../lib/artwork-image-url";
 import { resolveExperienceView } from "../../lib/experience-config";
 import { buildExperienceHref } from "../../lib/experience-navigation";
-import { searchGalleryWithRuntime } from "../../lib/browser-curation";
-import { buildCurationNarrative } from "../../lib/curation-narrative";
-import { orderSearchForGrowth } from "../../lib/affective-negotiation";
+import { curateExhibition } from "../../lib/semantic-curator";
+import { curationNarrativeView, getExhibitionNarrative } from "../../lib/exhibition-narrative-server";
 import { buildGallerySceneRoute, type GallerySceneRouteStop } from "../../lib/gallery-route";
 import { DEFAULT_CURATION_PROMPT, STARTER_PROMPTS } from "../../lib/prompts";
 import { loadWebReleaseCatalog, searchBackgroundScenes, type WebReleaseCatalog, type WebSearchResult } from "../../lib/release-catalog";
@@ -67,10 +69,12 @@ function buildRoomHref(
   results: WebSearchResult["results"],
   releaseVersion: string,
   view: "classic" | "experience",
+  curationId?: string,
 ): string {
   const unit = results[stop.startIndex]?.artwork.id;
-  if (view === "experience") return buildExperienceHref({ query, releaseVersion, phase: unit ? "walk" : "preface", artworkId: unit });
+  if (view === "experience") return buildExperienceHref({ query, releaseVersion, phase: unit ? "walk" : "preface", artworkId: unit, curationId, recipeVersion: curationId ? "experience-v2" : undefined });
   const params = new URLSearchParams({ query, releaseVersion, view: "classic" });
+  if (curationId) { params.set("curationId", curationId); params.set("recipeVersion", "experience-v2"); }
   if (unit && stop.startIndex > 0) params.set("unit", unit);
   return `/gallery/local/immersive?${params.toString()}`;
 }
@@ -96,6 +100,7 @@ function GallerySceneRoute({
   route,
   releaseVersion,
   view,
+  curationId,
 }: {
   featured?: WebSearchResult["results"][number];
   query: string;
@@ -103,6 +108,7 @@ function GallerySceneRoute({
   route: GallerySceneRouteStop[];
   releaseVersion: string;
   view: "classic" | "experience";
+  curationId?: string;
 }) {
   if (route.length === 0) {
     return null;
@@ -125,7 +131,7 @@ function GallerySceneRoute({
                 aria-label={`从${stop.scene.label}开始观展`}
                 className="gallery-route-stop"
                 data-testid="gallery-route-stop"
-                href={buildRoomHref(query, stop, results, releaseVersion, view)}
+                href={appPath(buildRoomHref(query, stop, results, releaseVersion, view, curationId))}
               >
                 <span aria-hidden="true" className="gallery-route-thumb">
                   {stop.scene.imageUrl ? <img alt="" loading="eager" src={stop.scene.imageUrl} /> : null}
@@ -169,23 +175,28 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const params = await searchParams;
   const query = readQuery(params);
   const hasQuery = query.length > 0;
-  const runtimeMode = readRuntime(params);
   const routePreview = readView(params) === "route";
   const presentationView = resolveExperienceView(readView(params));
-  const catalog = loadWebReleaseCatalog();
+  const single = (key: string) => { const value = params?.[key]; return Array.isArray(value) ? value[0] : value; };
+  const catalog = loadWebReleaseCatalog({ releaseVersion: single("releaseVersion") });
+  let curation;
+  try {
+    if (hasQuery && !single("curationId")) await enforcePublicRequest(await headers(), "curation");
+    curation = hasQuery ? await curateExhibition({ catalog, query, curationId: single("curationId") }) : undefined;
+  } catch (error) {
+    if (error instanceof RuntimeLimitError) return <main className="artduo-experience experience-unavailable"><h1>这次展览还没有准备好</h1>
+      <p>现在请求较多，请稍后再试。你的观看愿望已保留。</p><a href={appPath(`/?query=${encodeURIComponent(query)}`)}>返回入口</a></main>;
+    return <main className="artduo-experience experience-unavailable"><h1>这次展览暂时无法打开</h1>
+      <p>保存的展览没有恢复，作品顺序不会被悄悄替换。</p><a href={appPath(`/?query=${encodeURIComponent(query)}`)}>重新策展</a></main>;
+  }
+  if (curation?.assignments.length && !single("curationId")) getExhibitionNarrative(catalog, curation);
+  const preparedNarrative = curation ? curationNarrativeView(catalog, curation) : undefined;
   const immersiveHref = presentationView === "experience"
-    ? buildExperienceHref({ query, releaseVersion: catalog.releaseVersion, phase: "preface" })
-    : `/gallery/local/immersive?${new URLSearchParams({ query, releaseVersion: catalog.releaseVersion, view: "classic" }).toString()}`;
-  const { search: initialSearch, runtime } = hasQuery
-    ? searchGalleryWithRuntime({
-      catalog,
-      query,
-      limit: 12,
-      runtimeMode,
-    })
-    : { search: buildIdleSearch(catalog, query), runtime: "idle" };
-  const narrative = hasQuery && initialSearch.results.length > 0 ? buildCurationNarrative(initialSearch) : undefined;
-  const search = narrative ? orderSearchForGrowth(initialSearch, narrative.growthForm) : initialSearch;
+    ? buildExperienceHref({ query, releaseVersion: catalog.releaseVersion, phase: "walk", recipeVersion: "experience-v2", curationId: curation?.curationId })
+    : `/gallery/local/immersive?${new URLSearchParams({ query, releaseVersion: catalog.releaseVersion, view: "classic", recipeVersion: "experience-v2", ...(curation ? { curationId: curation.curationId } : {}) }).toString()}`;
+  const runtime = hasQuery ? "server" : "idle";
+  const narrative = preparedNarrative?.narrative;
+  const search = curation?.search ?? buildIdleSearch(catalog, query);
   const hasCuratedResults = hasQuery && search.results.length > 0;
   const featured = search.results[0];
   const sceneSearch = hasQuery ? searchBackgroundScenes(catalog, query, { limit: 12 }) : undefined;
@@ -202,13 +213,13 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   return (
     <main className="shell">
       <header className="topbar">
-        <a className="brand" href="/">
+        <a className="brand" href={appPath("/")}>
           <span className="brand-mark">ArtDuo</span>
           <span className="brand-meta">馆藏 {catalog.releaseVersion}</span>
         </a>
         <nav className="nav" aria-label="Primary">
-          <a href="/">首页</a>
-          <a href="/gallery">画廊</a>
+          <a href={appPath("/")}>首页</a>
+          <a href={appPath("/gallery")}>画廊</a>
         </nav>
       </header>
 
@@ -227,13 +238,13 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
         <h1 className="page-title">导览画廊</h1>
         {hasCuratedResults ? (
           <div className="gallery-header-actions">
-            <a className="primary-button gallery-immersive-link" href={immersiveHref}>
+            <a className="primary-button gallery-immersive-link" href={appPath(immersiveHref)}>
               进入这场观展
               <ArrowRight aria-hidden="true" size={18} />
             </a>
             <details className="gallery-query-edit">
               <summary>调整策展意图</summary>
-              <form className="query-form query-form-compact" action="/gallery">
+              <form className="query-form query-form-compact" action={appPath("/gallery")}>
                 <div className="field">
                   <label htmlFor="query">
                     <Search aria-hidden="true" size={16} /> 策展意图
@@ -247,7 +258,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             </details>
           </div>
         ) : (
-          <form className="query-form" action="/gallery">
+          <form className="query-form" action={appPath("/gallery")}>
             <div className="field">
               <label htmlFor="query">
                 <Search aria-hidden="true" size={16} /> 策展意图
@@ -269,7 +280,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             <p className="meta">这里用于修改或重新输入观看愿望。选择一个示例，或输入自己的观看愿望。</p>
             <div className="empty-actions">
               {STARTER_PROMPTS.map((prompt) => (
-                <a className="secondary-link" href={`/gallery?query=${encodeURIComponent(prompt.query)}`} key={prompt.query}>
+                <a className="secondary-link" href={appPath(`/gallery?query=${encodeURIComponent(prompt.query)}`)} key={prompt.query}>
                   {prompt.label}
                 </a>
               ))}
@@ -280,11 +291,11 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             <h2>没有找到可展示作品</h2>
             <p className="meta">尝试更具体的情绪、光线、主题或空间描述。</p>
             <div className="empty-actions">
-              <a className="secondary-link" href="/gallery">清空输入</a>
-              <a className="secondary-link" href={`/gallery?query=${encodeURIComponent(STARTER_PROMPTS[1]?.query ?? DEFAULT_CURATION_PROMPT)}`}>
+              <a className="secondary-link" href={appPath("/gallery")}>清空输入</a>
+              <a className="secondary-link" href={appPath(`/gallery?query=${encodeURIComponent(STARTER_PROMPTS[1]?.query ?? DEFAULT_CURATION_PROMPT)}`)}>
                 使用示例
               </a>
-              <a className="secondary-link" href={`/gallery?query=${encodeURIComponent(DEFAULT_CURATION_PROMPT)}`}>
+              <a className="secondary-link" href={appPath(`/gallery?query=${encodeURIComponent(DEFAULT_CURATION_PROMPT)}`)}>
                 查看默认展览 <ArrowRight aria-hidden="true" size={17} />
               </a>
             </div>
@@ -293,7 +304,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <div className="curation-experience">
             <section className="gallery-exhibition-hero" aria-label="Curated exhibition opening">
               <div className="gallery-hero-copy">
-                <GallerySceneRoute featured={featured} query={query} results={search.results} route={sceneRoute} releaseVersion={catalog.releaseVersion} view={presentationView} />
+                <GallerySceneRoute featured={featured} query={query} results={search.results} route={sceneRoute} releaseVersion={catalog.releaseVersion} view={presentationView} curationId={curation?.curationId} />
               </div>
             </section>
             {narrative ? (

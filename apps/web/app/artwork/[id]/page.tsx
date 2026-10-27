@@ -1,3 +1,4 @@
+import { appPath } from "@artduo/contracts";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
 
@@ -6,6 +7,9 @@ import { ArtworkExplanationPanel } from "../../../components/artwork-explanation
 import { artworkImageUrl } from "../../../lib/artwork-image-url";
 import { getArtworkDetail, loadWebReleaseCatalog } from "../../../lib/release-catalog";
 import { sanitizeReturnTo } from "../../../lib/experience-navigation";
+import { readSavedCuration } from "../../../lib/semantic-curator";
+import { readNarrativePieces } from "../../../lib/exhibition-narrative-server";
+import { buildArtworkReadingCopy } from "../../../lib/artwork-page-copy";
 
 interface ArtworkPageProps {
   params: Promise<{ id: string }>;
@@ -81,27 +85,38 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     : "/gallery?view=route";
   const returnTo = sanitizeReturnTo(readParam(queryParams, "returnTo"), defaultReturn);
   const returnView = new URL(returnTo, "https://artduo.invalid").searchParams.get("view");
+  const experienceView = returnView === "experience";
+  const curationId = new URL(returnTo, "https://artduo.invalid").searchParams.get("curationId");
+  let curatorNote: string | undefined;
+  if (returnView === "experience" && curationId) {
+    try {
+      const curation = readSavedCuration(catalog, curationId, query?.normalize("NFKC").trim());
+      curatorNote = readNarrativePieces(catalog, curation)?.find((piece) => piece.kind === "note" && piece.artworkId === artwork.id)?.text;
+    } catch { /* Existing artwork facts remain readable when a saved exhibition is unavailable. */ }
+  }
   const immersiveParams = returnView === "experience"
-    ? new URLSearchParams({ query: query ?? artwork.searchText, releaseVersion: catalog.releaseVersion, view: "experience", recipeVersion: "experience-v1", phase: "walk", artworkId: artwork.id })
-    : new URLSearchParams({ query: query ?? artwork.searchText, releaseVersion: catalog.releaseVersion, view: "classic", unit: artwork.id });
-  const immersiveHref = `/gallery/local/immersive?${immersiveParams.toString()}`;
+    ? new URLSearchParams({ query: query ?? artwork.title, releaseVersion: catalog.releaseVersion, view: "experience", recipeVersion: "experience-v1", phase: "walk", artworkId: artwork.id })
+    : new URLSearchParams({ query: query ?? artwork.title, releaseVersion: catalog.releaseVersion, view: "classic", unit: artwork.id });
+  const immersiveHref = returnView === "experience" ? returnTo : `/gallery/local/immersive?${immersiveParams.toString()}`;
   const stageImage = scene?.imageUrl ?? artworkImageUrl(artwork.id, "preview", catalog.releaseVersion);
+  const artistName = artwork.displayCredits ? artwork.displayCredits.artistDisplayName ?? "作者尚待核实" : artwork.artistDisplayName;
   const fallbackMeta = [
-    `馆藏编号 ${artwork.id}`,
-    artwork.artistDisplayName,
+    artistName,
     artwork.yearLabel,
   ].filter(Boolean).join(" · ");
+  const readingCopy = buildArtworkReadingCopy({ curatorNote, storySnippet: artwork.storySnippet, description: artwork.description });
 
   return (
-    <main className="shell">
+    <main className={`shell${experienceView ? " experience-artwork-page" : ""}`}>
       <header className="topbar">
-        <a className="brand" href="/">
+        <a className="brand" href={appPath(experienceView ? "/?view=experience" : "/")}>
           <span className="brand-mark">ArtDuo</span>
-          <span className="brand-meta">馆藏 {catalog.releaseVersion}</span>
+          <span className="brand-meta">作品资料</span>
         </a>
-        <nav className="nav" aria-label="Primary">
-          <a href="/">首页</a>
-          <a href={returnTo}>画廊</a>
+        <nav className="nav" aria-label={experienceView ? "观展导航" : "Primary"}>
+          {experienceView ? <a className="detail-return-link" href={appPath(returnTo)}>
+            <ArrowLeft aria-hidden="true" size={17} /> 返回刚才的位置
+          </a> : <><a href={appPath("/")}>首页</a><a href={appPath(returnTo)}>画廊</a></>}
         </nav>
       </header>
 
@@ -114,24 +129,26 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               fallbackLabel={artwork.title}
               fallbackMeta={fallbackMeta}
               loading="eager"
+              fetchPriority="high"
               src={artworkImageUrl(artwork.id, "preview", catalog.releaseVersion)}
             />
             <figcaption className="artwork-caption">
               <strong>{artwork.title}</strong>
-              <span>{[artwork.artistDisplayName, artwork.yearLabel].filter(Boolean).join(", ")}</span>
+              <span>{[artistName, artwork.yearLabel].filter(Boolean).join(", ")}</span>
             </figcaption>
           </figure>
           <div className="detail-copy">
-            <p className="eyebrow">馆藏 {catalog.releaseVersion}</p>
+            {!experienceView ? <p className="eyebrow">作品</p> : null}
             <h1>{artwork.title}</h1>
-            <p>{[artwork.artistDisplayName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ")}</p>
-            <p>{artwork.storySnippet ?? "这件作品适合作为本次观展路线中的一个停留点。"}</p>
+            <p className="detail-byline">{[artistName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ")}</p>
+            {readingCopy.primary ? <p className="detail-primary-note">{readingCopy.primary}</p> : null}
             <div className="detail-actions">
-              <a className="secondary-link" href={returnTo}>
+              <a className={`secondary-link${experienceView ? " detail-return-action" : ""}`} href={appPath(returnTo)}>
                 <ArrowLeft aria-hidden="true" size={17} /> 返回刚才的位置
               </a>
-              <a className="secondary-link" href="/gallery?view=route">画廊路线</a>
-              <a className="secondary-link" href={immersiveHref}>
+              {!experienceView ? <>
+              <a className="secondary-link" href={appPath("/gallery?view=route")}>画廊路线</a>
+              <a className="secondary-link" href={appPath(immersiveHref)}>
                 沉浸观展 <ExternalLink aria-hidden="true" size={17} />
               </a>
               {artwork.objectUrl ? (
@@ -139,7 +156,14 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
                   来源页面 <ExternalLink aria-hidden="true" size={17} />
                 </a>
               ) : null}
+              </> : null}
             </div>
+            {experienceView ? <div className="detail-context-links">
+              <a href={appPath("/gallery?view=route")}>其他画廊路线</a>
+              {artwork.objectUrl ? <a href={artwork.objectUrl} target="_blank" rel="noreferrer">
+                馆藏来源 <ExternalLink aria-hidden="true" size={15} />
+              </a> : null}
+            </div> : null}
           </div>
         </div>
       </section>
@@ -149,41 +173,45 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
           <div>
             <div className="section-header">
               <div>
-                <p className="meta">Selected scene: {scene?.label ?? "Default gallery scene"}</p>
-                <h2>Detail</h2>
+                <h2>作品资料</h2>
               </div>
             </div>
-            <p>{artwork.description ?? artwork.searchText}</p>
+            {readingCopy.description ? <details className="detail-source-description"><summary>馆藏说明</summary><p>{readingCopy.description}</p></details> : null}
             <ArtworkExplanationPanel
               artworkId={artwork.id}
               backgroundSceneId={scene?.id}
               matchedTokens={matchedTokens}
-              query={query ?? artwork.searchText}
+              query={query ?? artwork.title}
               releaseVersion={catalog.releaseVersion}
               retrievalScore={retrievalScore}
+              curatorNote={curatorNote}
             />
-            <div className="tag-row" style={{ marginTop: 18 }}>
-              {[...artwork.moodTags, ...artwork.subjectTags.slice(0, 4)].map((tag, index) => (
-                <span className="tag" key={`${tag}-${index}`}>{tag}</span>
-              ))}
-            </div>
           </div>
           <dl className="facts">
             <div className="fact">
-              <dt>Grade</dt>
-              <dd>{artwork.grade} · {artwork.gradeLabel}</dd>
+              <dt>馆方尺寸</dt>
+              <dd style={{ whiteSpace: "pre-line" }}>{artwork.dimensionsLabel ?? "尺寸尚待核实"}</dd>
             </div>
             <div className="fact">
-              <dt>Motion</dt>
-              <dd>{artwork.motionProfile}</dd>
+              <dt>展示方式</dt>
+              <dd>按屏幕适配，完整显示图像；展厅中的大小不代表原作实际尺寸。</dd>
             </div>
             <div className="fact">
-              <dt>Department</dt>
-              <dd>{artwork.department ?? "Unknown"}</dd>
+              <dt>作者</dt>
+              <dd>{artistName ?? "作者资料尚待核实"}</dd>
+            </div>
+            {artwork.displayCredits?.publishers.length ? <div className="fact"><dt>出版</dt><dd>{artwork.displayCredits.publishers.join("; ")}</dd></div> : null}
+            <div className="fact">
+              <dt>时期</dt>
+              <dd>{artwork.yearLabel ?? "年代尚待核实"}</dd>
             </div>
             <div className="fact">
-              <dt>Scene affinity</dt>
-              <dd>{artwork.sceneAffinity.sceneTypes.concat(artwork.sceneAffinity.paletteModes).join(", ") || "Default"}</dd>
+              <dt>馆藏部门</dt>
+              <dd>{artwork.department ?? "部门资料尚待核实"}</dd>
+            </div>
+            <div className="fact">
+              <dt>媒材</dt>
+              <dd>{artwork.medium ?? "媒材尚待核实"}</dd>
             </div>
           </dl>
         </div>

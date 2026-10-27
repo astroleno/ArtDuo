@@ -1,7 +1,16 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import path from "node:path";
+import { appPath } from "@artduo/contracts";
+import { publicStaticMediaUrl } from "./public-media";
+import { projectRootFromCwd } from "../../api/src/runtime/environment";
+import { FileRevisionCache } from "./file-revision-cache";
 import { isGalleryArtwork } from "./artwork-eligibility";
 import { matchesViewingIntent, parseViewingIntent, viewingIntentEvidence } from "./viewing-intent";
 import { artworkHardConflict } from "./affective-negotiation";
+import { loadArtworkVisualEvidence, type ArtworkVisualEvidence } from "./artwork-visual-evidence";
+import { loadArtworkCredits } from "./artwork-credits";
+import { loadArtworkAppearance, type ArtworkAppearance } from "./artwork-appearance";
+import type { ArtworkDisplayCredits } from "@artduo/ui";
 
 import {
   embedText,
@@ -22,7 +31,7 @@ import {
   type ReleaseManifest,
 } from "@artduo/contracts";
 
-export type ExperienceArtworkRecord = Pick<ArtworkRecord, "id" | "source" | "metadata" | "media" | "presentation">;
+export type ExperienceArtworkRecord = Pick<ArtworkRecord, "id" | "source" | "metadata" | "media" | "presentation"> & { displayCredits?: ArtworkDisplayCredits };
 
 export interface WebArtworkVisualPresentation {
   contentBounds?: {
@@ -43,8 +52,10 @@ export interface WebArtwork {
   id: string;
   title: string;
   artistDisplayName?: string;
+  displayCredits?: ArtworkDisplayCredits;
   yearLabel?: string;
   medium?: string;
+  dimensionsLabel?: string;
   department?: string;
   objectUrl?: string;
   description?: string;
@@ -69,6 +80,9 @@ export interface WebArtwork {
   imageUrlFull?: string;
   aspectRatioHint?: string;
   visualPresentation?: WebArtworkVisualPresentation;
+  visualEvidence?: ArtworkVisualEvidence;
+  visualEvidenceUnavailable?: boolean;
+  appearance?: ArtworkAppearance;
   detailHref: string;
 }
 
@@ -97,6 +111,8 @@ export interface WebBackgroundSceneEmbeddingRecord {
 }
 
 export interface WebReleaseCatalog {
+  visualEvidenceVersion?: string;
+  appearanceVersion?: string;
   manifestPath: string;
   releaseDir: string;
   releaseVersion: string;
@@ -258,7 +274,7 @@ function parseMediaRecord(value: unknown, path: string): MediaShardRecord {
   };
 }
 
-function toBackgroundSceneView(scene: BackgroundSceneRecord): WebBackgroundScene {
+function toBackgroundSceneView(scene: BackgroundSceneRecord, releaseVersion: string): WebBackgroundScene {
   const searchText = scene.retrieval_profile?.search_text ?? scene.retrieval_profile?.embedding_text ?? "";
   const searchTerms = scene.retrieval_profile?.search_terms ?? [];
   const embeddingText = scene.retrieval_profile?.embedding_text ?? [
@@ -275,7 +291,7 @@ function toBackgroundSceneView(scene: BackgroundSceneRecord): WebBackgroundScene
   return {
     id: scene.id,
     label: scene.asset.label_cn,
-    imageUrl: scene.asset.local_public_path,
+    imageUrl: publicStaticMediaUrl(scene.asset.local_public_path, releaseVersion),
     sceneType: scene.visual_profile.scene_type,
     moods: scene.visual_profile.mood,
     palette: scene.visual_profile.palette,
@@ -339,6 +355,7 @@ function toArtwork(record: ArtworkRecord, releaseVersion: string): WebArtwork {
     artistDisplayName: record.metadata.artistDisplayName,
     yearLabel: record.metadata.yearLabel,
     medium: record.metadata.medium,
+    dimensionsLabel: record.metadata.dimensions,
     department: record.metadata.department,
     objectUrl: record.metadata.objectUrl,
     description: record.metadata.descriptionClean,
@@ -424,8 +441,35 @@ export function selectBackgroundScene(
     .at(0)?.scene;
 }
 
+const catalogCache = new FileRevisionCache<WebReleaseCatalog>(2);
+
+function catalogDependencies(loaded: ReturnType<typeof loadReleaseManifest>): string[] {
+  const embedded = path.join(loaded.releaseDir, "visual-reviews.json");
+  const external = path.resolve(loaded.releaseDir, "../../../data/curation/visual-reviews", `${loaded.releaseVersion}.json`);
+  const credits = path.resolve(loaded.releaseDir, "../../curation/public-url-import", loaded.releaseVersion, "creator-credits.json");
+  const files = [loaded.manifestPath, embedded, external, credits, path.join(loaded.releaseDir, "creator-credits.json"), path.join(loaded.releaseDir, "appearance-v2.json"),
+    ...Object.values(loaded.manifest.shards).flatMap(shards => shards?.map(shard => resolveShardPath(loaded.manifestPath, shard)) ?? [])];
+  const ledger = existsSync(embedded) ? embedded : external;
+  try {
+    if (statSync(ledger).size > 20_000_000) return files;
+    const reviews = JSON.parse(readFileSync(ledger, "utf8")).reviews;
+    if (Array.isArray(reviews)) for (const review of reviews) {
+      if (typeof review?.imagePath !== "string" || !/^(?:\.\/)?images\/[^?#]+$/u.test(review.imagePath)) continue;
+      const image = path.resolve(loaded.releaseDir, review.imagePath);
+      if (image.startsWith(path.resolve(loaded.releaseDir) + path.sep)) files.push(image);
+    }
+  } catch { /* The normal loader still validates a missing or malformed ledger. */ }
+  return files;
+}
+
 export function loadWebReleaseCatalog(options: ReleaseLoaderOptions = {}): WebReleaseCatalog {
   const loaded = loadReleaseManifest(options);
+  const deliveryKey = `${loaded.manifestPath}\n${process.env.ARTDUO_MEDIA_MODE ?? "local"}\n${process.env.ARTDUO_MEDIA_ORIGIN ?? ""}\n${process.env.ARTDUO_MEDIA_MANIFEST ?? ""}`;
+  return catalogCache.read(deliveryKey, () => [...catalogDependencies(loaded), ...(process.env.ARTDUO_MEDIA_MODE === "cdn" && process.env.ARTDUO_MEDIA_MANIFEST
+    ? [path.resolve(options.rootDir ?? projectRootFromCwd(), process.env.ARTDUO_MEDIA_MANIFEST)] : [])], () => buildWebReleaseCatalog(options, loaded));
+}
+
+function buildWebReleaseCatalog(options: ReleaseLoaderOptions, loaded: ReturnType<typeof loadReleaseManifest>): WebReleaseCatalog {
   const embeddings = loadEmbeddingShards(options);
   const metadata = readShardArrays(loaded.manifestPath, "metadata", loaded.manifest.shards.metadata).map((entry, index) =>
     parseMetadataRecord(entry, `metadata[${index}]`),
@@ -443,7 +487,7 @@ export function loadWebReleaseCatalog(options: ReleaseLoaderOptions = {}): WebRe
   const backgroundScenes = readShardArrays(loaded.manifestPath, "backgroundScenes", loaded.manifest.shards.backgroundScenes).map((entry, index) =>
     parseBackgroundSceneRecord(entry, `backgroundScenes[${index}]`),
   );
-  const backgroundSceneViews = backgroundScenes.map(toBackgroundSceneView);
+  const backgroundSceneViews = backgroundScenes.map(scene => toBackgroundSceneView(scene, loaded.releaseVersion));
   const backgroundSceneEmbeddingRecords = backgroundSceneViews.map((scene) =>
     toBackgroundSceneEmbeddingRecord(scene, embeddings.records[0]?.dimensions),
   );
@@ -468,19 +512,36 @@ export function loadWebReleaseCatalog(options: ReleaseLoaderOptions = {}): WebRe
       media: mediaRecord.media,
     }, `artwork[${record.id}]`);
   });
+  const credits = loadArtworkCredits({ releaseDir: loaded.releaseDir, releaseVersion: loaded.releaseVersion, records: artworkRecords });
   const experienceArtworkRecords = artworkRecords.map(({ id, source, metadata, media, presentation }) => ({
     id,
     source,
     metadata,
     media,
     presentation,
+    displayCredits: credits.get(id),
   } satisfies ExperienceArtworkRecord));
-  const artworks = artworkRecords.map((record) => toArtwork(record, loaded.releaseVersion));
+  const artworks = artworkRecords.map((record) => {
+    const artwork = toArtwork(record, loaded.releaseVersion);
+    const displayCredits = credits.get(record.id);
+    // Exact-author matching must not treat a known publisher as an author.
+    return displayCredits ? { ...artwork, displayCredits, artistDisplayName: displayCredits.artistDisplayName ?? undefined } : artwork;
+  });
+  const visual = loadArtworkVisualEvidence({ releaseDir: loaded.releaseDir, releaseVersion: loaded.releaseVersion, artworks,
+    verifiedRemoteImages: new Map(experienceArtworkRecords.flatMap(record => record.media.verifiedRemoteImage ? [[record.id, record.media.verifiedRemoteImage] as const] : [])) });
+  const appearance = loadArtworkAppearance(loaded.releaseDir, new Map(artworkRecords.flatMap(record => record.media.sourceAssetFingerprint ? [[record.id, record.media.sourceAssetFingerprint] as const] : [])));
+  for (const artwork of artworks) {
+    artwork.visualEvidence = visual.byArtworkId.get(artwork.id);
+    artwork.visualEvidenceUnavailable = visual.unverifiedArtworkIds.has(artwork.id);
+    artwork.appearance = appearance.byId.get(artwork.id);
+  }
 
   return {
     manifestPath: loaded.manifestPath,
     releaseDir: loaded.releaseDir,
     releaseVersion: loaded.releaseVersion,
+    visualEvidenceVersion: visual.version,
+    appearanceVersion: appearance.version,
     releaseCreatedAt: loaded.manifest.release.createdAt,
     manifest: loaded.manifest,
     artworkCount: artworks.length,

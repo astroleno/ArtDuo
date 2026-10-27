@@ -102,3 +102,23 @@ test("immersive gallery uses preface note and closing at the correct scene posit
   assert.match(lastMarkup, /data-testid="immersive-closing"[^>]*>Leave through a quieter threshold/);
   assert.match(lastMarkup, /is-closing-title/);
 });
+
+test("a one-work classic exhibition renders its own preface, note and closing exactly once", () => {
+  const render = (preface?: string, closing?: string) => renderToStaticMarkup(
+    <ImmersiveGallery galleryHref="/gallery" units={[{ ...units[0], curatorNote: "Only artwork note." }]}
+      preface={preface} closing={closing} />,
+  );
+  const complete = render("Only preface.", "Only closing.");
+  for (const text of ["Only preface.", "Only artwork note.", "Only closing."]) {
+    assert.equal(complete.split(text).length - 1, 1, text);
+  }
+  assert.ok(complete.indexOf("Only preface.") < complete.indexOf("Only artwork note."));
+  assert.ok(complete.indexOf("Only artwork note.") < complete.indexOf("Only closing."));
+  const withoutPreface = render(undefined, "Only closing.");
+  assert.doesNotMatch(withoutPreface, /data-testid="immersive-preface"/);
+  assert.equal(withoutPreface.split("Only closing.").length - 1, 1);
+  assert.equal(withoutPreface.split("Only artwork note.").length - 1, 1);
+  const withoutClosing = render("Only preface.");
+  assert.doesNotMatch(withoutClosing, /data-testid="immersive-closing"/);
+  assert.equal(withoutClosing.split("Only artwork note.").length - 1, 1);
+});

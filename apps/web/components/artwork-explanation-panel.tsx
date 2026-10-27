@@ -1,22 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { appPath } from "@artduo/contracts";
 
 import type { ArtworkExplanation } from "@artduo/contracts";
 import { buildRecommendationReason } from "../lib/artwork-page-copy";
 import { recordExperienceDegradation, recordExperienceTiming } from "../lib/experience-analytics";
 
-function scoreLabel(score: number) {
-  return `${Math.max(0, Math.min(100, score * 100)).toFixed(1)}%`;
-}
-
-export function ArtworkExplanationPanel({ artworkId, releaseVersion, query, backgroundSceneId, retrievalScore, matchedTokens }: {
+export function ArtworkExplanationPanel({ artworkId, releaseVersion, query, backgroundSceneId, retrievalScore, matchedTokens, curatorNote }: {
   artworkId: string;
   releaseVersion: string;
   query: string;
   backgroundSceneId?: string;
   retrievalScore?: number;
   matchedTokens: string[];
+  curatorNote?: string;
 }) {
   const [state, setState] = useState<"idle" | "pending" | "ready" | "failed">("idle");
   const [explanation, setExplanation] = useState<ArtworkExplanation>();
@@ -45,7 +43,7 @@ export function ArtworkExplanationPanel({ artworkId, releaseVersion, query, back
     abortRef.current = controller;
     setState("pending");
     try {
-      const response = await fetch(`/api/artworks/${encodeURIComponent(artworkId)}/explanation`, {
+      const response = await fetch(appPath(`/api/artworks/${encodeURIComponent(artworkId)}/explanation`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ artworkId, releaseVersion, query, backgroundSceneId, retrievalScore, matchedTokens }),
@@ -73,15 +71,10 @@ export function ArtworkExplanationPanel({ artworkId, releaseVersion, query, back
     {state === "failed" ? <div role="status"><p>讲解没有完成，作品资料仍可继续查看。</p><button onClick={() => void load()} type="button">重试讲解</button></div> : null}
     {state === "ready" && explanation?.content ? <>
       <p className="explanation-detail">{explanation.content.detailText}</p>
-      <div className="recommendation-reason"><p className="evidence-label">为什么推荐这件作品</p><p>{buildRecommendationReason(explanation)}</p></div>
-      <details className="explanation-evidence"><summary>检索依据</summary>
-        <div className="evidence-summary">
-          <span>展厅：{explanation.content.evidence.grounding.scene?.label ?? "作品自身"}</span>
-          <span>匹配度：{scoreLabel(explanation.content.evidence.grounding.retrievalScore)}</span>
-          <span>线索：{explanation.content.evidence.grounding.matchedTokens.slice(0, 6).join(", ") || "作品资料"}</span>
-        </div>
-        <ul aria-label="讲解来源与引用" className="citation-list">{explanation.content.evidence.citations.map((citation) => <li key={`${citation.kind}-${citation.sourceId}`}>
-          <span>{citation.kind}</span>{citation.url ? <a href={citation.url} rel="noreferrer" target="_blank">{citation.label}</a> : <strong>{citation.label}</strong>}
+      {!curatorNote ? <div className="recommendation-reason"><p className="evidence-label">为什么推荐这件作品</p><p>{buildRecommendationReason(explanation)}</p></div> : null}
+      <details className="explanation-evidence"><summary>资料来源</summary>
+        <ul aria-label="讲解来源与引用" className="citation-list">{explanation.content.evidence.citations.filter((citation) => citation.kind === "artwork").map((citation) => <li key={`${citation.kind}-${citation.sourceId}`}>
+          <span>馆藏资料</span>{citation.url ? <a href={citation.url} rel="noreferrer" target="_blank">{citation.label}</a> : <strong>{citation.label}</strong>}
         </li>)}</ul>
       </details>
     </> : null}

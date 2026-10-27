@@ -1,4 +1,5 @@
 import { resolveTransitionModule, type TransitionFamily, type TransitionModule, type TransitionRegistry } from "../transitions/registry";
+import type { RoomLightMood } from "../experience/room-lighting";
 
 export interface ImmersiveAffectState {
   valence: number;
@@ -22,6 +23,8 @@ export interface ImmersiveGalleryUnit {
   requireDepthMap?: boolean;
   aspectRatioHint?: string;
   backgroundSceneUrl?: string;
+  backgroundSceneId?: string;
+  lightingMood?: RoomLightMood;
   sceneLabel?: string;
   sceneMatchReason?: string;
   sceneRouteLabel?: string;

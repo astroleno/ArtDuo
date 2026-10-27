@@ -1,0 +1,8 @@
+# Include in EACH existing HTTPS server for aitoshuu.me and tongye.me.
+# Preserve the URI and public host. Validate the Tencent certificate and SNI.
+location = /ArtDuo {
+    include /etc/artduo/aliyun-artduo.proxy.conf;
+}
+location ^~ /ArtDuo/ {
+    include /etc/artduo/aliyun-artduo.proxy.conf;
+}

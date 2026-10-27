@@ -5,17 +5,25 @@ export interface RoomLayoutInput {
   sceneSize: { width: number; height: number };
   mountZone?: NormalizedZone;
   artworkAspectRatio: number;
+  /** Combined mat and border on each edge, outside the artwork image. */
+  frameInset?: number;
   navigationHeight?: number;
   plaqueHeight?: number;
+  /** Fixed rendered label; hover and focus never change its typography. */
+  plaqueSize?: RoomPlaqueSize;
   safeArea?: { top?: number; right?: number; bottom?: number; left?: number };
 }
 
 /** All returned bounds are viewport CSS pixels, not normalized scene coordinates. */
 export interface RoomRect { x: number; y: number; width: number; height: number }
+export interface RoomPlaqueSize { width: number; height: number }
 
 export interface RoomLayout {
   frame: RoomRect;
+  frameInset: number;
   plaque: RoomRect;
+  plaquePlacement: "right" | "left" | "below";
+  compactPlaqueWidth: number;
   mount: RoomRect;
   mobilePlaque: boolean;
   staticFallback: boolean;
@@ -91,7 +99,7 @@ export function calculateRoomLayout(input: RoomLayoutInput): RoomLayout {
   const safeBottom = Math.max(0, safe.bottom ?? 0) + 24;
   const safeWidth = Math.max(1, viewport.width - safeLeft - safeRight);
   const safeHeight = Math.max(1, viewport.height - safeTop - safeBottom);
-  const mobilePlaque = viewport.width < 768;
+  const preferBelow = viewport.width < 768 && viewport.height >= viewport.width;
   const scale = Math.max(viewport.width / Math.max(sceneSize.width, 1), viewport.height / Math.max(sceneSize.height, 1));
   const offsetX = (viewport.width - sceneSize.width * scale) / 2;
   const offsetY = (viewport.height - sceneSize.height * scale) / 2;
@@ -119,18 +127,58 @@ export function calculateRoomLayout(input: RoomLayoutInput): RoomLayout {
   const x2 = Math.min(viewport.width - safeRight, (projected?.x ?? safeLeft + safeWidth) + (projected?.width ?? safeWidth));
   const y2 = Math.min(viewport.height - safeBottom, (projected?.y ?? safeTop + safeHeight) + (projected?.height ?? safeHeight));
   const candidate = { x: x1, y: y1, width: x2 - x1, height: y2 - y1 };
-  const staticFallback = !projected || !Object.values(candidate).every(Number.isFinite) || candidate.width < 96 || candidate.height < 96;
-  const mount = staticFallback ? { x: safeLeft, y: safeTop, width: safeWidth, height: safeHeight } : candidate;
-  const plaqueHeight = input.plaqueHeight ?? 120;
-  const frameAreaHeight = mobilePlaque ? Math.max(120, mount.height - Math.min(plaqueHeight, 120) - 12) : mount.height;
-  const maxWidth = Math.min(mount.width * 0.9, mobilePlaque ? safeWidth * 0.92 : safeWidth * 0.72);
-  const maxHeight = Math.min(frameAreaHeight * 0.9, viewport.height * 0.62);
+  const contentBottom = Math.max(safeTop + 1, viewport.height - Math.max(0, safe.bottom ?? 0) - 88);
+  const contentHeight = Math.max(1, contentBottom - safeTop);
+  const plaqueWidth = Math.max(1, Math.min(input.plaqueSize?.width ?? 188, safeWidth - 40));
+  let plaqueHeight = Math.max(1, Math.min(input.plaqueSize?.height ?? input.plaqueHeight ?? 76, contentHeight));
+  let staticFallback = !projected || !Object.values(candidate).every(Number.isFinite) || candidate.width < 96 || candidate.height < 96;
+  let mount = staticFallback ? { x: safeLeft, y: safeTop, width: safeWidth, height: safeHeight } : candidate;
   const aspect = Number.isFinite(input.artworkAspectRatio) && input.artworkAspectRatio > 0 ? input.artworkAspectRatio : 1.2;
-  const width = Math.min(maxWidth, maxHeight * aspect);
-  const height = Math.min(maxHeight, width / aspect);
-  const frame = { x: mount.x + (mount.width - width) / 2, y: mount.y + Math.max(0, (frameAreaHeight - height) / 2), width, height };
-  const plaque = mobilePlaque
-    ? { x: safeLeft + (safeWidth - Math.min(safeWidth, 440)) / 2, y: Math.min(viewport.height - safeBottom - plaqueHeight, mount.y + frameAreaHeight + 12), width: Math.min(safeWidth, 440), height: Math.min(plaqueHeight, safeHeight) }
-    : { x: Math.min(viewport.width - safeRight - 192, Math.max(safeLeft, frame.x + frame.width + 28)), y: Math.max(frame.y, frame.y + frame.height - plaqueHeight - 12), width: Math.min(172, safeWidth), height: plaqueHeight };
-  return { frame, plaque, mount, mobilePlaque, staticFallback };
+  const fitFrame = (areaHeight: number, below: boolean) => {
+    const maxWidth = Math.max(1, Math.min(mount.width * .9, safeWidth * (below ? .92 : .72)));
+    const maxHeight = Math.max(1, Math.min(Math.max(1, areaHeight) * .9, viewport.height * .62));
+    const inset = Math.max(0, Math.min(input.frameInset ?? 0, (Math.min(maxWidth, maxHeight) - 1) / 2));
+    const imageWidth = Math.min(maxWidth - inset * 2, (maxHeight - inset * 2) * aspect);
+    const width = imageWidth + inset * 2;
+    const height = imageWidth / aspect + inset * 2;
+    return { frame: { x: mount.x + (mount.width - width) / 2, y: mount.y + (below ? 0 : Math.max(0, (areaHeight - height) / 2)), width, height }, inset };
+  };
+  const result = (frame: RoomRect, frameInset: number, plaque: RoomRect, plaquePlacement: RoomLayout["plaquePlacement"]): RoomLayout => ({
+    frame, frameInset, plaque, plaquePlacement, mount, mobilePlaque: plaquePlacement === "below", staticFallback,
+    compactPlaqueWidth: Math.min(plaque.width, Math.max(100, Math.min(124, frame.width * .26))),
+  });
+  const labelLeft = safeLeft + 20;
+  const labelRight = viewport.width - safeRight - 20;
+  if (!preferBelow && mount.y < contentBottom) {
+    const { frame, inset } = fitFrame(Math.min(mount.y + mount.height, contentBottom) - mount.y, false);
+    const y = Math.max(safeTop, Math.min(contentBottom - plaqueHeight, frame.y + frame.height - plaqueHeight));
+    const rightX = frame.x + frame.width + 20;
+    const leftX = frame.x - 20 - plaqueWidth;
+    if (rightX + plaqueWidth <= labelRight) return result(frame, inset, { x: rightX, y, width: plaqueWidth, height: plaqueHeight }, "right");
+    if (leftX >= labelLeft) return result(frame, inset, { x: leftX, y, width: plaqueWidth, height: plaqueHeight }, "left");
+    // A small shift within the same wall keeps landscape phones from becoming a
+    // tiny image above a tall label. Never shift the work outside its mount.
+    const rightShift = rightX + plaqueWidth - labelRight;
+    if (frame.x - rightShift >= mount.x) {
+      return result({ ...frame, x: frame.x - rightShift }, inset, { x: labelRight - plaqueWidth, y, width: plaqueWidth, height: plaqueHeight }, "right");
+    }
+    const leftShift = labelLeft - leftX;
+    if (frame.x + frame.width + leftShift <= mount.x + mount.width) {
+      return result({ ...frame, x: frame.x + leftShift }, inset, { x: labelLeft, y, width: plaqueWidth, height: plaqueHeight }, "left");
+    }
+  }
+  const minimumFrameHeight = Math.min(96, contentHeight * .35);
+  let areaHeight = Math.min(mount.y + mount.height, contentBottom - plaqueHeight - 12) - mount.y;
+  if (areaHeight < minimumFrameHeight) {
+    staticFallback = true;
+    mount = { x: safeLeft, y: safeTop, width: safeWidth, height: contentHeight };
+    plaqueHeight = Math.min(plaqueHeight, Math.max(1, contentHeight - minimumFrameHeight - 12));
+    areaHeight = Math.max(1, contentHeight - plaqueHeight - 12);
+  }
+  const { frame, inset } = fitFrame(areaHeight, true);
+  const plaque = {
+    x: Math.max(labelLeft, Math.min(labelRight - plaqueWidth, frame.x + frame.width - plaqueWidth)),
+    y: frame.y + frame.height + 12, width: plaqueWidth, height: plaqueHeight,
+  };
+  return result(frame, inset, plaque, "below");
 }

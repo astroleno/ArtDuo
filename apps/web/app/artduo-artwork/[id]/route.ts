@@ -2,10 +2,12 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { NextResponse } from "next/server";
+import { readVerifiedPublicImage } from "@artduo/corpus/src/public-image-cache";
 
 import { metImageVariantUrl } from "../../../lib/met-image-url";
 import { resolveReleaseAssetPath } from "../../../lib/release-media-path";
 import { loadWebReleaseCatalog } from "../../../lib/release-catalog";
+import { prepareArtworkPreview } from "../../../lib/artwork-preview";
 
 const IMAGE_HEADER_TIMEOUT_MS = 12000;
 
@@ -122,6 +124,38 @@ export async function GET(
   const releaseImageUrl = variant === "full"
     ? artwork.imageUrlFull ?? artwork.imageUrl
     : artwork.imageUrl;
+  const remote = artworkRecord.media.verifiedRemoteImage;
+  const root = path.resolve(catalog.releaseDir, "../../..");
+  if (variant === "preview" && artworkRecord.media.sourceAssetFingerprint?.startsWith("sha256:")) {
+    try {
+      if (remote && (releaseImageUrl !== remote.url || remote.sha256 !== artworkRecord.media.sourceAssetFingerprint)) throw new Error("Source mismatch");
+      const preview = await prepareArtworkPreview(root, artworkRecord.media.sourceAssetFingerprint, async () => {
+        if (remote) return readVerifiedPublicImage(root, remote);
+        const imagePath = resolveReleaseAssetPath(catalog.releaseDir, releaseImageUrl);
+        if (!imagePath) throw new Error("Preview source is not available locally");
+        return readFileSync(imagePath);
+      });
+      return new NextResponse(new Uint8Array(preview.body), { headers: {
+        "Content-Type": "image/webp", "Content-Length": String(preview.bytes),
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "X-ArtDuo-Release-Version": catalog.releaseVersion, "X-ArtDuo-Image-Sha256": preview.sha256,
+        "X-ArtDuo-Source-Sha256": preview.sourceFingerprint, "X-ArtDuo-Preview-Recipe": preview.recipe,
+      } });
+    } catch { return new NextResponse("Artwork preview is temporarily unavailable", { status: 503, headers: { "Cache-Control": "no-store" } }); }
+  }
+  if (remote) {
+    try {
+      if (releaseImageUrl !== remote.url || remote.sha256 !== artworkRecord.media.sourceAssetFingerprint) throw new Error("Source mismatch");
+      const body = await readVerifiedPublicImage(path.resolve(catalog.releaseDir, "../../.."), remote);
+      return new NextResponse(new Uint8Array(body), { headers: {
+        "Content-Type": remote.contentType, "Content-Length": String(body.length),
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "X-ArtDuo-Release-Version": catalog.releaseVersion, "X-ArtDuo-Image-Sha256": remote.sha256,
+      } });
+    } catch {
+      return new NextResponse("Artwork image is temporarily unavailable", { status: 503, headers: { "Cache-Control": "no-store" } });
+    }
+  }
   if (!/^https?:\/\//i.test(releaseImageUrl)) {
     const imagePath = resolveReleaseAssetPath(catalog.releaseDir, releaseImageUrl);
     const contentTypes: Record<string, string> = { ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };

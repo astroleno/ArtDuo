@@ -61,3 +61,26 @@ test("lightbox isolates navigation until it is closed", () => {
   state = reduce(state, { type: "CLOSE_OVERLAY" }, current);
   assert.equal(reduce(state, { type: "NEXT" }, current).unitId, "u2");
 });
+
+test("close viewing navigates inside the same overlay, guards transitions and respects both ends", () => {
+  const current = snapshot(3);
+  let state = createExperienceState(current, { phase: "walk", unitId: "u0" });
+  assert.equal(reduce(state, { type: "LIGHTBOX_NEXT" }, current), state);
+  state = reduce(state, { type: "OPEN_LIGHTBOX" }, current);
+  assert.equal(reduce(state, { type: "LIGHTBOX_PREVIOUS" }, current), state);
+  for (const unitId of ["u1", "u2"]) {
+    state = reduce(state, { type: "LIGHTBOX_NEXT" }, current);
+    assert.equal(state.unitId, unitId);
+    assert.equal(state.overlay, "lightbox");
+    assert.equal(state.transitioning, true);
+    assert.equal(reduce(state, { type: "LIGHTBOX_NEXT" }, current), state);
+    state = reduce(state, { type: "RESTORE_TRANSITION" }, current);
+  }
+  assert.equal(reduce(state, { type: "LIGHTBOX_NEXT" }, current), state);
+  assert.equal(state.act, "walk", "the end of close viewing must not unexpectedly close into the ending");
+  state = reduce(state, { type: "LIGHTBOX_PREVIOUS" }, current);
+  assert.equal(state.unitId, "u1");
+  state = reduce(state, { type: "RESTORE_TRANSITION" }, current);
+  state = reduce(state, { type: "CLOSE_OVERLAY" }, current);
+  assert.deepEqual(positionOfExperienceState(state), { phase: "walk", unitId: "u1" });
+});

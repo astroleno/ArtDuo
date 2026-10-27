@@ -1,32 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { ARTWORK_SOURCE_LABELS } from "@artduo/contracts";
 
 import { generateShareCard } from "./share-card";
 import type { ExhibitionSnapshot, ExperienceUnit } from "./types";
-import { CharReveal } from "./char-reveal";
+import { useStableNarrative } from "./use-stable-narrative";
+import { experienceArtistName } from "./artwork-credits";
+import { displaySourceCredit } from "./reading-copy";
 
-export function Closing({ snapshot, lastUnit, reducedMotion, onRevisit, onRestart }: {
+export function Closing({ snapshot, lastUnit, reducedMotion, onRevisit, onRestart, keepsake }: {
   snapshot: ExhibitionSnapshot;
   lastUnit?: ExperienceUnit;
   reducedMotion: boolean;
   onRevisit: () => void;
   onRestart: () => void;
+  keepsake?: ReactNode;
 }) {
   const [shareState, setShareState] = useState<"idle" | "generating" | "ready" | "failed">("idle");
   const [copied, setCopied] = useState(false);
   const [imageState, setImageState] = useState<"loading" | "ready" | "failed">("loading");
-  const fallbackText = [lastUnit?.artwork.metadata.title, lastUnit?.artwork.metadata.artistDisplayName, snapshot.closing.text].filter(Boolean).join(" · ");
+  const closing = useStableNarrative(snapshot.closing, snapshot.narrativePending);
+  const closingText = closing?.text ?? "";
+  const artistName = lastUnit ? experienceArtistName(lastUnit) : undefined;
+  const fallbackText = [lastUnit?.artwork.metadata.title, artistName, closingText].filter(Boolean).join(" · ");
   async function share() {
-    if (!lastUnit || shareState === "generating") return;
+    if (!lastUnit || !closing || shareState === "generating") return;
     setShareState("generating");
     try {
       await generateShareCard({
         imageUrl: lastUnit.media.fullUrl,
         artworkTitle: lastUnit.artwork.metadata.title,
-        artistLine: [lastUnit.artwork.metadata.artistDisplayName, lastUnit.artwork.metadata.yearLabel].filter(Boolean).join(" · "),
-        sourceLabel: lastUnit.artwork.metadata.creditLine ?? (lastUnit.artwork.source === "met" ? "The Metropolitan Museum of Art" : "ArtDuo"),
-        closingLine: snapshot.closing.text,
+        artistLine: [artistName, lastUnit.artwork.metadata.yearLabel].filter(Boolean).join(" · "),
+        sourceLabel: displaySourceCredit(lastUnit.artwork.metadata.creditLine) ?? ARTWORK_SOURCE_LABELS[lastUnit.artwork.source],
+        closingLine: closingText,
       });
       setShareState("ready");
     } catch {
@@ -48,26 +55,18 @@ export function Closing({ snapshot, lastUnit, reducedMotion, onRevisit, onRestar
         <img alt={lastUnit.artwork.metadata.title} onLoad={() => setImageState("ready")} onError={() => setImageState("failed")} src={lastUnit.media.previewUrl} />
         {imageState === "failed" ? <p role="status">作品图片暂时无法显示</p> : null}
       </div>
-      <figcaption>{lastUnit.artwork.metadata.title}<span>{lastUnit.artwork.metadata.artistDisplayName}</span></figcaption>
+      <figcaption>{lastUnit.artwork.metadata.title}<span>{artistName}</span></figcaption>
     </figure> : null}
     <div className="experience-closing-copy">
     <p className="experience-eyebrow">本次观展结束</p>
-    <h1 id="experience-closing-title"><CharReveal intervalMs={16} reducedMotion={reducedMotion} text={snapshot.closing.text} /></h1>
+    {closing ? <h1 id="experience-closing-title">{closingText}</h1> : <p id="experience-closing-title" className="experience-narrative-pending" role="status">正在收拢这段观看。</p>}
     <p className="experience-closing-meta">可以回看，也可以把最后一件作品保存下来。</p>
-    <details className="experience-closing-route">
-      <summary>回看展览路线</summary>
-    <div className="experience-closing-curve">
-      <svg viewBox="0 0 600 150" preserveAspectRatio="none">
-        <path d={snapshot.stages.map((stage, index) => `${index ? "L" : "M"} ${snapshot.stages.length < 2 ? 300 : 40 + index * (520 / (snapshot.stages.length - 1))} ${128 - stage.intensity * 94}`).join(" ")} />
-      </svg>
-      <ol>{snapshot.stages.map((stage) => <li key={stage.id}>{stage.label}</li>)}</ol>
-    </div>
-    </details>
     <div className="experience-closing-actions">
       <button onClick={onRevisit} type="button">回看最后一件</button>
       <button onClick={onRestart} type="button">重新选一组</button>
-      <button disabled={!lastUnit || shareState === "generating"} onClick={() => void share()} type="button">{shareState === "generating" ? "正在保存…" : shareState === "ready" ? "已保存分享图" : "保存分享图"}</button>
+      <button disabled={!lastUnit || !closing || shareState === "generating"} onClick={() => void share()} type="button">{shareState === "generating" ? "正在保存…" : shareState === "ready" ? "已保存分享图" : "保存分享图"}</button>
     </div>
+    {keepsake}
     {shareState === "failed" ? <div className="experience-share-fallback" role="status">
       <p>分享图暂时无法生成。可以重试，或复制这段文字：</p>
       <p>{fallbackText}</p>

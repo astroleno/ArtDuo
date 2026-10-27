@@ -1,3 +1,4 @@
+import { appPath } from "@artduo/contracts";
 import { Search } from "lucide-react";
 
 const CURATION_STEPS = [
@@ -11,13 +12,13 @@ export default function GalleryLoading() {
   return (
     <main className="shell">
       <header className="topbar">
-        <a className="brand" href="/">
+        <a className="brand" href={appPath("/")}>
           <span className="brand-mark">ArtDuo</span>
           <span className="brand-meta">正在策展</span>
         </a>
         <nav className="nav" aria-label="Primary">
-          <a href="/">首页</a>
-          <a href="/gallery">画廊</a>
+          <a href={appPath("/")}>首页</a>
+          <a href={appPath("/gallery")}>画廊</a>
         </nav>
       </header>
 

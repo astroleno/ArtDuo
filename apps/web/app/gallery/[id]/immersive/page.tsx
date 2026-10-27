@@ -1,7 +1,13 @@
+import { appPath } from "@artduo/contracts";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { enforcePublicRequest, RuntimeLimitError } from "../../../../lib/public-runtime";
 
 import { ImmersiveGallery, validRouteOrder, type ImmersiveGalleryUnit, type TransitionFamily } from "@artduo/ui";
 import { ExperienceRouteClient } from "../../../../components/experience-route-client";
+import { CuratedClassicGallery } from "../../../../components/curated-classic-gallery";
+import { curateExhibition } from "../../../../lib/semantic-curator";
+import { curationNarrativeView, getExhibitionNarrative } from "../../../../lib/exhibition-narrative-server";
 
 import { artworkImageUrl } from "../../../../lib/artwork-image-url";
 import { isGalleryArtwork } from "../../../../lib/artwork-eligibility";
@@ -10,6 +16,7 @@ import { orderSearchForGrowth } from "../../../../lib/affective-negotiation";
 import { buildGallerySceneRoute, sceneRouteStopForIndex, type GallerySceneRouteStop } from "../../../../lib/gallery-route";
 import { DEFAULT_CURATION_PROMPT } from "../../../../lib/prompts";
 import { buildExperienceSnapshot } from "../../../../lib/experience-adapter";
+import { getExhibitionSculptures } from "../../../../lib/sculpture-catalog";
 import { resolveExperienceView } from "../../../../lib/experience-config";
 import { buildExperienceHref, resolveExperiencePosition } from "../../../../lib/experience-navigation";
 import { recordExperienceDegradation, recordExperienceTiming } from "../../../../lib/experience-analytics";
@@ -221,25 +228,40 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
       <p className="experience-eyebrow">展览暂不可用</p>
       <h1>这个馆藏版本暂时无法打开</h1>
       <p>重新策展会使用当前可用版本，并保留这句观看愿望。</p>
-      <a className="experience-primary" href={`/?view=${view}&query=${encodeURIComponent(query)}`}>重新策展</a>
-      <a className="experience-text-button" href="/?view=classic">返回经典入口</a>
+      <a className="experience-primary" href={appPath(`/?view=${view}&query=${encodeURIComponent(query)}`)}>重新策展</a>
+      <a className="experience-text-button" href={appPath("/?view=classic")}>返回经典入口</a>
     </main>;
   }
 
-  if (view === "experience") {
-    const recipeVersion = readSingle(queryParams, "recipeVersion");
-    if (recipeVersion && recipeVersion !== "experience-v1") {
+  const recipeVersion = readSingle(queryParams, "recipeVersion");
+  if (recipeVersion && !["experience-v1", "experience-v2"].includes(recipeVersion)) {
       recordExperienceDegradation("recipe-unavailable", catalog.releaseVersion);
       return <main className="artduo-experience experience-unavailable">
         <p className="experience-eyebrow">需要重新策展</p><h1>此体验版本暂不可用</h1>
-        <a className="experience-primary" href={`/?view=experience&query=${encodeURIComponent(query)}`}>用当前体验重新策展</a>
+        <a className="experience-primary" href={appPath(`/?view=experience&query=${encodeURIComponent(query)}`)}>用当前体验重新策展</a>
       </main>;
-    }
-    const searchStartedAt = performance.now();
-    let search = searchReleaseCatalog(catalog, query, { limit: 12 });
-    recordExperienceTiming("retrieval", performance.now() - searchStartedAt, catalog.releaseVersion);
-    const narrative = buildCurationNarrative(search);
-    search = orderSearchForGrowth(search, narrative.growthForm);
+  }
+  const requestedCuration = readSingle(queryParams, "curationId");
+  const searchStartedAt = performance.now();
+  let curation;
+  try {
+    if (!requestedCuration && recipeVersion !== "experience-v1") await enforcePublicRequest(await headers(), "curation");
+    curation = recipeVersion === "experience-v1" ? undefined : await curateExhibition({ catalog, query, curationId: requestedCuration });
+  } catch (error) {
+    if (error instanceof RuntimeLimitError) return <main className="artduo-experience experience-unavailable"><h1>这次展览还没有准备好</h1>
+      <p>现在请求较多，请稍后再试。你的观看愿望已保留。</p><a className="experience-primary" href={appPath(`/?view=${view}&query=${encodeURIComponent(query)}`)}>返回入口</a></main>;
+    return <main className="artduo-experience experience-unavailable"><h1>保存的展览暂时无法恢复</h1>
+      <p>这条动线的记录暂不可用，重新策展会生成另一组作品。</p>
+      <a className="experience-primary" href={appPath(`/?view=${view}&query=${encodeURIComponent(query)}`)}>重新策展</a></main>;
+  }
+  if (view === "experience") recordExperienceTiming("retrieval", performance.now() - searchStartedAt, catalog.releaseVersion);
+  // Start grounded prose while the browser follows the frozen exhibition URL.
+  if (curation?.assignments.length && !requestedCuration) getExhibitionNarrative(catalog, curation);
+  const preparedNarrative = curation ? curationNarrativeView(catalog, curation) : undefined;
+  if (view === "experience") {
+    let search = curation?.search ?? searchReleaseCatalog(catalog, query, { limit: 12 });
+    const narrative = preparedNarrative?.narrative ?? buildCurationNarrative(search);
+    if (!curation) search = orderSearchForGrowth(search, narrative.growthForm);
     const sceneMatchStartedAt = performance.now();
     const sceneSearch = searchBackgroundScenes(catalog, query, { limit: 12 });
     // These front-facing walls were visually checked for a clear mount surface.
@@ -250,14 +272,15 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
     });
     recordExperienceTiming("scene-match", performance.now() - sceneMatchStartedAt, catalog.releaseVersion);
     const adapterStartedAt = performance.now();
-    const snapshot = buildExperienceSnapshot({ query, catalog, search, narrative, route });
+    const snapshot = buildExperienceSnapshot({ query, catalog, search, narrative, route,
+      curationId: curation?.curationId, narrativePieces: preparedNarrative?.pieces, narrativeComplete: preparedNarrative?.complete });
     const requestedRoute = readSingle(queryParams, "route");
     const routeOrder = requestedRoute && requestedRoute.length < 4096 ? requestedRoute.split(",") : undefined;
     if (validRouteOrder(routeOrder, snapshot)) snapshot.routeOrder = routeOrder;
     recordExperienceTiming("snapshot-adapter", performance.now() - adapterStartedAt, catalog.releaseVersion);
     if (snapshot.omittedUnitCount > 0) recordExperienceDegradation("release-records-omitted", catalog.releaseVersion);
     const { position, corrected } = resolveExperiencePosition(queryParams, snapshot);
-    if (!requestedVersion || corrected || !readSingle(queryParams, "phase")) {
+    if (!requestedVersion || corrected || !readSingle(queryParams, "phase") || curation && (!requestedCuration || recipeVersion !== "experience-v2")) {
       redirect(buildExperienceHref({
         query,
         releaseVersion: catalog.releaseVersion,
@@ -265,15 +288,21 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
         artworkId: position.phase === "walk" ? snapshot.units.find((unit) => unit.exhibition.unitId === position.unitId)?.artwork.id
           : position.phase === "closing" && position.lastUnitId ? snapshot.units.find((unit) => unit.exhibition.unitId === position.lastUnitId)?.artwork.id : undefined,
         routeOrder: snapshot.routeOrder,
+        recipeVersion: snapshot.recipeVersion,
+        curationId: snapshot.curationId,
       }));
     }
-    return <ExperienceRouteClient key={snapshot.exhibitionId} initialPosition={position} snapshot={snapshot} />;
+    return <ExperienceRouteClient key={snapshot.exhibitionId} initialPosition={position} snapshot={snapshot} sculptures={getExhibitionSculptures()} />;
   }
 
   const selectedUnitId = readSingle(queryParams, "unit") ?? readSingle(queryParams, "artworkId");
-  let search = searchReleaseCatalog(catalog, query, { limit: 12 });
-  const narrative = buildCurationNarrative(search);
-  search = orderSearchForGrowth(search, narrative.growthForm);
+  if (curation && (!requestedCuration || !requestedVersion || recipeVersion !== "experience-v2")) {
+    redirect(`/gallery/local/immersive?${new URLSearchParams({ query, releaseVersion: catalog.releaseVersion, view: "classic", recipeVersion: "experience-v2",
+      curationId: curation.curationId, ...(selectedUnitId ? { unit: selectedUnitId } : {}) })}`);
+  }
+  let search = curation?.search ?? searchReleaseCatalog(catalog, query, { limit: 12 });
+  const narrative = preparedNarrative?.narrative ?? buildCurationNarrative(search);
+  if (!curation) search = orderSearchForGrowth(search, narrative.growthForm);
   const journeyIntensities = buildJourneyIntensities(search.results);
   const sceneSearch = searchBackgroundScenes(catalog, query, { limit: 12 });
   const sceneRoute = buildGallerySceneRoute(search, catalog.backgroundScenes, {
@@ -283,11 +312,14 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
   const growthStageByArtworkId = new Map(
     narrative.growthForm.stages.flatMap((stage) => stage.artworkIds.map((artworkId) => [artworkId, stage] as const)),
   );
-  const galleryHref = `/gallery?${new URLSearchParams({ view: "route", query, releaseVersion: catalog.releaseVersion }).toString()}`;
+  const galleryHref = `/gallery?${new URLSearchParams({ view: "route", query, releaseVersion: catalog.releaseVersion, ...(curation ? { curationId: curation.curationId } : {}) }).toString()}`;
 
   const units: ImmersiveGalleryUnit[] = search.results.map((result, index) => {
     const routeStop = sceneRouteStopForIndex(sceneRoute, index);
     const growthStage = growthStageByArtworkId.get(result.artwork.id);
+    const media = catalog.artworkRecordById.get(result.artwork.id)?.media;
+    const hasValidatedDepth = media?.depthMap?.version === catalog.releaseVersion
+      && media.depthMap.sourceAssetFingerprint === media.sourceAssetFingerprint;
 
     return {
       id: result.artwork.id,
@@ -296,6 +328,8 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
       yearLabel: result.artwork.yearLabel,
       imageUrl: artworkImageUrl(result.artwork.id, "preview", catalog.releaseVersion),
       imageUrlFull: artworkImageUrl(result.artwork.id, "full", catalog.releaseVersion),
+      depthMapUrl: hasValidatedDepth ? artworkImageUrl(result.artwork.id, "depth", catalog.releaseVersion) : undefined,
+      requireDepthMap: Boolean(curation),
       aspectRatioHint: result.artwork.aspectRatioHint,
       backgroundSceneUrl: routeStop?.scene.imageUrl ?? result.scene?.imageUrl,
       sceneLabel: routeStop?.scene.label ?? result.scene?.label ?? id,
@@ -316,13 +350,16 @@ export default async function ImmersivePage({ params, searchParams }: ImmersiveP
         }
         : undefined,
       transitionIntent: routeStop?.transitionIntent ?? growthStage?.transitionIntent,
-      curatorNote: buildImmersiveCuratorNote(result),
+      curatorNote: preparedNarrative?.pieces.find((piece) => piece.kind === "note" && piece.artworkId === result.artwork.id)?.text ?? buildImmersiveCuratorNote(result),
       displayMode: inferDisplayMode(result.artwork),
       visualPresentation: result.artwork.visualPresentation,
       transitionFamily: TRANSITION_SEQUENCE[index % TRANSITION_SEQUENCE.length],
     };
   });
 
+  if (curation) return <CuratedClassicGallery units={units} selectedUnitId={selectedUnitId} galleryHref={galleryHref}
+    preface={narrative.preface} closing={narrative.closing} query={query} releaseVersion={catalog.releaseVersion}
+    curationId={curation.curationId} narrativeComplete={preparedNarrative!.complete} />;
   return (
     <ImmersiveGallery
       galleryHref={galleryHref}

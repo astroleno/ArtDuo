@@ -1,0 +1,2 @@
+# Include once in nginx's http block.
+limit_conn_zone $binary_remote_addr zone=artduo_per_client:10m;

@@ -55,6 +55,7 @@ export function ArtworkImage({
 
   return (
     <img
+      crossOrigin="anonymous"
       alt={alt}
       className={className}
       decoding={decoding}

@@ -59,17 +59,17 @@ const FRAGMENT_SHADER = `
       return;
     }
 
-    vec2 overscannedUv = (imageUv - 0.5) * 0.91 + 0.5;
-    vec3 firstSample = texture2D(u_color, overscannedUv).rgb;
+    vec3 firstSample = texture2D(u_color, imageUv).rgb;
     float depth = u_has_depth > 0.5
-      ? texture2D(u_depth, overscannedUv).r
-      : simulatedDepth(overscannedUv, firstSample);
+      ? texture2D(u_depth, imageUv).r
+      : simulatedDepth(imageUv, firstSample);
     float depthOffset = depth - 0.46;
-    vec2 displacedUv = clamp(overscannedUv - u_pointer * depthOffset * 0.052, 0.002, 0.998);
+    // Keep the complete artwork and its original colors at rest. Taper movement
+    // at the image boundary instead of hiding edges behind an overscan crop.
+    vec2 edgeDistance = min(imageUv, vec2(1.0) - imageUv);
+    float edgeFade = smoothstep(0.0, 0.08, min(edgeDistance.x, edgeDistance.y));
+    vec2 displacedUv = clamp(imageUv - u_pointer * depthOffset * 0.052 * edgeFade, 0.0, 1.0);
     vec4 artwork = texture2D(u_color, displacedUv);
-    float vignette = smoothstep(0.9, 0.18, distance(imageUv, vec2(0.5)));
-
-    artwork.rgb *= mix(0.93, 1.025, vignette);
     gl_FragColor = artwork;
   }
 `;
@@ -167,7 +167,21 @@ function uploadTexture(
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+  const dimensions = image as { naturalWidth?: number; naturalHeight?: number; width?: number; height?: number };
+  const width = dimensions.naturalWidth ?? dimensions.width ?? 0, height = dimensions.naturalHeight ?? dimensions.height ?? 0;
+  const deviceLimit = Number(gl.getParameter(gl.MAX_TEXTURE_SIZE));
+  const limit = Number.isFinite(deviceLimit) && deviceLimit > 0 ? Math.min(4096, deviceLimit) : 4096;
+  let textureImage = image;
+  if (Math.max(width, height) > limit) {
+    // Bound GPU allocation while retaining the entire source and its UV aspect.
+    const prepared = document.createElement("canvas"), scale = limit / Math.max(width, height);
+    prepared.width = Math.max(1, Math.round(width * scale)); prepared.height = Math.max(1, Math.round(height * scale));
+    const context = prepared.getContext("2d");
+    if (!context) { gl.deleteTexture(texture); throw new Error("Unable to prepare bounded artwork texture"); }
+    context.drawImage(image as CanvasImageSource, 0, 0, prepared.width, prepared.height);
+    textureImage = prepared;
+  }
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureImage);
 
   return texture;
 }

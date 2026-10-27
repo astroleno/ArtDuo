@@ -8,6 +8,7 @@ const GALLERY_ASSET_ROOT = nodePath.resolve(process.cwd(), "../../public/artduo-
 const CONTENT_TYPES: Record<string, string> = {
   ".json": "application/json; charset=utf-8",
   ".png": "image/png",
+  ".webp": "image/webp",
 };
 
 function resolveAssetPath(segments: string[]): string | undefined {

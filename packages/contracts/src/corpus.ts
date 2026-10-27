@@ -24,6 +24,7 @@ export interface ReleaseManifest {
     mediaIndex: ShardInfo[];
     backgroundScenes: ShardInfo[];
     embeddings?: ShardInfo[];
+    semanticEmbeddings?: ShardInfo[];
     relationshipGraph?: ShardInfo[];
   };
 }
@@ -56,6 +57,7 @@ export function parseReleaseManifest(value: unknown, path = "ReleaseManifest"): 
   const shards = readObject(manifest, "shards", path);
   const embeddings = (shards as { embeddings?: unknown }).embeddings;
   const relationshipGraph = (shards as { relationshipGraph?: unknown }).relationshipGraph;
+  const semanticEmbeddings = shards.semanticEmbeddings;
 
   return {
     release: parseSourceVersions(readObject(manifest, "release", path), `${path}.release`),
@@ -71,6 +73,8 @@ export function parseReleaseManifest(value: unknown, path = "ReleaseManifest"): 
       embeddings: embeddings
         ? parseArray(embeddings, (entry, entryPath) => parseShardInfo(entry, entryPath), `${path}.shards.embeddings`)
         : undefined,
+      semanticEmbeddings: semanticEmbeddings === undefined ? undefined
+        : parseArray(semanticEmbeddings, (entry, entryPath) => parseShardInfo(entry, entryPath), `${path}.shards.semanticEmbeddings`),
       relationshipGraph: relationshipGraph
         ? parseArray(
             relationshipGraph,

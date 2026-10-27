@@ -50,7 +50,7 @@ function expectNumberArray(value: unknown, path: string): number[] {
   }
 
   return value.map((entry, index) => {
-    if (typeof entry !== "number" || Number.isNaN(entry)) {
+    if (typeof entry !== "number" || !Number.isFinite(entry)) {
       throw new TypeError(`${path}[${index}]: expected number`);
     }
 
@@ -166,13 +166,26 @@ export function createRemoteOpenAICompatibleEmbeddingProvider(
 
         const resolvedModel = readModel(parsed.model, model);
 
-        return data.map((entry, index) => {
+        const ordered = new Array<(typeof data)[number]>(values.length);
+        for (const entry of data) {
+          const index = entry.index;
+          if (typeof index !== "number" || !Number.isInteger(index) || index < 0 || index >= values.length || ordered[index]) {
+            throw new TypeError("Remote embedding provider returned an invalid or duplicate input index.");
+          }
+          ordered[index] = entry;
+        }
+        let expectedDimensions = embedOptions.dimensions;
+        return ordered.map((entry, index) => {
           const vector = expectNumberArray(entry.embedding, `embedding.data[${index}].embedding`);
+          expectedDimensions ??= vector.length;
+          if (!vector.length || vector.length !== expectedDimensions || !vector.some((number) => number !== 0)) {
+            throw new TypeError("Remote embedding provider returned an empty, zero, or inconsistent vector.");
+          }
 
           return {
             provider: "remote-openai-compatible",
             model: resolvedModel,
-            dimensions: vector.length || embedOptions.dimensions || DEFAULT_EMBEDDING_DIMENSIONS,
+            dimensions: vector.length,
             normalizedText: normalizedTexts[index] ?? "",
             tokens: tokens[index] ?? [],
             vector,

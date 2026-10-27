@@ -18,10 +18,13 @@ test("curated release keeps concrete subject and artist requests grounded across
   const stillLife = searchReleaseCatalog(catalog, "想看静物").results;
   assert.equal(stillLife[0]?.artwork.id, "artic-111436");
   const sea = searchReleaseCatalog(catalog, "不要森林，想看海").results;
-  assert.ok(sea.length > 0 && sea.length < 12);
-  for (const result of sea) {
+  assert.equal(sea.length, 0, "the legacy release has no image-bound absence reviews");
+  const reviewed = loadWebReleaseCatalog({ rootDir: path.resolve(process.cwd(), "../.."), releaseVersion: "2026-10-15-experience" });
+  const reviewedSea = searchReleaseCatalog(reviewed, "不要森林，想看海").results;
+  assert.ok(reviewedSea.length > 0 && reviewedSea.length < 12);
+  for (const result of reviewedSea) {
     assert.ok(result.matchedTokens.includes("subject:sea"));
-    assert.doesNotMatch([result.artwork.title, ...result.artwork.subjectTags].join(" "), /\b(?:forest|woods|trees?)\b/i);
+    assert.equal(result.artwork.visualEvidence?.facts.forest, "absent");
   }
 });
 

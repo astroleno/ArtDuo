@@ -1,0 +1,7 @@
+# Include in the existing aitoshuu.art TLS server only after staging acceptance.
+location = /ArtDuo {
+    include /etc/artduo/tencent-artduo.proxy.conf;
+}
+location ^~ /ArtDuo/ {
+    include /etc/artduo/tencent-artduo.proxy.conf;
+}

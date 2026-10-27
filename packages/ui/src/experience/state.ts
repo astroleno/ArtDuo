@@ -12,12 +12,13 @@ export interface ExperienceState {
   online: boolean;
   failedMediaIds: string[];
   shareState: "idle" | "generating" | "ready" | "failed";
-  audioState: "off" | "on" | "error";
+  audioState: "off" | "loading" | "on" | "error";
 }
 
 export type ExperienceEvent =
   | { type: "CONTINUE" | "SKIP" }
   | { type: "NEXT" | "PREVIOUS" }
+  | { type: "LIGHTBOX_NEXT" | "LIGHTBOX_PREVIOUS" }
   | { type: "SELECT_UNIT"; unitId: string }
   | { type: "RESTORE_TRANSITION" }
   | { type: "RESTORE_POSITION"; position: ExperiencePosition }
@@ -63,6 +64,14 @@ export function experienceReducer(state: ExperienceState, event: ExperienceEvent
   if (state.overlay === "lightbox" && (event.type === "NEXT" || event.type === "PREVIOUS" || event.type === "SELECT_UNIT")) return state;
   const currentIndex = indexOfUnit(snapshot, state.unitId);
   switch (event.type) {
+    case "LIGHTBOX_NEXT":
+    case "LIGHTBOX_PREVIOUS": {
+      if (state.act !== "walk" || state.overlay !== "lightbox" || state.transitioning) return state;
+      const nextUnit = snapshot.units[currentIndex + (event.type === "LIGHTBOX_NEXT" ? 1 : -1)];
+      return currentIndex >= 0 && nextUnit
+        ? { ...state, unitId: nextUnit.exhibition.unitId, transitioning: true }
+        : state;
+    }
     case "CONTINUE":
     case "SKIP":
       return state.act === "preface" && snapshot.units[0]

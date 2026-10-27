@@ -4,7 +4,13 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import artworkPage from "../../app/artwork/[id]/page";
-import { buildRecommendationReason } from "../../lib/artwork-page-copy";
+import { buildArtworkReadingCopy, buildRecommendationReason } from "../../lib/artwork-page-copy";
+
+test("artwork reading avoids duplicate introductions while retaining distinct museum detail", () => {
+  assert.deepEqual(buildArtworkReadingCopy({ storySnippet: "同一幅画。", description: "同一幅画。" }), { primary: "同一幅画。", description: undefined });
+  assert.deepEqual(buildArtworkReadingCopy({ curatorNote: "先看手势。", storySnippet: "人物与手势。", description: "馆藏原文。" }), { primary: "先看手势。", description: "馆藏原文。" });
+  assert.deepEqual(buildArtworkReadingCopy({ storySnippet: "Strong quiet fit with usable image and title signal", description: "真实馆藏说明。" }), { primary: "真实馆藏说明。", description: undefined });
+});
 
 test("artwork recommendation copy describes retrieval evidence without claiming theme or author intent", () => {
   const text = buildRecommendationReason({
@@ -41,8 +47,8 @@ test("artwork recommendation copy describes retrieval evidence without claiming 
     },
   });
 
-  assert.match(text, /检索记录/);
-  assert.match(text, /只说明选择依据/);
+  assert.match(text, /月光/);
+  assert.doesNotMatch(text, /检索记录|匹配度|contemplation/);
   assert.doesNotMatch(text, /情绪、主题与画面气质|作者意图相互靠近/);
 });
 

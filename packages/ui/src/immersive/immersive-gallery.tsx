@@ -1,3 +1,4 @@
+import { appPath } from "@artduo/contracts";
 import { ImmersiveGalleryClient } from "./immersive-gallery-client";
 import { buildImmersiveScenes, type ImmersiveGalleryUnit } from "./scene-orchestrator";
 import type { TransitionRegistry } from "../transitions/registry";
@@ -28,7 +29,7 @@ export function ImmersiveGallery({
   if (!activeScene) {
     return (
       <main className="immersive-shell">
-        <a className="immersive-back-link" href={galleryHref}>换一句愿望</a>
+        <a className="immersive-back-link" href={appPath(galleryHref)}>换一句愿望</a>
         <section className="immersive-empty">
           <h1>展厅尚未就绪</h1>
           <p>这次展览还没有可展示的作品。</p>

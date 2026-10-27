@@ -1,0 +1,6 @@
+# Include inside nginx's http block, before the TLS virtual host.
+map $http_x_forwarded_host $artduo_public_host {
+    default "";
+    aitoshuu.me aitoshuu.me;
+    tongye.me tongye.me;
+}

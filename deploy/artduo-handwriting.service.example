@@ -1,0 +1,25 @@
+[Unit]
+Description=ArtDuo private handwriting worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=artduo
+Group=artduo
+WorkingDirectory=/opt/artduo/current/apps/web
+EnvironmentFile=/etc/artduo/artduo.env
+Environment=PATH=/opt/artduo/runtime/bin:/usr/bin:/bin
+ExecStart=/opt/artduo/runtime/bin/node --import tsx scripts/handwriting-worker.ts
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=45
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/artduo
+
+[Install]
+WantedBy=multi-user.target

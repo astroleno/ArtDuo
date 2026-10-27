@@ -5,7 +5,7 @@ import { expect, test } from "@playwright/test";
 
 import { gotoApp } from "./helpers";
 
-const evidenceDir = resolve(process.cwd(), "../../docs/assets/experience-integration-acceptance");
+const evidenceDir = resolve(process.env.ARTDUO_EVIDENCE_DIR ?? "../../docs/assets/experience-integration-acceptance");
 const directWalkUrl = "/gallery/local/immersive?" + new URLSearchParams({
   query: "有点累，撑了很久",
   view: "experience",
@@ -24,7 +24,8 @@ test("experience room stays in bounds at 320, 390, 844 landscape and desktop wid
   ] as const;
 
   await gotoApp(page, directWalkUrl);
-  await expect(page.locator(".experience-art-lightbox")).toHaveAttribute("data-image-state", "ready");
+  await expect(page.locator(".experience-art-lightbox")).toHaveAttribute("data-image-state", "ready", { timeout: 15_000 });
+  await expect(page.getByTestId("experience-room")).toHaveAttribute("data-scene-state", "ready", { timeout: 15_000 });
   await expect.poll(() => page.evaluate(() => performance.getEntriesByName("artduo.experience.first-artwork-actionable").length)).toBe(1);
   for (const viewport of cases) {
     const previousStyle = await page.locator(".experience-plaque-position").getAttribute("style");

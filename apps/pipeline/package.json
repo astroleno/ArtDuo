@@ -5,7 +5,7 @@
   "dependencies": {
     "@artduo/corpus": "workspace:*",
     "@artduo/contracts": "workspace:*",
-    "sharp": "^0.32.6"
+    "sharp": "0.35.5"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -17,6 +17,8 @@
     "build:media-index": "pnpm run workspace:prepare && tsx src/build-media-index.ts",
     "build:background-scenes": "pnpm run workspace:prepare && tsx src/build-background-scenes.ts",
     "build:embeddings": "pnpm run workspace:prepare && tsx src/build-embedding-shards.ts",
+    "build:semantic-release": "pnpm run workspace:prepare && tsx src/build-semantic-release.ts",
+    "build:room-lighting": "tsx src/build-room-lighting-assets.ts",
     "debug:vector-retrieval": "pnpm run workspace:prepare && tsx src/debug-vector-retrieval.ts",
     "bench:vector": "pnpm run workspace:prepare && tsx src/run-vector-benchmark.ts",
     "bench:vector:provider": "pnpm run workspace:prepare && tsx src/run-vector-provider-benchmark.ts",
@@ -29,8 +31,12 @@
     "build:metadata-backfill-preview": "pnpm run workspace:prepare && tsx src/build-metadata-backfill-preview.ts",
     "build:quantity-preview": "pnpm run workspace:prepare && tsx src/build-quantity-preview.ts",
     "build:release-ready": "pnpm run workspace:prepare && tsx src/build-release-ready-corpus.ts",
+    "import:verified": "pnpm run workspace:prepare && tsx src/build-verified-partial-release.ts",
+    "import:public-url": "pnpm run workspace:prepare && tsx src/build-public-url-release.ts",
     "build:release": "pnpm run workspace:prepare && tsx src/build-release-manifest.ts",
     "depth:estimate": "tsx src/depth-map-cli.ts",
+    "depth:release": "pnpm run workspace:prepare && tsx src/build-model-depth-release.ts",
+    "depth:import": "tsx src/import-depth-release.ts",
     "met:probe": "node ../../scripts/collect/met-probe.js",
     "met:batch": "node ../../scripts/collect/met-batch.js",
     "met:backfill-batch-probe-approval": "node ../../scripts/collect/backfill-batch-probe-approval.js"

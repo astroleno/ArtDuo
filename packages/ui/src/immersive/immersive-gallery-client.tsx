@@ -1,5 +1,6 @@
 "use client";
 
+import { appPath } from "@artduo/contracts";
 import type { CSSProperties, PointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
@@ -50,25 +51,9 @@ function preloadImage(src: string | undefined): void {
   }
 
   const image = new Image();
+  image.crossOrigin = "anonymous";
   image.decoding = "async";
   image.src = src;
-}
-
-function sceneNarrative(
-  scene: ImmersiveScene,
-  isFirstScene: boolean,
-  isLastScene: boolean,
-  preface: string | undefined,
-  closing: string | undefined,
-): string | undefined {
-  if (isFirstScene && preface) {
-    return preface;
-  }
-  if (isLastScene && closing) {
-    return closing;
-  }
-
-  return scene.unit.curatorNote;
 }
 
 function openingWallText(text: string | undefined, title: string): string | undefined {
@@ -274,9 +259,10 @@ export function ImmersiveGalleryClient({
   const nextScene = scenes[currentIndex + 1];
   const isFirstScene = currentIndex === 0;
   const isLastScene = currentIndex === scenes.length - 1;
-  const narrativeText = sceneNarrative(activeScene, isFirstScene, isLastScene, preface, closing);
-  const openingText = isFirstScene ? firstSentences(openingWallText(narrativeText, activeScene.unit.title), 2) : undefined;
-  const middleNarrative = !isFirstScene && !isLastScene ? narrativeWhisper(narrativeText) : {};
+  const isSingleScene = isFirstScene && isLastScene;
+  const openingText = isFirstScene ? firstSentences(openingWallText(preface ?? (isSingleScene ? undefined : activeScene.unit.curatorNote), activeScene.unit.title), 2) : undefined;
+  const closingText = isLastScene ? closing ?? (isSingleScene ? undefined : activeScene.unit.curatorNote) : undefined;
+  const middleNarrative = isSingleScene || (!isFirstScene && !isLastScene) ? narrativeWhisper(activeScene.unit.curatorNote) : {};
   const activeStageTone = activeScene.unit.stageTone ?? activeScene.unit.growthStageRole ?? stageWhisperLabel(routeStage);
   const affectIntensity = activeScene.unit.emotionalIntensity ?? activeScene.unit.affectState?.arousal;
   const shellStyle: CSSProperties | undefined = activeScene.unit.backgroundSceneUrl
@@ -361,7 +347,7 @@ export function ImmersiveGalleryClient({
         <span className="immersive-noise" />
       </div>
       <header className="immersive-topbar">
-        <a className="immersive-brand" href="/">ArtDuo</a>
+        <a className="immersive-brand" href={appPath("/")}>ArtDuo</a>
         <div className="immersive-topbar-actions">
           <button
             aria-label={isAmbientPlaying ? `暂停背景音乐：${ambientTrack.label}` : `播放背景音乐：${ambientTrack.label}`}
@@ -372,7 +358,7 @@ export function ImmersiveGalleryClient({
           >
             {ambientError ? "重试声场" : isAmbientPlaying ? "暂停声场" : "打开声场"}
           </button>
-          <a className="immersive-back-link" href={galleryHref}>换一句愿望</a>
+          <a className="immersive-back-link" href={appPath(galleryHref)}>换一句愿望</a>
         </div>
       </header>
       <audio
@@ -394,7 +380,7 @@ export function ImmersiveGalleryClient({
         }}
         preload="none"
         ref={audioRef}
-        src={ambientTrack.src}
+        src={appPath(ambientTrack.src)}
       />
 
       <section className="immersive-stage" aria-label="Immersive artwork">
@@ -418,14 +404,6 @@ export function ImmersiveGalleryClient({
           {!isFirstScene && !isLastScene ? (
             <p className="immersive-kicker">
               {activeStageTone}
-            </p>
-          ) : null}
-          {isLastScene && narrativeText ? (
-            <p
-              className="immersive-narrative immersive-closing-wall"
-              data-testid="immersive-closing"
-            >
-              {narrativeText}
             </p>
           ) : null}
           <h1
@@ -452,6 +430,14 @@ export function ImmersiveGalleryClient({
               <summary>展开解读</summary>
               <p>{middleNarrative.detail}</p>
             </details>
+          ) : null}
+          {isLastScene && closingText ? (
+            <p
+              className="immersive-narrative immersive-closing-wall"
+              data-testid="immersive-closing"
+            >
+              {closingText}
+            </p>
           ) : null}
           {scenes.length > 1 ? (
             <nav className="immersive-scene-nav" aria-label="Immersive scene navigation">

@@ -1,5 +1,6 @@
 "use client";
 
+import { appPath } from "@artduo/contracts";
 import { startTransition } from "react";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +12,6 @@ export default function ImmersiveError({ reset }: { error: Error & { digest?: st
     <h1>这次观展可以重新尝试</h1>
     <p>已载入的馆藏不会被替换；重新策展会重新读取当前版本。</p>
     <button className="experience-primary" onClick={retry} type="button">重新载入</button>
-    <a className="experience-text-button" href="/gallery?view=route">返回画廊</a>
+    <a className="experience-text-button" href={appPath("/gallery?view=route")}>返回画廊</a>
   </main>;
 }

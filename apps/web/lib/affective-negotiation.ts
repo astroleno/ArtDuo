@@ -165,6 +165,12 @@ function intensityFromState(state: AffectState): number {
   return clamp01(0.2 + state.arousal * 0.28 + state.tension * 0.2 + state.wonder * 0.2 + state.intimacy * 0.12);
 }
 
+/** Editorial mood tags describe an artwork's possible offering, not the visitor. */
+export function artworkAffectState(artwork: WebArtwork): AffectState {
+  const values = unique([...artwork.moodTags, ...artwork.emotionLabels].map(normalize)).filter((value) => SIGNAL_STATE[value]);
+  return averageState(values.map((value) => ({ kind: "emotion", value })));
+}
+
 function scoreCandidateForStage(candidate: Candidate, signals: AffectSignal[]): number {
   const candidateSignalSet = new Set(candidateSignals(candidate));
   const stageSignals = signals.map((entry) => normalize(entry.value));

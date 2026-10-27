@@ -1,3 +1,4 @@
+import { appPath } from "@artduo/contracts";
 export interface ProgressIndicatorProps {
   total: number;
   currentIndex: number;
@@ -55,7 +56,7 @@ export function ProgressIndicator({ total, currentIndex, itemHrefs = [], onSelec
                   {content}
                 </button>
               ) : href ? (
-                <a href={href} aria-label={ariaLabel}>
+                <a href={appPath(href)} aria-label={ariaLabel}>
                   {content}
                 </a>
               ) : content}

@@ -239,3 +239,18 @@ test("server provider adapter rejects a streamed response that omits a required 
     /omitted detailText/,
   );
 });
+
+test("detail prose removes echoed writing instructions while retaining actual viewing observations", async () => {
+  const make = (detailText: string) => createServerGroundedExplanationGeneratorFromEnv({
+    env: { DEEPSEEK_BASE_URL: "https://api.deepseek.com", DEEPSEEK_MODEL: "deepseek-flash", DEEPSEEK_API_KEY: "test" },
+    fetchImpl: async () => openAiSseResponse([
+      `data: ${JSON.stringify({ model: "deepseek-flash", choices: [{ delta: { content: JSON.stringify({ title: "Cloister", shortText: "已有资料中的作品。", detailText }) } }] })}\n\n`,
+      "data: [DONE]\n\n",
+    ]),
+  })!;
+  const request = { artworkId: grounding.artwork.id, releaseVersion: grounding.releaseVersion, contextText: grounding.userText, grounding };
+  const content = await make("树木与宽水面相接。观看时可留意水面、光线与构图；序言与注脚也围绕这些方面展开，不作情绪引导。")(request);
+  assert.equal(content.detailText, "树木与宽水面相接。观看时可留意水面、光线与构图。");
+  assert.equal(content.title, "Cloister");
+  await assert.rejects(async () => make("序言与注脚也围绕这些方面展开，不作情绪引导。")(request), /only writing instructions/);
+});

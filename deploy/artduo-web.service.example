@@ -1,0 +1,25 @@
+[Unit]
+Description=ArtDuo web application
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=artduo
+Group=artduo
+WorkingDirectory=/opt/artduo/current/apps/web
+EnvironmentFile=/etc/artduo/artduo.env
+Environment=PATH=/opt/artduo/runtime/bin:/usr/bin:/bin
+ExecStart=/opt/artduo/runtime/bin/node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3240
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/artduo /opt/artduo/current/apps/web/.next/cache /opt/artduo/current/.cache/artduo-public-images
+
+[Install]
+WantedBy=multi-user.target

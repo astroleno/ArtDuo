@@ -61,10 +61,109 @@ test("missing and fully cropped mount zones fall back to safe viewport bounds", 
   }
 });
 
+test("phone labels stay under the painting and leave the floor and navigation visible", () => {
+  for (const width of [320, 390]) for (const ratio of [0.65, 1, 1.8]) {
+    const height = width === 320 ? 568 : 844;
+    const layout = calculateRoomLayout({ viewport: { width, height }, sceneSize: { width: 1672, height: 941 },
+      mountZone: { shape: "rect", rect: { x: 0.18, y: 0.18, width: 0.64, height: 0.5 } }, artworkAspectRatio: ratio, plaqueHeight: 106 });
+    assert.ok(layout.plaque.y >= layout.frame.y + layout.frame.height + 12);
+    assert.ok(layout.plaque.y + layout.plaque.height <= height - 88);
+    assert.ok(layout.plaque.x >= 20 && layout.plaque.x + layout.plaque.width <= width - 20);
+    assert.ok(layout.plaque.width <= 210);
+  }
+});
+
 test("reduced motion removes spatial transitions and unsupported WebGL hints degrade to fade", () => {
   const reduced = createMotionPolicy({ reducedMotion: true, webglAvailable: true });
   assert.equal(motionDuration(1000, reduced), 0);
   assert.equal(resolvedTransitionFamily("lateral-pan", reduced), "fade");
   assert.equal(resolvedTransitionFamily("depth-push", createMotionPolicy({ webglAvailable: false })), "fade");
   assert.equal(resolvedTransitionFamily("dissolve", createMotionPolicy({ webglAvailable: false })), "dissolve");
+});
+
+test("phone route, full emotional note and navigation never cover narrow or wide artworks", () => {
+  for (const viewport of [{ width: 320, height: 568 }, { width: 390, height: 844 }]) {
+    for (const ratio of [333 / 1962, .65, 1, 1.8, 2400 / 257]) {
+      for (const wallTop of [.18, .6]) {
+        const layout = calculateRoomLayout({ viewport, sceneSize: { width: 1672, height: 941 },
+          mountZone: { shape: "rect", rect: { x: .18, y: wallTop, width: .64, height: .3 } },
+          artworkAspectRatio: ratio, frameInset: 16, navigationHeight: 136, plaqueHeight: 176 });
+        assert.ok(layout.frame.y >= 136);
+        assert.ok(layout.frame.width > 0 && layout.frame.height > 0);
+        assert.ok(layout.plaque.y >= layout.frame.y + layout.frame.height + 12);
+        assert.ok(layout.plaque.y + layout.plaque.height <= viewport.height - 88);
+      }
+    }
+  }
+});
+
+test("matting stays outside narrow and wide image geometry", () => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    for (const ratio of [333 / 1962, 2400 / 257, 1]) {
+      const layout = calculateRoomLayout({ viewport, sceneSize: { width: 1672, height: 941 },
+        artworkAspectRatio: ratio, frameInset: 32 });
+      const width = layout.frame.width - layout.frameInset * 2;
+      const height = layout.frame.height - layout.frameInset * 2;
+      assert.ok(width > 0 && height > 0);
+      assert.ok(Math.abs(width / height - ratio) < 0.00001);
+      assert.ok(layout.frame.x >= 0 && layout.frame.x + layout.frame.width <= viewport.width);
+      assert.ok(layout.frame.y >= 0 && layout.frame.y + layout.frame.height <= viewport.height - 70);
+    }
+  }
+});
+
+function assertLabelClear(layout: ReturnType<typeof calculateRoomLayout>, viewport: { width: number; height: number }) {
+  const { frame, plaque } = layout;
+  const overlapWidth = Math.max(0, Math.min(frame.x + frame.width, plaque.x + plaque.width) - Math.max(frame.x, plaque.x));
+  const overlapHeight = Math.max(0, Math.min(frame.y + frame.height, plaque.y + plaque.height) - Math.max(frame.y, plaque.y));
+  assert.equal(overlapWidth * overlapHeight, 0, `label overlaps artwork at ${viewport.width}×${viewport.height}`);
+  assert.ok(plaque.x >= 20 && plaque.x + plaque.width <= viewport.width - 20 + .001);
+  assert.ok(plaque.y >= 72 && plaque.y + plaque.height <= viewport.height - 88 + .001);
+  assert.ok(layout.compactPlaqueWidth <= 124 && layout.compactPlaqueWidth <= plaque.width);
+  assert.ok(frame.width > layout.frameInset * 2 && frame.height > layout.frameInset * 2);
+}
+
+const galleryWall = { shape: "rect" as const, rect: { x: .18, y: .18, width: .64, height: .5 } };
+
+test("desktop reserves the complete expanded label on the wall side of the artwork", () => {
+  const viewport = { width: 1440, height: 900 };
+  const layout = calculateRoomLayout({ viewport, sceneSize: { width: 1672, height: 941 }, mountZone: galleryWall,
+    artworkAspectRatio: 1.57, frameInset: 6, plaqueSize: { width: 188, height: 123 } });
+  assert.equal(layout.plaquePlacement, "right");
+  assert.ok(layout.plaque.x >= layout.frame.x + layout.frame.width + 20 - .001);
+  assert.equal(layout.plaque.width, 188);
+  assertLabelClear(layout, viewport);
+});
+
+test("adjacent tablet widths move the label below instead of clamping it over the image", () => {
+  for (const width of [767, 768]) {
+    const viewport = { width, height: 1024 };
+    const layout = calculateRoomLayout({ viewport, sceneSize: { width: 1672, height: 941 }, mountZone: galleryWall,
+      artworkAspectRatio: 1.57, frameInset: 6, plaqueSize: { width: 188, height: 123 } });
+    assert.equal(layout.plaquePlacement, "below");
+    assert.ok(layout.plaque.y >= layout.frame.y + layout.frame.height + 12 - .001);
+    assertLabelClear(layout, viewport);
+  }
+});
+
+test("phone return focus has space for the long label's real height without covering the work", () => {
+  const viewport = { width: 320, height: 568 };
+  const layout = calculateRoomLayout({ viewport, sceneSize: { width: 1672, height: 941 }, mountZone: galleryWall,
+    artworkAspectRatio: 1.57, frameInset: 6, navigationHeight: 80, plaqueSize: { width: 188, height: 123 } });
+  assert.equal(layout.plaquePlacement, "below");
+  assert.equal(layout.plaque.height, 123);
+  assert.ok(layout.frame.width >= 280, "a longer label should not unnecessarily shrink a wide painting");
+  assertLabelClear(layout, viewport);
+});
+
+test("label budgets remain separate for long text, off-centre mounts, paper and landscape phones", () => {
+  for (const viewport of [{ width: 320, height: 568 }, { width: 390, height: 844 }, { width: 667, height: 375 }, { width: 844, height: 390 }, { width: 1024, height: 768 }]) {
+    for (const ratio of [.17, .65, 1, 1.8, 9.3]) {
+      for (const mountZone of [galleryWall, { shape: "rect" as const, rect: { x: .6, y: .6, width: .25, height: .3 } }]) {
+        const layout = calculateRoomLayout({ viewport, sceneSize: { width: 1672, height: 941 }, mountZone,
+          artworkAspectRatio: ratio, frameInset: 32, navigationHeight: viewport.width < 768 ? 80 : 76, plaqueSize: { width: 188, height: 230 } });
+        assertLabelClear(layout, viewport);
+      }
+    }
+  }
 });

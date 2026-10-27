@@ -13,6 +13,8 @@ export function DepthParallaxCanvas({ imageUrl, depthMapUrl, pointer, active, re
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rendererRef = useRef<DepthParallaxController | null>(null);
+  const latestPointer = useRef(pointer);
+  latestPointer.current = pointer;
   const [status, setStatus] = useState<"loading" | "ready" | "static">("static");
   const [visible, setVisible] = useState(true);
   useEffect(() => {
@@ -50,7 +52,7 @@ export function DepthParallaxCanvas({ imageUrl, depthMapUrl, pointer, active, re
         }
         rendererRef.current = renderer;
         setStatus("ready");
-        renderer.setPointer(pointer.x, pointer.y);
+        renderer.setPointer(latestPointer.current.x, latestPointer.current.y);
       })
       .catch(() => {
         if (disposed) return;
@@ -69,5 +71,7 @@ export function DepthParallaxCanvas({ imageUrl, depthMapUrl, pointer, active, re
   useEffect(() => rendererRef.current?.setPointer(pointer.x, pointer.y), [pointer.x, pointer.y]);
 
   if (!active || reducedMotion || !visible) return null;
-  return <canvas aria-hidden="true" className="experience-depth-canvas" data-depth-state={status} ref={canvasRef} />;
+  // The renderer releases its WebGL context on disposal. A different artwork
+  // needs a different canvas so that a late context-loss event cannot stop it.
+  return <canvas key={`${imageUrl}|${depthMapUrl ?? ""}`} aria-hidden="true" className="experience-depth-canvas" data-depth-state={status} ref={canvasRef} />;
 }

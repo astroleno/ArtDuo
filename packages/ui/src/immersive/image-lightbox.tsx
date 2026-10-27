@@ -9,12 +9,15 @@ import type { ImmersiveGalleryUnit } from "./scene-orchestrator";
 
 export interface ImageLightboxProps {
   unit: ImmersiveGalleryUnit;
+  previewSource?: string;
   className?: string;
+  motionEnabled?: boolean;
   hasPrevious?: boolean;
   hasNext?: boolean;
   onPrevious?: () => void;
   onNext?: () => void;
   onExpandedChange?: (isExpanded: boolean) => void;
+  onExpandedArtworkReady?: (artworkId: string) => void;
   onImageReady?: (size: { width: number; height: number }) => void;
   onImageError?: () => void;
 }
@@ -60,23 +63,29 @@ function cropFrameStyle(unit: ImmersiveGalleryUnit): CSSProperties | undefined {
 
 export function ImageLightbox({
   unit,
+  previewSource,
   className = "",
+  motionEnabled = true,
   hasPrevious = false,
   hasNext = false,
   onPrevious,
   onNext,
   onExpandedChange,
+  onExpandedArtworkReady,
   onImageReady,
   onImageError,
 }: ImageLightboxProps) {
   const byline = [unit.artistDisplayName, unit.yearLabel].filter(Boolean).join(", ");
-  const previewSrc = unit.imageUrl;
+  const previewSrc = previewSource ?? unit.imageUrl;
   const fullSrc = unit.imageUrlFull && unit.imageUrlFull !== previewSrc ? unit.imageUrlFull : undefined;
   const aspectHint = normalizeAspectHint(unit.aspectRatioHint);
   const cropStyle = cropFrameStyle(unit);
   const isBorderTrimmed = Boolean(cropStyle);
+  const exactAspect = unit.visualPresentation?.cropStrategy === "preserve-paper"
+    ? unit.visualPresentation.contentAspectRatio : undefined;
+  const hasExactAspect = Number.isFinite(exactAspect) && (exactAspect ?? 0) > 0;
   const [imageState, setImageState] = useState<"loading" | "ready" | "error">("loading");
-  const [expandedImageSrc, setExpandedImageSrc] = useState(previewSrc);
+  const [detail, setDetail] = useState(() => ({ unit, imageSrc: previewSrc }));
   const [isExpanded, setIsExpanded] = useState(false);
   const [entryOrigin, setEntryOrigin] = useState<ImmersiveDetailOrigin | undefined>();
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
@@ -85,11 +94,17 @@ export function ImageLightbox({
   const artworkFrameRef = useRef<HTMLSpanElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const restoreTriggerFocusRef = useRef(false);
+  const expandedRef = useRef(isExpanded);
+  const callbacksRef = useRef({ onExpandedChange, onExpandedArtworkReady });
+  const unitRef = useRef(unit);
+  expandedRef.current = isExpanded;
+  callbacksRef.current = { onExpandedChange, onExpandedArtworkReady };
+  unitRef.current = unit;
+  const pendingArtwork = detail.unit.id !== unit.id;
 
   useEffect(() => {
     setImageState("loading");
     decodedSourceRef.current = null;
-    setExpandedImageSrc(previewSrc);
   }, [previewSrc, unit.id]);
 
   useEffect(() => {
@@ -102,12 +117,11 @@ export function ImageLightbox({
       triggerRef.current?.focus();
     }
 
-    return () => {
-      if (isExpanded) {
-        onExpandedChange?.(false);
-      }
-    };
-  }, [isExpanded, onExpandedChange]);
+  }, [isExpanded]);
+
+  useEffect(() => () => {
+    if (expandedRef.current) callbacksRef.current.onExpandedChange?.(false);
+  }, []);
 
   useEffect(() => {
     if (!isExpanded) {
@@ -125,28 +139,41 @@ export function ImageLightbox({
   }, [isExpanded]);
 
   useEffect(() => {
-    if (!isExpanded || !fullSrc) {
-      return;
-    }
-
+    if (!isExpanded) return;
     let cancelled = false;
-    const image = new Image();
-    image.decoding = "async";
-    image.onload = () => {
-      if (!cancelled) {
-        setExpandedImageSrc(fullSrc);
-      }
-    };
-    image.src = fullSrc;
-
-    if (image.complete && image.naturalWidth > 0 && !cancelled) {
-      setExpandedImageSrc(fullSrc);
+    const nextUnit = unitRef.current;
+    async function prepare() {
+      const preview = new Image();
+      preview.crossOrigin = "anonymous";
+      preview.decoding = "async";
+      preview.src = previewSrc;
+      try {
+        await preview.decode();
+        if (cancelled || !preview.naturalWidth) return;
+        // Change the work and its credit together, only once real pixels exist.
+        setDetail({ unit: nextUnit, imageSrc: previewSrc });
+      } catch { return; }
+      if (!fullSrc) return;
+      const full = new Image();
+      full.crossOrigin = "anonymous";
+      full.decoding = "async";
+      full.src = fullSrc;
+      try {
+        await full.decode();
+        if (!cancelled && full.naturalWidth) setDetail({ unit: nextUnit, imageSrc: fullSrc });
+      } catch { /* Keep the decoded preview if the full image fails. */ }
     }
+    void prepare();
+    return () => { cancelled = true; };
+  }, [previewSrc, fullSrc, unit.id, isExpanded]);
 
-    return () => {
-      cancelled = true;
-    };
-  }, [fullSrc, isExpanded]);
+  useEffect(() => {
+    if (!isExpanded || pendingArtwork) return;
+    let frame = requestAnimationFrame(() => {
+      frame = requestAnimationFrame(() => callbacksRef.current.onExpandedArtworkReady?.(detail.unit.id));
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isExpanded, pendingArtwork, detail.unit.id]);
 
   useEffect(() => {
     let cancelled = false;
@@ -196,6 +223,7 @@ export function ImageLightbox({
       y: bounds ? bounds.top + bounds.height / 2 : viewportHeight / 2,
     });
     restoreTriggerFocusRef.current = true;
+    setDetail({ unit, imageSrc: previewSrc });
     // Notify the room in this same update, before the detail renderer mounts.
     onExpandedChange?.(true);
     setIsExpanded(true);
@@ -205,11 +233,13 @@ export function ImageLightbox({
     <figure
       className={`immersive-lightbox ${className}`}
       data-aspect-ratio={aspectHint}
+      data-exact-aspect={hasExactAspect ? "true" : undefined}
       data-detail-state={isExpanded ? "immersive" : "idle"}
       data-display-mode={unit.displayMode ?? "wall-painting"}
       data-image-state={imageState}
       data-lightbox-open={isExpanded ? "true" : "false"}
       data-visual-crop={isBorderTrimmed ? "trim-border" : "none"}
+      style={hasExactAspect ? { "--immersive-source-aspect-ratio": String(exactAspect) } as CSSProperties : undefined}
     >
       <button
         aria-label={`放大《${unit.title}》并进入沉浸体验`}
@@ -222,6 +252,7 @@ export function ImageLightbox({
           {isBorderTrimmed ? (
             <span className="immersive-image-crop" style={cropStyle}>
               <img
+                crossOrigin="anonymous"
                 alt={`${unit.title} artwork`}
                 className="immersive-preview-image"
                 decoding="async"
@@ -232,6 +263,7 @@ export function ImageLightbox({
             </span>
           ) : (
             <img
+              crossOrigin="anonymous"
               alt={`${unit.title} artwork`}
               className="immersive-preview-image"
               decoding="async"
@@ -255,15 +287,17 @@ export function ImageLightbox({
       </button>
       {isExpanded && portalRoot ? createPortal(
         <ImmersiveDetailStage
+          motionEnabled={motionEnabled}
           entryOrigin={entryOrigin}
-          hasNext={hasNext}
-          hasPrevious={hasPrevious}
-          imageSrc={expandedImageSrc}
+          hasNext={hasNext && !pendingArtwork}
+          hasPrevious={hasPrevious && !pendingArtwork}
+          pendingArtwork={pendingArtwork}
+          imageSrc={detail.imageSrc}
           onClose={() => { onExpandedChange?.(false); setIsExpanded(false); }}
           onNext={onNext}
           onPrevious={onPrevious}
-          requireDepthMap={unit.requireDepthMap}
-          unit={unit}
+          requireDepthMap={detail.unit.requireDepthMap}
+          unit={detail.unit}
         />,
         portalRoot,
       ) : null}

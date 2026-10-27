@@ -6,12 +6,14 @@
   "types": "src/index.ts",
   "dependencies": {
     "@artduo/contracts": "workspace:*",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "three": "0.186.1"
   },
   "devDependencies": {
     "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.0"
+    "@types/react-dom": "^19.1.0",
+    "@types/three": "0.185.0"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

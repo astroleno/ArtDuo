@@ -1,0 +1,78 @@
+{
+  "version": "room-relighting-v1",
+  "model": {
+    "id": "Xenova/depth-anything-small-hf",
+    "revision": "2e942621ab9f2371c1df9eb223291b5ac31475e6",
+    "weightsSha256": "e4e2ffe9b0396ebd4a0c09b855762b186aab338e79f76531b09777aafc91db84",
+    "license": "Apache-2.0",
+    "source": "https://huggingface.co/LiheYoung/depth-anything-small-hf",
+    "representation": "relative-inverse-depth; lighter is nearer; no metric units"
+  },
+  "depthEncoding": "relative inverse depth, RG16 big endian; B=0",
+  "normalEncoding": "RGB8 tangent normal; +Y up; derived from smoothed float depth before quantization",
+  "records": [
+    {
+      "sceneId": "bg-004",
+      "sourceUrl": "/artduo-gallery/bg-warm-wood-gallery-plaster-wall-004.png",
+      "inputSha256": "b34e9ebcfb1ed205af0758f6de1926c55c7622a1f6306cf0632826785d68b223",
+      "width": 924,
+      "height": 518,
+      "low": 1.997611165046692,
+      "high": 15.540863990783691,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v1/bg-004-depth.png",
+          "sha256": "ab21bc8ed4fd02184249fbedef4b169f015f8517fd37c688d6f3e163ad227080"
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v1/bg-004-normal.png",
+          "sha256": "4930aaff195eaa2364e9ba59ab0c9078e07e0810437d9ce595eda6b189278919"
+        }
+      ]
+    },
+    {
+      "sceneId": "bg-027",
+      "sourceUrl": "/artduo-gallery/bg-brutalist-minimal-gallery-concrete-027.png",
+      "inputSha256": "6c38e0fe5e48a2bd38e1e6ef33e7c6a2ed8732cef810a32ee13a1a41259647ba",
+      "width": 924,
+      "height": 518,
+      "low": 1.5162230730056763,
+      "high": 20.2950439453125,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v1/bg-027-depth.png",
+          "sha256": "d9a5fdabcdab73c7f5b7431e5df8b87e7149bc357644d607f2af0183f19804f2"
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v1/bg-027-normal.png",
+          "sha256": "f6de4833fd7a027168ba3df0ffed8a5774bc90048d4fab966e5ebdd5c11ce68c"
+        }
+      ]
+    },
+    {
+      "sceneId": "bg-034",
+      "sourceUrl": "/artduo-gallery/bg-minimal-white-gallery-concrete-034.png",
+      "inputSha256": "425cb60e3b410087868499a08da3281770e172c9f6e13bb06a0fc94604806cf0",
+      "width": 924,
+      "height": 518,
+      "low": 0.7834171652793884,
+      "high": 20.25578498840332,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v1/bg-034-depth.png",
+          "sha256": "8027c817d8ac58650cb96aafb933bc276bcf43810b92c6a763f04e3622483963"
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v1/bg-034-normal.png",
+          "sha256": "641bc21cc9e7dae93fffd2aa54093ad2a6920f360658a4e01705b47eb837b14d"
+        }
+      ]
+    }
+  ]
+}

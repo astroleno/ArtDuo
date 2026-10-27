@@ -41,6 +41,7 @@ function fixture(count: number, missingLast = false) {
   const recordById = new Map(results.slice(0, missingLast ? -1 : undefined).map(({ artwork: item }) => [item.id, record(item.id, item.title)]));
   const catalog = {
     releaseVersion: "release-test",
+    artworks: results.map(result => result.artwork),
     artworkRecordById: recordById,
     backgroundSceneRecordById: new Map(),
   } as unknown as WebReleaseCatalog;
@@ -68,7 +69,7 @@ test("experience adapter binds records and versioned media, and keeps missing sc
   const unit = snapshot.units[0]!;
   assert.equal(unit.artwork.metadata.title, "A Very Long English Title for a Quiet Night");
   assert.equal(unit.scene, null);
-  assert.equal(unit.media.previewUrl, "/artduo-artwork/work-1?releaseVersion=release-test");
+  assert.equal(unit.media.previewUrl, "/artduo-artwork/work-1?previewVersion=1&releaseVersion=release-test");
   assert.equal(unit.media.depthMapUrl, undefined);
   assert.equal(unit.caption.source, "grounded");
   assert.equal(unit.exhibition.backgroundSceneId, "unavailable-scene");
@@ -87,6 +88,27 @@ test("experience identity survives reranking and a resting intent keeps every st
   assert.ok(original.stages.every((stage) => ["入场", "停留", "余韵"].includes(stage.label)));
 });
 
+test("request feedback preserves frozen prose and distinguishes short results from missing records", () => {
+  const input = fixture(1);
+  const pieces = [
+    { kind: "preface" as const, text: "Original DS preface.", source: "grounded" as const },
+    { kind: "note" as const, artworkId: "work-1", text: "Original DS note.", source: "grounded" as const },
+    { kind: "closing" as const, text: "Original DS closing.", source: "grounded" as const },
+  ];
+  const snapshot = buildExperienceSnapshot({ ...input, query: "想看两幅油画", curationId: "frozen", narrativePieces: pieces });
+  assert.match(snapshot.selectionNotice ?? "", /想看 2 件，本次找到 1 件/u);
+  assert.equal(snapshot.preface.text, pieces[0].text);
+  assert.equal(snapshot.units[0].curatorNote?.text, pieces[1].text);
+  assert.equal(snapshot.closing.text, pieces[2].text);
+  const complete = buildExperienceSnapshot({ ...input, query: "想看一幅油画", curationId: "frozen" });
+  assert.equal(complete.selectionNotice, undefined);
+  const missing = buildExperienceSnapshot({ ...fixture(2, true), query: "想看两幅油画", curationId: "frozen" });
+  assert.match(missing.selectionNotice ?? "", /资料暂不可用/u);
+  assert.doesNotMatch(missing.selectionNotice ?? "", /未确认同时符合/u);
+  const conflict = buildExperienceSnapshot({ ...fixture(0), query: "只看莫奈，不要莫奈。", curationId: "empty" });
+  assert.match(conflict.selectionNotice ?? "", /同时要求和排除了同一位作者/u);
+});
+
 test("experience adapter counts missing records and rejects duplicate artwork references", () => {
   const missing = fixture(2, true);
   const snapshot = buildExperienceSnapshot({ query: missing.search.query, ...missing });
@@ -96,6 +118,18 @@ test("experience adapter counts missing records and rejects duplicate artwork re
   const duplicate = fixture(1);
   duplicate.search.results.push({ ...duplicate.search.results[0]!, rank: 2 });
   assert.throws(() => buildExperienceSnapshot({ query: duplicate.search.query, ...duplicate }), /Duplicate experience unit reference/);
+});
+
+test("a frozen semantic exhibition preserves its planned curve and omits unvisited empty stages", () => {
+  const input = fixture(1);
+  const assigned = input.narrative.growthForm.stages.find((stage) => stage.artworkIds.length)!;
+  assigned.intensity = 0.62;
+  assigned.transitionIntent = "fade";
+  const snapshot = buildExperienceSnapshot({ ...input, query: "有点累，撑了很久", curationId: "f".repeat(64) });
+  assert.equal(snapshot.stages.length, 1);
+  assert.equal(snapshot.stages[0].intensity, 0.62);
+  assert.equal(snapshot.stages[0].transitionIntent, "fade");
+  assert.equal(snapshot.stages[0].label, assigned.label);
 });
 
 test("experience prose uses the actual exhibition and excludes long titles, raw prompts and collection scoring notes", () => {

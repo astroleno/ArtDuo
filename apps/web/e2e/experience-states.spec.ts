@@ -5,6 +5,22 @@ import { gotoApp } from "./helpers";
 const query = "有点累，撑了很久";
 const experienceUrl = `/gallery/local/immersive?${new URLSearchParams({ query, view: "experience", recipeVersion: "experience-v1", phase: "preface" })}`;
 
+test("server-rendered preface enables its action only after the client can handle it", async ({ page }) => {
+  let releaseClient!: () => void;
+  const clientGate = new Promise<void>((resolve) => { releaseClient = resolve; });
+  await page.route("**/_next/static/chunks/**", async (route) => { await clientGate; await route.continue(); });
+  try {
+    await page.goto(`${experienceUrl}&releaseVersion=2026-10-06-paintings`, { waitUntil: "commit" });
+    const start = page.getByRole("button", { name: /跳过前言/ });
+    await expect(start).toBeVisible();
+    await expect(start).toBeDisabled();
+    releaseClient();
+    await expect(start).toBeEnabled();
+    await start.click();
+    await expect(page.getByTestId("experience-room")).toBeVisible();
+  } finally { releaseClient(); }
+});
+
 test("empty results, unsupported releases and recipes have visible recovery paths", async ({ page }) => {
   await gotoApp(page, `/gallery/local/immersive?${new URLSearchParams({ query: "!!!", view: "experience", recipeVersion: "experience-v1", phase: "preface" })}`);
   await expect(page.getByTestId("experience-empty")).toBeVisible();
@@ -61,7 +77,7 @@ test("first artwork milestones wait for a decoded visible image instead of the w
 });
 
 test("missing depth maps keep the artwork static and fully usable", async ({ page }) => {
-  await gotoApp(page, experienceUrl);
+  await gotoApp(page, `${experienceUrl}&releaseVersion=2026-10-13-quality`);
   await page.getByRole("button", { name: /跳过前言/ }).click();
 
   await expect(page.getByTestId("experience-room")).toBeVisible();

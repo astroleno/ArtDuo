@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
@@ -7,6 +8,35 @@ import { test } from "node:test";
 import { embedText } from "@artduo/corpus";
 
 import { loadWebReleaseCatalog, searchBackgroundScenes, searchReleaseCatalog } from "../../lib/release-catalog";
+
+test("catalog reuse isolates callers and invalidates changed shards, new ledgers and replaced reviewed images", () => {
+  const rootDir = buildReleaseFixture();
+  const version = "2026-04-25-curation-b", releaseDir = path.join(rootDir, "data/releases", version);
+  try {
+    const first = loadWebReleaseCatalog({ rootDir });
+    first.artworkById.get("met-moon")!.title = "Caller mutation";
+    assert.notEqual(loadWebReleaseCatalog({ rootDir }).artworkById.get("met-moon")!.title, "Caller mutation");
+    const metadataFile = path.join(releaseDir, "metadata-01.json");
+    const metadata = JSON.parse(readFileSync(metadataFile, "utf8"));
+    metadata[0].metadata.title = "Corrected title"; writeJson(metadataFile, metadata);
+    assert.equal(loadWebReleaseCatalog({ rootDir }).artworkById.get("met-moon")!.title, "Corrected title");
+    const imagePath = "images/moon.jpg", image = Buffer.from("verified delivered pixels");
+    mkdirSync(path.join(releaseDir, "images")); writeFileSync(path.join(releaseDir, imagePath), image);
+    const mediaFile = path.join(releaseDir, "media-01.json"), media = JSON.parse(readFileSync(mediaFile, "utf8"));
+    media[0].media.imageUrlPreview = imagePath; writeJson(mediaFile, media);
+    const unreviewed = loadWebReleaseCatalog({ rootDir });
+    assert.equal(unreviewed.artworkById.get("met-moon")!.visualEvidence, undefined);
+    writeJson(path.join(releaseDir, "visual-reviews.json"), { schemaVersion: 1, releaseVersion: version, reviews: [{ artworkId: "met-moon", imagePath,
+      imageSha256: `sha256:${createHash("sha256").update(image).digest("hex")}`, reviewer: "local-image-review", reviewedAt: "2026-10-23", facts: { water: "present", boats: "absent" }, observation: "Recorded image observation." }] });
+    const reviewed = loadWebReleaseCatalog({ rootDir });
+    assert.ok(reviewed.artworkById.get("met-moon")!.visualEvidence);
+    writeFileSync(path.join(releaseDir, imagePath), "changed delivered pixels");
+    const changed = loadWebReleaseCatalog({ rootDir });
+    assert.equal(changed.artworkById.get("met-moon")!.visualEvidence, undefined);
+    assert.equal(changed.artworkById.get("met-moon")!.visualEvidenceUnavailable, true);
+    assert.notEqual(changed.visualEvidenceVersion, reviewed.visualEvidenceVersion);
+  } finally { rmSync(rootDir, { recursive: true, force: true }); }
+});
 
 test("gallery search excludes objects before vector candidate limits and never fills a short route with them", () => {
   const rootDir = buildReleaseFixture();
@@ -301,13 +331,14 @@ test("loads the release manifest into gallery-ready artwork records", () => {
 test("searches a visitor sentence into ranked gallery cards with detail links", () => {
   const rootDir = buildReleaseFixture();
   const catalog = loadWebReleaseCatalog({ rootDir });
-  const result = searchReleaseCatalog(catalog, "I want a quiet moonlit room", { limit: 2 });
+  const result = searchReleaseCatalog(catalog, "I want a quiet moonlit landscape", { limit: 2 });
 
-  assert.equal(result.query, "I want a quiet moonlit room");
-  assert.equal(result.normalizedQuery, "i want a quiet moonlit room");
+  assert.equal(result.query, "I want a quiet moonlit landscape");
+  assert.equal(result.normalizedQuery, "i want a quiet moonlit landscape");
   assert.equal(result.results.length, 1);
   assert.equal(result.results[0]?.artwork.id, "met-moon");
-  assert.equal(result.results[0]?.artwork.detailHref, "/artwork/met-moon?query=I+want+a+quiet+moonlit+room&releaseVersion=2026-04-25-curation-b");
+  assert.equal(result.results[0]?.artwork.detailHref, "/artwork/met-moon?query=I+want+a+quiet+moonlit+landscape&releaseVersion=2026-04-25-curation-b");
+  assert.equal(searchReleaseCatalog(catalog, "I want a quiet moonlit room").results.length, 0);
   assert.deepEqual(result.results[0]?.artwork.moodTags, ["contemplation"]);
   assert.equal(result.results[0]?.scene?.imageUrl, "/artduo-gallery/bg-moon.png");
   assert.ok(result.results[0]?.matchedTokens.includes("subject:moon"));

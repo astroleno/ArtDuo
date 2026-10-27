@@ -1,0 +1,225 @@
+{
+  "version": "room-relighting-v2",
+  "model": {
+    "id": "Xenova/depth-anything-small-hf",
+    "revision": "2e942621ab9f2371c1df9eb223291b5ac31475e6",
+    "weightsSha256": "e4e2ffe9b0396ebd4a0c09b855762b186aab338e79f76531b09777aafc91db84",
+    "license": "Apache-2.0",
+    "source": "https://huggingface.co/LiheYoung/depth-anything-small-hf",
+    "representation": "relative-inverse-depth; lighter is nearer; no metric units"
+  },
+  "depthEncoding": "relative inverse depth, RG16 big endian; B=0",
+  "normalEncoding": "RGB8 tangent normal; +Y up; derived from smoothed float depth before quantization",
+  "records": [
+    {
+      "sceneId": "bg-004",
+      "sourceUrl": "/artduo-gallery/bg-warm-wood-gallery-plaster-wall-004.png",
+      "inputSha256": "b34e9ebcfb1ed205af0758f6de1926c55c7622a1f6306cf0632826785d68b223",
+      "width": 384,
+      "height": 215,
+      "low": 0.00923309288918972,
+      "high": 0.9966804385185242,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v2/bg-004-depth.png",
+          "sha256": "b88d5823fc4681aedd977eec2bdd0768057995ff8ecf7dad14b1765c47f5d117",
+          "bytes": 142166
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v2/bg-004-normal.png",
+          "sha256": "c5d46b00d42bda0c4c94489774e03d112e526a052d2fec0b8529dc37df1d017f",
+          "bytes": 60616
+        },
+        {
+          "kind": "background-960",
+          "url": "/artduo-gallery/lighting/v2/bg-004-960.webp",
+          "sha256": "0c685afe49b561c4f44d6c37633cf7350e09c76c53bf3cb4694d0c50a4d65ae1",
+          "bytes": 39392
+        },
+        {
+          "kind": "background-1600",
+          "url": "/artduo-gallery/lighting/v2/bg-004-1600.webp",
+          "sha256": "139f83376115120325f2237783b80ddad3267239e4515d5f8c651385b25673c9",
+          "bytes": 95258
+        }
+      ]
+    },
+    {
+      "sceneId": "bg-012",
+      "sourceUrl": "/artduo-gallery/bg-minimal-white-partition-gallery-black-bench-012.png",
+      "inputSha256": "e4057e269cf7ab4515ae5c0924b69ec8932052f52e2694988b580c8e157cb6c9",
+      "width": 384,
+      "height": 215,
+      "low": 1.3325891494750977,
+      "high": 15.952417373657227,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v2/bg-012-depth.png",
+          "sha256": "42e5bf4b3024b276b795ba0497feb1495a4733cbc0804cd46453b02e13ca3949",
+          "bytes": 143599
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v2/bg-012-normal.png",
+          "sha256": "cd5a01d3e9a0979b521f8c14c661e51b4c6374dcdfb3ccef55ae3335c1b90b02",
+          "bytes": 59111
+        },
+        {
+          "kind": "background-960",
+          "url": "/artduo-gallery/lighting/v2/bg-012-960.webp",
+          "sha256": "e6cde375e537a806cfdc4fea157fbe20aef5c4c5f9ee46179eb90949b2f4e8f8",
+          "bytes": 20572
+        },
+        {
+          "kind": "background-1600",
+          "url": "/artduo-gallery/lighting/v2/bg-012-1600.webp",
+          "sha256": "8c4132c085438c94f85faf1505d08fa3da4482710ee46f17b4d862bdff7884a1",
+          "bytes": 43006
+        }
+      ]
+    },
+    {
+      "sceneId": "bg-015",
+      "sourceUrl": "/artduo-gallery/bg-soft-white-chamber-curved-wall-015.png",
+      "inputSha256": "d1da43eb4422027c33284a1e2e44f6d105a86cb3d80442c573c517bb4c1cc701",
+      "width": 384,
+      "height": 215,
+      "low": 2.420945405960083,
+      "high": 18.75437355041504,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v2/bg-015-depth.png",
+          "sha256": "140b05f0ebf6e50c2ac6f572d5dd606a5a3d47b65b2ef7e50641cb976235c6cb",
+          "bytes": 146059
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v2/bg-015-normal.png",
+          "sha256": "03dd62131c27664009e8cef18ad3d799e8bc5897af0c36b37b9e8e8c019b12c8",
+          "bytes": 47278
+        },
+        {
+          "kind": "background-960",
+          "url": "/artduo-gallery/lighting/v2/bg-015-960.webp",
+          "sha256": "073dbc3e3a0f9a5a23468940cd6d2da8ab5dd55e5a93a8dde63572491492b314",
+          "bytes": 10230
+        },
+        {
+          "kind": "background-1600",
+          "url": "/artduo-gallery/lighting/v2/bg-015-1600.webp",
+          "sha256": "da5c569d60c8d9667dc1a5582df423abc3524307291e28a39cd7c4a0fac1c5d4",
+          "bytes": 24774
+        }
+      ]
+    },
+    {
+      "sceneId": "bg-022",
+      "sourceUrl": "/artduo-gallery/bg-minimal-window-gallery-modern-022.png",
+      "inputSha256": "1a3e36f252452639761cae5a7cb3dbf3d55bfbaf13d83907d9f88f59c3f3bd53",
+      "width": 384,
+      "height": 215,
+      "low": 0,
+      "high": 17.590999603271484,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v2/bg-022-depth.png",
+          "sha256": "47af59543ae49eb891aa6cd25461021551d9c89231c02d8480cbc06f32a6e1ad",
+          "bytes": 135482
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v2/bg-022-normal.png",
+          "sha256": "c3931cade1f151032ae52c15cd6edb7d118994ede19e458990f81f53619f99db",
+          "bytes": 48923
+        },
+        {
+          "kind": "background-960",
+          "url": "/artduo-gallery/lighting/v2/bg-022-960.webp",
+          "sha256": "8e1cdd5e92fcb73076db037976b41fda50c8fe2de23a4ee7181b694d38c00db7",
+          "bytes": 30344
+        },
+        {
+          "kind": "background-1600",
+          "url": "/artduo-gallery/lighting/v2/bg-022-1600.webp",
+          "sha256": "5455d93b07c4b629e8bff6cd423908cc728fc8f9fd2846c669189812f6305294",
+          "bytes": 66494
+        }
+      ]
+    },
+    {
+      "sceneId": "bg-027",
+      "sourceUrl": "/artduo-gallery/bg-brutalist-minimal-gallery-concrete-027.png",
+      "inputSha256": "6c38e0fe5e48a2bd38e1e6ef33e7c6a2ed8732cef810a32ee13a1a41259647ba",
+      "width": 384,
+      "height": 215,
+      "low": 0.0018434179946780205,
+      "high": 0.9975796341896057,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v2/bg-027-depth.png",
+          "sha256": "3d1acb202cd601accbab316cac35a2d4538757698a0449916099687c2a44915e",
+          "bytes": 150746
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v2/bg-027-normal.png",
+          "sha256": "6cbdf34ae6c0a7a5a81d23671eeee6311e15a11fe4c7614e10bd48c8c7402df0",
+          "bytes": 46935
+        },
+        {
+          "kind": "background-960",
+          "url": "/artduo-gallery/lighting/v2/bg-027-960.webp",
+          "sha256": "3a3e4bc92373be24204d147ceefb481e96f9c64e743ce9885c6ba6c858a30eb8",
+          "bytes": 27710
+        },
+        {
+          "kind": "background-1600",
+          "url": "/artduo-gallery/lighting/v2/bg-027-1600.webp",
+          "sha256": "c63db762fa5e1ff8bc7080fb91fcf48bc564f9a4c0a555abd592fe7e56716b05",
+          "bytes": 74110
+        }
+      ]
+    },
+    {
+      "sceneId": "bg-034",
+      "sourceUrl": "/artduo-gallery/bg-minimal-white-gallery-concrete-034.png",
+      "inputSha256": "425cb60e3b410087868499a08da3281770e172c9f6e13bb06a0fc94604806cf0",
+      "width": 384,
+      "height": 215,
+      "low": 0.0010651764459908009,
+      "high": 0.9977367520332336,
+      "outputs": [
+        {
+          "kind": "depth",
+          "url": "/artduo-gallery/lighting/v2/bg-034-depth.png",
+          "sha256": "fe38faa821ac8473ff278eb70189e01c9021fc7782141519a7bf2a91592156eb",
+          "bytes": 142018
+        },
+        {
+          "kind": "normal",
+          "url": "/artduo-gallery/lighting/v2/bg-034-normal.png",
+          "sha256": "b607bf15dd943c151bb34095705d178a051bfa335ee08027fe18fd30fd3fce90",
+          "bytes": 41801
+        },
+        {
+          "kind": "background-960",
+          "url": "/artduo-gallery/lighting/v2/bg-034-960.webp",
+          "sha256": "44d1df5c595ba5fa6b63911dffb3bf8c33cf615fc083c11029778cab3d3f3cee",
+          "bytes": 19206
+        },
+        {
+          "kind": "background-1600",
+          "url": "/artduo-gallery/lighting/v2/bg-034-1600.webp",
+          "sha256": "6906ae243b851a5552732a78ff4c8fc73ad9489fb9625fa66a7c5025623ba5d2",
+          "bytes": 42756
+        }
+      ]
+    }
+  ]
+}

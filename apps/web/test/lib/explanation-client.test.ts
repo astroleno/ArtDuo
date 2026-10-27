@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { mkdtempSync, rmSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
 
 import { getArtworkExplanationClient } from "../../lib/explanation-client";
 
@@ -154,12 +157,17 @@ test("explanation client maps route errors to failed state", async () => {
 
 test("default explanation client uses configured DeepSeek streaming instead of the local fallback", async () => {
   const previous = {
+    provider: process.env.ARTDUO_EXPLANATION_PROVIDER,
+    stateDir: process.env.ARTDUO_STATE_DIR,
     baseUrl: process.env.DEEPSEEK_BASE_URL,
     model: process.env.DEEPSEEK_MODEL,
     apiKey: process.env.DEEPSEEK_API_KEY,
     fetch: globalThis.fetch,
   };
   let providerCalled = false;
+  const stateDir = mkdtempSync(path.join(os.tmpdir(), "artduo-client-test-"));
+  process.env.ARTDUO_EXPLANATION_PROVIDER = "openai-compatible";
+  process.env.ARTDUO_STATE_DIR = stateDir;
 
   process.env.DEEPSEEK_BASE_URL = "https://api.deepseek.com";
   process.env.DEEPSEEK_MODEL = "deepseek-v4-flash";
@@ -186,6 +194,11 @@ test("default explanation client uses configured DeepSeek streaming instead of t
     assert.equal(explanation.status, "ready");
     assert.equal(explanation.content?.title, "Provider Cloister");
   } finally {
+    if (previous.provider === undefined) delete process.env.ARTDUO_EXPLANATION_PROVIDER;
+    else process.env.ARTDUO_EXPLANATION_PROVIDER = previous.provider;
+    if (previous.stateDir === undefined) delete process.env.ARTDUO_STATE_DIR;
+    else process.env.ARTDUO_STATE_DIR = previous.stateDir;
+    rmSync(stateDir, { recursive: true, force: true });
     if (previous.baseUrl === undefined) delete process.env.DEEPSEEK_BASE_URL;
     else process.env.DEEPSEEK_BASE_URL = previous.baseUrl;
     if (previous.model === undefined) delete process.env.DEEPSEEK_MODEL;
@@ -193,5 +206,18 @@ test("default explanation client uses configured DeepSeek streaming instead of t
     if (previous.apiKey === undefined) delete process.env.DEEPSEEK_API_KEY;
     else process.env.DEEPSEEK_API_KEY = previous.apiKey;
     globalThis.fetch = previous.fetch;
+  }
+});
+
+test("an unavailable explanation provider cannot masquerade as a finished developer template", async () => {
+  const previous = process.env.ARTDUO_EXPLANATION_PROVIDER;
+  process.env.ARTDUO_EXPLANATION_PROVIDER = "disabled";
+  try {
+    const result = await getArtworkExplanationClient({ artworkId: "artic-28560", releaseVersion: "2026-10-15-experience", contextText: "The Bedroom" });
+    assert.equal(result.status, "failed");
+    assert.equal(result.content, undefined);
+  } finally {
+    if (previous === undefined) delete process.env.ARTDUO_EXPLANATION_PROVIDER;
+    else process.env.ARTDUO_EXPLANATION_PROVIDER = previous;
   }
 });

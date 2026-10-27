@@ -48,3 +48,13 @@ test("detail and refresh links carry the revised artwork order without behaviora
   assert.equal(new URL(href, "http://localhost").searchParams.get("route"), "met-2,met-1");
   assert.doesNotMatch(href, /dwell|observation|viewingMs/);
 });
+
+test("subpath return links normalize once for Next navigation and cannot leave the gallery", () => {
+  const previous = process.env.NEXT_PUBLIC_ARTDUO_BASE_PATH;
+  process.env.NEXT_PUBLIC_ARTDUO_BASE_PATH = "/ArtDuo";
+  try {
+    assert.equal(sanitizeReturnTo("/ArtDuo/gallery/local/immersive?phase=closing#card", "/gallery"), "/gallery/local/immersive?phase=closing#card");
+    for (const value of ["/ArtDuo-old/gallery", "/ArtDuo/../private", "/ArtDuo//evil.test/gallery", "/ArtDuo/gallery\\evil", "https://tongye.me/ArtDuo/gallery"]) assert.equal(sanitizeReturnTo(value, "/gallery"), "/gallery");
+    assert.ok(experienceHrefForPosition(snapshot, { phase: "preface" }).startsWith("/gallery/"), "Next router inputs stay domain-neutral");
+  } finally { if (previous === undefined) delete process.env.NEXT_PUBLIC_ARTDUO_BASE_PATH; else process.env.NEXT_PUBLIC_ARTDUO_BASE_PATH = previous; }
+});

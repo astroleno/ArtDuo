@@ -2,7 +2,23 @@
   "name": "artduo",
   "private": true,
   "packageManager": "pnpm@8.15.1",
+  "pnpm": {
+    "overrides": {
+      "next>postcss": "8.5.23",
+      "next>sharp": "0.35.5",
+      "postcss>nanoid": "3.3.18",
+      "postcss>source-map-js": "1.2.2",
+      "@xenova/transformers>sharp": "0.35.5",
+      "onnx-proto>protobufjs": "7.6.5",
+      "cheerio>undici": "7.30.1",
+      "natural>uuid": "13.0.1",
+      "natural>mongoose": "9.7.2"
+    }
+  },
   "scripts": {
+    "release:check": "tsx scripts/check-public-release.ts",
+    "release:prepare-media": "tsx scripts/prepare-release-previews.ts",
+    "release:public-media": "tsx scripts/build-public-media-manifest.ts",
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
@@ -37,7 +53,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
-    "tsx": "^4.19.4",
+    "tsx": "4.23.15",
     "typescript": "^5.8.3"
   }
 }

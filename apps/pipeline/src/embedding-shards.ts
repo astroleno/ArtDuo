@@ -153,6 +153,13 @@ export async function buildEmbeddingRecordsWithProvider(
       dimensions: options.dimensions,
     });
 
+    const reference = embeddedTexts[0] ?? embeddedBatch[0];
+    if (embeddedBatch.length !== batch.length || embeddedBatch.some((entry) =>
+      entry.model !== reference?.model || entry.provider !== reference?.provider || entry.dimensions !== reference?.dimensions
+      || entry.vector.length !== entry.dimensions || entry.vector.some((number) => !Number.isFinite(number)))) {
+      throw new Error("Embedding batches must share one model, provider, and finite vector dimension; mixed fallback indices are forbidden.");
+    }
+
     embeddedTexts.push(...embeddedBatch);
   }
 

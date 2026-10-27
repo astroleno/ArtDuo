@@ -51,6 +51,7 @@ export interface ArtworkExplanationRouteOptions {
   enableServerProvider?: boolean;
   providerEnv?: ExplanationProviderEnv;
   providerFetch?: typeof fetch;
+  resolveArtworkEvidence?: (artwork: GroundingContext["artwork"], releaseVersion: string) => GroundingContext["artwork"];
 }
 
 function apiError(status: number, code: string, message: string): ApiRouteResponse<ApiError> {
@@ -213,6 +214,7 @@ export function createArtworkExplanationRoute(options: ArtworkExplanationRouteOp
       if (!grounding) {
         return finish(apiError(404, "artwork_not_found", `Artwork not found: ${request.artworkId}`), "not_found");
       }
+      if (options.resolveArtworkEvidence) grounding.artwork = options.resolveArtworkEvidence(grounding.artwork, request.releaseVersion);
 
       const cacheKey = buildExplanationCacheKey({
         releaseVersion: request.releaseVersion,

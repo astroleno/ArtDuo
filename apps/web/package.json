@@ -7,9 +7,12 @@
     "@artduo/corpus": "workspace:*",
     "@artduo/ui": "workspace:*",
     "lucide-react": "^0.544.0",
-    "next": "15.5.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "next": "15.5.28",
+    "onnxruntime-node": "1.14.0",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "sharp": "0.35.5",
+    "tsx": "4.23.15"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
@@ -23,6 +26,7 @@
     "start": "next start",
     "test": "tsx --test test/**/*.test.ts",
     "test:e2e": "playwright test",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "handwriting:worker": "tsx scripts/handwriting-worker.ts"
   }
 }

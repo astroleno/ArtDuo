@@ -33,6 +33,17 @@ const baseArtworkRecord = {
   },
 };
 
+test("public source records retain their verified URL and reject mismatched image receipts", () => {
+  const url = "https://media.getty.edu/iiif/image/example/full/max/0/default.jpg", sha256 = "sha256:" + "a".repeat(64);
+  const record = { ...baseArtworkRecord, source: "getty", media: { ...baseArtworkRecord.media,
+    imageUrlPreview: url, imageUrlFull: url, sourceAssetFingerprint: sha256,
+    verifiedRemoteImage: { url, sha256, width: 2000, height: 1600, byteLength: 10000, contentType: "image/jpeg", verifiedAt: "2026-10-21T00:00:00Z" } } };
+  assert.deepEqual(parseArtworkRecords([record])[0].media.verifiedRemoteImage, record.media.verifiedRemoteImage);
+  for (const change of [{ sha256: "sha256:" + "b".repeat(64) }, { url: url + "?different" }, { width: 100000 }, { byteLength: 30000001 }]) {
+    assert.throws(() => parseArtworkRecords([{ ...record, media: { ...record.media, verifiedRemoteImage: { ...record.media.verifiedRemoteImage, ...change } } }]));
+  }
+});
+
 test("artwork fixtures satisfy the Phase 1 display/data baseline", () => {
   const records = parseArtworkRecords(loadFixture("artworks.json"));
 

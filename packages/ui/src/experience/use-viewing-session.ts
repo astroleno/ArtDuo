@@ -38,13 +38,13 @@ export function useViewingSession(base: ExhibitionSnapshot) {
   return { session, ref, commit, hydrated, storageAvailable, clear };
 }
 
-export function useViewingObservation({ controller, state, snapshot, readyUnitId, readingOpen }: {
+export function useViewingObservation({ controller, state, snapshot, readyUnitId, readingOpen, paused = false }: {
   controller: ReturnType<typeof useViewingSession>; state: ExperienceState; snapshot: ExhibitionSnapshot;
-  readyUnitId?: string; readingOpen: boolean;
+  readyUnitId?: string; readingOpen: boolean; paused?: boolean;
 }) {
   const clock = useRef<ViewingClock>({ mode: "paused", since: 0 });
   const [visible, setVisible] = useState(true);
-  const currentId = state.act === "walk" ? snapshot.units.find((unit) => unit.exhibition.unitId === state.unitId)?.artwork.id : undefined;
+  const currentId = state.act === "walk" && !paused ? snapshot.units.find((unit) => unit.exhibition.unitId === state.unitId)?.artwork.id : undefined;
   const flush = useCallback(() => {
     const now = performance.now();
     controller.commit((session) => settleViewingClock(session, clock.current, now));

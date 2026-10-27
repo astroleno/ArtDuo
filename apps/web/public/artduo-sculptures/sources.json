@@ -1,0 +1,3520 @@
+{
+  "checkedAt": "2026-10-27",
+  "version": "sculptures-famous-18-v1",
+  "models": [
+    {
+      "id": "athena",
+      "museumId": "KAS255",
+      "title": "雅典娜",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作公元前 4 世纪类型 · 罗马复制 · 石膏翻模",
+      "summary": "馆方题名为 Minverva Giustiniani。这件数字扫描来自 SMK 的石膏翻模收藏；馆方将其原作记录为古希腊古典时期类型的罗马复制品，原作材质为大理石。",
+      "viewingNote": "先看头部与披衣形成的轮廓，再顺着衣褶慢慢往下看。柔光掠过时，同一处起伏会显出不同的深浅。",
+      "tags": [
+        "静观",
+        "秩序",
+        "理想",
+        "衣纹",
+        "quiet",
+        "classical"
+      ],
+      "height": 2.65,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.25,
+      "pedestalDepth": 0.92,
+      "rotation": 0.12,
+      "targetTriangles": 120000,
+      "source": "https://open.smk.dk/artwork/image/KAS255",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS255&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/g732df32k_smk52-kas255-athena-pallas-giustiniani.stl",
+      "sourceFile": "g732df32k_smk52-kas255-athena-pallas-giustiniani.stl",
+      "originalBytes": 59126184,
+      "originalTriangles": 1182522,
+      "sha256": "cfdbe6f075936af88b6162810ac4492ecdb436a58eba20c231307be0138a778f",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 2.65,
+      "description": "馆方题名为 Minverva Giustiniani。这件数字扫描来自 SMK 的石膏翻模收藏；馆方将其原作记录为古希腊古典时期类型的罗马复制品，原作材质为大理石。",
+      "period": "原作公元前 4 世纪类型 · 罗马复制 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS255",
+        "titles": [
+          {
+            "title": "Minverva Giustiniani",
+            "language": "engelsk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "2190 x 930 x 650 mm",
+            "part": "brutto",
+            "type": "height",
+            "unit": "cm",
+            "value": "219"
+          },
+          {
+            "notes": "2190 x 930 x 650 mm",
+            "part": "brutto",
+            "type": "width",
+            "unit": "cm",
+            "value": "93"
+          },
+          {
+            "notes": "2190 x 930 x 650 mm",
+            "part": "brutto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "65"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG195",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Helbig I 1963, nr. 449. - Amelung I, 1903,138, Nr. 114 Taf. 18. - Haskell & Penny 1982 nr. 63. Cf. Niemeier 1985 for kopi af statuen fra 2. årh. f.Kr."
+            ],
+            "object_history_note": [
+              "Italien, Rom. Erhvervet fra L. Bonaparte"
+            ],
+            "production_date_notes": [
+              "4. århundrede f.Kr.",
+              "Græsk, klassisk beg. af",
+              "Romersk kopi"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS255",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/v692t971f_KAS255_-_Athena_Pallas_Giustiniani.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "athena-reference.glb",
+      "compactPath": "athena-compact.glb",
+      "referenceBytes": 4605016,
+      "compactBytes": 512664,
+      "compactTriangles": 119776,
+      "referenceBounds": {
+        "min": [
+          -0.5491752076360723,
+          0,
+          -0.3730315360019709
+        ],
+        "max": [
+          0.5491752076360723,
+          2.6499998569488525,
+          0.3730315360019709
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.5492164241709663,
+          3.714037966062733e-10,
+          -0.37291427183767517
+        ],
+        "max": [
+          0.5491339909472419,
+          2.6499998569488525,
+          0.37250180769582947
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "athena-reference.glb",
+          "bytes": 4605016,
+          "sha256": "e6470bd4b7df2b8ffc00a30d433d6063a1504774c71d67b345e246ddaaa398fb",
+          "triangles": 1182522,
+          "bounds": {
+            "min": [
+              -0.5491752076360723,
+              0,
+              -0.3730315360019709
+            ],
+            "max": [
+              0.5491752076360723,
+              2.6499998569488525,
+              0.3730315360019709
+            ]
+          }
+        },
+        "compact": {
+          "filename": "athena-compact.glb",
+          "bytes": 512664,
+          "sha256": "1cd7a1e9955d607a0636e91cd5026d0a2244606d67ce3c712873436f06da6529",
+          "triangles": 119776,
+          "bounds": {
+            "min": [
+              -0.5492164241709663,
+              3.714037966062733e-10,
+              -0.37291427183767517
+            ],
+            "max": [
+              0.5491339909472419,
+              2.6499998569488525,
+              0.37250180769582947
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "athena-poster.png",
+        "bytes": 402468,
+        "sha256": "4ff9e0e4329537ce798da785c69fcbf0886ba99f00ee2efc1c59d2036d482e17",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          1.9073486328125e-06,
+          -1.375160309180501e-06,
+          -36.170005798339844
+        ],
+        "max": [
+          53.262001037597656,
+          128.49600219726562,
+          4.781021143085906e-15
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 1182522
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "david",
+      "museumId": "KAS2232",
+      "title": "大卫 · 头像",
+      "artist": "米开朗基罗 · 原作",
+      "yearLabel": "原作 1501—1504 年 · 石膏翻模",
+      "summary": "馆方题名为 Head of David，作者记录为 Michelangelo Buonarroti。这件石膏翻模截取自《大卫》的头部；馆方将大理石原作的年代记为 1501—1504 年。这里呈现的是翻模的数字扫描。",
+      "viewingNote": "从发卷与额头的明暗开始，再看看视线如何越过脸部轮廓。可以只停留片刻，不急着为这个表情下定义。",
+      "tags": [
+        "凝视",
+        "内省",
+        "创作",
+        "人物",
+        "portrait",
+        "introspection"
+      ],
+      "height": 1.36,
+      "pedestalHeight": 0.68,
+      "pedestalWidth": 0.79,
+      "pedestalDepth": 0.79,
+      "rotation": 0.2,
+      "targetTriangles": 160000,
+      "source": "https://open.smk.dk/artwork/image/KAS2232",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS2232&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/ht24wq097_smk55-kas2232-head-of-david.stl",
+      "sourceFile": "ht24wq097_smk55-kas2232-head-of-david.stl",
+      "originalBytes": 54168584,
+      "originalTriangles": 1083370,
+      "sha256": "ba9f6b5e67981f340bae43a5b2b284a35b5f108cc9c6d654e43309e9e08d0e66",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 1.36,
+      "description": "馆方题名为 Head of David，作者记录为 Michelangelo Buonarroti。这件石膏翻模截取自《大卫》的头部；馆方将大理石原作的年代记为 1501—1504 年。这里呈现的是翻模的数字扫描。",
+      "period": "原作 1501—1504 年 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS2232",
+        "titles": [
+          {
+            "title": "Head of David",
+            "notes": "Ændret ifb. Michelangelo Imperfect 2025",
+            "type": "museum title",
+            "language": "engelsk"
+          },
+          {
+            "title": "Head from statue of David",
+            "type": "previous title",
+            "language": "engelsk"
+          }
+        ],
+        "artist": [
+          "Michelangelo Buonarroti"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "1370 x 800 x 675 mm",
+            "part": "netto",
+            "type": "height",
+            "unit": "cm",
+            "value": "137"
+          },
+          {
+            "notes": "1370 x 800 x 675 mm",
+            "part": "netto",
+            "type": "width",
+            "unit": "cm",
+            "value": "80"
+          },
+          {
+            "notes": "1370 x 800 x 675 mm",
+            "part": "netto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "67.5"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG1111",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Wölflin Classic Art (1899) 1986, 46. - Wanscher 1944, 16. - Weinberger I, 1967, 77. - Baldini 1973 (1981), Cat. 22. - Goldschneider 1986, 10 pl. 26. - Pope-Hennesey HRBS 1986, 12, pl. 13. - Berger 1992, Kap. 12 Abb. 63. - Tandrup 1992, 109."
+            ],
+            "object_history_note": [
+              "Italien, Firenze, foran Palazzo Vecchio"
+            ],
+            "production_date_notes": [
+              "1501-1504",
+              "Renæssance / Renaissance"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS2232",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/4f16c799z_KAS2232.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "david-reference.glb",
+      "compactPath": "david-compact.glb",
+      "referenceBytes": 4170612,
+      "compactBytes": 685852,
+      "compactTriangles": 160000,
+      "referenceBounds": {
+        "min": [
+          -0.45269692544407136,
+          0,
+          -0.47054414997335997
+        ],
+        "max": [
+          0.45269692544407136,
+          1.3600000143051147,
+          0.47054414997335997
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.4526871204800058,
+          0,
+          -0.4703950529768174
+        ],
+        "max": [
+          0.4527067304081369,
+          1.3600000143051147,
+          0.4705272262766068
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "david-reference.glb",
+          "bytes": 4170612,
+          "sha256": "f5df7607228823bc9d198a377116cbfdacb3705d67912efba9acea6c6667f27b",
+          "triangles": 1083370,
+          "bounds": {
+            "min": [
+              -0.45269692544407136,
+              0,
+              -0.47054414997335997
+            ],
+            "max": [
+              0.45269692544407136,
+              1.3600000143051147,
+              0.47054414997335997
+            ]
+          }
+        },
+        "compact": {
+          "filename": "david-compact.glb",
+          "bytes": 685852,
+          "sha256": "1bba67567a7daa7557760b83314231f1bb9ba73f03243b853a31ab6b5e173011",
+          "triangles": 160000,
+          "bounds": {
+            "min": [
+              -0.4526871204800058,
+              0,
+              -0.4703950529768174
+            ],
+            "max": [
+              0.4527067304081369,
+              1.3600000143051147,
+              0.4705272262766068
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "david-poster.png",
+        "bytes": 281148,
+        "sha256": "98b4734164724a440a588fb34a3f48168bf15c56319d71979409b9474af989f1",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          0.005778809078037739,
+          0.006516837049275637,
+          -138.39404296875
+        ],
+        "max": [
+          133.15469360351562,
+          200.00653076171875,
+          -0.002197265625
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 1083370
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "venus-milo",
+      "museumId": "KAS434",
+      "title": "米洛的维纳斯",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作公元前 2 世纪 · 石膏翻模",
+      "summary": "馆方题名包含 Venus de Milo 与 Afrodite fra Melos。这件扫描来自 SMK 的石膏翻模，所据大理石原作被记为希腊化时期、公元前 2 世纪的作品；馆方记录了原作与米洛斯岛的关联。",
+      "viewingNote": "让目光先沿外轮廓走一遍，再比较身体与衣纹的表面。轻微的视点变化，足以让原先藏在暗处的起伏慢慢显出来。",
+      "tags": [
+        "身体",
+        "柔和",
+        "宁静",
+        "爱",
+        "quiet",
+        "body"
+      ],
+      "height": 2.35,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 0.95,
+      "pedestalDepth": 0.85,
+      "rotation": 0.08,
+      "targetTriangles": 120000,
+      "source": "https://open.smk.dk/artwork/image/KAS434",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS434&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/w0892g669_smk-venus-de-milo.stl",
+      "sourceFile": "w0892g669_smk-venus-de-milo.stl",
+      "originalBytes": 13713684,
+      "originalTriangles": 274272,
+      "sha256": "96e9c5a8e380c3b932526fc561233dffb3c9dbd0549ed9efc956a47851511020",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 2.35,
+      "description": "馆方题名包含 Venus de Milo 与 Afrodite fra Melos。这件扫描来自 SMK 的石膏翻模，所据大理石原作被记为希腊化时期、公元前 2 世纪的作品；馆方记录了原作与米洛斯岛的关联。",
+      "period": "原作公元前 2 世纪 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS434",
+        "titles": [
+          {
+            "title": "Stående kvinde, Afrodite fra Melos. Venus fra Milo",
+            "language": "dansk"
+          },
+          {
+            "title": "Venus de Milo",
+            "language": "fransk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": null,
+        "original": [
+          {
+            "object_number": "ORIG3009",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "object_history_note": [
+              "Grækenland, Melos 1820"
+            ],
+            "production_date_notes": [
+              "2. århundrede f.Kr.",
+              "Græsk hellenistisk, sent"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS434",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/bz60d095h_KAS434.1_-_Venus_de_Milo.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "venus-milo-reference.glb",
+      "compactPath": "venus-milo-compact.glb",
+      "referenceBytes": 1094112,
+      "compactBytes": 503700,
+      "compactTriangles": 119996,
+      "referenceBounds": {
+        "min": [
+          -0.38788951608911804,
+          0,
+          -0.35403838331772786
+        ],
+        "max": [
+          0.38788951608911804,
+          2.3500001430511475,
+          0.35403838331772786
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.38790737876717923,
+          3.615384775912389e-05,
+          -0.35390412181176994
+        ],
+        "max": [
+          0.3879435289842355,
+          2.3493852615356445,
+          0.35397648185052727
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "venus-milo-reference.glb",
+          "bytes": 1094112,
+          "sha256": "9e08f43697853942ec7fbfe9e30fe6c56657c22c499108717f6d17e7961ee630",
+          "triangles": 274272,
+          "bounds": {
+            "min": [
+              -0.38788951608911804,
+              0,
+              -0.35403838331772786
+            ],
+            "max": [
+              0.38788951608911804,
+              2.3500001430511475,
+              0.35403838331772786
+            ]
+          }
+        },
+        "compact": {
+          "filename": "venus-milo-compact.glb",
+          "bytes": 503700,
+          "sha256": "271ac1192ac8a513c150ad3ee352da265b852a1f98c82117be38cb4bf74f188d",
+          "triangles": 119996,
+          "bounds": {
+            "min": [
+              -0.38790737876717923,
+              3.615384775912389e-05,
+              -0.35390412181176994
+            ],
+            "max": [
+              0.3879435289842355,
+              2.3493852615356445,
+              0.35397648185052727
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "venus-milo-poster.png",
+        "bytes": 272949,
+        "sha256": "4451bd3b581549c09f7b2750d75b93e2359ed63e9ca561e7eb9f72e7f8d06197",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          0.00800000037997961,
+          0.00800000037997961,
+          -39.17400360107422
+        ],
+        "max": [
+          42.93000030517578,
+          130.0080108642578,
+          -0.004000000189989805
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 274272
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "apollo-belvedere",
+      "museumId": "KAS353",
+      "title": "望楼的阿波罗",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型约公元前 330 年 · 罗马复制 · 石膏翻模",
+      "summary": "馆方题名为 Apollo Belvedere。这件数字模型扫描自石膏翻模；馆方将其原作类型记为约公元前 330 年、古希腊古典时期，并注明罗马复制，大理石材质。馆方没有确认作者。",
+      "viewingNote": "先看看身体轮廓向哪些方向展开，再回到头部与躯干的关系。可以留意亮部边缘，怎样把雕塑从展厅的暗处轻轻分离出来。",
+      "tags": [
+        "光",
+        "秩序",
+        "理想",
+        "古典",
+        "light",
+        "classical"
+      ],
+      "height": 2.4,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.05,
+      "pedestalDepth": 0.9,
+      "rotation": 0.12,
+      "targetTriangles": 120000,
+      "source": "https://open.smk.dk/artwork/image/KAS353",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS353&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/wm117v118_smk-apollo-belvedere.stl",
+      "sourceFile": "wm117v118_smk-apollo-belvedere.stl",
+      "originalBytes": 14512784,
+      "originalTriangles": 290254,
+      "sha256": "fbab1e3e57a919953b225923912ca02cfb411342b99d7574a4ac4b6a838bd953",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 2.4,
+      "description": "馆方题名为 Apollo Belvedere。这件数字模型扫描自石膏翻模；馆方将其原作类型记为约公元前 330 年、古希腊古典时期，并注明罗马复制，大理石材质。馆方没有确认作者。",
+      "period": "原作类型约公元前 330 年 · 罗马复制 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS353",
+        "titles": [
+          {
+            "title": "Apollo Belvedere",
+            "language": "engelsk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "2320 x 1030 x 1260 mm",
+            "part": "brutto",
+            "type": "height",
+            "unit": "cm",
+            "value": "232"
+          },
+          {
+            "notes": "2320 x 1030 x 1260 mm",
+            "part": "brutto",
+            "type": "width",
+            "unit": "cm",
+            "value": "103"
+          },
+          {
+            "notes": "2320 x 1030 x 1260 mm",
+            "part": "brutto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "126"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG106",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Helbig I 1963, nr. 226: Leochares. - Tölle, JdI 81, 1966, 142. - Richter 1970, 222, fig. 784. - Havelock 1971, 124, nr. 91. - Deubner, JdI 94, 1979, 223-44. - Haskell & Penny 1981, nr. 8. - The Vatican Collections, New York 1983 nr. 20. - Bober & Rubinstein 1987 nr. 28. - Göttingen 1990, A 348."
+            ],
+            "object_history_note": [
+              "Italien, nær Antium, slutn. 15. årh. Neros Villa?"
+            ],
+            "production_date_notes": [
+              "Ca. 330 f.Kr.",
+              "Græsk, klassisk",
+              "Romersk kopi"
+            ],
+            "distinguishing_features": [
+              "Overdelen af koggeret, v. hånd, h. underarm, overdelen af træstammen, enkelte småstykker på benene og draperiet"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS353",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/zg64tq81s_KAS353_-_Apollo_Belvedere.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "apollo-belvedere-reference.glb",
+      "compactPath": "apollo-belvedere-compact.glb",
+      "referenceBytes": 1158856,
+      "compactBytes": 508796,
+      "compactTriangles": 120000,
+      "referenceBounds": {
+        "min": [
+          -0.7603503827023929,
+          0,
+          -0.523734265630812
+        ],
+        "max": [
+          0.7603503827023929,
+          2.4000000953674316,
+          0.523734265630812
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.7603503827023929,
+          0,
+          -0.523734265630812
+        ],
+        "max": [
+          0.7603503827023929,
+          2.4000000953674316,
+          0.523734265630812
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "apollo-belvedere-reference.glb",
+          "bytes": 1158856,
+          "sha256": "0162853ef7ab1b0127fe0db6fb4e94450ce7f4815c55fa5d462bc3c78ad12456",
+          "triangles": 290254,
+          "bounds": {
+            "min": [
+              -0.7603503827023929,
+              0,
+              -0.523734265630812
+            ],
+            "max": [
+              0.7603503827023929,
+              2.4000000953674316,
+              0.523734265630812
+            ]
+          }
+        },
+        "compact": {
+          "filename": "apollo-belvedere-compact.glb",
+          "bytes": 508796,
+          "sha256": "b809d58dc16c70196527ff565ac6473bb3d8bab7c11a931dc12d578c8d55eccd",
+          "triangles": 120000,
+          "bounds": {
+            "min": [
+              -0.7603503827023929,
+              0,
+              -0.523734265630812
+            ],
+            "max": [
+              0.7603503827023929,
+              2.4000000953674316,
+              0.523734265630812
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "apollo-belvedere-poster.png",
+        "bytes": 426794,
+        "sha256": "b7ed57c175162fb663b3f420fac91b90fe77cad84924c49f119e56cbf76624f2",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          0.0020000000949949026,
+          7.5609697234473635e-16,
+          -56.73600387573242
+        ],
+        "max": [
+          82.37600708007812,
+          130,
+          -0.0020000000949949026
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 290254
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "nefertiti",
+      "museumId": "DEP439",
+      "title": "娜芙蒂蒂胸像",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作约公元前 1340 年 · 石膏翻模",
+      "summary": "馆方题名为 Portræt af Nefertiti。这件扫描对象是石膏翻模；馆方将所据原作记为约公元前 1340 年、埃及阿玛尔纳时期的彩绘石灰石胸像。当前数字展示采用统一石膏材质，不还原原作彩绘。",
+      "viewingNote": "从头部轮廓开始，把目光慢慢移向面部。看看柔光抵达边缘时，哪些线条变得清楚，哪些仍留在暗处。",
+      "tags": [
+        "凝视",
+        "静观",
+        "人物",
+        "安静",
+        "portrait",
+        "quiet"
+      ],
+      "height": 1.15,
+      "pedestalHeight": 0.8,
+      "pedestalWidth": 0.7,
+      "pedestalDepth": 0.7,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "source": "https://open.smk.dk/artwork/image/DEP439",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=DEP439&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/nz806404c_DEP439_small.stl",
+      "sourceFile": "nz806404c_DEP439_small.stl",
+      "originalBytes": 19999884,
+      "originalTriangles": 399996,
+      "sha256": "9bdf4f80fb03ce5d56bde43732b5cac49e80be03fbe499765d0ecddf7507f9f7",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 1.15,
+      "description": "馆方题名为 Portræt af Nefertiti。这件扫描对象是石膏翻模；馆方将所据原作记为约公元前 1340 年、埃及阿玛尔纳时期的彩绘石灰石胸像。当前数字展示采用统一石膏材质，不还原原作彩绘。",
+      "period": "原作约公元前 1340 年 · 石膏翻模",
+      "museum": {
+        "object_number": "DEP439",
+        "titles": [
+          {
+            "title": "Portræt af Nefertiti",
+            "language": "dansk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": null,
+        "original": [
+          {
+            "object_number": "ORIG2477",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Limestone"
+            ],
+            "notes": [
+              "Teknik: Bemalet kalksten. Berlin 1967, nr. 767 ill. - Berlin Heft 1/2 1968, Taf. 41 nr. 539: samme som Dep 24. - Aldred 1973, titelblad samt tekst. - Aldred 1985, 182, fig. 146. - Berlin 1986, 93 ill. Proveniens: Tell el-Amarna hus P 47,2 rum 19."
+            ],
+            "object_history_note": [
+              "Egypten, Tell el-Amarna, Thutmosis' værksted. - DE, Berlin, SMPK, Ägyptisches Museum"
+            ],
+            "production_date_notes": [
+              "Ca. 1340 f.Kr.",
+              "Egyptisk, Amarnatiden 18. dynasti"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/DEP439",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/ft848w36m_resize-smk-kasd24-nefertiti.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "nefertiti-reference.glb",
+      "compactPath": "nefertiti-compact.glb",
+      "referenceBytes": 1451820,
+      "compactBytes": 550496,
+      "compactTriangles": 140000,
+      "referenceBounds": {
+        "min": [
+          -0.24070787183692793,
+          0,
+          -0.35612200561774554
+        ],
+        "max": [
+          0.24070787183692793,
+          1.149999976158142,
+          0.35612200561774554
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.24072361426319328,
+          0,
+          -0.3561141080023128
+        ],
+        "max": [
+          0.24055174426998344,
+          1.149999976158142,
+          0.3561299032331783
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "nefertiti-reference.glb",
+          "bytes": 1451820,
+          "sha256": "e11cff1aaeb9c701f4c27706de0973e3f758f5f8598abe9c480ea38e5f4c4d61",
+          "triangles": 399996,
+          "bounds": {
+            "min": [
+              -0.24070787183692793,
+              0,
+              -0.35612200561774554
+            ],
+            "max": [
+              0.24070787183692793,
+              1.149999976158142,
+              0.35612200561774554
+            ]
+          }
+        },
+        "compact": {
+          "filename": "nefertiti-compact.glb",
+          "bytes": 550496,
+          "sha256": "3cf444479b155e82fc52903560b293c0f0d342b146a85e2fc55c538186818fd9",
+          "triangles": 140000,
+          "bounds": {
+            "min": [
+              -0.24072361426319328,
+              0,
+              -0.3561141080023128
+            ],
+            "max": [
+              0.24055174426998344,
+              1.149999976158142,
+              0.3561299032331783
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "nefertiti-poster.png",
+        "bytes": 163796,
+        "sha256": "970d75542bc6c7195e04a28c49dd7a7cd667e93760432dbdc56aff2ca9e15803",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          0.0053660012781620026,
+          -0.008327409625053406,
+          -695.6167602539062
+        ],
+        "max": [
+          470.2518005371094,
+          1123.2867431640625,
+          0.032766278833150864
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 399996
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "alexander-helios",
+      "museumId": "KAS283",
+      "title": "亚历山大化身赫利俄斯",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型公元前 299—101 年 · 石膏翻模",
+      "summary": "馆方将这件作品题为“亚历山大大帝化身赫利俄斯的理想化肖像”。扫描对象为石膏翻模，所据原作材质记为大理石，年代记为公元前 299—101 年，并注明罗马复制。",
+      "viewingNote": "可以先看头部与胸部构成的整体，再慢慢靠近那些细小的表面变化。让明暗引导目光，不必急着把每一处细节都看清。",
+      "tags": [
+        "理想",
+        "自我",
+        "时间",
+        "人物",
+        "portrait",
+        "identity"
+      ],
+      "height": 1.25,
+      "pedestalHeight": 0.72,
+      "pedestalWidth": 0.82,
+      "pedestalDepth": 0.78,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "source": "https://open.smk.dk/artwork/image/KAS283",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS283&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/8k71nn57n_KAS283_small.stl",
+      "sourceFile": "8k71nn57n_KAS283_small.stl",
+      "originalBytes": 20005084,
+      "originalTriangles": 400100,
+      "sha256": "7954b4ada82a2caf5b9b5967557cb99fab61055c19df25e99f632d79bb6b2cb5",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 1.25,
+      "description": "馆方将这件作品题为“亚历山大大帝化身赫利俄斯的理想化肖像”。扫描对象为石膏翻模，所据原作材质记为大理石，年代记为公元前 299—101 年，并注明罗马复制。",
+      "period": "原作类型公元前 299—101 年 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS283",
+        "titles": [
+          {
+            "title": "Ideal-portræt af Alexander den Store som Helios",
+            "language": "dansk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "710 x mm",
+            "type": "height",
+            "unit": "cm",
+            "value": "71"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG1147",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Helbig II 1966, nr. 1423. - Pollitt 1986, 29, fig. 17. - Göttingen 1990, A 477. Oprindelig påsat (sol-) stråler i diademet."
+            ],
+            "object_history_note": [
+              "Italien, ? (sandsynligvis fra Vatikanets samlinger)"
+            ],
+            "production_date_notes": [
+              "299-101 f.Kr.",
+              "Græsk, hellenistisk",
+              "Romersk kopi"
+            ],
+            "distinguishing_features": [
+              "Næsetippen samt busten"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS283",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/r207ts895_KAS283_-_Alexander_as_Helios.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "alexander-helios-reference.glb",
+      "compactPath": "alexander-helios-compact.glb",
+      "referenceBytes": 1569860,
+      "compactBytes": 595520,
+      "compactTriangles": 139994,
+      "referenceBounds": {
+        "min": [
+          -0.32788323618274484,
+          0,
+          -0.33078249458296455
+        ],
+        "max": [
+          0.32788323618274484,
+          1.25,
+          0.33078249458296455
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.3278753278656885,
+          3.4580174542497844e-05,
+          -0.3308060667198276
+        ],
+        "max": [
+          0.3278730032845423,
+          1.25,
+          0.3307406208198642
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "alexander-helios-reference.glb",
+          "bytes": 1569860,
+          "sha256": "2ff7cf4a2981255f84b73306a7c28591de1b6977c388cbe5fe7812fcd021c89d",
+          "triangles": 400100,
+          "bounds": {
+            "min": [
+              -0.32788323618274484,
+              0,
+              -0.33078249458296455
+            ],
+            "max": [
+              0.32788323618274484,
+              1.25,
+              0.33078249458296455
+            ]
+          }
+        },
+        "compact": {
+          "filename": "alexander-helios-compact.glb",
+          "bytes": 595520,
+          "sha256": "ab927dd36d70f03c42ba19cfdf90462ee23d1353a49eef39db498ffcf84df47d",
+          "triangles": 139994,
+          "bounds": {
+            "min": [
+              -0.3278753278656885,
+              3.4580174542497844e-05,
+              -0.3308060667198276
+            ],
+            "max": [
+              0.3278730032845423,
+              1.25,
+              0.3307406208198642
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "alexander-helios-poster.png",
+        "bytes": 222637,
+        "sha256": "56f866576963912a06c3600a172ef4554d5939c045610095557b048f905065e9",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          -0.007802293170243502,
+          1.1314512584701254e-15,
+          -68.79827880859375
+        ],
+        "max": [
+          68.1968002319336,
+          130.0017547607422,
+          0.0027308377902954817
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 400100
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "marcus-young",
+      "museumId": "KAS1090",
+      "title": "青年马可·奥勒留",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作约公元 140 年 · 石膏翻模",
+      "summary": "馆方题名为“青年马可·奥勒留肖像”。这件扫描来自石膏翻模，馆方将所据大理石原作的年代记为约公元 140 年、古罗马时期。题名中的在位年代与原作制作年代是不同信息。",
+      "viewingNote": "先停在面部，再看看头部、衣褶与底座之间的体积关系。随着光线轻轻变化，同一个轮廓也会有不同的分量。",
+      "tags": [
+        "内省",
+        "时间",
+        "凝视",
+        "人物",
+        "introspection",
+        "portrait"
+      ],
+      "height": 1.3,
+      "pedestalHeight": 0.7,
+      "pedestalWidth": 0.84,
+      "pedestalDepth": 0.78,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "source": "https://open.smk.dk/artwork/image/KAS1090",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS1090&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/cj82kc84t_KAS1090_small.stl",
+      "sourceFile": "cj82kc84t_KAS1090_small.stl",
+      "originalBytes": 20001284,
+      "originalTriangles": 400024,
+      "sha256": "81eb91d5aa8664f47b990daff07fbd8959f18c5fd3054ff16290e847ce14caed",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 1.3,
+      "description": "馆方题名为“青年马可·奥勒留肖像”。这件扫描来自石膏翻模，馆方将所据大理石原作的年代记为约公元 140 年、古罗马时期。题名中的在位年代与原作制作年代是不同信息。",
+      "period": "原作约公元 140 年 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS1090",
+        "titles": [
+          {
+            "title": "Portræt af Marcus Aurelius som ung (kejser 161-180 e.Kr.)",
+            "language": "dansk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "750 x mm",
+            "type": "height",
+            "unit": "cm",
+            "value": "75"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG2469",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Identifikation: Beckett: Bernoulli II,2 1891, 174 nr. 99, Taf. L a, b, lig med Helbig II 1966, nr. 1301, og Fittschen & Zanker I 1985, nr. 62, Taf. 69, 71, 73. Men det er ikke denne! Det er en meget nær replik, se Fittschen 1985, nr. 61 (lig med KAS 1090) og 62, sml. f.eks. pl. 70 og 71. Læg mærke til dragtfolden skråt fra venstre, fra fibulaen ned til soklen. Og pandekrøllen til højre for de nedadstrittende løse lokker - på 61 er den blot buet, på 62 er der et ekstra sving på, så den er mere s-formet. Og fibulaknoppen. Der er også boret væsentlig mere i 62 end 61. Det må være Bernoulli II,2 1891, 174 nr. 100 i stedet for 99. Ny litt: Fittschen & Zanker I 1985, nr. 61, Taf. 69, 70, 72. Dat: i 140 bliver Marcus Aurelius til Caesar - designeret kejser. - Johansen MedKøb 1985, 106 fig. 24."
+            ],
+            "object_history_note": [
+              "Italien, ? Ex Albani Coll."
+            ],
+            "production_date_notes": [
+              "Ca. 140",
+              "Romersk"
+            ]
+          }
+        ],
+        "notes": [
+          "Haderslev Statsseminarium 1924-1990"
+        ],
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS1090",
+        "image_thumbnail": "https://api.smk.dk/api/v1/thumbnail/d73e5335-6fe8-4c58-a0fc-3e26a58e15d8.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "marcus-young-reference.glb",
+      "compactPath": "marcus-young-compact.glb",
+      "referenceBytes": 1568872,
+      "compactBytes": 595084,
+      "compactTriangles": 140000,
+      "referenceBounds": {
+        "min": [
+          -0.45153048668818113,
+          0,
+          -0.2797219661185327
+        ],
+        "max": [
+          0.45153048668818113,
+          1.2999999523162842,
+          0.2797219661185327
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.45158682237415526,
+          1.1857056051667314e-05,
+          -0.2796876617377221
+        ],
+        "max": [
+          0.4514659143522284,
+          1.2999999523162842,
+          0.2795924731200158
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "marcus-young-reference.glb",
+          "bytes": 1568872,
+          "sha256": "7b3a216c9824bcc5d0e0330e2908e254934a53aa329a4c4161acb378db6a8a00",
+          "triangles": 400024,
+          "bounds": {
+            "min": [
+              -0.45153048668818113,
+              0,
+              -0.2797219661185327
+            ],
+            "max": [
+              0.45153048668818113,
+              1.2999999523162842,
+              0.2797219661185327
+            ]
+          }
+        },
+        "compact": {
+          "filename": "marcus-young-compact.glb",
+          "bytes": 595084,
+          "sha256": "5490e87571c07779dd4f40c217dc82da2fdedbcb73628413ebcc6e2c94fdbcc5",
+          "triangles": 140000,
+          "bounds": {
+            "min": [
+              -0.45158682237415526,
+              1.1857056051667314e-05,
+              -0.2796876617377221
+            ],
+            "max": [
+              0.4514659143522284,
+              1.2999999523162842,
+              0.2795924731200158
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "marcus-young-poster.png",
+        "bytes": 268643,
+        "sha256": "ab85af4e1d3adafd311a3b7fcfe924bc6572ca3491d80bb0e2ad074e8bbc0da0",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          -0.0036972726229578257,
+          -0.00020044465782120824,
+          -55.93962097167969
+        ],
+        "max": [
+          90.31097412109375,
+          130.00115966796875,
+          0.002700250130146742
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 400024
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "eros-bow",
+      "museumId": "KAS1294",
+      "title": "拉弓的厄洛斯",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型约公元前 340—330 年 · 罗马复制 · 石膏翻模",
+      "summary": "馆方题名 Eros, der spænder buen，意为拉弓的厄洛斯。这件扫描对象为石膏翻模；馆方将大理石原作类型记为约公元前 340—330 年、古希腊古典时期，并注明罗马复制。",
+      "viewingNote": "从姿态的方向感开始，看看身体的转折怎样连成一个整体。稍稍移动视点，再比较轮廓之间留下的空隙。",
+      "tags": [
+        "爱",
+        "关系",
+        "亲密",
+        "身体",
+        "love",
+        "intimacy"
+      ],
+      "height": 1.9,
+      "pedestalHeight": 0.17,
+      "pedestalWidth": 0.95,
+      "pedestalDepth": 0.88,
+      "rotation": 0.08,
+      "targetTriangles": 120000,
+      "source": "https://open.smk.dk/artwork/image/KAS1294",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS1294&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/qj72pc58z_KAS1294_small.stl",
+      "sourceFile": "qj72pc58z_KAS1294_small.stl",
+      "originalBytes": 20000484,
+      "originalTriangles": 400008,
+      "sha256": "3f0748202dec11bcf18eff75586f1cae5e3a55fe4fd529e6b8e93a4421488708",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 1.9,
+      "description": "馆方题名 Eros, der spænder buen，意为拉弓的厄洛斯。这件扫描对象为石膏翻模；馆方将大理石原作类型记为约公元前 340—330 年、古希腊古典时期，并注明罗马复制。",
+      "period": "原作类型约公元前 340—330 年 · 罗马复制 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS1294",
+        "titles": [
+          {
+            "title": "Eros, der spænder buen",
+            "language": "dansk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "1320 x 825 x 565 mm",
+            "part": "brutto",
+            "type": "height",
+            "unit": "cm",
+            "value": "132"
+          },
+          {
+            "notes": "1320 x 825 x 565 mm",
+            "part": "brutto",
+            "type": "width",
+            "unit": "cm",
+            "value": "82.5"
+          },
+          {
+            "notes": "1320 x 825 x 565 mm",
+            "part": "brutto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "56.5"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG614",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Zanetti 1736, nr. 130. - Arndt & Bruckmann 2514-5 (hovedet). - Döhl H., Der Eros des Lysipp, 1968. - Richter 1970, 231, fig. 806 (Rom, Kapitol expl.). - Pollitt 1986, 48, fig. 40 (type i Louvre). - LIMC III, 1986, nr. 352b. - Bober & Rubinstein 1987 nr. 50. - Nielsen, MedKøb 1992, 16f. NCG, Kat. 180. - Traversari 1973 nr. 44. - Favaretto & Ravagnan 1997, 210 nr. 78."
+            ],
+            "object_history_note": [
+              "Italien? Ex Grimani Coll. 1586"
+            ],
+            "production_date_notes": [
+              "Ca. 340-330 f.Kr.",
+              "Græsk, klassisk",
+              "Romersk kopi"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS1294",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/5x21tj765_KAS1294_-_Eros.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "eros-bow-reference.glb",
+      "compactPath": "eros-bow-compact.glb",
+      "referenceBytes": 1530512,
+      "compactBytes": 503056,
+      "compactTriangles": 120000,
+      "referenceBounds": {
+        "min": [
+          -0.6061189535441468,
+          0,
+          -0.4063890448592895
+        ],
+        "max": [
+          0.6061189535441468,
+          1.899999976158142,
+          0.4063890448592895
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.606117383530678,
+          6.3228376347979065e-06,
+          -0.4062816168964435
+        ],
+        "max": [
+          0.6061164894610064,
+          1.899999976158142,
+          0.40626182815437806
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "eros-bow-reference.glb",
+          "bytes": 1530512,
+          "sha256": "bd57f784afeb29ca45a7605b2a36e6484431469747e755833adf8ca24f81e4ff",
+          "triangles": 400008,
+          "bounds": {
+            "min": [
+              -0.6061189535441468,
+              0,
+              -0.4063890448592895
+            ],
+            "max": [
+              0.6061189535441468,
+              1.899999976158142,
+              0.4063890448592895
+            ]
+          }
+        },
+        "compact": {
+          "filename": "eros-bow-compact.glb",
+          "bytes": 503056,
+          "sha256": "835a9af0120a36f1acd82b5aa9ac36231f338a8527bc5bc9f956ab5e76087835",
+          "triangles": 120000,
+          "bounds": {
+            "min": [
+              -0.606117383530678,
+              6.3228376347979065e-06,
+              -0.4062816168964435
+            ],
+            "max": [
+              0.6061164894610064,
+              1.899999976158142,
+              0.40626182815437806
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "eros-bow-poster.png",
+        "bytes": 372872,
+        "sha256": "1c91d9e2ddb2490d0f42ef46366589c1cd2f11221378dd11d569d59a1c8f46df",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          -0.0036523134913295507,
+          0.00033547007478773594,
+          -55.60942840576172
+        ],
+        "max": [
+          82.94258117675781,
+          130.00277709960938,
+          0.0007597901276312768
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 400008
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "kore",
+      "museumId": "KAS1800",
+      "title": "古希腊少女 · Kore",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作约公元前 530 年 · 石膏翻模",
+      "summary": "馆方题名描述一位身穿长衣与披衣的 Kore。这件扫描来自石膏翻模；馆方将所据大理石原作记为约公元前 530 年、古希腊古风时期，来源记录提及雅典卫城。",
+      "viewingNote": "沿衣纹缓慢地看下去，比较重复线条之间细小的差别。也可以退回整体，让轮廓先于细节留在眼里。",
+      "tags": [
+        "静谧",
+        "衣纹",
+        "宁静",
+        "古典",
+        "quiet",
+        "drapery"
+      ],
+      "height": 2.05,
+      "pedestalHeight": 0.16,
+      "pedestalWidth": 0.86,
+      "pedestalDepth": 0.8,
+      "rotation": 0.08,
+      "targetTriangles": 120000,
+      "source": "https://open.smk.dk/artwork/image/KAS1800",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS1800&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/9c67ws64f_smk-kore.stl",
+      "sourceFile": "9c67ws64f_smk-kore.stl",
+      "originalBytes": 14438384,
+      "originalTriangles": 288766,
+      "sha256": "3d430723b9e84d331ebfa5e9239c7dc8b4100f606cd5341d48c437c3b4743ea7",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 2.05,
+      "description": "馆方题名描述一位身穿长衣与披衣的 Kore。这件扫描来自石膏翻模；馆方将所据大理石原作记为约公元前 530 年、古希腊古风时期，来源记录提及雅典卫城。",
+      "period": "原作约公元前 530 年 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS1800",
+        "titles": [
+          {
+            "title": "Kore iført chiton og kappe (epiblema)",
+            "language": "dansk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "2050 x 515 x 515 mm",
+            "part": "brutto",
+            "type": "height",
+            "unit": "cm",
+            "value": "205"
+          },
+          {
+            "notes": "2050 x 515 x 515 mm",
+            "part": "brutto",
+            "type": "width",
+            "unit": "cm",
+            "value": "51.5"
+          },
+          {
+            "notes": "2050 x 515 x 515 mm",
+            "part": "brutto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "51.5"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG1399",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Brouskari 1974, 78. - Payne & Young 1936, 40, pl. 42,2-3; 43,1. - Richter, Korai 1968, nr. 111, fig. 341-344. - Boardman 1978, fig. 111."
+            ],
+            "object_history_note": [
+              "Grækenland, Athen, Akropolis, vest for 'Erechtheion' 1886"
+            ],
+            "production_date_notes": [
+              "Ca. 530 f.Kr.",
+              "Græsk, arkaisk"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS1800",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/3197xr11s_KAS1800_-_Kore.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "kore-reference.glb",
+      "compactPath": "kore-compact.glb",
+      "referenceBytes": 1097960,
+      "compactBytes": 488440,
+      "compactTriangles": 120000,
+      "referenceBounds": {
+        "min": [
+          -0.26041828040204684,
+          0,
+          -0.26141928760599464
+        ],
+        "max": [
+          0.26041828040204684,
+          2.0500001907348633,
+          0.26141928760599464
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.26053688952765114,
+          1.1936036571569275e-05,
+          -0.26141274892334987
+        ],
+        "max": [
+          0.26053688952765114,
+          2.0499608516693115,
+          0.26141274892334987
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "kore-reference.glb",
+          "bytes": 1097960,
+          "sha256": "cf116c7e272aa4b9d09681b861bf902acd3dfc5cc4c7c3f6e404be34a3ac186f",
+          "triangles": 288766,
+          "bounds": {
+            "min": [
+              -0.26041828040204684,
+              0,
+              -0.26141928760599464
+            ],
+            "max": [
+              0.26041828040204684,
+              2.0500001907348633,
+              0.26141928760599464
+            ]
+          }
+        },
+        "compact": {
+          "filename": "kore-compact.glb",
+          "bytes": 488440,
+          "sha256": "80d3c37b5da046e35aeb8a6060d739f218ada0ac44480f996f204660fb083777",
+          "triangles": 120000,
+          "bounds": {
+            "min": [
+              -0.26053688952765114,
+              1.1936036571569275e-05,
+              -0.26141274892334987
+            ],
+            "max": [
+              0.26053688952765114,
+              2.0499608516693115,
+              0.26141274892334987
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "kore-poster.png",
+        "bytes": 249497,
+        "sha256": "622fe9dc2839d5514027daa182b611c2b1cbcd113709574ccb1fdf0627ee0e7a",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          0.0021762847900390625,
+          0.00020438432693481445,
+          -33.15550994873047
+        ],
+        "max": [
+          33.03772735595703,
+          130.0001983642578,
+          -0.004913330078125
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 288766
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "augustus",
+      "museumId": "KAS65",
+      "title": "普里马波尔塔的奥古斯都",
+      "artist": "原作作者未标注",
+      "yearLabel": "馆方所记原作约公元前 15 年 · 石膏翻模",
+      "summary": "馆方题名为 Augustus of Prima Porta。这件模型来自石膏翻模；SMK 记录将所据大理石原作的年代记为约公元前 15 年、古罗马时期，来源记录提及罗马普里马波尔塔。此处保留馆方的年代口径。",
+      "viewingNote": "先从整体姿态看起，再观察躯干上密集细节与较平整表面的区别。柔光经过时，近处与远处的层次会慢慢分开。",
+      "tags": [
+        "历史",
+        "权力",
+        "秩序",
+        "人物",
+        "history",
+        "order"
+      ],
+      "height": 2.45,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.05,
+      "pedestalDepth": 0.9,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "source": "https://open.smk.dk/artwork/image/KAS65",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS65&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/dj52w921d_KAS65_small.stl",
+      "sourceFile": "dj52w921d_KAS65_small.stl",
+      "originalBytes": 20003384,
+      "originalTriangles": 400066,
+      "sha256": "ec121e4fba4ee02e16868fe7a1e0a96c7226ad17cf0ff1fcb8bf7bee90f1a70b",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 2.45,
+      "description": "馆方题名为 Augustus of Prima Porta。这件模型来自石膏翻模；SMK 记录将所据大理石原作的年代记为约公元前 15 年、古罗马时期，来源记录提及罗马普里马波尔塔。此处保留馆方的年代口径。",
+      "period": "馆方所记原作约公元前 15 年 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS65",
+        "titles": [
+          {
+            "title": "Augustus of Prima Porta",
+            "language": "engelsk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "2190 x 1275 x 1030 mm",
+            "part": "brutto",
+            "type": "height",
+            "unit": "cm",
+            "value": "219"
+          },
+          {
+            "notes": "2190 x 1275 x 1030 mm",
+            "part": "brutto",
+            "type": "width",
+            "unit": "cm",
+            "value": "127.5"
+          },
+          {
+            "notes": "2190 x 1275 x 1030 mm",
+            "part": "brutto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "103"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG222",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Helbig I 1963, nr. 411. - \"Kaiser Augustus\", Berlin 1988, 386-89, nr. 215. - Amelung I 1903, 19 nr. 14 Taf. 2. - The Vatican Collections, New York 1983, nr. 128."
+            ],
+            "object_history_note": [
+              "Italien, Rom, Prima Porta 1863"
+            ],
+            "production_date_notes": [
+              "Ca. 15 f.Kr.",
+              "Romersk"
+            ]
+          }
+        ],
+        "notes": [
+          "Formtype: GK",
+          "Form placering: Stuen magasin"
+        ],
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS65",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/pv63g4982_KAS65.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "augustus-reference.glb",
+      "compactPath": "augustus-compact.glb",
+      "referenceBytes": 1599468,
+      "compactBytes": 598132,
+      "compactTriangles": 140000,
+      "referenceBounds": {
+        "min": [
+          -0.6940931559998759,
+          0,
+          -0.5856387638014681
+        ],
+        "max": [
+          0.6940931559998759,
+          2.450000047683716,
+          0.5856387638014681
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.6941266942985854,
+          5.751676912524317e-09,
+          -0.5856489823444831
+        ],
+        "max": [
+          0.6940284658439956,
+          2.4494173526763916,
+          0.5856489823444831
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "augustus-reference.glb",
+          "bytes": 1599468,
+          "sha256": "e431ffb79d81312be73401359d3bc6b11a888bca4734c4b4e595dbe8df8d0fa8",
+          "triangles": 400066,
+          "bounds": {
+            "min": [
+              -0.6940931559998759,
+              0,
+              -0.5856387638014681
+            ],
+            "max": [
+              0.6940931559998759,
+              2.450000047683716,
+              0.5856387638014681
+            ]
+          }
+        },
+        "compact": {
+          "filename": "augustus-compact.glb",
+          "bytes": 598132,
+          "sha256": "45312c3f7654866a5c01da319a97e7b654a1686cfa34c8b47c9728a7033c89c0",
+          "triangles": 140000,
+          "bounds": {
+            "min": [
+              -0.6941266942985854,
+              5.751676912524317e-09,
+              -0.5856489823444831
+            ],
+            "max": [
+              0.6940284658439956,
+              2.4494173526763916,
+              0.5856489823444831
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "augustus-poster.png",
+        "bytes": 425568,
+        "sha256": "1e06bfc58b65bfe867366d498e96353997ab53d6b2e63ba9d1750e7951456a13",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          -0.03697343170642853,
+          0.02782636135816574,
+          -1067.39208984375
+        ],
+        "max": [
+          1265.0047607421875,
+          2232.704345703125,
+          0.07466806471347809
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 400066
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "sleeping-faun",
+      "museumId": "KAS208",
+      "title": "沉睡的法翁",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型约公元前 200 年 · 石膏翻模",
+      "summary": "馆方题名为 The Barberini Faun，又名 Sleeping Faun。这件扫描来自石膏翻模；馆方将所据大理石原作类型记为约公元前 200 年、希腊化时期，并对“罗马复制”的判断保留问号。",
+      "viewingNote": "先看看身体与承托部分怎样形成一个整体，再沿起伏最明显的轮廓慢慢看。可以在这里停一下，让观看也有休息的余地。",
+      "tags": [
+        "休憩",
+        "梦境",
+        "身体",
+        "放松",
+        "rest",
+        "dream"
+      ],
+      "height": 2.05,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 1.35,
+      "pedestalDepth": 1.2,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "source": "https://open.smk.dk/artwork/image/KAS208",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS208&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/8w32rb332_KAS208_small.stl",
+      "sourceFile": "8w32rb332_KAS208_small.stl",
+      "originalBytes": 20005084,
+      "originalTriangles": 400100,
+      "sha256": "b424afd7f8d9f44930ca2e9ebd301be6025779c82a597895a39b987c2526e05e",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 2.05,
+      "description": "馆方题名为 The Barberini Faun，又名 Sleeping Faun。这件扫描来自石膏翻模；馆方将所据大理石原作类型记为约公元前 200 年、希腊化时期，并对“罗马复制”的判断保留问号。",
+      "period": "原作类型约公元前 200 年 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS208",
+        "titles": [
+          {
+            "title": "The Barberini Faun",
+            "language": "engelsk"
+          },
+          {
+            "title": "Sleeping Faun",
+            "language": "engelsk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "2160 x 1480 x 1260 mm",
+            "part": "brutto",
+            "type": "height",
+            "unit": "cm",
+            "value": "216"
+          },
+          {
+            "notes": "2160 x 1480 x 1260 mm",
+            "part": "brutto",
+            "type": "width",
+            "unit": "cm",
+            "value": "148"
+          },
+          {
+            "notes": "2160 x 1480 x 1260 mm",
+            "part": "brutto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "126"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG2801",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Lullies & Hirmer 1957, figs. 234-235. - Richter 1970, 54, fig. 228. - Robertson 1975, 534. - Blanckenhagen i Wandlungen, Studien Homann-Wedeking 1975, 193-201. - Haskell & Penny 1982 nr. 33. - Fuchs, Die Skulptur der Griechen, 1983, 319, fig. 354. - Pollitt 1986, 134, 149, 162, 268, fig. 146. - Montagu 1989, 163-69: restaureret af Gonelli ca. 1628, af Giorgetti og Ottone 1679, af Pacetti 1799. - Stewart 1990, 207 fig. 676-77. - Ridgway 1990, 313-18 Ill. 39, 320-21 pl. 157. - Smith 1991, fig. 168."
+            ],
+            "object_history_note": [
+              "Italien, Rom, ved Engelsborg 1627"
+            ],
+            "production_date_notes": [
+              "Ca. 200 f.Kr.",
+              "Græsk, hellenistisk",
+              "Romersk kopi ?"
+            ],
+            "distinguishing_features": [
+              "Højre ben, venstre knæ og fod, højre albue, venstre underarm, fingrene på højre hånd og næsetippen, desuden en del af klippen"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS208",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/5712mc40c_barberini-faun-3000.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "sleeping-faun-reference.glb",
+      "compactPath": "sleeping-faun-compact.glb",
+      "referenceBytes": 1593060,
+      "compactBytes": 600828,
+      "compactTriangles": 139988,
+      "referenceBounds": {
+        "min": [
+          -0.7474395665977787,
+          0,
+          -0.6392056626709219
+        ],
+        "max": [
+          0.7474395665977787,
+          2.0500001907348633,
+          0.6392056626709219
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.7474730407885014,
+          0.0001270446227863431,
+          -0.6391365083542238
+        ],
+        "max": [
+          0.74745217916283,
+          2.049504280090332,
+          0.6391365083542238
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "sleeping-faun-reference.glb",
+          "bytes": 1593060,
+          "sha256": "d967fcf7061a5b7e11aa2080d198dd117e336b733f21d9e56608bdd0a277d737",
+          "triangles": 400100,
+          "bounds": {
+            "min": [
+              -0.7474395665977787,
+              0,
+              -0.6392056626709219
+            ],
+            "max": [
+              0.7474395665977787,
+              2.0500001907348633,
+              0.6392056626709219
+            ]
+          }
+        },
+        "compact": {
+          "filename": "sleeping-faun-compact.glb",
+          "bytes": 600828,
+          "sha256": "0b059f41b69e9506e409ead1fd403acb7223a70fa1b0f92a4fc7be558b069c7e",
+          "triangles": 139988,
+          "bounds": {
+            "min": [
+              -0.7474730407885014,
+              0.0001270446227863431,
+              -0.6391365083542238
+            ],
+            "max": [
+              0.74745217916283,
+              2.049504280090332,
+              0.6391365083542238
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "sleeping-faun-poster.png",
+        "bytes": 493316,
+        "sha256": "9bde8b371fccbbec410139a1dfb35b1480fc115095a1291182c8da79708bb8cf",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          0.004921284969896078,
+          -0.006204777862876654,
+          -81.06989288330078
+        ],
+        "max": [
+          94.81513214111328,
+          130.00070190429688,
+          -0.0018083542818203568
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 400100
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "michelangelo-portrait",
+      "museumId": "KAS336",
+      "title": "米开朗琪罗肖像",
+      "artist": "巴蒂斯塔·洛伦齐 · 原作",
+      "yearLabel": "原作 1568 年 · 石膏翻模",
+      "summary": "馆方题名为 Portrait of Michelangelo，作者记录为 Battista Lorenzi，所据大理石原作年代为 1568 年。米开朗琪罗是肖像所描绘的人物。这件数字扫描来自 SMK 的石膏翻模。",
+      "viewingNote": "从面部的明暗交界开始，慢慢看向外轮廓。可以留意那些很小的凹凸，如何让一个表面逐渐成为一张脸。",
+      "tags": [
+        "创作",
+        "艺术家",
+        "凝视",
+        "人物",
+        "artist",
+        "portrait"
+      ],
+      "height": 1.16,
+      "pedestalHeight": 0.78,
+      "pedestalWidth": 0.76,
+      "pedestalDepth": 0.72,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "source": "https://open.smk.dk/artwork/image/KAS336",
+      "apiSource": "https://api.smk.dk/api/v1/art/?object_number=KAS336&lang=en",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/fx719s420_KAS336_small.stl",
+      "sourceFile": "fx719s420_KAS336_small.stl",
+      "originalBytes": 19999884,
+      "originalTriangles": 399996,
+      "sha256": "63a6a5375bc348fa2a1ffeb41d614a58431ee78318daaceedf6e18b71f6e56e7",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "provider": "SMK — Statens Museum for Kunst",
+      "displayHeight": 1.16,
+      "description": "馆方题名为 Portrait of Michelangelo，作者记录为 Battista Lorenzi，所据大理石原作年代为 1568 年。米开朗琪罗是肖像所描绘的人物。这件数字扫描来自 SMK 的石膏翻模。",
+      "period": "原作 1568 年 · 石膏翻模",
+      "museum": {
+        "object_number": "KAS336",
+        "titles": [
+          {
+            "title": "Portrait of Michelangelo",
+            "notes": "Ændret ifb. Michelangelo Imperfect 2025",
+            "type": "museum title",
+            "language": "engelsk"
+          }
+        ],
+        "artist": [
+          "Battista Lorenzi"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "part": "netto",
+            "type": "height",
+            "unit": "cm",
+            "value": "43"
+          },
+          {
+            "part": "netto",
+            "type": "width",
+            "unit": "cm",
+            "value": "25"
+          },
+          {
+            "part": "netto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "28"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG2171",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Pope-Hennessy, HRBS 1986, 368, fig. 67. Busten er lavet af Battista Lorenzi efter en bronzebuste af Daniele da Volterra. Originalen er en buste med draperi om det øverste brystparti (se op.cit., fig. 67)."
+            ],
+            "object_history_note": [
+              "Købt 1973 på bevilling fra Ny Carlsbergfondet af civilingeniør Henry S. Angelo, kunstnerens oldebarn"
+            ],
+            "production_date_notes": [
+              "1568",
+              "Renæssance / Renaissance"
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS336",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/n583z086n_KAS336.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "michelangelo-portrait-reference.glb",
+      "compactPath": "michelangelo-portrait-compact.glb",
+      "referenceBytes": 1565496,
+      "compactBytes": 594092,
+      "compactTriangles": 140000,
+      "referenceBounds": {
+        "min": [
+          -0.3386150950947763,
+          0,
+          -0.3933457732982812
+        ],
+        "max": [
+          0.3386150950947763,
+          1.1600000858306885,
+          0.3933457732982812
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.3385607713438609,
+          9.093398148252163e-06,
+          -0.3933426898073658
+        ],
+        "max": [
+          0.3385225051619151,
+          1.1600000858306885,
+          0.3933426898073658
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "michelangelo-portrait-reference.glb",
+          "bytes": 1565496,
+          "sha256": "048c22ccc1b0f35c3626faac7a62448cc380c57e90106a7383d7d9c643e8f627",
+          "triangles": 399996,
+          "bounds": {
+            "min": [
+              -0.3386150950947763,
+              0,
+              -0.3933457732982812
+            ],
+            "max": [
+              0.3386150950947763,
+              1.1600000858306885,
+              0.3933457732982812
+            ]
+          }
+        },
+        "compact": {
+          "filename": "michelangelo-portrait-compact.glb",
+          "bytes": 594092,
+          "sha256": "c2a10a97820f893a4bbb2d3c0d6895d7453924fdfa671d89bc3031b1ba066659",
+          "triangles": 140000,
+          "bounds": {
+            "min": [
+              -0.3385607713438609,
+              9.093398148252163e-06,
+              -0.3933426898073658
+            ],
+            "max": [
+              0.3385225051619151,
+              1.1600000858306885,
+              0.3933426898073658
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "michelangelo-portrait-poster.png",
+        "bytes": 242397,
+        "sha256": "bbf3b74a7ddfdcf4e57d88957152958e2b002554c2a4af72ab70d64cdfe4f005",
+        "recipe": "artduo-webgl-transparent-poster-v1"
+      },
+      "rawBounds": {
+        "min": [
+          0.0031235511414706707,
+          0.003711017780005932,
+          -88.1738510131836
+        ],
+        "max": [
+          75.89070129394531,
+          130.0025634765625,
+          -0.004725279286503792
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 399996
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "title": "加莱义民",
+      "artist": "奥古斯特·罗丹",
+      "yearLabel": "1884—1895 年 · 完整群像扫描",
+      "summary": "《加莱义民》取材于加莱围城后六位城市显要市民共同走出城门、以求保全城市的故事。罗丹将六个人放在同一高度，用不同的姿态呈现共同承担中的个体。这里使用 Scan the World 在法国加莱所作的完整群像扫描，保留雕塑本身及其矮底座。",
+      "viewingNote": "先在整个群像之间慢慢看，再停在其中一个人的轮廓旁。衣纹与手势各有方向，人物之间的空隙也把目光轻轻带向彼此。",
+      "tags": [
+        "群像",
+        "共同承担",
+        "城市",
+        "勇气",
+        "关系",
+        "历史",
+        "人的生活",
+        "solidarity",
+        "human-life"
+      ],
+      "height": 2.15,
+      "pedestalHeight": 0.05,
+      "pedestalWidth": 3.3,
+      "pedestalDepth": 3.06,
+      "rotation": -1.1,
+      "targetTriangles": 180000,
+      "sourceRotation": [
+        0,
+        0,
+        0
+      ],
+      "catalogId": "stw-sculpture-calais",
+      "provider": "Scan the World / 3DBigDataSpace",
+      "source": "https://zenodo.org/records/21692951",
+      "sourceCredit": "奥古斯特·罗丹（雕塑）\nScan the World（扫描） · 3DBigDataSpace / Zenodo",
+      "rights": "CC BY-NC-SA 4.0",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "collection": "Scan the World · 法国加莱",
+      "displayMedium": "完整雕塑群像扫描；数字石膏材质",
+      "provenance": "来自 Zenodo 的公开扫描档案。作品的一体底座与 ArtDuo 的低展台分别保留；采用统一数字石膏材质，展示比例经过调整。",
+      "archive": "Scan the World / 3DBigDataSpace / Zenodo",
+      "factSources": [
+        "https://hirshhorn.si.edu/explore/auguste-rodin-the-burghers-of-calais/",
+        "https://rodin.nmwa.go.jp/3d-models/burghers-of-calais/"
+      ],
+      "objectMetadata": {
+        "materials": [
+          "bronze"
+        ]
+      },
+      "sha256": "26001258d1a40069b35279edf88008d740ba5700030ee58a37215023d6840fb4",
+      "originalBytes": 33885284,
+      "originalTriangles": 677704,
+      "originalArchive": {
+        "filename": "calais-original.glb",
+        "bytes": 9002564,
+        "sha256": "02500941d295cb81a3d2c6d155fd1c0666c13098e181cb5ba85f3bd502202863"
+      },
+      "conversion": {
+        "recipe": "glb-world-to-stl-v1",
+        "originalFile": "calais-original.glb",
+        "originalBytes": 9002564,
+        "originalSha256": "02500941d295cb81a3d2c6d155fd1c0666c13098e181cb5ba85f3bd502202863",
+        "outputFile": "calais.stl",
+        "bytes": 33885284,
+        "sha256": "26001258d1a40069b35279edf88008d740ba5700030ee58a37215023d6840fb4",
+        "triangles": 677704,
+        "sourceMeshNodes": 1,
+        "sourceBounds": {
+          "min": [
+            0.00800000037997961,
+            0,
+            -130.01400756835938
+          ],
+          "max": [
+            98.12608337402344,
+            107.2680435180664,
+            -0.0019989013671875
+          ]
+        },
+        "decoder": "Existing Three.js bundled Draco decoder",
+        "decoderWrapperSha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "modifications": "Baked scene transforms; retained source Y-up coordinates; unified mesh parts; omitted display materials; recalculated face normals."
+      },
+      "id": "calais",
+      "displayHeight": 2.15,
+      "description": "《加莱义民》取材于加莱围城后六位城市显要市民共同走出城门、以求保全城市的故事。罗丹将六个人放在同一高度，用不同的姿态呈现共同承担中的个体。这里使用 Scan the World 在法国加莱所作的完整群像扫描，保留雕塑本身及其矮底座。",
+      "period": "1884—1895 年 · 完整群像扫描",
+      "referencePath": "calais-reference.glb",
+      "compactPath": "calais-compact.glb",
+      "referenceBytes": 2732108,
+      "compactBytes": 787948,
+      "compactTriangles": 179986,
+      "referenceBounds": {
+        "min": [
+          -0.9833917400058175,
+          -6.8542230924339975e-06,
+          -1.3029314279556274
+        ],
+        "max": [
+          0.9833917400058175,
+          2.150006949590524,
+          1.3029314279556274
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.9826355358593617,
+          4.4720553499022486e-05,
+          -1.3029314279556274
+        ],
+        "max": [
+          0.9832717558376942,
+          2.1497961112030928,
+          1.302613377571106
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "calais-reference.glb",
+          "bytes": 2732108,
+          "sha256": "b8001bd257eaabbfa48e87c0875a29881a9f9465c89bf537bdd94ebaffb5e380",
+          "triangles": 677243,
+          "bounds": {
+            "min": [
+              -0.9833917400058175,
+              -6.8542230924339975e-06,
+              -1.3029314279556274
+            ],
+            "max": [
+              0.9833917400058175,
+              2.150006949590524,
+              1.3029314279556274
+            ]
+          }
+        },
+        "compact": {
+          "filename": "calais-compact.glb",
+          "bytes": 787948,
+          "sha256": "cdf70b7bb15d18f2e1a7a4f4a6bebc11122d875430a3427e7704e00ffaa3e7b1",
+          "triangles": 179986,
+          "bounds": {
+            "min": [
+              -0.9826355358593617,
+              4.4720553499022486e-05,
+              -1.3029314279556274
+            ],
+            "max": [
+              0.9832717558376942,
+              2.1497961112030928,
+              1.302613377571106
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "calais-poster.png",
+        "bytes": 1055801,
+        "sha256": "18bc5bc9a6f0c259c2f4cefb2591577e861ce8d3af8fabbe158cb33a8dd31614",
+        "rights": "CC BY-NC-SA 4.0",
+        "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+      },
+      "rawBounds": {
+        "min": [
+          0.00800000037997961,
+          0,
+          -130.01400756835938
+        ],
+        "max": [
+          98.12608337402344,
+          107.2680435180664,
+          -0.0019989013671875
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 461,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 2,
+        "cleanedTriangles": 677243
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "thinker",
+      "provider": "Wikimedia Commons / Scan the World",
+      "source": "https://commons.wikimedia.org/wiki/File:Scan_the_World_-_The_Thinker_(Auguste_Rodin).stl",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Scan_the_World_-_The_Thinker_%28Auguste_Rodin%29.stl?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "size": 41874184,
+      "sourceSha1": "486307df3882858a36cbb5812beaf5f881b800c7",
+      "licenseRecord": {
+        "DateTime": {
+          "value": "2018-02-21 10:29:49",
+          "source": "mediawiki-metadata",
+          "hidden": ""
+        },
+        "ObjectName": {
+          "value": "Scan the World - The Thinker (Auguste Rodin)",
+          "source": "mediawiki-metadata"
+        },
+        "CommonsMetadataExtension": {
+          "value": 1.2,
+          "source": "extension",
+          "hidden": ""
+        },
+        "Categories": {
+          "value": "Le Penseur|Self-published work|STL files of sculptures|STL files from Scan the World",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "Assessments": {
+          "value": "",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "ImageDescription": {
+          "value": "This object is part of \"Scan The World\". Scan the World is a non-profit initiative introduced by MyMiniFactory, through which we are creating a digital archive of fully 3D printable sculptures, artworks and landmarks from across the globe for the public to access for free.",
+          "source": "commons-desc-page"
+        },
+        "DateTimeOriginal": {
+          "value": "2014-08-18",
+          "source": "commons-desc-page"
+        },
+        "Credit": {
+          "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+          "source": "commons-desc-page"
+        },
+        "Artist": {
+          "value": "<a href=\"//commons.wikimedia.org/wiki/User:Jonathanbeck\" title=\"User:Jonathanbeck\">Scan the World</a>",
+          "source": "commons-desc-page"
+        },
+        "LicenseShortName": {
+          "value": "CC BY-SA 4.0",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "UsageTerms": {
+          "value": "Creative Commons Attribution-Share Alike 4.0",
+          "source": "commons-desc-page"
+        },
+        "AttributionRequired": {
+          "value": "true",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "LicenseUrl": {
+          "value": "https://creativecommons.org/licenses/by-sa/4.0",
+          "source": "commons-desc-page"
+        },
+        "Copyrighted": {
+          "value": "True",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "Restrictions": {
+          "value": "",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "License": {
+          "value": "cc-by-sa-4.0",
+          "source": "commons-templates",
+          "hidden": ""
+        }
+      },
+      "rights": "CC BY-SA 4.0",
+      "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sha256": "ae9427b19c0b5cc0c680a01793b361766cc6175be8ba6f1c9a0f0b30e2b3c5e7",
+      "originalTriangles": 837482,
+      "originalBytes": 41874184,
+      "title": "思想者",
+      "artist": "奥古斯特·罗丹",
+      "yearLabel": "1880 年构思 · 雕塑扫描",
+      "summary": "罗丹于 1880 年构思《思想者》，最初将其置于《地狱之门》上方，1888 年开始作为独立作品展出。躬身的姿态让思考成为全身参与的活动。这份模型来自 Scan the World 发布的雕塑扫描，展示采用数字石膏材质。",
+      "viewingNote": "先沿前倾的身体轮廓看一遍，再留意明暗怎样穿过紧凑的姿态。可以停在一个转折处，慢慢比较它与周围留出的空隙。",
+      "tags": [
+        "思考",
+        "内省",
+        "身体",
+        "创作",
+        "人的生活",
+        "人物",
+        "thought",
+        "human-life"
+      ],
+      "height": 2.05,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 1.12,
+      "pedestalDepth": 1.28,
+      "rotation": 0.08,
+      "targetTriangles": 160000,
+      "catalogId": "commons-sculpture-thinker",
+      "sourceCredit": "奥古斯特·罗丹（原作）\nScan the World / Jonathan Beck（扫描） · Wikimedia Commons",
+      "collection": "Scan the World · 雕塑数字档案",
+      "displayMedium": "雕塑扫描；数字石膏材质",
+      "provenance": "扫描由 Scan the World 发布。作品历史依据 Musée Rodin；扫描文件未明确对应铸件的铸造年代。展示比例经过调整。",
+      "archive": "Wikimedia Commons / Scan the World",
+      "factSources": [
+        "https://www.musee-rodin.fr/en/musee/collections/oeuvres/thinker"
+      ],
+      "displayHeight": 2.05,
+      "description": "罗丹于 1880 年构思《思想者》，最初将其置于《地狱之门》上方，1888 年开始作为独立作品展出。躬身的姿态让思考成为全身参与的活动。这份模型来自 Scan the World 发布的雕塑扫描，展示采用数字石膏材质。",
+      "period": "1880 年构思 · 雕塑扫描",
+      "referencePath": "thinker-reference.glb",
+      "compactPath": "thinker-compact.glb",
+      "referenceBytes": 3164188,
+      "compactBytes": 674220,
+      "compactTriangles": 160000,
+      "referenceBounds": {
+        "min": [
+          -0.6096758792480907,
+          0,
+          -0.8114100888566561
+        ],
+        "max": [
+          0.6096758792480907,
+          2.049999952316284,
+          0.8114100888566561
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.6096626758624554,
+          0,
+          -0.8113618909341282
+        ],
+        "max": [
+          0.6096292376567364,
+          2.0498993396759033,
+          0.8113786398393101
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "thinker-reference.glb",
+          "bytes": 3164188,
+          "sha256": "b09a95e79b22827322bb86868f5912275bfca93d629e3e4c565b3451c5fa01b6",
+          "triangles": 837482,
+          "bounds": {
+            "min": [
+              -0.6096758792480907,
+              0,
+              -0.8114100888566561
+            ],
+            "max": [
+              0.6096758792480907,
+              2.049999952316284,
+              0.8114100888566561
+            ]
+          }
+        },
+        "compact": {
+          "filename": "thinker-compact.glb",
+          "bytes": 674220,
+          "sha256": "80be5424a675f8ba5085a3bcb2aba37edc6fcb91538656b6e2194472b1baca2c",
+          "triangles": 160000,
+          "bounds": {
+            "min": [
+              -0.6096626758624554,
+              0,
+              -0.8113618909341282
+            ],
+            "max": [
+              0.6096292376567364,
+              2.0498993396759033,
+              0.8113786398393101
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "thinker-poster.png",
+        "bytes": 402057,
+        "sha256": "c1cf704edbe43f0ff03355afb589d6f6bb883f0020df18ac246d55e7678e89de",
+        "rights": "CC BY-SA 4.0",
+        "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "rawBounds": {
+        "min": [
+          0.00688934326171875,
+          2.86102294921875e-06,
+          -102.92179870605469
+        ],
+        "max": [
+          77.32318115234375,
+          130,
+          -0.006557464599609375
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 837482
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "discobolus",
+      "museumId": "KAS1074",
+      "provider": "SMK — Statens Museum for Kunst",
+      "source": "https://open.smk.dk/artwork/image/KAS1074",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/t148fn71j_KAS1074_small.stl",
+      "sourceFile": "t148fn71j_KAS1074_small.stl",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "museum": {
+        "object_number": "KAS1074",
+        "titles": [
+          {
+            "title": "Discobolus",
+            "language": "engelsk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast, painted"
+        ],
+        "dimensions": [
+          {
+            "notes": "1680 x 1000 x 505 mm",
+            "part": "brutto",
+            "type": "height",
+            "unit": "cm",
+            "value": "168"
+          },
+          {
+            "notes": "1680 x 1000 x 505 mm",
+            "part": "brutto",
+            "type": "width",
+            "unit": "cm",
+            "value": "100"
+          },
+          {
+            "notes": "1680 x 1000 x 505 mm",
+            "part": "brutto",
+            "type": "depth",
+            "unit": "cm",
+            "value": "50.5"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG501",
+            "titles": [
+              ""
+            ]
+          }
+        ],
+        "notes": null,
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS1074",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/1c18dm55c_resize-smk-kas1074-discobolus.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "sha256": "9d77c95156a1668120fec93483b0b8bf949912b08825b6df5c45db4e4094d54f",
+      "originalBytes": 20000484,
+      "originalTriangles": 400008,
+      "title": "掷铁饼者",
+      "artist": "原作类型传统归于米隆",
+      "yearLabel": "原作类型约公元前 450 年 · 石膏翻模",
+      "summary": "《掷铁饼者》以投掷前的瞬间呈现运动中的身体，原作类型传统归于古希腊雕塑家米隆。这里使用 SMK 的 KAS1074 石膏翻模扫描。馆方说明指出，传世复制品的碎片与复原曾形成不同的头部朝向；当前采用 KAS1074 这一版本。",
+      "viewingNote": "先顺着身体扭转的方向看，再回到支撑与伸展之间的关系。可以在轮廓围出的空隙停一下，让静止的姿态慢慢显出运动的节奏。",
+      "tags": [
+        "运动",
+        "身体",
+        "训练",
+        "专注",
+        "人的生活",
+        "人物",
+        "movement",
+        "human-life"
+      ],
+      "height": 2.1,
+      "pedestalHeight": 0.14,
+      "pedestalWidth": 1.3,
+      "pedestalDepth": 0.85,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "factSources": [
+        "https://api.smk.dk/api/v1/art/?object_number=KAS1074&lang=en",
+        "https://api.smk.dk/api/v1/art/?object_number=KAS1549&lang=en"
+      ],
+      "displayHeight": 2.1,
+      "description": "《掷铁饼者》以投掷前的瞬间呈现运动中的身体，原作类型传统归于古希腊雕塑家米隆。这里使用 SMK 的 KAS1074 石膏翻模扫描。馆方说明指出，传世复制品的碎片与复原曾形成不同的头部朝向；当前采用 KAS1074 这一版本。",
+      "period": "原作类型约公元前 450 年 · 石膏翻模",
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "discobolus-reference.glb",
+      "compactPath": "discobolus-compact.glb",
+      "referenceBytes": 1481188,
+      "compactBytes": 560344,
+      "compactTriangles": 140000,
+      "referenceBounds": {
+        "min": [
+          -0.6499252001366885,
+          0,
+          -0.3162465141578237
+        ],
+        "max": [
+          0.6499252001366885,
+          2.0999999046325684,
+          0.3162465141578237
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.6499252001366885,
+          0,
+          -0.31622940762477314
+        ],
+        "max": [
+          0.6499252001366885,
+          2.0999999046325684,
+          0.3162636206908742
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "discobolus-reference.glb",
+          "bytes": 1481188,
+          "sha256": "295d88f7865990f17829a146f85eeae81f7c70c31335c33261826286ef181055",
+          "triangles": 400008,
+          "bounds": {
+            "min": [
+              -0.6499252001366885,
+              0,
+              -0.3162465141578237
+            ],
+            "max": [
+              0.6499252001366885,
+              2.0999999046325684,
+              0.3162465141578237
+            ]
+          }
+        },
+        "compact": {
+          "filename": "discobolus-compact.glb",
+          "bytes": 560344,
+          "sha256": "67468f6fb45ef1b0a2aaad78be72d72bdb711144d1fd6864aa22a2d54acb4ea2",
+          "triangles": 140000,
+          "bounds": {
+            "min": [
+              -0.6499252001366885,
+              0,
+              -0.31622940762477314
+            ],
+            "max": [
+              0.6499252001366885,
+              2.0999999046325684,
+              0.3162636206908742
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "discobolus-poster.png",
+        "bytes": 353609,
+        "sha256": "d96dd5f49f7154dadfa85f1316d75a5ecf9c5d2fdb6b3f64cf40f7b861cd4c59",
+        "rights": "PDM 1.0",
+        "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+      },
+      "rawBounds": {
+        "min": [
+          0.013035416603088379,
+          -0.01843566633760929,
+          -522.28271484375
+        ],
+        "max": [
+          1073.4295654296875,
+          1734.1173095703125,
+          0.07433222979307175
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 400008
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "socrates",
+      "museumId": "KAS635",
+      "provider": "SMK — Statens Museum for Kunst",
+      "source": "https://open.smk.dk/artwork/image/KAS635",
+      "downloadUrl": "https://api.smk.dk/api/v1/download-3d/8g84ms153_KAS635_small.stl",
+      "sourceFile": "8g84ms153_KAS635_small.stl",
+      "rights": "PDM 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "museum": {
+        "object_number": "KAS635",
+        "titles": [
+          {
+            "title": "Portræt af Sokrates (469-399 f.Kr.)",
+            "language": "dansk"
+          }
+        ],
+        "artist": [
+          "Unknown"
+        ],
+        "materials": [
+          "plaster"
+        ],
+        "techniques": [
+          "Plaster cast"
+        ],
+        "dimensions": [
+          {
+            "notes": "510 x mm",
+            "type": "height",
+            "unit": "cm",
+            "value": "51"
+          }
+        ],
+        "original": [
+          {
+            "object_number": "ORIG2519",
+            "titles": [
+              ""
+            ],
+            "technique": [
+              "Marble"
+            ],
+            "notes": [
+              "Bernoulli GI 1 1901, 187 nr. 8, pl. XXIII. - Helbig IV 1972, nr. 3252. - Richter I, 1965, 111 nr. 3, figs. 458, 460 variant af Type A. - Göttingen 1990, A 1375: \"Type C\": senhellenistisk."
+            ],
+            "object_history_note": [
+              "Italien, Tusculum, \"Cicero's Villa\" 1735"
+            ],
+            "production_date_notes": [
+              "299-101 f.Kr.",
+              "Græsk, hellenistisk",
+              "Romersk kopi"
+            ],
+            "distinguishing_features": [
+              "Hermeskaftet"
+            ]
+          }
+        ],
+        "notes": [
+          "Formtype: GK",
+          "Form placering: Værksted, gulv"
+        ],
+        "frontend_url": "https://open.smk.dk/artwork/image/KAS635",
+        "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/gh93h306q_KAS635_-_Portrait_of_Socrates__2_.tif.jp2/full/!1024,/0/default.jpg",
+        "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "public_domain": true
+      },
+      "sha256": "895215fc51ab58a0047ccbf38500145b24a2f164c2dc97a99d9695d087f10799",
+      "originalBytes": 19999884,
+      "originalTriangles": 399996,
+      "title": "苏格拉底肖像",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型公元前 299—101 年 · 石膏翻模",
+      "summary": "SMK 将这件作品题为“苏格拉底肖像”，扫描对象为馆藏石膏翻模。所据大理石原作记录为希腊化时期的肖像类型、罗马复制品。题名中苏格拉底的生卒年代公元前 469—399 年，与这件传世肖像类型的制作年代分别标注。",
+      "viewingNote": "先看看面部凹凸如何接住柔光，再沿外轮廓慢慢移回整体。可以让一个问题暂时停在这里，不急着把这个表情解释成某个答案。",
+      "tags": [
+        "思考",
+        "对话",
+        "哲学",
+        "内省",
+        "人的生活",
+        "人物",
+        "dialogue",
+        "human-life"
+      ],
+      "height": 1.18,
+      "pedestalHeight": 0.76,
+      "pedestalWidth": 0.82,
+      "pedestalDepth": 0.76,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "factSources": [
+        "https://api.smk.dk/api/v1/art/?object_number=KAS635&lang=en"
+      ],
+      "displayHeight": 1.18,
+      "description": "SMK 将这件作品题为“苏格拉底肖像”，扫描对象为馆藏石膏翻模。所据大理石原作记录为希腊化时期的肖像类型、罗马复制品。题名中苏格拉底的生卒年代公元前 469—399 年，与这件传世肖像类型的制作年代分别标注。",
+      "period": "原作类型公元前 299—101 年 · 石膏翻模",
+      "provenance": "SMK 石膏翻模收藏；数字扫描。原作信息与翻模材质分开标注，展示比例经过调整。",
+      "archive": "SMK Open / Scan the World",
+      "referencePath": "socrates-reference.glb",
+      "compactPath": "socrates-compact.glb",
+      "referenceBytes": 1557464,
+      "compactBytes": 590884,
+      "compactTriangles": 140000,
+      "referenceBounds": {
+        "min": [
+          -0.3585699229316527,
+          0,
+          -0.32839199831412474
+        ],
+        "max": [
+          0.3585699229316527,
+          1.1800000667572021,
+          0.32839199831412474
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.3585414779882334,
+          2.368733476032503e-05,
+          -0.32835455992170764
+        ],
+        "max": [
+          0.3585365904073618,
+          1.179922103881836,
+          0.3283728585476537
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "socrates-reference.glb",
+          "bytes": 1557464,
+          "sha256": "f21f7cce5227fa6588dc944b795b387388a6c14b0cd051087c63abeadf3d4368",
+          "triangles": 399996,
+          "bounds": {
+            "min": [
+              -0.3585699229316527,
+              0,
+              -0.32839199831412474
+            ],
+            "max": [
+              0.3585699229316527,
+              1.1800000667572021,
+              0.32839199831412474
+            ]
+          }
+        },
+        "compact": {
+          "filename": "socrates-compact.glb",
+          "bytes": 590884,
+          "sha256": "d184a4913c3286c8f644ca3f49fe151f2cd4d9124ba7caa3ea7e5bd66155e2f7",
+          "triangles": 140000,
+          "bounds": {
+            "min": [
+              -0.3585414779882334,
+              2.368733476032503e-05,
+              -0.32835455992170764
+            ],
+            "max": [
+              0.3585365904073618,
+              1.179922103881836,
+              0.3283728585476537
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "socrates-poster.png",
+        "bytes": 260203,
+        "sha256": "5a1d0d5a853210afe4a9b86ae90fe8851349caf999f0431fd66f847702359153",
+        "rights": "PDM 1.0",
+        "rightsUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+      },
+      "rawBounds": {
+        "min": [
+          0.0008673000847920775,
+          -0.0020218659192323685,
+          -72.3584976196289
+        ],
+        "max": [
+          79.00191497802734,
+          130.00076293945312,
+          -0.0017043327679857612
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 399996
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "title": "巴尔扎克纪念像",
+      "artist": "奥古斯特·罗丹",
+      "yearLabel": "1892—1897 年构思 · 雕塑扫描",
+      "summary": "这件作品描绘法国作家奥诺雷·德·巴尔扎克。罗丹采用写作时穿睡袍的形象，把表现集中在衣袍与头部的体积上。模型由 pattarrian 扫描，所据作品是安特卫普米德尔海姆博物馆的青铜版本；这里采用数字石膏展示材质。",
+      "viewingNote": "先沿衣袍的起伏慢慢看，再把目光带回头部。让光线经过较平整的衣面，接着看看头部周围细密的变化。",
+      "tags": [
+        "文学",
+        "写作",
+        "创作",
+        "艺术家",
+        "社会",
+        "人的生活",
+        "人物",
+        "literature",
+        "human-life"
+      ],
+      "height": 2.25,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.12,
+      "pedestalDepth": 1.2,
+      "rotation": 0.08,
+      "targetTriangles": 160000,
+      "sourceRotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "catalogId": "pattarrian-sculpture-balzac",
+      "provider": "pattarrian / Objaverse / Zenodo",
+      "source": "https://zenodo.org/records/10336866",
+      "sourceCredit": "奥古斯特·罗丹（雕塑）\npattarrian（扫描） · Objaverse / Zenodo\n原扫描：https://sketchfab.com/3d-models/monument-a-balzac-0de8117fc262431e81066cba6697bc6c",
+      "rights": "CC BY 4.0",
+      "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "collection": "米德尔海姆博物馆 · 雕塑数字档案",
+      "displayMedium": "青铜雕塑的数字扫描；数字石膏材质",
+      "provenance": "扫描作者为 pattarrian，使用 Zenodo 公开提供的同一模型镜像。已移除后加的高台座，保留雕像与薄底座并封闭底面；原始 GLB 与处理记录单独保留。作品事实依据米德尔海姆博物馆记录，展示比例经过调整。",
+      "archive": "pattarrian / Objaverse / Zenodo",
+      "factSources": [
+        "https://collectie-in-het-park.middelheimmuseum.be/en/menselijkenatuur/balzac",
+        "https://www.musee-rodin.fr/en/musee/collections/oeuvres/monument-balzac"
+      ],
+      "objectMetadata": {
+        "materials": [
+          "bronze"
+        ]
+      },
+      "sha256": "179af6e8a7ca6084d80a659be3a827641cdd5a52082f639a844724b65cd9aff0",
+      "originalBytes": 22679984,
+      "originalTriangles": 453598,
+      "originalArchive": {
+        "filename": "balzac-original.glb",
+        "bytes": 26116316,
+        "sha256": "c273de33be33e2cade9e9d0944040e8f73bcd59be1f00e9bdf60c40ec9c83384"
+      },
+      "conversion": {
+        "recipe": "glb-world-to-stl-v1",
+        "originalFile": "balzac-original.glb",
+        "originalBytes": 26116316,
+        "originalSha256": "c273de33be33e2cade9e9d0944040e8f73bcd59be1f00e9bdf60c40ec9c83384",
+        "outputFile": "balzac-uncropped.stl",
+        "bytes": 47508284,
+        "sha256": "c382f49fd96cbfac289897cacfebac809050e60eb8d7c2d76374ee2525a148b6",
+        "triangles": 950164,
+        "sourceMeshNodes": 10,
+        "sourceBounds": {
+          "min": [
+            0.01999986171722412,
+            1.4405115871833486e-14,
+            -80.6540069580078
+          ],
+          "max": [
+            72.80000305175781,
+            218.6800079345703,
+            -3.6187201494275635e-07
+          ]
+        },
+        "decoder": "Existing Three.js bundled Draco decoder",
+        "decoderWrapperSha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "modifications": "Baked scene transforms; retained source Y-up coordinates; unified mesh parts; omitted display materials; recalculated face normals."
+      },
+      "id": "balzac",
+      "trim": {
+        "recipe": "reviewed-plinth-bisect-v1",
+        "blender": "5.2.1 LTS",
+        "inputFile": "balzac-uncropped.stl",
+        "inputSha256": "c382f49fd96cbfac289897cacfebac809050e60eb8d7c2d76374ee2525a148b6",
+        "inputTriangles": 950164,
+        "outputFile": "balzac.stl",
+        "sha256": "179af6e8a7ca6084d80a659be3a827641cdd5a52082f639a844724b65cd9aff0",
+        "bytes": 22679984,
+        "triangles": 453598,
+        "floorY": 61.9,
+        "closedCutBoundary": true,
+        "minY": 61.89999771118164,
+        "maxY": 218.6800079345703,
+        "modifications": "Removed the later high display plinth below a reviewed plane; retained the sculptural figure and thin integral base; closed the new underside."
+      },
+      "sourceModifications": "Removed the later high display plinth below a reviewed plane; retained the sculptural figure and thin integral base; closed the new underside.",
+      "displayHeight": 2.25,
+      "description": "这件作品描绘法国作家奥诺雷·德·巴尔扎克。罗丹采用写作时穿睡袍的形象，把表现集中在衣袍与头部的体积上。模型由 pattarrian 扫描，所据作品是安特卫普米德尔海姆博物馆的青铜版本；这里采用数字石膏展示材质。",
+      "period": "1892—1897 年构思 · 雕塑扫描",
+      "referencePath": "balzac-reference.glb",
+      "compactPath": "balzac-compact.glb",
+      "referenceBytes": 1710924,
+      "compactBytes": 651652,
+      "compactTriangles": 159968,
+      "referenceBounds": {
+        "min": [
+          -0.4959448530533769,
+          0,
+          -0.5441488387707145
+        ],
+        "max": [
+          0.4959448530533769,
+          2.25,
+          0.5441488387707145
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.4959448409862805,
+          5.4745939337408345e-08,
+          -0.5441467393681743
+        ],
+        "max": [
+          0.4959448409862805,
+          2.25,
+          0.5441509116933085
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "balzac-reference.glb",
+          "bytes": 1710924,
+          "sha256": "64586852c442c8e1a7d690ca8f526032d6ec855dadf96880dd071a4e90529ade",
+          "triangles": 453598,
+          "bounds": {
+            "min": [
+              -0.4959448530533769,
+              0,
+              -0.5441488387707145
+            ],
+            "max": [
+              0.4959448530533769,
+              2.25,
+              0.5441488387707145
+            ]
+          }
+        },
+        "compact": {
+          "filename": "balzac-compact.glb",
+          "bytes": 651652,
+          "sha256": "120acfdccb386ceb106fdfdde87c355dc98be034267a0a77d4450c7821a400d7",
+          "triangles": 159968,
+          "bounds": {
+            "min": [
+              -0.4959448409862805,
+              5.4745939337408345e-08,
+              -0.5441467393681743
+            ],
+            "max": [
+              0.4959448409862805,
+              2.25,
+              0.5441509116933085
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "balzac-poster.png",
+        "bytes": 340298,
+        "sha256": "23ed1365a154f48cbe9e028f93a786b9b2ab199db49714baa1ed472c0bf8f8a7",
+        "rights": "CC BY 4.0",
+        "rightsUrl": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "rawBounds": {
+        "min": [
+          -69.14435577392578,
+          61.89999771118164,
+          3.1940011978149414
+        ],
+        "max": [
+          -0.01999986171722412,
+          218.6800079345703,
+          79.02200317382812
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 453598
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    },
+    {
+      "id": "beethoven",
+      "provider": "Wikimedia Commons / noe-3d.at",
+      "source": "https://commons.wikimedia.org/wiki/File:Ludwig_van_Beethoven_-_3D_model_by_noe-3d.at_-_Sketchfab.stl",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Ludwig_van_Beethoven_-_3D_model_by_noe-3d.at_-_Sketchfab.stl?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "size": 25849484,
+      "sourceSha1": "18045bdee6627e260145086b9baeff1ca46dfc1a",
+      "licenseRecord": {
+        "DateTime": {
+          "value": "2020-10-22 08:12:56",
+          "source": "mediawiki-metadata",
+          "hidden": ""
+        },
+        "ObjectName": {
+          "value": "Ludwig van Beethoven - 3D model by noe-3d.at - Sketchfab",
+          "source": "mediawiki-metadata"
+        },
+        "CommonsMetadataExtension": {
+          "value": 1.2,
+          "source": "extension",
+          "hidden": ""
+        },
+        "Categories": {
+          "value": "CC-Zero|Uploaded with pattypan|Beethoven-Denkmal, Heiligenstädter Park|STL files from Sketchfab",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "Assessments": {
+          "value": "",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "ImageDescription": {
+          "value": "Beethoven monument in Heiligenstädter Park Vienna. The monument dates from 1910 and shows the composer with a cane (missing nowadays) and hat in his hands clasped on his back. The monument is made of Carrara marble and was created by Robert Weigl.",
+          "source": "commons-desc-page"
+        },
+        "DateTimeOriginal": {
+          "value": "2019-12-30",
+          "source": "commons-desc-page"
+        },
+        "Credit": {
+          "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://sketchfab.com/3d-models/ludwig-van-beethoven-9b56c0a6a1444cd89f8933a11f2d55b6\">Sketchfab - noe-3d.at</a>",
+          "source": "commons-desc-page"
+        },
+        "Artist": {
+          "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://sketchfab.com/www.noe-3d.at\">noe-3d.at</a>",
+          "source": "commons-desc-page"
+        },
+        "LicenseShortName": {
+          "value": "CC0",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "UsageTerms": {
+          "value": "Creative Commons Zero, Public Domain Dedication",
+          "source": "commons-desc-page"
+        },
+        "AttributionRequired": {
+          "value": "false",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "LicenseUrl": {
+          "value": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "source": "commons-desc-page"
+        },
+        "Copyrighted": {
+          "value": "True",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "Restrictions": {
+          "value": "",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "License": {
+          "value": "cc0",
+          "source": "commons-templates",
+          "hidden": ""
+        }
+      },
+      "rights": "CC0 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "bfafdc452266b42bebce2c37161a29c0cf29aef942114f61c800ff52cd774b61",
+      "originalTriangles": 516988,
+      "originalBytes": 25849484,
+      "title": "贝多芬纪念像",
+      "artist": "罗伯特·魏格尔（Robert Weigl）",
+      "yearLabel": "1902 年人物设计 · 1910 年纪念设施",
+      "summary": "这件贝多芬纪念像位于维也纳海利根施塔特公园。贝多芬故居档案将 Robert Weigl 的人物设计记为 1902 年；公园纪念设施于 1910 年落成。人物穿着日常外衣站立，把双手背在身后，接近散步时的模样。模型来自 noe-3d.at 的扫描；原作石材与这里的数字石膏展示材质分别标注。",
+      "viewingNote": "先从站立的整体姿态看起，再让目光沿外衣的起伏缓慢走一遍。看看头部与身体朝向之间的小小差别，让熟悉的名字回到一个人的轮廓。",
+      "tags": [
+        "音乐",
+        "创作",
+        "艺术家",
+        "日常",
+        "人的生活",
+        "人物",
+        "music",
+        "human-life"
+      ],
+      "height": 2.2,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 1.08,
+      "pedestalDepth": 1.05,
+      "rotation": 0.08,
+      "targetTriangles": 160000,
+      "catalogId": "commons-sculpture-beethoven",
+      "sourceCredit": "Robert Weigl（雕塑）\nnoe-3d.at（扫描） · Wikimedia Commons",
+      "collection": "海利根施塔特公园 · 公共纪念像",
+      "displayMedium": "公共雕塑扫描；数字石膏材质",
+      "provenance": "使用 Wikimedia Commons 文件页明确以 CC0 提供的 STL，上传记录为 2020 年。雕塑作者、扫描作者与展示材质分别标注；展示比例经过调整。",
+      "archive": "Wikimedia Commons / noe-3d.at",
+      "factSources": [
+        "https://commons.wikimedia.org/wiki/File:Ludwig_van_Beethoven_-_3D_model_by_noe-3d.at_-_Sketchfab.stl",
+        "https://www.beethoven.de/en/media/view/5453063242383360",
+        "https://www.wien.gv.at/freizeit/heiligenstaedterpark"
+      ],
+      "objectMetadata": {
+        "materials": [
+          "marble"
+        ]
+      },
+      "displayHeight": 2.2,
+      "description": "这件贝多芬纪念像位于维也纳海利根施塔特公园。贝多芬故居档案将 Robert Weigl 的人物设计记为 1902 年；公园纪念设施于 1910 年落成。人物穿着日常外衣站立，把双手背在身后，接近散步时的模样。模型来自 noe-3d.at 的扫描；原作石材与这里的数字石膏展示材质分别标注。",
+      "period": "1902 年人物设计 · 1910 年纪念设施",
+      "referencePath": "beethoven-reference.glb",
+      "compactPath": "beethoven-compact.glb",
+      "referenceBytes": 1971316,
+      "compactBytes": 663184,
+      "compactTriangles": 159998,
+      "referenceBounds": {
+        "min": [
+          -0.4906979689473078,
+          0,
+          -0.4925779091717759
+        ],
+        "max": [
+          0.4906979689473078,
+          2.200000047683716,
+          0.4925779091717759
+        ]
+      },
+      "compactBounds": {
+        "min": [
+          -0.4906979689473078,
+          0,
+          -0.49236725927605257
+        ],
+        "max": [
+          0.4906979689473078,
+          2.200000047683716,
+          0.4925199961782895
+        ]
+      },
+      "variants": {
+        "reference": {
+          "filename": "beethoven-reference.glb",
+          "bytes": 1971316,
+          "sha256": "a1b32dc23acf53b79a1aa339f3677d5af068740ff26d7a46cab47f4f0b4ff60b",
+          "triangles": 516988,
+          "bounds": {
+            "min": [
+              -0.4906979689473078,
+              0,
+              -0.4925779091717759
+            ],
+            "max": [
+              0.4906979689473078,
+              2.200000047683716,
+              0.4925779091717759
+            ]
+          }
+        },
+        "compact": {
+          "filename": "beethoven-compact.glb",
+          "bytes": 663184,
+          "sha256": "6a91dbd44d7fa5a3f252e4ab524296ebe2d73e5338783d7a94a5b16aef15cbf0",
+          "triangles": 159998,
+          "bounds": {
+            "min": [
+              -0.4906979689473078,
+              0,
+              -0.49236725927605257
+            ],
+            "max": [
+              0.4906979689473078,
+              2.200000047683716,
+              0.4925199961782895
+            ]
+          }
+        }
+      },
+      "poster": {
+        "filename": "beethoven-poster.png",
+        "bytes": 336492,
+        "sha256": "7fe64eb11b7523c48db7ed83634b1745ce96e68e574551576bf6f13a6673550a",
+        "rights": "CC0 1.0",
+        "rightsUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "rawBounds": {
+        "min": [
+          -3.2227578163146973,
+          -5.798851013183594,
+          9.669297218322754
+        ],
+        "max": [
+          3.621514320373535,
+          9.542780876159668,
+          16.538801193237305
+        ]
+      },
+      "cleanup": {
+        "degenerateTrianglesRemoved": 0,
+        "debrisTrianglesRemoved": 0,
+        "connectedComponents": 1,
+        "cleanedTriangles": 516988
+      },
+      "recipe": "sculpture-clean-meshopt-v1; 5µm display weld; tiny speck removal; 0.04% relative simplification error cap; Meshopt high; digital plaster."
+    }
+  ]
+}

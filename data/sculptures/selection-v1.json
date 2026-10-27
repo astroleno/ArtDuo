@@ -1,0 +1,523 @@
+{
+  "version": "sculptures-famous-18-v1",
+  "models": [
+    {
+      "id": "athena",
+      "museumId": "KAS255",
+      "title": "雅典娜",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作公元前 4 世纪类型 · 罗马复制 · 石膏翻模",
+      "summary": "馆方题名为 Minverva Giustiniani。这件数字扫描来自 SMK 的石膏翻模收藏；馆方将其原作记录为古希腊古典时期类型的罗马复制品，原作材质为大理石。",
+      "viewingNote": "先看头部与披衣形成的轮廓，再顺着衣褶慢慢往下看。柔光掠过时，同一处起伏会显出不同的深浅。",
+      "tags": [
+        "静观",
+        "秩序",
+        "理想",
+        "衣纹",
+        "quiet",
+        "classical"
+      ],
+      "height": 2.65,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.25,
+      "pedestalDepth": 0.92,
+      "rotation": 0.12,
+      "targetTriangles": 120000
+    },
+    {
+      "id": "david",
+      "museumId": "KAS2232",
+      "title": "大卫 · 头像",
+      "artist": "米开朗基罗 · 原作",
+      "yearLabel": "原作 1501—1504 年 · 石膏翻模",
+      "summary": "馆方题名为 Head of David，作者记录为 Michelangelo Buonarroti。这件石膏翻模截取自《大卫》的头部；馆方将大理石原作的年代记为 1501—1504 年。这里呈现的是翻模的数字扫描。",
+      "viewingNote": "从发卷与额头的明暗开始，再看看视线如何越过脸部轮廓。可以只停留片刻，不急着为这个表情下定义。",
+      "tags": [
+        "凝视",
+        "内省",
+        "创作",
+        "人物",
+        "portrait",
+        "introspection"
+      ],
+      "height": 1.36,
+      "pedestalHeight": 0.68,
+      "pedestalWidth": 0.79,
+      "pedestalDepth": 0.79,
+      "rotation": 0.2,
+      "targetTriangles": 160000
+    },
+    {
+      "id": "venus-milo",
+      "museumId": "KAS434",
+      "title": "米洛的维纳斯",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作公元前 2 世纪 · 石膏翻模",
+      "summary": "馆方题名包含 Venus de Milo 与 Afrodite fra Melos。这件扫描来自 SMK 的石膏翻模，所据大理石原作被记为希腊化时期、公元前 2 世纪的作品；馆方记录了原作与米洛斯岛的关联。",
+      "viewingNote": "让目光先沿外轮廓走一遍，再比较身体与衣纹的表面。轻微的视点变化，足以让原先藏在暗处的起伏慢慢显出来。",
+      "tags": [
+        "身体",
+        "柔和",
+        "宁静",
+        "爱",
+        "quiet",
+        "body"
+      ],
+      "height": 2.35,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 0.95,
+      "pedestalDepth": 0.85,
+      "rotation": 0.08,
+      "targetTriangles": 120000
+    },
+    {
+      "id": "apollo-belvedere",
+      "museumId": "KAS353",
+      "title": "望楼的阿波罗",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型约公元前 330 年 · 罗马复制 · 石膏翻模",
+      "summary": "馆方题名为 Apollo Belvedere。这件数字模型扫描自石膏翻模；馆方将其原作类型记为约公元前 330 年、古希腊古典时期，并注明罗马复制，大理石材质。馆方没有确认作者。",
+      "viewingNote": "先看看身体轮廓向哪些方向展开，再回到头部与躯干的关系。可以留意亮部边缘，怎样把雕塑从展厅的暗处轻轻分离出来。",
+      "tags": [
+        "光",
+        "秩序",
+        "理想",
+        "古典",
+        "light",
+        "classical"
+      ],
+      "height": 2.4,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.05,
+      "pedestalDepth": 0.9,
+      "rotation": 0.12,
+      "targetTriangles": 120000
+    },
+    {
+      "id": "nefertiti",
+      "museumId": "DEP439",
+      "title": "娜芙蒂蒂胸像",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作约公元前 1340 年 · 石膏翻模",
+      "summary": "馆方题名为 Portræt af Nefertiti。这件扫描对象是石膏翻模；馆方将所据原作记为约公元前 1340 年、埃及阿玛尔纳时期的彩绘石灰石胸像。当前数字展示采用统一石膏材质，不还原原作彩绘。",
+      "viewingNote": "从头部轮廓开始，把目光慢慢移向面部。看看柔光抵达边缘时，哪些线条变得清楚，哪些仍留在暗处。",
+      "tags": [
+        "凝视",
+        "静观",
+        "人物",
+        "安静",
+        "portrait",
+        "quiet"
+      ],
+      "height": 1.15,
+      "pedestalHeight": 0.8,
+      "pedestalWidth": 0.7,
+      "pedestalDepth": 0.7,
+      "rotation": 0.08,
+      "targetTriangles": 140000
+    },
+    {
+      "id": "alexander-helios",
+      "museumId": "KAS283",
+      "title": "亚历山大化身赫利俄斯",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型公元前 299—101 年 · 石膏翻模",
+      "summary": "馆方将这件作品题为“亚历山大大帝化身赫利俄斯的理想化肖像”。扫描对象为石膏翻模，所据原作材质记为大理石，年代记为公元前 299—101 年，并注明罗马复制。",
+      "viewingNote": "可以先看头部与胸部构成的整体，再慢慢靠近那些细小的表面变化。让明暗引导目光，不必急着把每一处细节都看清。",
+      "tags": [
+        "理想",
+        "自我",
+        "时间",
+        "人物",
+        "portrait",
+        "identity"
+      ],
+      "height": 1.25,
+      "pedestalHeight": 0.72,
+      "pedestalWidth": 0.82,
+      "pedestalDepth": 0.78,
+      "rotation": 0.08,
+      "targetTriangles": 140000
+    },
+    {
+      "id": "marcus-young",
+      "museumId": "KAS1090",
+      "title": "青年马可·奥勒留",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作约公元 140 年 · 石膏翻模",
+      "summary": "馆方题名为“青年马可·奥勒留肖像”。这件扫描来自石膏翻模，馆方将所据大理石原作的年代记为约公元 140 年、古罗马时期。题名中的在位年代与原作制作年代是不同信息。",
+      "viewingNote": "先停在面部，再看看头部、衣褶与底座之间的体积关系。随着光线轻轻变化，同一个轮廓也会有不同的分量。",
+      "tags": [
+        "内省",
+        "时间",
+        "凝视",
+        "人物",
+        "introspection",
+        "portrait"
+      ],
+      "height": 1.3,
+      "pedestalHeight": 0.7,
+      "pedestalWidth": 0.84,
+      "pedestalDepth": 0.78,
+      "rotation": 0.08,
+      "targetTriangles": 140000
+    },
+    {
+      "id": "eros-bow",
+      "museumId": "KAS1294",
+      "title": "拉弓的厄洛斯",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型约公元前 340—330 年 · 罗马复制 · 石膏翻模",
+      "summary": "馆方题名 Eros, der spænder buen，意为拉弓的厄洛斯。这件扫描对象为石膏翻模；馆方将大理石原作类型记为约公元前 340—330 年、古希腊古典时期，并注明罗马复制。",
+      "viewingNote": "从姿态的方向感开始，看看身体的转折怎样连成一个整体。稍稍移动视点，再比较轮廓之间留下的空隙。",
+      "tags": [
+        "爱",
+        "关系",
+        "亲密",
+        "身体",
+        "love",
+        "intimacy"
+      ],
+      "height": 1.9,
+      "pedestalHeight": 0.17,
+      "pedestalWidth": 0.95,
+      "pedestalDepth": 0.88,
+      "rotation": 0.08,
+      "targetTriangles": 120000
+    },
+    {
+      "id": "kore",
+      "museumId": "KAS1800",
+      "title": "古希腊少女 · Kore",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作约公元前 530 年 · 石膏翻模",
+      "summary": "馆方题名描述一位身穿长衣与披衣的 Kore。这件扫描来自石膏翻模；馆方将所据大理石原作记为约公元前 530 年、古希腊古风时期，来源记录提及雅典卫城。",
+      "viewingNote": "沿衣纹缓慢地看下去，比较重复线条之间细小的差别。也可以退回整体，让轮廓先于细节留在眼里。",
+      "tags": [
+        "静谧",
+        "衣纹",
+        "宁静",
+        "古典",
+        "quiet",
+        "drapery"
+      ],
+      "height": 2.05,
+      "pedestalHeight": 0.16,
+      "pedestalWidth": 0.86,
+      "pedestalDepth": 0.8,
+      "rotation": 0.08,
+      "targetTriangles": 120000
+    },
+    {
+      "id": "augustus",
+      "museumId": "KAS65",
+      "title": "普里马波尔塔的奥古斯都",
+      "artist": "原作作者未标注",
+      "yearLabel": "馆方所记原作约公元前 15 年 · 石膏翻模",
+      "summary": "馆方题名为 Augustus of Prima Porta。这件模型来自石膏翻模；SMK 记录将所据大理石原作的年代记为约公元前 15 年、古罗马时期，来源记录提及罗马普里马波尔塔。此处保留馆方的年代口径。",
+      "viewingNote": "先从整体姿态看起，再观察躯干上密集细节与较平整表面的区别。柔光经过时，近处与远处的层次会慢慢分开。",
+      "tags": [
+        "历史",
+        "权力",
+        "秩序",
+        "人物",
+        "history",
+        "order"
+      ],
+      "height": 2.45,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.05,
+      "pedestalDepth": 0.9,
+      "rotation": 0.08,
+      "targetTriangles": 140000
+    },
+    {
+      "id": "sleeping-faun",
+      "museumId": "KAS208",
+      "title": "沉睡的法翁",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型约公元前 200 年 · 石膏翻模",
+      "summary": "馆方题名为 The Barberini Faun，又名 Sleeping Faun。这件扫描来自石膏翻模；馆方将所据大理石原作类型记为约公元前 200 年、希腊化时期，并对“罗马复制”的判断保留问号。",
+      "viewingNote": "先看看身体与承托部分怎样形成一个整体，再沿起伏最明显的轮廓慢慢看。可以在这里停一下，让观看也有休息的余地。",
+      "tags": [
+        "休憩",
+        "梦境",
+        "身体",
+        "放松",
+        "rest",
+        "dream"
+      ],
+      "height": 2.05,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 1.35,
+      "pedestalDepth": 1.2,
+      "rotation": 0.08,
+      "targetTriangles": 140000
+    },
+    {
+      "id": "michelangelo-portrait",
+      "museumId": "KAS336",
+      "title": "米开朗琪罗肖像",
+      "artist": "巴蒂斯塔·洛伦齐 · 原作",
+      "yearLabel": "原作 1568 年 · 石膏翻模",
+      "summary": "馆方题名为 Portrait of Michelangelo，作者记录为 Battista Lorenzi，所据大理石原作年代为 1568 年。米开朗琪罗是肖像所描绘的人物。这件数字扫描来自 SMK 的石膏翻模。",
+      "viewingNote": "从面部的明暗交界开始，慢慢看向外轮廓。可以留意那些很小的凹凸，如何让一个表面逐渐成为一张脸。",
+      "tags": [
+        "创作",
+        "艺术家",
+        "凝视",
+        "人物",
+        "artist",
+        "portrait"
+      ],
+      "height": 1.16,
+      "pedestalHeight": 0.78,
+      "pedestalWidth": 0.76,
+      "pedestalDepth": 0.72,
+      "rotation": 0.08,
+      "targetTriangles": 140000
+    },
+    {
+      "title": "加莱义民",
+      "artist": "奥古斯特·罗丹",
+      "yearLabel": "1884—1895 年 · 完整群像扫描",
+      "summary": "《加莱义民》取材于加莱围城后六位城市显要市民共同走出城门、以求保全城市的故事。罗丹将六个人放在同一高度，用不同的姿态呈现共同承担中的个体。这里使用 Scan the World 在法国加莱所作的完整群像扫描，保留雕塑本身及其矮底座。",
+      "viewingNote": "先在整个群像之间慢慢看，再停在其中一个人的轮廓旁。衣纹与手势各有方向，人物之间的空隙也把目光轻轻带向彼此。",
+      "tags": [
+        "群像",
+        "共同承担",
+        "城市",
+        "勇气",
+        "关系",
+        "历史",
+        "人的生活",
+        "solidarity",
+        "human-life"
+      ],
+      "height": 2.15,
+      "pedestalHeight": 0.05,
+      "pedestalWidth": 3.3,
+      "pedestalDepth": 3.06,
+      "rotation": -1.1,
+      "targetTriangles": 180000,
+      "sourceRotation": [
+        0,
+        0,
+        0
+      ],
+      "catalogId": "stw-sculpture-calais",
+      "provider": "Scan the World / 3DBigDataSpace",
+      "source": "https://zenodo.org/records/21692951",
+      "sourceCredit": "奥古斯特·罗丹（雕塑）\nScan the World（扫描） · 3DBigDataSpace / Zenodo",
+      "rights": "CC BY-NC-SA 4.0",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "collection": "Scan the World · 法国加莱",
+      "displayMedium": "完整雕塑群像扫描；数字石膏材质",
+      "provenance": "来自 Zenodo 的公开扫描档案。作品的一体底座与 ArtDuo 的低展台分别保留；采用统一数字石膏材质，展示比例经过调整。",
+      "archive": "Scan the World / 3DBigDataSpace / Zenodo",
+      "factSources": [
+        "https://hirshhorn.si.edu/explore/auguste-rodin-the-burghers-of-calais/",
+        "https://rodin.nmwa.go.jp/3d-models/burghers-of-calais/"
+      ],
+      "objectMetadata": {
+        "materials": [
+          "bronze"
+        ]
+      },
+      "id": "calais",
+      "sha256": "26001258d1a40069b35279edf88008d740ba5700030ee58a37215023d6840fb4"
+    },
+    {
+      "title": "思想者",
+      "artist": "奥古斯特·罗丹",
+      "yearLabel": "1880 年构思 · 雕塑扫描",
+      "summary": "罗丹于 1880 年构思《思想者》，最初将其置于《地狱之门》上方，1888 年开始作为独立作品展出。躬身的姿态让思考成为全身参与的活动。这份模型来自 Scan the World 发布的雕塑扫描，展示采用数字石膏材质。",
+      "viewingNote": "先沿前倾的身体轮廓看一遍，再留意明暗怎样穿过紧凑的姿态。可以停在一个转折处，慢慢比较它与周围留出的空隙。",
+      "tags": [
+        "思考",
+        "内省",
+        "身体",
+        "创作",
+        "人的生活",
+        "人物",
+        "thought",
+        "human-life"
+      ],
+      "height": 2.05,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 1.12,
+      "pedestalDepth": 1.28,
+      "rotation": 0.08,
+      "targetTriangles": 160000,
+      "catalogId": "commons-sculpture-thinker",
+      "sourceCredit": "奥古斯特·罗丹（原作）\nScan the World / Jonathan Beck（扫描） · Wikimedia Commons",
+      "collection": "Scan the World · 雕塑数字档案",
+      "displayMedium": "雕塑扫描；数字石膏材质",
+      "provenance": "扫描由 Scan the World 发布。作品历史依据 Musée Rodin；扫描文件未明确对应铸件的铸造年代。展示比例经过调整。",
+      "archive": "Wikimedia Commons / Scan the World",
+      "factSources": [
+        "https://www.musee-rodin.fr/en/musee/collections/oeuvres/thinker"
+      ],
+      "id": "thinker",
+      "provider": "Wikimedia Commons / Scan the World",
+      "source": "https://commons.wikimedia.org/wiki/File:Scan_the_World_-_The_Thinker_(Auguste_Rodin).stl",
+      "rights": "CC BY-SA 4.0",
+      "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sha256": "ae9427b19c0b5cc0c680a01793b361766cc6175be8ba6f1c9a0f0b30e2b3c5e7"
+    },
+    {
+      "title": "掷铁饼者",
+      "artist": "原作类型传统归于米隆",
+      "yearLabel": "原作类型约公元前 450 年 · 石膏翻模",
+      "summary": "《掷铁饼者》以投掷前的瞬间呈现运动中的身体，原作类型传统归于古希腊雕塑家米隆。这里使用 SMK 的 KAS1074 石膏翻模扫描。馆方说明指出，传世复制品的碎片与复原曾形成不同的头部朝向；当前采用 KAS1074 这一版本。",
+      "viewingNote": "先顺着身体扭转的方向看，再回到支撑与伸展之间的关系。可以在轮廓围出的空隙停一下，让静止的姿态慢慢显出运动的节奏。",
+      "tags": [
+        "运动",
+        "身体",
+        "训练",
+        "专注",
+        "人的生活",
+        "人物",
+        "movement",
+        "human-life"
+      ],
+      "height": 2.1,
+      "pedestalHeight": 0.14,
+      "pedestalWidth": 1.3,
+      "pedestalDepth": 0.85,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "factSources": [
+        "https://api.smk.dk/api/v1/art/?object_number=KAS1074&lang=en",
+        "https://api.smk.dk/api/v1/art/?object_number=KAS1549&lang=en"
+      ],
+      "id": "discobolus",
+      "museumId": "KAS1074"
+    },
+    {
+      "title": "苏格拉底肖像",
+      "artist": "原作作者未标注",
+      "yearLabel": "原作类型公元前 299—101 年 · 石膏翻模",
+      "summary": "SMK 将这件作品题为“苏格拉底肖像”，扫描对象为馆藏石膏翻模。所据大理石原作记录为希腊化时期的肖像类型、罗马复制品。题名中苏格拉底的生卒年代公元前 469—399 年，与这件传世肖像类型的制作年代分别标注。",
+      "viewingNote": "先看看面部凹凸如何接住柔光，再沿外轮廓慢慢移回整体。可以让一个问题暂时停在这里，不急着把这个表情解释成某个答案。",
+      "tags": [
+        "思考",
+        "对话",
+        "哲学",
+        "内省",
+        "人的生活",
+        "人物",
+        "dialogue",
+        "human-life"
+      ],
+      "height": 1.18,
+      "pedestalHeight": 0.76,
+      "pedestalWidth": 0.82,
+      "pedestalDepth": 0.76,
+      "rotation": 0.08,
+      "targetTriangles": 140000,
+      "factSources": [
+        "https://api.smk.dk/api/v1/art/?object_number=KAS635&lang=en"
+      ],
+      "id": "socrates",
+      "museumId": "KAS635"
+    },
+    {
+      "title": "巴尔扎克纪念像",
+      "artist": "奥古斯特·罗丹",
+      "yearLabel": "1892—1897 年构思 · 雕塑扫描",
+      "summary": "这件作品描绘法国作家奥诺雷·德·巴尔扎克。罗丹采用写作时穿睡袍的形象，把表现集中在衣袍与头部的体积上。模型由 pattarrian 扫描，所据作品是安特卫普米德尔海姆博物馆的青铜版本；这里采用数字石膏展示材质。",
+      "viewingNote": "先沿衣袍的起伏慢慢看，再把目光带回头部。让光线经过较平整的衣面，接着看看头部周围细密的变化。",
+      "tags": [
+        "文学",
+        "写作",
+        "创作",
+        "艺术家",
+        "社会",
+        "人的生活",
+        "人物",
+        "literature",
+        "human-life"
+      ],
+      "height": 2.25,
+      "pedestalHeight": 0.1,
+      "pedestalWidth": 1.12,
+      "pedestalDepth": 1.2,
+      "rotation": 0.08,
+      "targetTriangles": 160000,
+      "sourceRotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "catalogId": "pattarrian-sculpture-balzac",
+      "provider": "pattarrian / Objaverse / Zenodo",
+      "source": "https://zenodo.org/records/10336866",
+      "sourceCredit": "奥古斯特·罗丹（雕塑）\npattarrian（扫描） · Objaverse / Zenodo\n原扫描：https://sketchfab.com/3d-models/monument-a-balzac-0de8117fc262431e81066cba6697bc6c",
+      "rights": "CC BY 4.0",
+      "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "collection": "米德尔海姆博物馆 · 雕塑数字档案",
+      "displayMedium": "青铜雕塑的数字扫描；数字石膏材质",
+      "provenance": "扫描作者为 pattarrian，使用 Zenodo 公开提供的同一模型镜像。已移除后加的高台座，保留雕像与薄底座并封闭底面；原始 GLB 与处理记录单独保留。作品事实依据米德尔海姆博物馆记录，展示比例经过调整。",
+      "archive": "pattarrian / Objaverse / Zenodo",
+      "factSources": [
+        "https://collectie-in-het-park.middelheimmuseum.be/en/menselijkenatuur/balzac",
+        "https://www.musee-rodin.fr/en/musee/collections/oeuvres/monument-balzac"
+      ],
+      "objectMetadata": {
+        "materials": [
+          "bronze"
+        ]
+      },
+      "id": "balzac",
+      "sourceModifications": "Removed the later high display plinth below a reviewed plane; retained the sculptural figure and thin integral base; closed the new underside.",
+      "sha256": "179af6e8a7ca6084d80a659be3a827641cdd5a52082f639a844724b65cd9aff0"
+    },
+    {
+      "title": "贝多芬纪念像",
+      "artist": "罗伯特·魏格尔（Robert Weigl）",
+      "yearLabel": "1902 年人物设计 · 1910 年纪念设施",
+      "summary": "这件贝多芬纪念像位于维也纳海利根施塔特公园。贝多芬故居档案将 Robert Weigl 的人物设计记为 1902 年；公园纪念设施于 1910 年落成。人物穿着日常外衣站立，把双手背在身后，接近散步时的模样。模型来自 noe-3d.at 的扫描；原作石材与这里的数字石膏展示材质分别标注。",
+      "viewingNote": "先从站立的整体姿态看起，再让目光沿外衣的起伏缓慢走一遍。看看头部与身体朝向之间的小小差别，让熟悉的名字回到一个人的轮廓。",
+      "tags": [
+        "音乐",
+        "创作",
+        "艺术家",
+        "日常",
+        "人的生活",
+        "人物",
+        "music",
+        "human-life"
+      ],
+      "height": 2.2,
+      "pedestalHeight": 0.12,
+      "pedestalWidth": 1.08,
+      "pedestalDepth": 1.05,
+      "rotation": 0.08,
+      "targetTriangles": 160000,
+      "catalogId": "commons-sculpture-beethoven",
+      "sourceCredit": "Robert Weigl（雕塑）\nnoe-3d.at（扫描） · Wikimedia Commons",
+      "collection": "海利根施塔特公园 · 公共纪念像",
+      "displayMedium": "公共雕塑扫描；数字石膏材质",
+      "provenance": "使用 Wikimedia Commons 文件页明确以 CC0 提供的 STL，上传记录为 2020 年。雕塑作者、扫描作者与展示材质分别标注；展示比例经过调整。",
+      "archive": "Wikimedia Commons / noe-3d.at",
+      "factSources": [
+        "https://commons.wikimedia.org/wiki/File:Ludwig_van_Beethoven_-_3D_model_by_noe-3d.at_-_Sketchfab.stl",
+        "https://www.beethoven.de/en/media/view/5453063242383360",
+        "https://www.wien.gv.at/freizeit/heiligenstaedterpark"
+      ],
+      "objectMetadata": {
+        "materials": [
+          "marble"
+        ]
+      },
+      "id": "beethoven",
+      "provider": "Wikimedia Commons / noe-3d.at",
+      "source": "https://commons.wikimedia.org/wiki/File:Ludwig_van_Beethoven_-_3D_model_by_noe-3d.at_-_Sketchfab.stl",
+      "rights": "CC0 1.0",
+      "rightsUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "bfafdc452266b42bebce2c37161a29c0cf29aef942114f61c800ff52cd774b61"
+    }
+  ],
+  "usage": "noncommercial"
+}

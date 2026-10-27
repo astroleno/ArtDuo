@@ -1,5 +1,6 @@
 "use client";
 
+import { appPath } from "@artduo/contracts";
 import { useEffect, useState, type CSSProperties } from "react";
 
 import { EXPERIENCE_LOADING_LONG_WAIT_MS, EXPERIENCE_LOADING_RETRY_MS } from "../../../../lib/experience-loading";
@@ -20,6 +21,6 @@ export default function ImmersiveLoading() {
     <p>作品清单正在整理，前言不会阻挡第一件作品继续载入。</p>
     <p className="experience-loading-long" role="status">准备时间较长，仍在整理这次展览；你可以继续等候或返回修改。</p>
     <a className="experience-primary experience-loading-retry" href="">重试准备</a>
-    <a className="experience-text-button" href={returnHref}>返回修改愿望</a>
+    <a className="experience-text-button" href={appPath(returnHref)}>返回修改愿望</a>
   </main>;
 }

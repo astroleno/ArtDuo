@@ -1,3 +1,4 @@
+import { appPath } from "@artduo/contracts";
 import { ArrowRight, Search } from "lucide-react";
 
 import { ExperienceEntryClient } from "../components/experience-entry-client";
@@ -19,29 +20,19 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   if (selectedView === "experience") return <ExperienceEntryClient initialQuery={requestedQuery ?? ""} />;
 
   const catalog = loadWebReleaseCatalog();
-  const heroArtworks = catalog.artworks.filter(isGalleryArtwork).slice(0, 3);
+  const heroArtworks = catalog.artworks.filter(isGalleryArtwork).slice(0, 1);
   const heroImage = heroArtworks[0] ? artworkImageUrl(heroArtworks[0].id, "preview", catalog.releaseVersion) : "";
 
   return (
-    <main className="shell">
+    <main className="shell home-shell">
       <section className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
-        <div className="hero-artwork-veil" aria-hidden="true">
-          {heroArtworks.map((artwork) => (
-            <img
-              alt=""
-              className="hero-artwork-slice"
-              key={artwork.id}
-              src={artworkImageUrl(artwork.id, "preview", catalog.releaseVersion)}
-            />
-          ))}
-        </div>
         <div className="hero-content">
           <p className="eyebrow">情绪策展入口</p>
           <h1>ArtDuo</h1>
           <p className="hero-copy">
             输入一句情绪、场景或观看愿望，ArtDuo 会从当前馆藏中展开一场安静的观展。
           </p>
-          <form className="intent-form" action="/gallery/local/immersive">
+          <form className="intent-form" action={appPath("/gallery/local/immersive")}>
             <input name="view" type="hidden" value="classic" />
             <div className="field">
               <label htmlFor="query">
@@ -52,6 +43,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                 name="query"
                 placeholder="例如：我想看一幅安静的月光"
                 required
+                defaultValue={requestedQuery ?? ""}
+                maxLength={1000}
                 suppressHydrationWarning
               />
             </div>
@@ -61,7 +54,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           </form>
           <div className="prompt-row" aria-label="示例提示">
             {STARTER_PROMPTS.map((prompt) => (
-              <a className="prompt-chip" href={`/gallery/local/immersive?query=${encodeURIComponent(prompt.query)}`} key={prompt.query}>
+              <a className="prompt-chip" href={appPath(`/gallery/local/immersive?query=${encodeURIComponent(prompt.query)}`)} key={prompt.query}>
                 {prompt.label}
               </a>
             ))}
@@ -75,7 +68,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             <p className="meta">观展从一句话开始</p>
             <h2>写下你想停留的光、情绪或房间。</h2>
           </div>
-          <a className="secondary-link" href="/gallery">
+          <a className="secondary-link" href={appPath("/gallery")}>
             换一句愿望 <ArrowRight aria-hidden="true" size={17} />
           </a>
         </div>

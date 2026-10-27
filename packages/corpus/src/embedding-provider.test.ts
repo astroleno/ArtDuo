@@ -73,3 +73,21 @@ test("fallback embedding provider falls back to local hash when remote fails", a
   assert.equal(result.model, "local-hash-embedding-v1");
   assert.equal(result.dimensions, 256);
 });
+
+test("remote batch indices preserve artwork identity and malformed batches fail closed", async () => {
+  const originalFetch = globalThis.fetch;
+  let data: unknown[] = [{ index: 1, embedding: [0, 1] }, { index: 0, embedding: [1, 0] }];
+  globalThis.fetch = async () => new Response(JSON.stringify({ data }), { status: 200 });
+  try {
+    const provider = createRemoteOpenAICompatibleEmbeddingProvider({ endpoint: "https://example.test/embeddings", model: "model", apiKey: "test" });
+    const result = await provider.embedTexts(["first", "second"]);
+    assert.deepEqual(result.map((entry) => entry.vector), [[1, 0], [0, 1]]);
+    for (const bad of [
+      [{ index: 0, embedding: [1, 0] }, { index: 0, embedding: [0, 1] }],
+      [{ index: 0, embedding: [1, 0] }, { index: 2, embedding: [0, 1] }],
+      [{ index: 0, embedding: [1, 0] }, { index: 1, embedding: [1] }],
+      [{ index: 0, embedding: [1, 0] }, { index: 1, embedding: [0, 0] }],
+      [{ index: 0, embedding: [] }, { index: 1, embedding: [] }],
+    ]) { data = bad; await assert.rejects(provider.embedTexts(["first", "second"])); }
+  } finally { globalThis.fetch = originalFetch; }
+});

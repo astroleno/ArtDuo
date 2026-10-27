@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 const port = Number(process.env.ARTDUO_WEB_E2E_PORT ?? "3211");
 const baseURL = `http://127.0.0.1:${port}`;
-const galleryReadyURL = `${baseURL}/gallery?query=I+want+a+quiet+moonlit+room`;
+const readyURL = `${baseURL}/`;
 
 export default defineConfig({
   testDir: "./e2e",
@@ -13,6 +13,7 @@ export default defineConfig({
   reporter: "list",
   use: {
     baseURL,
+    channel: process.env.ARTDUO_E2E_BROWSER_CHANNEL,
     trace: "on-first-retry",
   },
   projects: [
@@ -23,7 +24,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "node scripts/playwright-web-server.mjs",
-    url: galleryReadyURL,
+    url: readyURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

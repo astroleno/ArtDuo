@@ -1,11 +1,15 @@
 import type { ExhibitionUnit, TransitionFamily, TransitionIntent } from "@artduo/contracts";
+import { appPath } from "@artduo/contracts";
 import type { ExhibitionSnapshot, ExperienceStage, ExperienceUnit, NarrativeBlock } from "@artduo/ui";
-import { sequenceExhibition } from "@artduo/ui";
-import { parseViewingIntent } from "./viewing-intent";
+import { matchArtworkScenes, sequenceExhibition, type ExperienceSceneCandidate } from "@artduo/ui";
+import { parseViewingIntent, viewingIntentConflictMessage } from "./viewing-intent";
+import { requestedArtworkCount } from "../../api/src/services/curation/intent-planner";
 
 import type { CurationNarrative } from "./curation-narrative";
 import { isGalleryArtwork } from "./artwork-eligibility";
 import { artworkImageUrl } from "./artwork-image-url";
+import { publicStaticMediaUrl } from "./public-media";
+import { PUBLIC_AUDIO_TRACKS } from "./public-media-manifest";
 import { sceneRouteStopForIndex, type GallerySceneRouteStop } from "./gallery-route";
 import type { ExperienceArtworkRecord, WebReleaseCatalog, WebSearchResult } from "./release-catalog";
 
@@ -102,13 +106,34 @@ export function buildExperienceSnapshot(input: {
   search: WebSearchResult;
   narrative: CurationNarrative;
   route: GallerySceneRouteStop[];
+  curationId?: string;
+  narrativePieces?: Array<{ kind: "preface" | "note" | "closing"; artworkId?: string; text: string; source: "grounded" | "fallback" }>;
+  narrativeComplete?: boolean;
 }): ExhibitionSnapshot {
   const { catalog, search, narrative, query } = input;
-  const quietJourney = parseViewingIntent(query).rest;
+  const roomProfiles: Array<{ id: string; paletteFamilies: string[]; lightDirection: "left" | "right" | "top" }> = [
+    { id: "bg-004", paletteFamilies: ["warm", "earth", "muted"], lightDirection: "left" },
+    { id: "bg-012", paletteFamilies: ["neutral", "cool", "monochrome"], lightDirection: "top" },
+    { id: "bg-015", paletteFamilies: ["neutral", "luminous", "muted"], lightDirection: "top" },
+    { id: "bg-022", paletteFamilies: ["warm", "earth", "luminous"], lightDirection: "right" },
+    { id: "bg-027", paletteFamilies: ["cool", "neutral", "muted", "monochrome", "dark"], lightDirection: "top" },
+    { id: "bg-034", paletteFamilies: ["balanced", "contrast", "luminous", "neutral"], lightDirection: "top" },
+  ];
+  const sceneCandidates: ExperienceSceneCandidate[] = roomProfiles.flatMap(({ id, ...profile }) => {
+    const scene = catalog.backgroundSceneRecordById.get(id);
+    if (!scene) return [];
+    // The original chamber's lower wall ends above its foreground bench.
+    const prepared = id === "bg-015" ? { ...scene, stage_profile: { ...scene.stage_profile,
+      primary_mount_zone: { shape: "rect" as const, rect: { x: .16, y: .23, width: .68, height: .47 } } } } : scene;
+    const resource = (suffix: string) => publicStaticMediaUrl(`/artduo-gallery/lighting/v2/${id}-${suffix}`, catalog.releaseVersion);
+    return [{ scene: prepared, imageUrl: resource("1600.webp"), imageUrlSmall: resource("960.webp"),
+      lightMaps: { depthUrl: resource("depth.png"), normalUrl: resource("normal.png") }, ...profile }];
+  });
+  const quietJourney = !input.curationId && parseViewingIntent(query).rest;
   const stages: ExperienceStage[] = narrative.growthForm.stages.map((stage) => ({
     id: stage.id,
     role: stage.role,
-    label: quietJourney ? (stage.role === "threshold" ? "入场" : stage.role === "afterglow" ? "余韵" : "停留") : stageLabel(stage.label, stage.role),
+    label: input.curationId ? stage.label : quietJourney ? (stage.role === "threshold" ? "入场" : stage.role === "afterglow" ? "余韵" : "停留") : stageLabel(stage.label, stage.role),
     valence: stage.valence,
     arousal: stage.arousal,
     tension: stage.tension,
@@ -163,10 +188,12 @@ export function buildExperienceSnapshot(input: {
     return [{
       exhibition,
       artwork: record,
+      displayCredits: record.displayCredits,
       scene,
       stageId: stageForArtwork(record.id, stages, artworkIdsByStage),
       caption,
       rationale,
+      curatorNote: input.narrativePieces?.find((piece) => piece.kind === "note" && piece.artworkId === record.id),
       media: {
         previewUrl: artworkImageUrl(record.id, "preview", catalog.releaseVersion),
         fullUrl: artworkImageUrl(record.id, "full", catalog.releaseVersion),
@@ -188,7 +215,8 @@ export function buildExperienceSnapshot(input: {
     }
   }
 
-  const snapshotKey = `${catalog.releaseVersion}\nexperience-v1\n${query.trim()}`;
+  const recipeVersion = input.curationId ? "experience-v2" : "experience-v1";
+  const snapshotKey = `${catalog.releaseVersion}\n${recipeVersion}\n${input.curationId ?? query.trim()}`;
   const grounded = units.length > 0;
   const preface: NarrativeBlock = grounded
     ? { text: `${units.length} 件作品，点击画作可放大。`, source: "grounded" }
@@ -196,18 +224,29 @@ export function buildExperienceSnapshot(input: {
   const closing: NarrativeBlock = grounded
     ? { text: `${units.length} 件作品，看到这里。`, source: "grounded" }
     : { text: "这次没有可回看的作品。调整观看方向后，可以从新的展览重新开始。", source: "fallback" };
+  const requestedCount = requestedArtworkCount(query);
+  const selectionNotice = !units.length
+    ? viewingIntentConflictMessage(parseViewingIntent(query, catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : [])))
+    : input.curationId && requestedCount && units.length < requestedCount
+      ? `你想看 ${requestedCount} 件，本次找到 ${units.length} 件；${omittedUnitCount ? "部分作品资料暂不可用。" : "其余作品暂未确认同时符合条件。"}`
+      : undefined;
 
   return {
     schemaVersion: 1,
-    recipeVersion: "experience-v1",
+    recipeVersion,
+    curationId: input.curationId,
+    narrativeComplete: input.narrativeComplete,
     releaseVersion: catalog.releaseVersion,
     exhibitionId: `ex-${stableHash(snapshotKey)}`,
     query,
     title: narrative.title,
-    preface,
-    closing,
-    stages,
-    units: sequenceExhibition(units),
+    preface: input.narrativePieces?.find((piece) => piece.kind === "preface") ?? preface,
+    closing: input.narrativePieces?.find((piece) => piece.kind === "closing") ?? closing,
+    stages: input.curationId ? stages.filter((stage) => units.some((unit) => unit.stageId === stage.id)) : stages,
+    units: matchArtworkScenes(input.curationId ? units : sequenceExhibition(units), sceneCandidates),
+    sceneCandidates,
+    audioTracks: PUBLIC_AUDIO_TRACKS.map(track => publicStaticMediaUrl(`/ambient-audio/${encodeURIComponent(track)}`, catalog.releaseVersion)),
     omittedUnitCount,
+    selectionNotice,
   };
 }

@@ -1,5 +1,6 @@
 import type { ExperiencePosition, ExperiencePhase } from "@artduo/ui";
 import { EXPERIENCE_RECIPE_VERSION, type ExhibitionSnapshot } from "@artduo/ui";
+import { stripAppBasePath } from "@artduo/contracts";
 
 export interface ExperienceRouteParams {
   query: string;
@@ -7,6 +8,7 @@ export interface ExperienceRouteParams {
   phase: ExperiencePhase;
   artworkId?: string;
   recipeVersion?: string;
+  curationId?: string;
   routeOrder?: string[];
 }
 
@@ -19,6 +21,7 @@ export function buildExperienceHref(input: ExperienceRouteParams): string {
     phase: input.phase,
   });
   if (input.artworkId) params.set("artworkId", input.artworkId);
+  if (input.curationId) params.set("curationId", input.curationId);
   if (input.routeOrder?.length) params.set("route", input.routeOrder.join(","));
   return `/gallery/local/immersive?${params.toString()}`;
 }
@@ -56,6 +59,8 @@ export function experienceHrefForPosition(snapshot: ExhibitionSnapshot, position
     phase: position.phase,
     artworkId,
     routeOrder: snapshot.routeOrder,
+    recipeVersion: snapshot.recipeVersion,
+    curationId: snapshot.curationId,
   });
 }
 
@@ -63,9 +68,10 @@ export function sanitizeReturnTo(value: string | undefined, fallback: string): s
   if (!value || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) return fallback;
   try {
     const parsed = new URL(value, "https://artduo.invalid");
+    const pathname = stripAppBasePath(parsed.pathname);
     const allowed = parsed.origin === "https://artduo.invalid"
-      && (parsed.pathname === "/gallery" || parsed.pathname.startsWith("/gallery/"));
-    return allowed ? `${parsed.pathname}${parsed.search}${parsed.hash}` : fallback;
+      && (pathname === "/gallery" || pathname.startsWith("/gallery/"));
+    return allowed ? `${pathname}${parsed.search}${parsed.hash}` : fallback;
   } catch {
     return fallback;
   }

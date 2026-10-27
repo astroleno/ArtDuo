@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 1,
+  "releaseVersion": "sculptures-2026-10-27",
+  "sourceManifestSha256": "sha256:03cf5d8cdeb401d3b17ef594cc15190a00b86ec2cf582f8132f9de05d0e83816",
+  "assets": [
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-022-1600.webp",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/5455d93b07c4b629e8bff6cd423908cc728fc8f9fd2846c669189812f6305294/bg-022-1600.webp",
+      "sha256": "sha256:5455d93b07c4b629e8bff6cd423908cc728fc8f9fd2846c669189812f6305294",
+      "bytes": 66494,
+      "contentType": "image/webp",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-022-960.webp",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/8e1cdd5e92fcb73076db037976b41fda50c8fe2de23a4ee7181b694d38c00db7/bg-022-960.webp",
+      "sha256": "sha256:8e1cdd5e92fcb73076db037976b41fda50c8fe2de23a4ee7181b694d38c00db7",
+      "bytes": 30344,
+      "contentType": "image/webp",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-022-depth.png",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/47af59543ae49eb891aa6cd25461021551d9c89231c02d8480cbc06f32a6e1ad/bg-022-depth.png",
+      "sha256": "sha256:47af59543ae49eb891aa6cd25461021551d9c89231c02d8480cbc06f32a6e1ad",
+      "bytes": 135482,
+      "contentType": "image/png",
+      "width": 384,
+      "height": 215
+    },
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-022-normal.png",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/c3931cade1f151032ae52c15cd6edb7d118994ede19e458990f81f53619f99db/bg-022-normal.png",
+      "sha256": "sha256:c3931cade1f151032ae52c15cd6edb7d118994ede19e458990f81f53619f99db",
+      "bytes": 48923,
+      "contentType": "image/png",
+      "width": 384,
+      "height": 215
+    },
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-034-1600.webp",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/6906ae243b851a5552732a78ff4c8fc73ad9489fb9625fa66a7c5025623ba5d2/bg-034-1600.webp",
+      "sha256": "sha256:6906ae243b851a5552732a78ff4c8fc73ad9489fb9625fa66a7c5025623ba5d2",
+      "bytes": 42756,
+      "contentType": "image/webp",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-034-960.webp",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/44d1df5c595ba5fa6b63911dffb3bf8c33cf615fc083c11029778cab3d3f3cee/bg-034-960.webp",
+      "sha256": "sha256:44d1df5c595ba5fa6b63911dffb3bf8c33cf615fc083c11029778cab3d3f3cee",
+      "bytes": 19206,
+      "contentType": "image/webp",
+      "width": 960,
+      "height": 540
+    },
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-034-depth.png",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/fe38faa821ac8473ff278eb70189e01c9021fc7782141519a7bf2a91592156eb/bg-034-depth.png",
+      "sha256": "sha256:fe38faa821ac8473ff278eb70189e01c9021fc7782141519a7bf2a91592156eb",
+      "bytes": 142018,
+      "contentType": "image/png",
+      "width": 384,
+      "height": 215
+    },
+    {
+      "id": "static:/artduo-gallery/lighting/v2/bg-034-normal.png",
+      "kind": "room",
+      "objectKey": "artduo/media-v1/objects/b607bf15dd943c151bb34095705d178a051bfa335ee08027fe18fd30fd3fce90/sculpture-bg-034-normal.png",
+      "sha256": "sha256:b607bf15dd943c151bb34095705d178a051bfa335ee08027fe18fd30fd3fce90",
+      "bytes": 41801,
+      "contentType": "image/png",
+      "width": 384,
+      "height": 215
+    },
+    {
+      "id": "static:/artduo-sculptures/alexander-helios-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/ab927dd36d70f03c42ba19cfdf90462ee23d1353a49eef39db498ffcf84df47d/alexander-helios-compact.glb",
+      "sha256": "sha256:ab927dd36d70f03c42ba19cfdf90462ee23d1353a49eef39db498ffcf84df47d",
+      "bytes": 595520,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/alexander-helios-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/56f866576963912a06c3600a172ef4554d5939c045610095557b048f905065e9/alexander-helios-poster.png",
+      "sha256": "sha256:56f866576963912a06c3600a172ef4554d5939c045610095557b048f905065e9",
+      "bytes": 222637,
+      "contentType": "image/png",
+      "width": 412,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/alexander-helios-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/2ff7cf4a2981255f84b73306a7c28591de1b6977c388cbe5fe7812fcd021c89d/alexander-helios-reference.glb",
+      "sha256": "sha256:2ff7cf4a2981255f84b73306a7c28591de1b6977c388cbe5fe7812fcd021c89d",
+      "bytes": 1569860,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/apollo-belvedere-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/b809d58dc16c70196527ff565ac6473bb3d8bab7c11a931dc12d578c8d55eccd/apollo-belvedere-compact.glb",
+      "sha256": "sha256:b809d58dc16c70196527ff565ac6473bb3d8bab7c11a931dc12d578c8d55eccd",
+      "bytes": 508796,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/apollo-belvedere-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/b7ed57c175162fb663b3f420fac91b90fe77cad84924c49f119e56cbf76624f2/apollo-belvedere-poster.png",
+      "sha256": "sha256:b7ed57c175162fb663b3f420fac91b90fe77cad84924c49f119e56cbf76624f2",
+      "bytes": 426794,
+      "contentType": "image/png",
+      "width": 614,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/apollo-belvedere-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/0162853ef7ab1b0127fe0db6fb4e94450ce7f4815c55fa5d462bc3c78ad12456/apollo-belvedere-reference.glb",
+      "sha256": "sha256:0162853ef7ab1b0127fe0db6fb4e94450ce7f4815c55fa5d462bc3c78ad12456",
+      "bytes": 1158856,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/athena-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/1cd7a1e9955d607a0636e91cd5026d0a2244606d67ce3c712873436f06da6529/athena-compact.glb",
+      "sha256": "sha256:1cd7a1e9955d607a0636e91cd5026d0a2244606d67ce3c712873436f06da6529",
+      "bytes": 512664,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/athena-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/4ff9e0e4329537ce798da785c69fcbf0886ba99f00ee2efc1c59d2036d482e17/athena-poster.png",
+      "sha256": "sha256:4ff9e0e4329537ce798da785c69fcbf0886ba99f00ee2efc1c59d2036d482e17",
+      "bytes": 402468,
+      "contentType": "image/png",
+      "width": 445,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/athena-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/e6470bd4b7df2b8ffc00a30d433d6063a1504774c71d67b345e246ddaaa398fb/athena-reference.glb",
+      "sha256": "sha256:e6470bd4b7df2b8ffc00a30d433d6063a1504774c71d67b345e246ddaaa398fb",
+      "bytes": 4605016,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/augustus-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/45312c3f7654866a5c01da319a97e7b654a1686cfa34c8b47c9728a7033c89c0/augustus-compact.glb",
+      "sha256": "sha256:45312c3f7654866a5c01da319a97e7b654a1686cfa34c8b47c9728a7033c89c0",
+      "bytes": 598132,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/augustus-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/1e06bfc58b65bfe867366d498e96353997ab53d6b2e63ba9d1750e7951456a13/augustus-poster.png",
+      "sha256": "sha256:1e06bfc58b65bfe867366d498e96353997ab53d6b2e63ba9d1750e7951456a13",
+      "bytes": 425568,
+      "contentType": "image/png",
+      "width": 550,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/augustus-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/e431ffb79d81312be73401359d3bc6b11a888bca4734c4b4e595dbe8df8d0fa8/augustus-reference.glb",
+      "sha256": "sha256:e431ffb79d81312be73401359d3bc6b11a888bca4734c4b4e595dbe8df8d0fa8",
+      "bytes": 1599468,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/balzac-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/120acfdccb386ceb106fdfdde87c355dc98be034267a0a77d4450c7821a400d7/balzac-compact.glb",
+      "sha256": "sha256:120acfdccb386ceb106fdfdde87c355dc98be034267a0a77d4450c7821a400d7",
+      "bytes": 651652,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/balzac-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/23ed1365a154f48cbe9e028f93a786b9b2ab199db49714baa1ed472c0bf8f8a7/balzac-poster.png",
+      "sha256": "sha256:23ed1365a154f48cbe9e028f93a786b9b2ab199db49714baa1ed472c0bf8f8a7",
+      "bytes": 340298,
+      "contentType": "image/png",
+      "width": 462,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/balzac-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/64586852c442c8e1a7d690ca8f526032d6ec855dadf96880dd071a4e90529ade/balzac-reference.glb",
+      "sha256": "sha256:64586852c442c8e1a7d690ca8f526032d6ec855dadf96880dd071a4e90529ade",
+      "bytes": 1710924,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/beethoven-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/6a91dbd44d7fa5a3f252e4ab524296ebe2d73e5338783d7a94a5b16aef15cbf0/beethoven-compact.glb",
+      "sha256": "sha256:6a91dbd44d7fa5a3f252e4ab524296ebe2d73e5338783d7a94a5b16aef15cbf0",
+      "bytes": 663184,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/beethoven-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/7fe64eb11b7523c48db7ed83634b1745ce96e68e574551576bf6f13a6673550a/beethoven-poster.png",
+      "sha256": "sha256:7fe64eb11b7523c48db7ed83634b1745ce96e68e574551576bf6f13a6673550a",
+      "bytes": 336492,
+      "contentType": "image/png",
+      "width": 453,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/beethoven-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/a1b32dc23acf53b79a1aa339f3677d5af068740ff26d7a46cab47f4f0b4ff60b/beethoven-reference.glb",
+      "sha256": "sha256:a1b32dc23acf53b79a1aa339f3677d5af068740ff26d7a46cab47f4f0b4ff60b",
+      "bytes": 1971316,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/calais-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/cdf70b7bb15d18f2e1a7a4f4a6bebc11122d875430a3427e7704e00ffaa3e7b1/calais-compact.glb",
+      "sha256": "sha256:cdf70b7bb15d18f2e1a7a4f4a6bebc11122d875430a3427e7704e00ffaa3e7b1",
+      "bytes": 787948,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/calais-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/18bc5bc9a6f0c259c2f4cefb2591577e861ce8d3af8fabbe158cb33a8dd31614/calais-poster.png",
+      "sha256": "sha256:18bc5bc9a6f0c259c2f4cefb2591577e861ce8d3af8fabbe158cb33a8dd31614",
+      "bytes": 1055801,
+      "contentType": "image/png",
+      "width": 1317,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/calais-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/b8001bd257eaabbfa48e87c0875a29881a9f9465c89bf537bdd94ebaffb5e380/calais-reference.glb",
+      "sha256": "sha256:b8001bd257eaabbfa48e87c0875a29881a9f9465c89bf537bdd94ebaffb5e380",
+      "bytes": 2732108,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/david-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/1bba67567a7daa7557760b83314231f1bb9ba73f03243b853a31ab6b5e173011/david-compact.glb",
+      "sha256": "sha256:1bba67567a7daa7557760b83314231f1bb9ba73f03243b853a31ab6b5e173011",
+      "bytes": 685852,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/david-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/98b4734164724a440a588fb34a3f48168bf15c56319d71979409b9474af989f1/david-poster.png",
+      "sha256": "sha256:98b4734164724a440a588fb34a3f48168bf15c56319d71979409b9474af989f1",
+      "bytes": 281148,
+      "contentType": "image/png",
+      "width": 505,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/david-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/f5df7607228823bc9d198a377116cbfdacb3705d67912efba9acea6c6667f27b/david-reference.glb",
+      "sha256": "sha256:f5df7607228823bc9d198a377116cbfdacb3705d67912efba9acea6c6667f27b",
+      "bytes": 4170612,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/discobolus-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/67468f6fb45ef1b0a2aaad78be72d72bdb711144d1fd6864aa22a2d54acb4ea2/discobolus-compact.glb",
+      "sha256": "sha256:67468f6fb45ef1b0a2aaad78be72d72bdb711144d1fd6864aa22a2d54acb4ea2",
+      "bytes": 560344,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/discobolus-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/d96dd5f49f7154dadfa85f1316d75a5ecf9c5d2fdb6b3f64cf40f7b861cd4c59/discobolus-poster.png",
+      "sha256": "sha256:d96dd5f49f7154dadfa85f1316d75a5ecf9c5d2fdb6b3f64cf40f7b861cd4c59",
+      "bytes": 353609,
+      "contentType": "image/png",
+      "width": 569,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/discobolus-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/295d88f7865990f17829a146f85eeae81f7c70c31335c33261826286ef181055/discobolus-reference.glb",
+      "sha256": "sha256:295d88f7865990f17829a146f85eeae81f7c70c31335c33261826286ef181055",
+      "bytes": 1481188,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/eros-bow-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/835a9af0120a36f1acd82b5aa9ac36231f338a8527bc5bc9f956ab5e76087835/eros-bow-compact.glb",
+      "sha256": "sha256:835a9af0120a36f1acd82b5aa9ac36231f338a8527bc5bc9f956ab5e76087835",
+      "bytes": 503056,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/eros-bow-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/1c91d9e2ddb2490d0f42ef46366589c1cd2f11221378dd11d569d59a1c8f46df/eros-bow-poster.png",
+      "sha256": "sha256:1c91d9e2ddb2490d0f42ef46366589c1cd2f11221378dd11d569d59a1c8f46df",
+      "bytes": 372872,
+      "contentType": "image/png",
+      "width": 581,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/eros-bow-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/bd57f784afeb29ca45a7605b2a36e6484431469747e755833adf8ca24f81e4ff/eros-bow-reference.glb",
+      "sha256": "sha256:bd57f784afeb29ca45a7605b2a36e6484431469747e755833adf8ca24f81e4ff",
+      "bytes": 1530512,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/kore-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/80d3c37b5da046e35aeb8a6060d739f218ada0ac44480f996f204660fb083777/kore-compact.glb",
+      "sha256": "sha256:80d3c37b5da046e35aeb8a6060d739f218ada0ac44480f996f204660fb083777",
+      "bytes": 488440,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/kore-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/622fe9dc2839d5514027daa182b611c2b1cbcd113709574ccb1fdf0627ee0e7a/kore-poster.png",
+      "sha256": "sha256:622fe9dc2839d5514027daa182b611c2b1cbcd113709574ccb1fdf0627ee0e7a",
+      "bytes": 249497,
+      "contentType": "image/png",
+      "width": 389,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/kore-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/cf116c7e272aa4b9d09681b861bf902acd3dfc5cc4c7c3f6e404be34a3ac186f/kore-reference.glb",
+      "sha256": "sha256:cf116c7e272aa4b9d09681b861bf902acd3dfc5cc4c7c3f6e404be34a3ac186f",
+      "bytes": 1097960,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/marcus-young-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/5490e87571c07779dd4f40c217dc82da2fdedbcb73628413ebcc6e2c94fdbcc5/marcus-young-compact.glb",
+      "sha256": "sha256:5490e87571c07779dd4f40c217dc82da2fdedbcb73628413ebcc6e2c94fdbcc5",
+      "bytes": 595084,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/marcus-young-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/ab85af4e1d3adafd311a3b7fcfe924bc6572ca3491d80bb0e2ad074e8bbc0da0/marcus-young-poster.png",
+      "sha256": "sha256:ab85af4e1d3adafd311a3b7fcfe924bc6572ca3491d80bb0e2ad074e8bbc0da0",
+      "bytes": 268643,
+      "contentType": "image/png",
+      "width": 460,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/marcus-young-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/7b3a216c9824bcc5d0e0330e2908e254934a53aa329a4c4161acb378db6a8a00/marcus-young-reference.glb",
+      "sha256": "sha256:7b3a216c9824bcc5d0e0330e2908e254934a53aa329a4c4161acb378db6a8a00",
+      "bytes": 1568872,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/michelangelo-portrait-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/c2a10a97820f893a4bbb2d3c0d6895d7453924fdfa671d89bc3031b1ba066659/michelangelo-portrait-compact.glb",
+      "sha256": "sha256:c2a10a97820f893a4bbb2d3c0d6895d7453924fdfa671d89bc3031b1ba066659",
+      "bytes": 594092,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/michelangelo-portrait-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/bbf3b74a7ddfdcf4e57d88957152958e2b002554c2a4af72ab70d64cdfe4f005/michelangelo-portrait-poster.png",
+      "sha256": "sha256:bbf3b74a7ddfdcf4e57d88957152958e2b002554c2a4af72ab70d64cdfe4f005",
+      "bytes": 242397,
+      "contentType": "image/png",
+      "width": 391,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/michelangelo-portrait-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/048c22ccc1b0f35c3626faac7a62448cc380c57e90106a7383d7d9c643e8f627/michelangelo-portrait-reference.glb",
+      "sha256": "sha256:048c22ccc1b0f35c3626faac7a62448cc380c57e90106a7383d7d9c643e8f627",
+      "bytes": 1565496,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/nefertiti-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/3cf444479b155e82fc52903560b293c0f0d342b146a85e2fc55c538186818fd9/nefertiti-compact.glb",
+      "sha256": "sha256:3cf444479b155e82fc52903560b293c0f0d342b146a85e2fc55c538186818fd9",
+      "bytes": 550496,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/nefertiti-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/970d75542bc6c7195e04a28c49dd7a7cd667e93760432dbdc56aff2ca9e15803/nefertiti-poster.png",
+      "sha256": "sha256:970d75542bc6c7195e04a28c49dd7a7cd667e93760432dbdc56aff2ca9e15803",
+      "bytes": 163796,
+      "contentType": "image/png",
+      "width": 364,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/nefertiti-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/e11cff1aaeb9c701f4c27706de0973e3f758f5f8598abe9c480ea38e5f4c4d61/nefertiti-reference.glb",
+      "sha256": "sha256:e11cff1aaeb9c701f4c27706de0973e3f758f5f8598abe9c480ea38e5f4c4d61",
+      "bytes": 1451820,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/sleeping-faun-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/0b059f41b69e9506e409ead1fd403acb7223a70fa1b0f92a4fc7be558b069c7e/sleeping-faun-compact.glb",
+      "sha256": "sha256:0b059f41b69e9506e409ead1fd403acb7223a70fa1b0f92a4fc7be558b069c7e",
+      "bytes": 600828,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/sleeping-faun-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/9bde8b371fccbbec410139a1dfb35b1480fc115095a1291182c8da79708bb8cf/sleeping-faun-poster.png",
+      "sha256": "sha256:9bde8b371fccbbec410139a1dfb35b1480fc115095a1291182c8da79708bb8cf",
+      "bytes": 493316,
+      "contentType": "image/png",
+      "width": 681,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/sleeping-faun-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/d967fcf7061a5b7e11aa2080d198dd117e336b733f21d9e56608bdd0a277d737/sleeping-faun-reference.glb",
+      "sha256": "sha256:d967fcf7061a5b7e11aa2080d198dd117e336b733f21d9e56608bdd0a277d737",
+      "bytes": 1593060,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/socrates-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/d184a4913c3286c8f644ca3f49fe151f2cd4d9124ba7caa3ea7e5bd66155e2f7/socrates-compact.glb",
+      "sha256": "sha256:d184a4913c3286c8f644ca3f49fe151f2cd4d9124ba7caa3ea7e5bd66155e2f7",
+      "bytes": 590884,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/socrates-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/5a1d0d5a853210afe4a9b86ae90fe8851349caf999f0431fd66f847702359153/socrates-poster.png",
+      "sha256": "sha256:5a1d0d5a853210afe4a9b86ae90fe8851349caf999f0431fd66f847702359153",
+      "bytes": 260203,
+      "contentType": "image/png",
+      "width": 417,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/socrates-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/f21f7cce5227fa6588dc944b795b387388a6c14b0cd051087c63abeadf3d4368/socrates-reference.glb",
+      "sha256": "sha256:f21f7cce5227fa6588dc944b795b387388a6c14b0cd051087c63abeadf3d4368",
+      "bytes": 1557464,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/thinker-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/80be5424a675f8ba5085a3bcb2aba37edc6fcb91538656b6e2194472b1baca2c/thinker-compact.glb",
+      "sha256": "sha256:80be5424a675f8ba5085a3bcb2aba37edc6fcb91538656b6e2194472b1baca2c",
+      "bytes": 674220,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/thinker-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/c1cf704edbe43f0ff03355afb589d6f6bb883f0020df18ac246d55e7678e89de/thinker-poster.png",
+      "sha256": "sha256:c1cf704edbe43f0ff03355afb589d6f6bb883f0020df18ac246d55e7678e89de",
+      "bytes": 402057,
+      "contentType": "image/png",
+      "width": 583,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/thinker-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/b09a95e79b22827322bb86868f5912275bfca93d629e3e4c565b3451c5fa01b6/thinker-reference.glb",
+      "sha256": "sha256:b09a95e79b22827322bb86868f5912275bfca93d629e3e4c565b3451c5fa01b6",
+      "bytes": 3164188,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/venus-milo-compact.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/271ac1192ac8a513c150ad3ee352da265b852a1f98c82117be38cb4bf74f188d/venus-milo-compact.glb",
+      "sha256": "sha256:271ac1192ac8a513c150ad3ee352da265b852a1f98c82117be38cb4bf74f188d",
+      "bytes": 503700,
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "static:/artduo-sculptures/venus-milo-poster.png",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/4451bd3b581549c09f7b2750d75b93e2359ed63e9ca561e7eb9f72e7f8d06197/venus-milo-poster.png",
+      "sha256": "sha256:4451bd3b581549c09f7b2750d75b93e2359ed63e9ca561e7eb9f72e7f8d06197",
+      "bytes": 272949,
+      "contentType": "image/png",
+      "width": 385,
+      "height": 900
+    },
+    {
+      "id": "static:/artduo-sculptures/venus-milo-reference.glb",
+      "kind": "sculpture",
+      "objectKey": "artduo/media-v1/objects/9e08f43697853942ec7fbfe9e30fe6c56657c22c499108717f6d17e7961ee630/venus-milo-reference.glb",
+      "sha256": "sha256:9e08f43697853942ec7fbfe9e30fe6c56657c22c499108717f6d17e7961ee630",
+      "bytes": 1094112,
+      "contentType": "model/gltf-binary"
+    }
+  ],
+  "manifestSha256": "sha256:71dfdbd2050ec2c62a552591fba60dbb327cca4815d42b85027a9f2a8b41fe59"
+}

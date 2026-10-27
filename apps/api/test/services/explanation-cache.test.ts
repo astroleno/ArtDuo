@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { mkdtemp, rm } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 
 import type { ArtworkExplanationContent } from "@artduo/contracts";
 
-import { InMemoryExplanationCache, buildExplanationCacheKey } from "../../src/services/explanations/explanation-cache";
+import { InMemoryExplanationCache, PersistentExplanationCache, buildExplanationCacheKey } from "../../src/services/explanations/explanation-cache";
 
 test("cache key includes release, artwork, and stable context hash", () => {
   const key1 = buildExplanationCacheKey({
@@ -27,7 +30,7 @@ test("cache key includes release, artwork, and stable context hash", () => {
   assert.equal(key1.startsWith("2026-04-25-curation-b:met-474091:"), true);
 });
 
-test("cache stores and returns explanation by key", () => {
+test("cache stores ready content, survives restart, and revalidates current evidence", async () => {
   const cache = new InMemoryExplanationCache();
   const key = buildExplanationCacheKey({
     releaseVersion: "2026-04-25-curation-b",
@@ -67,4 +70,11 @@ test("cache stores and returns explanation by key", () => {
 
   cache.set(key, content);
   assert.deepEqual(cache.get(key), content);
+  const root = await mkdtemp(path.join(os.tmpdir(), "artduo-explanation-"));
+  try {
+    new PersistentExplanationCache(root, "model:recipe", () => {}).set(key, content);
+    assert.equal(new PersistentExplanationCache(root, "model:recipe", () => {}).get(key)?.detailText, content.detailText);
+    assert.equal(new PersistentExplanationCache(root, "other-model:recipe", () => {}).get(key), undefined);
+    assert.equal(new PersistentExplanationCache(root, "model:recipe", () => { throw new Error("Evidence changed"); }).get(key), undefined);
+  } finally { await rm(root, { recursive: true, force: true }); }
 });

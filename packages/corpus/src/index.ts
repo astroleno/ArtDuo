@@ -1,4 +1,5 @@
 export * from "./embedding-provider";
+export * from "./artwork-eligibility";
 export * from "./affective-intent";
 export * from "./artwork-agent-capsule";
 export * from "./debug-retrieval";

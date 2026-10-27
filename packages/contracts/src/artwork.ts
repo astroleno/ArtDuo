@@ -15,7 +15,13 @@ import {
   readStringArray,
 } from "./internal/validation";
 
-export const ARTWORK_SOURCES = ["met", "custom"] as const;
+export const ARTWORK_SOURCES = ["met", "custom", "getty", "finnish_national_gallery", "rijksmuseum", "smithsonian_asian", "smk", "walters"] as const;
+export const ARTWORK_SOURCE_LABELS: Record<(typeof ARTWORK_SOURCES)[number], string> = {
+  met: "The Metropolitan Museum of Art", custom: "ArtDuo", getty: "J. Paul Getty Museum",
+  finnish_national_gallery: "Finnish National Gallery", rijksmuseum: "Rijksmuseum",
+  smithsonian_asian: "National Museum of Asian Art, Smithsonian Institution",
+  smk: "SMK – National Gallery of Denmark", walters: "The Walters Art Museum",
+};
 export const ENERGY_LEVELS = ["low", "medium", "high"] as const;
 export const VALENCE_LEVELS = ["dark", "mixed", "bright"] as const;
 export const PACE_LEVELS = ["still", "gentle", "active"] as const;
@@ -104,6 +110,17 @@ export interface ArtworkRetrieval {
   embedding?: number[];
 }
 
+/** The complete, decoded public response accepted by the offline importer. */
+export interface VerifiedRemoteImage {
+  url: string;
+  sha256: string;
+  width: number;
+  height: number;
+  byteLength: number;
+  contentType: "image/jpeg" | "image/png" | "image/webp" | "image/avif";
+  verifiedAt: string;
+}
+
 export interface ArtworkMediaRefs {
   baseImageUrl?: string;
   imageUrlPreview?: string;
@@ -118,6 +135,7 @@ export interface ArtworkMediaRefs {
   hasMotionAsset: boolean;
   mediaVersion?: string;
   sourceAssetFingerprint?: string;
+  verifiedRemoteImage?: VerifiedRemoteImage;
 }
 
 export interface FocusTarget {
@@ -229,6 +247,7 @@ function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
   const media = expectObject(value, path);
   const visualPresentation = readOptionalObject(media, "visualPresentation", path);
   const depthMap = readOptionalObject(media, "depthMap", path);
+  const remote = readOptionalObject(media, "verifiedRemoteImage", path);
 
   const parsed: ArtworkMediaRefs = {
     baseImageUrl: readOptionalString(media, "baseImageUrl", path),
@@ -267,6 +286,15 @@ function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
     hasMotionAsset: readBoolean(media, "hasMotionAsset", path),
     mediaVersion: readOptionalString(media, "mediaVersion", path),
     sourceAssetFingerprint: readOptionalString(media, "sourceAssetFingerprint", path),
+    verifiedRemoteImage: remote ? {
+      url: readString(remote, "url", `${path}.verifiedRemoteImage`),
+      sha256: readString(remote, "sha256", `${path}.verifiedRemoteImage`),
+      width: readNumber(remote, "width", `${path}.verifiedRemoteImage`),
+      height: readNumber(remote, "height", `${path}.verifiedRemoteImage`),
+      byteLength: readNumber(remote, "byteLength", `${path}.verifiedRemoteImage`),
+      contentType: readLiteral(remote, "contentType", ["image/jpeg", "image/png", "image/webp", "image/avif"] as const, `${path}.verifiedRemoteImage`),
+      verifiedAt: readString(remote, "verifiedAt", `${path}.verifiedRemoteImage`),
+    } : undefined,
   };
 
   if (!parsed.baseImageUrl && !parsed.imageUrlPreview && !parsed.imageUrlFull) {
@@ -279,6 +307,19 @@ function parseArtworkMediaRefs(value: unknown, path: string): ArtworkMediaRefs {
 
   if (parsed.depthMap && parsed.sourceAssetFingerprint !== parsed.depthMap.sourceAssetFingerprint) {
     throw new TypeError(`${path}.depthMap.sourceAssetFingerprint: must match the artwork sourceAssetFingerprint`);
+  }
+
+  const ref = parsed.verifiedRemoteImage;
+  if (ref) {
+    let url: URL;
+    try { url = new URL(ref.url); } catch { throw new TypeError(`${path}.verifiedRemoteImage.url: invalid URL`); }
+    if (url.protocol !== "https:" || url.username || url.password || url.hash
+      || !/^sha256:[a-f0-9]{64}$/u.test(ref.sha256) || ref.sha256 !== parsed.sourceAssetFingerprint
+      || parsed.imageUrlPreview !== ref.url || parsed.imageUrlFull !== ref.url
+      || ![ref.width, ref.height, ref.byteLength].every(value => Number.isSafeInteger(value) && value > 0)
+      || ref.width * ref.height > 80_000_000 || ref.byteLength > 30_000_000 || !Number.isFinite(Date.parse(ref.verifiedAt))) {
+      throw new TypeError(`${path}.verifiedRemoteImage: URL, source fingerprint, dimensions or receipt mismatch`);
+    }
   }
 
   return parsed;
