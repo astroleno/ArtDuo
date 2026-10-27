@@ -16,11 +16,9 @@ export default function ImmersiveLoading() {
     "--experience-long-wait": `${EXPERIENCE_LOADING_LONG_WAIT_MS}ms`,
     "--experience-retry-wait": `${EXPERIENCE_LOADING_RETRY_MS}ms`,
   } as CSSProperties}>
-    <p className="experience-eyebrow">ARTDUO · MOOD GALLERY</p>
-    <h1>正在为你准备展厅</h1>
-    <p>作品清单正在整理，前言不会阻挡第一件作品继续载入。</p>
-    <p className="experience-loading-long" role="status">准备时间较长，仍在整理这次展览；你可以继续等候或返回修改。</p>
+    <h1>正在准备展厅</h1>
+    <p className="experience-loading-long" role="status">准备较慢，可稍候或返回修改。</p>
     <a className="experience-primary experience-loading-retry" href="">重试准备</a>
-    <a className="experience-text-button" href={appPath(returnHref)}>返回修改愿望</a>
+    <a className="experience-text-button" href={appPath(returnHref)}>返回修改</a>
   </main>;
 }
