@@ -1,0 +1,115 @@
+{
+  "applicationCommit": "4c8dc03757b1176c1b82d300b4d8a248c796c191",
+  "buildId": "GT4SnLUf3ClmlN-dKZNAu",
+  "sourceFiles": 492,
+  "sourceManifestSha256": "1e0dd55fa37fd05f0fac825d678369c17783ca7aa23186202e485611703840cd",
+  "sourceArchiveSha256": "dc877e562cc1eb7c592018c0234a4aec3c93de13b9af59bb6f7cb55b7c56140b",
+  "currentRelease": "/opt/artduo/releases/20261028-frontend-continuity",
+  "previousRelease": "/opt/artduo/releases/20261027-entry-autoflip-5s",
+  "activatedAt": "2026-10-27T18:43:01Z",
+  "targetChecks": {
+    "allWorkspacesBuild": true,
+    "allWorkspacesTypecheck": true,
+    "uiTests": 97,
+    "targetedWebTests": 17,
+    "productionAudit": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "candidateSmokePassed": true,
+    "productionSmokePassed": true
+  },
+  "resources": {
+    "verifiedPreviews": 630,
+    "depthMaps": 630,
+    "localE5Model": true,
+    "verifiedRemoteHighResolutionImages": 498,
+    "sculptures": 18,
+    "sculptureMediaFiles": 62,
+    "sculptureEncounterChance": 0.5
+  },
+  "backup": {
+    "path": "/var/backups/artduo/20261028-frontend-continuity",
+    "consistentStateAndPrivateEnvironment": true,
+    "existingHandwritingAssetsUnchanged": true,
+    "quotaLedgerReset": false
+  },
+  "services": {
+    "artduo-web.service": {
+      "NRestarts": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    "artduo-handwriting.service": {
+      "NRestarts": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "active",
+      "SubState": "running"
+    }
+  },
+  "cleanup": {
+    "candidateStopped": true,
+    "candidateStateRemoved": true,
+    "previousReleaseRetained": true,
+    "productionStatePreserved": true,
+    "temporaryTransfersRemoved": true
+  },
+  "buildPassed": {
+    "passed": true,
+    "at": "2026-10-27T18:40:46Z"
+  },
+  "finalCheckedAt": "2026-10-27T18:59:55.911651+00:00",
+  "targetLogFingerprints": {
+    "ui-tests.log": {
+      "bytes": 23390,
+      "sha256": "15a3c0e57af2154ad6286d23775e37ad0a91256fa0c418bf6c2fa20634dd5f80"
+    },
+    "build.log": {
+      "bytes": 3052,
+      "sha256": "34990938e8817c80ecd3da0c091bedfa445a2452cbf400e55fe50491796281f5"
+    },
+    "web-tests.log": {
+      "bytes": 4096,
+      "sha256": "1d2b78b01301d6ecfc30795be5fb1e277c202d8373a0f7b12ccd729f0b0e0570"
+    },
+    "install.log": {
+      "bytes": 1327,
+      "sha256": "12f924ad2858440fab45954225c5d53923f0a3f33dcb52c8018ca1c753708ee8"
+    },
+    "typecheck.log": {
+      "bytes": 1265,
+      "sha256": "16fdbcda0bfec7e408d9eb2b61abedacf52a0bb5c37b949a80629191c583b37d"
+    },
+    "release-check-first-attempt.log": {
+      "bytes": 319,
+      "sha256": "0763c3e98520305ca9887b7969cf71ef3d6aa90e1cf1790ea93be32bfb96ef9c"
+    },
+    "release-check.log": {
+      "bytes": 950,
+      "sha256": "c4fa1bb3e9653e02c1989303f7e68e1d4059bae6ca2e1960804bece13fe10a71"
+    }
+  },
+  "privateFullEvidence": {
+    "path": "/opt/artduo/releases/20261028-frontend-continuity/.deployment/target-evidence.json",
+    "sha256": "a8851554f9bbc7e3352532f99074a1b3654b1f23af49bf797f64242d6933af1f",
+    "repositoryCopy": "Only this filtered summary; no environment fingerprints or private asset/job identifiers"
+  },
+  "publicDomains": [
+    {
+      "host": "aitoshuu.me",
+      "buildId": "GT4SnLUf3ClmlN-dKZNAu",
+      "staticFiles": 12,
+      "health": true
+    },
+    {
+      "host": "tongye.me",
+      "buildId": "GT4SnLUf3ClmlN-dKZNAu",
+      "staticFiles": 12,
+      "health": true
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "checks": [
+    {
+      "host": "aitoshuu.me",
+      "entry": [
+        {
+          "path": "/ArtDuo",
+          "status": 200,
+          "buildId": "GT4SnLUf3ClmlN-dKZNAu"
+        },
+        {
+          "path": "/ArtDuo?view=experience",
+          "status": 200,
+          "buildId": "GT4SnLUf3ClmlN-dKZNAu"
+        },
+        {
+          "path": "/ArtDuo?view=classic&query=quiet%20%26%20blue",
+          "status": 200,
+          "buildId": "GT4SnLUf3ClmlN-dKZNAu"
+        }
+      ],
+      "buildId": "GT4SnLUf3ClmlN-dKZNAu",
+      "staticFiles": [
+        {
+          "path": "/ArtDuo/_next/static/chunks/a8bf4992-47e09ef9db72ca8f.js",
+          "bytes": 173019,
+          "sha256": "0ec0266e03b1828513954623038c2f795deeffb1922dcaf493e9cdb47e0e5491"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/417-b0c3557b6a0f0aed.js",
+          "bytes": 174206,
+          "sha256": "be31c7bd8ac8cc5f30249b72f5f0872d71ced3d6142f8c058d233fd2b2b2e02c"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/main-app-f09c6e3d626f1410.js",
+          "bytes": 557,
+          "sha256": "eaff2441aead14cfc1823a3748955bf1ec1fa1e4bcab0dd3b7c51d6c37ba5524"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/layout-5c66cc8ee5b98eb1.js",
+          "bytes": 625,
+          "sha256": "399f76d21ca0448861f5a826e673aa4c0374abf93570f6df58b93ec188d643e1"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/480-4d0a2ca193eba9d7.js",
+          "bytes": 22620,
+          "sha256": "bf22303b26f01046e57f2976a2121e401c97ee23096ebf380a7f1e8904a1f554"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/249-d13025d8d6ecdbfc.js",
+          "bytes": 65292,
+          "sha256": "5c4261230379b63048805858f8429def726bc00837d3eace0817e1418c07916d"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/531-32d8a7e93f34a2cf.js",
+          "bytes": 143130,
+          "sha256": "32b9cc2762c4e6ebfc5581e65e712b1953ffd0695b74d02589c9e7bf74baf80f"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/page-c59aecf6623a565a.js",
+          "bytes": 4134,
+          "sha256": "b0863a395fa5ed8e1dafd12e033133d28ed4d4df0ff019fc8606f9b573f4f6d1"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "bytes": 112594,
+          "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/webpack-7482c89c6d9d8ef0.js",
+          "bytes": 3672,
+          "sha256": "1aca8b65eec0c12694e6edc43e7e158a81ee8c26b7a83db2fbf97b9bf2ba4642"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+          "bytes": 65880,
+          "sha256": "ac001f2f76c3227f5c5062971383e218d27fd6cce4019dba8aa0c7dd7f4279be"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/ab000fb970c5d533.css",
+          "bytes": 57495,
+          "sha256": "3d1085a01e708d62ca34bd642c2243b0907b6794b390016ad826e1644d521d9c"
+        }
+      ],
+      "health": {
+        "ok": true,
+        "releaseVersion": "2026-10-24-da3-curated-630",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        }
+      },
+      "emptyRouteRedirect": "https://aitoshuu.me/ArtDuo?view=experience",
+      "savedReplay": true,
+      "overviewPreservesOrderAndPosition": true,
+      "detail": true,
+      "recoveryPreservesQuery": true,
+      "sculpturePreview": true,
+      "handwritingAvailable": true,
+      "notFound": 404
+    },
+    {
+      "host": "tongye.me",
+      "entry": [
+        {
+          "path": "/ArtDuo",
+          "status": 200,
+          "buildId": "GT4SnLUf3ClmlN-dKZNAu"
+        },
+        {
+          "path": "/ArtDuo?view=experience",
+          "status": 200,
+          "buildId": "GT4SnLUf3ClmlN-dKZNAu"
+        },
+        {
+          "path": "/ArtDuo?view=classic&query=quiet%20%26%20blue",
+          "status": 200,
+          "buildId": "GT4SnLUf3ClmlN-dKZNAu"
+        }
+      ],
+      "buildId": "GT4SnLUf3ClmlN-dKZNAu",
+      "staticFiles": [
+        {
+          "path": "/ArtDuo/_next/static/chunks/a8bf4992-47e09ef9db72ca8f.js",
+          "bytes": 173019,
+          "sha256": "0ec0266e03b1828513954623038c2f795deeffb1922dcaf493e9cdb47e0e5491"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/417-b0c3557b6a0f0aed.js",
+          "bytes": 174206,
+          "sha256": "be31c7bd8ac8cc5f30249b72f5f0872d71ced3d6142f8c058d233fd2b2b2e02c"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/main-app-f09c6e3d626f1410.js",
+          "bytes": 557,
+          "sha256": "eaff2441aead14cfc1823a3748955bf1ec1fa1e4bcab0dd3b7c51d6c37ba5524"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/layout-5c66cc8ee5b98eb1.js",
+          "bytes": 625,
+          "sha256": "399f76d21ca0448861f5a826e673aa4c0374abf93570f6df58b93ec188d643e1"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/480-4d0a2ca193eba9d7.js",
+          "bytes": 22620,
+          "sha256": "bf22303b26f01046e57f2976a2121e401c97ee23096ebf380a7f1e8904a1f554"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/249-d13025d8d6ecdbfc.js",
+          "bytes": 65292,
+          "sha256": "5c4261230379b63048805858f8429def726bc00837d3eace0817e1418c07916d"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/531-32d8a7e93f34a2cf.js",
+          "bytes": 143130,
+          "sha256": "32b9cc2762c4e6ebfc5581e65e712b1953ffd0695b74d02589c9e7bf74baf80f"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/page-c59aecf6623a565a.js",
+          "bytes": 4134,
+          "sha256": "b0863a395fa5ed8e1dafd12e033133d28ed4d4df0ff019fc8606f9b573f4f6d1"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "bytes": 112594,
+          "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/webpack-7482c89c6d9d8ef0.js",
+          "bytes": 3672,
+          "sha256": "1aca8b65eec0c12694e6edc43e7e158a81ee8c26b7a83db2fbf97b9bf2ba4642"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+          "bytes": 65880,
+          "sha256": "ac001f2f76c3227f5c5062971383e218d27fd6cce4019dba8aa0c7dd7f4279be"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/ab000fb970c5d533.css",
+          "bytes": 57495,
+          "sha256": "3d1085a01e708d62ca34bd642c2243b0907b6794b390016ad826e1644d521d9c"
+        }
+      ],
+      "health": {
+        "ok": true,
+        "releaseVersion": "2026-10-24-da3-curated-630",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        }
+      },
+      "emptyRouteRedirect": "https://tongye.me/ArtDuo?view=experience",
+      "savedReplay": true,
+      "overviewPreservesOrderAndPosition": true,
+      "detail": true,
+      "recoveryPreservesQuery": true,
+      "sculpturePreview": true,
+      "handwritingAvailable": true,
+      "notFound": 404
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "qaServerStopped": true,
+  "port3219Free": true,
+  "removed": [
+    "apps/web/.next-continuity-qa",
+    "apps/web/.next-continuity-final",
+    ".cache/artduo-continuity-qa-20261028"
+  ],
+  "existingRuntimePreserved": true,
+  "note": "shutil.rmtree does not follow the isolated preview symlink into the existing runtime"
+}
