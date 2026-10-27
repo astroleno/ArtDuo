@@ -6,7 +6,6 @@ import { enforcePublicRequest, RuntimeLimitError } from "../../lib/public-runtim
 
 import { ArtworkImage } from "../../components/artwork-image";
 import { artworkImageUrl } from "../../lib/artwork-image-url";
-import { resolveExperienceView } from "../../lib/experience-config";
 import { buildExperienceHref } from "../../lib/experience-navigation";
 import { curateExhibition } from "../../lib/semantic-curator";
 import { curationNarrativeView, getExhibitionNarrative } from "../../lib/exhibition-narrative-server";
@@ -68,15 +67,10 @@ function buildRoomHref(
   stop: GallerySceneRouteStop,
   results: WebSearchResult["results"],
   releaseVersion: string,
-  view: "classic" | "experience",
   curationId?: string,
 ): string {
   const unit = results[stop.startIndex]?.artwork.id;
-  if (view === "experience") return buildExperienceHref({ query, releaseVersion, phase: unit ? "walk" : "preface", artworkId: unit, curationId, recipeVersion: curationId ? "experience-v2" : undefined });
-  const params = new URLSearchParams({ query, releaseVersion, view: "classic" });
-  if (curationId) { params.set("curationId", curationId); params.set("recipeVersion", "experience-v2"); }
-  if (unit && stop.startIndex > 0) params.set("unit", unit);
-  return `/gallery/local/immersive?${params.toString()}`;
+  return buildExperienceHref({ query, releaseVersion, phase: unit ? "walk" : "preface", artworkId: unit, curationId, recipeVersion: curationId ? "experience-v2" : undefined });
 }
 
 function displayStageLabel(stageLabel: string): string {
@@ -99,7 +93,6 @@ function GallerySceneRoute({
   results,
   route,
   releaseVersion,
-  view,
   curationId,
 }: {
   featured?: WebSearchResult["results"][number];
@@ -107,7 +100,6 @@ function GallerySceneRoute({
   results: WebSearchResult["results"];
   route: GallerySceneRouteStop[];
   releaseVersion: string;
-  view: "classic" | "experience";
   curationId?: string;
 }) {
   if (route.length === 0) {
@@ -131,7 +123,7 @@ function GallerySceneRoute({
                 aria-label={`从${stop.scene.label}开始观展`}
                 className="gallery-route-stop"
                 data-testid="gallery-route-stop"
-                href={appPath(buildRoomHref(query, stop, results, releaseVersion, view, curationId))}
+                href={appPath(buildRoomHref(query, stop, results, releaseVersion, curationId))}
               >
                 <span aria-hidden="true" className="gallery-route-thumb">
                   {stop.scene.imageUrl ? <img alt="" loading="eager" src={stop.scene.imageUrl} /> : null}
@@ -176,7 +168,6 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const query = readQuery(params);
   const hasQuery = query.length > 0;
   const routePreview = readView(params) === "route";
-  const presentationView = resolveExperienceView(readView(params));
   const single = (key: string) => { const value = params?.[key]; return Array.isArray(value) ? value[0] : value; };
   const catalog = loadWebReleaseCatalog({ releaseVersion: single("releaseVersion") });
   let curation;
@@ -191,9 +182,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   }
   if (curation?.assignments.length && !single("curationId")) getExhibitionNarrative(catalog, curation);
   const preparedNarrative = curation ? curationNarrativeView(catalog, curation) : undefined;
-  const immersiveHref = presentationView === "experience"
-    ? buildExperienceHref({ query, releaseVersion: catalog.releaseVersion, phase: "walk", recipeVersion: "experience-v2", curationId: curation?.curationId })
-    : `/gallery/local/immersive?${new URLSearchParams({ query, releaseVersion: catalog.releaseVersion, view: "classic", recipeVersion: "experience-v2", ...(curation ? { curationId: curation.curationId } : {}) }).toString()}`;
+  const immersiveHref = buildExperienceHref({ query, releaseVersion: catalog.releaseVersion, phase: "walk", recipeVersion: "experience-v2", curationId: curation?.curationId });
   const runtime = hasQuery ? "server" : "idle";
   const narrative = preparedNarrative?.narrative;
   const search = curation?.search ?? buildIdleSearch(catalog, query);
@@ -304,7 +293,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <div className="curation-experience">
             <section className="gallery-exhibition-hero" aria-label="Curated exhibition opening">
               <div className="gallery-hero-copy">
-                <GallerySceneRoute featured={featured} query={query} results={search.results} route={sceneRoute} releaseVersion={catalog.releaseVersion} view={presentationView} curationId={curation?.curationId} />
+                <GallerySceneRoute featured={featured} query={query} results={search.results} route={sceneRoute} releaseVersion={catalog.releaseVersion} curationId={curation?.curationId} />
               </div>
             </section>
             {narrative ? (

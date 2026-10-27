@@ -14,7 +14,7 @@ test("entry opens a personal preface, followed by artworks, reading, closing, re
   page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });
   mkdirSync(evidenceDir, { recursive: true });
   await page.setViewportSize({ width: 1440, height: 900 });
-  await gotoApp(page, "/?view=experience");
+  await gotoApp(page, "/");
   await expect(page).toHaveTitle(/ArtDuo/);
   await page.waitForLoadState("networkidle");
   await page.screenshot({ path: resolve(evidenceDir, "entry-1440.png"), fullPage: true });
@@ -106,13 +106,14 @@ test("entry opens a personal preface, followed by artworks, reading, closing, re
 test("phone entry and its preface stay readable before the first artwork", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 568 });
   await gotoApp(page, "/?view=experience");
-  await expect(page.getByRole("heading", { name: "想看些什么？" })).toBeVisible();
+  await expect(page.locator(".experience-entry-question")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
   const field = await page.getByLabel("写下一句此刻的心情或观看愿望").boundingBox();
   const submit = await page.getByRole("button", { name: "开始观展" }).boundingBox();
   expect(field!.y + field!.height).toBeLessThan(submit!.y);
   await page.screenshot({ path: resolve(evidenceDir, "entry-320.png"), fullPage: true });
-  await page.getByRole("button", { name: "安静的月光" }).click();
+  await page.getByLabel("写下一句此刻的心情或观看愿望").fill("安静的月光");
+  await page.getByRole("button", { name: "开始观展", exact: true }).click();
   await expect(page.locator(".experience-preface")).toBeVisible({ timeout: 45_000 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
   await page.getByRole("button", { name: "跳过前言，开始观展" }).click();

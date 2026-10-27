@@ -9,7 +9,7 @@
 | aitoshuu.me | <https://aitoshuu.me/ArtDuo> | <https://aitoshuu.me/ArtDuo?view=experience> |
 | tongye.me | <https://tongye.me/ArtDuo> | <https://tongye.me/ArtDuo?view=experience> |
 
-默认仍按原计划保留经典入口。新版体验显式使用 `view=experience`；首画与体验验收门槛尚未全部通过，本次公网测试发布没有自行改变默认呈现。
+2026-10-27 用户明确要求两个域名默认使用新版，并归档旧版。两个 `/ArtDuo` 入口统一显示当前体验，旧 `view=classic` 地址按新版兼容打开，不再提供经典模式切换；旧源码及来源指纹保存在 `archive/classic-web-2026-10-27/`。此前记录的设备、首画与深度观感验收边界继续保留，不因默认入口切换而自动视为通过。
 
 ## 地址与模块
 

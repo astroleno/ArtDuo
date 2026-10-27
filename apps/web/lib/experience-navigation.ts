@@ -35,19 +35,20 @@ export function resolveExperiencePosition(
     return Array.isArray(value) ? value[0] : value;
   };
   const phase = read("phase");
-  const artworkId = read("artworkId");
+  const legacyUnit = read("unit");
+  const artworkId = read("artworkId") ?? legacyUnit;
 
   if (phase === "closing") {
     const lastUnit = artworkId ? snapshot.units.find((unit) => unit.artwork.id === artworkId) : snapshot.units.at(-1);
-    return { position: { phase: "closing", lastUnitId: lastUnit?.exhibition.unitId }, corrected: Boolean(artworkId && !lastUnit) };
+    return { position: { phase: "closing", lastUnitId: lastUnit?.exhibition.unitId }, corrected: Boolean(legacyUnit || artworkId && !lastUnit) };
   }
   if (phase !== "preface") {
     const unit = artworkId ? snapshot.units.find((candidate) => candidate.artwork.id === artworkId) : snapshot.units[0];
-    if (unit) return { position: { phase: "walk", unitId: unit.exhibition.unitId }, corrected: phase !== "walk" || Boolean(artworkId && artworkId !== unit.artwork.id) };
+    if (unit) return { position: { phase: "walk", unitId: unit.exhibition.unitId }, corrected: phase !== "walk" || Boolean(legacyUnit || artworkId && artworkId !== unit.artwork.id) };
     if (snapshot.units.length === 0) return { position: { phase: "preface" }, corrected: true };
     return { position: { phase: "walk", unitId: snapshot.units[0]!.exhibition.unitId }, corrected: true };
   }
-  return { position: { phase: "preface" }, corrected: false };
+  return { position: { phase: "preface" }, corrected: Boolean(legacyUnit) };
 }
 
 export function experienceHrefForPosition(snapshot: ExhibitionSnapshot, position: ExperiencePosition): string {

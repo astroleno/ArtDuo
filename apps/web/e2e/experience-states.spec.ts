@@ -151,7 +151,7 @@ test("detail content remains usable while a slow explanation fails and can be re
   await expect(page.getByTestId("explanation-slot")).toContainText("is explained from the release-grounded artwork metadata");
 });
 
-test("unsupported WebGL degrades the classic detail overlay to its static image", async ({ page }) => {
+test("unsupported WebGL keeps the migrated classic link's detail overlay static", async ({ page }) => {
   await page.addInitScript(() => {
     const originalGetContext = HTMLCanvasElement.prototype.getContext as (this: HTMLCanvasElement, type: string, ...args: unknown[]) => RenderingContext | null;
     HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...args: unknown[]) {

@@ -8,31 +8,27 @@ test("immersive gallery opens from gallery and preserves the release-backed exhi
   await page.getByRole("link", { name: /进入这场观展/ }).click();
 
   await expect(page).toHaveURL(/\/gallery\/local\/immersive\?query=I\+want\+a\+quiet\+moonlit\+room/);
-  await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
-  await expect(page.getByRole("main")).toHaveCSS("background-image", /artduo-gallery/);
-  await expect(page.getByRole("img")).toBeVisible();
-  await expect(page.locator(".immersive-atmosphere")).toBeVisible();
-  await expect(page.getByTestId("immersive-preface")).toBeVisible();
-  await expect(page.getByRole("link", { name: "换一句愿望" })).toBeVisible();
-  await expect(page.getByLabel(/观展进度/)).toBeVisible();
+  await expect(page.getByTestId("experience-room")).toBeVisible();
+  await expect(page.locator(".experience-room-backdrop")).toBeVisible();
+  await expect(page.locator(".experience-art-lightbox img")).toBeVisible();
+  await expect(page.getByRole("button", { name: "观展设置" })).toBeVisible();
+  await expect(page.locator(".experience-room-meta")).toBeVisible();
 });
 
 test("immersive gallery can move between scenes and preserve query state", async ({ page }) => {
   await gotoApp(page, "/gallery?view=route&query=I+want+a+quiet+moonlit+room");
   await page.getByRole("link", { name: /进入这场观展/ }).click();
 
-  const firstTitle = await page.getByTestId("immersive-scene-title").textContent();
-  await expect(page.getByRole("main")).toHaveClass(/immersive-transition-fade/);
-
-  const secondSceneTarget = page.getByRole("button", { name: /跳到第 2 幅/ });
-
-  await page.getByRole("button", { name: "下一幅" }).click();
+  const firstTitle = await page.locator(".experience-plaque-heading strong").textContent();
+  const curationId = new URL(page.url()).searchParams.get("curationId");
+  await page.mouse.move(12, 400);
+  await page.getByRole("button", { name: "下一件作品" }).click();
 
   await expect(page).toHaveURL(/query=I\+want\+a\+quiet\+moonlit\+room/);
-  await expect(page).toHaveURL(/unit=met-/);
-  await expect(page.getByRole("main")).toHaveClass(/immersive-transition-dissolve/);
-  await expect(page.getByTestId("immersive-scene-title")).not.toHaveText(firstTitle ?? "");
-  await expect(page.getByRole("button", { name: "上一幅" })).toBeVisible();
+  await expect(page).toHaveURL(/artworkId=[^&]+/);
+  await expect(page.locator(".experience-plaque-heading strong")).not.toHaveText(firstTitle ?? "");
+  expect(new URL(page.url()).searchParams.get("curationId")).toBe(curationId);
+  await expect(page.getByRole("button", { name: "上一件作品" })).toBeVisible();
 });
 
 test("artwork detail reopens the experience at the current artwork", async ({ page }) => {
@@ -49,17 +45,18 @@ test("artwork detail reopens the experience at the current artwork", async ({ pa
   await expect(page.locator(".experience-plaque-heading strong")).toHaveText(artworkTitle ?? "");
 });
 
-test("immersive gallery mobile layout scrolls without clipping progress", async ({ page }) => {
+test("the default mobile experience keeps the artwork and progress inside the viewport", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
 
-  const shellOverflowY = await page.locator(".immersive-shell").evaluate((element) => getComputedStyle(element).overflowY);
-  const footerPosition = await page.locator(".immersive-footer").evaluate((element) => getComputedStyle(element).position);
+  await expect(page.getByTestId("experience-room")).toBeVisible();
   const hasHorizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
-
-  expect(shellOverflowY).toBe("auto");
-  expect(footerPosition).toBe("sticky");
   expect(hasHorizontalOverflow).toBe(false);
+  const artwork = await page.locator(".experience-art-lightbox").boundingBox();
+  expect(artwork!.x).toBeGreaterThanOrEqual(0);
+  expect(artwork!.x + artwork!.width).toBeLessThanOrEqual(390);
+  await page.mouse.move(12, 100);
+  await expect(page.locator(".experience-room-meta")).toBeVisible();
 });
 
 test("zooming an artwork enters the second-stage immersive detail experience", async ({ page }) => {
@@ -80,12 +77,12 @@ test("zooming an artwork enters the second-stage immersive detail experience", a
   const firstDetailTitle = await detailStage.locator(".immersive-detail-caption strong").textContent();
   await detailStage.getByRole("button", { name: "下一幅作品" }).click();
   await expect(detailStage).toBeVisible();
-  await expect(page).toHaveURL(/unit=met-/);
+  await expect(page).toHaveURL(/artworkId=[^&]+/);
   await expect(detailStage.locator(".immersive-detail-caption strong")).not.toHaveText(firstDetailTitle ?? "");
 
   await detailStage.getByRole("button", { name: "返回画廊视图" }).click();
   await expect(detailStage).toBeHidden();
-  await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
+  await expect(page.getByTestId("experience-room")).toBeVisible();
 });
 
 test("device parallax stays optional and yields to direct touch input", async ({ page }) => {
@@ -111,7 +108,7 @@ test("device parallax stays optional and yields to direct touch input", async ({
   });
   await page.setViewportSize({ width: 390, height: 844 });
   await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
-  await expect(page.getByRole("button", { name: /播放背景音乐/ })).toBeEnabled();
+  await expect(page.getByRole("button", { name: "观展设置" })).toBeEnabled();
   await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
 
   const detailStage = page.getByRole("dialog", { name: /沉浸观看/ });
@@ -163,7 +160,7 @@ test("denied device orientation permission keeps touch parallax available", asyn
   });
   await page.setViewportSize({ width: 390, height: 844 });
   await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
-  await expect(page.getByRole("button", { name: /播放背景音乐/ })).toBeEnabled();
+  await expect(page.getByRole("button", { name: "观展设置" })).toBeEnabled();
   await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
 
   const detailStage = page.getByRole("dialog", { name: /沉浸观看/ });
@@ -180,7 +177,7 @@ test("reduced motion keeps the second stage static", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 390, height: 844 });
   await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
-  await expect(page.getByRole("button", { name: /播放背景音乐/ })).toBeEnabled();
+  await expect(page.getByRole("button", { name: "观展设置" })).toBeEnabled();
   await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
 
   const detailStage = page.getByRole("dialog", { name: /沉浸观看/ });

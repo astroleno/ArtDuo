@@ -85,19 +85,17 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     : "/gallery?view=route";
   const returnTo = sanitizeReturnTo(readParam(queryParams, "returnTo"), defaultReturn);
   const returnView = new URL(returnTo, "https://artduo.invalid").searchParams.get("view");
-  const experienceView = returnView === "experience";
+  const experienceView = returnView === "experience" || returnView === "classic";
   const curationId = new URL(returnTo, "https://artduo.invalid").searchParams.get("curationId");
   let curatorNote: string | undefined;
-  if (returnView === "experience" && curationId) {
+  if (experienceView && curationId) {
     try {
       const curation = readSavedCuration(catalog, curationId, query?.normalize("NFKC").trim());
       curatorNote = readNarrativePieces(catalog, curation)?.find((piece) => piece.kind === "note" && piece.artworkId === artwork.id)?.text;
     } catch { /* Existing artwork facts remain readable when a saved exhibition is unavailable. */ }
   }
-  const immersiveParams = returnView === "experience"
-    ? new URLSearchParams({ query: query ?? artwork.title, releaseVersion: catalog.releaseVersion, view: "experience", recipeVersion: "experience-v1", phase: "walk", artworkId: artwork.id })
-    : new URLSearchParams({ query: query ?? artwork.title, releaseVersion: catalog.releaseVersion, view: "classic", unit: artwork.id });
-  const immersiveHref = returnView === "experience" ? returnTo : `/gallery/local/immersive?${immersiveParams.toString()}`;
+  const immersiveParams = new URLSearchParams({ query: query ?? artwork.title, releaseVersion: catalog.releaseVersion, view: "experience", recipeVersion: "experience-v1", phase: "walk", artworkId: artwork.id });
+  const immersiveHref = experienceView ? returnTo : `/gallery/local/immersive?${immersiveParams.toString()}`;
   const stageImage = scene?.imageUrl ?? artworkImageUrl(artwork.id, "preview", catalog.releaseVersion);
   const artistName = artwork.displayCredits ? artwork.displayCredits.artistDisplayName ?? "作者尚待核实" : artwork.artistDisplayName;
   const fallbackMeta = [

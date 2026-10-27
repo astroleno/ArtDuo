@@ -57,7 +57,7 @@ test("background scene assets are served by the web app", async ({ page }) => {
   expect(response.headers()["content-type"]).toContain("image/png");
 });
 
-test("classic immersive artwork exposes its image fallback when loading fails", async ({ page }) => {
+test("the default experience exposes its image fallback when loading fails", async ({ page }) => {
   await page.route("**/*", (route) => {
     if (route.request().resourceType() === "image") {
       return route.abort();

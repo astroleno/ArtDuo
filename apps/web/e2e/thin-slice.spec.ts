@@ -1,24 +1,23 @@
 import { expect, test } from "@playwright/test";
-
 import { gotoApp } from "./helpers";
 
-test("visitor can enter the classic gallery and return to the route preview", async ({ page }) => {
+test("the default entrance opens the experience and returns to the selected artwork", async ({ page }) => {
   await gotoApp(page, "/");
-
-  await expect(page.getByRole("heading", { name: "ArtDuo" })).toBeVisible();
-  await page.getByLabel("策展意图").fill("I want a quiet moonlit room");
-  await page.getByRole("button", { name: /生成观展路线/ }).click();
-
-  await expect(page).toHaveURL(/\/gallery\/local\/immersive\?view=classic&query=I\+want\+a\+quiet\+moonlit\+room/);
-  await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
-  await page.getByRole("link", { name: "换一句愿望" }).click();
-  await expect(page).toHaveURL(/\/gallery\?view=route/);
-  await expect(page.getByRole("heading", { name: "导览画廊" })).toBeVisible();
-  await expect(page.getByTestId("gallery-route")).toBeVisible();
-  await expect(page.getByTestId("gallery-route-stop")).toHaveCount(3);
-  await expect(page.getByTestId("curation-preface")).toBeVisible();
-  await expect(page.getByTestId("curation-closing")).toBeVisible();
-  await page.getByTestId("gallery-route-stop").first().click();
-  await expect(page.getByRole("main")).toHaveClass(/immersive-shell/);
-  await expect(page.getByRole("img")).toBeVisible();
+  await expect(page.locator(".experience-threshold")).toBeVisible();
+  await page.getByLabel("写下一句此刻的心情或观看愿望").fill("I want a quiet moonlit room");
+  await page.getByRole("button", { name: "开始观展", exact: true }).click();
+  await expect(page.locator(".experience-preface")).toBeVisible({ timeout: 45_000 });
+  await page.getByRole("button", { name: "跳过前言，开始观展" }).click();
+  await expect(page.getByTestId("experience-room")).toBeVisible();
+  const location = new URL(page.url());
+  expect(location.searchParams.get("view")).toBe("experience");
+  const artworkId = location.searchParams.get("artworkId");
+  const curationId = location.searchParams.get("curationId");
+  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.getByRole("button", { name: "进入详细讲解" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await page.getByRole("link", { name: "返回刚才的位置" }).click();
+  await expect(page.getByTestId("experience-room")).toBeVisible();
+  expect(new URL(page.url()).searchParams.get("artworkId")).toBe(artworkId);
+  expect(new URL(page.url()).searchParams.get("curationId")).toBe(curationId);
 });

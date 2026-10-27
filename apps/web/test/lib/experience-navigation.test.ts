@@ -58,3 +58,25 @@ test("subpath return links normalize once for Next navigation and cannot leave t
     assert.ok(experienceHrefForPosition(snapshot, { phase: "preface" }).startsWith("/gallery/"), "Next router inputs stay domain-neutral");
   } finally { if (previous === undefined) delete process.env.NEXT_PUBLIC_ARTDUO_BASE_PATH; else process.env.NEXT_PUBLIC_ARTDUO_BASE_PATH = previous; }
 });
+
+test("retired classic links restore their selected artwork in the current experience", () => {
+  const restored = resolveExperiencePosition({ view: "classic", unit: ["met-2", "met-1"] }, snapshot);
+  assert.deepEqual(restored, { position: { phase: "walk", unitId: "u-2" }, corrected: true });
+  const canonical = new URL(experienceHrefForPosition(snapshot, restored.position), "https://tongye.me");
+  assert.equal(canonical.searchParams.get("query"), snapshot.query);
+  assert.equal(canonical.searchParams.get("artworkId"), "met-2");
+  assert.equal(canonical.searchParams.get("view"), "experience");
+  assert.equal(canonical.searchParams.has("unit"), false);
+  assert.deepEqual(resolveExperiencePosition({ phase: "walk", unit: "met-2", artworkId: "met-1" }, snapshot), {
+    position: { phase: "walk", unitId: "u-1" }, corrected: true,
+  });
+});
+
+test("legacy closing and missing artworks normalize without losing a valid last position", () => {
+  assert.deepEqual(resolveExperiencePosition({ phase: "closing", unit: "met-2" }, snapshot), {
+    position: { phase: "closing", lastUnitId: "u-2" }, corrected: true,
+  });
+  assert.deepEqual(resolveExperiencePosition({ unit: "missing" }, snapshot), {
+    position: { phase: "walk", unitId: "u-1" }, corrected: true,
+  });
+});
