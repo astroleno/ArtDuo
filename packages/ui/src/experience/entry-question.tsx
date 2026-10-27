@@ -35,7 +35,7 @@ export function EntryQuestion({ paused, disabled }: { paused: boolean; disabled:
     if (paused || motion.reduced || !motion.visible) return;
     const timer = window.setInterval(() => {
       setQuestion(current => current.flipping ? current : { ...current, flipping: true });
-    }, 8_000);
+    }, 5_000);
     return () => window.clearInterval(timer);
   }, [paused, motion.reduced, motion.visible]);
 
