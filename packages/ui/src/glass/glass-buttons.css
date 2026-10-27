@@ -1,0 +1,87 @@
+:root {
+  --glass-radius: 8px;
+  --glass-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --glass-ink: #302b25; --glass-quiet-ink: #655847; --glass-selected-ink: #785837;
+  --glass-fill: rgba(247, 244, 237, .28); --glass-sheen: rgba(255, 255, 255, .54);
+  --glass-edge: rgba(255, 255, 255, .74); --glass-low-edge: rgba(77, 65, 48, .2);
+  --glass-shadow: rgba(49, 40, 28, .12); --glass-solid: #e8e1d6;
+}
+.artduo-experience, .experience-entry, .home-shell, .immersive-shell,
+.gallery-header.has-scene-backdrop, .detail-hero, .experience-artwork-page {
+  --glass-ink: #f2ecdf; --glass-quiet-ink: #d5c9b5; --glass-selected-ink: #f1d7ad;
+  --glass-fill: rgba(217, 208, 188, .1); --glass-sheen: rgba(255, 246, 225, .2);
+  --glass-edge: rgba(255, 250, 234, .56); --glass-low-edge: rgba(18, 17, 14, .48);
+  --glass-shadow: rgba(0, 0, 0, .2); --glass-solid: #3a3b32;
+}
+.experience-threshold, .experience-settings-panel, .experience-reading-layer {
+  --glass-ink: #302b25; --glass-quiet-ink: #655847; --glass-selected-ink: #785837;
+  --glass-fill: rgba(249, 247, 242, .26); --glass-sheen: rgba(255, 255, 255, .54);
+  --glass-edge: rgba(255, 255, 255, .74); --glass-low-edge: rgba(77, 65, 48, .2);
+  --glass-shadow: rgba(49, 40, 28, .12); --glass-solid: #e8e1d6;
+}
+.experience-threshold[data-entry-theme="dark"] {
+  --glass-ink: #f2ecdf; --glass-quiet-ink: #d5c9b5; --glass-selected-ink: #f1d7ad;
+  --glass-fill: rgba(217, 208, 188, .1); --glass-sheen: rgba(255, 246, 225, .2);
+  --glass-edge: rgba(255, 250, 234, .56); --glass-low-edge: rgba(18, 17, 14, .48);
+  --glass-shadow: rgba(0, 0, 0, .2); --glass-solid: #3a3b32;
+}
+@media (prefers-color-scheme: dark) {
+  .experience-threshold[data-entry-theme="system"] {
+    --glass-ink: #f2ecdf; --glass-quiet-ink: #d5c9b5; --glass-selected-ink: #f1d7ad;
+    --glass-fill: rgba(217, 208, 188, .1); --glass-sheen: rgba(255, 246, 225, .2);
+    --glass-edge: rgba(255, 250, 234, .56); --glass-low-edge: rgba(18, 17, 14, .48);
+    --glass-shadow: rgba(0, 0, 0, .2); --glass-solid: #3a3b32;
+  }
+}
+/* Keep one optical edge and native text/actions, as in LuBirth. */
+:where([data-artduo-glass]) { position: relative; z-index: 0; }
+[data-artduo-glass] {
+  min-height: 44px;
+  border-color: transparent !important; border-radius: var(--glass-radius) !important;
+  color: var(--glass-quiet-ink) !important; background: transparent !important; box-shadow: none !important;
+  font-family: var(--glass-font) !important; font-weight: 400 !important; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .18s ease, opacity .18s ease, scale .18s ease;
+}
+[data-artduo-glass]::before, [data-artduo-glass]::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  z-index: -1; opacity: 0; transition: opacity .18s ease;
+}
+[data-artduo-glass]::before {
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(8px) saturate(1.12);
+  backdrop-filter: var(--glass-refraction, blur(8px)) saturate(1.12);
+  box-shadow: 0 3px 12px var(--glass-shadow), inset 0 1px 1px var(--glass-edge), inset 0 -1px .7px var(--glass-low-edge);
+}
+[data-artduo-glass]::after {
+  background: radial-gradient(ellipse at var(--glass-pointer-x, 35%) var(--glass-pointer-y, 10%), var(--glass-sheen), transparent 72%);
+  box-shadow: inset .7px .7px .5px var(--glass-edge);
+}
+:is(button, a)[data-artduo-glass="primary"] { min-height: 46px; color: var(--glass-ink) !important; font-size: 14px; font-weight: 550 !important; }
+[data-artduo-glass="primary"]::before, [data-artduo-glass="compact"]::before { opacity: 1; }
+[data-artduo-glass="primary"]::after, [data-artduo-glass="compact"]::after { opacity: .3; }
+[data-artduo-glass]:not(:disabled):is(:focus-visible, :active)::before { opacity: 1; }
+[data-artduo-glass]:not(:disabled):is(:focus-visible, :active)::after { opacity: .85; }
+@media (hover: hover) {
+  [data-artduo-glass]:not(:disabled):hover::before { opacity: 1; }
+  [data-artduo-glass]:not(:disabled):hover::after { opacity: .85; }
+}
+[data-artduo-glass]:not(:disabled):active { scale: .96; }
+.experience-enter[data-artduo-glass]:active { transform: none; }
+[data-artduo-glass]:disabled { opacity: .45; cursor: default; }
+[data-artduo-glass][aria-pressed="true"], [data-artduo-glass][aria-current="page"] {
+  color: var(--glass-selected-ink) !important;
+  text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px;
+}
+[data-artduo-glass]:focus-visible { outline: 2px solid var(--glass-selected-ink); outline-offset: 4px; }
+.experience-walk-controls [data-artduo-glass], .experience-room-meta [data-artduo-glass] { text-shadow: 0 1px 6px #0008; }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  [data-artduo-glass="primary"], [data-artduo-glass="compact"], [data-artduo-glass]:is(:hover, :focus-visible) {
+    background: var(--glass-solid) !important; border-color: var(--glass-quiet-ink) !important;
+  }
+  [data-artduo-glass]::before, [data-artduo-glass]::after { display: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-artduo-glass], [data-artduo-glass]::before, [data-artduo-glass]::after { transition: none; }
+  [data-artduo-glass]:not(:disabled):active { scale: 1; }
+}

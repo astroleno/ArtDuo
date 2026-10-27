@@ -68,7 +68,7 @@ export function ArtworkExplanationPanel({ artworkId, releaseVersion, query, back
     <p className="meta">{state === "idle" ? "按需讲解" : state === "pending" ? "正在整理作品线索…" : state === "ready" ? "作品讲解" : "讲解暂时不可用"}</p>
     {state === "idle" ? <button className="experience-text-button" onClick={() => void load()} type="button">生成这件作品的讲解</button> : null}
     {state === "pending" ? <p aria-live="polite">图片与作品资料已就绪，讲解正在单独准备。</p> : null}
-    {state === "failed" ? <div role="status"><p>讲解没有完成，作品资料仍可继续查看。</p><button onClick={() => void load()} type="button">重试讲解</button></div> : null}
+    {state === "failed" ? <div role="status"><p>讲解没有完成，作品资料仍可继续查看。</p><button className="experience-text-button" onClick={() => void load()} type="button">重试讲解</button></div> : null}
     {state === "ready" && explanation?.content ? <>
       <p className="explanation-detail">{explanation.content.detailText}</p>
       {!curatorNote ? <div className="recommendation-reason"><p className="evidence-label">为什么推荐这件作品</p><p>{buildRecommendationReason(explanation)}</p></div> : null}

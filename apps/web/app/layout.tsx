@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import "../../../packages/ui/src/experience/experience.css";
+import "../../../packages/ui/src/glass/glass-buttons.css";
+import { GlassButtonEffects } from "../components/glass-button-effects";
 
 export const metadata: Metadata = {
   title: "ArtDuo",
@@ -15,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body><GlassButtonEffects />{children}</body>
     </html>
   );
 }
