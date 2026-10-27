@@ -2,16 +2,17 @@
 
 import { appPath } from "@artduo/contracts";
 import { startTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { buildExperienceEntryHref } from "../../../../lib/experience-navigation";
 
 export default function ImmersiveError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   const router = useRouter();
+  const params = useSearchParams();
   const retry = () => startTransition(() => { router.refresh(); reset(); });
   return <main className="artduo-experience experience-unavailable" role="alert">
-    <p className="experience-eyebrow">展厅暂时没有准备好</p>
-    <h1>这次观展可以重新尝试</h1>
-    <p>已载入的馆藏不会被替换；重新策展会重新读取当前版本。</p>
+    <h1>展厅暂时未就绪</h1>
+    <p>可以重试，或带着原句返回入口。</p>
     <button className="experience-primary" onClick={retry} type="button">重新载入</button>
-    <a className="experience-text-button" href={appPath("/gallery?view=route")}>返回画廊</a>
+    <a className="experience-text-button" href={appPath(buildExperienceEntryHref(params.get("query") ?? ""))}>返回入口</a>
   </main>;
 }

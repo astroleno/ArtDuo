@@ -12,6 +12,12 @@ export interface ExperienceRouteParams {
   routeOrder?: string[];
 }
 
+export function buildExperienceEntryHref(query = ""): string {
+  const params = new URLSearchParams({ view: "experience" });
+  if (query) params.set("query", query);
+  return `/?${params.toString()}`;
+}
+
 export function buildExperienceHref(input: ExperienceRouteParams): string {
   const params = new URLSearchParams({
     query: input.query,

@@ -10,6 +10,7 @@ const QUIET = [
   ".experience-settings-motion", ".experience-preferences button", ".experience-pending button",
   ".experience-sculpture-status button", ".experience-media-fallback button", ".artwork-image-fallback button",
   ".immersive-back-link", ".immersive-sound-toggle", ".immersive-detail-navigation button",
+  ".immersive-detail-close", ".immersive-detail-motion-toggle",
   ".immersive-scene-nav button", ".immersive-scene-nav a",
 ].join(",");
 const SELECTOR = `${PRIMARY},${COMPACT},${QUIET}`;

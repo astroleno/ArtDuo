@@ -5,6 +5,7 @@ import type { DetailNavigation, ExperienceUnit, NarrativeBlock } from "./types";
 import type { RoomPlaqueSize } from "./layout";
 import { experienceArtistName } from "./artwork-credits";
 import { displaySourceCredit, sameReadingText } from "./reading-copy";
+import { prepareReadingImage } from "./reading-image";
 
 function ReadingNote({ note, caption }: { note?: NarrativeBlock; caption: NarrativeBlock }) {
   const [visible] = useState(note?.text.trim() ? note : caption);
@@ -15,11 +16,11 @@ function ReadingNote({ note, caption }: { note?: NarrativeBlock; caption: Narrat
   </>;
 }
 
-function LabelLines({ metadata, artistName }: { metadata: ExperienceUnit["artwork"]["metadata"]; artistName: string }) {
+function LabelLines({ metadata, artistName, opening = false }: { metadata: ExperienceUnit["artwork"]["metadata"]; artistName: string; opening?: boolean }) {
   return <>
     <strong>{metadata.title}</strong>
     <span className="experience-plaque-artist">{artistName}</span>
-    {metadata.yearLabel ? <span className="experience-plaque-period">{metadata.yearLabel}</span> : null}
+    {opening || metadata.yearLabel ? <span className="experience-plaque-period" role={opening ? "status" : undefined}>{opening ? "正在打开… · 取消" : metadata.yearLabel}</span> : null}
   </>;
 }
 
@@ -46,6 +47,7 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
   const readingBodyRef = useRef<HTMLDivElement>(null);
   const previewUrl = previewSource ?? unit.media.previewUrl;
   const readingImageState = readingImage?.url === previewUrl ? readingImage.state : "loading";
+  const opening = expanded && readingImageState === "loading";
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
@@ -68,15 +70,15 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
   }, [metadata.title, artistName, metadata.yearLabel, measureWidth, onSizeChange]);
   useEffect(() => {
     if (!expanded) { setReadingImage(undefined); return; }
-    let cancelled = false;
     const image = readingImageRef.current;
     if (!image) return;
+    const controller = new AbortController();
     // Decode the actual reading image while the gallery stays visible. A
     // completed download alone can still produce an empty first modal paint.
-    void image.decode().then(() => {
-      if (!cancelled) setReadingImage({ url: previewUrl, state: image.naturalWidth > 0 ? "ready" : "failed" });
-    }).catch(() => { if (!cancelled) setReadingImage({ url: previewUrl, state: "failed" }); });
-    return () => { cancelled = true; };
+    void prepareReadingImage(image, controller.signal).then(state => {
+      if (!controller.signal.aborted && state) setReadingImage({ url: previewUrl, state });
+    });
+    return () => controller.abort();
   }, [previewUrl, expanded]);
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -89,14 +91,14 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
     else if (!expanded && dialog.open) { dialog.close(); triggerRef.current?.focus({ preventScroll: true }); }
   }, [expanded, readingImageState]);
   return <><section className="experience-plaque" aria-label={`展签：${metadata.title}`}>
-    <button ref={triggerRef} aria-label="展开完整展签" aria-expanded={expanded} aria-busy={expanded && readingImageState === "loading"} aria-haspopup="dialog" className="experience-plaque-heading" onClick={onToggle} type="button">
-      <LabelLines metadata={metadata} artistName={artistName} />
+    <button ref={triggerRef} aria-label={opening ? "正在打开完整展签，点击取消" : "展开完整展签"} aria-expanded={expanded} aria-busy={opening} aria-haspopup="dialog" className="experience-plaque-heading" onClick={onToggle} type="button">
+      <LabelLines metadata={metadata} artistName={artistName} opening={opening} />
     </button>
     <dialog ref={dialogRef} aria-labelledby={titleId} className="experience-reading-layer" onCancel={(event) => { event.preventDefault(); closeReader(); }}>
       <div className="experience-reading-header"><span>作品资料</span><button autoFocus aria-label="收起完整展签" onClick={closeReader} type="button">返回{artworkKind === "sculpture" ? "雕塑" : "画作"} <span aria-hidden="true">×</span></button></div>
-      <div className="experience-reading-artwork" data-image-state={readingImageState} style={expanded && unit.media.backgroundUrl ? { backgroundImage: `url(${backgroundSource ?? unit.media.backgroundUrl})` } : undefined}>
+      <div className="experience-reading-artwork" data-image-state={readingImageState} style={expanded && readingImageState !== "failed" && unit.media.backgroundUrl ? { backgroundImage: `url(${backgroundSource ?? unit.media.backgroundUrl})` } : undefined}>
         {expanded ? <img ref={readingImageRef} crossOrigin="anonymous" referrerPolicy={referrerPolicy} alt={`阅读时参照《${metadata.title}》`} decoding="sync" src={previewUrl} style={readingImageState === "failed" ? { display: "none" } : undefined} /> : null}
-        {readingImageState === "failed" ? <p role="status">图片暂时无法显示，作品资料仍可阅读。</p> : null}
+        {readingImageState === "failed" ? <p role="status">图片暂不可用，资料仍可阅读。</p> : null}
       </div>
       <div key={artwork.id} ref={readingBodyRef} className="experience-reading-body" role="region" aria-label="作品文字" tabIndex={0}>
       <h2 id={titleId}>{metadata.title}</h2>
@@ -112,7 +114,7 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
       </dl>
       <p className="experience-rationale">{artworkKind === "sculpture" ? "雕塑" : "画作"}按屏幕适配，展厅中的大小不代表原作实际尺寸。</p>
       <div className="experience-plaque-actions">
-        {onDetail ? <button className="experience-text-button" onClick={onDetail} disabled={Boolean(detailNavigation)} aria-busy={Boolean(detailNavigation)} type="button">{detailNavigation ? "正在打开资料…" : "进入详细讲解"}</button> : null}
+        {onDetail ? <button className="experience-text-button" onClick={onDetail} disabled={Boolean(detailNavigation)} aria-busy={Boolean(detailNavigation)} type="button">{detailNavigation ? "正在打开资料…" : "更多作品资料"}</button> : null}
         {detailNavigation ? <button className="experience-text-button" onClick={detailNavigation.onCancel} type="button">取消打开资料</button> : null}
         {metadata.objectUrl ? <a className="experience-text-button" href={metadata.objectUrl} rel="noreferrer" target="_blank">馆藏来源</a> : null}
       </div>

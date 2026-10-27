@@ -235,6 +235,8 @@
 .experience-plaque-heading { display: flex; width: 100%; min-height: 70px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px; padding: 10px 12px; border: 0; color: inherit; background: transparent; cursor: pointer; text-align: left; font: inherit; }
 .experience-plaque > .experience-plaque-heading { max-height: var(--plaque-max-height, none); overflow-y: auto; overscroll-behavior: contain; }
 .experience-plaque-heading:focus-visible { outline: 2px solid #9d4837; outline-offset: -3px; }
+.experience-plaque-heading[aria-busy="true"] { background: rgba(105, 83, 53, .09); box-shadow: inset 0 -2px rgba(105, 83, 53, .5); }
+.experience-plaque-heading[aria-busy="true"] > .experience-plaque-period { color: #57442c; }
 .experience-plaque-kicker { margin-bottom: 7px; color: #776d5e; font: 9px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; }
 .experience-plaque-heading strong { display: -webkit-box; max-width: 100%; overflow: hidden; color: #28241e; font-size: 12px; font-weight: 500; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .experience-plaque-heading > span { display: -webkit-box; max-width: 100%; overflow: hidden; color: #625d53; font-size: 11px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }

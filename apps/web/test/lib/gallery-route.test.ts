@@ -2,8 +2,17 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { buildAffectiveGrowthForm } from "../../lib/affective-negotiation";
-import { buildGallerySceneRoute, sceneRouteStopForIndex } from "../../lib/gallery-route";
+import { buildGallerySceneRoute, readGalleryRouteOrder, sceneRouteStopForIndex } from "../../lib/gallery-route";
 import type { WebBackgroundScene, WebSceneSearchResult, WebSearchResult } from "../../lib/release-catalog";
+
+test("an overview link restores only a complete permutation of its frozen artwork selection", () => {
+  const ids = ["a", "b", "c"];
+  assert.deepEqual(readGalleryRouteOrder("c,a,b", ids), ["c", "a", "b"]);
+  for (const raw of [undefined, "", "a,b", "a,b,b", "a,b,foreign", "a,b,c,foreign", "a".repeat(4097)]) {
+    assert.equal(readGalleryRouteOrder(raw, ids), undefined, raw);
+  }
+  assert.deepEqual(ids, ["a", "b", "c"]);
+});
 
 const nightHall: WebBackgroundScene = {
   id: "bg-night",

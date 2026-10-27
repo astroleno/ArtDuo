@@ -40,7 +40,7 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
   const room = scenes.find(scene => scene.id === sceneId) ?? scenes[0];
   const { mouseMotion, setMouseMotion } = useInteractionPreferences();
   const paused = readerOpen || settingsOpen;
-  const motion = useRoomMotion(reducedMotion || !mouseMotion, paused);
+  const motion = useRoomMotion(reducedMotion, paused, mouseMotion);
   const chrome = useIdleChrome(!reducedMotion, paused);
   const profile = useMemo(() => roomLightProfile(room.id, { depthUrl: room.depthUrl, normalUrl: room.normalUrl }), [room]);
   const callbacks = useRef(encounter); callbacks.current = encounter;
@@ -106,7 +106,7 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
         <div className="experience-room-shade" aria-hidden="true" />
         <AtmosphereLayer tone={room.tone} reducedMotion={reducedMotion} />
         <header className="experience-room-header">
-          <a className="experience-mark" href={appPath("/?view=experience")} aria-label="ArtDuo，返回选展">ArtDuo</a>
+          <a className="experience-mark" href={appPath(encounter ? `/?${new URLSearchParams({ view: "experience", query }).toString()}` : "/?view=experience")} aria-label="ArtDuo，返回选展">ArtDuo</a>
           <div className="experience-room-meta"><span>{encounter ? "片刻停留" : room.label}</span>{encounter ? encounter.audioControl : <span>{String(index + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}</span>}</div>
         </header>
         <SculptureCanvas work={work} url={quality === "reference" ? work.referenceUrl : work.compactUrl} room={room} backgroundSource={readyBackground}
@@ -128,14 +128,13 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
           if (event.target === event.currentTarget && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) setSettingsOpen(false);
         }}>
         <header><h2>观展设置</h2><button autoFocus type="button" aria-label="关闭观展设置" onClick={() => setSettingsOpen(false)}>×</button></header>
-        <label className="experience-motion-choice"><span>画面随鼠标轻动<small>{reducedMotion ? "已遵循系统的减少动态效果设置" : "沿用 ArtDuo 的随动偏好"}</small></span>
+        <label className="experience-motion-choice"><span>画面轻动<small>{reducedMotion ? "已遵循系统的减少动态效果设置" : "轻移画面，感受前后层次"}</small></span>
           <input type="checkbox" checked={mouseMotion && !reducedMotion} disabled={reducedMotion} onChange={event => setMouseMotion(event.target.checked)} /></label>
-        {motion.available ? <button type="button" className="experience-settings-motion" aria-pressed={motion.enabled} disabled={!mouseMotion || motion.state === "requesting"}
-          onClick={() => { void motion.toggle(); setSettingsOpen(false); }}>{motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机随动" : "开启手机随动"}</button> : null}
+        {motion.available ? <button type="button" className="experience-settings-motion" aria-label={!mouseMotion ? "先开启画面轻动，再开启手机感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"} aria-pressed={motion.enabled} disabled={!mouseMotion || motion.state === "requesting"}
+          onClick={() => { void motion.toggle(); setSettingsOpen(false); }}>{!mouseMotion ? "先开启画面轻动" : motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}</button> : null}
         {motion.message ? <p role="status">{motion.message}</p> : null}
         {!encounter ? <><label className="experience-sculpture-select">展厅<select aria-label="展厅" value={room.id} onChange={event => setSceneId(event.target.value)}>{scenes.map(scene => <option key={scene.id} value={scene.id}>{scene.label}</option>)}</select></label>
         <label className="experience-sculpture-select">雕塑细节<select aria-label="雕塑细节" value={quality} onChange={event => setQuality(event.target.value as SculptureQuality)}><option value="compact">轻巧载入</option><option value="reference">更多细节</option></select></label></> : null}
-        <p className="experience-panel-help">轻移鼠标，感受空间层次与柔光在雕塑表面的变化。手机需单独开启感应。</p>
         {!encounter ? <p className="experience-sculpture-preview-note">雕塑试展 · {works.length} 件作品</p> : null}
       </dialog>
     </div>

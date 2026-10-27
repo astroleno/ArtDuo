@@ -7,7 +7,7 @@
   --glass-shadow: rgba(49, 40, 28, .12); --glass-solid: #e8e1d6;
 }
 .artduo-experience, .experience-entry, .home-shell, .immersive-shell,
-.gallery-header.has-scene-backdrop, .detail-hero, .experience-artwork-page {
+.gallery-header.has-scene-backdrop, .detail-hero, .experience-artwork-page, .immersive-detail-dialog {
   --glass-ink: #f2ecdf; --glass-quiet-ink: #d5c9b5; --glass-selected-ink: #f1d7ad;
   --glass-fill: rgba(217, 208, 188, .1); --glass-sheen: rgba(255, 246, 225, .2);
   --glass-edge: rgba(255, 250, 234, .56); --glass-low-edge: rgba(18, 17, 14, .48);

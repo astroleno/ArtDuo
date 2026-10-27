@@ -1138,6 +1138,20 @@ h1,
 .experience-artwork-page .detail-context-links a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--muted); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
 .experience-artwork-page .detail-context-links a:hover { color: var(--ink); }
 .experience-artwork-page .explanation-card { border-radius: 2px; }
+.experience-artwork-page .detail-copy .explanation-card { margin-top: 16px; padding: 0; border: 0; background: transparent; }
+.experience-artwork-page .detail-copy .explanation-card > button { justify-self: start; }
+.experience-artwork-page .detail-image { border-width: 0; }
+.experience-artwork-page .detail-grid { grid-template-columns: minmax(0, 1fr); }
+.experience-route-heading { display: grid; gap: 12px; max-width: 1180px; margin-inline: auto; padding: clamp(32px, 6vw, 64px) clamp(20px, 4vw, 48px) 0; }
+.experience-route-heading h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); font-weight: 400; }
+.experience-route-heading p { margin: 0; }
+.experience-route-query { max-width: 40em; color: var(--muted); line-height: 1.8; overflow-wrap: anywhere; }
+.experience-route-heading > a { justify-self: start; margin-top: 8px; }
+.experience-route-works { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 36px; margin: 0; padding: 0; list-style: none; }
+.experience-route-work { display: grid; gap: 10px; color: inherit; text-decoration: none; }
+.experience-route-work-image { width: 100%; height: 240px; object-fit: contain; background: rgba(255, 250, 241, .025); }
+.experience-route-work strong { font-weight: 400; line-height: 1.5; overflow-wrap: anywhere; }
+.experience-route-work > span { color: var(--muted); font-size: 13px; line-height: 1.6; }
 @media (max-width: 480px) {
   .experience-artwork-page .brand-meta { display: none; }
 }
@@ -2043,7 +2057,7 @@ body[data-immersive-lightbox="open"] .immersive-shell {
   font-weight: 700;
   gap: 8px;
   letter-spacing: 0.02em;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 12px;
   pointer-events: auto;
   transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
@@ -2119,7 +2133,7 @@ body[data-immersive-lightbox="open"] .immersive-shell {
   font-size: 0.78rem;
   font-weight: 700;
   gap: 7px;
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 14px;
   pointer-events: auto;
   transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
@@ -2325,11 +2339,11 @@ body[data-immersive-lightbox="open"] .immersive-shell {
 }
 
 .immersive-detail-dialog[data-phase="closing"] {
-  animation: immersive-detail-backdrop-in 520ms cubic-bezier(0.4, 0, 0.3, 1) reverse both;
+  animation: immersive-detail-backdrop-in 200ms ease-in reverse both;
 }
 
 .immersive-detail-dialog[data-phase="closing"] .immersive-detail-world {
-  animation: immersive-detail-expand 520ms cubic-bezier(0.4, 0, 0.3, 1) reverse both;
+  animation: immersive-detail-expand 200ms ease-in reverse both;
 }
 
 @keyframes immersive-detail-backdrop-in {
@@ -3446,7 +3460,7 @@ body[data-immersive-lightbox="open"] .immersive-shell {
 
   .immersive-detail-motion-toggle {
     font-size: 0.64rem;
-    min-height: 36px;
+    min-height: 44px;
     padding: 0 10px;
   }
 

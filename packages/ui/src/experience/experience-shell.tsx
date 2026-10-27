@@ -282,7 +282,6 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       {snapshot.omittedUnitCount ? <p>另有 {snapshot.omittedUnitCount} 件记录暂不可用。</p> : null}
       {restartHref ? <a className="experience-primary" href={appPath(restartHref)}>重新写一句</a>
         : <button className="experience-primary" onClick={restart} type="button">重新写一句</button>}
-      <a className="experience-text-button" href={appPath("/gallery?view=route")}>查看经典路线</a>
     </main>;
   }
 

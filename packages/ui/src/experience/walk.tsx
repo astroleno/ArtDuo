@@ -45,7 +45,7 @@ export function Walk({ snapshot, state, dispatch, onDetail, detailNavigation, on
   const [settingsOpen, setSettingsOpen] = useState(false);
   const settingsRef = useRef<HTMLDialogElement>(null);
   const settingsTrigger = useRef<HTMLButtonElement>(null);
-  const motion = useRoomMotion(reducedMotion || !mouseMotion, settingsOpen || state.overlay !== "none" || state.transitioning);
+  const motion = useRoomMotion(reducedMotion, settingsOpen || state.overlay !== "none" || state.transitioning, mouseMotion);
   const closeSettings = () => { setSettingsOpen(false); onReadingChange(false); };
   useEffect(() => {
     const dialog = settingsRef.current;
@@ -110,14 +110,14 @@ export function Walk({ snapshot, state, dispatch, onDetail, detailNavigation, on
         if (event.target === event.currentTarget && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) closeSettings();
       }}>
       <header><h2>观展设置</h2><button autoFocus aria-label="关闭观展设置" onClick={closeSettings} type="button">×</button></header>
-      <label className="experience-motion-choice"><span>画面随鼠标轻动<small>{reducedMotion ? "已遵循系统的减少动态效果设置" : "轻移视线，看看画面的前后层次"}</small></span>
+      <label className="experience-motion-choice"><span>画面轻动<small>{reducedMotion ? "已遵循系统的减少动态效果设置" : "轻移画面，感受前后层次"}</small></span>
         <input type="checkbox" checked={mouseMotion && !reducedMotion} disabled={reducedMotion} onChange={event => onMouseMotionChange?.(event.target.checked)} /></label>
       <div className="experience-settings-audio">{audioControl}</div>
-      {motion.available ? <button aria-label={motion.enabled ? "关闭画廊随设备轻动" : "开启画廊随设备轻动"}
-        aria-pressed={motion.enabled} className="experience-settings-motion" disabled={motion.state === "requesting"}
-        onClick={() => void motion.toggle()} type="button">{motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机随动" : "开启手机随动"}</button> : null}
+      {motion.available ? <button aria-label={!mouseMotion ? "先开启画面轻动，再开启手机感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}
+        aria-pressed={motion.enabled} className="experience-settings-motion" disabled={!mouseMotion || motion.state === "requesting"}
+        onClick={() => void motion.toggle()} type="button">{!mouseMotion ? "先开启画面轻动" : motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}</button> : null}
       {motion.message ? <p role="status">{motion.message}</p> : null}
-      <details className="experience-settings-exhibition"><summary>本次展览与路线</summary>
+      <details className="experience-settings-exhibition"><summary>本次展览</summary>
         <p className="experience-eyebrow">{snapshot.units.length} 件作品</p>
         <p>{snapshot.preface.text}</p>
         <ViewingControls session={viewingSession} onPreference={onPreference} onCancel={onCancelPreference} onTogglePace={onTogglePace} onClear={onClearObservations} storageAvailable={storageAvailable} />
@@ -125,6 +125,7 @@ export function Walk({ snapshot, state, dispatch, onDetail, detailNavigation, on
     </dialog>
     <Room
       count={snapshot.units.length}
+      entryHref={`/?${new URLSearchParams({ view: "experience", query: snapshot.query }).toString()}`}
       index={index}
       mediaFailed={state.failedMediaIds.includes(unit.artwork.id)}
       onDetail={() => onDetail(unit.artwork.id)}

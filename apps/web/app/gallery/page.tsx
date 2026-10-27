@@ -1,17 +1,16 @@
 import { appPath } from "@artduo/contracts";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { enforcePublicRequest, RuntimeLimitError } from "../../lib/public-runtime";
 
 import { ArtworkImage } from "../../components/artwork-image";
 import { artworkImageUrl } from "../../lib/artwork-image-url";
-import { buildExperienceHref } from "../../lib/experience-navigation";
+import { buildExperienceEntryHref, buildExperienceHref } from "../../lib/experience-navigation";
 import { curateExhibition } from "../../lib/semantic-curator";
-import { curationNarrativeView, getExhibitionNarrative } from "../../lib/exhibition-narrative-server";
-import { buildGallerySceneRoute, type GallerySceneRouteStop } from "../../lib/gallery-route";
-import { DEFAULT_CURATION_PROMPT, STARTER_PROMPTS } from "../../lib/prompts";
-import { loadWebReleaseCatalog, searchBackgroundScenes, type WebReleaseCatalog, type WebSearchResult } from "../../lib/release-catalog";
+import { getExhibitionNarrative } from "../../lib/exhibition-narrative-server";
+import { readGalleryRouteOrder } from "../../lib/gallery-route";
+import { loadWebReleaseCatalog } from "../../lib/release-catalog";
 
 interface GalleryPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -26,15 +25,6 @@ function readQuery(params: Record<string, string | string[] | undefined> | undef
   return (value ?? "").trim();
 }
 
-function readRuntime(params: Record<string, string | string[] | undefined> | undefined): string | undefined {
-  const value = params?.runtime;
-  if (Array.isArray(value)) {
-    return value[0];
-  }
-
-  return value;
-}
-
 function readView(params: Record<string, string | string[] | undefined> | undefined): string | undefined {
   const value = params?.view;
   if (Array.isArray(value)) {
@@ -44,273 +34,70 @@ function readView(params: Record<string, string | string[] | undefined> | undefi
   return value;
 }
 
-function buildIdleSearch(catalog: WebReleaseCatalog, query: string): WebSearchResult {
-  return {
-    query,
-    normalizedQuery: "",
-    model: "idle",
-    dimensions: catalog.embeddingRecords[0]?.dimensions ?? 0,
-    results: [],
-  };
-}
-
-function buildFallbackMeta(result: WebSearchResult["results"][number]): string {
-  return [
-    `馆藏编号 ${result.artwork.id}`,
-    result.artwork.artistDisplayName,
-    result.artwork.yearLabel,
-  ].filter(Boolean).join(" · ");
-}
-
-function buildRoomHref(
-  query: string,
-  stop: GallerySceneRouteStop,
-  results: WebSearchResult["results"],
-  releaseVersion: string,
-  curationId?: string,
-): string {
-  const unit = results[stop.startIndex]?.artwork.id;
-  return buildExperienceHref({ query, releaseVersion, phase: unit ? "walk" : "preface", artworkId: unit, curationId, recipeVersion: curationId ? "experience-v2" : undefined });
-}
-
-function displayStageLabel(stageLabel: string): string {
-  if (stageLabel === "Opening") {
-    return "第一站";
-  }
-  if (stageLabel === "Drift") {
-    return "行进中";
-  }
-  if (stageLabel === "Return") {
-    return "回望处";
-  }
-
-  return "展厅";
-}
-
-function GallerySceneRoute({
-  featured,
-  query,
-  results,
-  route,
-  releaseVersion,
-  curationId,
-}: {
-  featured?: WebSearchResult["results"][number];
-  query: string;
-  results: WebSearchResult["results"];
-  route: GallerySceneRouteStop[];
-  releaseVersion: string;
-  curationId?: string;
-}) {
-  if (route.length === 0) {
-    return null;
-  }
-
-  return (
-    <section className="gallery-route-panel" aria-label="今日路线" data-testid="gallery-route">
-      <div className="gallery-route-heading">
-        <p className="meta">路线大厅</p>
-        <h2>先走进第一间展厅</h2>
-      </div>
-      <ol className="gallery-route-track">
-        {route.map((stop) => {
-          const isOpening = stop.stageLabel === "Opening";
-          const featuredMeta = featured ? [featured.artwork.artistDisplayName, featured.artwork.yearLabel].filter(Boolean).join(", ") : "";
-
-          return (
-            <li className={isOpening ? "is-opening-stop" : ""} key={`${stop.stageLabel}-${stop.scene.id}`}>
-              <a
-                aria-label={`从${stop.scene.label}开始观展`}
-                className="gallery-route-stop"
-                data-testid="gallery-route-stop"
-                href={appPath(buildRoomHref(query, stop, results, releaseVersion, curationId))}
-              >
-                <span aria-hidden="true" className="gallery-route-thumb">
-                  {stop.scene.imageUrl ? <img alt="" loading="eager" src={stop.scene.imageUrl} /> : null}
-                </span>
-                <span className="gallery-route-copy">
-                  <span className="gallery-route-stage">{displayStageLabel(stop.stageLabel)}</span>
-                  <strong>{stop.scene.label}</strong>
-                  <span>{stop.whisper}</span>
-                  {stop.stageLabel === "Opening" ? (
-                    <span className="gallery-route-enter">从这里开始</span>
-                  ) : null}
-                </span>
-                {isOpening && featured ? (
-                  <span className="route-opening-work" data-testid="result-card">
-                    <ArtworkImage
-                      alt={`${featured.artwork.title} artwork`}
-                      className="route-opening-work-image"
-                      fallbackLabel={featured.artwork.title}
-                      fallbackMeta={buildFallbackMeta(featured)}
-                      fetchPriority="high"
-                      loading="eager"
-                      src={artworkImageUrl(featured.artwork.id, "preview", releaseVersion)}
-                    />
-                    <span className="route-opening-work-copy">
-                      <span>当前第一幅</span>
-                      <strong>{featured.artwork.title}</strong>
-                      {featuredMeta ? <span>{featuredMeta}</span> : null}
-                    </span>
-                  </span>
-                ) : null}
-              </a>
-            </li>
-          );
-        })}
-      </ol>
-    </section>
-  );
-}
-
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const params = await searchParams;
   const query = readQuery(params);
-  const hasQuery = query.length > 0;
+  if (!query) redirect(buildExperienceEntryHref());
   const routePreview = readView(params) === "route";
   const single = (key: string) => { const value = params?.[key]; return Array.isArray(value) ? value[0] : value; };
   const catalog = loadWebReleaseCatalog({ releaseVersion: single("releaseVersion") });
   let curation;
   try {
-    if (hasQuery && !single("curationId")) await enforcePublicRequest(await headers(), "curation");
-    curation = hasQuery ? await curateExhibition({ catalog, query, curationId: single("curationId") }) : undefined;
+    if (!single("curationId")) await enforcePublicRequest(await headers(), "curation");
+    curation = await curateExhibition({ catalog, query, curationId: single("curationId") });
   } catch (error) {
     if (error instanceof RuntimeLimitError) return <main className="artduo-experience experience-unavailable"><h1>这次展览还没有准备好</h1>
-      <p>现在请求较多，请稍后再试。你的观看愿望已保留。</p><a href={appPath(`/?query=${encodeURIComponent(query)}`)}>返回入口</a></main>;
+      <p>现在请求较多，请稍后再试。</p><a href={appPath(buildExperienceEntryHref(query))}>返回入口</a></main>;
     return <main className="artduo-experience experience-unavailable"><h1>这次展览暂时无法打开</h1>
-      <p>保存的展览没有恢复，作品顺序不会被悄悄替换。</p><a href={appPath(`/?query=${encodeURIComponent(query)}`)}>重新策展</a></main>;
+      <p>保存的展览未能恢复。</p><a href={appPath(buildExperienceEntryHref(query))}>重新写一句</a></main>;
   }
-  if (curation?.assignments.length && !single("curationId")) getExhibitionNarrative(catalog, curation);
-  const preparedNarrative = curation ? curationNarrativeView(catalog, curation) : undefined;
-  const immersiveHref = buildExperienceHref({ query, releaseVersion: catalog.releaseVersion, phase: "walk", recipeVersion: "experience-v2", curationId: curation?.curationId });
-  const runtime = hasQuery ? "server" : "idle";
-  const narrative = preparedNarrative?.narrative;
-  const search = curation?.search ?? buildIdleSearch(catalog, query);
-  const hasCuratedResults = hasQuery && search.results.length > 0;
-  const featured = search.results[0];
-  const sceneSearch = hasQuery ? searchBackgroundScenes(catalog, query, { limit: 12 }) : undefined;
-  const sceneRoute = hasCuratedResults ? buildGallerySceneRoute(search, catalog.backgroundScenes, {
-    sceneResults: sceneSearch?.results,
-    growthForm: narrative?.growthForm,
-  }) : [];
-  const featuredSceneImage = sceneRoute[0]?.scene.imageUrl ?? featured?.scene?.imageUrl;
+  if (curation.assignments.length && !single("curationId")) getExhibitionNarrative(catalog, curation);
+  const byId = new Map(curation.search.results.map(result => [result.artwork.id, result]));
+  const routeOrder = readGalleryRouteOrder(single("route"), [...byId.keys()]);
+  const results = routeOrder ? routeOrder.map(id => byId.get(id)!) : curation.search.results;
+  const hasCuratedResults = results.length > 0;
+  const requestedArtwork = single("artworkId") ?? single("unit");
+  const phase = single("phase");
+  const base = { query, releaseVersion: catalog.releaseVersion, recipeVersion: "experience-v2", curationId: curation.curationId, routeOrder };
+  const immersiveHref = buildExperienceHref({ ...base, phase: phase === "preface" || phase === "closing" ? phase : "walk",
+    artworkId: requestedArtwork && byId.has(requestedArtwork) ? requestedArtwork : undefined });
 
   if (hasCuratedResults && !routePreview) {
     redirect(immersiveHref);
   }
 
   return (
-    <main className="shell">
+    <main className="shell experience-artwork-page experience-route-page">
       <header className="topbar">
         <a className="brand" href={appPath("/")}>
           <span className="brand-mark">ArtDuo</span>
-          <span className="brand-meta">馆藏 {catalog.releaseVersion}</span>
         </a>
-        <nav className="nav" aria-label="Primary">
-          <a href={appPath("/")}>首页</a>
-          <a href={appPath("/gallery")}>画廊</a>
+        <nav className="nav" aria-label="观展导航">
+          <a className="detail-return-link" href={appPath(buildExperienceEntryHref(query))}>重新选一组</a>
         </nav>
       </header>
 
-      <section
-        className={`gallery-header ${featuredSceneImage ? "has-scene-backdrop" : ""} ${hasCuratedResults ? "is-curated" : ""}`}
-        style={featuredSceneImage ? { backgroundImage: `linear-gradient(90deg, rgba(24, 21, 18, 0.82), rgba(24, 21, 18, 0.36)), url(${featuredSceneImage})` } : undefined}
-      >
-        <p className="meta">
-          {hasCuratedResults
-            ? `为这句观看愿望挑出 ${search.results.length} 件作品`
-            : hasQuery
-              ? "这句观看愿望还需要换一个角度"
-            : `${catalog.artworkCount} 件作品正在等待你的策展意图`}
-        </p>
-        <p className="sr-only" data-testid="runtime-mode">Runtime: {runtime}</p>
-        <h1 className="page-title">导览画廊</h1>
+      <section className="experience-route-heading">
+        <p className="meta">{results.length} 件作品</p>
+        <h1>{hasCuratedResults ? "这次的展览" : "暂未找到合适的作品"}</h1>
+        <p className="experience-route-query">{query}</p>
         {hasCuratedResults ? (
-          <div className="gallery-header-actions">
-            <a className="primary-button gallery-immersive-link" href={appPath(immersiveHref)}>
-              进入这场观展
-              <ArrowRight aria-hidden="true" size={18} />
-            </a>
-            <details className="gallery-query-edit">
-              <summary>调整策展意图</summary>
-              <form className="query-form query-form-compact" action={appPath("/gallery")}>
-                <div className="field">
-                  <label htmlFor="query">
-                    <Search aria-hidden="true" size={16} /> 策展意图
-                  </label>
-                  <input id="query" name="query" defaultValue={query} required suppressHydrationWarning />
-                </div>
-                <button className="secondary-link" type="submit">
-                  生成路线 <ArrowRight aria-hidden="true" size={17} />
-                </button>
-              </form>
-            </details>
-          </div>
+          <a className="primary-button gallery-immersive-link" href={appPath(immersiveHref)}>进入展览 <ArrowRight aria-hidden="true" size={18} /></a>
         ) : (
-          <form className="query-form" action={appPath("/gallery")}>
-            <div className="field">
-              <label htmlFor="query">
-                <Search aria-hidden="true" size={16} /> 策展意图
-              </label>
-              <input id="query" name="query" defaultValue={query} required suppressHydrationWarning />
-            </div>
-            <button className="primary-button" type="submit">
-              生成观展路线 <ArrowRight aria-hidden="true" size={18} />
-            </button>
-          </form>
+          <a className="primary-button" href={appPath(buildExperienceEntryHref(query))}>重新写一句</a>
         )}
       </section>
 
-      <section className="section" aria-label="Search results">
-        {!hasQuery ? (
-          <div className="empty-state gallery-intent-state">
-            <p className="meta">从情绪、光线、房间或观看愿望开始</p>
-            <h2>先选择一个策展意图</h2>
-            <p className="meta">这里用于修改或重新输入观看愿望。选择一个示例，或输入自己的观看愿望。</p>
-            <div className="empty-actions">
-              {STARTER_PROMPTS.map((prompt) => (
-                <a className="secondary-link" href={appPath(`/gallery?query=${encodeURIComponent(prompt.query)}`)} key={prompt.query}>
-                  {prompt.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        ) : search.results.length === 0 ? (
-          <div className="empty-state">
-            <h2>没有找到可展示作品</h2>
-            <p className="meta">尝试更具体的情绪、光线、主题或空间描述。</p>
-            <div className="empty-actions">
-              <a className="secondary-link" href={appPath("/gallery")}>清空输入</a>
-              <a className="secondary-link" href={appPath(`/gallery?query=${encodeURIComponent(STARTER_PROMPTS[1]?.query ?? DEFAULT_CURATION_PROMPT)}`)}>
-                使用示例
-              </a>
-              <a className="secondary-link" href={appPath(`/gallery?query=${encodeURIComponent(DEFAULT_CURATION_PROMPT)}`)}>
-                查看默认展览 <ArrowRight aria-hidden="true" size={17} />
-              </a>
-            </div>
-          </div>
-        ) : (
-          <div className="curation-experience">
-            <section className="gallery-exhibition-hero" aria-label="Curated exhibition opening">
-              <div className="gallery-hero-copy">
-                <GallerySceneRoute featured={featured} query={query} results={search.results} route={sceneRoute} releaseVersion={catalog.releaseVersion} curationId={curation?.curationId} />
-              </div>
-            </section>
-            {narrative ? (
-              <details className="curation-preface curation-note-disclosure" data-testid="curation-preface">
-                <summary>读一段序言</summary>
-                <p>{narrative.preface}</p>
-              </details>
-            ) : null}
-            {narrative ? (
-              <details className="curation-closing curation-note-disclosure" data-testid="curation-closing">
-                <summary>停留片刻</summary>
-                <p>{narrative.closing}</p>
-              </details>
-            ) : null}
-          </div>
-        )}
-      </section>
+      {hasCuratedResults ? <section className="section" aria-label="本次展览作品">
+        <ol className="experience-route-works">{results.map(({ artwork }) => <li key={artwork.id}>
+          <a className="experience-route-work" href={appPath(buildExperienceHref({ ...base, phase: "walk", artworkId: artwork.id }))}>
+            <ArtworkImage alt="" className="experience-route-work-image" fallbackLabel={artwork.title} retryable={false}
+              fallbackMeta={artwork.artistDisplayName} src={artworkImageUrl(artwork.id, "preview", catalog.releaseVersion)} />
+            <strong>{artwork.title}</strong>
+            <span>{[artwork.artistDisplayName, artwork.yearLabel].filter(Boolean).join(" · ")}</span>
+          </a>
+        </li>)}</ol>
+      </section> : null}
     </main>
   );
 }

@@ -36,12 +36,19 @@ test("a chapter interlude follows at least two paintings, preserving first and l
   assert.equal(planSculptureEncounter(short, works, scenes, { roll: 0, selection: 0 }).anchorArtworkId, "b");
 });
 
-test("explicit medium and subject restrictions take priority over a lucky roll", () => {
-  for (const query of ["只看油画", "只想看风景", "不要雕塑", "不看人物", "paintings only", "without sculptures", "only landscapes"]) {
+test("explicit sculpture and medium exclusions take priority over a lucky roll", () => {
+  for (const query of ["只看油画", "只想看风景", "不要雕塑", "paintings only", "without sculptures", "only landscapes"]) {
     assert.equal(permitsSculptureEncounter(query), false, query);
     assert.equal(planSculptureEncounter({ ...snapshot, query }, works, scenes, { roll: 0, selection: 0 }).status, "absent");
   }
   assert.equal(permitsSculptureEncounter("想看绘画，也想偶然遇见雕塑"), true);
+});
+
+test("painting figure exclusions do not filter the separate sculpture easter egg", () => {
+  for (const query of ["无人海景", "我想看没有人的海边", "不看人物", "不要人像", "no people", "without portraits"]) {
+    assert.equal(permitsSculptureEncounter(query), true, query);
+    assert.equal(planSculptureEncounter({ ...snapshot, query }, works, scenes, { roll: .1, selection: 0 }).status, "pending", query);
+  }
 });
 
 test("themes increase selection affinity while recent works are downweighted", () => {

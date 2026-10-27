@@ -11,6 +11,7 @@ interface ArtworkImageProps {
   decoding?: "async" | "auto" | "sync";
   fetchPriority?: "high" | "low" | "auto";
   loading?: "eager" | "lazy";
+  retryable?: boolean;
 }
 
 export function ArtworkImage({
@@ -22,6 +23,7 @@ export function ArtworkImage({
   decoding = "async",
   fetchPriority,
   loading = "lazy",
+  retryable = true,
 }: ArtworkImageProps) {
   const [failed, setFailed] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -48,7 +50,7 @@ export function ArtworkImage({
           <span className="fallback-title">{fallbackLabel}</span>
           {fallbackMeta ? <span className="fallback-meta">{fallbackMeta}</span> : null}
         </div>
-        <button type="button" onClick={() => setFailed(false)}>重试图像</button>
+        {retryable ? <button type="button" onClick={() => setFailed(false)}>重试图像</button> : null}
       </div>
     );
   }

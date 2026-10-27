@@ -13,7 +13,7 @@ import { buildGallerySceneRoute } from "../../../../lib/gallery-route";
 import { DEFAULT_CURATION_PROMPT } from "../../../../lib/prompts";
 import { buildExperienceSnapshot } from "../../../../lib/experience-adapter";
 import { getExhibitionSculptures } from "../../../../lib/sculpture-catalog";
-import { buildExperienceHref, resolveExperiencePosition } from "../../../../lib/experience-navigation";
+import { buildExperienceEntryHref, buildExperienceHref, resolveExperiencePosition } from "../../../../lib/experience-navigation";
 import { recordExperienceDegradation, recordExperienceTiming } from "../../../../lib/experience-analytics";
 import { loadWebReleaseCatalog, searchBackgroundScenes, searchReleaseCatalog } from "../../../../lib/release-catalog";
 
@@ -39,10 +39,9 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   } catch {
     recordExperienceDegradation("release-unavailable", requestedVersion ?? "current");
     return <main className="artduo-experience experience-unavailable">
-      <p className="experience-eyebrow">展览暂不可用</p>
-      <h1>这个馆藏版本暂时无法打开</h1>
-      <p>重新策展会使用当前可用版本，并保留这句观看愿望。</p>
-      <a className="experience-primary" href={appPath(`/?query=${encodeURIComponent(query)}`)}>重新策展</a>
+      <h1>这次展览暂时无法打开</h1>
+      <p>原句已保留，可以重新选一组。</p>
+      <a className="experience-primary" href={appPath(buildExperienceEntryHref(query))}>返回入口</a>
     </main>;
   }
 
@@ -50,8 +49,8 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   if (recipeVersion && !["experience-v1", "experience-v2"].includes(recipeVersion)) {
     recordExperienceDegradation("recipe-unavailable", catalog.releaseVersion);
     return <main className="artduo-experience experience-unavailable">
-      <p className="experience-eyebrow">需要重新策展</p><h1>此体验版本暂不可用</h1>
-      <a className="experience-primary" href={appPath(`/?query=${encodeURIComponent(query)}`)}>用当前体验重新策展</a>
+      <h1>这次展览暂时无法打开</h1>
+      <a className="experience-primary" href={appPath(buildExperienceEntryHref(query))}>带原句返回入口</a>
     </main>;
   }
   const requestedCuration = readSingle(queryParams, "curationId");
@@ -62,10 +61,10 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
     curation = recipeVersion === "experience-v1" ? undefined : await curateExhibition({ catalog, query, curationId: requestedCuration });
   } catch (error) {
     if (error instanceof RuntimeLimitError) return <main className="artduo-experience experience-unavailable"><h1>这次展览还没有准备好</h1>
-      <p>现在请求较多，请稍后再试。你的观看愿望已保留。</p><a className="experience-primary" href={appPath(`/?query=${encodeURIComponent(query)}`)}>返回入口</a></main>;
+      <p>现在请求较多，请稍后再试。</p><a className="experience-primary" href={appPath(buildExperienceEntryHref(query))}>返回入口</a></main>;
     return <main className="artduo-experience experience-unavailable"><h1>保存的展览暂时无法恢复</h1>
-      <p>这条动线的记录暂不可用，重新策展会生成另一组作品。</p>
-      <a className="experience-primary" href={appPath(`/?query=${encodeURIComponent(query)}`)}>重新策展</a></main>;
+      <p>原句已保留，可以重新选一组。</p>
+      <a className="experience-primary" href={appPath(buildExperienceEntryHref(query))}>返回入口</a></main>;
   }
   recordExperienceTiming("retrieval", performance.now() - searchStartedAt, catalog.releaseVersion);
   if (curation?.assignments.length && !requestedCuration) getExhibitionNarrative(catalog, curation);

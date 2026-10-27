@@ -32,7 +32,7 @@ type MotionState = "off" | "requesting" | "calibrating" | "on" | "denied" | "una
 // Changing to a sculpture and back never silently discards that visitor choice.
 let deviceMotionChosenForVisit = false;
 
-export function useRoomMotion(reducedMotion: boolean, paused: boolean) {
+export function useRoomMotion(reducedMotion: boolean, paused: boolean, motionAllowed = true) {
   const [input, setInput] = useState<RoomLightInput>({ x: 0, y: 0 });
   const [state, setState] = useState<MotionState>("off");
   const [available, setAvailable] = useState(false);
@@ -56,15 +56,15 @@ export function useRoomMotion(reducedMotion: boolean, paused: boolean) {
     };
   }, []);
   useEffect(() => {
-    if (available && !reducedMotion && deviceMotionChosenForVisit && state === "off") setState("calibrating");
-  }, [available, reducedMotion, state]);
+    if (available && !reducedMotion && motionAllowed && deviceMotionChosenForVisit && state === "off") setState("calibrating");
+  }, [available, reducedMotion, motionAllowed, state]);
   useEffect(() => {
     window.clearTimeout(pointerTimer.current); pointerTimer.current = undefined;
-    if (reducedMotion || paused || !visible) setInput({ x: 0, y: 0 });
-    if (reducedMotion) { setState("off"); setMessage(undefined); }
-  }, [reducedMotion, paused, visible, enabled]);
+    if (reducedMotion || !motionAllowed || paused || !visible) setInput({ x: 0, y: 0 });
+    if (reducedMotion || !motionAllowed) { permissionRequest.current++; setState("off"); setMessage(undefined); }
+  }, [reducedMotion, motionAllowed, paused, visible, enabled]);
   useEffect(() => {
-    if (!enabled || reducedMotion || paused || !visible) return;
+    if (!enabled || reducedMotion || !motionAllowed || paused || !visible) return;
     const filter = createRoomOrientationFilter();
     let last = -Infinity;
     let calibrated = false;
@@ -83,9 +83,9 @@ export function useRoomMotion(reducedMotion: boolean, paused: boolean) {
     };
     window.addEventListener("deviceorientation", reading, { passive: true });
     return () => { clearTimeout(timeout); window.removeEventListener("deviceorientation", reading); };
-  }, [enabled, reducedMotion, paused, visible]);
+  }, [enabled, reducedMotion, motionAllowed, paused, visible]);
   const setPointer = useCallback((value: RoomLightInput, reset = false) => {
-    if (enabled || reducedMotion || paused || !visible) return;
+    if (enabled || reducedMotion || !motionAllowed || paused || !visible) return;
     const now = performance.now();
     pendingPointer.current = boundedRoomLightInput(value);
     const deliver = () => {
@@ -95,10 +95,10 @@ export function useRoomMotion(reducedMotion: boolean, paused: boolean) {
     };
     if (reset || now - lastPointer.current >= 33) { window.clearTimeout(pointerTimer.current); deliver(); }
     else if (pointerTimer.current === undefined) pointerTimer.current = window.setTimeout(deliver, 33 - (now - lastPointer.current));
-  }, [enabled, reducedMotion, paused, visible]);
+  }, [enabled, reducedMotion, motionAllowed, paused, visible]);
   const toggle = async () => {
     if (enabled || state === "requesting") { permissionRequest.current++; deviceMotionChosenForVisit = false; setState("off"); setInput({ x: 0, y: 0 }); setMessage(undefined); return; }
-    if (reducedMotion) return;
+    if (reducedMotion || !motionAllowed) return;
     const request = ++permissionRequest.current;
     setState("requesting"); setMessage(undefined);
     // Keep the permission call inside the actual button gesture.

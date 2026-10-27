@@ -63,5 +63,6 @@ test("artwork page renders detail text before offering an asynchronous explanati
   assert.match(html, /Two Men Contemplating the Moon\. Caspar David Friedrich\. Oil on canvas\./);
   assert.doesNotMatch(html, /Strong contemplation fit with usable image and title signal/);
   assert.match(html, /aria-label="作品讲解"/);
-  assert.match(html, /生成这件作品的讲解/);
+  assert.match(html, /按需生成讲解/);
+  assert.equal((html.match(/aria-label="作品讲解"/g) ?? []).length, 1);
 });

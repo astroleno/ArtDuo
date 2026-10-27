@@ -13,7 +13,8 @@ export interface SculptureEncounter {
 }
 
 export function permitsSculptureEncounter(query: string): boolean {
-  return !/(?:不要|不看|排除|不含|没有|无|不需要)[^，。；]{0,8}(?:雕塑|雕像|人像|人物|人形)|(?:只(?:要|看|想看|想要)|仅(?:限|看|要)|全部|全是)[^，。；]{0,8}(?:绘画|画作|油画|水彩|风景|静物)|(?:no|without|exclude)\s+(?:sculptures?|statues?|people|portraits?)|(?:only\s+(?:paintings?|landscapes?|still lifes?)|(?:paintings?|landscapes?)\s+only)/iu.test(query);
+  // Figure subjects in paintings do not classify the separate sculpture interlude.
+  return !/(?:不要|不看|排除|不含|没有|无|不需要)[^，。；]{0,8}(?:雕塑|雕像)|(?:只(?:要|看|想看|想要)|仅(?:限|看|要)|全部|全是)[^，。；]{0,8}(?:绘画|画作|油画|水彩|风景|静物)|(?:no|without|exclude)\s+(?:sculptures?|statues?)|(?:only\s+(?:paintings?|landscapes?|still lifes?)|(?:paintings?|landscapes?)\s+only)/iu.test(query);
 }
 
 /** Separate from routeOrder: an encounter never becomes a requested painting. */

@@ -35,7 +35,7 @@ export interface ViewingSession {
 }
 
 export const PREFERENCE_LABELS: Record<ViewingPreference, string> = {
-  quieter: "接下来更安静一些", similar: "多看这类作品", different: "换一种题材", original: "保持原来的路线",
+  quieter: "先看安静的作品", similar: "先看相似作品", different: "先看不同题材", original: "恢复原有顺序",
 };
 
 const SUBJECT_GROUPS: Array<[string, RegExp]> = [
@@ -116,8 +116,8 @@ export function enterArtwork(session: ViewingSession, artworkId: string): Viewin
 
 export function queuePreference(session: ViewingSession, preference: ViewingPreference, anchorId: string): ViewingSession {
   if (!session.order.includes(anchorId)) return session;
-  if (session.frontier >= session.order.length - 1) return { ...session, pending: undefined, message: "已经走过整条路线，可以重新策展。" };
-  return { ...session, pending: { preference, anchorId }, message: "回到未看部分时应用；当前作品和已走过的顺序保持不变。" };
+  if (session.frontier >= session.order.length - 1) return { ...session, pending: undefined, message: "本次已看完，可以重新选一组。" };
+  return { ...session, pending: { preference, anchorId }, message: "进入未看部分时调整顺序。" };
 }
 
 function quietScore(unit: ExperienceUnit): number {
@@ -132,7 +132,7 @@ export function applyPendingPreference(session: ViewingSession, snapshot: Exhibi
   const { preference, anchorId } = session.pending;
   const byId = new Map(snapshot.units.map((unit) => [unit.artwork.id, unit]));
   const anchor = byId.get(anchorId);
-  if (!anchor) return { ...session, pending: undefined, message: "这次调整暂不可用，继续原来的路线。" };
+  if (!anchor) return { ...session, pending: undefined, message: "暂未调整，沿用当前顺序。" };
   const prefix = session.order.slice(0, session.frontier + 1);
   let tail = session.order.slice(prefix.length);
   if (preference === "original") tail = snapshot.units.map((unit) => unit.artwork.id).filter((id) => !prefix.includes(id));
@@ -140,10 +140,10 @@ export function applyPendingPreference(session: ViewingSession, snapshot: Exhibi
     : (preference === "similar" ? 1 : -1) * affinity(anchor, byId.get(id)!) }))
     .sort((a, b) => b.score - a.score || a.index - b.index).map(({ id }) => id);
   const order = [...prefix, ...tail];
-  if (order.every((id, index) => id === session.order[index])) return { ...session, pending: undefined, message: "剩余作品已经符合这个方向，保留当前顺序。" };
+  if (order.every((id, index) => id === session.order[index])) return { ...session, pending: undefined, message: "保留当前顺序。" };
   const revision: RouteRevision = { id: (session.revisions.at(-1)?.id ?? 0) + 1, preference, anchorId,
     frozenThrough: session.frontier, before: session.order, after: order, reason: PREFERENCE_LABELS[preference] };
-  return { ...session, order, pending: undefined, revisions: [...session.revisions, revision].slice(-20), message: `已按“${PREFERENCE_LABELS[preference]}”调整后续作品。` };
+  return { ...session, order, pending: undefined, revisions: [...session.revisions, revision].slice(-20), message: "剩余顺序已调整。" };
 }
 
 export function snapshotForSession(base: ExhibitionSnapshot, session: Pick<ViewingSession, "order">): ExhibitionSnapshot {

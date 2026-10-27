@@ -2,6 +2,15 @@ import type { GrowthForm, GrowthStage, TransitionIntent } from "@artduo/contract
 
 import type { WebBackgroundScene, WebSceneSearchResult, WebSearchResult } from "./release-catalog";
 
+/** A support link may restore a permutation, never change the frozen selection. */
+export function readGalleryRouteOrder(value: string | undefined, artworkIds: string[]): string[] | undefined {
+  if (!value || value.length > 4096) return undefined;
+  const order = value.split(",");
+  const selected = new Set(artworkIds);
+  return order.length === artworkIds.length && new Set(order).size === selected.size && order.every(id => selected.has(id))
+    ? order : undefined;
+}
+
 export interface GallerySceneRouteStop {
   stageLabel: string;
   growthStageId?: string;

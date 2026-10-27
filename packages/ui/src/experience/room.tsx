@@ -21,12 +21,13 @@ import { experienceImageSource, experiencePrewarm } from "./media-prewarm";
 import { RoomBackdrop } from "./room-backdrop";
 import { roomParallaxInput } from "./room-parallax";
 
-export function Room({ unit, index, count, stage, stageLabel, reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onLightboxNext, onLightboxPrevious, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, pace = "steady" }: {
+export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onLightboxNext, onLightboxPrevious, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, pace = "steady" }: {
   unit: ExperienceUnit;
   index: number;
   count: number;
   stageLabel?: string;
   stage?: ExperienceStage;
+  entryHref?: string;
   reducedMotion: boolean;
   motion: ReturnType<typeof useRoomMotion>;
   mouseMotion: boolean;
@@ -209,7 +210,7 @@ export function Room({ unit, index, count, stage, stageLabel, reducedMotion, mot
     <div aria-hidden="true" className="experience-room-shade" />
     <AtmosphereLayer reducedMotion={reducedMotion} tone={unit.scene?.visual_profile.lighting[0] ?? "warm"} />
     <header className="experience-room-header">
-      <a aria-label="ArtDuo，重新选一组作品" className="experience-mark" href={appPath("/?view=experience")}>ArtDuo</a>
+      <a aria-label="ArtDuo，重新选一组作品" className="experience-mark" href={appPath(entryHref)}>ArtDuo</a>
       <div className="experience-room-meta"><span>{unit.scene?.asset.label_cn ?? "静光展厅"}</span><span>{String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}</span></div>
     </header>
     {mediaFailed ? <div className="experience-media-fallback" role="status">

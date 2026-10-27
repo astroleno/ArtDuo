@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { experienceHrefForPosition, resolveExperiencePosition, sanitizeReturnTo } from "../../lib/experience-navigation";
+import { buildExperienceEntryHref, experienceHrefForPosition, resolveExperiencePosition, sanitizeReturnTo } from "../../lib/experience-navigation";
 import type { ExhibitionSnapshot } from "@artduo/ui";
 
 const snapshot = {
@@ -12,6 +12,16 @@ const snapshot = {
     { exhibition: { unitId: "u-2" }, artwork: { id: "met-2" } },
   ],
 } as ExhibitionSnapshot;
+
+test("restarting keeps the viewing wish at the current entry without requesting a curation", () => {
+  const entry = new URL(buildExperienceEntryHref("海边 & 光 / 夜色？"), "https://tongye.me");
+  assert.equal(entry.pathname, "/");
+  assert.equal(entry.searchParams.get("view"), "experience");
+  assert.equal(entry.searchParams.get("query"), "海边 & 光 / 夜色？");
+  assert.equal(entry.searchParams.has("curationId"), false);
+  assert.equal(entry.searchParams.has("phase"), false);
+  assert.equal(new URL(buildExperienceEntryHref(), entry).searchParams.has("query"), false);
+});
 
 test("experience navigation encodes query and restores a walk or closing position", () => {
   const href = experienceHrefForPosition(snapshot, { phase: "walk", unitId: "u-2" });

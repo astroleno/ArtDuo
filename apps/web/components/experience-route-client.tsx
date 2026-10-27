@@ -7,7 +7,7 @@ import { appPath } from "@artduo/contracts";
 import { ExperienceShell, validRouteOrder } from "@artduo/ui";
 import type { ExperiencePosition, ExhibitionSnapshot, SculptureRoomScene, SculptureWork } from "@artduo/ui";
 
-import { experienceHrefForPosition, resolveExperiencePosition } from "../lib/experience-navigation";
+import { buildExperienceEntryHref, experienceHrefForPosition, resolveExperiencePosition } from "../lib/experience-navigation";
 import { beginExperienceTimingIfMissing, recordExperienceDegradation, recordExperienceMilestone } from "../lib/experience-analytics";
 import { useCurationNarrative } from "./use-curation-narrative";
 import { useHandwrittenKeepsake } from "./use-handwritten-keepsake";
@@ -75,7 +75,7 @@ export function ExperienceRouteClient({ snapshot, initialPosition, sculptures }:
     setDetailNavigation({ returnTo, slow: false });
     router.push(`/artwork/${encodeURIComponent(artworkId)}?${params.toString()}`);
   }, [router, snapshot, detailNavigation]);
-  const restartHref = `/?view=experience&query=${encodeURIComponent(snapshot.query)}`;
+  const restartHref = buildExperienceEntryHref(snapshot.query);
   const onRestart = useCallback(() => {
     router.push(restartHref);
   }, [router, restartHref]);

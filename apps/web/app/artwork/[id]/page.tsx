@@ -6,7 +6,7 @@ import { ArtworkImage } from "../../../components/artwork-image";
 import { ArtworkExplanationPanel } from "../../../components/artwork-explanation-panel";
 import { artworkImageUrl } from "../../../lib/artwork-image-url";
 import { getArtworkDetail, loadWebReleaseCatalog } from "../../../lib/release-catalog";
-import { sanitizeReturnTo } from "../../../lib/experience-navigation";
+import { buildExperienceEntryHref, sanitizeReturnTo } from "../../../lib/experience-navigation";
 import { readSavedCuration } from "../../../lib/semantic-curator";
 import { readNarrativePieces } from "../../../lib/exhibition-narrative-server";
 import { buildArtworkReadingCopy } from "../../../lib/artwork-page-copy";
@@ -80,9 +80,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     ? catalog.backgroundScenes.find((candidate) => candidate.id === backgroundSceneId)
     : undefined;
   const scene = requestedScene ?? detail.scene;
-  const defaultReturn = query
-    ? `/gallery?${new URLSearchParams({ query, view: "route", releaseVersion: catalog.releaseVersion }).toString()}`
-    : "/gallery?view=route";
+  const defaultReturn = buildExperienceEntryHref(query);
   const returnTo = sanitizeReturnTo(readParam(queryParams, "returnTo"), defaultReturn);
   const returnView = new URL(returnTo, "https://artduo.invalid").searchParams.get("view");
   const experienceView = returnView === "experience" || returnView === "classic";
@@ -103,6 +101,15 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
     artwork.yearLabel,
   ].filter(Boolean).join(" · ");
   const readingCopy = buildArtworkReadingCopy({ curatorNote, storySnippet: artwork.storySnippet, description: artwork.description });
+  const explanationPanel = <ArtworkExplanationPanel
+    artworkId={artwork.id}
+    backgroundSceneId={scene?.id}
+    matchedTokens={matchedTokens}
+    query={query ?? artwork.title}
+    releaseVersion={catalog.releaseVersion}
+    retrievalScore={retrievalScore}
+    curatorNote={curatorNote}
+  />;
 
   return (
     <main className={`shell${experienceView ? " experience-artwork-page" : ""}`}>
@@ -113,7 +120,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
         </a>
         <nav className="nav" aria-label={experienceView ? "观展导航" : "Primary"}>
           {experienceView ? <a className="detail-return-link" href={appPath(returnTo)}>
-            <ArrowLeft aria-hidden="true" size={17} /> 返回刚才的位置
+            <ArrowLeft aria-hidden="true" size={17} /> {returnTo === defaultReturn ? "返回入口" : "返回刚才的位置"}
           </a> : <><a href={appPath("/")}>首页</a><a href={appPath(returnTo)}>画廊</a></>}
         </nav>
       </header>
@@ -130,21 +137,21 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               fetchPriority="high"
               src={artworkImageUrl(artwork.id, "preview", catalog.releaseVersion)}
             />
-            <figcaption className="artwork-caption">
+            {!experienceView ? <figcaption className="artwork-caption">
               <strong>{artwork.title}</strong>
               <span>{[artistName, artwork.yearLabel].filter(Boolean).join(", ")}</span>
-            </figcaption>
+            </figcaption> : null}
           </figure>
           <div className="detail-copy">
             {!experienceView ? <p className="eyebrow">作品</p> : null}
             <h1>{artwork.title}</h1>
             <p className="detail-byline">{[artistName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ")}</p>
             {readingCopy.primary ? <p className="detail-primary-note">{readingCopy.primary}</p> : null}
-            <div className="detail-actions">
+            {experienceView ? explanationPanel : null}
+            {!experienceView ? <div className="detail-actions">
               <a className={`secondary-link${experienceView ? " detail-return-action" : ""}`} href={appPath(returnTo)}>
                 <ArrowLeft aria-hidden="true" size={17} /> 返回刚才的位置
               </a>
-              {!experienceView ? <>
               <a className="secondary-link" href={appPath("/gallery?view=route")}>画廊路线</a>
               <a className="secondary-link" href={appPath(immersiveHref)}>
                 沉浸观展 <ExternalLink aria-hidden="true" size={17} />
@@ -154,10 +161,9 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
                   来源页面 <ExternalLink aria-hidden="true" size={17} />
                 </a>
               ) : null}
-              </> : null}
-            </div>
+            </div> : null}
             {experienceView ? <div className="detail-context-links">
-              <a href={appPath("/gallery?view=route")}>其他画廊路线</a>
+              <a href={appPath(buildExperienceEntryHref(query))}>重新选一组</a>
               {artwork.objectUrl ? <a href={artwork.objectUrl} target="_blank" rel="noreferrer">
                 馆藏来源 <ExternalLink aria-hidden="true" size={15} />
               </a> : null}
@@ -168,23 +174,15 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
 
       <section className="section">
         <div className="detail-grid">
-          <div>
-            <div className="section-header">
+          {readingCopy.description || !experienceView ? <div>
+            {!experienceView ? <div className="section-header">
               <div>
                 <h2>作品资料</h2>
               </div>
-            </div>
+            </div> : null}
             {readingCopy.description ? <details className="detail-source-description"><summary>馆藏说明</summary><p>{readingCopy.description}</p></details> : null}
-            <ArtworkExplanationPanel
-              artworkId={artwork.id}
-              backgroundSceneId={scene?.id}
-              matchedTokens={matchedTokens}
-              query={query ?? artwork.title}
-              releaseVersion={catalog.releaseVersion}
-              retrievalScore={retrievalScore}
-              curatorNote={curatorNote}
-            />
-          </div>
+            {!experienceView ? explanationPanel : null}
+          </div> : null}
           <dl className="facts">
             <div className="fact">
               <dt>馆方尺寸</dt>

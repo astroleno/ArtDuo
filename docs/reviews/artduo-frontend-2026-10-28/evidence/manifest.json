@@ -1,0 +1,769 @@
+{
+  "reviewDate": "2026-10-28",
+  "codeHead": "f908cda5b0c9b540a59f154bb61e4c5902c80130",
+  "site": "https://aitoshuu.me/ArtDuo",
+  "buildId": "JK4fakq2RdGylYpAtwGIZ",
+  "method": "Ego browser, production pages and saved curation replay; viewport simulation, not physical-device testing; no new curation or handwriting generation",
+  "states": [
+    {
+      "id": "E01",
+      "file": "entry-desktop-dark.png",
+      "url": "https://aitoshuu.me/ArtDuo",
+      "notes": "Default entry on arrival, before input.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container \"今天闪过的光点是什么？今天，你更像火还是水？\"\n    anchor \"ArtDuo，返回入口\" [ref=1, loc=css:a[aria-label=\"ArtDuo，返回入口\"], url=https://aitoshuu.me/ArtDuo]\n      text \"ArtDuo\"\n    button \"切换浅色模式\" [ref=2, loc=css:button[aria-label=\"切换浅色模式\"]]\n      svg_root\n    container\n      heading \"今天闪过的光点是什么？\"\n        button \"换一句问句\" [ref=3, loc=css:button[aria-label=\"换一句问句\"]]\n          container\n            text \"今\"\n            text \"天\"\n            text \"闪\"\n            text \"过\"\n            text \"的\"\n            text \"光\"\n            text \"点\"\n            text \"是\"\n            text \"什\"\n            text \"么\"\n            text \"？\"\n      form\n        container\n          textbox \"写下一句此刻的心情或观看愿望\" [ref=4, loc=css:input[name=\"query\"]]\n            text \"写下此刻心情…\"\n          alert\n        button [ref=5]\n          text \"开始观展\"\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false,
+        "theme": "system",
+        "inputHeight": 56
+      }
+    },
+    {
+      "id": "E02",
+      "file": "entry-desktop-light.png",
+      "url": "https://aitoshuu.me/ArtDuo",
+      "notes": "Theme toggled with existing theme control.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container \"今天，你更像火还是水？今天属于冷色还是暖调？\"\n    anchor \"ArtDuo，返回入口\" [ref=1, loc=css:a[aria-label=\"ArtDuo，返回入口\"], url=https://aitoshuu.me/ArtDuo]\n      text \"ArtDuo\"\n    button \"切换深色模式\" [ref=2, loc=css:button[aria-label=\"切换深色模式\"]]\n      svg_root\n    container\n      heading \"今天，你更像火还是水？\"\n        button \"换一句问句\" [ref=3, loc=css:button[aria-label=\"换一句问句\"]]\n          container\n            text \"今\"\n            text \"天\"\n            text \"，\"\n            text \"你\"\n            text \"更\"\n            text \"像\"\n            text \"火\"\n            text \"还\"\n            text \"是\"\n            text \"水\"\n            text \"？\"\n      form\n        container\n          textbox \"写下一句此刻的心情或观看愿望\" [ref=4, loc=css:input[name=\"query\"]]\n            text \"写下此刻心情…\"\n          alert\n        button [ref=5]\n          text \"开始观展\"\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false,
+        "theme": "light",
+        "inputHeight": 56
+      }
+    },
+    {
+      "id": "E03",
+      "file": "entry-empty-error.png",
+      "url": "https://aitoshuu.me/ArtDuo",
+      "notes": "Empty submit; inline feedback and focused input.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container \"今天，你更像火还是水？今天属于冷色还是暖调？\"\n    anchor \"ArtDuo，返回入口\" [ref=1, loc=css:a[aria-label=\"ArtDuo，返回入口\"], url=https://aitoshuu.me/ArtDuo]\n      text \"ArtDuo\"\n    button \"切换深色模式\" [ref=2, loc=css:button[aria-label=\"切换深色模式\"]]\n      svg_root\n    container\n      heading \"今天，你更像火还是水？\"\n        button \"换一句问句\" [ref=3, loc=css:button[aria-label=\"换一句问句\"]]\n          container\n            text \"今\"\n            text \"天\"\n            text \"，\"\n            text \"你\"\n            text \"更\"\n            text \"像\"\n            text \"火\"\n            text \"还\"\n            text \"是\"\n            text \"水\"\n            text \"？\"\n      form\n        container\n          textbox \"写下一句此刻的心情或观看愿望\" [ref=4, loc=css:input[name=\"query\"]]\n            text \"写下此刻心情…\"\n          alert\n            text \"写下你想看的内容。\"\n        button [ref=5]\n          text \"开始观展\"\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false,
+        "theme": "light",
+        "inputHeight": 56
+      }
+    },
+    {
+      "id": "E04",
+      "file": "entry-mobile-light.png",
+      "url": "https://aitoshuu.me/ArtDuo",
+      "notes": "390x844 CSS viewport, initial input state.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container \"此刻你是何种颜色？你的心像圆还是碎片？\"\n    anchor \"ArtDuo，返回入口\" [ref=6, loc=css:a[aria-label=\"ArtDuo，返回入口\"], url=https://aitoshuu.me/ArtDuo]\n      text \"ArtDuo\"\n    button \"切换深色模式\" [ref=7, loc=css:button[aria-label=\"切换深色模式\"]]\n      svg_root\n    container\n      heading \"此刻你是何种颜色？\"\n        button \"换一句问句\" [ref=8, loc=css:button[aria-label=\"换一句问句\"]]\n          container\n            text \"此\"\n            text \"刻\"\n            text \"你\"\n            text \"是\"\n            text \"何\"\n            text \"种\"\n            text \"颜\"\n            text \"色\"\n            text \"？\"\n      form\n        container\n          textbox \"写下一句此刻的心情或观看愿望\" [ref=9, loc=css:input[name=\"query\"]]\n            text \"写下此刻心情…\"\n          alert\n        button [ref=10]\n          text \"开始观展\"\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "theme": "light",
+        "inputHeight": 56
+      }
+    },
+    {
+      "id": "E05",
+      "file": "entry-mobile-dark.png",
+      "url": "https://aitoshuu.me/ArtDuo",
+      "notes": "390x844 CSS viewport, dark theme.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container \"此刻你是何种颜色？你的心像圆还是碎片？\"\n    anchor \"ArtDuo，返回入口\" [ref=6, loc=css:a[aria-label=\"ArtDuo，返回入口\"], url=https://aitoshuu.me/ArtDuo]\n      text \"ArtDuo\"\n    button \"切换浅色模式\" [ref=7, loc=css:button[aria-label=\"切换浅色模式\"]]\n      svg_root\n    container\n      heading \"此刻你是何种颜色？\"\n        button \"换一句问句\" [ref=8, loc=css:button[aria-label=\"换一句问句\"]]\n          container\n            text \"此\"\n            text \"刻\"\n            text \"你\"\n            text \"是\"\n            text \"何\"\n            text \"种\"\n            text \"颜\"\n            text \"色\"\n            text \"？\"\n      form\n        container\n          textbox \"写下一句此刻的心情或观看愿望\" [ref=9, loc=css:input[name=\"query\"]]\n            text \"写下此刻心情…\"\n          alert\n        button [ref=10]\n          text \"开始观展\"\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "theme": "dark",
+        "inputHeight": 56
+      }
+    },
+    {
+      "id": "E06",
+      "file": "preface-desktop.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&phase=preface",
+      "notes": "Saved curation, 6 works; no new generation requested.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"开启环境音\" [ref=11, loc=css:button[aria-label=\"开启环境音\"]]\n      text \"开启环境音\"\n    container \"先看第一幅：赭黄屋顶叠在前景，蓝色海湾伸向山体。往后几幅有树冠、坡地与浅色天空，可顺着水面与天光看过去。\"\n      image\n      container\n        paragraph\n          text \"关于这次展览\"\n          text \"· 6 件作品\"\n        heading\n          text \"先看第一幅：赭黄屋顶叠在前景，蓝色海湾伸向山体。往后几幅有树冠、坡地与浅色天空，可顺着水面与天光看过去。\"\n        button \"跳过前言，开始观展\" [ref=12, loc=css:button[aria-label=\"跳过前言，开始观展\"]]\n          text \"进入展厅\"\n          text \"→\"\n        button [ref=13]\n          text \"提前准备手写纪念卡\"\n    anchor [ref=14, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n      text \"ArtDuo\"\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false,
+        "visibleControls": [
+          {
+            "label": "开启环境音",
+            "width": 112,
+            "height": 44
+          },
+          {
+            "label": "跳过前言，开始观展",
+            "width": 109.1484375,
+            "height": 46
+          },
+          {
+            "label": "提前准备手写纪念卡",
+            "width": 108,
+            "height": 44
+          },
+          {
+            "label": "ArtDuo",
+            "width": 36.125,
+            "height": 44
+          }
+        ]
+      }
+    },
+    {
+      "id": "E07",
+      "file": "preface-mobile.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&phase=preface",
+      "notes": "Same saved preface at 390x844.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"开启环境音\" [ref=11, loc=css:button[aria-label=\"开启环境音\"]]\n    container \"先看第一幅：赭黄屋顶叠在前景，蓝色海湾伸向山体。往后几幅有树冠、坡地与浅色天空，可顺着水面与天光看过去。\"\n      image\n      container\n        paragraph\n          text \"关于这次展览\"\n          text \"· 6 件作品\"\n        heading\n          text \"先看第一幅：赭黄屋顶叠在前景，蓝色海湾伸向山体。往后几幅有树冠、坡地与浅色天空，可顺着水面与天光看过去。\"\n        button \"跳过前言，开始观展\" [ref=12, loc=css:button[aria-label=\"跳过前言，开始观展\"]]\n          text \"进入展厅\"\n          text \"→\"\n        button [ref=13]\n          text \"提前准备手写纪念卡\"\n    anchor [ref=14, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n      text \"ArtDuo\"\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "visibleControls": [
+          {
+            "label": "开启环境音",
+            "width": 44,
+            "height": 44
+          },
+          {
+            "label": "跳过前言，开始观展",
+            "width": 109.1484375,
+            "height": 46
+          },
+          {
+            "label": "提前准备手写纪念卡",
+            "width": 108,
+            "height": 44
+          },
+          {
+            "label": "ArtDuo",
+            "width": 32.515625,
+            "height": 44
+          }
+        ]
+      }
+    },
+    {
+      "id": "E08",
+      "file": "preface-keepsake-mobile.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&phase=preface",
+      "notes": "Optional keepsake dialog before entering the exhibition. No job submitted.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"开启环境音\" [ref=11, loc=css:button[aria-label=\"开启环境音\"]]\n    container \"先看第一幅：赭黄屋顶叠在前景，蓝色海湾伸向山体。往后几幅有树冠、坡地与浅色天空，可顺着水面与天光看过去。\"\n      image\n      paragraph\n        text \"关于这次展览\"\n        text \"· 6 件作品\"\n      heading\n        text \"先看第一幅：赭黄屋顶叠在前景，蓝色海湾伸向山体。往后几幅有树冠、坡地与浅色天空，可顺着水面与天光看过去。\"\n      button \"跳过前言，开始观展\" [ref=12, loc=css:button[aria-label=\"跳过前言，开始观展\"]]\n        text \"进入展厅\"\n        text \"→\"\n      button [ref=13]\n        text \"提前准备手写纪念卡\"\n    anchor [ref=14, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n      text \"ArtDuo\"\n  dialog_modal \"手写寄语纪念卡\" [ref=15]\n    container\n      container\n        paragraph\n          text \"把这一刻留下\"\n        heading\n          text \"手写寄语纪念卡\"\n      button \"关闭寄语卡制作\" [ref=16, loc=css:button[aria-label=\"关闭寄语卡制作\"]]\n        text \"×\"\n    paragraph\n      text \"只将下方确认的寄语和个人落款发送给 Inko。作品图片、心情原句和观看记录不随之发送。\"\n    paragraph\n      text \"本次作品：\"\n      text \"Stacks of Wheat (End of Summer)\"\n      text \"Claude Monet\"\n    container\n      text \"寄语\"\n      container\n        text \"32\"\n        text \"/ 2000 字\"\n      textbox [ref=17]\n        text \"末幅的麦垛停在浅色田野上，后侧树线与淡色天空接成一条平缓的横线。\"\n    container\n      text \"个人落款\"\n      container\n        text \"可不填，与作品作者分别显示 ·\"\n        text \"0\"\n        text \"/ 40 字\"\n      textbox [ref=18, loc=css:input[placeholder=\"例如：观展人\"]]\n        text \"例如：观展人\"\n    container\n      text \"字迹\"\n      combobox [ref=19]\n        text \"No.001\"\n    container\n      image\n      text \"字迹示例，实际寄语以生成结果为准。\"\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false
+      }
+    },
+    {
+      "id": "E09",
+      "file": "walk-desktop-arrival.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "First artwork after clicking Enter gallery.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      button \"观展设置\" [ref=20, loc=css:button[aria-label=\"观展设置\"]]\n        text \"•••\"\n      container\n        image\n        canvas\n        container\n          anchor \"ArtDuo，重新选一组作品\" [ref=21, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n            text \"ArtDuo\"\n          container\n            text \"01\"\n            text \"/\"\n            text \"06\"\n        button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=22, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n          image\n          text \"放大\"\n          text \"进入画中\"\n        container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n          button \"展开完整展签\" [ref=23, loc=css:button[aria-label=\"展开完整展签\"]]\n            text \"The Bay of Marseille, Seen from L'Estaque\"\n            text \"Paul Cezanne\"\n            text \"c. 1885\"\n        container \"作品导航\"\n          button \"上一件作品\" [ref=24, loc=css:button[aria-label=\"上一件作品\"]]\n            text \"←\"\n            text \"上一件\"\n          button \"下一件作品\" [ref=25, loc=css:button[aria-label=\"下一件作品\"]]\n            text \"下一件\"\n            text \"→\"\n    svg_root\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false
+      },
+      "controls": [
+        {
+          "label": "上一件作品",
+          "rect": {
+            "x": 24,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": [
+            {
+              "class": "",
+              "opacity": "0.42",
+              "pointerEvents": "auto"
+            },
+            {
+              "class": "experience-walk-controls",
+              "opacity": "1",
+              "pointerEvents": "none"
+            },
+            {
+              "class": "experience-walk ",
+              "opacity": "0.951574",
+              "pointerEvents": "auto"
+            }
+          ]
+        },
+        {
+          "label": "下一件作品",
+          "rect": {
+            "x": 1345.75,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": [
+            {
+              "class": "experience-walk-controls",
+              "opacity": "1",
+              "pointerEvents": "none"
+            },
+            {
+              "class": "experience-walk ",
+              "opacity": "0.951574",
+              "pointerEvents": "auto"
+            }
+          ]
+        },
+        {
+          "label": "观展设置",
+          "rect": {
+            "x": 1378,
+            "y": 14,
+            "width": 44,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": [
+            {
+              "class": "experience-walk ",
+              "opacity": "0.951574",
+              "pointerEvents": "auto"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E10",
+      "file": "walk-desktop-idle.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Pointer in central painting, idle 3.3 seconds.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      button \"观展设置\" [ref=20, loc=css:button[aria-label=\"观展设置\"]]\n        text \"•••\"\n      container\n        image\n        canvas\n        container\n          anchor \"ArtDuo，重新选一组作品\" [ref=21, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n            text \"ArtDuo\"\n          container\n            text \"01\"\n            text \"/\"\n            text \"06\"\n        container\n          button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=22, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n            image\n            text \"放大\"\n            text \"进入画中\"\n          canvas\n        container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n          button \"展开完整展签\" [ref=23, loc=css:button[aria-label=\"展开完整展签\"]]\n            text \"The Bay of Marseille, Seen from L'Estaque\"\n            text \"Paul Cezanne\"\n            text \"c. 1885\"\n        container \"作品导航\"\n          button \"上一件作品\" [ref=24, loc=css:button[aria-label=\"上一件作品\"]]\n            text \"←\"\n            text \"上一件\"\n          button \"下一件作品\" [ref=25, loc=css:button[aria-label=\"下一件作品\"]]\n            text \"下一件\"\n            text \"→\"\n    svg_root\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false
+      },
+      "controls": [
+        {
+          "label": "上一件作品",
+          "rect": {
+            "x": 24,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": false,
+          "chain": [
+            {
+              "class": "",
+              "opacity": "0.42",
+              "pointerEvents": "none"
+            },
+            {
+              "class": "experience-walk-controls",
+              "opacity": "0",
+              "pointerEvents": "none"
+            }
+          ]
+        },
+        {
+          "label": "下一件作品",
+          "rect": {
+            "x": 1345.75,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": false,
+          "chain": [
+            {
+              "class": "experience-next",
+              "opacity": "1",
+              "pointerEvents": "none"
+            },
+            {
+              "class": "experience-walk-controls",
+              "opacity": "0",
+              "pointerEvents": "none"
+            }
+          ]
+        },
+        {
+          "label": "观展设置",
+          "rect": {
+            "x": 1378,
+            "y": 14,
+            "width": 44,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": []
+        }
+      ]
+    },
+    {
+      "id": "E11",
+      "file": "walk-desktop-edge.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "After idle, moved pointer to right edge at x=1432.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      button \"观展设置\" [ref=20, loc=css:button[aria-label=\"观展设置\"]]\n        text \"•••\"\n      container\n        image\n        canvas\n        container\n          anchor \"ArtDuo，重新选一组作品\" [ref=21, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n            text \"ArtDuo\"\n          container\n            text \"01\"\n            text \"/\"\n            text \"06\"\n        container\n          button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=22, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n            image\n            text \"放大\"\n            text \"进入画中\"\n          canvas\n        container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n          button \"展开完整展签\" [ref=23, loc=css:button[aria-label=\"展开完整展签\"]]\n            text \"The Bay of Marseille, Seen from L'Estaque\"\n            text \"Paul Cezanne\"\n            text \"c. 1885\"\n        container \"作品导航\"\n          button \"上一件作品\" [ref=24, loc=css:button[aria-label=\"上一件作品\"]]\n            text \"←\"\n            text \"上一件\"\n          button \"下一件作品\" [ref=25, loc=css:button[aria-label=\"下一件作品\"]]\n            text \"下一件\"\n            text \"→\"\n    svg_root\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false
+      },
+      "controls": [
+        {
+          "label": "上一件作品",
+          "rect": {
+            "x": 24,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": [
+            {
+              "class": "",
+              "opacity": "0.42",
+              "pointerEvents": "auto"
+            },
+            {
+              "class": "experience-walk-controls",
+              "opacity": "0.852448",
+              "pointerEvents": "none"
+            }
+          ]
+        },
+        {
+          "label": "下一件作品",
+          "rect": {
+            "x": 1345.75,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": [
+            {
+              "class": "experience-walk-controls",
+              "opacity": "0.852448",
+              "pointerEvents": "none"
+            }
+          ]
+        },
+        {
+          "label": "观展设置",
+          "rect": {
+            "x": 1378,
+            "y": 14,
+            "width": 44,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": []
+        }
+      ]
+    },
+    {
+      "id": "E12",
+      "file": "walk-mobile-arrival.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Fresh saved exhibition reload at 390x844; touch emulation enabled.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"观展设置\" [ref=26, loc=css:button[aria-label=\"观展设置\"]]\n      text \"•••\"\n    container\n      image\n      canvas\n      container\n        anchor \"ArtDuo，重新选一组作品\" [ref=27, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n          text \"ArtDuo\"\n        container\n          text \"01\"\n          text \"/\"\n          text \"06\"\n      button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=28, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n        image\n        text \"放大\"\n        text \"进入画中\"\n      container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n        button \"展开完整展签\" [ref=29, loc=css:button[aria-label=\"展开完整展签\"]]\n          text \"The Bay of Marseille, Seen from L'Estaque\"\n          text \"Paul Cezanne\"\n          text \"c. 1885\"\n      container \"作品导航\"\n        button \"上一件作品\" [ref=30, loc=css:button[aria-label=\"上一件作品\"]]\n          text \"←\"\n          text \"上一件\"\n        button \"下一件作品\" [ref=31, loc=css:button[aria-label=\"下一件作品\"]]\n          text \"下一件\"\n          text \"→\"\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "coarse": true,
+        "hover": false,
+        "touchPoints": 1,
+        "overflow": false
+      }
+    },
+    {
+      "id": "E13",
+      "file": "walk-mobile-first-tap.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "After 3.3s idle, first touch at (195,250), center of painting; touchStart/touchEnd, no mouse click.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      button \"观展设置\" [ref=26, loc=css:button[aria-label=\"观展设置\"]]\n        text \"•••\"\n      container\n        image\n        container\n          anchor \"ArtDuo，重新选一组作品\" [ref=27, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n            text \"ArtDuo\"\n          container\n            text \"01\"\n            text \"/\"\n            text \"06\"\n        button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=28, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n          image\n          text \"放大\"\n          text \"进入画中\"\n        container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n          button \"展开完整展签\" [ref=29, loc=css:button[aria-label=\"展开完整展签\"]]\n            text \"The Bay of Marseille, Seen from L'Estaque\"\n            text \"Paul Cezanne\"\n            text \"c. 1885\"\n        container \"作品导航\"\n          button \"上一件作品\" [ref=30, loc=css:button[aria-label=\"上一件作品\"]]\n            text \"←\"\n            text \"上一件\"\n          button \"下一件作品\" [ref=31, loc=css:button[aria-label=\"下一件作品\"]]\n            text \"下一件\"\n            text \"→\"\n    svg_root\n    dialog \"《The Bay of Marseille, Seen from L'Estaque》沉浸观看\" [ref=32, loc=role:dialog[name=\"《The Bay of Marseille, Seen from L'Estaque》沉浸观看\"]]\n      container\n        image\n        canvas\n      container\n        button \"开启随手机轻动\" [ref=33, loc=css:button[aria-label=\"开启随手机轻动\"]]\n          text \"随手机轻动\"\n        button \"返回画廊视图\" [ref=34, loc=css:button[aria-label=\"返回画廊视图\"]]\n          text \"↙\"\n          text \"返回画廊\"\n      container\n        image\n        canvas\n      paragraph\n        text \"The Bay of Marseille, Seen from L'Estaque\"\n        text \"Paul Cezanne, c. 1885\"\n      paragraph\n        text \"拖动画面，感受空间层次\"\n      container \"沉浸作品切换\"\n        button \"上一幅作品\" [ref=35, loc=css:button[aria-label=\"上一幅作品\"]]\n          text \"←\"\n        button \"下一幅作品\" [ref=36, loc=css:button[aria-label=\"下一幅作品\"]]\n          text \"→\"\n",
+      "before": {
+        "depthExit": false,
+        "nextOpacity": "0"
+      }
+    },
+    {
+      "id": "E14",
+      "file": "reading-mobile.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Complete plaque after opening immersive viewing and returning; same artwork assets may be warm. No detailed explanation requested.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"观展设置\" [ref=26, loc=css:button[aria-label=\"观展设置\"]]\n      text \"•••\"\n    container\n      image\n      container\n        anchor \"ArtDuo，重新选一组作品\" [ref=27, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n          text \"ArtDuo\"\n        text \"01\"\n        text \"/\"\n        text \"06\"\n      button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=28, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n        image\n        text \"放大\"\n        text \"进入画中\"\n      container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n        button \"展开完整展签\" [ref=29, loc=css:button[aria-label=\"展开完整展签\"]]\n          text \"The Bay of Marseille, Seen from L'Estaque\"\n          text \"Paul Cezanne\"\n          text \"c. 1885\"\n      container \"作品导航\"\n        button \"上一件作品\" [ref=30, loc=css:button[aria-label=\"上一件作品\"]]\n          text \"←\"\n          text \"上一件\"\n        button \"下一件作品\" [ref=31, loc=css:button[aria-label=\"下一件作品\"]]\n          text \"下一件\"\n          text \"→\"\n  dialog_modal \"The Bay of Marseille, Seen from L'Estaque\" [ref=37]\n    container\n      text \"作品资料\"\n      button \"收起完整展签\" [ref=38, loc=css:button[aria-label=\"收起完整展签\"]]\n        text \"返回\"\n        text \"画作\"\n        text \"×\"\n    image\n    region \"作品文字\" [ref=39, loc=role:region[name=\"作品文字\"]]\n      heading\n        text \"The Bay of Marseille, Seen from L'Estaque\"\n      paragraph\n        text \"Paul Cezanne · c. 1885\"\n      container\n        paragraph\n          text \"赭黄屋顶层层叠在前景，蓝色海湾向山体延伸。\"\n        container [ref=40]\n          text \"馆藏说明\"\n        unordered_list\n          container\n            list_item\n              text \"媒材\"\n            list_item\n              text \"Oil on canvas\"\n          container\n            list_item\n              text \"部门\"\n            list_item\n              text \"Painting and Sculpture of Europe\"\n",
+      "timing": {
+        "clickAt": 129828.10000000894,
+        "openedAt": 131264.30000001192,
+        "durationMs": 1436.2000000029802,
+        "firstFrame": {
+          "open": false,
+          "disabled": false,
+          "busy": "true",
+          "status": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "E14b",
+      "file": "reading-mobile-actions.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Scrolled within complete plaque to its action area.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"观展设置\" [ref=26, loc=css:button[aria-label=\"观展设置\"]]\n      text \"•••\"\n    container\n      image\n      container\n        anchor \"ArtDuo，重新选一组作品\" [ref=27, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n          text \"ArtDuo\"\n        text \"01\"\n        text \"/\"\n        text \"06\"\n      button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=28, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n        image\n        text \"放大\"\n        text \"进入画中\"\n      container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n        button \"展开完整展签\" [ref=29, loc=css:button[aria-label=\"展开完整展签\"]]\n          text \"The Bay of Marseille, Seen from L'Estaque\"\n          text \"Paul Cezanne\"\n          text \"c. 1885\"\n      container \"作品导航\"\n        button \"上一件作品\" [ref=30, loc=css:button[aria-label=\"上一件作品\"]]\n          text \"←\"\n          text \"上一件\"\n        button \"下一件作品\" [ref=31, loc=css:button[aria-label=\"下一件作品\"]]\n          text \"下一件\"\n          text \"→\"\n  dialog_modal \"The Bay of Marseille, Seen from L'Estaque\" [ref=37]\n    container\n      text \"作品资料\"\n      button \"收起完整展签\" [ref=38, loc=css:button[aria-label=\"收起完整展签\"]]\n        text \"返回\"\n        text \"画作\"\n        text \"×\"\n    image\n    region \"作品文字\" [ref=39, loc=role:region[name=\"作品文字\"]]\n      container\n        unordered_list\n          container\n            list_item\n              text \"部门\"\n            list_item\n              text \"Painting and Sculpture of Europe\"\n          container\n            list_item\n              text \"馆方尺寸\"\n            list_item\n              text \"80.2 × 100.6 cm (31 5/8 × 39 5/8 in.); Framed: 107.4 × 127.4 × 10.5 cm (42 1/4 × 50 1/8 × 4 1/8 in.)\"\n          container\n            list_item\n              text \"来源\"\n            list_item\n              text \"Art Institute of Chicago — Mr. and Mrs. Martin A. Ryerson Collection\"\n        paragraph\n          text \"画作\"\n          text \"按屏幕适配，展厅中的大小不代表原作实际尺寸。\"\n        container\n          button [ref=42]\n            text \"进入详细讲解\"\n          anchor [ref=43, loc=href:https://www.artic.edu/artworks/16487, url=https://www.artic.edu/artworks/16487]\n            text \"馆藏来源\"\n"
+    },
+    {
+      "id": "E15",
+      "file": "artwork-detail-mobile-top.png",
+      "url": "https://aitoshuu.me/ArtDuo/artwork/artic-16487?releaseVersion=2026-10-24-da3-curated-630&returnTo=%2Fgallery%2Flocal%2Fimmersive%3Fquery%3D%25E6%2588%2591%25E6%2583%25B3%25E5%259C%25A8%25E6%25B8%2585%25E6%2599%25A8%25E7%259A%2584%25E6%25B2%25B3%25E5%25B2%25B8%25E8%25BE%25B9%25EF%25BC%258C%25E7%259C%258B%25E4%25B8%2580%25E7%25BB%2584%25E6%259C%2589%25E6%25A0%2591%25E5%25BD%25B1%25E3%2580%2581%25E5%25BE%25AE%25E9%25A3%258E%25E5%2592%258C%25E6%2598%258E%25E4%25BA%25AE%25E5%25A4%25A9%25E7%25A9%25BA%25E7%259A%2584%25E7%2594%25BB%25E3%2580%2582%26view%3Dexperience%26releaseVersion%3D2026-10-24-da3-curated-630%26recipeVersion%3Dexperience-v2%26phase%3Dwalk%26artworkId%3Dartic-16487%26curationId%3D803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136%26route%3Dartic-16487%252Csmk-KMS4177%252Cartic-14620%252Csmk-KMSsp491%252Cartic-28560%252Cartic-64818&query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&backgroundSceneId=bg-034&retrievalScore=1.1400987711060817&matchedTokens=stage-subject%3Awater%2Cstage-subject%3Aforest%2Cpixels%3Abrightness",
+      "notes": "Landing viewport after clicking Enter detailed explanation. No Generate explanation clicked.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      anchor [ref=44, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n        text \"ArtDuo\"\n      container \"观展导航\"\n        anchor [ref=45, url=https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818]\n          svg_root\n          text \"返回刚才的位置\"\n    container\n      container\n        text \"The Bay of Marseille, Seen from L'Estaque\"\n        text \"Paul Cezanne, c. 1885\"\n      container\n        heading\n          text \"The Bay of Marseille, Seen from L'Estaque\"\n        paragraph\n          text \"Paul Cezanne · c. 1885 · Oil on canvas\"\n        paragraph\n          text \"赭黄屋顶层层叠在前景，蓝色海湾向山体延伸。\"\n        anchor [ref=46, url=https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818]\n          svg_root\n          text \"返回刚才的位置\"\n        container\n          anchor [ref=47, loc=href:/ArtDuo/gallery?view=route, url=https://aitoshuu.me/ArtDuo/gallery?view=route]\n            text \"其他画廊路线\"\n          anchor [ref=48, loc=href:https://www.artic.edu/artworks/16487, url=https://www.artic.edu/artworks/16487]\n            text \"馆藏来源\"\n            svg_root\n    container\n      heading\n        text \"作品资料\"\n      container [ref=49]\n        text \"馆藏说明\"\n      container \"作品讲解\"\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "documentHeight": 1606
+      }
+    },
+    {
+      "id": "E16",
+      "file": "artwork-detail-mobile-explanation.png",
+      "url": "https://aitoshuu.me/ArtDuo/artwork/artic-16487?releaseVersion=2026-10-24-da3-curated-630&returnTo=%2Fgallery%2Flocal%2Fimmersive%3Fquery%3D%25E6%2588%2591%25E6%2583%25B3%25E5%259C%25A8%25E6%25B8%2585%25E6%2599%25A8%25E7%259A%2584%25E6%25B2%25B3%25E5%25B2%25B8%25E8%25BE%25B9%25EF%25BC%258C%25E7%259C%258B%25E4%25B8%2580%25E7%25BB%2584%25E6%259C%2589%25E6%25A0%2591%25E5%25BD%25B1%25E3%2580%2581%25E5%25BE%25AE%25E9%25A3%258E%25E5%2592%258C%25E6%2598%258E%25E4%25BA%25AE%25E5%25A4%25A9%25E7%25A9%25BA%25E7%259A%2584%25E7%2594%25BB%25E3%2580%2582%26view%3Dexperience%26releaseVersion%3D2026-10-24-da3-curated-630%26recipeVersion%3Dexperience-v2%26phase%3Dwalk%26artworkId%3Dartic-16487%26curationId%3D803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136%26route%3Dartic-16487%252Csmk-KMS4177%252Cartic-14620%252Csmk-KMSsp491%252Cartic-28560%252Cartic-64818&query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&backgroundSceneId=bg-034&retrievalScore=1.1400987711060817&matchedTokens=stage-subject%3Awater%2Cstage-subject%3Aforest%2Cpixels%3Abrightness",
+      "notes": "Scrolled to explanation section; Generate not clicked.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      anchor [ref=44, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n        text \"ArtDuo\"\n      container \"观展导航\"\n        anchor [ref=45, url=https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818]\n          svg_root\n          text \"返回刚才的位置\"\n    container\n      paragraph\n        text \"赭黄屋顶层层叠在前景，蓝色海湾向山体延伸。\"\n      anchor [ref=46, url=https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818]\n        svg_root\n        text \"返回刚才的位置\"\n      container\n        anchor [ref=47, loc=href:/ArtDuo/gallery?view=route, url=https://aitoshuu.me/ArtDuo/gallery?view=route]\n          text \"其他画廊路线\"\n        anchor [ref=48, loc=href:https://www.artic.edu/artworks/16487, url=https://www.artic.edu/artworks/16487]\n          text \"馆藏来源\"\n          svg_root\n    container\n      container\n        heading\n          text \"作品资料\"\n        container [ref=49]\n          text \"馆藏说明\"\n        container \"作品讲解\"\n          paragraph\n            text \"按需讲解\"\n          button [ref=50]\n            text \"生成这件作品的讲解\"\n      unordered_list\n        container\n          list_item\n            text \"馆方尺寸\"\n          list_item\n            text \"80.2 × 100.6 cm (31 5/8 × 39 5/8 in.); Framed: 107.4 × 127.4 × 10.5 cm (42 1/4 × 50 1/8 × 4 1/8 in.)\"\n        container\n          list_item\n            text \"展示方式\"\n          list_item\n            text \"按屏幕适配，完整显示图像；展厅中的大小不代表原作实际尺寸。\"\n        container\n          list_item\n            text \"作者\"\n          list_item\n            text \"Paul Cezanne\"\n        list_item\n          text \"时期\"\n",
+      "placement": {
+        "buttonTop": 1062.21875,
+        "viewportHeight": 844,
+        "images": [
+          {
+            "alt": "The Bay of Marseille, Seen from L'Estaque artwork",
+            "loaded": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "E17",
+      "file": "settings-mobile.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Returned with the provided link, then opened settings.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"观展设置\" [ref=51, loc=css:button[aria-label=\"观展设置\"]]\n      text \"•••\"\n    container\n      image\n      canvas\n      container\n        anchor \"ArtDuo，重新选一组作品\" [ref=52, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n          text \"ArtDuo\"\n        text \"01\"\n        text \"/\"\n        text \"06\"\n      button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=53, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n        image\n        text \"放大\"\n        text \"进入画中\"\n      container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n        button \"展开完整展签\" [ref=54, loc=css:button[aria-label=\"展开完整展签\"]]\n          text \"The Bay of Marseille, Seen from L'Estaque\"\n          text \"Paul Cezanne\"\n          text \"c. 1885\"\n      container \"作品导航\"\n        button \"上一件作品\" [ref=55, loc=css:button[aria-label=\"上一件作品\"]]\n          text \"←\"\n          text \"上一件\"\n        button \"下一件作品\" [ref=56, loc=css:button[aria-label=\"下一件作品\"]]\n          text \"下一件\"\n          text \"→\"\n  dialog_modal \"观展设置\" [ref=57]\n    container\n      heading\n        text \"观展设置\"\n      button \"关闭观展设置\" [ref=58, loc=css:button[aria-label=\"关闭观展设置\"]]\n        text \"×\"\n    container\n      container\n        text \"画面随鼠标轻动\"\n        text \"轻移视线，看看画面的前后层次\"\n      checkbox [ref=59]\n    button \"开启环境音\" [ref=60, loc=css:button[aria-label=\"开启环境音\"]]\n      text \"开启环境音\"\n    button \"开启画廊随设备轻动\" [ref=61, loc=css:button[aria-label=\"开启画廊随设备轻动\"]]\n      text \"开启手机随动\"\n    container [ref=62]\n      text \"本次展览与路线\"\n      text \"+\"\n"
+    },
+    {
+      "id": "E18",
+      "file": "settings-mobile-expanded.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Expanded exhibition and route settings; no route feedback action selected.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button \"观展设置\" [ref=51, loc=css:button[aria-label=\"观展设置\"]]\n      text \"•••\"\n    container\n      image\n      canvas\n      container\n        anchor \"ArtDuo，重新选一组作品\" [ref=52, loc=css:a[aria-label=\"ArtDuo，重新选一组作品\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n          text \"ArtDuo\"\n        text \"01\"\n        text \"/\"\n        text \"06\"\n      button \"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\" [ref=53, loc=css:button[aria-label=\"放大《The Bay of Marseille, Seen from L'Estaque》并进入沉浸体验\"]]\n        image\n        text \"放大\"\n        text \"进入画中\"\n      container \"展签：The Bay of Marseille, Seen from L'Estaque\"\n        button \"展开完整展签\" [ref=54, loc=css:button[aria-label=\"展开完整展签\"]]\n          text \"The Bay of Marseille, Seen from L'Estaque\"\n          text \"Paul Cezanne\"\n          text \"c. 1885\"\n      container \"作品导航\"\n        button \"上一件作品\" [ref=55, loc=css:button[aria-label=\"上一件作品\"]]\n          text \"←\"\n          text \"上一件\"\n        button \"下一件作品\" [ref=56, loc=css:button[aria-label=\"下一件作品\"]]\n          text \"下一件\"\n          text \"→\"\n    text \"正在观看第\"\n    text \"1\"\n    text \"件，共\"\n    text \"6\"\n    text \"件作品：\"\n    text \"The Bay of Marseille, Seen from L'Estaque\"\n  button [ref=63]\n  svg_root\n  text \"解释\"\n  svg_root\n  svg_root\n  dialog_modal \"观展设置\" [ref=57]\n    container\n      heading\n        text \"观展设置\"\n      button \"关闭观展设置\" [ref=58, loc=css:button[aria-label=\"关闭观展设置\"]]\n        text \"×\"\n    container\n      container\n        text \"画面随鼠标轻动\"\n        text \"轻移视线，看看画面的前后层次\"\n      checkbox [ref=59]\n    button \"开启环境音\" [ref=60, loc=css:button[aria-label=\"开启环境音\"]]\n      text \"开启环境音\"\n    button \"开启画廊随设备轻动\" [ref=61, loc=css:button[aria-label=\"开启画廊随设备轻动\"]]\n      text \"开启手机随动\"\n    container\n      container [ref=62]\n        text \"本次展览与路线\"\n        text \"−\"\n      container\n        paragraph\n          text \"6\"\n          text \"件作品\"\n        paragraph\n          text \"先看第一幅：赭黄屋顶叠在前景，蓝色海湾伸向山体。往后几幅有树冠、坡地与浅色天空，可顺着水面与天光看过去。\"\n        container \"调整后续观看\"\n          paragraph\n            text \"接下来，想怎样看？\"\n          paragraph\n            text \"调整只影响还没走到的作品。\"\n          container\n            button [ref=64]\n              text \"接下来更安静一些\"\n            button [ref=65]\n              text \"多看这类作品\"\n            button [ref=66]\n              text \"换一种题材\"\n            button [ref=67]\n              text \"保持原来的路线\"\n          status\n          container\n            checkbox [ref=68]\n            text \"换画节奏跟随我的观看速度\"\n          container [ref=69]\n            text \"本次观看记录\"\n          container\n            paragraph\n              text \"仅保存在当前标签页，用于调整换画节奏，不推测心情。\"\n            paragraph\n              text \"1\"\n              text \"件作品有观看记录\"\n            button [ref=70]\n              text \"清除观看记录\"\n"
+    },
+    {
+      "id": "E19",
+      "file": "closing-desktop.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=closing&artworkId=artic-64818&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Saved curation closing deep link, with its actual last artwork; no share image or handwriting generated.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      button \"开启环境音\" [ref=71, loc=css:button[aria-label=\"开启环境音\"]]\n        text \"开启环境音\"\n      container \"末幅的麦垛停在浅色田野上，后侧树线与淡色天空接成一条平缓的横线。\"\n        container\n          image\n          container\n            text \"Stacks of Wheat (End of Summer)\"\n            text \"Claude Monet\"\n        container\n          paragraph\n            text \"本次观展结束\"\n          heading\n            text \"末幅的麦垛停在浅色田野上，后侧树线与淡色天空接成一条平缓的横线。\"\n          paragraph\n            text \"可以回看，也可以把最后一件作品保存下来。\"\n          container\n            button [ref=72]\n              text \"回看最后一件\"\n            button [ref=73]\n              text \"重新选一组\"\n            button [ref=74]\n              text \"保存分享图\"\n          button [ref=75]\n            text \"制作手写寄语卡\"\n      anchor [ref=76, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n        text \"ArtDuo\"\n    button [ref=77]\n    alert\n    container\n      container\n        svg_root\n        text \"解释\"\n      svg_root\n    svg_root\n",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "overflow": false,
+        "documentHeight": 900,
+        "buttons": [
+          {
+            "label": "开启环境音",
+            "height": 44,
+            "width": 112
+          },
+          {
+            "label": "回看最后一件",
+            "height": 48,
+            "width": 106
+          },
+          {
+            "label": "重新选一组",
+            "height": 48,
+            "width": 94
+          },
+          {
+            "label": "保存分享图",
+            "height": 48,
+            "width": 94
+          },
+          {
+            "label": "制作手写寄语卡",
+            "height": 44,
+            "width": 84
+          },
+          {
+            "label": "",
+            "height": 0,
+            "width": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "E20",
+      "file": "closing-mobile.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=closing&artworkId=artic-64818&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Same closing at 390x844.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      button \"开启环境音\" [ref=71, loc=css:button[aria-label=\"开启环境音\"]]\n      container \"末幅的麦垛停在浅色田野上，后侧树线与淡色天空接成一条平缓的横线。\"\n        container\n          image\n          container\n            text \"Stacks of Wheat (End of Summer)\"\n            text \"Claude Monet\"\n        container\n          paragraph\n            text \"本次观展结束\"\n          heading\n            text \"末幅的麦垛停在浅色田野上，后侧树线与淡色天空接成一条平缓的横线。\"\n          paragraph\n            text \"可以回看，也可以把最后一件作品保存下来。\"\n          container\n            button [ref=72]\n              text \"回看最后一件\"\n            button [ref=73]\n              text \"重新选一组\"\n            button [ref=74]\n              text \"保存分享图\"\n          button [ref=75]\n            text \"制作手写寄语卡\"\n      anchor [ref=76, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n        text \"ArtDuo\"\n    button [ref=77]\n    alert\n    container\n      container\n        svg_root\n        text \"解释\"\n      svg_root\n    svg_root\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "documentHeight": 873,
+        "buttons": [
+          {
+            "label": "开启环境音",
+            "height": 44,
+            "width": 44
+          },
+          {
+            "label": "回看最后一件",
+            "height": 48,
+            "width": 167
+          },
+          {
+            "label": "重新选一组",
+            "height": 48,
+            "width": 167
+          },
+          {
+            "label": "保存分享图",
+            "height": 48,
+            "width": 342
+          },
+          {
+            "label": "制作手写寄语卡",
+            "height": 44,
+            "width": 84
+          },
+          {
+            "label": "",
+            "height": 0,
+            "width": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "E21",
+      "file": "route-support-mobile.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery?view=route",
+      "notes": "Route support page reached directly without a query or submitting a curation form.",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    container\n      container\n        anchor [ref=78, url=https://aitoshuu.me/ArtDuo]\n          text \"ArtDuo\"\n          container\n            text \"馆藏\"\n            text \"2026-10-24-da3-curated-630\"\n        container \"Primary\"\n          anchor [ref=79, url=https://aitoshuu.me/ArtDuo]\n            text \"首页\"\n          anchor [ref=80, loc=href:/ArtDuo/gallery, url=https://aitoshuu.me/ArtDuo/gallery]\n            text \"画廊\"\n      container\n        paragraph\n          text \"729 件作品正在等待你的策展意图\"\n        paragraph\n          text \"Runtime:\"\n          text \"idle\"\n        heading\n          text \"导览画廊\"\n        form\n          container\n            container\n              svg_root\n              text \"策展意图\"\n            textbox [ref=81, loc=css:input[name=\"query\"]]\n          button [ref=82]\n            text \"生成观展路线\"\n            svg_root\n      container \"Search results\"\n        paragraph\n          text \"从情绪、光线、房间或观看愿望开始\"\n        heading\n          text \"先选择一个策展意图\"\n        paragraph\n          text \"这里用于修改或重新输入观看愿望。选择一个示例，或输入自己的观看愿望。\"\n        container\n          anchor [ref=83, url=https://aitoshuu.me/ArtDuo/gallery?query=%E6%88%91%E6%83%B3%E7%9C%8B%E4%B8%80%E9%97%B4%E5%AE%89%E9%9D%99%E7%9A%84%E6%9C%88%E5%85%89%E5%B1%95%E5%8E%85]\n            text \"安静的月光\"\n          anchor [ref=84, url=https://aitoshuu.me/ArtDuo/gallery?query=%E7%BB%99%E6%88%91%E4%B8%80%E6%9D%A1%E6%9C%89%E6%98%A5%E6%97%A5%E5%85%89%E7%BA%BF%E5%92%8C%E5%B8%8C%E6%9C%9B%E6%84%9F%E7%9A%84%E8%A7%82%E5%B1%95%E8%B7%AF%E7%BA%BF]\n            text \"春天的希望\"\n          anchor [ref=85, url=https://aitoshuu.me/ArtDuo/gallery?query=%E6%88%91%E6%83%B3%E8%BF%9B%E5%85%A5%E4%B8%80%E9%97%B4%E5%B8%A6%E6%9C%89%E7%A5%9E%E7%A7%98%E6%84%9F%E7%9A%84%E6%9A%97%E8%89%B2%E7%94%BB%E5%BB%8A]\n            text \"暗色谜面\"\n    button [ref=86]\n    alert\n    container\n      container\n        svg_root\n        text \"解释\"\n      svg_root\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "documentHeight": 844,
+        "buttons": [
+          {
+            "label": "生成观展路线",
+            "height": 56,
+            "width": 351
+          },
+          {
+            "label": "",
+            "height": 0,
+            "width": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "E21b",
+      "file": "route-support-mobile-stable.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery?view=route",
+      "notes": "Same support page revisited after multiple minutes; document complete and computed button style recorded to distinguish stable state from hydration.",
+      "metrics": {
+        "ready": "complete",
+        "glassCount": 4,
+        "buttons": [
+          {
+            "className": "primary-button",
+            "disabled": false,
+            "opacity": "1",
+            "color": "rgb(48, 43, 37)",
+            "background": "rgba(0, 0, 0, 0)",
+            "glass": "primary"
+          }
+        ]
+      }
+    },
+    {
+      "id": "E22",
+      "file": "entry-mobile-light-stable.png",
+      "url": "https://aitoshuu.me/ArtDuo",
+      "notes": "Stable mobile light entry after theme transition and glass enhancement; no form submission.",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "theme": "light",
+        "ready": "complete",
+        "glassCount": 2,
+        "button": {
+          "label": "开始观展",
+          "disabled": false,
+          "color": "rgb(48, 43, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "opacity": "1",
+          "height": 46,
+          "glass": "primary"
+        },
+        "ancestors": [
+          {
+            "className": "experience-intent-form",
+            "opacity": "1"
+          },
+          {
+            "className": "experience-threshold-content",
+            "opacity": "1"
+          }
+        ],
+        "animations": []
+      }
+    },
+    {
+      "id": "E23",
+      "file": "sculpture-calais-mobile-preview.png",
+      "url": "https://aitoshuu.me/ArtDuo/experience/sculptures?model=calais&quality=compact&room=bg-022",
+      "notes": "Dedicated sculpture preview of Calais, not a random encounter in the replayed exhibition; no orbit/drag, sensors or 50% probability measurement.",
+      "dom": "[p1 \"雕塑试展 · ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"雕塑试展 · ArtDuo\"]\nroot\n  container\n    container\n      container \"ArtDuo 雕塑试展\"\n        container\n          anchor \"ArtDuo，返回选展\" [ref=92, loc=css:a[aria-label=\"ArtDuo，返回选展\"], url=https://aitoshuu.me/ArtDuo?view=experience]\n            text \"ArtDuo\"\n          container\n            text \"13\"\n            text \"/\"\n            text \"18\"\n        canvas\n        container \"展签：加莱义民\"\n          button \"展开完整展签\" [ref=93, loc=css:button[aria-label=\"展开完整展签\"]]\n            text \"加莱义民\"\n            text \"奥古斯特·罗丹\"\n            text \"1884—1895 年 · 完整群像扫描\"\n        container \"作品导航\"\n          button \"上一件雕塑\" [ref=94, loc=css:button[aria-label=\"上一件雕塑\"]]\n            text \"←\"\n            text \"上一件\"\n          button \"下一件雕塑\" [ref=95, loc=css:button[aria-label=\"下一件雕塑\"]]\n            text \"下一件\"\n            text \"→\"\n      button \"观展设置\" [ref=96, loc=css:button[aria-label=\"观展设置\"]]\n        text \"•••\"\n    button [ref=97]\n    container\n      container\n        svg_root\n        text \"解释\"\n      svg_root\n    alert\n    svg_root\n",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "canvas": [
+          {
+            "width": 624,
+            "height": 1350,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            }
+          }
+        ],
+        "status": []
+      }
+    },
+    {
+      "id": "E24",
+      "file": "sculpture-calais-desktop-preview.png",
+      "url": "https://aitoshuu.me/ArtDuo/experience/sculptures?model=calais&quality=compact&room=bg-022",
+      "notes": "Dedicated Calais preview at desktop viewport; not a random encounter or rotation/sensor test."
+    },
+    {
+      "id": "E19b",
+      "file": "closing-desktop-stable.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=closing&artworkId=artic-64818&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Closing replay desktop after confirmed glass enhancement; no save/share generation.",
+      "metrics": {
+        "width": 1440,
+        "height": 900,
+        "glassCount": 5
+      }
+    },
+    {
+      "id": "E20b",
+      "file": "closing-mobile-stable.png",
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=closing&artworkId=artic-64818&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+      "notes": "Closing replay mobile after confirmed glass enhancement; no save/share generation.",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "glassCount": 5,
+        "documentHeight": 873,
+        "overflow": false
+      }
+    }
+  ],
+  "observations": [
+    {
+      "id": "O01",
+      "action": "After idle, moved pointer 20px inside central painting",
+      "controls": [
+        {
+          "label": "上一件作品",
+          "rect": {
+            "x": 24,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": false,
+          "chain": [
+            {
+              "class": "",
+              "opacity": "0.42",
+              "pointerEvents": "none"
+            },
+            {
+              "class": "experience-walk-controls",
+              "opacity": "0",
+              "pointerEvents": "none"
+            }
+          ]
+        },
+        {
+          "label": "下一件作品",
+          "rect": {
+            "x": 1345.75,
+            "y": 840,
+            "width": 70.25,
+            "height": 44
+          },
+          "hittable": false,
+          "chain": [
+            {
+              "class": "experience-next",
+              "opacity": "1",
+              "pointerEvents": "none"
+            },
+            {
+              "class": "experience-walk-controls",
+              "opacity": "0",
+              "pointerEvents": "none"
+            }
+          ]
+        },
+        {
+          "label": "观展设置",
+          "rect": {
+            "x": 1378,
+            "y": 14,
+            "width": 44,
+            "height": 44
+          },
+          "hittable": true,
+          "chain": []
+        }
+      ]
+    },
+    {
+      "id": "O02",
+      "action": "Mobile touch first tap at painting entered immersive viewing; return gallery button closed it.",
+      "evidence": "E13"
+    },
+    {
+      "id": "O03",
+      "action": "Full accessibility snapshot of detail route after Enter detailed explanation; no generation action",
+      "dom": "[p1 \"ArtDuo\" | space \"ArtDuo Lama Emil frontend review 20261028\"(18): 1 managed, 0 untracked — p1* \"ArtDuo\"]\nroot\n  container\n    button [ref=41]\n    alert\n    svg_root\n    container\n      container\n        svg_root\n        text \"解释\"\n      svg_root\n    container\n      container\n        anchor [ref=44, loc=href:/ArtDuo?view=experience, url=https://aitoshuu.me/ArtDuo?view=experience]\n          text \"ArtDuo\"\n        container \"观展导航\"\n          anchor [ref=45, url=https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818]\n            svg_root\n            text \"返回刚才的位置\"\n      container\n        container\n          image\n          container\n            text \"The Bay of Marseille, Seen from L'Estaque\"\n            text \"Paul Cezanne, c. 1885\"\n        container\n          heading\n            text \"The Bay of Marseille, Seen from L'Estaque\"\n          paragraph\n            text \"Paul Cezanne · c. 1885 · Oil on canvas\"\n          paragraph\n            text \"赭黄屋顶层层叠在前景，蓝色海湾向山体延伸。\"\n          anchor [ref=46, url=https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818]\n            svg_root\n            text \"返回刚才的位置\"\n          container\n            anchor [ref=47, loc=href:/ArtDuo/gallery?view=route, url=https://aitoshuu.me/ArtDuo/gallery?view=route]\n              text \"其他画廊路线\"\n            anchor [ref=48, loc=href:https://www.artic.edu/artworks/16487, url=https://www.artic.edu/artworks/16487]\n              text \"馆藏来源\"\n              svg_root\n      container\n        container\n          heading\n            text \"作品资料\"\n          container\n            container [ref=49]\n              text \"馆藏说明\"\n            paragraph\n              text \"暖色屋顶在前景层叠，蓝色海湾伸向远处的山脉。房屋、海面与山体被整理成稳固而清楚的色块。\"\n          container \"作品讲解\"\n            paragraph\n              text \"按需讲解\"\n            button [ref=50]\n              text \"生成这件作品的讲解\"\n        unordered_list\n          list_item\n            text \"馆方尺寸\"\n          list_item\n            text \"80.2 × 100.6 cm (31 5/8 × 39 5/8 in.); Framed: 107.4 × 127.4 × 10.5 cm (42 1/4 × 50 1/8 × 4 1/8 in.)\"\n          list_item\n            text \"展示方式\"\n          list_item\n            text \"按屏幕适配，完整显示图像；展厅中的大小不代表原作实际尺寸。\"\n          list_item\n            text \"作者\"\n          list_item\n            text \"Paul Cezanne\"\n          list_item\n            text \"时期\"\n          list_item\n            text \"c. 1885\"\n          list_item\n            text \"馆藏部门\"\n          list_item\n            text \"Painting and Sculpture of Europe\"\n          list_item\n            text \"媒材\"\n          list_item\n            text \"Oil on canvas\"\n"
+    }
+  ]
+}

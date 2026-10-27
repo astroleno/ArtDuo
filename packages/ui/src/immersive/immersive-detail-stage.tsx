@@ -40,7 +40,7 @@ type MotionState = "idle" | "requesting" | "calibrating" | "enabled" | "denied" 
 type StagePhase = "entering" | "open" | "closing";
 
 const ENTER_DURATION_MS = 720;
-const EXIT_DURATION_MS = 520;
+const EXIT_DURATION_MS = 200;
 const MOTION_STRENGTH = 0.32;
 const MOTION_CALIBRATION_TIMEOUT_MS = 2200;
 
@@ -82,6 +82,7 @@ export function ImmersiveDetailStage({
   const rendererRef = useRef<DepthParallaxController | null>(null);
   const activePointerRef = useRef<number | null>(null);
   const closingRef = useRef(false);
+  const enterTimerRef = useRef<number | undefined>(undefined);
   const closeTimerRef = useRef<number | undefined>(undefined);
   const motionTrackerRef = useRef<DeviceParallaxTracker>(createDeviceParallaxTracker());
   const motionVectorRef = useRef({ x: 0, y: 0 });
@@ -101,17 +102,19 @@ export function ImmersiveDetailStage({
     ...(hasMeasuredAspect ? { "--immersive-source-aspect-ratio": String(measuredAspect) } : {}),
   } as CSSProperties;
 
-  const requestClose = useCallback(() => {
-    if (closingRef.current) {
-      return;
-    }
-
-    if (prefersReducedMotion()) {
+  const requestClose = useCallback((immediate = false) => {
+    if (immediate || prefersReducedMotion()) {
+      closingRef.current = true;
+      window.clearTimeout(enterTimerRef.current);
+      window.clearTimeout(closeTimerRef.current);
       onClose();
       return;
     }
-
+    if (closingRef.current) {
+      return;
+    }
     closingRef.current = true;
+    window.clearTimeout(enterTimerRef.current);
     setPhase("closing");
     closeTimerRef.current = window.setTimeout(onClose, EXIT_DURATION_MS);
   }, [onClose]);
@@ -154,9 +157,9 @@ export function ImmersiveDetailStage({
 
   useEffect(() => {
     closeButtonRef.current?.focus();
-    const timer = window.setTimeout(() => setPhase("open"), prefersReducedMotion() ? 0 : ENTER_DURATION_MS);
+    enterTimerRef.current = window.setTimeout(() => { if (!closingRef.current) setPhase("open"); }, prefersReducedMotion() ? 0 : ENTER_DURATION_MS);
 
-    return () => window.clearTimeout(timer);
+    return () => window.clearTimeout(enterTimerRef.current);
   }, []);
 
   useEffect(() => {
@@ -186,7 +189,7 @@ export function ImmersiveDetailStage({
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopPropagation();
-        requestClose();
+        requestClose(true);
       } else if (event.key === "ArrowLeft") {
         event.preventDefault();
         event.stopPropagation();
@@ -329,7 +332,7 @@ export function ImmersiveDetailStage({
     const access = await requestDeviceOrientationAccess();
 
     if (access === "unsupported") {
-      setMotionMessage("此设备暂不支持手机随动，仍可拖动画面");
+      setMotionMessage("此设备暂不支持感应，仍可拖动画面");
       setMotionState("unavailable");
       return;
     }
@@ -353,13 +356,13 @@ export function ImmersiveDetailStage({
       return "轻动手机校准";
     }
     if (motionState === "enabled") {
-      return "手机随动已开";
+      return "关闭手机感应";
     }
     if (motionState === "unavailable") {
-      return "手机随动不可用";
+      return "手机感应不可用";
     }
 
-    return "随手机轻动";
+    return "开启手机感应";
   }
 
   function setPointerPosition(clientX: number, clientY: number) {
@@ -456,8 +459,8 @@ export function ImmersiveDetailStage({
         <div className="immersive-detail-heading">
           {motionAvailable ? <button
             aria-label={motionState === "enabled" || motionState === "calibrating"
-              ? "关闭随手机轻动"
-              : "开启随手机轻动"}
+              ? "关闭手机感应"
+              : "开启手机感应"}
             aria-pressed={motionState === "enabled" || motionState === "calibrating"}
             className="immersive-detail-motion-toggle"
             disabled={motionState === "requesting" || motionState === "unavailable"}
@@ -474,7 +477,7 @@ export function ImmersiveDetailStage({
         <button
           aria-label="返回画廊视图"
           className="immersive-detail-close"
-          onClick={requestClose}
+          onClick={() => requestClose()}
           ref={closeButtonRef}
           type="button"
         >
