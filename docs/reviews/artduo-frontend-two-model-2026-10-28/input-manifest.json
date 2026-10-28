@@ -1,0 +1,404 @@
+{
+  "preparedAt": "2026-10-28T08:43:44.163519+00:00",
+  "sourceCommit": "561ce2b8705609db027c8b7036154ee4c72c9d16",
+  "applicationCommit": "4c8dc03757b1176c1b82d300b4d8a248c796c191",
+  "textSha256": "877f8ba9c784aa058b5bc821af33999b82121761f2a4674be5cfeb6d98da4eba",
+  "textBytes": 497935,
+  "sourceFiles": [
+    {
+      "path": "apps/web/app/page.tsx",
+      "sha256": "3edc68669cf9fb6a97e286f44964181500c8f60a2d0307c5dab0c140be7f0779",
+      "bytes": 457,
+      "lines": 11
+    },
+    {
+      "path": "apps/web/app/gallery/page.tsx",
+      "sha256": "5bc765bcf69cd1cc3c24b80b9ff65bc3784ea586ff990bbfa338dc2ec5e29c22",
+      "bytes": 5291,
+      "lines": 103
+    },
+    {
+      "path": "apps/web/app/gallery/loading.tsx",
+      "sha256": "c4ea80e7da59b345e9636355b91bd72a4ced102fd3e3b6cba5d715c3d123efdd",
+      "bytes": 52,
+      "lines": 1
+    },
+    {
+      "path": "apps/web/app/gallery/[id]/immersive/page.tsx",
+      "sha256": "71433989a7b9bc4a6c99c24caa9edbe0aa559e590a40e2c1acf241c1c6851e53",
+      "bytes": 6932,
+      "lines": 106
+    },
+    {
+      "path": "apps/web/app/gallery/[id]/immersive/loading.tsx",
+      "sha256": "f4f81e1d7974e51a39bdd6cdb286b9a5645907dc7c72fdf160dcd90043fb3962",
+      "bytes": 1170,
+      "lines": 24
+    },
+    {
+      "path": "apps/web/app/gallery/[id]/immersive/error.tsx",
+      "sha256": "ed6191864da5aecb9ace61d8c07e2afec87304cba8b5ac5a3adabb3ee31ce13c",
+      "bytes": 909,
+      "lines": 18
+    },
+    {
+      "path": "apps/web/app/artwork/[id]/page.tsx",
+      "sha256": "555fadb347b41f166b4c18657c7ccb4fdb105b7d8d44e8b82035698355f8fd19",
+      "bytes": 9970,
+      "lines": 217
+    },
+    {
+      "path": "apps/web/app/experience/sculptures/page.tsx",
+      "sha256": "03bdd8380302ebe0a3a05b2401eecc9d40847949f291c766b4b4efb990277b11",
+      "bytes": 1137,
+      "lines": 17
+    },
+    {
+      "path": "apps/web/app/globals.css",
+      "sha256": "d8f4bfec2c6a5af760b1bacd63e03b90d765c94cd2864aee65f7cee6d1c96861",
+      "bytes": 78409,
+      "lines": 3562
+    },
+    {
+      "path": "apps/web/components/experience-entry-client.tsx",
+      "sha256": "24187e5c3e1086da3fc9b919a6e98015176f4be686112ac6dda23daee228297a",
+      "bytes": 1576,
+      "lines": 34
+    },
+    {
+      "path": "apps/web/components/experience-route-client.tsx",
+      "sha256": "37ff01c53f554f985b02118fe548d9846eb5b5a24452496f521f785032b2f2a6",
+      "bytes": 6065,
+      "lines": 109
+    },
+    {
+      "path": "apps/web/components/artwork-explanation-panel.tsx",
+      "sha256": "65dabc5bd727c26574377942b2520645bcd85a9906c9e28f2e91104bdda48dd1",
+      "bytes": 4453,
+      "lines": 82
+    },
+    {
+      "path": "apps/web/components/artwork-image.tsx",
+      "sha256": "ce7efc6070b272cb0632db345a5a351a66438f7190c42e397cfcce56d98fe1e8",
+      "bytes": 1760,
+      "lines": 71
+    },
+    {
+      "path": "apps/web/lib/experience-navigation.ts",
+      "sha256": "cfe66742d8157816d22fb9319402cda2d453a2b3a787b920ef831ecb49044c92",
+      "bytes": 3765,
+      "lines": 85
+    },
+    {
+      "path": "apps/web/lib/gallery-route.ts",
+      "sha256": "886c127b4cc163f2b77134813e2046de7a2fb96b01d43317f094f80cb2b7e22b",
+      "bytes": 11729,
+      "lines": 394
+    },
+    {
+      "path": "apps/web/lib/viewing-intent.ts",
+      "sha256": "92bd67571d88030a135d2aed01a1a1822ab96519861a8aa3b41744cb63e98594",
+      "bytes": 21838,
+      "lines": 304
+    },
+    {
+      "path": "packages/ui/src/experience/threshold.tsx",
+      "sha256": "04e2c04e58ca03d55bc16edfe4a152579ac0d80fd83867a2391380f61ddcecd7",
+      "bytes": 4340,
+      "lines": 84
+    },
+    {
+      "path": "packages/ui/src/experience/entry-question.tsx",
+      "sha256": "38b3ff26027806d87912f055937e87c088d00b8c2fcf826a1eb3a2c82ece5be9",
+      "bytes": 3634,
+      "lines": 73
+    },
+    {
+      "path": "packages/ui/src/experience/preface.tsx",
+      "sha256": "a017c1374274ae43530febcc378e66bd8121217225b4438a30c2a876bca3cbfb",
+      "bytes": 1814,
+      "lines": 25
+    },
+    {
+      "path": "packages/ui/src/experience/closing.tsx",
+      "sha256": "c0f0f68467ddfc4f4656d89052fface9ca2036df6e268d1c09163af77e29fbd4",
+      "bytes": 4308,
+      "lines": 79
+    },
+    {
+      "path": "packages/ui/src/experience/experience-shell.tsx",
+      "sha256": "812a115f92258067a7320cce5a0a8ff0ba2324aaef8ea637e33f7ffd883d8734",
+      "bytes": 20100,
+      "lines": 333
+    },
+    {
+      "path": "packages/ui/src/experience/walk.tsx",
+      "sha256": "1c95a7f9c25614a87ddf3ee55395e49e918ab273f04d4ab87bfc8b7bd1f000df",
+      "bytes": 10540,
+      "lines": 155
+    },
+    {
+      "path": "packages/ui/src/experience/room.tsx",
+      "sha256": "769f5e84adc0fbdc627202a40777864adbda993a6f0b469572611fafecc863c8",
+      "bytes": 16360,
+      "lines": 241
+    },
+    {
+      "path": "packages/ui/src/experience/room-motion.ts",
+      "sha256": "0c7fca3ac581f8111e05f3330848b65bd329ee5652ad21cd99c52d378be71623",
+      "bytes": 6660,
+      "lines": 111
+    },
+    {
+      "path": "packages/ui/src/experience/room-parallax.ts",
+      "sha256": "4f6b329b8b6bc3bbfbb40016d60ae165a955f49ee7a3d05d27e381a9d2a53390",
+      "bytes": 348,
+      "lines": 7
+    },
+    {
+      "path": "packages/ui/src/experience/room-backdrop.tsx",
+      "sha256": "bbbb8ca42da0173dc69120342f6d6afbcdc3773bdda7a8a107ab58bff05f6adf",
+      "bytes": 2185,
+      "lines": 41
+    },
+    {
+      "path": "packages/ui/src/experience/use-idle-chrome.ts",
+      "sha256": "2778205eb379f1936edf8a72e45eeac766f2160eaa1e972738b81c82f47ba35c",
+      "bytes": 2597,
+      "lines": 53
+    },
+    {
+      "path": "packages/ui/src/experience/motion-policy.ts",
+      "sha256": "42a560e584b9fe17816d753b63158a324eec286ce4dc765b4bf5a58081192a50",
+      "bytes": 1070,
+      "lines": 27
+    },
+    {
+      "path": "packages/ui/src/experience/interaction-preferences.ts",
+      "sha256": "60259adc063b8ae2b8ea59a1b45177a2c5f268ff0c32359e2bd1e3c57281c7af",
+      "bytes": 1746,
+      "lines": 35
+    },
+    {
+      "path": "packages/ui/src/experience/plaque.tsx",
+      "sha256": "1e3a4e6ae3dfba8eaad93268e193d20c02715399116f21883de0c95ac4cc28e0",
+      "bytes": 8740,
+      "lines": 130
+    },
+    {
+      "path": "packages/ui/src/experience/reading-image.ts",
+      "sha256": "df9689a6838ab5482df66401b9116c5d4d97cf75200f2b448c5e656a10f8a0c5",
+      "bytes": 987,
+      "lines": 21
+    },
+    {
+      "path": "packages/ui/src/experience/reading-copy.ts",
+      "sha256": "ab3c5af8a9e979392a0185afeb7c4d0419c3f91341a02c032ebc03197fc45b9a",
+      "bytes": 831,
+      "lines": 15
+    },
+    {
+      "path": "packages/ui/src/experience/viewing-controls.tsx",
+      "sha256": "df7e5c3b81f91a2de4f250e7f13c46c230983b4b8ce63fe75737e15f2dbc4af8",
+      "bytes": 2404,
+      "lines": 32
+    },
+    {
+      "path": "packages/ui/src/experience/viewing-session.ts",
+      "sha256": "ec4a30152a383a240aa43d2f6f80b1e9838650f3273c1d223f35fc0982cd9fd5",
+      "bytes": 12745,
+      "lines": 212
+    },
+    {
+      "path": "packages/ui/src/experience/use-viewing-session.ts",
+      "sha256": "704270301f68f030ff5fe43f231c3fce062e566c96eb2a59421b9267b8daefc2",
+      "bytes": 4778,
+      "lines": 85
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-encounter.ts",
+      "sha256": "42f41f1b895072d6874eeabfbc2af85b18170a7aaa78094110d3e1d34904e2ae",
+      "bytes": 4672,
+      "lines": 64
+    },
+    {
+      "path": "packages/ui/src/experience/use-sculpture-encounter.ts",
+      "sha256": "339945e3f1716bb18bc16e63f8ce8a1cae7533a720bd0e9bdb488268becc96ed",
+      "bytes": 2640,
+      "lines": 44
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-room.tsx",
+      "sha256": "1133fcff0ed39747374233ac1020aefcef9f9edbd83e0330891441d1dc05ed46",
+      "bytes": 11885,
+      "lines": 142
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-canvas.tsx",
+      "sha256": "9518763920a3e18aee5f2852f5a5c7c07959d5e6c2f00b44097d9f2c37b24864",
+      "bytes": 4046,
+      "lines": 72
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-types.ts",
+      "sha256": "bef955d2bc44d8c4a0f4d367f50a55fd7ff61675757e3531e3176b6993dcf9f8",
+      "bytes": 784,
+      "lines": 28
+    },
+    {
+      "path": "packages/ui/src/experience/state.ts",
+      "sha256": "ac20436cfdb869e024a4adb14d0a25bf97ca5df0d69b190ce3ddb36b59e22dd6",
+      "bytes": 5536,
+      "lines": 120
+    },
+    {
+      "path": "packages/ui/src/experience/state.test.ts",
+      "sha256": "d3c879678ba435f10282630cf7af0881e0664e5df2550b4d4fb36c1448e3baeb",
+      "bytes": 4330,
+      "lines": 86
+    },
+    {
+      "path": "packages/ui/src/experience/types.ts",
+      "sha256": "b1bfc0ce90d91628779fd41cfd0544418c9b4d0e0a67b5085f336ccbec1f76da",
+      "bytes": 3561,
+      "lines": 123
+    },
+    {
+      "path": "packages/ui/src/experience/experience.css",
+      "sha256": "efd831728eeca7fc5d1fb6fafbc735b8b8882b12b7cb1961324cc2bec2ca2703",
+      "bytes": 58309,
+      "lines": 537
+    },
+    {
+      "path": "packages/ui/src/immersive/image-lightbox.tsx",
+      "sha256": "9527f56d65445c08e8c5348ba9d60b69c4920293ac2627f7c19e86f8bc58177a",
+      "bytes": 10938,
+      "lines": 310
+    },
+    {
+      "path": "packages/ui/src/immersive/immersive-detail-stage.tsx",
+      "sha256": "f090e21e97cea3e49417cbca507df89bff598aaccaf27cccbedef6146d3f095f",
+      "bytes": 19908,
+      "lines": 557
+    },
+    {
+      "path": "packages/ui/src/immersive/depth-parallax-renderer.ts",
+      "sha256": "54b994da7010b57eb6fa63237ec32aa763f27e8843fb4ed228ad145de2f28f00",
+      "bytes": 11276,
+      "lines": 338
+    },
+    {
+      "path": "packages/ui/src/glass/glass-buttons.css",
+      "sha256": "d43d545ffb3b335e118fe4b43cb2a0840b113c1d1822d408549816bffec9d105",
+      "bytes": 5355,
+      "lines": 87
+    },
+    {
+      "path": "packages/ui/src/glass/glass-buttons.ts",
+      "sha256": "fe2409dcdddfdfdb2efe80dc6dae68802c984fcc11f73035bfcb89ec29d025aa",
+      "bytes": 8491,
+      "lines": 143
+    }
+  ],
+  "images": [
+    {
+      "id": "F01",
+      "file": "entry-desktop-light.png",
+      "sha256": "f04e64b94d7ace7c02199dc6777d97afa718a2a402fd1a991bc1dae7147b264e",
+      "bytes": 39615
+    },
+    {
+      "id": "F04",
+      "file": "entry-mobile-error.png",
+      "sha256": "7eeb995fdbe4e4cb06d40af98be7fd02e4a8643cfdcf1a979646961371cc7c9f",
+      "bytes": 31099
+    },
+    {
+      "id": "F05",
+      "file": "preface-mobile.png",
+      "sha256": "809b0111bc6bb1c42f12a52c0b7004b61b11de8d44b5e2ce5e2278c4e4448f90",
+      "bytes": 144414
+    },
+    {
+      "id": "F06",
+      "file": "walk-desktop-idle.png",
+      "sha256": "f92c041d52349f3061384ef4de8d9568c2cd4dbfe5533174dbd80bb1290182df",
+      "bytes": 1282122
+    },
+    {
+      "id": "F07",
+      "file": "walk-desktop-edge.png",
+      "sha256": "910c3bb04ec030a11272b6d7af998a71a04cccac5b572383e77f209bb798c4ae",
+      "bytes": 1256051
+    },
+    {
+      "id": "F09",
+      "file": "reading-mobile.png",
+      "sha256": "6d0d7bd03d75ccee5c8d81d3f47617dfff9f833e2f5a37098b58ab1270ff33d3",
+      "bytes": 55108
+    },
+    {
+      "id": "F02b",
+      "file": "entry-mobile-dark-stable-empty.png",
+      "sha256": "869f25134ab3bd937e545cbb183a238212a0865263d0d3e26a74dbfdeb46a261",
+      "bytes": 23542
+    },
+    {
+      "id": "F09b",
+      "file": "reading-mobile-ready.png",
+      "sha256": "282b04bdf5fdb329412796b852779adad4b2f865fb98ded132a36755754edc8b",
+      "bytes": 232767
+    },
+    {
+      "id": "F11",
+      "file": "artwork-detail-mobile.png",
+      "sha256": "b6a5ce4bfcc8ebe6b0301b3657242677d7bb5ffa3fd731af91d69b623b025ac7",
+      "bytes": 85580
+    },
+    {
+      "id": "F10b",
+      "file": "near-mobile-ready.png",
+      "sha256": "cd8d90e34890659013b40f80761f69f099032976d25b36739ef7b31878630fdd",
+      "bytes": 343441
+    },
+    {
+      "id": "F12",
+      "file": "near-next-image-failure.png",
+      "sha256": "4bbef94e9ea75b9a30c10b0e304ff0964884bfc1b33ec3e85d7ca235c04e7847",
+      "bytes": 354456
+    },
+    {
+      "id": "F14",
+      "file": "near-final-work-mobile.png",
+      "sha256": "8880b0e8009f4dc1c8fac691dac47fed0d0142ff27f22b256f43844e73edc98a",
+      "bytes": 327090
+    },
+    {
+      "id": "F15",
+      "file": "closing-mobile.png",
+      "sha256": "0851f2020e39cf4f2d270e13240e8b166f2b519064ad11e122febc6a225d1e61",
+      "bytes": 39510
+    },
+    {
+      "id": "F13b",
+      "file": "settings-mobile-stable.png",
+      "sha256": "7231deab01d2f080c297a8b18210aaba4cd6af2ff9782987844a225862d748e0",
+      "bytes": 90766
+    },
+    {
+      "id": "F16",
+      "file": "sculpture-calais-mobile.png",
+      "sha256": "d1a5b6b405d933c72ef6f4f72ad6468e8726a7e4e5307984f0c1b8ed2e8827ed",
+      "bytes": 346101
+    }
+  ],
+  "independence": "Same frozen source and neutral evidence; no Lama/Emil/previous model reports; fresh conversations",
+  "requestedModels": {
+    "kimi": "kimi-k3pro",
+    "deepseek": "dsh v4 flash"
+  },
+  "resolvedConfiguration": {
+    "kimi": "kimi-code/k3.1-pro",
+    "deepseek": "deepseek-flash"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "startedAt": "2026-10-28T08:44:06.967429+00:00",
+  "requestedModel": "kimi-k3pro",
+  "configuredModel": "kimi-code/k3.1-pro",
+  "route": "Installed Kimi Code CLI; fresh session in frozen temporary material directory",
+  "inputTextSha256": "877f8ba9c784aa058b5bc821af33999b82121761f2a4674be5cfeb6d98da4eba",
+  "imagesProvided": 15,
+  "status": "complete",
+  "exitCode": 0,
+  "finishedAt": "2026-10-28T08:50:19.168548+00:00",
+  "cliVersion": "2.3.2",
+  "modelConfirmation": "Explicit CLI --model kimi-code/k3.1-pro; configured model k3.1-pro, provider managed:kimi-code",
+  "readOnlyToolNames": [
+    "Read",
+    "ReadMediaFile"
+  ],
+  "textReads": [
+    {
+      "path": "review-input.md",
+      "max_chars": 500000
+    },
+    {
+      "path": "review-input.md",
+      "line_offset": 9638,
+      "max_chars": 500000
+    },
+    {
+      "path": "image-index.md",
+      "max_chars": 100000
+    }
+  ],
+  "imageReads": [
+    {
+      "path": "evidence/entry-desktop-light.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/entry-mobile-error.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/preface-mobile.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/walk-desktop-idle.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/walk-desktop-edge.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/reading-mobile.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/entry-mobile-dark-stable-empty.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/reading-mobile-ready.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/artwork-detail-mobile.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/near-mobile-ready.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/near-next-image-failure.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/near-final-work-mobile.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/closing-mobile.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/settings-mobile-stable.png",
+      "resultContainsImagePayload": true
+    },
+    {
+      "path": "evidence/sculpture-calais-mobile.png",
+      "resultContainsImagePayload": true
+    }
+  ],
+  "successfulImageReads": 15,
+  "reasoningContentPublished": false,
+  "reportSha256": "ef117653f7700b2307d5478d24fc05c8c8512de059f81de066ddeff684ac1cc5",
+  "reportCharacters": 3534
+}

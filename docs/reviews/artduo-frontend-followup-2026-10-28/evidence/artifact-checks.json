@@ -1,0 +1,186 @@
+{
+  "sourceCommit": "561ce2b8705609db027c8b7036154ee4c72c9d16",
+  "applicationSourceUnchanged": true,
+  "screenshots": [
+    {
+      "id": "F01",
+      "file": "entry-desktop-light.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 39615,
+      "sha256": "f04e64b94d7ace7c02199dc6777d97afa718a2a402fd1a991bc1dae7147b264e"
+    },
+    {
+      "id": "F02",
+      "file": "entry-desktop-dark.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 33971,
+      "sha256": "d0870d8bbaada5ebbedce637dfc9040830ea10baa1df6e2458e8830a56c961cc"
+    },
+    {
+      "id": "F03",
+      "file": "entry-mobile-light.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 27133,
+      "sha256": "9efe452b2a6ff60d091ef697193c921cfcbedd93e79ef31c3376be71aa79e1a5"
+    },
+    {
+      "id": "F04",
+      "file": "entry-mobile-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 31099,
+      "sha256": "7eeb995fdbe4e4cb06d40af98be7fd02e4a8643cfdcf1a979646961371cc7c9f"
+    },
+    {
+      "id": "F05",
+      "file": "preface-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 144414,
+      "sha256": "809b0111bc6bb1c42f12a52c0b7004b61b11de8d44b5e2ce5e2278c4e4448f90"
+    },
+    {
+      "id": "F06",
+      "file": "walk-desktop-idle.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 1282122,
+      "sha256": "f92c041d52349f3061384ef4de8d9568c2cd4dbfe5533174dbd80bb1290182df"
+    },
+    {
+      "id": "F07",
+      "file": "walk-desktop-edge.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 1256051,
+      "sha256": "910c3bb04ec030a11272b6d7af998a71a04cccac5b572383e77f209bb798c4ae"
+    },
+    {
+      "id": "F08",
+      "file": "walk-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 318712,
+      "sha256": "27cab5667bbf350ead9a83e2a30f7b618c29f62a061818d02c0bed2ade4d0254"
+    },
+    {
+      "id": "F09",
+      "file": "reading-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 55108,
+      "sha256": "6d0d7bd03d75ccee5c8d81d3f47617dfff9f833e2f5a37098b58ab1270ff33d3"
+    },
+    {
+      "id": "F02b",
+      "file": "entry-mobile-dark-stable-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 23542,
+      "sha256": "869f25134ab3bd937e545cbb183a238212a0865263d0d3e26a74dbfdeb46a261"
+    },
+    {
+      "id": "F02c",
+      "file": "entry-mobile-dark-stable-filled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 23736,
+      "sha256": "ac57c335b2d993173aef3dbd166cda4b8101f2558bc750ce815231e836cdf344"
+    },
+    {
+      "id": "F10",
+      "file": "near-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 235616,
+      "sha256": "7f6e6e4eae556407552d20c4697ebc1843dbd8b22bded0c3562184af86d22088"
+    },
+    {
+      "id": "F09b",
+      "file": "reading-mobile-ready.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 232767,
+      "sha256": "282b04bdf5fdb329412796b852779adad4b2f865fb98ded132a36755754edc8b"
+    },
+    {
+      "id": "F11",
+      "file": "artwork-detail-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 85580,
+      "sha256": "b6a5ce4bfcc8ebe6b0301b3657242677d7bb5ffa3fd731af91d69b623b025ac7"
+    },
+    {
+      "id": "F10b",
+      "file": "near-mobile-ready.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 343441,
+      "sha256": "cd8d90e34890659013b40f80761f69f099032976d25b36739ef7b31878630fdd"
+    },
+    {
+      "id": "F12",
+      "file": "near-next-image-failure.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 354456,
+      "sha256": "4bbef94e9ea75b9a30c10b0e304ff0964884bfc1b33ec3e85d7ca235c04e7847"
+    },
+    {
+      "id": "F13",
+      "file": "settings-mobile-expanded.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 267918,
+      "sha256": "473af458458693dd1048ae2ac3b6ee8a861ee260059ca2cf0f2afb646f8b9ad5"
+    },
+    {
+      "id": "F14",
+      "file": "near-final-work-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 327090,
+      "sha256": "8880b0e8009f4dc1c8fac691dac47fed0d0142ff27f22b256f43844e73edc98a"
+    },
+    {
+      "id": "F15",
+      "file": "closing-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 39510,
+      "sha256": "0851f2020e39cf4f2d270e13240e8b166f2b519064ad11e122febc6a225d1e61"
+    },
+    {
+      "id": "F13b",
+      "file": "settings-mobile-stable.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 90766,
+      "sha256": "7231deab01d2f080c297a8b18210aaba4cd6af2ff9782987844a225862d748e0"
+    },
+    {
+      "id": "F16",
+      "file": "sculpture-calais-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 346101,
+      "sha256": "d1a5b6b405d933c72ef6f4f72ad6468e8726a7e4e5307984f0c1b8ed2e8827ed"
+    }
+  ],
+  "manifestValid": true,
+  "imageDecodeRestored": true,
+  "browserFinished": true,
+  "markdownLinks": 65,
+  "reports": [
+    "lama-review.md",
+    "emil-review.md"
+  ],
+  "reviewOnly": true,
+  "temporaryReviewScriptsRemoved": true,
+  "applicationTestsRerun": false,
+  "validationScope": "Review documents, 21 screenshots, JSON, local links, unchanged application source; no application edits"
+}

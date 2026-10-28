@@ -1,0 +1,38 @@
+{
+  "startedAt": "2026-10-28T08:44:06.999073+00:00",
+  "requestedModel": "dsh v4 flash",
+  "requestModel": "deepseek-flash",
+  "route": "Official DeepSeek Chat Completions API using existing project provider configuration; not a DSH CLI process",
+  "inputTextSha256": "877f8ba9c784aa058b5bc821af33999b82121761f2a4674be5cfeb6d98da4eba",
+  "imagesProvided": 15,
+  "requestBodyBytes": 6719766,
+  "requestBodySha256": "c2ed4dec4bca118a8f1dda4b8a08f712ad74d816ba1d05e1440618ca229d74b1",
+  "thinking": "enabled",
+  "reasoningEffort": "high",
+  "httpStatus": 200,
+  "status": "complete",
+  "finishedAt": "2026-10-28T08:46:01.061974+00:00",
+  "responseModels": [
+    "deepseek-flash"
+  ],
+  "responseId": "94606e57-efc9-403a-8356-24784834df62",
+  "finishReason": "stop",
+  "usage": {
+    "prompt_tokens": 161114,
+    "completion_tokens": 16144,
+    "total_tokens": 177258,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 14391
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 161114
+  },
+  "reasoningContentStored": false,
+  "reasoningChunksOmitted": 14390,
+  "streamEvents": 16142,
+  "reportSha256": "b8e36773d1ffbdbfa94917bedf041dc4fafdeead1e50f6f4322cf185a200390c",
+  "reportCharacters": 2997
+}

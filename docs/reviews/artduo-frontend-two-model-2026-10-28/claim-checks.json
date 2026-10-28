@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-10-28T08:49:20.043Z",
+  "method": "Read-only invocation of the current eligibility function; no actual random draw or new curation",
+  "source": "packages/ui/src/experience/sculpture-encounter.ts:15",
+  "cases": [
+    {
+      "query": "我不想看到雕塑",
+      "permitsSculptureEncounter": true
+    },
+    {
+      "query": "别给我雕塑",
+      "permitsSculptureEncounter": true
+    },
+    {
+      "query": "不要看到雕塑",
+      "permitsSculptureEncounter": false
+    },
+    {
+      "query": "不要人物雕塑",
+      "permitsSculptureEncounter": false
+    },
+    {
+      "query": "只想看版画",
+      "permitsSculptureEncounter": true
+    },
+    {
+      "query": "仅限水墨",
+      "permitsSculptureEncounter": true
+    },
+    {
+      "query": "only watercolors",
+      "permitsSculptureEncounter": true
+    },
+    {
+      "query": "无人海景",
+      "permitsSculptureEncounter": true
+    }
+  ]
+}
