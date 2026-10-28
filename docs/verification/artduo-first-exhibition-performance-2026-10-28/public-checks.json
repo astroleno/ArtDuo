@@ -1,0 +1,284 @@
+{
+  "checkedAt": "2026-10-28T12:31:09.063617+00:00",
+  "buildId": "5bVUJJbMPiVU-art1rd1a",
+  "checks": [
+    {
+      "host": "aitoshuu.me",
+      "buildId": "5bVUJJbMPiVU-art1rd1a",
+      "entry": [
+        {
+          "path": "",
+          "status": 200,
+          "bytes": 8813,
+          "sha256": "ead8bc2af648a80676a43bd61623c83f3dbb88d169973a89f766c2ff2c5f1718"
+        },
+        {
+          "path": "?view=experience",
+          "status": 200,
+          "bytes": 8863,
+          "sha256": "63489fe64c8719c72ecc0babde83030abe8a364dc513784dc4784c79c0411414"
+        },
+        {
+          "path": "?view=classic&query=quiet%20%26%20blue",
+          "status": 200,
+          "bytes": 8956,
+          "sha256": "232a840f8206879c414df60bf855690b7d786a0fd8404214588131499f78b1a3"
+        }
+      ],
+      "staticFiles": [
+        {
+          "path": "/ArtDuo/_next/static/chunks/249-862f683ad2039f58.js",
+          "status": 200,
+          "bytes": 66497,
+          "sha256": "a89cfacbc5d0fc31a179f0eeb081e454d81b2296eb1ee6c626f9f068aac2d3b1"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/417-b0c3557b6a0f0aed.js",
+          "status": 200,
+          "bytes": 174206,
+          "sha256": "be31c7bd8ac8cc5f30249b72f5f0872d71ced3d6142f8c058d233fd2b2b2e02c"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/480-4d0a2ca193eba9d7.js",
+          "status": 200,
+          "bytes": 22620,
+          "sha256": "bf22303b26f01046e57f2976a2121e401c97ee23096ebf380a7f1e8904a1f554"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/531-b637ff889b6210de.js",
+          "status": 200,
+          "bytes": 147947,
+          "sha256": "d6f521dfa5a89897658a32a332ba8edacd70b1028a7a89f004e9a209f9236376"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/a8bf4992-47e09ef9db72ca8f.js",
+          "status": 200,
+          "bytes": 173019,
+          "sha256": "0ec0266e03b1828513954623038c2f795deeffb1922dcaf493e9cdb47e0e5491"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/layout-8bf288246e856216.js",
+          "status": 200,
+          "bytes": 625,
+          "sha256": "5e0d4aa6a253b9ce98e8713b2d67ff0b075610a1a9158d7e054655ef5f1a6a24"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/page-0dac56d8bba5c9f0.js",
+          "status": 200,
+          "bytes": 7088,
+          "sha256": "c80eff5c8ca5601630b5c3f09962c6a57f58fc406699368dd179e2eba6f6b079"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/main-app-da53622074ebe9d5.js",
+          "status": 200,
+          "bytes": 557,
+          "sha256": "fc11f6454d117f5d7ad8b517acac80a9df244f66375a57e80a7257663b4a52ec"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "status": 200,
+          "bytes": 112594,
+          "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/webpack-a01e4fed28b2f1b8.js",
+          "status": 200,
+          "bytes": 3694,
+          "sha256": "8ef1c73f57d571fc9f9397743f19354c866443ba07d1767c4435beea1c98bb4e"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/972c0d5a09b36870.css",
+          "status": 200,
+          "bytes": 58718,
+          "sha256": "54c3cba2d2d645a109d52121b6a99e748b2addcde112eead8c4202646e3315ab"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+          "status": 200,
+          "bytes": 65880,
+          "sha256": "ac001f2f76c3227f5c5062971383e218d27fd6cce4019dba8aa0c7dd7f4279be"
+        }
+      ],
+      "health": {
+        "ok": true,
+        "releaseVersion": "2026-10-24-da3-curated-630",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        }
+      },
+      "savedReplay": {
+        "path": "/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+        "status": 200,
+        "bytes": 126413,
+        "sha256": "1dad2781145bd94932c5bb7b18a3ff99b88168f9f5eb6b0a81d45f24e5f8badf",
+        "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818"
+      },
+      "detail": {
+        "path": "/artwork/artic-16487?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&returnTo=%2Fgallery%2Flocal%2Fimmersive%3Fquery%3D%25E6%2588%2591%25E6%2583%25B3%25E5%259C%25A8%25E6%25B8%2585%25E6%2599%25A8%25E7%259A%2584%25E6%25B2%25B3%25E5%25B2%25B8%25E8%25BE%25B9%25EF%25BC%258C%25E7%259C%258B%25E4%25B8%2580%25E7%25BB%2584%25E6%259C%2589%25E6%25A0%2591%25E5%25BD%25B1%25E3%2580%2581%25E5%25BE%25AE%25E9%25A3%258E%25E5%2592%258C%25E6%2598%258E%25E4%25BA%25AE%25E5%25A4%25A9%25E7%25A9%25BA%25E7%259A%2584%25E7%2594%25BB%25E3%2580%2582%26view%3Dexperience%26releaseVersion%3D2026-10-24-da3-curated-630%26recipeVersion%3Dexperience-v2%26phase%3Dwalk%26artworkId%3Dartic-16487%26curationId%3D803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136%26route%3Dartic-16487%252Csmk-KMS4177%252Cartic-14620%252Csmk-KMSsp491%252Cartic-28560%252Cartic-64818",
+        "status": 200,
+        "bytes": 19555,
+        "sha256": "2554d6c457b087e22e7ed9b0e8c235f51f13239878830e2f6ff8a75229cbfbf2"
+      },
+      "sculpture": {
+        "path": "/experience/sculptures?model=calais&quality=compact&room=bg-022",
+        "status": 200,
+        "bytes": 56426,
+        "sha256": "e255291a1e55c5c78244e06db601d59828eda29985ef583f00ed2f9342324a1d"
+      },
+      "handwriting": {
+        "path": "/api/handwriting/options",
+        "status": 200,
+        "bytes": 659,
+        "sha256": "cb18b4d1b692b9e29c4c52db0ac9d3d6800381e170c48eb34c480012d76fc49b"
+      },
+      "notFound": {
+        "path": "/first-paint-20261028-route-does-not-exist",
+        "status": 404,
+        "bytes": 8888,
+        "sha256": "8d1e6112b604e98914160beb77641d1f2a86c60cc3fe7a6f03d521d25e2917fb"
+      }
+    },
+    {
+      "host": "tongye.me",
+      "buildId": "5bVUJJbMPiVU-art1rd1a",
+      "entry": [
+        {
+          "path": "",
+          "status": 200,
+          "bytes": 8813,
+          "sha256": "ead8bc2af648a80676a43bd61623c83f3dbb88d169973a89f766c2ff2c5f1718"
+        },
+        {
+          "path": "?view=experience",
+          "status": 200,
+          "bytes": 8863,
+          "sha256": "63489fe64c8719c72ecc0babde83030abe8a364dc513784dc4784c79c0411414"
+        },
+        {
+          "path": "?view=classic&query=quiet%20%26%20blue",
+          "status": 200,
+          "bytes": 8956,
+          "sha256": "232a840f8206879c414df60bf855690b7d786a0fd8404214588131499f78b1a3"
+        }
+      ],
+      "staticFiles": [
+        {
+          "path": "/ArtDuo/_next/static/chunks/249-862f683ad2039f58.js",
+          "status": 200,
+          "bytes": 66497,
+          "sha256": "a89cfacbc5d0fc31a179f0eeb081e454d81b2296eb1ee6c626f9f068aac2d3b1"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/417-b0c3557b6a0f0aed.js",
+          "status": 200,
+          "bytes": 174206,
+          "sha256": "be31c7bd8ac8cc5f30249b72f5f0872d71ced3d6142f8c058d233fd2b2b2e02c"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/480-4d0a2ca193eba9d7.js",
+          "status": 200,
+          "bytes": 22620,
+          "sha256": "bf22303b26f01046e57f2976a2121e401c97ee23096ebf380a7f1e8904a1f554"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/531-b637ff889b6210de.js",
+          "status": 200,
+          "bytes": 147947,
+          "sha256": "d6f521dfa5a89897658a32a332ba8edacd70b1028a7a89f004e9a209f9236376"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/a8bf4992-47e09ef9db72ca8f.js",
+          "status": 200,
+          "bytes": 173019,
+          "sha256": "0ec0266e03b1828513954623038c2f795deeffb1922dcaf493e9cdb47e0e5491"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/layout-8bf288246e856216.js",
+          "status": 200,
+          "bytes": 625,
+          "sha256": "5e0d4aa6a253b9ce98e8713b2d67ff0b075610a1a9158d7e054655ef5f1a6a24"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/app/page-0dac56d8bba5c9f0.js",
+          "status": 200,
+          "bytes": 7088,
+          "sha256": "c80eff5c8ca5601630b5c3f09962c6a57f58fc406699368dd179e2eba6f6b079"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/main-app-da53622074ebe9d5.js",
+          "status": 200,
+          "bytes": 557,
+          "sha256": "fc11f6454d117f5d7ad8b517acac80a9df244f66375a57e80a7257663b4a52ec"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "status": 200,
+          "bytes": 112594,
+          "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683"
+        },
+        {
+          "path": "/ArtDuo/_next/static/chunks/webpack-a01e4fed28b2f1b8.js",
+          "status": 200,
+          "bytes": 3694,
+          "sha256": "8ef1c73f57d571fc9f9397743f19354c866443ba07d1767c4435beea1c98bb4e"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/972c0d5a09b36870.css",
+          "status": 200,
+          "bytes": 58718,
+          "sha256": "54c3cba2d2d645a109d52121b6a99e748b2addcde112eead8c4202646e3315ab"
+        },
+        {
+          "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+          "status": 200,
+          "bytes": 65880,
+          "sha256": "ac001f2f76c3227f5c5062971383e218d27fd6cce4019dba8aa0c7dd7f4279be"
+        }
+      ],
+      "health": {
+        "ok": true,
+        "releaseVersion": "2026-10-24-da3-curated-630",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        }
+      },
+      "savedReplay": {
+        "path": "/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818",
+        "status": 200,
+        "bytes": 126413,
+        "sha256": "1dad2781145bd94932c5bb7b18a3ff99b88168f9f5eb6b0a81d45f24e5f8badf",
+        "url": "https://tongye.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136&route=artic-16487%2Csmk-KMS4177%2Cartic-14620%2Csmk-KMSsp491%2Cartic-28560%2Cartic-64818"
+      },
+      "detail": {
+        "path": "/artwork/artic-16487?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&returnTo=%2Fgallery%2Flocal%2Fimmersive%3Fquery%3D%25E6%2588%2591%25E6%2583%25B3%25E5%259C%25A8%25E6%25B8%2585%25E6%2599%25A8%25E7%259A%2584%25E6%25B2%25B3%25E5%25B2%25B8%25E8%25BE%25B9%25EF%25BC%258C%25E7%259C%258B%25E4%25B8%2580%25E7%25BB%2584%25E6%259C%2589%25E6%25A0%2591%25E5%25BD%25B1%25E3%2580%2581%25E5%25BE%25AE%25E9%25A3%258E%25E5%2592%258C%25E6%2598%258E%25E4%25BA%25AE%25E5%25A4%25A9%25E7%25A9%25BA%25E7%259A%2584%25E7%2594%25BB%25E3%2580%2582%26view%3Dexperience%26releaseVersion%3D2026-10-24-da3-curated-630%26recipeVersion%3Dexperience-v2%26phase%3Dwalk%26artworkId%3Dartic-16487%26curationId%3D803afaef658ab938a9f9d46058d789e04893016a0c5abc95d32becd15c10e136%26route%3Dartic-16487%252Csmk-KMS4177%252Cartic-14620%252Csmk-KMSsp491%252Cartic-28560%252Cartic-64818",
+        "status": 200,
+        "bytes": 19555,
+        "sha256": "2554d6c457b087e22e7ed9b0e8c235f51f13239878830e2f6ff8a75229cbfbf2"
+      },
+      "sculpture": {
+        "path": "/experience/sculptures?model=calais&quality=compact&room=bg-022",
+        "status": 200,
+        "bytes": 56426,
+        "sha256": "e255291a1e55c5c78244e06db601d59828eda29985ef583f00ed2f9342324a1d"
+      },
+      "handwriting": {
+        "path": "/api/handwriting/options",
+        "status": 200,
+        "bytes": 659,
+        "sha256": "cb18b4d1b692b9e29c4c52db0ac9d3d6800381e170c48eb34c480012d76fc49b"
+      },
+      "notFound": {
+        "path": "/first-paint-20261028-route-does-not-exist",
+        "status": 404,
+        "bytes": 8888,
+        "sha256": "8d1e6112b604e98914160beb77641d1f2a86c60cc3fe7a6f03d521d25e2917fb"
+      }
+    }
+  ]
+}

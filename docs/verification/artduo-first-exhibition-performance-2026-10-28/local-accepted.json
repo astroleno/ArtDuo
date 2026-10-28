@@ -1,0 +1,57 @@
+{
+  "url": "http://127.0.0.1:3219/ArtDuo/gallery/local/immersive?query=%E6%B2%BF%E6%B2%B3%E6%85%A2%E6%85%A2%E8%B5%B0%EF%BC%8C%E6%83%B3%E7%9C%8B%E5%85%AD%E5%B9%85%E5%BC%80%E9%98%94%E8%80%8C%E6%98%8E%E4%BA%AE%E7%9A%84%E9%A3%8E%E6%99%AF%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=51bf8d3d4d4f803877cb669c79c2834fa6c9553f8d0a7fff69c4a0a4cb58c582&route=artic-16487%2Cartic-14620%2Crijksmuseum-200100988%2Csmk-KMS8007%2Csmk-DEP297%2Cmet-11145",
+  "origin": 1793189706943.8,
+  "pendingTiming": null,
+  "probe": {
+    "version": 1,
+    "submitted": {
+      "at": 1793189709296.5,
+      "query": "沿河慢慢走，想看六幅开阔而明亮的风景。"
+    },
+    "documentOrigin": 1793189706943.8,
+    "events": [
+      {
+        "name": "artduo:artwork-ready",
+        "at": 1793189710991.4001,
+        "detail": {
+          "artworkId": "artic-16487",
+          "durationMs": 693.4000000022352,
+          "prewarmed": false
+        }
+      }
+    ],
+    "errors": [],
+    "visibilityChanges": [],
+    "prefaceClickedAt": 1793189710297.7,
+    "visibleAt": 1793189710958,
+    "actionableAt": 1793189710958.1,
+    "firstArtwork": "The Bay of Marseille, Seen from L'Estaque artwork",
+    "imageSource": "http://127.0.0.1:3219/ArtDuo/artduo-artwork/artic-16487?previewVersion=1&releaseVersion=2026-10-24-da3-curated-630",
+    "viewport": {
+      "width": 1450,
+      "height": 713
+    }
+  },
+  "measures": [
+    {
+      "name": "artduo.experience.submit-to-snapshot-ready",
+      "duration": 862.1999999992549
+    },
+    {
+      "name": "artduo.experience.submit-to-first-narrative",
+      "duration": 986.9000000022352
+    },
+    {
+      "name": "artduo.experience.submit-to-narrative-complete",
+      "duration": 987.1000000014901
+    },
+    {
+      "name": "artduo.experience.submit-to-first-artwork-visible",
+      "duration": 1694
+    },
+    {
+      "name": "artduo.experience.submit-to-first-artwork-actionable",
+      "duration": 1694
+    }
+  ]
+}

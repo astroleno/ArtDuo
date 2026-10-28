@@ -2,7 +2,7 @@
 
 用户已确认：腾讯运行应用、手写后台和持久数据；阿里只转发两个域名的 `/ArtDuo`，使用腾讯现有 HTTPS 加密回源。2026-10-25 完成隔离与恢复验收后，用户明确批准“切换公网测试版”，两个公网入口已启用并通过本轮检查。后续同范围操作复用该批准，不重复申请。
 
-2026-10-28 用户批准按综合评审继续修整近看失败恢复、临时层返回、阅读原地重试和明确媒介限定，已自测、提交推送并同步两个公网域名。当前正式版本及双域名实测见 [观看恢复上线记录](../verification/artduo-viewing-recovery-2026-10-28.md)；此前 [前端连续性上线记录](../verification/artduo-frontend-continuity-2026-10-28.md) 保留。首页、五秒翻牌、沉浸随动、18 件雕塑与 50% 概率保持不变，人物雕塑继续作为独立彩蛋。
+2026-10-28 用户批准继续优化首次进入展览，已移除整页重载和新策展的重复页面请求，提交推送并同步两个公网域名。当前正式版本见 [首次入展提速上线记录](../verification/artduo-first-exhibition-performance-2026-10-28.md)。此前 [观看恢复上线记录](../verification/artduo-viewing-recovery-2026-10-28.md) 与 [前端连续性上线记录](../verification/artduo-frontend-continuity-2026-10-28.md) 保留。首页、五秒翻牌、沉浸随动、18 件雕塑与 50% 概率保持不变，人物雕塑继续作为独立彩蛋。
 
 2026-10-27 的 [自动翻牌上线记录](../verification/artduo-entry-autoflip-production-2026-10-27.md)、[新版默认入口与归档记录](../verification/artduo-default-experience-production-2026-10-27.md) 及 [输入页与按钮上线记录](../verification/artduo-entry-glass-production-2026-10-27.md) 保留。雕塑素材与彩蛋验收见 [雕塑上线记录](../verification/artduo-sculpture-production-2026-10-27.md)。
 
@@ -19,7 +19,7 @@
 | --- | --- |
 | 腾讯 `122.51.59.89` | 一个 Next 实例监听 `127.0.0.1:3240`，一个独立 Inko Worker；均已启动并设为开机启动 |
 | `/opt/artduo/releases/<release>` | 与源码、锁文件配对的构建；Linux 上安装依赖 |
-| `/opt/artduo/current` | 当前指向 `/opt/artduo/releases/20261028-viewing-recovery`；上一版 `20261028-frontend-continuity` 与更早恢复点保留 |
+| `/opt/artduo/current` | 当前指向 `/opt/artduo/releases/20261028-first-exhibition-performance`；上一版 `20261028-viewing-recovery` 与更早恢复点保留 |
 | `/opt/artduo/runtime` | ArtDuo 独立 Node.js v22.23.4、pnpm 8.15.1 运行时 |
 | `/etc/artduo/artduo.env` | 私有环境文件，包含现有 DeepSeek、Inko 密钥及随机请求盐；权限 0600 |
 | `/var/lib/artduo` | 持久状态、630 张校验预览、额度和手写任务；应用用户独占 |
@@ -67,6 +67,6 @@
 
 ## 当前验收边界
 
-换画此前有效样本已达到 600ms 目标；新策展首画此前为 32.059 秒，尚未达到 8 秒。用户已同意本轮先完成实现与回归，性能验收稍后做。630 张 DA3 深度图已接入，但实际观感复核仍未完成。这些结论不因本次路径测试或服务器健康检查而变成通过。
+换画此前有效样本已达到 600ms 目标。2026-10-28 首次入展提速前后，在同一公网桌面浏览器分别使用新查询测量：普通缓存条件下首画可操作 8.044s → 7.507s，禁用浏览器 HTTP 缓存条件下 8.843s → 6.285s。更新后两次均未整页重载。每个条件每版只有一个有效样本，冷加载前后首件作品也不同，不能据此宣称所有查询均达到 8s；外部模型、网络和真机性能仍有波动。旧 32.059s 属于历史版本记录，不作为本轮改善基线。完整条件和原始记录见 [本轮验收](../verification/artduo-first-exhibition-performance-2026-10-28.md)。630 张 DA3 深度图已接入，此前整体观感和实体设备验收边界继续保留，尺寸模拟不代替真机。
 
 目标机的 630 张预览与 630 张深度图均已核验；其中 498 件作品的高清原图首次近看仍依赖已核验上游。预览、深度图、背景和音频可以由本机素材提供。模型和资源 readiness 通过，不能代替首次新策展的实际耗时与公网浏览器完整流程验收。

@@ -1,0 +1,27 @@
+{
+  "commit": "6c66b794e63f22fd47a2627b2b922cb516f87a09",
+  "tests": {
+    "contracts": 48,
+    "api": 79,
+    "corpus": 47,
+    "ui": 107,
+    "pipeline": 80,
+    "web": 175
+  },
+  "totalTests": 536,
+  "command": "pnpm -r --workspace-concurrency=1 test",
+  "logs": {
+    "tests": {
+      "passed": true,
+      "sha256": "870383ceae057065d6399393936f514d6c5e50ecbb7c130418fbe8cf1a41534e"
+    },
+    "build": {
+      "passed": true,
+      "sha256": "ce314e2843d2b2e36b5d185fa0785c80250c526a962b3918a5090b82f6f08e4b"
+    },
+    "typecheck": {
+      "passed": true,
+      "sha256": "14fdab860bb403232968a2f5053e76094fcbb65fb1010ece596767b382c757f3"
+    }
+  }
+}

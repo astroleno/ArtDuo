@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "submitted": {
+    "at": 1793190078287.4,
+    "query": "在明亮的河湾边放慢脚步，想看六幅有天空与远景的风景画。"
+  },
+  "documentOrigin": 1793190083695.4,
+  "events": [
+    {
+      "name": "artduo:artwork-ready",
+      "at": 1793190086332,
+      "detail": {
+        "artworkId": "artic-16487",
+        "durationMs": 369.5,
+        "prewarmed": false
+      }
+    }
+  ],
+  "errors": [],
+  "visibilityChanges": [],
+  "prefaceReadyAt": 1793190085835.2998,
+  "prefaceClickedAt": 1793190085961.7998,
+  "visibleAt": 1793190086298.4,
+  "actionableAt": 1793190086298.4,
+  "firstArtwork": "The Bay of Marseille, Seen from L'Estaque artwork",
+  "imageSource": "https://aitoshuu.me/ArtDuo/artduo-artwork/artic-16487?previewVersion=1&releaseVersion=2026-10-24-da3-curated-630",
+  "viewport": {
+    "width": 1450,
+    "height": 713
+  },
+  "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E5%9C%A8%E6%98%8E%E4%BA%AE%E7%9A%84%E6%B2%B3%E6%B9%BE%E8%BE%B9%E6%94%BE%E6%85%A2%E8%84%9A%E6%AD%A5%EF%BC%8C%E6%83%B3%E7%9C%8B%E5%85%AD%E5%B9%85%E6%9C%89%E5%A4%A9%E7%A9%BA%E4%B8%8E%E8%BF%9C%E6%99%AF%E7%9A%84%E9%A3%8E%E6%99%AF%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=cf4bdf3442adc20ea2917407f49f80fdaae820b0c1dd374008870c0c7a9fe0b2&route=artic-16487%2Cartic-14620%2Csmk-DEP297%2Csmk-KKS1960-741%2Cmet-11145%2Csmithsonian_asian-fsg_F1906.103a-b",
+  "visibility": "visible",
+  "origin": 1793190083695.4,
+  "pendingTiming": null,
+  "navigation": [
+    {
+      "name": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E5%9C%A8%E6%98%8E%E4%BA%AE%E7%9A%84%E6%B2%B3%E6%B9%BE%E8%BE%B9%E6%94%BE%E6%85%A2%E8%84%9A%E6%AD%A5%EF%BC%8C%E6%83%B3%E7%9C%8B%E5%85%AD%E5%B9%85%E6%9C%89%E5%A4%A9%E7%A9%BA%E4%B8%8E%E8%BF%9C%E6%99%AF%E7%9A%84%E9%A3%8E%E6%99%AF%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=preface&curationId=cf4bdf3442adc20ea2917407f49f80fdaae820b0c1dd374008870c0c7a9fe0b2",
+      "entryType": "navigation",
+      "startTime": 0,
+      "duration": 0,
+      "navigationId": 3651,
+      "initiatorType": "navigation",
+      "deliveryType": "",
+      "nextHopProtocol": "h2",
+      "renderBlockingStatus": "non-blocking",
+      "contentType": "text/html",
+      "contentEncoding": "gzip",
+      "workerStart": 0,
+      "workerRouterEvaluationStart": 0,
+      "workerCacheLookupStart": 0,
+      "workerMatchedSourceType": "",
+      "workerFinalSourceType": "",
+      "redirectStart": 0,
+      "redirectEnd": 0,
+      "fetchStart": 7.299999997019768,
+      "domainLookupStart": 7.299999997019768,
+      "domainLookupEnd": 7.299999997019768,
+      "connectStart": 7.299999997019768,
+      "secureConnectionStart": 7.299999997019768,
+      "connectEnd": 7.299999997019768,
+      "requestStart": 9.099999997764826,
+      "responseStart": 860.6999999992549,
+      "firstInterimResponseStart": 0,
+      "finalResponseHeadersStart": 860.6999999992549,
+      "responseEnd": 1026.8999999985099,
+      "transferSize": 25980,
+      "encodedBodySize": 25680,
+      "decodedBodySize": 118735,
+      "responseStatus": 200,
+      "serverTiming": [],
+      "unloadEventStart": 871.2999999970198,
+      "unloadEventEnd": 871.2999999970198,
+      "domInteractive": 1908.699999999255,
+      "domContentLoadedEventStart": 1908.699999999255,
+      "domContentLoadedEventEnd": 1909,
+      "domComplete": 0,
+      "loadEventStart": 0,
+      "loadEventEnd": 0,
+      "type": "navigate",
+      "redirectCount": 0,
+      "activationStart": 0,
+      "criticalCHRestart": 0,
+      "notRestoredReasons": null,
+      "confidence": {}
+    }
+  ],
+  "measures": [
+    {
+      "name": "artduo.experience.submit-to-snapshot-ready",
+      "duration": 7530.00004882738
+    },
+    {
+      "name": "artduo.experience.submit-to-first-artwork-visible",
+      "duration": 8044.200048826635
+    },
+    {
+      "name": "artduo.experience.submit-to-first-artwork-actionable",
+      "duration": 8044.300048828125
+    }
+  ],
+  "resources": [
+    {
+      "url": "https://aitoshuu.me/ArtDuo/artduo-gallery/lighting/v2/bg-034-1600.webp",
+      "duration": 734.6000000014901,
+      "bytes": 43056,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/css/e3237e54f5462297.css",
+      "duration": 711.8000000007451,
+      "bytes": 300,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/css/972c0d5a09b36870.css",
+      "duration": 1018.1000000014901,
+      "bytes": 300,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/webpack-7482c89c6d9d8ef0.js",
+      "duration": 712,
+      "bytes": 300,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/a8bf4992-47e09ef9db72ca8f.js",
+      "duration": 812.5,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/417-b0c3557b6a0f0aed.js",
+      "duration": 1018.7999999970198,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/main-app-2083a0941e94b9e5.js",
+      "duration": 526,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/layout-8a1d228c9696f109.js",
+      "duration": 528.8000000007451,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/249-862f683ad2039f58.js",
+      "duration": 712.3999999985099,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/531-b637ff889b6210de.js",
+      "duration": 1018.8999999985099,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/480-4d0a2ca193eba9d7.js",
+      "duration": 1019.5,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/gallery/%5Bid%5D/immersive/loading-51e98c5f6fc5397c.js",
+      "duration": 529.8000000007451,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/gallery/%5Bid%5D/immersive/error-eff1eae33b378b85.js",
+      "duration": 1019.6000000014901,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/gallery/%5Bid%5D/immersive/page-e33ead1dd09fab1e.js",
+      "duration": 532.6000000014901,
+      "bytes": 300,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/artduo-artwork/artic-16487?previewVersion=1&releaseVersion=2026-10-24-da3-curated-630",
+      "duration": 1016.8000000007451,
+      "bytes": 195766,
+      "initiator": "link"
+    }
+  ],
+  "label": "before-normal",
+  "cacheDisabled": false,
+  "sameDocument": false,
+  "summary": {
+    "prefaceMs": 7547.89990234375,
+    "visibleMs": 8011,
+    "actionableMs": 8011,
+    "readingMs": 126.5,
+    "appActionableMs": 8044.300048828125
+  }
+}

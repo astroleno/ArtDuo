@@ -1,0 +1,103 @@
+{
+  "phase": "active",
+  "commit": "6c66b794e63f22fd47a2627b2b922cb516f87a09",
+  "base": "/opt/artduo/releases/20261028-viewing-recovery",
+  "candidate": "/opt/artduo/releases/20261028-first-exhibition-performance",
+  "sourceFiles": 553,
+  "packageSha256": "04307d66bb063b8772b4e07f0609d67d5faa2f0544da925637c562e7f12018c3",
+  "sourceManifestSha256": "adac60d9095663ca3bd54ae5f8c9e6ed303b65d99347b72c3c3d401829f404cf",
+  "validation": {
+    "artduo-firstpaint-build": {
+      "logSha256": "cf077c9dbf774f45e47e61129465497562122369c37d0506ebdcca76869e3ce4",
+      "passed": true
+    },
+    "artduo-firstpaint-typecheck": {
+      "logSha256": "ea384d72c1734cba772e116bd417215312ccc9d9d9c66a10217f5bdd2e9e5854",
+      "passed": true
+    },
+    "artduo-firstpaint-tests": {
+      "logSha256": "c47f93a4e58fdf451add5368e70e1f5da44664ee5966cf16a4062e7d30f9141c",
+      "passed": true
+    },
+    "artduo-firstpaint-readiness": {
+      "logSha256": "760392d0448f61d8691d12a7a3de760e0ef8d7f82652fbd7e1923cb137cf5dcc",
+      "passed": true
+    }
+  },
+  "buildId": "5bVUJJbMPiVU-art1rd1a",
+  "previousSourceUnchanged": true,
+  "candidateStarted": true,
+  "candidateChecks": [
+    {
+      "path": "",
+      "status": 200,
+      "bytes": 8813,
+      "sha256": "ead8bc2af648a80676a43bd61623c83f3dbb88d169973a89f766c2ff2c5f1718"
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "bytes": 149,
+      "sha256": "3d62bb44cf80be5956bd58f0c40326faed61538fb9070ee17dfd39df68015d26"
+    },
+    {
+      "path": "/api/handwriting/options",
+      "status": 200,
+      "bytes": 659,
+      "sha256": "cb18b4d1b692b9e29c4c52db0ac9d3d6800381e170c48eb34c480012d76fc49b"
+    },
+    {
+      "path": "/experience/sculptures?model=calais&quality=compact&room=bg-022",
+      "status": 200,
+      "bytes": 56426,
+      "sha256": "e255291a1e55c5c78244e06db601d59828eda29985ef583f00ed2f9342324a1d"
+    },
+    {
+      "path": "existing-exhibition",
+      "status": 200,
+      "bytes": 126094,
+      "sha256": "7501f56d40d900bdc8d3fb0206c65063443e6410c60d60ea0e778150b7cd3587"
+    }
+  ],
+  "backup": "/var/backups/artduo/20261028-first-exhibition-performance",
+  "backupBytes": 355916477,
+  "switchedAt": "2026-10-28T12:28:41Z",
+  "handwritingUnchanged": true,
+  "handwritingPngCount": 2,
+  "environmentUnchanged": true,
+  "backupPermissionsVerified": true,
+  "productionChecks": [
+    {
+      "path": "",
+      "status": 200,
+      "bytes": 8813,
+      "sha256": "ead8bc2af648a80676a43bd61623c83f3dbb88d169973a89f766c2ff2c5f1718"
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "bytes": 149,
+      "sha256": "3d62bb44cf80be5956bd58f0c40326faed61538fb9070ee17dfd39df68015d26"
+    },
+    {
+      "path": "/api/handwriting/options",
+      "status": 200,
+      "bytes": 739,
+      "sha256": "ef053f95c49b8a1166ab0a1a8f568d2c132504828403b0109bbf944babd5aa5c"
+    },
+    {
+      "path": "/experience/sculptures?model=calais&quality=compact&room=bg-022",
+      "status": 200,
+      "bytes": 56426,
+      "sha256": "e255291a1e55c5c78244e06db601d59828eda29985ef583f00ed2f9342324a1d"
+    }
+  ],
+  "candidateCleaned": true,
+  "cleanup": {
+    "candidateStateRemoved": true,
+    "uploadsRemoved": true,
+    "rootHelperRemoved": true,
+    "servicesActive": true,
+    "previousReleaseRetained": true
+  }
+}

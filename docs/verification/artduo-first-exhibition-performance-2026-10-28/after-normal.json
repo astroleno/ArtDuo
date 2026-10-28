@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "submitted": {
+    "at": 1793190983593.0999,
+    "query": "午后想沿着开阔的水岸走走，看六幅明亮的风景，留意天光。"
+  },
+  "documentOrigin": 1793190974614.2,
+  "events": [
+    {
+      "name": "artduo:artwork-ready",
+      "at": 1793190991100.8,
+      "detail": {
+        "artworkId": "artic-16487",
+        "durationMs": 1996.800000000745,
+        "prewarmed": false
+      }
+    }
+  ],
+  "errors": [],
+  "visibilityChanges": [],
+  "prefaceReadyAt": 1793190988989.7,
+  "prefaceClickedAt": 1793190989103.5,
+  "visibleAt": 1793190991067.8,
+  "actionableAt": 1793190991068,
+  "firstArtwork": "The Bay of Marseille, Seen from L'Estaque artwork",
+  "imageSource": "https://aitoshuu.me/ArtDuo/artduo-artwork/artic-16487?previewVersion=1&releaseVersion=2026-10-24-da3-curated-630",
+  "viewport": {
+    "width": 1450,
+    "height": 713
+  },
+  "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E5%8D%88%E5%90%8E%E6%83%B3%E6%B2%BF%E7%9D%80%E5%BC%80%E9%98%94%E7%9A%84%E6%B0%B4%E5%B2%B8%E8%B5%B0%E8%B5%B0%EF%BC%8C%E7%9C%8B%E5%85%AD%E5%B9%85%E6%98%8E%E4%BA%AE%E7%9A%84%E9%A3%8E%E6%99%AF%EF%BC%8C%E7%95%99%E6%84%8F%E5%A4%A9%E5%85%89%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-16487&curationId=7bc55f71fdd67673c482255425756e2c15837649669887783dcb3258265a8976&route=artic-16487%2Cartic-14620%2Cmet-35994%2Cmet-437941%2Csmk-KMSsp491%2Cartic-27992",
+  "visibility": "visible",
+  "origin": 1793190974614.2,
+  "pendingTiming": null,
+  "navigation": [
+    {
+      "name": "https://aitoshuu.me/ArtDuo",
+      "entryType": "navigation",
+      "startTime": 0,
+      "duration": 6560.199999999255,
+      "navigationId": 4170,
+      "initiatorType": "navigation",
+      "deliveryType": "",
+      "nextHopProtocol": "h2",
+      "renderBlockingStatus": "non-blocking",
+      "contentType": "text/html",
+      "contentEncoding": "gzip",
+      "workerStart": 0,
+      "workerRouterEvaluationStart": 0,
+      "workerCacheLookupStart": 0,
+      "workerMatchedSourceType": "",
+      "workerFinalSourceType": "",
+      "redirectStart": 0,
+      "redirectEnd": 0,
+      "fetchStart": 10.100000001490116,
+      "domainLookupStart": 10.100000001490116,
+      "domainLookupEnd": 10.100000001490116,
+      "connectStart": 17,
+      "secureConnectionStart": 19.100000001490116,
+      "connectEnd": 3611.300000000745,
+      "requestStart": 3611.5,
+      "responseStart": 4931.900000002235,
+      "firstInterimResponseStart": 0,
+      "finalResponseHeadersStart": 4931.900000002235,
+      "responseEnd": 5071,
+      "transferSize": 3786,
+      "encodedBodySize": 3486,
+      "decodedBodySize": 8813,
+      "responseStatus": 200,
+      "serverTiming": [],
+      "unloadEventStart": 4946.199999999255,
+      "unloadEventEnd": 4946.199999999255,
+      "domInteractive": 5602,
+      "domContentLoadedEventStart": 5602,
+      "domContentLoadedEventEnd": 5602.60000000149,
+      "domComplete": 6558.800000000745,
+      "loadEventStart": 6559.10000000149,
+      "loadEventEnd": 6560.199999999255,
+      "type": "navigate",
+      "redirectCount": 0,
+      "activationStart": 0,
+      "criticalCHRestart": 0,
+      "notRestoredReasons": null,
+      "confidence": {}
+    }
+  ],
+  "measures": [
+    {
+      "name": "artduo.experience.submit-to-snapshot-ready",
+      "duration": 5335.900000002235
+    },
+    {
+      "name": "artduo.experience.submit-to-first-narrative",
+      "duration": 6183
+    },
+    {
+      "name": "artduo.experience.submit-to-first-artwork-visible",
+      "duration": 7507.300000000745
+    },
+    {
+      "name": "artduo.experience.submit-to-first-artwork-actionable",
+      "duration": 7507.400000002235
+    }
+  ],
+  "resources": [
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/css/e3237e54f5462297.css",
+      "duration": 478.1000000014901,
+      "bytes": 13476,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/css/972c0d5a09b36870.css",
+      "duration": 611.6999999992549,
+      "bytes": 12762,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/webpack-a01e4fed28b2f1b8.js",
+      "duration": 621.8999999985099,
+      "bytes": 2233,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/480-4d0a2ca193eba9d7.js",
+      "duration": 752.8999999985099,
+      "bytes": 7411,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/main-app-da53622074ebe9d5.js",
+      "duration": 933,
+      "bytes": 857,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/layout-8bf288246e856216.js",
+      "duration": 984.5,
+      "bytes": 925,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/a8bf4992-47e09ef9db72ca8f.js",
+      "duration": 999,
+      "bytes": 54659,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/417-b0c3557b6a0f0aed.js",
+      "duration": 1090.199999999255,
+      "bytes": 46741,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/249-862f683ad2039f58.js",
+      "duration": 1106.199999999255,
+      "bytes": 16483,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/page-0dac56d8bba5c9f0.js",
+      "duration": 771.4000000022352,
+      "bytes": 2973,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/531-b637ff889b6210de.js",
+      "duration": 1122.300000000745,
+      "bytes": 49228,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/164.3f00b57fcb868492.js",
+      "duration": 2145.89999999851,
+      "bytes": 2771,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/28.57d2e15465268bcc.js",
+      "duration": 1087,
+      "bytes": 3287,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?query=%E5%8D%88%E5%90%8E%E6%83%B3%E6%B2%BF%E7%9D%80%E5%BC%80%E9%98%94%E7%9A%84%E6%B0%B4%E5%B2%B8%E8%B5%B0%E8%B5%B0%EF%BC%8C%E7%9C%8B%E5%85%AD%E5%B9%85%E6%98%8E%E4%BA%AE%E7%9A%84%E9%A3%8E%E6%99%AF%EF%BC%8C%E7%95%99%E6%84%8F%E5%A4%A9%E5%85%89%E3%80%82&view=experience&recipeVersion=experience-v2&phase=preface&_rsc=ZmCQ44b92m4mXe_R",
+      "duration": 4977.39999999851,
+      "bytes": 23446,
+      "initiator": "fetch"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/gallery/%5Bid%5D/immersive/error-fef29724385d12cd.js",
+      "duration": 372.5,
+      "bytes": 2088,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/gallery/%5Bid%5D/immersive/loading-c2ca2a42760f9c24.js",
+      "duration": 369.5,
+      "bytes": 962,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/_next/static/chunks/app/gallery/%5Bid%5D/immersive/page-666c8b09afb2b973.js",
+      "duration": 378.69999999925494,
+      "bytes": 5279,
+      "initiator": "script"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/artduo-gallery/lighting/v2/bg-034-1600.webp",
+      "duration": 7.399999998509884,
+      "bytes": 0,
+      "initiator": "img"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/artduo-artwork/artic-16487?previewVersion=1&releaseVersion=2026-10-24-da3-curated-630",
+      "duration": 1858.0999999977648,
+      "bytes": 195766,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/artduo-gallery/lighting/v2/bg-034-1600.webp",
+      "duration": 1338.300000000745,
+      "bytes": 43056,
+      "initiator": "link"
+    },
+    {
+      "url": "https://aitoshuu.me/ArtDuo/artduo-gallery/lighting/v2/bg-034-1600.webp",
+      "duration": 1889.199999999255,
+      "bytes": 43056,
+      "initiator": "img"
+    }
+  ],
+  "consoleMessages": [],
+  "label": "after-normal",
+  "cacheDisabled": false,
+  "sameDocument": true,
+  "summary": {
+    "prefaceMs": 5396.60009765625,
+    "visibleMs": 7474.7001953125,
+    "actionableMs": 7474.900146484375,
+    "readingMs": 113.800048828125,
+    "appActionableMs": 7507.400000002235
+  }
+}
