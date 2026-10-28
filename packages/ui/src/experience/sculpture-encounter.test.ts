@@ -51,6 +51,19 @@ test("painting figure exclusions do not filter the separate sculpture easter egg
   }
 });
 
+test("natural sculpture negations and exclusive media remain hard encounter boundaries", () => {
+  for (const query of ["我不想看到雕塑", "别给我雕塑", "不要看到雕塑", "不要人物雕塑", "避免雕塑", "I don't want statues", "sculptures are not welcome", "只想看版画", "仅限水墨", "只要素描", "只看粉彩", "only watercolors", "watercolours only", "only gouache"]) {
+    assert.equal(permitsSculptureEncounter(query), false, query);
+    assert.equal(planSculptureEncounter({ ...snapshot, query }, works, scenes, { roll: 0, selection: 0 }).status, "absent", query);
+  }
+  for (const query of ["只看版画，也欢迎雕塑", "只看油画，雕塑也可以", "only watercolors; sculptures are welcome", "只想看水墨，不介意雕塑", "不只看油画", "不要油画，而是想看雕塑", "无人海景", "不要人物", "想看绘画与雕塑"]) {
+    assert.equal(permitsSculptureEncounter(query), true, query);
+  }
+  assert.equal(permitsSculptureEncounter("雕塑也可以，但这次只看版画"), false);
+  const saved = planSculptureEncounter(snapshot, works, scenes, { roll: 0, selection: 0 });
+  assert.equal(restoreSculptureEncounter(JSON.stringify(saved), { ...snapshot, query: "我不想看到雕塑" }, works, scenes)?.status, "absent", "new eligibility must retire a saved encounter without rerolling");
+});
+
 test("themes increase selection affinity while recent works are downweighted", () => {
   const choose = (recent: string[] = []) => Array.from({ length: 1000 }, (_, i) => planSculptureEncounter(snapshot, works, scenes, { roll: 0, selection: i / 1000, recent }).modelId);
   const original = choose(), repeated = choose(["venus"]);

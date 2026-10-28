@@ -25,5 +25,6 @@ export * from "./exhibition-unit";
 export * from "./relationship-graph";
 export * from "./semantic-curation";
 export * from "./artwork-evidence";
+export * from "./viewing-media";
 export * from "./handwriting";
 export * from "./public-path";

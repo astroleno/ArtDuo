@@ -133,6 +133,7 @@ export function Walk({ snapshot, state, dispatch, onDetail, detailNavigation, on
       onNext={() => dispatch({ type: "NEXT" })}
       onLightboxNext={() => dispatch({ type: "LIGHTBOX_NEXT" })}
       onLightboxPrevious={() => dispatch({ type: "LIGHTBOX_PREVIOUS" })}
+      onLightboxRestore={artworkId => dispatch({ type: "LIGHTBOX_RESTORE", artworkId })}
       onMediaFailed={markMediaFailed}
       onLightboxChange={lightboxChanged}
       onArtworkReady={artworkReady}

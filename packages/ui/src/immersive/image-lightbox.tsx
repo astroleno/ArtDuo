@@ -6,6 +6,8 @@ import { createPortal } from "react-dom";
 
 import { ImmersiveDetailStage, type ImmersiveDetailOrigin } from "./immersive-detail-stage";
 import type { ImmersiveGalleryUnit } from "./scene-orchestrator";
+import { prepareReadingImage } from "../experience/reading-image";
+import { useOverlayHistory } from "../experience/use-overlay-history";
 
 export interface ImageLightboxProps {
   unit: ImmersiveGalleryUnit;
@@ -16,6 +18,7 @@ export interface ImageLightboxProps {
   hasNext?: boolean;
   onPrevious?: () => void;
   onNext?: () => void;
+  onRestoreArtwork?: (artworkId: string) => void;
   onExpandedChange?: (isExpanded: boolean) => void;
   onExpandedArtworkReady?: (artworkId: string) => void;
   onImageReady?: (size: { width: number; height: number }) => void;
@@ -70,6 +73,7 @@ export function ImageLightbox({
   hasNext = false,
   onPrevious,
   onNext,
+  onRestoreArtwork,
   onExpandedChange,
   onExpandedArtworkReady,
   onImageReady,
@@ -87,6 +91,8 @@ export function ImageLightbox({
   const [imageState, setImageState] = useState<"loading" | "ready" | "error">("loading");
   const [detail, setDetail] = useState(() => ({ unit, imageSrc: previewSrc }));
   const [isExpanded, setIsExpanded] = useState(false);
+  const [prepareAttempt, setPrepareAttempt] = useState(0);
+  const [preparation, setPreparation] = useState<{ artworkId: string; failed: boolean }>();
   const [entryOrigin, setEntryOrigin] = useState<ImmersiveDetailOrigin | undefined>();
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -101,6 +107,12 @@ export function ImageLightbox({
   callbacksRef.current = { onExpandedChange, onExpandedArtworkReady };
   unitRef.current = unit;
   const pendingArtwork = detail.unit.id !== unit.id;
+  const preparationFailed = pendingArtwork && preparation?.artworkId === unit.id && preparation.failed;
+  const closeDetail = useOverlayHistory(isExpanded, sameView => {
+    if (pendingArtwork && sameView) onRestoreArtwork?.(detail.unit.id);
+    onExpandedChange?.(false);
+    setIsExpanded(false);
+  });
 
   useEffect(() => {
     setImageState("loading");
@@ -140,19 +152,19 @@ export function ImageLightbox({
 
   useEffect(() => {
     if (!isExpanded) return;
-    let cancelled = false;
+    const controller = new AbortController();
     const nextUnit = unitRef.current;
+    setPreparation({ artworkId: nextUnit.id, failed: false });
     async function prepare() {
       const preview = new Image();
       preview.crossOrigin = "anonymous";
       preview.decoding = "async";
       preview.src = previewSrc;
-      try {
-        await preview.decode();
-        if (cancelled || !preview.naturalWidth) return;
-        // Change the work and its credit together, only once real pixels exist.
-        setDetail({ unit: nextUnit, imageSrc: previewSrc });
-      } catch { return; }
+      const state = await prepareReadingImage(preview, controller.signal, 8000);
+      if (controller.signal.aborted) return;
+      if (state !== "ready") { setPreparation({ artworkId: nextUnit.id, failed: true }); return; }
+      // Change the work and its credit together, only once real pixels exist.
+      setDetail({ unit: nextUnit, imageSrc: previewSrc });
       if (!fullSrc) return;
       const full = new Image();
       full.crossOrigin = "anonymous";
@@ -160,12 +172,12 @@ export function ImageLightbox({
       full.src = fullSrc;
       try {
         await full.decode();
-        if (!cancelled && full.naturalWidth) setDetail({ unit: nextUnit, imageSrc: fullSrc });
+        if (!controller.signal.aborted && full.naturalWidth) setDetail({ unit: nextUnit, imageSrc: fullSrc });
       } catch { /* Keep the decoded preview if the full image fails. */ }
     }
     void prepare();
-    return () => { cancelled = true; };
-  }, [previewSrc, fullSrc, unit.id, isExpanded]);
+    return () => controller.abort();
+  }, [previewSrc, fullSrc, unit.id, isExpanded, prepareAttempt]);
 
   useEffect(() => {
     if (!isExpanded || pendingArtwork) return;
@@ -292,8 +304,11 @@ export function ImageLightbox({
           hasNext={hasNext && !pendingArtwork}
           hasPrevious={hasPrevious && !pendingArtwork}
           pendingArtwork={pendingArtwork}
+          preparationFailed={preparationFailed}
+          onRetryArtwork={() => { setPreparation({ artworkId: unit.id, failed: false }); setPrepareAttempt(attempt => attempt + 1); }}
+          onCancelArtwork={onRestoreArtwork ? () => onRestoreArtwork(detail.unit.id) : closeDetail}
           imageSrc={detail.imageSrc}
-          onClose={() => { onExpandedChange?.(false); setIsExpanded(false); }}
+          onClose={closeDetail}
           onNext={onNext}
           onPrevious={onPrevious}
           requireDepthMap={detail.unit.requireDepthMap}

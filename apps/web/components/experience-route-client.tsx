@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { appPath } from "@artduo/contracts";
 
-import { ExperienceShell, validRouteOrder } from "@artduo/ui";
+import { ExperienceShell, replaceExperienceHistory, validRouteOrder } from "@artduo/ui";
 import type { ExperiencePosition, ExhibitionSnapshot, SculptureRoomScene, SculptureWork } from "@artduo/ui";
 
 import { buildExperienceEntryHref, experienceHrefForPosition, resolveExperiencePosition } from "../lib/experience-navigation";
@@ -56,7 +56,7 @@ export function ExperienceRouteClient({ snapshot, initialPosition, sculptures }:
   const onPositionChange = useCallback((position: ExperiencePosition, active: ExhibitionSnapshot) => {
     const href = appPath(experienceHrefForPosition(active, position));
     if (`${window.location.pathname}${window.location.search}` !== href) {
-      window.history.replaceState(null, "", href);
+      replaceExperienceHistory(href);
     }
   }, [snapshot]);
   const onDetail = useCallback((artworkId: string, position: ExperiencePosition, active: ExhibitionSnapshot) => {

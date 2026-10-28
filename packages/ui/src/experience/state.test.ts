@@ -24,6 +24,24 @@ function reduce(state: ReturnType<typeof createExperienceState>, event: Paramete
   return experienceReducer(state, event, current);
 }
 
+test("failed close-view navigation restores the visible artwork before cancellation or closing", () => {
+  const current = snapshot(3);
+  current.units = current.units.map((unit, index) => ({ ...unit, artwork: { id: `art-${index}` } } as never));
+  let state = createExperienceState(current, { phase: "walk", unitId: "u0" });
+  state = reduce(state, { type: "OPEN_LIGHTBOX" }, current);
+  state = reduce(state, { type: "LIGHTBOX_NEXT" }, current);
+  assert.equal(state.unitId, "u1");
+  assert.equal(state.transitioning, true);
+  assert.equal(reduce(state, { type: "LIGHTBOX_RESTORE", artworkId: "missing" }, current), state);
+  state = reduce(state, { type: "LIGHTBOX_RESTORE", artworkId: "art-0" }, current);
+  assert.equal(state.unitId, "u0");
+  assert.equal(state.transitioning, false);
+  assert.equal(state.overlay, "lightbox");
+  state = reduce(state, { type: "CLOSE_OVERLAY" }, current);
+  assert.deepEqual(positionOfExperienceState(state), { phase: "walk", unitId: "u0" });
+  assert.equal(reduce(state, { type: "LIGHTBOX_RESTORE", artworkId: "art-2" }, current), state);
+});
+
 test("experience state covers skip, navigation boundaries, closing, revisit and old media results", () => {
   const current = snapshot(2);
   let state = createExperienceState(current, { phase: "preface" });

@@ -94,6 +94,10 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     const isLightboxNavigation = event.type === "LIGHTBOX_NEXT" || event.type === "LIGHTBOX_PREVIOUS";
     const isNavigation = isLightboxNavigation || event.type === "NEXT" || event.type === "PREVIOUS" || event.type === "SELECT_UNIT";
     const current = stateRef.current;
+    if (event.type === "LIGHTBOX_RESTORE") {
+      queuedNavigationRef.current = null;
+      navigationLockedRef.current = false;
+    }
     if (isNavigation && encounter.ref.current?.status === "active") return;
     if (event.type === "OPEN_LIGHTBOX") queuedNavigationRef.current = null;
     if (isNavigation && (isLightboxNavigation ? current.overlay !== "lightbox" : current.overlay !== "none" || (readingOpen && event.type !== "SELECT_UNIT"))) return;
@@ -117,9 +121,13 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     }
     const next = experienceReducer(current, event, snapshotRef.current);
     stateRef.current = next;
+    // Browser Back also restores route props in this event. Publish a cancelled
+    // close-view target synchronously so those props cannot restore the failed
+    // work over the visible one after the overlay has closed.
+    if (event.type === "LIGHTBOX_RESTORE" && next !== current) onPositionChange(positionOfExperienceState(next), snapshotRef.current);
     if (next.transitioning) navigationLockedRef.current = true;
     setState(next);
-  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen, encounter.begin]);
+  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen, encounter.begin, onPositionChange]);
 
   const continueAfterEncounter = useCallback(() => {
     if (encounter.ref.current?.status !== "active") return;

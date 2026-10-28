@@ -19,6 +19,7 @@ export type ExperienceEvent =
   | { type: "CONTINUE" | "SKIP" }
   | { type: "NEXT" | "PREVIOUS" }
   | { type: "LIGHTBOX_NEXT" | "LIGHTBOX_PREVIOUS" }
+  | { type: "LIGHTBOX_RESTORE"; artworkId: string }
   | { type: "SELECT_UNIT"; unitId: string }
   | { type: "RESTORE_TRANSITION" }
   | { type: "RESTORE_POSITION"; position: ExperiencePosition }
@@ -64,6 +65,11 @@ export function experienceReducer(state: ExperienceState, event: ExperienceEvent
   if (state.overlay === "lightbox" && (event.type === "NEXT" || event.type === "PREVIOUS" || event.type === "SELECT_UNIT")) return state;
   const currentIndex = indexOfUnit(snapshot, state.unitId);
   switch (event.type) {
+    case "LIGHTBOX_RESTORE": {
+      const unit = snapshot.units.find(candidate => candidate.artwork.id === event.artworkId);
+      return state.act === "walk" && state.overlay === "lightbox" && unit
+        ? { ...state, unitId: unit.exhibition.unitId, transitioning: false } : state;
+    }
     case "LIGHTBOX_NEXT":
     case "LIGHTBOX_PREVIOUS": {
       if (state.act !== "walk" || state.overlay !== "lightbox" || state.transitioning) return state;

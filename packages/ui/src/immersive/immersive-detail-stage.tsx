@@ -27,6 +27,9 @@ interface ImmersiveDetailStageProps {
   hasPrevious?: boolean;
   imageSrc: string;
   pendingArtwork?: boolean;
+  preparationFailed?: boolean;
+  onRetryArtwork?: () => void;
+  onCancelArtwork?: () => void;
   onClose: () => void;
   onNext?: () => void;
   onPrevious?: () => void;
@@ -58,6 +61,9 @@ export function ImmersiveDetailStage({
   hasPrevious = false,
   imageSrc,
   pendingArtwork = false,
+  preparationFailed = false,
+  onRetryArtwork,
+  onCancelArtwork,
   onClose,
   onNext,
   onPrevious,
@@ -528,7 +534,13 @@ export function ImmersiveDetailStage({
         <span className="immersive-detail-touch-mark" />
         {depthStatus === "static" ? "静静观看这幅作品" : "拖动画面，感受空间层次"}
       </p>
-      {pendingArtwork ? <p className="immersive-detail-pending" role="status">正在准备作品</p> : null}
+      {pendingArtwork ? <div className="immersive-detail-pending" role="status">
+        <span>{preparationFailed ? "暂时未能打开，仍在观看原作。" : "正在准备作品"}</span>
+        {preparationFailed ? <div className="immersive-detail-recovery">
+          <button onClick={onRetryArtwork} type="button">重试载入</button>
+          <button onClick={onCancelArtwork} type="button">留在这件</button>
+        </div> : null}
+      </div> : null}
 
       <nav aria-label="沉浸作品切换" className="immersive-detail-navigation">
         <button

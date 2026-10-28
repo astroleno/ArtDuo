@@ -21,7 +21,7 @@ import { experienceImageSource, experiencePrewarm } from "./media-prewarm";
 import { RoomBackdrop } from "./room-backdrop";
 import { roomParallaxInput } from "./room-parallax";
 
-export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onLightboxNext, onLightboxPrevious, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, pace = "steady" }: {
+export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onLightboxNext, onLightboxPrevious, onLightboxRestore, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, pace = "steady" }: {
   unit: ExperienceUnit;
   index: number;
   count: number;
@@ -39,6 +39,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   onNext: () => void;
   onLightboxNext: () => void;
   onLightboxPrevious: () => void;
+  onLightboxRestore?: (artworkId: string) => void;
   onRetryMedia: () => void;
   onMediaFailed: () => void;
   onLightboxChange: (expanded: boolean) => void;
@@ -213,7 +214,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
       <a aria-label="ArtDuo，重新选一组作品" className="experience-mark" href={appPath(entryHref)}>ArtDuo</a>
       <div className="experience-room-meta"><span>{unit.scene?.asset.label_cn ?? "静光展厅"}</span><span>{String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}</span></div>
     </header>
-    {mediaFailed ? <div className="experience-media-fallback" role="status">
+    {mediaFailed && !lightboxExpanded ? <div className="experience-media-fallback" role="status">
       <p>这件作品暂时无法载入，展签和路线仍可继续。</p><button onClick={retryMedia} type="button">重试载入</button>
     </div> : <div key={retryToken} className="experience-frame-shadow" style={{
       left: `${layout.frame.x}px`, top: `${layout.frame.y}px`, width: `${layout.frame.width}px`, height: `${layout.frame.height}px`, aspectRatio: imageRatio,
@@ -222,6 +223,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
       <ImageLightbox key={retryToken} className="experience-art-lightbox" onExpandedChange={lightboxChanged} onImageReady={imageReady} onImageError={onMediaFailed}
         motionEnabled={mouseMotion && !reducedMotion}
         hasPrevious={index > 0 && !transitioning} hasNext={index < count - 1 && !transitioning} onPrevious={onLightboxPrevious} onNext={onLightboxNext}
+        onRestoreArtwork={onLightboxRestore}
         onExpandedArtworkReady={setDetailReadyId} previewSource={experienceImageSource(unit.media.previewUrl)} unit={viewUnit} />
       <DepthParallaxCanvas active={enhancementsReady && mouseMotion && !lightboxExpanded && !plaqueOpen && !mediaFailed && Boolean(unit.media.depthMapUrl)} depthMapUrl={unit.media.depthMapUrl ? experienceImageSource(unit.media.depthMapUrl) : undefined} imageUrl={experienceImageSource(unit.media.previewUrl)} pointer={pointer} reducedMotion={reducedMotion} />
     </div>}

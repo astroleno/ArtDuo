@@ -1,6 +1,6 @@
 import type { WebArtwork } from "./release-catalog";
 import type { VisualState, VisualSubject } from "./artwork-visual-evidence";
-import { artworkMediumKinds, type ArtworkMedium } from "@artduo/contracts";
+import { ARTWORK_MEDIUM_REQUESTS, artworkMediumKinds, type ArtworkMedium } from "@artduo/contracts";
 
 // Concrete subject evidence never uses the emotional aliases in the embedding
 // tokenizer. A quiet title is not evidence that a work depicts a quiet scene.
@@ -63,12 +63,6 @@ const REST = /累|疲惫|疲劳|撑了|休息|安静|平静|宁静|缓和|放松
 const BRIGHT = /明亮|活力|欢快|喜悦|开心|\b(?:bright|joy|joyful|cheerful|energy|lively)\b/iu;
 const SPACIOUS = /开阔|辽阔|宽阔|空旷|\b(?:spacious|open\s+(?:views?|spaces?|vistas?)|wide\s+(?:views?|vistas?))\b/iu;
 const NEGATION = /不要|不用|不必|不需要|无需|不想|不看|不喜欢|避开|排除|别(?:给|有|来|放|出现|强行|强迫|催|让)|没有|不含|不带|无人物|\b(?:not|no|without|avoid|exclude|don['’]t(?: want)?)\b/iu;
-const MEDIUM_REQUESTS: Array<[ArtworkMedium, RegExp]> = [
-  ["oil", /油画|油彩|\boils?\b/iu], ["watercolor", /水彩|\bwatercolou?rs?\b/iu],
-  ["print", /版画|木版|铜版|蚀刻|石版|\b(?:prints?|etchings?|engravings?|woodcuts?|woodblocks?|lithographs?|mezzotints?)\b/iu],
-  ["drawing", /素描|炭笔|铅笔|\b(?:drawings?|charcoal|pencils?)\b/iu], ["pastel", /粉彩|色粉|\bpastels?\b/iu],
-  ["ink", /水墨|墨笔|\bink\b/iu], ["tempera", /蛋彩|\btempera\b/iu], ["fresco", /壁画|\bfrescos?\b|\bfrescoes\b/iu], ["gouache", /水粉|\bgouache\b/iu],
-];
 
 function isNegated(clause: string, index: number): boolean {
   // "not forest but sea" and "不要森林，想看海" have separate scopes.
@@ -134,7 +128,7 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
         if (!isNegated(clause, match.index!)) focuses.add(focus as ViewingFocus);
       }
     }
-    for (const [medium, pattern] of MEDIUM_REQUESTS) {
+    for (const [medium, pattern] of ARTWORK_MEDIUM_REQUESTS) {
       // Permission to include a medium is not a request to require it.
       const sentence = subjectQuery.split(/[。；;.!?\n]/u).find(part => part.includes(clause.replace(/^不要 /u, ""))) ?? clause;
       const permissive = /也(?:可以|行|接受|能看)|(?:都|均)可(?:以)?|不限|媒材不限|\b(?:also|welcome|acceptable|allowed|fine|okay|can include|do not mind|don't mind)\b/iu.test(sentence);

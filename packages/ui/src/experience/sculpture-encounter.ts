@@ -1,5 +1,6 @@
 import type { ExhibitionSnapshot } from "./types";
 import type { SculptureRoomScene, SculptureWork } from "./sculpture-types";
+import { hasExclusivePaintingRequest } from "@artduo/contracts";
 
 export const SCULPTURE_ENCOUNTER_CHANCE = .5;
 export interface SculptureEncounter {
@@ -14,7 +15,20 @@ export interface SculptureEncounter {
 
 export function permitsSculptureEncounter(query: string): boolean {
   // Figure subjects in paintings do not classify the separate sculpture interlude.
-  return !/(?:不要|不看|排除|不含|没有|无|不需要)[^，。；]{0,8}(?:雕塑|雕像)|(?:只(?:要|看|想看|想要)|仅(?:限|看|要)|全部|全是)[^，。；]{0,8}(?:绘画|画作|油画|水彩|风景|静物)|(?:no|without|exclude)\s+(?:sculptures?|statues?)|(?:only\s+(?:paintings?|landscapes?|still lifes?)|(?:paintings?|landscapes?)\s+only)/iu.test(query);
+  let permitted = true;
+  for (const clause of query.split(/[，。；,;.!?！？\n]/u)) {
+    if (hasExclusivePaintingRequest(clause)) permitted = false;
+    for (const match of clause.matchAll(/雕塑|雕像|\b(?:sculptures?|statues?)\b/giu)) {
+      const before = clause.slice(0, match.index).split(/但是|而是|不过|\bbut\b|\binstead\b/iu).at(-1) ?? "";
+      const denial = before.replace(/不介意|不排斥|\b(?:do not mind|don['’]t mind|not opposed to)\b/giu, "");
+      const after = clause.slice(match.index! + match[0].length);
+      if (/(?:不要|不看|不想|不愿|排除|不含|没有|无|不需要|别|避免|避开)[^，。；,;.!?]{0,32}$|\b(?:no|not|without|exclude|avoid|don['’]t|do not)\b[^,;.!?]{0,60}$/iu.test(denial)
+        || /^\s*(?:(?:is|are)\s+)?(?:not\s+(?:welcome|wanted|allowed)|[- ]free\b)/iu.test(after)) return false;
+      if (/想(?:看|要|遇见)|要看|欢迎|可以|接受|不介意|不排斥|只(?:看|要)|\b(?:want|like|welcome|include|allow|mind)\b/iu.test(before)
+        || /^\s*(?:也(?:可以|行|好)|也?欢迎|也?能看|(?:(?:is|are)\s+)?(?:also\s+)?(?:welcome|fine|okay|allowed|acceptable))/iu.test(after)) permitted = true;
+    }
+  }
+  return permitted;
 }
 
 /** Separate from routeOrder: an encounter never becomes a requested painting. */

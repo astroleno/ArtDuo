@@ -16,6 +16,7 @@ export * from "./experience/types";
 export * from "./experience/artwork-credits";
 export * from "./experience/reading-copy";
 export * from "./experience/state";
+export { replaceExperienceHistory } from "./experience/overlay-history";
 export * from "./experience/layout";
 export * from "./experience/motion-policy";
 export * from "./experience/threshold";
