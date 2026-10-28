@@ -62,7 +62,15 @@ export function beginExperienceTiming(query?: string): void {
 }
 
 export function beginExperienceTimingIfMissing(): void {
-  if (typeof performance === "undefined" || performance.getEntriesByName(SUBMIT_MARK, "mark").length > 0) return;
+  if (typeof performance === "undefined") return;
+  if (performance.getEntriesByName(SUBMIT_MARK, "mark").length > 0) {
+    // Client navigation retains the submit mark. Consume its cross-document
+    // fallback so a later refresh isn't measured as another long submission.
+    if (typeof window !== "undefined" && typeof sessionStorage !== "undefined") {
+      try { sessionStorage.removeItem(PENDING_NAVIGATION); } catch { /* Timing storage is optional. */ }
+    }
+    return;
+  }
   const navigation = performance.getEntriesByType("navigation").at(-1);
   const documentEntry = typeof window !== "undefined" && navigation?.name === window.location.href;
   let priorDocumentMs = 0;

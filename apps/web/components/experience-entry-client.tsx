@@ -1,15 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { appPath } from "@artduo/contracts";
+import { useRouter } from "next/navigation";
 
 import { Threshold } from "@artduo/ui";
 import { beginExperienceTiming } from "../lib/experience-analytics";
+import { restoreExperienceEntryQuery } from "../lib/experience-navigation";
 
 const ENTRY_ACTION = "/gallery/local/immersive";
 const ENTRY_FIELDS = { view: "experience", recipeVersion: "experience-v2", phase: "preface" };
 
 export function ExperienceEntryClient({ initialQuery = "" }: { initialQuery?: string }) {
+  const router = useRouter();
+  const [entryQuery] = useState(() => restoreExperienceEntryQuery(initialQuery, typeof window === "undefined" ? undefined : window.location.href));
   const [busy, setBusy] = useState(false);
   useEffect(() => {
     const restore = (event: PageTransitionEvent) => { if (event.persisted) setBusy(false); };
@@ -26,9 +29,12 @@ export function ExperienceEntryClient({ initialQuery = "" }: { initialQuery?: st
     entry.searchParams.set("query", query);
     window.history.replaceState(window.history.state, "", `${entry.pathname}${entry.search}${entry.hash}`);
     const target = `${ENTRY_ACTION}?${new URLSearchParams({ query, ...ENTRY_FIELDS }).toString()}`;
-    window.location.assign(appPath(target));
+    // Prepare the client code while the server understands the request. This
+    // loads static modules only; no draft or speculative curation is submitted.
+    void import("./experience-route-client").catch(() => undefined);
+    router.push(target);
   };
   return <div className={busy ? "experience-entry is-leaving" : "experience-entry"}>
-    <Threshold busy={busy} formAction={ENTRY_ACTION} formFields={ENTRY_FIELDS} initialValue={initialQuery} onSubmit={onSubmit} />
+    <Threshold busy={busy} formAction={ENTRY_ACTION} formFields={ENTRY_FIELDS} initialValue={entryQuery} onSubmit={onSubmit} />
   </div>;
 }

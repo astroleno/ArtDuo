@@ -1,5 +1,5 @@
 import type { ExperiencePosition, ExperiencePhase } from "@artduo/ui";
-import { EXPERIENCE_RECIPE_VERSION, type ExhibitionSnapshot } from "@artduo/ui";
+import { EXPERIENCE_RECIPE_VERSION, validRouteOrder, type ExhibitionSnapshot } from "@artduo/ui";
 import { stripAppBasePath } from "@artduo/contracts";
 
 export interface ExperienceRouteParams {
@@ -16,6 +16,34 @@ export function buildExperienceEntryHref(query = ""): string {
   const params = new URLSearchParams({ view: "experience" });
   if (query) params.set("query", query);
   return `/?${params.toString()}`;
+}
+
+/** A cached entry tree may predate the draft stored in its browser address. */
+export function restoreExperienceEntryQuery(initialQuery: string, href?: string): string {
+  if (!href) return initialQuery;
+  try { return new URL(href).searchParams.get("query") ?? initialQuery; }
+  catch { return initialQuery; }
+}
+
+/** Router-cached page props can predate later in-exhibition position updates. */
+export function restoreExperienceRoute(snapshot: ExhibitionSnapshot, position: ExperiencePosition, href?: string) {
+  const fallback = { snapshot, position, restored: false };
+  if (!href) return fallback;
+  try {
+    const url = new URL(href);
+    if (!/^\/gallery\/[^/]+\/immersive$/u.test(stripAppBasePath(url.pathname))
+      || url.searchParams.get("view") !== "experience"
+      || url.searchParams.get("releaseVersion") !== snapshot.releaseVersion
+      || (url.searchParams.get("curationId") ?? undefined) !== snapshot.curationId
+      || url.searchParams.get("query")?.normalize("NFKC").trim() !== snapshot.query.normalize("NFKC").trim()) return fallback;
+    const params = Object.fromEntries(url.searchParams.entries());
+    const order = params.route && params.route.length < 4096 ? params.route.split(",") : undefined;
+    return {
+      position: resolveExperiencePosition(params, snapshot).position,
+      snapshot: { ...snapshot, routeOrder: validRouteOrder(order, snapshot) ? order : snapshot.routeOrder },
+      restored: true,
+    };
+  } catch { return fallback; }
 }
 
 export function buildExperienceHref(input: ExperienceRouteParams): string {

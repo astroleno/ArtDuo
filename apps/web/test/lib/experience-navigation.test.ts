@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { buildExperienceEntryHref, experienceHrefForPosition, resolveExperiencePosition, sanitizeReturnTo } from "../../lib/experience-navigation";
+import { buildExperienceEntryHref, experienceHrefForPosition, resolveExperiencePosition, restoreExperienceEntryQuery, restoreExperienceRoute, sanitizeReturnTo } from "../../lib/experience-navigation";
 import type { ExhibitionSnapshot } from "@artduo/ui";
 
 const snapshot = {
@@ -12,6 +12,49 @@ const snapshot = {
     { exhibition: { unitId: "u-2" }, artwork: { id: "met-2" } },
   ],
 } as ExhibitionSnapshot;
+
+test("a cached entry restores the submitted draft from its updated address", () => {
+  const query = "海边 & 光 / 夜色？";
+  const href = `https://tongye.me/ArtDuo/?${new URLSearchParams({ query })}`;
+  assert.equal(restoreExperienceEntryQuery("older server draft", href), query);
+  assert.equal(restoreExperienceEntryQuery("older server draft", "https://aitoshuu.me/ArtDuo?query="), "");
+  assert.equal(restoreExperienceEntryQuery("server draft", "https://aitoshuu.me/ArtDuo?view=experience"), "server draft");
+});
+
+test("entry rendering retains its server value when no browser address is available", () => {
+  assert.equal(restoreExperienceEntryQuery("server draft"), "server draft");
+  assert.equal(restoreExperienceEntryQuery("server draft", "invalid address"), "server draft");
+  assert.equal(restoreExperienceEntryQuery("", "https://tongye.me/ArtDuo?query=first&query=second"), "first");
+});
+
+test("Forward restores the latest work and order instead of cached preface props", () => {
+  const exhibit = { ...snapshot, curationId: "a".repeat(64) };
+  const initial = { phase: "preface" } as const;
+  const href = experienceHrefForPosition({ ...exhibit, routeOrder: ["met-2", "met-1"] }, { phase: "walk", unitId: "u-2" });
+  const restored = restoreExperienceRoute(exhibit, initial, `https://tongye.me${href}`);
+  assert.equal(restored.restored, true);
+  assert.deepEqual(restored.position, { phase: "walk", unitId: "u-2" });
+  assert.deepEqual(restored.snapshot.routeOrder, ["met-2", "met-1"]);
+  assert.equal(exhibit.routeOrder, undefined);
+  const closing = restoreExperienceRoute(exhibit, initial, `https://tongye.me${experienceHrefForPosition(exhibit, { phase: "closing", lastUnitId: "u-1" })}`);
+  assert.deepEqual(closing.position, { phase: "closing", lastUnitId: "u-1" });
+});
+
+test("cached route restoration cannot cross exhibition, release, query or entry boundaries", () => {
+  const exhibit = { ...snapshot, curationId: "a".repeat(64) };
+  const initial = { phase: "preface" } as const;
+  const valid = new URL(experienceHrefForPosition(exhibit, { phase: "walk", unitId: "u-2" }), "https://aitoshuu.me");
+  for (const [key, value] of [["curationId", "b".repeat(64)], ["releaseVersion", "other"], ["query", "other"], ["view", "other"]]) {
+    const url = new URL(valid); url.searchParams.set(key, value);
+    assert.deepEqual(restoreExperienceRoute(exhibit, initial, url.href), { snapshot: exhibit, position: initial, restored: false });
+  }
+  const entry = new URL(valid); entry.pathname = "/ArtDuo";
+  assert.equal(restoreExperienceRoute(exhibit, initial, entry.href).restored, false);
+  assert.equal(restoreExperienceRoute(exhibit, initial).restored, false);
+  assert.equal(restoreExperienceRoute(exhibit, initial, "invalid").restored, false);
+  const invalidOrder = new URL(valid); invalidOrder.searchParams.set("route", "met-2,met-2");
+  assert.equal(restoreExperienceRoute(exhibit, initial, invalidOrder.href).snapshot.routeOrder, undefined);
+});
 
 test("restarting keeps the viewing wish at the current entry without requesting a curation", () => {
   const entry = new URL(buildExperienceEntryHref("海边 & 光 / 夜色？"), "https://tongye.me");

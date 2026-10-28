@@ -4,21 +4,29 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { appPath } from "@artduo/contracts";
 
-import { ExperienceShell, replaceExperienceHistory, validRouteOrder } from "@artduo/ui";
+import { ExperienceShell, replaceExperienceHistory } from "@artduo/ui";
 import type { ExperiencePosition, ExhibitionSnapshot, SculptureRoomScene, SculptureWork } from "@artduo/ui";
 
-import { buildExperienceEntryHref, experienceHrefForPosition, resolveExperiencePosition } from "../lib/experience-navigation";
+import { buildExperienceEntryHref, experienceHrefForPosition, restoreExperienceRoute } from "../lib/experience-navigation";
 import { beginExperienceTimingIfMissing, recordExperienceDegradation, recordExperienceMilestone } from "../lib/experience-analytics";
 import { useCurationNarrative } from "./use-curation-narrative";
 import { useHandwrittenKeepsake } from "./use-handwritten-keepsake";
 import { requestSculptureNarrative } from "../lib/sculpture-narrative-client";
 
-export function ExperienceRouteClient({ snapshot, initialPosition, sculptures }: { snapshot: ExhibitionSnapshot; initialPosition: ExperiencePosition; sculptures: { works: SculptureWork[]; scenes: SculptureRoomScene[] } }) {
+export function ExperienceRouteClient({ snapshot, initialPosition, sculptures, canonicalHref }: { snapshot: ExhibitionSnapshot; initialPosition: ExperiencePosition; sculptures: { works: SculptureWork[]; scenes: SculptureRoomScene[] }; canonicalHref?: string }) {
   const router = useRouter();
   const handwritingProvider = useHandwrittenKeepsake();
-  const [routePosition, setRoutePosition] = useState(initialPosition);
-  const [routeSnapshot, setRouteSnapshot] = useState(snapshot);
+  const [restoredRoute] = useState(() => restoreExperienceRoute(snapshot, initialPosition, typeof window === "undefined" ? undefined : window.location.href));
+  const [routePosition, setRoutePosition] = useState(restoredRoute.position);
+  const [routeSnapshot, setRouteSnapshot] = useState(restoredRoute.snapshot);
   const [detailNavigation, setDetailNavigation] = useState<{ returnTo: string; slow: boolean } | null>(null);
+  useEffect(() => {
+    // The first response already contains the saved selection. Publish its
+    // identity without fetching and rebuilding the same exhibition a second time.
+    // A cached first response may mount again on Forward. Its address already
+    // contains a newer work/phase; don't replace it with the original preface.
+    if (canonicalHref && !restoredRoute.restored) replaceExperienceHistory(appPath(canonicalHref));
+  }, [canonicalHref, restoredRoute]);
   useEffect(() => {
     if (!detailNavigation) return;
     const timer = setTimeout(() => setDetailNavigation(current => current ? { ...current, slow: true } : null), 8000);
@@ -42,17 +50,15 @@ export function ExperienceRouteClient({ snapshot, initialPosition, sculptures }:
   }), [routeSnapshot, pieces, pending]);
   useEffect(() => {
     const restoreFromUrl = () => {
-      const current = new URL(window.location.href);
-      if (current.searchParams.get("view") !== "experience") return;
+      const restored = restoreExperienceRoute(snapshot, initialPosition, window.location.href);
+      if (!restored.restored) return;
       setDetailNavigation(null);
-      const params = Object.fromEntries(current.searchParams.entries());
-      const order = params.route?.split(",");
-      setRouteSnapshot({ ...snapshot, routeOrder: validRouteOrder(order, snapshot) ? order : snapshot.units.map((unit) => unit.artwork.id) });
-      setRoutePosition(resolveExperiencePosition(params, snapshot).position);
+      setRouteSnapshot(restored.snapshot);
+      setRoutePosition(restored.position);
     };
     window.addEventListener("popstate", restoreFromUrl);
     return () => window.removeEventListener("popstate", restoreFromUrl);
-  }, [snapshot]);
+  }, [snapshot, initialPosition]);
   const onPositionChange = useCallback((position: ExperiencePosition, active: ExhibitionSnapshot) => {
     const href = appPath(experienceHrefForPosition(active, position));
     if (`${window.location.pathname}${window.location.search}` !== href) {

@@ -89,9 +89,9 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   recordExperienceTiming("snapshot-adapter", performance.now() - adapterStartedAt, catalog.releaseVersion);
   if (snapshot.omittedUnitCount > 0) recordExperienceDegradation("release-records-omitted", catalog.releaseVersion);
   const { position, corrected } = resolveExperiencePosition(queryParams, snapshot);
-  if (!requestedVersion || corrected || readSingle(queryParams, "view") !== "experience"
-    || !readSingle(queryParams, "phase") || curation && (!requestedCuration || recipeVersion !== "experience-v2")) {
-    redirect(buildExperienceHref({
+  const needsCanonical = !requestedVersion || corrected || readSingle(queryParams, "view") !== "experience"
+    || !readSingle(queryParams, "phase") || Boolean(curation && (!requestedCuration || recipeVersion !== "experience-v2"));
+  const canonicalHref = needsCanonical ? buildExperienceHref({
       query,
       releaseVersion: catalog.releaseVersion,
       phase: position.phase,
@@ -100,7 +100,12 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
       routeOrder: snapshot.routeOrder,
       recipeVersion: snapshot.recipeVersion,
       curationId: snapshot.curationId,
-    }));
-  }
-  return <ExperienceRouteClient key={snapshot.exhibitionId} initialPosition={position} snapshot={snapshot} sculptures={getExhibitionSculptures()} />;
+    }) : undefined;
+  // Fresh curation can render immediately: its durable identity is already
+  // known. Retain server redirects for saved-link corrections and legacy recipes.
+  if (canonicalHref && (requestedCuration || !curation)) redirect(canonicalHref);
+  return <>
+    {canonicalHref ? <noscript><meta httpEquiv="refresh" content={`0;url=${appPath(canonicalHref)}`} /></noscript> : null}
+    <ExperienceRouteClient key={snapshot.exhibitionId} initialPosition={position} snapshot={snapshot} sculptures={getExhibitionSculptures()} canonicalHref={canonicalHref} />
+  </>;
 }
