@@ -2,7 +2,7 @@
 
 用户已确认：腾讯运行应用、手写后台和持久数据；阿里只转发两个域名的 `/ArtDuo`，使用腾讯现有 HTTPS 加密回源。2026-10-25 完成隔离与恢复验收后，用户明确批准“切换公网测试版”，两个公网入口已启用并通过本轮检查。后续同范围操作复用该批准，不重复申请。
 
-2026-10-28 用户批准按综合评审修整阅读反馈、资料与辅助路线、设置和近看，并明确人物雕塑继续作为独立彩蛋；已自测、提交推送并同步两个公网域名。当前正式版本及双域名实测见 [前端连续性上线记录](../verification/artduo-frontend-continuity-2026-10-28.md)。首页、五秒翻牌、沉浸随动、18 件雕塑与 50% 概率保持不变。
+2026-10-28 用户批准按综合评审继续修整近看失败恢复、临时层返回、阅读原地重试和明确媒介限定，已自测、提交推送并同步两个公网域名。当前正式版本及双域名实测见 [观看恢复上线记录](../verification/artduo-viewing-recovery-2026-10-28.md)；此前 [前端连续性上线记录](../verification/artduo-frontend-continuity-2026-10-28.md) 保留。首页、五秒翻牌、沉浸随动、18 件雕塑与 50% 概率保持不变，人物雕塑继续作为独立彩蛋。
 
 2026-10-27 的 [自动翻牌上线记录](../verification/artduo-entry-autoflip-production-2026-10-27.md)、[新版默认入口与归档记录](../verification/artduo-default-experience-production-2026-10-27.md) 及 [输入页与按钮上线记录](../verification/artduo-entry-glass-production-2026-10-27.md) 保留。雕塑素材与彩蛋验收见 [雕塑上线记录](../verification/artduo-sculpture-production-2026-10-27.md)。
 
@@ -19,7 +19,7 @@
 | --- | --- |
 | 腾讯 `122.51.59.89` | 一个 Next 实例监听 `127.0.0.1:3240`，一个独立 Inko Worker；均已启动并设为开机启动 |
 | `/opt/artduo/releases/<release>` | 与源码、锁文件配对的构建；Linux 上安装依赖 |
-| `/opt/artduo/current` | 当前指向 `/opt/artduo/releases/20261028-frontend-continuity`；上一版 `20261027-entry-autoflip-5s` 与更早恢复点保留 |
+| `/opt/artduo/current` | 当前指向 `/opt/artduo/releases/20261028-viewing-recovery`；上一版 `20261028-frontend-continuity` 与更早恢复点保留 |
 | `/opt/artduo/runtime` | ArtDuo 独立 Node.js v22.23.4、pnpm 8.15.1 运行时 |
 | `/etc/artduo/artduo.env` | 私有环境文件，包含现有 DeepSeek、Inko 密钥及随机请求盐；权限 0600 |
 | `/var/lib/artduo` | 持久状态、630 张校验预览、额度和手写任务；应用用户独占 |

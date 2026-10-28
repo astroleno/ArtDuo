@@ -1,0 +1,37 @@
+{
+  "commit": "0d4f28991482322de7462bb17be117b1131d0c05",
+  "tests": {
+    "contracts": 48,
+    "api": 79,
+    "ui": 107,
+    "corpus": 47,
+    "web": 170,
+    "pipeline": 80
+  },
+  "totalTests": 531,
+  "validationLogs": {
+    "tests": {
+      "sha256": "cc753508e04e8a0d6c8bd1427dca9bcbb14f7995430384107d65710ca5785b1f",
+      "passed": true
+    },
+    "build": {
+      "sha256": "318fad57c5db6747b16cafa113ae5fe1b8c90b7c64d091fd04790647b3f57a92",
+      "passed": true
+    },
+    "typecheck": {
+      "sha256": "09197c59525f14d6e1a3b7c320d2c0d39221e07e4220f72fbc785909f748c13c",
+      "passed": true
+    }
+  },
+  "sourcePackage": {
+    "commit": "0d4f28991482322de7462bb17be117b1131d0c05",
+    "baseCommit": "4c8dc03757b1176c1b82d300b4d8a248c796c191",
+    "files": 553,
+    "changed": 21,
+    "packedFiles": 553,
+    "bytes": 796180,
+    "sha256": "1ce3fb354a6223b4af3ff28886aa038619261162ff022724a9257b0babdb3426",
+    "manifestSha256": "2800c2af803a21df41f24f8e41d63b93bdcec5070dbc36eefa399bae7fb53ad0"
+  },
+  "physicalDeviceTested": false
+}

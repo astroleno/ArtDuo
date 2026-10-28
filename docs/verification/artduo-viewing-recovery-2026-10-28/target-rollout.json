@@ -1,0 +1,92 @@
+{
+  "phase": "active",
+  "commit": "0d4f28991482322de7462bb17be117b1131d0c05",
+  "base": "/opt/artduo/releases/20261028-frontend-continuity",
+  "candidate": "/opt/artduo/releases/20261028-viewing-recovery",
+  "sourceFiles": 553,
+  "packageSha256": "1ce3fb354a6223b4af3ff28886aa038619261162ff022724a9257b0babdb3426",
+  "sourceManifestSha256": "2800c2af803a21df41f24f8e41d63b93bdcec5070dbc36eefa399bae7fb53ad0",
+  "validation": {
+    "artduo-recovery-build": {
+      "logSha256": "055d516b0af27dbe99752386dc9301e16c9777ee0f4a7647447e8e1048a50cf9",
+      "passed": true
+    },
+    "artduo-recovery-typecheck": {
+      "logSha256": "e191a1731d5dc02716e5820fec762340dbe05ed6b5626ab4d2d805ed680f6576",
+      "passed": true
+    },
+    "artduo-recovery-tests": {
+      "logSha256": "1f8da5128529b98bae8743d35837476a9a8f76185e19d540da0aaee4ba75ea1f",
+      "passed": true
+    },
+    "artduo-recovery-readiness": {
+      "logSha256": "dd94e47132f79ed168331980dccca2f9dfb9205036c52a18a37deb0c3e33582f",
+      "passed": true
+    }
+  },
+  "buildId": "zE1S0SoN30cnBZj9VjuNd",
+  "previousSourceUnchanged": true,
+  "candidateStarted": true,
+  "candidateChecks": [
+    {
+      "path": "",
+      "status": 200,
+      "bytes": 8813,
+      "sha256": "2dcf4caf946de495843655832007ab29729f1deb681cefb45d0450de7fa8ead0"
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "bytes": 149,
+      "sha256": "3d62bb44cf80be5956bd58f0c40326faed61538fb9070ee17dfd39df68015d26"
+    },
+    {
+      "path": "/api/handwriting/options",
+      "status": 200,
+      "bytes": 659,
+      "sha256": "cb18b4d1b692b9e29c4c52db0ac9d3d6800381e170c48eb34c480012d76fc49b"
+    },
+    {
+      "path": "/experience/sculptures?model=calais&quality=compact&room=bg-022",
+      "status": 200,
+      "bytes": 56426,
+      "sha256": "b670fbbc804e31a8baa77a0b87731191fe42939e834e4c3cd79c7e65894739b3"
+    },
+    {
+      "path": "existing-exhibition",
+      "status": 200,
+      "bytes": 126056,
+      "sha256": "00a2db5ee9e7b35cb9d013940ae0f842d95aebe5d429c0c3e2b93e38fd0163cf"
+    }
+  ],
+  "backup": "/var/backups/artduo/20261028-viewing-recovery",
+  "switchedAt": "2026-10-28T11:18:24Z",
+  "handwritingUnchanged": true,
+  "productionChecks": [
+    {
+      "path": "",
+      "status": 200,
+      "bytes": 8813,
+      "sha256": "2dcf4caf946de495843655832007ab29729f1deb681cefb45d0450de7fa8ead0"
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "bytes": 149,
+      "sha256": "3d62bb44cf80be5956bd58f0c40326faed61538fb9070ee17dfd39df68015d26"
+    },
+    {
+      "path": "/api/handwriting/options",
+      "status": 200,
+      "bytes": 659,
+      "sha256": "cb18b4d1b692b9e29c4c52db0ac9d3d6800381e170c48eb34c480012d76fc49b"
+    },
+    {
+      "path": "/experience/sculptures?model=calais&quality=compact&room=bg-022",
+      "status": 200,
+      "bytes": 56426,
+      "sha256": "b670fbbc804e31a8baa77a0b87731191fe42939e834e4c3cd79c7e65894739b3"
+    }
+  ],
+  "candidateCleaned": true
+}
