@@ -78,7 +78,13 @@ def verify_sources():
 def prepare(commit, expected_manifest):
     assert os.geteuid() == 0 and CURRENT.resolve() == BASE
     assert re.fullmatch(r"[a-f0-9]{40}", commit) and re.fullmatch(r"[a-f0-9]{64}", expected_manifest)
-    assert shutil.disk_usage(TARGET.parent).free > 1_000_000_000, "Insufficient candidate headroom"
+    measurement_file = Path("/root/artduo-continuity-space.log")
+    measurement = json.loads(measurement_file.read_text())
+    assert measurement["tarExit"] == 0 and measurement["stderrBytes"] == 0
+    assert 0 < measurement["compressedBytes"] < 1_000_000_000 and time.time() - measurement_file.stat().st_mtime < 3600
+    backup_headroom = int(measurement["compressedBytes"] * 1.2)
+    # The measured full archive plus 20% growth and 256 MB for an uncached build.
+    assert shutil.disk_usage(TARGET.parent).free > backup_headroom + 256_000_000, "Insufficient candidate and full-backup headroom"
     assert not TARGET.exists(), "Release directory already exists; inspect before resuming"
     raw = fetch(f"https://raw.githubusercontent.com/astroleno/ArtDuo/{commit}/{MANIFEST}")
     assert hashlib.sha256(raw).hexdigest() == expected_manifest, "Manifest transport mismatch"
@@ -94,7 +100,8 @@ def prepare(commit, expected_manifest):
         shutil.rmtree(EVIDENCE)
     EVIDENCE.mkdir(mode=0o700)
     (EVIDENCE / "source-manifest.json").write_bytes(raw)
-    save(EVIDENCE / "identity.json", {"commit": commit, "manifestSha256": expected_manifest, "base": str(BASE)})
+    save(EVIDENCE / "identity.json", {"commit": commit, "manifestSha256": expected_manifest, "base": str(BASE),
+         "measuredBackupBytes": measurement["compressedBytes"], "reservedBackupBytes": backup_headroom, "buildCacheDisabled": True})
     save(EVIDENCE / "base-hashes.json", {row["path"]: digest(BASE / row["path"]) if (BASE / row["path"]).is_file() else None for row in spec["files"]})
     status("preparing")
 
@@ -149,7 +156,7 @@ def environment():
     values = dict(os.environ)
     values.update(PATH=str(RUNTIME) + ":" + values.get("PATH", ""), ARTDUO_BASE_PATH="/ArtDuo", ARTDUO_STATE_DIR=str(QA),
                   ARTDUO_CURATION_PROVIDER="disabled", ARTDUO_EXPLANATION_PROVIDER="disabled", INKO_API_KEY="",
-                  NEXT_TELEMETRY_DISABLED="1", NODE_OPTIONS="--max-old-space-size=1536", NODE_ENV="production")
+                  ARTDUO_DISABLE_BUILD_CACHE="1", NEXT_TELEMETRY_DISABLED="1", NODE_OPTIONS="--max-old-space-size=1536", NODE_ENV="production")
     assert values.get("ARTDUO_PUBLIC_MODE") == "1", "Load the existing service environment in the private child shell"
     return values
 
@@ -217,8 +224,7 @@ def activate():
     verify_sources()
     env_hash = digest(ENV)
     state = Path("/var/lib/artduo")
-    state_bytes = sum(p.stat().st_size for p in state.rglob("*") if p.is_file())
-    assert shutil.disk_usage(TARGET).free > state_bytes + 64_000_000, "Insufficient headroom for a full consistent backup"
+    assert shutil.disk_usage(TARGET).free > validation["reservedBackupBytes"] + 64_000_000, "Insufficient headroom for a full consistent backup"
     subprocess.run(["systemctl", "stop", "artduo-web.service", "artduo-handwriting.service"], check=True)
     switched = False
     try:
@@ -230,6 +236,7 @@ def activate():
         os.chmod(BACKUP / "artduo.env", 0o600)
         save(BACKUP / "private-state.json", {"pngs": before_pngs})
         os.chmod(BACKUP / "private-state.json", 0o600)
+        assert shutil.disk_usage(TARGET).free > 64_000_000, "Backup complete but insufficient switching headroom"
         link = CURRENT.with_name("current.artduo-continuity-new")
         link.symlink_to(TARGET, target_is_directory=True)
         os.replace(link, CURRENT)
