@@ -114,7 +114,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
   return (
     <main className={`shell${experienceView ? " experience-artwork-page" : ""}`}>
       <header className="topbar">
-        <a className="brand" href={appPath(experienceView ? "/?view=experience" : "/")}>
+        <a className="brand" aria-label="ArtDuo，返回入口" href={appPath(experienceView ? buildExperienceEntryHref(query) : "/")}>
           <span className="brand-mark">ArtDuo</span>
           <span className="brand-meta">作品资料</span>
         </a>
@@ -129,7 +129,7 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
         <div className="detail-stage-inner">
           <figure className="detail-image">
             <ArtworkImage
-              alt={`${artwork.title} artwork`}
+              alt={`《${artwork.title}》`}
               className="detail-artwork-image"
               fallbackLabel={artwork.title}
               fallbackMeta={fallbackMeta}

@@ -1,0 +1,46 @@
+[
+  {
+    "case": "preface keepsake Back and Escape",
+    "job": "qa-job-one",
+    "creates": 1,
+    "cancels": 0,
+    "formRetained": true
+  },
+  {
+    "case": "closing keepsake Back",
+    "sameUrl": true
+  },
+  {
+    "case": "formal sculpture settings Back",
+    "before": {
+      "url": "http://127.0.0.1:3210/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-14620&curationId=60b8600a552101527b6c483c822a583a7a85233dd05b0c9bb00ae58f4f1594ae&route=artic-16487%2Cartic-28560%2Cartic-14620%2Cmet-459100%2Csmk-KMSsp491%2Csmk-KKS1960-741",
+      "record": {
+        "version": 1,
+        "exhibitionId": "ex-15icegv",
+        "status": "active",
+        "modelId": "athena",
+        "roomId": "bg-034",
+        "anchorArtworkId": "artic-14620",
+        "nextArtworkId": "met-459100"
+      }
+    },
+    "after": {
+      "url": "http://127.0.0.1:3210/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E5%9C%A8%E6%B8%85%E6%99%A8%E7%9A%84%E6%B2%B3%E5%B2%B8%E8%BE%B9%EF%BC%8C%E7%9C%8B%E4%B8%80%E7%BB%84%E6%9C%89%E6%A0%91%E5%BD%B1%E3%80%81%E5%BE%AE%E9%A3%8E%E5%92%8C%E6%98%8E%E4%BA%AE%E5%A4%A9%E7%A9%BA%E7%9A%84%E7%94%BB%E3%80%82&view=experience&releaseVersion=2026-10-24-da3-curated-630&recipeVersion=experience-v2&phase=walk&artworkId=artic-14620&curationId=60b8600a552101527b6c483c822a583a7a85233dd05b0c9bb00ae58f4f1594ae&route=artic-16487%2Cartic-28560%2Cartic-14620%2Cmet-459100%2Csmk-KMSsp491%2Csmk-KKS1960-741",
+      "focus": "观展设置",
+      "record": {
+        "version": 1,
+        "exhibitionId": "ex-15icegv",
+        "status": "active",
+        "modelId": "athena",
+        "roomId": "bg-034",
+        "anchorArtworkId": "artic-14620",
+        "nextArtworkId": "met-459100"
+      }
+    },
+    "nextArtwork": "met-459100"
+  },
+  {
+    "case": "independent sculpture settings Back",
+    "sameUrl": true
+  }
+]

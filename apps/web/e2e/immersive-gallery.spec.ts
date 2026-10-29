@@ -33,15 +33,15 @@ test("immersive gallery can move between scenes and preserve query state", async
 
 test("artwork detail reopens the experience at the current artwork", async ({ page }) => {
   await gotoApp(page, "/gallery/local/immersive?query=有点累，撑了很久&view=experience&phase=preface");
-  await page.getByRole("button", { name: /跳过前言/ }).click();
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
+  await page.locator(".experience-plaque-heading").click();
   const artworkTitle = await page.locator(".experience-plaque-heading strong").textContent();
   await page.getByRole("button", { name: "进入详细讲解" }).click();
 
   await expect(page.getByRole("heading", { level: 1, name: artworkTitle ?? "" })).toBeVisible();
   await page.getByRole("link", { name: "沉浸观展" }).click();
   await expect(page).toHaveURL(/\/gallery\/local\/immersive\?.*view=experience.*phase=walk.*artworkId=(?:met|artic)-/);
-  await expect(page.getByRole("button", { name: "展开完整展签" })).toBeVisible();
+  await expect(page.locator(".experience-plaque-heading")).toBeVisible();
   await expect(page.locator(".experience-plaque-heading strong")).toHaveText(artworkTitle ?? "");
 });
 
@@ -65,7 +65,7 @@ test("zooming an artwork enters the second-stage immersive detail experience", a
 
   const galleryUrl = page.url();
   await expect(page.getByRole("button", { name: /播放背景音乐/ })).toBeEnabled();
-  await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
+  await page.getByRole("button", { name: /放大，进入画中：/ }).click();
 
   const detailStage = page.getByRole("dialog", { name: /沉浸观看/ });
   await expect(detailStage).toBeVisible();
@@ -75,12 +75,12 @@ test("zooming an artwork enters the second-stage immersive detail experience", a
   await expect(page).toHaveURL(galleryUrl);
 
   const firstDetailTitle = await detailStage.locator(".immersive-detail-caption strong").textContent();
-  await detailStage.getByRole("button", { name: "下一幅作品" }).click();
+  await detailStage.getByRole("button", { name: "下一件作品" }).click();
   await expect(detailStage).toBeVisible();
   await expect(page).toHaveURL(/artworkId=[^&]+/);
   await expect(detailStage.locator(".immersive-detail-caption strong")).not.toHaveText(firstDetailTitle ?? "");
 
-  await detailStage.getByRole("button", { name: "返回画廊视图" }).click();
+  await detailStage.getByRole("button", { name: "返回展厅" }).click();
   await expect(detailStage).toBeHidden();
   await expect(page.getByTestId("experience-room")).toBeVisible();
 });
@@ -109,7 +109,7 @@ test("device parallax stays optional and yields to direct touch input", async ({
   await page.setViewportSize({ width: 390, height: 844 });
   await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
   await expect(page.getByRole("button", { name: "观展设置" })).toBeEnabled();
-  await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
+  await page.getByRole("button", { name: /放大，进入画中：/ }).click();
 
   const detailStage = page.getByRole("dialog", { name: /沉浸观看/ });
   const motionToggle = detailStage.getByRole("button", { name: /随手机轻动/ });
@@ -161,7 +161,7 @@ test("denied device orientation permission keeps touch parallax available", asyn
   await page.setViewportSize({ width: 390, height: 844 });
   await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
   await expect(page.getByRole("button", { name: "观展设置" })).toBeEnabled();
-  await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
+  await page.getByRole("button", { name: /放大，进入画中：/ }).click();
 
   const detailStage = page.getByRole("dialog", { name: /沉浸观看/ });
   const motionToggle = detailStage.getByRole("button", { name: /随手机轻动/ });
@@ -178,7 +178,7 @@ test("reduced motion keeps the second stage static", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await gotoApp(page, "/gallery/local/immersive?query=I+want+a+quiet+moonlit+room");
   await expect(page.getByRole("button", { name: "观展设置" })).toBeEnabled();
-  await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
+  await page.getByRole("button", { name: /放大，进入画中：/ }).click();
 
   const detailStage = page.getByRole("dialog", { name: /沉浸观看/ });
   const frame = detailStage.locator(".immersive-detail-frame");

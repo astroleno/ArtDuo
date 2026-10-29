@@ -35,7 +35,7 @@ test("museum labels stay small, grow on hover and keep commentary in the reader"
   const enlarged = await label.boundingBox();
   expect(enlarged!.x).toBeGreaterThanOrEqual(0); expect(enlarged!.y).toBeGreaterThanOrEqual(0);
   await page.screenshot({ path: resolve(evidence, "label-hover-desktop.png") });
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.locator(".experience-plaque-heading").click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await expect(page.getByRole("dialog")).toContainText("Sha Fu");
   await expect(page.getByRole("dialog")).toContainText("媒材");
@@ -91,7 +91,7 @@ test("a lost graphics context, missing light maps and reduced motion retain the 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(page.locator(".experience-room-lighting")).toHaveCount(0);
   await expect(page.locator(".experience-depth-canvas")).toHaveCount(0);
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.locator(".experience-plaque-heading").click();
   await expect(page.getByRole("dialog")).toBeVisible();
 });
 
@@ -134,7 +134,7 @@ test.describe("phone gallery lighting", () => {
     await page.getByRole("button", { name: "开启画廊随设备轻动" }).click();
     await expect(page.getByTestId("experience-room")).toHaveAttribute("data-room-motion-state", "denied");
     await expect(page.getByRole("status")).toContainText("可照常观展");
-    await page.getByRole("button", { name: "展开完整展签" }).click();
+    await page.locator(".experience-plaque-heading").click();
     await expect(page.getByRole("dialog")).toBeVisible();
   });
 });

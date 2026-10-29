@@ -105,6 +105,38 @@ test("fallback keeps complete observed clauses and never chops a foreign title o
   assert.equal(pieces[1]!.text, "蓝色卧室内放着木床、两把椅子、桌和水罐。");
   assert.ok(pieces.every(piece => !/…|关于「|慢慢移动|感受不必/u.test(piece.text)));
 });
+
+test("fallback selects observed relations without converting audit uncertainty into a claim", () => {
+  const text = "赭黄屋顶在前景叠置，蓝色海湾延向连绵山体；当前预览未见可辨认人物或花朵，远处水面桅杆状形不足以确认是否为船。";
+  const reviewed: ExhibitionNarrativeInput = { ...input, query: "清晨河岸和树影", artworks: [{ ...input.artworks[0]!, visualObservation: {
+    text, imageSha256: "fixture", source: "local-image-review", facts: { boats: "unknown", people: "unknown" } as any,
+  } }] };
+  const pieces = fallbackExhibitionNarrative(reviewed);
+  assert.equal(pieces[0]!.text, "赭黄屋顶在前景叠置。");
+  for (const piece of pieces) {
+    assert.doesNotMatch(piece.text, /当前预览|未见|可辨认|不足以确认|桅杆|人物|花朵|清晨|河岸|树影/u);
+    assert.deepEqual(piece.evidenceIds, ["work-1"]);
+    assert.equal(piece.source, "fallback");
+  }
+  assert.equal(reviewed.artworks[0]!.visualObservation!.text, text, "the original evidence remains qualified");
+  const list = { ...reviewed, artworks: [{ ...reviewed.artworks[0]!, visualObservation: { ...reviewed.artworks[0]!.visualObservation!,
+    text: "未见可辨认人物，船只或鲜花；蓝色海湾延向连绵山体。",
+  } }] };
+  assert.equal(fallbackExhibitionNarrative(list)[0]!.text, "蓝色海湾延向连绵山体。");
+});
+
+test("uncertain-only fallback uses metadata and retains an explicitly missing viewing focus", () => {
+  const reviewed: ExhibitionNarrativeInput = { ...input, viewingFocus: [{ topic: "hands", label: "手部与手势", evidenceIds: [] }],
+    artworks: [{ ...input.artworks[0]!, date: "1889", medium: "Oil on canvas", visualObservation: {
+      text: "无法确认手部的形状，未见可辨认的船只。", imageSha256: "fixture", source: "local-image-review",
+    } }] };
+  const pieces = fallbackExhibitionNarrative(reviewed);
+  assert.match(pieces[0]!.text, /^手部与手势的细节目前无法确认。1889/u);
+  assert.doesNotMatch(pieces[0]!.text, /手部的形状|船只/u);
+  const unknown = fallbackExhibitionNarrative({ ...reviewed, viewingFocus: undefined, artworks: [{ ...reviewed.artworks[0]!, date: undefined, medium: undefined }] });
+  assert.equal(unknown[0]!.text, "这件作品的更多资料暂未收录。");
+  assert.equal(fallbackExhibitionNarrative({ ...input, artworks: [] })[0]!.text, "本次没有找到能确认符合这些条件的作品。");
+});
 test("narrative streams only complete validated lines in exhibition order", async () => {
   const source = fallbackExhibitionNarrative(input).map((piece) => JSON.stringify(piece)).join("\n");
   const result = [];

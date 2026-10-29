@@ -341,15 +341,26 @@ export function fallbackExhibitionNarrative(input: ExhibitionNarrativeInput): De
     { kind: "preface", text: "本次没有找到能确认符合这些条件的作品。", evidenceIds: [], source: "fallback" },
     { kind: "closing", text: "这次没有展出作品。可以回到入口重新选择观看方向。", evidenceIds: [], source: "fallback" },
   ];
-  // Failure copy quotes complete observed clauses. Never cut a word in half or
-  // invent a comforting paragraph to stand in for an unavailable guide.
+  // Select whole observed clauses for visitors. Audit qualifications remain in
+  // the evidence, not in an otherwise affirmative description with words cut out.
+  const auditLanguage = /当前(?:预览|图像|图片)|(?:无法|不能|未能|不足以|尚未|尚不能|难以)(?:可靠|清楚|准确|完全)?(?:确认|辨认|判断|区分)|不易确认|不明确|不清楚|看不清|疑似|可能(?:是|为|有)|似乎|看似|\b(?:preview|uncertain|possibly|perhaps|appears?\s+to|cannot|unable\s+to|not\s+clear)\b/iu;
+  const readable = (text: string) => !CLAIM_NEGATION.test(text) && !auditLanguage.test(text);
   const observation = (artwork: NarrativeArtwork, limit: number) => {
     const description = visualDescription(artwork)?.trim();
     if (description) {
       const sentences = description.match(/[^。！？.!?]+[。！？.!?]?/gu) ?? [];
-      const whole = sentences.find(sentence => Array.from(sentence).length <= limit && (limit > 60 || Array.from(sentence).length <= 35 || !/[，；]/u.test(sentence)));
+      const whole = sentences.find(sentence => readable(sentence) && Array.from(sentence).length <= limit && (limit > 60 || Array.from(sentence).length <= 35 || !/[，；]/u.test(sentence)));
       if (whole) return /[。！？.!?]$/u.test(whole) ? whole : `${whole}。`;
-      const clauses = description.split(/[，；,;。！？.!?]/u).map(clause => clause.trim()).filter(Boolean);
+      // A negation can qualify a comma-separated list. Do not turn its tail
+      // ("未见人物，船只或花朵") into an affirmative fragment.
+      const clauses = description.split(/[；;。！？.!?]/u).flatMap(sentence => {
+        const safe: string[] = [];
+        for (const clause of sentence.split(/[，,]/u).map(value => value.trim()).filter(Boolean)) {
+          if (!readable(clause)) break;
+          safe.push(clause);
+        }
+        return safe;
+      });
       const focus = (input.viewingFocus ?? []).find(item => item.evidenceIds.includes(artwork.id));
       const clause = (focus ? clauses.find(value => FOCUS_CLAIMS[focus.topic].test(value) && Array.from(value).length < limit) : undefined)
         ?? clauses.find(value => Array.from(value).length >= 6 && Array.from(value).length < limit);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { ARTWORK_SOURCE_LABELS } from "@artduo/contracts";
 
 import { generateShareCard } from "./share-card";
@@ -8,6 +8,7 @@ import type { ExhibitionSnapshot, ExperienceUnit } from "./types";
 import { useStableNarrative } from "./use-stable-narrative";
 import { experienceArtistName } from "./artwork-credits";
 import { displaySourceCredit } from "./reading-copy";
+import { observeClosingImage, type ClosingImageState } from "./closing-image";
 
 export function Closing({ snapshot, lastUnit, reducedMotion, onRevisit, onRestart, keepsake }: {
   snapshot: ExhibitionSnapshot;
@@ -19,7 +20,18 @@ export function Closing({ snapshot, lastUnit, reducedMotion, onRevisit, onRestar
 }) {
   const [shareState, setShareState] = useState<"idle" | "generating" | "ready" | "failed">("idle");
   const [copied, setCopied] = useState(false);
-  const [imageState, setImageState] = useState<"loading" | "ready" | "failed">("loading");
+  const imageRef = useRef<HTMLImageElement>(null);
+  const previewUrl = lastUnit?.media.previewUrl;
+  const [image, setImage] = useState<ClosingImageState & { url: string }>();
+  const currentImage = image?.url === previewUrl ? image : undefined;
+  const imageState = currentImage?.state ?? "loading";
+  const verified = lastUnit?.artwork.media?.verifiedRemoteImage;
+  const imageRatio = currentImage?.state === "ready" ? currentImage.ratio
+    : verified ? verified.width / verified.height : undefined;
+  useEffect(() => {
+    if (!imageRef.current || !previewUrl) return;
+    return observeClosingImage(imageRef.current, value => setImage({ url: previewUrl, ...value }));
+  }, [previewUrl]);
   const closing = useStableNarrative(snapshot.closing, snapshot.narrativePending);
   const closingText = closing?.text ?? "";
   const artistName = lastUnit ? experienceArtistName(lastUnit) : undefined;
@@ -50,9 +62,9 @@ export function Closing({ snapshot, lastUnit, reducedMotion, onRevisit, onRestar
     }
   }
   return <section className="experience-closing" aria-labelledby="experience-closing-title">
-    {lastUnit ? <figure className="experience-closing-artwork">
+    {lastUnit ? <figure className="experience-closing-artwork" style={imageRatio ? { "--closing-aspect": imageRatio } as CSSProperties : undefined}>
       <div className="experience-closing-image" data-image-state={imageState}>
-        <img alt={lastUnit.artwork.metadata.title} onLoad={() => setImageState("ready")} onError={() => setImageState("failed")} src={lastUnit.media.previewUrl} />
+        <img ref={imageRef} alt={lastUnit.artwork.metadata.title} src={lastUnit.media.previewUrl} />
         {imageState === "failed" ? <p role="status">作品图片暂时无法显示</p> : null}
       </div>
       <figcaption>{lastUnit.artwork.metadata.title}<span>{artistName}</span></figcaption>

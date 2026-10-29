@@ -7,6 +7,7 @@ import type { ExhibitionSnapshot, ExperienceUnit } from "./types";
 import { experienceArtistName } from "./artwork-credits";
 import { displaySourceCredit } from "./reading-copy";
 import { createShareCard, downloadShareCard } from "./share-card";
+import { useOverlayHistory } from "./use-overlay-history";
 
 export interface HandwritingProvider {
   options(signal?: AbortSignal): Promise<HandwritingOptions>;
@@ -27,6 +28,8 @@ export function useKeepsakeController(snapshot: ExhibitionSnapshot, lastUnit: Ex
   const [job, setJob] = useState<HandwritingJob>(), [working, setWorking] = useState(false), [error, setError] = useState("");
   const [preview, setPreview] = useState<{ blob: Blob; url: string }>(), [composing, setComposing] = useState(false), [saved, setSaved] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null), opener = useRef<HTMLElement | null>(null), generation = useRef(0);
+  const restoreOpenerFocus = useRef(true);
+  const close = useOverlayHistory(open, sameView => { restoreOpenerFocus.current = sameView; setOpen(false); });
   const controller = useRef<AbortController | undefined>(undefined), currentJob = useRef<HandwritingJob | undefined>(undefined), request = useRef<Saved | undefined>(undefined);
   const formRef = useRef(form); formRef.current = form; currentJob.current = job;
   const identity = `${snapshot.exhibitionId}:${lastUnit?.artwork.id ?? ""}:${snapshot.closing.text}`;
@@ -40,8 +43,8 @@ export function useKeepsakeController(snapshot: ExhibitionSnapshot, lastUnit: Ex
   useEffect(() => { if (!edited && !snapshot.narrativePending) setForm(current => ({ ...current, closingText: snapshot.closing.text })); }, [snapshot.closing.text, snapshot.narrativePending, edited]);
   useEffect(() => {
     const element = dialog.current; if (!element) return;
-    if (open && !element.open) element.showModal();
-    if (!open && element.open) { element.close(); opener.current?.focus(); }
+    if (open && !element.open) { restoreOpenerFocus.current = true; element.showModal(); }
+    if (!open && element.open) { element.close(); if (restoreOpenerFocus.current) opener.current?.focus({ preventScroll: true }); }
   }, [open]);
   useEffect(() => () => { if (preview) URL.revokeObjectURL(preview.url); }, [preview]);
 
@@ -165,9 +168,9 @@ export function useKeepsakeController(snapshot: ExhibitionSnapshot, lastUnit: Ex
     </button>
     {busy(job) ? <span role="status">{labels[job!.state]}</span> : null}
   </div> : null;
-  const modal = provider ? <dialog className="experience-keepsake-dialog" aria-labelledby="keepsake-title" ref={dialog} onCancel={event => { event.preventDefault(); setOpen(false); }}>
+  const modal = provider ? <dialog className="experience-keepsake-dialog" aria-labelledby="keepsake-title" ref={dialog} onCancel={event => { event.preventDefault(); close(); }}>
     {open ? <div className="experience-keepsake-panel">
-      <div className="experience-keepsake-heading"><div><p className="experience-eyebrow">把这一刻留下</p><h2 id="keepsake-title">手写寄语纪念卡</h2></div><button aria-label="关闭寄语卡制作" type="button" onClick={() => setOpen(false)}>×</button></div>
+      <div className="experience-keepsake-heading"><div><p className="experience-eyebrow">把这一刻留下</p><h2 id="keepsake-title">手写寄语纪念卡</h2></div><button aria-label="关闭寄语卡制作" type="button" onClick={close}>×</button></div>
       <p className="experience-keepsake-notice">只将下方确认的寄语和个人落款发送给 Inko。作品图片、心情原句和观看记录不随之发送。</p>
       {lastUnit ? <p className="experience-keepsake-work">本次作品：{lastUnit.artwork.metadata.title}<span>{experienceArtistName(lastUnit)}</span></p> : null}
       <label className="experience-keepsake-field">寄语 <span>{textLength} / 2000 字</span><textarea rows={4} aria-invalid={textLength > 2000} value={form.closingText} onChange={event => change("closingText", event.target.value)} /></label>
@@ -183,7 +186,7 @@ export function useKeepsakeController(snapshot: ExhibitionSnapshot, lastUnit: Ex
       <div className="experience-keepsake-actions">
         <button disabled={!confirmed || !readyText || formInvalid || !form.styleCode || !options?.available || working || Boolean(busy(job))} type="button" onClick={() => void submit()}>{working ? "正在确认制作…" : early ? "确认并提前准备" : "确认并制作"}</button>
         {busy(job) || working ? <button type="button" onClick={() => void cancel()}>取消制作</button> : null}
-        <button type="button" onClick={() => setOpen(false)}>{early ? "继续观展" : "返回结语"}</button>
+        <button type="button" onClick={close}>{early ? "继续观展" : "返回结语"}</button>
       </div>
       {!options?.available ? <p role="status">{options?.message ?? "正在连接手写服务。"}</p> : null}
       {job ? <p aria-live="polite" className="experience-keepsake-status">{composing ? "正在整理纪念卡" : preview ? "纪念卡已就绪，可以预览和保存。" : labels[job.state]}</p> : null}

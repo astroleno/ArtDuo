@@ -254,7 +254,7 @@ export function ImageLightbox({
       style={hasExactAspect ? { "--immersive-source-aspect-ratio": String(exactAspect) } as CSSProperties : undefined}
     >
       <button
-        aria-label={`放大《${unit.title}》并进入沉浸体验`}
+        aria-label={`放大，进入画中：《${unit.title}》`}
         className="immersive-lightbox-trigger"
         onClick={openImmersiveDetail}
         ref={triggerRef}
@@ -265,7 +265,7 @@ export function ImageLightbox({
             <span className="immersive-image-crop" style={cropStyle}>
               <img
                 crossOrigin="anonymous"
-                alt={`${unit.title} artwork`}
+                alt={`《${unit.title}》`}
                 className="immersive-preview-image"
                 decoding="async"
                 fetchPriority="high"
@@ -276,7 +276,7 @@ export function ImageLightbox({
           ) : (
             <img
               crossOrigin="anonymous"
-              alt={`${unit.title} artwork`}
+              alt={`《${unit.title}》`}
               className="immersive-preview-image"
               decoding="async"
               fetchPriority="high"

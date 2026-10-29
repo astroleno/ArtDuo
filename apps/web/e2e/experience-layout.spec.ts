@@ -54,7 +54,7 @@ test("experience room stays in bounds at 320, 390, 844 landscape and desktop wid
     expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height + 1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
-    await page.getByRole("button", { name: "展开完整展签" }).click();
+    await page.locator(".experience-plaque-heading").click();
     const reading = page.getByRole("dialog", { name: /Water Lilies/ });
     await expect(reading).toBeVisible();
     const readingBounds = await reading.boundingBox();
@@ -79,7 +79,7 @@ test("experience room stays in bounds at 320, 390, 844 landscape and desktop wid
     }
     await page.keyboard.press("Escape");
     await expect(reading).toBeHidden();
-    await expect(page.getByRole("button", { name: "展开完整展签" })).toBeFocused();
+    await expect(page.locator(".experience-plaque-heading")).toBeFocused();
     expect(await page.locator(".experience-frame-shadow").boundingBox()).toEqual(frameBounds);
     if (viewport.screenshot) await page.screenshot({ path: resolve(evidenceDir, viewport.screenshot), fullPage: true });
   }
@@ -97,7 +97,7 @@ test("walk supports keyboard navigation, reduced motion and focus restoration fr
   await page.keyboard.press("ArrowLeft");
   await expect(page.locator(".experience-room-meta span").last()).toHaveText("01 / 12");
 
-  const trigger = page.getByRole("button", { name: /放大.+并进入沉浸体验/ });
+  const trigger = page.getByRole("button", { name: /放大，进入画中：/ });
   await trigger.focus();
   await page.keyboard.press("Enter");
   const detail = page.getByRole("dialog", { name: /沉浸观看/ });

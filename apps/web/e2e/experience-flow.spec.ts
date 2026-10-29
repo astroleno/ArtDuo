@@ -28,7 +28,7 @@ test("entry opens a personal preface, followed by artworks, reading, closing, re
   await expect(page.locator(".experience-preface h1")).not.toBeEmpty();
   await expect(page).toHaveURL(/phase=preface/);
   await page.screenshot({ path: resolve(evidenceDir, "preface-1440.png"), fullPage: true });
-  await page.getByRole("button", { name: "跳过前言，开始观展" }).click();
+  await page.getByRole("button", { name: "进入展厅" }).click();
 
   await expect(page.getByTestId("experience-room")).toBeVisible({ timeout: 45_000 });
   await expect(page).toHaveURL(/phase=walk.*artworkId=(?:met|artic)-/);
@@ -55,7 +55,7 @@ test("entry opens a personal preface, followed by artworks, reading, closing, re
   await expect(page.locator(".experience-route-panel")).toContainText(`${count} 件作品`);
   await page.keyboard.press("Escape");
   await expect(page.locator(".experience-route-panel")).toBeHidden();
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.locator(".experience-plaque-heading").click();
   await expect(page.getByRole("button", { name: "进入详细讲解" })).toBeVisible();
   await page.getByRole("button", { name: "进入详细讲解" }).click();
 
@@ -77,7 +77,7 @@ test("entry opens a personal preface, followed by artworks, reading, closing, re
   }
   await expect(page.locator(".experience-room-meta span").last()).toHaveText(`${String(count).padStart(2, "0")} / ${String(count).padStart(2, "0")}`);
   const lastArtworkId = new URL(page.url()).searchParams.get("artworkId");
-  await page.getByRole("button", { name: "进入结语" }).click();
+  await page.getByRole("button", { name: "看完了，进入结语" }).click();
   await expect(page.locator(".experience-closing")).toBeVisible();
   await expect(page).toHaveURL(/phase=closing.*artworkId=(?:met|artic)-/);
   await expect(page.locator(".experience-closing h1")).not.toBeEmpty();
@@ -95,7 +95,7 @@ test("entry opens a personal preface, followed by artworks, reading, closing, re
   await page.getByRole("button", { name: "回看最后一件" }).click();
   await expect(page.getByTestId("experience-room")).toBeVisible();
   await expect(page).toHaveURL(new RegExp(`phase=walk.*artworkId=${lastArtworkId}`));
-  await page.getByRole("button", { name: "进入结语" }).click();
+  await page.getByRole("button", { name: "看完了，进入结语" }).click();
   await expect(page.locator(".experience-closing")).toBeVisible();
   await page.getByRole("button", { name: "重新选一组" }).click();
   await expect(page).toHaveURL(/\/?view=experience.*query=/);
@@ -116,7 +116,7 @@ test("phone entry and its preface stay readable before the first artwork", async
   await page.getByRole("button", { name: "开始观展", exact: true }).click();
   await expect(page.locator(".experience-preface")).toBeVisible({ timeout: 45_000 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
-  await page.getByRole("button", { name: "跳过前言，开始观展" }).click();
+  await page.getByRole("button", { name: "进入展厅" }).click();
   await expect(page.getByTestId("experience-room")).toBeVisible({ timeout: 45_000 });
   await expect(page).toHaveURL(/phase=walk/);
   await expect(page.locator(".experience-preface")).toHaveCount(0);

@@ -55,6 +55,7 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
   const triggerRef = useRef<HTMLButtonElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  const actionId = useId();
   const closeReader = useOverlayHistory(expanded, () => { detailNavigation?.onCancel(); onToggle(); });
   useLayoutEffect(() => {
     if (!onSizeChange) return;
@@ -97,11 +98,12 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
     else if (!expanded && dialog.open) { dialog.close(); triggerRef.current?.focus({ preventScroll: true }); }
   }, [expanded, readingImageState]);
   return <><section className="experience-plaque" aria-label={`展签：${metadata.title}`}>
-    <button ref={triggerRef} aria-label={opening ? "正在打开完整展签，点击取消" : "展开完整展签"} aria-expanded={expanded} aria-busy={opening} aria-haspopup="dialog" className="experience-plaque-heading" onClick={onToggle} type="button">
+    <button ref={triggerRef} aria-describedby={actionId} aria-expanded={expanded} aria-busy={opening} aria-haspopup="dialog" className="experience-plaque-heading" onClick={onToggle} type="button">
       <LabelLines metadata={metadata} artistName={artistName} opening={opening} />
     </button>
+    <span className="sr-only" id={actionId}>{opening ? "正在打开完整展签，点击取消" : "展开完整展签"}</span>
     <dialog ref={dialogRef} aria-labelledby={titleId} className="experience-reading-layer" data-image-layout={readingImage?.url === previewUrl && readingImage.compact ? "compact" : "full"} onCancel={(event) => { event.preventDefault(); closeReader(); }}>
-      <div className="experience-reading-header"><span>作品资料</span><button autoFocus aria-label="收起完整展签" onClick={closeReader} type="button">返回{artworkKind === "sculpture" ? "雕塑" : "画作"} <span aria-hidden="true">×</span></button></div>
+      <div className="experience-reading-header"><span>作品资料</span><button autoFocus onClick={closeReader} type="button">返回{artworkKind === "sculpture" ? "雕塑" : "画作"} <span aria-hidden="true">×</span></button></div>
       <div className="experience-reading-artwork" data-image-state={readingImageState} style={expanded && readingImageState !== "failed" && unit.media.backgroundUrl ? { backgroundImage: `url(${backgroundSource ?? unit.media.backgroundUrl})` } : undefined}>
         {expanded ? <img key={`${previewUrl}:${imageAttempt}`} ref={readingImageRef} crossOrigin="anonymous" referrerPolicy={referrerPolicy} alt={`阅读时参照《${metadata.title}》`} decoding="sync" src={previewUrl} style={readingImageState === "failed" ? { display: "none" } : undefined} /> : null}
         {readingImageState === "failed" ? <><p role="status">图片暂不可用，资料仍可阅读。</p><button className="experience-reading-retry" disabled={retryingImage} onClick={() => { setRetryingImage(true); setImageAttempt(attempt => attempt + 1); }} type="button">{retryingImage ? "正在重试…" : "重试图片"}</button></> : null}

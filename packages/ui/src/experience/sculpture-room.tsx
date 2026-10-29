@@ -12,6 +12,7 @@ import { useRoomMotion } from "./room-motion";
 import { SculptureCanvas } from "./sculpture-canvas";
 import type { SculptureNarrator, SculptureQuality, SculptureRoomScene, SculptureWork } from "./sculpture-types";
 import { useIdleChrome } from "./use-idle-chrome";
+import { useOverlayHistory } from "./use-overlay-history";
 
 export function SculptureRoom({ works, scenes, initialModel, initialScene, initialQuality, encounter, narrate, query = "在雕塑侧厅慢慢看" }: {
   works: SculptureWork[];
@@ -36,6 +37,8 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
   const [note, setNote] = useState<{ id: string; text: string; source: "grounded" | "fallback" }>();
   const settings = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const restoreSettingsFocus = useRef(true);
+  const closeSettings = useOverlayHistory(settingsOpen, sameView => { restoreSettingsFocus.current = sameView; setSettingsOpen(false); });
   const work = works[index];
   const room = scenes.find(scene => scene.id === sceneId) ?? scenes[0];
   const { mouseMotion, setMouseMotion } = useInteractionPreferences();
@@ -71,8 +74,8 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
   useEffect(() => {
     const dialog = settings.current;
     if (!dialog) return;
-    if (settingsOpen && !dialog.open) dialog.showModal();
-    else if (!settingsOpen && dialog.open) { dialog.close(); trigger.current?.focus({ preventScroll: true }); }
+    if (settingsOpen && !dialog.open) { restoreSettingsFocus.current = true; dialog.showModal(); }
+    else if (!settingsOpen && dialog.open) { dialog.close(); if (restoreSettingsFocus.current) trigger.current?.focus({ preventScroll: true }); }
   }, [settingsOpen]);
   useEffect(() => {
     if (encounter) return;
@@ -106,7 +109,7 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
         <div className="experience-room-shade" aria-hidden="true" />
         <AtmosphereLayer tone={room.tone} reducedMotion={reducedMotion} />
         <header className="experience-room-header">
-          <a className="experience-mark" href={appPath(encounter ? `/?${new URLSearchParams({ view: "experience", query }).toString()}` : "/?view=experience")} aria-label="ArtDuo，返回选展">ArtDuo</a>
+          <a className="experience-mark" href={appPath(encounter ? `/?${new URLSearchParams({ view: "experience", query }).toString()}` : "/?view=experience")} aria-label="ArtDuo，返回入口">ArtDuo</a>
           <div className="experience-room-meta"><span>{encounter ? "片刻停留" : room.label}</span>{encounter ? encounter.audioControl : <span>{String(index + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}</span>}</div>
         </header>
         <SculptureCanvas work={work} url={quality === "reference" ? work.referenceUrl : work.compactUrl} room={room} backgroundSource={readyBackground}
@@ -122,16 +125,16 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
         {motion.message && !settingsOpen ? <p role="status" className="experience-motion-status">{motion.message}</p> : null}
       </section>
       <button ref={trigger} className="experience-settings-trigger" type="button" aria-label="观展设置" aria-haspopup="dialog" aria-expanded={settingsOpen} onClick={() => setSettingsOpen(true)}><span aria-hidden="true">•••</span></button>
-      <dialog ref={settings} className="experience-settings-panel" aria-label="观展设置" onCancel={event => { event.preventDefault(); setSettingsOpen(false); }}
+      <dialog ref={settings} className="experience-settings-panel" aria-label="观展设置" onCancel={event => { event.preventDefault(); closeSettings(); }}
         onClick={event => {
           const rect = event.currentTarget.getBoundingClientRect();
-          if (event.target === event.currentTarget && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) setSettingsOpen(false);
+          if (event.target === event.currentTarget && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) closeSettings();
         }}>
-        <header><h2>观展设置</h2><button autoFocus type="button" aria-label="关闭观展设置" onClick={() => setSettingsOpen(false)}>×</button></header>
+        <header><h2>观展设置</h2><button autoFocus type="button" aria-label="关闭观展设置" onClick={closeSettings}>×</button></header>
         <label className="experience-motion-choice"><span>画面轻动<small>{reducedMotion ? "已遵循系统的减少动态效果设置" : "轻移画面，感受前后层次"}</small></span>
           <input type="checkbox" checked={mouseMotion && !reducedMotion} disabled={reducedMotion} onChange={event => setMouseMotion(event.target.checked)} /></label>
-        {motion.available ? <button type="button" className="experience-settings-motion" aria-label={!mouseMotion ? "先开启画面轻动，再开启手机感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"} aria-pressed={motion.enabled} disabled={!mouseMotion || motion.state === "requesting"}
-          onClick={() => { void motion.toggle(); setSettingsOpen(false); }}>{!mouseMotion ? "先开启画面轻动" : motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}</button> : null}
+        {motion.available ? <button type="button" className="experience-settings-motion" aria-pressed={motion.enabled} disabled={!mouseMotion || motion.state === "requesting"}
+          onClick={() => { void motion.toggle(); closeSettings(); }}>{!mouseMotion ? "先开启画面轻动" : motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}</button> : null}
         {motion.message ? <p role="status">{motion.message}</p> : null}
         {!encounter ? <><label className="experience-sculpture-select">展厅<select aria-label="展厅" value={room.id} onChange={event => setSceneId(event.target.value)}>{scenes.map(scene => <option key={scene.id} value={scene.id}>{scene.label}</option>)}</select></label>
         <label className="experience-sculpture-select">雕塑细节<select aria-label="雕塑细节" value={quality} onChange={event => setQuality(event.target.value as SculptureQuality)}><option value="compact">轻巧载入</option><option value="reference">更多细节</option></select></label></> : null}

@@ -1,0 +1,1125 @@
+Scope: 6 of 7 workspace projects
+
+> @artduo/contracts@0.1.0 test /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/contracts
+> tsx --test src/*.test.ts
+
+TAP version 13
+# Subtest: user affect agent parser accepts canonical desires and resistances
+ok 1 - user affect agent parser accepts canonical desires and resistances
+  ---
+  duration_ms: 10.168542
+  type: 'test'
+  ...
+# Subtest: artwork agent capsule evidence requires at least one source ref
+ok 2 - artwork agent capsule evidence requires at least one source ref
+  ---
+  duration_ms: 11.555917
+  type: 'test'
+  ...
+# Subtest: growth form parser enforces normalized stage numbers
+ok 3 - growth form parser enforces normalized stage numbers
+  ---
+  duration_ms: 124.414292
+  type: 'test'
+  ...
+# Subtest: growth form parser accepts 3 to 5 stages
+ok 4 - growth form parser accepts 3 to 5 stages
+  ---
+  duration_ms: 0.601541
+  type: 'test'
+  ...
+# Subtest: growth form rules preserve severity
+ok 5 - growth form rules preserve severity
+  ---
+  duration_ms: 99.150583
+  type: 'test'
+  ...
+# Subtest: media remain grounded in metadata and mixed techniques retain their identity
+ok 6 - media remain grounded in metadata and mixed techniques retain their identity
+  ---
+  duration_ms: 34.896084
+  type: 'test'
+  ...
+# Subtest: explanation statuses stay aligned with the v0.2 contract
+ok 7 - explanation statuses stay aligned with the v0.2 contract
+  ---
+  duration_ms: 1.538292
+  type: 'test'
+  ...
+# Subtest: artwork explanation exposes pending and ready shapes
+ok 8 - artwork explanation exposes pending and ready shapes
+  ---
+  duration_ms: 7.172333
+  type: 'test'
+  ...
+# Subtest: ready artwork explanations require traceable evidence
+ok 9 - ready artwork explanations require traceable evidence
+  ---
+  duration_ms: 2.494791
+  type: 'test'
+  ...
+# Subtest: public source records retain their verified URL and reject mismatched image receipts
+ok 10 - public source records retain their verified URL and reject mismatched image receipts
+  ---
+  duration_ms: 22.705084
+  type: 'test'
+  ...
+# Subtest: artwork fixtures satisfy the Phase 1 display/data baseline
+ok 11 - artwork fixtures satisfy the Phase 1 display/data baseline
+  ---
+  duration_ms: 2.998292
+  type: 'test'
+  ...
+# Subtest: artwork parser accepts visual presentation crop metadata
+ok 12 - artwork parser accepts visual presentation crop metadata
+  ---
+  duration_ms: 5.336166
+  type: 'test'
+  ...
+# Subtest: artwork parser rejects visual presentation bounds outside the image
+ok 13 - artwork parser rejects visual presentation bounds outside the image
+  ---
+  duration_ms: 2.334958
+  type: 'test'
+  ...
+# Subtest: artwork parser preserves a release and source-bound depth map
+ok 14 - artwork parser preserves a release and source-bound depth map
+  ---
+  duration_ms: 0.850875
+  type: 'test'
+  ...
+# Subtest: artwork parser rejects stale or uncontained depth maps
+ok 15 - artwork parser rejects stale or uncontained depth maps
+  ---
+  duration_ms: 79.73975
+  type: 'test'
+  ...
+# Subtest: background match fixture stays aligned with the candidate scene catalog
+ok 16 - background match fixture stays aligned with the candidate scene catalog
+  ---
+  duration_ms: 4.541041
+  type: 'test'
+  ...
+# Subtest: background scene fixtures expose staging and transition data
+ok 17 - background scene fixtures expose staging and transition data
+  ---
+  duration_ms: 163.072
+  type: 'test'
+  ...
+# Subtest: manifest fixture matches the bootstrap fixture counts
+ok 18 - manifest fixture matches the bootstrap fixture counts
+  ---
+  duration_ms: 269.812917
+  type: 'test'
+  ...
+# Subtest: manifest parser accepts optional embedding shards
+ok 19 - manifest parser accepts optional embedding shards
+  ---
+  duration_ms: 5.511458
+  type: 'test'
+  ...
+# Subtest: manifest parser accepts optional relationship graph shards
+ok 20 - manifest parser accepts optional relationship graph shards
+  ---
+  duration_ms: 1.367541
+  type: 'test'
+  ...
+# Subtest: curation events include session and explanation lifecycle updates
+ok 21 - curation events include session and explanation lifecycle updates
+  ---
+  duration_ms: 7.886917
+  type: 'test'
+  ...
+# Subtest: curation grade profile parses the A/B/C display contract
+ok 22 - curation grade profile parses the A/B/C display contract
+  ---
+  duration_ms: 3.606542
+  type: 'test'
+  ...
+# Subtest: motion playback profile keeps dynamic media optional
+ok 23 - motion playback profile keeps dynamic media optional
+  ---
+  duration_ms: 0.666917
+  type: 'test'
+  ...
+# Subtest: session statuses stay aligned with the v0.2 contract
+ok 24 - session statuses stay aligned with the v0.2 contract
+  ---
+  duration_ms: 3.842291
+  type: 'test'
+  ...
+# Subtest: create curation request includes required v0.2 fields
+ok 25 - create curation request includes required v0.2 fields
+  ---
+  duration_ms: 286.305875
+  type: 'test'
+  ...
+# Subtest: curation session carries status/source/unit/ownership fields
+ok 26 - curation session carries status/source/unit/ownership fields
+  ---
+  duration_ms: 47.80625
+  type: 'test'
+  ...
+# Subtest: embedding shard records preserve retrieval debug metadata
+ok 27 - embedding shard records preserve retrieval debug metadata
+  ---
+  duration_ms: 13.152208
+  type: 'test'
+  ...
+# Subtest: error fixtures conform to the shared ApiError shape
+ok 28 - error fixtures conform to the shared ApiError shape
+  ---
+  duration_ms: 264.385584
+  type: 'test'
+  ...
+# Subtest: exhibition units only reference frozen v0.1 artworks and scenes
+ok 29 - exhibition units only reference frozen v0.1 artworks and scenes
+  ---
+  duration_ms: 150.232875
+  type: 'test'
+  ...
+# Subtest: keepsake identity binds exact confirmed text, independent signature and artwork
+ok 30 - keepsake identity binds exact confirmed text, independent signature and artwork
+  ---
+  duration_ms: 25.191708
+  type: 'test'
+  ...
+# Subtest: draft parsing rejects invalid versions, control characters, paths and oversized writing
+ok 31 - draft parsing rejects invalid versions, control characters, paths and oversized writing
+  ---
+  duration_ms: 130.336667
+  type: 'test'
+  ...
+# Subtest: subpath URLs preserve query, fragments, case and existing prefixes
+ok 32 - subpath URLs preserve query, fragments, case and existing prefixes
+  ---
+  duration_ms: 4.372125
+  type: 'test'
+  ...
+# Subtest: external media and root deployments remain unchanged; malformed configuration fails
+ok 33 - external media and root deployments remain unchanged; malformed configuration fails
+  ---
+  duration_ms: 1.675
+  type: 'test'
+  ...
+# Subtest: relationship graph parser accepts valid and empty public graphs
+ok 34 - relationship graph parser accepts valid and empty public graphs
+  ---
+  duration_ms: 17.820708
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects malformed graph shapes
+ok 35 - relationship graph parser rejects malformed graph shapes
+  ---
+  duration_ms: 1.718416
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects over-limit graphs
+ok 36 - relationship graph parser rejects over-limit graphs
+  ---
+  duration_ms: 3.470958
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects duplicate node and edge ids
+ok 37 - relationship graph parser rejects duplicate node and edge ids
+  ---
+  duration_ms: 16.848458
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects self-loops and unknown node references
+ok 38 - relationship graph parser rejects self-loops and unknown node references
+  ---
+  duration_ms: 1.751833
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects node id and relation topology mismatches
+ok 39 - relationship graph parser rejects node id and relation topology mismatches
+  ---
+  duration_ms: 5.881
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects invalid relationship scores
+ok 40 - relationship graph parser rejects invalid relationship scores
+  ---
+  duration_ms: 0.902708
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects non-allowlisted source ref field paths
+ok 41 - relationship graph parser rejects non-allowlisted source ref field paths
+  ---
+  duration_ms: 1.047917
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects source refs from another release
+ok 42 - relationship graph parser rejects source refs from another release
+  ---
+  duration_ms: 3.764333
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects unknown public fields
+ok 43 - relationship graph parser rejects unknown public fields
+  ---
+  duration_ms: 10.229208
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects internal and non-public data leaks
+ok 44 - relationship graph parser rejects internal and non-public data leaks
+  ---
+  duration_ms: 3.366125
+  type: 'test'
+  ...
+# Subtest: curatorial intent rejects invalid state, duplicate stages, and unbounded counts
+ok 45 - curatorial intent rejects invalid state, duplicate stages, and unbounded counts
+  ---
+  duration_ms: 197.46425
+  type: 'test'
+  ...
+# Subtest: semantic index rejects duplicate identities, dimension mismatch, and non-normalized vectors
+ok 46 - semantic index rejects duplicate identities, dimension mismatch, and non-normalized vectors
+  ---
+  duration_ms: 81.779834
+  type: 'test'
+  ...
+# Subtest: narrative pieces bound content and require an artwork identity for notes
+ok 47 - narrative pieces bound content and require an artwork identity for notes
+  ---
+  duration_ms: 1.048084
+  type: 'test'
+  ...
+# Subtest: exclusive requests cover the shared painting media vocabulary
+ok 48 - exclusive requests cover the shared painting media vocabulary
+  ---
+  duration_ms: 30.776291
+  type: 'test'
+  ...
+1..48
+# tests 48
+# suites 0
+# pass 48
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15281.509834
+
+> @artduo/api@0.1.0 test /Users/aitoshuu/Documents/GitHub/ArtDuo/apps/api
+> tsx --test test/**/*.test.ts
+
+TAP version 13
+# Subtest: curation flow records create and explanation timings without real LLM credentials
+ok 1 - curation flow records create and explanation timings without real LLM credentials
+  ---
+  duration_ms: 83.80225
+  type: 'test'
+  ...
+# Subtest: metrics records curation timings and degradation triggers
+ok 2 - metrics records curation timings and degradation triggers
+  ---
+  duration_ms: 55.122334
+  type: 'test'
+  ...
+# Subtest: known artwork returns pending without generator
+ok 3 - known artwork returns pending without generator
+  ---
+  duration_ms: 47.63725
+  type: 'test'
+  ...
+# Subtest: server provider env is opt-in and does not run by default
+ok 4 - server provider env is opt-in and does not run by default
+  ---
+  duration_ms: 3.568417
+  type: 'test'
+  ...
+# Subtest: enabled server provider receives route grounding
+ok 5 - enabled server provider receives route grounding
+  ---
+  duration_ms: 933.230125
+  type: 'test'
+  ...
+# Subtest: provider contract failures become a bounded API error instead of rejecting the route
+ok 6 - provider contract failures become a bounded API error instead of rejecting the route
+  ---
+  duration_ms: 17.038625
+  type: 'test'
+  ...
+# Subtest: generator returns ready explanation and is cached
+ok 7 - generator returns ready explanation and is cached
+  ---
+  duration_ms: 26.394959
+  type: 'test'
+  ...
+# Subtest: ready explanation includes grounding context and citations
+ok 8 - ready explanation includes grounding context and citations
+  ---
+  duration_ms: 12.884583
+  type: 'test'
+  ...
+# Subtest: unknown artwork returns 404
+ok 9 - unknown artwork returns 404
+  ---
+  duration_ms: 24.079833
+  type: 'test'
+  ...
+# Subtest: budget guard rejects generation when estimated tokens exceed max
+ok 10 - budget guard rejects generation when estimated tokens exceed max
+  ---
+  duration_ms: 17.84725
+  type: 'test'
+  ...
+# Subtest: cached ready explanation is returned even when over-budget input is provided
+ok 11 - cached ready explanation is returned even when over-budget input is provided
+  ---
+  duration_ms: 3.867666
+  type: 'test'
+  ...
+# Subtest: explanation route records runtime metrics and request log entries
+ok 12 - explanation route records runtime metrics and request log entries
+  ---
+  duration_ms: 50.446
+  type: 'test'
+  ...
+# Subtest: corpus route resolves the latest release manifest
+ok 13 - corpus route resolves the latest release manifest
+  ---
+  duration_ms: 61.656875
+  type: 'test'
+  ...
+# Subtest: create returns 201 and idempotency returns the same session id
+ok 14 - create returns 201 and idempotency returns the same session id
+  ---
+  duration_ms: 32.380792
+  type: 'test'
+  ...
+# Subtest: get returns 200 for owner, 403 for wrong token, and 404 for unknown session
+ok 15 - get returns 200 for owner, 403 for wrong token, and 404 for unknown session
+  ---
+  duration_ms: 6.334375
+  type: 'test'
+  ...
+# Subtest: same idempotency key with different request body returns 409
+ok 16 - same idempotency key with different request body returns 409
+  ---
+  duration_ms: 204.269708
+  type: 'test'
+  ...
+# Subtest: create session is rate-limited by idempotency key or client identity
+ok 17 - create session is rate-limited by idempotency key or client identity
+  ---
+  duration_ms: 79.991458
+  type: 'test'
+  ...
+# Subtest: same idempotency key replay still returns original session after rate limit window is exhausted
+ok 18 - same idempotency key replay still returns original session after rate limit window is exhausted
+  ---
+  duration_ms: 71.223084
+  type: 'test'
+  ...
+# Subtest: create session records runtime metrics and request log entries
+ok 19 - create session records runtime metrics and request log entries
+  ---
+  duration_ms: 3.680541
+  type: 'test'
+  ...
+# Subtest: budget guard throws when estimated tokens exceed max
+ok 20 - budget guard throws when estimated tokens exceed max
+  ---
+  duration_ms: 6.482417
+  type: 'test'
+  ...
+# Subtest: motion profile falls back to static image with light motion when no dynamic media exists
+ok 21 - motion profile falls back to static image with light motion when no dynamic media exists
+  ---
+  duration_ms: 2.339041
+  type: 'test'
+  ...
+# Subtest: motion profile gives A-grade motion assets a director-focus strategy
+ok 22 - motion profile gives A-grade motion assets a director-focus strategy
+  ---
+  duration_ms: 2.78975
+  type: 'test'
+  ...
+# Subtest: provider SSE survives frame boundaries and rejects missing termination and truncated generation
+ok 23 - provider SSE survives frame boundaries and rejects missing termination and truncated generation
+  ---
+  duration_ms: 257.572708
+  type: 'test'
+  ...
+# Subtest: English word counts are explicit, including when the visitor declines another count
+ok 24 - English word counts are explicit, including when the visitor declines another count
+  ---
+  duration_ms: 24.759541
+  type: 'test'
+  ...
+# Subtest: intent planning validates provider output and honors explicit artwork counts
+ok 25 - intent planning validates provider output and honors explicit artwork counts
+  ---
+  duration_ms: 20.036792
+  type: 'test'
+  ...
+# Subtest: one explicitly named work stays one without needing a numeric instruction
+ok 26 - one explicitly named work stays one without needing a numeric instruction
+  ---
+  duration_ms: 1.26475
+  type: 'test'
+  ...
+# Subtest: route claims use actual first and last works rather than pooled visual evidence
+ok 27 - route claims use actual first and last works rather than pooled visual evidence
+  ---
+  duration_ms: 489.740334
+  type: 'test'
+  ...
+# Subtest: a shared exhibition claim must also hold for works omitted from its evidence IDs
+ok 28 - a shared exhibition claim must also hold for works omitted from its evidence IDs
+  ---
+  duration_ms: 6.962625
+  type: 'test'
+  ...
+# Subtest: negation stays with its clause and a verified broad mat is not an open landscape
+ok 29 - negation stays with its clause and a verified broad mat is not an open landscape
+  ---
+  duration_ms: 2.19925
+  type: 'test'
+  ...
+# Subtest: adjacent observed objects do not license an invented separation
+ok 30 - adjacent observed objects do not license an invented separation
+  ---
+  duration_ms: 0.477959
+  type: 'test'
+  ...
+# Subtest: a book in a portrait does not put the sitter's hand beside it
+ok 31 - a book in a portrait does not put the sitter's hand beside it
+  ---
+  duration_ms: 0.782375
+  type: 'test'
+  ...
+# Subtest: empty compositional contrasts are removed without accepting an invented visible person
+ok 32 - empty compositional contrasts are removed without accepting an invented visible person
+  ---
+  duration_ms: 0.9545
+  type: 'test'
+  ...
+# Subtest: repair ignores already completed keys and keeps all newly requested notes
+ok 33 - repair ignores already completed keys and keeps all newly requested notes
+  ---
+  duration_ms: 8.693291
+  type: 'test'
+  ...
+# Subtest: a hand-focused request cannot borrow a legacy description or generalize one supported hand to both portraits
+ok 34 - a hand-focused request cannot borrow a legacy description or generalize one supported hand to both portraits
+  ---
+  duration_ms: 5.532583
+  type: 'test'
+  ...
+# Subtest: verified qualified absence does not erase people visible in a painting within the painting
+ok 35 - verified qualified absence does not erase people visible in a painting within the painting
+  ---
+  duration_ms: 2.144459
+  type: 'test'
+  ...
+# Subtest: fallback keeps complete observed clauses and never chops a foreign title or sentence into an ellipsis
+ok 36 - fallback keeps complete observed clauses and never chops a foreign title or sentence into an ellipsis
+  ---
+  duration_ms: 3.656959
+  type: 'test'
+  ...
+# Subtest: fallback selects observed relations without converting audit uncertainty into a claim
+ok 37 - fallback selects observed relations without converting audit uncertainty into a claim
+  ---
+  duration_ms: 11.117
+  type: 'test'
+  ...
+# Subtest: uncertain-only fallback uses metadata and retains an explicitly missing viewing focus
+ok 38 - uncertain-only fallback uses metadata and retains an explicitly missing viewing focus
+  ---
+  duration_ms: 0.872875
+  type: 'test'
+  ...
+# Subtest: narrative streams only complete validated lines in exhibition order
+ok 39 - narrative streams only complete validated lines in exhibition order
+  ---
+  duration_ms: 87.512334
+  type: 'test'
+  ...
+# Subtest: neutral single-work requests cannot invent a feeling or unvisited stages
+ok 40 - neutral single-work requests cannot invent a feeling or unvisited stages
+  ---
+  duration_ms: 246.196916
+  type: 'test'
+  ...
+# Subtest: Chinese denials do not license sadness attribution even without a no-comfort request
+ok 41 - Chinese denials do not license sadness attribution even without a no-comfort request
+  ---
+  duration_ms: 98.699042
+  type: 'test'
+  ...
+# Subtest: notes without a real description cannot add invented visual details
+ok 42 - notes without a real description cannot add invented visual details
+  ---
+  duration_ms: 63.664584
+  type: 'test'
+  ...
+# Subtest: wet surfaces and umbrellas do not establish that rain has ended
+ok 43 - wet surfaces and umbrellas do not establish that rain has ended
+  ---
+  duration_ms: 31.608625
+  type: 'test'
+  ...
+# Subtest: image review observations ground prose without masquerading as museum descriptions
+ok 44 - image review observations ground prose without masquerading as museum descriptions
+  ---
+  duration_ms: 50.467916
+  type: 'test'
+  ...
+# Subtest: requested detail focus cannot be invented, substituted by metaphor or omitted when supported
+ok 45 - requested detail focus cannot be invented, substituted by metaphor or omitted when supported
+  ---
+  duration_ms: 14.953917
+  type: 'test'
+  ...
+# Subtest: direct user attribution must quote the input and cannot add a viewing preference
+ok 46 - direct user attribution must quote the input and cannot add a viewing preference
+  ---
+  duration_ms: 84.922208
+  type: 'test'
+  ...
+# Subtest: one rejected note is replaced without erasing a valid closing
+ok 47 - one rejected note is replaced without erasing a valid closing
+  ---
+  duration_ms: 80.383833
+  type: 'test'
+  ...
+# Subtest: observation-only requests reject emotional endings and keep fallback prose factual
+ok 48 - observation-only requests reject emotional endings and keep fallback prose factual
+  ---
+  duration_ms: 107.866458
+  type: 'test'
+  ...
+# Subtest: declined emotional framing drops a quoted feeling while retaining grounded exhibition prose
+ok 49 - declined emotional framing drops a quoted feeling while retaining grounded exhibition prose
+  ---
+  duration_ms: 27.072667
+  type: 'test'
+  ...
+# Subtest: negated feelings cannot license emotional attribution in observation-only requests
+ok 50 - negated feelings cannot license emotional attribution in observation-only requests
+  ---
+  duration_ms: 0.692833
+  type: 'test'
+  ...
+# Subtest: wrong references and interrupted providers cannot substitute works or erase a delivered preface
+ok 51 - wrong references and interrupted providers cannot substitute works or erase a delivered preface
+  ---
+  duration_ms: 53.685792
+  type: 'test'
+  ...
+# Subtest: frozen image facts reject invented objects, false absences and unverified space
+ok 52 - frozen image facts reject invented objects, false absences and unverified space
+  ---
+  duration_ms: 35.227458
+  type: 'test'
+  ...
+# Subtest: quoted exclusions remain negated without licensing an invented visible person
+ok 53 - quoted exclusions remain negated without licensing an invented visible person
+  ---
+  duration_ms: 12.09975
+  type: 'test'
+  ...
+# Subtest: declining comfort keeps factual closings and removes unrequested emotional codas
+ok 54 - declining comfort keeps factual closings and removes unrequested emotional codas
+  ---
+  duration_ms: 0.761708
+  type: 'test'
+  ...
+# Subtest: actual counts and own-work references cannot borrow the request or a neighbor's evidence
+ok 55 - actual counts and own-work references cannot borrow the request or a neighbor's evidence
+  ---
+  duration_ms: 0.808916
+  type: 'test'
+  ...
+# Subtest: excitement needs no imposed transformation and writing constraints do not become quoted prose
+ok 56 - excitement needs no imposed transformation and writing constraints do not become quoted prose
+  ---
+  duration_ms: 3.499583
+  type: 'test'
+  ...
+# Subtest: a lowered head does not establish a bent torso; keep only independently grounded clauses
+ok 57 - a lowered head does not establish a bent torso; keep only independently grounded clauses
+  ---
+  duration_ms: 244.804542
+  type: 'test'
+  ...
+# Subtest: cache key includes release, artwork, and stable context hash
+ok 58 - cache key includes release, artwork, and stable context hash
+  ---
+  duration_ms: 23.51075
+  type: 'test'
+  ...
+# Subtest: cache stores ready content, survives restart, and revalidates current evidence
+ok 59 - cache stores ready content, survives restart, and revalidates current evidence
+  ---
+  duration_ms: 35.650917
+  type: 'test'
+  ...
+# Subtest: deterministic generator returns grounded evidence without real LLM credentials
+ok 60 - deterministic generator returns grounded evidence without real LLM credentials
+  ---
+  duration_ms: 9.247833
+  type: 'test'
+  ...
+# Subtest: server provider adapter is disabled unless server env is explicitly configured
+ok 61 - server provider adapter is disabled unless server env is explicitly configured
+  ---
+  duration_ms: 0.402083
+  type: 'test'
+  ...
+# Subtest: server provider adapter accepts the configured DeepSeek environment aliases
+ok 62 - server provider adapter accepts the configured DeepSeek environment aliases
+  ---
+  duration_ms: 51.054666
+  type: 'test'
+  ...
+# Subtest: server provider adapter streams an OpenAI-compatible grounded artwork prompt
+ok 63 - server provider adapter streams an OpenAI-compatible grounded artwork prompt
+  ---
+  duration_ms: 4.411167
+  type: 'test'
+  ...
+# Subtest: server provider adapter handles CRLF frame boundaries split across network chunks
+ok 64 - server provider adapter handles CRLF frame boundaries split across network chunks
+  ---
+  duration_ms: 1.985
+  type: 'test'
+  ...
+# Subtest: server provider adapter rejects a streamed response that omits a required field
+ok 65 - server provider adapter rejects a streamed response that omits a required field
+  ---
+  duration_ms: 2.218375
+  type: 'test'
+  ...
+# Subtest: detail prose removes echoed writing instructions while retaining actual viewing observations
+ok 66 - detail prose removes echoed writing instructions while retaining actual viewing observations
+  ---
+  duration_ms: 2.392125
+  type: 'test'
+  ...
+# Subtest: grade artworks assigns stable A/B/C grades from ranked candidates
+ok 67 - grade artworks assigns stable A/B/C grades from ranked candidates
+  ---
+  duration_ms: 25.376041
+  type: 'test'
+  ...
+# Subtest: grade artworks keeps explicit grade overrides but still normalizes labels
+ok 68 - grade artworks keeps explicit grade overrides but still normalizes labels
+  ---
+  duration_ms: 0.404375
+  type: 'test'
+  ...
+# Subtest: idempotency store reuses the same value for the same key
+ok 69 - idempotency store reuses the same value for the same key
+  ---
+  duration_ms: 10.241916
+  type: 'test'
+  ...
+# Subtest: idempotency store rejects empty keys
+ok 70 - idempotency store rejects empty keys
+  ---
+  duration_ms: 0.836583
+  type: 'test'
+  ...
+# Subtest: rate limit allows first N requests and rejects N+1 in same window
+ok 71 - rate limit allows first N requests and rejects N+1 in same window
+  ---
+  duration_ms: 9.246625
+  type: 'test'
+  ...
+# Subtest: redaction replaces raw user text
+ok 72 - redaction replaces raw user text
+  ---
+  duration_ms: 1.595292
+  type: 'test'
+  ...
+# Subtest: retention policy keeps short raw ttl and longer redacted ttl
+ok 73 - retention policy keeps short raw ttl and longer redacted ttl
+  ---
+  duration_ms: 1.573083
+  type: 'test'
+  ...
+# Subtest: dual public origins are explicit HTTPS origins and keep the existing model ceilings
+ok 74 - dual public origins are explicit HTTPS origins and keep the existing model ceilings
+  ---
+  duration_ms: 156.640375
+  type: 'test'
+  ...
+# Subtest: concurrent callers share a durable limit, release leases, and keep the spent budget across restarts
+ok 75 - concurrent callers share a durable limit, release leases, and keep the spent budget across restarts
+  ---
+  duration_ms: 1000.792541
+  type: 'test'
+  ...
+# Subtest: token reservations fail closed on budget exhaustion or damaged accounting
+ok 76 - token reservations fail closed on budget exhaustion or damaged accounting
+  ---
+  duration_ms: 188.135791
+  type: 'test'
+  ...
+# Subtest: public mode needs persistent storage and a trusted address; visitor records never store the raw IP
+ok 77 - public mode needs persistent storage and a trusted address; visitor records never store the raw IP
+  ---
+  duration_ms: 64.162791
+  type: 'test'
+  ...
+# Subtest: session store creates and gets sessions by id
+ok 78 - session store creates and gets sessions by id
+  ---
+  duration_ms: 0.853125
+  type: 'test'
+  ...
+# Subtest: session store updates existing sessions and rejects unknown ids
+ok 79 - session store updates existing sessions and rejects unknown ids
+  ---
+  duration_ms: 0.491625
+  type: 'test'
+  ...
+# Subtest: session token is created with a token and expiry
+ok 80 - session token is created with a token and expiry
+  ---
+  duration_ms: 3.065334
+  type: 'test'
+  ...
+# Subtest: session token verification accepts owner before expiry and rejects cross-session
+ok 81 - session token verification accepts owner before expiry and rejects cross-session
+  ---
+  duration_ms: 0.4735
+  type: 'test'
+  ...
+1..81
+# tests 81
+# suites 0
+# pass 81
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19812.403625
+
+> @artduo/corpus@0.1.0 test /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/corpus
+> pnpm --filter @artduo/contracts build && tsx --test src/*.test.ts
+
+
+> @artduo/contracts@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/contracts
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: extracts negative brightness and warm dark visual constraints
+ok 1 - extracts negative brightness and warm dark visual constraints
+  ---
+  duration_ms: 100.258666
+  type: 'test'
+  ...
+# Subtest: extracts explicit quiet wonder calm temporal stages
+ok 2 - extracts explicit quiet wonder calm temporal stages
+  ---
+  duration_ms: 79.451375
+  type: 'test'
+  ...
+# Subtest: extracts bedtime memory and grief resistance
+ok 3 - extracts bedtime memory and grief resistance
+  ---
+  duration_ms: 37.599417
+  type: 'test'
+  ...
+# Subtest: keeps joy while rejecting cartoonish happiness
+ok 4 - keeps joy while rejecting cartoonish happiness
+  ---
+  duration_ms: 250.112291
+  type: 'test'
+  ...
+# Subtest: keeps quiet desire and rejects loud romance
+ok 5 - keeps quiet desire and rejects loud romance
+  ---
+  duration_ms: 3.92675
+  type: 'test'
+  ...
+# Subtest: extracts no drama and overfull plot as heavy drama resistance
+ok 6 - extracts no drama and overfull plot as heavy drama resistance
+  ---
+  duration_ms: 3.67175
+  type: 'test'
+  ...
+# Subtest: artwork capsule derives mood tags as affect offers
+ok 7 - artwork capsule derives mood tags as affect offers
+  ---
+  duration_ms: 103.400208
+  type: 'test'
+  ...
+# Subtest: artwork capsule exposes color tags as aesthetics
+ok 8 - artwork capsule exposes color tags as aesthetics
+  ---
+  duration_ms: 13.985917
+  type: 'test'
+  ...
+# Subtest: artwork capsule creates high arousal boundary from high energy
+ok 9 - artwork capsule creates high arousal boundary from high energy
+  ---
+  duration_ms: 2.378708
+  type: 'test'
+  ...
+# Subtest: artwork capsule creates heavy drama and bright boundaries
+ok 10 - artwork capsule creates heavy drama and bright boundaries
+  ---
+  duration_ms: 0.958166
+  type: 'test'
+  ...
+# Subtest: browser loader fetches manifest plus required embedding shard and then serves cache
+ok 11 - browser loader fetches manifest plus required embedding shard and then serves cache
+  ---
+  duration_ms: 1175.034792
+  type: 'test'
+  ...
+# Subtest: indexeddb browser cache persists release shards across cache instances
+ok 12 - indexeddb browser cache persists release shards across cache instances
+  ---
+  duration_ms: 65.628
+  type: 'test'
+  ...
+# Subtest: browser loader can reuse an indexeddb-backed shard cache
+ok 13 - browser loader can reuse an indexeddb-backed shard cache
+  ---
+  duration_ms: 14.823417
+  type: 'test'
+  ...
+# Subtest: worker search top hit matches server vector search for quiet moonlit room
+ok 14 - worker search top hit matches server vector search for quiet moonlit room
+  ---
+  duration_ms: 205.351917
+  type: 'test'
+  ...
+# Subtest: debug retrieval returns vector top-k, rerank, and keyword baseline
+ok 15 - debug retrieval returns vector top-k, rerank, and keyword baseline
+  ---
+  duration_ms: 103.628541
+  type: 'test'
+  ...
+# Subtest: debug retrieval can embed queries through a fallback provider
+ok 16 - debug retrieval can embed queries through a fallback provider
+  ---
+  duration_ms: 363.631125
+  type: 'test'
+  ...
+# Subtest: debug retrieval can join public relationship evidence without changing rank order
+ok 17 - debug retrieval can join public relationship evidence without changing rank order
+  ---
+  duration_ms: 52.37275
+  type: 'test'
+  ...
+# Subtest: debug retrieval fails closed with empty evidence for unavailable relationship graph
+ok 18 - debug retrieval fails closed with empty evidence for unavailable relationship graph
+  ---
+  duration_ms: 85.688958
+  type: 'test'
+  ...
+# Subtest: local hash embedding provider returns deterministic vectors
+ok 19 - local hash embedding provider returns deterministic vectors
+  ---
+  duration_ms: 84.092167
+  type: 'test'
+  ...
+# Subtest: remote openai-compatible embedding provider parses batch responses
+ok 20 - remote openai-compatible embedding provider parses batch responses
+  ---
+  duration_ms: 1064.234208
+  type: 'test'
+  ...
+# Subtest: fallback embedding provider falls back to local hash when remote fails
+ok 21 - fallback embedding provider falls back to local hash when remote fails
+  ---
+  duration_ms: 0.965708
+  type: 'test'
+  ...
+# Subtest: remote batch indices preserve artwork identity and malformed batches fail closed
+ok 22 - remote batch indices preserve artwork identity and malformed batches fail closed
+  ---
+  duration_ms: 15.53025
+  type: 'test'
+  ...
+# Subtest: prefetch release shards skips cached shards and resolves the next batch
+ok 23 - prefetch release shards skips cached shards and resolves the next batch
+  ---
+  duration_ms: 31.048
+  type: 'test'
+  ...
+# Subtest: release media version validation accepts version or source fingerprint
+ok 24 - release media version validation accepts version or source fingerprint
+  ---
+  duration_ms: 34.192709
+  type: 'test'
+  ...
+# Subtest: public image URLs reject credentials, private hosts, HTTP and unapproved redirects before requesting them
+ok 25 - public image URLs reject credentials, private hosts, HTTP and unapproved redirects before requesting them
+  ---
+  duration_ms: 842.983167
+  type: 'test'
+  ...
+# Subtest: a complete image body is bounded and HTML, SVG, partial status and truncated bodies cannot masquerade as success
+ok 26 - a complete image body is bounded and HTML, SVG, partial status and truncated bodies cannot masquerade as success
+  ---
+  duration_ms: 66.151334
+  type: 'test'
+  ...
+# Subtest: the timeout remains active after headers and aborts a body that never completes
+not ok 27 - the timeout remains active after headers and aborts a body that never completes
+  ---
+  duration_ms: 772.684375
+  type: 'test'
+  location: '/Users/aitoshuu/Documents/GitHub/ArtDuo/packages/corpus/src/public-image-cache.test.ts:34:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+
+      assert.ok(Date.now() - began < 500)
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/aitoshuu/Documents/GitHub/ArtDuo/packages/corpus/src/public-image-cache.test.ts:39:32)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: access denial stops the source host without a second request or another URL
+ok 28 - access denial stops the source host without a second request or another URL
+  ---
+  duration_ms: 80.938916
+  type: 'test'
+  ...
+# Subtest: content-addressed image cache requires the exact accepted body and detects replacement
+ok 29 - content-addressed image cache requires the exact accepted body and detects replacement
+  ---
+  duration_ms: 2291.324791
+  type: 'test'
+  ...
+# Subtest: a preserved verified original restores an evicted cache without masking corrupted bytes
+ok 30 - a preserved verified original restores an evicted cache without masking corrupted bytes
+  ---
+  duration_ms: 672.162375
+  type: 'test'
+  ...
+# Subtest: query embedding normalizes and embeds text deterministically
+ok 31 - query embedding normalizes and embeds text deterministically
+  ---
+  duration_ms: 221.209834
+  type: 'test'
+  ...
+# Subtest: relationship graph selector returns public extracted evidence with deterministic bounds
+ok 32 - relationship graph selector returns public extracted evidence with deterministic bounds
+  ---
+  duration_ms: 215.957791
+  type: 'test'
+  ...
+# Subtest: relationship graph selector fails closed for missing or invalid sidecars
+ok 33 - relationship graph selector fails closed for missing or invalid sidecars
+  ---
+  duration_ms: 2.828292
+  type: 'test'
+  ...
+# Subtest: relationship graph selector output is public-only and does not leak internal fields
+ok 34 - relationship graph selector output is public-only and does not leak internal fields
+  ---
+  duration_ms: 0.873042
+  type: 'test'
+  ...
+# Subtest: relationship graph selector does not alter vector or rerank ordering
+ok 35 - relationship graph selector does not alter vector or rerank ordering
+  ---
+  duration_ms: 696.026458
+  type: 'test'
+  ...
+# Subtest: release loader resolves embeddings from the manifest
+ok 36 - release loader resolves embeddings from the manifest
+  ---
+  duration_ms: 20.000042
+  type: 'test'
+  ...
+# Subtest: release loader rejects unsafe or unavailable release versions
+ok 37 - release loader rejects unsafe or unavailable release versions
+  ---
+  duration_ms: 10.623875
+  type: 'test'
+  ...
+# Subtest: release loader backfills legacy embeddings from metadata and search shards
+ok 38 - release loader backfills legacy embeddings from metadata and search shards
+  ---
+  duration_ms: 4.42
+  type: 'test'
+  ...
+# Subtest: relationship graph loader resolves optional object shards
+ok 39 - relationship graph loader resolves optional object shards
+  ---
+  duration_ms: 12.219417
+  type: 'test'
+  ...
+# Subtest: relationship graph loader returns undefined when sidecar is absent
+ok 40 - relationship graph loader returns undefined when sidecar is absent
+  ---
+  duration_ms: 1.778875
+  type: 'test'
+  ...
+# Subtest: relationship graph loader verifies object shape, pre-parse cap, and recordCount
+ok 41 - relationship graph loader verifies object shape, pre-parse cap, and recordCount
+  ---
+  duration_ms: 7.034625
+  type: 'test'
+  ...
+# Subtest: relationship graph loader rejects stale sidecar release versions
+ok 42 - relationship graph loader rejects stale sidecar release versions
+  ---
+  duration_ms: 4.667458
+  type: 'test'
+  ...
+# Subtest: rerank combines vector score, lexical overlap, and grade
+ok 43 - rerank combines vector score, lexical overlap, and grade
+  ---
+  duration_ms: 143.930542
+  type: 'test'
+  ...
+# Subtest: keyword baseline ranking uses exact non-stopword overlap
+ok 44 - keyword baseline ranking uses exact non-stopword overlap
+  ---
+  duration_ms: 54.785792
+  type: 'test'
+  ...
+# Subtest: vector benchmark reports rerank hit rates over fixed prompts
+ok 45 - vector benchmark reports rerank hit rates over fixed prompts
+  ---
+  duration_ms: 17.163
+  type: 'test'
+  ...
+# Subtest: vector benchmark can run with an explicit embedding provider
+ok 46 - vector benchmark can run with an explicit embedding provider
+  ---
+  duration_ms: 2.145167
+  type: 'test'
+  ...
+# Subtest: vector search returns the closest document first
+ok 47 - vector search returns the closest document first
+  ---
+  duration_ms: 48.066334
+  type: 'test'
+  ...
+1..47
+# tests 47
+# suites 0
+# pass 46
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 13061.812292
+/Users/aitoshuu/Documents/GitHub/ArtDuo/packages/corpus:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @artduo/corpus@0.1.0 test: `pnpm --filter @artduo/contracts build && tsx --test src/*.test.ts`
+Exit status 1
+
+> @artduo/ui@0.1.0 test /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/ui
+> tsx --test src/**/*.test.ts src/**/*.test.tsx

@@ -1,0 +1,67 @@
+Scope: 6 of 7 workspace projects
+
+> @artduo/contracts@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/contracts
+> tsc -p tsconfig.json
+
+
+> @artduo/api@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/apps/api
+> tsc -p tsconfig.json
+
+
+> @artduo/corpus@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/corpus
+> tsc -p tsconfig.json
+
+
+> @artduo/ui@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/ui
+> tsc -p tsconfig.json
+
+
+> @artduo/pipeline@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/apps/pipeline
+> tsc -p tsconfig.json
+
+
+> @artduo/web@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/apps/web
+> next build
+
+   ▲ Next.js 15.5.28
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 17.4s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/7) ...
+   Generating static pages (1/7)
+   Generating static pages (3/7)
+   Generating static pages (5/7)
+ ✓ Generating static pages (7/7)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                       Size  First Load JS
+┌ ƒ /                                          2.67 kB         178 kB
+├ ○ /_not-found                                  157 B         103 kB
+├ ƒ /ambient-audio/[...path]                     157 B         103 kB
+├ ƒ /api/artworks/[id]/explanation               157 B         103 kB
+├ ƒ /api/curation/narrative                      157 B         103 kB
+├ ƒ /api/handwriting/jobs                        157 B         103 kB
+├ ƒ /api/handwriting/jobs/[id]                   157 B         103 kB
+├ ƒ /api/handwriting/jobs/[id]/assets/[asset]    157 B         103 kB
+├ ƒ /api/handwriting/jobs/[id]/cancel            157 B         103 kB
+├ ƒ /api/handwriting/options                     157 B         103 kB
+├ ƒ /api/health                                  157 B         103 kB
+├ ƒ /api/sculptures/narrative                    157 B         103 kB
+├ ƒ /artduo-artwork/[id]                         157 B         103 kB
+├ ƒ /artduo-gallery/[...path]                    157 B         103 kB
+├ ƒ /artwork/[id]                               3.6 kB         179 kB
+├ ƒ /experience/sculptures                       732 B         176 kB
+├ ƒ /gallery                                     794 B         176 kB
+├ ƒ /gallery/[id]/immersive                    4.97 kB         180 kB
+└ ○ /icon.svg                                      0 B            0 B
++ First Load JS shared by all                   103 kB
+  ├ chunks/417-b0c3557b6a0f0aed.js             46.3 kB
+  ├ chunks/a8bf4992-47e09ef9db72ca8f.js        54.2 kB
+  └ other shared chunks (total)                2.16 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

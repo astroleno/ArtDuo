@@ -21,9 +21,10 @@ export function ViewingControls({ session, onPreference, onCancel, onTogglePace,
     {session.pending ? <p className="experience-pending">待调整：{PREFERENCE_LABELS[session.pending.preference]} <button type="button" onClick={onCancel}>取消调整</button></p> : null}
     <p className="experience-adaptation-status" role="status">{session.message}</p>
     {session.revisions.length ? <p className="experience-panel-help">最近一次：{session.revisions.at(-1)!.reason}。</p> : null}
-    <label className="experience-pace-choice"><input type="checkbox" checked={session.paceEnabled} onChange={onTogglePace} />换画节奏跟随我的观看速度</label>
+    <label className="experience-pace-choice"><input type="checkbox" checked={session.paceEnabled} onChange={onTogglePace} />按停留时间微调画面过渡</label>
+    <p className="experience-panel-help">由你操作换画，过渡快慢随观看记录轻微调整。</p>
     <details className="experience-observation-notes"><summary>本次观看记录</summary>
-      <p>仅保存在当前标签页，用于调整换画节奏，不推测心情。</p>
+      <p>仅保存在当前标签页，用于微调过渡与查看本次观看，不推测心情。关闭过渡微调后仍会记录，可随时清除。</p>
       <p>{session.observations.length} 件作品有观看记录</p>
       <button type="button" className="experience-text-button" onClick={onClear}>清除观看记录</button>
     </details>

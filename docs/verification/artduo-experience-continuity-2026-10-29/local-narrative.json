@@ -1,0 +1,27 @@
+[
+  {
+    "case": "late",
+    "first": "赭黄屋顶在前景叠置。",
+    "shown": "赭黄屋顶在前景叠置。",
+    "matches": true,
+    "afterReload": "赭黄屋顶在前景叠置。"
+  },
+  {
+    "case": "early",
+    "first": "这次先看屋顶与海湾，再留意田野与天空。",
+    "shown": "这次先看屋顶与海湾，再留意田野与天空。",
+    "matches": true
+  },
+  {
+    "case": "skip-before-text",
+    "first": null,
+    "shown": "这次先看屋顶与海湾，再留意田野与天空。",
+    "matches": true
+  },
+  {
+    "case": "storage-denied",
+    "first": "赭黄屋顶在前景叠置。",
+    "shown": "赭黄屋顶在前景叠置。",
+    "matches": true
+  }
+]

@@ -6,7 +6,7 @@ import { test } from "node:test";
 import { CURATION_RECIPE_VERSION } from "@artduo/contracts";
 import { fallbackExhibitionNarrative } from "../../../api/src/services/curation/exhibition-narrative";
 import { curationDirectory, type CuratedExhibition } from "../../lib/semantic-curator";
-import { exhibitionNarrativeInput, getExhibitionNarrative, readNarrativePieces } from "../../lib/exhibition-narrative-server";
+import { curationNarrativeView, exhibitionNarrativeInput, getExhibitionNarrative, readNarrativePieces } from "../../lib/exhibition-narrative-server";
 import { loadWebReleaseCatalog } from "../../lib/release-catalog";
 import { fallbackCurationIntent, selectForCurationStages } from "../../lib/semantic-selection";
 
@@ -40,6 +40,15 @@ test("temporary narrative failure keeps the fallback usable and permits later re
     await cooled.complete;
     assert.equal(unexpectedRequests, 0, "refreshing a failed guide respects its retry window");
     assert.equal(readNarrativePieces(catalog, curation), undefined, "fallback remains distinct from model success");
+    const failedFilename = readdirSync(curationDirectory(temporary)).find(file => file.includes("narrative-v5"))!;
+    const failedPath = path.join(curationDirectory(temporary), failedFilename);
+    const oldFallback = JSON.parse(readFileSync(failedPath, "utf8"));
+    oldFallback.pieces[0].text = "当前预览未见可辨认人物，不足以确认是否为船。";
+    writeFileSync(failedPath, JSON.stringify(oldFallback));
+    const replayed = curationNarrativeView(catalog, curation);
+    assert.equal(replayed.pieces[0]!.text, fallbackExhibitionNarrative(exhibitionNarrativeInput(catalog, curation))[0]!.text);
+    assert.doesNotMatch(replayed.pieces[0]!.text, /当前预览|不足以确认/u, "cached failure text is selected again without another model request");
+    assert.equal(unexpectedRequests, 0);
     clock += 60_001;
     const second = getExhibitionNarrative(catalog, curation, { now: () => clock, stream: async function* () {
       yield bedroomGuide().map((piece) => JSON.stringify(piece)).join("\n");

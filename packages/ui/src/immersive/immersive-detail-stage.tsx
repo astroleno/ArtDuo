@@ -464,9 +464,7 @@ export function ImmersiveDetailStage({
       <header className="immersive-detail-header">
         <div className="immersive-detail-heading">
           {motionAvailable ? <button
-            aria-label={motionState === "enabled" || motionState === "calibrating"
-              ? "关闭手机感应"
-              : "开启手机感应"}
+            aria-label={motionState === "calibrating" ? "轻动手机校准，点击关闭手机感应" : motionButtonLabel()}
             aria-pressed={motionState === "enabled" || motionState === "calibrating"}
             className="immersive-detail-motion-toggle"
             disabled={motionState === "requesting" || motionState === "unavailable"}
@@ -481,14 +479,13 @@ export function ImmersiveDetailStage({
           ) : null}
         </div>
         <button
-          aria-label="返回画廊视图"
           className="immersive-detail-close"
           onClick={() => requestClose()}
           ref={closeButtonRef}
           type="button"
         >
           <span aria-hidden="true">↙</span>
-          返回画廊
+          返回展厅
         </button>
       </header>
 
@@ -511,7 +508,7 @@ export function ImmersiveDetailStage({
         >
           <img
             crossOrigin="anonymous"
-            alt={`${unit.title} artwork immersive view`}
+            alt={`近看《${unit.title}》`}
             className="immersive-detail-fallback"
             onLoad={(event) => {
               const image = event.currentTarget;
@@ -544,23 +541,23 @@ export function ImmersiveDetailStage({
 
       <nav aria-label="沉浸作品切换" className="immersive-detail-navigation">
         <button
-          aria-label="上一幅作品"
+          aria-label="上一件作品"
           className="is-previous"
           disabled={!hasPrevious || pendingArtwork || phase !== "open"}
           onClick={onPrevious}
           type="button"
         >
           <span aria-hidden="true">←</span>
-          上一幅
+          上一件
         </button>
         <button
-          aria-label="下一幅作品"
+          aria-label="下一件作品"
           className="is-next"
           disabled={!hasNext || pendingArtwork || phase !== "open"}
           onClick={onNext}
           type="button"
         >
-          下一幅
+          下一件
           <span aria-hidden="true">→</span>
         </button>
       </nav>

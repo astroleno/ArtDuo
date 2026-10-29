@@ -211,7 +211,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     <div aria-hidden="true" className="experience-room-shade" />
     <AtmosphereLayer reducedMotion={reducedMotion} tone={unit.scene?.visual_profile.lighting[0] ?? "warm"} />
     <header className="experience-room-header">
-      <a aria-label="ArtDuo，重新选一组作品" className="experience-mark" href={appPath(entryHref)}>ArtDuo</a>
+      <a aria-label="ArtDuo，返回入口" className="experience-mark" href={appPath(entryHref)}>ArtDuo</a>
       <div className="experience-room-meta"><span>{unit.scene?.asset.label_cn ?? "静光展厅"}</span><span>{String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}</span></div>
     </header>
     {mediaFailed && !lightboxExpanded ? <div className="experience-media-fallback" role="status">
@@ -236,7 +236,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     </div>
     <nav className="experience-walk-controls" aria-label="作品导航">
       <button aria-label="上一件作品" disabled={index === 0} onClick={onPrevious} type="button">← <span>上一件</span></button>
-      <button aria-label={index === count - 1 ? "进入结语" : "下一件作品"} className="experience-next" onClick={onNext} type="button">{index === count - 1 ? "看完了" : "下一件"} <span aria-hidden="true">→</span></button>
+      <button aria-label={index === count - 1 ? "看完了，进入结语" : "下一件作品"} className="experience-next" onClick={onNext} type="button">{index === count - 1 ? "看完了" : "下一件"} <span aria-hidden="true">→</span></button>
     </nav>
     {motion.message ? <p className="experience-motion-status" role="status">{motion.message}</p> : null}
   </section>;

@@ -1,0 +1,36 @@
+Scope: 6 of 7 workspace projects
+
+> @artduo/contracts@0.1.0 typecheck /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/contracts
+> tsc -p tsconfig.json --noEmit
+
+
+> @artduo/api@0.1.0 typecheck /Users/aitoshuu/Documents/GitHub/ArtDuo/apps/api
+> tsc -p tsconfig.json --noEmit
+
+
+> @artduo/corpus@0.1.0 typecheck /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/corpus
+> pnpm --filter @artduo/contracts build && tsc -p tsconfig.json --noEmit
+
+
+> @artduo/contracts@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/contracts
+> tsc -p tsconfig.json
+
+
+> @artduo/ui@0.1.0 typecheck /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/ui
+> tsc -p tsconfig.json --noEmit
+
+
+> @artduo/pipeline@0.1.0 typecheck /Users/aitoshuu/Documents/GitHub/ArtDuo/apps/pipeline
+> pnpm --filter @artduo/contracts build && pnpm --filter @artduo/corpus build && tsc -p tsconfig.json --noEmit
+
+
+> @artduo/contracts@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/contracts
+> tsc -p tsconfig.json
+
+
+> @artduo/corpus@0.1.0 build /Users/aitoshuu/Documents/GitHub/ArtDuo/packages/corpus
+> tsc -p tsconfig.json
+
+
+> @artduo/web@0.1.0 typecheck /Users/aitoshuu/Documents/GitHub/ArtDuo/apps/web
+> tsc -p tsconfig.json --noEmit

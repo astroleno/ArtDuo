@@ -1,0 +1,3362 @@
+PACKAGE packages/contracts FILES 18
+TAP version 13
+# Subtest: user affect agent parser accepts canonical desires and resistances
+ok 1 - user affect agent parser accepts canonical desires and resistances
+  ---
+  duration_ms: 3.36375
+  type: 'test'
+  ...
+# Subtest: artwork agent capsule evidence requires at least one source ref
+ok 2 - artwork agent capsule evidence requires at least one source ref
+  ---
+  duration_ms: 1.031125
+  type: 'test'
+  ...
+# Subtest: growth form parser enforces normalized stage numbers
+ok 3 - growth form parser enforces normalized stage numbers
+  ---
+  duration_ms: 0.977417
+  type: 'test'
+  ...
+# Subtest: growth form parser accepts 3 to 5 stages
+ok 4 - growth form parser accepts 3 to 5 stages
+  ---
+  duration_ms: 0.2455
+  type: 'test'
+  ...
+# Subtest: growth form rules preserve severity
+ok 5 - growth form rules preserve severity
+  ---
+  duration_ms: 0.574458
+  type: 'test'
+  ...
+# Subtest: media remain grounded in metadata and mixed techniques retain their identity
+ok 6 - media remain grounded in metadata and mixed techniques retain their identity
+  ---
+  duration_ms: 4.73525
+  type: 'test'
+  ...
+# Subtest: explanation statuses stay aligned with the v0.2 contract
+ok 7 - explanation statuses stay aligned with the v0.2 contract
+  ---
+  duration_ms: 2.096958
+  type: 'test'
+  ...
+# Subtest: artwork explanation exposes pending and ready shapes
+ok 8 - artwork explanation exposes pending and ready shapes
+  ---
+  duration_ms: 3.552208
+  type: 'test'
+  ...
+# Subtest: ready artwork explanations require traceable evidence
+ok 9 - ready artwork explanations require traceable evidence
+  ---
+  duration_ms: 0.634541
+  type: 'test'
+  ...
+# Subtest: public source records retain their verified URL and reject mismatched image receipts
+ok 10 - public source records retain their verified URL and reject mismatched image receipts
+  ---
+  duration_ms: 10.73525
+  type: 'test'
+  ...
+# Subtest: artwork fixtures satisfy the Phase 1 display/data baseline
+ok 11 - artwork fixtures satisfy the Phase 1 display/data baseline
+  ---
+  duration_ms: 2.028667
+  type: 'test'
+  ...
+# Subtest: artwork parser accepts visual presentation crop metadata
+ok 12 - artwork parser accepts visual presentation crop metadata
+  ---
+  duration_ms: 1.129417
+  type: 'test'
+  ...
+# Subtest: artwork parser rejects visual presentation bounds outside the image
+ok 13 - artwork parser rejects visual presentation bounds outside the image
+  ---
+  duration_ms: 0.837875
+  type: 'test'
+  ...
+# Subtest: artwork parser preserves a release and source-bound depth map
+ok 14 - artwork parser preserves a release and source-bound depth map
+  ---
+  duration_ms: 0.364416
+  type: 'test'
+  ...
+# Subtest: artwork parser rejects stale or uncontained depth maps
+ok 15 - artwork parser rejects stale or uncontained depth maps
+  ---
+  duration_ms: 0.501041
+  type: 'test'
+  ...
+# Subtest: background match fixture stays aligned with the candidate scene catalog
+ok 16 - background match fixture stays aligned with the candidate scene catalog
+  ---
+  duration_ms: 7.442541
+  type: 'test'
+  ...
+# Subtest: background scene fixtures expose staging and transition data
+ok 17 - background scene fixtures expose staging and transition data
+  ---
+  duration_ms: 6.775417
+  type: 'test'
+  ...
+# Subtest: manifest fixture matches the bootstrap fixture counts
+ok 18 - manifest fixture matches the bootstrap fixture counts
+  ---
+  duration_ms: 24.225083
+  type: 'test'
+  ...
+# Subtest: manifest parser accepts optional embedding shards
+ok 19 - manifest parser accepts optional embedding shards
+  ---
+  duration_ms: 1.208708
+  type: 'test'
+  ...
+# Subtest: manifest parser accepts optional relationship graph shards
+ok 20 - manifest parser accepts optional relationship graph shards
+  ---
+  duration_ms: 0.96675
+  type: 'test'
+  ...
+# Subtest: curation events include session and explanation lifecycle updates
+ok 21 - curation events include session and explanation lifecycle updates
+  ---
+  duration_ms: 2.864916
+  type: 'test'
+  ...
+# Subtest: curation grade profile parses the A/B/C display contract
+ok 22 - curation grade profile parses the A/B/C display contract
+  ---
+  duration_ms: 4.150208
+  type: 'test'
+  ...
+# Subtest: motion playback profile keeps dynamic media optional
+ok 23 - motion playback profile keeps dynamic media optional
+  ---
+  duration_ms: 0.3995
+  type: 'test'
+  ...
+# Subtest: session statuses stay aligned with the v0.2 contract
+ok 24 - session statuses stay aligned with the v0.2 contract
+  ---
+  duration_ms: 6.409334
+  type: 'test'
+  ...
+# Subtest: create curation request includes required v0.2 fields
+ok 25 - create curation request includes required v0.2 fields
+  ---
+  duration_ms: 3.417333
+  type: 'test'
+  ...
+# Subtest: curation session carries status/source/unit/ownership fields
+ok 26 - curation session carries status/source/unit/ownership fields
+  ---
+  duration_ms: 1.63375
+  type: 'test'
+  ...
+# Subtest: embedding shard records preserve retrieval debug metadata
+ok 27 - embedding shard records preserve retrieval debug metadata
+  ---
+  duration_ms: 18.6635
+  type: 'test'
+  ...
+# Subtest: error fixtures conform to the shared ApiError shape
+ok 28 - error fixtures conform to the shared ApiError shape
+  ---
+  duration_ms: 4.092125
+  type: 'test'
+  ...
+# Subtest: exhibition units only reference frozen v0.1 artworks and scenes
+ok 29 - exhibition units only reference frozen v0.1 artworks and scenes
+  ---
+  duration_ms: 32.53375
+  type: 'test'
+  ...
+# Subtest: keepsake identity binds exact confirmed text, independent signature and artwork
+ok 30 - keepsake identity binds exact confirmed text, independent signature and artwork
+  ---
+  duration_ms: 2.010583
+  type: 'test'
+  ...
+# Subtest: draft parsing rejects invalid versions, control characters, paths and oversized writing
+ok 31 - draft parsing rejects invalid versions, control characters, paths and oversized writing
+  ---
+  duration_ms: 1.160458
+  type: 'test'
+  ...
+# Subtest: subpath URLs preserve query, fragments, case and existing prefixes
+ok 32 - subpath URLs preserve query, fragments, case and existing prefixes
+  ---
+  duration_ms: 3.858542
+  type: 'test'
+  ...
+# Subtest: external media and root deployments remain unchanged; malformed configuration fails
+ok 33 - external media and root deployments remain unchanged; malformed configuration fails
+  ---
+  duration_ms: 0.731375
+  type: 'test'
+  ...
+# Subtest: relationship graph parser accepts valid and empty public graphs
+ok 34 - relationship graph parser accepts valid and empty public graphs
+  ---
+  duration_ms: 59.749667
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects malformed graph shapes
+ok 35 - relationship graph parser rejects malformed graph shapes
+  ---
+  duration_ms: 13.55425
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects over-limit graphs
+ok 36 - relationship graph parser rejects over-limit graphs
+  ---
+  duration_ms: 4.928709
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects duplicate node and edge ids
+ok 37 - relationship graph parser rejects duplicate node and edge ids
+  ---
+  duration_ms: 80.226292
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects self-loops and unknown node references
+ok 38 - relationship graph parser rejects self-loops and unknown node references
+  ---
+  duration_ms: 2.256458
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects node id and relation topology mismatches
+ok 39 - relationship graph parser rejects node id and relation topology mismatches
+  ---
+  duration_ms: 2.192916
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects invalid relationship scores
+ok 40 - relationship graph parser rejects invalid relationship scores
+  ---
+  duration_ms: 19.042
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects non-allowlisted source ref field paths
+ok 41 - relationship graph parser rejects non-allowlisted source ref field paths
+  ---
+  duration_ms: 5.821209
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects source refs from another release
+ok 42 - relationship graph parser rejects source refs from another release
+  ---
+  duration_ms: 182.7065
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects unknown public fields
+ok 43 - relationship graph parser rejects unknown public fields
+  ---
+  duration_ms: 4.774542
+  type: 'test'
+  ...
+# Subtest: relationship graph parser rejects internal and non-public data leaks
+ok 44 - relationship graph parser rejects internal and non-public data leaks
+  ---
+  duration_ms: 6.342709
+  type: 'test'
+  ...
+# Subtest: curatorial intent rejects invalid state, duplicate stages, and unbounded counts
+ok 45 - curatorial intent rejects invalid state, duplicate stages, and unbounded counts
+  ---
+  duration_ms: 2.306792
+  type: 'test'
+  ...
+# Subtest: semantic index rejects duplicate identities, dimension mismatch, and non-normalized vectors
+ok 46 - semantic index rejects duplicate identities, dimension mismatch, and non-normalized vectors
+  ---
+  duration_ms: 1.812375
+  type: 'test'
+  ...
+# Subtest: narrative pieces bound content and require an artwork identity for notes
+ok 47 - narrative pieces bound content and require an artwork identity for notes
+  ---
+  duration_ms: 3.694166
+  type: 'test'
+  ...
+# Subtest: exclusive requests cover the shared painting media vocabulary
+ok 48 - exclusive requests cover the shared painting media vocabulary
+  ---
+  duration_ms: 7.455958
+  type: 'test'
+  ...
+1..48
+# tests 48
+# suites 0
+# pass 48
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17063.669916
+PACKAGE apps/api FILES 19
+TAP version 13
+# Subtest: curation flow records create and explanation timings without real LLM credentials
+ok 1 - curation flow records create and explanation timings without real LLM credentials
+  ---
+  duration_ms: 29.527416
+  type: 'test'
+  ...
+# Subtest: metrics records curation timings and degradation triggers
+ok 2 - metrics records curation timings and degradation triggers
+  ---
+  duration_ms: 5.468791
+  type: 'test'
+  ...
+# Subtest: known artwork returns pending without generator
+ok 3 - known artwork returns pending without generator
+  ---
+  duration_ms: 9.213084
+  type: 'test'
+  ...
+# Subtest: server provider env is opt-in and does not run by default
+ok 4 - server provider env is opt-in and does not run by default
+  ---
+  duration_ms: 12.789042
+  type: 'test'
+  ...
+# Subtest: enabled server provider receives route grounding
+ok 5 - enabled server provider receives route grounding
+  ---
+  duration_ms: 34.515666
+  type: 'test'
+  ...
+# Subtest: provider contract failures become a bounded API error instead of rejecting the route
+ok 6 - provider contract failures become a bounded API error instead of rejecting the route
+  ---
+  duration_ms: 5.270917
+  type: 'test'
+  ...
+# Subtest: generator returns ready explanation and is cached
+ok 7 - generator returns ready explanation and is cached
+  ---
+  duration_ms: 20.289584
+  type: 'test'
+  ...
+# Subtest: ready explanation includes grounding context and citations
+ok 8 - ready explanation includes grounding context and citations
+  ---
+  duration_ms: 7.301125
+  type: 'test'
+  ...
+# Subtest: unknown artwork returns 404
+ok 9 - unknown artwork returns 404
+  ---
+  duration_ms: 4.741083
+  type: 'test'
+  ...
+# Subtest: budget guard rejects generation when estimated tokens exceed max
+ok 10 - budget guard rejects generation when estimated tokens exceed max
+  ---
+  duration_ms: 2.63775
+  type: 'test'
+  ...
+# Subtest: cached ready explanation is returned even when over-budget input is provided
+ok 11 - cached ready explanation is returned even when over-budget input is provided
+  ---
+  duration_ms: 10.200416
+  type: 'test'
+  ...
+# Subtest: explanation route records runtime metrics and request log entries
+ok 12 - explanation route records runtime metrics and request log entries
+  ---
+  duration_ms: 5.854208
+  type: 'test'
+  ...
+# Subtest: corpus route resolves the latest release manifest
+ok 13 - corpus route resolves the latest release manifest
+  ---
+  duration_ms: 13.313625
+  type: 'test'
+  ...
+# Subtest: create returns 201 and idempotency returns the same session id
+ok 14 - create returns 201 and idempotency returns the same session id
+  ---
+  duration_ms: 4.50225
+  type: 'test'
+  ...
+# Subtest: get returns 200 for owner, 403 for wrong token, and 404 for unknown session
+ok 15 - get returns 200 for owner, 403 for wrong token, and 404 for unknown session
+  ---
+  duration_ms: 1.129459
+  type: 'test'
+  ...
+# Subtest: same idempotency key with different request body returns 409
+ok 16 - same idempotency key with different request body returns 409
+  ---
+  duration_ms: 4.268209
+  type: 'test'
+  ...
+# Subtest: create session is rate-limited by idempotency key or client identity
+ok 17 - create session is rate-limited by idempotency key or client identity
+  ---
+  duration_ms: 0.63275
+  type: 'test'
+  ...
+# Subtest: same idempotency key replay still returns original session after rate limit window is exhausted
+ok 18 - same idempotency key replay still returns original session after rate limit window is exhausted
+  ---
+  duration_ms: 2.727459
+  type: 'test'
+  ...
+# Subtest: create session records runtime metrics and request log entries
+ok 19 - create session records runtime metrics and request log entries
+  ---
+  duration_ms: 1.49575
+  type: 'test'
+  ...
+# Subtest: budget guard throws when estimated tokens exceed max
+ok 20 - budget guard throws when estimated tokens exceed max
+  ---
+  duration_ms: 1.515666
+  type: 'test'
+  ...
+# Subtest: motion profile falls back to static image with light motion when no dynamic media exists
+ok 21 - motion profile falls back to static image with light motion when no dynamic media exists
+  ---
+  duration_ms: 9.127333
+  type: 'test'
+  ...
+# Subtest: motion profile gives A-grade motion assets a director-focus strategy
+ok 22 - motion profile gives A-grade motion assets a director-focus strategy
+  ---
+  duration_ms: 2.01375
+  type: 'test'
+  ...
+# Subtest: provider SSE survives frame boundaries and rejects missing termination and truncated generation
+ok 23 - provider SSE survives frame boundaries and rejects missing termination and truncated generation
+  ---
+  duration_ms: 43.265834
+  type: 'test'
+  ...
+# Subtest: English word counts are explicit, including when the visitor declines another count
+ok 24 - English word counts are explicit, including when the visitor declines another count
+  ---
+  duration_ms: 1.766084
+  type: 'test'
+  ...
+# Subtest: intent planning validates provider output and honors explicit artwork counts
+ok 25 - intent planning validates provider output and honors explicit artwork counts
+  ---
+  duration_ms: 5.047209
+  type: 'test'
+  ...
+# Subtest: one explicitly named work stays one without needing a numeric instruction
+ok 26 - one explicitly named work stays one without needing a numeric instruction
+  ---
+  duration_ms: 1.6455
+  type: 'test'
+  ...
+# Subtest: route claims use actual first and last works rather than pooled visual evidence
+ok 27 - route claims use actual first and last works rather than pooled visual evidence
+  ---
+  duration_ms: 25.566708
+  type: 'test'
+  ...
+# Subtest: a shared exhibition claim must also hold for works omitted from its evidence IDs
+ok 28 - a shared exhibition claim must also hold for works omitted from its evidence IDs
+  ---
+  duration_ms: 2.831875
+  type: 'test'
+  ...
+# Subtest: negation stays with its clause and a verified broad mat is not an open landscape
+ok 29 - negation stays with its clause and a verified broad mat is not an open landscape
+  ---
+  duration_ms: 2.669125
+  type: 'test'
+  ...
+# Subtest: adjacent observed objects do not license an invented separation
+ok 30 - adjacent observed objects do not license an invented separation
+  ---
+  duration_ms: 0.584959
+  type: 'test'
+  ...
+# Subtest: a book in a portrait does not put the sitter's hand beside it
+ok 31 - a book in a portrait does not put the sitter's hand beside it
+  ---
+  duration_ms: 0.815125
+  type: 'test'
+  ...
+# Subtest: empty compositional contrasts are removed without accepting an invented visible person
+ok 32 - empty compositional contrasts are removed without accepting an invented visible person
+  ---
+  duration_ms: 0.447708
+  type: 'test'
+  ...
+# Subtest: repair ignores already completed keys and keeps all newly requested notes
+ok 33 - repair ignores already completed keys and keeps all newly requested notes
+  ---
+  duration_ms: 1.172542
+  type: 'test'
+  ...
+# Subtest: a hand-focused request cannot borrow a legacy description or generalize one supported hand to both portraits
+ok 34 - a hand-focused request cannot borrow a legacy description or generalize one supported hand to both portraits
+  ---
+  duration_ms: 6.319875
+  type: 'test'
+  ...
+# Subtest: verified qualified absence does not erase people visible in a painting within the painting
+ok 35 - verified qualified absence does not erase people visible in a painting within the painting
+  ---
+  duration_ms: 1.319167
+  type: 'test'
+  ...
+# Subtest: fallback keeps complete observed clauses and never chops a foreign title or sentence into an ellipsis
+ok 36 - fallback keeps complete observed clauses and never chops a foreign title or sentence into an ellipsis
+  ---
+  duration_ms: 2.065417
+  type: 'test'
+  ...
+# Subtest: fallback selects observed relations without converting audit uncertainty into a claim
+ok 37 - fallback selects observed relations without converting audit uncertainty into a claim
+  ---
+  duration_ms: 0.612042
+  type: 'test'
+  ...
+# Subtest: uncertain-only fallback uses metadata and retains an explicitly missing viewing focus
+ok 38 - uncertain-only fallback uses metadata and retains an explicitly missing viewing focus
+  ---
+  duration_ms: 0.26575
+  type: 'test'
+  ...
+# Subtest: narrative streams only complete validated lines in exhibition order
+ok 39 - narrative streams only complete validated lines in exhibition order
+  ---
+  duration_ms: 2.025084
+  type: 'test'
+  ...
+# Subtest: neutral single-work requests cannot invent a feeling or unvisited stages
+ok 40 - neutral single-work requests cannot invent a feeling or unvisited stages
+  ---
+  duration_ms: 1.052458
+  type: 'test'
+  ...
+# Subtest: Chinese denials do not license sadness attribution even without a no-comfort request
+ok 41 - Chinese denials do not license sadness attribution even without a no-comfort request
+  ---
+  duration_ms: 1.642541
+  type: 'test'
+  ...
+# Subtest: notes without a real description cannot add invented visual details
+ok 42 - notes without a real description cannot add invented visual details
+  ---
+  duration_ms: 0.409458
+  type: 'test'
+  ...
+# Subtest: wet surfaces and umbrellas do not establish that rain has ended
+ok 43 - wet surfaces and umbrellas do not establish that rain has ended
+  ---
+  duration_ms: 1.239208
+  type: 'test'
+  ...
+# Subtest: image review observations ground prose without masquerading as museum descriptions
+ok 44 - image review observations ground prose without masquerading as museum descriptions
+  ---
+  duration_ms: 0.758625
+  type: 'test'
+  ...
+# Subtest: requested detail focus cannot be invented, substituted by metaphor or omitted when supported
+ok 45 - requested detail focus cannot be invented, substituted by metaphor or omitted when supported
+  ---
+  duration_ms: 1.261
+  type: 'test'
+  ...
+# Subtest: direct user attribution must quote the input and cannot add a viewing preference
+ok 46 - direct user attribution must quote the input and cannot add a viewing preference
+  ---
+  duration_ms: 1.4875
+  type: 'test'
+  ...
+# Subtest: one rejected note is replaced without erasing a valid closing
+ok 47 - one rejected note is replaced without erasing a valid closing
+  ---
+  duration_ms: 1.117833
+  type: 'test'
+  ...
+# Subtest: observation-only requests reject emotional endings and keep fallback prose factual
+ok 48 - observation-only requests reject emotional endings and keep fallback prose factual
+  ---
+  duration_ms: 1.012042
+  type: 'test'
+  ...
+# Subtest: declined emotional framing drops a quoted feeling while retaining grounded exhibition prose
+ok 49 - declined emotional framing drops a quoted feeling while retaining grounded exhibition prose
+  ---
+  duration_ms: 0.548584
+  type: 'test'
+  ...
+# Subtest: negated feelings cannot license emotional attribution in observation-only requests
+ok 50 - negated feelings cannot license emotional attribution in observation-only requests
+  ---
+  duration_ms: 0.344625
+  type: 'test'
+  ...
+# Subtest: wrong references and interrupted providers cannot substitute works or erase a delivered preface
+ok 51 - wrong references and interrupted providers cannot substitute works or erase a delivered preface
+  ---
+  duration_ms: 0.820833
+  type: 'test'
+  ...
+# Subtest: frozen image facts reject invented objects, false absences and unverified space
+ok 52 - frozen image facts reject invented objects, false absences and unverified space
+  ---
+  duration_ms: 1.617042
+  type: 'test'
+  ...
+# Subtest: quoted exclusions remain negated without licensing an invented visible person
+ok 53 - quoted exclusions remain negated without licensing an invented visible person
+  ---
+  duration_ms: 0.779875
+  type: 'test'
+  ...
+# Subtest: declining comfort keeps factual closings and removes unrequested emotional codas
+ok 54 - declining comfort keeps factual closings and removes unrequested emotional codas
+  ---
+  duration_ms: 0.494
+  type: 'test'
+  ...
+# Subtest: actual counts and own-work references cannot borrow the request or a neighbor's evidence
+ok 55 - actual counts and own-work references cannot borrow the request or a neighbor's evidence
+  ---
+  duration_ms: 1.406958
+  type: 'test'
+  ...
+# Subtest: excitement needs no imposed transformation and writing constraints do not become quoted prose
+ok 56 - excitement needs no imposed transformation and writing constraints do not become quoted prose
+  ---
+  duration_ms: 0.380416
+  type: 'test'
+  ...
+# Subtest: a lowered head does not establish a bent torso; keep only independently grounded clauses
+ok 57 - a lowered head does not establish a bent torso; keep only independently grounded clauses
+  ---
+  duration_ms: 0.450459
+  type: 'test'
+  ...
+# Subtest: cache key includes release, artwork, and stable context hash
+ok 58 - cache key includes release, artwork, and stable context hash
+  ---
+  duration_ms: 1.354667
+  type: 'test'
+  ...
+# Subtest: cache stores ready content, survives restart, and revalidates current evidence
+ok 59 - cache stores ready content, survives restart, and revalidates current evidence
+  ---
+  duration_ms: 36.855708
+  type: 'test'
+  ...
+# Subtest: deterministic generator returns grounded evidence without real LLM credentials
+ok 60 - deterministic generator returns grounded evidence without real LLM credentials
+  ---
+  duration_ms: 1.949292
+  type: 'test'
+  ...
+# Subtest: server provider adapter is disabled unless server env is explicitly configured
+ok 61 - server provider adapter is disabled unless server env is explicitly configured
+  ---
+  duration_ms: 0.51075
+  type: 'test'
+  ...
+# Subtest: server provider adapter accepts the configured DeepSeek environment aliases
+ok 62 - server provider adapter accepts the configured DeepSeek environment aliases
+  ---
+  duration_ms: 84.34675
+  type: 'test'
+  ...
+# Subtest: server provider adapter streams an OpenAI-compatible grounded artwork prompt
+ok 63 - server provider adapter streams an OpenAI-compatible grounded artwork prompt
+  ---
+  duration_ms: 4.709958
+  type: 'test'
+  ...
+# Subtest: server provider adapter handles CRLF frame boundaries split across network chunks
+ok 64 - server provider adapter handles CRLF frame boundaries split across network chunks
+  ---
+  duration_ms: 3.434625
+  type: 'test'
+  ...
+# Subtest: server provider adapter rejects a streamed response that omits a required field
+ok 65 - server provider adapter rejects a streamed response that omits a required field
+  ---
+  duration_ms: 2.45825
+  type: 'test'
+  ...
+# Subtest: detail prose removes echoed writing instructions while retaining actual viewing observations
+ok 66 - detail prose removes echoed writing instructions while retaining actual viewing observations
+  ---
+  duration_ms: 3.496667
+  type: 'test'
+  ...
+# Subtest: grade artworks assigns stable A/B/C grades from ranked candidates
+ok 67 - grade artworks assigns stable A/B/C grades from ranked candidates
+  ---
+  duration_ms: 4.132458
+  type: 'test'
+  ...
+# Subtest: grade artworks keeps explicit grade overrides but still normalizes labels
+ok 68 - grade artworks keeps explicit grade overrides but still normalizes labels
+  ---
+  duration_ms: 0.382708
+  type: 'test'
+  ...
+# Subtest: idempotency store reuses the same value for the same key
+ok 69 - idempotency store reuses the same value for the same key
+  ---
+  duration_ms: 2.059875
+  type: 'test'
+  ...
+# Subtest: idempotency store rejects empty keys
+ok 70 - idempotency store rejects empty keys
+  ---
+  duration_ms: 0.775834
+  type: 'test'
+  ...
+# Subtest: rate limit allows first N requests and rejects N+1 in same window
+ok 71 - rate limit allows first N requests and rejects N+1 in same window
+  ---
+  duration_ms: 4.579834
+  type: 'test'
+  ...
+# Subtest: redaction replaces raw user text
+ok 72 - redaction replaces raw user text
+  ---
+  duration_ms: 2.434709
+  type: 'test'
+  ...
+# Subtest: retention policy keeps short raw ttl and longer redacted ttl
+ok 73 - retention policy keeps short raw ttl and longer redacted ttl
+  ---
+  duration_ms: 1.054542
+  type: 'test'
+  ...
+# Subtest: dual public origins are explicit HTTPS origins and keep the existing model ceilings
+ok 74 - dual public origins are explicit HTTPS origins and keep the existing model ceilings
+  ---
+  duration_ms: 6.468875
+  type: 'test'
+  ...
+# Subtest: concurrent callers share a durable limit, release leases, and keep the spent budget across restarts
+ok 75 - concurrent callers share a durable limit, release leases, and keep the spent budget across restarts
+  ---
+  duration_ms: 42.703083
+  type: 'test'
+  ...
+# Subtest: token reservations fail closed on budget exhaustion or damaged accounting
+ok 76 - token reservations fail closed on budget exhaustion or damaged accounting
+  ---
+  duration_ms: 7.805875
+  type: 'test'
+  ...
+# Subtest: public mode needs persistent storage and a trusted address; visitor records never store the raw IP
+ok 77 - public mode needs persistent storage and a trusted address; visitor records never store the raw IP
+  ---
+  duration_ms: 49.7525
+  type: 'test'
+  ...
+# Subtest: session store creates and gets sessions by id
+ok 78 - session store creates and gets sessions by id
+  ---
+  duration_ms: 1.132916
+  type: 'test'
+  ...
+# Subtest: session store updates existing sessions and rejects unknown ids
+ok 79 - session store updates existing sessions and rejects unknown ids
+  ---
+  duration_ms: 0.714833
+  type: 'test'
+  ...
+# Subtest: session token is created with a token and expiry
+ok 80 - session token is created with a token and expiry
+  ---
+  duration_ms: 5.305333
+  type: 'test'
+  ...
+# Subtest: session token verification accepts owner before expiry and rejects cross-session
+ok 81 - session token verification accepts owner before expiry and rejects cross-session
+  ---
+  duration_ms: 1.183375
+  type: 'test'
+  ...
+1..81
+# tests 81
+# suites 0
+# pass 81
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12033.757209
+PACKAGE packages/corpus FILES 0
+TAP version 13
+# Subtest: extracts negative brightness and warm dark visual constraints
+ok 1 - extracts negative brightness and warm dark visual constraints
+  ---
+  duration_ms: 13.247209
+  type: 'test'
+  ...
+# Subtest: extracts explicit quiet wonder calm temporal stages
+ok 2 - extracts explicit quiet wonder calm temporal stages
+  ---
+  duration_ms: 22.953333
+  type: 'test'
+  ...
+# Subtest: extracts bedtime memory and grief resistance
+ok 3 - extracts bedtime memory and grief resistance
+  ---
+  duration_ms: 2.631542
+  type: 'test'
+  ...
+# Subtest: keeps joy while rejecting cartoonish happiness
+ok 4 - keeps joy while rejecting cartoonish happiness
+  ---
+  duration_ms: 1.698292
+  type: 'test'
+  ...
+# Subtest: keeps quiet desire and rejects loud romance
+ok 5 - keeps quiet desire and rejects loud romance
+  ---
+  duration_ms: 0.379625
+  type: 'test'
+  ...
+# Subtest: extracts no drama and overfull plot as heavy drama resistance
+ok 6 - extracts no drama and overfull plot as heavy drama resistance
+  ---
+  duration_ms: 0.456625
+  type: 'test'
+  ...
+# Subtest: artwork capsule derives mood tags as affect offers
+ok 7 - artwork capsule derives mood tags as affect offers
+  ---
+  duration_ms: 5.194
+  type: 'test'
+  ...
+# Subtest: artwork capsule exposes color tags as aesthetics
+ok 8 - artwork capsule exposes color tags as aesthetics
+  ---
+  duration_ms: 0.372625
+  type: 'test'
+  ...
+# Subtest: artwork capsule creates high arousal boundary from high energy
+ok 9 - artwork capsule creates high arousal boundary from high energy
+  ---
+  duration_ms: 0.395125
+  type: 'test'
+  ...
+# Subtest: artwork capsule creates heavy drama and bright boundaries
+ok 10 - artwork capsule creates heavy drama and bright boundaries
+  ---
+  duration_ms: 0.755875
+  type: 'test'
+  ...
+# Subtest: browser loader fetches manifest plus required embedding shard and then serves cache
+ok 11 - browser loader fetches manifest plus required embedding shard and then serves cache
+  ---
+  duration_ms: 116.141
+  type: 'test'
+  ...
+# Subtest: indexeddb browser cache persists release shards across cache instances
+ok 12 - indexeddb browser cache persists release shards across cache instances
+  ---
+  duration_ms: 9.221625
+  type: 'test'
+  ...
+# Subtest: browser loader can reuse an indexeddb-backed shard cache
+ok 13 - browser loader can reuse an indexeddb-backed shard cache
+  ---
+  duration_ms: 17.922459
+  type: 'test'
+  ...
+# Subtest: worker search top hit matches server vector search for quiet moonlit room
+ok 14 - worker search top hit matches server vector search for quiet moonlit room
+  ---
+  duration_ms: 0.799791
+  type: 'test'
+  ...
+# Subtest: debug retrieval returns vector top-k, rerank, and keyword baseline
+ok 15 - debug retrieval returns vector top-k, rerank, and keyword baseline
+  ---
+  duration_ms: 30.964
+  type: 'test'
+  ...
+# Subtest: debug retrieval can embed queries through a fallback provider
+ok 16 - debug retrieval can embed queries through a fallback provider
+  ---
+  duration_ms: 1.638125
+  type: 'test'
+  ...
+# Subtest: debug retrieval can join public relationship evidence without changing rank order
+ok 17 - debug retrieval can join public relationship evidence without changing rank order
+  ---
+  duration_ms: 2.7445
+  type: 'test'
+  ...
+# Subtest: debug retrieval fails closed with empty evidence for unavailable relationship graph
+ok 18 - debug retrieval fails closed with empty evidence for unavailable relationship graph
+  ---
+  duration_ms: 1.259125
+  type: 'test'
+  ...
+# Subtest: local hash embedding provider returns deterministic vectors
+ok 19 - local hash embedding provider returns deterministic vectors
+  ---
+  duration_ms: 29.218334
+  type: 'test'
+  ...
+# Subtest: remote openai-compatible embedding provider parses batch responses
+ok 20 - remote openai-compatible embedding provider parses batch responses
+  ---
+  duration_ms: 71.206667
+  type: 'test'
+  ...
+# Subtest: fallback embedding provider falls back to local hash when remote fails
+ok 21 - fallback embedding provider falls back to local hash when remote fails
+  ---
+  duration_ms: 1.783875
+  type: 'test'
+  ...
+# Subtest: remote batch indices preserve artwork identity and malformed batches fail closed
+ok 22 - remote batch indices preserve artwork identity and malformed batches fail closed
+  ---
+  duration_ms: 32.952
+  type: 'test'
+  ...
+# Subtest: prefetch release shards skips cached shards and resolves the next batch
+ok 23 - prefetch release shards skips cached shards and resolves the next batch
+  ---
+  duration_ms: 3.804459
+  type: 'test'
+  ...
+# Subtest: release media version validation accepts version or source fingerprint
+ok 24 - release media version validation accepts version or source fingerprint
+  ---
+  duration_ms: 0.862959
+  type: 'test'
+  ...
+# Subtest: public image URLs reject credentials, private hosts, HTTP and unapproved redirects before requesting them
+ok 25 - public image URLs reject credentials, private hosts, HTTP and unapproved redirects before requesting them
+  ---
+  duration_ms: 33.835458
+  type: 'test'
+  ...
+# Subtest: a complete image body is bounded and HTML, SVG, partial status and truncated bodies cannot masquerade as success
+ok 26 - a complete image body is bounded and HTML, SVG, partial status and truncated bodies cannot masquerade as success
+  ---
+  duration_ms: 14.229833
+  type: 'test'
+  ...
+# Subtest: the timeout remains active after headers and aborts a body that never completes
+ok 27 - the timeout remains active after headers and aborts a body that never completes
+  ---
+  duration_ms: 25.741208
+  type: 'test'
+  ...
+# Subtest: access denial stops the source host without a second request or another URL
+ok 28 - access denial stops the source host without a second request or another URL
+  ---
+  duration_ms: 1.44825
+  type: 'test'
+  ...
+# Subtest: content-addressed image cache requires the exact accepted body and detects replacement
+ok 29 - content-addressed image cache requires the exact accepted body and detects replacement
+  ---
+  duration_ms: 6.85975
+  type: 'test'
+  ...
+# Subtest: a preserved verified original restores an evicted cache without masking corrupted bytes
+ok 30 - a preserved verified original restores an evicted cache without masking corrupted bytes
+  ---
+  duration_ms: 9.93675
+  type: 'test'
+  ...
+# Subtest: query embedding normalizes and embeds text deterministically
+ok 31 - query embedding normalizes and embeds text deterministically
+  ---
+  duration_ms: 16.290958
+  type: 'test'
+  ...
+# Subtest: relationship graph selector returns public extracted evidence with deterministic bounds
+ok 32 - relationship graph selector returns public extracted evidence with deterministic bounds
+  ---
+  duration_ms: 2.497167
+  type: 'test'
+  ...
+# Subtest: relationship graph selector fails closed for missing or invalid sidecars
+ok 33 - relationship graph selector fails closed for missing or invalid sidecars
+  ---
+  duration_ms: 0.31
+  type: 'test'
+  ...
+# Subtest: relationship graph selector output is public-only and does not leak internal fields
+ok 34 - relationship graph selector output is public-only and does not leak internal fields
+  ---
+  duration_ms: 0.425042
+  type: 'test'
+  ...
+# Subtest: relationship graph selector does not alter vector or rerank ordering
+ok 35 - relationship graph selector does not alter vector or rerank ordering
+  ---
+  duration_ms: 23.380792
+  type: 'test'
+  ...
+# Subtest: release loader resolves embeddings from the manifest
+ok 36 - release loader resolves embeddings from the manifest
+  ---
+  duration_ms: 5.782166
+  type: 'test'
+  ...
+# Subtest: release loader rejects unsafe or unavailable release versions
+ok 37 - release loader rejects unsafe or unavailable release versions
+  ---
+  duration_ms: 2.377083
+  type: 'test'
+  ...
+# Subtest: release loader backfills legacy embeddings from metadata and search shards
+ok 38 - release loader backfills legacy embeddings from metadata and search shards
+  ---
+  duration_ms: 5.403
+  type: 'test'
+  ...
+# Subtest: relationship graph loader resolves optional object shards
+ok 39 - relationship graph loader resolves optional object shards
+  ---
+  duration_ms: 4.138125
+  type: 'test'
+  ...
+# Subtest: relationship graph loader returns undefined when sidecar is absent
+ok 40 - relationship graph loader returns undefined when sidecar is absent
+  ---
+  duration_ms: 1.484
+  type: 'test'
+  ...
+# Subtest: relationship graph loader verifies object shape, pre-parse cap, and recordCount
+ok 41 - relationship graph loader verifies object shape, pre-parse cap, and recordCount
+  ---
+  duration_ms: 3.228375
+  type: 'test'
+  ...
+# Subtest: relationship graph loader rejects stale sidecar release versions
+ok 42 - relationship graph loader rejects stale sidecar release versions
+  ---
+  duration_ms: 2.154
+  type: 'test'
+  ...
+# Subtest: rerank combines vector score, lexical overlap, and grade
+ok 43 - rerank combines vector score, lexical overlap, and grade
+  ---
+  duration_ms: 5.97425
+  type: 'test'
+  ...
+# Subtest: keyword baseline ranking uses exact non-stopword overlap
+ok 44 - keyword baseline ranking uses exact non-stopword overlap
+  ---
+  duration_ms: 17.277334
+  type: 'test'
+  ...
+# Subtest: vector benchmark reports rerank hit rates over fixed prompts
+ok 45 - vector benchmark reports rerank hit rates over fixed prompts
+  ---
+  duration_ms: 8.965167
+  type: 'test'
+  ...
+# Subtest: vector benchmark can run with an explicit embedding provider
+ok 46 - vector benchmark can run with an explicit embedding provider
+  ---
+  duration_ms: 6.683917
+  type: 'test'
+  ...
+# Subtest: vector search returns the closest document first
+ok 47 - vector search returns the closest document first
+  ---
+  duration_ms: 86.022792
+  type: 'test'
+  ...
+1..47
+# tests 47
+# suites 0
+# pass 47
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12680.59675
+PACKAGE packages/ui FILES 35
+TAP version 13
+# Subtest: pending audio offers cancellation and a readable status without claiming playback
+ok 1 - pending audio offers cancellation and a readable status without claiming playback
+  ---
+  duration_ms: 24.326708
+  type: 'test'
+  ...
+# Subtest: an image completed before hydration immediately publishes its actual aspect ratio
+ok 2 - an image completed before hydration immediately publishes its actual aspect ratio
+  ---
+  duration_ms: 1.4215
+  type: 'test'
+  ...
+# Subtest: pending images settle through native events and unmount removes both listeners
+ok 3 - pending images settle through native events and unmount removes both listeners
+  ---
+  duration_ms: 0.685584
+  type: 'test'
+  ...
+# Subtest: a cached broken image immediately exposes failure instead of an endless loading frame
+ok 4 - a cached broken image immediately exposes failure instead of an endless loading frame
+  ---
+  duration_ms: 0.22575
+  type: 'test'
+  ...
+# Subtest: emotion rail disables stages without works and leaves populated stages selectable
+ok 5 - emotion rail disables stages without works and leaves populated stages selectable
+  ---
+  duration_ms: 26.964666
+  type: 'test'
+  ...
+# Subtest: preface and closing brand exits preserve the request without relying on a caller-provided href
+ok 6 - preface and closing brand exits preserve the request without relying on a caller-provided href
+  ---
+  duration_ms: 56.254333
+  type: 'test'
+  ...
+# Subtest: visible action text remains the native name and reader labels retain artwork identity
+ok 7 - visible action text remains the native name and reader labels retain artwork identity
+  ---
+  duration_ms: 17.866
+  type: 'test'
+  ...
+# Subtest: PNG finalization preserves image chunks and original AIGC fields with valid chunk checksums
+ok 8 - PNG finalization preserves image chunks and original AIGC fields with valid chunk checksums
+  ---
+  duration_ms: 9.373083
+  type: 'test'
+  ...
+# Subtest: unprovenanced handwriting or truncated PNG cannot become a completed download
+ok 9 - unprovenanced handwriting or truncated PNG cannot become a completed download
+  ---
+  duration_ms: 0.731209
+  type: 'test'
+  ...
+# Subtest: the opt-out survives stored preferences while corrupt storage uses the default
+ok 10 - the opt-out survives stored preferences while corrupt storage uses the default
+  ---
+  duration_ms: 0.931041
+  type: 'test'
+  ...
+# Subtest: viewing the central picture does not reveal chrome while its control edges do
+ok 11 - viewing the central picture does not reveal chrome while its control edges do
+  ---
+  duration_ms: 0.387083
+  type: 'test'
+  ...
+# Subtest: room layout projects mount zones through cover crop and keeps phone frame inside the viewport
+ok 12 - room layout projects mount zones through cover crop and keeps phone frame inside the viewport
+  ---
+  duration_ms: 1.686291
+  type: 'test'
+  ...
+# Subtest: room layout uses a safe inscribed region for polygon mounts and falls back when coordinates are invalid
+ok 13 - room layout uses a safe inscribed region for polygon mounts and falls back when coordinates are invalid
+  ---
+  duration_ms: 7.82675
+  type: 'test'
+  ...
+# Subtest: distinct valid wall mounts produce distinct pixel frames inside their projected bounds
+ok 14 - distinct valid wall mounts produce distinct pixel frames inside their projected bounds
+  ---
+  duration_ms: 1.188834
+  type: 'test'
+  ...
+# Subtest: missing and fully cropped mount zones fall back to safe viewport bounds
+ok 15 - missing and fully cropped mount zones fall back to safe viewport bounds
+  ---
+  duration_ms: 0.245708
+  type: 'test'
+  ...
+# Subtest: phone labels stay under the painting and leave the floor and navigation visible
+ok 16 - phone labels stay under the painting and leave the floor and navigation visible
+  ---
+  duration_ms: 0.879417
+  type: 'test'
+  ...
+# Subtest: reduced motion removes spatial transitions and unsupported WebGL hints degrade to fade
+ok 17 - reduced motion removes spatial transitions and unsupported WebGL hints degrade to fade
+  ---
+  duration_ms: 0.62225
+  type: 'test'
+  ...
+# Subtest: phone route, full emotional note and navigation never cover narrow or wide artworks
+ok 18 - phone route, full emotional note and navigation never cover narrow or wide artworks
+  ---
+  duration_ms: 0.771625
+  type: 'test'
+  ...
+# Subtest: matting stays outside narrow and wide image geometry
+ok 19 - matting stays outside narrow and wide image geometry
+  ---
+  duration_ms: 0.383292
+  type: 'test'
+  ...
+# Subtest: desktop reserves the complete expanded label on the wall side of the artwork
+ok 20 - desktop reserves the complete expanded label on the wall side of the artwork
+  ---
+  duration_ms: 0.767083
+  type: 'test'
+  ...
+# Subtest: adjacent tablet widths move the label below instead of clamping it over the image
+ok 21 - adjacent tablet widths move the label below instead of clamping it over the image
+  ---
+  duration_ms: 1.310083
+  type: 'test'
+  ...
+# Subtest: phone return focus has space for the long label's real height without covering the work
+ok 22 - phone return focus has space for the long label's real height without covering the work
+  ---
+  duration_ms: 0.298667
+  type: 'test'
+  ...
+# Subtest: label budgets remain separate for long text, off-centre mounts, paper and landscape phones
+ok 23 - label budgets remain separate for long text, off-centre mounts, paper and landscape phones
+  ---
+  duration_ms: 1.117041
+  type: 'test'
+  ...
+# Subtest: prewarm decodes the selected responsive source while retaining its logical identity
+ok 24 - prewarm decodes the selected responsive source while retaining its logical identity
+  ---
+  duration_ms: 2.352625
+  type: 'test'
+  ...
+# Subtest: adjacent artwork prewarming includes the matching versioned depth without repeating the current wall
+ok 25 - adjacent artwork prewarming includes the matching versioned depth without repeating the current wall
+  ---
+  duration_ms: 0.493
+  type: 'test'
+  ...
+# Subtest: slow and metered connections never compete with the visible artwork for speculative images
+ok 26 - slow and metered connections never compete with the visible artwork for speculative images
+  ---
+  duration_ms: 0.50675
+  type: 'test'
+  ...
+# Subtest: rapid navigation stays within a shared concurrency bound, deduplicates, and skips cancelled queued work
+ok 27 - rapid navigation stays within a shared concurrency bound, deduplicates, and skips cancelled queued work
+  ---
+  duration_ms: 9.956791
+  type: 'test'
+  ...
+# Subtest: a failed image can be retried without a permanent failed cache entry
+ok 28 - a failed image can be retried without a permanent failed cache entry
+  ---
+  duration_ms: 1.491583
+  type: 'test'
+  ...
+# Subtest: navigation receives the retained resource and evicts only unprotected least recently used images
+ok 29 - navigation receives the retained resource and evicts only unprotected least recently used images
+  ---
+  duration_ms: 1.820125
+  type: 'test'
+  ...
+# Subtest: prewarmed walls use the same responsive candidate as the visible room
+ok 30 - prewarmed walls use the same responsive candidate as the visible room
+  ---
+  duration_ms: 1.000375
+  type: 'test'
+  ...
+# Subtest: Back dismisses one layer at the latest work and preserves Next state
+ok 31 - Back dismisses one layer at the latest work and preserves Next state
+  ---
+  duration_ms: 3.735458
+  type: 'test'
+  ...
+# Subtest: explicit close consumes the entry and Forward cannot reopen a closed layer
+ok 32 - explicit close consumes the entry and Forward cannot reopen a closed layer
+  ---
+  duration_ms: 0.96775
+  type: 'test'
+  ...
+# Subtest: a rapid reopen waits for the preceding close traversal without adding empty entries
+ok 33 - a rapid reopen waits for the preceding close traversal without adding empty entries
+  ---
+  duration_ms: 0.564334
+  type: 'test'
+  ...
+# Subtest: restoring visible artwork while closing updates the returning base position
+ok 34 - restoring visible artwork while closing updates the returning base position
+  ---
+  duration_ms: 4.582708
+  type: 'test'
+  ...
+# Subtest: Forward cannot restore a failed target after Back cancelled its switch
+ok 35 - Forward cannot restore a failed target after Back cancelled its switch
+  ---
+  duration_ms: 1.549834
+  type: 'test'
+  ...
+# Subtest: traversing past the layer leaves the exhibition without rolling its URL back
+ok 36 - traversing past the layer leaves the exhibition without rolling its URL back
+  ---
+  duration_ms: 0.559125
+  type: 'test'
+  ...
+# Subtest: navigation to artwork details is not pulled back by layer disposal
+ok 37 - navigation to artwork details is not pulled back by layer disposal
+  ---
+  duration_ms: 1.083917
+  type: 'test'
+  ...
+# Subtest: reload collapses a stale layer while retaining the latest work
+ok 38 - reload collapses a stale layer while retaining the latest work
+  ---
+  duration_ms: 0.844959
+  type: 'test'
+  ...
+# Subtest: the small label contains only title, artist and period while the reading layer retains the note
+ok 39 - the small label contains only title, artist and period while the reading layer retains the note
+  ---
+  duration_ms: 39.901958
+  type: 'test'
+  ...
+# Subtest: reading has one primary note, optional source description, and a nonempty fallback
+ok 40 - reading has one primary note, optional source description, and a nonempty fallback
+  ---
+  duration_ms: 15.927375
+  type: 'test'
+  ...
+# Subtest: source roles keep publishers out of the label and leave the same artwork visible while reading
+ok 41 - source roles keep publishers out of the label and leave the same artwork visible while reading
+  ---
+  duration_ms: 4.715833
+  type: 'test'
+  ...
+# Subtest: an unread candidate is not recorded; first visible prose wins over late delivery and survives a fresh store
+ok 42 - an unread candidate is not recorded; first visible prose wins over late delivery and survives a fresh store
+  ---
+  duration_ms: 9.629167
+  type: 'test'
+  ...
+# Subtest: preface identity survives route reordering but separates releases, recipes and curations
+ok 43 - preface identity survives route reordering but separates releases, recipes and curations
+  ---
+  duration_ms: 1.175
+  type: 'test'
+  ...
+# Subtest: invalid and oversized session data never supplies displayed prose
+ok 44 - invalid and oversized session data never supplies displayed prose
+  ---
+  duration_ms: 0.668166
+  type: 'test'
+  ...
+# Subtest: blocked storage keeps current-document prose stable and the bounded record retains recent exhibitions
+ok 45 - blocked storage keeps current-document prose stable and the bounded record retains recent exhibitions
+  ---
+  duration_ms: 2.14725
+  type: 'test'
+  ...
+# Subtest: repeated source credits collapse without removing distinct museums or punctuation in names
+ok 46 - repeated source credits collapse without removing distinct museums or punctuation in names
+  ---
+  duration_ms: 1.727375
+  type: 'test'
+  ...
+# Subtest: only equivalent complete reading text is suppressed; different evidence survives
+ok 47 - only equivalent complete reading text is suppressed; different evidence survives
+  ---
+  duration_ms: 2.147459
+  type: 'test'
+  ...
+# (node:52636) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: reading waits for decoded pixels and falls back to text on a broken image
+ok 48 - reading waits for decoded pixels and falls back to text on a broken image
+  ---
+  duration_ms: 2.365875
+  type: 'test'
+  ...
+# Subtest: a stalled image cannot indefinitely hide the reading text
+ok 49 - a stalled image cannot indefinitely hide the reading text
+  ---
+  duration_ms: 5.314792
+  type: 'test'
+  ...
+# Subtest: cancelling reading suppresses a late decode and removes its timeout
+ok 50 - cancelling reading suppresses a late decode and removes its timeout
+  ---
+  duration_ms: 0.537959
+  type: 'test'
+  ...
+# Subtest: hashed room variants use their explicit independent object addresses
+ok 51 - hashed room variants use their explicit independent object addresses
+  ---
+  duration_ms: 2.465167
+  type: 'test'
+  ...
+# Subtest: room lighting preserves image alignment and resumes the latest input after visibility changes
+ok 52 - room lighting preserves image alignment and resumes the latest input after visibility changes
+  ---
+  duration_ms: 8.644125
+  type: 'test'
+  ...
+# Subtest: photographed windows, cove lights and track fixtures use distinct soft distributions
+ok 53 - photographed windows, cove lights and track fixtures use distinct soft distributions
+  ---
+  duration_ms: 1.654042
+  type: 'test'
+  ...
+# Subtest: curatorial targets change the room smoothly within safe bounds
+ok 54 - curatorial targets change the room smoothly within safe bounds
+  ---
+  duration_ms: 0.906833
+  type: 'test'
+  ...
+# Subtest: invalid or extreme pointer and sensor input never reaches lighting uniforms
+ok 55 - invalid or extreme pointer and sensor input never reaches lighting uniforms
+  ---
+  duration_ms: 0.719542
+  type: 'test'
+  ...
+# Subtest: room motion waits for valid calibration samples and does not jump at the resting grip
+ok 56 - room motion waits for valid calibration samples and does not jump at the resting grip
+  ---
+  duration_ms: 2.990708
+  type: 'test'
+  ...
+# Subtest: screen rotation maps sensor axes into the display and recalibrates rather than jumping
+ok 57 - screen rotation maps sensor axes into the display and recalibrates rather than jumping
+  ---
+  duration_ms: 1.401667
+  type: 'test'
+  ...
+# Subtest: painting and sculpture parallax use bounded absolute input without accumulated displacement
+ok 58 - painting and sculpture parallax use bounded absolute input without accumulated displacement
+  ---
+  duration_ms: 2.73325
+  type: 'test'
+  ...
+# Subtest: invalid sensor or pointer samples return to neutral rather than moving the artwork
+ok 59 - invalid sensor or pointer samples return to neutral rather than moving the artwork
+  ---
+  duration_ms: 0.398708
+  type: 'test'
+  ...
+# Subtest: measured image proportions take precedence over broad orientation hints, including scrolls
+ok 60 - measured image proportions take precedence over broad orientation hints, including scrolls
+  ---
+  duration_ms: 2.664458
+  type: 'test'
+  ...
+# Subtest: palette normalization joins hyphen and underscore variants without treating unknown or balanced colors as warm
+ok 61 - palette normalization joins hyphen and underscore variants without treating unknown or balanced colors as warm
+  ---
+  duration_ms: 3.414834
+  type: 'test'
+  ...
+# Subtest: chapters keep a shared wall while individual geometry and artwork identity remain intact
+ok 62 - chapters keep a shared wall while individual geometry and artwork identity remain intact
+  ---
+  duration_ms: 17.244584
+  type: 'test'
+  ...
+# Subtest: a short exhibition uses one room and chapter entrances retain suitable light and wall geometry
+ok 63 - a short exhibition uses one room and chapter entrances retain suitable light and wall geometry
+  ---
+  duration_ms: 0.95275
+  type: 'test'
+  ...
+# Subtest: route replay preserves a viewed chapter even when a future work moves beside its anchor
+ok 64 - route replay preserves a viewed chapter even when a future work moves beside its anchor
+  ---
+  duration_ms: 4.107333
+  type: 'test'
+  ...
+# Subtest: six to eight works use balanced groups, favor stage boundaries, and avoid a single repeated suitable room
+ok 65 - six to eight works use balanced groups, favor stage boundaries, and avoid a single repeated suitable room
+  ---
+  duration_ms: 1.967583
+  type: 'test'
+  ...
+# Subtest: every chapter is unique through twelve works, even when every work prefers the same wall
+ok 66 - every chapter is unique through twelve works, even when every work prefers the same wall
+  ---
+  duration_ms: 14.823708
+  type: 'test'
+  ...
+# Subtest: scores explain material, lighting, shape and palette independently and remain finite for missing tags
+ok 67 - scores explain material, lighting, shape and palette independently and remain finite for missing tags
+  ---
+  duration_ms: 0.329708
+  type: 'test'
+  ...
+# Subtest: a sculpture fallback does not create an HTTP image preload that drops its CDN referrer policy
+ok 68 - a sculpture fallback does not create an HTTP image preload that drops its CDN referrer policy
+  ---
+  duration_ms: 13.046208
+  type: 'test'
+  ...
+# Subtest: 50% is one opportunity per eligible exhibition; painting count and membership stay exact
+ok 69 - 50% is one opportunity per eligible exhibition; painting count and membership stay exact
+  ---
+  duration_ms: 20.24875
+  type: 'test'
+  ...
+# Subtest: a chapter interlude follows at least two paintings, preserving first and last
+ok 70 - a chapter interlude follows at least two paintings, preserving first and last
+  ---
+  duration_ms: 0.423084
+  type: 'test'
+  ...
+# Subtest: explicit sculpture and medium exclusions take priority over a lucky roll
+ok 71 - explicit sculpture and medium exclusions take priority over a lucky roll
+  ---
+  duration_ms: 5.107959
+  type: 'test'
+  ...
+# Subtest: painting figure exclusions do not filter the separate sculpture easter egg
+ok 72 - painting figure exclusions do not filter the separate sculpture easter egg
+  ---
+  duration_ms: 0.619084
+  type: 'test'
+  ...
+# Subtest: natural sculpture negations and exclusive media remain hard encounter boundaries
+ok 73 - natural sculpture negations and exclusive media remain hard encounter boundaries
+  ---
+  duration_ms: 4.115959
+  type: 'test'
+  ...
+# Subtest: themes increase selection affinity while recent works are downweighted
+ok 74 - themes increase selection affinity while recent works are downweighted
+  ---
+  duration_ms: 27.307084
+  type: 'test'
+  ...
+# Subtest: refresh restores the same absent, pending, active or completed decision without reroll
+ok 75 - refresh restores the same absent, pending, active or completed decision without reroll
+  ---
+  duration_ms: 2.51325
+  type: 'test'
+  ...
+# Subtest: floor clipping stays on the stationary photographed floor through wide and portrait cover crops
+ok 76 - floor clipping stays on the stationary photographed floor through wide and portrait cover crops
+  ---
+  duration_ms: 2.063
+  type: 'test'
+  ...
+# Subtest: the sculpture keeps a bounded viewpoint while background light remains subordinate
+ok 77 - the sculpture keeps a bounded viewpoint while background light remains subordinate
+  ---
+  duration_ms: 0.386042
+  type: 'test'
+  ...
+# Subtest: shared light uses screen right and screen up consistently and smooths independently of frame rate
+ok 78 - shared light uses screen right and screen up consistently and smooths independently of frame rate
+  ---
+  duration_ms: 1.181292
+  type: 'test'
+  ...
+# Subtest: sculpture framing stays clear of the header, plaque and navigation
+ok 79 - sculpture framing stays clear of the header, plaque and navigation
+  ---
+  duration_ms: 1.242541
+  type: 'test'
+  ...
+# (node:52675) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+# Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+# (Use `node --trace-deprecation ...` to show where the warning was created)
+# Subtest: AO preserves the viewport aspect and has a fixed pixel budget on desktop and dense phone screens
+ok 80 - AO preserves the viewport aspect and has a fixed pixel budget on desktop and dense phone screens
+  ---
+  duration_ms: 1.814084
+  type: 'test'
+  ...
+# Subtest: photograph lighting retains a cool bright window and warm floor bounce instead of a fixed tint
+ok 81 - photograph lighting retains a cool bright window and warm floor bounce instead of a fixed tint
+  ---
+  duration_ms: 17.692666
+  type: 'test'
+  ...
+# Subtest: source centroid reacts to the photograph and does not mistake a uniform field for a confident estimate
+ok 82 - source centroid reacts to the photograph and does not mistake a uniform field for a confident estimate
+  ---
+  duration_ms: 18.436458
+  type: 'test'
+  ...
+# Subtest: photo exposure is bounded for black, white and transparent images, and malformed samples fail
+ok 83 - photo exposure is bounded for black, white and transparent images, and malformed samples fail
+  ---
+  duration_ms: 19.958166
+  type: 'test'
+  ...
+# Subtest: CDN pixels use anonymous CORS before loading while private handwriting stays same-origin
+ok 84 - CDN pixels use anonymous CORS before loading while private handwriting stays same-origin
+  ---
+  duration_ms: 19.511416
+  type: 'test'
+  ...
+# Subtest: long titles, source credits and ordinary closing retain every character above the footer
+ok 85 - long titles, source credits and ordinary closing retain every character above the footer
+  ---
+  duration_ms: 4.024416
+  type: 'test'
+  ...
+# Subtest: a tall handwriting layer expands the card, preserves credits and stays clear of its footer
+ok 86 - a tall handwriting layer expands the card, preserves credits and stays clear of its footer
+  ---
+  duration_ms: 7.21125
+  type: 'test'
+  ...
+# Subtest: failed close-view navigation restores the visible artwork before cancellation or closing
+ok 87 - failed close-view navigation restores the visible artwork before cancellation or closing
+  ---
+  duration_ms: 2.694375
+  type: 'test'
+  ...
+# Subtest: experience state covers skip, navigation boundaries, closing, revisit and old media results
+ok 88 - experience state covers skip, navigation boundaries, closing, revisit and old media results
+  ---
+  duration_ms: 0.801042
+  type: 'test'
+  ...
+# Subtest: experience state keeps empty results out of walk and closing
+ok 89 - experience state keeps empty results out of walk and closing
+  ---
+  duration_ms: 0.251083
+  type: 'test'
+  ...
+# Subtest: lightbox isolates navigation until it is closed
+ok 90 - lightbox isolates navigation until it is closed
+  ---
+  duration_ms: 0.210375
+  type: 'test'
+  ...
+# Subtest: close viewing navigates inside the same overlay, guards transitions and respects both ends
+ok 91 - close viewing navigates inside the same overlay, guards transitions and respects both ends
+  ---
+  duration_ms: 0.411
+  type: 'test'
+  ...
+# Subtest: explicit feedback applies at the unseen boundary and freezes every visited position
+ok 92 - explicit feedback applies at the unseen boundary and freezes every visited position
+  ---
+  duration_ms: 8.818792
+  type: 'test'
+  ...
+# Subtest: restoring the original remainder never rewrites a prefix already walked after adaptation
+ok 93 - restoring the original remainder never rewrites a prefix already walked after adaptation
+  ---
+  duration_ms: 0.630375
+  type: 'test'
+  ...
+# Subtest: quieter and different choose from the original eligible set without inventing or dropping works
+ok 94 - quieter and different choose from the original eligible set without inventing or dropping works
+  ---
+  duration_ms: 2.166
+  type: 'test'
+  ...
+# Subtest: changing the route preserves stable IDs, source pixels and the current room
+ok 95 - changing the route preserves stable IDs, source pixels and the current room
+  ---
+  duration_ms: 1.115708
+  type: 'test'
+  ...
+# Subtest: a new pending decision replaces the previous one; no-op and end-of-route stay usable
+ok 96 - a new pending decision replaces the previous one; no-op and end-of-route stay usable
+  ---
+  duration_ms: 0.708083
+  type: 'test'
+  ...
+# Subtest: only decoded visible viewing and zoom time contributes to pace; reading and hidden time remain separate
+ok 97 - only decoded visible viewing and zoom time contributes to pace; reading and hidden time remain separate
+  ---
+  duration_ms: 0.905875
+  type: 'test'
+  ...
+# Subtest: session persistence validates identities, counters, versions and URL precedence
+ok 98 - session persistence validates identities, counters, versions and URL precedence
+  ---
+  duration_ms: 1.406792
+  type: 'test'
+  ...
+# Subtest: initial curation links related subjects without changing the opening work or stage membership
+ok 99 - initial curation links related subjects without changing the opening work or stage membership
+  ---
+  duration_ms: 0.613875
+  type: 'test'
+  ...
+# Subtest: the flat center stays optically neutral and opposite bevels bend inward
+ok 100 - the flat center stays optically neutral and opposite bevels bend inward
+  ---
+  duration_ms: 10.139667
+  type: 'test'
+  ...
+# Subtest: rounded corners do not displace pixels outside the glass silhouette
+ok 101 - rounded corners do not displace pixels outside the glass silhouette
+  ---
+  duration_ms: 2.588208
+  type: 'test'
+  ...
+# Subtest: a wide control keeps a bounded optical map
+ok 102 - a wide control keeps a bounded optical map
+  ---
+  duration_ms: 14.028666
+  type: 'test'
+  ...
+# Subtest: director focus marks A-grade artwork as the strongest presentation
+ok 103 - director focus marks A-grade artwork as the strongest presentation
+  ---
+  duration_ms: 10.549333
+  type: 'test'
+  ...
+# Subtest: director focus keeps lower grades in a supporting presentation
+ok 104 - director focus keeps lower grades in a supporting presentation
+  ---
+  duration_ms: 0.87675
+  type: 'test'
+  ...
+# Subtest: image lightbox renders artwork image and caption
+ok 105 - image lightbox renders artwork image and caption
+  ---
+  duration_ms: 19.346625
+  type: 'test'
+  ...
+# Subtest: image lightbox renders trusted border crop metadata
+ok 106 - image lightbox renders trusted border crop metadata
+  ---
+  duration_ms: 1.71625
+  type: 'test'
+  ...
+# Subtest: immersive gallery renders next previous controls and quiet progress
+ok 107 - immersive gallery renders next previous controls and quiet progress
+  ---
+  duration_ms: 24.542583
+  type: 'test'
+  ...
+# Subtest: immersive gallery uses preface note and closing at the correct scene positions
+ok 108 - immersive gallery uses preface note and closing at the correct scene positions
+  ---
+  duration_ms: 8.03625
+  type: 'test'
+  ...
+# Subtest: a one-work classic exhibition renders its own preface, note and closing exactly once
+ok 109 - a one-work classic exhibition renders its own preface, note and closing exactly once
+  ---
+  duration_ms: 9.098166
+  type: 'test'
+  ...
+# Subtest: scene orchestrator builds scenes for minimal exhibition data
+ok 110 - scene orchestrator builds scenes for minimal exhibition data
+  ---
+  duration_ms: 3.067875
+  type: 'test'
+  ...
+# Subtest: scene orchestrator lets different units use different transition families
+ok 111 - scene orchestrator lets different units use different transition families
+  ---
+  duration_ms: 0.3415
+  type: 'test'
+  ...
+# Subtest: scene orchestrator falls back to first scene when selected unit is unknown
+ok 112 - scene orchestrator falls back to first scene when selected unit is unknown
+  ---
+  duration_ms: 0.300333
+  type: 'test'
+  ...
+# Subtest: video stage falls back to an image when dynamic media is unavailable
+ok 113 - video stage falls back to an image when dynamic media is unavailable
+  ---
+  duration_ms: 9.882041
+  type: 'test'
+  ...
+# Subtest: video stage renders dynamic media without swallowing navigation children
+ok 114 - video stage renders dynamic media without swallowing navigation children
+  ---
+  duration_ms: 3.716875
+  type: 'test'
+  ...
+# Subtest: transition registry resolves known transition families
+ok 115 - transition registry resolves known transition families
+  ---
+  duration_ms: 1.0715
+  type: 'test'
+  ...
+# Subtest: transition registry falls back to fade when a module is unavailable
+ok 116 - transition registry falls back to fade when a module is unavailable
+  ---
+  duration_ms: 0.208792
+  type: 'test'
+  ...
+1..116
+# tests 116
+# suites 0
+# pass 116
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17557.761583
+PACKAGE apps/web FILES 42
+TAP version 13
+# Subtest: artwork reading avoids duplicate introductions while retaining distinct museum detail
+ok 1 - artwork reading avoids duplicate introductions while retaining distinct museum detail
+  ---
+  duration_ms: 4.712625
+  type: 'test'
+  ...
+# Subtest: artwork recommendation copy describes retrieval evidence without claiming theme or author intent
+ok 2 - artwork recommendation copy describes retrieval evidence without claiming theme or author intent
+  ---
+  duration_ms: 1.459166
+  type: 'test'
+  ...
+# Subtest: artwork page renders detail text before offering an asynchronous explanation
+ok 3 - artwork page renders detail text before offering an asynchronous explanation
+  ---
+  duration_ms: 497.533459
+  type: 'test'
+  ...
+# Subtest: empty legacy gallery links return to the current entry without curating another exhibition
+ok 4 - empty legacy gallery links return to the current entry without curating another exhibition
+  ---
+  duration_ms: 3.494875
+  type: 'test'
+  ...
+# Subtest: all rejected candidates stay rejected, and accepted works each get one stage
+ok 5 - all rejected candidates stay rejected, and accepted works each get one stage
+  ---
+  duration_ms: 22.943167
+  type: 'test'
+  ...
+# Subtest: growth form creates a hard bright rule and rejects bright candidates
+ok 6 - growth form creates a hard bright rule and rejects bright candidates
+  ---
+  duration_ms: 4.362459
+  type: 'test'
+  ...
+# Subtest: growth form makes quiet-wonder-calm stages with middle arousal peak
+ok 7 - growth form makes quiet-wonder-calm stages with middle arousal peak
+  ---
+  duration_ms: 3.675667
+  type: 'test'
+  ...
+# Subtest: growth form preserves ordered stage signals from Chinese stage words
+ok 8 - growth form preserves ordered stage signals from Chinese stage words
+  ---
+  duration_ms: 1.6635
+  type: 'test'
+  ...
+# Subtest: ambient audio route serves allowlisted root public tracks
+ok 9 - ambient audio route serves allowlisted root public tracks
+  ---
+  duration_ms: 37.5095
+  type: 'test'
+  ...
+# Subtest: ambient audio route rejects unknown public files
+ok 10 - ambient audio route rejects unknown public files
+  ---
+  duration_ms: 0.783959
+  type: 'test'
+  ...
+# Subtest: analytics chooses polling or local fallback when stream state fails
+ok 11 - analytics chooses polling or local fallback when stream state fails
+  ---
+  duration_ms: 6.876416
+  type: 'test'
+  ...
+# Subtest: browser worker fallback records degradation analytics in the runtime helper
+ok 12 - browser worker fallback records degradation analytics in the runtime helper
+  ---
+  duration_ms: 23.538833
+  type: 'test'
+  ...
+# Subtest: pixel appearance distinguishes light, dark and chromatic images without treating monochrome as dark
+ok 13 - pixel appearance distinguishes light, dark and chromatic images without treating monochrome as dark
+  ---
+  duration_ms: 4.977791
+  type: 'test'
+  ...
+# Subtest: appearance measurements belong only to their exact source image
+ok 14 - appearance measurements belong only to their exact source image
+  ---
+  duration_ms: 8.285584
+  type: 'test'
+  ...
+# Subtest: source-bound display credits preserve raw records and reject stale or mismatched identities
+ok 15 - source-bound display credits preserve raw records and reject stale or mismatched identities
+  ---
+  duration_ms: 15.538334
+  type: 'test'
+  ...
+# Subtest: published role corrections retain source evidence and never match a publisher as the artist
+ok 16 - published role corrections retain source evidence and never match a publisher as the artist
+  ---
+  duration_ms: 958.369292
+  type: 'test'
+  ...
+# Subtest: paintings, drawings, prints and calligraphy qualify independently of their depicted subject
+ok 17 - paintings, drawings, prints and calligraphy qualify independently of their depicted subject
+  ---
+  duration_ms: 6.066875
+  type: 'test'
+  ...
+# Subtest: publication and derivative prints retain their identity but leave default exhibitions
+ok 18 - publication and derivative prints retain their identity but leave default exhibitions
+  ---
+  duration_ms: 0.955917
+  type: 'test'
+  ...
+# Subtest: photographs, painted objects, architecture, bound books and uncertain material do not enter a painting exhibition
+ok 19 - photographs, painted objects, architecture, bound books and uncertain material do not enter a painting exhibition
+  ---
+  duration_ms: 0.45
+  type: 'test'
+  ...
+# Subtest: artwork image route keeps desktop preview quality and uses original for full view
+ok 20 - artwork image route keeps desktop preview quality and uses original for full view
+  ---
+  duration_ms: 1.3115
+  type: 'test'
+  ...
+# Subtest: artwork image route upgrades older mobile preview URLs
+ok 21 - artwork image route upgrades older mobile preview URLs
+  ---
+  duration_ms: 0.593
+  type: 'test'
+  ...
+# Subtest: recommendation copy translates evidence without exposing scores or internal tags
+ok 22 - recommendation copy translates evidence without exposing scores or internal tags
+  ---
+  duration_ms: 3.186083
+  type: 'test'
+  ...
+# Subtest: preview preserves the full aspect ratio and remains usable without the original
+ok 23 - preview preserves the full aspect ratio and remains usable without the original
+  ---
+  duration_ms: 158.825083
+  type: 'test'
+  ...
+# Subtest: absence evidence is bound to the delivered image and is invalidated by replacement
+ok 24 - absence evidence is bound to the delivered image and is invalidated by replacement
+  ---
+  duration_ms: 64.230958
+  type: 'test'
+  ...
+# Subtest: reviewed water scenes recover from sparse tags while all explicit exclusions remain strict
+ok 25 - reviewed water scenes recover from sparse tags while all explicit exclusions remain strict
+  ---
+  duration_ms: 467.271
+  type: 'test'
+  ...
+# Subtest: unknown remains unknown, and no-people does not secretly mean no-boats
+ok 26 - unknown remains unknown, and no-people does not secretly mean no-boats
+  ---
+  duration_ms: 0.691417
+  type: 'test'
+  ...
+# Subtest: explicit space is verified before ranking and never filled with a framed courtyard
+ok 27 - explicit space is verified before ranking and never filled with a framed courtyard
+  ---
+  duration_ms: 128.219833
+  type: 'test'
+  ...
+# Subtest: every current gallery candidate has a complete, current-image visual dossier
+ok 28 - every current gallery candidate has a complete, current-image visual dossier
+  ---
+  duration_ms: 47.755042
+  type: 'test'
+  ...
+# Subtest: the review interface accepts more than 500 works and rejects incomplete version-two facts
+ok 29 - the review interface accepts more than 500 works and rejects incomplete version-two facts
+  ---
+  duration_ms: 188.445583
+  type: 'test'
+  ...
+# Subtest: the active library completely removes the nine artworks and uses DA3 for all 630 exhibit candidates
+ok 30 - the active library completely removes the nine artworks and uses DA3 for all 630 exhibit candidates
+  ---
+  duration_ms: 1660.627042
+  type: 'test'
+  ...
+# Subtest: removal preserves the other library records, vectors, reviews and corrected creator credits
+ok 31 - removal preserves the other library records, vectors, reviews and corrected creator credits
+  ---
+  duration_ms: 207.9785
+  type: 'test'
+  ...
+# Subtest: curation narrative produces preface closing and a three-stage curve
+ok 32 - curation narrative produces preface closing and a three-stage curve
+  ---
+  duration_ms: 13.952834
+  type: 'test'
+  ...
+# Subtest: curation narrative keeps visible copy aligned with hard brightness resistance
+ok 33 - curation narrative keeps visible copy aligned with hard brightness resistance
+  ---
+  duration_ms: 7.173542
+  type: 'test'
+  ...
+# Subtest: curation narrative preserves the stated viewing direction without claiming an emotional outcome
+ok 34 - curation narrative preserves the stated viewing direction without claiming an emotional outcome
+  ---
+  duration_ms: 2.704
+  type: 'test'
+  ...
+# Subtest: startup and concurrent callers share one model preparation per project
+ok 35 - startup and concurrent callers share one model preparation per project
+  ---
+  duration_ms: 2.436125
+  type: 'test'
+  ...
+# Subtest: a preparation failure can retry instead of poisoning all later queries
+ok 36 - a preparation failure can retry instead of poisoning all later queries
+  ---
+  duration_ms: 1.539667
+  type: 'test'
+  ...
+# Subtest: browser narrative parser handles split UTF-8 and verifies the complete exhibit
+ok 37 - browser narrative parser handles split UTF-8 and verifies the complete exhibit
+  ---
+  duration_ms: 39.82025
+  type: 'test'
+  ...
+# Subtest: stale identities, repeated frames and premature completion are rejected
+ok 38 - stale identities, repeated frames and premature completion are rejected
+  ---
+  duration_ms: 2.512
+  type: 'test'
+  ...
+# Subtest: temporary narrative failure keeps the fallback usable and permits later recovery
+ok 39 - temporary narrative failure keeps the fallback usable and permits later recovery
+  ---
+  duration_ms: 650.947041
+  type: 'test'
+  ...
+# Subtest: a partial guide survives restart and repairs only its missing pieces after cooldown
+ok 40 - a partial guide survives restart and repairs only its missing pieces after cooldown
+  ---
+  duration_ms: 104.143667
+  type: 'test'
+  ...
+# Subtest: experience adapter preserves 0, 1, 5 and 12 result counts with dynamic stages
+ok 41 - experience adapter preserves 0, 1, 5 and 12 result counts with dynamic stages
+  ---
+  duration_ms: 57.862417
+  type: 'test'
+  ...
+# Subtest: experience adapter binds records and versioned media, and keeps missing scene neutral
+ok 42 - experience adapter binds records and versioned media, and keeps missing scene neutral
+  ---
+  duration_ms: 1.312208
+  type: 'test'
+  ...
+# Subtest: experience identity survives reranking and a resting intent keeps every stage gentle
+ok 43 - experience identity survives reranking and a resting intent keeps every stage gentle
+  ---
+  duration_ms: 23.7195
+  type: 'test'
+  ...
+# Subtest: request feedback preserves frozen prose and distinguishes short results from missing records
+ok 44 - request feedback preserves frozen prose and distinguishes short results from missing records
+  ---
+  duration_ms: 7.226834
+  type: 'test'
+  ...
+# Subtest: experience adapter counts missing records and rejects duplicate artwork references
+ok 45 - experience adapter counts missing records and rejects duplicate artwork references
+  ---
+  duration_ms: 2.551167
+  type: 'test'
+  ...
+# Subtest: a frozen semantic exhibition preserves its planned curve and omits unvisited empty stages
+ok 46 - a frozen semantic exhibition preserves its planned curve and omits unvisited empty stages
+  ---
+  duration_ms: 0.671958
+  type: 'test'
+  ...
+# Subtest: experience prose uses the actual exhibition and excludes long titles, raw prompts and collection scoring notes
+ok 47 - experience prose uses the actual exhibition and excludes long titles, raw prompts and collection scoring notes
+  ---
+  duration_ms: 2.861916
+  type: 'test'
+  ...
+# Subtest: client navigation consumes timing handoff while preserving the original submit mark
+ok 48 - client navigation consumes timing handoff while preserving the original submit mark
+  ---
+  duration_ms: 3.153209
+  type: 'test'
+  ...
+# Subtest: experience telemetry records durations and fallback reasons without user query
+ok 49 - experience telemetry records durations and fallback reasons without user query
+  ---
+  duration_ms: 4.417708
+  type: 'test'
+  ...
+# Subtest: experience loading feedback adds long-wait and retry affordances at the planned thresholds
+ok 50 - experience loading feedback adds long-wait and retry affordances at the planned thresholds
+  ---
+  duration_ms: 1.166209
+  type: 'test'
+  ...
+# Subtest: a cached entry restores the submitted draft from its updated address
+ok 51 - a cached entry restores the submitted draft from its updated address
+  ---
+  duration_ms: 1.605458
+  type: 'test'
+  ...
+# Subtest: entry rendering retains its server value when no browser address is available
+ok 52 - entry rendering retains its server value when no browser address is available
+  ---
+  duration_ms: 0.449584
+  type: 'test'
+  ...
+# Subtest: Forward restores the latest work and order instead of cached preface props
+ok 53 - Forward restores the latest work and order instead of cached preface props
+  ---
+  duration_ms: 3.628291
+  type: 'test'
+  ...
+# Subtest: cached route restoration cannot cross exhibition, release, query or entry boundaries
+ok 54 - cached route restoration cannot cross exhibition, release, query or entry boundaries
+  ---
+  duration_ms: 2.079167
+  type: 'test'
+  ...
+# Subtest: restarting keeps the viewing wish at the current entry without requesting a curation
+ok 55 - restarting keeps the viewing wish at the current entry without requesting a curation
+  ---
+  duration_ms: 0.627583
+  type: 'test'
+  ...
+# Subtest: experience navigation encodes query and restores a walk or closing position
+ok 56 - experience navigation encodes query and restores a walk or closing position
+  ---
+  duration_ms: 1.1325
+  type: 'test'
+  ...
+# Subtest: experience navigation normalizes invalid positions and only allows local gallery return paths
+ok 57 - experience navigation normalizes invalid positions and only allows local gallery return paths
+  ---
+  duration_ms: 1.363416
+  type: 'test'
+  ...
+# Subtest: experience opens the first artwork by default while explicit preface links still work
+ok 58 - experience opens the first artwork by default while explicit preface links still work
+  ---
+  duration_ms: 0.366042
+  type: 'test'
+  ...
+# Subtest: detail and refresh links carry the revised artwork order without behavioral records
+ok 59 - detail and refresh links carry the revised artwork order without behavioral records
+  ---
+  duration_ms: 0.778333
+  type: 'test'
+  ...
+# Subtest: subpath return links normalize once for Next navigation and cannot leave the gallery
+ok 60 - subpath return links normalize once for Next navigation and cannot leave the gallery
+  ---
+  duration_ms: 2.824792
+  type: 'test'
+  ...
+# Subtest: retired classic links restore their selected artwork in the current experience
+ok 61 - retired classic links restore their selected artwork in the current experience
+  ---
+  duration_ms: 0.547709
+  type: 'test'
+  ...
+# Subtest: legacy closing and missing artworks normalize without losing a valid last position
+ok 62 - legacy closing and missing artworks normalize without losing a valid last position
+  ---
+  duration_ms: 0.214875
+  type: 'test'
+  ...
+# Subtest: explanation client returns pending or ready non-blocking states
+ok 63 - explanation client returns pending or ready non-blocking states
+  ---
+  duration_ms: 1.8005
+  type: 'test'
+  ...
+# Subtest: explanation client forwards retrieval grounding fields to the route
+ok 64 - explanation client forwards retrieval grounding fields to the route
+  ---
+  duration_ms: 0.873042
+  type: 'test'
+  ...
+# Subtest: explanation client maps route errors to failed state
+ok 65 - explanation client maps route errors to failed state
+  ---
+  duration_ms: 1.274542
+  type: 'test'
+  ...
+# Subtest: default explanation client uses configured DeepSeek streaming instead of the local fallback
+ok 66 - default explanation client uses configured DeepSeek streaming instead of the local fallback
+  ---
+  duration_ms: 217.149708
+  type: 'test'
+  ...
+# Subtest: an unavailable explanation provider cannot masquerade as a finished developer template
+ok 67 - an unavailable explanation provider cannot masquerade as a finished developer template
+  ---
+  duration_ms: 0.960333
+  type: 'test'
+  ...
+# Subtest: validated file reuse isolates mutable callers and invalidates same-size edits even with restored mtime
+ok 68 - validated file reuse isolates mutable callers and invalidates same-size edits even with restored mtime
+  ---
+  duration_ms: 9.001292
+  type: 'test'
+  ...
+# Subtest: new optional dependencies and symlink target changes invalidate cached data
+ok 69 - new optional dependencies and symlink target changes invalidate cached data
+  ---
+  duration_ms: 13.757916
+  type: 'test'
+  ...
+# Subtest: a change during loading is not cached and old versions are evicted at capacity
+ok 70 - a change during loading is not cached and old versions are evicted at capacity
+  ---
+  duration_ms: 14.453125
+  type: 'test'
+  ...
+# Subtest: an overview link restores only a complete permutation of its frozen artwork selection
+ok 71 - an overview link restores only a complete permutation of its frozen artwork selection
+  ---
+  duration_ms: 8.595709
+  type: 'test'
+  ...
+# Subtest: gallery scene route promotes background scenes into three visible stages
+ok 72 - gallery scene route promotes background scenes into three visible stages
+  ---
+  duration_ms: 13.351375
+  type: 'test'
+  ...
+# Subtest: scene route lookup keeps immersive stages aligned with scene index
+ok 73 - scene route lookup keeps immersive stages aligned with scene index
+  ---
+  duration_ms: 0.971667
+  type: 'test'
+  ...
+# Subtest: growth form stages drive route stop count when supplied
+ok 74 - growth form stages drive route stop count when supplied
+  ---
+  duration_ms: 31.598625
+  type: 'test'
+  ...
+# Subtest: origin checks honor a real loopback Host and configured public origin without trusting foreign origins
+ok 75 - origin checks honor a real loopback Host and configured public origin without trusting foreign origins
+  ---
+  duration_ms: 63.27375
+  type: 'test'
+  ...
+# Subtest: both public hosts accept their own origin and reject cross-domain or forged forwarding headers
+ok 76 - both public hosts accept their own origin and reject cross-domain or forged forwarding headers
+  ---
+  duration_ms: 3.983958
+  type: 'test'
+  ...
+# Subtest: public proxy sessions use a host-only Secure cookie limited to the subpath
+ok 77 - public proxy sessions use a host-only Secure cookie limited to the subpath
+  ---
+  duration_ms: 15.608541
+  type: 'test'
+  ...
+# Subtest: concurrent duplicate creation and refresh recover one private persistent task
+ok 78 - concurrent duplicate creation and refresh recover one private persistent task
+  ---
+  duration_ms: 70.084958
+  type: 'test'
+  ...
+# Subtest: ready private assets carry the deployment prefix without exposing stored ownership
+ok 79 - ready private assets carry the deployment prefix without exposing stored ownership
+  ---
+  duration_ms: 60.726417
+  type: 'test'
+  ...
+# Subtest: ready result is reused without new generation authorization, while changed drafts require it
+ok 80 - ready result is reused without new generation authorization, while changed drafts require it
+  ---
+  duration_ms: 38.777958
+  type: 'test'
+  ...
+# Subtest: zero ceiling rejects missing or positive quotes before submitting any generation
+ok 81 - zero ceiling rejects missing or positive quotes before submitting any generation
+  ---
+  duration_ms: 7.766959
+  type: 'test'
+  ...
+# Subtest: layout overflow and unsupported characters preserve inputs and cannot be silently submitted
+ok 82 - layout overflow and unsupported characters preserve inputs and cannot be silently submitted
+  ---
+  duration_ms: 3.770791
+  type: 'test'
+  ...
+# Subtest: scene preparation retains ink as alpha, adds original provenance and rejects unsafe archives
+ok 83 - scene preparation retains ink as alpha, adds original provenance and rejects unsafe archives
+  ---
+  duration_ms: 398.160583
+  type: 'test'
+  ...
+# Subtest: the official RGBA label keeps transparent gaps instead of becoming a filled rectangle
+ok 84 - the official RGBA label keeps transparent gaps instead of becoming a filled rectangle
+  ---
+  duration_ms: 1203.560125
+  type: 'test'
+  ...
+# Subtest: worker persists upstream identity across restart and sends only confirmed writing
+ok 85 - worker persists upstream identity across restart and sends only confirmed writing
+  ---
+  duration_ms: 2420.65925
+  type: 'test'
+  ...
+# Subtest: private asset routes reject another session and canceled jobs cannot return late artwork
+ok 86 - private asset routes reject another session and canceled jobs cannot return late artwork
+  ---
+  duration_ms: 209.903625
+  type: 'test'
+  ...
+# Subtest: canceling during an uncertain submission preserves its upstream ID and stops late results
+ok 87 - canceling during an uncertain submission preserves its upstream ID and stops late results
+  ---
+  duration_ms: 156.239833
+  type: 'test'
+  ...
+# Subtest: the original depth import serves 630 imported DA3 maps and explicitly retains nine previous maps
+ok 88 - the original depth import serves 630 imported DA3 maps and explicitly retains nine previous maps
+  ---
+  duration_ms: 4400.881375
+  type: 'test'
+  ...
+# Subtest: depth replacement preserves artwork facts, original images, search vectors, visual evidence and corrected credits
+ok 89 - depth replacement preserves artwork facts, original images, search vectors, visual evidence and corrected credits
+  ---
+  duration_ms: 253.471583
+  type: 'test'
+  ...
+# Subtest: curated release keeps concrete subject and artist requests grounded across the complete selection
+ok 90 - curated release keeps concrete subject and artist requests grounded across the complete selection
+  ---
+  duration_ms: 249.298083
+  type: 'test'
+  ...
+# Subtest: restful complete selections exclude disaster while explicit difficult subjects remain available
+ok 91 - restful complete selections exclude disaster while explicit difficult subjects remain available
+  ---
+  duration_ms: 71.04375
+  type: 'test'
+  ...
+# Subtest: exact artwork titles survive a narrow vector shortlist
+ok 92 - exact artwork titles survive a narrow vector shortlist
+  ---
+  duration_ms: 6.203667
+  type: 'test'
+  ...
+# Subtest: public delivery preserves encoded museum identifiers and binds immutable bytes
+ok 93 - public delivery preserves encoded museum identifiers and binds immutable bytes
+  ---
+  duration_ms: 2.253667
+  type: 'test'
+  ...
+# Subtest: publication rejects traversal, private objects, duplicate identities and mismatched hashes
+ok 94 - publication rejects traversal, private objects, duplicate identities and mismatched hashes
+  ---
+  duration_ms: 12.952167
+  type: 'test'
+  ...
+# Subtest: static publication permits the existing rooms and three opted-in tracks only
+ok 95 - static publication permits the existing rooms and three opted-in tracks only
+  ---
+  duration_ms: 0.184125
+  type: 'test'
+  ...
+# Subtest: sculpture publication permits GLBs and posters while rejecting raw scans, metadata and a mismatched MIME
+ok 96 - sculpture publication permits GLBs and posters while rejecting raw scans, metadata and a mismatched MIME
+  ---
+  duration_ms: 0.425042
+  type: 'test'
+  ...
+# Subtest: publication verifies exact pixels and resumes without requesting completed objects
+ok 97 - publication verifies exact pixels and resumes without requesting completed objects
+  ---
+  duration_ms: 47.8965
+  type: 'test'
+  ...
+# Subtest: budgets and failed requests remain bounded and persist their receipt
+ok 98 - budgets and failed requests remain bounded and persist their receipt
+  ---
+  duration_ms: 1.701834
+  type: 'test'
+  ...
+# Subtest: wrong bytes, cache policy or cross-origin headers never produce an accepted object
+ok 99 - wrong bytes, cache policy or cross-origin headers never produce an accepted object
+  ---
+  duration_ms: 3.849
+  type: 'test'
+  ...
+# Subtest: COS upload accepts only an explicit object grant and verifies the local source first
+ok 100 - COS upload accepts only an explicit object grant and verifies the local source first
+  ---
+  duration_ms: 18.436875
+  type: 'test'
+  ...
+# Subtest: CDN resolution preserves releases, missing historical coverage and local rollback
+ok 101 - CDN resolution preserves releases, missing historical coverage and local rollback
+  ---
+  duration_ms: 17.298208
+  type: 'test'
+  ...
+# Subtest: invalid delivery configuration fails closed and file changes invalidate the cache
+ok 102 - invalid delivery configuration fails closed and file changes invalidate the cache
+  ---
+  duration_ms: 14.354375
+  type: 'test'
+  ...
+# Subtest: activation requires the complete current release, rooms, audio and source bindings
+ok 103 - activation requires the complete current release, rooms, audio and source bindings
+  ---
+  duration_ms: 2315.033291
+  type: 'test'
+  ...
+# Subtest: explanation body is bounded even without a content-length header
+ok 104 - explanation body is bounded even without a content-length header
+  ---
+  duration_ms: 65.157625
+  type: 'test'
+  ...
+# Subtest: quality repair keeps exactly the existing identities and search vectors
+ok 105 - quality repair keeps exactly the existing identities and search vectors
+  ---
+  duration_ms: 22.494083
+  type: 'test'
+  ...
+# Subtest: every default exhibit has sourced dimensions and a measured, complete local preview
+ok 106 - every default exhibit has sourced dimensions and a measured, complete local preview
+  ---
+  duration_ms: 41.916625
+  type: 'test'
+  ...
+# Subtest: specialist material is retained for direct access and excluded from default selection
+ok 107 - specialist material is retained for direct access and excluded from default selection
+  ---
+  duration_ms: 282.330959
+  type: 'test'
+  ...
+# Subtest: preview upgrades retain complete narrow and wide works with auditable pixel dimensions
+ok 108 - preview upgrades retain complete narrow and wide works with auditable pixel dimensions
+  ---
+  duration_ms: 3.562625
+  type: 'test'
+  ...
+# Subtest: catalog reuse isolates callers and invalidates changed shards, new ledgers and replaced reviewed images
+ok 109 - catalog reuse isolates callers and invalidates changed shards, new ledgers and replaced reviewed images
+  ---
+  duration_ms: 55.296833
+  type: 'test'
+  ...
+# Subtest: gallery search excludes objects before vector candidate limits and never fills a short route with them
+ok 110 - gallery search excludes objects before vector candidate limits and never fills a short route with them
+  ---
+  duration_ms: 32.924208
+  type: 'test'
+  ...
+# Subtest: loads the release manifest into gallery-ready artwork records
+ok 111 - loads the release manifest into gallery-ready artwork records
+  ---
+  duration_ms: 8.580375
+  type: 'test'
+  ...
+# Subtest: searches a visitor sentence into ranked gallery cards with detail links
+ok 112 - searches a visitor sentence into ranked gallery cards with detail links
+  ---
+  duration_ms: 9.383292
+  type: 'test'
+  ...
+# Subtest: hard subject constraints run before vector truncation and do not pad unmatched results
+ok 113 - hard subject constraints run before vector truncation and do not pad unmatched results
+  ---
+  duration_ms: 26.55825
+  type: 'test'
+  ...
+# Subtest: searches background scenes directly from the visitor query
+ok 114 - searches background scenes directly from the visitor query
+  ---
+  duration_ms: 6.211209
+  type: 'test'
+  ...
+# Subtest: returns an empty gallery result for queries without searchable tokens
+ok 115 - returns an empty gallery result for queries without searchable tokens
+  ---
+  duration_ms: 7.670375
+  type: 'test'
+  ...
+# Subtest: reports the shard kind and id when a release shard is missing
+ok 116 - reports the shard kind and id when a release shard is missing
+  ---
+  duration_ms: 6.467792
+  type: 'test'
+  ...
+# Subtest: release asset paths stay inside the versioned release
+ok 117 - release asset paths stay inside the versioned release
+  ---
+  duration_ms: 7.6745
+  type: 'test'
+  ...
+# Subtest: verified CDN catalog resolves eighteen sculptures and both complete room dependency sets
+ok 118 - verified CDN catalog resolves eighteen sculptures and both complete room dependency sets
+  ---
+  duration_ms: 7.939209
+  type: 'test'
+  ...
+# Subtest: a changed source catalog disables an optional encounter instead of supplying unverified URLs
+ok 119 - a changed source catalog disables an optional encounter instead of supplying unverified URLs
+  ---
+  duration_ms: 19.721708
+  type: 'test'
+  ...
+# Subtest: external scans retain their own identity, attribution and derivative license
+ok 120 - external scans retain their own identity, attribution and derivative license
+  ---
+  duration_ms: 6.756084
+  type: 'test'
+  ...
+# Subtest: sculpture prose rejects fabricated dates, authors, injected markup and personal diagnoses
+ok 121 - sculpture prose rejects fabricated dates, authors, injected markup and personal diagnoses
+  ---
+  duration_ms: 2.798333
+  type: 'test'
+  ...
+# Subtest: the eighteen-work pool includes the six recognizable human subjects with reviewed visible parts
+ok 122 - the eighteen-work pool includes the six recognizable human subjects with reviewed visible parts
+  ---
+  duration_ms: 0.814041
+  type: 'test'
+  ...
+# Subtest: a grounded model receives the verified cast facts; concurrent calls deduplicate and cache survives process state
+ok 123 - a grounded model receives the verified cast facts; concurrent calls deduplicate and cache survives process state
+  ---
+  duration_ms: 10.482584
+  type: 'test'
+  ...
+# Subtest: invalid/unavailable model text falls back to the selected work without changing its identity
+ok 124 - invalid/unavailable model text falls back to the selected work without changing its identity
+  ---
+  duration_ms: 2.658333
+  type: 'test'
+  ...
+# Subtest: preview ships isolated, bounded GLBs with the verified source attribution
+ok 125 - preview ships isolated, bounded GLBs with the verified source attribution
+  ---
+  duration_ms: 87.035333
+  type: 'test'
+  ...
+# Subtest: trial room backgrounds and relighting maps exist together
+ok 126 - trial room backgrounds and relighting maps exist together
+  ---
+  duration_ms: 4.808834
+  type: 'test'
+  ...
+# Subtest: casual defaults soften intense content while explicit titles remain eligible
+ok 127 - casual defaults soften intense content while explicit titles remain eligible
+  ---
+  duration_ms: 43.9855
+  type: 'test'
+  ...
+# Subtest: bright requests use actual pixels and still honor an explicit medium
+ok 128 - bright requests use actual pixels and still honor an explicit medium
+  ---
+  duration_ms: 12.105708
+  type: 'test'
+  ...
+# Subtest: every planned stage searches the full eligible pool before truncation
+ok 129 - every planned stage searches the full eligible pool before truncation
+  ---
+  duration_ms: 42.123125
+  type: 'test'
+  ...
+# Subtest: architectural requests prefer a building focus over a portrait's background building
+ok 130 - architectural requests prefer a building focus over a portrait's background building
+  ---
+  duration_ms: 8.498792
+  type: 'test'
+  ...
+# Subtest: hard exclusions, explicit authors and short results survive stage planning
+ok 131 - hard exclusions, explicit authors and short results survive stage planning
+  ---
+  duration_ms: 81.824459
+  type: 'test'
+  ...
+# Subtest: a hand-focused portrait request ranks observed hands without relaxing any subject or medium
+ok 132 - a hand-focused portrait request ranks observed hands without relaxing any subject or medium
+  ---
+  duration_ms: 5.401584
+  type: 'test'
+  ...
+# Subtest: concrete stage wishes rank matching interiors and open views before slightly closer generic vectors
+ok 133 - concrete stage wishes rank matching interiors and open views before slightly closer generic vectors
+  ---
+  duration_ms: 3.091833
+  type: 'test'
+  ...
+# Subtest: provider failure freezes a valid fallback and saved links never regenerate or change query
+ok 134 - provider failure freezes a valid fallback and saved links never regenerate or change query
+  ---
+  duration_ms: 25.750417
+  type: 'test'
+  ...
+# Subtest: intent finishes before stage retrieval and a stalled encoder has a bounded fallback
+ok 135 - intent finishes before stage retrieval and a stalled encoder has a bounded fallback
+  ---
+  duration_ms: 236.197959
+  type: 'test'
+  ...
+# Subtest: new visual evidence invalidates request reuse without replacing a saved selection
+ok 136 - new visual evidence invalidates request reuse without replacing a saved selection
+  ---
+  duration_ms: 136.804209
+  type: 'test'
+  ...
+# Subtest: buildCreateCurationRequest preserves release/source versions and selected unit ids
+ok 137 - buildCreateCurationRequest preserves release/source versions and selected unit ids
+  ---
+  duration_ms: 0.967458
+  type: 'test'
+  ...
+# Subtest: the frozen partial gallery adds exactly the two fully evidenced candidates
+ok 138 - the frozen partial gallery adds exactly the two fully evidenced candidates
+  ---
+  duration_ms: 18.385416
+  type: 'test'
+  ...
+# Subtest: existing museum facts, source images and frozen base releases remain intact
+ok 139 - existing museum facts, source images and frozen base releases remain intact
+  ---
+  duration_ms: 60.566708
+  type: 'test'
+  ...
+# Subtest: all eligible artworks retain complete image-bound facts and matching model depth
+ok 140 - all eligible artworks retain complete image-bound facts and matching model depth
+  ---
+  duration_ms: 38.595833
+  type: 'test'
+  ...
+# Subtest: the new semantic index preserves every old vector and adds the same 384-dimensional model
+ok 141 - the new semantic index preserves every old vector and adds the same 384-dimensional model
+  ---
+  duration_ms: 54.107542
+  type: 'test'
+  ...
+# Subtest: new works can be selected while flowers and unknown architecture still enforce exclusions
+ok 142 - new works can be selected while flowers and unknown architecture still enforce exclusions
+  ---
+  duration_ms: 64.210541
+  type: 'test'
+  ...
+# Subtest: Monet and strict water requests keep their original unmet-count boundaries
+ok 143 - Monet and strict water requests keep their original unmet-count boundaries
+  ---
+  duration_ms: 24.995417
+  type: 'test'
+  ...
+# Subtest: the original public gallery freezes the reviewed cohort and preserves its original eligibility gates
+ok 144 - the original public gallery freezes the reviewed cohort and preserves its original eligibility gates
+  ---
+  duration_ms: 6.245542
+  type: 'test'
+  ...
+# Subtest: public sources retain image-bound visual evidence and actual complete model depth
+ok 145 - public sources retain image-bound visual evidence and actual complete model depth
+  ---
+  duration_ms: 638.389167
+  type: 'test'
+  ...
+# Subtest: the original partial release facts, images and real vectors remain intact
+ok 146 - the original partial release facts, images and real vectors remain intact
+  ---
+  duration_ms: 211.586541
+  type: 'test'
+  ...
+# Subtest: Monet and strict unpeopled water requests gain actual evidenced options
+ok 147 - Monet and strict unpeopled water requests gain actual evidenced options
+  ---
+  duration_ms: 67.178333
+  type: 'test'
+  ...
+# Subtest: admitted source catalog and raw evidence archives remain independently inspectable
+ok 148 - admitted source catalog and raw evidence archives remain independently inspectable
+  ---
+  duration_ms: 429.624
+  type: 'test'
+  ...
+# Subtest: conflict feedback explains blocked requirements without rejecting remaining alternatives
+ok 149 - conflict feedback explains blocked requirements without rejecting remaining alternatives
+  ---
+  duration_ms: 21.37375
+  type: 'test'
+  ...
+# Subtest: a named artist request does not silently include uncertain or reference authorship
+ok 150 - a named artist request does not silently include uncertain or reference authorship
+  ---
+  duration_ms: 0.99675
+  type: 'test'
+  ...
+# Subtest: bare Chinese flower exclusions work without treating spending time or money as flowers
+ok 151 - bare Chinese flower exclusions work without treating spending time or money as flowers
+  ---
+  duration_ms: 0.697666
+  type: 'test'
+  ...
+# Subtest: fatigue seeks respite, not a disaster carrying a melancholy label
+ok 152 - fatigue seeks respite, not a disaster carrying a melancholy label
+  ---
+  duration_ms: 2.202917
+  type: 'test'
+  ...
+# Subtest: denied sadness or fatigue does not ask for rest, while a positive request still can
+ok 153 - denied sadness or fatigue does not ask for rest, while a positive request still can
+  ---
+  duration_ms: 1.304125
+  type: 'test'
+  ...
+# Subtest: declined encouragement is not a request for a cheerful or calm selection
+ok 154 - declined encouragement is not a request for a cheerful or calm selection
+  ---
+  duration_ms: 0.904209
+  type: 'test'
+  ...
+# Subtest: still-life requests reject incidental portrait backgrounds and fine focus uses verified observations
+ok 155 - still-life requests reject incidental portrait backgrounds and fine focus uses verified observations
+  ---
+  duration_ms: 4.544417
+  type: 'test'
+  ...
+# Subtest: conflicting requirements cannot widen selection to unrelated works
+ok 156 - conflicting requirements cannot widen selection to unrelated works
+  ---
+  duration_ms: 1.658542
+  type: 'test'
+  ...
+# Subtest: explicit war and death requests remain possible even when the visitor is sad
+ok 157 - explicit war and death requests remain possible even when the visitor is sad
+  ---
+  duration_ms: 1.797667
+  type: 'test'
+  ...
+# Subtest: subject exclusions have clause scope and never return as emotional aliases
+ok 158 - subject exclusions have clause scope and never return as emotional aliases
+  ---
+  duration_ms: 2.228417
+  type: 'test'
+  ...
+# Subtest: a distressing current context is not mistaken for the requested subject
+ok 159 - a distressing current context is not mistaken for the requested subject
+  ---
+  duration_ms: 1.173125
+  type: 'test'
+  ...
+# Subtest: bilingual artist names constrain authorship and preserve exclusions
+ok 160 - bilingual artist names constrain authorship and preserve exclusions
+  ---
+  duration_ms: 0.465833
+  type: 'test'
+  ...
+# Subtest: Chinese and English subjects use catalog evidence, not medium or affect
+ok 161 - Chinese and English subjects use catalog evidence, not medium or affect
+  ---
+  duration_ms: 1.248125
+  type: 'test'
+  ...
+# Subtest: an attributive no-people exclusion does not negate the requested seascape
+ok 162 - an attributive no-people exclusion does not negate the requested seascape
+  ---
+  duration_ms: 1.343375
+  type: 'test'
+  ...
+# Subtest: gentle seascapes cannot admit explicit war, death or trees through a negative clause
+ok 163 - gentle seascapes cannot admit explicit war, death or trees through a negative clause
+  ---
+  duration_ms: 0.951708
+  type: 'test'
+  ...
+# Subtest: unknown author requests stay empty instead of selecting unrelated artists
+ok 164 - unknown author requests stay empty instead of selecting unrelated artists
+  ---
+  duration_ms: 2.952666
+  type: 'test'
+  ...
+# Subtest: all requested subjects need evidence, while explicit alternatives remain alternatives
+ok 165 - all requested subjects need evidence, while explicit alternatives remain alternatives
+  ---
+  duration_ms: 1.976792
+  type: 'test'
+  ...
+# Subtest: English negative lists retain scope across commas without turning exclusions into alternatives
+ok 166 - English negative lists retain scope across commas without turning exclusions into alternatives
+  ---
+  duration_ms: 3.403584
+  type: 'test'
+  ...
+# Subtest: specific work exclusions do not become a ban on all water or flower subjects
+ok 167 - specific work exclusions do not become a ban on all water or flower subjects
+  ---
+  duration_ms: 1.281833
+  type: 'test'
+  ...
+# Subtest: a bare catalog record cannot certify that a waterscape contains no small figures
+ok 168 - a bare catalog record cannot certify that a waterscape contains no small figures
+  ---
+  duration_ms: 0.66275
+  type: 'test'
+  ...
+# Subtest: quoted exact works preserve internal punctuation and religious exclusions use subject evidence
+ok 169 - quoted exact works preserve internal punctuation and religious exclusions use subject evidence
+  ---
+  duration_ms: 0.695042
+  type: 'test'
+  ...
+# Subtest: rich prose cannot certify absence, and every strict exclusion needs its own evidence
+ok 170 - rich prose cannot certify absence, and every strict exclusion needs its own evidence
+  ---
+  duration_ms: 0.625083
+  type: 'test'
+  ...
+# Subtest: short Chinese water and boat nouns preserve strict requirements
+ok 171 - short Chinese water and boat nouns preserve strict requirements
+  ---
+  duration_ms: 0.426
+  type: 'test'
+  ...
+# Subtest: medium requests use original media, and inclusion permission does not impose a medium
+ok 172 - medium requests use original media, and inclusion permission does not impose a medium
+  ---
+  duration_ms: 0.998959
+  type: 'test'
+  ...
+# Subtest: Chinese attributive exclusions preserve the requested water and space
+ok 173 - Chinese attributive exclusions preserve the requested water and space
+  ---
+  duration_ms: 0.367542
+  type: 'test'
+  ...
+# Subtest: a fresh observation request ends an exclusion list without erasing its exclusions
+ok 174 - a fresh observation request ends an exclusion list without erasing its exclusions
+  ---
+  duration_ms: 2.728083
+  type: 'test'
+  ...
+# Subtest: Chinese mountain views cannot silently select unrelated ink subjects
+ok 175 - Chinese mountain views cannot silently select unrelated ink subjects
+  ---
+  duration_ms: 0.694542
+  type: 'test'
+  ...
+1..175
+# tests 175
+# suites 0
+# pass 175
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 63713.451208
+PACKAGE apps/pipeline FILES 0
+TAP version 13
+# Subtest: metadata shard build writes frontend-consumable metadata records
+ok 1 - metadata shard build writes frontend-consumable metadata records
+  ---
+  duration_ms: 68.954833
+  type: 'test'
+  ...
+# Subtest: background scene build preserves the scene catalog contract
+ok 2 - background scene build preserves the scene catalog contract
+  ---
+  duration_ms: 45.345625
+  type: 'test'
+  ...
+# Subtest: candidate preview builder merges latest candidate pool inputs and removes cross-theme duplicates
+ok 3 - candidate preview builder merges latest candidate pool inputs and removes cross-theme duplicates
+  ---
+  duration_ms: 46.369875
+  type: 'test'
+  ...
+# Subtest: confirmed metadata backfill builds a parallel artifact and refreshes coverage with orientation + scene matches
+ok 4 - confirmed metadata backfill builds a parallel artifact and refreshes coverage with orientation + scene matches
+  ---
+  duration_ms: 24.100125
+  type: 'test'
+  ...
+# Subtest: confirmed metadata backfill uses theme-specific scene hints for newly reviewed themes
+ok 5 - confirmed metadata backfill uses theme-specific scene hints for newly reviewed themes
+  ---
+  duration_ms: 6.84925
+  type: 'test'
+  ...
+# Subtest: embedding shard build writes a release-local embedding artifact and updates the manifest
+ok 6 - embedding shard build writes a release-local embedding artifact and updates the manifest
+  ---
+  duration_ms: 49.363542
+  type: 'test'
+  ...
+# Subtest: embedding shard build rejects stale release manifests
+ok 7 - embedding shard build rejects stale release manifests
+  ---
+  duration_ms: 25.786167
+  type: 'test'
+  ...
+# Subtest: embedding shard build can use an explicit remote-compatible provider
+ok 8 - embedding shard build can use an explicit remote-compatible provider
+  ---
+  duration_ms: 16.4775
+  type: 'test'
+  ...
+# Subtest: media index build keeps remote media references instead of binaries
+ok 9 - media index build keeps remote media references instead of binaries
+  ---
+  duration_ms: 34.018625
+  type: 'test'
+  ...
+# Subtest: metadata preview builder uses latest metadata-backfill input per theme and preserves blocker context
+ok 10 - metadata preview builder uses latest metadata-backfill input per theme and preserves blocker context
+  ---
+  duration_ms: 73.159458
+  type: 'test'
+  ...
+# Subtest: quantity preview builder tops up candidate pool with legacy boost records to reach target count
+ok 11 - quantity preview builder tops up candidate pool with legacy boost records to reach target count
+  ---
+  duration_ms: 149.358333
+  type: 'test'
+  ...
+# Subtest: release manifest build emits a valid Phase 1 artifact
+ok 12 - release manifest build emits a valid Phase 1 artifact
+  ---
+  duration_ms: 80.933791
+  type: 'test'
+  ...
+# Subtest: release manifest build can consume curated release-ready corpus
+ok 13 - release manifest build can consume curated release-ready corpus
+  ---
+  duration_ms: 50.186584
+  type: 'test'
+  ...
+# Subtest: local artwork images are bundled and missing or escaping image paths fail the build
+ok 14 - local artwork images are bundled and missing or escaping image paths fail the build
+  ---
+  duration_ms: 21.740166
+  type: 'test'
+  ...
+# Subtest: release manifest preserves depth-map metadata and binds it to the new release
+ok 15 - release manifest preserves depth-map metadata and binds it to the new release
+  ---
+  duration_ms: 185.336041
+  type: 'test'
+  ...
+# Subtest: release manifest build prefers latest curated corpus by default when available
+ok 16 - release manifest build prefers latest curated corpus by default when available
+  ---
+  duration_ms: 32.92875
+  type: 'test'
+  ...
+# Subtest: release-ready corpus builder backfills Phase 1 fields and excludes duplicates
+ok 17 - release-ready corpus builder backfills Phase 1 fields and excludes duplicates
+  ---
+  duration_ms: 20.151583
+  type: 'test'
+  ...
+# Subtest: search shard build writes retrieval payloads
+ok 18 - search shard build writes retrieval payloads
+  ---
+  duration_ms: 32.132959
+  type: 'test'
+  ...
+# Subtest: scene matching treats multi-orientation scene support as fully compatible
+ok 19 - scene matching treats multi-orientation scene support as fully compatible
+  ---
+  duration_ms: 5.177125
+  type: 'test'
+  ...
+# Subtest: vector retrieval debug joins public relationship evidence without changing ranking
+ok 20 - vector retrieval debug joins public relationship evidence without changing ranking
+  ---
+  duration_ms: 19.06575
+  type: 'test'
+  ...
+# Subtest: vector retrieval debug reports missing sidecars as empty relationship evidence
+ok 21 - vector retrieval debug reports missing sidecars as empty relationship evidence
+  ---
+  duration_ms: 3.147292
+  type: 'test'
+  ...
+# Subtest: vector retrieval debug fails closed when the relationship graph sidecar is invalid
+ok 22 - vector retrieval debug fails closed when the relationship graph sidecar is invalid
+  ---
+  duration_ms: 5.750167
+  type: 'test'
+  ...
+# Subtest: vector retrieval debug fails closed when the internal relationship report is stale
+ok 23 - vector retrieval debug fails closed when the internal relationship report is stale
+  ---
+  duration_ms: 8.3965
+  type: 'test'
+  ...
+# Subtest: vector retrieval debug ignores relationship reports written under the release directory
+ok 24 - vector retrieval debug ignores relationship reports written under the release directory
+  ---
+  duration_ms: 8.564125
+  type: 'test'
+  ...
+# Subtest: vector retrieval debug derives internal report path from a manifest-only release load
+ok 25 - vector retrieval debug derives internal report path from a manifest-only release load
+  ---
+  duration_ms: 5.085541
+  type: 'test'
+  ...
+# Subtest: vector retrieval debug derives internal report path from a custom releases root
+ok 26 - vector retrieval debug derives internal report path from a custom releases root
+  ---
+  duration_ms: 5.67675
+  type: 'test'
+  ...
+# Subtest: depth estimator writes a release-bound estimated map from the supplied image
+ok 27 - depth estimator writes a release-bound estimated map from the supplied image
+  ---
+  duration_ms: 16.393292
+  type: 'test'
+  ...
+# Subtest: depth estimator rejects unsafe release paths and mismatched source conditions
+ok 28 - depth estimator rejects unsafe release paths and mismatched source conditions
+  ---
+  duration_ms: 2.638917
+  type: 'test'
+  ...
+# Subtest: embedding runtime resolves local-hash by default
+ok 29 - embedding runtime resolves local-hash by default
+  ---
+  duration_ms: 1.505166
+  type: 'test'
+  ...
+# Subtest: embedding runtime reads remote provider settings from .env
+ok 30 - embedding runtime reads remote provider settings from .env
+  ---
+  duration_ms: 0.839167
+  type: 'test'
+  ...
+# Subtest: embedding runtime falls back to local-hash when remote config is incomplete
+ok 31 - embedding runtime falls back to local-hash when remote config is incomplete
+  ---
+  duration_ms: 0.758417
+  type: 'test'
+  ...
+# Subtest: embedding runtime can default release builds to strict remote mode
+ok 32 - embedding runtime can default release builds to strict remote mode
+  ---
+  duration_ms: 0.557167
+  type: 'test'
+  ...
+# Subtest: embedding runtime rejects incomplete strict remote release config
+ok 33 - embedding runtime rejects incomplete strict remote release config
+  ---
+  duration_ms: 1.034959
+  type: 'test'
+  ...
+# Subtest: dimension backfill preserves measurement scopes and rejects another artwork's evidence
+ok 34 - dimension backfill preserves measurement scopes and rejects another artwork's evidence
+  ---
+  duration_ms: 12.801125
+  type: 'test'
+  ...
+# Subtest: source adapters retain identity across cached museum and legacy formats
+ok 35 - source adapters retain identity across cached museum and legacy formats
+  ---
+  duration_ms: 1.814667
+  type: 'test'
+  ...
+# Subtest: decoded image geometry preserves the complete image and invalidates stale depth
+ok 36 - decoded image geometry preserves the complete image and invalidates stale depth
+  ---
+  duration_ms: 33.369584
+  type: 'test'
+  ...
+# Subtest: image measurements respect EXIF display orientation
+ok 37 - image measurements respect EXIF display orientation
+  ---
+  duration_ms: 17.052083
+  type: 'test'
+  ...
+# Subtest: release verification rejects damaged previews and shard contents
+ok 38 - release verification rejects damaged previews and shard contents
+  ---
+  duration_ms: 346.452125
+  type: 'test'
+  ...
+# Subtest: embedding promotion external pack is complete and internally consistent
+ok 39 - embedding promotion external pack is complete and internally consistent
+  ---
+  duration_ms: 18.8725
+  type: 'test'
+  ...
+# Subtest: external depths import unchanged, retain missing assets, and reject invalid batches before writing
+ok 40 - external depths import unchanged, retain missing assets, and reject invalid batches before writing
+  ---
+  duration_ms: 220.2325
+  type: 'test'
+  ...
+# Subtest: model depth rejects nonfinite and spatially constant predictions
+ok 41 - model depth rejects nonfinite and spatially constant predictions
+  ---
+  duration_ms: 1.183
+  type: 'test'
+  ...
+# Subtest: depth assets preserve complete image geometry, source release and semantic vectors
+ok 42 - depth assets preserve complete image geometry, source release and semantic vectors
+  ---
+  duration_ms: 113.932833
+  type: 'test'
+  ...
+# Subtest: white-space creators, missing facts, unknown licensing and books are held without network requests
+ok 43 - white-space creators, missing facts, unknown licensing and books are held without network requests
+  ---
+  duration_ms: 25.130667
+  type: 'test'
+  ...
+# Subtest: museum primary images take precedence over higher-resolution unverified alternatives
+ok 44 - museum primary images take precedence over higher-resolution unverified alternatives
+  ---
+  duration_ms: 13.194
+  type: 'test'
+  ...
+# Subtest: a publisher or after-reference cannot satisfy the current-creator requirement
+ok 45 - a publisher or after-reference cannot satisfy the current-creator requirement
+  ---
+  duration_ms: 15.337709
+  type: 'test'
+  ...
+# Subtest: public acquisition resumes accepted responses without requesting them again; decoded image and review hashes must agree
+ok 46 - public acquisition resumes accepted responses without requesting them again; decoded image and review hashes must agree
+  ---
+  duration_ms: 113.328
+  type: 'test'
+  ...
+# Subtest: complete HTTP transfers containing truncated or low-resolution images never become accepted receipts
+ok 47 - complete HTTP transfers containing truncated or low-resolution images never become accepted receipts
+  ---
+  duration_ms: 61.090875
+  type: 'test'
+  ...
+# Subtest: unknown subjects remain unknown and conflicting presence/absence cannot be recorded
+ok 48 - unknown subjects remain unknown and conflicting presence/absence cannot be recorded
+  ---
+  duration_ms: 0.998667
+  type: 'test'
+  ...
+# Subtest: an audit-storage failure stops further source work and cannot report a successful batch
+ok 49 - an audit-storage failure stops further source work and cannot report a successful batch
+  ---
+  duration_ms: 93.8795
+  type: 'test'
+  ...
+# Subtest: a former attribution is not a second author or a substitute for a current attribution
+ok 50 - a former attribution is not a second author or a substitute for a current attribution
+  ---
+  duration_ms: 81.099
+  type: 'test'
+  ...
+# Subtest: relationship graph evaluation compares sidecar value and keeps vector order unchanged
+ok 51 - relationship graph evaluation compares sidecar value and keeps vector order unchanged
+  ---
+  duration_ms: 28.517167
+  type: 'test'
+  ...
+# Subtest: relationship graph evaluation gates payload by actual shard size
+ok 52 - relationship graph evaluation gates payload by actual shard size
+  ---
+  duration_ms: 6.451
+  type: 'test'
+  ...
+# Subtest: relationship graph evaluation resolves reports for manifest-only loads
+ok 53 - relationship graph evaluation resolves reports for manifest-only loads
+  ---
+  duration_ms: 5.900666
+  type: 'test'
+  ...
+# Subtest: relationship graph phase0 writes internal reports without release sidecar or manifest changes
+ok 54 - relationship graph phase0 writes internal reports without release sidecar or manifest changes
+  ---
+  duration_ms: 49.689084
+  type: 'test'
+  ...
+# Subtest: relationship graph builder writes public sidecar, internal report, and manifest shard
+ok 55 - relationship graph builder writes public sidecar, internal report, and manifest shard
+  ---
+  duration_ms: 101.556916
+  type: 'test'
+  ...
+# Subtest: relationship graph release allowlist blocks internal reports and local path leaks
+ok 56 - relationship graph release allowlist blocks internal reports and local path leaks
+  ---
+  duration_ms: 54.5085
+  type: 'test'
+  ...
+# Subtest: smaller lighting fields preserve scalar depth and its full image projection
+ok 57 - smaller lighting fields preserve scalar depth and its full image projection
+  ---
+  duration_ms: 34.481834
+  type: 'test'
+  ...
+# Subtest: room assets retain sub-byte depth precision and finite, unit-length surface normals
+ok 58 - room assets retain sub-byte depth precision and finite, unit-length surface normals
+  ---
+  duration_ms: 11.608792
+  type: 'test'
+  ...
+# Subtest: flat or corrupt model fields cannot masquerade as usable lighting geometry
+ok 59 - flat or corrupt model fields cannot masquerade as usable lighting geometry
+  ---
+  duration_ms: 0.883916
+  type: 'test'
+  ...
+# Subtest: semantic releases preserve the hash index, validate checksums and refuse replacement
+ok 60 - semantic releases preserve the hash index, validate checksums and refuse replacement
+  ---
+  duration_ms: 43.654333
+  type: 'test'
+  ...
+# Subtest: invalid semantic vectors fail before a candidate release is written
+ok 61 - invalid semantic vectors fail before a candidate release is written
+  ---
+  duration_ms: 12.720083
+  type: 'test'
+  ...
+# Subtest: a per-batch provider fallback cannot mix semantic and hash spaces into one index
+ok 62 - a per-batch provider fallback cannot mix semantic and hash spaces into one index
+  ---
+  duration_ms: 0.556708
+  type: 'test'
+  ...
+# Traceback (most recent call last):
+#   File "/Users/aitoshuu/Documents/GitHub/ArtDuo/scripts/read-verified-link-snapshot.py", line 52, in <module>
+#     print(json.dumps(read_snapshot(sys.argv[1]), ensure_ascii=False))
+#                      ~~~~~~~~~~~~~^^^^^^^^^^^^^
+#   File "/Users/aitoshuu/Documents/GitHub/ArtDuo/scripts/read-verified-link-snapshot.py", line 29, in read_snapshot
+#     raise ValueError(f"Invalid identity, duplicate URL or status at record {ordinal}")
+# ValueError: Invalid identity, duplicate URL or status at record 2
+# Subtest: snapshot CSV preserves BOM, escaped JSON, embedded newlines and shared candidate links
+ok 63 - snapshot CSV preserves BOM, escaped JSON, embedded newlines and shared candidate links
+  ---
+  duration_ms: 197.068791
+  type: 'test'
+  ...
+# Subtest: admission retains original facts, full geometry and unknown visual states
+ok 64 - admission retains original facts, full geometry and unknown visual states
+  ---
+  duration_ms: 202.91075
+  type: 'test'
+  ...
+# Subtest: successful links never replace missing master data or new institution adapters
+ok 65 - successful links never replace missing master data or new institution adapters
+  ---
+  duration_ms: 15.612791
+  type: 'test'
+  ...
+# Subtest: catalog facts, public-domain evidence and exact image/source identity fail closed
+    # Subtest: missing title
+    ok 1 - missing title
+      ---
+      duration_ms: 14.691333
+      type: 'test'
+      ...
+    # Subtest: wrong object
+    ok 2 - wrong object
+      ---
+      duration_ms: 13.625333
+      type: 'test'
+      ...
+    # Subtest: uncertain rights
+    ok 3 - uncertain rights
+      ---
+      duration_ms: 15.601
+      type: 'test'
+      ...
+    # Subtest: page conflicts with old facts
+    ok 4 - page conflicts with old facts
+      ---
+      duration_ms: 16.058958
+      type: 'test'
+      ...
+    # Subtest: changed raw record
+    ok 5 - changed raw record
+      ---
+      duration_ms: 15.105292
+      type: 'test'
+      ...
+    # Subtest: different successful image
+    ok 6 - different successful image
+      ---
+      duration_ms: 13.15125
+      type: 'test'
+      ...
+    # Subtest: non-museum host
+    ok 7 - non-museum host
+      ---
+      duration_ms: 13.096541
+      type: 'test'
+      ...
+    1..7
+ok 66 - catalog facts, public-domain evidence and exact image/source identity fail closed
+  ---
+  duration_ms: 104.042583
+  type: 'test'
+  ...
+# Subtest: changed images, detail views, incomplete reviews and undecodable bodies remain held
+    # Subtest: detail
+    ok 1 - detail
+      ---
+      duration_ms: 50.538208
+      type: 'test'
+      ...
+    # Subtest: verso
+    ok 2 - verso
+      ---
+      duration_ms: 57.381208
+      type: 'test'
+      ...
+    # Subtest: installation
+    ok 3 - installation
+      ---
+      duration_ms: 72.730917
+      type: 'test'
+      ...
+    1..3
+ok 67 - changed images, detail views, incomplete reviews and undecodable bodies remain held
+  ---
+  duration_ms: 258.432292
+  type: 'test'
+  ...
+# Subtest: release activation preserves old vectors/evidence and waits for complete depth and semantic output
+ok 68 - release activation preserves old vectors/evidence and waits for complete depth and semantic output
+  ---
+  duration_ms: 1024.7545
+  type: 'test'
+  ...
+# Subtest: an interrupted staging run resumes verified depth and rejects changed outputs
+ok 69 - an interrupted staging run resumes verified depth and rejects changed outputs
+  ---
+  duration_ms: 935.298917
+  type: 'test'
+  ...
+# Subtest: visual presentation preview emits VLM candidates and skips trusted annotations
+ok 70 - visual presentation preview emits VLM candidates and skips trusted annotations
+  ---
+  duration_ms: 5.5915
+  type: 'test'
+  ...
+1..70
+# tests 80
+# suites 0
+# pass 80
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19790.28575

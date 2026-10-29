@@ -4,8 +4,8 @@ import { gotoApp } from "./helpers";
 
 test("experience detail returns to the same artwork and loads explanation on request", async ({ page }) => {
   await gotoApp(page, "/gallery/local/immersive?query=有点累，撑了很久&view=experience&phase=preface");
-  await page.getByRole("button", { name: /跳过前言/ }).click();
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
+  await page.locator(".experience-plaque-heading").click();
   await page.getByRole("button", { name: "进入详细讲解" }).click();
 
   await expect(page).toHaveURL(/\/artwork\/(?:met|artic)-/);
@@ -40,5 +40,5 @@ test("experience detail returns to the same artwork and loads explanation on req
   const artworkId = new URL(page.url()).pathname.split("/").at(-1);
   await page.getByRole("link", { name: "返回刚才的位置" }).click();
   await expect(page).toHaveURL(new RegExp(`phase=walk.*artworkId=${artworkId}`));
-  await expect(page.getByRole("button", { name: "展开完整展签" })).toBeVisible();
+  await expect(page.locator(".experience-plaque-heading")).toBeVisible();
 });

@@ -50,7 +50,7 @@ test("semantic exhibition keeps its identity, quiets pointer chrome and protects
     await page.screenshot({ path: resolve(evidenceDir, `semantic-room-${size.width}.png`) });
     await page.mouse.move(10, 150);
     await expect(page.getByTestId("experience-shell")).toHaveAttribute("data-chrome-visible", "true");
-    await page.getByRole("button", { name: "展开完整展签" }).click();
+    await page.locator(".experience-plaque-heading").click();
     await expect(page.getByRole("dialog")).toBeVisible();
     await expect(page.locator(".experience-reading-note")).not.toBeEmpty();
     await page.waitForTimeout(3_400);

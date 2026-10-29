@@ -18,6 +18,7 @@ import { ROOM_IMAGE_SIZES, roomImageSrcSet } from "./room-assets";
 import { useKeepsakeController, type HandwritingProvider } from "./handwritten-keepsake";
 import { useSculptureEncounter } from "./use-sculpture-encounter";
 import type { SculptureNarrator, SculptureRoomScene, SculptureWork } from "./sculpture-types";
+import { usePresentedPreface } from "./use-presented-preface";
 
 const EncounterRoom = lazy(() => import("./sculpture-room").then(module => ({ default: module.SculptureRoom })));
 const NO_SCULPTURES: SculptureWork[] = [], NO_SCULPTURE_SCENES: SculptureRoomScene[] = [];
@@ -65,9 +66,11 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const encounter = useSculptureEncounter(snapshot, sculptureWorks, sculptureScenes, viewing.hydrated);
   const encounterActive = encounter.value?.status === "active" && state.act === "walk";
   const encounterWork = encounterActive ? sculptureWorks.find(work => work.id === encounter.value?.modelId) : undefined;
+  const [showSettingsPreface, setShowSettingsPreface] = useState(false);
   const stageForLast = snapshot.units.find(unit => unit.exhibition.unitId === state.lastUnitId);
   const plannedLast = snapshot.units.find(unit => unit.artwork.id === viewing.session.order.at(-1)) ?? snapshot.units.at(-1);
   const keepsake = useKeepsakeController(snapshot, state.act === "closing" ? stageForLast ?? plannedLast : plannedLast, handwritingProvider);
+  const presentedPreface = usePresentedPreface(snapshot, !keepsake.open && (state.act === "preface" || state.act === "walk" && !encounterActive && showSettingsPreface));
   const [readingOpen, setReadingOpen] = useState(false);
   const chromeVisible = useIdleChrome(state.act === "walk", readingOpen || state.overlay !== "none" || state.transitioning || !state.online || state.failedMediaIds.length > 0 || state.audioState === "loading");
   const [readyUnitId, setReadyUnitId] = useState<string>();
@@ -299,7 +302,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     {state.act !== "walk" ? <div className="experience-global-controls"><AudioButton onToggle={() => void toggleAudio()} state={audio.state} /></div> : null}
     {!state.online ? <p className="experience-offline" role="status">离线浏览 · 作品讲解和未缓存媒体可能暂不可用</p> : null}
     <div aria-live="polite" className="sr-only">{statusMessage}</div>
-    {state.act === "preface" ? <Preface block={snapshot.preface} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} onContinue={() => dispatch({ type: "SKIP" })} reducedMotion={reducedMotion} ready={viewing.hydrated} pending={snapshot.narrativePending} selectionNotice={snapshot.selectionNotice} keepsake={keepsake.entry(true)} /> : null}
+    {state.act === "preface" ? <Preface block={presentedPreface} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} onContinue={() => dispatch({ type: "SKIP" })} reducedMotion={reducedMotion} ready={viewing.hydrated} selectionNotice={snapshot.selectionNotice} keepsake={keepsake.entry(true)} /> : null}
     {state.act === "walk" && encounterWork ? <SculptureBoundary onUnavailable={continueAfterEncounter}><Suspense fallback={<div className="experience-room experience-room-fallback" role="status">正在进入侧厅…</div>}>
       <EncounterRoom key={encounterWork.id} works={[encounterWork]} scenes={sculptureScenes} initialModel={encounterWork.id} initialScene={encounter.value!.roomId!}
         initialQuality="compact" query={snapshot.query} narrate={sculptureNarrator}
@@ -307,6 +310,8 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
           audioControl: <AudioButton onToggle={() => void toggleAudio()} state={audio.state} /> }} />
     </Suspense></SculptureBoundary> : null}
     {state.act === "walk" && !encounterWork ? <Walk
+      preface={presentedPreface}
+      onPrefaceVisibilityChange={setShowSettingsPreface}
       dispatch={dispatch}
       onDetail={(artworkId) => { flushObservation(); onDetail(artworkId, positionOfExperienceState(state), snapshot); }}
       detailNavigation={detailNavigation}
@@ -336,6 +341,6 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       keepsake={keepsake.entry(false)}
     /> : null}
     {keepsake.modal}
-    {state.act !== "walk" ? <a className="experience-exit" href={appPath("/?view=experience")}>ArtDuo</a> : null}
+    {state.act !== "walk" ? <a className="experience-exit" aria-label="ArtDuo，返回入口" href={appPath(restartHref ?? `/?${new URLSearchParams({ view: "experience", query: snapshot.query })}`)}>ArtDuo</a> : null}
   </main>;
 }

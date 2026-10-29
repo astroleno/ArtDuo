@@ -44,7 +44,7 @@ test("measured frames remain stable through image decoding and keep narrow and w
         await expect(page.locator(".immersive-preview-image")).toHaveCSS("object-fit", "contain");
         await page.mouse.move(0, 0);
         await page.screenshot({ path: join(evidence, `${id}-${viewport.width}-room.png`) });
-        await page.getByRole("button", { name: "展开完整展签" }).click();
+        await page.locator(".experience-plaque-heading").click();
         const reading = page.getByRole("dialog", { name: record.metadata.title });
         await expect(reading).toContainText("馆方尺寸");
         await expect(reading).toContainText(record.metadata.dimensions.replace(/\s+/g, " "));

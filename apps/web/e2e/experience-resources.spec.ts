@@ -42,7 +42,7 @@ test("twenty moves, lightbox, backgrounding and three remounts release renderer 
     await expect(page.locator(".experience-depth-canvas")).toHaveAttribute("data-depth-state", "ready");
     await expect.poll(async () => (await resources()).programs).toBe(1);
   }
-  await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
+  await page.getByRole("button", { name: /放大，进入画中：/ }).click();
   await expect(page.getByRole("dialog")).toHaveAttribute("data-depth-status", "ready");
   await expect(page.locator(".experience-depth-canvas")).toHaveCount(0);
   await expect.poll(async () => (await resources()).programs).toBe(1);
@@ -101,7 +101,7 @@ test("audio recovers from play rejection and stops on mute, hidden page and unmo
   await expect(page.getByRole("button", { name: "关闭环境音" })).toBeVisible();
   await expect.poll(async () => (await audio()).progressed).toBe(true);
   expect((await audio()).playing).toBe(1);
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.locator(".experience-plaque-heading").click();
   await expect.poll(async () => (await audio()).volume).toBeCloseTo(0.064, 3);
   expect((await audio()).rate).toBe(1);
   await page.keyboard.press("Escape");

@@ -11,7 +11,7 @@ test("server-rendered preface enables its action only after the client can handl
   await page.route("**/_next/static/chunks/**", async (route) => { await clientGate; await route.continue(); });
   try {
     await page.goto(`${experienceUrl}&releaseVersion=2026-10-06-paintings`, { waitUntil: "commit" });
-    const start = page.getByRole("button", { name: /跳过前言/ });
+    const start = page.getByRole("button", { name: /进入展厅/ });
     await expect(start).toBeVisible();
     await expect(start).toBeDisabled();
     releaseClient();
@@ -37,12 +37,12 @@ test("empty results, unsupported releases and recipes have visible recovery path
 test("failed artwork media keeps the plaque and offers retry and navigation", async ({ page }) => {
   await page.route("**/artduo-artwork/**", (route) => route.fulfill({ status: 503, body: "test media unavailable" }));
   await gotoApp(page, experienceUrl);
-  await page.getByRole("button", { name: /跳过前言/ }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
 
   await expect(page.getByRole("status")).toContainText("这件作品暂时无法载入");
   expect(await page.evaluate(() => performance.getEntriesByName("artduo.experience.first-artwork-visible").length)).toBe(0);
   expect(await page.evaluate(() => performance.getEntriesByName("artduo.experience.first-artwork-actionable").length)).toBe(0);
-  await expect(page.getByRole("button", { name: "展开完整展签" })).toBeVisible();
+  await expect(page.locator(".experience-plaque-heading")).toBeVisible();
   await expect(page.getByRole("button", { name: "下一件作品" })).toBeEnabled();
   await page.getByRole("button", { name: "重试载入" }).click();
   await expect(page.getByRole("status")).toContainText("这件作品暂时无法载入");
@@ -59,7 +59,7 @@ test("first artwork milestones wait for a decoded visible image instead of the w
   const imageGate = new Promise<void>((resolve) => { releaseImage = resolve; });
   await page.route("**/artduo-artwork/**", async (route) => { await imageGate; await route.continue(); });
   await page.goto(experienceUrl, { waitUntil: "domcontentloaded" });
-  await page.getByRole("button", { name: /跳过前言/ }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
   await expect(page.getByTestId("experience-room")).toBeVisible();
   await expect(page.locator(".experience-art-lightbox")).toHaveAttribute("data-image-state", "loading");
   expect(await page.evaluate(() => performance.getEntriesByName("artduo.experience.first-artwork-visible").length)).toBe(0);
@@ -78,17 +78,17 @@ test("first artwork milestones wait for a decoded visible image instead of the w
 
 test("missing depth maps keep the artwork static and fully usable", async ({ page }) => {
   await gotoApp(page, `${experienceUrl}&releaseVersion=2026-10-13-quality`);
-  await page.getByRole("button", { name: /跳过前言/ }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
 
   await expect(page.getByTestId("experience-room")).toBeVisible();
   await expect(page.locator(".experience-depth-canvas")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: /放大.+并进入沉浸体验/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /放大，进入画中：/ })).toBeVisible();
   await expect(page.getByRole("button", { name: "下一件作品" })).toBeEnabled();
 });
 
 test("rapid navigation queues one final step and does not lock the room", async ({ page }) => {
   await gotoApp(page, experienceUrl);
-  await page.getByRole("button", { name: /跳过前言/ }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
 
   const nextButton = page.getByRole("button", { name: "下一件作品" });
   await expect(nextButton).toBeEnabled();
@@ -106,17 +106,17 @@ test("rapid navigation queues one final step and does not lock the room", async 
 test("a failed room background uses the neutral wall while the artwork remains available", async ({ page }) => {
   await page.route("**/artduo-gallery/**", (route) => route.fulfill({ status: 503, body: "test background unavailable" }));
   await gotoApp(page, experienceUrl);
-  await page.getByRole("button", { name: /跳过前言/ }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
 
   await expect(page.getByTestId("experience-room")).toBeVisible();
   await expect(page.locator(".experience-room-fallback")).toBeVisible();
   await expect(page.locator("img.experience-room-backdrop")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: /放大.+并进入沉浸体验/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /放大，进入画中：/ })).toBeVisible();
 });
 
 test("an offline transition preserves the already prepared exhibition", async ({ page, context }) => {
   await gotoApp(page, experienceUrl);
-  await page.getByRole("button", { name: /跳过前言/ }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
   await context.setOffline(true);
   await expect(page.getByRole("status")).toContainText("离线浏览");
   await page.getByRole("button", { name: "下一件作品" }).click();
@@ -139,8 +139,8 @@ test("detail content remains usable while a slow explanation fails and can be re
   });
 
   await gotoApp(page, experienceUrl);
-  await page.getByRole("button", { name: /跳过前言/ }).click();
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.getByRole("button", { name: /进入展厅/ }).click();
+  await page.locator(".experience-plaque-heading").click();
   await page.getByRole("button", { name: "进入详细讲解" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.getByRole("button", { name: "生成这件作品的讲解" }).click();
@@ -161,7 +161,7 @@ test("unsupported WebGL keeps the migrated classic link's detail overlay static"
   });
   await gotoApp(page, `/gallery/local/immersive?${new URLSearchParams({ query, view: "classic" })}`);
   await page.waitForLoadState("networkidle");
-  await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
+  await page.getByRole("button", { name: /放大，进入画中：/ }).click();
   const detail = page.getByRole("dialog", { name: /沉浸观看/ });
   await expect(detail).toBeVisible();
   await expect(detail).toHaveAttribute("data-depth-status", "static");

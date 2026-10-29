@@ -38,7 +38,7 @@ test("explicit feedback revises only the unseen tail and survives detail, reload
   await expect.poll(() => currentId(page)).toBe(first);
   await page.getByRole("button", { name: "下一件作品" }).click();
   await expect.poll(() => currentId(page)).toBe(second);
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.locator(".experience-plaque-heading").click();
   await page.getByRole("button", { name: "进入详细讲解" }).click();
   await page.getByRole("link", { name: "返回刚才的位置" }).click();
   await expect.poll(() => currentId(page)).toBe(second);
@@ -64,7 +64,7 @@ test("explicit feedback revises only the unseen tail and survives detail, reload
 
 test("reading and hidden time are excluded from viewing; users can cancel and clear observations", async ({ page }) => {
   await open(page);
-  await page.getByRole("button", { name: "展开完整展签" }).click();
+  await page.locator(".experience-plaque-heading").click();
   const before = (await session(page)).observations[0]!.viewingMs;
   await page.waitForTimeout(600);
   await page.keyboard.press("Escape");

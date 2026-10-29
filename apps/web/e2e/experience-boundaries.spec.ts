@@ -59,6 +59,6 @@ test("the experience renderer handles unsupported WebGL without hiding its stati
   await page.goto(`${fixtureUrl}&depth=valid`);
   await expect(page.locator(".experience-depth-canvas")).toHaveAttribute("data-depth-state", "static");
   await expect(page.locator(".experience-art-lightbox")).toHaveAttribute("data-image-state", "ready");
-  await page.getByRole("button", { name: /放大.+并进入沉浸体验/ }).click();
+  await page.getByRole("button", { name: /放大，进入画中：/ }).click();
   await expect(page.getByRole("dialog")).toHaveAttribute("data-depth-status", "static");
 });

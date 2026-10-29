@@ -3,16 +3,19 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 import type { ExperienceEvent, ExperienceState } from "./state";
-import type { DetailNavigation, ExhibitionSnapshot } from "./types";
+import type { DetailNavigation, ExhibitionSnapshot, NarrativeBlock } from "./types";
 import { Room } from "./room";
 import { ViewingControls } from "./viewing-controls";
 import type { ViewingSession, ViewingPreference, ViewingPace } from "./viewing-session";
 import { adjacentWarmUrls, artworkWarmUrls, experiencePrewarm, type ConnectionHint } from "./media-prewarm";
 import { useRoomMotion } from "./room-motion";
 import { roomImageCandidate } from "./room-assets";
+import { useOverlayHistory } from "./use-overlay-history";
 
-export function Walk({ snapshot, state, dispatch, onDetail, detailNavigation, onMediaRetry, onArtworkReady, reducedMotion, mouseMotion = true, onMouseMotionChange, audioControl, viewingSession, onPreference, onCancelPreference, onReadingChange, onTogglePace, onClearObservations, storageAvailable, pace }: {
+export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, dispatch, onDetail, detailNavigation, onMediaRetry, onArtworkReady, reducedMotion, mouseMotion = true, onMouseMotionChange, audioControl, viewingSession, onPreference, onCancelPreference, onReadingChange, onTogglePace, onClearObservations, storageAvailable, pace }: {
   snapshot: ExhibitionSnapshot;
+  preface: NarrativeBlock | null;
+  onPrefaceVisibilityChange: (visible: boolean) => void;
   state: ExperienceState;
   dispatch: (event: ExperienceEvent) => void;
   onDetail: (artworkId: string) => void;
@@ -43,15 +46,22 @@ export function Walk({ snapshot, state, dispatch, onDetail, detailNavigation, on
   const [readyId, setReadyId] = useState<string>();
   const [roomReadyId, setRoomReadyId] = useState<string>();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [exhibitionOpen, setExhibitionOpen] = useState(false);
+  useEffect(() => { onPrefaceVisibilityChange(settingsOpen && exhibitionOpen); }, [settingsOpen, exhibitionOpen, onPrefaceVisibilityChange]);
+  useEffect(() => () => onPrefaceVisibilityChange(false), [onPrefaceVisibilityChange]);
   const settingsRef = useRef<HTMLDialogElement>(null);
   const settingsTrigger = useRef<HTMLButtonElement>(null);
+  const restoreSettingsFocus = useRef(true);
   const motion = useRoomMotion(reducedMotion, settingsOpen || state.overlay !== "none" || state.transitioning, mouseMotion);
-  const closeSettings = () => { setSettingsOpen(false); onReadingChange(false); };
+  const closeSettings = useOverlayHistory(settingsOpen, sameView => {
+    restoreSettingsFocus.current = sameView;
+    setSettingsOpen(false); onReadingChange(false);
+  });
   useEffect(() => {
     const dialog = settingsRef.current;
     if (!dialog) return;
-    if (settingsOpen && !dialog.open) dialog.showModal();
-    else if (!settingsOpen && dialog.open) { dialog.close(); settingsTrigger.current?.focus({ preventScroll: true }); }
+    if (settingsOpen && !dialog.open) { restoreSettingsFocus.current = true; dialog.showModal(); }
+    else if (!settingsOpen && dialog.open) { dialog.close(); if (restoreSettingsFocus.current) settingsTrigger.current?.focus({ preventScroll: true }); }
   }, [settingsOpen]);
   const arrival = useRef({ id: unit?.artwork.id, started: typeof performance === "undefined" ? 0 : performance.now() });
   if (arrival.current.id !== unit?.artwork.id) arrival.current = { id: unit?.artwork.id, started: performance.now() };
@@ -113,13 +123,12 @@ export function Walk({ snapshot, state, dispatch, onDetail, detailNavigation, on
       <label className="experience-motion-choice"><span>画面轻动<small>{reducedMotion ? "已遵循系统的减少动态效果设置" : "轻移画面，感受前后层次"}</small></span>
         <input type="checkbox" checked={mouseMotion && !reducedMotion} disabled={reducedMotion} onChange={event => onMouseMotionChange?.(event.target.checked)} /></label>
       <div className="experience-settings-audio">{audioControl}</div>
-      {motion.available ? <button aria-label={!mouseMotion ? "先开启画面轻动，再开启手机感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}
-        aria-pressed={motion.enabled} className="experience-settings-motion" disabled={!mouseMotion || motion.state === "requesting"}
+      {motion.available ? <button aria-pressed={motion.enabled} className="experience-settings-motion" disabled={!mouseMotion || motion.state === "requesting"}
         onClick={() => void motion.toggle()} type="button">{!mouseMotion ? "先开启画面轻动" : motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}</button> : null}
       {motion.message ? <p role="status">{motion.message}</p> : null}
-      <details className="experience-settings-exhibition"><summary>本次展览</summary>
+      <details className="experience-settings-exhibition" onToggle={event => setExhibitionOpen(event.currentTarget.open)}><summary>本次展览</summary>
         <p className="experience-eyebrow">{snapshot.units.length} 件作品</p>
-        <p>{snapshot.preface.text}</p>
+        {preface ? <p className="experience-presented-preface">{preface.text}</p> : <p className="experience-narrative-pending" role="status">这次展览正在展开。</p>}
         <ViewingControls session={viewingSession} onPreference={onPreference} onCancel={onCancelPreference} onTogglePace={onTogglePace} onClear={onClearObservations} storageAvailable={storageAvailable} />
       </details>
     </dialog>
