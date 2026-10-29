@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/root/artduo-continuity-20261029.py", line 290, in <module>
+    validate()
+  File "/root/artduo-continuity-20261029.py", line 188, in validate
+    run("web-tests", [RUNTIME / "pnpm", "exec", "tsx", "--test", "--test-concurrency=1", "test/lib/exhibition-narrative-server.test.ts", "test/lib/experience-navigation.test.ts", "test/lib/experience-analytics.test.ts"], cwd=TARGET / "apps/web", env=test_env)
+  File "/root/artduo-continuity-20261029.py", line 167, in run
+    subprocess.run(["runuser", "-u", "artduo", "--", *map(str, args)], cwd=cwd, env=env or environment(), stdout=log, stderr=subprocess.STDOUT, check=True)
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['runuser', '-u', 'artduo', '--', '/opt/artduo/runtime/bin/pnpm', 'exec', 'tsx', '--test', '--test-concurrency=1', 'test/lib/exhibition-narrative-server.test.ts', 'test/lib/experience-navigation.test.ts', 'test/lib/experience-analytics.test.ts']' returned non-zero exit status 1.

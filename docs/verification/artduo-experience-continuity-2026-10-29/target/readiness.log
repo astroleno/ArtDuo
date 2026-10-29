@@ -1,0 +1,36 @@
+
+> artduo@ release:check /opt/artduo/releases/20261029-experience-continuity
+> tsx scripts/check-public-release.ts "--" "--warm"
+
+{
+  "ok": true,
+  "releaseVersion": "2026-10-24-da3-curated-630",
+  "checks": {
+    "corpus": true,
+    "localModel": true,
+    "persistentState": true,
+    "modelConfiguration": true
+  },
+  "mode": "production-configuration",
+  "images": 630,
+  "depthMaps": 630,
+  "remoteImages": 496,
+  "preparedPreviews": 630,
+  "mediaDelivery": {
+    "mode": "local",
+    "assets": 0,
+    "bytes": 0
+  },
+  "delivery": "Verified remote images are fetched and fingerprint-checked on first use; upstream availability is required",
+  "semanticWarmupMs": 1991,
+  "quota": {
+    "concurrency": 3,
+    "dailyRequests": 200,
+    "dailyReservedTokens": 1000000
+  },
+  "stillRequires": [
+    "TLS and proxy validation on the chosen host",
+    "persistent-volume restart rehearsal on that host",
+    "user approval before public release"
+  ]
+}

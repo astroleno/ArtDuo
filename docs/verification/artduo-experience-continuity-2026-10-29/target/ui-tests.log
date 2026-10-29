@@ -1,0 +1,711 @@
+TAP version 13
+# Subtest: pending audio offers cancellation and a readable status without claiming playback
+ok 1 - pending audio offers cancellation and a readable status without claiming playback
+  ---
+  duration_ms: 8.449554
+  type: 'test'
+  ...
+# Subtest: an image completed before hydration immediately publishes its actual aspect ratio
+ok 2 - an image completed before hydration immediately publishes its actual aspect ratio
+  ---
+  duration_ms: 2.083978
+  type: 'test'
+  ...
+# Subtest: pending images settle through native events and unmount removes both listeners
+ok 3 - pending images settle through native events and unmount removes both listeners
+  ---
+  duration_ms: 0.315946
+  type: 'test'
+  ...
+# Subtest: a cached broken image immediately exposes failure instead of an endless loading frame
+ok 4 - a cached broken image immediately exposes failure instead of an endless loading frame
+  ---
+  duration_ms: 0.252866
+  type: 'test'
+  ...
+# Subtest: emotion rail disables stages without works and leaves populated stages selectable
+ok 5 - emotion rail disables stages without works and leaves populated stages selectable
+  ---
+  duration_ms: 8.151762
+  type: 'test'
+  ...
+# Subtest: preface and closing brand exits preserve the request without relying on a caller-provided href
+ok 6 - preface and closing brand exits preserve the request without relying on a caller-provided href
+  ---
+  duration_ms: 14.77851
+  type: 'test'
+  ...
+# Subtest: visible action text remains the native name and reader labels retain artwork identity
+ok 7 - visible action text remains the native name and reader labels retain artwork identity
+  ---
+  duration_ms: 4.106559
+  type: 'test'
+  ...
+# Subtest: PNG finalization preserves image chunks and original AIGC fields with valid chunk checksums
+ok 8 - PNG finalization preserves image chunks and original AIGC fields with valid chunk checksums
+  ---
+  duration_ms: 5.125348
+  type: 'test'
+  ...
+# Subtest: unprovenanced handwriting or truncated PNG cannot become a completed download
+ok 9 - unprovenanced handwriting or truncated PNG cannot become a completed download
+  ---
+  duration_ms: 0.327938
+  type: 'test'
+  ...
+# Subtest: the opt-out survives stored preferences while corrupt storage uses the default
+ok 10 - the opt-out survives stored preferences while corrupt storage uses the default
+  ---
+  duration_ms: 0.843189
+  type: 'test'
+  ...
+# Subtest: viewing the central picture does not reveal chrome while its control edges do
+ok 11 - viewing the central picture does not reveal chrome while its control edges do
+  ---
+  duration_ms: 0.238409
+  type: 'test'
+  ...
+# Subtest: room layout projects mount zones through cover crop and keeps phone frame inside the viewport
+ok 12 - room layout projects mount zones through cover crop and keeps phone frame inside the viewport
+  ---
+  duration_ms: 1.483386
+  type: 'test'
+  ...
+# Subtest: room layout uses a safe inscribed region for polygon mounts and falls back when coordinates are invalid
+ok 13 - room layout uses a safe inscribed region for polygon mounts and falls back when coordinates are invalid
+  ---
+  duration_ms: 1.267499
+  type: 'test'
+  ...
+# Subtest: distinct valid wall mounts produce distinct pixel frames inside their projected bounds
+ok 14 - distinct valid wall mounts produce distinct pixel frames inside their projected bounds
+  ---
+  duration_ms: 1.686518
+  type: 'test'
+  ...
+# Subtest: missing and fully cropped mount zones fall back to safe viewport bounds
+ok 15 - missing and fully cropped mount zones fall back to safe viewport bounds
+  ---
+  duration_ms: 0.21782
+  type: 'test'
+  ...
+# Subtest: phone labels stay under the painting and leave the floor and navigation visible
+ok 16 - phone labels stay under the painting and leave the floor and navigation visible
+  ---
+  duration_ms: 0.590744
+  type: 'test'
+  ...
+# Subtest: reduced motion removes spatial transitions and unsupported WebGL hints degrade to fade
+ok 17 - reduced motion removes spatial transitions and unsupported WebGL hints degrade to fade
+  ---
+  duration_ms: 0.242036
+  type: 'test'
+  ...
+# Subtest: phone route, full emotional note and navigation never cover narrow or wide artworks
+ok 18 - phone route, full emotional note and navigation never cover narrow or wide artworks
+  ---
+  duration_ms: 0.496815
+  type: 'test'
+  ...
+# Subtest: matting stays outside narrow and wide image geometry
+ok 19 - matting stays outside narrow and wide image geometry
+  ---
+  duration_ms: 0.254219
+  type: 'test'
+  ...
+# Subtest: desktop reserves the complete expanded label on the wall side of the artwork
+ok 20 - desktop reserves the complete expanded label on the wall side of the artwork
+  ---
+  duration_ms: 1.052282
+  type: 'test'
+  ...
+# Subtest: adjacent tablet widths move the label below instead of clamping it over the image
+ok 21 - adjacent tablet widths move the label below instead of clamping it over the image
+  ---
+  duration_ms: 0.441974
+  type: 'test'
+  ...
+# Subtest: phone return focus has space for the long label's real height without covering the work
+ok 22 - phone return focus has space for the long label's real height without covering the work
+  ---
+  duration_ms: 0.19087
+  type: 'test'
+  ...
+# Subtest: label budgets remain separate for long text, off-centre mounts, paper and landscape phones
+ok 23 - label budgets remain separate for long text, off-centre mounts, paper and landscape phones
+  ---
+  duration_ms: 0.621832
+  type: 'test'
+  ...
+# Subtest: prewarm decodes the selected responsive source while retaining its logical identity
+ok 24 - prewarm decodes the selected responsive source while retaining its logical identity
+  ---
+  duration_ms: 2.238939
+  type: 'test'
+  ...
+# Subtest: adjacent artwork prewarming includes the matching versioned depth without repeating the current wall
+ok 25 - adjacent artwork prewarming includes the matching versioned depth without repeating the current wall
+  ---
+  duration_ms: 0.266161
+  type: 'test'
+  ...
+# Subtest: slow and metered connections never compete with the visible artwork for speculative images
+ok 26 - slow and metered connections never compete with the visible artwork for speculative images
+  ---
+  duration_ms: 0.383452
+  type: 'test'
+  ...
+# Subtest: rapid navigation stays within a shared concurrency bound, deduplicates, and skips cancelled queued work
+ok 27 - rapid navigation stays within a shared concurrency bound, deduplicates, and skips cancelled queued work
+  ---
+  duration_ms: 10.958211
+  type: 'test'
+  ...
+# Subtest: a failed image can be retried without a permanent failed cache entry
+ok 28 - a failed image can be retried without a permanent failed cache entry
+  ---
+  duration_ms: 0.41484
+  type: 'test'
+  ...
+# Subtest: navigation receives the retained resource and evicts only unprotected least recently used images
+ok 29 - navigation receives the retained resource and evicts only unprotected least recently used images
+  ---
+  duration_ms: 0.520141
+  type: 'test'
+  ...
+# Subtest: prewarmed walls use the same responsive candidate as the visible room
+ok 30 - prewarmed walls use the same responsive candidate as the visible room
+  ---
+  duration_ms: 0.273795
+  type: 'test'
+  ...
+# Subtest: Back dismisses one layer at the latest work and preserves Next state
+ok 31 - Back dismisses one layer at the latest work and preserves Next state
+  ---
+  duration_ms: 2.769449
+  type: 'test'
+  ...
+# Subtest: explicit close consumes the entry and Forward cannot reopen a closed layer
+ok 32 - explicit close consumes the entry and Forward cannot reopen a closed layer
+  ---
+  duration_ms: 0.390877
+  type: 'test'
+  ...
+# Subtest: a rapid reopen waits for the preceding close traversal without adding empty entries
+ok 33 - a rapid reopen waits for the preceding close traversal without adding empty entries
+  ---
+  duration_ms: 0.401758
+  type: 'test'
+  ...
+# Subtest: restoring visible artwork while closing updates the returning base position
+ok 34 - restoring visible artwork while closing updates the returning base position
+  ---
+  duration_ms: 0.338788
+  type: 'test'
+  ...
+# Subtest: Forward cannot restore a failed target after Back cancelled its switch
+ok 35 - Forward cannot restore a failed target after Back cancelled its switch
+  ---
+  duration_ms: 0.313049
+  type: 'test'
+  ...
+# Subtest: traversing past the layer leaves the exhibition without rolling its URL back
+ok 36 - traversing past the layer leaves the exhibition without rolling its URL back
+  ---
+  duration_ms: 0.236345
+  type: 'test'
+  ...
+# Subtest: navigation to artwork details is not pulled back by layer disposal
+ok 37 - navigation to artwork details is not pulled back by layer disposal
+  ---
+  duration_ms: 0.340172
+  type: 'test'
+  ...
+# Subtest: reload collapses a stale layer while retaining the latest work
+ok 38 - reload collapses a stale layer while retaining the latest work
+  ---
+  duration_ms: 0.391749
+  type: 'test'
+  ...
+# Subtest: the small label contains only title, artist and period while the reading layer retains the note
+ok 39 - the small label contains only title, artist and period while the reading layer retains the note
+  ---
+  duration_ms: 11.527994
+  type: 'test'
+  ...
+# Subtest: reading has one primary note, optional source description, and a nonempty fallback
+ok 40 - reading has one primary note, optional source description, and a nonempty fallback
+  ---
+  duration_ms: 5.298716
+  type: 'test'
+  ...
+# Subtest: source roles keep publishers out of the label and leave the same artwork visible while reading
+ok 41 - source roles keep publishers out of the label and leave the same artwork visible while reading
+  ---
+  duration_ms: 3.630812
+  type: 'test'
+  ...
+# Subtest: an unread candidate is not recorded; first visible prose wins over late delivery and survives a fresh store
+ok 42 - an unread candidate is not recorded; first visible prose wins over late delivery and survives a fresh store
+  ---
+  duration_ms: 3.033126
+  type: 'test'
+  ...
+# Subtest: preface identity survives route reordering but separates releases, recipes and curations
+ok 43 - preface identity survives route reordering but separates releases, recipes and curations
+  ---
+  duration_ms: 0.398872
+  type: 'test'
+  ...
+# Subtest: invalid and oversized session data never supplies displayed prose
+ok 44 - invalid and oversized session data never supplies displayed prose
+  ---
+  duration_ms: 0.418039
+  type: 'test'
+  ...
+# Subtest: blocked storage keeps current-document prose stable and the bounded record retains recent exhibitions
+ok 45 - blocked storage keeps current-document prose stable and the bounded record retains recent exhibitions
+  ---
+  duration_ms: 0.960539
+  type: 'test'
+  ...
+# Subtest: repeated source credits collapse without removing distinct museums or punctuation in names
+ok 46 - repeated source credits collapse without removing distinct museums or punctuation in names
+  ---
+  duration_ms: 0.943519
+  type: 'test'
+  ...
+# Subtest: only equivalent complete reading text is suppressed; different evidence survives
+ok 47 - only equivalent complete reading text is suppressed; different evidence survives
+  ---
+  duration_ms: 0.408369
+  type: 'test'
+  ...
+# (node:2392683) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: reading waits for decoded pixels and falls back to text on a broken image
+ok 48 - reading waits for decoded pixels and falls back to text on a broken image
+  ---
+  duration_ms: 1.489056
+  type: 'test'
+  ...
+# Subtest: a stalled image cannot indefinitely hide the reading text
+ok 49 - a stalled image cannot indefinitely hide the reading text
+  ---
+  duration_ms: 0.775772
+  type: 'test'
+  ...
+# Subtest: cancelling reading suppresses a late decode and removes its timeout
+ok 50 - cancelling reading suppresses a late decode and removes its timeout
+  ---
+  duration_ms: 0.33939
+  type: 'test'
+  ...
+# Subtest: hashed room variants use their explicit independent object addresses
+ok 51 - hashed room variants use their explicit independent object addresses
+  ---
+  duration_ms: 0.844822
+  type: 'test'
+  ...
+# Subtest: room lighting preserves image alignment and resumes the latest input after visibility changes
+ok 52 - room lighting preserves image alignment and resumes the latest input after visibility changes
+  ---
+  duration_ms: 3.676037
+  type: 'test'
+  ...
+# Subtest: photographed windows, cove lights and track fixtures use distinct soft distributions
+ok 53 - photographed windows, cove lights and track fixtures use distinct soft distributions
+  ---
+  duration_ms: 1.036784
+  type: 'test'
+  ...
+# Subtest: curatorial targets change the room smoothly within safe bounds
+ok 54 - curatorial targets change the room smoothly within safe bounds
+  ---
+  duration_ms: 1.201294
+  type: 'test'
+  ...
+# Subtest: invalid or extreme pointer and sensor input never reaches lighting uniforms
+ok 55 - invalid or extreme pointer and sensor input never reaches lighting uniforms
+  ---
+  duration_ms: 0.575425
+  type: 'test'
+  ...
+# Subtest: room motion waits for valid calibration samples and does not jump at the resting grip
+ok 56 - room motion waits for valid calibration samples and does not jump at the resting grip
+  ---
+  duration_ms: 2.422975
+  type: 'test'
+  ...
+# Subtest: screen rotation maps sensor axes into the display and recalibrates rather than jumping
+ok 57 - screen rotation maps sensor axes into the display and recalibrates rather than jumping
+  ---
+  duration_ms: 0.284717
+  type: 'test'
+  ...
+# Subtest: painting and sculpture parallax use bounded absolute input without accumulated displacement
+ok 58 - painting and sculpture parallax use bounded absolute input without accumulated displacement
+  ---
+  duration_ms: 3.424735
+  type: 'test'
+  ...
+# Subtest: invalid sensor or pointer samples return to neutral rather than moving the artwork
+ok 59 - invalid sensor or pointer samples return to neutral rather than moving the artwork
+  ---
+  duration_ms: 0.220586
+  type: 'test'
+  ...
+# Subtest: measured image proportions take precedence over broad orientation hints, including scrolls
+ok 60 - measured image proportions take precedence over broad orientation hints, including scrolls
+  ---
+  duration_ms: 1.478006
+  type: 'test'
+  ...
+# Subtest: palette normalization joins hyphen and underscore variants without treating unknown or balanced colors as warm
+ok 61 - palette normalization joins hyphen and underscore variants without treating unknown or balanced colors as warm
+  ---
+  duration_ms: 2.856142
+  type: 'test'
+  ...
+# Subtest: chapters keep a shared wall while individual geometry and artwork identity remain intact
+ok 62 - chapters keep a shared wall while individual geometry and artwork identity remain intact
+  ---
+  duration_ms: 9.694258
+  type: 'test'
+  ...
+# Subtest: a short exhibition uses one room and chapter entrances retain suitable light and wall geometry
+ok 63 - a short exhibition uses one room and chapter entrances retain suitable light and wall geometry
+  ---
+  duration_ms: 0.47217
+  type: 'test'
+  ...
+# Subtest: route replay preserves a viewed chapter even when a future work moves beside its anchor
+ok 64 - route replay preserves a viewed chapter even when a future work moves beside its anchor
+  ---
+  duration_ms: 1.828206
+  type: 'test'
+  ...
+# Subtest: six to eight works use balanced groups, favor stage boundaries, and avoid a single repeated suitable room
+ok 65 - six to eight works use balanced groups, favor stage boundaries, and avoid a single repeated suitable room
+  ---
+  duration_ms: 1.147523
+  type: 'test'
+  ...
+# Subtest: every chapter is unique through twelve works, even when every work prefers the same wall
+ok 66 - every chapter is unique through twelve works, even when every work prefers the same wall
+  ---
+  duration_ms: 13.916355
+  type: 'test'
+  ...
+# Subtest: scores explain material, lighting, shape and palette independently and remain finite for missing tags
+ok 67 - scores explain material, lighting, shape and palette independently and remain finite for missing tags
+  ---
+  duration_ms: 0.256904
+  type: 'test'
+  ...
+# Subtest: a sculpture fallback does not create an HTTP image preload that drops its CDN referrer policy
+ok 68 - a sculpture fallback does not create an HTTP image preload that drops its CDN referrer policy
+  ---
+  duration_ms: 7.568613
+  type: 'test'
+  ...
+# Subtest: 50% is one opportunity per eligible exhibition; painting count and membership stay exact
+ok 69 - 50% is one opportunity per eligible exhibition; painting count and membership stay exact
+  ---
+  duration_ms: 16.783889
+  type: 'test'
+  ...
+# Subtest: a chapter interlude follows at least two paintings, preserving first and last
+ok 70 - a chapter interlude follows at least two paintings, preserving first and last
+  ---
+  duration_ms: 0.359868
+  type: 'test'
+  ...
+# Subtest: explicit sculpture and medium exclusions take priority over a lucky roll
+ok 71 - explicit sculpture and medium exclusions take priority over a lucky roll
+  ---
+  duration_ms: 2.829242
+  type: 'test'
+  ...
+# Subtest: painting figure exclusions do not filter the separate sculpture easter egg
+ok 72 - painting figure exclusions do not filter the separate sculpture easter egg
+  ---
+  duration_ms: 0.4722
+  type: 'test'
+  ...
+# Subtest: natural sculpture negations and exclusive media remain hard encounter boundaries
+ok 73 - natural sculpture negations and exclusive media remain hard encounter boundaries
+  ---
+  duration_ms: 1.613131
+  type: 'test'
+  ...
+# Subtest: themes increase selection affinity while recent works are downweighted
+ok 74 - themes increase selection affinity while recent works are downweighted
+  ---
+  duration_ms: 32.708769
+  type: 'test'
+  ...
+# Subtest: refresh restores the same absent, pending, active or completed decision without reroll
+ok 75 - refresh restores the same absent, pending, active or completed decision without reroll
+  ---
+  duration_ms: 1.766057
+  type: 'test'
+  ...
+# Subtest: floor clipping stays on the stationary photographed floor through wide and portrait cover crops
+ok 76 - floor clipping stays on the stationary photographed floor through wide and portrait cover crops
+  ---
+  duration_ms: 0.902361
+  type: 'test'
+  ...
+# Subtest: the sculpture keeps a bounded viewpoint while background light remains subordinate
+ok 77 - the sculpture keeps a bounded viewpoint while background light remains subordinate
+  ---
+  duration_ms: 0.170062
+  type: 'test'
+  ...
+# Subtest: shared light uses screen right and screen up consistently and smooths independently of frame rate
+ok 78 - shared light uses screen right and screen up consistently and smooths independently of frame rate
+  ---
+  duration_ms: 1.435705
+  type: 'test'
+  ...
+# Subtest: sculpture framing stays clear of the header, plaque and navigation
+ok 79 - sculpture framing stays clear of the header, plaque and navigation
+  ---
+  duration_ms: 0.98165
+  type: 'test'
+  ...
+# (node:2392880) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+# Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+# (Use `node --trace-deprecation ...` to show where the warning was created)
+# Subtest: AO preserves the viewport aspect and has a fixed pixel budget on desktop and dense phone screens
+ok 80 - AO preserves the viewport aspect and has a fixed pixel budget on desktop and dense phone screens
+  ---
+  duration_ms: 1.850678
+  type: 'test'
+  ...
+# Subtest: photograph lighting retains a cool bright window and warm floor bounce instead of a fixed tint
+ok 81 - photograph lighting retains a cool bright window and warm floor bounce instead of a fixed tint
+  ---
+  duration_ms: 28.242624
+  type: 'test'
+  ...
+# Subtest: source centroid reacts to the photograph and does not mistake a uniform field for a confident estimate
+ok 82 - source centroid reacts to the photograph and does not mistake a uniform field for a confident estimate
+  ---
+  duration_ms: 28.822066
+  type: 'test'
+  ...
+# Subtest: photo exposure is bounded for black, white and transparent images, and malformed samples fail
+ok 83 - photo exposure is bounded for black, white and transparent images, and malformed samples fail
+  ---
+  duration_ms: 30.042915
+  type: 'test'
+  ...
+# Subtest: CDN pixels use anonymous CORS before loading while private handwriting stays same-origin
+ok 84 - CDN pixels use anonymous CORS before loading while private handwriting stays same-origin
+  ---
+  duration_ms: 26.278161
+  type: 'test'
+  ...
+# Subtest: long titles, source credits and ordinary closing retain every character above the footer
+ok 85 - long titles, source credits and ordinary closing retain every character above the footer
+  ---
+  duration_ms: 3.75733
+  type: 'test'
+  ...
+# Subtest: a tall handwriting layer expands the card, preserves credits and stays clear of its footer
+ok 86 - a tall handwriting layer expands the card, preserves credits and stays clear of its footer
+  ---
+  duration_ms: 3.147903
+  type: 'test'
+  ...
+# Subtest: failed close-view navigation restores the visible artwork before cancellation or closing
+ok 87 - failed close-view navigation restores the visible artwork before cancellation or closing
+  ---
+  duration_ms: 2.366379
+  type: 'test'
+  ...
+# Subtest: experience state covers skip, navigation boundaries, closing, revisit and old media results
+ok 88 - experience state covers skip, navigation boundaries, closing, revisit and old media results
+  ---
+  duration_ms: 0.335682
+  type: 'test'
+  ...
+# Subtest: experience state keeps empty results out of walk and closing
+ok 89 - experience state keeps empty results out of walk and closing
+  ---
+  duration_ms: 0.154422
+  type: 'test'
+  ...
+# Subtest: lightbox isolates navigation until it is closed
+ok 90 - lightbox isolates navigation until it is closed
+  ---
+  duration_ms: 0.207441
+  type: 'test'
+  ...
+# Subtest: close viewing navigates inside the same overlay, guards transitions and respects both ends
+ok 91 - close viewing navigates inside the same overlay, guards transitions and respects both ends
+  ---
+  duration_ms: 0.37122
+  type: 'test'
+  ...
+# Subtest: explicit feedback applies at the unseen boundary and freezes every visited position
+ok 92 - explicit feedback applies at the unseen boundary and freezes every visited position
+  ---
+  duration_ms: 5.298014
+  type: 'test'
+  ...
+# Subtest: restoring the original remainder never rewrites a prefix already walked after adaptation
+ok 93 - restoring the original remainder never rewrites a prefix already walked after adaptation
+  ---
+  duration_ms: 0.381087
+  type: 'test'
+  ...
+# Subtest: quieter and different choose from the original eligible set without inventing or dropping works
+ok 94 - quieter and different choose from the original eligible set without inventing or dropping works
+  ---
+  duration_ms: 0.523878
+  type: 'test'
+  ...
+# Subtest: changing the route preserves stable IDs, source pixels and the current room
+ok 95 - changing the route preserves stable IDs, source pixels and the current room
+  ---
+  duration_ms: 0.662709
+  type: 'test'
+  ...
+# Subtest: a new pending decision replaces the previous one; no-op and end-of-route stay usable
+ok 96 - a new pending decision replaces the previous one; no-op and end-of-route stay usable
+  ---
+  duration_ms: 0.347915
+  type: 'test'
+  ...
+# Subtest: only decoded visible viewing and zoom time contributes to pace; reading and hidden time remain separate
+ok 97 - only decoded visible viewing and zoom time contributes to pace; reading and hidden time remain separate
+  ---
+  duration_ms: 0.451019
+  type: 'test'
+  ...
+# Subtest: session persistence validates identities, counters, versions and URL precedence
+ok 98 - session persistence validates identities, counters, versions and URL precedence
+  ---
+  duration_ms: 0.607825
+  type: 'test'
+  ...
+# Subtest: initial curation links related subjects without changing the opening work or stage membership
+ok 99 - initial curation links related subjects without changing the opening work or stage membership
+  ---
+  duration_ms: 0.338398
+  type: 'test'
+  ...
+# Subtest: the flat center stays optically neutral and opposite bevels bend inward
+ok 100 - the flat center stays optically neutral and opposite bevels bend inward
+  ---
+  duration_ms: 8.234178
+  type: 'test'
+  ...
+# Subtest: rounded corners do not displace pixels outside the glass silhouette
+ok 101 - rounded corners do not displace pixels outside the glass silhouette
+  ---
+  duration_ms: 3.487673
+  type: 'test'
+  ...
+# Subtest: a wide control keeps a bounded optical map
+ok 102 - a wide control keeps a bounded optical map
+  ---
+  duration_ms: 13.161302
+  type: 'test'
+  ...
+# Subtest: director focus marks A-grade artwork as the strongest presentation
+ok 103 - director focus marks A-grade artwork as the strongest presentation
+  ---
+  duration_ms: 8.40085
+  type: 'test'
+  ...
+# Subtest: director focus keeps lower grades in a supporting presentation
+ok 104 - director focus keeps lower grades in a supporting presentation
+  ---
+  duration_ms: 0.475526
+  type: 'test'
+  ...
+# Subtest: image lightbox renders artwork image and caption
+ok 105 - image lightbox renders artwork image and caption
+  ---
+  duration_ms: 9.438046
+  type: 'test'
+  ...
+# Subtest: image lightbox renders trusted border crop metadata
+ok 106 - image lightbox renders trusted border crop metadata
+  ---
+  duration_ms: 1.147773
+  type: 'test'
+  ...
+# Subtest: immersive gallery renders next previous controls and quiet progress
+ok 107 - immersive gallery renders next previous controls and quiet progress
+  ---
+  duration_ms: 12.89419
+  type: 'test'
+  ...
+# Subtest: immersive gallery uses preface note and closing at the correct scene positions
+ok 108 - immersive gallery uses preface note and closing at the correct scene positions
+  ---
+  duration_ms: 5.711844
+  type: 'test'
+  ...
+# Subtest: a one-work classic exhibition renders its own preface, note and closing exactly once
+ok 109 - a one-work classic exhibition renders its own preface, note and closing exactly once
+  ---
+  duration_ms: 5.630441
+  type: 'test'
+  ...
+# Subtest: scene orchestrator builds scenes for minimal exhibition data
+ok 110 - scene orchestrator builds scenes for minimal exhibition data
+  ---
+  duration_ms: 0.907389
+  type: 'test'
+  ...
+# Subtest: scene orchestrator lets different units use different transition families
+ok 111 - scene orchestrator lets different units use different transition families
+  ---
+  duration_ms: 0.149903
+  type: 'test'
+  ...
+# Subtest: scene orchestrator falls back to first scene when selected unit is unknown
+ok 112 - scene orchestrator falls back to first scene when selected unit is unknown
+  ---
+  duration_ms: 0.189177
+  type: 'test'
+  ...
+# Subtest: video stage falls back to an image when dynamic media is unavailable
+ok 113 - video stage falls back to an image when dynamic media is unavailable
+  ---
+  duration_ms: 7.982133
+  type: 'test'
+  ...
+# Subtest: video stage renders dynamic media without swallowing navigation children
+ok 114 - video stage renders dynamic media without swallowing navigation children
+  ---
+  duration_ms: 1.041422
+  type: 'test'
+  ...
+# Subtest: transition registry resolves known transition families
+ok 115 - transition registry resolves known transition families
+  ---
+  duration_ms: 0.900407
+  type: 'test'
+  ...
+# Subtest: transition registry falls back to fade when a module is unavailable
+ok 116 - transition registry falls back to fade when a module is unavailable
+  ---
+  duration_ms: 0.155522
+  type: 'test'
+  ...
+1..116
+# tests 116
+# suites 0
+# pass 116
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14635.507649

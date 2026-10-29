@@ -146,7 +146,7 @@ def prepare(commit, expected_manifest):
         os.chown(directory, user.pw_uid, user.pw_gid)
         for name in files:
             os.chown(Path(directory) / name, user.pw_uid, user.pw_gid)
-    QA_ENV.write_bytes(ENV.read_bytes() + ("\nARTDUO_STATE_DIR=" + str(QA) + "\nARTDUO_CURATION_PROVIDER=disabled\nARTDUO_EXPLANATION_PROVIDER=disabled\nINKO_API_KEY=\n").encode())
+    QA_ENV.write_bytes(ENV.read_bytes() + ("\nARTDUO_STATE_DIR=" + str(QA) + "\nARTDUO_EXPLANATION_PROVIDER=disabled\nINKO_API_KEY=\n").encode())
     os.chmod(QA_ENV, 0o600)
     verify_sources()
     status("prepared", changedFiles=changed, managedFiles=len(spec["files"]), diskFree=shutil.disk_usage(TARGET).free)
@@ -165,6 +165,16 @@ def run(name, args, cwd=TARGET, env=None):
     status("validating", step=name)
     with (EVIDENCE / (name + ".log")).open("wb") as log:
         subprocess.run(["runuser", "-u", "artduo", "--", *map(str, args)], cwd=cwd, env=env or environment(), stdout=log, stderr=subprocess.STDOUT, check=True)
+
+
+def readiness_environment():
+    values = environment()
+    # Readiness verifies the real configuration; loading it makes no API call.
+    if "ARTDUO_CURATION_PROVIDER" in os.environ:
+        values["ARTDUO_CURATION_PROVIDER"] = os.environ["ARTDUO_CURATION_PROVIDER"]
+    else:
+        values.pop("ARTDUO_CURATION_PROVIDER", None)
+    return values
 
 
 def get(url):
@@ -186,7 +196,7 @@ def validate():
     run("ui-tests", [RUNTIME / "pnpm", "exec", "tsx", "--test", "--test-concurrency=1", *tests], cwd=ui, env=test_env)
     run("api-tests", [RUNTIME / "pnpm", "exec", "tsx", "--test", "test/services/exhibition-narrative.test.ts"], cwd=TARGET / "apps/api", env=test_env)
     run("web-tests", [RUNTIME / "pnpm", "exec", "tsx", "--test", "--test-concurrency=1", "test/lib/exhibition-narrative-server.test.ts", "test/lib/experience-navigation.test.ts", "test/lib/experience-analytics.test.ts"], cwd=TARGET / "apps/web", env=test_env)
-    run("readiness", [RUNTIME / "pnpm", "release:check", "--", "--warm"], env=env)
+    run("readiness", [RUNTIME / "pnpm", "release:check", "--", "--warm"], env=readiness_environment())
     verify_sources()
     subprocess.run(["systemd-run", "--unit=" + UNIT, "--collect", "-p", "User=artduo", "-p", "WorkingDirectory=" + str(TARGET / "apps/web"),
                     "-p", "EnvironmentFile=" + str(QA_ENV), str(RUNTIME / "node"), str(TARGET / "apps/web/node_modules/next/dist/bin/next"),

@@ -1,0 +1,42 @@
+{
+  "commit": "6876ae1c2af11c2c52da2a9d7b018b44d6100fa3",
+  "manifestSha256": "85bc917af3db5e4fb5bb35745d115c26a4376ef3ec31883dc91bb191e49b2604",
+  "base": "/opt/artduo/releases/20261028-first-exhibition-performance",
+  "measuredBackupBytes": 355965340,
+  "reservedBackupBytes": 427158408,
+  "buildCacheDisabled": true,
+  "buildId": "AluHJm8FxzsR4ORv_tSG6",
+  "tests": {
+    "ui-tests": 116,
+    "api-tests": 31,
+    "web-tests": 16
+  },
+  "candidateHealth": true,
+  "savedExhibition": true,
+  "previousSourceUnchanged": true,
+  "logs": {
+    "ui-tests.log": "d229d03eaa062c2160d2045a54b86cf0051eefb20f377d01e7626d35af14d8d5",
+    "build.log": "e828bb05e8ccfebfa658e2f29e679047e9fb4d33afad6fe6cd81fbf90efac1f3",
+    "space.log": "f73b5bf869158cc3ad64f4475149eca241fec9aebce12b06a9342cfc5a452a17",
+    "web-tests.log": "76ae1562720e8c65885c36c72c8d6d7b6c9ce5e72f2dcd06dbd81fb728f762ca",
+    "readiness.log": "397486df92cb249cce790beaa180cb14b602365658bcd56d8db1e2b862119ded",
+    "api-tests.log": "4893df1799878729193b8c5268b9bdae343d1068e9ee95d88db3b9715e87045e",
+    "typecheck.log": "45195441fd1906ed7fee6014542cdcf07f897afbb6c12a32b5607a94dcf89457",
+    "prepare-second.log": "a38b7da3a85cef729841db47c19301451d47bbe8ecd1a8c7335cdf1ea78c6325",
+    "prepare.log": "fe4e3c8a98689681c993fce15a2510543a6ed490f005a189f417c81e424f8c38",
+    "prepare-offline-v2.log": "31df22ad0279fe137912617caa51df8f1cac64d0e987e0b329b516c2e576085e",
+    "prepare-offline.log": "470fe4b6473574ccbe225b1634c8a9eb2929a25792d67ae89b7a32e03927b9ee",
+    "web-tests-without-fixture.log": "fa690cdb6981cbeb159248dd98cfd54e224af819e03ce8c690b5667525941de2",
+    "readiness-disabled-config.log": "c86ec761f69b8ee06e40ef8a9d3d84addcea4740eb81ede56a521361f66a5ed6"
+  },
+  "release": "20261029-experience-continuity",
+  "activatedAt": "2026-10-30 00:20:53 +0800",
+  "current": "/opt/artduo/releases/20261029-experience-continuity",
+  "backup": "/var/backups/artduo/20261029-experience-continuity",
+  "backupBytes": 355963980,
+  "backupSha256": "988a21bfc120b1e40c99fdd93d064178577d4b204afddd12ee5300fefac83233",
+  "environmentUnchanged": true,
+  "preservedPngCount": 3,
+  "servicesActive": true,
+  "diskFree": 846032896
+}

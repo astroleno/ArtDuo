@@ -1,0 +1,16 @@
+REUSE_PASSED_STEP build
+REUSE_PASSED_STEP typecheck
+REUSE_PASSED_STEP ui-tests
+REUSE_PASSED_STEP api-tests
+Traceback (most recent call last):
+  File "/root/artduo-continuity-resume-validation.py", line 54, in <module>
+    scope["validate"]()
+  File "/root/artduo-continuity-20261029.py", line 189, in validate
+    run("readiness", [RUNTIME / "pnpm", "release:check", "--", "--warm"], env=env)
+  File "/root/artduo-continuity-resume-validation.py", line 51, in run
+    original_run(name, *args, **kwargs)
+  File "/root/artduo-continuity-20261029.py", line 167, in run
+    subprocess.run(["runuser", "-u", "artduo", "--", *map(str, args)], cwd=cwd, env=env or environment(), stdout=log, stderr=subprocess.STDOUT, check=True)
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['runuser', '-u', 'artduo', '--', '/opt/artduo/runtime/bin/pnpm', 'release:check', '--', '--warm']' returned non-zero exit status 1.

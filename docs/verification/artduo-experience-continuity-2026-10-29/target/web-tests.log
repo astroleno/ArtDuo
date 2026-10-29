@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: temporary narrative failure keeps the fallback usable and permits later recovery
+ok 1 - temporary narrative failure keeps the fallback usable and permits later recovery
+  ---
+  duration_ms: 243.482093
+  type: 'test'
+  ...
+# Subtest: a partial guide survives restart and repairs only its missing pieces after cooldown
+ok 2 - a partial guide survives restart and repairs only its missing pieces after cooldown
+  ---
+  duration_ms: 64.976622
+  type: 'test'
+  ...
+# Subtest: client navigation consumes timing handoff while preserving the original submit mark
+ok 3 - client navigation consumes timing handoff while preserving the original submit mark
+  ---
+  duration_ms: 4.675982
+  type: 'test'
+  ...
+# Subtest: experience telemetry records durations and fallback reasons without user query
+ok 4 - experience telemetry records durations and fallback reasons without user query
+  ---
+  duration_ms: 2.877312
+  type: 'test'
+  ...
+# Subtest: a cached entry restores the submitted draft from its updated address
+ok 5 - a cached entry restores the submitted draft from its updated address
+  ---
+  duration_ms: 1.255967
+  type: 'test'
+  ...
+# Subtest: entry rendering retains its server value when no browser address is available
+ok 6 - entry rendering retains its server value when no browser address is available
+  ---
+  duration_ms: 0.209354
+  type: 'test'
+  ...
+# Subtest: Forward restores the latest work and order instead of cached preface props
+ok 7 - Forward restores the latest work and order instead of cached preface props
+  ---
+  duration_ms: 2.19681
+  type: 'test'
+  ...
+# Subtest: cached route restoration cannot cross exhibition, release, query or entry boundaries
+ok 8 - cached route restoration cannot cross exhibition, release, query or entry boundaries
+  ---
+  duration_ms: 0.783667
+  type: 'test'
+  ...
+# Subtest: restarting keeps the viewing wish at the current entry without requesting a curation
+ok 9 - restarting keeps the viewing wish at the current entry without requesting a curation
+  ---
+  duration_ms: 0.269498
+  type: 'test'
+  ...
+# Subtest: experience navigation encodes query and restores a walk or closing position
+ok 10 - experience navigation encodes query and restores a walk or closing position
+  ---
+  duration_ms: 0.312368
+  type: 'test'
+  ...
+# Subtest: experience navigation normalizes invalid positions and only allows local gallery return paths
+ok 11 - experience navigation normalizes invalid positions and only allows local gallery return paths
+  ---
+  duration_ms: 0.30236
+  type: 'test'
+  ...
+# Subtest: experience opens the first artwork by default while explicit preface links still work
+ok 12 - experience opens the first artwork by default while explicit preface links still work
+  ---
+  duration_ms: 0.213071
+  type: 'test'
+  ...
+# Subtest: detail and refresh links carry the revised artwork order without behavioral records
+ok 13 - detail and refresh links carry the revised artwork order without behavioral records
+  ---
+  duration_ms: 0.450459
+  type: 'test'
+  ...
+# Subtest: subpath return links normalize once for Next navigation and cannot leave the gallery
+ok 14 - subpath return links normalize once for Next navigation and cannot leave the gallery
+  ---
+  duration_ms: 0.728233
+  type: 'test'
+  ...
+# Subtest: retired classic links restore their selected artwork in the current experience
+ok 15 - retired classic links restore their selected artwork in the current experience
+  ---
+  duration_ms: 0.308752
+  type: 'test'
+  ...
+# Subtest: legacy closing and missing artworks normalize without losing a valid last position
+ok 16 - legacy closing and missing artworks normalize without losing a valid last position
+  ---
+  duration_ms: 0.14879
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1241.194565

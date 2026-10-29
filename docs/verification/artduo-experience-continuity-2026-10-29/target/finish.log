@@ -1,0 +1,16 @@
+REUSE_PASSED_STEP build
+REUSE_PASSED_STEP typecheck
+REUSE_PASSED_STEP ui-tests
+REUSE_PASSED_STEP api-tests
+REUSE_PASSED_STEP web-tests
+Running as unit: artduo-continuity-candidate.service
+{
+  "release": "20261029-experience-continuity",
+  "phase": "validated",
+  "buildId": "AluHJm8FxzsR4ORv_tSG6",
+  "tests": {
+    "ui-tests": 116,
+    "api-tests": 31,
+    "web-tests": 16
+  }
+}

@@ -1,0 +1,3092 @@
+{
+  "schemaVersion": 1,
+  "release": "20261029-experience-continuity",
+  "baselineCommit": "28894783c6f40764d25b53252b738137f9f51aac",
+  "files": [
+    {
+      "path": "apps/api/README.md",
+      "bytes": 204,
+      "sha256": "945170f14317b9e56356632e176702210f05975d0be8ce1deebc5fa8f0e6521b"
+    },
+    {
+      "path": "apps/api/package.json",
+      "bytes": 283,
+      "sha256": "fca62edae763ad22d9d70c33182b5335440556a5d93d4c32ad6d0627a62fe04e"
+    },
+    {
+      "path": "apps/api/src/observability/metrics.ts",
+      "bytes": 2253,
+      "sha256": "02115118c4d12c87f4e2a53f3e31dd8d3dbed8de8afbbd0b6e874c828754d187"
+    },
+    {
+      "path": "apps/api/src/observability/request-log.ts",
+      "bytes": 1141,
+      "sha256": "c687516e252318bb7db956507247044b83af61bdc0975ae65b6a978cda5118df"
+    },
+    {
+      "path": "apps/api/src/routes/README.md",
+      "bytes": 37,
+      "sha256": "0afa43c647a2cab987e005e6c7d3a0c76768b72f5d18aefc95f6c4c8bdcf36e5"
+    },
+    {
+      "path": "apps/api/src/routes/artworks.ts",
+      "bytes": 9733,
+      "sha256": "677f070688b2b5b82c9b058e57dd1ed91a3bc6f4834909286857a31add301059"
+    },
+    {
+      "path": "apps/api/src/routes/corpus.ts",
+      "bytes": 1625,
+      "sha256": "41f6c48a3c801f5de4ef48f7293b0412846405936165384262e48421292c21bb"
+    },
+    {
+      "path": "apps/api/src/routes/curations.ts",
+      "bytes": 6510,
+      "sha256": "f1dd148ef8d4d7e7d22c66356d65dadf1a9d2da0a118ab857dc4d42b4b7f3c96"
+    },
+    {
+      "path": "apps/api/src/runtime/environment.ts",
+      "bytes": 2923,
+      "sha256": "5abd67b79ec4bfda09bdc2f4384d539461169f614d051637d8c750c806168662"
+    },
+    {
+      "path": "apps/api/src/runtime/request-policy.ts",
+      "bytes": 8611,
+      "sha256": "36fa534e9142833890ba495d92e57dff08b30fc3c47738d555111bf72b21b1bf"
+    },
+    {
+      "path": "apps/api/src/services/README.md",
+      "bytes": 55,
+      "sha256": "fa42b0e35a4f9805b9744fbba9914f1acf0239e601f52e2d4ab25ebff2a3c389"
+    },
+    {
+      "path": "apps/api/src/services/auth/session-token.ts",
+      "bytes": 1805,
+      "sha256": "fcd94a95d7bc1713f69a9283e0baee60f3297b718da6bcf968f4b44e086ebcf3"
+    },
+    {
+      "path": "apps/api/src/services/curation/budget-guard.ts",
+      "bytes": 193,
+      "sha256": "f53f9c5abf740d50cf10e9a85ca689691c5647c62dc2a3147fdef6599d61f4cb"
+    },
+    {
+      "path": "apps/api/src/services/curation/build-motion-profile.ts",
+      "bytes": 1913,
+      "sha256": "ec88a6af8498ea437b79ac3df2369dbee2c244759f12148316ccef4d4d2469e0"
+    },
+    {
+      "path": "apps/api/src/services/curation/chat-provider.ts",
+      "bytes": 5509,
+      "sha256": "b4cbd9c924b1a57a8649cb2861506565a01942466ec82b88ebf8b4b829c642e0"
+    },
+    {
+      "path": "apps/api/src/services/curation/exhibition-narrative.ts",
+      "bytes": 36726,
+      "sha256": "18c38145ec74f0798d577271b1578046d5b4b4bd51277b50b5087a29d0062038"
+    },
+    {
+      "path": "apps/api/src/services/curation/grade-artworks.ts",
+      "bytes": 2114,
+      "sha256": "5cdc030cb21aa50c875a50dc61fbc986002d5423508d49cc896fc2578e7abaec"
+    },
+    {
+      "path": "apps/api/src/services/curation/intent-planner.ts",
+      "bytes": 5411,
+      "sha256": "0b60a5dd7005972d618aa11eeab373e98acd4fd866a9e15a5bf733c6b0ccbb30"
+    },
+    {
+      "path": "apps/api/src/services/curation/session-store.ts",
+      "bytes": 776,
+      "sha256": "3d6d81a8fcfdbf73162058b52fecedb699b43e503ca70c98256733654e4747ac"
+    },
+    {
+      "path": "apps/api/src/services/explanations/explanation-cache.ts",
+      "bytes": 2869,
+      "sha256": "0379a55ee124a7dc2ca0b2f05cc927d7f9db3889d8331910e94e82503a82dc92"
+    },
+    {
+      "path": "apps/api/src/services/explanations/explanation-generator-adapter.ts",
+      "bytes": 12586,
+      "sha256": "41234abbc13557f2d377b8e3c76af14b1bc85409e1e64f60cad610b99b68d4ec"
+    },
+    {
+      "path": "apps/api/src/services/explanations/get-artwork-explanation.ts",
+      "bytes": 1552,
+      "sha256": "9a5c441d2f0ea4ec8f315dcdf0e7a5077bedde3f4b61da665a5b9206e2164bc9"
+    },
+    {
+      "path": "apps/api/src/services/http/idempotency-store.ts",
+      "bytes": 820,
+      "sha256": "c68c290cd3100c44ba3aa8925e48450dce8ef9e099718ffe6d9714d5db66f461"
+    },
+    {
+      "path": "apps/api/src/services/http/rate-limit.ts",
+      "bytes": 1475,
+      "sha256": "e8576b1c6dc824e5f45adb1d16dbd6545cc3890298b0d07ddd8cec4c8f00e571"
+    },
+    {
+      "path": "apps/api/src/services/privacy/request-redaction.ts",
+      "bytes": 585,
+      "sha256": "78648f246fa82396d6c01002ea861753d1fab1633e1264cef0314a20a61d9866"
+    },
+    {
+      "path": "apps/api/src/services/privacy/retention-policy.ts",
+      "bytes": 107,
+      "sha256": "f1f090cbb37dabcc7dbfcf88384956f66bfcb73e522c1fa061c1bb51f147ef75"
+    },
+    {
+      "path": "apps/api/test/e2e/curation-flow.e2e.test.ts",
+      "bytes": 2335,
+      "sha256": "2e1ebde54ce28c4ca3b032d26b7a5dc1268957b4a2b5bde4c04e564c8f9e2f8e"
+    },
+    {
+      "path": "apps/api/test/observability/metrics.test.ts",
+      "bytes": 1079,
+      "sha256": "91dc543ab6ae4f9729a84b4ba9552ce85cc8601df05e4649a2a307e324aef0bf"
+    },
+    {
+      "path": "apps/api/test/routes/artworks.test.ts",
+      "bytes": 13209,
+      "sha256": "d39562d6e9f504b0d5bd734e997f92a8b619eebd5abd0cdfed8063156e54338c"
+    },
+    {
+      "path": "apps/api/test/routes/corpus.test.ts",
+      "bytes": 2237,
+      "sha256": "af4fcad8ff34ffbba50f9c327b3ea5cabd8a708c585ca02334311b712a7673d7"
+    },
+    {
+      "path": "apps/api/test/routes/curations.test.ts",
+      "bytes": 5957,
+      "sha256": "bd5576878259041a49ec5125a928c0d81958997d4d152e8f53b2bd5aa48c3fe3"
+    },
+    {
+      "path": "apps/api/test/services/budget-guard.test.ts",
+      "bytes": 428,
+      "sha256": "e953c461b840c78929d1e7c9eadd8a5e1672aa93b2a8f11241c6ae41ac722df5"
+    },
+    {
+      "path": "apps/api/test/services/build-motion-profile.test.ts",
+      "bytes": 1665,
+      "sha256": "13ef7549dd60c575a6ea64e12bf09249b370203c414c5c4f03db37ab0c398d7d"
+    },
+    {
+      "path": "apps/api/test/services/curation-planner.test.ts",
+      "bytes": 2978,
+      "sha256": "ce289c3580fa629965eab92dafbae6b115788351ceeaba4903c59384ef5fd6a9"
+    },
+    {
+      "path": "apps/api/test/services/exhibition-narrative.test.ts",
+      "bytes": 30032,
+      "sha256": "517de84b3d0816401875acd2684ed4b3abfbb54db25f50ebffc92a5e2322f7ca"
+    },
+    {
+      "path": "apps/api/test/services/explanation-cache.test.ts",
+      "bytes": 2952,
+      "sha256": "25ce0283423de9562505771c98d47140d082c9c5f6ff7a9e5bc3605b93859325"
+    },
+    {
+      "path": "apps/api/test/services/explanation-generator-adapter.test.ts",
+      "bytes": 10432,
+      "sha256": "6ac18619467263b61b49662f20dd7c5f13e4f99c60913db8935be67c150cb8a9"
+    },
+    {
+      "path": "apps/api/test/services/grade-artworks.test.ts",
+      "bytes": 1489,
+      "sha256": "9797c87ba328f16f98d76b588f9adcfdbbb336ceb9c6492407eed59c08993abd"
+    },
+    {
+      "path": "apps/api/test/services/idempotency-store.test.ts",
+      "bytes": 766,
+      "sha256": "57d9884414ea360614bf98847a208f65b447c5ff71c390d9b121d967f0d069c8"
+    },
+    {
+      "path": "apps/api/test/services/rate-limit.test.ts",
+      "bytes": 638,
+      "sha256": "fe05e1f5af23b1d082f42445f7e9668203376063738497278f0825718d7c1af7"
+    },
+    {
+      "path": "apps/api/test/services/request-redaction.test.ts",
+      "bytes": 547,
+      "sha256": "8a580297a4d261e8ecf67065f4d5f77502467d1ea1d096a684439ee5961e1e27"
+    },
+    {
+      "path": "apps/api/test/services/retention-policy.test.ts",
+      "bytes": 496,
+      "sha256": "a7f4216c61629ce5b289c19584eacc9c0a32cdff55c112b365e692dee109627d"
+    },
+    {
+      "path": "apps/api/test/services/runtime-policy.test.ts",
+      "bytes": 5154,
+      "sha256": "bd31a8e8d66452d0170bd2d9289d91410163df09c4da97fd3c5e75d9398c19b2"
+    },
+    {
+      "path": "apps/api/test/services/session-store.test.ts",
+      "bytes": 1381,
+      "sha256": "5fa0144fd968ffe4f176176d1169ecb0ec8e72c54532f088e7b8ddf72a826174"
+    },
+    {
+      "path": "apps/api/test/services/session-token.test.ts",
+      "bytes": 818,
+      "sha256": "993de7efab25e37463f4430d3af37490e3b78d7d19608916f30bd2247b88d4fb"
+    },
+    {
+      "path": "apps/api/tsconfig.json",
+      "bytes": 184,
+      "sha256": "c63ace66eb2af1337b33d61e5902d49664ba35250b044a10ba38e4b82627584f"
+    },
+    {
+      "path": "apps/pipeline/README.md",
+      "bytes": 396,
+      "sha256": "b5b94a4aeed4e5d6cd9926f554a9b1c69d38d0dac2340564da5b2bc2692192d6"
+    },
+    {
+      "path": "apps/pipeline/package.json",
+      "bytes": 3183,
+      "sha256": "ed68c4813107a1309f5d5c6a135dd074fde1a1ad8feb0420281b4994510d7cc4"
+    },
+    {
+      "path": "apps/pipeline/src/README.md",
+      "bytes": 96,
+      "sha256": "fa66373552a451cd1f51d3e3c19eca0b9b6d71a0d37b965d134786428c2fbd7a"
+    },
+    {
+      "path": "apps/pipeline/src/build-artwork-metadata-shards.test.ts",
+      "bytes": 547,
+      "sha256": "9d6fe917ae225431dcf90b136e537ca5607dd28a1fa9c5ccf7a2bfc5c5a2455f"
+    },
+    {
+      "path": "apps/pipeline/src/build-artwork-metadata-shards.ts",
+      "bytes": 402,
+      "sha256": "520ff713afa971cd3ea6d7967d20be6d51a4bff8e209805e0e4e4a047ce3ecd2"
+    },
+    {
+      "path": "apps/pipeline/src/build-background-scenes.test.ts",
+      "bytes": 565,
+      "sha256": "b64334f279910563271a2b66320f665760810222e9e7d5e2a5d29df2defc9a75"
+    },
+    {
+      "path": "apps/pipeline/src/build-background-scenes.ts",
+      "bytes": 427,
+      "sha256": "5c88eb19e6540d2c7dcae552247829678127de365bcef8f7221ee44a570d8f49"
+    },
+    {
+      "path": "apps/pipeline/src/build-candidate-preview.test.ts",
+      "bytes": 4908,
+      "sha256": "2322bdbf6650d55bfbf1c889d7285d9747255d87f050afb394cf9ce904dc5459"
+    },
+    {
+      "path": "apps/pipeline/src/build-candidate-preview.ts",
+      "bytes": 371,
+      "sha256": "c5159ced368017a419ca21ece7edfeb245528c2783bdd1b41af9c60bfc4e2c5c"
+    },
+    {
+      "path": "apps/pipeline/src/build-confirmed-metadata-backfill.test.ts",
+      "bytes": 10981,
+      "sha256": "0ba8fe9bb16aa8f6bed77373fccd3038edde26a4bc931e5fc1036ef289bbc170"
+    },
+    {
+      "path": "apps/pipeline/src/build-confirmed-metadata-backfill.ts",
+      "bytes": 540,
+      "sha256": "16cb3beb883f8071346edda2568d5227e53cce7ebbdc6038daa3414e232bff71"
+    },
+    {
+      "path": "apps/pipeline/src/build-embedding-shards.test.ts",
+      "bytes": 4568,
+      "sha256": "2eaf6668051dcf39eabff79c6611da6373432fad7752fb37be49058407d1c43e"
+    },
+    {
+      "path": "apps/pipeline/src/build-embedding-shards.ts",
+      "bytes": 1062,
+      "sha256": "37d3a681dcb2f16f5c1f590a933c41e46b94466cb436e7886582b8ce553e7109"
+    },
+    {
+      "path": "apps/pipeline/src/build-media-index.test.ts",
+      "bytes": 658,
+      "sha256": "7a8c82db40580dce1cfa4c7f2ed80d2ff193fe059cb56bd61ba7ec3be2dbb8b7"
+    },
+    {
+      "path": "apps/pipeline/src/build-media-index.ts",
+      "bytes": 409,
+      "sha256": "5a00e4d4f6441e3bd5bd7b37801e7ed425ca7fefb7291169a9a93836436c6ffb"
+    },
+    {
+      "path": "apps/pipeline/src/build-metadata-backfill-preview.test.ts",
+      "bytes": 3830,
+      "sha256": "d4e6f3b58a0753a5bae6404027886ffe6ca965447314f3b4e4e29f65d048d845"
+    },
+    {
+      "path": "apps/pipeline/src/build-metadata-backfill-preview.ts",
+      "bytes": 406,
+      "sha256": "af2c892e7205b9d4f10cf8a11c2fba86398638ad481e1afc7825ff3830c587ba"
+    },
+    {
+      "path": "apps/pipeline/src/build-model-depth-release.ts",
+      "bytes": 1074,
+      "sha256": "7ab7fada444fdf59e53f70fdee7921859606fe82332d9fa01ddf72bf837ed61d"
+    },
+    {
+      "path": "apps/pipeline/src/build-public-review-sheet.ts",
+      "bytes": 4951,
+      "sha256": "cbeba822a385dd469189b0822dd104c5ff989fa2f030740e9c30ff43051d09fc"
+    },
+    {
+      "path": "apps/pipeline/src/build-public-url-release.ts",
+      "bytes": 10041,
+      "sha256": "94531463f7c1cb9567f825fd095a173825d00518fca850d1ecdd2d44501cb1f1"
+    },
+    {
+      "path": "apps/pipeline/src/build-quantity-preview.test.ts",
+      "bytes": 5386,
+      "sha256": "66678d2e41e2dc437111c1f7b8702e568f374eb49e2590f94ff946ec9da48f93"
+    },
+    {
+      "path": "apps/pipeline/src/build-quantity-preview.ts",
+      "bytes": 364,
+      "sha256": "c861cba21de4efffe0e1c434e294092b4714048b34182b88965c607aa7701b39"
+    },
+    {
+      "path": "apps/pipeline/src/build-relationship-graph-phase0.ts",
+      "bytes": 603,
+      "sha256": "5168e5e423659086684e318323e0580353de3848e0c5e7038228b4b4a4d07f9b"
+    },
+    {
+      "path": "apps/pipeline/src/build-relationship-graph.ts",
+      "bytes": 544,
+      "sha256": "626e65d0e62ed86c9e7d0ade314d94cbf857ec2f32f2fbd7fa563297a1299f34"
+    },
+    {
+      "path": "apps/pipeline/src/build-release-manifest.test.ts",
+      "bytes": 6468,
+      "sha256": "79b38b06b2184ab5d2bfaba34b85d87ccf85a954d1a051973224a016635bc193"
+    },
+    {
+      "path": "apps/pipeline/src/build-release-manifest.ts",
+      "bytes": 537,
+      "sha256": "693f2f416b5a1a55e9f81602aca8366e3a9d34a48d31cfe153da3b9b4a015874"
+    },
+    {
+      "path": "apps/pipeline/src/build-release-ready-corpus.test.ts",
+      "bytes": 6648,
+      "sha256": "0fdf8d5d3102e4a25fb6c97bd8976531a863308cc85ddfbda6a3987271b7d9c4"
+    },
+    {
+      "path": "apps/pipeline/src/build-release-ready-corpus.ts",
+      "bytes": 349,
+      "sha256": "0c04f17e4b1360bbfc81db4e1173c2df0c11f9fe7298720ba3f790116611f179"
+    },
+    {
+      "path": "apps/pipeline/src/build-room-lighting-assets.ts",
+      "bytes": 339,
+      "sha256": "41131ab0aeda7938b00b83cc83f3ecb7e2ae6a1db54d8983df599eb1fd348926"
+    },
+    {
+      "path": "apps/pipeline/src/build-search-shards.test.ts",
+      "bytes": 487,
+      "sha256": "e9b750fd95b4dad1c66a10f663a5517b19c23efc4aaadd12c42690e727b0a62e"
+    },
+    {
+      "path": "apps/pipeline/src/build-search-shards.ts",
+      "bytes": 396,
+      "sha256": "3fa86df9ff47476d3cdf487d198c2f6185367c76b73acbb07de3e25f5f8f9dc1"
+    },
+    {
+      "path": "apps/pipeline/src/build-semantic-release.ts",
+      "bytes": 1091,
+      "sha256": "6d5cf43ba76e5d0980b9071a4b48e314cad2ec500bf8b45bae755bad9fb2370f"
+    },
+    {
+      "path": "apps/pipeline/src/build-verified-partial-release.ts",
+      "bytes": 1030,
+      "sha256": "7bebb3a6d3441bb18687e1fa5aae0af55ec5b6e55d128795c34962b82316f1f9"
+    },
+    {
+      "path": "apps/pipeline/src/build-visual-presentation-preview.ts",
+      "bytes": 465,
+      "sha256": "dab825cca1d537e95f6ec9b3f2a9dcbe610e54ec59975c298970c2676facf5bb"
+    },
+    {
+      "path": "apps/pipeline/src/candidate-preview.ts",
+      "bytes": 8949,
+      "sha256": "42362a452c7d5828b6dac0a27376daf76840be28b582d9712c8df237b41ffd84"
+    },
+    {
+      "path": "apps/pipeline/src/cli.ts",
+      "bytes": 16080,
+      "sha256": "337da875f2aa561cbd27d86fef573955995605c0e44565c74c9c6d292574aa51"
+    },
+    {
+      "path": "apps/pipeline/src/confirmed-metadata-backfill.ts",
+      "bytes": 17388,
+      "sha256": "69cb85106b610289e2bbb02a75d85a81504b0a3ba5c3b687161eda82ea535c08"
+    },
+    {
+      "path": "apps/pipeline/src/curation-coverage.test.ts",
+      "bytes": 2245,
+      "sha256": "0bc5c7c211ebf714ffbd445f0ffa22e8b5391dc69e621d39efbcb46921555b90"
+    },
+    {
+      "path": "apps/pipeline/src/curation-coverage.ts",
+      "bytes": 19508,
+      "sha256": "26f0dada491c38d46edc33415bd8410c00e1f315412f8cf798c9b0f8add94df3"
+    },
+    {
+      "path": "apps/pipeline/src/debug-vector-retrieval.test.ts",
+      "bytes": 14631,
+      "sha256": "a98af2bfb5b29ccf40fc2f7d6798316d33abb7f3c04b81c90414c3bc42073b13"
+    },
+    {
+      "path": "apps/pipeline/src/debug-vector-retrieval.ts",
+      "bytes": 12462,
+      "sha256": "3d76bb4b6bebc586212fffd3ae07cd54d98d3c3e0d72dafae8c2c2a12d629f94"
+    },
+    {
+      "path": "apps/pipeline/src/depth-map-cli.ts",
+      "bytes": 1043,
+      "sha256": "672d66c4b5e9dcd13267ab3b67e717a3d41fee1283bc60280da8b9dc9eec8a8a"
+    },
+    {
+      "path": "apps/pipeline/src/depth-map.test.ts",
+      "bytes": 2961,
+      "sha256": "ababd2d091233ffffeb9bbaa5d8db916a350f96e9312dfba70a404a143e7e5c0"
+    },
+    {
+      "path": "apps/pipeline/src/depth-map.ts",
+      "bytes": 4749,
+      "sha256": "e566f413785e6de0ea32dc1efbca5d330cdc55afcf1ff418b264798591840a07"
+    },
+    {
+      "path": "apps/pipeline/src/embedding-runtime.test.ts",
+      "bytes": 3356,
+      "sha256": "be16c186726729a1344c91906d4e06708502f686da3bfd25197c848f841ac9a9"
+    },
+    {
+      "path": "apps/pipeline/src/embedding-runtime.ts",
+      "bytes": 6631,
+      "sha256": "33cadc088d50c00d7ffbe2cffc7d6c080553cd068735975a93f8210878106adc"
+    },
+    {
+      "path": "apps/pipeline/src/embedding-shards.ts",
+      "bytes": 11900,
+      "sha256": "2af3a508f34fcb8f24d1f4a6c95b293416a9fc114099b3ac81fdd4cc801c08fb"
+    },
+    {
+      "path": "apps/pipeline/src/existing-corpus-repair.test.ts",
+      "bytes": 4913,
+      "sha256": "6245466f494b33ce1d0327bdc388b1661da040abe90f206c705ad0618c826d2e"
+    },
+    {
+      "path": "apps/pipeline/src/existing-corpus-repair.ts",
+      "bytes": 20012,
+      "sha256": "ec9bbd4d4bccadbbeab00dc71af4e923aa4f1491bf0bf32ec982294da57701f2"
+    },
+    {
+      "path": "apps/pipeline/src/external-test-pack.test.ts",
+      "bytes": 7130,
+      "sha256": "12603cc56f198001a4b2dda8f523b8a3e7d95724360ac88609986571fe1d9256"
+    },
+    {
+      "path": "apps/pipeline/src/import-depth-release.ts",
+      "bytes": 1409,
+      "sha256": "75ac44c1f52f8ceeeb8a8a013935097680bd0a0fb419c43e0b4b96e174835986"
+    },
+    {
+      "path": "apps/pipeline/src/imported-depth-release.test.ts",
+      "bytes": 9362,
+      "sha256": "2d07e381fef593d32ebb1e26d84247f935b65f2d53c38dca66159d9ba27f6820"
+    },
+    {
+      "path": "apps/pipeline/src/imported-depth-release.ts",
+      "bytes": 14174,
+      "sha256": "822897e3aa6f02e84d1c43d02479fe0cb9d78e528b841711696733d0da9928a3"
+    },
+    {
+      "path": "apps/pipeline/src/metadata-backfill-preview.ts",
+      "bytes": 8819,
+      "sha256": "abe7d7487fdda1516faedf10cc5ab43c4f2e9b2cd1fc208ce257b1925f6b2586"
+    },
+    {
+      "path": "apps/pipeline/src/model-depth-release.test.ts",
+      "bytes": 4534,
+      "sha256": "5e5eda99a34f5decfaf0573ed4c5176903391e05108f432f44ab1c8c17118b03"
+    },
+    {
+      "path": "apps/pipeline/src/model-depth-release.ts",
+      "bytes": 8648,
+      "sha256": "dd2f1832bb9598982b6fcf30ef82a74bdceabb110b8ca4890205c3a6de6286ce"
+    },
+    {
+      "path": "apps/pipeline/src/public-url-intake.test.ts",
+      "bytes": 9835,
+      "sha256": "6ce6ed150401bad82181d146eb35613be4cf807d0c855aeb7b343b5f0e2f2b08"
+    },
+    {
+      "path": "apps/pipeline/src/public-url-intake.ts",
+      "bytes": 33625,
+      "sha256": "0105373167f133f6485ead5d7945f07e9832bfa517c05556cd492a99f141c4a2"
+    },
+    {
+      "path": "apps/pipeline/src/public-url-report.ts",
+      "bytes": 9589,
+      "sha256": "a1304e3690e2e806d4a233a301f6c196f76ce8cba0b0e125d618386319f48c9c"
+    },
+    {
+      "path": "apps/pipeline/src/quantity-preview.ts",
+      "bytes": 10560,
+      "sha256": "04582647172c1db46ceb5aa48fab4c8b268892d8efb6f2212012e7cdd517b7f4"
+    },
+    {
+      "path": "apps/pipeline/src/record-public-visual-review.ts",
+      "bytes": 2849,
+      "sha256": "5f9d5052b438a620b8a08e9706c6ca4ce11d53b74ad8e611fc848295f81fb593"
+    },
+    {
+      "path": "apps/pipeline/src/relationship-graph-evaluation.test.ts",
+      "bytes": 13247,
+      "sha256": "2c3de231d2a6b5c9899e6003c1aeb78ae9b7d76ac3d30591b03ad9fa4983c5c5"
+    },
+    {
+      "path": "apps/pipeline/src/relationship-graph-evaluation.ts",
+      "bytes": 24232,
+      "sha256": "df713b69bce57b344a53d7c9fde3739538779a6e80405286b9ceff5e6b8f0942"
+    },
+    {
+      "path": "apps/pipeline/src/relationship-graph-phase0.test.ts",
+      "bytes": 3202,
+      "sha256": "acf22edbbc160746ebce07c4a6648c8c6b7977023b78b9b3edcd1ba7e1e3ac28"
+    },
+    {
+      "path": "apps/pipeline/src/relationship-graph-phase0.ts",
+      "bytes": 49185,
+      "sha256": "81fb2f39a1bf8f95b671f0003fe89de33d7b6c6af8741022fecc5b06be27ae7f"
+    },
+    {
+      "path": "apps/pipeline/src/relationship-graph.test.ts",
+      "bytes": 4536,
+      "sha256": "d1fadf434e7d706fbebadf0217710591c0caa4fc2671b9021a87920acccf73c4"
+    },
+    {
+      "path": "apps/pipeline/src/relationship-graph.ts",
+      "bytes": 36507,
+      "sha256": "25625f5d34fffe44ca370a147d7d15abf88b602bdcd6eeaef1e03d4c1c3cb1e7"
+    },
+    {
+      "path": "apps/pipeline/src/release-artifact.ts",
+      "bytes": 23382,
+      "sha256": "59ca3175c805672fd876f47531d6b736f25866448a0aad60c4dc63a85d2aed2c"
+    },
+    {
+      "path": "apps/pipeline/src/release-ready-corpus.ts",
+      "bytes": 26716,
+      "sha256": "9ebfa6e213130eea011bb0088fd2286143bd636f2fb87541d89d6ec45080862b"
+    },
+    {
+      "path": "apps/pipeline/src/repair-existing-corpus.ts",
+      "bytes": 627,
+      "sha256": "fb22da715d96a163ce59c60a1b7c144821d45c734210b0ef4b621e01df070a1b"
+    },
+    {
+      "path": "apps/pipeline/src/room-lighting-assets.test.ts",
+      "bytes": 1597,
+      "sha256": "5dd36d15e6d398ad0edd9e2184252dcd091dac3def49af663279e4e465fe35a0"
+    },
+    {
+      "path": "apps/pipeline/src/room-lighting-assets.ts",
+      "bytes": 7337,
+      "sha256": "ddd2bb28afbf82cec92f82189f4f16e9f3236e9782481fe4bcee4c3a74c2cd59"
+    },
+    {
+      "path": "apps/pipeline/src/run-relationship-graph-evaluation.ts",
+      "bytes": 568,
+      "sha256": "6b8a9754535f956aa78b6e021bf98c7f1307c30da48908f48259020b40eec833"
+    },
+    {
+      "path": "apps/pipeline/src/run-vector-benchmark.ts",
+      "bytes": 2713,
+      "sha256": "8948d0e82344efe900026ecb5eb70beeba5d2eac09143492e13330f8e2a0b436"
+    },
+    {
+      "path": "apps/pipeline/src/run-vector-provider-benchmark.ts",
+      "bytes": 9145,
+      "sha256": "ff41c53865a4587244fd122d6962258c3df4b20ddd55a5582ee5f8e6fa7d66b0"
+    },
+    {
+      "path": "apps/pipeline/src/semantic-release.test.ts",
+      "bytes": 4126,
+      "sha256": "459cf01c1a1b831567a39b489688a48c289c3d457eddb5d349016e53b0e7efd4"
+    },
+    {
+      "path": "apps/pipeline/src/semantic-release.ts",
+      "bytes": 7266,
+      "sha256": "2ed72db958fc654756b1193df4b89f0490d724dd01ef71d2f70e154fdf3b5f7d"
+    },
+    {
+      "path": "apps/pipeline/src/sync-experience-corpus.ts",
+      "bytes": 2273,
+      "sha256": "a771fd04d829d00264babc2c016974070d94846025ef2edc4b67c1a2de41287b"
+    },
+    {
+      "path": "apps/pipeline/src/verified-import-recovery.ts",
+      "bytes": 2669,
+      "sha256": "8f825d2617f253ed3c11983a636e3ba18f0a49e62989f28d2d905f9b6ef2aac9"
+    },
+    {
+      "path": "apps/pipeline/src/verified-partial-import.test.ts",
+      "bytes": 17854,
+      "sha256": "6ebebe4668edd60eea4f19c4d08a9f3b5867a84979f545b19f5ca580cfb6eafb"
+    },
+    {
+      "path": "apps/pipeline/src/verified-partial-import.ts",
+      "bytes": 35352,
+      "sha256": "541d60c2ee56c97572b57397d0e58a78eb3a517fdaa6a265b3f9167f79c509ca"
+    },
+    {
+      "path": "apps/pipeline/src/visual-presentation-preview.test.ts",
+      "bytes": 6491,
+      "sha256": "858046c54be294f0d9cbd999e1a7f375b309959e12f24618986983ee798649e9"
+    },
+    {
+      "path": "apps/pipeline/src/visual-presentation-preview.ts",
+      "bytes": 14480,
+      "sha256": "a45bb202107a4d5daa8744667c8747fd7d6184f258d7a692921059a4672b2fc2"
+    },
+    {
+      "path": "apps/pipeline/tsconfig.json",
+      "bytes": 205,
+      "sha256": "748c3af00f688782be79adc550dfff910c34f23b32e70b5e0add97d28bf6df2f"
+    },
+    {
+      "path": "apps/web/README.md",
+      "bytes": 255,
+      "sha256": "0e993ed0fb5946ce84404e6028f5699bdc44183048f1df327ba16bd037537228"
+    },
+    {
+      "path": "apps/web/app/README.md",
+      "bytes": 57,
+      "sha256": "a62f7e6c22d15fb176a0dbd15b2cb8efe2ebcd06c4cd3e3efb0a36a192ebfd22"
+    },
+    {
+      "path": "apps/web/app/ambient-audio/[...path]/route.ts",
+      "bytes": 1368,
+      "sha256": "703fd1fa4470a3325c80492bbb9d1f8d17bdc49d1eef5a577f994cf83609e353"
+    },
+    {
+      "path": "apps/web/app/api/artworks/[id]/explanation/route.ts",
+      "bytes": 2048,
+      "sha256": "c1c4e3f23a45c576ce0148cc2d7d0f13688bc8e5f84ebf4b5b40cb5981f9732b"
+    },
+    {
+      "path": "apps/web/app/api/curation/narrative/route.ts",
+      "bytes": 2307,
+      "sha256": "3ccc699982f99148892fce568b7fb46cd1ac0dd815d1a8cb574c630f49f97b5d"
+    },
+    {
+      "path": "apps/web/app/api/handwriting/jobs/[id]/assets/[asset]/route.ts",
+      "bytes": 364,
+      "sha256": "a5db1466a2b1998f18630bb5d2dcc5afa5c65e361a7172251780039861578218"
+    },
+    {
+      "path": "apps/web/app/api/handwriting/jobs/[id]/cancel/route.ts",
+      "bytes": 312,
+      "sha256": "11312669bb7477f5a4ebcd04ca9bc378ead4bea1336379f3881877268137e7d6"
+    },
+    {
+      "path": "apps/web/app/api/handwriting/jobs/[id]/route.ts",
+      "bytes": 302,
+      "sha256": "c0de83319d0769b8d66a00996fc2b8a11df959e1036e71f7ab9a9ac2b98c1ea0"
+    },
+    {
+      "path": "apps/web/app/api/handwriting/jobs/route.ts",
+      "bytes": 188,
+      "sha256": "1f60576e0bb1c706632faff43bc6dcf73d549bd18b83e97bd82fb3f417f34d9a"
+    },
+    {
+      "path": "apps/web/app/api/handwriting/options/route.ts",
+      "bytes": 183,
+      "sha256": "0e200be9ef67c8ea1d463acb39e75ab7a8bd0a260347be305286b3467271e245"
+    },
+    {
+      "path": "apps/web/app/api/health/route.ts",
+      "bytes": 564,
+      "sha256": "c62439fa50e4e680b30ac4dfaf1d7fcf2d00f2ff8e471509b98088db5b4abd01"
+    },
+    {
+      "path": "apps/web/app/api/sculptures/narrative/route.ts",
+      "bytes": 1197,
+      "sha256": "0a1238c56686667cd43cfc1d9582bac416b8faa63b7c82cb1dd4514bd534a5b5"
+    },
+    {
+      "path": "apps/web/app/artduo-artwork/[id]/route.ts",
+      "bytes": 8445,
+      "sha256": "973399a002247e1ef80e4e98427e9c64143b5a428a8db9a3dc48e69fba12bc1d"
+    },
+    {
+      "path": "apps/web/app/artduo-gallery/[...path]/route.ts",
+      "bytes": 1475,
+      "sha256": "fe22509b22dda04ca3059fcfaf27dea9bbe15fb29aa2945e9b429356fb93a29d"
+    },
+    {
+      "path": "apps/web/app/artwork/[id]/page.tsx",
+      "bytes": 10015,
+      "sha256": "992af9e578ad6d221c84b3c18a11a28e52873299c25148b9bf2fb30292363c72"
+    },
+    {
+      "path": "apps/web/app/experience/sculptures/page.tsx",
+      "bytes": 1137,
+      "sha256": "03bdd8380302ebe0a3a05b2401eecc9d40847949f291c766b4b4efb990277b11"
+    },
+    {
+      "path": "apps/web/app/gallery/[id]/immersive/error.tsx",
+      "bytes": 909,
+      "sha256": "ed6191864da5aecb9ace61d8c07e2afec87304cba8b5ac5a3adabb3ee31ce13c"
+    },
+    {
+      "path": "apps/web/app/gallery/[id]/immersive/loading.tsx",
+      "bytes": 1170,
+      "sha256": "f4f81e1d7974e51a39bdd6cdb286b9a5645907dc7c72fdf160dcd90043fb3962"
+    },
+    {
+      "path": "apps/web/app/gallery/[id]/immersive/page.tsx",
+      "bytes": 7400,
+      "sha256": "31ee7c6585c1865622273f6b5df719b331e65f9585af13ad8a88f1ff62a4d091"
+    },
+    {
+      "path": "apps/web/app/gallery/loading.tsx",
+      "bytes": 52,
+      "sha256": "c4ea80e7da59b345e9636355b91bd72a4ced102fd3e3b6cba5d715c3d123efdd"
+    },
+    {
+      "path": "apps/web/app/gallery/page.tsx",
+      "bytes": 5291,
+      "sha256": "5bc765bcf69cd1cc3c24b80b9ff65bc3784ea586ff990bbfa338dc2ec5e29c22"
+    },
+    {
+      "path": "apps/web/app/globals.css",
+      "bytes": 78409,
+      "sha256": "d8f4bfec2c6a5af760b1bacd63e03b90d765c94cd2864aee65f7cee6d1c96861"
+    },
+    {
+      "path": "apps/web/app/icon.svg",
+      "bytes": 296,
+      "sha256": "9740028251a80b2ae6faa6bb99393b37d23e86c83721fab9c545e76bc4261fb4"
+    },
+    {
+      "path": "apps/web/app/layout.tsx",
+      "bytes": 575,
+      "sha256": "937f64b7c191535140f14ee117d3cf33185d7be31dfa55153c148ae4e9437ede"
+    },
+    {
+      "path": "apps/web/app/not-found.tsx",
+      "bytes": 1071,
+      "sha256": "4e1dc224b2af8afeb66460e66a13d10339da34d37b6fe0c3b70e6d4f92613391"
+    },
+    {
+      "path": "apps/web/app/page.tsx",
+      "bytes": 457,
+      "sha256": "3edc68669cf9fb6a97e286f44964181500c8f60a2d0307c5dab0c140be7f0779"
+    },
+    {
+      "path": "apps/web/components/README.md",
+      "bytes": 73,
+      "sha256": "e43371bd22525179aae6a6e54653e0134a6afc09bd7d3e90b4e7c2735f9711b7"
+    },
+    {
+      "path": "apps/web/components/artwork-explanation-panel.tsx",
+      "bytes": 4453,
+      "sha256": "65dabc5bd727c26574377942b2520645bcd85a9906c9e28f2e91104bdda48dd1"
+    },
+    {
+      "path": "apps/web/components/artwork-image.tsx",
+      "bytes": 1760,
+      "sha256": "ce7efc6070b272cb0632db345a5a351a66438f7190c42e397cfcce56d98fe1e8"
+    },
+    {
+      "path": "apps/web/components/experience-entry-client.tsx",
+      "bytes": 2036,
+      "sha256": "915728f0854536d6219bc031f30391557504f6ccbd6c074e99e2fe635c9b5786"
+    },
+    {
+      "path": "apps/web/components/experience-route-client.tsx",
+      "bytes": 6528,
+      "sha256": "5d29b975923e318cf34f472c9d130ef4ff95079609c6287c555f6b17453627d2"
+    },
+    {
+      "path": "apps/web/components/glass-button-effects.tsx",
+      "bytes": 521,
+      "sha256": "a3383e7f960a4554f48d2a8ffc934007503453f95817d2913d69ffad06f1b3f5"
+    },
+    {
+      "path": "apps/web/components/sculpture-preview-client.tsx",
+      "bytes": 468,
+      "sha256": "f4baf06b11502cadde44cea13d562f9668d68e281402372ab1b38d69d481f429"
+    },
+    {
+      "path": "apps/web/components/use-curation-narrative.ts",
+      "bytes": 2431,
+      "sha256": "6e8413f3dbd5f6bea27b6d2d9da9896deda539057a418c3f1bfe43ee02d709b3"
+    },
+    {
+      "path": "apps/web/components/use-handwritten-keepsake.ts",
+      "bytes": 1619,
+      "sha256": "ac7183e8d4eaa98fa4089fab19f48b1fa0aa3d61ac1fac7d7199258d669f2437"
+    },
+    {
+      "path": "apps/web/e2e/browser-local-runtime.spec.ts",
+      "bytes": 523,
+      "sha256": "1bcee4535d45139de6316a77b7f94bf1be24f79a32a8dd02732a00af24306276"
+    },
+    {
+      "path": "apps/web/e2e/default-entry.spec.ts",
+      "bytes": 1436,
+      "sha256": "642d733d708b077a78bdba4509b92713d367005c4a3c50f175eeadd53db6b2fe"
+    },
+    {
+      "path": "apps/web/e2e/experience-boundaries.spec.ts",
+      "bytes": 4241,
+      "sha256": "d82501faffbae714785ef3d448861c42b51c19e7c5c23e92ea69c12d5ac9db38"
+    },
+    {
+      "path": "apps/web/e2e/experience-flow.spec.ts",
+      "bytes": 8695,
+      "sha256": "ecb0a20ad3cf20c47cb9019f7b0424abbf9ca61aadf6cdacae1f5bca6df79823"
+    },
+    {
+      "path": "apps/web/e2e/experience-layout.spec.ts",
+      "bytes": 7133,
+      "sha256": "3a692f0960ffa5eab6c01e6564790991b4e9995eea85fab6fe55ba7d312dd51b"
+    },
+    {
+      "path": "apps/web/e2e/experience-lighting.spec.ts",
+      "bytes": 9393,
+      "sha256": "8347d7615bc3f166e96f4b3cd903158c20b355a070657c78c79aaf0d65e35ebb"
+    },
+    {
+      "path": "apps/web/e2e/experience-resources.spec.ts",
+      "bytes": 8569,
+      "sha256": "d99997a9c6d003137f7287de1491bfc084a9c30eacb1a7c86e2c7ef107d8946c"
+    },
+    {
+      "path": "apps/web/e2e/experience-states.spec.ts",
+      "bytes": 10577,
+      "sha256": "fe17f0d8e30072af226fb80a8738a3c3a33a51774262c0325c14216d01a706c1"
+    },
+    {
+      "path": "apps/web/e2e/explanation-state.spec.ts",
+      "bytes": 3425,
+      "sha256": "e2b69c8f7e4cad8411d9776191126490db5b8ac4fefa91041461aec9a8c13099"
+    },
+    {
+      "path": "apps/web/e2e/fixtures/experience-page.tsx",
+      "bytes": 2671,
+      "sha256": "dc2a95fd9ee3de2744bbfafeadc634a011dddc1a69259f58506ddf2db3350828"
+    },
+    {
+      "path": "apps/web/e2e/fixtures/lifecycle-harness.tsx",
+      "bytes": 505,
+      "sha256": "35c08599feae8d949586d09957df1a8c4a62896c75a73ebffabc44979c0eb72d"
+    },
+    {
+      "path": "apps/web/e2e/helpers.ts",
+      "bytes": 160,
+      "sha256": "8426e7ba0ec8d2e74a17d5340cc081d7cf005824575348ba0589fd201db33118"
+    },
+    {
+      "path": "apps/web/e2e/immersive-gallery.spec.ts",
+      "bytes": 10217,
+      "sha256": "8dc2b0488fc1ddeb57da9d3a1512ea5f61d50394b544323cacff6d7d45427ea1"
+    },
+    {
+      "path": "apps/web/e2e/painting-media.spec.ts",
+      "bytes": 967,
+      "sha256": "681fb1683940180bee5a2a7c287b6b5cd588f46722b1704739fce4c8fb2ac37e"
+    },
+    {
+      "path": "apps/web/e2e/phase1-states.spec.ts",
+      "bytes": 3124,
+      "sha256": "cff4741650e6723769115f0c28ca0db0570033dd5a46d6414d859935497442d3"
+    },
+    {
+      "path": "apps/web/e2e/quality-corpus.spec.ts",
+      "bytes": 5162,
+      "sha256": "757b28cf4b6784aa8f14e4d4f19ce3b61ccc7d44d4960cc5eeaf51be7b2e61f7"
+    },
+    {
+      "path": "apps/web/e2e/scene-matching.spec.ts",
+      "bytes": 4035,
+      "sha256": "8371a85170c5361a4de3630f1df46ee771261ecdf574420041e52dbd67dc53d6"
+    },
+    {
+      "path": "apps/web/e2e/semantic-experience.spec.ts",
+      "bytes": 5757,
+      "sha256": "1d14b4cbe84d9367a8d214e2c2268c2b736b2d98331a85d7409dd667b2dac1f0"
+    },
+    {
+      "path": "apps/web/e2e/teardown.ts",
+      "bytes": 155,
+      "sha256": "d6edb3d840c18852c8067e84e96bb7067e779e8e981ddfd041d520e3bfdd8826"
+    },
+    {
+      "path": "apps/web/e2e/thin-slice.spec.ts",
+      "bytes": 1434,
+      "sha256": "de81a784bdef8a36ba4836716fc65d8cdb7997ac582d02debfaab3ef20f03883"
+    },
+    {
+      "path": "apps/web/e2e/viewing-adaptation.spec.ts",
+      "bytes": 8209,
+      "sha256": "c6ea6429208e8f29d79ab384c587d04c299d04a563155fcb7016765eb89a80fe"
+    },
+    {
+      "path": "apps/web/instrumentation.ts",
+      "bytes": 872,
+      "sha256": "6daab571c9ae48f149ac6b603be009eec2c94a772d827f84ed4023cf55d578ed"
+    },
+    {
+      "path": "apps/web/lib/README.md",
+      "bytes": 98,
+      "sha256": "2244f01e0553475373e2a0efbd9f8b72ce9bcefe410e7af432acf5f9087a4cbc"
+    },
+    {
+      "path": "apps/web/lib/affective-negotiation.ts",
+      "bytes": 13903,
+      "sha256": "0acb6bd3f78f06f2152aaa9accd7ef3290e296f1e036e50842d7354f5088b94f"
+    },
+    {
+      "path": "apps/web/lib/analytics.ts",
+      "bytes": 1596,
+      "sha256": "0c41c477cb47ef7b5193357bdc4b10d6fc221f228cdea6061fc06cd912fdea99"
+    },
+    {
+      "path": "apps/web/lib/artwork-appearance.ts",
+      "bytes": 3024,
+      "sha256": "09f7b1e64738f6d94fe5b3d608701d83cf5c1b0295745ddb920af1dabf8021fd"
+    },
+    {
+      "path": "apps/web/lib/artwork-credits.ts",
+      "bytes": 2078,
+      "sha256": "31cb6f403243c18017bba7fef241ea2838944fae6d394f0c920e75fcaaa66f05"
+    },
+    {
+      "path": "apps/web/lib/artwork-eligibility.ts",
+      "bytes": 233,
+      "sha256": "5a9f1c4263aef8bcd21a42af6d24327a80cf8a707782e7ffd9993160b8dfd884"
+    },
+    {
+      "path": "apps/web/lib/artwork-image-url.ts",
+      "bytes": 778,
+      "sha256": "eabaf68cb21364cf76c533785d9413895be7066b5d0b0cd47f021b70e720981f"
+    },
+    {
+      "path": "apps/web/lib/artwork-page-copy.ts",
+      "bytes": 1743,
+      "sha256": "e6afee6a9ad7b82e4275e832e70103868e51dfa7334cbe50f72e19ea00fe668b"
+    },
+    {
+      "path": "apps/web/lib/artwork-preview.ts",
+      "bytes": 3515,
+      "sha256": "43ceac52a6177d2804f128d1db458ddf8c1fd0da4e6f1e3b22f729637924397a"
+    },
+    {
+      "path": "apps/web/lib/artwork-visual-evidence.ts",
+      "bytes": 4962,
+      "sha256": "a741e59fc67c5e22da4d74f98e7cfcc592c8404ae374514d7d94eee71f77b9c2"
+    },
+    {
+      "path": "apps/web/lib/browser-curation.ts",
+      "bytes": 1238,
+      "sha256": "0d8299ba2d193b86c8eb8db6e8dc491dc92271ffa0b5ace8172ab029aea2610a"
+    },
+    {
+      "path": "apps/web/lib/curation-client.ts",
+      "bytes": 676,
+      "sha256": "5bf5bf60b05446f8f406ab62df731669b64a4460e78ed45676cbd76c3c6944e3"
+    },
+    {
+      "path": "apps/web/lib/curation-narrative.ts",
+      "bytes": 10396,
+      "sha256": "6ec198ec3a51d3bd59fb062acf6e3c2b70c918fa404bff02f25cf791844d6260"
+    },
+    {
+      "path": "apps/web/lib/curation-stream.ts",
+      "bytes": 2834,
+      "sha256": "a78bb3e237543334ea9297d27d48638268e55c59cb7ff3e21640534c7996eae7"
+    },
+    {
+      "path": "apps/web/lib/exhibition-narrative-server.ts",
+      "bytes": 12359,
+      "sha256": "575bd1c19697f00d1c68a11eae30ac508a5ae8e4baba135239e9c12066ab0e36"
+    },
+    {
+      "path": "apps/web/lib/experience-adapter.ts",
+      "bytes": 12694,
+      "sha256": "bce715b6c20e68a47f090cb159c0547c295db43cd181d1f163c2df3a4ea96499"
+    },
+    {
+      "path": "apps/web/lib/experience-analytics.ts",
+      "bytes": 4955,
+      "sha256": "e8339cc859b553535c7f4ba97e96ae927412e7b3ee283507ecdf7d555ec006e2"
+    },
+    {
+      "path": "apps/web/lib/experience-loading.ts",
+      "bytes": 416,
+      "sha256": "34c50338d064da17513a2886b7408547c946fd1d886b02e51b0286ae2d8f7ccb"
+    },
+    {
+      "path": "apps/web/lib/experience-navigation.ts",
+      "bytes": 5266,
+      "sha256": "c0010c7b1a37ea5a34904fce2350d5f4ef0bc51a03643f28888da95ba9a62e13"
+    },
+    {
+      "path": "apps/web/lib/explanation-client.ts",
+      "bytes": 7049,
+      "sha256": "5fd91ad4cf3bf7af41cee9a921eb8f6a2f7c6aae6e37a17449a847179e5027ef"
+    },
+    {
+      "path": "apps/web/lib/file-revision-cache.ts",
+      "bytes": 1427,
+      "sha256": "00803336726e6282bc600fbb593c2a2dfecb334b317a15f9c7541570f8708ab8"
+    },
+    {
+      "path": "apps/web/lib/gallery-route.ts",
+      "bytes": 11729,
+      "sha256": "886c127b4cc163f2b77134813e2046de7a2fb96b01d43317f094f80cb2b7e22b"
+    },
+    {
+      "path": "apps/web/lib/handwriting/config.ts",
+      "bytes": 1589,
+      "sha256": "7f5c6c1f2a30ac26b6732464d048208dab2873793059967b3192f8923fe20d7e"
+    },
+    {
+      "path": "apps/web/lib/handwriting/http.ts",
+      "bytes": 7661,
+      "sha256": "326666d936fbbbed75787dd506ef785e09b3ba6aa1d2a4792546d9132cf4a112"
+    },
+    {
+      "path": "apps/web/lib/handwriting/inko.ts",
+      "bytes": 6631,
+      "sha256": "842abfe5c2e3c8b1a05435724f43fbd7d0b96678202ca4c0c98a84fbf434e2e9"
+    },
+    {
+      "path": "apps/web/lib/handwriting/scene-layer.ts",
+      "bytes": 10117,
+      "sha256": "fc052a041e74b43ea03be1ad069fe7d14a99f1fcd67341e00a210757b31bc082"
+    },
+    {
+      "path": "apps/web/lib/handwriting/store.ts",
+      "bytes": 9146,
+      "sha256": "06fee3f9dcdd238b49d09a328d7ea5ffa365c9e75e289e7873faaabdf45e13f8"
+    },
+    {
+      "path": "apps/web/lib/handwriting/worker.ts",
+      "bytes": 10224,
+      "sha256": "dc7dc9e8331248eefd35a3a6dde06150d37ba10a291b2b73510621499a2dbd7a"
+    },
+    {
+      "path": "apps/web/lib/met-image-url.ts",
+      "bytes": 413,
+      "sha256": "e254209ab7d6c090694987146988e10a724ea406567cdd5d129817e5bb228d5e"
+    },
+    {
+      "path": "apps/web/lib/prompts.ts",
+      "bytes": 485,
+      "sha256": "d24ba3eeea7ed68e013f266823e06b4cf1d1fd1b77c247b1e977099e68c996d3"
+    },
+    {
+      "path": "apps/web/lib/public-media-image.ts",
+      "bytes": 504,
+      "sha256": "f1c8b5c253ce3efa5cad07e5d031bd32939e0c18b482c60950ca3e207946f791"
+    },
+    {
+      "path": "apps/web/lib/public-media-manifest.ts",
+      "bytes": 6508,
+      "sha256": "ebfe8e1ac05751cb7950867bf9141573d11ae0eaeb4aeec1bb60ff3c417149c1"
+    },
+    {
+      "path": "apps/web/lib/public-media-publish.ts",
+      "bytes": 7057,
+      "sha256": "5d49645db991500104c33ebe9d0324281be9e856d989d17e7f4e7d3510ac4845"
+    },
+    {
+      "path": "apps/web/lib/public-media.ts",
+      "bytes": 5878,
+      "sha256": "5348c71e5b769134cee31147c043fa8e40c03c5ef72e20966a116a2b6ec3a17b"
+    },
+    {
+      "path": "apps/web/lib/public-runtime.ts",
+      "bytes": 1619,
+      "sha256": "ad78f6303a53cb124b475517ee9ceca9a3d0e596b092e6b0d5b4cd0aadf6adbb"
+    },
+    {
+      "path": "apps/web/lib/release-catalog.ts",
+      "bytes": 25315,
+      "sha256": "917e2963f38b962e652f6d2aa699a483fda9b76d75331472760eeeb5c7181451"
+    },
+    {
+      "path": "apps/web/lib/release-media-path.ts",
+      "bytes": 1364,
+      "sha256": "3230a765fb5e32ce7fbfac12eda2f5171610b6b23579bd6e06f0c5f330127865"
+    },
+    {
+      "path": "apps/web/lib/release-readiness.ts",
+      "bytes": 1435,
+      "sha256": "bfb5f90757d2b1606ec48cd624959de804df782c3df13f52da5ed11d3ca1aab8"
+    },
+    {
+      "path": "apps/web/lib/sculpture-catalog.ts",
+      "bytes": 6838,
+      "sha256": "00e90c2fab734fe112c7a2622ef7fdbd752dd86fc9da42c288db80399676c35b"
+    },
+    {
+      "path": "apps/web/lib/sculpture-narrative-client.ts",
+      "bytes": 727,
+      "sha256": "d6dab8201df03f4b576c86887d3aa9506219fe0ea6a09da321746918445e49b4"
+    },
+    {
+      "path": "apps/web/lib/sculpture-narrative.ts",
+      "bytes": 6965,
+      "sha256": "a56afab6ee16eb0bc1b3842227f6d6d96153606ee45cdef00d75cd772ef9566c"
+    },
+    {
+      "path": "apps/web/lib/sculpture-preview.ts",
+      "bytes": 305,
+      "sha256": "666e8112ee2c4cd07542102f0caf7bb09960df4977086b94c09d70055c348e36"
+    },
+    {
+      "path": "apps/web/lib/semantic-curator.ts",
+      "bytes": 11336,
+      "sha256": "7edf99aff1d4952d1accbcd9b7c0922d8a5cc52e6d1b22dcb91f54f43740b922"
+    },
+    {
+      "path": "apps/web/lib/semantic-selection.ts",
+      "bytes": 13900,
+      "sha256": "a5d283e127b8c84900376bc55ec31e45c5714e4d53c8657448d2414e80682c8b"
+    },
+    {
+      "path": "apps/web/lib/session-state.ts",
+      "bytes": 920,
+      "sha256": "3b8112b9e47611015f0f9f2a12e36de5b98de88925a47c562d66b7959951d436"
+    },
+    {
+      "path": "apps/web/lib/viewing-intent.ts",
+      "bytes": 21302,
+      "sha256": "85666913f2417679f2bdc8e5b16ae6ff46e3ef0009b3d341b3e6dcfb763998af"
+    },
+    {
+      "path": "apps/web/next-env.d.ts",
+      "bytes": 262,
+      "sha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6"
+    },
+    {
+      "path": "apps/web/next.config.ts",
+      "bytes": 893,
+      "sha256": "4d811812c7565490ff8ec4976b7051980af9887ac7c33b82c73316d6e7475e74"
+    },
+    {
+      "path": "apps/web/package.json",
+      "bytes": 837,
+      "sha256": "7202a3ed7e8aac23fee83e8c4d09ec8ffdd21ab23b5e4bb6c1d22f9fe1246c6a"
+    },
+    {
+      "path": "apps/web/playwright.config.ts",
+      "bytes": 738,
+      "sha256": "23ed9415b5a70295f430680c56985559f38dfb8566bbae274793d208dd568384"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/alexander-helios-compact.glb",
+      "bytes": 595520,
+      "sha256": "ab927dd36d70f03c42ba19cfdf90462ee23d1353a49eef39db498ffcf84df47d"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/alexander-helios-poster.png",
+      "bytes": 222637,
+      "sha256": "56f866576963912a06c3600a172ef4554d5939c045610095557b048f905065e9"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/alexander-helios-reference.glb",
+      "bytes": 1569860,
+      "sha256": "2ff7cf4a2981255f84b73306a7c28591de1b6977c388cbe5fe7812fcd021c89d"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/apollo-belvedere-compact.glb",
+      "bytes": 508796,
+      "sha256": "b809d58dc16c70196527ff565ac6473bb3d8bab7c11a931dc12d578c8d55eccd"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/apollo-belvedere-poster.png",
+      "bytes": 426794,
+      "sha256": "b7ed57c175162fb663b3f420fac91b90fe77cad84924c49f119e56cbf76624f2"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/apollo-belvedere-reference.glb",
+      "bytes": 1158856,
+      "sha256": "0162853ef7ab1b0127fe0db6fb4e94450ce7f4815c55fa5d462bc3c78ad12456"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/athena-compact.glb",
+      "bytes": 512664,
+      "sha256": "1cd7a1e9955d607a0636e91cd5026d0a2244606d67ce3c712873436f06da6529"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/athena-poster.png",
+      "bytes": 402468,
+      "sha256": "4ff9e0e4329537ce798da785c69fcbf0886ba99f00ee2efc1c59d2036d482e17"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/athena-reference.glb",
+      "bytes": 4605016,
+      "sha256": "e6470bd4b7df2b8ffc00a30d433d6063a1504774c71d67b345e246ddaaa398fb"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/augustus-compact.glb",
+      "bytes": 598132,
+      "sha256": "45312c3f7654866a5c01da319a97e7b654a1686cfa34c8b47c9728a7033c89c0"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/augustus-poster.png",
+      "bytes": 425568,
+      "sha256": "1e06bfc58b65bfe867366d498e96353997ab53d6b2e63ba9d1750e7951456a13"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/augustus-reference.glb",
+      "bytes": 1599468,
+      "sha256": "e431ffb79d81312be73401359d3bc6b11a888bca4734c4b4e595dbe8df8d0fa8"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/balzac-compact.glb",
+      "bytes": 651652,
+      "sha256": "120acfdccb386ceb106fdfdde87c355dc98be034267a0a77d4450c7821a400d7"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/balzac-poster.png",
+      "bytes": 340298,
+      "sha256": "23ed1365a154f48cbe9e028f93a786b9b2ab199db49714baa1ed472c0bf8f8a7"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/balzac-reference.glb",
+      "bytes": 1710924,
+      "sha256": "64586852c442c8e1a7d690ca8f526032d6ec855dadf96880dd071a4e90529ade"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/beethoven-compact.glb",
+      "bytes": 663184,
+      "sha256": "6a91dbd44d7fa5a3f252e4ab524296ebe2d73e5338783d7a94a5b16aef15cbf0"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/beethoven-poster.png",
+      "bytes": 336492,
+      "sha256": "7fe64eb11b7523c48db7ed83634b1745ce96e68e574551576bf6f13a6673550a"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/beethoven-reference.glb",
+      "bytes": 1971316,
+      "sha256": "a1b32dc23acf53b79a1aa339f3677d5af068740ff26d7a46cab47f4f0b4ff60b"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/calais-compact.glb",
+      "bytes": 787948,
+      "sha256": "cdf70b7bb15d18f2e1a7a4f4a6bebc11122d875430a3427e7704e00ffaa3e7b1"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/calais-poster.png",
+      "bytes": 1055801,
+      "sha256": "18bc5bc9a6f0c259c2f4cefb2591577e861ce8d3af8fabbe158cb33a8dd31614"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/calais-reference.glb",
+      "bytes": 2732108,
+      "sha256": "b8001bd257eaabbfa48e87c0875a29881a9f9465c89bf537bdd94ebaffb5e380"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/david-compact.glb",
+      "bytes": 685852,
+      "sha256": "1bba67567a7daa7557760b83314231f1bb9ba73f03243b853a31ab6b5e173011"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/david-poster.png",
+      "bytes": 281148,
+      "sha256": "98b4734164724a440a588fb34a3f48168bf15c56319d71979409b9474af989f1"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/david-reference.glb",
+      "bytes": 4170612,
+      "sha256": "f5df7607228823bc9d198a377116cbfdacb3705d67912efba9acea6c6667f27b"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/delivery.json",
+      "bytes": 187,
+      "sha256": "a756fddb119e2b8d7d45c2794b02b1396f9765cec65cc74690ebdee793b5c437"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/discobolus-compact.glb",
+      "bytes": 560344,
+      "sha256": "67468f6fb45ef1b0a2aaad78be72d72bdb711144d1fd6864aa22a2d54acb4ea2"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/discobolus-poster.png",
+      "bytes": 353609,
+      "sha256": "d96dd5f49f7154dadfa85f1316d75a5ecf9c5d2fdb6b3f64cf40f7b861cd4c59"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/discobolus-reference.glb",
+      "bytes": 1481188,
+      "sha256": "295d88f7865990f17829a146f85eeae81f7c70c31335c33261826286ef181055"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/eros-bow-compact.glb",
+      "bytes": 503056,
+      "sha256": "835a9af0120a36f1acd82b5aa9ac36231f338a8527bc5bc9f956ab5e76087835"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/eros-bow-poster.png",
+      "bytes": 372872,
+      "sha256": "1c91d9e2ddb2490d0f42ef46366589c1cd2f11221378dd11d569d59a1c8f46df"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/eros-bow-reference.glb",
+      "bytes": 1530512,
+      "sha256": "bd57f784afeb29ca45a7605b2a36e6484431469747e755833adf8ca24f81e4ff"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/kore-compact.glb",
+      "bytes": 488440,
+      "sha256": "80d3c37b5da046e35aeb8a6060d739f218ada0ac44480f996f204660fb083777"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/kore-poster.png",
+      "bytes": 249497,
+      "sha256": "622fe9dc2839d5514027daa182b611c2b1cbcd113709574ccb1fdf0627ee0e7a"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/kore-reference.glb",
+      "bytes": 1097960,
+      "sha256": "cf116c7e272aa4b9d09681b861bf902acd3dfc5cc4c7c3f6e404be34a3ac186f"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/marcus-young-compact.glb",
+      "bytes": 595084,
+      "sha256": "5490e87571c07779dd4f40c217dc82da2fdedbcb73628413ebcc6e2c94fdbcc5"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/marcus-young-poster.png",
+      "bytes": 268643,
+      "sha256": "ab85af4e1d3adafd311a3b7fcfe924bc6572ca3491d80bb0e2ad074e8bbc0da0"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/marcus-young-reference.glb",
+      "bytes": 1568872,
+      "sha256": "7b3a216c9824bcc5d0e0330e2908e254934a53aa329a4c4161acb378db6a8a00"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/media-manifest.json",
+      "bytes": 25474,
+      "sha256": "b7d4dd8365a0313c71bb861c93c95c4e62763156bd98efadc8bee10b97e9d818"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/michelangelo-portrait-compact.glb",
+      "bytes": 594092,
+      "sha256": "c2a10a97820f893a4bbb2d3c0d6895d7453924fdfa671d89bc3031b1ba066659"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/michelangelo-portrait-poster.png",
+      "bytes": 242397,
+      "sha256": "bbf3b74a7ddfdcf4e57d88957152958e2b002554c2a4af72ab70d64cdfe4f005"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/michelangelo-portrait-reference.glb",
+      "bytes": 1565496,
+      "sha256": "048c22ccc1b0f35c3626faac7a62448cc380c57e90106a7383d7d9c643e8f627"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/nefertiti-compact.glb",
+      "bytes": 550496,
+      "sha256": "3cf444479b155e82fc52903560b293c0f0d342b146a85e2fc55c538186818fd9"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/nefertiti-poster.png",
+      "bytes": 163796,
+      "sha256": "970d75542bc6c7195e04a28c49dd7a7cd667e93760432dbdc56aff2ca9e15803"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/nefertiti-reference.glb",
+      "bytes": 1451820,
+      "sha256": "e11cff1aaeb9c701f4c27706de0973e3f758f5f8598abe9c480ea38e5f4c4d61"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/sleeping-faun-compact.glb",
+      "bytes": 600828,
+      "sha256": "0b059f41b69e9506e409ead1fd403acb7223a70fa1b0f92a4fc7be558b069c7e"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/sleeping-faun-poster.png",
+      "bytes": 493316,
+      "sha256": "9bde8b371fccbbec410139a1dfb35b1480fc115095a1291182c8da79708bb8cf"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/sleeping-faun-reference.glb",
+      "bytes": 1593060,
+      "sha256": "d967fcf7061a5b7e11aa2080d198dd117e336b733f21d9e56608bdd0a277d737"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/socrates-compact.glb",
+      "bytes": 590884,
+      "sha256": "d184a4913c3286c8f644ca3f49fe151f2cd4d9124ba7caa3ea7e5bd66155e2f7"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/socrates-poster.png",
+      "bytes": 260203,
+      "sha256": "5a1d0d5a853210afe4a9b86ae90fe8851349caf999f0431fd66f847702359153"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/socrates-reference.glb",
+      "bytes": 1557464,
+      "sha256": "f21f7cce5227fa6588dc944b795b387388a6c14b0cd051087c63abeadf3d4368"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/sources.json",
+      "bytes": 124150,
+      "sha256": "03cf5d8cdeb401d3b17ef594cc15190a00b86ec2cf582f8132f9de05d0e83816"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/thinker-compact.glb",
+      "bytes": 674220,
+      "sha256": "80be5424a675f8ba5085a3bcb2aba37edc6fcb91538656b6e2194472b1baca2c"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/thinker-poster.png",
+      "bytes": 402057,
+      "sha256": "c1cf704edbe43f0ff03355afb589d6f6bb883f0020df18ac246d55e7678e89de"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/thinker-reference.glb",
+      "bytes": 3164188,
+      "sha256": "b09a95e79b22827322bb86868f5912275bfca93d629e3e4c565b3451c5fa01b6"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/venus-milo-compact.glb",
+      "bytes": 503700,
+      "sha256": "271ac1192ac8a513c150ad3ee352da265b852a1f98c82117be38cb4bf74f188d"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/venus-milo-poster.png",
+      "bytes": 272949,
+      "sha256": "4451bd3b581549c09f7b2750d75b93e2359ed63e9ca561e7eb9f72e7f8d06197"
+    },
+    {
+      "path": "apps/web/public/artduo-sculptures/venus-milo-reference.glb",
+      "bytes": 1094112,
+      "sha256": "9e08f43697853942ec7fbfe9e30fe6c56657c22c499108717f6d17e7961ee630"
+    },
+    {
+      "path": "apps/web/scripts/experience-e2e-fixtures.mjs",
+      "bytes": 1319,
+      "sha256": "2637229990f99ed5c19ab8f08cb3fa543005032922f90d708ebe258cf1c7dd4a"
+    },
+    {
+      "path": "apps/web/scripts/handwriting-worker.ts",
+      "bytes": 485,
+      "sha256": "2c2cb017cfcefcd6b4ed7fb1d05d0b256c7232cb71ae73c3f71aad1c31a88afc"
+    },
+    {
+      "path": "apps/web/scripts/measure-experience-performance.mjs",
+      "bytes": 6076,
+      "sha256": "a7fcac1886cd65004d8119df576e3b6d98227a93701290805cbeeb5bc3756b03"
+    },
+    {
+      "path": "apps/web/scripts/playwright-web-server.mjs",
+      "bytes": 2030,
+      "sha256": "141678040a5a6956522682f2d9d5dc82cc4831659466d5ffc245645d34ef2fe4"
+    },
+    {
+      "path": "apps/web/test/app/artwork-page-copy.test.ts",
+      "bytes": 3075,
+      "sha256": "cbecf76d8e39466351643d6ec0febeba9cc5416d4d5a0180d8b8e2b6c7a9c372"
+    },
+    {
+      "path": "apps/web/test/app/gallery-entry.test.ts",
+      "bytes": 595,
+      "sha256": "cd4bc3470f3b05ca62a4181baf64e3d018f5ea4536fade6df49d16a0cb9dcb50"
+    },
+    {
+      "path": "apps/web/test/lib/affective-negotiation.test.ts",
+      "bytes": 4920,
+      "sha256": "5ec445df519b259e41397a75401f70721dba06f01f016b33efb36849a9aa5eda"
+    },
+    {
+      "path": "apps/web/test/lib/ambient-audio-route.test.ts",
+      "bytes": 828,
+      "sha256": "29abb68160e61cbb18deda273e5f8528f48b7e3bb9156867410d2ea5f09ad39e"
+    },
+    {
+      "path": "apps/web/test/lib/analytics.test.ts",
+      "bytes": 3445,
+      "sha256": "53a8f9e9f05796880b5c12fa985fd52ced4550353a74fe679d3d3406b26a3286"
+    },
+    {
+      "path": "apps/web/test/lib/artwork-appearance.test.ts",
+      "bytes": 2059,
+      "sha256": "b38716259f311df2da98e45fef6967747a341c69acb0c79de75e5e4932b714c6"
+    },
+    {
+      "path": "apps/web/test/lib/artwork-credits.test.ts",
+      "bytes": 4141,
+      "sha256": "66be3c187be7db2fc9a5eb983c2368dcff54b0614d8733f0a964791e160187cd"
+    },
+    {
+      "path": "apps/web/test/lib/artwork-eligibility.test.ts",
+      "bytes": 3437,
+      "sha256": "29d08121535a06b8bda41e90b05c2e2a1b178c9a06f236ea09291c205518ac3f"
+    },
+    {
+      "path": "apps/web/test/lib/artwork-image-route.test.ts",
+      "bytes": 1028,
+      "sha256": "c21513b9fd59076d71734a1d1495570cadccd481013cb6f4c098e3467e305d51"
+    },
+    {
+      "path": "apps/web/test/lib/artwork-page-copy.test.ts",
+      "bytes": 712,
+      "sha256": "6f7895125e87090de478030260cc8f09daed822d7ae18977db4b350ad878fbdb"
+    },
+    {
+      "path": "apps/web/test/lib/artwork-preview.test.ts",
+      "bytes": 1722,
+      "sha256": "357ce4a7d6cb345c1475b9e0ffb056fd398801c70ee3a189bbe87daf3bc8e917"
+    },
+    {
+      "path": "apps/web/test/lib/artwork-visual-evidence.test.ts",
+      "bytes": 10279,
+      "sha256": "33edd79541c067d254df01ac26964c97f5f4d83a828236b5ccf2815fa1128465"
+    },
+    {
+      "path": "apps/web/test/lib/curated-depth-release.test.ts",
+      "bytes": 4231,
+      "sha256": "120caa6295cc26f8f00274be1eafc1ad63b0f9a27bbe7da0f3af9bd0306f0c9d"
+    },
+    {
+      "path": "apps/web/test/lib/curation-narrative.test.ts",
+      "bytes": 4049,
+      "sha256": "794340c2761fca818d33171de9f315ada06ee9cc78b6a1de7d50c4c50d15b421"
+    },
+    {
+      "path": "apps/web/test/lib/curation-runtime.test.ts",
+      "bytes": 1938,
+      "sha256": "e8f5c72269d662d13833006e43f49e4079d9d8946d05eb167995b065b05959f3"
+    },
+    {
+      "path": "apps/web/test/lib/curation-stream.test.ts",
+      "bytes": 1854,
+      "sha256": "c52474ff223d61dbeab6272dae1f9ec3e5c040cb1cd64154f6b9510a7d33529c"
+    },
+    {
+      "path": "apps/web/test/lib/exhibition-narrative-server.test.ts",
+      "bytes": 9913,
+      "sha256": "0196e84f82b813166f32189999108cb394f4cd9a7148aa02166f4481bfbf9d75"
+    },
+    {
+      "path": "apps/web/test/lib/experience-adapter.test.ts",
+      "bytes": 9251,
+      "sha256": "be96832a3366d957563807b32a751530c4047728e43206b0254c3cb2c842f1d3"
+    },
+    {
+      "path": "apps/web/test/lib/experience-analytics.test.ts",
+      "bytes": 2681,
+      "sha256": "c784fd30c9f608c027adef2fa7028ff0ea3f3bddf63fe197fe89618d214539fe"
+    },
+    {
+      "path": "apps/web/test/lib/experience-loading.test.ts",
+      "bytes": 486,
+      "sha256": "e61235784ba1ef6e9995dd9a836c8c259fe72c6125326068f2664f341d5dc388"
+    },
+    {
+      "path": "apps/web/test/lib/experience-navigation.test.ts",
+      "bytes": 8303,
+      "sha256": "8147dffd22d3026fff3cdb74c0272f065f6f45367fcdad6493564eb932fc9154"
+    },
+    {
+      "path": "apps/web/test/lib/explanation-client.test.ts",
+      "bytes": 7592,
+      "sha256": "308c8604eeffe15191d3efd58db6d547c0e8503971efeb20ee34873d85342180"
+    },
+    {
+      "path": "apps/web/test/lib/file-revision-cache.test.ts",
+      "bytes": 3148,
+      "sha256": "2e10747ebb2b424d3583e7645d168e69f6560e265ebdb7c07f5eb4f8cd1b452a"
+    },
+    {
+      "path": "apps/web/test/lib/gallery-route.test.ts",
+      "bytes": 6534,
+      "sha256": "e5e27de553ef93ef41fd19dca2b11dcd695482a6846cbcf8540900bbd509c25a"
+    },
+    {
+      "path": "apps/web/test/lib/handwriting.test.ts",
+      "bytes": 19134,
+      "sha256": "56d260ee1e67e718a6e90cb467a856f4a9907c06c5e182a5d90955684fe83047"
+    },
+    {
+      "path": "apps/web/test/lib/imported-depth-release.test.ts",
+      "bytes": 3833,
+      "sha256": "6a1298e96928efc878bb05d588d7ed8a093e8e6fa57fc519d88e3af2ae2d172b"
+    },
+    {
+      "path": "apps/web/test/lib/painting-release.test.ts",
+      "bytes": 3113,
+      "sha256": "03af2864bad7db7f9545d1e9479108d34ad6a7042d3e70f950129d657826fd79"
+    },
+    {
+      "path": "apps/web/test/lib/public-media-manifest.test.ts",
+      "bytes": 3691,
+      "sha256": "1bdcb044b038a24a4a707e5ca95cb7127b2fd320bd800af43d444676654041e5"
+    },
+    {
+      "path": "apps/web/test/lib/public-media-publish.test.ts",
+      "bytes": 5260,
+      "sha256": "2aa973a4b645311606638cb1cca5702fa7ad6b87e01130c7609e6b778d543f71"
+    },
+    {
+      "path": "apps/web/test/lib/public-media.test.ts",
+      "bytes": 5451,
+      "sha256": "4604846cbec45aa701bbeea3750e87975b9d7d9f79ce4d294013b2fa424bb607"
+    },
+    {
+      "path": "apps/web/test/lib/public-runtime.test.ts",
+      "bytes": 782,
+      "sha256": "0119d61c8ecf1e0d3b91ada8e8cbd2e8ab603773cf528cf66ec5675a400d34e6"
+    },
+    {
+      "path": "apps/web/test/lib/quality-release.test.ts",
+      "bytes": 3109,
+      "sha256": "b10cef1f978397df3cb18210cc556da44e2292da41ec44982d0a0588f0486a6c"
+    },
+    {
+      "path": "apps/web/test/lib/release-catalog.test.ts",
+      "bytes": 16041,
+      "sha256": "ee5ef94ba5bc6c970b510d505e4817b4a6944fc0e0a42ad5a8f99ecb1023770b"
+    },
+    {
+      "path": "apps/web/test/lib/release-media-path.test.ts",
+      "bytes": 1285,
+      "sha256": "1a16b19ed7581d62c44db34ff94f35ce374078bd1afc5f73789a4c3aa8aaaf88"
+    },
+    {
+      "path": "apps/web/test/lib/sculpture-catalog.test.ts",
+      "bytes": 5814,
+      "sha256": "88733547537e803b4718e82c150350b6f7a5a35007a28fea24b2213d36b19f99"
+    },
+    {
+      "path": "apps/web/test/lib/sculpture-narrative.test.ts",
+      "bytes": 5425,
+      "sha256": "f6534ab52268c3613ac0d0d355cfab38918f17f53e69759ab39a723010ffa650"
+    },
+    {
+      "path": "apps/web/test/lib/sculpture-preview.test.ts",
+      "bytes": 2665,
+      "sha256": "9d761372f1b05c18b00c784894fe403097722ea659d386559f5919eb92b0c17c"
+    },
+    {
+      "path": "apps/web/test/lib/semantic-curation.test.ts",
+      "bytes": 16347,
+      "sha256": "2af386b8cb4b8da964fc8b56b8346364fc7a71ef1246efc70b1302678ab34f44"
+    },
+    {
+      "path": "apps/web/test/lib/session-state.test.ts",
+      "bytes": 1301,
+      "sha256": "d9636543e046842f5e84c299cc00c65222bb5ae0115d8967ed9872fe614cb0b5"
+    },
+    {
+      "path": "apps/web/test/lib/verified-partial-release.test.ts",
+      "bytes": 7223,
+      "sha256": "294dc876148a2764851218852bf6d4661ccff3d3d04f198c3f91a922e160c2c3"
+    },
+    {
+      "path": "apps/web/test/lib/verified-public-release.test.ts",
+      "bytes": 7501,
+      "sha256": "aae48d5719b65bbf463fbbdd934e0ad32698d65209de6a92610862725a4181ba"
+    },
+    {
+      "path": "apps/web/test/lib/viewing-intent.test.ts",
+      "bytes": 21223,
+      "sha256": "024d59112864d55900eceb4ca925594f502b9719979c695490e9fb427a7a2fe6"
+    },
+    {
+      "path": "apps/web/tsconfig.json",
+      "bytes": 816,
+      "sha256": "422851dc4d12c7881075c25c398623fa954923b6c38c762ec9e5cdb70c74f67b"
+    },
+    {
+      "path": "deploy/aliyun-artduo.http.conf.example",
+      "bytes": 102,
+      "sha256": "f7ae9a4599c292a5d0886e28ee354aeb77fa1f35b6b839822a1b59868448ac02"
+    },
+    {
+      "path": "deploy/aliyun-artduo.locations.conf.example",
+      "bytes": 297,
+      "sha256": "b6e8c0593dc20f69e5be65787c1c75c2d0ef41a0283a4d581348c219705d3edb"
+    },
+    {
+      "path": "deploy/aliyun-artduo.proxy.conf.example",
+      "bytes": 599,
+      "sha256": "6fcbadf914e80a2fed227f57af258c1929a2f4f6c95e21d3a8c838c1705580ef"
+    },
+    {
+      "path": "deploy/artduo-handwriting.service.example",
+      "bytes": 584,
+      "sha256": "a9aace678d40e4b0b3d7166fbdc6a567429b616dc4a38f4de2ef5de91507f43e"
+    },
+    {
+      "path": "deploy/artduo-web.service.example",
+      "bytes": 690,
+      "sha256": "b38cf1ab64f48ad3c5327661bb000465a6b1366944b019444db2c4bacdf420ab"
+    },
+    {
+      "path": "deploy/artduo.env.example",
+      "bytes": 1273,
+      "sha256": "e6808e71dbbe54915df646db218f1796536b1b7377d90a6918c3896622679204"
+    },
+    {
+      "path": "deploy/tencent-artduo.http.conf.example",
+      "bytes": 187,
+      "sha256": "1fa6abbf924f7ccefb3a34bcccd64ae9845e6afc4d719f08728ab1e3d8df456a"
+    },
+    {
+      "path": "deploy/tencent-artduo.locations.conf.example",
+      "bytes": 231,
+      "sha256": "ba1730c6d165f24f07ccd0ad5a94909da70163db8dd757a9f1d63d31f5423018"
+    },
+    {
+      "path": "deploy/tencent-artduo.proxy.conf.example",
+      "bytes": 516,
+      "sha256": "130105b55dc3053174da67fe1303937cefbc66e1b057213df2dfa7e31082dce5"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 86464,
+      "sha256": "17e4c57a308d97fd200bbb2dbcfe9133981e2385c7d49b6a2584866ea36f6746"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2793,
+      "sha256": "ac83cdeff772b1b566f1a7ceb2c0751eeac8da35d49948c3de3c086265d2a5bd"
+    },
+    {
+      "path": "packages/contracts/README.md",
+      "bytes": 677,
+      "sha256": "e3028bbef4b664f4c62f150715fb230c5361bd73b2e62aed5eff22e442dd5c88"
+    },
+    {
+      "path": "packages/contracts/fixtures/artwork-explanation-pending.json",
+      "bytes": 201,
+      "sha256": "5167f3f308835a6416eb1eff1b7fbd9626c6677b5df2a8db6167577f137e9a86"
+    },
+    {
+      "path": "packages/contracts/fixtures/artwork-explanation-ready.json",
+      "bytes": 2231,
+      "sha256": "4fb9d3263c69e14b8fa0bef00f22c3b4d71ab3546c48bd10bb530be1368f274e"
+    },
+    {
+      "path": "packages/contracts/fixtures/artworks.json",
+      "bytes": 7642,
+      "sha256": "c430f1aa54c07d80f74e56aaa48375848539de2e66412b9636102c89840a7772"
+    },
+    {
+      "path": "packages/contracts/fixtures/background-match.json",
+      "bytes": 489,
+      "sha256": "fc798bb57c0955f8dcef261268f8e47e1efc4ab06a0b734a392376c158be23c8"
+    },
+    {
+      "path": "packages/contracts/fixtures/background-scenes.json",
+      "bytes": 9633,
+      "sha256": "f7950fe84293cd97d2ac645bb2ee78d7c4ee9c93fbb680efb3cd360da3174f8c"
+    },
+    {
+      "path": "packages/contracts/fixtures/corpus-manifest.json",
+      "bytes": 1087,
+      "sha256": "705d86215cad1b4c12f00c3b982a4995f1a34d478cff02aa562af261614e7d25"
+    },
+    {
+      "path": "packages/contracts/fixtures/curation-session-pending.json",
+      "bytes": 474,
+      "sha256": "3937de849fbf05aa5e10869b0edfaf77256e25371a3fe906b77be433b5e621ef"
+    },
+    {
+      "path": "packages/contracts/fixtures/curation-session-ready.json",
+      "bytes": 509,
+      "sha256": "3c9990d0fc66846a1653147d944737e05dcb3683cfa50cb7df53f41de3d182cd"
+    },
+    {
+      "path": "packages/contracts/fixtures/errors.json",
+      "bytes": 687,
+      "sha256": "561615d0171e295e7d5afb05eac9335d914749af25066eb9efd5a8c8e6a336d2"
+    },
+    {
+      "path": "packages/contracts/fixtures/exhibition-units.json",
+      "bytes": 1141,
+      "sha256": "f03c06f9579cb0a8c042532782580257d26f71a3402b53b26bc0c28caf87cd13"
+    },
+    {
+      "path": "packages/contracts/package.json",
+      "bytes": 323,
+      "sha256": "292d04cc1f11d40d55e97ca0170eeb519032a44389f83fe1fc43651c07e0eca3"
+    },
+    {
+      "path": "packages/contracts/src/affective-agent.test.ts",
+      "bytes": 5775,
+      "sha256": "857dd76f44beba00996d339c3483ea5bba9d0dbaa18d78ae4ed7180b934acca2"
+    },
+    {
+      "path": "packages/contracts/src/affective-agent.ts",
+      "bytes": 15005,
+      "sha256": "90c9533d66a1f63c64e28f59c59817add5210a5b68820bb7600c6172225f0c66"
+    },
+    {
+      "path": "packages/contracts/src/artwork-evidence.test.ts",
+      "bytes": 837,
+      "sha256": "487150d33b722bbd7dcfc9c325e3e74ff5469a0ec597cd3416f539b1d4b6c480"
+    },
+    {
+      "path": "packages/contracts/src/artwork-evidence.ts",
+      "bytes": 2103,
+      "sha256": "4ba81f2f1ba1eddeb3331780533df38aba3f06ac1d2bf8abc431510279b0539d"
+    },
+    {
+      "path": "packages/contracts/src/artwork-explanation.test.ts",
+      "bytes": 1872,
+      "sha256": "5018a2a3327109be7b6fd2ccee1280104609dc3c3ecddffe2bb70ac23a8ca081"
+    },
+    {
+      "path": "packages/contracts/src/artwork-explanation.ts",
+      "bytes": 5841,
+      "sha256": "4b292850e5c614a97dcbf4d29d4a531c7a457c0057b3772d962266fb1920cc93"
+    },
+    {
+      "path": "packages/contracts/src/artwork.test.ts",
+      "bytes": 5201,
+      "sha256": "493ce290373366ecdb21b87238255e950ed43328bbb602daa87759bd1f269b50"
+    },
+    {
+      "path": "packages/contracts/src/artwork.ts",
+      "bytes": 17134,
+      "sha256": "214a9745fd3ff27edf62353cccbf8b8f60c37ef33126b18c0e57bd317c98f152"
+    },
+    {
+      "path": "packages/contracts/src/background-match.test.ts",
+      "bytes": 692,
+      "sha256": "c4cfc3c7b1b8ba90b5b337aa668c9795bc1afa389d87e0fd881540d2b658a348"
+    },
+    {
+      "path": "packages/contracts/src/background-match.ts",
+      "bytes": 5064,
+      "sha256": "58da5b3eea31ef89f228b065ef63af1d9c88534b0441d19bc80696131ddf1835"
+    },
+    {
+      "path": "packages/contracts/src/background-scene.test.ts",
+      "bytes": 715,
+      "sha256": "fec8b99034e3467961adc5eff2185415bd16a0d36b467042d251d26ee58a49ff"
+    },
+    {
+      "path": "packages/contracts/src/background-scene.ts",
+      "bytes": 17029,
+      "sha256": "7537af6dc0f19f30ce72af0f654517abba579f08248e7eda295d0534e1fb62ec"
+    },
+    {
+      "path": "packages/contracts/src/corpus.test.ts",
+      "bytes": 3322,
+      "sha256": "54914681fac8e4dbc872cf88115465ea79db38c7bc5a7c6d344dfaf82dee8828"
+    },
+    {
+      "path": "packages/contracts/src/corpus.ts",
+      "bytes": 3221,
+      "sha256": "bb5670135b010454855094729f91f4349b6d8a92de055a916e497903c17ceda5"
+    },
+    {
+      "path": "packages/contracts/src/curation-events.test.ts",
+      "bytes": 1038,
+      "sha256": "442b5115be3ff1b7a03b71c0392f0e7e3b9b5469bb2094aea801c2493bdf9d77"
+    },
+    {
+      "path": "packages/contracts/src/curation-events.ts",
+      "bytes": 1387,
+      "sha256": "bb415460c934538d7e64bba9600dcd8c610d629f145242d3f51117096759ecc4"
+    },
+    {
+      "path": "packages/contracts/src/curation-grade.test.ts",
+      "bytes": 1131,
+      "sha256": "2207aad8df0e2ef24a713649b2d558e345aba80aed926a969bc9899cc486d960"
+    },
+    {
+      "path": "packages/contracts/src/curation-grade.ts",
+      "bytes": 2790,
+      "sha256": "4ef40ef25a68b2efa9db14b994495da4f02cb448d1db7e1482dfb1cc18103b92"
+    },
+    {
+      "path": "packages/contracts/src/curation-session.test.ts",
+      "bytes": 1043,
+      "sha256": "9b8fa4bb744ad8b28ce0fd9e2750d28ff344dd5e1a19a4bdbd8cde4cc44e3ed1"
+    },
+    {
+      "path": "packages/contracts/src/curation-session.ts",
+      "bytes": 3449,
+      "sha256": "4e66c74ea08cde5e5945b3715b2f165d4f81e69025e914487f207f65068672f5"
+    },
+    {
+      "path": "packages/contracts/src/embedding-shard.test.ts",
+      "bytes": 916,
+      "sha256": "c74e4e030435cd698aa01e8ce142b8826d11a81b426ef14159370562b1abb231"
+    },
+    {
+      "path": "packages/contracts/src/embedding-shard.ts",
+      "bytes": 1812,
+      "sha256": "e5c237a0855966ab451e38031aa1bf60d46dd8816babdd6ee85e889449e4385d"
+    },
+    {
+      "path": "packages/contracts/src/errors.test.ts",
+      "bytes": 461,
+      "sha256": "f353405a8db20e18df04988c5ba32c6e376a95a5bf4707c5ebe2f58695845c1a"
+    },
+    {
+      "path": "packages/contracts/src/errors.ts",
+      "bytes": 798,
+      "sha256": "ea29e35c3d16bd4dc92efb70690b4ddf10577e91843224cd7d0aaf821207038d"
+    },
+    {
+      "path": "packages/contracts/src/exhibition-unit.test.ts",
+      "bytes": 988,
+      "sha256": "0acf88cd1c74c02596ee592d19ae366a23a3b7c32d8face3df205f3dc7d14138"
+    },
+    {
+      "path": "packages/contracts/src/exhibition-unit.ts",
+      "bytes": 2946,
+      "sha256": "64227455b27cc0009f7b1ea8145718b06800ceaf73ca7085c4c3a7fd68f02747"
+    },
+    {
+      "path": "packages/contracts/src/handwriting.test.ts",
+      "bytes": 1428,
+      "sha256": "0e650288696fc524ce9bbd05848f8fe3b660079482121e19e8a119c08162d069"
+    },
+    {
+      "path": "packages/contracts/src/handwriting.ts",
+      "bytes": 3301,
+      "sha256": "153cc9d3413887b63ec6a2696da46ff86019648c0abe5af9e26422d021e683e2"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "bytes": 915,
+      "sha256": "c21c3bde58fe055080a94f838c2a591b4045e4ead35779f90b640103058f3766"
+    },
+    {
+      "path": "packages/contracts/src/internal/validation.ts",
+      "bytes": 4094,
+      "sha256": "3b90a7ddbec8c590465a239fabd420c7db2a0c3021e5dd212a5d2d8b4f708245"
+    },
+    {
+      "path": "packages/contracts/src/public-path.test.ts",
+      "bytes": 1441,
+      "sha256": "c50fb1ecbf22e05b8c5cd8bfb833b01783c74107c26cf051b58e412c89adfbe3"
+    },
+    {
+      "path": "packages/contracts/src/public-path.ts",
+      "bytes": 1906,
+      "sha256": "fe09e8cf1bfcb8d61aa39a760f587472c8bc60dd932cc97ac51b5430276f9f83"
+    },
+    {
+      "path": "packages/contracts/src/relationship-graph.test.ts",
+      "bytes": 10646,
+      "sha256": "01eb64e3048748390136c6b0bdae3f50e1d11d3a6c0fea282cb3cc017344b22e"
+    },
+    {
+      "path": "packages/contracts/src/relationship-graph.ts",
+      "bytes": 24033,
+      "sha256": "b0e597f1d45ee91fcf9110dc02b9bb903a5d096337e812acd55477355a55625b"
+    },
+    {
+      "path": "packages/contracts/src/semantic-curation.test.ts",
+      "bytes": 2611,
+      "sha256": "da5d102b5881e9ad3de4d3f1884d1e2b4050c727b63d1dce58b51a197aa18ff1"
+    },
+    {
+      "path": "packages/contracts/src/semantic-curation.ts",
+      "bytes": 7193,
+      "sha256": "1d47e242b8e59b5d8dde8b557a5db615a7116fb9fe2b5b2886cc11436b98441c"
+    },
+    {
+      "path": "packages/contracts/src/test-helpers.ts",
+      "bytes": 255,
+      "sha256": "fdaa96fefe0441ea548213c8e422a63e8a0ef737354b995a35b6edfa6ed79776"
+    },
+    {
+      "path": "packages/contracts/src/viewing-media.test.ts",
+      "bytes": 793,
+      "sha256": "3c9ee0e06935ef86c8a5482ef9cfed0dc8f1b8fd4eb02351398ff59b46191725"
+    },
+    {
+      "path": "packages/contracts/src/viewing-media.ts",
+      "bytes": 1537,
+      "sha256": "be064c9bdea7b3ec8e0b6cb510a3ac62431a1557739b55f70d6e5f22ced37263"
+    },
+    {
+      "path": "packages/contracts/tsconfig.json",
+      "bytes": 228,
+      "sha256": "1056ce7931a9b588daa6b7853e916e319591d1f3c0d573b0a80fd92fcca3054c"
+    },
+    {
+      "path": "packages/corpus/README.md",
+      "bytes": 104,
+      "sha256": "a77b1f56280686af031cbcf7b99143bceaba726445b7852ef8a7f821c82a302a"
+    },
+    {
+      "path": "packages/corpus/package.json",
+      "bytes": 490,
+      "sha256": "cbc430fe5205df8a9df5f305a48c99b4be467e3fd647d57826b284abe79806aa"
+    },
+    {
+      "path": "packages/corpus/src/README.md",
+      "bytes": 54,
+      "sha256": "0fc03d7235b48fff536c52b13398c786cb75cb382c5f5ab2abeb5540c726f383"
+    },
+    {
+      "path": "packages/corpus/src/affective-intent.test.ts",
+      "bytes": 2446,
+      "sha256": "0cb69b1820bb35f434f59ba929ee806cb4d8ffda70296a2ca566bdaa0553d7a4"
+    },
+    {
+      "path": "packages/corpus/src/affective-intent.ts",
+      "bytes": 12997,
+      "sha256": "b8595485bc5707f328f98fd66e59d9438eb59e1e06f69b2dc42faa872585bba1"
+    },
+    {
+      "path": "packages/corpus/src/artwork-agent-capsule.test.ts",
+      "bytes": 2611,
+      "sha256": "bca18f5f09ee76aa99d21559b21ecfc9ce81df7849168e3060b3894560b0eca0"
+    },
+    {
+      "path": "packages/corpus/src/artwork-agent-capsule.ts",
+      "bytes": 6436,
+      "sha256": "576fda40be91de7bad9ad70fe00095e19c61f6a998147d9ac53f9a8cfbd23944"
+    },
+    {
+      "path": "packages/corpus/src/artwork-eligibility.ts",
+      "bytes": 5123,
+      "sha256": "6410d4a0eb7b59888bdde1aeab621bf3a07e021bf72edc16885bfe863c52ebd7"
+    },
+    {
+      "path": "packages/corpus/src/browser-release-loader.test.ts",
+      "bytes": 7780,
+      "sha256": "9c8e555f8cf5e6b9e59afcb7b68249deac88b8f9ddf1c46d7b4a960fc3db2862"
+    },
+    {
+      "path": "packages/corpus/src/browser-release-loader.ts",
+      "bytes": 2450,
+      "sha256": "630ae640466c86e953564744b7f427cf9d960a7e18b610a31095a1c44e524780"
+    },
+    {
+      "path": "packages/corpus/src/debug-retrieval.test.ts",
+      "bytes": 8275,
+      "sha256": "74ff4b46cae0b07cc0718a3d86008c1a1125e85b6b7891ae8d44c1292e79d4af"
+    },
+    {
+      "path": "packages/corpus/src/debug-retrieval.ts",
+      "bytes": 5805,
+      "sha256": "a45827d25bd8a65b05cc992c0c084231ac0a9d3ec38e5679129bf609b0c704a3"
+    },
+    {
+      "path": "packages/corpus/src/embedding-provider.test.ts",
+      "bytes": 3760,
+      "sha256": "08d5e2a966f9609eaf0132b32557c22f5f1681fa942d49cc99432fed5dbe6f0f"
+    },
+    {
+      "path": "packages/corpus/src/embedding-provider.ts",
+      "bytes": 7178,
+      "sha256": "19b1b3b3dd1eee16f12d4597550e19618cfa889e877be3808385090031becca3"
+    },
+    {
+      "path": "packages/corpus/src/index.ts",
+      "bytes": 529,
+      "sha256": "219dfc8a435d24219bb8a84a2f729bee6e5acf4e01d02c214df09f7ff4808270"
+    },
+    {
+      "path": "packages/corpus/src/indexeddb-cache.ts",
+      "bytes": 4543,
+      "sha256": "a13fb0418a6bfe441ce258ab4570bad56c576d3baac7a9534294161ef10296b9"
+    },
+    {
+      "path": "packages/corpus/src/local-depth-provider.ts",
+      "bytes": 3061,
+      "sha256": "2c81e3a44ee4a927e5dd2aa3155b622ee888a35af0258550850b525f540d10e7"
+    },
+    {
+      "path": "packages/corpus/src/local-semantic-provider.ts",
+      "bytes": 5037,
+      "sha256": "47c5e055dd34ccdb425b357b4ef9bc6bdebb6e4c8723c4f30bb6eb5f456257f9"
+    },
+    {
+      "path": "packages/corpus/src/prefetch.test.ts",
+      "bytes": 2068,
+      "sha256": "a9500ee8bff07bf1e841e288528d659fae5ba49d41a09d3346906c30a293f65e"
+    },
+    {
+      "path": "packages/corpus/src/prefetch.ts",
+      "bytes": 2678,
+      "sha256": "0236828eb1bb68da742aede42647b749a4df8fcde01ca6b7634662c062aba072"
+    },
+    {
+      "path": "packages/corpus/src/public-image-cache.test.ts",
+      "bytes": 5329,
+      "sha256": "72131626d8e8ef6f4260bb3997f803c8a976d91953a9a68ee33d8ddab1f126bb"
+    },
+    {
+      "path": "packages/corpus/src/public-image-cache.ts",
+      "bytes": 9133,
+      "sha256": "8d7fe43c0ac1cf791fca2cd6fb8bbe69bffdc8bc3359aa9812fc4b5c0d5a0162"
+    },
+    {
+      "path": "packages/corpus/src/query-embedding.test.ts",
+      "bytes": 2794,
+      "sha256": "69a6c7b88f2bf23b3fae5672d8efbdc1ad44a1c7d3be9fb2816d4f9e8de72a6d"
+    },
+    {
+      "path": "packages/corpus/src/query-embedding.ts",
+      "bytes": 12793,
+      "sha256": "51e1f014a8d862dce4cf174a249f2517cc718e862c69116c93496a13a217633c"
+    },
+    {
+      "path": "packages/corpus/src/relationship-graph.test.ts",
+      "bytes": 8039,
+      "sha256": "c1cb1f68db8f92d05d96bfb01973854b5e50718a862de1ad4e46933f1ea03fb8"
+    },
+    {
+      "path": "packages/corpus/src/relationship-graph.ts",
+      "bytes": 7557,
+      "sha256": "659a74f63cf158960d20d86d585805e47e832cee50905dcc8b5f783ca45c9f2d"
+    },
+    {
+      "path": "packages/corpus/src/release-loader.test.ts",
+      "bytes": 13023,
+      "sha256": "7a2d60325fea01cf1d641b2146fb0e444f7992eb0d62d11825f6b83dc5801584"
+    },
+    {
+      "path": "packages/corpus/src/release-loader.ts",
+      "bytes": 11939,
+      "sha256": "3e9659c37a729786d89efaa32fd085d3821340b2ff3e2aaad84fdbf345733133"
+    },
+    {
+      "path": "packages/corpus/src/rerank.test.ts",
+      "bytes": 1652,
+      "sha256": "6826eb346d99880c0b38b246233e35a34e1ffc4a01863ef34605f58fc9179747"
+    },
+    {
+      "path": "packages/corpus/src/rerank.ts",
+      "bytes": 4707,
+      "sha256": "984cea75a046ac6daa2b504e4bc8679f161932c9bb4bdead16b4d57b6509eb7d"
+    },
+    {
+      "path": "packages/corpus/src/search-worker.ts",
+      "bytes": 1228,
+      "sha256": "6c2593603fd559973994ea27c256cbebfa9295134bb9c1b0d09c333586ac7033"
+    },
+    {
+      "path": "packages/corpus/src/semantic-index.ts",
+      "bytes": 2914,
+      "sha256": "43d4f2183c18cfbf87224184fee6e11a6291d0909cc453b9373b235a05178b57"
+    },
+    {
+      "path": "packages/corpus/src/semantic-loader.ts",
+      "bytes": 2097,
+      "sha256": "a04a652d221dd6fd4b8c41a9d01c7cf15c647bd1cf6e07c9d58c1d72d1981fbe"
+    },
+    {
+      "path": "packages/corpus/src/vector-benchmark.test.ts",
+      "bytes": 2551,
+      "sha256": "92023ef19a4685e5e65791f1eb0cdd446e6e6ee9e6aeb3917b1b57585d52036d"
+    },
+    {
+      "path": "packages/corpus/src/vector-benchmark.ts",
+      "bytes": 4938,
+      "sha256": "2bc4324c26c47068b1c5ce3f1253e149a0700054a17e187bcefb9e8f33ad7775"
+    },
+    {
+      "path": "packages/corpus/src/vector-search.test.ts",
+      "bytes": 770,
+      "sha256": "671bab01c7a64fbd1e68ba28a2227725f26b5d847607aa9848dbe08dabf8c6a7"
+    },
+    {
+      "path": "packages/corpus/src/vector-search.ts",
+      "bytes": 1300,
+      "sha256": "6cbb8afe8d2504916aefc0cd5b732f08b02c42849ae2ebc7dea6cce0215a2307"
+    },
+    {
+      "path": "packages/corpus/tsconfig.json",
+      "bytes": 205,
+      "sha256": "748c3af00f688782be79adc550dfff910c34f23b32e70b5e0add97d28bf6df2f"
+    },
+    {
+      "path": "packages/ui/README.md",
+      "bytes": 73,
+      "sha256": "e9e4bc64b5311aa8cce4819024a3957f093822df27e45f9aa85475ad677a91c6"
+    },
+    {
+      "path": "packages/ui/package.json",
+      "bytes": 552,
+      "sha256": "b13dc20dc1b55e5023941370d237bd10f21af4cbe1bfa9480bea00680993cad4"
+    },
+    {
+      "path": "packages/ui/src/README.md",
+      "bytes": 49,
+      "sha256": "9a4d2ca2e468f8a1c02e6672847fa9998d7cbcdf2931989713ae15debecad532"
+    },
+    {
+      "path": "packages/ui/src/experience/artwork-credits.ts",
+      "bytes": 379,
+      "sha256": "c546448491971f28228aa88598ad9db24afeb69fd956f327773dc643e8937ad4"
+    },
+    {
+      "path": "packages/ui/src/experience/atmosphere-layer.tsx",
+      "bytes": 501,
+      "sha256": "a9e0a49b14f9fa70883ffd8a07a838bba9149a31753fd0b1c099bf74cf7060cd"
+    },
+    {
+      "path": "packages/ui/src/experience/audio-controller.test.tsx",
+      "bytes": 887,
+      "sha256": "a267bd751dad04e02fb4f55a6d6f2d8ac6982d5964cadd149286e05634cb7dfd"
+    },
+    {
+      "path": "packages/ui/src/experience/audio-controller.tsx",
+      "bytes": 6582,
+      "sha256": "60d66a8874a51d316d657c2568a43aa26cd0d8c7d5539bdbbdae4269b3be2533"
+    },
+    {
+      "path": "packages/ui/src/experience/char-reveal.tsx",
+      "bytes": 893,
+      "sha256": "a1176868d29278ebd8a0e219137423d12cbe4cb9b8ee17cdcfb5a49bea220fb9"
+    },
+    {
+      "path": "packages/ui/src/experience/closing-image.test.ts",
+      "bytes": 1598,
+      "sha256": "9bdc7330099ee713b74e15b5383aa03315a2965e556c622c9fca84c895c71fb4"
+    },
+    {
+      "path": "packages/ui/src/experience/closing-image.ts",
+      "bytes": 892,
+      "sha256": "c5e6ff60360389ba19e40fd6dcdf1ecb29f7b544fe62fcb7a66ec8b6b84fe4d9"
+    },
+    {
+      "path": "packages/ui/src/experience/closing.tsx",
+      "bytes": 5051,
+      "sha256": "42abf05e5e89c09491bb8e52e5b5c7f78b815eca02ea0b5cc1b0204d5bbdc5db"
+    },
+    {
+      "path": "packages/ui/src/experience/depth-parallax-canvas.tsx",
+      "bytes": 3084,
+      "sha256": "5749203e35af09c90b3c2dfb680c9bce4c7334801f73dad1f3f7111e3977b3ce"
+    },
+    {
+      "path": "packages/ui/src/experience/emotion-rail.test.tsx",
+      "bytes": 1272,
+      "sha256": "e75a332ac60e7eb3be8866273dfccd9acf24b93bf85df6e4d7e908cbc4fa26d6"
+    },
+    {
+      "path": "packages/ui/src/experience/emotion-rail.tsx",
+      "bytes": 2354,
+      "sha256": "439ecaedc47fc07b801885b0ea71baa148e49f53216c6d96ff73ea17395587f5"
+    },
+    {
+      "path": "packages/ui/src/experience/entry-question.tsx",
+      "bytes": 3634,
+      "sha256": "38b3ff26027806d87912f055937e87c088d00b8c2fcf826a1eb3a2c82ece5be9"
+    },
+    {
+      "path": "packages/ui/src/experience/experience-navigation-labels.test.tsx",
+      "bytes": 3086,
+      "sha256": "25833c188a29eb6ffae8c5b3b77da7d76b5f8675d40751f23c57b5ab756dc51d"
+    },
+    {
+      "path": "packages/ui/src/experience/experience-shell.tsx",
+      "bytes": 21077,
+      "sha256": "1c2b3a62f0a3e43337d6f9a8881cd1bb3b75b0c7b2be4526fc8681e62c57eb06"
+    },
+    {
+      "path": "packages/ui/src/experience/experience.css",
+      "bytes": 59993,
+      "sha256": "38eef39ea07c6206787a79793d41a1b3208ba2ab1b8cf3b1ac05ca69e327c3e7"
+    },
+    {
+      "path": "packages/ui/src/experience/finalize-share-png.test.ts",
+      "bytes": 1947,
+      "sha256": "eae320ea6bb54f39630644924ee1be588638432cf80baf5ff29bbb7aaf97a837"
+    },
+    {
+      "path": "packages/ui/src/experience/finalize-share-png.ts",
+      "bytes": 2952,
+      "sha256": "a75e6266ce5663059a1f708052c5d99c7d3f003742d8a5f331c37a54be7a2b48"
+    },
+    {
+      "path": "packages/ui/src/experience/handwritten-keepsake.tsx",
+      "bytes": 18279,
+      "sha256": "00060a37af2803335214e2a9f9e2eee16a9ec8b01184d63d9061546779bf28ff"
+    },
+    {
+      "path": "packages/ui/src/experience/interaction-preferences.test.ts",
+      "bytes": 1010,
+      "sha256": "163f46c3d9db0f5c563eb0e06a7320dc4e8179adb7830e2de9a1d1e8586bc182"
+    },
+    {
+      "path": "packages/ui/src/experience/interaction-preferences.ts",
+      "bytes": 1746,
+      "sha256": "60259adc063b8ae2b8ea59a1b45177a2c5f268ff0c32359e2bd1e3c57281c7af"
+    },
+    {
+      "path": "packages/ui/src/experience/layout.test.ts",
+      "bytes": 9726,
+      "sha256": "c2ff626360555e6944625c85811da540a2a975d45d259421a038ab57dee1c906"
+    },
+    {
+      "path": "packages/ui/src/experience/layout.ts",
+      "bytes": 9893,
+      "sha256": "8cbbeed6fe33f6820cb0e7b5bdc17c88fdb319a0e2a3dee28b6250928afde418"
+    },
+    {
+      "path": "packages/ui/src/experience/media-prewarm.test.ts",
+      "bytes": 4386,
+      "sha256": "545555a693748702061e23ac7f84ad27b88d812aa2580080488e2fdc996ecd04"
+    },
+    {
+      "path": "packages/ui/src/experience/media-prewarm.ts",
+      "bytes": 4157,
+      "sha256": "1a30d404d9df04f36ee6c569692e00d175b32eb310cd790a4bb2b1a73e30da7d"
+    },
+    {
+      "path": "packages/ui/src/experience/motion-policy.ts",
+      "bytes": 1070,
+      "sha256": "42a560e584b9fe17816d753b63158a324eec286ce4dc765b4bf5a58081192a50"
+    },
+    {
+      "path": "packages/ui/src/experience/overlay-history.test.ts",
+      "bytes": 6372,
+      "sha256": "5c45ac8d5220128eb2d5fc2ecb83503f7680ffdf2ef3f540d6b8d8e49752b1a5"
+    },
+    {
+      "path": "packages/ui/src/experience/overlay-history.ts",
+      "bytes": 5406,
+      "sha256": "13e3a88ec068030e2c4b7b96fe064209db4325104dc6bfc757a2ad97cfd35e39"
+    },
+    {
+      "path": "packages/ui/src/experience/plaque.test.tsx",
+      "bytes": 4240,
+      "sha256": "99c214441a118bc8083f50c296848853e41b32c9a8a6d889d310b515823c9822"
+    },
+    {
+      "path": "packages/ui/src/experience/plaque.tsx",
+      "bytes": 9591,
+      "sha256": "eb929825bf2fef8216a888aacbbf21728796f7c73aeca656c7ccdf5440c3742d"
+    },
+    {
+      "path": "packages/ui/src/experience/preface.tsx",
+      "bytes": 1633,
+      "sha256": "43822c3db9a33bd961d57d5bd476171e9828f1857899d11e8c330d9cf4ab0ba6"
+    },
+    {
+      "path": "packages/ui/src/experience/presented-preface.test.ts",
+      "bytes": 3705,
+      "sha256": "5566f07c09df098b3d22947d4614bc0179ba44bf832d14b33fabfd20206e0d3e"
+    },
+    {
+      "path": "packages/ui/src/experience/presented-preface.ts",
+      "bytes": 2933,
+      "sha256": "7856d34519709e7e183a9e9f27cc501e1f693603e493d6bdf22b1d627414f7a9"
+    },
+    {
+      "path": "packages/ui/src/experience/reading-copy.test.ts",
+      "bytes": 1090,
+      "sha256": "353d0e3218c59bc8eb02377104ab59ced51d2c4d87b3f0a0ce342aef349b3dd8"
+    },
+    {
+      "path": "packages/ui/src/experience/reading-copy.ts",
+      "bytes": 831,
+      "sha256": "ab3c5af8a9e979392a0185afeb7c4d0419c3f91341a02c032ebc03197fc45b9a"
+    },
+    {
+      "path": "packages/ui/src/experience/reading-image.test.ts",
+      "bytes": 1738,
+      "sha256": "e62a68289bd0003bd0b2301dd7e718d1e34082eb2456a061c36e549b0efd22d6"
+    },
+    {
+      "path": "packages/ui/src/experience/reading-image.ts",
+      "bytes": 987,
+      "sha256": "df9689a6838ab5482df66401b9116c5d4d97cf75200f2b448c5e656a10f8a0c5"
+    },
+    {
+      "path": "packages/ui/src/experience/room-assets.test.ts",
+      "bytes": 796,
+      "sha256": "abccdcd510fc8d21fc2882c7ef7d08c61855ee826d571575eeecf3b84b2babf3"
+    },
+    {
+      "path": "packages/ui/src/experience/room-assets.ts",
+      "bytes": 754,
+      "sha256": "0668dea75225af6f15766f51a1b8233574dac26b8236ce696b461c986710a008"
+    },
+    {
+      "path": "packages/ui/src/experience/room-backdrop.tsx",
+      "bytes": 2185,
+      "sha256": "bbbb8ca42da0173dc69120342f6d6afbcdc3773bdda7a8a107ab58bff05f6adf"
+    },
+    {
+      "path": "packages/ui/src/experience/room-lighting-layer.tsx",
+      "bytes": 2943,
+      "sha256": "c110d04c649c17d973bbcd6d89f37638e5f114434d7ff495e65f73396d583726"
+    },
+    {
+      "path": "packages/ui/src/experience/room-lighting-renderer.test.ts",
+      "bytes": 4618,
+      "sha256": "14af2b0d5c54a15b3fc06e16cd31715aaddefdfdcb0fdcbb7e5ec070bed764e4"
+    },
+    {
+      "path": "packages/ui/src/experience/room-lighting-renderer.ts",
+      "bytes": 14307,
+      "sha256": "5e1ced8bba331f56c49e89daf9f779d081419bca296c4713c474fffcc8a25cc5"
+    },
+    {
+      "path": "packages/ui/src/experience/room-lighting.test.ts",
+      "bytes": 1882,
+      "sha256": "09d6703b7cd6402b7e4e3773d1a4ad8a4cbd76e93cc36b74c3f1d41c4f684941"
+    },
+    {
+      "path": "packages/ui/src/experience/room-lighting.ts",
+      "bytes": 3804,
+      "sha256": "e6f1da4b920cc6d3703a3bf8942f275d5bfe2de95c65ff665b0b904aa275fc64"
+    },
+    {
+      "path": "packages/ui/src/experience/room-motion.test.ts",
+      "bytes": 1342,
+      "sha256": "535b767b451b67ecc9bbd50d181c845cb337153317bd4d07370b8f0a12dad36e"
+    },
+    {
+      "path": "packages/ui/src/experience/room-motion.ts",
+      "bytes": 6660,
+      "sha256": "0c7fca3ac581f8111e05f3330848b65bd329ee5652ad21cd99c52d378be71623"
+    },
+    {
+      "path": "packages/ui/src/experience/room-parallax.test.ts",
+      "bytes": 777,
+      "sha256": "d82266a54adeceac6cd8db8be7d299ecce34a8bc51d1fa6393c0703032e7f3e5"
+    },
+    {
+      "path": "packages/ui/src/experience/room-parallax.ts",
+      "bytes": 348,
+      "sha256": "4f6b329b8b6bc3bbfbb40016d60ae165a955f49ee7a3d05d27e381a9d2a53390"
+    },
+    {
+      "path": "packages/ui/src/experience/room.tsx",
+      "bytes": 16499,
+      "sha256": "05cf83f3dc136e2f2afc4f8cc76b8bcfcc76c07cc745a14705767002f8b67035"
+    },
+    {
+      "path": "packages/ui/src/experience/scene-matching.test.ts",
+      "bytes": 7351,
+      "sha256": "2eff8bb7c0371161b1e013bb14a739f9143521bb63c262d913f8d97f737424c1"
+    },
+    {
+      "path": "packages/ui/src/experience/scene-matching.ts",
+      "bytes": 7325,
+      "sha256": "6cdb96ee82569d8963030eb7d7ae6b8adcf444762626050621c732ac063bf2c8"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-canvas.test.tsx",
+      "bytes": 937,
+      "sha256": "2404157d68b0e21e4c8f4d3aaad98fbde2079cf1b33712ff284322b34bc8de82"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-canvas.tsx",
+      "bytes": 4046,
+      "sha256": "9518763920a3e18aee5f2852f5a5c7c07959d5e6c2f00b44097d9f2c37b24864"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-encounter.test.ts",
+      "bytes": 6391,
+      "sha256": "e88da816bf99d13e7a1fca1edbe96edb6c6af48488ffb10cd56bc15c5811464f"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-encounter.ts",
+      "bytes": 5581,
+      "sha256": "dceb65e37802329ed95d7d41ec971dd64606a8b704b4f74e9dc12659dc2f460c"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-environment.ts",
+      "bytes": 1822,
+      "sha256": "72041dd6b26b61adcf197fe47bbc955159e8e06b8df30aa343d8085ce45b36b1"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-interaction.test.ts",
+      "bytes": 1396,
+      "sha256": "900d548d4892ccead0866ef943f83c29cd8d3817af50140920ed95a73d9fc336"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-interaction.ts",
+      "bytes": 1039,
+      "sha256": "caab0aa2b67b8bf92702961c6bd8aa72978701a27f117461ace100a36b5d32f4"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-layout.test.ts",
+      "bytes": 1049,
+      "sha256": "399c02cdf582bc9d125a2f7c4369e0aff2de84daf17906644b65b159fd377952"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-layout.ts",
+      "bytes": 1033,
+      "sha256": "945b4807797c1c799931bb696e153b2e584731ccf75290ba398aeea77d3a7232"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-occlusion.test.ts",
+      "bytes": 723,
+      "sha256": "384f7146ff0e48a96feed5707184756cc04d4ab964528d8dfec937dbef92e3af"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-occlusion.ts",
+      "bytes": 5777,
+      "sha256": "316c5f0b9d8ee244c01ba7d663889f2d00cc9dc642ae791ebd0f6962aceb3b1c"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-photo-lighting.test.ts",
+      "bytes": 3221,
+      "sha256": "4fc4f446e6b6b47478805320dc2b6be285ef18d2f02ca23f7306f4592e4934b8"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-photo-lighting.ts",
+      "bytes": 6195,
+      "sha256": "92e2c696accb8c6139dbd35ae6b70a27683b7719219356af69aebc2d2ab9c09a"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-renderer.ts",
+      "bytes": 17162,
+      "sha256": "8f231a4ee2318fb23507621e6ab2e1be167f04d60530f42a3065446d0c593998"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-room.tsx",
+      "bytes": 12028,
+      "sha256": "7424331500e07a8a046f0bc90ee583aee675875159ca7763fe898b84e4223aa0"
+    },
+    {
+      "path": "packages/ui/src/experience/sculpture-types.ts",
+      "bytes": 784,
+      "sha256": "bef955d2bc44d8c4a0f4d367f50a55fd7ff61675757e3531e3176b6993dcf9f8"
+    },
+    {
+      "path": "packages/ui/src/experience/share-card.test.ts",
+      "bytes": 5749,
+      "sha256": "d66d3d79efd27541f3cd2fc42e028802345f22344b73242fcceecf56ae8965f2"
+    },
+    {
+      "path": "packages/ui/src/experience/share-card.ts",
+      "bytes": 6311,
+      "sha256": "598dd52af5a1b3b716de0ed6e1120e0beeaca214bf96f69848c3c291c81fce24"
+    },
+    {
+      "path": "packages/ui/src/experience/state.test.ts",
+      "bytes": 5413,
+      "sha256": "b09a8afec83e86a14695f3b63d499bfdc9b5b5152308d6b5cfe31f8309d516b2"
+    },
+    {
+      "path": "packages/ui/src/experience/state.ts",
+      "bytes": 5880,
+      "sha256": "3baab95e6c8c68e47ea877ace85d2bc99101eafc53b9f3c75638c35090ac9980"
+    },
+    {
+      "path": "packages/ui/src/experience/threshold-shader.tsx",
+      "bytes": 162,
+      "sha256": "efe1ad552abd01cfda657d5ddc24079cbbe37fe2a58c2ccc77ce8e2ef8159e76"
+    },
+    {
+      "path": "packages/ui/src/experience/threshold.tsx",
+      "bytes": 4340,
+      "sha256": "04e2c04e58ca03d55bc16edfe4a152579ac0d80fd83867a2391380f61ddcecd7"
+    },
+    {
+      "path": "packages/ui/src/experience/types.ts",
+      "bytes": 3561,
+      "sha256": "b1bfc0ce90d91628779fd41cfd0544418c9b4d0e0a67b5085f336ccbec1f76da"
+    },
+    {
+      "path": "packages/ui/src/experience/use-idle-chrome.ts",
+      "bytes": 2597,
+      "sha256": "2778205eb379f1936edf8a72e45eeac766f2160eaa1e972738b81c82f47ba35c"
+    },
+    {
+      "path": "packages/ui/src/experience/use-overlay-history.ts",
+      "bytes": 978,
+      "sha256": "7109f461c6317805dd6ecfe27f0f1ec04f1333c6162b39c0d252c7f77bd50529"
+    },
+    {
+      "path": "packages/ui/src/experience/use-presented-preface.ts",
+      "bytes": 2198,
+      "sha256": "ff05ce97f629394b4e34690d073b4b8fde3296af5ad3e61cbd2c689fdea1bc54"
+    },
+    {
+      "path": "packages/ui/src/experience/use-sculpture-encounter.ts",
+      "bytes": 2640,
+      "sha256": "339945e3f1716bb18bc16e63f8ce8a1cae7533a720bd0e9bdb488268becc96ed"
+    },
+    {
+      "path": "packages/ui/src/experience/use-stable-narrative.ts",
+      "bytes": 789,
+      "sha256": "d84f3168c1f5bf845d1090ce2ce9a83ef80175a4b124dbbb9fc3b201d41be070"
+    },
+    {
+      "path": "packages/ui/src/experience/use-viewing-session.ts",
+      "bytes": 4778,
+      "sha256": "704270301f68f030ff5fe43f231c3fce062e566c96eb2a59421b9267b8daefc2"
+    },
+    {
+      "path": "packages/ui/src/experience/viewing-controls.tsx",
+      "bytes": 2579,
+      "sha256": "87f712b60ca402a446c1eccf281d468c8f72465a3c0f555bd2fbd63a731e908e"
+    },
+    {
+      "path": "packages/ui/src/experience/viewing-session.test.ts",
+      "bytes": 6927,
+      "sha256": "26d61f6de5b40b221e921bd6a905a7de1721732ac6ea11c7e877c20949897046"
+    },
+    {
+      "path": "packages/ui/src/experience/viewing-session.ts",
+      "bytes": 12745,
+      "sha256": "ec4a30152a383a240aa43d2f6f80b1e9838650f3273c1d223f35fc0982cd9fd5"
+    },
+    {
+      "path": "packages/ui/src/experience/walk.tsx",
+      "bytes": 11387,
+      "sha256": "edb0ba6be9e275fb6ef06962eb5ab09d2c2eea03ed9c6d24a73b17912c7d57c3"
+    },
+    {
+      "path": "packages/ui/src/glass/glass-buttons.css",
+      "bytes": 5355,
+      "sha256": "d43d545ffb3b335e118fe4b43cb2a0840b113c1d1822d408549816bffec9d105"
+    },
+    {
+      "path": "packages/ui/src/glass/glass-buttons.ts",
+      "bytes": 8491,
+      "sha256": "fe2409dcdddfdfdb2efe80dc6dae68802c984fcc11f73035bfcb89ec29d025aa"
+    },
+    {
+      "path": "packages/ui/src/glass/glass-optics.test.ts",
+      "bytes": 1139,
+      "sha256": "b5272a34b3d3170d479cbf10f5cf2413aa902c78c2bcd5179a0b60e6df1e74a1"
+    },
+    {
+      "path": "packages/ui/src/glass/glass-optics.ts",
+      "bytes": 1643,
+      "sha256": "f31b857bcfaa2db5f3c22cf7957e7785705de1cdd6048e08b03d1617afbb5f91"
+    },
+    {
+      "path": "packages/ui/src/immersive/depth-parallax-renderer.ts",
+      "bytes": 11276,
+      "sha256": "54b994da7010b57eb6fa63237ec32aa763f27e8843fb4ed228ad145de2f28f00"
+    },
+    {
+      "path": "packages/ui/src/immersive/device-parallax.ts",
+      "bytes": 2318,
+      "sha256": "31e708aa996418a02eb62da09443dde6ca9342db981bbd28a3e1d68820a72f88"
+    },
+    {
+      "path": "packages/ui/src/immersive/director-focus.test.tsx",
+      "bytes": 1396,
+      "sha256": "10807f526ca34f0c8005cacb83d046ca883dfbd94cdad69332f281cd1c451ad0"
+    },
+    {
+      "path": "packages/ui/src/immersive/director-focus.tsx",
+      "bytes": 1038,
+      "sha256": "9dfc053819086c971f856539e62bb254d2ee1c0ea6bd6d6b136ec7252b7da7a2"
+    },
+    {
+      "path": "packages/ui/src/immersive/image-lightbox.test.tsx",
+      "bytes": 1832,
+      "sha256": "e76f0b4408d877001f962a694ebe882083e98255d7fcdf2bf95f9fcceb558304"
+    },
+    {
+      "path": "packages/ui/src/immersive/image-lightbox.tsx",
+      "bytes": 12037,
+      "sha256": "a504e250dad124b47ea6676cfdda4ffab26687e9617d21d933d567e98a92866f"
+    },
+    {
+      "path": "packages/ui/src/immersive/immersive-detail-stage.tsx",
+      "bytes": 20343,
+      "sha256": "ae111f1c615a39aec2c77b122eb287cc561968d3ee26a93b6b573f449e27e734"
+    },
+    {
+      "path": "packages/ui/src/immersive/immersive-gallery-client.tsx",
+      "bytes": 14734,
+      "sha256": "8eda1655662bad18d026bd970b011ca695f83c10ae051d3e4c91787af597492d"
+    },
+    {
+      "path": "packages/ui/src/immersive/immersive-gallery.test.tsx",
+      "bytes": 5090,
+      "sha256": "7ac9c4144abb0dec7c1cbdbd664baa5a08939abdb737cfee931bc0439b8ba5d8"
+    },
+    {
+      "path": "packages/ui/src/immersive/immersive-gallery.tsx",
+      "bytes": 1582,
+      "sha256": "5597a1fb3a0144ac23c61bbd58e1314f38091be1f63f1682e6c3443ce9ddd619"
+    },
+    {
+      "path": "packages/ui/src/immersive/progress-indicator.tsx",
+      "bytes": 2455,
+      "sha256": "1b29f9aaa1b68c7f41fdfb0582824ce173ba0137fb07bb0e69e76e46923c79a0"
+    },
+    {
+      "path": "packages/ui/src/immersive/scene-orchestrator.test.ts",
+      "bytes": 1267,
+      "sha256": "134df924d9060188ed79b8c264076174d764744dad3abb211ab268a6addddbd9"
+    },
+    {
+      "path": "packages/ui/src/immersive/scene-orchestrator.ts",
+      "bytes": 2418,
+      "sha256": "0d724d7d6500b65174e2bd6d22a71fa4a6516bab0d8a7b23b7062d111d93d953"
+    },
+    {
+      "path": "packages/ui/src/immersive/video-stage.test.tsx",
+      "bytes": 1582,
+      "sha256": "dac7837dd869c0929a893cb45518043e68d5c939b75ebc19560f99df1db2e7ed"
+    },
+    {
+      "path": "packages/ui/src/immersive/video-stage.tsx",
+      "bytes": 1552,
+      "sha256": "5a3b22c04f9b1f406d38d28817d70c33c1fb0d64134a93e43857ffd582de3e8c"
+    },
+    {
+      "path": "packages/ui/src/index.ts",
+      "bytes": 1894,
+      "sha256": "fef1f8b6ca1731202f0d6e2950ee412265ed99f93c2ae98545e5509b0c1e968a"
+    },
+    {
+      "path": "packages/ui/src/transitions/depth-push-transition.ts",
+      "bytes": 202,
+      "sha256": "c79cdbe788197291115a8b41ff84cc330ed7adf6067df0f06156353620a826d6"
+    },
+    {
+      "path": "packages/ui/src/transitions/dissolve-transition.ts",
+      "bytes": 197,
+      "sha256": "c1a40b2247816b56ab78fd574b5db626a054350e6ca6a11397fa476caaccd95a"
+    },
+    {
+      "path": "packages/ui/src/transitions/fade-transition.ts",
+      "bytes": 185,
+      "sha256": "490fe3d4cfde39f397fc5052e5229d212a5b8e4f7b4841e436fba8d2ad187fa7"
+    },
+    {
+      "path": "packages/ui/src/transitions/lateral-pan-transition.ts",
+      "bytes": 205,
+      "sha256": "6ed2256407aef6e4de2a0dbf6ae77f7b9131983a2c1701224db1f7de3fa074be"
+    },
+    {
+      "path": "packages/ui/src/transitions/light-swell-transition.ts",
+      "bytes": 205,
+      "sha256": "95ccaf6968a62cef7538a53e736b885e918f21db8de80b08be897c62770eca3e"
+    },
+    {
+      "path": "packages/ui/src/transitions/match-cut-transition.ts",
+      "bytes": 199,
+      "sha256": "58fc3948b3189e48a63fe4a0c2b472da822fc47969f019597fb4e630666002cf"
+    },
+    {
+      "path": "packages/ui/src/transitions/registry.test.ts",
+      "bytes": 745,
+      "sha256": "5040750352e4b60e5c027dcf8c05694c0bf2d652899660935fa36b552d2ca8b4"
+    },
+    {
+      "path": "packages/ui/src/transitions/registry.ts",
+      "bytes": 1336,
+      "sha256": "d62577053f188b6256b7091630b1d8362887892d84387d4f66b4f9bcf1d60d76"
+    },
+    {
+      "path": "packages/ui/src/transitions/scale-focus-transition.ts",
+      "bytes": 205,
+      "sha256": "5f2e1f2aeea9e2a9cf5be31bdec86da98193291f973dc8524895795dc282e094"
+    },
+    {
+      "path": "packages/ui/tsconfig.json",
+      "bytes": 371,
+      "sha256": "35ba15c511ca43be755d9811836f17104645243784a1022efc75902e465fdf4e"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 58036,
+      "sha256": "aaa06331c0a66adf293ea884a58b5f276b81dce97323b70a7af5616a0e688389"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "bytes": 40,
+      "sha256": "08d75840c97ab0e72d1d9b5b84a17e47a2e06cb159a5fbec5ee0a6a56682dad7"
+    },
+    {
+      "path": "scripts/acquire-sculptures.py",
+      "bytes": 10113,
+      "sha256": "007b134371b3be2917b51c4916baf45b0f9357938181a9398d7eb34b6d84d4a7"
+    },
+    {
+      "path": "scripts/build-public-media-manifest.ts",
+      "bytes": 8337,
+      "sha256": "de778980c0a6aa1d477f6aed4f0405c20ee6e4e4c28a9176ab9e5aedcfa5b6d3"
+    },
+    {
+      "path": "scripts/build-sculpture-media.ts",
+      "bytes": 5782,
+      "sha256": "4adb604e205551ed658980caa0b5cfa989200cd172939a9cfea09210caea62ac"
+    },
+    {
+      "path": "scripts/check-public-release.ts",
+      "bytes": 6242,
+      "sha256": "d784c0c42048a788e719cdab7b8058cbeef9894bfb0530da87923a96623e6b28"
+    },
+    {
+      "path": "scripts/collect/backfill-batch-probe-approval.js",
+      "bytes": 3570,
+      "sha256": "9df9e66a582fa516ff059347688922f87478af7530ed4ee659f21b23e5fdd32e"
+    },
+    {
+      "path": "scripts/collect/bootstrap-review-pass.js",
+      "bytes": 14138,
+      "sha256": "287e2aad9c154c55d629424fa8d230a544854b247be0f5064b3dac66ec5cb26f"
+    },
+    {
+      "path": "scripts/collect/build-curation-summaries.js",
+      "bytes": 36242,
+      "sha256": "bd7f8a9ba8c9287d1b28f35fa466585427c7677bccdef734ccf7d6814b745190"
+    },
+    {
+      "path": "scripts/collect/build-review-summary.js",
+      "bytes": 7266,
+      "sha256": "bdf1df88bf7f182b85acea702e09f0feab7ea75c5553a7b07bce561a6a9344f0"
+    },
+    {
+      "path": "scripts/collect/finalize-painting-corpus.mjs",
+      "bytes": 5059,
+      "sha256": "7ff4cc6065afe30f7a2c31769ed47a6fa06185b2eadd6db4a5c16eba1dd20b34"
+    },
+    {
+      "path": "scripts/collect/met-batch.js",
+      "bytes": 18265,
+      "sha256": "f731000eae14cdbc7f66ac11ef285a17e76bf2e8e4aa06ee583bf4234f67f1d9"
+    },
+    {
+      "path": "scripts/collect/met-collect.js",
+      "bytes": 18133,
+      "sha256": "63d3552b5a5b4d5bd9f3787d876dfafd94e7e437924717ab2c190fe51fa06feb"
+    },
+    {
+      "path": "scripts/collect/met-enrich-descriptions.js",
+      "bytes": 10457,
+      "sha256": "016277040df691a4a5c617c7a2d6921996d4a848ecb463841d534e00d678d84b"
+    },
+    {
+      "path": "scripts/collect/met-probe.js",
+      "bytes": 12712,
+      "sha256": "871c175f15c136b7bc09ba6fe07ad3d00a7f9d6c67450b9bbc068705b0ad4bff"
+    },
+    {
+      "path": "scripts/collect/refresh-painting-corpus.py",
+      "bytes": 8843,
+      "sha256": "6b71c0742c7a3433d0232c71759bf4ff47319e87d7dd6b5ebc9a90983054a7f1"
+    },
+    {
+      "path": "scripts/collect/review-config/contemplation-wave2.json",
+      "bytes": 1168,
+      "sha256": "37338c82abbf72eda5a8c02c9217d0da49d485a04195b0f92b64ce3cc5764017"
+    },
+    {
+      "path": "scripts/collect/review-config/contemplation.json",
+      "bytes": 633,
+      "sha256": "fe4374c137203134d9e2c8fb66f98319a81f0001e37d82a8c7687b723fd7396e"
+    },
+    {
+      "path": "scripts/collect/review-config/desire-wave2.json",
+      "bytes": 1444,
+      "sha256": "b19dfc1dcb7118947817a887294efa64aa69a394c8a5d034df6d6acf64a5116f"
+    },
+    {
+      "path": "scripts/collect/review-config/desire.json",
+      "bytes": 722,
+      "sha256": "75f5bd3bead051be938e959ad1e47fa5da92e1b6afa7070544b60c9b02fa5a0c"
+    },
+    {
+      "path": "scripts/collect/review-config/hope-wave2.json",
+      "bytes": 1533,
+      "sha256": "1c5c3bd9fc2f57e3dff2de0c54d6fcc552e1959cd1055fc401c54776689430d1"
+    },
+    {
+      "path": "scripts/collect/review-config/hope.json",
+      "bytes": 884,
+      "sha256": "75e285362f35478771e76029e00c09388043e5e19e54a9de603cfdc039a0fb28"
+    },
+    {
+      "path": "scripts/collect/review-config/joy.json",
+      "bytes": 912,
+      "sha256": "9df3bb876392dae951d1d2efac7b9201b0a5597d2605a6a2e5cfe80b36b4d850"
+    },
+    {
+      "path": "scripts/collect/review-config/melancholy-wave3.json",
+      "bytes": 1478,
+      "sha256": "69aceea0baba3494fd81b0f9d1958991d998190d493555b0b270643505e10950"
+    },
+    {
+      "path": "scripts/collect/review-config/melancholy.json",
+      "bytes": 909,
+      "sha256": "6890301cdfc9b1d0c7bceb937e12283de5651ea570c1d849e0dad9d61a988d48"
+    },
+    {
+      "path": "scripts/collect/review-config/mystery-wave3.json",
+      "bytes": 1724,
+      "sha256": "df1be6e5f67d0b96344f49d7960d36e970c05099bfb4a0b733793a8fd1c279a8"
+    },
+    {
+      "path": "scripts/collect/review-config/mystery.json",
+      "bytes": 933,
+      "sha256": "93f11723c32a2d9239230a7f215ddd8f713257422a1171e3f9f1f412e92b9fc2"
+    },
+    {
+      "path": "scripts/collect/review-config/serenity-wave3.json",
+      "bytes": 1554,
+      "sha256": "4eaf9359f87e4644c0d39a058f57576c5af52b5de8d815b1d7b3781d1baa72c3"
+    },
+    {
+      "path": "scripts/collect/review-config/serenity.json",
+      "bytes": 916,
+      "sha256": "f1c787f8ee72e636ca0141607e3757be7c4cf9107929cad8330a7d107ebc7362"
+    },
+    {
+      "path": "scripts/collect/review-config/wonder-wave2.json",
+      "bytes": 1474,
+      "sha256": "03a3e55a249d45c5a53cdb1401bf74b6a62ad3d2df6781a3f12b8781bc33aa2a"
+    },
+    {
+      "path": "scripts/collect/review-config/wonder.json",
+      "bytes": 936,
+      "sha256": "0d147a7a20828a016d72a044c8c2be1e177038ecd383f6bfbce0627466f0860f"
+    },
+    {
+      "path": "scripts/collect/verify-painting-images.mjs",
+      "bytes": 2657,
+      "sha256": "7309eb4c0c60470dfbffdb056ab5f7fc03d1fa0990131b2c4b8fd4733829fa93"
+    },
+    {
+      "path": "scripts/convert-sculpture-glb.mjs",
+      "bytes": 5186,
+      "sha256": "4cabb6bb30e473c165dac594f3305ecd00ee986c2ad5c7dd5ed5b93b794118eb"
+    },
+    {
+      "path": "scripts/evaluate-intent-immersion.ts",
+      "bytes": 26830,
+      "sha256": "d9bd210571c8b15e3e39011c108545f49a1ee88ef3daa4a6aa3f144f99012475"
+    },
+    {
+      "path": "scripts/prepare-sculptures.mjs",
+      "bytes": 13968,
+      "sha256": "384da44a5fdb93afbbe723f808aecc85a84b3d729392bc81c1b55b9aabf929d2"
+    },
+    {
+      "path": "scripts/publish-public-media.ts",
+      "bytes": 2974,
+      "sha256": "e4c8513f5c64e1e462bd3f7672dce8cfd7f49540ba58de1bda26c3530f47a221"
+    },
+    {
+      "path": "scripts/test-enhanced-explanation.js",
+      "bytes": 2471,
+      "sha256": "4137fd5ae78ecf61c25719f0f3c78a62cafd8adb8c5dc65cb2cf4b241f7f354f"
+    },
+    {
+      "path": "scripts/test_acquire_sculptures.py",
+      "bytes": 3805,
+      "sha256": "583d11e2d7d3f662acc41d68e4f7ec3088763c2d1ea10355e0e4170d9724dc4d"
+    },
+    {
+      "path": "scripts/trim-sculpture-plinth.py",
+      "bytes": 4118,
+      "sha256": "9dfcda8e97c51d7bd99190781a4797d6e8d9ffdabb85398f66bbf41e8b0b240f"
+    },
+    {
+      "path": "scripts/vector-processing/build-indexes.js",
+      "bytes": 10644,
+      "sha256": "63def61687dddf523ea6b526525f7bf1a27524f090d76ae56e9011eee666dab6"
+    },
+    {
+      "path": "scripts/vector-processing/clean-data.js",
+      "bytes": 10424,
+      "sha256": "3c4af7d9ee247728560f4c6d82eececea5f04cfbda4b7dab57a211134320446a"
+    },
+    {
+      "path": "scripts/vector-processing/data-quality-analysis.js",
+      "bytes": 9725,
+      "sha256": "3052c35974d333195c0727ff0054f346763ef959d0d29a2dd1da0a7bf969138a"
+    },
+    {
+      "path": "scripts/vector-processing/generate-embeddings.js",
+      "bytes": 11738,
+      "sha256": "93ca416d302b8a983944aa04ea6caef719b3cf3569e365ce1d4e01f2315ac721"
+    },
+    {
+      "path": "scripts/vector-processing/generate-enhanced-embeddings.js",
+      "bytes": 7683,
+      "sha256": "14eed5b66e7664d3eb78aeb4e7dacb91b427b15ac15c2542ff5b79c78056739a"
+    },
+    {
+      "path": "scripts/vector-processing/separate-data.js",
+      "bytes": 8547,
+      "sha256": "a4ab4fbad8e4481395694421f304ce60accca2b934d09dc4bf0c78a966ce2448"
+    },
+    {
+      "path": "scripts/vector-processing/test-glm-title-translation.js",
+      "bytes": 2717,
+      "sha256": "0c7d6ade676f8a58d351a0264523231725946fc044e6fe22febe6d15617169c4"
+    },
+    {
+      "path": "scripts/vector-processing/test-llm-guided-retrieval.js",
+      "bytes": 21229,
+      "sha256": "ea9ecd5e2557e277d9dc00c89c9795209fee56cfeca345d7bb1c911e4d03c583"
+    },
+    {
+      "path": "scripts/vector-processing/test-optimized-flow.js",
+      "bytes": 11536,
+      "sha256": "ee51ac8141c12a6c45302a98c80f4c6dbc67f6d85783393b95c45a3bd53f4d32"
+    },
+    {
+      "path": "scripts/vector-processing/test-optimized-route.js",
+      "bytes": 9226,
+      "sha256": "c63dc124f7509ee2c9d95be3e0304666ff98b603b8d9b44a16322a4da3c9a84c"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-api-call.js",
+      "bytes": 20050,
+      "sha256": "947c97deeb6adf271a4e197c04e88865f9f1dc1c22014a6732d713b0a9ef63eb"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-api.js",
+      "bytes": 10386,
+      "sha256": "b22228e3f33614421d1480ef40fd02c48f38d46b8f7a9883a4dc6a3d589655c3"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-components.js",
+      "bytes": 14944,
+      "sha256": "f5644578a5dbb303131ff4965093984704dc8f2d26a67eac48ac63f815746603"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-glm-api.js",
+      "bytes": 17083,
+      "sha256": "5f2186bae5fbd3ba5bb5de2c00afe82698f2bd08796a770db5fbb71495b819f4"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-integration.js",
+      "bytes": 17057,
+      "sha256": "879f4581f51141c9ac382c976cfab5561db209535d4d0f4043694e75cf6e96fe"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-llm-curation.js",
+      "bytes": 17481,
+      "sha256": "964a122eadaeed9cd2be732475e0f5a6d7881996076a07ff6ad5c9b1f0fa94e9"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-user-input.js",
+      "bytes": 17104,
+      "sha256": "01bff95e1a4d5e32dc73a25aa535af62a1e692a18a7a5328a60de72581469f22"
+    },
+    {
+      "path": "scripts/vector-processing/test-real-workflow.js",
+      "bytes": 10769,
+      "sha256": "50e95c3c6dd5887418956b790e7a787cb664484da245773eae689b1f19bae743"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "bytes": 287,
+      "sha256": "1b6a4f511ec6f1ed7f83c044ed907a16497756a66a54dc44c00f1bd63d4e212f"
+    }
+  ]
+}

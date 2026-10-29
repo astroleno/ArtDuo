@@ -1,0 +1,196 @@
+TAP version 13
+# Subtest: route claims use actual first and last works rather than pooled visual evidence
+ok 1 - route claims use actual first and last works rather than pooled visual evidence
+  ---
+  duration_ms: 9.756105
+  type: 'test'
+  ...
+# Subtest: a shared exhibition claim must also hold for works omitted from its evidence IDs
+ok 2 - a shared exhibition claim must also hold for works omitted from its evidence IDs
+  ---
+  duration_ms: 0.79065
+  type: 'test'
+  ...
+# Subtest: negation stays with its clause and a verified broad mat is not an open landscape
+ok 3 - negation stays with its clause and a verified broad mat is not an open landscape
+  ---
+  duration_ms: 1.364591
+  type: 'test'
+  ...
+# Subtest: adjacent observed objects do not license an invented separation
+ok 4 - adjacent observed objects do not license an invented separation
+  ---
+  duration_ms: 0.29665
+  type: 'test'
+  ...
+# Subtest: a book in a portrait does not put the sitter's hand beside it
+ok 5 - a book in a portrait does not put the sitter's hand beside it
+  ---
+  duration_ms: 0.474844
+  type: 'test'
+  ...
+# Subtest: empty compositional contrasts are removed without accepting an invented visible person
+ok 6 - empty compositional contrasts are removed without accepting an invented visible person
+  ---
+  duration_ms: 0.528626
+  type: 'test'
+  ...
+# Subtest: repair ignores already completed keys and keeps all newly requested notes
+ok 7 - repair ignores already completed keys and keeps all newly requested notes
+  ---
+  duration_ms: 1.083231
+  type: 'test'
+  ...
+# Subtest: a hand-focused request cannot borrow a legacy description or generalize one supported hand to both portraits
+ok 8 - a hand-focused request cannot borrow a legacy description or generalize one supported hand to both portraits
+  ---
+  duration_ms: 1.293327
+  type: 'test'
+  ...
+# Subtest: verified qualified absence does not erase people visible in a painting within the painting
+ok 9 - verified qualified absence does not erase people visible in a painting within the painting
+  ---
+  duration_ms: 0.784398
+  type: 'test'
+  ...
+# Subtest: fallback keeps complete observed clauses and never chops a foreign title or sentence into an ellipsis
+ok 10 - fallback keeps complete observed clauses and never chops a foreign title or sentence into an ellipsis
+  ---
+  duration_ms: 1.54951
+  type: 'test'
+  ...
+# Subtest: fallback selects observed relations without converting audit uncertainty into a claim
+ok 11 - fallback selects observed relations without converting audit uncertainty into a claim
+  ---
+  duration_ms: 0.542532
+  type: 'test'
+  ...
+# Subtest: uncertain-only fallback uses metadata and retains an explicitly missing viewing focus
+ok 12 - uncertain-only fallback uses metadata and retains an explicitly missing viewing focus
+  ---
+  duration_ms: 0.442965
+  type: 'test'
+  ...
+# Subtest: narrative streams only complete validated lines in exhibition order
+ok 13 - narrative streams only complete validated lines in exhibition order
+  ---
+  duration_ms: 1.169703
+  type: 'test'
+  ...
+# Subtest: neutral single-work requests cannot invent a feeling or unvisited stages
+ok 14 - neutral single-work requests cannot invent a feeling or unvisited stages
+  ---
+  duration_ms: 0.613846
+  type: 'test'
+  ...
+# Subtest: Chinese denials do not license sadness attribution even without a no-comfort request
+ok 15 - Chinese denials do not license sadness attribution even without a no-comfort request
+  ---
+  duration_ms: 0.712592
+  type: 'test'
+  ...
+# Subtest: notes without a real description cannot add invented visual details
+ok 16 - notes without a real description cannot add invented visual details
+  ---
+  duration_ms: 0.425992
+  type: 'test'
+  ...
+# Subtest: wet surfaces and umbrellas do not establish that rain has ended
+ok 17 - wet surfaces and umbrellas do not establish that rain has ended
+  ---
+  duration_ms: 0.694749
+  type: 'test'
+  ...
+# Subtest: image review observations ground prose without masquerading as museum descriptions
+ok 18 - image review observations ground prose without masquerading as museum descriptions
+  ---
+  duration_ms: 0.265631
+  type: 'test'
+  ...
+# Subtest: requested detail focus cannot be invented, substituted by metaphor or omitted when supported
+ok 19 - requested detail focus cannot be invented, substituted by metaphor or omitted when supported
+  ---
+  duration_ms: 0.972192
+  type: 'test'
+  ...
+# Subtest: direct user attribution must quote the input and cannot add a viewing preference
+ok 20 - direct user attribution must quote the input and cannot add a viewing preference
+  ---
+  duration_ms: 1.078021
+  type: 'test'
+  ...
+# Subtest: one rejected note is replaced without erasing a valid closing
+ok 21 - one rejected note is replaced without erasing a valid closing
+  ---
+  duration_ms: 0.73213
+  type: 'test'
+  ...
+# Subtest: observation-only requests reject emotional endings and keep fallback prose factual
+ok 22 - observation-only requests reject emotional endings and keep fallback prose factual
+  ---
+  duration_ms: 0.786152
+  type: 'test'
+  ...
+# Subtest: declined emotional framing drops a quoted feeling while retaining grounded exhibition prose
+ok 23 - declined emotional framing drops a quoted feeling while retaining grounded exhibition prose
+  ---
+  duration_ms: 0.499753
+  type: 'test'
+  ...
+# Subtest: negated feelings cannot license emotional attribution in observation-only requests
+ok 24 - negated feelings cannot license emotional attribution in observation-only requests
+  ---
+  duration_ms: 0.321727
+  type: 'test'
+  ...
+# Subtest: wrong references and interrupted providers cannot substitute works or erase a delivered preface
+ok 25 - wrong references and interrupted providers cannot substitute works or erase a delivered preface
+  ---
+  duration_ms: 1.949413
+  type: 'test'
+  ...
+# Subtest: frozen image facts reject invented objects, false absences and unverified space
+ok 26 - frozen image facts reject invented objects, false absences and unverified space
+  ---
+  duration_ms: 0.885369
+  type: 'test'
+  ...
+# Subtest: quoted exclusions remain negated without licensing an invented visible person
+ok 27 - quoted exclusions remain negated without licensing an invented visible person
+  ---
+  duration_ms: 0.385296
+  type: 'test'
+  ...
+# Subtest: declining comfort keeps factual closings and removes unrequested emotional codas
+ok 28 - declining comfort keeps factual closings and removes unrequested emotional codas
+  ---
+  duration_ms: 0.367281
+  type: 'test'
+  ...
+# Subtest: actual counts and own-work references cannot borrow the request or a neighbor's evidence
+ok 29 - actual counts and own-work references cannot borrow the request or a neighbor's evidence
+  ---
+  duration_ms: 0.492047
+  type: 'test'
+  ...
+# Subtest: excitement needs no imposed transformation and writing constraints do not become quoted prose
+ok 30 - excitement needs no imposed transformation and writing constraints do not become quoted prose
+  ---
+  duration_ms: 0.316086
+  type: 'test'
+  ...
+# Subtest: a lowered head does not establish a bent torso; keep only independently grounded clauses
+ok 31 - a lowered head does not establish a bent torso; keep only independently grounded clauses
+  ---
+  duration_ms: 0.539595
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 507.650175

@@ -1,0 +1,6 @@
+
+> artduo@ release:check /opt/artduo/releases/20261029-experience-continuity
+> tsx scripts/check-public-release.ts "--" "--warm"
+
+{"ok":false,"error":"Readiness failed: {\"corpus\":true,\"localModel\":true,\"persistentState\":true,\"modelConfiguration\":false}"}
+ ELIFECYCLE  Command failed with exit code 1.
