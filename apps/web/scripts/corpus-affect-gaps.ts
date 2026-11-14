@@ -23,6 +23,7 @@ const ARCHETYPES: Array<{ id: string; label: string; centre: AffectState; open?:
   { id: "drama", label: "戏剧张力", centre: { valence: .35, arousal: .75, tension: .75, wonder: .55, intimacy: .3 } },
 ];
 const STRONG_FIT = .8;
+const READING_WEIGHT = .65;
 
 function nearest(state: AffectState): (typeof ARCHETYPES)[number] {
   return ARCHETYPES.reduce((best, item) => stageFit(state, item.centre) > stageFit(state, best.centre) ? item : best);
@@ -31,7 +32,16 @@ function nearest(state: AffectState): (typeof ARCHETYPES)[number] {
 function main(): void {
   const catalog = loadWebReleaseCatalog({ rootDir });
   const eligible = catalog.artworks.filter(isGalleryArtwork);
-  const offered = new Map<string, AffectState>(eligible.map((artwork) => [artwork.id, artworkOffering(artwork)]));
+  // Supply is estimated from the model reading of each delivered image when present;
+  // it sees themes such as mourning that tags and pixels cannot. Selection does not use it.
+  const estimate = (artwork: WebArtwork): AffectState => {
+    const base = artworkOffering(artwork), reading = artwork.affectReading;
+    if (!reading) return base;
+    const blend = (key: keyof AffectState) => Number((READING_WEIGHT * reading[key] + (1 - READING_WEIGHT) * base[key]).toFixed(3));
+    return { valence: blend("valence"), arousal: blend("arousal"), tension: blend("tension"), wonder: blend("wonder"), intimacy: blend("intimacy") };
+  };
+  const offered = new Map<string, AffectState>(eligible.map((artwork) => [artwork.id, estimate(artwork)]));
+  console.log(`affect readings applied to ${eligible.filter((artwork) => artwork.affectReading).length}/${eligible.length} works`);
   const plans = JSON.parse(readFileSync(path.join(__dirname, "../test/fixtures/stage-fit-plans.json"), "utf8")) as Record<string, unknown>;
   const stages = Object.values(plans).flatMap((raw) => parseCurationIntentPlan(raw).stages);
   const evalPath = path.join(rootDir, ".cache", "stage-fit-eval", `${evalLabel}.json`);

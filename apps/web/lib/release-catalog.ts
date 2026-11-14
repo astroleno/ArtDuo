@@ -10,6 +10,7 @@ import { artworkHardConflict } from "./affective-negotiation";
 import { loadArtworkVisualEvidence, type ArtworkVisualEvidence } from "./artwork-visual-evidence";
 import { loadArtworkCredits } from "./artwork-credits";
 import { loadArtworkAppearance, type ArtworkAppearance } from "./artwork-appearance";
+import { affectReadingPath, loadAffectReadings, type AffectReading } from "./artwork-affect-reading";
 import type { ArtworkDisplayCredits } from "@artduo/ui";
 
 import {
@@ -83,6 +84,8 @@ export interface WebArtwork {
   visualEvidence?: ArtworkVisualEvidence;
   visualEvidenceUnavailable?: boolean;
   appearance?: ArtworkAppearance;
+  /** Model reading of what the delivered image offers; informs stage fit only. */
+  affectReading?: AffectReading;
   detailHref: string;
 }
 
@@ -113,6 +116,7 @@ export interface WebBackgroundSceneEmbeddingRecord {
 export interface WebReleaseCatalog {
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
+  affectReadingVersion?: string;
   manifestPath: string;
   releaseDir: string;
   releaseVersion: string;
@@ -448,6 +452,7 @@ function catalogDependencies(loaded: ReturnType<typeof loadReleaseManifest>): st
   const external = path.resolve(loaded.releaseDir, "../../../data/curation/visual-reviews", `${loaded.releaseVersion}.json`);
   const credits = path.resolve(loaded.releaseDir, "../../curation/public-url-import", loaded.releaseVersion, "creator-credits.json");
   const files = [loaded.manifestPath, embedded, external, credits, path.join(loaded.releaseDir, "creator-credits.json"), path.join(loaded.releaseDir, "appearance-v2.json"),
+    affectReadingPath(path.resolve(loaded.releaseDir, "../../.."), loaded.releaseVersion),
     ...Object.values(loaded.manifest.shards).flatMap(shards => shards?.map(shard => resolveShardPath(loaded.manifestPath, shard)) ?? [])];
   const ledger = existsSync(embedded) ? embedded : external;
   try {
@@ -529,11 +534,14 @@ function buildWebReleaseCatalog(options: ReleaseLoaderOptions, loaded: ReturnTyp
   });
   const visual = loadArtworkVisualEvidence({ releaseDir: loaded.releaseDir, releaseVersion: loaded.releaseVersion, artworks,
     verifiedRemoteImages: new Map(experienceArtworkRecords.flatMap(record => record.media.verifiedRemoteImage ? [[record.id, record.media.verifiedRemoteImage] as const] : [])) });
-  const appearance = loadArtworkAppearance(loaded.releaseDir, new Map(artworkRecords.flatMap(record => record.media.sourceAssetFingerprint ? [[record.id, record.media.sourceAssetFingerprint] as const] : [])));
+  const sourceFingerprints = new Map(artworkRecords.flatMap(record => record.media.sourceAssetFingerprint ? [[record.id, record.media.sourceAssetFingerprint] as const] : []));
+  const appearance = loadArtworkAppearance(loaded.releaseDir, sourceFingerprints);
+  const affect = loadAffectReadings(path.resolve(loaded.releaseDir, "../../.."), loaded.releaseVersion, sourceFingerprints);
   for (const artwork of artworks) {
     artwork.visualEvidence = visual.byArtworkId.get(artwork.id);
     artwork.visualEvidenceUnavailable = visual.unverifiedArtworkIds.has(artwork.id);
     artwork.appearance = appearance.byId.get(artwork.id);
+    artwork.affectReading = affect.byId.get(artwork.id);
   }
 
   return {
@@ -542,6 +550,7 @@ function buildWebReleaseCatalog(options: ReleaseLoaderOptions, loaded: ReturnTyp
     releaseVersion: loaded.releaseVersion,
     visualEvidenceVersion: visual.version,
     appearanceVersion: appearance.version,
+    affectReadingVersion: affect.version,
     releaseCreatedAt: loaded.manifest.release.createdAt,
     manifest: loaded.manifest,
     artworkCount: artworks.length,
