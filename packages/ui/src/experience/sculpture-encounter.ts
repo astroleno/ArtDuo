@@ -3,6 +3,9 @@ import type { SculptureRoomScene, SculptureWork } from "./sculpture-types";
 import { hasExclusivePaintingRequest } from "@artduo/contracts";
 
 export const SCULPTURE_ENCOUNTER_CHANCE = .5;
+/** A visit planned below this arousal throughout is kept still: no side hall. */
+const STILL_VISIT_AROUSAL = .25;
+const CITY_VIEW_MIN_AROUSAL = .45;
 export interface SculptureEncounter {
   version: 1;
   exhibitionId: string;
@@ -35,13 +38,18 @@ export function permitsSculptureEncounter(query: string): boolean {
 export function planSculptureEncounter(snapshot: ExhibitionSnapshot, works: SculptureWork[], scenes: SculptureRoomScene[],
   options: { roll: number; selection: number; recent?: string[] }): SculptureEncounter {
   const absent: SculptureEncounter = { version: 1, exhibitionId: snapshot.exhibitionId, status: "absent" };
-  if (snapshot.units.length < 4 || !works.length || !scenes.length || !permitsSculptureEncounter(snapshot.query)
+  const stages = snapshot.stages ?? [];
+  const still = stages.length > 0 && stages.every((stage) => stage.arousal < STILL_VISIT_AROUSAL);
+  if (snapshot.units.length < 4 || !works.length || !scenes.length || !permitsSculptureEncounter(snapshot.query) || still
     || !Number.isFinite(options.roll) || options.roll < 0 || options.roll >= SCULPTURE_ENCOUNTER_CHANCE) return absent;
   const units = snapshot.units;
+  const stageOf = (index: number) => stages.find((stage) => stage.id === units[index]?.stageId);
   const boundaries = units.flatMap((unit, index) => index >= 1 && index < units.length - 2
     && (unit.sceneMatch?.chapter?.index !== units[index + 1]?.sceneMatch?.chapter?.index
       || unit.stageId !== units[index + 1]?.stageId) ? [index] : []);
-  const anchor = boundaries[0] ?? Math.max(1, Math.min(units.length - 3, Math.floor(units.length / 2) - 1));
+  // The side hall belongs where the route turns or releases, not at its quiet entrance.
+  const turning = boundaries.find((index) => ["turn", "release"].includes(stageOf(index + 1)?.role ?? "") && stageOf(index)?.id !== stageOf(index + 1)?.id);
+  const anchor = turning ?? boundaries[0] ?? Math.max(1, Math.min(units.length - 3, Math.floor(units.length / 2) - 1));
   const context = [snapshot.query, units[anchor]!.artwork.metadata.title, ...(units[anchor]!.artwork.metadata.moodTags ?? []),
     units[anchor + 1]!.artwork.metadata.title, ...(units[anchor + 1]!.artwork.metadata.moodTags ?? [])].join(" ").toLowerCase();
   const recent = options.recent ?? [];
@@ -53,7 +61,9 @@ export function planSculptureEncounter(snapshot: ExhibitionSnapshot, works: Scul
   let cursor = Math.min(.999999999, Math.max(0, Number.isFinite(options.selection) ? options.selection : 0)) * weights.reduce((a, b) => a + b, 0);
   const model = works.find((_, index) => (cursor -= weights[index]!) < 0) ?? works[works.length - 1]!;
   const quiet = (units[anchor]?.sceneMatch?.lightDirection ?? "top") === "top";
-  const room = scenes.find(scene => quiet ? scene.tone === "neutral" : scene.light === "right") ?? scenes[0]!;
+  const calmStage = [stageOf(anchor), stageOf(anchor + 1)].some((stage) => stage && stage.arousal < CITY_VIEW_MIN_AROUSAL);
+  const suitable = scenes.filter((scene) => !(calmStage && scene.view === "city"));
+  const room = suitable.find(scene => quiet || calmStage ? scene.tone === "neutral" : scene.light === "right") ?? suitable[0] ?? scenes[0]!;
   return { version: 1, exhibitionId: snapshot.exhibitionId, status: "pending", modelId: model.id, roomId: room.id,
     anchorArtworkId: units[anchor]!.artwork.id, nextArtworkId: units[anchor + 1]!.artwork.id };
 }

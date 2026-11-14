@@ -175,7 +175,11 @@ test("new visual evidence invalidates request reuse without replacing a saved se
   const encoder = { model: LOCAL_SEMANTIC_MODEL, async warmup() {}, async dispose() {}, async embedDocuments() { return []; },
     async embedQueries(texts: string[]) { return texts.map(() => [1, ...Array(383).fill(0)]); } };
   const input = { rootDir: temporary, query, encoder, intentModel: "fixture",
-    stream: async function* () { calls++; yield JSON.stringify(plan); } };
+    stream: async function* (messages: Array<{ content: string }>) {
+      // Stage choice is a separate call; this test counts intent planning only.
+      if (messages[0]!.content.includes("选画编辑")) { yield "{}"; return; }
+      calls++; yield JSON.stringify(plan);
+    } };
   try {
     const firstCatalog = { ...semanticCatalog, visualEvidenceVersion: "review-one" };
     const first = await curateExhibition({ ...input, catalog: firstCatalog });
@@ -191,5 +195,90 @@ test("new visual evidence invalidates request reuse without replacing a saved se
     const saved = readSavedCuration(nextCatalog, first.curationId, query, temporary);
     assert.equal(saved.curationId, first.curationId);
     assert.deepEqual(saved.assignments, first.assignments);
+  } finally { rmSync(temporary, { recursive: true, force: true }); }
+});
+
+test("figurative stage words do not become depicted subjects", () => {
+  const base = catalog.artworks[0];
+  const evidence = (interior: "present" | "absent", spatialFraming: "open" | "enclosed", architecture: "present" | "absent" = "absent") =>
+    ({ ...base.visualEvidence!, facts: { interior, architecture }, spatialFraming });
+  const bedroom = { ...base, id: "bedroom", title: "Bedroom", medium: "Oil on canvas", moodTags: ["quiet"], visualEvidence: evidence("present", "enclosed") };
+  const nave = { ...base, id: "nave", title: "Church Nave", medium: "Oil on canvas", moodTags: ["quiet"], visualEvidence: evidence("present", "enclosed", "present") };
+  const vista = { ...base, id: "vista", title: "Distant View", medium: "Oil on canvas", moodTags: ["quiet"], visualEvidence: evidence("absent", "open") };
+  const dawn = { ...base, id: "dawn", title: "Dawn Field", medium: "Oil on canvas", moodTags: ["quiet"], visualEvidence: evidence("absent", "open") };
+  const works = [bedroom, nave, vista, dawn];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(a => [a.id, a])) };
+  const plan = { ...fallbackCurationIntent(fixture, "想看两幅作品"), artworkCount: 2 };
+  plan.stages = [
+    { ...plan.stages[0], query: "wide landscape with distant horizon, calm open space, quiet breathing room" },
+    plan.stages[1],
+    { ...plan.stages.at(-1)!, query: "small patch of warm light, dawn glow or single lit window, modest hopeful atmosphere" },
+  ];
+  // Enclosed rooms are marginally closer in text; the stage wording must not reward them as subjects.
+  const vector = (id: string) => ["bedroom", "nave"].includes(id) ? [1, 0] : [.99, Math.sqrt(1 - .99 ** 2)];
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture", model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 },
+    records: works.map(a => ({ artworkId: a.id, textFingerprint: "fixture", vector: vector(a.id) })) }, queries: plan.stages.map(() => [1, 0]) };
+  const result = selectForCurationStages({ catalog: fixture, query: "想看两幅作品", plan, semantic });
+  assert.ok(["vista", "dawn"].includes(result.assignments[0]!.artworkId), "an open-landscape stage prefers an open view over a bedroom");
+  assert.ok(!result.assignments.some(a => a.evidence.includes("stage-subject:interior") || a.evidence.includes("stage-subject:architecture")));
+});
+
+test("stages are filled jointly so one stage cannot take another stage's clearest work", () => {
+  const base = catalog.artworks[0];
+  const plain = { ...base, medium: "Oil on canvas", visualEvidence: undefined, appearance: undefined, emotionLabels: [], colorTags: [] };
+  const festive = { ...plain, id: "festive", title: "Dancers", moodTags: ["joy", "lively", "playful"] };
+  const sunny = { ...plain, id: "sunny", title: "Field", moodTags: ["bright", "warm"] };
+  const calm = { ...plain, id: "calm", title: "Pond", moodTags: ["quiet", "serenity"] };
+  const works = [festive, sunny, calm];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(a => [a.id, a])) };
+  const plan = { ...fallbackCurationIntent(fixture, "想看三幅作品"), artworkCount: 3 };
+  const stage = (index: number, values: object, signals: string[]) => ({ ...plan.stages[Math.min(index, plan.stages.length - 1)]!, ...values, signals, query: "painting" });
+  plan.stages = [
+    stage(0, { valence: .75, arousal: .5, tension: .1, wonder: .4, intimacy: .4 }, ["light"]),
+    stage(1, { valence: .92, arousal: .9, tension: .15, wonder: .5, intimacy: .4 }, ["joy", "celebration"]),
+    { ...plan.stages.at(-1)!, valence: .55, arousal: .15, tension: .1, wonder: .3, intimacy: .5, signals: ["quiet"], query: "painting" },
+  ];
+  // Sequential greedy filling would hand the dancers to the first stage.
+  const vector = (id: string) => id === "festive" ? [1, 0] : id === "sunny" ? [.995, Math.sqrt(1 - .995 ** 2)] : [.99, Math.sqrt(1 - .99 ** 2)];
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture", model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 },
+    records: works.map(a => ({ artworkId: a.id, textFingerprint: "fixture", vector: vector(a.id) })) }, queries: plan.stages.map(() => [1, 0]) };
+  const result = selectForCurationStages({ catalog: fixture, query: "想看三幅作品", plan, semantic });
+  assert.deepEqual(result.assignments.map(a => [a.stageIndex, a.artworkId]), [[0, "sunny"], [1, "festive"], [2, "calm"]]);
+});
+
+test("a valid model stage choice is saved, and a failed one keeps the deterministic selection", async () => {
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-stage-choice-"));
+  const semanticCatalog = loadWebReleaseCatalog({ rootDir, releaseVersion: "2026-10-14-semantic" });
+  const query = "安静的风景";
+  const plan = { ...fallbackCurationIntent(semanticCatalog, query), artworkCount: 3 };
+  const encoder = { model: LOCAL_SEMANTIC_MODEL, async warmup() {}, async dispose() {}, async embedDocuments() { return []; },
+    async embedQueries(texts: string[]) { return texts.map(() => [1, ...Array(383).fill(0)]); } };
+  let pools: string[][] = [];
+  const choose = async function* (messages: Array<{ content: string }>) {
+    if (!messages[0]!.content.includes("选画编辑")) { yield JSON.stringify(plan); return; }
+    // Pick the last candidate listed for every stage, never repeating a work.
+    pools = messages[1]!.content.split(/\nstage \d+ /u).slice(1).map((block) => [...block.matchAll(/"id":"([^"]+)"/gu)].map((match) => match[1]!));
+    const used = new Set<string>();
+    yield JSON.stringify({ stages: pools.map((ids, stage) => {
+      const count = Number(/^选 (\d+) 件/u.exec(messages[1]!.content.split(/\nstage \d+ /u)[stage + 1]!)![1]);
+      const picked = [...ids].reverse().filter((id) => !used.has(id)).slice(0, count);
+      picked.forEach((id) => used.add(id));
+      return { stage, artworkIds: picked };
+    }) });
+  };
+  try {
+    const chosen = await curateExhibition({ catalog: semanticCatalog, query, rootDir: temporary, encoder, intentModel: "fixture", stream: choose });
+    assert.deepEqual(chosen.record.degraded, []);
+    assert.ok(chosen.assignments.every((item) => item.evidence.includes("model:stage-fit")));
+    assert.ok(chosen.assignments.every((item) => pools[item.stageIndex]!.includes(item.artworkId)));
+    assert.deepEqual(readSavedCuration(semanticCatalog, chosen.curationId, query, temporary).assignments, chosen.assignments);
+
+    const failing = async function* (messages: Array<{ content: string }>) {
+      if (messages[0]!.content.includes("选画编辑")) throw new Error("provider timeout");
+      yield JSON.stringify(plan);
+    };
+    const kept = await curateExhibition({ catalog: semanticCatalog, query: `${query}。`, rootDir: temporary, encoder, intentModel: "fixture", stream: failing });
+    assert.deepEqual(kept.record.degraded, ["stage-choice-unavailable"]);
+    assert.ok(kept.assignments.length > 0 && kept.assignments.every((item) => !item.evidence.includes("model:stage-fit")));
   } finally { rmSync(temporary, { recursive: true, force: true }); }
 });

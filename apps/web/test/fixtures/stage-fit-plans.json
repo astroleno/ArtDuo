@@ -1,0 +1,1952 @@
+{
+ "连着忙了好几天,想先缓口气。只看莫奈的三幅户外油画,按从近处到远处的观看节奏安排。": {
+  "schemaVersion": 1,
+  "currentFeeling": "连续忙碌数日后感到疲惫，想先缓口气、减轻负担",
+  "desiredExperience": "以莫奈的三幅户外油画为对象，按从近处到远处的观看节奏缓慢推进，让视线由贴近的细节逐渐舒展到开阔远景，获得轻缓、不费力的观看体验",
+  "wantsRelief": true,
+  "pace": "slow",
+  "artworkCount": 3,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "Monet outdoor oil painting, close-up foreground detail, soft daylight, calm quiet atmosphere, gentle visual rhythm, low contrast, restful",
+    "signals": [
+     "quiet",
+     "restful",
+     "soft"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.6,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.4,
+    "intimacy": 0.5
+   },
+   {
+    "label": "视线放开",
+    "role": "mirror",
+    "query": "Monet outdoor oil painting, middle distance meadow or water surface, open air, diffuse light, unhurried composition, breathing space",
+    "signals": [
+     "open",
+     "calm",
+     "contemplation"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.65,
+    "arousal": 0.3,
+    "tension": 0.2,
+    "wonder": 0.5,
+    "intimacy": 0.4
+   },
+   {
+    "label": "看向远处",
+    "role": "afterglow",
+    "query": "Monet outdoor oil painting, distant horizon, wide sky, expansive landscape, luminous haze, serene and spacious mood",
+    "signals": [
+     "wonder",
+     "spacious",
+     "serene"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.7,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.6,
+    "intimacy": 0.3
+   }
+  ]
+ },
+ "想看三幅有水的画,不要人物,也不要船。": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪",
+  "desiredExperience": "以水为主题的安静观看，画面中不出现人物与船只，让视线停留在水面、光线与倒影上，节奏平缓。",
+  "wantsRelief": false,
+  "pace": "still",
+  "artworkCount": 3,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "calm water surface, soft light, empty shoreline, quiet landscape painting, gentle horizontal rhythm, no figures",
+    "signals": [
+     "quiet",
+     "stillness",
+     "openness"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.6,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.35,
+    "intimacy": 0.2
+   },
+   {
+    "label": "看向水面",
+    "role": "mirror",
+    "query": "close view of rippling water, reflections and light on waves, muted tones, contemplative mood, painterly texture",
+    "signals": [
+     "contemplation",
+     "mystery",
+     "reflection"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.55,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.45,
+    "intimacy": 0.3
+   },
+   {
+    "label": "望向远处",
+    "role": "turn",
+    "query": "wide seascape or lake horizon, distant sky and water meeting, soft clouds, spacious atmosphere, serene painting",
+    "signals": [
+     "wonder",
+     "openness",
+     "serenity"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.65,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.6,
+    "intimacy": 0.2
+   },
+   {
+    "label": "留在水边",
+    "role": "release",
+    "query": "quiet water at dusk, gentle reflections, low horizon, cool and warm light blending, tranquil landscape painting",
+    "signals": [
+     "restful",
+     "held",
+     "melancholy"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.6,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.35
+   },
+   {
+    "label": "慢慢回望",
+    "role": "afterglow",
+    "query": "still water with soft evening glow, faint ripples, calm empty shore, luminous sky, peaceful closing atmosphere",
+    "signals": [
+     "quiet",
+     "afterglow",
+     "serenity"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.65,
+    "arousal": 0.15,
+    "tension": 0.1,
+    "wonder": 0.45,
+    "intimacy": 0.25
+   }
+  ]
+ },
+ "想看三幅莫奈画的中国古代水墨肖像。": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪",
+  "desiredExperience": "以中性、安静的观看节奏，依次看三幅莫奈画的中国古代水墨肖像，尊重指定顺序与题材，不添加情绪调节目标。",
+  "wantsRelief": false,
+  "pace": "still",
+  "artworkCount": 3,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "Monet painting of an ancient Chinese ink-wash style portrait, soft muted tones, quiet contemplative atmosphere, gentle light, still composition",
+    "signals": [
+     "quiet",
+     "contemplation",
+     "stillness"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.55,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.5,
+    "intimacy": 0.35
+   },
+   {
+    "label": "细看笔触",
+    "role": "mirror",
+    "query": "Monet portrait in Chinese ink-wash manner, visible brushwork, pale washes, serene figure, restrained palette, close quiet observation",
+    "signals": [
+     "contemplation",
+     "intimate",
+     "mystery"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.55,
+    "arousal": 0.3,
+    "tension": 0.2,
+    "wonder": 0.55,
+    "intimacy": 0.45
+   },
+   {
+    "label": "看向远处",
+    "role": "afterglow",
+    "query": "Monet painting of ancient Chinese ink-wash portrait, distant soft light, airy space, calm lingering mood, gentle fading tones",
+    "signals": [
+     "quiet",
+     "wonder",
+     "restful"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.6,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.6,
+    "intimacy": 0.35
+   }
+  ]
+ },
+ "脑子有点乱,想看两幅建筑版画,只比较空间透视和黑白明暗,不要油画,也不用安慰我。": {
+  "schemaVersion": 1,
+  "currentFeeling": "脑子有点乱，想通过观看建筑版画把注意力收拢到具体的视觉比较上。",
+  "desiredExperience": "以缓慢、安静的节奏看两幅建筑版画，只比较空间透视与黑白明暗，让观看有明确焦点，不涉及情绪安抚。",
+  "wantsRelief": true,
+  "pace": "slow",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "architectural print, etching or woodcut, clear linear perspective, restrained black and white tonal range, quiet composition, slow visual rhythm",
+    "signals": [
+     "quiet",
+     "focus",
+     "restraint"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.5,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.35,
+    "intimacy": 0.2
+   },
+   {
+    "label": "看进深处",
+    "role": "mirror",
+    "query": "architectural print, strong one-point perspective, receding corridors or facades, deep spatial depth, monochrome etching, calm and orderly",
+    "signals": [
+     "depth",
+     "order",
+     "contemplation"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.5,
+    "arousal": 0.3,
+    "tension": 0.25,
+    "wonder": 0.45,
+    "intimacy": 0.2
+   },
+   {
+    "label": "比对明暗",
+    "role": "turn",
+    "query": "architectural print, dramatic black and white contrast, shadowed arches and lit surfaces, chiaroscuro in etching or woodcut, structured composition",
+    "signals": [
+     "contrast",
+     "structure",
+     "mystery"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.5,
+    "arousal": 0.35,
+    "tension": 0.3,
+    "wonder": 0.4,
+    "intimacy": 0.2
+   },
+   {
+    "label": "收拢视线",
+    "role": "afterglow",
+    "query": "architectural print, balanced perspective and tonal gradation, quiet monochrome building study, steady visual rhythm, calm closure",
+    "signals": [
+     "quiet",
+     "balance",
+     "held"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.55,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.3,
+    "intimacy": 0.2
+   }
+  ]
+ },
+ "今天并不难过,只想安静看三幅水景:不要人物、船只。序言和注脚聊水面、光线与构图,不需要情绪引导。": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪；用户明确说今天并不难过，只想安静观看水景。",
+  "desiredExperience": "以安静、中性的节奏观看三幅无人物、无船只的水景，关注水面、光线与构图本身；序言与注脚也围绕这些视觉要素展开，不做情绪引导。",
+  "wantsRelief": false,
+  "pace": "still",
+  "artworkCount": 3,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet waterscape painting, still water surface, soft light, open composition, no figures, no boats, calm visual rhythm",
+    "signals": [
+     "quiet",
+     "still",
+     "open"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.55,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看水与光",
+    "role": "mirror",
+    "query": "painting of water surface and light reflections, subtle tonal shifts, horizontal composition, serene atmosphere, no people, no vessels",
+    "signals": [
+     "contemplation",
+     "light",
+     "serene"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.6,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.35
+   },
+   {
+    "label": "留意构图",
+    "role": "afterglow",
+    "query": "waterscape painting with clear compositional structure, horizon and water planes, restrained palette, quiet light, no figures, no boats",
+    "signals": [
+     "clarity",
+     "quiet",
+     "wonder"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.6,
+    "arousal": 0.2,
+    "tension": 0.1,
+    "wonder": 0.55,
+    "intimacy": 0.3
+   }
+  ]
+ },
+ "有点想念家人,想看两幅人物肖像版画,重点看脸部和手势,不要油画,不必劝我振作。": {
+  "schemaVersion": 1,
+  "currentFeeling": "想念家人，带着一点思念的柔软情绪；明确表示不需要被劝振作。",
+  "desiredExperience": "安静地看两幅人物肖像版画，把注意力放在脸部和手势上，感受人物神情与手部动作带来的亲近感；节奏缓慢，不追求情绪转折或振奋。",
+  "wantsRelief": false,
+  "pace": "slow",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet intimate portrait print, face and hands visible, soft tonal contrast, calm contemplative mood, restrained composition",
+    "signals": [
+     "quiet",
+     "intimate",
+     "contemplation"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.55,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.3,
+    "intimacy": 0.6
+   },
+   {
+    "label": "看进脸里",
+    "role": "mirror",
+    "query": "close portrait print focused on facial expression, gentle gaze, subtle shading, still and tender atmosphere",
+    "signals": [
+     "tender",
+     "still",
+     "melancholy"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.5,
+    "arousal": 0.2,
+    "tension": 0.2,
+    "wonder": 0.25,
+    "intimacy": 0.7
+   },
+   {
+    "label": "留意手势",
+    "role": "turn",
+    "query": "portrait print with expressive hands, hands resting or clasped, quiet gesture, soft light, intimate domestic feeling",
+    "signals": [
+     "intimate",
+     "held",
+     "restful"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.55,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.3,
+    "intimacy": 0.75
+   },
+   {
+    "label": "多留一会",
+    "role": "afterglow",
+    "query": "calm portrait print, face and hands in quiet harmony, warm muted tones, lingering stillness, gentle presence",
+    "signals": [
+     "quiet",
+     "warm",
+     "held"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.6,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.3,
+    "intimacy": 0.7
+   }
+  ]
+ },
+ "心情还行": {
+  "schemaVersion": 1,
+  "currentFeeling": "心情还行，未陈述明显负担或低落",
+  "desiredExperience": "以中性、轻缓的观看节奏浏览绘画，不预设需要调节情绪，也不把观看变成从暗到亮的转变任务",
+  "wantsRelief": false,
+  "pace": "slow",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "calm landscape painting, soft daylight, open sky, gentle visual rhythm, quiet atmosphere, spacious composition",
+    "signals": [
+     "quiet",
+     "spacious",
+     "calm"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.6,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.2
+   },
+   {
+    "label": "看向远处",
+    "role": "mirror",
+    "query": "distant horizon in painting, muted colors, slow visual pace, contemplative scenery, soft light",
+    "signals": [
+     "contemplation",
+     "muted",
+     "distant"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.6,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.45,
+    "intimacy": 0.2
+   },
+   {
+    "label": "留意细节",
+    "role": "turn",
+    "query": "painting with small everyday details, still life or interior, warm neutral tones, close observation, modest scale",
+    "signals": [
+     "intimate",
+     "observant",
+     "warm"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.65,
+    "arousal": 0.35,
+    "tension": 0.15,
+    "wonder": 0.35,
+    "intimacy": 0.45
+   },
+   {
+    "label": "轻松收尾",
+    "role": "afterglow",
+    "query": "light airy painting, bright sky or water, relaxed composition, gentle color harmony, easy visual flow",
+    "signals": [
+     "light",
+     "airy",
+     "ease"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.7,
+    "arousal": 0.35,
+    "tension": 0.1,
+    "wonder": 0.4,
+    "intimacy": 0.25
+   }
+  ]
+ },
+ "最近一直在硬撑,像被抽空了。想看六幅作品,先停下来,再留一点变化的余地,不要战争、死亡、宗教,也别催我开心。": {
+  "schemaVersion": 1,
+  "currentFeeling": "长期硬撑后感到被抽空、耗尽，想先停下来，需要被接住而不是被催促。",
+  "desiredExperience": "以缓慢安静的节奏观看六幅作品，先允许自己停住、卸下负担，再留一点轻微变化的余地；不追求振作或开心，只求喘息与松动的空间。",
+  "wantsRelief": true,
+  "pace": "still",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet empty interior or still room with soft dim light, sparse composition, low contrast, slow visual rhythm, calm and undemanding atmosphere",
+    "signals": [
+     "quiet",
+     "restful",
+     "held"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.45,
+    "arousal": 0.15,
+    "tension": 0.15,
+    "wonder": 0.25,
+    "intimacy": 0.35
+   },
+   {
+    "label": "卸下重量",
+    "role": "mirror",
+    "query": "resting figure or simple object at ease, muted palette, gentle shadow, spacious negative space, unhurried and low-key mood",
+    "signals": [
+     "melancholy",
+     "quiet",
+     "intimate"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.4,
+    "arousal": 0.2,
+    "tension": 0.2,
+    "wonder": 0.25,
+    "intimacy": 0.45
+   },
+   {
+    "label": "看向远处",
+    "role": "turn",
+    "query": "open distant landscape or wide horizon with soft haze, pale sky, slow expansive rhythm, quiet breathing space, subtle light shift",
+    "signals": [
+     "wonder",
+     "quiet",
+     "contemplation"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.55,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "留点余地",
+    "role": "release",
+    "query": "loose brushwork or gentle abstract field with small opening of light, soft edges, airy spacing, slight movement without urgency",
+    "signals": [
+     "hope",
+     "wonder",
+     "quiet"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.6,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.45,
+    "intimacy": 0.3
+   },
+   {
+    "label": "慢慢收住",
+    "role": "afterglow",
+    "query": "calm twilight or soft evening light over quiet scene, low saturation, gentle fading rhythm, settled and open-ended atmosphere",
+    "signals": [
+     "restful",
+     "quiet",
+     "contemplation"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.5,
+    "arousal": 0.15,
+    "tension": 0.1,
+    "wonder": 0.35,
+    "intimacy": 0.35
+   }
+  ]
+ },
+ "忙了一天,有点累。想看六幅画,别太沉重。": {
+  "schemaVersion": 1,
+  "currentFeeling": "忙了一整天，感到疲惫，想放松地看画。",
+  "desiredExperience": "以轻松、不沉重的方式观看六幅画，节奏舒缓，视觉负担低，可以安静停留，也可以随意漂移，不需要被推动去面对强烈或压抑的题材。",
+  "wantsRelief": true,
+  "pace": "slow",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "soft daylight interior or quiet landscape, gentle muted colors, calm open space, slow visual rhythm, restful atmosphere",
+    "signals": [
+     "quiet",
+     "restful",
+     "gentle"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.6,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.3,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看向远处",
+    "role": "mirror",
+    "query": "wide serene landscape with distant horizon, pale sky, soft greens and blues, airy composition, unhurried pace",
+    "signals": [
+     "calm",
+     "spacious",
+     "airy"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.65,
+    "arousal": 0.25,
+    "tension": 0.1,
+    "wonder": 0.45,
+    "intimacy": 0.2
+   },
+   {
+    "label": "轻轻转身",
+    "role": "turn",
+    "query": "small everyday scene with warm light, simple objects or figures at rest, tender and unforced mood, low contrast",
+    "signals": [
+     "intimate",
+     "warm",
+     "unforced"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.7,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.3,
+    "intimacy": 0.55
+   },
+   {
+    "label": "松一口气",
+    "role": "release",
+    "query": "open garden or water view with soft reflections, light brushwork, playful gentle color, relaxed and buoyant feeling",
+    "signals": [
+     "light",
+     "playful",
+     "relief"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.75,
+    "arousal": 0.35,
+    "tension": 0.1,
+    "wonder": 0.4,
+    "intimacy": 0.3
+   },
+   {
+    "label": "带着余温",
+    "role": "afterglow",
+    "query": "quiet evening or late afternoon light, soft glow, simple peaceful composition, lingering calm and gentle warmth",
+    "signals": [
+     "calm",
+     "warm",
+     "lingering"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.7,
+    "arousal": 0.2,
+    "tension": 0.1,
+    "wonder": 0.35,
+    "intimacy": 0.4
+   }
+  ]
+ },
+ "今天很开心,想看两幅色彩丰富的花卉静物油画,只比较花和瓶器的构图,不要把开心变成平静。": {
+  "schemaVersion": 1,
+  "currentFeeling": "用户陈述今天很开心，希望延续这份愉快心情观看色彩丰富的花卉静物油画。",
+  "desiredExperience": "以轻快明亮的节奏观看两幅色彩丰富的花卉静物油画，重点比较花与瓶器的构图关系；保持开心、鲜活的观看状态，不把情绪引向平静或沉淀。",
+  "wantsRelief": false,
+  "pace": "medium",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先看花色",
+    "role": "threshold",
+    "query": "bright colorful floral still life oil painting, vivid blossoms in a vase, lively saturated palette, cheerful visual rhythm",
+    "signals": [
+     "joy",
+     "vivid",
+     "bright"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.85,
+    "arousal": 0.6,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "比较花与瓶",
+    "role": "mirror",
+    "query": "floral still life oil painting, comparison of flower arrangement and vase shape, balanced composition, rich color contrast",
+    "signals": [
+     "playful",
+     "compositional",
+     "colorful"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.8,
+    "arousal": 0.55,
+    "tension": 0.2,
+    "wonder": 0.45,
+    "intimacy": 0.35
+   },
+   {
+    "label": "再看构图",
+    "role": "turn",
+    "query": "two colorful flower still lifes, close look at bouquet silhouette against vessel form, lively brushwork, bright oil paint",
+    "signals": [
+     "joy",
+     "curious",
+     "vivid"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.82,
+    "arousal": 0.58,
+    "tension": 0.18,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "留住明快",
+    "role": "afterglow",
+    "query": "cheerful colorful floral still life oil painting, abundant blooms and decorative vase, luminous palette, buoyant mood",
+    "signals": [
+     "joy",
+     "bright",
+     "uplifted"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.88,
+    "arousal": 0.55,
+    "tension": 0.12,
+    "wonder": 0.45,
+    "intimacy": 0.3
+   }
+  ]
+ },
+ "今天心情还不错,就想随便看看六幅画。": {
+  "schemaVersion": 1,
+  "currentFeeling": "心情不错，想轻松随意地看看画。",
+  "desiredExperience": "以轻快、无负担的方式浏览六幅画，保持愉悦的观看节奏，不刻意调节或改变当前心情。",
+  "wantsRelief": false,
+  "pace": "medium",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "light and inviting paintings with clear composition, gentle color, easy visual entry, calm but lively atmosphere",
+    "signals": [
+     "light",
+     "inviting",
+     "clear",
+     "calm"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.7,
+    "arousal": 0.4,
+    "tension": 0.2,
+    "wonder": 0.4,
+    "intimacy": 0.3
+   },
+   {
+    "label": "随意逛逛",
+    "role": "mirror",
+    "query": "pleasant everyday scenes and landscapes with soft light, balanced rhythm, cheerful yet unhurried mood",
+    "signals": [
+     "pleasant",
+     "unhurried",
+     "soft",
+     "everyday"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.75,
+    "arousal": 0.45,
+    "tension": 0.2,
+    "wonder": 0.4,
+    "intimacy": 0.35
+   },
+   {
+    "label": "看向远处",
+    "role": "turn",
+    "query": "open vistas and airy compositions with bright sky, spacious depth, fresh and buoyant visual rhythm",
+    "signals": [
+     "open",
+     "airy",
+     "fresh",
+     "spacious"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.8,
+    "arousal": 0.5,
+    "tension": 0.15,
+    "wonder": 0.55,
+    "intimacy": 0.25
+   },
+   {
+    "label": "轻轻收尾",
+    "role": "afterglow",
+    "query": "warm and serene paintings with gentle glow, harmonious color, quiet pleasant closure, light lingering mood",
+    "signals": [
+     "warm",
+     "serene",
+     "harmonious",
+     "lingering"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.75,
+    "arousal": 0.35,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.4
+   }
+  ]
+ },
+ "安静的月光": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪；用户只给出“安静的月光”这一观看意象，未说明自身状态。",
+  "desiredExperience": "以安静、缓慢的节奏观看月光相关的绘画氛围，保持低刺激与柔和明暗，让视线在夜色与静物般的宁静中停留，不添加情绪调节或叙事目标。",
+  "wantsRelief": false,
+  "pace": "still",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet moonlit night painting, soft silver light, calm dark sky, still atmosphere, gentle tonal contrast, slow visual rhythm",
+    "signals": [
+     "quiet",
+     "still",
+     "mystery"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.55,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看向夜色",
+    "role": "mirror",
+    "query": "moonlight over landscape painting, pale blue and grey tones, hushed nocturnal scene, distant horizon, serene emptiness",
+    "signals": [
+     "restful",
+     "contemplation",
+     "quiet"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.55,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.55,
+    "intimacy": 0.3
+   },
+   {
+    "label": "留住微光",
+    "role": "turn",
+    "query": "moonlight through clouds or water painting, soft glow, muted reflections, tranquil composition, low contrast, contemplative mood",
+    "signals": [
+     "held",
+     "wonder",
+     "quiet"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.6,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.6,
+    "intimacy": 0.35
+   },
+   {
+    "label": "静处收束",
+    "role": "afterglow",
+    "query": "calm moonlit interior or still water painting, faint silver light, quiet closure, soft darkness, peaceful stillness",
+    "signals": [
+     "restful",
+     "held",
+     "intimate"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.6,
+    "arousal": 0.15,
+    "tension": 0.1,
+    "wonder": 0.45,
+    "intimacy": 0.4
+   }
+  ]
+ },
+ "这周一直在硬撑,有点被掏空,想找个地方安静地待一会儿": {
+  "schemaVersion": 1,
+  "currentFeeling": "这周一直在硬撑，感到被掏空、耗尽，想找个安静的地方待一会儿，减轻负担。",
+  "desiredExperience": "以低刺激、低张力的安静观看为主，让视觉节奏缓慢、空间留白充足，允许疲惫被安放而不被要求立刻好转；不追求情绪转折或振奋。",
+  "wantsRelief": true,
+  "pace": "still",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet sparse interior or landscape painting, soft muted light, large empty space, very slow visual rhythm, calm and restful atmosphere",
+    "signals": [
+     "quiet",
+     "restful",
+     "sparse"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.45,
+    "arousal": 0.15,
+    "tension": 0.1,
+    "wonder": 0.25,
+    "intimacy": 0.3
+   },
+   {
+    "label": "靠住安静",
+    "role": "mirror",
+    "query": "still life or dim room painting with soft shadows, low contrast, gentle stillness, unhurried composition, sense of being held",
+    "signals": [
+     "still",
+     "held",
+     "melancholy"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.4,
+    "arousal": 0.15,
+    "tension": 0.15,
+    "wonder": 0.2,
+    "intimacy": 0.45
+   },
+   {
+    "label": "看向远处",
+    "role": "turn",
+    "query": "open distant landscape painting, pale sky, wide horizon, faint light, spacious and slow, contemplative quiet",
+    "signals": [
+     "spacious",
+     "contemplation",
+     "quiet"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.5,
+    "arousal": 0.2,
+    "tension": 0.1,
+    "wonder": 0.45,
+    "intimacy": 0.25
+   },
+   {
+    "label": "慢慢呼吸",
+    "role": "release",
+    "query": "soft atmospheric painting of water or mist, blurred edges, cool muted tones, gentle drifting rhythm, low stimulation",
+    "signals": [
+     "restful",
+     "quiet",
+     "mystery"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.5,
+    "arousal": 0.2,
+    "tension": 0.1,
+    "wonder": 0.35,
+    "intimacy": 0.3
+   },
+   {
+    "label": "留一点光",
+    "role": "afterglow",
+    "query": "small quiet painting with a single soft light source, warm dim glow, minimal composition, calm lingering stillness",
+    "signals": [
+     "quiet",
+     "held",
+     "hope"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.55,
+    "arousal": 0.2,
+    "tension": 0.1,
+    "wonder": 0.3,
+    "intimacy": 0.4
+   }
+  ]
+ },
+ "我想在清晨的河岸边,看一组有树影、微风和明亮天空的画。": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪，只提出清晨河岸的观看愿望。",
+  "desiredExperience": "在清晨河岸边，依次看到树影、微风与明亮天空的绘画，节奏舒缓、光线渐明，保持安静而开阔的观看。",
+  "wantsRelief": false,
+  "pace": "slow",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet riverside at early morning, soft mist over water, pale light, calm horizontal composition, gentle stillness",
+    "signals": [
+     "quiet",
+     "stillness",
+     "calm"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.6,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看树影",
+    "role": "mirror",
+    "query": "trees casting soft shadows along a riverbank in morning light, dappled shade, reflective water, tranquil natural scene",
+    "signals": [
+     "restful",
+     "shade",
+     "contemplation"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.6,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.35
+   },
+   {
+    "label": "等风来",
+    "role": "turn",
+    "query": "breeze moving leaves and rippling river surface, light airy brushwork, open morning atmosphere, subtle motion",
+    "signals": [
+     "airy",
+     "gentle motion",
+     "fresh"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.65,
+    "arousal": 0.4,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "望向亮天",
+    "role": "release",
+    "query": "bright open sky above a calm river at dawn, luminous pale blue and warm light, expansive peaceful landscape",
+    "signals": [
+     "bright",
+     "open",
+     "wonder"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.75,
+    "arousal": 0.4,
+    "tension": 0.1,
+    "wonder": 0.65,
+    "intimacy": 0.25
+   },
+   {
+    "label": "留在晨光里",
+    "role": "afterglow",
+    "query": "serene riverbank in full morning light, soft tree silhouettes, clear sky, lingering calm and quiet radiance",
+    "signals": [
+     "serene",
+     "radiant",
+     "held"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.7,
+    "arousal": 0.3,
+    "tension": 0.1,
+    "wonder": 0.55,
+    "intimacy": 0.35
+   }
+  ]
+ },
+ "今天格外想念家里人,想看两幅人物肖像版画。重点比较脸部和手势,不要油画,也不必劝我振作。": {
+  "schemaVersion": 1,
+  "currentFeeling": "今天格外想念家里人，带着思念与牵挂，想通过人物肖像版画靠近这种情绪。",
+  "desiredExperience": "以缓慢安静的节奏观看两幅人物肖像版画，重点停留在脸部神情与手势姿态上，让思念有可安放的具体细节，不催促情绪转向。",
+  "wantsRelief": false,
+  "pace": "slow",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet intimate portrait prints, close faces, gentle stillness, soft tonal contrast, restrained composition, slow visual rhythm",
+    "signals": [
+     "quiet",
+     "intimate",
+     "stillness"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.45,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.3,
+    "intimacy": 0.6
+   },
+   {
+    "label": "看进脸里",
+    "role": "mirror",
+    "query": "portrait print close-up of a face, thoughtful expression, downcast or steady gaze, fine linework, muted warm tones, contemplative mood",
+    "signals": [
+     "contemplation",
+     "melancholy",
+     "tender"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.4,
+    "arousal": 0.25,
+    "tension": 0.25,
+    "wonder": 0.35,
+    "intimacy": 0.7
+   },
+   {
+    "label": "留意手势",
+    "role": "turn",
+    "query": "portrait print with expressive hands, folded or resting hands, gesture near chest or lap, quiet body language, soft shading, intimate domestic atmosphere",
+    "signals": [
+     "intimate",
+     "held",
+     "restful"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.45,
+    "arousal": 0.3,
+    "tension": 0.2,
+    "wonder": 0.35,
+    "intimacy": 0.75
+   },
+   {
+    "label": "并置细看",
+    "role": "release",
+    "query": "two figure portrait prints in dialogue, faces and hands compared, calm spacing, restrained emotion, gentle light, slow contemplative viewing",
+    "signals": [
+     "quiet",
+     "contemplation",
+     "wonder"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.5,
+    "arousal": 0.3,
+    "tension": 0.2,
+    "wonder": 0.45,
+    "intimacy": 0.7
+   },
+   {
+    "label": "带着走",
+    "role": "afterglow",
+    "query": "soft portrait print fading into quiet background, lingering gaze, hands at rest, warm muted palette, calm afterglow, intimate stillness",
+    "signals": [
+     "restful",
+     "intimate",
+     "stillness"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.5,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.35,
+    "intimacy": 0.65
+   }
+  ]
+ },
+ "今天有件好事,想看六幅明亮、有生气的画。": {
+  "schemaVersion": 1,
+  "currentFeeling": "今天遇到一件好事，心情明亮、有生气，想延续这份愉快。",
+  "desiredExperience": "以轻快、明亮的观看节奏欣赏六幅有生气的画，让愉悦自然展开，不刻意沉淀或收束情绪。",
+  "wantsRelief": false,
+  "pace": "active",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先迎向光",
+    "role": "threshold",
+    "query": "bright daylight paintings with open sky, fresh air, luminous color and lively brushwork, cheerful and inviting atmosphere",
+    "signals": [
+     "bright",
+     "fresh",
+     "inviting"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.85,
+    "arousal": 0.6,
+    "tension": 0.1,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看人欢笑",
+    "role": "mirror",
+    "query": "lively genre scenes of people dancing, celebrating or gathering outdoors, warm sunlight, animated gestures and vivid color",
+    "signals": [
+     "joy",
+     "lively",
+     "warm"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.9,
+    "arousal": 0.7,
+    "tension": 0.1,
+    "wonder": 0.4,
+    "intimacy": 0.5
+   },
+   {
+    "label": "转向花园",
+    "role": "turn",
+    "query": "flower gardens and blossoming orchards in full bloom, saturated spring color, playful light and energetic composition",
+    "signals": [
+     "blooming",
+     "playful",
+     "vivid"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.85,
+    "arousal": 0.65,
+    "tension": 0.1,
+    "wonder": 0.6,
+    "intimacy": 0.3
+   },
+   {
+    "label": "随水流动",
+    "role": "release",
+    "query": "sunlit rivers, harbors and coastal scenes with sparkling water, sailing boats and breezy movement, buoyant rhythm",
+    "signals": [
+     "breezy",
+     "sparkling",
+     "buoyant"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.85,
+    "arousal": 0.6,
+    "tension": 0.1,
+    "wonder": 0.55,
+    "intimacy": 0.3
+   },
+   {
+    "label": "留住明亮",
+    "role": "afterglow",
+    "query": "golden late afternoon light over fields or gardens, warm glowing color, gentle expansive landscape, serene and cheerful mood",
+    "signals": [
+     "golden",
+     "serene",
+     "cheerful"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.8,
+    "arousal": 0.4,
+    "tension": 0.1,
+    "wonder": 0.5,
+    "intimacy": 0.4
+   }
+  ]
+ },
+ "我只是好奇,想看两幅莫奈油画,但也不要莫奈的作品;保留这两个条件,不要换成其他画家凑数。": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪；用户以好奇的口吻提出观看需求，并明确限定画家与作品范围。",
+  "desiredExperience": "只想看两幅莫奈油画，同时不出现莫奈作品；保留这两个条件，不换成其他画家凑数，也不添加情绪调节目标。",
+  "wantsRelief": false,
+  "pace": "still",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet oil paintings of still water, soft daylight, calm horizontal composition, gentle muted color, slow visual rhythm",
+    "signals": [
+     "quiet",
+     "still",
+     "calm"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.55,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.35,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看向水面",
+    "role": "mirror",
+    "query": "oil paintings of reflective water surfaces, soft ripples, pale sky, restrained brushwork, contemplative atmosphere",
+    "signals": [
+     "contemplation",
+     "reflection",
+     "soft"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.55,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.35
+   },
+   {
+    "label": "留意光色",
+    "role": "turn",
+    "query": "oil paintings with delicate light and color shifts, open air atmosphere, subtle tonal variation, quiet observation",
+    "signals": [
+     "wonder",
+     "light",
+     "subtle"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.6,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "慢慢收住",
+    "role": "release",
+    "query": "oil paintings of calm landscape, soft horizon, low contrast, spacious composition, unhurried viewing",
+    "signals": [
+     "restful",
+     "spacious",
+     "calm"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.55,
+    "arousal": 0.2,
+    "tension": 0.1,
+    "wonder": 0.35,
+    "intimacy": 0.3
+   },
+   {
+    "label": "留一点余味",
+    "role": "afterglow",
+    "query": "oil paintings with gentle evening light, quiet atmosphere, soft edges, lingering stillness",
+    "signals": [
+     "quiet",
+     "lingering",
+     "still"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.55,
+    "arousal": 0.15,
+    "tension": 0.1,
+    "wonder": 0.35,
+    "intimacy": 0.3
+   }
+  ]
+ },
+ "想看两幅人物肖像,重点看手的姿态。": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪",
+  "desiredExperience": "以中性、专注的观看节奏欣赏两幅人物肖像，把注意力放在手的姿态上，观察手势如何传达人物的状态与关系。",
+  "wantsRelief": false,
+  "pace": "slow",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "calm portrait painting with visible hands resting quietly, soft light, restrained composition, slow visual rhythm",
+    "signals": [
+     "quiet",
+     "restful",
+     "contemplation"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.55,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.35,
+    "intimacy": 0.4
+   },
+   {
+    "label": "看手的位置",
+    "role": "mirror",
+    "query": "portrait painting where hands are central, folded or clasped hands, clear gesture, seated figure, muted tones",
+    "signals": [
+     "contemplation",
+     "intimate",
+     "stillness"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.5,
+    "arousal": 0.3,
+    "tension": 0.3,
+    "wonder": 0.35,
+    "intimacy": 0.55
+   },
+   {
+    "label": "手势的张力",
+    "role": "turn",
+    "query": "expressive portrait with gesturing hands, fingers in motion, dramatic light, psychological presence, painterly brushwork",
+    "signals": [
+     "mystery",
+     "tension",
+     "presence"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.45,
+    "arousal": 0.5,
+    "tension": 0.5,
+    "wonder": 0.5,
+    "intimacy": 0.5
+   },
+   {
+    "label": "再回到手",
+    "role": "release",
+    "query": "quiet portrait with relaxed open hands, gentle daylight, harmonious composition, contemplative mood",
+    "signals": [
+     "restful",
+     "held",
+     "wonder"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.6,
+    "arousal": 0.3,
+    "tension": 0.25,
+    "wonder": 0.45,
+    "intimacy": 0.5
+   },
+   {
+    "label": "留住余味",
+    "role": "afterglow",
+    "query": "serene portrait painting, hands at rest, soft warm light, spacious background, lingering calm atmosphere",
+    "signals": [
+     "quiet",
+     "hope",
+     "stillness"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.6,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.4,
+    "intimacy": 0.45
+   }
+  ]
+ },
+ "最近有些焦虑,想看两幅建筑版画,认真看透视和明暗,不要油画,不用安慰我。": {
+  "schemaVersion": 1,
+  "currentFeeling": "最近有些焦虑，想通过认真观看建筑版画的透视与明暗来安定注意力。",
+  "desiredExperience": "以缓慢、专注的节奏观看两幅建筑版画，把注意力放在线条透视、结构层次与明暗对比上，获得清晰、稳定、可把握的视觉秩序感。",
+  "wantsRelief": true,
+  "pace": "slow",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet architectural print, etched stone facades, clear linear perspective, soft grey tonal shading, calm empty street, measured composition",
+    "signals": [
+     "quiet",
+     "order",
+     "clarity"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.55,
+    "arousal": 0.3,
+    "tension": 0.25,
+    "wonder": 0.4,
+    "intimacy": 0.2
+   },
+   {
+    "label": "看清结构",
+    "role": "mirror",
+    "query": "architectural etching, strong one-point perspective, receding arcades, precise linework, balanced light and shadow, restrained atmosphere",
+    "signals": [
+     "structure",
+     "focus",
+     "precision"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.55,
+    "arousal": 0.35,
+    "tension": 0.3,
+    "wonder": 0.45,
+    "intimacy": 0.2
+   },
+   {
+    "label": "顺着明暗走",
+    "role": "turn",
+    "query": "architectural print, deep chiaroscuro on stone walls, diagonal shadows, layered depth, quiet monumental interior, steady visual rhythm",
+    "signals": [
+     "depth",
+     "chiaroscuro",
+     "contemplation"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.6,
+    "arousal": 0.35,
+    "tension": 0.3,
+    "wonder": 0.5,
+    "intimacy": 0.25
+   },
+   {
+    "label": "退后看整体",
+    "role": "release",
+    "query": "wide architectural etching, balanced perspective, open sky above rooftops, soft tonal gradation, spacious calm composition",
+    "signals": [
+     "spacious",
+     "balanced",
+     "calm"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.65,
+    "arousal": 0.3,
+    "tension": 0.2,
+    "wonder": 0.5,
+    "intimacy": 0.2
+   },
+   {
+    "label": "留住秩序",
+    "role": "afterglow",
+    "query": "serene architectural print, clear geometric lines, gentle shadow, quiet facade in even light, composed and still atmosphere",
+    "signals": [
+     "still",
+     "order",
+     "clarity"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.65,
+    "arousal": 0.25,
+    "tension": 0.2,
+    "wonder": 0.45,
+    "intimacy": 0.2
+   }
+  ]
+ },
+ "刚拿到offer,开心得想跳起来!想看点明亮热烈、有能量的画": {
+  "schemaVersion": 1,
+  "currentFeeling": "刚拿到offer，兴奋开心到想跳起来，情绪明亮热烈、能量充沛",
+  "desiredExperience": "延续这份喜悦与能量，观看明亮、热烈、有活力的画作，让视觉节奏与兴奋感同频，不刻意收束或沉淀情绪",
+  "wantsRelief": false,
+  "pace": "active",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先亮起来",
+    "role": "threshold",
+    "query": "bright joyful paintings with vivid warm colors, high energy, radiant light and lively composition",
+    "signals": [
+     "joy",
+     "bright",
+     "energy"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.9,
+    "arousal": 0.8,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.3
+   },
+   {
+    "label": "跟着跳起来",
+    "role": "mirror",
+    "query": "exuberant paintings of dance, celebration and movement, saturated colors, dynamic swirling rhythm",
+    "signals": [
+     "joy",
+     "movement",
+     "celebration"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.92,
+    "arousal": 0.88,
+    "tension": 0.2,
+    "wonder": 0.5,
+    "intimacy": 0.35
+   },
+   {
+    "label": "看向光",
+    "role": "turn",
+    "query": "sunlit landscapes and gardens with glowing light, brilliant yellows and greens, expansive cheerful atmosphere",
+    "signals": [
+     "bright",
+     "wonder",
+     "openness"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.88,
+    "arousal": 0.7,
+    "tension": 0.12,
+    "wonder": 0.7,
+    "intimacy": 0.3
+   },
+   {
+    "label": "暖意停留",
+    "role": "afterglow",
+    "query": "warm radiant still lifes and interiors with golden light, generous color, calm but glowing festive mood",
+    "signals": [
+     "warmth",
+     "joy",
+     "glow"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.85,
+    "arousal": 0.55,
+    "tension": 0.1,
+    "wonder": 0.55,
+    "intimacy": 0.45
+   }
+  ]
+ },
+ "刚分手,想先好好难过一阵,别急着安慰我,最后再给我一点点希望": {
+  "schemaVersion": 1,
+  "currentFeeling": "刚经历分手，想先好好难过一阵，不希望被急着安慰，情绪需要被允许停留。",
+  "desiredExperience": "先有一段安静、不催促的陪伴，让悲伤被看见而不被劝解；中段缓慢流动，最后留一点点微光式的希望，轻而不宏大。",
+  "wantsRelief": true,
+  "pace": "slow",
+  "artworkCount": 6,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet dim interior or empty room at dusk, muted grey and blue tones, still composition, soft low light, contemplative solitude",
+    "signals": [
+     "quiet",
+     "melancholy",
+     "still"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.3,
+    "arousal": 0.2,
+    "tension": 0.25,
+    "wonder": 0.3,
+    "intimacy": 0.4
+   },
+   {
+    "label": "让难过待着",
+    "role": "mirror",
+    "query": "lonely figure by window or shore, overcast sky, restrained palette, slow visual rhythm, tender melancholy without drama",
+    "signals": [
+     "melancholy",
+     "intimate",
+     "held"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.25,
+    "arousal": 0.25,
+    "tension": 0.3,
+    "wonder": 0.35,
+    "intimacy": 0.55
+   },
+   {
+    "label": "看向远处",
+    "role": "turn",
+    "query": "wide landscape with distant horizon, soft fading light, calm open space, gentle atmospheric depth, quiet breathing room",
+    "signals": [
+     "contemplation",
+     "wonder",
+     "quiet"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.45,
+    "arousal": 0.3,
+    "tension": 0.2,
+    "wonder": 0.55,
+    "intimacy": 0.35
+   },
+   {
+    "label": "留一点光",
+    "role": "afterglow",
+    "query": "small patch of warm light in cool scene, dawn glow or single lit window, modest hopeful atmosphere, soft and understated",
+    "signals": [
+     "hope",
+     "quiet",
+     "wonder"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.6,
+    "arousal": 0.3,
+    "tension": 0.15,
+    "wonder": 0.5,
+    "intimacy": 0.4
+   }
+  ]
+ },
+ "今天有点失落,想看三幅森林版画,不要战争、死亡。只看树木、道路和明暗,不用安慰,也不用劝我开心起来。": {
+  "schemaVersion": 1,
+  "currentFeeling": "今天有些失落，情绪偏低，但明确表示不需要安慰，也不想被劝着开心起来。",
+  "desiredExperience": "只想安静地看三幅森林版画，把注意力放在树木、道路和明暗变化上，以低负担、不被打扰的方式观看，不追求情绪好转或振奋。",
+  "wantsRelief": true,
+  "pace": "slow",
+  "artworkCount": 3,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet forest woodcut print, tall trees, a path entering the woods, soft dim light, calm and restrained atmosphere, low contrast, still composition",
+    "signals": [
+     "quiet",
+     "restful",
+     "held"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.35,
+    "arousal": 0.2,
+    "tension": 0.2,
+    "wonder": 0.3,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看树与路",
+    "role": "mirror",
+    "query": "forest linocut print, dense trunks and a winding road, muted tones, gentle shadow and light, contemplative mood, steady visual rhythm",
+    "signals": [
+     "contemplation",
+     "melancholy",
+     "mystery"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.3,
+    "arousal": 0.25,
+    "tension": 0.25,
+    "wonder": 0.35,
+    "intimacy": 0.35
+   },
+   {
+    "label": "留在明暗里",
+    "role": "afterglow",
+    "query": "woodcut forest scene, trees and path in soft chiaroscuro, quiet dusk light, sparse detail, calm lingering atmosphere, low intensity",
+    "signals": [
+     "quiet",
+     "held",
+     "contemplation"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.35,
+    "arousal": 0.2,
+    "tension": 0.15,
+    "wonder": 0.3,
+    "intimacy": 0.3
+   }
+  ]
+ },
+ "今天有些失落,想看三幅森林版画,不要战争和死亡,只看树木、道路和明暗,不用安慰,也不用劝我开心起来。": {
+  "schemaVersion": 1,
+  "currentFeeling": "今天感到失落，情绪有些低落；明确表示不需要安慰，也不想被劝着开心起来。",
+  "desiredExperience": "以安静、缓慢的节奏观看三幅森林版画，只看树木、道路与明暗关系，让视线在画面中停留与移动，不附加情绪调节或振作的目标。",
+  "wantsRelief": false,
+  "pace": "slow",
+  "artworkCount": 3,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "quiet forest woodcut print, dense trees at the edge of a path, soft chiaroscuro, still composition, muted tones, slow visual rhythm",
+    "signals": [
+     "quiet",
+     "still",
+     "shade"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.4,
+    "arousal": 0.2,
+    "tension": 0.25,
+    "wonder": 0.35,
+    "intimacy": 0.3
+   },
+   {
+    "label": "沿路看进去",
+    "role": "mirror",
+    "query": "woodcut print of a forest path winding between tall trees, layered light and shadow, restrained contrast, contemplative atmosphere",
+    "signals": [
+     "contemplation",
+     "path",
+     "mystery"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.4,
+    "arousal": 0.25,
+    "tension": 0.3,
+    "wonder": 0.4,
+    "intimacy": 0.35
+   },
+   {
+    "label": "看明暗变化",
+    "role": "turn",
+    "query": "forest woodcut print with strong interplay of light and dark among trunks and branches, quiet depth, no figures, steady rhythm",
+    "signals": [
+     "chiaroscuro",
+     "depth",
+     "quiet"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.45,
+    "arousal": 0.3,
+    "tension": 0.3,
+    "wonder": 0.45,
+    "intimacy": 0.3
+   },
+   {
+    "label": "留在树影里",
+    "role": "afterglow",
+    "query": "calm forest woodcut print, trees and a faint road receding into shadow, soft tonal gradation, lingering stillness",
+    "signals": [
+     "restful",
+     "shade",
+     "lingering"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.4,
+    "arousal": 0.2,
+    "tension": 0.2,
+    "wonder": 0.4,
+    "intimacy": 0.35
+   }
+  ]
+ },
+ "想看三幅莫奈的户外油画,留意水面和光。": {
+  "schemaVersion": 1,
+  "currentFeeling": "未陈述情绪",
+  "desiredExperience": "以缓慢、连续的户外观看节奏，依次留意水面与光线的关系：先让视线落在水面的平静与反光，再体会光在水面与空气间的流动，最后停留在开阔的户外光感中，不急于收束情绪。",
+  "wantsRelief": false,
+  "pace": "slow",
+  "artworkCount": 3,
+  "stages": [
+   {
+    "label": "先停一会",
+    "role": "threshold",
+    "query": "outdoor landscape painting, calm water surface, soft daylight reflections, quiet open air, gentle horizontal rhythm, slow visual entry",
+    "signals": [
+     "quiet",
+     "restful",
+     "open"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.6,
+    "arousal": 0.25,
+    "tension": 0.15,
+    "wonder": 0.45,
+    "intimacy": 0.3
+   },
+   {
+    "label": "看水面光",
+    "role": "mirror",
+    "query": "outdoor oil painting, water surface catching light, shimmering reflections, luminous ripples, airy outdoor atmosphere, sustained attention on water and light",
+    "signals": [
+     "luminous",
+     "contemplation",
+     "wonder"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.65,
+    "arousal": 0.35,
+    "tension": 0.15,
+    "wonder": 0.6,
+    "intimacy": 0.35
+   },
+   {
+    "label": "望向远处",
+    "role": "afterglow",
+    "query": "open outdoor painting, distant water and sky, soft light spreading across the scene, expansive calm horizon, lingering outdoor light",
+    "signals": [
+     "wonder",
+     "open",
+     "calm"
+    ],
+    "transitionIntent": "return",
+    "valence": 0.65,
+    "arousal": 0.3,
+    "tension": 0.1,
+    "wonder": 0.6,
+    "intimacy": 0.3
+   }
+  ]
+ },
+ "今天有点兴奋,想看两幅花卉静物油画,颜色丰富一点,只聊花与瓶器的构图,不要劝我平静下来。": {
+  "schemaVersion": 1,
+  "currentFeeling": "用户陈述今天有点兴奋，想观看色彩丰富的花卉静物油画。",
+  "desiredExperience": "以轻快而稳定的节奏观看两幅花卉静物油画，重点欣赏花与瓶器的构图关系，让丰富的色彩和画面结构成为观看的主线，不把兴奋当作需要平复的状态。",
+  "wantsRelief": false,
+  "pace": "medium",
+  "artworkCount": 2,
+  "stages": [
+   {
+    "label": "先看花与瓶",
+    "role": "threshold",
+    "query": "richly colored floral still life oil painting, flowers in a vase, clear composition, lively but balanced visual rhythm, abundant hues",
+    "signals": [
+     "vivid",
+     "balanced",
+     "abundant"
+    ],
+    "transitionIntent": "hold",
+    "valence": 0.75,
+    "arousal": 0.6,
+    "tension": 0.25,
+    "wonder": 0.6,
+    "intimacy": 0.4
+   },
+   {
+    "label": "看瓶器轮廓",
+    "role": "mirror",
+    "query": "floral still life oil painting focusing on vase shape and silhouette, flowers arranged around vessel, colorful palette, structured composition",
+    "signals": [
+     "structured",
+     "colorful",
+     "contemplation"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.7,
+    "arousal": 0.5,
+    "tension": 0.3,
+    "wonder": 0.55,
+    "intimacy": 0.45
+   },
+   {
+    "label": "看花枝走向",
+    "role": "turn",
+    "query": "flower still life oil painting with visible stems and branches, directional arrangement in vase, rich color contrasts, compositional flow",
+    "signals": [
+     "flowing",
+     "vivid",
+     "wonder"
+    ],
+    "transitionIntent": "push",
+    "valence": 0.75,
+    "arousal": 0.55,
+    "tension": 0.3,
+    "wonder": 0.65,
+    "intimacy": 0.4
+   },
+   {
+    "label": "看色彩呼应",
+    "role": "release",
+    "query": "colorful floral still life oil painting, harmonious color echoes between blooms and vase, lively yet composed arrangement, rich saturation",
+    "signals": [
+     "joy",
+     "harmonious",
+     "vivid"
+    ],
+    "transitionIntent": "drift",
+    "valence": 0.8,
+    "arousal": 0.6,
+    "tension": 0.2,
+    "wonder": 0.6,
+    "intimacy": 0.45
+   },
+   {
+    "label": "停在花与瓶间",
+    "role": "afterglow",
+    "query": "floral still life oil painting, flowers and vase in quiet balance, rich colors settling into composition, lingering visual harmony",
+    "signals": [
+     "held",
+     "harmonious",
+     "wonder"
+    ],
+    "transitionIntent": "fade",
+    "valence": 0.75,
+    "arousal": 0.45,
+    "tension": 0.2,
+    "wonder": 0.6,
+    "intimacy": 0.5
+   }
+  ]
+ }
+}

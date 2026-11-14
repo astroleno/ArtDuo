@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { Threshold } from "@artduo/ui";
+import { ExperienceWaitingFrame, Threshold } from "@artduo/ui";
 import { beginExperienceTiming } from "../lib/experience-analytics";
 import { restoreExperienceEntryQuery } from "../lib/experience-navigation";
 
@@ -14,6 +14,7 @@ export function ExperienceEntryClient({ initialQuery = "" }: { initialQuery?: st
   const router = useRouter();
   const [entryQuery] = useState(() => restoreExperienceEntryQuery(initialQuery, typeof window === "undefined" ? undefined : window.location.href));
   const [busy, setBusy] = useState(false);
+  const [submitted, setSubmitted] = useState("");
   useEffect(() => {
     const restore = (event: PageTransitionEvent) => { if (event.persisted) setBusy(false); };
     window.addEventListener("pageshow", restore);
@@ -22,6 +23,7 @@ export function ExperienceEntryClient({ initialQuery = "" }: { initialQuery?: st
   const onSubmit = (query: string) => {
     if (busy) return;
     setBusy(true);
+    setSubmitted(query);
     beginExperienceTiming(query);
     // Back may reload this document instead of restoring its form state. Keep
     // the entry URL aligned with the submitted draft in either case.
@@ -36,5 +38,7 @@ export function ExperienceEntryClient({ initialQuery = "" }: { initialQuery?: st
   };
   return <div className={busy ? "experience-entry is-leaving" : "experience-entry"}>
     <Threshold busy={busy} formAction={ENTRY_ACTION} formFields={ENTRY_FIELDS} initialValue={entryQuery} onSubmit={onSubmit} />
+    {/* The same frame the loading route and the preface continue, so the hand-offs do not cut. */}
+    {busy ? <div className="experience-entry-waiting"><ExperienceWaitingFrame arriving query={submitted} tier="normal" returnHref="" /></div> : null}
   </div>;
 }

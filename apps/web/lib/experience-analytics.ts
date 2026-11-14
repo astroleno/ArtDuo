@@ -5,6 +5,7 @@ export type ExperienceTimingPhase =
   | "intent"
   | "semantic-model"
   | "semantic-retrieval"
+  | "stage-choice"
   | "retrieval"
   | "scene-match"
   | "snapshot-adapter"
@@ -59,6 +60,22 @@ export function beginExperienceTiming(query?: string): void {
   if (query && typeof sessionStorage !== "undefined") {
     try { sessionStorage.setItem(PENDING_NAVIGATION, JSON.stringify({ startedAt: performance.timeOrigin + performance.now(), query: query.normalize("NFKC").trim() })); } catch { /* Timing cannot block a submission. */ }
   }
+}
+
+/** The sentence this tab most recently submitted, for screens shown before the URL settles. */
+export function pendingExperienceQuery(): string | undefined {
+  try {
+    const raw = typeof sessionStorage === "undefined" ? null : sessionStorage.getItem(PENDING_NAVIGATION);
+    const query = raw ? (JSON.parse(raw) as { query?: unknown }).query : undefined;
+    return typeof query === "string" && query.length <= 1000 ? query : undefined;
+  } catch { return undefined; }
+}
+
+/** Time since this visitor pressed submit, so a wait shown on a later screen keeps one clock. */
+export function experienceWaitElapsedMs(): number {
+  if (typeof performance === "undefined") return 0;
+  const start = performance.getEntriesByName(SUBMIT_MARK, "mark").at(-1);
+  return start ? Math.max(0, performance.now() - start.startTime) : 0;
 }
 
 export function beginExperienceTimingIfMissing(): void {

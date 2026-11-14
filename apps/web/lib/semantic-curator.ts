@@ -12,13 +12,14 @@ import { runtimeDirectories } from "../../api/src/runtime/environment";
 import { fallbackCurationIntent, materializeCurationSelection, selectForCurationStages, type SemanticSelection, type StageAssignment } from "./semantic-selection";
 import type { WebReleaseCatalog } from "./release-catalog";
 import { recordExperienceTiming } from "./experience-analytics";
+import { requestStageRerank } from "./stage-rerank";
 
 export interface CurationRecord {
   schemaVersion: 1; recipeVersion: typeof CURATION_RECIPE_VERSION;
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -84,7 +85,7 @@ export async function curateExhibition(input: {
   catalog: WebReleaseCatalog; query: string; curationId?: string; rootDir?: string;
   /** Explicit test seams never change the production model identity. */
   stream?: ChatStream; intentModel?: string; encoder?: SemanticEncoder;
-  retrievalTimeoutMs?: number;
+  retrievalTimeoutMs?: number; stageChoiceTimeoutMs?: number;
 }): Promise<CuratedExhibition> {
   const { catalog } = input;
   const query = input.query.normalize("NFKC").trim();
@@ -95,7 +96,7 @@ export async function curateExhibition(input: {
   const stream = input.stream ?? (config && createCurationChatStream(config));
   const intentModel = input.intentModel ?? config?.model ?? "local-rules-v1";
   const indexChecksum = catalog.manifest.shards.semanticEmbeddings?.[0]?.checksum ?? "hash-only";
-  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion: 12, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum }));
+  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion: 13, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum }));
   const directory = curationDirectory(rootDir);
   const lookup = path.join(directory, `request-${key}.json`);
   if (existsSync(lookup)) {
@@ -135,8 +136,17 @@ export async function curateExhibition(input: {
       })(), input.retrievalTimeoutMs ?? 8_000);
     } catch { selection = selectForCurationStages({ catalog, query, plan }); degraded.push("semantic-unavailable"); }
     recordExperienceTiming("semantic-retrieval", performance.now() - retrievalStartedAt, catalog.releaseVersion);
+    if (stream && selection.stagePools && !degraded.includes("intent-unavailable")) {
+      // The model reads observed image facts to choose within each stage's admitted pool.
+      const choiceStartedAt = performance.now();
+      try {
+        const chosen = await requestStageRerank({ catalog, plan, assignments: selection.assignments, pools: selection.stagePools, stream, timeoutMs: input.stageChoiceTimeoutMs ?? 10_000 });
+        if (chosen) selection = materializeCurationSelection(catalog, query, plan, chosen, selection.search.model, selection.search.dimensions);
+      } catch { degraded.push("stage-choice-unavailable"); }
+      recordExperienceTiming("stage-choice", performance.now() - choiceStartedAt, catalog.releaseVersion);
+    }
     const record: CurationRecord = { schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion,
-      query, plan, selectionVersion: 12, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
+      query, plan, selectionVersion: 13, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
       intentModel: degraded.includes("intent-unavailable") ? "local-rules-v1" : intentModel, indexChecksum, degraded };
     const curationId = semanticFingerprint(JSON.stringify(record));
     mkdirSync(directory, { recursive: true });

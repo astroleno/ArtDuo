@@ -221,6 +221,10 @@
 .experience-art-lightbox .immersive-lightbox-trigger { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; padding: 0; }
 .experience-art-lightbox[data-aspect-ratio] .immersive-artwork-frame { display: block; width: 100%; height: 100%; max-width: 100%; min-width: 0; aspect-ratio: auto; overflow: hidden; padding: 0; border: 0; background: #ded6c9; box-shadow: none; }
 .experience-art-lightbox .immersive-preview-image { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
+/* A reused image keeps painting the previous work until the next one decodes.
+   In the walk the frame stays empty under the new label, then the work fades in. */
+.experience-art-lightbox .immersive-preview-image { transition: opacity .45s ease; }
+.experience-art-lightbox[data-image-state="loading"] .immersive-preview-image { opacity: 0; transition: none; }
 .experience-art-lightbox figcaption { display: none; }
 .experience-art-lightbox .immersive-enter-cue { opacity: 0; transition: opacity .18s ease; }
 .experience-art-lightbox:hover .immersive-enter-cue, .experience-art-lightbox:focus-within .immersive-enter-cue { opacity: 1; }
@@ -547,3 +551,45 @@
 .experience-reading-layer[data-image-layout="compact"] .experience-reading-artwork p { margin: 0; padding: 0; font-size: 12px; }
 .experience-reading-layer[data-image-layout="compact"] .experience-reading-artwork img { max-height: 80px; }
 .experience-reading-layer[data-image-layout="compact"] .experience-reading-body { grid-column: 1; grid-row: 3; }
+
+/* One waiting frame from submission to the preface text. It mirrors the preface
+   layout so every hand-off changes content in place instead of cutting. */
+.experience-entry.is-leaving { opacity: 1; pointer-events: none; }
+.experience-entry.is-leaving :is(.experience-threshold-content, .experience-entry-header, .experience-entry-theme) { opacity: 0; transition: opacity .36s ease; }
+.experience-entry-waiting { position: fixed; inset: 0; z-index: 20; }
+.experience-waiting {
+  min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: max(28px, env(safe-area-inset-top)) max(24px, 8vw) max(30px, env(safe-area-inset-bottom));
+  color: var(--experience-paper, #ece5d9); text-align: center; font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+  background: radial-gradient(ellipse at 50% 43%, #25211c 0%, #171512 38%, #100f0d 75%);
+}
+.experience-waiting.is-arriving { animation: experience-waiting-arrive .72s cubic-bezier(.2, .7, .2, 1) both; }
+/* The sentence settles in only after the entry form has faded, so the two never overlap. */
+.experience-waiting.is-arriving .experience-waiting-copy { animation: experience-waiting-arrive .5s .34s ease both; }
+.experience-waiting-copy { max-width: 58rem; }
+/* Holds the height of the preface's keepsake line so the sentence sits where the preface text will. */
+.experience-waiting-copy::after { content: ""; display: block; height: var(--experience-keepsake-space, 62px); }
+.experience-waiting-echo,
+.experience-preface h1.experience-waiting-echo { max-width: 26em; margin: 0 auto; color: #a99f90; font-size: clamp(1.45rem, 3vw, 2.25rem); font-weight: 400; line-height: 2; letter-spacing: .06em; overflow-wrap: anywhere; }
+.experience-waiting-line { position: relative; width: min(220px, 50vw); height: 48px; margin: 50px auto 0; }
+.experience-preface-actions .experience-waiting-line { margin: 0; }
+.experience-waiting-line::before { content: ""; position: absolute; inset: 50% 0 auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(182, 105, 79, .75), transparent); animation: experience-waiting-breathe 2.4s ease-in-out infinite alternate; }
+.experience-waiting-note { max-width: 34em; margin: 4px auto 0; color: #9d9486; font-size: 13px; line-height: 1.9; }
+.experience-waiting-note a { color: #d8cdbb; text-underline-offset: 4px; }
+.experience-preface-actions button.is-waiting { position: absolute; opacity: 0; pointer-events: none; }
+.experience-preface-text,
+.experience-preface-actions > button:first-child:not(.is-waiting) { animation: experience-text-arrive .7s ease both; }
+.experience-preface-backdrop { animation: experience-backdrop-arrive 1.2s ease both; }
+@keyframes experience-waiting-arrive { from { opacity: 0; } to { opacity: 1; } }
+@keyframes experience-waiting-breathe { from { opacity: .25; transform: scaleX(.6); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes experience-text-arrive { from { opacity: 0; } to { opacity: 1; } }
+@keyframes experience-backdrop-arrive { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 767px) {
+  .experience-waiting { padding-inline: 22px; }
+  .experience-waiting-line { margin-top: 30px; }
+  .experience-waiting-echo, .experience-preface h1.experience-waiting-echo { font-size: clamp(1.25rem, 5.3vw, 1.7rem); line-height: 1.9; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience-waiting.is-arriving, .experience-waiting.is-arriving .experience-waiting-copy, .experience-waiting-line::before, .experience-preface-text,
+  .experience-preface-actions > button:first-child, .experience-preface-backdrop { animation: none; }
+}

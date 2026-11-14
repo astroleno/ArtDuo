@@ -23,6 +23,8 @@ export interface SculptureRoomScene {
   normalUrl: string;
   light: "left" | "right" | "top";
   tone: "warm" | "neutral";
+  /** What the room's windows show; a city view does not suit a quiet stage. */
+  view?: "city" | "garden";
 }
 
 export type SculptureQuality = "compact" | "reference";

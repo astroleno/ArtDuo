@@ -161,7 +161,7 @@ export function snapshotForSession(base: ExhibitionSnapshot, session: Pick<Viewi
   // New chapter assignments are frozen to route positions. Re-ranking the
   // remaining works must not silently replace rooms that a visitor has seen.
   const matched = base.units.every(unit => unit.sceneMatch?.version === "chapter-wall-v3")
-    ? units : matchArtworkScenes(units, base.sceneCandidates ?? []);
+    ? units : matchArtworkScenes(units, base.sceneCandidates ?? [], base.curationId ? base.stages : []);
   return { ...base, routeOrder: [...session.order], units: matched.map((unit, index) => ({ ...unit, rationale: { text: connectionNote(matched[index - 1], unit), source: "grounded" } })) };
 }
 

@@ -106,3 +106,19 @@ test("scores explain material, lighting, shape and palette independently and rem
   assert.ok(Number.isFinite(painting.total));
   assert.deepEqual(matchArtworkScenes([unit], []), [unit]);
 });
+
+test("each chapter's room follows the tone its stage asks for", () => {
+  const toned = (id: string, families: string[], tone: ExperienceSceneCandidate["tone"]) => ({ ...room(id, families), tone });
+  const dim = toned("dim", ["neutral"], { brightness: .3, warmth: .35, view: "none" });
+  const daylight = toned("daylight", ["neutral"], { brightness: .82, warmth: .5, view: "none" });
+  const harbour = toned("harbour", ["neutral", "warm", "earth", "muted"], { brightness: .78, warmth: .65, view: "city" });
+  const stage = (id: string, valence: number, arousal: number, tension: number) => ({ id, valence, arousal, tension, wonder: .3, intimacy: .5 });
+  const units = (stageId: string) => ["a", "b"].map((id) => ({ ...work(`${stageId}-${id}`, ["warm", "earth"]), stageId }));
+  const quiet = [stage("low", .3, .15, .25)], bright = [stage("high", .9, .8, .15)];
+  assert.equal(matchArtworkScenes(units("low"), [daylight, dim, harbour], quiet)[0]!.scene!.id, "dim");
+  assert.equal(matchArtworkScenes(units("high"), [dim, daylight], bright)[0]!.scene!.id, "daylight");
+  // A warm palette would favour the harbour room; a still stage must not open onto a city.
+  assert.notEqual(matchArtworkScenes(units("low"), [harbour, daylight], quiet)[0]!.scene!.id, "harbour");
+  // Without stage targets the palette-only behaviour is unchanged.
+  assert.equal(matchArtworkScenes(units("low"), [daylight, harbour])[0]!.scene!.id, "harbour");
+});

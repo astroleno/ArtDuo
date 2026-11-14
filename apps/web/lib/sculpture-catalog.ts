@@ -64,8 +64,8 @@ export function getSculptureCollection(options: { rootDir?: string; mode?: "loca
     };
   });
   const scenes: SculptureRoomScene[] = [
-    { id: "bg-022", label: "临窗展厅", light: "right" as const, tone: "warm" as const },
-    { id: "bg-034", label: "柔光展厅", light: "top" as const, tone: "neutral" as const },
+    { id: "bg-022", label: "临窗展厅", light: "right" as const, tone: "warm" as const, view: "city" as const },
+    { id: "bg-034", label: "柔光展厅", light: "top" as const, tone: "neutral" as const, view: "garden" as const },
   ].map(room => ({ ...room, imageUrl: url(`/artduo-gallery/lighting/v2/${room.id}-1600.webp`), smallImageUrl: url(`/artduo-gallery/lighting/v2/${room.id}-960.webp`),
     depthUrl: url(`/artduo-gallery/lighting/v2/${room.id}-depth.png`), normalUrl: url(`/artduo-gallery/lighting/v2/${room.id}-normal.png`) }));
   return { works, scenes };

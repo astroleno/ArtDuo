@@ -1,14 +1,18 @@
 import { CURATION_RECIPE_VERSION, parseGrowthForm, type CurationIntentPlan, type GrowthForm, type SemanticIndex } from "@artduo/contracts";
 import { buildUserAffectAgent, embedText } from "@artduo/corpus";
 import { semanticFingerprint } from "@artduo/corpus/src/semantic-index";
-import { artworkAffectState, artworkHardConflict, buildAffectiveGrowthForm } from "./affective-negotiation";
+import { artworkHardConflict, buildAffectiveGrowthForm } from "./affective-negotiation";
+import { artworkOffering, stageFit } from "./artwork-offering";
+import { STAGE_RERANK_POOL_SIZE, type StageCandidate } from "./stage-rerank";
 import { isGalleryArtwork } from "./artwork-eligibility";
 import { selectBackgroundScene, type WebArtwork, type WebReleaseCatalog, type WebSearchResult } from "./release-catalog";
 import { hasIntenseContent, matchesViewingIntent, parseViewingIntent, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
 import { requestedArtworkCount } from "../../api/src/services/curation/intent-planner";
 
 export interface StageAssignment { artworkId: string; stageIndex: number; vectorScore: number; score: number; evidence: string[] }
-export interface SemanticSelection { search: WebSearchResult; growthForm: GrowthForm; assignments: StageAssignment[] }
+export interface SemanticSelection { search: WebSearchResult; growthForm: GrowthForm; assignments: StageAssignment[];
+  /** Fresh selections only: the strongest admitted works per stage, for an optional model choice. */
+  stagePools?: StageCandidate[][] }
 
 function exactName(artwork: WebArtwork, query: string): boolean {
   const normalized = query.trim().toLocaleLowerCase();
@@ -36,6 +40,12 @@ export function eligibleCurationArtworks(catalog: WebReleaseCatalog, query: stri
   const hardSignals = [...affect.resistances.map((signal) => signal.value), ...affect.visualConstraints.filter((item) => item.severity === "hard" && item.polarity === "avoid").map((item) => item.value)];
   return pool.filter((artwork) => isGalleryArtwork(artwork) && matchesViewingIntent(artwork, effective) && !artworkHardConflict(artwork, hardSignals));
 }
+// Stage queries are atmospheric English. "Breathing room" or "a lit window" names
+// a feeling of space or light, not a depicted interior or building.
+const FIGURATIVE_STAGE_WORDS = /\b(?:breathing|elbow|head)\s*room\b|\broom\s+(?:to|for)\s+\w+|\bwindows?\b/giu;
+export const stageSubjectText = (stageQuery: string): string => stageQuery.replace(FIGURATIVE_STAGE_WORDS, " ");
+const OPEN_STAGE = /\b(?:open|wide|expansive|distant)(?:\s+(?:open|wide|distant))*\s+(?:landscape|horizon|sky|view|vista)/iu;
+
 function quotasFor(count: number, stages: number): number[] {
   const quotas = Array.from({ length: stages }, () => 0);
   if (count < stages) {
@@ -46,6 +56,35 @@ function quotasFor(count: number, stages: number): number[] {
   }
   return quotas;
 }
+const AFFECT_WEIGHT = 0.22;
+
+/**
+ * Filling stages in order lets an early stage take the work another stage needs
+ * most. Swap selected works between stages while the total stage fit improves;
+ * the selected set, and therefore every diversity choice, stays unchanged.
+ */
+function improveStageAssignment(perStage: StageAssignment[][], ranked: Array<Array<{ artwork: WebArtwork; vectorScore: number; score: number; evidence: string[] }>>): void {
+  const scored = ranked.map((rows) => new Map(rows.map((row) => [row.artwork.id, row])));
+  const value = (stage: number, id: string) => scored[stage]!.get(id)?.score ?? -Infinity;
+  for (let round = 0, changed = true; changed && round < 20; round++) {
+    changed = false;
+    for (let a = 0; a < perStage.length; a++) for (let b = a + 1; b < perStage.length; b++) {
+      for (let i = 0; i < perStage[a]!.length; i++) for (let j = 0; j < perStage[b]!.length; j++) {
+        const left = perStage[a]![i]!.artworkId, right = perStage[b]![j]!.artworkId;
+        if (value(a, right) + value(b, left) <= value(a, left) + value(b, right) + 1e-9) continue;
+        const place = (stage: number, id: string): StageAssignment => {
+          const row = scored[stage]!.get(id)!;
+          return { artworkId: id, stageIndex: stage, vectorScore: row.vectorScore, score: row.score, evidence: row.evidence };
+        };
+        perStage[a]![i] = place(a, right);
+        perStage[b]![j] = place(b, left);
+        changed = true;
+      }
+    }
+  }
+  for (const stage of perStage) stage.sort((x, y) => y.score - x.score || x.artworkId.localeCompare(y.artworkId));
+}
+
 export function selectForCurationStages(input: {
   catalog: WebReleaseCatalog; query: string; plan: CurationIntentPlan;
   semantic?: { index: SemanticIndex; queries: number[][] };
@@ -63,15 +102,15 @@ export function selectForCurationStages(input: {
     && !intent.subjects.length && !intent.artists.length && !intent.media?.length && !intent.focuses?.length
     && !intent.artworkTitles?.length && !eligible.some(artwork => exactName(artwork, query));
   const ranked = plan.stages.map((stage, stageIndex) => {
-    const stageIntent = parseViewingIntent(stage.query);
-    const openStage = /\b(?:open|wide|expansive|distant)(?:\s+(?:open|wide|distant))*\s+(?:landscape|horizon|sky|view|vista)/iu.test(stage.query);
+    const openStage = OPEN_STAGE.test(stage.query);
+    const parsedStage = parseViewingIntent(stageSubjectText(stage.query));
+    // An open landscape stage cannot also ask for an enclosed room.
+    const stageIntent = openStage ? { ...parsedStage, subjects: parsedStage.subjects.filter(subject => subject !== "interior" && subject !== "architecture") } : parsedStage;
     return eligible.map((artwork) => {
     const vector = (input.semantic ? semanticRecords : hashRecords).get(artwork.id);
     if (!vector || vector.length !== dimensions) throw new TypeError("Missing artwork vector in the selected semantic space");
     const vectorScore = queries[stageIndex].reduce((sum, value, index) => sum + value * vector[index], 0);
-    const offered = artworkAffectState(artwork);
-    const affectFit = 1 - (Math.abs(offered.valence - stage.valence) + Math.abs(offered.arousal - stage.arousal) * 1.5
-      + Math.abs(offered.tension - stage.tension) * 1.5 + Math.abs(offered.wonder - stage.wonder) + Math.abs(offered.intimacy - stage.intimacy)) / 6;
+    const affectFit = stageFit(artworkOffering(artwork), stage);
     const tags = new Set([...artwork.moodTags, ...artwork.emotionLabels, ...artwork.colorTags].map((value) => value.toLowerCase()));
     const matched = stage.signals.filter((signal) => tags.has(signal));
     const evidence = viewingIntentEvidence(artwork, intent);
@@ -85,6 +124,7 @@ export function selectForCurationStages(input: {
     const subjectFit = !stageIntent.subjects.length ? 0 : stageIntent.alternativeSubjects
       ? Number(stageSubjects.length > 0) : stageSubjects.length / stageIntent.subjects.length;
     const openFit = openStage && artwork.visualEvidence?.spatialFraming === "open";
+    const enclosedConflict = openStage && (artwork.visualEvidence?.spatialFraming === "enclosed" || artwork.visualEvidence?.facts.interior === "present");
     const appearance = artwork.appearance;
     const brightFit = intent.bright && appearance
       ? .12 * (appearance.meanLightness - .45) + .025 * appearance.brightShare + .12 * appearance.chroma
@@ -94,10 +134,10 @@ export function selectForCurationStages(input: {
     const nightPenalty = intent.bright && !/夜|月|\b(?:night|nocturne|moon\w*)\b/iu.test(query)
       && /夜景|夜色|夜晚|\b(?:nocturne|night|moonlit)\b/iu.test([artwork.title, artwork.visualEvidence?.observation].join(" ")) ? .16 : 0;
     const heavyPenalty = casual && hasIntenseContent(artwork) ? .3 : 0;
-    const score = vectorScore * 0.78 + affectFit * 0.14 + Math.min(2, matched.length) * 0.04 + architectureFocus
+    const score = vectorScore * 0.78 + affectFit * AFFECT_WEIGHT + Math.min(2, matched.length) * 0.04 + architectureFocus - (enclosedConflict ? 0.12 : 0)
       + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + brightFit - nightPenalty - heavyPenalty + (exactName(artwork, query) ? 2 : 0);
     return { artwork, vectorScore, score, evidence: [...evidence, ...(architectureFocus ? ["focus:architecture"] : []), ...detailedFocus.map(focus => `focus:${focus.topic}`),
-      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
+      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
     }).sort((a, b) => b.score - a.score || a.artwork.id.localeCompare(b.artwork.id));
   });
   const quotas = quotasFor(Math.min(plan.artworkCount, eligible.length), plan.stages.length);
@@ -126,8 +166,14 @@ export function selectForCurationStages(input: {
       perStage[stageIndex].push({ artworkId: winner.artwork.id, stageIndex, vectorScore: winner.vectorScore, score: winner.score, evidence: winner.evidence });
     }
   }
+  improveStageAssignment(perStage, ranked);
   assignments.push(...perStage.flat());
-  return materializeCurationSelection(catalog, query, plan, assignments, input.semantic?.index.model.id ?? "local-hash-embedding-v1", dimensions);
+  const stagePools = ranked.map((rows, stageIndex) => {
+    const chosen = new Set(perStage[stageIndex]!.map((item) => item.artworkId));
+    const pool = [...rows.filter((row) => chosen.has(row.artwork.id)), ...rows.filter((row) => !chosen.has(row.artwork.id)).slice(0, STAGE_RERANK_POOL_SIZE)];
+    return pool.slice(0, Math.max(STAGE_RERANK_POOL_SIZE, chosen.size)).map((row) => ({ artworkId: row.artwork.id, score: row.score, vectorScore: row.vectorScore, evidence: row.evidence }));
+  });
+  return { ...materializeCurationSelection(catalog, query, plan, assignments, input.semantic?.index.model.id ?? "local-hash-embedding-v1", dimensions), stagePools };
 }
 
 export function materializeCurationSelection(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan, assignments: StageAssignment[], model: string, dimensions: number): SemanticSelection {

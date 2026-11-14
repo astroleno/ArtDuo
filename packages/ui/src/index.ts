@@ -21,6 +21,7 @@ export * from "./experience/layout";
 export * from "./experience/motion-policy";
 export * from "./experience/threshold";
 export * from "./experience/preface";
+export * from "./experience/waiting-frame";
 export * from "./experience/walk";
 export * from "./experience/room";
 export * from "./experience/closing";

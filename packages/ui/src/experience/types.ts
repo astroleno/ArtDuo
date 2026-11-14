@@ -70,6 +70,8 @@ export interface ExperienceSceneCandidate {
   /** Curated from the existing room photograph, not inferred from a visitor. */
   paletteFamilies: string[];
   lightDirection: "left" | "right" | "top";
+  /** Hand-tagged from the room photograph: overall light, colour temperature and what the windows show. */
+  tone?: { brightness: number; warmth: number; view: "none" | "garden" | "city" };
 }
 
 export interface SceneMatchScore {

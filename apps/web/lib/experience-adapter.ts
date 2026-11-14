@@ -111,13 +111,14 @@ export function buildExperienceSnapshot(input: {
   narrativeComplete?: boolean;
 }): ExhibitionSnapshot {
   const { catalog, search, narrative, query } = input;
-  const roomProfiles: Array<{ id: string; paletteFamilies: string[]; lightDirection: "left" | "right" | "top" }> = [
-    { id: "bg-004", paletteFamilies: ["warm", "earth", "muted"], lightDirection: "left" },
-    { id: "bg-012", paletteFamilies: ["neutral", "cool", "monochrome"], lightDirection: "top" },
-    { id: "bg-015", paletteFamilies: ["neutral", "luminous", "muted"], lightDirection: "top" },
-    { id: "bg-022", paletteFamilies: ["warm", "earth", "luminous"], lightDirection: "right" },
-    { id: "bg-027", paletteFamilies: ["cool", "neutral", "muted", "monochrome", "dark"], lightDirection: "top" },
-    { id: "bg-034", paletteFamilies: ["balanced", "contrast", "luminous", "neutral"], lightDirection: "top" },
+  // Tone is read from each room photograph: overall light, colour temperature and window view.
+  const roomProfiles: Array<Pick<ExperienceSceneCandidate, "paletteFamilies" | "lightDirection" | "tone"> & { id: string }> = [
+    { id: "bg-004", paletteFamilies: ["warm", "earth", "muted"], lightDirection: "left", tone: { brightness: .62, warmth: .75, view: "garden" } },
+    { id: "bg-012", paletteFamilies: ["neutral", "cool", "monochrome"], lightDirection: "top", tone: { brightness: .82, warmth: .45, view: "none" } },
+    { id: "bg-015", paletteFamilies: ["neutral", "luminous", "muted"], lightDirection: "top", tone: { brightness: .92, warmth: .4, view: "none" } },
+    { id: "bg-022", paletteFamilies: ["warm", "earth", "luminous"], lightDirection: "right", tone: { brightness: .78, warmth: .65, view: "city" } },
+    { id: "bg-027", paletteFamilies: ["cool", "neutral", "muted", "monochrome", "dark"], lightDirection: "top", tone: { brightness: .3, warmth: .3, view: "none" } },
+    { id: "bg-034", paletteFamilies: ["balanced", "contrast", "luminous", "neutral"], lightDirection: "top", tone: { brightness: .78, warmth: .55, view: "garden" } },
   ];
   const sceneCandidates: ExperienceSceneCandidate[] = roomProfiles.flatMap(({ id, ...profile }) => {
     const scene = catalog.backgroundSceneRecordById.get(id);
@@ -243,7 +244,7 @@ export function buildExperienceSnapshot(input: {
     preface: input.narrativePieces?.find((piece) => piece.kind === "preface") ?? preface,
     closing: input.narrativePieces?.find((piece) => piece.kind === "closing") ?? closing,
     stages: input.curationId ? stages.filter((stage) => units.some((unit) => unit.stageId === stage.id)) : stages,
-    units: matchArtworkScenes(input.curationId ? units : sequenceExhibition(units), sceneCandidates),
+    units: matchArtworkScenes(input.curationId ? units : sequenceExhibition(units), sceneCandidates, input.curationId ? stages : []),
     sceneCandidates,
     audioTracks: PUBLIC_AUDIO_TRACKS.map(track => publicStaticMediaUrl(`/ambient-audio/${encodeURIComponent(track)}`, catalog.releaseVersion)),
     omittedUnitCount,

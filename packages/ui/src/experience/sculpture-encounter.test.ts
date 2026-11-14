@@ -83,3 +83,23 @@ test("refresh restores the same absent, pending, active or completed decision wi
   assert.equal(restoreSculptureEncounter(JSON.stringify({ ...plan, exhibitionId: "another" }), snapshot, works, scenes), undefined);
   assert.equal(restoreSculptureEncounter("broken", snapshot, works, scenes), undefined);
 });
+
+test("the encounter follows the planned stages: none in a still visit, at the turn, and never toward a city in a quiet stage", () => {
+  const stage = (id: string, role: string, arousal: number) => ({ id, role, label: id, valence: .5, arousal, tension: .2, wonder: .4, intimacy: .5, intensity: .3, transitionIntent: "fade" });
+  const staged = (stageIds: string[], stages: ReturnType<typeof stage>[]) => ({ ...snapshot,
+    units: snapshot.units.map((unit, index) => ({ ...unit, stageId: stageIds[index]! })), stages }) as unknown as ExhibitionSnapshot;
+  const rooms = [{ id: "harbour", tone: "warm", light: "right", view: "city" }, { id: "soft", tone: "neutral", light: "top" }] as SculptureRoomScene[];
+
+  const still = staged(["s1", "s1", "s2", "s2", "s3", "s3"], [stage("s1", "threshold", .15), stage("s2", "turn", .2), stage("s3", "afterglow", .18)]);
+  assert.equal(planSculptureEncounter(still, works, rooms, { roll: 0, selection: 0 }).status, "absent", "a fully still visit is not interrupted");
+
+  const turning = staged(["s1", "s1", "s2", "s3", "s3", "s4"], [stage("s1", "threshold", .2), stage("s2", "mirror", .3), stage("s3", "turn", .55), stage("s4", "afterglow", .3)]);
+  const atTurn = planSculptureEncounter(turning, works, rooms, { roll: 0, selection: 0 });
+  assert.equal(atTurn.status, "pending");
+  assert.deepEqual([atTurn.anchorArtworkId, atTurn.nextArtworkId], ["c", "d"], "the side hall opens where the route turns");
+
+  const quietTurn = staged(["s1", "s2", "s2", "s3", "s3", "s4"], [stage("s1", "threshold", .2), stage("s2", "mirror", .3), stage("s3", "turn", .35), stage("s4", "afterglow", .3)]);
+  const anchorUnit = { ...quietTurn.units[2]!, sceneMatch: { lightDirection: "right" } };
+  const quiet = { ...quietTurn, units: quietTurn.units.map((unit, index) => index === 2 ? anchorUnit : unit) } as ExhibitionSnapshot;
+  assert.equal(planSculptureEncounter(quiet, works, rooms, { roll: 0, selection: 0 }).roomId, "soft", "a quiet stage does not open onto the harbour city");
+});

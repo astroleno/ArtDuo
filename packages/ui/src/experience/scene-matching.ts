@@ -1,4 +1,6 @@
-import type { ExperienceSceneCandidate, ExperienceUnit, SceneMatchScore } from "./types";
+import type { ExperienceSceneCandidate, ExperienceStage, ExperienceUnit, SceneMatchScore } from "./types";
+
+export type StageTone = Pick<ExperienceStage, "id" | "valence" | "arousal" | "tension" | "wonder" | "intimacy">;
 
 const normalize = (value: string) => value.toLowerCase().replace(/[_-]+/g, " ").trim();
 const round = (value: number) => Math.round(value * 100) / 100;
@@ -81,8 +83,23 @@ export function exhibitionChapters(units: ExperienceUnit[]): Array<{ start: numb
 // colors. Retain geometry, light and calmness while tempering broad color tags.
 const roomFit = (score: SceneMatchScore) => score.total - score.palette * 0.55;
 
+/**
+ * How well a room's own light suits what the stage asks the works to offer.
+ * Quiet, heavy stages sit in dimmer rooms; a still stage never opens onto a city.
+ */
+export function stageRoomFit(candidate: ExperienceSceneCandidate, stage: StageTone | undefined): number {
+  if (!stage || !candidate.tone) return 0;
+  const clamp = (value: number) => Math.max(0, Math.min(1, value));
+  const brightness = clamp(.15 + .6 * stage.valence + .3 * stage.arousal - .2 * stage.tension);
+  const warmth = clamp(.3 + .5 * stage.intimacy);
+  const light = 24 * (1 - Math.min(1, Math.abs(candidate.tone.brightness - brightness) / .4));
+  const temperature = 6 * (1 - Math.min(1, Math.abs(candidate.tone.warmth - warmth) / .4));
+  const busyView = candidate.tone.view === "city" && stage.arousal < .45 ? 30 : 0;
+  return light + temperature - busyView;
+}
+
 /** Choose at chapter entrances only. Later reordering cannot change a viewed room. */
-export function matchArtworkScenes(units: ExperienceUnit[], candidates: ExperienceSceneCandidate[]): ExperienceUnit[] {
+export function matchArtworkScenes(units: ExperienceUnit[], candidates: ExperienceSceneCandidate[], stages: StageTone[] = []): ExperienceUnit[] {
   if (!candidates.length) return units;
   const chapters = exhibitionChapters(units);
   if (new Set(candidates.map(candidate => candidate.scene.id)).size < chapters.length) {
@@ -93,8 +110,10 @@ export function matchArtworkScenes(units: ExperienceUnit[], candidates: Experien
   let previousSceneId: string | undefined;
   for (const [chapterIndex, chapter] of chapters.entries()) {
     const anchor = units[chapter.start]!;
+    const stage = stages.find((item) => item.id === anchor.stageId);
+    const tone = new Map(candidates.map((candidate) => [candidate.scene.id, stageRoomFit(candidate, stage)]));
     const entranceScores = candidates.filter(candidate => !used.has(candidate.scene.id)).map((candidate) => scoreArtworkScene(anchor, candidate))
-      .sort((a, b) => roomFit(b) - roomFit(a) || a.sceneId.localeCompare(b.sceneId));
+      .sort((a, b) => roomFit(b) + tone.get(b.sceneId)! - roomFit(a) - tone.get(a.sceneId)! || a.sceneId.localeCompare(b.sceneId));
     const selected = entranceScores[0]!;
     const candidate = candidates.find((item) => item.scene.id === selected.sceneId)!;
     const reason = chapterIndex === 0 ? "opening" : selected.sceneId === previousSceneId ? "only-suitable-room" : "chapter-change";
