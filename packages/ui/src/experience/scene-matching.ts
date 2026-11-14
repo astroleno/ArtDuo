@@ -83,6 +83,8 @@ export function exhibitionChapters(units: ExperienceUnit[]): Array<{ start: numb
 // colors. Retain geometry, light and calmness while tempering broad color tags.
 const roomFit = (score: SceneMatchScore) => score.total - score.palette * 0.55;
 
+const CITY_VIEW_MIN_AROUSAL = .45;
+
 /**
  * How well a room's own light suits what the stage asks the works to offer.
  * Quiet, heavy stages sit in dimmer rooms; a still stage never opens onto a city.
@@ -94,7 +96,7 @@ export function stageRoomFit(candidate: ExperienceSceneCandidate, stage: StageTo
   const warmth = clamp(.3 + .5 * stage.intimacy);
   const light = 24 * (1 - Math.min(1, Math.abs(candidate.tone.brightness - brightness) / .4));
   const temperature = 6 * (1 - Math.min(1, Math.abs(candidate.tone.warmth - warmth) / .4));
-  const busyView = candidate.tone.view === "city" && stage.arousal < .45 ? 30 : 0;
+  const busyView = candidate.tone.view === "city" && stage.arousal < CITY_VIEW_MIN_AROUSAL ? 30 : 0;
   return light + temperature - busyView;
 }
 
@@ -112,7 +114,10 @@ export function matchArtworkScenes(units: ExperienceUnit[], candidates: Experien
     const anchor = units[chapter.start]!;
     const stage = stages.find((item) => item.id === anchor.stageId);
     const tone = new Map(candidates.map((candidate) => [candidate.scene.id, stageRoomFit(candidate, stage)]));
-    const entranceScores = candidates.filter(candidate => !used.has(candidate.scene.id)).map((candidate) => scoreArtworkScene(anchor, candidate))
+    const free = candidates.filter(candidate => !used.has(candidate.scene.id));
+    // A still stage never opens onto the city while any other room is free.
+    const calm = free.filter(candidate => !(stage && stage.arousal < CITY_VIEW_MIN_AROUSAL && candidate.tone?.view === "city"));
+    const entranceScores = (calm.length ? calm : free).map((candidate) => scoreArtworkScene(anchor, candidate))
       .sort((a, b) => roomFit(b) + tone.get(b.sceneId)! - roomFit(a) - tone.get(a.sceneId)! || a.sceneId.localeCompare(b.sceneId));
     const selected = entranceScores[0]!;
     const candidate = candidates.find((item) => item.scene.id === selected.sceneId)!;

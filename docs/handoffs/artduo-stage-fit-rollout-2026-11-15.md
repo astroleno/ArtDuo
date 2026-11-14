@@ -2,9 +2,11 @@
 
 执行方：Codex（通过 Ego Lite 操作腾讯云服务器）。监工：Claude（artduo 会话）逐项核对本文第 6 节的证据后才算完成。
 
+**执行通道（2026-11-15 更新）**：Codex 本机的腾讯与 GitHub SSH 均被拦截（见 `docs/verification/artduo-stage-fit-release-preparation-2026-11-14.md`）。改为在 Ego Lite 中登录腾讯云控制台，用实例的网页终端执行；源码用该终端从 GitHub 拉取，拉取失败时沿用 10/29 的“带 SHA-256 冻结源码包”方案。不要为此在本机放开 SSH 或保存任何凭据。
+
 ## 1. 发布范围
 
-- 应用提交：`3fc6a44f617a5ba757f6e460116be2ab322d51dd`（分支 `codex/artduo-v2-vector-smoke`，已推送）。只发布该提交；工作区里未提交的 README、`graphify-out`、历史资料和数据不纳入。
+- 应用提交：以本文所在分支 `codex/artduo-v2-vector-smoke` 上**包含本行的最新提交**为准（2026-11-15 起不再是 `3fc6a44`），发布前在证据中记录完整 SHA。相对 `3fc6a44` 的追加：安静阶段在有其他展厅时不进入城市景观展厅（硬排除）；评测超时与线上一致；作品情绪读解数据与缺口报告（只用于离线统计，不影响线上选画）。Codex 11/14 复核的 27 个文件哈希已与 `3fc6a44` 逐一核对一致。只发布该提交；工作区里未提交的 README、`graphify-out`、历史资料和数据不纳入。
 - 建议 release 名：`20261115-stage-fit`。
 - 改动摘要：选画版本升到 13（已保存的展览作品不变，房间会按新规则重新匹配）；新策展在选画后多一次 `deepseek-flash` 调用，10 秒超时，失败退回规则选画并记 `stage-choice-unavailable`；等待画面从提交到前言连续；雕塑侧厅和房间按阶段选择；换画加载中不再显示上一幅。
 

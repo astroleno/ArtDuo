@@ -122,3 +122,15 @@ test("each chapter's room follows the tone its stage asks for", () => {
   // Without stage targets the palette-only behaviour is unchanged.
   assert.equal(matchArtworkScenes(units("low"), [daylight, harbour])[0]!.scene!.id, "harbour");
 });
+
+test("a quiet stage never opens onto the city while another room is free, however strongly the palette favours it", () => {
+  const toned = (id: string, families: string[], tone: ExperienceSceneCandidate["tone"]) => ({ ...room(id, families), tone });
+  // The harbour room matches every palette family; the dim room matches none.
+  const harbour = toned("harbour", ["warm", "earth", "muted", "luminous", "neutral"], { brightness: .3, warmth: .35, view: "city" });
+  const dim = toned("dim", ["cool"], { brightness: .95, warmth: .9, view: "none" });
+  const quiet = [{ id: "low", valence: .3, arousal: .15, tension: .25, wonder: .3, intimacy: .5 }];
+  const units = ["a", "b"].map((id) => ({ ...work(id, ["warm", "earth", "muted"]), stageId: "low" }));
+  assert.equal(matchArtworkScenes(units, [harbour, dim], quiet)[0]!.scene!.id, "dim");
+  // When the city room is the only one left, the exhibition still gets a room.
+  assert.equal(matchArtworkScenes(units, [harbour], quiet)[0]!.scene!.id, "harbour");
+});

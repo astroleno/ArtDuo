@@ -98,7 +98,7 @@ async function main(): Promise<void> {
       const started = Date.now();
       for (let attempt = 1; attempt <= 3; attempt++) {
         try {
-          assignments = await requestStageRerank({ catalog, plan, assignments, pools: selection.stagePools, stream: createCurationChatStream({ ...config, rootDir: undefined }) }) ?? assignments;
+          assignments = await requestStageRerank({ catalog, plan, assignments, pools: selection.stagePools, stream: createCurationChatStream({ ...config, rootDir: undefined }), timeoutMs: 10_000 }) ?? assignments;
           break;
         } catch { await new Promise((resolve) => setTimeout(resolve, attempt * 3000)); }
       }
