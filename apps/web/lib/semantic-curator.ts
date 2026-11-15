@@ -1,5 +1,5 @@
 // Server-only orchestration: intent is completed before any artwork is selected.
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { CURATION_RECIPE_VERSION, parseCurationIntentPlan, type CurationIntentPlan } from "@artduo/contracts";
 import { createLocalSemanticEncoder, type SemanticEncoder } from "@artduo/corpus/src/local-semantic-provider";
@@ -19,7 +19,7 @@ export interface CurationRecord {
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -27,6 +27,29 @@ export interface CurationRecord {
 export interface CuratedExhibition extends SemanticSelection { curationId: string; record: CurationRecord }
 export const curationRoot = (catalog: WebReleaseCatalog): string => path.resolve(catalog.releaseDir, "../../..");
 export const curationDirectory = (rootDir: string): string => runtimeDirectories(rootDir).curations;
+
+const RECENT_EXHIBITIONS = 40;
+const RECENT_SCAN_LIMIT = 5_000;
+
+/** Counts how often each work appeared in the newest saved exhibitions of one release. */
+export function recentArtworkExposure(rootDir: string, releaseVersion: string, limit = RECENT_EXHIBITIONS): Map<string, number> {
+  const exposure = new Map<string, number>();
+  try {
+    const directory = curationDirectory(rootDir);
+    const files = readdirSync(directory).filter((name) => /^[a-f0-9]{64}\.json$/u.test(name)).slice(0, RECENT_SCAN_LIMIT)
+      .map((name) => ({ file: path.join(directory, name), at: statSync(path.join(directory, name)).mtimeMs }))
+      .sort((a, b) => b.at - a.at);
+    let counted = 0;
+    for (const { file } of files) {
+      if (counted >= limit) break;
+      const record = JSON.parse(readFileSync(file, "utf8")) as { releaseVersion?: unknown; assignments?: Array<{ artworkId?: unknown }> };
+      if (record.releaseVersion !== releaseVersion || !Array.isArray(record.assignments)) continue;
+      counted++;
+      for (const { artworkId } of record.assignments) if (typeof artworkId === "string") exposure.set(artworkId, (exposure.get(artworkId) ?? 0) + 1);
+    }
+  } catch { /* Rotation is a preference; unreadable history means no rotation. */ }
+  return exposure;
+}
 // Instrumentation and page bundles have separate module caches. Share the
 // native session process-wide, while keeping each project's data isolated.
 const processRuntime = globalThis as typeof globalThis & {
@@ -96,7 +119,7 @@ export async function curateExhibition(input: {
   const stream = input.stream ?? (config && createCurationChatStream(config));
   const intentModel = input.intentModel ?? config?.model ?? "local-rules-v1";
   const indexChecksum = catalog.manifest.shards.semanticEmbeddings?.[0]?.checksum ?? "hash-only";
-  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion: 13, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum }));
+  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion: 14, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum }));
   const directory = curationDirectory(rootDir);
   const lookup = path.join(directory, `request-${key}.json`);
   if (existsSync(lookup)) {
@@ -122,6 +145,7 @@ export async function curateExhibition(input: {
     } catch { plan = fallbackCurationIntent(catalog, query); degraded.push("intent-unavailable"); }
     recordExperienceTiming("intent", performance.now() - intentStartedAt, catalog.releaseVersion);
     const retrievalStartedAt = performance.now();
+    const recentExposure = recentArtworkExposure(rootDir, catalog.releaseVersion);
     let selection: SemanticSelection;
     try {
       selection = await withinRetrievalDeadline((async () => {
@@ -132,9 +156,9 @@ export async function curateExhibition(input: {
       if (warmed && !await warmed) throw new Error("Semantic model could not be prepared");
       if (!sameSemanticSpace(index.model, encoder.model)) throw new TypeError("Query and document encoders must share one semantic identity");
       const queries = await encoder.embedQueries(plan.stages.map((stage) => stage.query));
-      return selectForCurationStages({ catalog, query, plan, semantic: { index, queries } });
+      return selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, recentExposure });
       })(), input.retrievalTimeoutMs ?? 8_000);
-    } catch { selection = selectForCurationStages({ catalog, query, plan }); degraded.push("semantic-unavailable"); }
+    } catch { selection = selectForCurationStages({ catalog, query, plan, recentExposure }); degraded.push("semantic-unavailable"); }
     recordExperienceTiming("semantic-retrieval", performance.now() - retrievalStartedAt, catalog.releaseVersion);
     if (stream && selection.stagePools && !degraded.includes("intent-unavailable")) {
       // The model reads observed image facts to choose within each stage's admitted pool.
@@ -146,7 +170,7 @@ export async function curateExhibition(input: {
       recordExperienceTiming("stage-choice", performance.now() - choiceStartedAt, catalog.releaseVersion);
     }
     const record: CurationRecord = { schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion,
-      query, plan, selectionVersion: 13, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
+      query, plan, selectionVersion: 14, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
       intentModel: degraded.includes("intent-unavailable") ? "local-rules-v1" : intentModel, indexChecksum, degraded };
     const curationId = semanticFingerprint(JSON.stringify(record));
     mkdirSync(directory, { recursive: true });

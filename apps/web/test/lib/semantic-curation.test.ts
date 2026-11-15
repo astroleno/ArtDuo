@@ -282,3 +282,45 @@ test("a valid model stage choice is saved, and a failed one keeps the determinis
     assert.ok(kept.assignments.length > 0 && kept.assignments.every((item) => !item.evidence.includes("model:stage-fit")));
   } finally { rmSync(temporary, { recursive: true, force: true }); }
 });
+
+test("works shown in many recent exhibitions yield to an equally fitting fresh one, unless the visitor names them", () => {
+  const base = catalog.artworks[0];
+  const plain = { ...base, medium: "Oil on canvas", visualEvidence: undefined, appearance: undefined, moodTags: ["quiet"], emotionLabels: [], colorTags: [] };
+  const familiar = { ...plain, id: "familiar", title: "Water Lilies", artistDisplayName: "Claude Monet" };
+  const fresh = { ...plain, id: "fresh", title: "Pond", artistDisplayName: "Someone Else" };
+  const works = [familiar, fresh];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(a => [a.id, a])) };
+  const plan = { ...fallbackCurationIntent(fixture, "想看一幅安静的画"), artworkCount: 1 };
+  const vector = (id: string) => id === "familiar" ? [1, 0] : [.995, Math.sqrt(1 - .995 ** 2)];
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture", model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 },
+    records: works.map(a => ({ artworkId: a.id, textFingerprint: "fixture", vector: vector(a.id) })) }, queries: plan.stages.map(() => [1, 0]) };
+  const recentExposure = new Map([["familiar", 4]]);
+  assert.equal(selectForCurationStages({ catalog: fixture, query: "想看一幅安静的画", plan, semantic }).assignments[0]!.artworkId, "familiar");
+  const rotated = selectForCurationStages({ catalog: fixture, query: "想看一幅安静的画", plan, semantic, recentExposure });
+  assert.equal(rotated.assignments[0]!.artworkId, "fresh");
+  assert.equal(selectForCurationStages({ catalog: fixture, query: "想看莫奈的Water Lilies", plan, semantic, recentExposure }).assignments[0]!.artworkId, "familiar", "a named work is never rotated away");
+});
+
+test("recent exposure is read from the newest saved exhibitions of the same release only", async () => {
+  const { recentArtworkExposure } = await import("../../lib/semantic-curator");
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-recent-"));
+  try {
+    const { writeFileSync, mkdirSync, utimesSync } = await import("node:fs");
+    const { curationDirectory } = await import("../../lib/semantic-curator");
+    const directory = curationDirectory(temporary);
+    mkdirSync(directory, { recursive: true });
+    const save = (name: string, release: string, ids: string[], age: number) => {
+      const file = path.join(directory, `${name}.json`);
+      writeFileSync(file, JSON.stringify({ releaseVersion: release, assignments: ids.map(artworkId => ({ artworkId })) }));
+      const at = new Date(Date.now() - age * 1000); utimesSync(file, at, at);
+    };
+    save("a".repeat(64), "r1", ["x", "y"], 30);
+    save("b".repeat(64), "r1", ["x"], 20);
+    save("c".repeat(64), "r2", ["x"], 10);
+    save("d".repeat(64), "r1", ["z"], 400);
+    writeFileSync(path.join(directory, `request-${"e".repeat(64)}.json`), JSON.stringify("a".repeat(64)));
+    const exposure = recentArtworkExposure(temporary, "r1", 2);
+    assert.deepEqual(Object.fromEntries(exposure), { x: 2, y: 1 });
+    assert.equal(recentArtworkExposure(path.join(temporary, "missing"), "r1").size, 0);
+  } finally { rmSync(temporary, { recursive: true, force: true }); }
+});

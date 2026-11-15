@@ -8,6 +8,8 @@ import { GlassButtonEffects } from "../components/glass-button-effects";
 export const metadata: Metadata = {
   title: "ArtDuo",
   description: "情绪驱动的艺术观展路线。",
+  // The galleries are composed in dark rooms; an inverting extension turns them into negatives.
+  other: { "darkreader-lock": "true" },
 };
 
 export default function RootLayout({

@@ -15,6 +15,7 @@
   min-height: 100svh;
   background: var(--experience-ink);
   isolation: isolate;
+  color-scheme: dark;
 }
 
 .experience-entry { min-height: 100dvh; transition: opacity .16s ease; }

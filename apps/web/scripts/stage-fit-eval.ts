@@ -19,6 +19,8 @@ const judgeEnabled = !process.argv.includes("--no-judge");
 // A different model from the curation planner, so selection is not graded by itself.
 const JUDGE_MODEL = process.argv.find((arg) => arg.startsWith("--judge="))?.slice(8) ?? "deepseek-v4-pro";
 const rerankEnabled = process.argv.includes("--rerank");
+// Replays plans in order as successive visitors, so earlier exhibitions count as recent exposure.
+const recentEnabled = process.argv.includes("--recent");
 const outDir = path.join(rootDir, ".cache", "stage-fit-eval");
 const judgeCachePath = path.join(outDir, "judge-cache.json");
 
@@ -91,7 +93,9 @@ async function main(): Promise<void> {
   for (const [query, rawPlan] of Object.entries(plans)) {
     const plan = parseCurationIntentPlan(rawPlan);
     const queries = await encoder.embedQueries(plan.stages.map((stage) => stage.query));
-    const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries } });
+    const recentExposure = new Map<string, number>();
+    if (recentEnabled) for (const earlier of results.slice(-40)) for (const work of earlier.works) recentExposure.set(work.artworkId, (recentExposure.get(work.artworkId) ?? 0) + 1);
+    const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, recentExposure });
     let assignments = selection.assignments;
     if (rerankEnabled && selection.stagePools) {
       const config = readCurationChatConfig(rootDir)!;

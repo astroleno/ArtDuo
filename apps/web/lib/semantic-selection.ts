@@ -57,6 +57,8 @@ function quotasFor(count: number, stages: number): number[] {
   return quotas;
 }
 const AFFECT_WEIGHT = 0.22;
+const RECENT_PENALTY_STEP = 0.01;
+const RECENT_PENALTY_CAP = 0.04;
 
 /**
  * Filling stages in order lets an early stage take the work another stage needs
@@ -88,6 +90,8 @@ function improveStageAssignment(perStage: StageAssignment[][], ranked: Array<Arr
 export function selectForCurationStages(input: {
   catalog: WebReleaseCatalog; query: string; plan: CurationIntentPlan;
   semantic?: { index: SemanticIndex; queries: number[][] };
+  /** How many recent exhibitions showed each work; fresh but equally fitting works come first. */
+  recentExposure?: ReadonlyMap<string, number>;
 }): SemanticSelection {
   const { catalog, query, plan } = input;
   const eligible = eligibleCurationArtworks(catalog, query, plan);
@@ -134,10 +138,14 @@ export function selectForCurationStages(input: {
     const nightPenalty = intent.bright && !/夜|月|\b(?:night|nocturne|moon\w*)\b/iu.test(query)
       && /夜景|夜色|夜晚|\b(?:nocturne|night|moonlit)\b/iu.test([artwork.title, artwork.visualEvidence?.observation].join(" ")) ? .16 : 0;
     const heavyPenalty = casual && hasIntenseContent(artwork) ? .3 : 0;
+    // Rotate among equally fitting works across visitors; never away from a named work or artist.
+    const named = exactName(artwork, query) || intent.artists.length > 0 || Boolean(intent.artworkTitles?.length);
+    const shown = named ? 0 : input.recentExposure?.get(artwork.id) ?? 0;
+    const exposurePenalty = Math.min(RECENT_PENALTY_CAP, shown * RECENT_PENALTY_STEP);
     const score = vectorScore * 0.78 + affectFit * AFFECT_WEIGHT + Math.min(2, matched.length) * 0.04 + architectureFocus - (enclosedConflict ? 0.12 : 0)
-      + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + brightFit - nightPenalty - heavyPenalty + (exactName(artwork, query) ? 2 : 0);
+      + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + brightFit - nightPenalty - heavyPenalty - exposurePenalty + (exactName(artwork, query) ? 2 : 0);
     return { artwork, vectorScore, score, evidence: [...evidence, ...(architectureFocus ? ["focus:architecture"] : []), ...detailedFocus.map(focus => `focus:${focus.topic}`),
-      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
+      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...(exposurePenalty ? [`recent:${shown}`] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
     }).sort((a, b) => b.score - a.score || a.artwork.id.localeCompare(b.artwork.id));
   });
   const quotas = quotasFor(Math.min(plan.artworkCount, eligible.length), plan.stages.length);
