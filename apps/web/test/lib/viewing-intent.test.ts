@@ -302,3 +302,15 @@ test("Chinese mountain views cannot silently select unrelated ink subjects", () 
   const mountain = without({ ...artwork("A Mountain View"), medium: "Ink on paper" }, ["people", "boats"]);
   assert.equal(matchesViewingIntent(mountain, intent), true);
 });
+
+test("where the visitor is stuck is context, not a subject they asked to see", () => {
+  for (const [query, wanted] of [
+    ["最近总在小房间里加班，想看看开阔的远方和天空", []],
+    ["在房间里待太久了，想看海", ["sea"]],
+    ["整天困在办公室里，想看点花", ["flowers"]],
+    ["I've been stuck in my room all week, show me the sea", ["sea"]],
+  ] as const) assert.deepEqual(parseViewingIntent(query).subjects, wanted, query);
+  // A wish to see the place itself still counts.
+  assert.deepEqual(parseViewingIntent("想看几幅安静的室内画").subjects, ["interior"]);
+  assert.deepEqual(parseViewingIntent("想看人在房间里读书的画").subjects.includes("interior"), true);
+});

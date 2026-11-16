@@ -93,6 +93,8 @@ function intentClauses(query: string): string[] {
 }
 const titleKey = (value: string) => value.normalize("NFKC").toLowerCase().replace(/[\p{P}\p{Z}\s]/gu, "");
 
+const SITUATION = /(?:在|待在|呆在|困在|关在|坐在|窝在|闷在)[^，。；,;]{0,12}(?:里|中|内)|加班|上班|通勤|\b(?:stuck|trapped|cooped up|sitting|working)\s+(?:in|at)\b|\bbeen in\b/iu;
+
 export function parseViewingIntent(query: string, catalogArtists: readonly string[] = []): ViewingIntent {
   const subjects = new Set<Subject>();
   const excluded = new Set<Subject>();
@@ -111,7 +113,10 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
   });
   const clauses = intentClauses(subjectQuery);
   for (const clause of clauses) {
-    const contextOnly = /新闻|害怕|担心|\b(?:news|afraid|scared|saw|anxious)\b/iu.test(clause) && !/想看|希望看|给我|要看|\b(?:show|want|looking for)\b/iu.test(clause);
+    const wish = /想看|希望看|给我|要看|看看|看点|\b(?:show|want|looking for|see)\b/iu.test(clause);
+    // Where the visitor is stuck ("在小房间里加班") describes their day, not what they want to see.
+    const situated = SITUATION.test(clause);
+    const contextOnly = (/新闻|害怕|担心|\b(?:news|afraid|scared|saw|anxious)\b/iu.test(clause) || situated) && !wish;
     for (const [key, pattern] of Object.entries(SUBJECTS)) {
       for (const match of clause.matchAll(new RegExp(pattern.source, "giu"))) {
         if (isNegated(clause, match.index)) excluded.add(key as Subject);

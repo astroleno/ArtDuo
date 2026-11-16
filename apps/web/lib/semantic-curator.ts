@@ -19,7 +19,7 @@ export interface CurationRecord {
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -119,7 +119,7 @@ export async function curateExhibition(input: {
   const stream = input.stream ?? (config && createCurationChatStream(config));
   const intentModel = input.intentModel ?? config?.model ?? "local-rules-v1";
   const indexChecksum = catalog.manifest.shards.semanticEmbeddings?.[0]?.checksum ?? "hash-only";
-  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion: 14, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum }));
+  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion: 15, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum }));
   const directory = curationDirectory(rootDir);
   const lookup = path.join(directory, `request-${key}.json`);
   if (existsSync(lookup)) {
@@ -170,7 +170,7 @@ export async function curateExhibition(input: {
       recordExperienceTiming("stage-choice", performance.now() - choiceStartedAt, catalog.releaseVersion);
     }
     const record: CurationRecord = { schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion,
-      query, plan, selectionVersion: 14, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
+      query, plan, selectionVersion: 15, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
       intentModel: degraded.includes("intent-unavailable") ? "local-rules-v1" : intentModel, indexChecksum, degraded };
     const curationId = semanticFingerprint(JSON.stringify(record));
     mkdirSync(directory, { recursive: true });
