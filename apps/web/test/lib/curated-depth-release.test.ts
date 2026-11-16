@@ -14,8 +14,7 @@ const removed = new Set(["met-337674", "met-438105", "met-472301", "met-50897", 
 const read = (file: string) => JSON.parse(readFileSync(path.join(current.releaseDir, file), "utf8"));
 const hash = (file: string) => createHash("sha256").update(readFileSync(file)).digest("hex");
 
-test("the active library completely removes the nine artworks and uses DA3 for all 630 exhibit candidates", () => {
-  assert.equal(loadWebReleaseCatalog({ rootDir }).releaseVersion, version);
+test("the DA3 library completely removes the nine artworks and uses DA3 for all 630 exhibit candidates", () => {
   assert.equal(current.artworkCount, 729);
   assert.equal(current.artworks.filter(isGalleryArtwork).length, 630);
   const report = read("depth-report.json");
@@ -61,4 +60,24 @@ test("removal preserves the other library records, vectors, reviews and correcte
   assert.equal(nextIndex.records.length, 729);
   assert.deepEqual(nextIndex.records, oldIndex.records.filter((record: { artworkId: string }) => !removed.has(record.artworkId)));
   assert.equal(current.manifest.shards.semanticEmbeddings![0]!.recordCount, 729);
+});
+
+test("the active gap-fill library keeps every DA3 map, keeps the nine removals and names the model of each added map", () => {
+  const active = loadWebReleaseCatalog({ rootDir });
+  assert.equal(active.releaseVersion, "2026-11-16-open-gap-688");
+  assert.equal(active.artworks.filter(isGalleryArtwork).length, 688);
+  for (const id of removed) assert.equal(active.artworkRecordById.has(id), false);
+  const report = JSON.parse(readFileSync(path.join(active.releaseDir, "depth-report.json"), "utf8"));
+  const base = read("depth-report.json");
+  assert.equal(report.model.id, "DA3Mono-Large");
+  for (const row of base.records) {
+    assert.equal(hash(path.join(active.releaseDir, row.url)), row.outputSha256, `DA3 map unchanged: ${row.artworkId}`);
+  }
+  const added = report.records.slice(base.records.length);
+  assert.equal(added.length, 58);
+  for (const row of added) {
+    assert.ok(row.model?.id && row.model.weightsSha256, `added depth row names its model: ${row.artworkId}`);
+    assert.equal(hash(path.join(active.releaseDir, row.url)), row.outputSha256);
+    assert.equal(active.artworkRecordById.get(row.artworkId)?.media.depthMap?.url, row.url);
+  }
 });

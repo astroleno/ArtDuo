@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "baseRelease": "2026-10-24-da3-curated-630",
+  "reviewedAt": "2026-11-16",
+  "reviewer": "local-image-review",
+  "method": "Assistant viewed each verified preview enlarged to 1500px. 'absent' means not seen in this image; tiny marks that may be figures stay 'unknown'.",
+  "reason": "The query '想看几幅有船和海的画，不要人物' returned no works because no boat work had people confirmed absent.",
+  "corrections": [
+    { "artworkId": "smithsonian_asian-fsg_F1901.195", "facts": { "people": "present" }, "note": "甲板上和右侧码头可见人物。" },
+    { "artworkId": "smithsonian_asian-fsg_F1898.327", "facts": { "people": "present" }, "note": "右侧船上可见人物。" },
+    { "artworkId": "smithsonian_asian-fsg_F1888.35", "facts": { "people": "present" }, "note": "左下岸边可见站立人物。" },
+    { "artworkId": "smithsonian_asian-fsg_F1888.6", "facts": { "people": "absent" }, "note": "远处一排船只与桅杆，未见人物。" },
+    { "artworkId": "smithsonian_asian-fsg_F1893.80", "facts": { "people": "absent" }, "note": "桥洞内远景吊桥与建筑，未见人物。" },
+    { "artworkId": "smithsonian_asian-fsg_F1905.105", "facts": { "people": "present" }, "note": "沙滩上有数人走动。" },
+    { "artworkId": "smithsonian_asian-fsg_F1896.49", "facts": {}, "note": "左侧小划艇上一处细点无法确认是否为人，人物保持 unknown。" },
+    { "artworkId": "smithsonian_asian-fsg_F1887.8", "facts": { "people": "present" }, "note": "右下码头上有坐着的人，驳船上有人影。" },
+    { "artworkId": "smithsonian_asian-fsg_F1893.22", "facts": { "people": "present" }, "note": "贡多拉上可见船夫。" },
+    { "artworkId": "smk-KMS3503", "facts": { "people": "present" }, "note": "右下前景有人物与牲畜。" },
+    { "artworkId": "rijksmuseum-20025776", "facts": { "people": "present", "sea": "present" }, "note": "帆船甲板上有数人；画面为开阔海面。" }
+  ]
+}
