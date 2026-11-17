@@ -21,10 +21,12 @@ import type { ImageReceipt } from "./acquire";
 import type { Screening } from "./screen";
 
 const ROOT = path.resolve(__dirname, "../../../..");
-const SOURCE_DIR = path.join(ROOT, "data/sources/open-collections/2026-11-16");
+const BATCH = process.argv.includes("--batch") ? process.argv[process.argv.indexOf("--batch") + 1]! : "2026-11-16";
+if (!/^\d{4}-\d{2}-\d{2}$/u.test(BATCH)) throw new TypeError("--batch must be a date");
+const SOURCE_DIR = path.join(ROOT, "data/sources/open-collections", BATCH);
 const arg = (name: string, fallback?: string) => { const i = process.argv.indexOf(name); const v = i < 0 ? fallback : process.argv[i + 1]; if (!v) throw new TypeError(`Missing ${name}`); return v; };
 const VERSION = arg("--version");
-const BASE = arg("--base", "2026-10-24-da3-curated-630");
+const BASE = arg("--base");
 const sha = (bytes: Buffer | string) => `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
 const readJson = <T>(file: string): T => JSON.parse(readFileSync(file, "utf8")) as T;
 const readLines = <T>(file: string): T[] => readFileSync(file, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line) as T);
@@ -55,6 +57,10 @@ function sourceDetails(candidate: Candidate): { creditLine: string; department?:
     return { creditLine: `Art Institute of Chicago — ${data.credit_line ?? "Public domain"}`, department: data.department_title ?? undefined,
       dimensions: data.dimensions ?? undefined, sourceApiUrl: `https://api.artic.edu/api/v1/artworks/${candidate.sourceArtworkId}` };
   }
+  if (candidate.source === "cma") {
+    return { creditLine: `The Cleveland Museum of Art — ${raw.creditline ?? "Open Access"}`, department: raw.department ?? undefined,
+      dimensions: raw.measurements ?? undefined, sourceApiUrl: `https://openaccess-api.clevelandart.org/api/artworks/${candidate.sourceArtworkId}` };
+  }
   if (candidate.source === "met") {
     return { creditLine: `The Metropolitan Museum of Art — ${raw.creditLine || "Public domain"}`, department: raw.department || undefined,
       dimensions: raw.dimensions || undefined, sourceApiUrl: `https://collectionapi.metmuseum.org/public/collection/v1/objects/${candidate.sourceArtworkId}` };
@@ -72,7 +78,10 @@ async function main(): Promise<void> {
   const candidates = new Map(readLines<Candidate>(path.join(SOURCE_DIR, "candidates.jsonl")).map((row) => [row.candidateId, row]));
   const screenings = new Map(readLines<Screening>(path.join(SOURCE_DIR, "screening.jsonl")).map((row) => [row.candidateId, row]));
   const receipts = new Map(readLines<ImageReceipt>(path.join(SOURCE_DIR, "image-receipts.jsonl")).filter((row) => row.status === "verified").map((row) => [row.candidateId, row]));
-  const corrections = readJson<{ corrections: Array<{ artworkId: string; facts: Record<string, string>; note: string }>; reviewedAt: string }>(path.join(SOURCE_DIR, "existing-review-corrections.json"));
+  const correctionsPath = path.join(SOURCE_DIR, "existing-review-corrections.json");
+  const corrections = existsSync(correctionsPath)
+    ? readJson<{ corrections: Array<{ artworkId: string; facts: Record<string, string>; note: string }>; reviewedAt: string }>(correctionsPath)
+    : { corrections: [], reviewedAt: "" };
 
   rmSync(staging, { recursive: true, force: true });
   cpSync(baseDir, staging, { recursive: true, mode: constants.COPYFILE_FICLONE });
@@ -111,7 +120,7 @@ async function main(): Promise<void> {
       byteLength: receipt.bytes!, contentType: "image/jpeg", verifiedAt: receipt.at };
     const aspect = receipt.width! / receipt.height!;
     const record = parseArtworkRecord({
-      id: candidate.candidateId, source: candidate.source === "artic" ? "custom" : candidate.source, sourceArtworkId: candidate.sourceArtworkId, version: VERSION,
+      id: candidate.candidateId, source: candidate.source === "artic" || candidate.source === "cma" ? "custom" : candidate.source, sourceArtworkId: candidate.sourceArtworkId, version: VERSION,
       metadata: { title: candidate.title, artistDisplayName: candidate.artist, yearLabel: candidate.date, medium: candidate.medium, department: details.department,
         dimensions: details.dimensions, creditLine: details.creditLine, objectUrl: candidate.objectUrl, sourceApiUrl: details.sourceApiUrl,
         descriptionClean: review.observation, storySnippet: review.observation, moodTags: review.moodTags, colorTags: await colourTags(bytes),
@@ -134,7 +143,7 @@ async function main(): Promise<void> {
 
   // Depth from the bundled local model; each row names its model because the base used DA3Mono-Large.
   const estimator = await createLocalDepthEstimator(ROOT);
-  const work = path.join(ROOT, ".cache/open-collections/2026-11-16/depth-input");
+  const work = path.join(ROOT, ".cache/open-collections", BATCH, "depth-input");
   mkdirSync(work, { recursive: true });
   try {
     for (const record of records) {
@@ -172,7 +181,7 @@ async function main(): Promise<void> {
     const fix = corrections.corrections.find((item) => item.artworkId === review.artworkId);
     return fix && Object.keys(fix.facts).length ? { ...review, facts: { ...review.facts, ...fix.facts }, reviewedAt: corrections.reviewedAt } : review;
   });
-  writeFileSync(ledgerPath, JSON.stringify({ ...ledger, releaseVersion: VERSION, scope: `${ledger.scope} 2026-11-16: ${reviewRows.length} open-collection works added; ${corrections.corrections.length} boat works re-checked for people.`,
+  writeFileSync(ledgerPath, JSON.stringify({ ...ledger, releaseVersion: VERSION, scope: `${ledger.scope} ${BATCH}: ${reviewRows.length} open-collection works added${corrections.corrections.length ? `; ${corrections.corrections.length} existing reviews re-checked` : ""}.`,
     reviews: [...corrected, ...reviewRows] }, null, 1) + "\n");
 
   // Ledgers bound to a release identity move with it; appearance is re-measured afterwards.
@@ -183,7 +192,7 @@ async function main(): Promise<void> {
   const depthReport = readJson<any>(path.join(staging, "depth-report.json"));
   writeFileSync(path.join(staging, "depth-report.json"), JSON.stringify({ ...depthReport, releaseVersion: VERSION, baseVersion: BASE, createdAt: new Date().toISOString(),
     count: depthReport.count + depthRows.length, artworkCount: depthReport.artworkCount + records.length,
-    note: `Base rows keep their DA3Mono-Large maps. ${depthRows.length} added rows were generated locally with ${LOCAL_DEPTH_MODEL.id}; each row names its model.`,
+    note: `Rows without a model field keep their imported DA3Mono-Large maps. Rows generated locally name their model (${LOCAL_DEPTH_MODEL.id}); ${depthRows.length} were added in this release.`,
     records: [...depthReport.records, ...depthRows] }, null, 1) + "\n");
 
   // Manifest, then the semantic index whose fingerprint depends on the new shards.
@@ -204,7 +213,7 @@ async function main(): Promise<void> {
   writeFileSync(path.join(staging, "manifest.json"), JSON.stringify(manifest, null, 1) + "\n");
   writeFileSync(path.join(staging, "open-collection-report.json"), JSON.stringify({ schemaVersion: 1, releaseVersion: VERSION, baseVersion: BASE,
     added: records.map((record) => ({ id: record.id, gap: accepted.reviews.find((r) => r.candidateId === record.id)!.gap, title: record.metadata.title, artist: record.metadata.artistDisplayName })),
-    correctedReviews: corrections.corrections.map((item) => item.artworkId), evidence: "data/sources/open-collections/2026-11-16" }, null, 1) + "\n");
+    correctedReviews: corrections.corrections.map((item) => item.artworkId), evidence: `data/sources/open-collections/${BATCH}` }, null, 1) + "\n");
   console.log(JSON.stringify({ staging, added: records.length, total: existingIds.size + records.length }));
   if (process.argv.includes("--activate")) { renameSync(staging, finalDir); console.log(`activated ${VERSION}`); }
 }

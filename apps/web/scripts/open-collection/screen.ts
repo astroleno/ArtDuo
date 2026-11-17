@@ -12,7 +12,9 @@ import { AFFECT_READING_THEMES } from "../../lib/artwork-affect-reading";
 import type { Candidate } from "./discovery";
 
 const ROOT = path.resolve(__dirname, "../../../..");
-const DIR = path.join(ROOT, "data/sources/open-collections/2026-11-16");
+const BATCH = process.argv.includes("--batch") ? process.argv[process.argv.indexOf("--batch") + 1]! : "2026-11-16";
+if (!/^\d{4}-\d{2}-\d{2}$/u.test(BATCH)) throw new TypeError("--batch must be a date");
+const DIR = path.join(ROOT, "data/sources/open-collections", BATCH);
 const OUT = path.join(DIR, "screening.jsonl");
 const limit = Number(process.argv[process.argv.indexOf("--limit") + 1] ?? Infinity) || Infinity;
 const CONCURRENCY = 3;

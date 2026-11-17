@@ -12,8 +12,10 @@ import type { AcceptedReview } from "./build-release";
 import type { Screening } from "./screen";
 
 const ROOT = path.resolve(__dirname, "../../../..");
-const DIR = path.join(ROOT, "data/sources/open-collections/2026-11-16");
-const SHEETS = "/tmp/artduo-ux/review-sheets";
+const BATCH = process.argv.includes("--batch") ? process.argv[process.argv.indexOf("--batch") + 1]! : "2026-11-16";
+if (!/^\d{4}-\d{2}-\d{2}$/u.test(BATCH)) throw new TypeError("--batch must be a date");
+const DIR = path.join(ROOT, "data/sources/open-collections", BATCH);
+const SHEETS = `/tmp/artduo-ux/review-sheets-${BATCH}`;
 const LIMIT: Record<Gap, number> = { joy: 60, open: 30 };
 const readLines = <T>(file: string): T[] => readFileSync(file, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line) as T);
 

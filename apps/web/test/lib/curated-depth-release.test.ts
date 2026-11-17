@@ -64,8 +64,10 @@ test("removal preserves the other library records, vectors, reviews and correcte
 
 test("the active gap-fill library keeps every DA3 map, keeps the nine removals and names the model of each added map", () => {
   const active = loadWebReleaseCatalog({ rootDir });
-  assert.equal(active.releaseVersion, "2026-11-16-open-gap-688");
-  assert.equal(active.artworks.filter(isGalleryArtwork).length, 688);
+  assert.match(active.releaseVersion, /^\d{4}-\d{2}-\d{2}-open-gap-\d+$/u);
+  const gallery = active.artworks.filter(isGalleryArtwork).length;
+  assert.equal(active.releaseVersion, `${active.releaseVersion.slice(0, 10)}-open-gap-${gallery}`, "the version names its gallery size");
+  assert.ok(gallery > 630);
   for (const id of removed) assert.equal(active.artworkRecordById.has(id), false);
   const report = JSON.parse(readFileSync(path.join(active.releaseDir, "depth-report.json"), "utf8"));
   const base = read("depth-report.json");
@@ -74,7 +76,7 @@ test("the active gap-fill library keeps every DA3 map, keeps the nine removals a
     assert.equal(hash(path.join(active.releaseDir, row.url)), row.outputSha256, `DA3 map unchanged: ${row.artworkId}`);
   }
   const added = report.records.slice(base.records.length);
-  assert.equal(added.length, 58);
+  assert.equal(added.length, gallery - 630);
   for (const row of added) {
     assert.ok(row.model?.id && row.model.weightsSha256, `added depth row names its model: ${row.artworkId}`);
     assert.equal(hash(path.join(active.releaseDir, row.url)), row.outputSha256);

@@ -12,10 +12,12 @@ import type { Candidate, Gap } from "./discovery";
 import type { Screening } from "./screen";
 
 const ROOT = path.resolve(__dirname, "../../../..");
-const DIR = path.join(ROOT, "data/sources/open-collections/2026-11-16");
-const IMAGES = path.join(ROOT, ".cache/open-collections/2026-11-16/images");
+const BATCH = process.argv.includes("--batch") ? process.argv[process.argv.indexOf("--batch") + 1]! : "2026-11-16";
+if (!/^\d{4}-\d{2}-\d{2}$/u.test(BATCH)) throw new TypeError("--batch must be a date");
+const DIR = path.join(ROOT, "data/sources/open-collections", BATCH);
+const IMAGES = path.join(ROOT, ".cache/open-collections", BATCH, "images");
 const USER_AGENT = "ArtDuo-curation/1.0 (open collection research)";
-const option = (name: string, fallback: number) => Number(process.argv[process.argv.indexOf(name) + 1] ?? fallback) || fallback;
+const option = (name: string, fallback: number) => { const i = process.argv.indexOf(name); const value = i < 0 ? fallback : Number(process.argv[i + 1]); if (!Number.isInteger(value) || value < 0) throw new TypeError(`${name} must be a whole number`); return value; };
 const TARGET: Record<Gap, number> = { joy: option("--joy", 80), open: option("--open", 45) };
 const ARTIST_CAP = 4;
 const MIN_LONG = 1600, MIN_SHORT = 320, MAX_BYTES = 30_000_000; // the public image cache limit

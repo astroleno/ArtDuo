@@ -4,11 +4,15 @@
 // No full images are downloaded here.
 // Usage: tsx apps/web/scripts/open-collection/discovery.ts [--per-query 30]
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const ROOT = path.resolve(__dirname, "../../../..");
-const OUT = path.join(ROOT, "data/sources/open-collections/2026-11-16");
+const BATCH = process.argv.includes("--batch") ? process.argv[process.argv.indexOf("--batch") + 1]! : "2026-11-16";
+if (!/^\d{4}-\d{2}-\d{2}$/u.test(BATCH)) throw new TypeError("--batch must be a date");
+const OUT = path.join(ROOT, "data/sources/open-collections", BATCH);
+const only = (name: string) => process.argv.includes(name) ? new Set(process.argv[process.argv.indexOf(name) + 1]!.split(",")) : undefined;
+const SOURCES = only("--sources"), GAPS = only("--gaps");
 const USER_AGENT = "ArtDuo-curation/1.0 (open collection research)";
 const perQuery = Number(process.argv[process.argv.indexOf("--per-query") + 1] ?? 30) || 30;
 const MIN_LONG = 1600, MIN_SHORT = 320;
@@ -22,7 +26,7 @@ const QUERIES: Record<Gap, string[]> = {
 };
 
 export interface Candidate {
-  candidateId: string; source: "artic" | "met" | "smk"; sourceArtworkId: string; gaps: Gap[]; queries: string[];
+  candidateId: string; source: "artic" | "met" | "smk" | "cma"; sourceArtworkId: string; gaps: Gap[]; queries: string[];
   title: string; artist?: string; date?: string; medium?: string; classification?: string;
   rights: string; imageUrl: string; previewUrl: string; width?: number; height?: number; objectUrl: string;
   recordPath: string; recordSha256: string;
@@ -84,7 +88,7 @@ async function searchMet(query: string): Promise<Candidate[]> {
     let body: string;
     try { body = await getText(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`); }
     catch (error) { if (/HTTP 404/u.test(String(error))) continue; throw error; }
-    await pause(150);
+    await pause(900); // the Met refused access at a faster pace on 2026-11-16
     const row = JSON.parse(body);
     if (!row.isPublicDomain || !row.primaryImage || row.classification !== "Paintings") continue;
     const candidateId = `met-${id}`;
@@ -113,20 +117,44 @@ async function searchSmk(query: string): Promise<Candidate[]> {
   return found;
 }
 
+async function searchCma(query: string): Promise<Candidate[]> {
+  const params = new URLSearchParams({ q: query, cc0: "1", has_image: "1", type: "Painting", limit: String(perQuery) });
+  const result = JSON.parse(await getText(`https://openaccess-api.clevelandart.org/api/artworks/?${params}`)) as { data?: any[] };
+  const found: Candidate[] = [];
+  for (const row of result.data ?? []) {
+    const print = row.images?.print, web = row.images?.web;
+    if (row.share_license_status !== "CC0" || !print?.url || !web?.url || !sizeOk(Number(print.width), Number(print.height))) continue;
+    const candidateId = `cma-${row.id}`;
+    found.push({ candidateId, source: "cma", sourceArtworkId: String(row.id), gaps: [], queries: [], title: row.title,
+      artist: row.creators?.[0]?.description?.replace(/\s*\(.*$/u, "") || undefined, date: row.creation_date || undefined, medium: row.technique || undefined,
+      classification: row.type, rights: "https://creativecommons.org/publicdomain/zero/1.0/", imageUrl: print.url, previewUrl: web.url,
+      width: Number(print.width), height: Number(print.height), objectUrl: row.url, ...saveRecord(candidateId, JSON.stringify(row)) });
+  }
+  return found;
+}
+
 async function main(): Promise<void> {
   mkdirSync(path.join(OUT, "records"), { recursive: true });
+  // Skip everything already in the newest release, including earlier gap-fill batches.
   const existing = new Set<string>();
-  for (const release of ["2026-10-24-da3-curated-630"]) {
-    const meta = JSON.parse(readFileSync(path.join(ROOT, "data/releases", release, "metadata-01.json"), "utf8"));
-    for (const record of meta.records ?? meta) existing.add(record.id);
+  const releases = readdirSync(path.join(ROOT, "data/releases"), { withFileTypes: true }).filter((entry) => entry.isDirectory() && /^[A-Za-z0-9]/u.test(entry.name)).map((entry) => entry.name).sort();
+  const meta = JSON.parse(readFileSync(path.join(ROOT, "data/releases", releases.at(-1)!, "metadata-01.json"), "utf8"));
+  for (const record of meta.records ?? meta) existing.add(record.id);
+  // Works the assistant already rejected in an earlier batch are not offered again.
+  const batches = path.join(ROOT, "data/sources/open-collections");
+  for (const batch of readdirSync(batches)) {
+    const decisions = path.join(batches, batch, "review-decisions.json");
+    if (batch === BATCH || !existsSync(decisions)) continue;
+    for (const [id, decision] of Object.entries(JSON.parse(readFileSync(decisions, "utf8")).decisions as Record<string, { accept: boolean }>)) if (!decision.accept) existing.add(id);
   }
   const byId = new Map<string, Candidate>();
   const stopped = new Set<string>();
   const log: string[] = [];
   for (const [gap, queries] of Object.entries(QUERIES) as Array<[Gap, string[]]>) {
+    if (GAPS && !GAPS.has(gap)) continue;
     for (const query of queries) {
-      for (const [source, search] of [["artic", searchArtic], ["met", searchMet], ["smk", searchSmk]] as const) {
-        if (stopped.has(source)) continue;
+      for (const [source, search] of [["artic", searchArtic], ["met", searchMet], ["smk", searchSmk], ["cma", searchCma]] as const) {
+        if (stopped.has(source) || SOURCES && !SOURCES.has(source)) continue;
         try {
           const rows = await search(query);
           for (const row of rows) {
@@ -147,7 +175,7 @@ async function main(): Promise<void> {
   const rows = [...byId.values()].sort((a, b) => a.candidateId.localeCompare(b.candidateId));
   writeFileSync(path.join(OUT, "candidates.jsonl"), rows.map((row) => JSON.stringify(row)).join("\n") + "\n");
   writeFileSync(path.join(OUT, "discovery-log.txt"), log.join("\n") + "\n");
-  console.log(JSON.stringify({ candidates: rows.length, bySource: Object.fromEntries(["artic", "met", "smk"].map((s) => [s, rows.filter((r) => r.source === s).length])),
+  console.log(JSON.stringify({ candidates: rows.length, bySource: Object.fromEntries(["artic", "met", "smk", "cma"].map((s) => [s, rows.filter((r) => r.source === s).length])),
     byGap: { joy: rows.filter((r) => r.gaps.includes("joy")).length, open: rows.filter((r) => r.gaps.includes("open")).length }, stopped: [...stopped] }));
 }
 
