@@ -3,6 +3,7 @@ import { buildUserAffectAgent, embedText } from "@artduo/corpus";
 import { semanticFingerprint } from "@artduo/corpus/src/semantic-index";
 import { artworkHardConflict, buildAffectiveGrowthForm } from "./affective-negotiation";
 import { artworkOffering, stageFit } from "./artwork-offering";
+import { DEPARTMENT_HAND_CAP, handOf } from "./artwork-hand";
 import { STAGE_RERANK_POOL_SIZE, type StageCandidate } from "./stage-rerank";
 import { isGalleryArtwork } from "./artwork-eligibility";
 import { selectBackgroundScene, type WebArtwork, type WebReleaseCatalog, type WebSearchResult } from "./release-catalog";
@@ -58,6 +59,7 @@ function quotasFor(count: number, stages: number): number[] {
 }
 const AFFECT_WEIGHT = 0.22;
 const RECENT_PENALTY_STEP = 0.01;
+const MIN_STAGE_FIT = 0.55;
 const RECENT_PENALTY_CAP = 0.04;
 
 /**
@@ -105,6 +107,7 @@ export function selectForCurationStages(input: {
   const casual = !intent.allowIntense && !intent.rest && !intent.bright && !intent.spacious
     && !intent.subjects.length && !intent.artists.length && !intent.media?.length && !intent.focuses?.length
     && !intent.artworkTitles?.length && !eligible.some(artwork => exactName(artwork, query));
+  const moodRequested = intent.rest || intent.bright;
   const ranked = plan.stages.map((stage, stageIndex) => {
     const openStage = OPEN_STAGE.test(stage.query);
     const parsedStage = parseViewingIntent(stageSubjectText(stage.query));
@@ -144,9 +147,13 @@ export function selectForCurationStages(input: {
     const exposurePenalty = Math.min(RECENT_PENALTY_CAP, shown * RECENT_PENALTY_STEP);
     const score = vectorScore * 0.78 + affectFit * AFFECT_WEIGHT + Math.min(2, matched.length) * 0.04 + architectureFocus - (enclosedConflict ? 0.12 : 0)
       + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + brightFit - nightPenalty - heavyPenalty - exposurePenalty + (exactName(artwork, query) ? 2 : 0);
-    return { artwork, vectorScore, score, evidence: [...evidence, ...(architectureFocus ? ["focus:architecture"] : []), ...detailedFocus.map(focus => `focus:${focus.topic}`),
+    return { artwork, vectorScore, score, affectFit, evidence: [...evidence, ...(architectureFocus ? ["focus:architecture"] : []), ...detailedFocus.map(focus => `focus:${focus.topic}`),
       ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...(exposurePenalty ? [`recent:${shown}`] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
-    }).sort((a, b) => b.score - a.score || a.artwork.id.localeCompare(b.artwork.id));
+    // When the visitor asked for a mood, a work that contradicts its stage is
+    // left out; a shorter exhibition beats a festival in a still closing. Subject
+    // requests without a stated mood still fill their count. Named works stay.
+    }).filter((row) => !moodRequested || row.affectFit >= MIN_STAGE_FIT || exactName(row.artwork, query) || intent.artworkTitles?.includes(row.artwork.title))
+      .sort((a, b) => b.score - a.score || a.artwork.id.localeCompare(b.artwork.id));
   });
   const quotas = quotasFor(Math.min(plan.artworkCount, eligible.length), plan.stages.length);
   const selected = new Set<string>();
@@ -158,16 +165,19 @@ export function selectForCurationStages(input: {
   for (let pass = 0; pass < Math.max(...quotas, 0); pass++) {
     for (let stageIndex = 0; stageIndex < plan.stages.length; stageIndex++) {
       if (pass >= quotas[stageIndex]) continue;
-      const candidates = ranked[stageIndex].filter((candidate) => !selected.has(candidate.artwork.id));
+      const open = ranked[stageIndex].filter((candidate) => !selected.has(candidate.artwork.id));
+      // One department of unknown hands fills at most two places, unless a stage has nothing else.
+      const uncrowded = open.filter((candidate) => { const hand = handOf(candidate.artwork); return !hand.startsWith("department:") || (authors.get(hand) ?? 0) < DEPARTMENT_HAND_CAP; });
+      const candidates = uncrowded.length ? uncrowded : open;
       const winner = candidates.sort((a, b) => {
         const penalty = (artwork: WebArtwork) => intent.artists.length || exactName(artwork, query) ? 0
-          : Math.max(0, (authors.get(artwork.artistDisplayName ?? "") ?? 0) - 1) * 0.035
+          : Math.max(0, (authors.get(handOf(artwork)) ?? 0) - (handOf(artwork).startsWith("department:") ? 0 : 1)) * 0.035
             + (casual ? Math.max(0, (subjects.get(artwork.subjectTags[0] ?? "") ?? 0) - 1) * .04 : 0);
         return (b.score - penalty(b.artwork)) - (a.score - penalty(a.artwork)) || a.artwork.id.localeCompare(b.artwork.id);
       })[0];
       if (!winner) continue;
       selected.add(winner.artwork.id);
-      const author = winner.artwork.artistDisplayName ?? "";
+      const author = handOf(winner.artwork);
       if (author) authors.set(author, (authors.get(author) ?? 0) + 1);
       const subject = winner.artwork.subjectTags[0];
       if (subject) subjects.set(subject, (subjects.get(subject) ?? 0) + 1);

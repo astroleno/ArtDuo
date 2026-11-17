@@ -38,3 +38,13 @@ test("the request carries stage intent and observed image facts but no visitor h
   assert.ok(text.includes("烛光照亮桌面") && text.includes("先停一会") && text.includes("quiet room"));
   assert.ok(/只能从该阶段的候选中选择/.test(text));
 });
+
+test("a model choice that crowds one department of unknown hands is rejected", () => {
+  const pools = [[candidate("m1", .9), candidate("o1", .8)], [candidate("m2", .9), candidate("o2", .8)], [candidate("m3", .9), candidate("o3", .8)]];
+  const current = [[{ ...candidate("m1", .9), stageIndex: 0 }], [{ ...candidate("o2", .8), stageIndex: 1 }], [{ ...candidate("o3", .8), stageIndex: 2 }]];
+  const hand = (id: string) => id.startsWith("m") ? "department:Indian and Southeast Asian Art" : `artist:${id}`;
+  const crowded = JSON.stringify({ stages: [{ stage: 0, artworkIds: ["m1"] }, { stage: 1, artworkIds: ["m2"] }, { stage: 2, artworkIds: ["m3"] }] });
+  assert.equal(applyStageRerank(crowded, pools, current, hand), undefined);
+  const fine = JSON.stringify({ stages: [{ stage: 0, artworkIds: ["m1"] }, { stage: 1, artworkIds: ["m2"] }, { stage: 2, artworkIds: ["o3"] }] });
+  assert.equal(applyStageRerank(fine, pools, current, hand)?.length, 3);
+});

@@ -1,6 +1,7 @@
 import type { CurationIntentPlan } from "@artduo/contracts";
 import type { ChatMessage, ChatStream } from "../../api/src/services/curation/chat-provider";
 import type { WebReleaseCatalog } from "./release-catalog";
+import { DEPARTMENT_HAND_CAP, handOf } from "./artwork-hand";
 import type { StageAssignment } from "./semantic-selection";
 
 // The model only chooses among works the deterministic stage scoring already
@@ -29,7 +30,7 @@ export function stageRerankMessages(input: { desiredExperience: string; stages: 
 }
 
 /** Returns new stage assignments, or undefined when the answer is not a complete valid choice. */
-export function applyStageRerank(answer: string, pools: StageCandidate[][], current: StageAssignment[][]): StageAssignment[] | undefined {
+export function applyStageRerank(answer: string, pools: StageCandidate[][], current: StageAssignment[][], handFor?: (artworkId: string) => string): StageAssignment[] | undefined {
   let parsed: { stages?: Array<{ stage?: unknown; artworkIds?: unknown }> };
   try { parsed = JSON.parse(answer); } catch { return undefined; }
   if (!Array.isArray(parsed.stages) || parsed.stages.length !== pools.length) return undefined;
@@ -46,7 +47,15 @@ export function applyStageRerank(answer: string, pools: StageCandidate[][], curr
       result.push({ artworkId: candidate.artworkId, stageIndex, score: candidate.score, vectorScore: candidate.vectorScore, evidence: [...candidate.evidence, "model:stage-fit"] });
     }
   }
+  if (handFor && crowded(result.map((item) => item.artworkId), handFor) > crowded(current.flat().map((item) => item.artworkId), handFor)) return undefined;
   return result;
+}
+
+/** How far the most repeated department of unknown hands exceeds its cap. */
+function crowded(ids: string[], handFor: (artworkId: string) => string): number {
+  const counts = new Map<string, number>();
+  for (const id of ids) { const hand = handFor(id); if (hand.startsWith("department:")) counts.set(hand, (counts.get(hand) ?? 0) + 1); }
+  return Math.max(0, ...[...counts.values()].map((count) => count - DEPARTMENT_HAND_CAP));
 }
 
 /** One bounded model call; any failure keeps the deterministic choice. */
@@ -72,5 +81,5 @@ export async function requestStageRerank(input: {
     text += chunk;
     if (text.length > 8_000) return undefined;
   }
-  return applyStageRerank(text, input.pools, current);
+  return applyStageRerank(text, input.pools, current, (artworkId) => handOf(input.catalog.artworkById.get(artworkId)!));
 }

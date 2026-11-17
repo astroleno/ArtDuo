@@ -5,6 +5,7 @@ import path from "node:path";
 import { test } from "node:test";
 import { LOCAL_SEMANTIC_MODEL } from "@artduo/corpus/src/semantic-index";
 import { fallbackCurationIntent, eligibleCurationArtworks, selectForCurationStages } from "../../lib/semantic-selection";
+import { artworkOffering, stageFit } from "../../lib/artwork-offering";
 import { curateExhibition, readSavedCuration } from "../../lib/semantic-curator";
 import { loadWebReleaseCatalog, searchReleaseCatalog } from "../../lib/release-catalog";
 import { matchesViewingIntent, parseViewingIntent } from "../../lib/viewing-intent";
@@ -41,7 +42,9 @@ test("every planned stage searches the full eligible pool before truncation", ()
   const query = "quiet";
   const plan = { ...fallbackCurationIntent(catalog, query), artworkCount: 5 };
   const old = new Set(searchReleaseCatalog(catalog, query).results.map((item) => item.artwork.id));
-  const beyond = eligibleCurationArtworks(catalog, query, plan).filter((artwork) => !old.has(artwork.id)).slice(0, plan.stages.length);
+  // Only works that suit every stage, so the mood floor of a stated "quiet" cannot be what excludes them.
+  const beyond = eligibleCurationArtworks(catalog, query, plan).filter((artwork) => !old.has(artwork.id)
+    && plan.stages.every((stage) => stageFit(artworkOffering(artwork), stage) >= .6)).slice(0, plan.stages.length);
   assert.equal(beyond.length, plan.stages.length);
   const dimensions = plan.stages.length + 1;
   const unitVector = (position: number) => Array.from({ length: dimensions }, (_, index) => Number(index === position));
@@ -323,4 +326,53 @@ test("recent exposure is read from the newest saved exhibitions of the same rele
     assert.deepEqual(Object.fromEntries(exposure), { x: 2, y: 1 });
     assert.equal(recentArtworkExposure(path.join(temporary, "missing"), "r1").size, 0);
   } finally { rmSync(temporary, { recursive: true, force: true }); }
+});
+
+test("a work that contradicts its stage is left out, even when that shortens the exhibition, unless the visitor names it", () => {
+  const base = catalog.artworks[0];
+  const plain = { ...base, medium: "Oil on canvas", visualEvidence: undefined, appearance: undefined, emotionLabels: [], colorTags: [] };
+  const still = { ...plain, id: "still-moon", title: "Moonlit Pond", moodTags: ["quiet", "nocturnal", "serenity"] };
+  const fireworks = { ...plain, id: "fireworks", title: "Fireworks Festival", moodTags: ["joy", "lively", "playful"] };
+  const works = [still, fireworks];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(a => [a.id, a])) };
+  const plan = { ...fallbackCurationIntent(fixture, "安静的夜晚"), artworkCount: 2 };
+  plan.stages = plan.stages.map((stage) => ({ ...stage, valence: .55, arousal: .12, tension: .1, wonder: .35, intimacy: .55, query: "quiet night" }));
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture", model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 },
+    records: works.map(a => ({ artworkId: a.id, textFingerprint: "fixture", vector: [1, 0] })) }, queries: plan.stages.map(() => [1, 0]) };
+  const quiet = selectForCurationStages({ catalog: fixture, query: "安静的夜晚", plan, semantic });
+  assert.deepEqual(quiet.assignments.map(a => a.artworkId), ["still-moon"], "the festival is not forced into a still stage");
+  const named = selectForCurationStages({ catalog: fixture, query: "想看《Fireworks Festival》和安静的夜晚", plan, semantic });
+  assert.ok(named.assignments.some(a => a.artworkId === "fireworks"), "a named work is always eligible");
+});
+
+test("works by unknown hands from one museum department are spread like works by one artist", () => {
+  const base = catalog.artworks[0];
+  const plain = { ...base, medium: "Opaque watercolor", visualEvidence: undefined, appearance: undefined, emotionLabels: [], colorTags: [], moodTags: ["joy", "lively"] };
+  const miniature = (id: string) => ({ ...plain, id, title: `Festival ${id}`, artistDisplayName: undefined, department: "Indian and Southeast Asian Art" });
+  const other = (id: string, artist: string) => ({ ...plain, id, title: `Party ${id}`, artistDisplayName: artist, department: `Dept ${artist}` });
+  const works = [miniature("m1"), miniature("m2"), miniature("m3"), other("o1", "A"), other("o2", "B")];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(a => [a.id, a])) };
+  const plan = { ...fallbackCurationIntent(fixture, "想看三幅热闹的画"), artworkCount: 3 };
+  const vector = (id: string) => id.startsWith("m") ? [1, 0] : [.995, Math.sqrt(1 - .995 ** 2)];
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture", model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 },
+    records: works.map(a => ({ artworkId: a.id, textFingerprint: "fixture", vector: vector(a.id) })) }, queries: plan.stages.map(() => [1, 0]) };
+  const chosen = selectForCurationStages({ catalog: fixture, query: "想看三幅热闹的画", plan, semantic }).assignments.map(a => a.artworkId);
+  assert.ok(chosen.filter(id => id.startsWith("m")).length <= 1, `one department should not fill the exhibition: ${chosen.join(",")}`);
+});
+
+test("one department of unknown hands contributes at most two works even when it fits best", () => {
+  const base = catalog.artworks[0];
+  const plain = { ...base, medium: "Opaque watercolor", visualEvidence: undefined, appearance: undefined, emotionLabels: [], colorTags: [], moodTags: ["joy", "lively"] };
+  const miniature = (id: string) => ({ ...plain, id, title: `Festival ${id}`, artistDisplayName: undefined, department: "Indian and Southeast Asian Art" });
+  const other = (id: string) => ({ ...plain, id, title: `Party ${id}`, artistDisplayName: `Artist ${id}`, department: `Dept ${id}` });
+  const works = [...["m1", "m2", "m3", "m4", "m5"].map(miniature), ...["o1", "o2", "o3", "o4"].map(other)];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(a => [a.id, a])) };
+  const plan = { ...fallbackCurationIntent(fixture, "想看六幅热闹的画"), artworkCount: 6 };
+  // Miniatures are far closer in text, so only a cap, not the soft penalty, keeps them to two.
+  const vector = (id: string) => id.startsWith("m") ? [1, 0] : [.9, Math.sqrt(1 - .9 ** 2)];
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture", model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 },
+    records: works.map(a => ({ artworkId: a.id, textFingerprint: "fixture", vector: vector(a.id) })) }, queries: plan.stages.map(() => [1, 0]) };
+  const chosen = selectForCurationStages({ catalog: fixture, query: "想看六幅热闹的画", plan, semantic }).assignments.map(a => a.artworkId);
+  assert.equal(chosen.length, 6);
+  assert.equal(chosen.filter(id => id.startsWith("m")).length, 2, chosen.join(","));
 });
