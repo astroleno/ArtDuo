@@ -27,4 +27,4 @@
 
 ## 清理与未完成项
 
-腾讯机上的候选服务、候选状态、传输包和激活脚本已清理；旧发布目录与回滚备份保留。COS 中误传的 `artduo/media-v1/objects/objects/` 前缀和 4 个私有传输包尚未删除，因为删除对象需要在控制台中取得即时确认；它们不参与线上服务。真实 iOS Safari / Android Chrome 设备回归未在本轮执行。
+腾讯机上的候选服务、候选状态、传输包和激活脚本已清理；旧发布目录与回滚备份保留。COS 中误传的 `artduo/media-v1/objects/objects/` 前缀（168 个对象）和 4 个私有传输包已在控制台删除，正确的 `artduo/media-v1/objects/` 对象保持完整。真实 iOS Safari / Android Chrome 设备回归未在本轮执行。

@@ -19,7 +19,8 @@
     "wrongPrefix": {
       "prefix": "artduo/media-v1/objects/objects/",
       "objectCount": 168,
-      "status": "pending-user-confirmation"
+      "deletedObjectCount": 168,
+      "status": "deleted"
     },
     "temporaryRootObjects": {
       "objects": [
@@ -28,8 +29,10 @@
         "artduo-legacy-630.tar.gz",
         "artduo-test-releases-20261014.tar.gz"
       ],
-      "status": "pending-user-confirmation"
+      "deletedObjectCount": 4,
+      "status": "deleted"
     },
-    "note": "The mistaken prefix and private transfer packages were left in COS because deletion is an external destructive action requiring confirmation."
+    "correctPrefixSampleVerified": "artduo/media-v1/objects/91b2e749da570ea6034dc57488c068fab644df9dbd9e969399397f85e1273777/",
+    "note": "Deletion was confirmed by the user and completed in the COS console; the correct public-media prefix remains intact."
   }
 }
