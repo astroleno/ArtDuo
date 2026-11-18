@@ -24,6 +24,14 @@ const QUERIES: Record<Gap, string[]> = {
   open: ["panorama landscape", "plain", "valley view", "coast", "calm sea", "river landscape", "distant view", "meadow", "fields horizon",
     "mountain view", "lake landscape", "dunes"],
 };
+// Batch 3 (2026-11-18): joy terms not searched by earlier batches. Select with --query-set 2.
+const QUERIES_2: Record<Gap, string[]> = {
+  joy: ["harvest", "wedding", "kite", "village feast", "skating", "flower market", "musicians", "fete champetre", "orchard",
+    "circus", "tambourine", "masquerade", "outing", "laughing", "sunflowers", "merry company", "swing", "spring meadow flowers"],
+  open: [],
+};
+const QUERY_SET = process.argv.includes("--query-set") ? process.argv[process.argv.indexOf("--query-set") + 1] : "1";
+if (QUERY_SET !== "1" && QUERY_SET !== "2") throw new TypeError("--query-set must be 1 or 2");
 
 export interface Candidate {
   candidateId: string; source: "artic" | "met" | "smk" | "cma"; sourceArtworkId: string; gaps: Gap[]; queries: string[];
@@ -150,7 +158,7 @@ async function main(): Promise<void> {
   const byId = new Map<string, Candidate>();
   const stopped = new Set<string>();
   const log: string[] = [];
-  for (const [gap, queries] of Object.entries(QUERIES) as Array<[Gap, string[]]>) {
+  for (const [gap, queries] of Object.entries(QUERY_SET === "2" ? QUERIES_2 : QUERIES) as Array<[Gap, string[]]>) {
     if (GAPS && !GAPS.has(gap)) continue;
     for (const query of queries) {
       for (const [source, search] of [["artic", searchArtic], ["met", searchMet], ["smk", searchSmk], ["cma", searchCma]] as const) {

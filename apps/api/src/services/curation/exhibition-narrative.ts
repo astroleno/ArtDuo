@@ -99,7 +99,7 @@ function validateActualCount(text: string, input: ExhibitionNarrativeInput): voi
   const numbers: Record<string, number> = { 一: 1, 二: 2, 两: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10, 十一: 11, 十二: 12 };
   const number = (value: string) => numbers[value] ?? Number(value);
   const count = "(十二|十一|[一二两三四五六七八九十]|\\d{1,2})";
-  const patterns = [new RegExp(`(?:这次|本次|刚才|展览)(?:一共|共|只|仅|只有|仅有|找到|选出|选了|展出|看过|看过的|有|共有|只有这)*${count}[件幅张]`, "gu"), new RegExp(`这${count}[件幅张](?:作品|画|水景|风景|油画|版画)`, "gu")];
+  const patterns = [new RegExp(`(?:这次|本次|刚才|展览)(?:一共|共|只|仅|只有|仅有|找到|挑出|选出|选了|展出|看过|看过的|有|共有|只有这)*${count}[件幅张]`, "gu"), new RegExp(`这${count}[件幅张](?:作品|画|水景|风景|油画|版画)`, "gu")];
   for (const pattern of patterns) for (const match of text.matchAll(pattern)) if (number(match[1]) !== input.artworks.length) throw new NarrativeContentError("Narrative misstates actual artwork count");
 }
 
@@ -273,7 +273,7 @@ export function exhibitionNarrativeMessages(input: ExhibitionNarrativeInput, req
       "用‘你说／你提到／你表示’引用时，独立成句，逐字引用user_request中的原文；转述和策展推测直接写作观看邀请，不能归为用户说过的话。",
       observationOnly(input.query) ? "本次明确不要情绪引导或安慰。序言、注脚、结语只回应实际作品与观看观察；不写‘感受不必改变’‘轻的余韵’‘慢慢呼吸’等情绪套话，也不复述用户对悲伤或疲惫的否认。不用‘你提到焦虑’等情绪引述开场，直接从画面入题。以上是写作限制，不能向观众宣读‘不把空间感写成安抚’等写法原则，直接写实际画面与观看邀请。" : "情绪方向只回应用户明确表达的内容。只说兴奋而没要求改变时，不把兴奋收成、沉成或转为专注、安静或放松，即使viewing_plan这样推测也不采用；只写色彩、构图和观看邀请，不报告情绪已发生变化，不使用‘高能量’等测量口吻。",
       "不要在序言引用‘注脚只谈构图’‘不需要情绪引导’等用户写作要求，也不要逐字复述整句请求；直接兑现这些要求。note目标18–24字，每条只选一处关系，一句写完。不要列举整幅画。",
-      "实际件数不足时，自然说明‘这次找到N件符合条件的作品’，不把请求数量说成实际数量。不向观众解释档案字段、阶段索引、后台或模型；不使用‘档案中这一阶段’这类实现口吻。",
+      "实际件数少于请求时，用一句短话带过，例如‘这次挑出N件’，不把请求数量说成实际数量；不写‘符合条件’‘筛选’‘找到’这类检索口吻。不向观众解释档案字段、阶段索引、后台或模型；不使用‘档案中这一阶段’这类实现口吻。",
       "note每条目标18–24字，上限35字。只选一个重点，例如‘粉白睡莲散在蓝绿色池水上，枝叶映入水面。’不把观察清单整段缩写，不重复馆签，不在每条开头写‘先看/可以看到/不妨留意’。缺少描述时只说确切的材料或档案事实，不凭标题想象画面。",
       "visualObservation来自助手对当前交付图片的本地核对，可以据此描写可见画面；它不是馆方文献，也不是独立人工认证，不扩写成作者意图或艺术史结论。facts的present可正面描写，absent只代表本图未见，unknown不得写成存在或不存在；spatialFraming的open才有开放远景，framed是局部框景，enclosed是围合近景。",
       "每条note只使用本件作品，不能借用另一件的画面。所有段落中的媒材以medium为准，蚀刻是版画，不能统称油画。具体用中文媒材名称时须与原始字段相符。",
@@ -372,7 +372,7 @@ export function fallbackExhibitionNarrative(input: ExhibitionNarrativeInput): De
   };
   const first = input.artworks[0]!, last = input.artworks.at(-1)!;
   const missingFocus = (input.viewingFocus ?? []).filter(focus => !focus.evidenceIds.length).map(focus => `${focus.label}的细节目前无法确认。`).join("");
-  const opening = `${ids.length < input.plan.artworkCount ? `这次找到${ids.length}件符合条件的作品。` : ""}${missingFocus}${observation(first, 130)}`;
+  const opening = `${ids.length < input.plan.artworkCount ? `这次挑出${ids.length}件。` : ""}${missingFocus}${observation(first, 130)}`;
   return [
     { kind: "preface", text: opening, evidenceIds: [first.id], source: "fallback" },
     ...input.artworks.map((artwork, index): DeliveredNarrativePiece => {
