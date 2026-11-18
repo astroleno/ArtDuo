@@ -1,0 +1,52 @@
+{
+  "commit": "30a3bd4d4c840e7a6240a9e35e9dc2a7d92efe95",
+  "release": "2026-11-17-open-gap-714",
+  "previousKeys": 1337,
+  "totalKeys": 1505,
+  "newKeys": 168,
+  "newBytes": 45748196,
+  "newByKind": {
+    "depth": 84,
+    "preview": 84
+  },
+  "allNewObjectSha256VerifiedLocally": true,
+  "releaseManifestSha256": "sha256:b812064e4bbd1a5eddad1f39b0dd58208197d40e4c24d01b738dcba03d777656",
+  "releaseShards": [
+    {
+      "kind": "metadata",
+      "checksumMode": "raw",
+      "actualBytes": 989555,
+      "manifestSizeBytes": 989555
+    },
+    {
+      "kind": "search",
+      "checksumMode": "raw",
+      "actualBytes": 415246,
+      "manifestSizeBytes": 415246
+    },
+    {
+      "kind": "mediaIndex",
+      "checksumMode": "raw",
+      "actualBytes": 981845,
+      "manifestSizeBytes": 981845
+    },
+    {
+      "kind": "backgroundScenes",
+      "checksumMode": "legacy checksum omits trailing LF; bytes match 630 shard",
+      "actualBytes": 183442,
+      "manifestSizeBytes": 183442
+    },
+    {
+      "kind": "embeddings",
+      "checksumMode": "raw",
+      "actualBytes": 1616094,
+      "manifestSizeBytes": 1616094
+    },
+    {
+      "kind": "semanticEmbeddings",
+      "checksumMode": "raw",
+      "actualBytes": 6612168,
+      "manifestSizeBytes": 6612168
+    }
+  ]
+}

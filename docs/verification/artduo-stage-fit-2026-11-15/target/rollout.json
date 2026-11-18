@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "baseRelease": "20261029-experience-continuity",
+  "targetRelease": "20261117-open-gap-714",
+  "currentReleaseAfter": "/opt/artduo/releases/20261117-open-gap-714",
+  "atomicSwitch": true,
+  "backup": {
+    "path": "/var/backups/artduo/20261117-open-gap-714",
+    "createdAt": "2026-11-18T01:46:25.888425973+08:00",
+    "sizeBytes": 381858354,
+    "sha256": "e0019223ef117879f276a2923f7c3c7fb585501ced5ec83dc6fa51bb40a82f26"
+  },
+  "activation": {
+    "services": {
+      "artduo-web.service": "active",
+      "artduo-handwriting.service": "active"
+    },
+    "activeSince": "2026-11-18 01:46:27 CST",
+    "environmentUnchanged": true,
+    "health": {
+      "status": 200,
+      "ok": true,
+      "releaseVersion": "2026-11-17-open-gap-714",
+      "checks": {
+        "corpus": true,
+        "localModel": true,
+        "persistentState": true,
+        "modelConfiguration": true
+      }
+    },
+    "preservedPrivateArtworkHashes": 1
+  },
+  "rollbackReady": true,
+  "oldReleaseKept": true,
+  "verifiedAt": "2026-11-18T02:10:48+08:00"
+}

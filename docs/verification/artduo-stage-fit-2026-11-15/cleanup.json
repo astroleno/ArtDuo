@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "remoteTemporaryState": {
+    "candidateService": "inactive",
+    "candidateEnv": "absent",
+    "candidateState": "absent",
+    "transferArchives": "absent",
+    "activationScript": "absent"
+  },
+  "preserved": {
+    "currentRelease": "20261117-open-gap-714",
+    "previousRelease": "20261029-experience-continuity",
+    "previousReleaseKept": true,
+    "backupKept": true
+  },
+  "cos": {
+    "correctPrefix": "artduo/media-v1/objects/",
+    "correctNewObjectCount": 168,
+    "wrongPrefix": {
+      "prefix": "artduo/media-v1/objects/objects/",
+      "objectCount": 168,
+      "status": "pending-user-confirmation"
+    },
+    "temporaryRootObjects": {
+      "objects": [
+        "artduo-release-transfer-20261118.tar.gz",
+        "artduo-source-30a3bd4.tar.gz",
+        "artduo-legacy-630.tar.gz",
+        "artduo-test-releases-20261014.tar.gz"
+      ],
+      "status": "pending-user-confirmation"
+    },
+    "note": "The mistaken prefix and private transfer packages were left in COS because deletion is an external destructive action requiring confirmation."
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "release": "2026-11-17-open-gap-714",
+  "interactivePublicChecks": {
+    "domain": "aitoshuu.me",
+    "viewportChecks": [
+      {"width": 1440, "height": 900, "status": "passed"},
+      {"width": 390, "height": 844, "status": "passed"}
+    ],
+    "samples": [
+      {
+        "query": "安静的月光",
+        "curationId": "c737330bbb0e66ec1288fc7cf671d95ba897d099a00df6958b16bcd72b8f71bc",
+        "normalizedQuery": "安静的月光",
+        "selectionVersion": 16,
+        "degraded": [],
+        "assignmentCount": 5,
+        "artworkIds": [
+          "rijksmuseum-200107781",
+          "met-438417",
+          "rijksmuseum-200116909",
+          "artic-7688",
+          "smk-KMS3127"
+        ],
+        "prefaceVisible": true
+      },
+      {
+        "query": "刚拿到offer，想看点开心的",
+        "curationId": "a73af2ddea1b88728cc7c1339ad778710da2b7678f301fc535e0cec0dcb51ad6",
+        "normalizedQuery": "刚拿到offer,想看点开心的",
+        "selectionVersion": 16,
+        "degraded": [],
+        "assignmentCount": 6,
+        "artworkIds": [
+          "artic-71573",
+          "cma-146193",
+          "smk-DEP297",
+          "artic-107862",
+          "met-438012",
+          "rijksmuseum-200119006"
+        ],
+        "indianMiniatureCount": 0,
+        "prefaceVisible": true
+      }
+    ]
+  },
+  "syntheticStageChoice": {
+    "query": "升职了，想看热闹又明亮的画",
+    "curationId": "3b2f36fca8ccddd24eecd9f905ffe4909e1d0cc19c1d82c477f578a3875992a",
+    "selectionVersion": 16,
+    "degraded": [],
+    "stageChoiceMs": 748,
+    "assignments": [
+      {"artworkId": "artic-66144", "stage": 0},
+      {"artworkId": "cma-146193", "stage": 1},
+      {"artworkId": "smk-DEP297", "stage": 2},
+      {"artworkId": "artic-71573", "stage": 2},
+      {"artworkId": "cma-314236", "stage": 3},
+      {"artworkId": "met-74750", "stage": 4}
+    ]
+  },
+  "existingSavedExhibition": {
+    "candidateStatus": 200,
+    "experienceShell": true,
+    "fixtureRelease": "2026-10-24-da3-curated-630",
+    "fixtureCurationId": "edbe7ad5b816b90767958adc76c5a5297d0df146187ce7eb3636efc40c259073"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "scope": "local preflight only",
+  "release": "2026-11-17-open-gap-714",
+  "sourceCommit": "30a3bd4d4c840e7a6240a9e35e9dc2a7d92efe95",
+  "githubCommitVerified": true,
+  "catalog": {
+    "eligibleWorks": 714,
+    "cdnManifestObjects": 1505,
+    "cdnManifestBytes": 347299918,
+    "coverageValidatedLocally": true
+  },
+  "targetedTests": {
+    "passed": 29,
+    "total": 29,
+    "files": [
+      "curated-depth-release.test.ts",
+      "semantic-curation.test.ts",
+      "artwork-offering.test.ts",
+      "stage-rerank.test.ts"
+    ]
+  },
+  "cos": {
+    "bucket": "tongye-1327162705",
+    "consoleBucketSeen": true,
+    "uploadStarted": false,
+    "confirmedNewObjects": 0
+  },
+  "origin": {
+    "ssh": "Operation not permitted",
+    "webTerminalOpened": false,
+    "candidateBuildVerified": false,
+    "switched": false
+  },
+  "publicValidation": {
+    "healthProbesVerified": false,
+    "queriesRun": []
+  },
+  "rollbackExecuted": false
+}

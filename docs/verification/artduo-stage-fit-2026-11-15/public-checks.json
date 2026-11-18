@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-18T01:48+08:00",
+  "interactiveCheckedAt": "2026-11-18T02:06+08:00",
+  "requestReachedTencent": true,
+  "domains": {
+    "aitoshuu.me": {
+      "health": {"status": 200, "releaseVersion": "2026-11-17-open-gap-714"},
+      "formalEntry": {"path": "/ArtDuo?view=experience", "status": 200},
+      "lowercaseRedirect": {"path": "/artduo?view=experience", "status": 308, "location": "/ArtDuo?view=experience"},
+      "mixedCaseRedirect": {"path": "/aRtDuO?view=experience", "status": 308, "location": "/ArtDuo?view=experience"},
+      "root": {"status": 200},
+      "neighbor": {"path": "/SonoScope", "status": 200},
+      "javascript": {"status": 200},
+      "stylesheet": {"status": 200},
+      "sampleImmersiveShell": {
+        "moon": {"status": 200, "experienceShell": true},
+        "offer": {"status": 200, "experienceShell": true, "experienceErrorTestId": false}
+      }
+    },
+    "tongye.me": {
+      "health": {"status": 200, "releaseVersion": "2026-11-17-open-gap-714"},
+      "formalEntry": {"path": "/ArtDuo?view=experience", "status": 200},
+      "lowercaseRedirect": {"path": "/artduo?view=experience", "status": 308, "location": "/ArtDuo?view=experience"},
+      "mixedCaseRedirect": {"path": "/aRtDuO?view=experience", "status": 308, "location": "/ArtDuo?view=experience"},
+      "root": {"status": 200},
+      "neighbor": {"path": "/SonoScope", "status": 200},
+      "javascript": {"status": 200},
+      "stylesheet": {"status": 200},
+      "sampleImmersiveShell": {
+        "moon": {"status": 200, "experienceShell": true},
+        "offer": {"status": 200, "experienceShell": true, "experienceErrorTestId": false}
+      }
+    }
+  },
+  "publicAsset": {
+    "objectKey": "artduo/media-v1/objects/91b2e749da570ea6034dc57488c068fab644df9dbd9e969399397f85e1273777/artic-107862.png",
+    "status": 200,
+    "bytes": 192655
+  },
+  "waitFrames": {
+    "desktop": {"width": 1440, "height": 900, "files": ["wait-frames/desktop-0.5s.png", "wait-frames/desktop-loading.png", "wait-frames/desktop-preface.png"]},
+    "mobile": {"width": 390, "height": 844, "files": ["wait-frames/mobile-0.5s.png", "wait-frames/mobile-loading.png", "wait-frames/mobile-preface.png"]}
+  }
+}

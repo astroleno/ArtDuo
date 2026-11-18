@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "policyDay": "2026-11-17",
+  "limits": {
+    "concurrency": 3,
+    "dailyRequests": 200,
+    "dailyReservedTokens": 1000000
+  },
+  "observed": {
+    "requests": 15,
+    "reservedTokens": 179867,
+    "leases": 0
+  },
+  "remaining": {
+    "requests": 185,
+    "reservedTokens": 820133
+  },
+  "status": "within-limits",
+  "notes": "The policy ledger was read after the public sample checks; no active leases remained."
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "commit": "30a3bd4d4c840e7a6240a9e35e9dc2a7d92efe95",
+  "release": "2026-11-17-open-gap-714",
+  "source": {
+    "commitExact": true,
+    "releaseDataFiles": 927,
+    "releaseDataBytes": 254601222,
+    "publicMedia": {
+      "previousKeys": 1337,
+      "totalKeys": 1505,
+      "newKeys": 168,
+      "newBytes": 45748196,
+      "newByKind": {
+        "depth": 84,
+        "preview": 84
+      },
+      "allNewObjectSha256VerifiedLocally": true,
+      "manifestSha256": "sha256:b812064e4bbd1a5eddad1f39b0dd58208197d40e4c24d01b738dcba03d777656"
+    }
+  },
+  "build": {
+    "status": "passed",
+    "buildId": "gKNHe3aQvKCdDpNqTkTJ",
+    "typecheck": "passed",
+    "targetManifestSha256": "5b7fd59788c478c29078733f58347957a1652f9b931fda73e8bc2cea5f37f67c",
+    "semanticIndexSha256": "82ffcb116c99d4ba7516ce699682d365a73d75d207a8d7d3a3e1a6008e70f3cc",
+    "semanticIndexBytes": 6612168,
+    "targetedRegression": {
+      "passed": 29,
+      "failed": 0,
+      "status": "passed"
+    }
+  },
+  "candidateReadiness": {
+    "status": "passed",
+    "releaseVersion": "2026-11-17-open-gap-714",
+    "configurationMode": "production-configuration",
+    "images": 714,
+    "depthMaps": 714,
+    "remoteImages": 531,
+    "preparedPreviews": 714,
+    "semanticWarmupMs": 3179,
+    "mediaDelivery": {
+      "mode": "local",
+      "assets": 0,
+      "bytes": 0
+    },
+    "quota": {
+      "concurrency": 3,
+      "dailyRequests": 200,
+      "dailyReservedTokens": 1000000
+    },
+    "health": {
+      "ok": true,
+      "corpus": true,
+      "localModel": true,
+      "persistentState": true,
+      "modelConfiguration": true
+    }
+  },
+  "mediaPreparationNote": "84 new preview objects were verified from the immutable public object URLs and written atomically into candidate state. The source-preparation pass was stopped after repeated upstream SMK timeouts; no source-preparation output was used for the release.",
+  "verifiedAt": "2026-11-18T02:10:48+08:00"
+}
