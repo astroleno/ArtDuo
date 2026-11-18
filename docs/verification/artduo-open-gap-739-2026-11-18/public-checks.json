@@ -1,0 +1,252 @@
+{
+  "checkedAt": "2026-11-18T21:46:33.302117+08:00",
+  "releaseVersion": "2026-11-18-open-gap-739",
+  "domains": {
+    "aitoshuu.me": {
+      "health": {
+        "status": 200,
+        "releaseVersion": "2026-11-18-open-gap-739",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        },
+        "qa739": "9c6c484696a94f79"
+      },
+      "formal": {
+        "status": 200,
+        "path": "/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+      },
+      "aliases": {
+        "/artduo?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        }
+      },
+      "js": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/chunks/webpack-3e9e9758697498da.js",
+        "type": "application/javascript"
+      },
+      "css": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+        "type": "text/css"
+      },
+      "missingAsset": 404,
+      "saved714": {
+        "status": 200,
+        "exhibitionId": "ex-1ktlei4",
+        "curationId": "c737330bbb0e66ec1288fc7cf671d95ba897d099a00df6958b16bcd72b8f71bc",
+        "artworkIds": [
+          "rijksmuseum-200107781",
+          "met-438417",
+          "rijksmuseum-200116909",
+          "artic-7688",
+          "smk-KMS3127"
+        ]
+      },
+      "neighbors": {
+        "/": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/"
+        },
+        "/SonoScope": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/SonoScope"
+        },
+        "/FamilyTree": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/FamilyTree"
+        },
+        "/Focuence": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/Focuence"
+        },
+        "/OutSet": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/OutSet/"
+        },
+        "/CordIndex": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/CordIndex/"
+        },
+        "/CoScroll": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/CoScroll/"
+        },
+        "/LuBirth": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/LuBirth/"
+        },
+        "/InfiDao": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/InfiDao"
+        }
+      },
+      "met-436927": {
+        "preview": {
+          "status": 200,
+          "type": "image/webp",
+          "bytes": 359960,
+          "sha256": "aaec86d4abeb85639ea9b9565236ffc31a7d3f86259cd8958a3a359256098d83"
+        },
+        "depth": {
+          "status": 200,
+          "type": "image/png",
+          "bytes": 272120,
+          "sha256": "55fed661b03fe7ea55aff8ae5c5ddcd5bc9515dcfd18029d7fbf3eb851881c0e"
+        },
+        "full": {
+          "status": 200,
+          "type": "image/jpeg",
+          "bytes": 4976429,
+          "sha256": "89abe565d4e834e254d1336c062fc8f3185eb1f3c9cc2210a7a5729f0e545196"
+        }
+      },
+      "tencentOriginAccessRecords": 1
+    },
+    "tongye.me": {
+      "health": {
+        "status": 200,
+        "releaseVersion": "2026-11-18-open-gap-739",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        },
+        "qa739": "0705c51856484c40"
+      },
+      "formal": {
+        "status": 200,
+        "path": "/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+      },
+      "aliases": {
+        "/artduo?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        }
+      },
+      "js": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/chunks/webpack-3e9e9758697498da.js",
+        "type": "application/javascript"
+      },
+      "css": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+        "type": "text/css"
+      },
+      "missingAsset": 404,
+      "saved714": {
+        "status": 200,
+        "exhibitionId": "ex-1ktlei4",
+        "curationId": "c737330bbb0e66ec1288fc7cf671d95ba897d099a00df6958b16bcd72b8f71bc",
+        "artworkIds": [
+          "rijksmuseum-200107781",
+          "met-438417",
+          "rijksmuseum-200116909",
+          "artic-7688",
+          "smk-KMS3127"
+        ]
+      },
+      "neighbors": {
+        "/": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/"
+        },
+        "/SonoScope": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/SonoScope"
+        },
+        "/FamilyTree": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/FamilyTree"
+        },
+        "/Focuence": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/Focuence"
+        },
+        "/OutSet": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/OutSet/"
+        },
+        "/CordIndex": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/CordIndex/"
+        },
+        "/CoScroll": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/CoScroll/"
+        },
+        "/LuBirth": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/LuBirth/"
+        },
+        "/InfiDao": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/InfiDao"
+        }
+      },
+      "met-436927": {
+        "preview": {
+          "status": 200,
+          "type": "image/webp",
+          "bytes": 359960,
+          "sha256": "aaec86d4abeb85639ea9b9565236ffc31a7d3f86259cd8958a3a359256098d83"
+        },
+        "depth": {
+          "status": 200,
+          "type": "image/png",
+          "bytes": 272120,
+          "sha256": "55fed661b03fe7ea55aff8ae5c5ddcd5bc9515dcfd18029d7fbf3eb851881c0e"
+        },
+        "full": {
+          "status": 200,
+          "type": "image/jpeg",
+          "bytes": 4976429,
+          "sha256": "89abe565d4e834e254d1336c062fc8f3185eb1f3c9cc2210a7a5729f0e545196"
+        }
+      },
+      "tencentOriginAccessRecords": 1
+    }
+  },
+  "errors": {},
+  "requestReachedTencent": true
+}

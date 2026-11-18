@@ -1,0 +1,159 @@
+{
+  "samples": [
+    {
+      "query": "刚拿到offer，开心得想跳起来",
+      "curationId": "95870a4018d9508a9225853446ac0ed0457bca3bc0ae3306288db548feba6720",
+      "selectionVersion": 16,
+      "degraded": [],
+      "assignments": [
+        {
+          "artworkId": "artic-71573",
+          "stage": 0,
+          "evidence": [
+            "mood:bright",
+            "stage-space:open",
+            "pixels:brightness",
+            "stage:joy",
+            "stage:bright",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "cma-146193",
+          "stage": 1,
+          "evidence": [
+            "mood:bright",
+            "stage-subject:people",
+            "pixels:brightness",
+            "stage:joy",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "artic-14620",
+          "stage": 2,
+          "evidence": [
+            "mood:bright",
+            "stage-subject:sea",
+            "stage-space:open",
+            "pixels:brightness",
+            "stage:hope",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "artic-107862",
+          "stage": 2,
+          "evidence": [
+            "mood:bright",
+            "stage-subject:sea",
+            "stage-space:open",
+            "pixels:brightness",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "cma-148378",
+          "stage": 3,
+          "evidence": [
+            "mood:bright",
+            "stage-subject:people",
+            "pixels:brightness",
+            "stage:joy",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "artic-97292",
+          "stage": 4,
+          "evidence": [
+            "mood:bright",
+            "pixels:brightness",
+            "model:stage-fit"
+          ]
+        }
+      ]
+    },
+    {
+      "query": "想看开阔的海和远山",
+      "curationId": "47215962493672f8d3b1b4f3cef3cccb00c06ee0a051a9f2ee569dac1d02b9a3",
+      "selectionVersion": 16,
+      "degraded": [],
+      "assignments": [
+        {
+          "artworkId": "artic-153993",
+          "stage": 0,
+          "evidence": [
+            "subject:sea",
+            "title-subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage:quiet",
+            "stage:spacious",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "smk-KMS3998",
+          "stage": 1,
+          "evidence": [
+            "subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-space:open",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "artic-16487",
+          "stage": 2,
+          "evidence": [
+            "subject:sea",
+            "primary-subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-subject:mountain",
+            "stage-space:open",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "artic-25806",
+          "stage": 2,
+          "evidence": [
+            "subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-subject:mountain",
+            "stage-space:open",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "artic-152747",
+          "stage": 3,
+          "evidence": [
+            "subject:sea",
+            "title-subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage:contemplation",
+            "model:stage-fit"
+          ]
+        },
+        {
+          "artworkId": "smk-KMS497",
+          "stage": 4,
+          "evidence": [
+            "subject:sea",
+            "title-subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage:spacious",
+            "model:stage-fit"
+          ]
+        }
+      ]
+    }
+  ]
+}

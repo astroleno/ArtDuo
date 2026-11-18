@@ -1,0 +1,79 @@
+{
+  "commit": "bca8f031f02b31589fef414c8c12f85595261547",
+  "release": "2026-11-18-open-gap-739",
+  "buildId": "kkKhDkZ_96EzMwz0ViL1E",
+  "typecheck": "passed",
+  "regression": {
+    "status": "passed",
+    "byPackage": {
+      "api": 35,
+      "contracts": 48,
+      "corpus": 47,
+      "ui": 122,
+      "web": 62
+    },
+    "total": 314
+  },
+  "candidateReadiness": {
+    "ok": true,
+    "releaseVersion": "2026-11-18-open-gap-739",
+    "checks": {
+      "corpus": true,
+      "localModel": true,
+      "persistentState": true,
+      "modelConfiguration": true
+    },
+    "mode": "production-configuration",
+    "images": 739,
+    "depthMaps": 739,
+    "remoteImages": 545,
+    "preparedPreviews": 739,
+    "mediaDelivery": {
+      "mode": "local",
+      "assets": 0,
+      "bytes": 0
+    },
+    "delivery": "Verified remote images are fetched and fingerprint-checked on first use; upstream availability is required",
+    "semanticWarmupMs": 1760,
+    "quota": {
+      "concurrency": 3,
+      "dailyRequests": 200,
+      "dailyReservedTokens": 1000000
+    },
+    "stillRequires": [
+      "TLS and proxy validation on the chosen host",
+      "persistent-volume restart rehearsal on that host",
+      "user approval before public release"
+    ]
+  },
+  "candidateHealth": {
+    "status": 200,
+    "releaseVersion": "2026-11-18-open-gap-739",
+    "checks": {
+      "corpus": true,
+      "localModel": true,
+      "persistentState": true,
+      "modelConfiguration": true
+    }
+  },
+  "sampleMedia": {
+    "preview": {
+      "status": 200,
+      "type": "image/webp",
+      "bytes": 359960,
+      "sha256": "aaec86d4abeb85639ea9b9565236ffc31a7d3f86259cd8958a3a359256098d83"
+    },
+    "depth": {
+      "status": 200,
+      "type": "image/png",
+      "bytes": 272120,
+      "sha256": "55fed661b03fe7ea55aff8ae5c5ddcd5bc9515dcfd18029d7fbf3eb851881c0e"
+    },
+    "full": {
+      "status": 200,
+      "type": "image/jpeg",
+      "bytes": 4976429,
+      "sha256": "89abe565d4e834e254d1336c062fc8f3185eb1f3c9cc2210a7a5729f0e545196"
+    }
+  }
+}

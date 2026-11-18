@@ -1,0 +1,15 @@
+{
+  "policyDay": "2026-11-18",
+  "dailyRequests": 200,
+  "dailyReservedTokens": 1000000,
+  "concurrency": 3,
+  "used": {
+    "requests": 0,
+    "tokens": 0
+  },
+  "remaining": {
+    "requests": 200,
+    "tokens": 1000000
+  },
+  "maxNewExhibitionsByRemainingRequestCount": 66
+}

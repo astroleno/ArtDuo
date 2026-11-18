@@ -1,0 +1,136 @@
+{
+  "checkedAt": "2026-11-18T14:04:37.192Z",
+  "checks": [
+    {
+      "name": "desktop",
+      "host": "aitoshuu.me",
+      "query": "刚拿到offer，开心得想跳起来！",
+      "states": {
+        "0.5s": {
+          "waitingText": "“刚拿到offer，开心得想跳起来！”",
+          "top": 353,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            1440,
+            900
+          ],
+          "file": "wait-frames/desktop-0.5s.png",
+          "elapsedMs": 1290
+        },
+        "loading": {
+          "waitingText": "“刚拿到offer，开心得想跳起来！”",
+          "top": 353,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": true,
+          "viewport": [
+            1440,
+            900
+          ],
+          "file": "wait-frames/desktop-loading.png",
+          "elapsedMs": 2791
+        },
+        "preface-pending": {
+          "waitingText": "“刚拿到offer，开心得想跳起来！”",
+          "top": 353,
+          "continueDisabled": true,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            1440,
+            900
+          ],
+          "file": "wait-frames/desktop-preface-pending.png",
+          "elapsedMs": 8257
+        },
+        "preface": {
+          "waitingText": null,
+          "top": null,
+          "continueDisabled": false,
+          "prefaceText": "先看黄橙华盖下居中的神像，人群白衣黄橙头巾在下方围拢，两侧蓝盆绿植与栏杆收住画面。",
+          "loading": false,
+          "viewport": [
+            1440,
+            900
+          ],
+          "file": "wait-frames/desktop-preface.png",
+          "elapsedMs": 8924
+        }
+      },
+      "curationId": "6dc165d463a8894026c6deb7d234108990b0bdb2daeb1a7cdc1f2efeebe5fa76",
+      "viewport": [
+        1440,
+        900
+      ],
+      "enteredGallery": true
+    },
+    {
+      "name": "mobile",
+      "host": "tongye.me",
+      "query": "想看开阔的海和远山，挑六幅。",
+      "states": {
+        "0.5s": {
+          "waitingText": "“想看开阔的海和远山，挑六幅。”",
+          "top": 351,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            390,
+            844
+          ],
+          "file": "wait-frames/mobile-0.5s.png",
+          "elapsedMs": 583
+        },
+        "loading": {
+          "waitingText": "“想看开阔的海和远山，挑六幅。”",
+          "top": 351,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": true,
+          "viewport": [
+            390,
+            844
+          ],
+          "file": "wait-frames/mobile-loading.png",
+          "elapsedMs": 1604
+        },
+        "preface-pending": {
+          "waitingText": "“想看开阔的海和远山，挑六幅。”",
+          "top": 351,
+          "continueDisabled": true,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            390,
+            844
+          ],
+          "file": "wait-frames/mobile-preface-pending.png",
+          "elapsedMs": 5981
+        },
+        "preface": {
+          "waitingText": null,
+          "top": null,
+          "continueDisabled": false,
+          "prefaceText": "先看第一幅：浅灰蓝天空压着平静海面，帆船分列左右。往后几幅，海面渐远，山影与岩崖依次出现。",
+          "loading": false,
+          "viewport": [
+            390,
+            844
+          ],
+          "file": "wait-frames/mobile-preface.png",
+          "elapsedMs": 7194
+        }
+      },
+      "curationId": "dc55e7f54e12570a3762fce05fdbc99206a5de8749f45bcd4dd3fc1359195fee",
+      "viewport": [
+        390,
+        844
+      ],
+      "enteredGallery": true
+    }
+  ],
+  "problems": []
+}

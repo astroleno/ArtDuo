@@ -1,0 +1,209 @@
+{
+  "checkedAt": "2026-11-18T21:17:22.664191+08:00",
+  "releaseVersion": "2026-11-17-open-gap-714",
+  "domains": {
+    "aitoshuu.me": {
+      "health": {
+        "status": 200,
+        "releaseVersion": "2026-11-17-open-gap-714",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        },
+        "qa739": "2a0591984d694f20"
+      },
+      "formal": {
+        "status": 200,
+        "path": "/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+      },
+      "aliases": {
+        "/artduo?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        }
+      },
+      "js": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/chunks/webpack-3e9e9758697498da.js",
+        "type": "application/javascript"
+      },
+      "css": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+        "type": "text/css"
+      },
+      "missingAsset": 404,
+      "saved714": {
+        "status": 200,
+        "exhibitionId": "ex-1ktlei4",
+        "curationId": "c737330bbb0e66ec1288fc7cf671d95ba897d099a00df6958b16bcd72b8f71bc",
+        "artworkIds": [
+          "rijksmuseum-200107781",
+          "met-438417",
+          "rijksmuseum-200116909",
+          "artic-7688",
+          "smk-KMS3127"
+        ]
+      },
+      "neighbors": {
+        "/": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/"
+        },
+        "/SonoScope": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/SonoScope"
+        },
+        "/FamilyTree": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/FamilyTree"
+        },
+        "/Focuence": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/Focuence"
+        },
+        "/OutSet": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/OutSet/"
+        },
+        "/CordIndex": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/CordIndex/"
+        },
+        "/CoScroll": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/CoScroll/"
+        },
+        "/LuBirth": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/LuBirth/"
+        },
+        "/InfiDao": {
+          "status": 200,
+          "host": "aitoshuu.me",
+          "path": "/InfiDao"
+        }
+      }
+    },
+    "tongye.me": {
+      "health": {
+        "status": 200,
+        "releaseVersion": "2026-11-17-open-gap-714",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        },
+        "qa739": "7724466b329a42aa"
+      },
+      "formal": {
+        "status": 200,
+        "path": "/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+      },
+      "aliases": {
+        "/artduo?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        }
+      },
+      "js": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/chunks/webpack-3e9e9758697498da.js",
+        "type": "application/javascript"
+      },
+      "css": {
+        "status": 200,
+        "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+        "type": "text/css"
+      },
+      "missingAsset": 404,
+      "saved714": {
+        "status": 200,
+        "exhibitionId": "ex-1ktlei4",
+        "curationId": "c737330bbb0e66ec1288fc7cf671d95ba897d099a00df6958b16bcd72b8f71bc",
+        "artworkIds": [
+          "rijksmuseum-200107781",
+          "met-438417",
+          "rijksmuseum-200116909",
+          "artic-7688",
+          "smk-KMS3127"
+        ]
+      },
+      "neighbors": {
+        "/": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/"
+        },
+        "/SonoScope": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/SonoScope"
+        },
+        "/FamilyTree": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/FamilyTree"
+        },
+        "/Focuence": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/Focuence"
+        },
+        "/OutSet": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/OutSet/"
+        },
+        "/CordIndex": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/CordIndex/"
+        },
+        "/CoScroll": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/CoScroll/"
+        },
+        "/LuBirth": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/LuBirth/"
+        },
+        "/InfiDao": {
+          "status": 200,
+          "host": "tongye.me",
+          "path": "/InfiDao"
+        }
+      }
+    }
+  },
+  "errors": {}
+}

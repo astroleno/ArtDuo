@@ -1,0 +1,28 @@
+{
+  "commit": "bca8f031f02b31589fef414c8c12f85595261547",
+  "base": "/opt/artduo/releases/20261117-open-gap-714",
+  "current": "/opt/artduo/releases/20261118-open-gap-739",
+  "at": "2026-11-18T13:44:26.879265+00:00",
+  "buildId": "kkKhDkZ_96EzMwz0ViL1E",
+  "backup": {
+    "path": "/var/backups/artduo/20261118-open-gap-739",
+    "bytes": 381856349,
+    "sha256": "0cabd6e43a964e3e41541456c9419f9dcc08522fe788c47c48b58978a61bfcb0"
+  },
+  "services": {
+    "artduo-web.service": "active",
+    "artduo-handwriting.service": "active"
+  },
+  "environmentUnchanged": true,
+  "saved714Unchanged": true,
+  "health": {
+    "status": 200,
+    "releaseVersion": "2026-11-18-open-gap-739",
+    "checks": {
+      "corpus": true,
+      "localModel": true,
+      "persistentState": true,
+      "modelConfiguration": true
+    }
+  }
+}

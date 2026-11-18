@@ -1,0 +1,131 @@
+{
+  "checkedAt": "2026-11-18T13:45:24.969Z",
+  "checks": [
+    {
+      "page": "p4",
+      "name": "desktop",
+      "host": "aitoshuu.me",
+      "query": "刚拿到offer，开心得想跳起来",
+      "states": {
+        "0.5s": {
+          "waitingText": "“刚拿到offer，开心得想跳起来”",
+          "top": 301,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 619
+        },
+        "loading": {
+          "waitingText": "“刚拿到offer，开心得想跳起来”",
+          "top": 301,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": true,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 1604
+        },
+        "preface-pending": {
+          "waitingText": "“刚拿到offer，开心得想跳起来”",
+          "top": 301,
+          "continueDisabled": true,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 6984
+        },
+        "preface": {
+          "waitingText": null,
+          "top": null,
+          "continueDisabled": false,
+          "prefaceText": "先看海边浅水，白衣孩童正玩得起劲，右侧一顶黄帽涉水。这份雀跃，从水面开始。",
+          "loading": false,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 7941
+        }
+      },
+      "curationId": "95870a4018d9508a9225853446ac0ed0457bca3bc0ae3306288db548feba6720",
+      "viewport": [
+        1458,
+        796
+      ],
+      "enteredGallery": true
+    },
+    {
+      "page": "p5",
+      "name": "mobile",
+      "host": "tongye.me",
+      "query": "想看开阔的海和远山",
+      "states": {
+        "0.5s": {
+          "waitingText": "“想看开阔的海和远山”",
+          "top": 301,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 626
+        },
+        "loading": {
+          "waitingText": "“想看开阔的海和远山”",
+          "top": 301,
+          "continueDisabled": null,
+          "prefaceText": null,
+          "loading": true,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 2478
+        },
+        "preface-pending": {
+          "waitingText": "“想看开阔的海和远山”",
+          "top": 301,
+          "continueDisabled": true,
+          "prefaceText": null,
+          "loading": false,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 7212
+        },
+        "preface": {
+          "waitingText": null,
+          "top": null,
+          "continueDisabled": false,
+          "prefaceText": "先看左侧绿色悬崖斜向沙滩，右侧灰蓝海面接淡黄晨空，视线由此向远处铺开。",
+          "loading": false,
+          "viewport": [
+            1458,
+            796
+          ],
+          "elapsedMs": 7873
+        }
+      },
+      "curationId": "47215962493672f8d3b1b4f3cef3cccb00c06ee0a051a9f2ee569dac1d02b9a3",
+      "viewport": [
+        1458,
+        796
+      ],
+      "enteredGallery": true
+    }
+  ],
+  "problems": [],
+  "separateViewportVerification": "viewport.json"
+}

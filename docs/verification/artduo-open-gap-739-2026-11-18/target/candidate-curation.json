@@ -1,0 +1,201 @@
+{
+  "samples": [
+    {
+      "query": "刚拿到offer，开心得想跳起来",
+      "curationId": "10b2a17332052458bf3680db514fbb0a2d3d86f6635e03ef06274ba1bcf0dafd",
+      "selectionVersion": 16,
+      "degraded": [],
+      "assignments": [
+        {
+          "artworkId": "artic-97292",
+          "stage": 0,
+          "evidence": [
+            "mood:bright",
+            "pixels:brightness",
+            "stage:bright"
+          ]
+        },
+        {
+          "artworkId": "met-74750",
+          "stage": 1,
+          "evidence": [
+            "mood:bright",
+            "pixels:brightness",
+            "stage:joy"
+          ]
+        },
+        {
+          "artworkId": "cma-314236",
+          "stage": 2,
+          "evidence": [
+            "mood:bright",
+            "stage-subject:people",
+            "pixels:brightness",
+            "stage:joy",
+            "stage:playful"
+          ]
+        },
+        {
+          "artworkId": "artic-71573",
+          "stage": 2,
+          "evidence": [
+            "mood:bright",
+            "stage-subject:people",
+            "pixels:brightness",
+            "stage:joy",
+            "stage:playful"
+          ]
+        },
+        {
+          "artworkId": "cma-164466",
+          "stage": 3,
+          "evidence": [
+            "mood:bright",
+            "stage-subject:flowers",
+            "pixels:brightness",
+            "stage:joy"
+          ]
+        },
+        {
+          "artworkId": "artic-107862",
+          "stage": 4,
+          "evidence": [
+            "mood:bright",
+            "stage-space:open",
+            "pixels:brightness",
+            "stage:bright"
+          ]
+        }
+      ],
+      "selectedByModel": false,
+      "checkedResponseMs": 376,
+      "stageChoiceMs": 800
+    },
+    {
+      "query": "想看开阔的海和远山",
+      "curationId": "d03e555a5cc05a06ba809742f13326e5ba3de032b58317bd2ed782eebd9148e7",
+      "selectionVersion": 16,
+      "degraded": [],
+      "assignments": [
+        {
+          "artworkId": "artic-81535",
+          "stage": 0,
+          "evidence": [
+            "subject:sea",
+            "title-subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-space:open",
+            "stage:quiet",
+            "stage:spacious"
+          ]
+        },
+        {
+          "artworkId": "artic-180711",
+          "stage": 1,
+          "evidence": [
+            "subject:sea",
+            "space:open",
+            "stage-subject:mountain",
+            "stage-subject:sea",
+            "stage:contemplation"
+          ]
+        },
+        {
+          "artworkId": "artic-14620",
+          "stage": 2,
+          "evidence": [
+            "subject:sea",
+            "primary-subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-space:open",
+            "stage:hope"
+          ]
+        },
+        {
+          "artworkId": "smk-KMS3998",
+          "stage": 2,
+          "evidence": [
+            "subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-space:open"
+          ]
+        },
+        {
+          "artworkId": "artic-16487",
+          "stage": 3,
+          "evidence": [
+            "subject:sea",
+            "primary-subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-subject:mountain",
+            "stage:contemplation"
+          ]
+        },
+        {
+          "artworkId": "artic-25806",
+          "stage": 4,
+          "evidence": [
+            "subject:sea",
+            "space:open",
+            "stage-subject:sea",
+            "stage-subject:mountain",
+            "stage:quiet",
+            "stage:spacious"
+          ]
+        }
+      ],
+      "selectedByModel": false,
+      "checkedResponseMs": 128,
+      "stageChoiceMs": 862
+    }
+  ],
+  "stageChoiceComparison": [
+    {
+      "releaseVersion": "2026-11-17-open-gap-714",
+      "modelResponseBytes": 229,
+      "validStageArray": true,
+      "retryMs": 1177,
+      "fallbackWorks": 6,
+      "acceptedWorks": 0,
+      "predictedStageCount": 5,
+      "emittedStageRows": 5,
+      "repeated": 0,
+      "outsidePool": 0,
+      "countMismatch": 0
+    },
+    {
+      "releaseVersion": "2026-11-18-open-gap-739",
+      "modelResponseBytes": 229,
+      "validStageArray": true,
+      "retryMs": 737,
+      "fallbackWorks": 6,
+      "acceptedWorks": 0,
+      "predictedStageCount": 5,
+      "emittedStageRows": 5,
+      "repeated": 0,
+      "outsidePool": 0,
+      "countMismatch": 0
+    }
+  ],
+  "candidateStageChoiceMs": [
+    800,
+    862,
+    902
+  ],
+  "saved714": {
+    "curationId": "c737330bbb0e66ec1288fc7cf671d95ba897d099a00df6958b16bcd72b8f71bc",
+    "artworkIds": [
+      "rijksmuseum-200107781",
+      "met-438417",
+      "rijksmuseum-200116909",
+      "artic-7688",
+      "smk-KMS3127"
+    ],
+    "recordSha256": "c737330bbb0e66ec1288fc7cf671d95ba897d099a00df6958b16bcd72b8f71bc",
+    "status": 200
+  }
+}

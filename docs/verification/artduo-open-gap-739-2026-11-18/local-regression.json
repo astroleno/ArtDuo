@@ -1,0 +1,13 @@
+{
+  "command": "NODE_ENV=test pnpm -r --workspace-concurrency=1 test",
+  "total": 575,
+  "failed": 0,
+  "packages": {
+    "@artduo/contracts": 48,
+    "@artduo/api": 81,
+    "@artduo/corpus": 47,
+    "@artduo/ui": 122,
+    "@artduo/pipeline": 80,
+    "@artduo/web": 197
+  }
+}
