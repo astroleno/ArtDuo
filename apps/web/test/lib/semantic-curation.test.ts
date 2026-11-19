@@ -7,7 +7,7 @@ import { LOCAL_SEMANTIC_MODEL } from "@artduo/corpus/src/semantic-index";
 import { fallbackCurationIntent, eligibleCurationArtworks, selectForCurationStages } from "../../lib/semantic-selection";
 import { artworkOffering, stageFit } from "../../lib/artwork-offering";
 import { curateExhibition, readSavedCuration } from "../../lib/semantic-curator";
-import { loadWebReleaseCatalog, searchReleaseCatalog } from "../../lib/release-catalog";
+import { loadWebReleaseCatalog, searchReleaseCatalog, type WebArtwork } from "../../lib/release-catalog";
 import { matchesViewingIntent, parseViewingIntent } from "../../lib/viewing-intent";
 
 const rootDir = path.resolve(__dirname, "../../../..");
@@ -123,6 +123,32 @@ test("concrete stage wishes rank matching interiors and open views before slight
   assert.deepEqual(result.assignments.map(a => a.artworkId), ["room", "vista"]);
   assert.ok(result.assignments[0].evidence.includes("stage-subject:interior"));
   assert.ok(result.assignments[1].evidence.includes("stage-space:open"));
+});
+
+test("warm-light stages promote either reviewed subject without treating colorful paint as illumination", () => {
+  const base = catalog.artworks[0]!;
+  const artwork = (id: string, facts: NonNullable<WebArtwork["visualEvidence"]>["facts"], observation: string): WebArtwork => ({
+    ...base, id, title: id, medium: "Oil on canvas", visualEvidence: { ...base.visualEvidence!, facts, observation },
+    appearance: { meanLightness: .75, brightShare: .8, darkShare: 0, chroma: .95, colorVariation: .95 },
+  });
+  const colorfulRoom = artwork("Colorful room", { interior: "present" }, "黄色墙面与蓝色桌布相对。没有暖光。");
+  const goldTrim = artwork("Gold-trimmed room", { interior: "present" }, "窗框描金，墙面是金黄色。窗外光线偏蓝。");
+  const unclearLight = artwork("Unclear light", { interior: "present" }, "无法确认暖光。墙上有浅色块。");
+  const warmLandscape = artwork("Warm landscape", { interior: "absent", stillLife: "absent" }, "田野沐浴在金色阳光里。");
+  const bouquet = artwork("Bouquet", { stillLife: "present", interior: "unknown" }, "浅黄花束与杯盏摆在桌上，桌沿有暖光。");
+  const sunlitRoom = artwork("Sunlit room", { interior: "present", stillLife: "absent" }, "窗边金黄色光斑照在木质桌沿。");
+  const works = [colorfulRoom, goldTrim, unclearLight, warmLandscape, bouquet, sunlitRoom];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(work => [work.id, work])) };
+  const query = "想看一幅明亮的画";
+  const plan = { ...fallbackCurationIntent(fixture, query), artworkCount: 1 };
+  plan.stages[0] = { ...plan.stages[0], query: "warm radiant still lifes and interiors with golden light" };
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture", model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 },
+    records: works.map(work => ({ artworkId: work.id, textFingerprint: "fixture", vector: [1, 0] })) }, queries: plan.stages.map(() => [1, 0]) };
+  const selected = selectForCurationStages({ catalog: fixture, query, plan, semantic });
+  const pool = selected.stagePools![0];
+  assert.deepEqual(new Set(pool.slice(0, 2).map(work => work.artworkId)), new Set([bouquet.id, sunlitRoom.id]));
+  assert.deepEqual(pool.filter(work => work.evidence.includes("stage-light:warm")).map(work => work.artworkId), pool.slice(0, 2).map(work => work.artworkId));
+  assert.equal(selectForCurationStages({ catalog: fixture, query: colorfulRoom.title, plan, semantic }).assignments[0].artworkId, colorfulRoom.id);
 });
 test("provider failure freezes a valid fallback and saved links never regenerate or change query", async () => {
   const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-curation-"));

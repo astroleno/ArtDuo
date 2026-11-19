@@ -44,8 +44,15 @@ export function eligibleCurationArtworks(catalog: WebReleaseCatalog, query: stri
 // Stage queries are atmospheric English. "Breathing room" or "a lit window" names
 // a feeling of space or light, not a depicted interior or building.
 const FIGURATIVE_STAGE_WORDS = /\b(?:breathing|elbow|head)\s*room\b|\broom\s+(?:to|for)\s+\w+|\bwindows?\b/giu;
-export const stageSubjectText = (stageQuery: string): string => stageQuery.replace(FIGURATIVE_STAGE_WORDS, " ");
+export const stageSubjectText = (stageQuery: string): string => stageQuery.replace(FIGURATIVE_STAGE_WORDS, " ").replace(/\bstill[- ]lifes\b/giu, "still life");
 const OPEN_STAGE = /\b(?:open|wide|expansive|distant)(?:\s+(?:open|wide|distant))*\s+(?:landscape|horizon|sky|view|vista)/iu;
+const STILL_LIFE_INTERIOR_LIST = /\bstill[- ]lifes?\s+and\s+interiors?\b|\binteriors?\s+and\s+still[- ]lifes?\b|静物[和与及]室内|室内[和与及]静物/iu;
+const WARM_LIGHT = /(?:暖(?:[黄金褐橙]?色?)|金(?:色|黄色?)|琥珀色)的?(?:窗光|灯光|阳光|日光|天光|光线|光斑|光晕|光(?!泽))|\b(?:warm|golden|amber)(?:\s+(?:soft|window|ambient))*\s+(?:sunlight|daylight|light(?:ing)?|glow)\b|\bwarmly lit\b/iu;
+const UNVERIFIED_LIGHT = /未见|无法确认|不能确认|看不清|不明|不确定|没有|缺乏|不要|并非|疑似|\b(?:no|not|without|avoid|unclear|unconfirmed|possibly|appears? to be|might be)\b/iu;
+
+function hasWarmLight(text: string): boolean {
+  return text.split(/[，,。；;.!?\n]/u).some((clause) => WARM_LIGHT.test(clause) && !UNVERIFIED_LIGHT.test(clause));
+}
 
 function quotasFor(count: number, stages: number): number[] {
   const quotas = Array.from({ length: stages }, () => 0);
@@ -113,6 +120,10 @@ export function selectForCurationStages(input: {
     const parsedStage = parseViewingIntent(stageSubjectText(stage.query));
     // An open landscape stage cannot also ask for an enclosed room.
     const stageIntent = openStage ? { ...parsedStage, subjects: parsedStage.subjects.filter(subject => subject !== "interior" && subject !== "architecture") } : parsedStage;
+    const stillLifeOrInterior = stageIntent.subjects.length === 2 && STILL_LIFE_INTERIOR_LIST.test(stage.query);
+    const wantsStillLife = stageIntent.subjects.includes("stillLife");
+    const wantsInterior = stageIntent.subjects.includes("interior");
+    const warmStage = (wantsStillLife || wantsInterior) && hasWarmLight(stage.query);
     return eligible.map((artwork) => {
     const vector = (input.semantic ? semanticRecords : hashRecords).get(artwork.id);
     if (!vector || vector.length !== dimensions) throw new TypeError("Missing artwork vector in the selected semantic space");
@@ -128,14 +139,18 @@ export function selectForCurationStages(input: {
       : artwork.visualEvidence?.facts.interior === "present" && artwork.visualEvidence.facts.portrait !== "present" ? 0.08 : 0;
     const detailedFocus = viewingFocusEvidence(artwork, intent);
     const stageSubjects = viewingIntentEvidence(artwork, stageIntent).filter(item => item.startsWith("subject:"));
-    const subjectFit = !stageIntent.subjects.length ? 0 : stageIntent.alternativeSubjects
+    const subjectFit = !stageIntent.subjects.length ? 0 : stageIntent.alternativeSubjects || stillLifeOrInterior
       ? Number(stageSubjects.length > 0) : stageSubjects.length / stageIntent.subjects.length;
     const openFit = openStage && artwork.visualEvidence?.spatialFraming === "open";
     const enclosedConflict = openStage && (artwork.visualEvidence?.spatialFraming === "enclosed" || artwork.visualEvidence?.facts.interior === "present");
     const appearance = artwork.appearance;
+    const visual = artwork.visualEvidence;
+    const warmFit = warmStage && visual && ((wantsStillLife && visual.facts.stillLife === "present") || (wantsInterior && visual.facts.interior === "present"))
+      && hasWarmLight(visual.observation);
+    // Give measured brightness less weight when the stage specifies warm light.
     const brightFit = intent.bright && appearance
-      ? .12 * (appearance.meanLightness - .45) + .025 * appearance.brightShare + .12 * appearance.chroma
-        + .26 * appearance.colorVariation - .22 * appearance.darkShare : 0;
+      ? (warmStage ? .5 : 1) * (.12 * (appearance.meanLightness - .45) + .025 * appearance.brightShare + .12 * appearance.chroma
+        + .26 * appearance.colorVariation - .22 * appearance.darkShare) : 0;
     // A saturated night scene or its gold frame does not establish bright daylight.
     // Keep night scenes eligible, and honor an explicit request to see one.
     const nightPenalty = intent.bright && !/夜|月|\b(?:night|nocturne|moon\w*)\b/iu.test(query)
@@ -146,9 +161,10 @@ export function selectForCurationStages(input: {
     const shown = named ? 0 : input.recentExposure?.get(artwork.id) ?? 0;
     const exposurePenalty = Math.min(RECENT_PENALTY_CAP, shown * RECENT_PENALTY_STEP);
     const score = vectorScore * 0.78 + affectFit * AFFECT_WEIGHT + Math.min(2, matched.length) * 0.04 + architectureFocus - (enclosedConflict ? 0.12 : 0)
-      + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + brightFit - nightPenalty - heavyPenalty - exposurePenalty + (exactName(artwork, query) ? 2 : 0);
+      + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + (warmFit ? .24 : 0)
+      + brightFit - nightPenalty - heavyPenalty - exposurePenalty + (exactName(artwork, query) ? 2 : 0);
     return { artwork, vectorScore, score, affectFit, evidence: [...evidence, ...(architectureFocus ? ["focus:architecture"] : []), ...detailedFocus.map(focus => `focus:${focus.topic}`),
-      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...(exposurePenalty ? [`recent:${shown}`] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
+      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(warmFit ? ["stage-light:warm"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...(exposurePenalty ? [`recent:${shown}`] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
     // When the visitor asked for a mood, a work that contradicts its stage is
     // left out; a shorter exhibition beats a festival in a still closing. Subject
     // requests without a stated mood still fill their count. Named works stay.

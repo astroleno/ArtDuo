@@ -1,6 +1,7 @@
 // Replays recorded intent plans through stage selection and asks an independent
 // model to judge whether each selected work offers what its stage asked for.
-// Usage: pnpm --filter @artduo/web exec tsx scripts/stage-fit-eval.ts <label> [--no-judge]
+// Freeze one replay with --rerank --recent --no-judge, then use --judge-from=<label>
+// with each --judge=<model> to grade the same stage assignments.
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -15,9 +16,11 @@ import { requestStageRerank } from "../lib/stage-rerank";
 
 const rootDir = path.resolve(__dirname, "../../..");
 const label = process.argv[2] ?? "current";
+const option = (name: string) => process.argv.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3);
 const judgeEnabled = !process.argv.includes("--no-judge");
 // A different model from the curation planner, so selection is not graded by itself.
-const JUDGE_MODEL = process.argv.find((arg) => arg.startsWith("--judge="))?.slice(8) ?? "deepseek-v4-pro";
+const JUDGE_MODEL = option("judge") ?? "deepseek-v4-pro";
+const judgeFrom = option("judge-from");
 const rerankEnabled = process.argv.includes("--rerank");
 // Replays plans in order as successive visitors, so earlier exhibitions count as recent exposure.
 const recentEnabled = process.argv.includes("--recent");
@@ -25,7 +28,8 @@ const outDir = path.join(rootDir, ".cache", "stage-fit-eval");
 const judgeCachePath = path.join(outDir, "judge-cache.json");
 
 interface JudgedWork { artworkId: string; stage: number; fit: number; reason: string }
-interface ExhibitionResult { query: string; stages: string[]; works: Array<{ artworkId: string; title: string; stage: number }>; judged?: JudgedWork[] }
+type RerankRun = { status: "accepted" | "rejected" | "failed"; ms: number };
+interface ExhibitionResult { query: string; stages: string[]; works: Array<{ artworkId: string; title: string; stage: number }>; rerank?: RerankRun; judged?: JudgedWork[] }
 
 function artworkBrief(artwork: WebArtwork): string {
   return JSON.stringify({
@@ -50,18 +54,19 @@ function judgeMessages(plan: CurationIntentPlan, works: Array<{ artwork: WebArtw
   ];
 }
 
-async function judge(plan: CurationIntentPlan, works: Array<{ artwork: WebArtwork; stage: number }>, cache: Record<string, JudgedWork[]>): Promise<JudgedWork[] | undefined> {
-  const key = createHash("sha256").update(JSON.stringify([JUDGE_MODEL, plan, works.map((work) => [work.artwork.id, work.stage])])).digest("hex");
+async function judge(plan: CurationIntentPlan, works: Array<{ artwork: WebArtwork; stage: number }>, cache: Record<string, JudgedWork[]>): Promise<JudgedWork[]> {
+  const messages = judgeMessages(plan, works);
+  const key = createHash("sha256").update(JSON.stringify([JUDGE_MODEL, messages])).digest("hex");
   if (cache[key]) return cache[key];
   const config = readCurationChatConfig(rootDir);
-  if (!config) return undefined;
+  if (!config) throw new Error("Judge provider unavailable");
   // Evaluation calls stay out of the visitor quota ledger.
   const stream = createCurationChatStream({ ...config, model: JUDGE_MODEL, rootDir: undefined });
   let text = "";
   for (let attempt = 1; ; attempt++) {
     try {
       text = "";
-      for await (const chunk of stream(judgeMessages(plan, works), { json: true, timeoutMs: 120_000, maxTokens: 2400 })) text += chunk;
+      for await (const chunk of stream(messages, { json: true, timeoutMs: 120_000, maxTokens: 2400 })) text += chunk;
       break;
     } catch (error) {
       if (attempt >= 8) throw error;
@@ -79,48 +84,87 @@ async function judge(plan: CurationIntentPlan, works: Array<{ artwork: WebArtwor
   return judged;
 }
 
-async function main(): Promise<void> {
-  const catalog = loadWebReleaseCatalog({ rootDir });
-  const plans = JSON.parse(readFileSync(path.join(__dirname, "../test/fixtures/stage-fit-plans.json"), "utf8")) as Record<string, unknown>;
+function readFrozenReplay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>, fixtureSha256: string): ExhibitionResult[] | undefined {
+  if (!judgeFrom) return undefined;
+  const { summary, results } = JSON.parse(readFileSync(path.join(outDir, `${judgeFrom}.json`), "utf8")) as
+    { summary: { releaseVersion?: string; fixtureSha256?: string }; results: ExhibitionResult[] };
+  if (summary.releaseVersion && summary.releaseVersion !== catalog.releaseVersion) throw new Error("Frozen replay belongs to a different release");
+  if (summary.fixtureSha256 && summary.fixtureSha256 !== fixtureSha256) throw new Error("Frozen replay uses different stage fixtures");
+  const queries = Object.keys(plans);
+  if (results.length !== queries.length || results.some(({ query, stages, works }, index) => {
+    if (query !== queries[index]) return true;
+    const plan = parseCurationIntentPlan(plans[query]);
+    return JSON.stringify(stages) !== JSON.stringify(plan.stages.map((stage) => stage.label))
+      || works.length > plan.artworkCount || new Set(works.map((work) => work.artworkId)).size !== works.length
+      || works.some((work, i) => !catalog.artworkById.has(work.artworkId) || !Number.isInteger(work.stage) || !plan.stages[work.stage]
+        || (i > 0 && work.stage < works[i - 1]!.stage));
+  })) throw new Error("Frozen replay does not match the fixed exhibition plans");
+  return results.map(({ query, stages, works, rerank }) => ({ query, stages, works, rerank }));
+}
+
+async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>): Promise<ExhibitionResult[]> {
   const index = loadSemanticIndex({ manifestPath: catalog.manifestPath, manifest: catalog.manifest,
     artworks: catalog.artworkRecords.map((artwork) => ({ id: artwork.id, text: semanticArtworkText({ ...artwork.metadata, description: artwork.metadata.descriptionClean ?? artwork.metadata.storySnippet }) })) });
   if (!index) throw new Error("Semantic index unavailable");
+  const config = rerankEnabled ? readCurationChatConfig(rootDir) : undefined;
+  if (rerankEnabled && !config) throw new Error("Rerank provider unavailable");
+  const stream = config && createCurationChatStream({ ...config, rootDir: undefined });
   const encoder = createLocalSemanticEncoder({ rootDir });
-  mkdirSync(outDir, { recursive: true });
-  const cache: Record<string, JudgedWork[]> = existsSync(judgeCachePath) ? JSON.parse(readFileSync(judgeCachePath, "utf8")) : {};
   const results: ExhibitionResult[] = [];
-  const rerankMs: number[] = [];
-  for (const [query, rawPlan] of Object.entries(plans)) {
-    const plan = parseCurationIntentPlan(rawPlan);
-    const queries = await encoder.embedQueries(plan.stages.map((stage) => stage.query));
-    const recentExposure = new Map<string, number>();
-    if (recentEnabled) for (const earlier of results.slice(-40)) for (const work of earlier.works) recentExposure.set(work.artworkId, (recentExposure.get(work.artworkId) ?? 0) + 1);
-    const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, recentExposure });
-    let assignments = selection.assignments;
-    if (rerankEnabled && selection.stagePools) {
-      const config = readCurationChatConfig(rootDir)!;
-      const started = Date.now();
-      for (let attempt = 1; attempt <= 3; attempt++) {
+  try {
+    for (const [query, rawPlan] of Object.entries(plans)) {
+      const plan = parseCurationIntentPlan(rawPlan);
+      const queries = await encoder.embedQueries(plan.stages.map((stage) => stage.query));
+      const recentExposure = new Map<string, number>();
+      if (recentEnabled) for (const earlier of results.slice(-40)) for (const work of earlier.works) recentExposure.set(work.artworkId, (recentExposure.get(work.artworkId) ?? 0) + 1);
+      const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, recentExposure });
+      let assignments = selection.assignments;
+      let rerank: RerankRun | undefined;
+      if (stream && selection.stagePools?.some((pool, stage) => pool.length > assignments.filter((item) => item.stageIndex === stage).length)) {
+        const started = Date.now();
         try {
-          assignments = await requestStageRerank({ catalog, plan, assignments, pools: selection.stagePools, stream: createCurationChatStream({ ...config, rootDir: undefined }), timeoutMs: 10_000 }) ?? assignments;
-          break;
-        } catch { await new Promise((resolve) => setTimeout(resolve, attempt * 3000)); }
+          const choice = await requestStageRerank({ catalog, plan, assignments, pools: selection.stagePools, stream, timeoutMs: 10_000 });
+          rerank = { status: choice ? "accepted" : "rejected", ms: Date.now() - started };
+          assignments = choice ?? assignments;
+        } catch {
+          rerank = { status: "failed", ms: Date.now() - started };
+        }
       }
-      rerankMs.push(Date.now() - started);
+      results.push({ query, stages: plan.stages.map((stage) => stage.label), rerank,
+        works: assignments.map((item) => ({ artworkId: item.artworkId, title: catalog.artworkById.get(item.artworkId)!.title, stage: item.stageIndex })) });
     }
-    const works = assignments.map((item) => ({ artwork: catalog.artworkById.get(item.artworkId)!, stage: item.stageIndex }));
-    const judged = judgeEnabled && works.length ? await judge(plan, works, cache) : undefined;
-    results.push({ query, stages: plan.stages.map((stage) => stage.label),
-      works: works.map(({ artwork, stage }) => ({ artworkId: artwork.id, title: artwork.title, stage })), judged });
-    writeFileSync(judgeCachePath, JSON.stringify(cache));
+    return results;
+  } finally {
+    await encoder.dispose();
+  }
+}
+
+async function main(): Promise<void> {
+  const catalog = loadWebReleaseCatalog({ rootDir, releaseVersion: option("release"), manifestPath: option("manifest") });
+  const fixture = readFileSync(path.join(__dirname, "../test/fixtures/stage-fit-plans.json"), "utf8");
+  const plans = JSON.parse(fixture) as Record<string, unknown>;
+  const fixtureSha256 = createHash("sha256").update(fixture).digest("hex");
+  mkdirSync(outDir, { recursive: true });
+  const results = readFrozenReplay(catalog, plans, fixtureSha256) ?? await replay(catalog, plans);
+  if (judgeEnabled) {
+    const cache: Record<string, JudgedWork[]> = existsSync(judgeCachePath) ? JSON.parse(readFileSync(judgeCachePath, "utf8")) : {};
+    for (const result of results) {
+      const works = result.works.map((work) => ({ artwork: catalog.artworkById.get(work.artworkId)!, stage: work.stage }));
+      result.judged = works.length ? await judge(parseCurationIntentPlan(plans[result.query]), works, cache) : [];
+      writeFileSync(judgeCachePath, JSON.stringify(cache));
+    }
   }
   const fits = results.flatMap((result) => result.judged ?? []);
   const uses = new Map<string, number>();
   for (const work of results.flatMap((result) => result.works)) uses.set(work.artworkId, (uses.get(work.artworkId) ?? 0) + 1);
   const total = [...uses.values()].reduce((sum, value) => sum + value, 0);
+  const reranks = results.flatMap((result) => result.rerank ? [result.rerank] : []);
+  const rerankMs = reranks.map((run) => run.ms).sort((a, b) => a - b);
   const summary = {
-    label, judge: JUDGE_MODEL, exhibitions: results.length, works: total,
-    rerankMs: rerankMs.length ? { median: rerankMs.sort((a, b) => a - b)[Math.floor(rerankMs.length / 2)], max: Math.max(...rerankMs) } : undefined,
+    label, releaseVersion: catalog.releaseVersion, fixtureSha256, judge: judgeEnabled ? JUDGE_MODEL : undefined, judgeFrom, exhibitions: results.length, works: total,
+    rerank: reranks.length ? { attempted: reranks.length, accepted: reranks.filter((run) => run.status === "accepted").length,
+      rejected: reranks.filter((run) => run.status === "rejected").length, failed: reranks.filter((run) => run.status === "failed").length,
+      medianMs: rerankMs[Math.floor(rerankMs.length / 2)], maxMs: rerankMs.at(-1) } : undefined,
     meanFit: fits.length ? Number((fits.reduce((sum, item) => sum + item.fit, 0) / fits.length).toFixed(2)) : undefined,
     misfitShare: fits.length ? Number((fits.filter((item) => item.fit <= 2).length / fits.length).toFixed(3)) : undefined,
     distinctShare: Number((uses.size / Math.max(1, total)).toFixed(3)),
