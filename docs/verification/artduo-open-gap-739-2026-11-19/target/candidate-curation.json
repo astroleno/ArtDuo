@@ -1,0 +1,91 @@
+{
+  "query": "刚拿到offer,开心得想跳起来!想看点明亮热烈、有能量的画",
+  "curationId": "24e6528dba713c568c143b26e71f2e06b76e2badfdc345f7089a5a0d484b406e",
+  "selectionVersion": 17,
+  "degraded": [],
+  "stageChoices": 0,
+  "stages": [
+    {
+      "label": "先迎上光",
+      "query": "bright warm sunlight, vivid saturated color, open airy composition, energetic brushwork, celebratory mood"
+    },
+    {
+      "label": "让色彩跳",
+      "query": "bold vivid color fields, dancing rhythm, lively dynamic shapes, high chroma painting, playful movement"
+    },
+    {
+      "label": "向上腾起",
+      "query": "upward soaring composition, radiant sky, swirling light, expansive energetic painting, sense of lift"
+    },
+    {
+      "label": "热里停一停",
+      "query": "warm glowing light, generous open space, calm radiant color, breathing composition, quiet brightness"
+    },
+    {
+      "label": "带着亮走",
+      "query": "golden luminous atmosphere, joyful warm palette, expansive hopeful landscape or celebration scene, lingering glow"
+    }
+  ],
+  "assignments": [
+    {
+      "artworkId": "cma-314236",
+      "title": "Krishna celebrates Holi",
+      "stage": 0,
+      "evidence": [
+        "mood:bright",
+        "pixels:brightness",
+        "stage:joy"
+      ]
+    },
+    {
+      "artworkId": "cma-148378",
+      "title": "Hindola Raga",
+      "stage": 1,
+      "evidence": [
+        "mood:bright",
+        "pixels:brightness",
+        "stage:joy",
+        "stage:vivid"
+      ]
+    },
+    {
+      "artworkId": "artic-97292",
+      "title": "Spring in France",
+      "stage": 2,
+      "evidence": [
+        "mood:bright",
+        "pixels:brightness"
+      ]
+    },
+    {
+      "artworkId": "met-436535",
+      "title": "Wheat Field with Cypresses",
+      "stage": 2,
+      "evidence": [
+        "mood:bright",
+        "pixels:brightness",
+        "stage:wonder"
+      ]
+    },
+    {
+      "artworkId": "artic-28560",
+      "title": "The Bedroom",
+      "stage": 3,
+      "evidence": [
+        "pixels:brightness"
+      ]
+    },
+    {
+      "artworkId": "met-11145",
+      "title": "The Veteran in a New Field",
+      "stage": 4,
+      "evidence": [
+        "mood:bright",
+        "pixels:brightness",
+        "stage:hope"
+      ]
+    }
+  ],
+  "verifiedPreviews": 6,
+  "stageChoiceMs": 707
+}

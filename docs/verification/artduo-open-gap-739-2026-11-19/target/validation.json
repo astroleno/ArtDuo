@@ -1,0 +1,57 @@
+{
+  "commit": "ddca2b97153be414ef512cc2aa21816b186d0321",
+  "release": "2026-11-19-open-gap-739",
+  "buildId": "DdRhOSeTDrITCRGNvFSL2",
+  "typecheck": "passed",
+  "regressions": {
+    "contracts": 48,
+    "corpus": 47,
+    "ui": 122,
+    "api": 31,
+    "web": 73
+  },
+  "testCount": 321,
+  "readiness": {
+    "ok": true,
+    "releaseVersion": "2026-11-19-open-gap-739",
+    "checks": {
+      "corpus": true,
+      "localModel": true,
+      "persistentState": true,
+      "modelConfiguration": true
+    },
+    "mode": "production-configuration",
+    "images": 739,
+    "depthMaps": 739,
+    "remoteImages": 544,
+    "preparedPreviews": 739,
+    "mediaDelivery": {
+      "mode": "local",
+      "assets": 0,
+      "bytes": 0
+    },
+    "delivery": "Verified remote images are fetched and fingerprint-checked on first use; upstream availability is required",
+    "semanticWarmupMs": 1534,
+    "quota": {
+      "concurrency": 3,
+      "dailyRequests": 200,
+      "dailyReservedTokens": 1000000
+    },
+    "stillRequires": [
+      "TLS and proxy validation on the chosen host",
+      "persistent-volume restart rehearsal on that host",
+      "user approval before public release"
+    ]
+  },
+  "candidateHealth": {
+    "status": 200,
+    "releaseVersion": "2026-11-19-open-gap-739",
+    "checks": {
+      "corpus": true,
+      "localModel": true,
+      "persistentState": true,
+      "modelConfiguration": true
+    }
+  },
+  "appearanceRecords": 739
+}
