@@ -96,11 +96,18 @@ function validateGroundedClaims(text: string, artworks: NarrativeArtwork[]): voi
   }
 }
 function validateActualCount(text: string, input: ExhibitionNarrativeInput): void {
-  const numbers: Record<string, number> = { 一: 1, 二: 2, 两: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10, 十一: 11, 十二: 12 };
+  const numbers: Record<string, number> = { 零: 0, 〇: 0, 一: 1, 二: 2, 两: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10, 十一: 11, 十二: 12 };
   const number = (value: string) => numbers[value] ?? Number(value);
-  const count = "(十二|十一|[一二两三四五六七八九十]|\\d{1,2})";
-  const patterns = [new RegExp(`(?:这次|本次|刚才|展览)(?:一共|共|只|仅|只有|仅有|找到|挑出|选出|选了|展出|看过|看过的|有|共有|只有这)*${count}[件幅张]`, "gu"), new RegExp(`这${count}[件幅张](?:作品|画|水景|风景|油画|版画)`, "gu")];
-  for (const pattern of patterns) for (const match of text.matchAll(pattern)) if (number(match[1]) !== input.artworks.length) throw new NarrativeContentError("Narrative misstates actual artwork count");
+  // Only 0–12 are possible. Longer Chinese numerals must still match as claims.
+  const count = "([零〇一二两三四五六七八九十百千万亿]+|\\d+)";
+  const opening = "(?:这次|本次|刚才|展览)[,\\s]*(?:我们[,\\s]*)?";
+  const qualifier = "(?:一共|共|只|仅|只有|仅有|(?:找到|挑出|挑选|选出|选取|展出)[了的]?|选了|看过(?:的)?|有|共有|只有这)*";
+  const patterns = [
+    new RegExp(`${opening}${qualifier}\\s*${count}\\s*[件幅张]`, "gu"),
+    new RegExp(`这\\s*${count}\\s*[件幅张](?:作品|展品|画|水景|风景|油画|版画)`, "gu"),
+  ];
+  const normalized = text.normalize("NFKC");
+  for (const pattern of patterns) for (const match of normalized.matchAll(pattern)) if (number(match[1]) !== input.artworks.length) throw new NarrativeContentError("Narrative misstates actual artwork count");
 }
 
 /** Check explicit route anchors against their actual work, not the union of all works. */

@@ -297,8 +297,12 @@ test("declining comfort keeps factual closings and removes unrequested emotional
 
 test("actual counts and own-work references cannot borrow the request or a neighbor's evidence", () => {
   const one = { ...input, plan: { ...input.plan, artworkCount: 3 } };
-  for (const text of ["这次找到三件符合条件的作品。", "这次挑出3件。", "这两件作品相互照应。", "刚才看过的2幅画在这里结束。"]) {
+  for (const text of ["这次找到三件符合条件的作品。", "这次挑出3件。", "这次挑出了三件作品。", "这次，我们挑出三件作品。",
+    "本次，我们一共选出了 ３ 幅画。", "这次挑出的三幅油画。", "这两件作品相互照应。", "刚才看过的2幅画在这里结束。", "本次展出了十三件展品。"]) {
     assert.throws(() => validateExhibitionNarrativePiece({ kind: "preface", text, evidenceIds: ["work-1"] }, one), /actual artwork count/);
+  }
+  for (const text of ["这次挑出了一件作品。", "这次，我们选出了 １ 幅。", "这次，看画里三扇窗的高低。"]) {
+    assert.equal(validateExhibitionNarrativePiece({ kind: "preface", text, evidenceIds: ["work-1"] }, one).text, text);
   }
   const two = { ...input, artworks: [input.artworks[0], { ...input.artworks[0], id: "work-2" }] };
   assert.throws(() => validateExhibitionNarrativePiece({ kind: "note", artworkId: "work-1", text: "看这一件作品。", evidenceIds: ["work-1", "work-2"] }, two), /outside the frozen exhibition/);
