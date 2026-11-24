@@ -7,7 +7,7 @@ import type { DetailNavigation, ExhibitionSnapshot, NarrativeBlock } from "./typ
 import { Room } from "./room";
 import { ViewingControls } from "./viewing-controls";
 import type { ViewingSession, ViewingPreference, ViewingPace } from "./viewing-session";
-import { adjacentWarmUrls, artworkWarmUrls, experiencePrewarm, type ConnectionHint } from "./media-prewarm";
+import { adjacentWarmUrls, experiencePrewarm, type ConnectionHint } from "./media-prewarm";
 import { useRoomMotion } from "./room-motion";
 import { roomImageCandidate } from "./room-assets";
 import { useOverlayHistory } from "./use-overlay-history";
@@ -93,8 +93,12 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
   }, [dispatch]);
   useEffect(() => {
     if (!unit || readyId !== unit.exhibition.unitId || roomReadyId !== unit.exhibition.unitId || !navigator.onLine) return;
-    const assets = (candidate: typeof nextUnit) => artworkWarmUrls(candidate?.media, unit.media.backgroundUrl);
-    const urls = adjacentWarmUrls(assets(nextUnit), assets(previousUnit), (navigator as Navigator & { connection?: ConnectionHint }).connection);
+    const urls = adjacentWarmUrls(nextUnit?.media, previousUnit?.media, {
+      currentBackground: unit.media.backgroundUrl,
+      connection: (navigator as Navigator & { connection?: ConnectionHint }).connection,
+      reducedMotion,
+      mouseMotion,
+    });
     const controller = new AbortController(), started = performance.now();
     const backgrounds = new Map([nextUnit, previousUnit].flatMap(candidate => candidate?.media.backgroundUrl
       ? [[candidate.media.backgroundUrl, roomImageCandidate(candidate.media.backgroundUrl, window.innerWidth, window.devicePixelRatio, candidate.media.backgroundUrlSmall)]] : []));
@@ -104,7 +108,7 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
       } }));
     });
     return () => controller.abort();
-  }, [readyId, roomReadyId, unit?.exhibition.unitId, unit?.media.backgroundUrl, previousUnit?.media.previewUrl, previousUnit?.media.depthMapUrl, previousUnit?.media.backgroundUrl, nextUnit?.media.previewUrl, nextUnit?.media.depthMapUrl, nextUnit?.media.backgroundUrl]);
+  }, [readyId, roomReadyId, unit?.exhibition.unitId, unit?.media.backgroundUrl, previousUnit?.media.previewUrl, previousUnit?.media.depthMapUrl, previousUnit?.media.backgroundUrl, previousUnit?.media.backgroundUrlSmall, nextUnit?.media.previewUrl, nextUnit?.media.depthMapUrl, nextUnit?.media.backgroundUrl, nextUnit?.media.backgroundUrlSmall, reducedMotion, mouseMotion]);
   const markMediaFailed = useCallback(() => {
     window.dispatchEvent(new CustomEvent("artduo:experience-degraded", { detail: { reason: "artwork-media-unavailable", artworkId: unit.artwork.id } }));
     if (unit) dispatch({ type: "MEDIA_FAILED", artworkId: unit.artwork.id });

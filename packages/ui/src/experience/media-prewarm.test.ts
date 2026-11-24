@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { adjacentWarmUrls, artworkWarmUrls, createPrewarmQueue } from "./media-prewarm";
+import { adjacentWarmUrls, createPrewarmQueue } from "./media-prewarm";
 import { roomImageCandidate } from "./room-assets";
 
 test("prewarm decodes the selected responsive source while retaining its logical identity", async () => {
@@ -11,20 +11,32 @@ test("prewarm decodes the selected responsive source while retaining its logical
   assert.deepEqual(loaded, ["small-content-hash-url"]);
 });
 
-test("adjacent artwork prewarming includes the matching versioned depth without repeating the current wall", () => {
-  const media = { previewUrl: "/image?releaseVersion=new", depthMapUrl: "/image?variant=depth&releaseVersion=new", backgroundUrl: "/wall" };
-  const urls = artworkWarmUrls(media, "/wall");
-  assert.deepEqual(adjacentWarmUrls(urls, []), [media.previewUrl, media.depthMapUrl]);
-  assert.deepEqual(adjacentWarmUrls(urls, [], { effectiveType: "3g" }), [media.previewUrl]);
-  assert.deepEqual(adjacentWarmUrls(urls, [], { saveData: true }), []);
-  assert.deepEqual(artworkWarmUrls(undefined), []);
+const next = { previewUrl: "/next?releaseVersion=new", depthMapUrl: "/next?variant=depth&releaseVersion=new", backgroundUrl: "/next-wall" };
+const previous = { previewUrl: "/back", depthMapUrl: "/back-depth", backgroundUrl: "/back-wall" };
+const motion = { reducedMotion: false, mouseMotion: true };
+const essentialUrls = [next.previewUrl, next.backgroundUrl, previous.previewUrl, previous.backgroundUrl];
+
+test("adjacent previews and changed walls precede both versioned depth requests", () => {
+  assert.deepEqual(adjacentWarmUrls(next, previous, motion), [...essentialUrls, next.depthMapUrl, previous.depthMapUrl]);
+  assert.deepEqual(adjacentWarmUrls(next, previous, { ...motion, currentBackground: next.backgroundUrl }), [
+    next.previewUrl, previous.previewUrl, previous.backgroundUrl, next.depthMapUrl, previous.depthMapUrl,
+  ]);
+  assert.deepEqual(adjacentWarmUrls(next, next, motion), [next.previewUrl, next.backgroundUrl, next.depthMapUrl]);
+  assert.deepEqual(adjacentWarmUrls(undefined, undefined, motion), []);
+});
+
+test("system reduced motion or turning off light motion keeps only previews and changed walls", () => {
+  assert.deepEqual(adjacentWarmUrls(next, previous, { ...motion, reducedMotion: true }), essentialUrls);
+  assert.deepEqual(adjacentWarmUrls(next, previous, { ...motion, mouseMotion: false }), essentialUrls);
 });
 
 test("slow and metered connections never compete with the visible artwork for speculative images", () => {
-  assert.deepEqual(adjacentWarmUrls(["next", "wall"], ["back"], { saveData: true }), []);
-  assert.deepEqual(adjacentWarmUrls(["next", "wall"], ["back"], { effectiveType: "2g" }), []);
-  assert.deepEqual(adjacentWarmUrls(["next", "wall"], ["back"], { effectiveType: "3g" }), ["next"]);
-  assert.deepEqual(adjacentWarmUrls(["next", "wall"], ["back", "wall"]), ["next", "wall", "back"]);
+  assert.deepEqual(adjacentWarmUrls(next, previous, { ...motion, connection: { saveData: true, effectiveType: "3g" } }), []);
+  for (const effectiveType of ["2g", "slow-2g"]) {
+    assert.deepEqual(adjacentWarmUrls(next, previous, { ...motion, connection: { effectiveType } }), []);
+  }
+  assert.deepEqual(adjacentWarmUrls(next, previous, { ...motion, connection: { effectiveType: "3g" } }), [next.previewUrl]);
+  assert.deepEqual(adjacentWarmUrls(undefined, previous, { ...motion, connection: { effectiveType: "3g" } }), []);
 });
 
 test("rapid navigation stays within a shared concurrency bound, deduplicates, and skips cancelled queued work", async () => {
@@ -38,6 +50,24 @@ test("rapid navigation stays within a shared concurrency bound, deduplicates, an
   assert.deepEqual(started, ["first", "second", "fresh"]); assert.equal(await stale, false);
   pending.splice(0).forEach(resolve => resolve()); await Promise.all([second, fresh]);
   assert.equal(queue.ready("first"), true);
+});
+
+test("turning motion off preserves pending essential images and cancels queued depth", async () => {
+  const started: string[] = [];
+  let releaseActive!: () => void;
+  const queue = createPrewarmQueue(async url => {
+    started.push(url);
+    if (url === next.previewUrl) await new Promise<void>(resolve => { releaseActive = resolve; });
+  }, 1);
+  const enabled = new AbortController();
+  const original = adjacentWarmUrls(next, previous, motion).map(url => queue.warm(url, enabled.signal));
+  enabled.abort();
+  const disabled = new AbortController();
+  const rescheduled = adjacentWarmUrls(next, previous, { ...motion, mouseMotion: false }).map(url => queue.warm(url, disabled.signal));
+  releaseActive();
+  assert.deepEqual(await Promise.all(original), [true, true, true, true, false, false]);
+  assert.deepEqual(await Promise.all(rescheduled), [true, true, true, true]);
+  assert.deepEqual(started, essentialUrls);
 });
 
 test("a failed image can be retried without a permanent failed cache entry", async () => {

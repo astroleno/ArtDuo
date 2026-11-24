@@ -302,7 +302,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     {state.act !== "walk" ? <div className="experience-global-controls"><AudioButton onToggle={() => void toggleAudio()} state={audio.state} /></div> : null}
     {!state.online ? <p className="experience-offline" role="status">离线浏览 · 作品讲解和未缓存媒体可能暂不可用</p> : null}
     <div aria-live="polite" className="sr-only">{statusMessage}</div>
-    {state.act === "preface" ? <Preface block={presentedPreface} query={snapshot.query} pending={Boolean(snapshot.narrativePending)} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} onContinue={() => dispatch({ type: "SKIP" })} reducedMotion={reducedMotion} ready={viewing.hydrated} selectionNotice={snapshot.selectionNotice} keepsake={keepsake.entry(true)} /> : null}
+    {state.act === "preface" ? <Preface block={presentedPreface} query={snapshot.query} pending={Boolean(snapshot.narrativePending)} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} backdropSmallUrl={snapshot.units[0]?.media.backgroundUrlSmall} onContinue={() => dispatch({ type: "SKIP" })} reducedMotion={reducedMotion} ready={viewing.hydrated} selectionNotice={snapshot.selectionNotice} keepsake={keepsake.entry(true)} /> : null}
     {state.act === "walk" && encounterWork ? <SculptureBoundary onUnavailable={continueAfterEncounter}><Suspense fallback={<div className="experience-room experience-room-fallback" role="status">正在进入侧厅…</div>}>
       <EncounterRoom key={encounterWork.id} works={[encounterWork]} scenes={sculptureScenes} initialModel={encounterWork.id} initialScene={encounter.value!.roomId!}
         initialQuality="compact" query={snapshot.query} narrate={sculptureNarrator}

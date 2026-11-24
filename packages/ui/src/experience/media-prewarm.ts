@@ -1,19 +1,28 @@
 export interface ConnectionHint { saveData?: boolean; effectiveType?: string }
 
-export function artworkWarmUrls(media: { previewUrl: string; depthMapUrl?: string; backgroundUrl?: string } | undefined, currentBackground?: string): string[] {
-  if (!media) return [];
-  return [media.previewUrl, media.depthMapUrl, media.backgroundUrl !== currentBackground ? media.backgroundUrl : undefined]
-    .filter((url): url is string => Boolean(url));
+interface WarmMedia {
+  previewUrl: string;
+  backgroundUrl?: string;
+  depthMapUrl?: string;
 }
 
 /** Essential images are loaded by the view. Speculative work stays behind them. */
-export function adjacentWarmUrls(next: string[], previous: string[], connection?: ConnectionHint): string[] {
+export function adjacentWarmUrls(next: WarmMedia | undefined, previous: WarmMedia | undefined, { currentBackground, connection, reducedMotion, mouseMotion }: {
+  currentBackground?: string;
+  connection?: ConnectionHint;
+  reducedMotion: boolean;
+  mouseMotion: boolean;
+}): string[] {
   if (connection?.saveData || ["slow-2g", "2g"].includes(connection?.effectiveType ?? "")) return [];
-  return [...new Set(connection?.effectiveType === "3g" ? next.slice(0, 1) : [...next, ...previous])].filter(Boolean);
+  if (connection?.effectiveType === "3g") return next?.previewUrl ? [next.previewUrl] : [];
+  const urls = [next?.previewUrl, next?.backgroundUrl, previous?.previewUrl, previous?.backgroundUrl];
+  if (!reducedMotion && mouseMotion) urls.push(next?.depthMapUrl, previous?.depthMapUrl);
+  return [...new Set(urls.filter((url): url is string => Boolean(url && url !== currentBackground)))];
 }
 
 export function createPrewarmQueue<T = void>(load: (url: string) => Promise<T>, concurrency = 2, capacity = 8, dispose?: (resource: T) => void) {
-  const known = new Map<string, { promise: Promise<boolean>; ready: boolean; resource?: T }>();
+  type Entry = { promise: Promise<boolean>; ready: boolean; resource?: T; waitingSignals?: Set<AbortSignal | undefined> };
+  const known = new Map<string, Entry>();
   let retained = new Set<string>();
   const waiting: Array<() => void> = [];
   let active = 0;
@@ -39,12 +48,19 @@ export function createPrewarmQueue<T = void>(load: (url: string) => Promise<T>, 
     warm(url: string, signal?: AbortSignal, sourceUrl = url): Promise<boolean> {
       if (!url || signal?.aborted) return Promise.resolve(false);
       const existing = known.get(url);
-      if (existing) { known.delete(url); known.set(url, existing); return existing.promise; }
+      if (existing) {
+        existing.waitingSignals?.add(signal);
+        known.delete(url);
+        known.set(url, existing);
+        return existing.promise;
+      }
       let finish!: (ready: boolean) => void;
-      const item: { promise: Promise<boolean>; ready: boolean; resource?: T } = { promise: new Promise<boolean>(resolve => { finish = resolve; }), ready: false };
+      const waitingSignals = new Set([signal]);
+      const item: Entry = { promise: new Promise<boolean>(resolve => { finish = resolve; }), ready: false, waitingSignals };
       known.set(url, item);
       waiting.push(() => {
-        if (signal?.aborted) { known.delete(url); finish(false); return; }
+        item.waitingSignals = undefined;
+        if ([...waitingSignals].every(request => request?.aborted)) { known.delete(url); finish(false); return; }
         active++;
         void load(sourceUrl).then(resource => { item.resource = resource; item.ready = true; finish(true); }, () => { known.delete(url); finish(false); }).finally(() => {
           active--;
