@@ -20,6 +20,7 @@ const INTENT_FAMILY: Record<TransitionIntent, TransitionFamily> = {
   hold: "match-cut",
   return: "dissolve",
 };
+const CONTINUED_CHAPTER_SELECTION_VERSION = 20;
 
 function stableHash(value: string): string {
   let hash = 2166136261;
@@ -107,10 +108,12 @@ export function buildExperienceSnapshot(input: {
   narrative: CurationNarrative;
   route: GallerySceneRouteStop[];
   curationId?: string;
+  selectionVersion?: number;
   narrativePieces?: Array<{ kind: "preface" | "note" | "closing"; artworkId?: string; text: string; source: "grounded" | "fallback" }>;
   narrativeComplete?: boolean;
 }): ExhibitionSnapshot {
   const { catalog, search, narrative, query } = input;
+  const continueChapters = Boolean(input.curationId) && (input.selectionVersion ?? 0) >= CONTINUED_CHAPTER_SELECTION_VERSION;
   // Tone is read from each room photograph: overall light, colour temperature and window view.
   const roomProfiles: Array<Pick<ExperienceSceneCandidate, "paletteFamilies" | "lightDirection" | "tone"> & { id: string }> = [
     { id: "bg-004", paletteFamilies: ["warm", "earth", "muted"], lightDirection: "left", tone: { brightness: .62, warmth: .75, view: "garden" } },
@@ -207,6 +210,8 @@ export function buildExperienceSnapshot(input: {
       transitionFamily: quietJourney ? "dissolve" : INTENT_FAMILY[stop?.transitionIntent ?? "fade"],
       displayCategory: inferDisplayCategory(result),
       retrievalEvidence: { score: result.combinedScore, matchedTokens: result.matchedTokens },
+      ...(continueChapters && !result.artwork.visualEvidenceUnavailable
+        ? { spatialFraming: result.artwork.visualEvidence?.spatialFraming } : {}),
     }];
   });
 
@@ -244,7 +249,8 @@ export function buildExperienceSnapshot(input: {
     preface: input.narrativePieces?.find((piece) => piece.kind === "preface") ?? preface,
     closing: input.narrativePieces?.find((piece) => piece.kind === "closing") ?? closing,
     stages: input.curationId ? stages.filter((stage) => units.some((unit) => unit.stageId === stage.id)) : stages,
-    units: matchArtworkScenes(input.curationId ? units : sequenceExhibition(units), sceneCandidates, input.curationId ? stages : []),
+    units: matchArtworkScenes(input.curationId ? units : sequenceExhibition(units), sceneCandidates, input.curationId ? stages : [],
+      continueChapters ? "chapter-wall-v4" : "chapter-wall-v3"),
     sceneCandidates,
     audioTracks: PUBLIC_AUDIO_TRACKS.map(track => publicStaticMediaUrl(`/ambient-audio/${encodeURIComponent(track)}`, catalog.releaseVersion)),
     omittedUnitCount,

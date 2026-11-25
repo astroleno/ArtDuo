@@ -43,6 +43,19 @@ test("the request carries stage intent and observed image facts but no visitor h
   assert.ok(text.includes("烛光照亮桌面") && text.includes("先停一会") && text.includes("quiet room"));
   assert.ok(/只能从该阶段的候选中选择/.test(text));
   assert.match(text, /stage 2 选 1 件.*"role":"afterglow".*"transitionIntent":"hold"/u);
+  assert.doesNotMatch(text, /同阶段有多件/u);
+});
+
+test("multi-work stages request an intentional viewing order and preserve the validated response order", () => {
+  const intent = { label: "留在这里", role: "afterglow", transitionIntent: "hold", query: "quiet room", signals: ["quiet"],
+    valence: .4, arousal: .15, tension: .1, wonder: .3, intimacy: .5 } as const;
+  const messages = stageRerankMessages({ desiredExperience: "比较门与窗",
+    stages: [{ index: 2, count: 2, intent: { ...intent, signals: ["quiet"] }, works: [] }],
+  });
+  assert.match(messages[1]!.content, /首件引入.*末件留下余韵.*明确指定的比较重点和先后/u);
+  const fixedStage = [{ ...candidate("a", .9), stageIndex: 0 }, { ...candidate("b", .8), stageIndex: 0 }];
+  const response = JSON.stringify({ stages: [{ stage: 0, artworkIds: ["b", "a"] }] });
+  assert.deepEqual(applyStageRerank(response, [pools[0]!], [fixedStage])?.map(work => work.artworkId), ["b", "a"]);
 });
 
 test("sparse answers preserve stage order and only accept empty rows for unfilled stages", () => {

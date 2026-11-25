@@ -1,9 +1,13 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { test } from "node:test";
+import { parseCurationIntentPlan } from "@artduo/contracts";
 
 import { buildCurationNarrative } from "../../lib/curation-narrative";
 import { buildExperienceSnapshot } from "../../lib/experience-adapter";
-import type { ExperienceArtworkRecord, WebArtwork, WebReleaseCatalog, WebSearchResult } from "../../lib/release-catalog";
+import { loadWebReleaseCatalog, type ExperienceArtworkRecord, type WebArtwork, type WebReleaseCatalog, type WebSearchResult } from "../../lib/release-catalog";
+import { materializeCurationSelection } from "../../lib/semantic-selection";
 
 function artwork(id: string, title = `Work ${id}`): WebArtwork {
   return {
@@ -130,6 +134,38 @@ test("a frozen semantic exhibition preserves its planned curve and omits unvisit
   assert.equal(snapshot.stages[0].intensity, 0.62);
   assert.equal(snapshot.stages[0].transitionIntent, "fade");
   assert.equal(snapshot.stages[0].label, assigned.label);
+});
+
+test("the actual six-work quiet plan keeps its open, similar last chapters together only in v20", () => {
+  const catalog = loadWebReleaseCatalog({ rootDir: path.resolve(__dirname, "../../../.."), releaseVersion: "2026-11-19-open-gap-739" });
+  const fixtures = JSON.parse(readFileSync(path.join(__dirname, "../fixtures/stage-fit-plans.json"), "utf8"));
+  const query = Object.keys(fixtures).find(value => value.startsWith("最近一直在硬撑"))!;
+  const plan = parseCurationIntentPlan(fixtures[query]);
+  // Local vectors replay the fixed intent plan to these public artworks.
+  const ids = ["artic-16648", "artic-73054", "artic-152747", "smk-KMS355", "artic-64818", "artic-111436"];
+  const assignments = ids.map((artworkId, index) => ({ artworkId, stageIndex: [0, 1, 2, 2, 3, 4][index]!, vectorScore: .8, score: .9, evidence: [] }));
+  const { search, growthForm } = materializeCurationSelection(catalog, query, plan, assignments, "fixture", 1);
+  const input = { query, catalog, search, narrative: { ...buildCurationNarrative(search), growthForm }, route: [], curationId: "frozen" };
+  const old = buildExperienceSnapshot({ ...input, selectionVersion: 19 });
+  const current = buildExperienceSnapshot({ ...input, selectionVersion: 20 });
+  for (const snapshot of [old, current]) {
+    assert.deepEqual(snapshot.units.map(unit => unit.artwork.id), ids);
+    assert.deepEqual(snapshot.units.map(unit => unit.sceneMatch?.chapter?.index), [0, 0, 1, 1, 2, 2]);
+  }
+  assert.equal(old.units[3]?.spatialFraming, undefined);
+  assert.deepEqual(current.units.map(unit => unit.spatialFraming), ["enclosed", "open", "open", "open", "open", "not-applicable"]);
+  assert.equal(old.units[4]?.sceneMatch?.version, "chapter-wall-v3");
+  assert.equal(old.units[4]?.sceneMatch?.chapter?.reason, "chapter-change");
+  assert.equal(current.units[4]?.sceneMatch?.version, "chapter-wall-v4");
+  assert.equal(current.units[4]?.sceneMatch?.chapter?.reason, "continued-stage");
+  assert.equal(current.units[4]?.scene?.id, current.units[3]?.scene?.id);
+  assert.notEqual(current.units[2]?.scene?.id, current.units[1]?.scene?.id);
+
+  const missingEvidence = { ...search, results: search.results.map(result => result.artwork.id === ids[3]
+    ? { ...result, artwork: { ...result.artwork, visualEvidenceUnavailable: true } } : result) };
+  const unknown = buildExperienceSnapshot({ ...input, search: missingEvidence, selectionVersion: 20 });
+  assert.equal(unknown.units[3]?.spatialFraming, undefined);
+  assert.equal(unknown.units[4]?.sceneMatch?.chapter?.reason, "chapter-change");
 });
 
 test("experience prose uses the actual exhibition and excludes long titles, raw prompts and collection scoring notes", () => {

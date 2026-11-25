@@ -348,7 +348,7 @@ test("only a short exhibition with a choice requests a sparse model rerank", asy
       [...new Set(deterministic.stagePools!.flat().map(item => item.artworkId))].sort());
     assert.deepEqual(chosen.result.assignments.map(item => item.stageIndex), [0, last]);
     assert.ok(chosen.result.assignments.every(item => item.evidence.includes("model:stage-fit")));
-    assert.equal(chosen.result.record.selectionVersion, 19);
+    assert.equal(chosen.result.record.selectionVersion, 20);
 
     const oldRecord = { ...chosen.result.record, selectionVersion: 17 as const };
     const oldId = semanticFingerprint(JSON.stringify(oldRecord));

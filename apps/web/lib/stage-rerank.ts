@@ -25,6 +25,9 @@ export function stageRerankMessages(input: { desiredExperience: string; stages: 
       ]),
       "按画面实际呈现的内容判断哪几件最能提供该阶段要的感受；画面里的人物、事件和隐喻也算在内。只能从该阶段的候选中选择，各阶段不能重复同一件，件数必须与要求一致。",
       "把各阶段视为同一条观展路径，参考 role 和 transitionIntent，保留观众要求的主体，给观众留出自行感受的空间。只返回列出的原 stage 编号。",
+      ...(input.stages.some(stage => stage.count > 1)
+        ? ["同阶段有多件时按观看顺序排列：首件引入，后续作品推进阶段线索，全展末件留下余韵。优先遵从观众明确指定的比较重点和先后。"]
+        : []),
       "输出 {\"stages\":[{\"stage\":integer,\"artworkIds\":string[]}]}",
     ].join("\n") },
   ];

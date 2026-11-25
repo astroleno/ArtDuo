@@ -3,6 +3,7 @@ import type {
   BackgroundSceneRecord,
   ExhibitionUnit,
   GrowthStageRole,
+  SpatialFraming,
   TransitionFamily,
   TransitionIntent,
 } from "@artduo/contracts";
@@ -59,6 +60,8 @@ export interface ExperienceUnit {
   transitionFamily: TransitionFamily;
   displayCategory: "wall-painting" | "object-case" | "architecture-flat";
   retrievalEvidence: { score: number; matchedTokens: string[] };
+  /** Framing from the exact-image observation, when verified. */
+  spatialFraming?: SpatialFraming;
   sceneMatch?: SceneMatchEvidence;
 }
 
@@ -86,12 +89,12 @@ export interface SceneMatchScore {
 }
 
 export interface SceneMatchEvidence {
-  version: "wall-fit-v1" | "chapter-wall-v2" | "chapter-wall-v3";
+  version: "wall-fit-v1" | "chapter-wall-v2" | "chapter-wall-v3" | "chapter-wall-v4";
   selectedSceneId: string;
   lightDirection: ExperienceSceneCandidate["lightDirection"];
   continuedRoom: boolean;
   candidates: SceneMatchScore[];
-  chapter?: { index: number; count: number; start: number; end: number; reason: "opening" | "chapter-change" | "only-suitable-room" };
+  chapter?: { index: number; count: number; start: number; end: number; reason: "opening" | "chapter-change" | "only-suitable-room" | "continued-stage" };
 }
 
 export interface ExhibitionSnapshot {

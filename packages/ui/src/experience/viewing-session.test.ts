@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type { ExhibitionSnapshot, ExperienceUnit } from "./types";
+import { roomImageCandidate } from "./room-assets";
 import { applyPendingPreference, createViewingSession, enterArtwork, observedPace, queuePreference, restoreViewingSession, sequenceExhibition, settleViewingClock, snapshotForSession, validRouteOrder } from "./viewing-session";
 
 function unit(id: string, subjects: string[], moods: string[] = [], stageId = "s1"): ExperienceUnit {
@@ -53,6 +54,33 @@ test("changing the route preserves stable IDs, source pixels and the current roo
   assert.equal(active.units[1]?.media.previewUrl, "c.jpg");
   assert.equal(active.units[1]?.media.backgroundUrl, "s1.jpg");
   assert.equal(active.units[2]?.media.backgroundUrl, "s2.jpg");
+});
+
+test("responsive wall and light maps follow the frozen slot while artwork assets and notes move", () => {
+  for (const version of ["chapter-wall-v3", "chapter-wall-v4"] as const) {
+    const snapshot = { ...base, units: base.units.map((work, index): ExperienceUnit => ({
+      ...work,
+      media: { ...work.media, fullUrl: `full-${work.artwork.id}`, depthMapUrl: `depth-${work.artwork.id}`, backgroundUrl: `https://example.test/${index}-large.webp`,
+        backgroundUrlSmall: index === 1 ? "https://example.test/small-versioned.webp" : undefined,
+        roomLightMaps: index === 1 ? { depthUrl: "wall-depth-b", normalUrl: "wall-normal-b" } : undefined },
+      curatorNote: { text: work.artwork.id, source: "grounded" },
+      sceneMatch: { version, selectedSceneId: `wall-${index}`, lightDirection: "right", continuedRoom: false, candidates: [] },
+    })) };
+    const result = snapshotForSession(snapshot, { order: ["a", "c", "b", "d"] });
+    const moved = result.units[1]!;
+    assert.equal(moved.sceneMatch?.version, version);
+    assert.equal(moved.media.previewUrl, "c.jpg");
+    assert.equal(moved.media.fullUrl, "full-c");
+    assert.equal(moved.media.depthMapUrl, "depth-c");
+    assert.equal(moved.curatorNote?.text, "c");
+    assert.deepEqual(moved.media.roomLightMaps, { depthUrl: "wall-depth-b", normalUrl: "wall-normal-b" });
+    const { backgroundUrl, backgroundUrlSmall } = moved.media;
+    assert.equal(roomImageCandidate(backgroundUrl!, 390, 1, backgroundUrlSmall), "https://example.test/small-versioned.webp");
+    assert.equal(roomImageCandidate(backgroundUrl!, 390, 2, backgroundUrlSmall), "https://example.test/1-large.webp");
+    assert.equal(result.units[2]!.media.backgroundUrlSmall, undefined);
+    assert.equal(result.units[2]!.media.roomLightMaps, undefined);
+    assert.equal(result.units[2]!.curatorNote?.text, "b");
+  }
 });
 
 test("a new pending decision replaces the previous one; no-op and end-of-route stay usable", () => {

@@ -84,6 +84,7 @@ export function exhibitionChapters(units: ExperienceUnit[]): Array<{ start: numb
 const roomFit = (score: SceneMatchScore) => score.total - score.palette * 0.55;
 
 const CITY_VIEW_MIN_AROUSAL = .45;
+const STAGE_TONE_AXES = ["valence", "arousal", "tension", "wonder", "intimacy"] as const;
 
 /**
  * How well a room's own light suits what the stage asks the works to offer.
@@ -100,8 +101,21 @@ export function stageRoomFit(candidate: ExperienceSceneCandidate, stage: StageTo
   return light + temperature - busyView;
 }
 
+function canContinueChapter(exit: ExperienceUnit, entrance: ExperienceUnit, stages: StageTone[]): boolean {
+  const clearSpace = (unit: ExperienceUnit) => unit.spatialFraming === "open" || unit.spatialFraming === "enclosed";
+  const bothVerified = clearSpace(exit) && clearSpace(entrance);
+  if (bothVerified && exit.spatialFraming !== entrance.spatialFraming) return false;
+  if (exit.stageId && exit.stageId === entrance.stageId) return true;
+  if (!bothVerified) return false;
+  const previous = stages.find(stage => stage.id === exit.stageId);
+  const next = stages.find(stage => stage.id === entrance.stageId);
+  return Boolean(previous && next && STAGE_TONE_AXES.every(axis =>
+    Math.abs(previous[axis] - next[axis]) + Number.EPSILON < .20));
+}
+
 /** Choose at chapter entrances only. Later reordering cannot change a viewed room. */
-export function matchArtworkScenes(units: ExperienceUnit[], candidates: ExperienceSceneCandidate[], stages: StageTone[] = []): ExperienceUnit[] {
+export function matchArtworkScenes(units: ExperienceUnit[], candidates: ExperienceSceneCandidate[], stages: StageTone[] = [],
+  version: "chapter-wall-v3" | "chapter-wall-v4" = "chapter-wall-v3"): ExperienceUnit[] {
   if (!candidates.length) return units;
   const chapters = exhibitionChapters(units);
   if (new Set(candidates.map(candidate => candidate.scene.id)).size < chapters.length) {
@@ -109,7 +123,7 @@ export function matchArtworkScenes(units: ExperienceUnit[], candidates: Experien
   }
   const matched: ExperienceUnit[] = [];
   const used = new Set<string>();
-  let previousSceneId: string | undefined;
+  let previous: ExperienceSceneCandidate | undefined;
   for (const [chapterIndex, chapter] of chapters.entries()) {
     const anchor = units[chapter.start]!;
     const stage = stages.find((item) => item.id === anchor.stageId);
@@ -119,21 +133,23 @@ export function matchArtworkScenes(units: ExperienceUnit[], candidates: Experien
     const calm = free.filter(candidate => !(stage && stage.arousal < CITY_VIEW_MIN_AROUSAL && candidate.tone?.view === "city"));
     const entranceScores = (calm.length ? calm : free).map((candidate) => scoreArtworkScene(anchor, candidate))
       .sort((a, b) => roomFit(b) + tone.get(b.sceneId)! - roomFit(a) - tone.get(a.sceneId)! || a.sceneId.localeCompare(b.sceneId));
-    const selected = entranceScores[0]!;
-    const candidate = candidates.find((item) => item.scene.id === selected.sceneId)!;
-    const reason = chapterIndex === 0 ? "opening" : selected.sceneId === previousSceneId ? "only-suitable-room" : "chapter-change";
+    const continuation = version === "chapter-wall-v4" && previous
+      && !(stage && stage.arousal < CITY_VIEW_MIN_AROUSAL && previous.tone?.view === "city")
+      && canContinueChapter(units[chapter.start - 1]!, anchor, stages) ? previous : undefined;
+    const candidate = continuation ?? candidates.find(item => item.scene.id === entranceScores[0]!.sceneId)!;
+    const reason = chapterIndex === 0 ? "opening" : continuation ? "continued-stage" : "chapter-change";
     for (let index = chapter.start; index < chapter.end; index++) {
       const unit = units[index]!;
       const scores = candidates.map((item) => scoreArtworkScene(unit, item)).sort((a, b) => b.total - a.total || a.sceneId.localeCompare(b.sceneId));
       matched.push({ ...unit, scene: candidate.scene,
         media: { ...unit.media, backgroundUrl: candidate.imageUrl, backgroundUrlSmall: candidate.imageUrlSmall, roomLightMaps: candidate.lightMaps },
         exhibition: { ...unit.exhibition, backgroundSceneId: candidate.scene.id },
-        sceneMatch: { version: "chapter-wall-v3", selectedSceneId: candidate.scene.id, lightDirection: candidate.lightDirection,
+        sceneMatch: { version, selectedSceneId: candidate.scene.id, lightDirection: candidate.lightDirection,
           continuedRoom: candidate.scene.id === (matched.at(-1)?.scene?.id), candidates: scores,
           chapter: { index: chapterIndex, count: chapters.length, ...chapter, reason } } });
     }
-    used.add(selected.sceneId);
-    previousSceneId = selected.sceneId;
+    used.add(candidate.scene.id);
+    previous = candidate;
   }
   return matched;
 }

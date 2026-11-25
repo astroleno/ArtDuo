@@ -134,3 +134,46 @@ test("a quiet stage never opens onto the city while another room is free, howeve
   // When the city room is the only one left, the exhibition still gets a room.
   assert.equal(matchArtworkScenes(units, [harbour], quiet)[0]!.scene!.id, "harbour");
 });
+
+test("v4 compares the actual last artwork to the next chapter entrance without regrouping the route", () => {
+  const framed = (id: string, stageId: string, spatialFraming?: ExperienceUnit["spatialFraming"]) =>
+    ({ ...work(id, ["cool"]), stageId, spatialFraming });
+  const works = [framed("a", "early", "enclosed"), framed("b", "early", "open"),
+    framed("c", "late", "open"), framed("d", "late", "enclosed")];
+  const early = { id: "early", valence: .4, arousal: .2, tension: .1, wonder: .3, intimacy: .5 };
+  const late = { ...early, id: "late", valence: .55, arousal: .25 };
+  const match = (units: ExperienceUnit[], stage = late) => matchArtworkScenes(units, rooms, [early, stage], "chapter-wall-v4");
+  const continued = match(works);
+  assert.deepEqual(continued.map(unit => unit.artwork.id), works.map(unit => unit.artwork.id));
+  assert.deepEqual(continued.map(unit => unit.sceneMatch?.chapter?.index), [0, 0, 1, 1]);
+  assert.equal(continued[2]?.sceneMatch?.chapter?.reason, "continued-stage");
+  assert.equal(continued[2]?.sceneMatch?.continuedRoom, true);
+  assert.equal(continued[0]?.scene?.id, continued[2]?.scene?.id);
+  assert.equal(continued[0]?.sceneMatch?.chapter?.count, 2);
+  assert.equal(match([{ ...works[0]! }, { ...works[1]!, spatialFraming: "enclosed" }, ...works.slice(2)])[2]?.sceneMatch?.chapter?.reason, "chapter-change");
+  assert.equal(match([works[0]!, { ...works[1]!, spatialFraming: "framed" }, ...works.slice(2)])[2]?.sceneMatch?.chapter?.reason, "chapter-change");
+  assert.equal(match(works, { ...late, arousal: .4 })[2]?.sceneMatch?.chapter?.reason, "chapter-change");
+  assert.equal(match(works, { ...late, valence: .6 })[2]?.sceneMatch?.chapter?.reason, "chapter-change", ".6 - .4 rounds slightly below .20");
+  assert.equal(match(works, { ...late, valence: .59999 })[2]?.sceneMatch?.chapter?.reason, "continued-stage");
+  assert.equal(match(works.slice(0, 3))[2]?.sceneMatch?.chapter?.count, 1);
+  assert.equal(matchArtworkScenes(works, rooms, [early, late])[2]?.sceneMatch?.chapter?.reason, "chapter-change");
+});
+
+test("v4 can stay within one stage, but not through opposed framing, a still city entrance or a return to a left room", () => {
+  const high = { id: "high", valence: .65, arousal: .5, tension: .1, wonder: .4, intimacy: .65 };
+  const calm = { ...high, id: "calm", arousal: .4 };
+  const city = { ...room("city", ["cool"]), tone: { brightness: .67, warmth: .63, view: "city" as const } };
+  const indoor = { ...room("indoor", ["warm"]), tone: { brightness: .15, warmth: .2, view: "none" as const } };
+  const other = room("another", ["warm"]);
+  const works = ["a", "b", "c", "d", "e", "f"].map((id, index) => ({
+    ...work(id, ["cool"]), stageId: index < 2 ? "high" : index < 4 ? "calm" : "high", spatialFraming: "open" as const,
+  }));
+  const matched = matchArtworkScenes(works, [city, indoor, other], [high, calm], "chapter-wall-v4");
+  assert.equal(matched[0]?.scene?.id, "city");
+  assert.notEqual(matched[2]?.scene?.id, "city");
+  assert.notEqual(matched[4]?.scene?.id, "city");
+  const sameStage = works.slice(0, 4).map(unit => ({ ...unit, stageId: "high", spatialFraming: undefined }));
+  assert.equal(matchArtworkScenes(sameStage, rooms, [high], "chapter-wall-v4")[2]?.sceneMatch?.chapter?.reason, "continued-stage");
+  const opposite = sameStage.map((unit, index) => ({ ...unit, spatialFraming: index < 2 ? "open" as const : "enclosed" as const }));
+  assert.equal(matchArtworkScenes(opposite, rooms, [high], "chapter-wall-v4")[2]?.sceneMatch?.chapter?.reason, "chapter-change");
+});
