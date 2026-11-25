@@ -1,14 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { permitsSculptureEncounter, planSculptureEncounter, restoreSculptureEncounter } from "./sculpture-encounter";
+import { canOfferSculptureEncounter, passSculptureEncounter, permitsSculptureEncounter, planSculptureEncounter, restoreSculptureEncounter, sculptureEncounterSuccessor } from "./sculpture-encounter";
 import { createViewingSession, validRouteOrder } from "./viewing-session";
+import { createExperienceState, experienceReducer } from "./state";
 import type { ExhibitionSnapshot } from "./types";
 import type { SculptureRoomScene, SculptureWork } from "./sculpture-types";
 
 const snapshot = { exhibitionId: "visit-one", query: "慢慢看看光和身体", units: ["a", "b", "c", "d", "e", "f"].map((id, index) => ({
   artwork: { id, metadata: { title: id, moodTags: ["quiet"] } }, exhibition: { unitId: `unit-${id}`, order: index }, stageId: index < 3 ? "first" : "second",
+  displayCategory: "wall-painting", sculptureBridgeThemes: ["music"],
 })) } as ExhibitionSnapshot;
-const works = [{ id: "venus", tags: ["身体", "quiet"] }, { id: "apollo", tags: ["光"] }, { id: "head", tags: ["portrait"] }] as SculptureWork[];
+const works = [{ id: "beethoven", tags: ["音乐", "music"] }, { id: "musician", tags: ["music"] }, { id: "head", tags: ["portrait"] }] as SculptureWork[];
 const scenes = [{ id: "room", tone: "neutral", light: "top" }] as SculptureRoomScene[];
 
 test("50% is one opportunity per eligible exhibition; painting count and membership stay exact", () => {
@@ -31,9 +33,13 @@ test("a chapter interlude follows at least two paintings, preserving first and l
   const plan = planSculptureEncounter(snapshot, works, scenes, { roll: .1, selection: 0 });
   assert.equal(plan.anchorArtworkId, "c"); assert.equal(plan.nextArtworkId, "d");
   const single = { ...snapshot, units: snapshot.units.map(unit => ({ ...unit, stageId: "one" })) };
-  assert.equal(planSculptureEncounter(single, works, scenes, { roll: 0, selection: 0 }).anchorArtworkId, "c");
+  assert.equal(planSculptureEncounter(single, works, scenes, { roll: 0, selection: 0 }).status, "absent");
   const short = { ...single, units: single.units.slice(0, 4) };
-  assert.equal(planSculptureEncounter(short, works, scenes, { roll: 0, selection: 0 }).anchorArtworkId, "b");
+  assert.equal(planSculptureEncounter(short, works, scenes, { roll: 0, selection: 0 }).status, "absent");
+  const chapterOnly = { ...single, units: single.units.map((unit, index) => ({
+    ...unit, sceneMatch: { chapter: { index: index < 3 ? 0 : 1 } } as typeof unit.sceneMatch,
+  })) };
+  assert.equal(planSculptureEncounter(chapterOnly, works, scenes, { roll: 0, selection: 0 }).anchorArtworkId, "c");
 });
 
 test("explicit sculpture and medium exclusions take priority over a lucky roll", () => {
@@ -64,11 +70,16 @@ test("natural sculpture negations and exclusive media remain hard encounter boun
   assert.equal(restoreSculptureEncounter(JSON.stringify(saved), { ...snapshot, query: "我不想看到雕塑" }, works, scenes)?.status, "absent", "new eligibility must retire a saved encounter without rerolling");
 });
 
-test("themes increase selection affinity while recent works are downweighted", () => {
+test("only exact shared themes enter the lottery and recent matching works are downweighted", () => {
   const choose = (recent: string[] = []) => Array.from({ length: 1000 }, (_, i) => planSculptureEncounter(snapshot, works, scenes, { roll: 0, selection: i / 1000, recent }).modelId);
-  const original = choose(), repeated = choose(["venus"]);
-  assert.ok(original.filter(id => id === "venus").length > original.filter(id => id === "head").length);
-  assert.ok(repeated.filter(id => id === "venus").length < 100);
+  const original = choose(), repeated = choose(["beethoven"]);
+  assert.ok(original.filter(id => id === "beethoven").length > 0);
+  assert.ok(!original.includes("head"));
+  assert.ok(repeated.filter(id => id === "beethoven").length < 100);
+  const unreviewed = { ...snapshot, query: "音乐，演奏，想看雕塑", units: snapshot.units.map((unit, index) => ({
+    ...unit, sculptureBridgeThemes: index === 2 ? ["drapery" as const] : undefined,
+  })) };
+  assert.equal(planSculptureEncounter(unreviewed, works, scenes, { roll: 0, selection: 0 }).status, "absent");
 });
 
 test("refresh restores the same absent, pending, active or completed decision without reroll", () => {
@@ -82,6 +93,29 @@ test("refresh restores the same absent, pending, active or completed decision wi
   assert.equal(restoreSculptureEncounter(JSON.stringify(plan), snapshot, [], scenes)?.status, "absent", "a retired work never causes a replacement roll");
   assert.equal(restoreSculptureEncounter(JSON.stringify({ ...plan, exhibitionId: "another" }), snapshot, works, scenes), undefined);
   assert.equal(restoreSculptureEncounter("broken", snapshot, works, scenes), undefined);
+  const legacy = { ...plan, version: 1 as const };
+  const noTheme = { ...snapshot, units: snapshot.units.map(unit => ({ ...unit, sculptureBridgeThemes: undefined })) };
+  assert.deepEqual(restoreSculptureEncounter(JSON.stringify(legacy), snapshot, works, scenes), legacy);
+  assert.equal(restoreSculptureEncounter(JSON.stringify(legacy), noTheme, works, scenes)?.status, "absent");
+  assert.equal(restoreSculptureEncounter(JSON.stringify({ ...legacy, status: "active" }), noTheme, works, scenes)?.status, "active");
+  const reordered = { ...snapshot, units: [snapshot.units[0]!, snapshot.units[1]!, snapshot.units[2]!, snapshot.units[4]!, snapshot.units[3]!, snapshot.units[5]!] };
+  assert.equal(restoreSculptureEncounter(JSON.stringify(legacy), reordered, works, scenes)?.status, "absent");
+  assert.equal(sculptureEncounterSuccessor(reordered, legacy, "c"), undefined);
+});
+
+test("forward navigation consumes only the anchor invitation without replacing the next painting", () => {
+  const planned = planSculptureEncounter(snapshot, works, scenes, { roll: 0, selection: 0 });
+  assert.equal(canOfferSculptureEncounter(snapshot, planned, works, "b"), false);
+  assert.equal(canOfferSculptureEncounter(snapshot, planned, works, "c"), true);
+  assert.equal(passSculptureEncounter(planned, "b"), undefined);
+  const passed = passSculptureEncounter(planned, "c");
+  assert.equal(passed?.status, "complete");
+  assert.equal(canOfferSculptureEncounter(snapshot, passed, works, "c"), false);
+  const atAnchor = createExperienceState(snapshot, { phase: "walk", unitId: "unit-c" });
+  assert.equal(experienceReducer(atAnchor, { type: "NEXT" }, snapshot).unitId, "unit-d");
+  const zoomed = experienceReducer(atAnchor, { type: "OPEN_LIGHTBOX" }, snapshot);
+  assert.equal(experienceReducer(zoomed, { type: "LIGHTBOX_NEXT" }, snapshot).unitId, "unit-d");
+  assert.equal(sculptureEncounterSuccessor(snapshot, planned, "c")?.exhibition.unitId, "unit-d");
 });
 
 test("the encounter follows the planned stages: none in a still visit, at the turn, and never toward a city in a quiet stage", () => {

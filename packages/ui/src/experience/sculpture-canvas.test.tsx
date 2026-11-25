@@ -13,4 +13,14 @@ test("a sculpture fallback does not create an HTTP image preload that drops its 
   assert.match(html, /referrerpolicy="no-referrer"/iu);
   assert.match(html, /crossorigin="anonymous"/iu);
   assert.match(html, /正在请入雕塑/u);
+  assert.match(html, /alt="" aria-hidden="true"/u);
+});
+
+test("an invited sculpture's static poster has a readable artwork label", () => {
+  const html = renderToStaticMarkup(<SculptureCanvas work={{ id: "beethoven", title: "贝多芬", posterUrl: "/poster.png" } as SculptureWork}
+    room={{} as SculptureRoomScene} url="/beethoven.glb" input={{ x: 0, y: 0 }} paused={false} followEnabled={false}
+    accessiblePoster onPoster={() => {}} onState={() => {}} />);
+  const poster = html.match(/<img[^>]+>/u)?.[0] ?? "";
+  assert.match(poster, /alt="贝多芬，雕塑预览"/u);
+  assert.doesNotMatch(poster, /aria-hidden/u);
 });

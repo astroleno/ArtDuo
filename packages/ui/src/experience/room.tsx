@@ -21,7 +21,7 @@ import { experienceImageSource, experiencePrewarm } from "./media-prewarm";
 import { RoomBackdrop } from "./room-backdrop";
 import { roomParallaxInput } from "./room-parallax";
 
-export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onLightboxNext, onLightboxPrevious, onLightboxRestore, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, pace = "steady" }: {
+export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onSculptureInvitation, onLightboxNext, onLightboxPrevious, onLightboxRestore, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, pace = "steady" }: {
   unit: ExperienceUnit;
   index: number;
   count: number;
@@ -37,6 +37,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   detailNavigation?: DetailNavigation;
   onPrevious: () => void;
   onNext: () => void;
+  onSculptureInvitation?: () => void;
   onLightboxNext: () => void;
   onLightboxPrevious: () => void;
   onLightboxRestore?: (artworkId: string) => void;
@@ -247,6 +248,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     </div>
     <nav className="experience-walk-controls" aria-label="作品导航">
       <button aria-label="上一件作品" disabled={index === 0} onClick={onPrevious} type="button">← <span>上一件</span></button>
+      {onSculptureInvitation ? <button className="experience-sculpture-invitation" onClick={onSculptureInvitation} type="button">看一件雕塑</button> : null}
       <button aria-label={index === count - 1 ? "看完了，进入结语" : "下一件作品"} className="experience-next" onClick={onNext} type="button">{index === count - 1 ? "看完了" : "下一件"} <span aria-hidden="true">→</span></button>
     </nav>
     {motion.message ? <p className="experience-motion-status" role="status">{motion.message}</p> : null}

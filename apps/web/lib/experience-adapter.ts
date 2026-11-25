@@ -12,6 +12,7 @@ import { publicStaticMediaUrl } from "./public-media";
 import { PUBLIC_AUDIO_TRACKS } from "./public-media-manifest";
 import { sceneRouteStopForIndex, type GallerySceneRouteStop } from "./gallery-route";
 import type { ExperienceArtworkRecord, WebReleaseCatalog, WebSearchResult } from "./release-catalog";
+import { sculptureBridgeThemes } from "./sculpture-bridge-evidence";
 
 const INTENT_FAMILY: Record<TransitionIntent, TransitionFamily> = {
   fade: "fade",
@@ -191,6 +192,8 @@ export function buildExperienceSnapshot(input: {
     const caption = buildCaption(record);
     const rationale = buildRationale(result.matchedTokens, scene?.asset.label_cn ?? stop?.scene.label);
     const closingObservation = endingByArtwork.get(record.id);
+    const displayCategory = inferDisplayCategory(result);
+    const bridgeThemes = displayCategory === "wall-painting" ? sculptureBridgeThemes(result.artwork) : [];
 
     return [{
       exhibition,
@@ -212,7 +215,8 @@ export function buildExperienceSnapshot(input: {
           : undefined,
       },
       transitionFamily: quietJourney ? "dissolve" : INTENT_FAMILY[stop?.transitionIntent ?? "fade"],
-      displayCategory: inferDisplayCategory(result),
+      displayCategory,
+      ...(bridgeThemes.length ? { sculptureBridgeThemes: bridgeThemes } : {}),
       retrievalEvidence: { score: result.combinedScore, matchedTokens: result.matchedTokens },
       ...(continueChapters && !result.artwork.visualEvidenceUnavailable
         ? { spatialFraming: result.artwork.visualEvidence?.spatialFraming } : {}),

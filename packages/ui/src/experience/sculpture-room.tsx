@@ -20,7 +20,7 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
   initialModel: string;
   initialScene: string;
   initialQuality: SculptureQuality;
-  encounter?: { onContinue: () => void; onUnavailable: () => void; onReadingChange: (open: boolean) => void; audioControl?: ReactNode };
+  encounter?: { onContinue: () => void; onReadingChange: (open: boolean) => void; audioControl?: ReactNode };
   narrate?: SculptureNarrator;
   query?: string;
 }) {
@@ -37,6 +37,7 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
   const [note, setNote] = useState<{ id: string; text: string; source: "grounded" | "fallback" }>();
   const settings = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const continueButton = useRef<HTMLButtonElement>(null);
   const restoreSettingsFocus = useRef(true);
   const closeSettings = useOverlayHistory(settingsOpen, sameView => { restoreSettingsFocus.current = sameView; setSettingsOpen(false); });
   const work = works[index];
@@ -49,6 +50,7 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
   const callbacks = useRef(encounter); callbacks.current = encounter;
   useEffect(() => { callbacks.current?.onReadingChange(readerOpen || settingsOpen); }, [readerOpen, settingsOpen]);
   useEffect(() => () => callbacks.current?.onReadingChange(false), []);
+  useEffect(() => { if (encounter) continueButton.current?.focus({ preventScroll: true }); }, [Boolean(encounter)]);
   useEffect(() => {
     if (!narrate) return;
     const abort = new AbortController();
@@ -113,14 +115,14 @@ export function SculptureRoom({ works, scenes, initialModel, initialScene, initi
           <div className="experience-room-meta"><span>{encounter ? "片刻停留" : room.label}</span>{encounter ? encounter.audioControl : <span>{String(index + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}</span>}</div>
         </header>
         <SculptureCanvas work={work} url={quality === "reference" ? work.referenceUrl : work.compactUrl} room={room} backgroundSource={readyBackground}
-          input={motion.input} paused={paused} followEnabled={mouseMotion && !reducedMotion} onState={state => { setRenderState(state); if (state === "fallback") callbacks.current?.onUnavailable(); }}
+          input={motion.input} paused={paused} followEnabled={mouseMotion && !reducedMotion} onState={setRenderState} accessiblePoster={Boolean(encounter)}
           onPoster={poster => setPosters(previous => ({ ...previous, [work.id]: poster }))} />
         <div className="experience-plaque-position experience-sculpture-plaque" data-placement="right">
           <Plaque key={work.id} artworkKind="sculpture" referrerPolicy="no-referrer" unit={reading} expanded={readerOpen} onToggle={() => setReaderOpen(value => !value)} />
         </div>
         <nav className="experience-walk-controls" aria-label="作品导航">
           <button type="button" aria-label={encounter ? "略过雕塑，继续观展" : "上一件雕塑"} onClick={() => encounter ? encounter.onContinue() : go(index - 1)}>{encounter ? "略过" : <>← <span>上一件</span></>}</button>
-          <button className="experience-next" type="button" aria-label={encounter ? "继续观展" : "下一件雕塑"} onClick={() => encounter ? encounter.onContinue() : go(index + 1)}>{encounter ? "继续观展" : "下一件"} <span aria-hidden="true">→</span></button>
+          <button ref={continueButton} className="experience-next" type="button" aria-label={encounter ? "继续观展" : "下一件雕塑"} onClick={() => encounter ? encounter.onContinue() : go(index + 1)}>{encounter ? "继续观展" : "下一件"} <span aria-hidden="true">→</span></button>
         </nav>
         {motion.message && !settingsOpen ? <p role="status" className="experience-motion-status">{motion.message}</p> : null}
       </section>

@@ -18,6 +18,7 @@ import { useInteractionPreferences } from "./interaction-preferences";
 import { ROOM_IMAGE_SIZES, roomImageSrcSet } from "./room-assets";
 import { useKeepsakeController, type HandwritingProvider } from "./handwritten-keepsake";
 import { useSculptureEncounter } from "./use-sculpture-encounter";
+import { canOfferSculptureEncounter, sculptureEncounterSuccessor } from "./sculpture-encounter";
 import type { SculptureNarrator, SculptureRoomScene, SculptureWork } from "./sculpture-types";
 import { usePresentedPreface } from "./use-presented-preface";
 import { useStableNarrative } from "./use-stable-narrative";
@@ -66,8 +67,11 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   snapshotRef.current = snapshot;
   const [state, setState] = useState(() => createExperienceState(snapshot, initialPosition));
   const encounter = useSculptureEncounter(snapshot, sculptureWorks, sculptureScenes, viewing.hydrated);
-  const encounterActive = encounter.value?.status === "active" && state.act === "walk";
-  const encounterWork = encounterActive ? sculptureWorks.find(work => work.id === encounter.value?.modelId) : undefined;
+  const currentArtworkId = snapshot.units.find(unit => unit.exhibition.unitId === state.unitId)?.artwork.id;
+  const encounterWork = encounter.value?.status === "active" && state.act === "walk"
+    && sculptureEncounterSuccessor(snapshot, encounter.value, currentArtworkId)
+    ? sculptureWorks.find(work => work.id === encounter.value?.modelId) : undefined;
+  const encounterActive = Boolean(encounterWork);
   const [showSettingsPreface, setShowSettingsPreface] = useState(false);
   const stageForLast = snapshot.units.find(unit => unit.exhibition.unitId === state.lastUnitId);
   const plannedLast = snapshot.units.find(unit => unit.artwork.id === viewing.session.order.at(-1)) ?? snapshot.units.at(-1);
@@ -82,6 +86,8 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   });
   const presentedPreface = usePresentedPreface(snapshot, !keepsake.open && (state.act === "preface" || state.act === "walk" && !encounterActive && showSettingsPreface));
   const [readingOpen, setReadingOpen] = useState(false);
+  const sculptureInvitation = state.act === "walk" && state.overlay === "none" && !state.transitioning && !readingOpen && !viewing.session.pending
+    && canOfferSculptureEncounter(snapshot, encounter.value, sculptureWorks, currentArtworkId);
   const chromeVisible = useIdleChrome(state.act === "walk", readingOpen || state.overlay !== "none" || state.transitioning || !state.online || state.failedMediaIds.length > 0 || state.audioState === "loading");
   const [readyUnitId, setReadyUnitId] = useState<string>();
   const activeUnit = snapshot.units.find((unit) => unit.exhibition.unitId === (state.unitId ?? state.lastUnitId)) ?? snapshot.units[0];
@@ -119,20 +125,16 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       return;
     }
     flushObservation();
-    if ((event.type === "NEXT" || event.type === "LIGHTBOX_NEXT") && !current.transitioning) {
-      const currentId = snapshotRef.current.units.find((unit) => unit.exhibition.unitId === current.unitId)?.artwork.id;
-      if (currentId) {
-        const updated = viewing.commit((session) => applyPendingPreference(session, baseSnapshot, currentId));
+    const isForward = event.type === "NEXT" || event.type === "LIGHTBOX_NEXT";
+    const anchorId = isForward ? snapshotRef.current.units.find(unit => unit.exhibition.unitId === current.unitId)?.artwork.id : undefined;
+    if (isForward && !current.transitioning) {
+      if (anchorId) {
+        const updated = viewing.commit((session) => applyPendingPreference(session, baseSnapshot, anchorId));
         snapshotRef.current = snapshotForSession(baseSnapshot, updated);
-        const index = snapshotRef.current.units.findIndex(unit => unit.artwork.id === currentId);
-        const following = snapshotRef.current.units[index + 1];
-        if (event.type === "NEXT" && following && encounter.begin(currentId, following.artwork.id)) {
-          queuedNavigationRef.current = null;
-          return;
-        }
       }
     }
     const next = experienceReducer(current, event, snapshotRef.current);
+    if (isForward && next !== current) encounter.pass(anchorId);
     stateRef.current = next;
     // Browser Back also restores route props in this event. Publish a cancelled
     // close-view target synchronously so those props cannot restore the failed
@@ -140,37 +142,44 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     if (event.type === "LIGHTBOX_RESTORE" && next !== current) onPositionChange(positionOfExperienceState(next), snapshotRef.current);
     if (next.transitioning) navigationLockedRef.current = true;
     setState(next);
-  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen, encounter.begin, onPositionChange]);
+  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen, encounter.pass, onPositionChange]);
 
+  const openSculptureEncounter = useCallback(() => {
+    const current = stateRef.current;
+    if (current.act !== "walk" || current.overlay !== "none" || current.transitioning || navigationLockedRef.current
+      || readingOpen || viewing.ref.current.pending) return;
+    const anchorId = snapshotRef.current.units.find(unit => unit.exhibition.unitId === current.unitId)?.artwork.id;
+    if (!anchorId) return;
+    flushObservation();
+    if (encounter.begin(anchorId)) queuedNavigationRef.current = null;
+  }, [encounter.begin, flushObservation, readingOpen, viewing.ref]);
+
+  const shell = useRef<HTMLElement>(null);
+  const focusAfterEncounter = useRef<string | undefined>(undefined);
   const continueAfterEncounter = useCallback(() => {
-    if (encounter.ref.current?.status !== "active") return;
+    const active = encounter.ref.current, current = stateRef.current;
+    if (active?.status !== "active") return;
+    const anchorId = snapshotRef.current.units.find(unit => unit.exhibition.unitId === current.unitId)?.artwork.id;
+    const next = current.act === "walk" ? sculptureEncounterSuccessor(snapshotRef.current, active, anchorId) : undefined;
     encounter.finish();
     queuedNavigationRef.current = null;
     setReadingOpen(false);
     setReadyUnitId(undefined);
-    rawDispatch({ type: "NEXT" });
+    if (next) {
+      focusAfterEncounter.current = next.exhibition.unitId;
+      rawDispatch({ type: "SELECT_UNIT", unitId: next.exhibition.unitId });
+    }
   }, [encounter.finish, rawDispatch]);
 
   useEffect(() => {
-    const planned = encounter.value;
-    if (planned?.status !== "pending" || state.act !== "walk") return;
-    const index = snapshot.units.findIndex(unit => unit.exhibition.unitId === state.unitId);
-    const anchor = snapshot.units.findIndex(unit => unit.artwork.id === planned.anchorArtworkId);
-    if (index < anchor - 1 || index > anchor) return;
-    const work = sculptureWorks.find(work => work.id === planned.modelId);
-    if (!work) return;
-    const abort = new AbortController();
-    void import("./sculpture-room");
-    void fetch(work.compactUrl, { signal: abort.signal, cache: "force-cache", referrerPolicy: "no-referrer" })
-      .then(async response => { if (response.ok) await response.arrayBuffer(); else await response.body?.cancel(); }).catch(() => undefined);
-    return () => abort.abort();
-  }, [encounter.value?.modelId, encounter.value?.status, snapshot.units, state.act, state.unitId, sculptureWorks]);
+    if (!focusAfterEncounter.current || focusAfterEncounter.current !== state.unitId || encounterActive || state.transitioning) return;
+    focusAfterEncounter.current = undefined;
+    shell.current?.querySelector<HTMLButtonElement>(".experience-walk-controls .experience-next")?.focus({ preventScroll: true });
+  }, [state.unitId, state.transitioning, encounterActive]);
 
   useEffect(() => {
-    if (encounter.value?.status !== "active") return;
-    const unit = snapshot.units.find(item => item.exhibition.unitId === state.unitId);
-    if (state.act !== "walk" || unit?.artwork.id !== encounter.value.anchorArtworkId) encounter.finish();
-  }, [encounter.value?.status, state.act, state.unitId, snapshot.units, encounter.finish]);
+    if (encounter.value?.status === "active" && !encounterActive) encounter.finish();
+  }, [encounter.value?.status, encounterActive, encounter.finish]);
 
   useEffect(() => {
     stateRef.current = state;
@@ -306,7 +315,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     </main>;
   }
 
-  return <main className={`artduo-experience experience-act-${state.act}`} data-testid="experience-shell" data-exhibition-id={snapshot.exhibitionId} data-viewing-pace={pace} data-chrome-visible={chromeVisible} data-encounter-status={encounter.value?.status}>
+  return <main ref={shell} className={`artduo-experience experience-act-${state.act}`} data-testid="experience-shell" data-exhibition-id={snapshot.exhibitionId} data-viewing-pace={pace} data-chrome-visible={chromeVisible} data-encounter-status={encounter.value?.status}>
     {state.act === "preface" ? <link rel="preload" as="image" crossOrigin="anonymous" href={snapshot.units[0]!.media.previewUrl} fetchPriority="high" /> : null}
     {state.act === "preface" && snapshot.units[0]!.media.backgroundUrl ? <link rel="preload" as="image" crossOrigin="anonymous" href={snapshot.units[0]!.media.backgroundUrl} imageSrcSet={roomImageSrcSet(snapshot.units[0]!.media.backgroundUrl, snapshot.units[0]!.media.backgroundUrlSmall)} imageSizes={ROOM_IMAGE_SIZES} fetchPriority="high" /> : null}
     {state.act !== "walk" ? <div className="experience-global-controls"><AudioButton onToggle={() => void toggleAudio()} state={audio.state} /></div> : null}
@@ -316,10 +325,11 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     {state.act === "walk" && encounterWork ? <SculptureBoundary onUnavailable={continueAfterEncounter}><Suspense fallback={<div className="experience-room experience-room-fallback" role="status">正在进入侧厅…</div>}>
       <EncounterRoom key={encounterWork.id} works={[encounterWork]} scenes={sculptureScenes} initialModel={encounterWork.id} initialScene={encounter.value!.roomId!}
         initialQuality="compact" query={snapshot.query} narrate={sculptureNarrator}
-        encounter={{ onContinue: continueAfterEncounter, onUnavailable: continueAfterEncounter, onReadingChange: setReadingOpen,
+        encounter={{ onContinue: continueAfterEncounter, onReadingChange: setReadingOpen,
           audioControl: <AudioButton onToggle={() => void toggleAudio()} state={audio.state} /> }} />
     </Suspense></SculptureBoundary> : null}
     {state.act === "walk" && !encounterWork ? <Walk
+      onSculptureInvitation={sculptureInvitation ? openSculptureEncounter : undefined}
       preface={presentedPreface}
       onPrefaceVisibilityChange={setShowSettingsPreface}
       dispatch={dispatch}

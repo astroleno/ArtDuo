@@ -9,6 +9,7 @@ import type {
 } from "@artduo/contracts";
 
 export const EXPERIENCE_RECIPE_VERSION = "experience-v1" as const;
+export type SculptureBridgeTheme = "music" | "drapery";
 
 export interface NarrativeBlock {
   text: string;
@@ -64,6 +65,7 @@ export interface ExperienceUnit {
   retrievalEvidence: { score: number; matchedTokens: string[] };
   /** Framing from the exact-image observation, when verified. */
   spatialFraming?: SpatialFraming;
+  sculptureBridgeThemes?: SculptureBridgeTheme[];
   sceneMatch?: SceneMatchEvidence;
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { planSculptureEncounter, restoreSculptureEncounter, sculptureEncounterKey, type SculptureEncounter } from "./sculpture-encounter";
+import { canOfferSculptureEncounter, passSculptureEncounter, planSculptureEncounter, restoreSculptureEncounter, sculptureEncounterKey, type SculptureEncounter } from "./sculpture-encounter";
 import type { ExhibitionSnapshot } from "./types";
 import type { SculptureRoomScene, SculptureWork } from "./sculpture-types";
 
@@ -29,10 +29,10 @@ export function useSculptureEncounter(snapshot: ExhibitionSnapshot, works: Sculp
     try { saved = restoreSculptureEncounter(sessionStorage.getItem(sculptureEncounterKey(snapshot.exhibitionId)), current.snapshot, current.works, current.scenes); } catch { /* Optional storage. */ }
     commit(saved ?? planSculptureEncounter(current.snapshot, current.works, current.scenes, { roll: random(), selection: random(), recent: recentWorks() }));
   }, [snapshot.exhibitionId, hydrated, commit]);
-  const begin = useCallback((anchorId: string, nextId: string) => {
+  const begin = useCallback((anchorId: string) => {
     const current = ref.current;
-    if (current?.status !== "pending" || current.anchorArtworkId !== anchorId) return false;
-    commit({ ...current, nextArtworkId: nextId, status: "active" });
+    if (!current || !canOfferSculptureEncounter(inputs.current.snapshot, current, inputs.current.works, anchorId)) return false;
+    commit({ ...current, status: "active" });
     try { localStorage.setItem(RECENT_KEY, JSON.stringify([...recentWorks(), current.modelId!].slice(-8))); } catch { /* Optional history. */ }
     return true;
   }, [commit]);
@@ -40,5 +40,9 @@ export function useSculptureEncounter(snapshot: ExhibitionSnapshot, works: Sculp
     const current = ref.current;
     if (current && current.status !== "absent") commit({ ...current, status: "complete" });
   }, [commit]);
-  return { value, ref, begin, finish };
+  const pass = useCallback((anchorId: string | undefined) => {
+    const passed = passSculptureEncounter(ref.current, anchorId);
+    if (passed) commit(passed);
+  }, [commit]);
+  return { value, ref, begin, finish, pass };
 }

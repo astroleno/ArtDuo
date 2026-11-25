@@ -36,5 +36,4 @@ export * from "./experience/experience-shell";
 export * from "./experience/viewing-session";
 export * from "./experience/scene-matching";
 export type { HandwritingProvider } from "./experience/handwritten-keepsake";
-export { SculptureRoom } from "./experience/sculpture-room";
 export type { SculptureNarrator, SculptureQuality, SculptureRoomScene, SculptureWork } from "./experience/sculpture-types";

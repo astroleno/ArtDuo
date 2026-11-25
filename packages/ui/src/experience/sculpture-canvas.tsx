@@ -5,7 +5,14 @@ import type { RoomLightInput } from "./room-lighting";
 import type { SculptureRenderer } from "./sculpture-renderer";
 import type { SculptureRoomScene, SculptureWork } from "./sculpture-types";
 
-export function SculptureCanvas({ work, url, room, backgroundSource, input, paused, followEnabled, onPoster, onState }: {
+export function handleSculptureContextLoss(event: Event, canvas: HTMLCanvasElement, abort: AbortController, showFallback: () => void) {
+  event.preventDefault();
+  canvas.dataset.loadError = "WebGL context lost";
+  abort.abort();
+  showFallback();
+}
+
+export function SculptureCanvas({ work, url, room, backgroundSource, input, paused, followEnabled, onPoster, onState, accessiblePoster = false }: {
   work: SculptureWork;
   url: string;
   room: SculptureRoomScene;
@@ -13,6 +20,7 @@ export function SculptureCanvas({ work, url, room, backgroundSource, input, paus
   input: RoomLightInput;
   paused: boolean;
   followEnabled: boolean;
+  accessiblePoster?: boolean;
   onPoster: (url: string) => void;
   onState: (state: "loading" | "ready" | "fallback") => void;
 }) {
@@ -29,7 +37,7 @@ export function SculptureCanvas({ work, url, room, backgroundSource, input, paus
     let disposed = false;
     const update = (value: typeof state) => { if (!disposed) { setState(value); latest.current.onState(value); } };
     const fail = () => { renderer.current?.destroy(); renderer.current = undefined; update("fallback"); };
-    const lost = (event: Event) => { event.preventDefault(); element.dataset.loadError = "WebGL context lost"; fail(); };
+    const lost = (event: Event) => handleSculptureContextLoss(event, element, abort, fail);
     const timeout = window.setTimeout(() => { element.dataset.loadError = "Sculpture loading timed out"; abort.abort(); fail(); }, 20_000);
     delete element.dataset.loadError;
     delete element.dataset.loadedModel;
@@ -63,7 +71,8 @@ export function SculptureCanvas({ work, url, room, backgroundSource, input, paus
   return <>
     {/* Lazy above-the-fold images still load immediately after layout. This
         avoids React's HTTP Link preload, which drops the no-referrer policy. */}
-    <img className="experience-sculpture-poster" crossOrigin="anonymous" referrerPolicy="no-referrer" loading="lazy" src={work.posterUrl} alt="" aria-hidden="true" hidden={state === "ready"} />
+    <img className="experience-sculpture-poster" crossOrigin="anonymous" referrerPolicy="no-referrer" loading="lazy" src={work.posterUrl}
+      alt={accessiblePoster ? `${work.title}，雕塑预览` : ""} aria-hidden={accessiblePoster ? undefined : true} hidden={state === "ready"} />
     <canvas ref={canvas} className="experience-sculpture-canvas" aria-hidden="true" data-state={state} data-interaction="depth-parallax" />
     {state !== "ready" ? <div className="experience-sculpture-status" role="status">
       {state === "loading" ? "正在请入雕塑…" : <>三维视图暂时无法显示，仍可查看作品资料。<button type="button" onClick={() => setRetry(value => value + 1)}>重试载入</button></>}

@@ -34,15 +34,22 @@ export async function createSculptureRenderer({ canvas, work, url, room, backgro
   signal: AbortSignal;
   onPoster: (url: string) => void;
 }): Promise<SculptureRenderer> {
-  // Download before allocating a WebGL context; pending work can be aborted.
+  if (signal.aborted) throw new DOMException("Aborted", "AbortError");
+  // Reuse the display canvas's context so unsupported devices go straight to the poster.
+  const context = canvas.getContext("webgl2", { alpha: true, antialias: true });
+  if (!context || context.isContextLost()) throw new Error("WebGL2 unavailable");
   const response = await fetch(url, { signal, referrerPolicy: "no-referrer" });
   if (!response.ok) throw new Error(`Sculpture unavailable (${response.status})`);
   const data = await response.arrayBuffer();
+  if (signal.aborted) throw new DOMException("Aborted", "AbortError");
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   const loaded = await loader.parseAsync(data, "");
   if (signal.aborted) { disposeObject(loaded.scene); throw new DOMException("Aborted", "AbortError"); }
   let renderer: THREE.WebGLRenderer;
-  try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true }); }
+  try {
+    if (context.isContextLost()) throw new Error("WebGL2 context lost");
+    renderer = new THREE.WebGLRenderer({ canvas, context, alpha: true, antialias: true });
+  }
   catch (error) { disposeObject(loaded.scene); throw error; }
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));

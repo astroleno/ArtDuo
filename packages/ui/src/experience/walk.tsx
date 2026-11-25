@@ -12,7 +12,7 @@ import { useRoomMotion } from "./room-motion";
 import { roomImageCandidate } from "./room-assets";
 import { useOverlayHistory } from "./use-overlay-history";
 
-export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, dispatch, onDetail, detailNavigation, onMediaRetry, onArtworkReady, reducedMotion, mouseMotion = true, onMouseMotionChange, audioControl, viewingSession, onPreference, onCancelPreference, onReadingChange, onTogglePace, onClearObservations, storageAvailable, pace }: {
+export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, dispatch, onDetail, detailNavigation, onMediaRetry, onArtworkReady, reducedMotion, mouseMotion = true, onMouseMotionChange, audioControl, viewingSession, onPreference, onCancelPreference, onReadingChange, onTogglePace, onClearObservations, storageAvailable, pace, onSculptureInvitation }: {
   snapshot: ExhibitionSnapshot;
   preface: NarrativeBlock | null;
   onPrefaceVisibilityChange: (visible: boolean) => void;
@@ -22,6 +22,7 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
   detailNavigation?: DetailNavigation;
   onMediaRetry: (artworkId: string) => void;
   onArtworkReady: (unitId: string) => void;
+  onSculptureInvitation?: () => void;
   reducedMotion: boolean;
   mouseMotion?: boolean;
   onMouseMotionChange?: (enabled: boolean) => void;
@@ -144,6 +145,7 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
       onDetail={() => onDetail(unit.artwork.id)}
       detailNavigation={detailNavigation}
       onNext={() => dispatch({ type: "NEXT" })}
+      onSculptureInvitation={onSculptureInvitation}
       onLightboxNext={() => dispatch({ type: "LIGHTBOX_NEXT" })}
       onLightboxPrevious={() => dispatch({ type: "LIGHTBOX_PREVIOUS" })}
       onLightboxRestore={artworkId => dispatch({ type: "LIGHTBOX_RESTORE", artworkId })}

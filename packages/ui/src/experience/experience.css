@@ -322,6 +322,7 @@ canvas.experience-room-lighting[data-lighting-state="ready"] + .experience-room-
 .experience-walk-controls button:hover, .experience-walk-controls button:focus-visible { border-color: rgba(229,215,192,.62); background: rgba(25,23,19,.92); }
 .experience-walk-controls button:disabled { opacity: .42; cursor: not-allowed; }
 .experience-walk-controls .experience-next { color: #f1e6d8; }
+.experience-walk-controls .experience-sculpture-invitation { padding-inline: 10px; text-decoration: underline; text-underline-offset: 4px; }
 .experience-walk-controls .experience-motion-toggle { display: inline-flex; align-items: center; gap: 7px; color: #c9c3b7; font-size: 11px; }
 .experience-motion-toggle[aria-pressed="true"] { color: #f0dfc0; }
 .experience-motion-mark { display: inline-block; width: 10px; height: 16px; border: 1px solid currentColor; border-radius: 2px; transform: rotate(-10deg); opacity: .7; }
