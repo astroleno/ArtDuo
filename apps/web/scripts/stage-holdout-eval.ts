@@ -10,6 +10,7 @@ import { eligibleCurationArtworks, selectForCurationStages } from "../lib/semant
 import { hash, HOLDOUT_FIXTURE, readHoldoutFixture } from "./stage-holdout-fixture";
 import { measureStageHoldout, type HoldoutStage } from "./stage-holdout-metrics";
 import type { Clause } from "./stage-holdout-design";
+import { createBlindPackets, freezeUniverse, measureUniverse, scoreBlindPackets } from "./stage-holdout-universe";
 
 const rootDir = path.resolve(__dirname, "../../..");
 
@@ -27,6 +28,13 @@ function requestedStages(count: number, stageCount: number): Set<number> {
 }
 
 async function main() {
+  const args = process.argv.slice(2);
+  const universeReport = args[0] === "--universe";
+  const blind = args[0] === "--blind-packets";
+  const blindAnswers = args[0] === "--score-blind";
+  if (args.length && !((universeReport || blind) && args.length === 1 || blindAnswers && [2, 3].includes(args.length))) {
+    throw new Error("Usage: stage-holdout-eval.ts [--universe | --blind-packets | --score-blind answers.json [universe-report.json]]");
+  }
   const fixtureDirectory = path.join(__dirname, "../test/fixtures");
   const fixture = readHoldoutFixture(readFileSync(path.join(fixtureDirectory, HOLDOUT_FIXTURE)));
   const { provenance } = fixture;
@@ -44,6 +52,17 @@ async function main() {
       }
     }
   }
+  const universe = universeReport || blind || blindAnswers ? freezeUniverse(rawCatalog, fixture) : undefined;
+  if (universe && (blind || blindAnswers)) {
+    const packets = createBlindPackets(fixture, universe);
+    const report = args[2] ? JSON.parse(readFileSync(args[2], "utf8")) : undefined;
+    if (report && (report.input?.referenceSha256 !== universe.sha256 || !Array.isArray(report.rows))) {
+      throw new Error("Blind coverage requires a report using the same full-catalog reference");
+    }
+    const output = blind ? packets : scoreBlindPackets(packets, JSON.parse(readFileSync(args[1]!, "utf8")), universe.labels, report?.rows);
+    process.stdout.write(JSON.stringify(output, null, 2) + "\n");
+    return;
+  }
   const catalog = withCurationVisualCorrections(rawCatalog);
   const index = loadSemanticIndex({ manifestPath: catalog.manifestPath, manifest: catalog.manifest,
     artworks: catalog.artworkRecords.map(artwork => ({ id: artwork.id,
@@ -52,6 +71,8 @@ async function main() {
   const encoder = createLocalSemanticEncoder({ rootDir, allowDownload: false });
   const stages: HoldoutStage[] = [];
   const routes: Array<{ caseId: string; expectedLogicalConflict: boolean; eligibleWorks: number; requestedWorks: number; assignedWorks: number }> = [];
+  const hardViolations: Array<{ caseId: string; artworkId: string; source: "assignment" | "pool" }> = [];
+  const duplicateAssignments: string[] = [];
   try {
     if (!sameSemanticSpace(index.model, encoder.model)) throw new Error("Local encoder and release vectors are incompatible");
     for (const entry of fixture.cases) {
@@ -59,6 +80,13 @@ async function main() {
       const queries = await encoder.embedQueries(plan.stages.map(stage => stage.query));
       const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries } });
       const allowed = new Set(eligibleCurationArtworks(catalog, query, plan, { scopedRiverBank: true }).map(artwork => artwork.id));
+      if (universeReport) {
+        if (new Set(selection.assignments.map(item => item.artworkId)).size !== selection.assignments.length) duplicateAssignments.push(id);
+        for (const source of ["assignment", "pool"] as const) {
+          const ids = source === "assignment" ? selection.assignments : selection.stagePools?.flat() ?? [];
+          for (const { artworkId } of ids) if (!allowed.has(artworkId)) hardViolations.push({ caseId: id, artworkId, source });
+        }
+      }
       const active = requestedStages(plan.artworkCount, plan.stages.length);
       routes.push({ caseId: id, expectedLogicalConflict: hasLogicalConflict(entry.criteria), eligibleWorks: allowed.size,
         requestedWorks: plan.artworkCount, assignedWorks: selection.assignments.length });
@@ -76,9 +104,24 @@ async function main() {
       poolOrder: "production stage shortlist prefix: already assigned works, then ranked supplemental candidates; not raw ANN order",
       samplingUnit: "labelled request, stage and artwork context; unknown and unlisted works are outside the judged-error denominator" },
     routes,
-    ...measureStageHoldout(stages),
   };
-  process.stdout.write(JSON.stringify(report, null, 2) + "\n");
+  if (universe) {
+    const { samplingUnit: _, ...input } = report.input;
+    const fullReport = {
+      schemaVersion: 1,
+      input: { ...input, referenceVersion: "full-catalog-evidence-v1", referenceSha256: universe.sha256, universeSize: universe.artworks.length,
+        samplingUnit: "same image-bound evidence judgments across stages of each synthetic request; unknown is neither positive nor negative; no human judgments included" },
+      routes,
+      safeguards: { hardViolations, duplicateAssignments, shortRoutes: routes.filter(row => row.assignedWorks < row.requestedWorks).length,
+        requestedWorks: routes.reduce((sum, row) => sum + row.requestedWorks, 0),
+        assignedWorks: routes.reduce((sum, row) => sum + row.assignedWorks, 0),
+        logicalConflictRegressions: routes.filter(row => row.expectedLogicalConflict && (row.eligibleWorks || row.assignedWorks)) },
+      ...measureUniverse(stages, universe.labels),
+    };
+    process.stdout.write(JSON.stringify(fullReport, null, 2) + "\n");
+    return;
+  }
+  process.stdout.write(JSON.stringify({ ...report, ...measureStageHoldout(stages) }, null, 2) + "\n");
 }
 
 void main();

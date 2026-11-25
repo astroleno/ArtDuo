@@ -1,0 +1,551 @@
+{
+  "schemaVersion": 1,
+  "seed": "artduo-stage-holdout-image-audit-v1",
+  "sourceFixtureSha256": "ccd43dc2bc320ecefa8f18b84bff5bf0bf7edc9c74b98a9c3d5fae7a7ea77ac8",
+  "referenceSha256": "1a721073024256539c6c8ffe6e0cf6633a5544485e4eb91ff1fe13182b91f9e3",
+  "instruction": "Use the exact source image, request and supplied museum medium. Record positive, negative or unknown, and the concrete basis. Keep uncertainty as unknown.",
+  "items": [
+    {
+      "caseId": "subject-05",
+      "stratum": "subject",
+      "query": "挑六件有牛群或牧牛人的画，我想看牛怎样分布。",
+      "artworkId": "smk-KMS7246",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/d504rp385_KMS7246.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:38d9f08f3bc5a7b20cb17246174bcb13c7970363510007007671ad894b826fc7",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "negative",
+      "basis": "空房里有炉具和门，没有牛群或牧牛人。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:b7cc79c4c9cd8e501d01f78112cd194a7405ce23d79bca364c58cb20400366d0"
+      }
+    },
+    {
+      "caseId": "media-05",
+      "stratum": "medium-exclusion",
+      "query": "我想看画里的室内陈设，六件；不要有人。",
+      "artworkId": "smk-KMS3082",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/fb494c35v_KMS3082.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:7577f0a1ef723fd11cfc317996f56028ec699aa2b996cc1933b56f59c02f5eb9",
+      "museumMedium": "Oil on panel",
+      "label": "negative",
+      "basis": "树林宴席上和林下有多人，画面也在室外。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:7577f0a1ef723fd11cfc317996f56028ec699aa2b996cc1933b56f59c02f5eb9"
+      }
+    },
+    {
+      "caseId": "edge-01",
+      "stratum": "boundary",
+      "query": "只看油画，但也不要任何油画，仍请保留这两个条件。",
+      "artworkId": "smk-KKS8269",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/bn9999563_kks8269.tif.reconstructed.tif.jp2/full/full/0/native.jpg",
+      "imageSha256": "sha256:4853addc834befdd39db2cadd840334553ab4a543e150c86e8dd2c2550d70858",
+      "museumMedium": "Etching",
+      "label": "negative",
+      "basis": "同一件作品不可能同时满足仅看油画与排除油画。媒材记录为蚀刻。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:8fb9683c93ff705f1249df8a6ba721c576ed722e44ba8d58eeb456f80be94965"
+      }
+    },
+    {
+      "caseId": "detail-01",
+      "stratum": "visual-detail",
+      "query": "找六件看得见桅杆或船帆的画。",
+      "artworkId": "smithsonian_asian-fsg_F1911.519",
+      "imagePath": "https://ids.si.edu/ids/download?id=FS-5752_01.jpg",
+      "imageSha256": "sha256:05d24ab09f6dd978cd744612cd5afaecde9612f72a1759603d86120d8c6bd0de",
+      "museumMedium": "Ink on silk",
+      "label": "unknown",
+      "basis": "可见龙、飞鸟和水纹，背景暗淡，无法辨认桅杆或船帆。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:f53207a2e07d180b9b8be51ed5e1ec44dd3bce405b376ec9060d4c56892d8ca2"
+      }
+    },
+    {
+      "caseId": "subject-05",
+      "stratum": "subject",
+      "query": "挑六件有牛群或牧牛人的画，我想看牛怎样分布。",
+      "artworkId": "rijksmuseum-200107784",
+      "imagePath": "https://iiif.micr.io/kqTHb/full/max/0/default.jpg",
+      "imageSha256": "sha256:a001f507613bc573d30cfa7eaaa9793ee253ea4b81033845eda50e5e8b027297",
+      "museumMedium": "canvas; oil paint (paint)",
+      "label": "negative",
+      "basis": "穿盔甲的单人肖像，背景与人物前方均无牛群。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:26fcfcf1ccdcb2ab507d4585032baef4ed191fff80bb2eb8b743018d2f83b74b"
+      }
+    },
+    {
+      "caseId": "media-04",
+      "stratum": "medium-exclusion",
+      "query": "给我六幅纸上素描，纸上要能看见树木。",
+      "artworkId": "rijksmuseum-200117088",
+      "imagePath": "https://iiif.micr.io/okLCL/full/max/0/default.jpg",
+      "imageSha256": "sha256:a7ae7981c5c7d61d45ec476ef8504807303edeadc47d657633b2761f42119794",
+      "museumMedium": "paper; chalk",
+      "label": "negative",
+      "basis": "纸上画了侧身站立的人，旁边的短线为阴影，没有树木。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:60ec980e98b71b9ac065e1d019f419f37d74c4486b2e4b864fa7fb06bfa2d2c2"
+      }
+    },
+    {
+      "caseId": "edge-02",
+      "stratum": "boundary",
+      "query": "必须看得见行人，同时整幅画不要任何人物，两条都保留。",
+      "artworkId": "rijksmuseum-200116957",
+      "imagePath": "https://iiif.micr.io/SzMHd/full/max/0/default.jpg",
+      "imageSha256": "sha256:40865f6d21511590c233c8445944586755a0938333fdb1a52149dbd41891538b",
+      "museumMedium": "paper; ink; chalk",
+      "label": "negative",
+      "basis": "只要画中可见行人，就无法同时满足画面完全没有人物。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:6b08d26434692ca7b8c3247f8b81d9c586a02dbcec9b969d80b26b8fbf0a6a59"
+      }
+    },
+    {
+      "caseId": "mixed-05",
+      "stratum": "mixed",
+      "query": "请找六幅画，花朵和户外环境都得能看清。",
+      "artworkId": "rijksmuseum-200116908",
+      "imagePath": "https://iiif.micr.io/jxPuL/full/max/0/default.jpg",
+      "imageSha256": "sha256:d34691f8c9d16a39f61ed91b8e051f0229ef5dad029e4d56a39ec13a03980b74",
+      "museumMedium": "paper; ink; watercolor (paint); graphite (mineral); chalk",
+      "label": "negative",
+      "basis": "户外冰面上有人滑冰，桶与衣物均可识别，没有可辨认的花。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:108999c2269a4b79ef11e3081ee8683a776ee494a1ba54c03385fb175b32ae59"
+      }
+    },
+    {
+      "caseId": "subject-03",
+      "stratum": "subject",
+      "query": "想看看风车怎样立在地面和天空之间，六幅。",
+      "artworkId": "smk-KMS1023",
+      "imagePath": "https://api.smk.dk/api/v1/thumbnail/3405fbb3-dfaf-4f94-a584-7e185ac0a446.jpg",
+      "imageSha256": "sha256:f1af19d4b9673de836e575617899cebfdba3712a95f1f6c504a71326199edf7a",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "positive",
+      "basis": "右侧有四片叶的高风车，明确立在开阔地面与天空之间。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:598478d3b57ab5ff536ac42362f56c801976f463cd14fdce42450d601fdb82e6"
+      }
+    },
+    {
+      "caseId": "mixed-05",
+      "stratum": "mixed",
+      "query": "请找六幅画，花朵和户外环境都得能看清。",
+      "artworkId": "smk-KMS3082",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/fb494c35v_KMS3082.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:7577f0a1ef723fd11cfc317996f56028ec699aa2b996cc1933b56f59c02f5eb9",
+      "museumMedium": "Oil on panel",
+      "label": "unknown",
+      "basis": "确为林地宴席，右上方白粉点簇可能是捧花，放大仍不能清楚辨认花形。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:7577f0a1ef723fd11cfc317996f56028ec699aa2b996cc1933b56f59c02f5eb9"
+      }
+    },
+    {
+      "caseId": "subject-05",
+      "stratum": "subject",
+      "query": "挑六件有牛群或牧牛人的画，我想看牛怎样分布。",
+      "artworkId": "rijksmuseum-200108748",
+      "imagePath": "https://iiif.micr.io/DHLyR/full/max/0/default.jpg",
+      "imageSha256": "sha256:0abb2abd1a6033e5300027e77a924c86d239387eab76a7ff9804af9cb1465950",
+      "museumMedium": "panel; oil paint (paint)",
+      "label": "negative",
+      "basis": "图中是持刃人物、被绑者和角向后弯的公羊，没有牛群或牧牛人。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:6a2320675b62129fe51157c43b1c69ff41ee61e2aba68dbe7567c6a2457da81f"
+      }
+    },
+    {
+      "caseId": "mixed-03",
+      "stratum": "mixed",
+      "query": "六幅油画，想看有人在室内桌边坐着。",
+      "artworkId": "met-437257",
+      "imagePath": "https://images.metmuseum.org/CRDImages/ep/original/DP317732.jpg",
+      "imageSha256": "sha256:bf210b146233fdf3a56c8159f10cfba094408b70a1e79abb975c2221bb537508",
+      "museumMedium": "Oil on canvas",
+      "label": "negative",
+      "basis": "蓝天、树丛和室外空地围着聚会的人群，没有室内桌边坐景。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:bf210b146233fdf3a56c8159f10cfba094408b70a1e79abb975c2221bb537508"
+      }
+    },
+    {
+      "caseId": "edge-03",
+      "stratum": "boundary",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "artworkId": "smk-KMSsp867",
+      "imagePath": "https://api.smk.dk/api/v1/thumbnail/3c12e90a-aa80-4c6a-bf31-f72e68b0d3b7.jpg",
+      "imageSha256": "sha256:0cd0d2d9ed6e4c7d21599de05e1438034d42758559710bb7325f91b70d2c533f",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "negative",
+      "basis": "馆方媒材为布面油画。画面是水瀑和牧场，也没有肩头鹦鹉。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:b90f413cd1d6c2095cb8dac32286717cdc4c500ec49fbded7ed272254953b602"
+      }
+    },
+    {
+      "caseId": "arousal-02",
+      "stratum": "arousal",
+      "query": "想把节奏放慢，看看画里歇着、坐着或躺卧的身影，六件。",
+      "artworkId": "smithsonian_asian-fsg_F1898.276",
+      "imagePath": "https://ids.si.edu/ids/download?id=FS-8230_04.jpg",
+      "imageSha256": "sha256:dc7d599a1a10fbbb4637a25b8a3ffe2d3e64405196deb96b04acd29ca68975ea",
+      "museumMedium": "Etching; ink on paper",
+      "label": "positive",
+      "basis": "数人坐在桌边或长椅，肩臂松垂，前景人物侧身靠坐。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:ad8ceeef8c208218e09f26b868ebffc1834c6f7340355b1d0ae3529b91a8a3c2"
+      }
+    },
+    {
+      "caseId": "subject-01",
+      "stratum": "subject",
+      "query": "想看有马车或牵马场景的画，两件。",
+      "artworkId": "smk-KMS535",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/n296x253n_KMSKMS535.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:5eb30edeba788b439d77d1d926b388c4cae61662ec66f44a84176d6d13a107a9",
+      "museumMedium": "Oil on canvas",
+      "label": "negative",
+      "basis": "沙地上是坐着或站着的人和两只鸟，未见马或马车。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:5eb30edeba788b439d77d1d926b388c4cae61662ec66f44a84176d6d13a107a9"
+      }
+    },
+    {
+      "caseId": "arousal-02",
+      "stratum": "arousal",
+      "query": "想把节奏放慢，看看画里歇着、坐着或躺卧的身影，六件。",
+      "artworkId": "smk-KMS4180a",
+      "imagePath": "https://api.smk.dk/api/v1/thumbnail/2d1cd1e5-a4e0-4c65-9a89-50bedd92c933.jpg",
+      "imageSha256": "sha256:307be15f15c8a4ccc3dbd33a25c2d59d6d53a0601cb37624e51e5890118b7e9d",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "unknown",
+      "basis": "胸像下缘看不到椅子与膝腿，无法区分坐姿和站姿。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:351cd05edc72398701ad747dd166c32d9fbfa7b718db3b1a790dc2e96828da1f"
+      }
+    },
+    {
+      "caseId": "detail-04",
+      "stratum": "visual-detail",
+      "query": "想看六幅里头能辨认木桶或陶罐的画。",
+      "artworkId": "rijksmuseum-200117176",
+      "imagePath": "https://iiif.micr.io/mNchY/full/max/0/default.jpg",
+      "imageSha256": "sha256:a56850dbc3418a5657e32c69f514b0c3b81b96cae6ca449638103dc6846ed169",
+      "museumMedium": "paper; ink",
+      "label": "negative",
+      "basis": "树下是牧人、牲畜与岩土，画中没有可辨认的木桶、陶罐。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:7b58873077042b12e0b77893459a68b0bb5ff868aec54ed7b009b642afb124de"
+      }
+    },
+    {
+      "caseId": "arousal-01",
+      "stratum": "arousal",
+      "query": "想在六幅画中沿开阔的地平线慢慢看，视线不要被围住。",
+      "artworkId": "smk-KMS3879",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/g445ck18q_KMS3879.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:fc420f1ef87787b4501b92ee6db6e24bbfc9d351c04e10ec036826ed6006bb54",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "negative",
+      "basis": "人在室内的扶手椅上斜靠，旁边是画架和桌面，没有远方地平线。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:65b709bca84b04607e42748df8295f22784c53f698e70c4d38318fc7ef536903"
+      }
+    },
+    {
+      "caseId": "detail-05",
+      "stratum": "visual-detail",
+      "query": "挑六件可以留意拱门、拱形门洞或拱窗的画。",
+      "artworkId": "rijksmuseum-20012998",
+      "imagePath": "https://iiif.micr.io/envCJ/full/max/0/default.jpg",
+      "imageSha256": "sha256:4dd259a93e951254bbce23782954c6ed44acf22ad4ee2efff60d7cfbeeae91e3",
+      "museumMedium": "panel; oil paint (paint)",
+      "label": "positive",
+      "basis": "人物背后偏左有一处大拱形门洞，边缘和门洞内侧均可看见。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:b5ef5fcb8ad5c3cb160d8e5986c8d2ad00fce93de36e37776bbd6e944e20645e"
+      }
+    },
+    {
+      "caseId": "arousal-04",
+      "stratum": "arousal",
+      "query": "想看六幅波浪冲起来的画，看浪花和冲击感。",
+      "artworkId": "artic-25806",
+      "imagePath": "images/artic-25806-full.jpg",
+      "imageSha256": "sha256:6f77d812ff44ee47ace0d6d058192b0ec58eba9e81e3b026f9e90655a9c1f120",
+      "museumMedium": "Oil on paper, mounted on canvas",
+      "label": "negative",
+      "basis": "远海海面呈连续平缓的蓝带，未见破浪或浪花。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:6f77d812ff44ee47ace0d6d058192b0ec58eba9e81e3b026f9e90655a9c1f120"
+      }
+    },
+    {
+      "caseId": "detail-02",
+      "stratum": "visual-detail",
+      "query": "想看看画里的楼梯和台阶，选六件。",
+      "artworkId": "rijksmuseum-200117077",
+      "imagePath": "https://iiif.micr.io/nPkMI/full/max/0/default.jpg",
+      "imageSha256": "sha256:7d6831fd5358cd03959b78b18d46768fe35d3b4cbd725c18e57c6c2bdd4e3ed3",
+      "museumMedium": "paper; chalk",
+      "label": "negative",
+      "basis": "坐着的人下方是低矮箱形坐具，画面没有连续踏步。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:8b5b57f2249ae8bed4f6453cd7db59368975e9d3afeb66ebfe57e7493ffac813"
+      }
+    },
+    {
+      "caseId": "subject-02",
+      "stratum": "subject",
+      "query": "挑六幅画，留意石桥或拱桥。",
+      "artworkId": "smk-KMS6750",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/np193d20v_KMS6750.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:f603526ff7dcf1268a2387d3da3103cdb4dbca16d422e6874edbccd2e0429812",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "positive",
+      "basis": "下方水道跨有一座砌石拱桥，可分辨桥面栏和暗色拱洞。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:3c19302ae1ca698d3cc90d9062d9136320f1895e04c4bbf729bcf902d8bcd199"
+      }
+    },
+    {
+      "caseId": "edge-04",
+      "stratum": "boundary",
+      "query": "给六幅画，要求画里能辨认用双手托着的透明玻璃杯，而且不要肖像。",
+      "artworkId": "smithsonian_asian-fsg_F1898.197",
+      "imagePath": "https://ids.si.edu/ids/download?id=FS-7325_05.jpg",
+      "imageSha256": "sha256:bc6c8571a7948e4bf2239ff6c7e91a4bddc5fd600f22958573e90e6824a38cd5",
+      "museumMedium": "Pencil on off-white wove paper",
+      "label": "negative",
+      "basis": "两名站立人物和左下座位可见，没有可辨认的双手托透明杯。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:21210347495b5bdc81f90b40698f92d2ad1ecc0ad6109c18a24d958b4152db03"
+      }
+    },
+    {
+      "caseId": "detail-01",
+      "stratum": "visual-detail",
+      "query": "找六件看得见桅杆或船帆的画。",
+      "artworkId": "rijksmuseum-200116937",
+      "imagePath": "https://iiif.micr.io/DEoUJ/full/max/0/default.jpg",
+      "imageSha256": "sha256:8e2ff70a93f0531cc1080e8128b7a1d37e51d6c0b150074c3c05873edcba7948",
+      "museumMedium": "paper; ink; watercolor (paint); graphite (mineral); chalk",
+      "label": "positive",
+      "basis": "冰面人物后方右侧有带旗的长桅，旁有牵索和帆的轮廓。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:e0a8fd8e1d9171bdabf91cf94f66ad36f61bd5363f9e0f45e838176e567912b1"
+      }
+    },
+    {
+      "caseId": "mixed-03",
+      "stratum": "mixed",
+      "query": "六幅油画，想看有人在室内桌边坐着。",
+      "artworkId": "smk-kms4074",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/ks65hg40x_kms4074.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:5a43b72321df3ea67e42fea30f950865826e2bcd96b5f668c886f62f46cbd1eb",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "positive",
+      "basis": "馆方记录为布面油画。昏暗室内有人侧身坐在桌前，前臂伸向桌面。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:2ebddb8af84944839b6e30999a4bf7d5015b0812b89545f7b23e2a5744e0ab8f"
+      }
+    },
+    {
+      "caseId": "arousal-05",
+      "stratum": "arousal",
+      "query": "想看六幅适合停下来细看的画，留意摆放的物件。",
+      "artworkId": "cma-164466",
+      "imagePath": "images/cma-164466-full.jpg",
+      "imageSha256": "sha256:41ebe14ca8c66dbc4aa32886328cd4d42ff6772fbd3a94eeb993ce1196d8718b",
+      "museumMedium": "ink and color on paper",
+      "label": "unknown",
+      "basis": "平面人物四周有花和饰纹；视线能慢慢看图样，画中是否有独立摆放的物件难判。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:41ebe14ca8c66dbc4aa32886328cd4d42ff6772fbd3a94eeb993ce1196d8718b"
+      }
+    },
+    {
+      "caseId": "arousal-03",
+      "stratum": "arousal",
+      "query": "想看动作幅度大的画，六件，画中有人在奔跑、扭转或舞动。",
+      "artworkId": "cma-117774",
+      "imagePath": "images/cma-117774-full.jpg",
+      "imageSha256": "sha256:5f460d5b11816a91e38458a9bd1633e278c21837a3b6d60c82ae3e955e10be54",
+      "museumMedium": "oil on canvas",
+      "label": "positive",
+      "basis": "拱廊下前景舞伴抬起相牵的手，女方转身、裙摆向外张。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:5f460d5b11816a91e38458a9bd1633e278c21837a3b6d60c82ae3e955e10be54"
+      }
+    },
+    {
+      "caseId": "media-05",
+      "stratum": "medium-exclusion",
+      "query": "我想看画里的室内陈设，六件；不要有人。",
+      "artworkId": "rijksmuseum-200117093",
+      "imagePath": "https://iiif.micr.io/KBVPa/full/max/0/default.jpg",
+      "imageSha256": "sha256:96dd65e3a0851efe55d6f195f41abd26ac1456bcdee8eb641629db72e5ca45ae",
+      "museumMedium": "paper; ink; chalk",
+      "label": "negative",
+      "basis": "可见树下牧人和牲畜，画面是室外且有人。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:73082fe9a6de5962a83067c77da1e533373aaee5902f5a27c606e5274a86b372"
+      }
+    },
+    {
+      "caseId": "mixed-04",
+      "stratum": "mixed",
+      "query": "想看六幅有树木和水面倒影的画，媒材不限。",
+      "artworkId": "rijksmuseum-200117066",
+      "imagePath": "https://iiif.micr.io/wgtUt/full/max/0/default.jpg",
+      "imageSha256": "sha256:6bd35d8c923356aa8cff3153bbf44ca1b0b4ad0b643096765ad956cd5e7bb6de",
+      "museumMedium": "prepared paper; chalk",
+      "label": "negative",
+      "basis": "画面只描一名侧视坐着的人，背景没有树、水面或倒影。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:979feaf3387b8abd519614dc7de73ba1e6bfc594a067ed99ea9cee564ec55123"
+      }
+    },
+    {
+      "caseId": "edge-03",
+      "stratum": "boundary",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "artworkId": "rijksmuseum-200117124",
+      "imagePath": "https://iiif.micr.io/QYnaH/full/max/0/default.jpg",
+      "imageSha256": "sha256:0b7d088900599df509ba5278eb2ae366a5c11e418396b313d8752a62f328a3ee",
+      "museumMedium": "paper; ink; chalk",
+      "label": "negative",
+      "basis": "放牧场景中人物肩头没有鸟，馆方资料列纸、墨和粉笔。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:3e5f4d269f059e0bf17e53f45a0e187836930042eb65bec9303ed92a469e5236"
+      }
+    },
+    {
+      "caseId": "edge-02",
+      "stratum": "boundary",
+      "query": "必须看得见行人，同时整幅画不要任何人物，两条都保留。",
+      "artworkId": "rijksmuseum-200109343",
+      "imagePath": "https://iiif.micr.io/GzjAh/full/max/0/default.jpg",
+      "imageSha256": "sha256:c9d179d59c6af1d583fa87d7a736f9b6541d5211c5378e7a031f153abb33df98",
+      "museumMedium": "panel; oil paint (paint)",
+      "label": "negative",
+      "basis": "两项人物条件互斥，聚会画面也可直接辨认多个人物。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:55599e3b9ee8320fab53f0027c1eb2cf54f02d57d05368e7cd7aea74eb1ba080"
+      }
+    },
+    {
+      "caseId": "media-02",
+      "stratum": "medium-exclusion",
+      "query": "六幅油画，画里要看得到云层；不要水彩。",
+      "artworkId": "rijksmuseum-200108585",
+      "imagePath": "https://iiif.micr.io/ktbuS/full/max/0/default.jpg",
+      "imageSha256": "sha256:e75d6c9a2437e798049eb452f8755614d09ea1a1794ab2200c8cedfad238bc28",
+      "museumMedium": "panel; oil paint (paint)",
+      "label": "positive",
+      "basis": "馆方记录为板上油画，天空有多层白色和灰色云团。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:69c47b94910524830ea83f0238e1b0934debf5810e046c20196aea325b37db3d"
+      }
+    },
+    {
+      "caseId": "mixed-06",
+      "stratum": "mixed",
+      "query": "给六幅有人骑乘的画，不要战争，也不要死亡。",
+      "artworkId": "rijksmuseum-200108933",
+      "imagePath": "https://iiif.micr.io/crsvc/full/max/0/default.jpg",
+      "imageSha256": "sha256:c8b615b16613f02f2ab3e98285d276a90accec4b165a1f9b90f26aee7d8dc716",
+      "museumMedium": "canvas; oil paint (paint)",
+      "label": "unknown",
+      "basis": "左方可辨有骑乘人物，远处成队人群、旗和带工事的土坡，无法确认是否在战争情境。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:8f92cf9c3e843c28c2a5614828958f69b41c11402a1f7c1d2bc99d9a948619de"
+      }
+    },
+    {
+      "caseId": "media-04",
+      "stratum": "medium-exclusion",
+      "query": "给我六幅纸上素描，纸上要能看见树木。",
+      "artworkId": "rijksmuseum-200117095",
+      "imagePath": "https://iiif.micr.io/njiIo/full/max/0/default.jpg",
+      "imageSha256": "sha256:83e20bf55629b70429ab916273d6f75347fb46c91c367c3738f2a25cdf6e68bc",
+      "museumMedium": "paper; graphite (mineral)",
+      "label": "negative",
+      "basis": "纸面仅有伏卧的牛，环境留白，没有树木。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:a57ae76166e78295deae01f16dc9a9eeece5794053a8d6f49ed56b23d29d41f0"
+      }
+    },
+    {
+      "caseId": "detail-02",
+      "stratum": "visual-detail",
+      "query": "想看看画里的楼梯和台阶，选六件。",
+      "artworkId": "rijksmuseum-200109450",
+      "imagePath": "https://iiif.micr.io/GyDSH/full/max/0/default.jpg",
+      "imageSha256": "sha256:c467adff4c1cc3628902d4f904292cdde799dba5fe71a45adb7afaefa0877162",
+      "museumMedium": "panel; oil paint (paint)",
+      "label": "negative",
+      "basis": "桌上只有花瓶、花枝和零散物件；桌沿不构成楼梯或台阶。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:c467adff4c1cc3628902d4f904292cdde799dba5fe71a45adb7afaefa0877162"
+      }
+    },
+    {
+      "caseId": "media-02",
+      "stratum": "medium-exclusion",
+      "query": "六幅油画，画里要看得到云层；不要水彩。",
+      "artworkId": "rijksmuseum-200108748",
+      "imagePath": "https://iiif.micr.io/DHLyR/full/max/0/default.jpg",
+      "imageSha256": "sha256:0abb2abd1a6033e5300027e77a924c86d239387eab76a7ff9804af9cb1465950",
+      "museumMedium": "panel; oil paint (paint)",
+      "label": "unknown",
+      "basis": "为板上油画。黄褐背景中有明暗团块，难以区分云层、衣褶与空气层。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:6a2320675b62129fe51157c43b1c69ff41ee61e2aba68dbe7567c6a2457da81f"
+      }
+    }
+  ],
+  "reviewerCategory": "independent visual review by Codex, blinded to the catalog observation, machine labels and retrieval results",
+  "mediaProvenance": "Checked 8 exact original image byte digests and 28 complete, uncropped local previews tied to the exact original and verified against the public release media manifest. Enlarged for borderline details."
+}
