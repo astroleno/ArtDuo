@@ -3,7 +3,7 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type HTMLAttributeReferrerPolicy } from "react";
 import type { DetailNavigation, ExperienceUnit, NarrativeBlock } from "./types";
 import type { RoomPlaqueSize } from "./layout";
-import { experienceArtistName } from "./artwork-credits";
+import { recordedArtistName } from "./artwork-credits";
 import { displaySourceCredit, sameReadingText } from "./reading-copy";
 import { prepareReadingImage } from "./reading-image";
 import { useOverlayHistory } from "./use-overlay-history";
@@ -17,11 +17,11 @@ function ReadingNote({ note, caption }: { note?: NarrativeBlock; caption: Narrat
   </>;
 }
 
-function LabelLines({ metadata, artistName, opening = false }: { metadata: ExperienceUnit["artwork"]["metadata"]; artistName: string; opening?: boolean }) {
+function LabelLines({ title, artistName, yearLabel, opening = false }: { title: string; artistName?: string; yearLabel?: string; opening?: boolean }) {
   return <>
-    <strong>{metadata.title}</strong>
-    <span className="experience-plaque-artist">{artistName}</span>
-    {opening || metadata.yearLabel ? <span className="experience-plaque-period" role={opening ? "status" : undefined}>{opening ? "正在打开… · 取消" : metadata.yearLabel}</span> : null}
+    <strong>{title}</strong>
+    {artistName ? <span className="experience-plaque-artist">{artistName}</span> : null}
+    {opening || yearLabel ? <span className="experience-plaque-period" role={opening ? "status" : undefined}>{opening ? "正在打开… · 取消" : yearLabel}</span> : null}
   </>;
 }
 
@@ -42,7 +42,11 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
 }) {
   const artwork = unit.artwork;
   const metadata = artwork.metadata;
-  const artistName = experienceArtistName(unit);
+  const artistName = recordedArtistName(unit);
+  const yearLabel = metadata.yearLabel?.trim() ? metadata.yearLabel : undefined;
+  const dimensions = metadata.dimensions?.trim() ? metadata.dimensions : undefined;
+  const labelLines = { title: metadata.title, artistName, yearLabel };
+  const byline = [artistName, yearLabel].filter(Boolean).join(" · ");
   const [readingImage, setReadingImage] = useState<{ url: string; state: "ready" | "failed"; compact: boolean }>();
   const [imageAttempt, setImageAttempt] = useState(0);
   const [retryingImage, setRetryingImage] = useState(false);
@@ -71,7 +75,7 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
     document.fonts?.addEventListener("loadingdone", measure);
     void document.fonts?.ready.then(measure);
     return () => { disposed = true; observer?.disconnect(); document.fonts?.removeEventListener("loadingdone", measure); };
-  }, [metadata.title, artistName, metadata.yearLabel, measureWidth, onSizeChange]);
+  }, [metadata.title, artistName, yearLabel, measureWidth, onSizeChange]);
   useEffect(() => {
     if (!expanded) { setReadingImage(undefined); setRetryingImage(false); return; }
     const image = readingImageRef.current;
@@ -99,7 +103,7 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
   }, [expanded, readingImageState]);
   return <><section className="experience-plaque" aria-label={`展签：${metadata.title}`}>
     <button ref={triggerRef} aria-describedby={actionId} aria-expanded={expanded} aria-busy={opening} aria-haspopup="dialog" className="experience-plaque-heading" onClick={onToggle} type="button">
-      <LabelLines metadata={metadata} artistName={artistName} opening={opening} />
+      <LabelLines {...labelLines} opening={opening} />
     </button>
     <span className="sr-only" id={actionId}>{opening ? "正在打开完整展签，点击取消" : "展开完整展签"}</span>
     <dialog ref={dialogRef} aria-labelledby={titleId} className="experience-reading-layer" data-image-layout={readingImage?.url === previewUrl && readingImage.compact ? "compact" : "full"} onCancel={(event) => { event.preventDefault(); closeReader(); }}>
@@ -110,14 +114,14 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
       </div>
       <div key={artwork.id} ref={readingBodyRef} className="experience-reading-body" role="region" aria-label="作品文字" tabIndex={0}>
       <h2 id={titleId}>{metadata.title}</h2>
-      <p className="experience-reading-byline">{[artistName, metadata.yearLabel].filter(Boolean).join(" · ")}</p>
+      {byline ? <p className="experience-reading-byline">{byline}</p> : null}
       <div className="experience-plaque-detail">
       {expanded ? <ReadingNote key={artwork.id} note={unit.curatorNote} caption={unit.caption} /> : null}
       <dl>
         {[
           ["出版", unit.displayCredits?.publishers.join("; ")],
           ["媒材", metadata.medium], ["文化", metadata.culture], ["部门", metadata.department],
-          ["馆方尺寸", metadata.dimensions ?? "尺寸尚待核实"], ["来源", displaySourceCredit(metadata.creditLine)],
+          ["馆方尺寸", dimensions], ["来源", displaySourceCredit(metadata.creditLine)],
         ].filter((entry): entry is [string, string] => Boolean(entry[1])).map(([label, value]) => <div key={label}><dt>{label}</dt><dd style={{ whiteSpace: "pre-line" }}>{value}</dd></div>)}
       </dl>
       <p className="experience-rationale">{artworkKind === "sculpture" ? "雕塑" : "画作"}按屏幕适配，展厅中的大小不代表原作实际尺寸。</p>
@@ -132,7 +136,7 @@ export function Plaque({ unit, previewSource, backgroundSource, expanded, onTogg
     </dialog>
   </section>
   {onSizeChange ? <div className="experience-plaque-measure" aria-hidden="true">
-    <div ref={measureRef} className="experience-plaque-heading" style={{ width: measureWidth }}><LabelLines metadata={metadata} artistName={artistName} /></div>
+    <div ref={measureRef} className="experience-plaque-heading" style={{ width: measureWidth }}><LabelLines {...labelLines} /></div>
   </div> : null}
   </>;
 }

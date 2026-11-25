@@ -195,6 +195,10 @@ pnpm --filter @artduo/web exec tsx --test test/lib/stage-holdout.test.ts
 
 90 个计划段中，短展有意留空 3 段，实际请求 87 段。两条条件互相矛盾的请求共 6 段空池；其余 81 段有候选，其中 69 段有参考正例。按请求段计数，245 个参考正例位置中，K=1、3、6 分别命中 4、10、16 个。K=6 的 481 个返回位置中，16 个有确定标注且均为正例，另有 6 个标为未知、459 个未列入参考。0/16 仅描述可判定位置，无法据此估计全部候选的误选率。每场各段复用同一可见题旨，计数也不代表独立观众或独立画作数。
 
+第三批展签通过正式 Web 构建与浏览器验收。用 390px 和 1440px 两个视口打开同一份 v21 保存展，等候 `artduo:artwork-ready` 后读取展签。缺署名作品 `cma-164466` 的短签展示标题和「1900s」，390px 下高度从 91.24px 降至 72.30px。《Spring in France》仍展示 Robert William Vonnoh 和 1890，390px 下前后高度均为 73.84px。两个视口的两件作品均保留已有馆方尺寸及来源链接，短签没有水平溢出。主线程在两种视口确认关闭展开资料后焦点回到原展签按钮。上述记录来自桌面浏览器的指定视口。
+
+展签及结语定向回归 9 项通过，UI 全套 142 项通过。运行 `pnpm --filter @artduo/ui exec tsx --test src/experience/plaque.test.tsx src/experience/closing-narrative.test.tsx` 可复核定向用例。浏览器记录位于 `.cache/artduo-arc-20261125/` 下的 `baseline-plaque.json`、`batch3-plaque.json` 和 `batch3-plaque-1440.json`。
+
 早期对照脚本放在仓库外的 `/tmp/artduo-review/`：
 
 - `affect-compare.ts`：全馆规则估计与单图读数的相关性和分歧最大的作品。
