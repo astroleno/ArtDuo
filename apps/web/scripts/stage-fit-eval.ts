@@ -15,6 +15,10 @@ import { selectForCurationStages } from "../lib/semantic-selection";
 import { requestStageRerank } from "../lib/stage-rerank";
 import { refineAfterglow } from "../lib/afterglow-selection";
 import { withCurationVisualCorrections } from "../lib/curation-visual-corrections";
+import { artworkOffering } from "../lib/artwork-offering";
+import { affectReadingPath } from "../lib/artwork-affect-reading";
+import { measureCurves, type CurveExhibition } from "./curve-metrics";
+import { readTrackedCurveFixture, sha256, TRACKED_REPLAY_LABEL } from "./stage-fit-curve-fixture";
 
 const rootDir = path.resolve(__dirname, "../../..");
 const label = process.argv[2] ?? "current";
@@ -90,25 +94,30 @@ async function judge(plan: CurationIntentPlan, works: Array<{ artwork: WebArtwor
   return judged;
 }
 
-function readFrozenReplay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>, fixtureSha256: string): ExhibitionResult[] | undefined {
-  if (!judgeFrom) return undefined;
-  const { summary, results } = JSON.parse(readFileSync(path.join(outDir, `${judgeFrom}.json`), "utf8")) as
-    { summary: { releaseVersion?: string; fixtureSha256?: string }; results: ExhibitionResult[] };
-  if (summary.releaseVersion && summary.releaseVersion !== catalog.releaseVersion) throw new Error("Frozen replay belongs to a different release");
-  if (summary.fixtureSha256 && summary.fixtureSha256 !== fixtureSha256) throw new Error("Frozen replay uses different stage fixtures");
+function validateFrozenReplay(results: ExhibitionResult[], plans: Record<string, unknown>, hasArtwork: (id: string) => boolean) {
   const queries = Object.keys(plans);
   if (results.length !== queries.length || results.some(({ query, stages, works, seedWorks, selectionMode }, index) => {
     if (query !== queries[index]) return true;
     const plan = parseCurationIntentPlan(plans[query]);
     const validRoute = (route: ReplayWork[]) => Array.isArray(route) && route.length <= plan.artworkCount
       && new Set(route.map(work => work.artworkId)).size === route.length
-      && route.every((work, i) => catalog.artworkById.has(work.artworkId) && Number.isInteger(work.stage) && plan.stages[work.stage]
+      && route.every((work, i) => hasArtwork(work.artworkId) && Number.isInteger(work.stage) && plan.stages[work.stage]
         && (i === 0 || work.stage >= route[i - 1]!.stage));
     return JSON.stringify(stages) !== JSON.stringify(plan.stages.map((stage) => stage.label))
       || !validRoute(works) || seedWorks !== undefined && (!validRoute(seedWorks) || seedWorks.length !== works.length)
       || selectionMode !== undefined && selectionMode !== "rules" && selectionMode !== "model";
   })) throw new Error("Frozen replay does not match the fixed exhibition plans");
-  return results.map(({ query, stages, works, seedWorks, selectionMode, rerank }) => ({ query, stages, works, seedWorks, selectionMode, rerank }));
+}
+
+function readFrozenReplay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>, fixtureSha256: string) {
+  if (!judgeFrom) return undefined;
+  const raw = readFileSync(path.join(outDir, `${judgeFrom}.json`));
+  const { summary, results } = JSON.parse(raw.toString()) as { summary: { releaseVersion?: string; fixtureSha256?: string }; results: ExhibitionResult[] };
+  if (summary.releaseVersion && summary.releaseVersion !== catalog.releaseVersion) throw new Error("Frozen replay belongs to a different release");
+  if (summary.fixtureSha256 && summary.fixtureSha256 !== fixtureSha256) throw new Error("Frozen replay uses different stage fixtures");
+  validateFrozenReplay(results, plans, id => catalog.artworkById.has(id));
+  return { sourceReplaySha256: sha256(raw),
+    results: results.map(({ query, stages, works, seedWorks, selectionMode, rerank }) => ({ query, stages, works, seedWorks, selectionMode, rerank })) };
 }
 
 async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>): Promise<ExhibitionResult[]> {
@@ -153,13 +162,31 @@ async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: 
 }
 
 async function main(): Promise<void> {
-  const catalog = withCurationVisualCorrections(loadWebReleaseCatalog({ rootDir, releaseVersion: option("release"), manifestPath: option("manifest") }));
+  const outputPath = path.resolve(outDir, `${label}.json`);
+  if (judgeFrom && outputPath === path.resolve(outDir, `${judgeFrom}.json`)) throw new Error("Use a new label for the frozen replay report");
   const fixture = readFileSync(path.join(__dirname, "../test/fixtures/stage-fit-plans.json"), "utf8");
   const plans = JSON.parse(fixture) as Record<string, unknown>;
-  const fixtureSha256 = createHash("sha256").update(fixture).digest("hex");
+  const fixtureSha256 = sha256(fixture);
+  const tracked = !judgeEnabled && judgeFrom === TRACKED_REPLAY_LABEL && !option("manifest")
+    ? readTrackedCurveFixture(fixtureSha256, option("release")) : undefined;
+  const catalog = tracked ? undefined
+    : withCurationVisualCorrections(loadWebReleaseCatalog({ rootDir, releaseVersion: option("release"), manifestPath: option("manifest") }));
+  const releaseVersion = tracked?.source.releaseVersion ?? catalog!.releaseVersion;
   mkdirSync(outDir, { recursive: true });
-  const results = readFrozenReplay(catalog, plans, fixtureSha256) ?? await replay(catalog, plans);
-  if (judgeEnabled) {
+  const frozen = catalog && readFrozenReplay(catalog, plans, fixtureSha256);
+  let results: ExhibitionResult[];
+  if (tracked) {
+    const queries = Object.keys(plans);
+    if (tracked.routes.length !== queries.length) throw new Error("Frozen curve fixture does not match the plan count");
+    results = tracked.routes.map((route, index) => {
+      const query = queries[index]!;
+      return { query, stages: parseCurationIntentPlan(plans[query]).stages.map(stage => stage.label), ...route };
+    });
+    validateFrozenReplay(results, plans, id => tracked.byId.has(id));
+  } else {
+    results = frozen?.results ?? await replay(catalog!, plans);
+  }
+  if (judgeEnabled && catalog) {
     const cache: Record<string, JudgedWork[]> = existsSync(judgeCachePath) ? JSON.parse(readFileSync(judgeCachePath, "utf8")) : {};
     for (const result of results) {
       const works = result.works.map((work) => ({ artwork: catalog.artworkById.get(work.artworkId)!, stage: work.stage }));
@@ -173,21 +200,50 @@ async function main(): Promise<void> {
   const total = [...uses.values()].reduce((sum, value) => sum + value, 0);
   const reranks = results.flatMap((result) => result.rerank ? [result.rerank] : []);
   const rerankMs = reranks.map((run) => run.ms).sort((a, b) => a - b);
+  const titles = new Map(results.flatMap(result => result.works.map(work => [work.artworkId, catalog?.artworkById.get(work.artworkId)?.title ?? work.title] as const)));
   const summary = {
-    label, releaseVersion: catalog.releaseVersion, fixtureSha256, judge: judgeEnabled ? JUDGE_MODEL : undefined, judgeFrom, exhibitions: results.length, works: total,
+    label, releaseVersion, fixtureSha256, judge: judgeEnabled ? JUDGE_MODEL : undefined, judgeFrom, exhibitions: results.length, works: total,
     rerank: reranks.length ? { attempted: reranks.length, accepted: reranks.filter((run) => run.status === "accepted").length,
       rejected: reranks.filter((run) => run.status === "rejected").length, failed: reranks.filter((run) => run.status === "failed").length,
       medianMs: rerankMs[Math.floor(rerankMs.length / 2)], maxMs: rerankMs.at(-1) } : undefined,
     meanFit: fits.length ? Number((fits.reduce((sum, item) => sum + item.fit, 0) / fits.length).toFixed(2)) : undefined,
     misfitShare: fits.length ? Number((fits.filter((item) => item.fit <= 2).length / fits.length).toFixed(3)) : undefined,
     distinctShare: Number((uses.size / Math.max(1, total)).toFixed(3)),
-    mostRepeated: [...uses.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([id, count]) => `${catalog.artworkById.get(id)?.title} ×${count}`),
+    mostRepeated: [...uses.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([id, count]) => `${titles.get(id)} ×${count}`),
   };
-  writeFileSync(path.join(outDir, `${label}.json`), JSON.stringify({ summary, results }, null, 1));
+  const ledger = affectReadingPath(rootDir, releaseVersion);
+  const proxyModels = new Set<string>();
+  const curves: CurveExhibition[] = results.map((result, index) => {
+    const plan = parseCurationIntentPlan(plans[result.query]);
+    return { id: String(index + 1), requestedWorks: plan.artworkCount, slots: result.works.map(work => {
+      const frozenWork = tracked?.byId.get(work.artworkId);
+      const artwork = catalog?.artworkById.get(work.artworkId);
+      const flash = artwork?.affectReading;
+      if (flash && !["deepseek-flash", "deepseek-v4-flash"].includes(flash.model)) proxyModels.add(flash.model);
+      return { artworkId: work.artworkId, stageIndex: work.stage, target: plan.stages[work.stage]!,
+        readings: { rules: frozenWork?.rules ?? (artwork && artworkOffering(artwork)),
+          flash: frozenWork?.flash ?? (flash && ["deepseek-flash", "deepseek-v4-flash"].includes(flash.model) ? flash : undefined) } };
+    }) };
+  });
+  const input = {
+    mode: tracked ? "tracked-frozen" : frozen ? "cached-frozen" : "replay",
+    selectionModes: [...new Set(results.map(result => result.selectionMode ?? "unknown"))],
+    ...(tracked?.source ?? {
+      releaseVersion, fixtureSha256,
+      sourceReplaySha256: frozen?.sourceReplaySha256,
+      releaseManifestSha256: sha256(readFileSync(catalog!.manifestPath)),
+      flashLedgerSha256: existsSync(ledger) ? sha256(readFileSync(ledger)) : undefined,
+      flashLedgerVersion: catalog!.affectReadingVersion,
+    }),
+    excludedReadingModels: [...proxyModels].sort(),
+    readings: { rules: "artworkOffering", flash: "DeepSeek Flash image readings; shares a model family with Flash judging" },
+  };
+  const curve = { input, ...measureCurves(curves) };
+  writeFileSync(outputPath, JSON.stringify({ summary, results, curve }, null, 1));
   console.log(JSON.stringify(summary, null, 1));
   for (const result of results) {
     const misfits = (result.judged ?? []).filter((item) => item.fit <= 2);
-    if (misfits.length) console.log(`- ${result.query.slice(0, 28)}… ${misfits.map((item) => `[${result.stages[item.stage]}] ${catalog.artworkById.get(item.artworkId)?.title} fit${item.fit}: ${item.reason}`).join("; ")}`);
+    if (misfits.length) console.log(`- ${result.query.slice(0, 28)}… ${misfits.map((item) => `[${result.stages[item.stage]}] ${titles.get(item.artworkId)} fit${item.fit}: ${item.reason}`).join("; ")}`);
   }
 }
 
