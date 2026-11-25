@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { boundedRoomLightInput, boundedRoomLightMood, NEUTRAL_ROOM_MOOD, roomLightMood, roomLightProfile } from "./room-lighting";
+import { boundedRoomLightInput, boundedRoomLightMood, NEUTRAL_ROOM_MOOD, roomFallbackShade, roomLightMood, roomLightProfile } from "./room-lighting";
 
 test("photographed windows, cove lights and track fixtures use distinct soft distributions", () => {
   assert.equal(roomLightProfile("bg-004")?.shape, "window-wash");
@@ -29,4 +29,22 @@ test("curatorial targets change the room smoothly within safe bounds", () => {
 test("invalid or extreme pointer and sensor input never reaches lighting uniforms", () => {
   assert.deepEqual(boundedRoomLightInput({ x: Infinity, y: NaN }), { x: 0, y: 0 });
   assert.deepEqual(boundedRoomLightInput({ x: 9, y: -9 }), { x: 1, y: -1 });
+});
+
+test("the static shade is neutral by default and follows exposure and softness independently", () => {
+  assert.deepEqual(roomFallbackShade(NEUTRAL_ROOM_MOOD), { alpha: .18, stop: 56 });
+  const dim = roomFallbackShade({ exposure: .95, softness: 1 });
+  const bright = roomFallbackShade({ exposure: 1.05, softness: 1 });
+  assert.ok(dim.alpha > .18 && bright.alpha < .18);
+  assert.equal(dim.stop, bright.stop);
+  const narrower = roomFallbackShade({ exposure: 1, softness: .9 });
+  const broader = roomFallbackShade({ exposure: 1, softness: 1.2 });
+  assert.ok(narrower.stop < 56 && broader.stop > 56);
+  assert.equal(narrower.alpha, broader.alpha);
+});
+
+test("the static shade clamps extremes and treats non-finite values as neutral", () => {
+  assert.deepEqual(roomFallbackShade({ exposure: -10, softness: 10 }), { alpha: .215, stop: 60 });
+  assert.deepEqual(roomFallbackShade({ exposure: 10, softness: -10 }), { alpha: .145, stop: 53 });
+  assert.deepEqual(roomFallbackShade({ exposure: NaN, softness: Infinity }), { alpha: .18, stop: 56 });
 });

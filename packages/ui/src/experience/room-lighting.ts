@@ -17,6 +17,15 @@ export function roomLightMood(stage?: Pick<ExperienceStage, "valence" | "arousal
   return boundedRoomLightMood({ exposure: .93 + v * .1 + w * .025 - t * .025, warmth: (i - .5) * .55 + (v - .5) * .3,
     softness: 1.15 + (1 - a) * .35 - t * .35, motionScale: .45 + a * .45 + w * .15, audioGain: .62 + a * .25 + t * .05 });
 }
+
+/** Keep the fallback shade close to the photographed wall's neutral treatment. */
+export function roomFallbackShade({ exposure, softness }: Pick<RoomLightMood, "exposure" | "softness">) {
+  return {
+    alpha: finite(.18 + (1 - exposure) * .4, .145, .215, .18),
+    stop: finite(56 + (softness - 1) * 8, 53, 60, 56),
+  };
+}
+
 export interface RoomLightProfile {
   sceneId: string;
   shape: "window-wash" | "linear-wash" | "oval-spots";

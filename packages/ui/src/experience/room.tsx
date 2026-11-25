@@ -12,7 +12,7 @@ import { AtmosphereLayer } from "./atmosphere-layer";
 import { Plaque } from "./plaque";
 import type { ViewingPace } from "./viewing-session";
 import { artworkAspectRatio } from "./scene-matching";
-import { roomLightMood, roomLightProfile } from "./room-lighting";
+import { roomFallbackShade, roomLightMood, roomLightProfile } from "./room-lighting";
 import { RoomLightingLayer } from "./room-lighting-layer";
 import type { useRoomMotion } from "./room-motion";
 import { experienceArtistName } from "./artwork-credits";
@@ -59,8 +59,13 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   const [lightboxExpanded, setLightboxExpanded] = useState(false);
   const [detailReadyId, setDetailReadyId] = useState<string>();
   const pointer = useMemo(() => roomParallaxInput(motion.input), [motion.input]);
-  const lightProfile = useMemo(() => roomLightProfile(unit.scene?.id, unit.media.roomLightMaps), [unit.scene?.id, unit.media.roomLightMaps]);
+  const lightDepth = unit.media.roomLightMaps?.depthUrl;
+  const lightNormal = unit.media.roomLightMaps?.normalUrl;
+  const lightProfile = useMemo(() => roomLightProfile(unit.scene?.id,
+    lightDepth !== undefined && lightNormal !== undefined ? { depthUrl: lightDepth, normalUrl: lightNormal } : undefined),
+  [unit.scene?.id, lightDepth, lightNormal]);
   const lightingMood = useMemo(() => roomLightMood(stage), [stage]);
+  const fallbackShade = useMemo(() => roomFallbackShade(lightingMood), [lightingMood]);
   const [lightingState, setLightingState] = useState<"loading" | "ready" | "fallback">("loading");
   const [loadedArtwork, setLoadedArtwork] = useState<{ id: string; size: { width: number; height: number } } | null>(null);
   const [paintedId, setPaintedId] = useState<string>();
@@ -82,6 +87,11 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     return () => window.clearTimeout(timer);
   }, [paintedId, essentialReady, transitioning, unit.exhibition.unitId]);
   const enhancementsReady = essentialReady && !transitioning && enhancementId === unit.exhibition.unitId;
+  const lightingActive = enhancementsReady && !reducedMotion && mouseMotion && !lightboxExpanded && !plaqueOpen && !backgroundFailed;
+  const lightingImage = loadedScene && loadedScene.url === unit.media.backgroundUrl ? loadedScene.currentSrc : undefined;
+  // A new wall or re-enabled canvas must paint before it can replace the fallback treatment.
+  const lightingKey = useMemo(() => JSON.stringify([lightingActive, lightingImage, lightProfile?.sceneId, lightProfile?.depthUrl, lightProfile?.normalUrl]),
+    [lightingActive, lightingImage, lightProfile]);
   const roomRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const resize = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
@@ -191,7 +201,8 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     data-scene-chapter={unit.sceneMatch?.chapter?.index}
     style={{ "--art-center-x": `${layout.frame.x + layout.frame.width / 2}px`, "--art-center-y": `${layout.frame.y + layout.frame.height / 2}px`,
       "--art-width": `${layout.frame.width}px`, "--art-height": `${layout.frame.height}px`, "--art-top": `${layout.frame.y}px`,
-      "--room-light-x": String(motion.input.x), "--room-light-y": String(motion.input.y) } as CSSProperties}
+      "--room-light-x": String(motion.input.x), "--room-light-y": String(motion.input.y),
+      "--room-fallback-shade-alpha": fallbackShade.alpha, "--room-fallback-shade-stop": `${fallbackShade.stop}%` } as CSSProperties}
     ref={roomRef}
     onPointerMove={(event) => {
       if (reducedMotion || !mouseMotion || event.pointerType !== "mouse" || lightboxExpanded) return;
@@ -206,8 +217,8 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
       setFailedBackgroundUrl(unit.media.backgroundUrl);
       window.dispatchEvent(new CustomEvent("artduo:experience-degraded", { detail: { reason: "background-scene-unavailable", artworkId: unit.artwork.id } }));
     }} onReady={(size) => setLoadedScene({ ...size, url: unit.media.backgroundUrl! })} /> : null}
-    <RoomLightingLayer imageUrl={loadedScene && loadedScene.url === unit.media.backgroundUrl ? loadedScene.currentSrc : undefined} profile={lightProfile} input={motion.input} mood={lightingMood}
-      active={enhancementsReady && !reducedMotion && mouseMotion && !lightboxExpanded && !plaqueOpen && !backgroundFailed} onState={setLightingState} />
+    <RoomLightingLayer key={lightingKey} imageUrl={lightingImage} profile={lightProfile} input={motion.input} mood={lightingMood}
+      active={lightingActive} onState={setLightingState} />
     <div aria-hidden="true" className="experience-room-shade" />
     <AtmosphereLayer reducedMotion={reducedMotion} tone={unit.scene?.visual_profile.lighting[0] ?? "warm"} />
     <header className="experience-room-header">
