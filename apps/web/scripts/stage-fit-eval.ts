@@ -13,6 +13,8 @@ import { createCurationChatStream, readCurationChatConfig } from "../../api/src/
 import { loadWebReleaseCatalog, type WebArtwork } from "../lib/release-catalog";
 import { selectForCurationStages } from "../lib/semantic-selection";
 import { requestStageRerank } from "../lib/stage-rerank";
+import { refineAfterglow } from "../lib/afterglow-selection";
+import { withCurationVisualCorrections } from "../lib/curation-visual-corrections";
 
 const rootDir = path.resolve(__dirname, "../../..");
 const label = process.argv[2] ?? "current";
@@ -29,7 +31,11 @@ const judgeCachePath = path.join(outDir, "judge-cache.json");
 
 interface JudgedWork { artworkId: string; stage: number; fit: number; reason: string }
 type RerankRun = { status: "accepted" | "rejected" | "failed"; ms: number };
-interface ExhibitionResult { query: string; stages: string[]; works: Array<{ artworkId: string; title: string; stage: number }>; rerank?: RerankRun; judged?: JudgedWork[] }
+type ReplayWork = { artworkId: string; title: string; stage: number };
+interface ExhibitionResult {
+  query: string; stages: string[]; works: ReplayWork[]; seedWorks?: ReplayWork[];
+  selectionMode?: "rules" | "model"; rerank?: RerankRun; judged?: JudgedWork[];
+}
 
 function artworkBrief(artwork: WebArtwork): string {
   return JSON.stringify({
@@ -91,15 +97,18 @@ function readFrozenReplay(catalog: ReturnType<typeof loadWebReleaseCatalog>, pla
   if (summary.releaseVersion && summary.releaseVersion !== catalog.releaseVersion) throw new Error("Frozen replay belongs to a different release");
   if (summary.fixtureSha256 && summary.fixtureSha256 !== fixtureSha256) throw new Error("Frozen replay uses different stage fixtures");
   const queries = Object.keys(plans);
-  if (results.length !== queries.length || results.some(({ query, stages, works }, index) => {
+  if (results.length !== queries.length || results.some(({ query, stages, works, seedWorks, selectionMode }, index) => {
     if (query !== queries[index]) return true;
     const plan = parseCurationIntentPlan(plans[query]);
+    const validRoute = (route: ReplayWork[]) => Array.isArray(route) && route.length <= plan.artworkCount
+      && new Set(route.map(work => work.artworkId)).size === route.length
+      && route.every((work, i) => catalog.artworkById.has(work.artworkId) && Number.isInteger(work.stage) && plan.stages[work.stage]
+        && (i === 0 || work.stage >= route[i - 1]!.stage));
     return JSON.stringify(stages) !== JSON.stringify(plan.stages.map((stage) => stage.label))
-      || works.length > plan.artworkCount || new Set(works.map((work) => work.artworkId)).size !== works.length
-      || works.some((work, i) => !catalog.artworkById.has(work.artworkId) || !Number.isInteger(work.stage) || !plan.stages[work.stage]
-        || (i > 0 && work.stage < works[i - 1]!.stage));
+      || !validRoute(works) || seedWorks !== undefined && (!validRoute(seedWorks) || seedWorks.length !== works.length)
+      || selectionMode !== undefined && selectionMode !== "rules" && selectionMode !== "model";
   })) throw new Error("Frozen replay does not match the fixed exhibition plans");
-  return results.map(({ query, stages, works, rerank }) => ({ query, stages, works, rerank }));
+  return results.map(({ query, stages, works, seedWorks, selectionMode, rerank }) => ({ query, stages, works, seedWorks, selectionMode, rerank }));
 }
 
 async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>): Promise<ExhibitionResult[]> {
@@ -130,8 +139,12 @@ async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: 
           rerank = { status: "failed", ms: Date.now() - started };
         }
       }
-      results.push({ query, stages: plan.stages.map((stage) => stage.label), rerank,
-        works: assignments.map((item) => ({ artworkId: item.artworkId, title: catalog.artworkById.get(item.artworkId)!.title, stage: item.stageIndex })) });
+      const toWorks = (route: typeof assignments) => route.map((item) => ({ artworkId: item.artworkId,
+        title: catalog.artworkById.get(item.artworkId)!.title, stage: item.stageIndex }));
+      const seedWorks = toWorks(assignments);
+      const ending = selection.stagePools && refineAfterglow({ catalog, query, plan, assignments, pools: selection.stagePools });
+      results.push({ query, stages: plan.stages.map((stage) => stage.label), rerank, seedWorks,
+        selectionMode: rerank?.status === "accepted" ? "model" : "rules", works: ending ? toWorks(ending) : seedWorks });
     }
     return results;
   } finally {
@@ -140,7 +153,7 @@ async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: 
 }
 
 async function main(): Promise<void> {
-  const catalog = loadWebReleaseCatalog({ rootDir, releaseVersion: option("release"), manifestPath: option("manifest") });
+  const catalog = withCurationVisualCorrections(loadWebReleaseCatalog({ rootDir, releaseVersion: option("release"), manifestPath: option("manifest") }));
   const fixture = readFileSync(path.join(__dirname, "../test/fixtures/stage-fit-plans.json"), "utf8");
   const plans = JSON.parse(fixture) as Record<string, unknown>;
   const fixtureSha256 = createHash("sha256").update(fixture).digest("hex");

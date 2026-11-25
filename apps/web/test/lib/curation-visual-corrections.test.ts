@@ -153,7 +153,7 @@ test("positive riverbanks rank by the image observation and leave water constrai
   assert.ok(!selectForCurationStages({ catalog: small, query: "想看水边", plan }).assignments[0]?.evidence.includes("reviewed-focus:riverbank"));
 });
 
-test("v19 and v20 restore the scoped forest evidence into narration while v18 uses the original review", async () => {
+test("v19 and newer restore the scoped forest evidence into narration while v18 uses the original review", async () => {
   const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-forest-replay-"));
   try {
     const [query, plan] = plans.find(([query]) => query.includes("森林版画"))!;
@@ -167,7 +167,7 @@ test("v19 and v20 restore the scoped forest evidence into narration while v18 us
         yield "{}";
       } });
     assert.equal(reranks, 1);
-    assert.equal(result.record.selectionVersion, 20);
+    assert.equal(result.record.selectionVersion, 21);
     const saved = readSavedCuration(catalog, result.curationId, undefined, temporary);
     assert.deepEqual(saved.assignments, result.assignments);
     const input = exhibitionNarrativeInput(catalog, saved);

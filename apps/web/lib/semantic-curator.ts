@@ -14,16 +14,17 @@ import type { WebReleaseCatalog } from "./release-catalog";
 import { recordExperienceTiming } from "./experience-analytics";
 import { requestStageRerank } from "./stage-rerank";
 import { withCurationVisualCorrections } from "./curation-visual-corrections";
+import { refineAfterglow } from "./afterglow-selection";
 
 export const VISUAL_CORRECTION_SELECTION_VERSION = 19;
-const SELECTION_VERSION = 20;
+const SELECTION_VERSION = 21;
 
 export interface CurationRecord {
   schemaVersion: 1; recipeVersion: typeof CURATION_RECIPE_VERSION;
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof VISUAL_CORRECTION_SELECTION_VERSION | typeof SELECTION_VERSION;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof VISUAL_CORRECTION_SELECTION_VERSION | 20 | typeof SELECTION_VERSION;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -166,15 +167,18 @@ export async function curateExhibition(input: {
       })(), input.retrievalTimeoutMs ?? 8_000);
     } catch { selection = selectForCurationStages({ catalog, query, plan, recentExposure }); degraded.push("semantic-unavailable"); }
     recordExperienceTiming("semantic-retrieval", performance.now() - retrievalStartedAt, catalog.releaseVersion);
-    if (stream && selection.stagePools && !degraded.includes("intent-unavailable")) {
+    const pools = selection.stagePools;
+    if (stream && pools && !degraded.includes("intent-unavailable")) {
       // The model reads observed image facts to choose within each stage's admitted pool.
       const choiceStartedAt = performance.now();
       try {
-        const chosen = await requestStageRerank({ catalog, plan, assignments: selection.assignments, pools: selection.stagePools, stream, timeoutMs: input.stageChoiceTimeoutMs ?? 10_000 });
+        const chosen = await requestStageRerank({ catalog, plan, assignments: selection.assignments, pools, stream, timeoutMs: input.stageChoiceTimeoutMs ?? 10_000 });
         if (chosen) selection = materializeCurationSelection(catalog, query, plan, chosen, selection.search.model, selection.search.dimensions, { scopedRiverBank: true });
       } catch { degraded.push("stage-choice-unavailable"); }
       recordExperienceTiming("stage-choice", performance.now() - choiceStartedAt, catalog.releaseVersion);
     }
+    const ending = pools && refineAfterglow({ catalog, query, plan, assignments: selection.assignments, pools });
+    if (ending) selection = materializeCurationSelection(catalog, query, plan, ending, selection.search.model, selection.search.dimensions, { scopedRiverBank: true });
     const record: CurationRecord = { schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion,
       query, plan, selectionVersion: SELECTION_VERSION, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
       intentModel: degraded.includes("intent-unavailable") ? "local-rules-v1" : intentModel, indexChecksum, degraded };
