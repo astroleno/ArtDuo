@@ -70,6 +70,47 @@ test("conflict feedback explains blocked requirements without rejecting remainin
   ]) assert.equal(viewingIntentConflictMessage(parseViewingIntent(query)), undefined, query);
 });
 
+test("print techniques distinguish original process, plate material, alternatives, conjunctions and contextual mentions", () => {
+  const media = ["Woodcut", "Etching", "Engraving", "Copperplate engraving", "Etching on copper", "Lithograph", "Woodblock and etching", "Print", "Possibly etching", "Oil on canvas"];
+  const select = (query: string) => media.filter(medium => matchesViewingIntent({ ...artwork("Sample"), medium }, parseViewingIntent(query)));
+  assert.deepEqual(select("只看木版画"), ["Woodcut", "Woodblock and etching"]);
+  assert.deepEqual(select("看蚀刻"), ["Etching", "Etching on copper", "Woodblock and etching"]);
+  assert.deepEqual(select("铜版蚀刻"), ["Etching on copper"]);
+  assert.deepEqual(select("铜版雕刻"), ["Copperplate engraving"]);
+  assert.deepEqual(select("铜版"), ["Copperplate engraving", "Etching on copper"]);
+  assert.deepEqual(select("不要木版画，其他版画都行"), ["Etching", "Copperplate engraving", "Etching on copper", "Lithograph"]);
+  assert.deepEqual(select("木刻或石版画，且不要蚀刻"), ["Woodcut", "Lithograph"]);
+  assert.deepEqual(select("木刻和蚀刻"), ["Woodblock and etching"]);
+  assert.deepEqual(select("woodcut prints or oils"), ["Woodcut", "Woodblock and etching", "Oil on canvas"]);
+  assert.deepEqual(select("想看描绘木版工坊的油画"), ["Oil on canvas"]);
+  assert.deepEqual(select("oil paintings of woodcut prints"), ["Oil on canvas"]);
+  assert.deepEqual(select("只看蚀刻版画或石版画"), ["Etching", "Etching on copper", "Lithograph", "Woodblock and etching"]);
+  assert.deepEqual(select("只想看木版画或水彩画或油画"), ["Woodcut", "Woodblock and etching", "Oil on canvas"]);
+  assert.deepEqual(select("铜版蚀刻或石版，别用木刻"), ["Etching on copper", "Lithograph"]);
+  assert.deepEqual(select("我想看画中描绘的木版画工人"), media);
+  for (const medium of ["木板油画", "Photograph of a woodcut"]) {
+    assert.equal(matchesViewingIntent({ ...artwork("Sample"), medium }, parseViewingIntent("想看木版画")), false);
+  }
+  assert.deepEqual(select("不要铜版蚀刻").includes("Copperplate engraving"), true);
+  assert.deepEqual(select("不要铜版蚀刻").includes("Etching"), false);
+  assert.match(viewingIntentConflictMessage(parseViewingIntent("想看铜版蚀刻，不要蚀刻")) ?? "", /版画技法/u);
+  assert.equal(viewingIntentConflictMessage(parseViewingIntent("想看木刻或石版画，不要木刻")), undefined);
+});
+
+test("a requested mountain in the image is a hard subject, while names and emotional metaphors are not", () => {
+  for (const query of ["六件木版画，想看画里的山。", "想看山。", "想看有山的画。", "画中有山和雾。", "我想看山体"]) {
+    assert.ok(parseViewingIntent(query).subjects.includes("mountain"), query);
+  }
+  for (const query of ["不要画里的山", "画里不要有山", "不想看山"]) {
+    assert.ok(parseViewingIntent(query).excludedSubjects.includes("mountain"), query);
+  }
+  for (const query of ["只看《画里的山》", "想看山本的油画", "想看山一般沉静的颜色", "不是想看山，是想看海"]) {
+    const intent = parseViewingIntent(query);
+    assert.ok(!intent.subjects.includes("mountain") && !intent.excludedSubjects.includes("mountain"), query);
+  }
+  assert.ok(!parseViewingIntent("六件木版画，想看画里的山。", [], { scopedMountainSubject: false }).subjects.includes("mountain"));
+});
+
 test("a named artist request does not silently include uncertain or reference authorship", () => {
   const intent = parseViewingIntent("只看莫奈");
   for (const artistDisplayName of ["Claude Monet (attributed to)", "Workshop of Claude Monet", "Claude Monet (copy after)", "Circle of Claude Monet"]) {

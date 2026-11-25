@@ -1,6 +1,6 @@
 import type { WebArtwork } from "./release-catalog";
 import type { VisualState, VisualSubject } from "./artwork-visual-evidence";
-import { ARTWORK_MEDIUM_REQUESTS, artworkMediumKinds, type ArtworkMedium } from "@artduo/contracts";
+import { ARTWORK_MEDIUM_REQUESTS, artworkMediumKinds, artworkPrintDetails, type ArtworkMedium, type PrintDetail } from "@artduo/contracts";
 
 // Concrete subject evidence never uses the emotional aliases in the embedding
 // tokenizer. A quiet title is not evidence that a work depicts a quiet scene.
@@ -48,6 +48,8 @@ export interface ViewingIntent {
   spacious?: boolean;
   media?: ArtworkMedium[];
   excludedMedia?: ArtworkMedium[];
+  printDetailGroups?: Array<Array<ReadonlyArray<PrintDetail> | ArtworkMedium>>;
+  excludedPrintDetails?: ReadonlyArray<ReadonlyArray<PrintDetail>>;
   artists: string[];
   excludedArtists: string[];
   allowIntense: boolean;
@@ -76,6 +78,68 @@ const SHORT_RIVER_BANK = /^(?:(?:清晨|黎明|黄昏|傍晚|安静|开阔)(?:�
 const PEOPLE_PROHIBITION = /不要|别|不想(?:看见|看到|看)|不希望|不能|避开|排除/gu;
 const PEOPLE_PAUSE = /^\s*(?:(?:出现|入镜)|的(?:画(?:作)?|作品|室内|房间|风景|场景))?\s*(?:[、，,]|也不要|也别|(?:及|和|与|或者|或是)(?!\s*(?:我|你|他|她|谁|大家|朋友|家人))|[吧呀啊]?\s*$)/u;
 const PEOPLE_SCOPE_RESET = /但是|而是|不过|改看|只想看|只看|(?<!不)想看|希望看|\bbut\b/iu;
+const PRINT_DETAIL_TERM = /铜[版板](?:蚀刻|雕刻|雕版)?(?:版画|画)?|木版(?:印刷)?(?:版画|画)?|木板(?:印刷(?:版画|画)?|版画)|木刻(?:版画|画)?|蚀刻(?:版画|画)?|石[版板](?:版画|画)?|\b(?:copper(?:[ -]?plate)?\s+(?:etchings?|engravings?)|copper[ -]?plates?|wood[ -]?cuts?|wood[ -]?blocks?|wood engravings?|etchings?|engravings?|lithographs?|lithography)(?:\s+prints?)?\b/giu;
+const PRINT_SUBJECT_MENTION = /描绘|画中(?:有|的)|画面(?:上有|中有)|关于|表现|题材|主题|制作过程|的(?:工具|历史|技法)|\b(?:about|depict(?:s|ing)?|showing|history of|process of|like|in the style of)\b/iu;
+const PRINT_OR = /^\s*(?:、\s*)?(?:或(?:者|是)?|\bor\b)\s*$/iu;
+const SCOPED_MOUNTAIN = /(?:画(?:里|中|面里|面中)(?:的|有|不要有|没有)|(?:想看|希望看|看看|给我看|不要看|不要|避开)(?:有)?)山(?:体|峦|脉)?(?=\s*(?:$|[,，、。；;!?]|和|与|及|的(?:画|作品|风景|场景)))/gu;
+
+function printTerm(value: string): PrintDetail[] {
+  const term = value.toLowerCase();
+  const details: PrintDetail[] = [];
+  if (/铜[版板]|copper/u.test(term)) details.push("copperplate");
+  if (/木[版板刻]|wood/u.test(term)) details.push("woodblock");
+  if (/蚀刻|etch/u.test(term)) details.push("etching");
+  if (/雕[刻版]|engrav/u.test(term)) details.push("engraving");
+  if (/石[版板]|lithograph/u.test(term)) details.push("lithograph");
+  return details;
+}
+
+function scopedPrintClause(clause: string, permissive: boolean, required: boolean) {
+  const groups: NonNullable<ViewingIntent["printDetailGroups"]> = [];
+  const excluded: PrintDetail[][] = [];
+  const terms = [...clause.matchAll(PRINT_DETAIL_TERM)];
+  if (!terms.length) return { groups, excluded, generic: clause };
+  const masked = clause.replace(PRINT_DETAIL_TERM, match => " ".repeat(match.length));
+  const atoms = [
+    ...terms.map(match => ({ index: match.index!, end: match.index! + match[0].length, item: printTerm(match[0]) })),
+    ...ARTWORK_MEDIUM_REQUESTS.flatMap(([medium, pattern]) => [...masked.matchAll(new RegExp(pattern.source, "giu"))]
+      .map(match => {
+        const end = match.index! + match[0].length;
+        const suffix = /^(?:画|\s+paintings?\b)/iu.exec(masked.slice(end))?.[0].length ?? 0;
+        return { index: match.index!, end: end + suffix, item: medium };
+      })),
+  ].sort((left, right) => left.index - right.index);
+  const alternatives: Array<typeof atoms> = [];
+  for (const atom of atoms) {
+    const previous = alternatives.at(-1)?.at(-1);
+    if (previous && PRINT_OR.test(clause.slice(previous.end, atom.index))) alternatives.at(-1)!.push(atom);
+    else alternatives.push([atom]);
+  }
+  const linkedGeneric: Array<{ index: number; end: number }> = [];
+  for (const alternativesGroup of alternatives) {
+    if (!alternativesGroup.some(atom => typeof atom.item !== "string")) continue;
+    const positive: NonNullable<ViewingIntent["printDetailGroups"]>[number] = [];
+    for (const { index, end, item } of alternativesGroup) {
+      if (typeof item === "string") {
+        if (!isNegated(clause, index)) {
+          linkedGeneric.push({ index, end });
+          positive.push(item);
+        }
+        continue;
+      }
+      const before = clause.slice(0, index).split(PEOPLE_SCOPE_RESET).at(-1) ?? "";
+      const after = clause.slice(end);
+      if ((PRINT_SUBJECT_MENTION.test(before) && !/的\s*$/u.test(before)) || /^(?:的)?(?:工具|过程|历史|风格|题材|工人|工坊|一样|一般)|^为题/u.test(after)
+        || /\b(?:paintings?|views?|images?|depictions?)\s+of\s+(?:an?\s+)?$/iu.test(before)
+        || /(?:不是|并非|不只是|不局限于|不介意)\s*$/u.test(before)) continue;
+      if (isNegated(clause, index) || /别(?:用|选|看|给我)[^，。；,;.!?]*$/u.test(before)) excluded.push(item);
+      else positive.push(item);
+    }
+    if (positive.length && (!permissive || required)) groups.push(positive);
+  }
+  const generic = linkedGeneric.reverse().reduce((text, part) => text.slice(0, part.index) + " ".repeat(part.end - part.index) + text.slice(part.end), masked);
+  return { groups, excluded, generic };
+}
 const PEOPLE_NOT_AN_EXCLUSION = /(?:不是|并非|不是说|没说|并不是|不意味着|不表示)\s*(?:画里|画面中?)?\s*$|(?:不要|不想(?:看)?|别|不希望)\s*(?:只有|只是|仅有|仅仅有|全是|都是)\s*$/u;
 
 function excludesBarePeople(clause: string): boolean {
@@ -176,15 +240,18 @@ const SITUATION = /(?:在|待在|呆在|困在|关在|坐在|窝在|闷在)[^，
 export interface ViewingIntentOptions {
   scopedRiverBank?: boolean;
   scopedPeopleExclusions?: boolean;
+  scopedPrintDetails?: boolean;
+  scopedMountainSubject?: boolean;
 }
 
 export function parseViewingIntent(query: string, catalogArtists: readonly string[] = [],
-  { scopedRiverBank = false, scopedPeopleExclusions = true }: ViewingIntentOptions = {}): ViewingIntent {
+  { scopedRiverBank = false, scopedPeopleExclusions = true, scopedPrintDetails = true, scopedMountainSubject = true }: ViewingIntentOptions = {}): ViewingIntent {
   const subjects = new Set<Subject>();
   const excluded = new Set<Subject>();
   const artists = new Set<string>();
   const excludedArtists = new Set<string>();
   const media = new Set<ArtworkMedium>(), excludedMedia = new Set<ArtworkMedium>();
+  const printDetailGroups: NonNullable<ViewingIntent["printDetailGroups"]> = [], excludedPrintDetails: PrintDetail[][] = [];
   let rest = false;
   let bright = false;
   let spacious = false;
@@ -203,6 +270,11 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
     // Where the visitor is stuck ("在小房间里加班") describes their day, not what they want to see.
     const situated = SITUATION.test(clause);
     const contextOnly = (/新闻|害怕|担心|\b(?:news|afraid|scared|saw|anxious)\b/iu.test(clause) || situated) && !wish;
+    if (scopedMountainSubject && !contextOnly) for (const match of clause.matchAll(SCOPED_MOUNTAIN)) {
+      if (/(?:不是|并非|不是真的|不一定)\s*$/u.test(clause.slice(0, match.index))) continue;
+      const index = match.index! + match[0].lastIndexOf("山");
+      (isNegated(clause, index) ? excluded : subjects).add("mountain");
+    }
     for (const [key, pattern] of Object.entries(SUBJECTS)) {
       const subjectClause = ignorePlaceName && key === "sea" ? clause.replace(/上海/gu, "  ") : clause;
       for (const match of subjectClause.matchAll(new RegExp(pattern.source, "giu"))) {
@@ -225,12 +297,21 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
         if (!isNegated(clause, match.index!)) focuses.add(focus as ViewingFocus);
       }
     }
+    // Permission to include a medium is not a request to require it.
+    const sentence = subjectQuery.split(/[。；;.!?\n]/u).find(part => part.includes(clause.replace(/^不要 /u, ""))) ?? clause;
+    const permissive = /也(?:可以|行|接受|能看)|(?:都|均)可(?:以)?|不限|媒材不限|\b(?:also|welcome|acceptable|allowed|fine|okay|can include|do not mind|don't mind)\b/iu.test(sentence);
+    const required = /只(?:要|看|限|接受)|仅(?:限|要|看)|必须|\bonly\b/iu.test(clause);
+    const details = scopedPrintDetails ? scopedPrintClause(clause, permissive, required) : undefined;
+    if (details) {
+      printDetailGroups.push(...details.groups);
+      excludedPrintDetails.push(...details.excluded);
+    }
     for (const [medium, pattern] of ARTWORK_MEDIUM_REQUESTS) {
-      // Permission to include a medium is not a request to require it.
-      const sentence = subjectQuery.split(/[。；;.!?\n]/u).find(part => part.includes(clause.replace(/^不要 /u, ""))) ?? clause;
-      const permissive = /也(?:可以|行|接受|能看)|(?:都|均)可(?:以)?|不限|媒材不限|\b(?:also|welcome|acceptable|allowed|fine|okay|can include|do not mind|don't mind)\b/iu.test(sentence);
-      const required = /只(?:要|看|限|接受)|仅(?:限|要|看)|必须|\bonly\b/iu.test(clause);
-      for (const match of clause.matchAll(new RegExp(pattern.source, "giu"))) {
+      for (const match of (details?.generic ?? clause).matchAll(new RegExp(pattern.source, "giu"))) {
+        if (scopedPrintDetails && medium === "print" && /其他(?:的)?版画.{0,10}(?:都行|(?:都|均)可)|\bother prints?\b/iu.test(clause)) {
+          media.add("print");
+          continue;
+        }
         if (isNegated(clause, match.index!) && !/不介意|\b(?:do not mind|don't mind)\b/iu.test(clause)) excludedMedia.add(medium);
         else if (!permissive || required) media.add(medium);
       }
@@ -274,6 +355,8 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
   const explicitIntensity = subjects.has("war") || subjects.has("death");
   const positiveClauses = clauses.filter((clause) => !NEGATION.test(clause));
   return {
+    ...(printDetailGroups.length ? { printDetailGroups } : {}),
+    ...(excludedPrintDetails.length ? { excludedPrintDetails } : {}),
     subjects: [...subjects], excludedSubjects: [...excluded], rest: rest && !explicitIntensity, bright, spacious, media: [...media], excludedMedia: [...excludedMedia], artists: [...artists], excludedArtists: [...excludedArtists], allowIntense: explicitIntensity,
     alternativeSubjects: /或者|或是|\bor\b/iu.test(positiveClauses.join(" ")),
     artworkTitles, excludedArtworkTitles, focuses: [...focuses],
@@ -317,6 +400,10 @@ export function matchesViewingIntent(artwork: WebArtwork, intent: ViewingIntent)
 
 /** Explain only a fully blocked requirement; remaining alternatives stay valid. */
 export function viewingIntentConflictMessage(intent: ViewingIntent): string | undefined {
+  if (intent.printDetailGroups?.some(group => group.every(item => typeof item !== "string"
+    && intent.excludedPrintDetails?.some(excluded => excluded.every(detail => item.includes(detail)))))) {
+    return "想看的版画技法也出现在排除条件里。请确认要保留哪一项。";
+  }
   const normalized = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
   if (intent.artists.length && intent.artists.every(artist => intent.excludedArtists.some(excluded => normalized(artist) === normalized(excluded)))) {
     return "这句话同时要求和排除了同一位作者。请确认想保留哪一项。";
@@ -351,6 +438,12 @@ export function viewingIntentDecision(artwork: WebArtwork, intent: ViewingIntent
   const media = artworkMediumKinds(artwork.medium);
   if (intent.media?.length && !intent.media.some(medium => media.includes(medium))) reasons.push(media.length ? "different-medium" : "required-medium-unconfirmed");
   if (intent.excludedMedia?.length && (!media.length || intent.excludedMedia.some(medium => media.includes(medium)))) reasons.push(media.length ? "excluded-medium" : "excluded-medium-unconfirmed");
+  if (intent.printDetailGroups?.length || intent.excludedPrintDetails?.length) {
+    const details = artworkPrintDetails(artwork.medium);
+    if (intent.printDetailGroups?.some(group => !group.some(item => typeof item === "string"
+      ? media.includes(item) : item.every(detail => details[detail] === "present")))) reasons.push("required-print-detail");
+    if (intent.excludedPrintDetails?.some(group => group.every(detail => details[detail] !== "absent"))) reasons.push("excluded-print-detail");
+  }
   if (intent.spacious && artwork.visualEvidence?.spatialFraming !== "open") reasons.push(`required-space:${artwork.visualEvidence?.spatialFraming ?? "unknown"}`);
   for (const subject of intent.excludedSubjects) {
     const state = subjectState(artwork, subject, evidence);

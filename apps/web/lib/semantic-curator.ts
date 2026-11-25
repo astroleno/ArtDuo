@@ -18,14 +18,15 @@ import { refineAfterglow } from "./afterglow-selection";
 
 export const VISUAL_CORRECTION_SELECTION_VERSION = 19;
 export const PEOPLE_EXCLUSION_SELECTION_VERSION = 22;
-const SELECTION_VERSION = 23;
+export const PRINT_DETAIL_SELECTION_VERSION = 24;
+const SELECTION_VERSION = PRINT_DETAIL_SELECTION_VERSION;
 
 export interface CurationRecord {
   schemaVersion: 1; recipeVersion: typeof CURATION_RECIPE_VERSION;
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof VISUAL_CORRECTION_SELECTION_VERSION | 20 | 21 | typeof PEOPLE_EXCLUSION_SELECTION_VERSION | typeof SELECTION_VERSION;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof VISUAL_CORRECTION_SELECTION_VERSION | 20 | 21 | typeof PEOPLE_EXCLUSION_SELECTION_VERSION | 23 | typeof SELECTION_VERSION;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -103,7 +104,9 @@ function hydrate(catalog: WebReleaseCatalog, curationId: string, value: unknown,
   if (requestedCount !== undefined && plan.artworkCount !== requestedCount) throw new TypeError("Saved curation count does not match the explicit request");
   const scopeEvidence = (record.selectionVersion ?? 0) >= VISUAL_CORRECTION_SELECTION_VERSION;
   const selectionCatalog = scopeEvidence ? withCurationVisualCorrections(catalog) : catalog;
-  const intentOptions = { scopedRiverBank: scopeEvidence, scopedPeopleExclusions: (record.selectionVersion ?? 0) >= PEOPLE_EXCLUSION_SELECTION_VERSION };
+  const intentOptions = { scopedRiverBank: scopeEvidence, scopedPeopleExclusions: (record.selectionVersion ?? 0) >= PEOPLE_EXCLUSION_SELECTION_VERSION,
+    scopedPrintDetails: (record.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION,
+    scopedMountainSubject: (record.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION };
   return { ...materializeCurationSelection(selectionCatalog, record.query, plan, record.assignments, record.retrievalModel, record.dimensions, intentOptions), curationId, record };
 }
 export function readSavedCuration(catalog: WebReleaseCatalog, curationId: string, query?: string, rootDir = curationRoot(catalog)): CuratedExhibition {

@@ -26,3 +26,14 @@ python3 .cache/artduo-arc-round3/arrival-summary.py .cache/artduo-arc-round3/{ba
 ```
 
 浏览器探针和五项边界记录分别位于 `.cache/artduo-arc-round3/arrival-probe.mjs`、`arrival-edges.mjs`、`candidate-edges.json`。
+
+## 批 B1 · 版画技法硬资格
+
+通过。独立重跑全馆报告，与实现方最终报告逐字节相同，SHA-256 为 `a071ad3ff8e42a003b0920e2740720e6191e31fa1ba1c2bf1cf1a53a9cf2bafe`。54 项定向测试通过，含五个冻结媒材错例与四种技法的馆藏正例。复核“蚀刻版画或石版画”、木版/水彩/油画三选一、明确禁用木刻及仅描绘木版工人的题材；“不要木版画，其他版画都行”仍允许有据可判的其他版画。新语法识别要求画中有山与否定山体，“山本的油画”及引号作品名不触发新增规则。保存的 v23 记录和叙事按旧语义恢复，新请求使用 v24。
+
+30 请求的 165 个计划展位实际展出 137 个，5 场未足额。相对原基线只有两场展出件数减少：“木版画，想看画里的山”从 6 件降至既符合木版又有山体依据的 2 件；“纸上的铜版蚀刻，人物肩上确有鹦鹉”从 6 件降至 0。未用未经确认的媒材填补展位。K=6 截断命中 56/338，实际返回 431 个位置，全馆同源标签判负 13 个，与五个独立媒材错误均已排除分别统计。固定 25 条计划仍展出 91 个展位、77 件不同作品；本地规则计划为 92 个展位、72 件作品。后续观察索引实验以本批指纹作为比较基线。
+
+```sh
+pnpm --filter @artduo/web exec tsx scripts/stage-holdout-eval.ts --universe > /tmp/artduo-round3-print-universe.json
+pnpm --filter @artduo/web exec tsx --test test/lib/viewing-intent.test.ts test/lib/semantic-curation.test.ts
+```
