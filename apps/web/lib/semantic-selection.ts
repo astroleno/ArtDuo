@@ -115,6 +115,7 @@ export function selectForCurationStages(input: {
     && !intent.subjects.length && !intent.artists.length && !intent.media?.length && !intent.focuses?.length
     && !intent.artworkTitles?.length && !eligible.some(artwork => exactName(artwork, query));
   const moodRequested = intent.rest || intent.bright;
+  const candidates = eligible.map((artwork) => ({ artwork, offering: artworkOffering(artwork) }));
   const ranked = plan.stages.map((stage, stageIndex) => {
     const openStage = OPEN_STAGE.test(stage.query);
     const parsedStage = parseViewingIntent(stageSubjectText(stage.query));
@@ -124,11 +125,11 @@ export function selectForCurationStages(input: {
     const wantsStillLife = stageIntent.subjects.includes("stillLife");
     const wantsInterior = stageIntent.subjects.includes("interior");
     const warmStage = (wantsStillLife || wantsInterior) && hasWarmLight(stage.query);
-    return eligible.map((artwork) => {
+    return candidates.map(({ artwork, offering }) => {
     const vector = (input.semantic ? semanticRecords : hashRecords).get(artwork.id);
     if (!vector || vector.length !== dimensions) throw new TypeError("Missing artwork vector in the selected semantic space");
     const vectorScore = queries[stageIndex].reduce((sum, value, index) => sum + value * vector[index], 0);
-    const affectFit = stageFit(artworkOffering(artwork), stage);
+    const affectFit = stageFit(offering, stage);
     const tags = new Set([...artwork.moodTags, ...artwork.emotionLabels, ...artwork.colorTags].map((value) => value.toLowerCase()));
     const matched = stage.signals.filter((signal) => tags.has(signal));
     const evidence = viewingIntentEvidence(artwork, intent);
@@ -204,6 +205,7 @@ export function selectForCurationStages(input: {
   assignments.push(...perStage.flat());
   const stagePools = ranked.map((rows, stageIndex) => {
     const chosen = new Set(perStage[stageIndex]!.map((item) => item.artworkId));
+    if (!chosen.size) return [];
     const pool = [...rows.filter((row) => chosen.has(row.artwork.id)), ...rows.filter((row) => !chosen.has(row.artwork.id)).slice(0, STAGE_RERANK_POOL_SIZE)];
     return pool.slice(0, Math.max(STAGE_RERANK_POOL_SIZE, chosen.size)).map((row) => ({ artworkId: row.artwork.id, score: row.score, vectorScore: row.vectorScore, evidence: row.evidence }));
   });

@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
-import { LOCAL_SEMANTIC_MODEL } from "@artduo/corpus/src/semantic-index";
+import { LOCAL_SEMANTIC_MODEL, semanticFingerprint } from "@artduo/corpus/src/semantic-index";
 import { fallbackCurationIntent, eligibleCurationArtworks, selectForCurationStages } from "../../lib/semantic-selection";
 import { artworkOffering, stageFit } from "../../lib/artwork-offering";
-import { curateExhibition, readSavedCuration } from "../../lib/semantic-curator";
+import { curateExhibition, curationDirectory, readSavedCuration } from "../../lib/semantic-curator";
 import { loadWebReleaseCatalog, searchReleaseCatalog, type WebArtwork } from "../../lib/release-catalog";
 import { matchesViewingIntent, parseViewingIntent } from "../../lib/viewing-intent";
 
@@ -309,6 +309,67 @@ test("a valid model stage choice is saved, and a failed one keeps the determinis
     const kept = await curateExhibition({ catalog: semanticCatalog, query: `${query}。`, rootDir: temporary, encoder, intentModel: "fixture", stream: failing });
     assert.deepEqual(kept.record.degraded, ["stage-choice-unavailable"]);
     assert.ok(kept.assignments.length > 0 && kept.assignments.every((item) => !item.evidence.includes("model:stage-fit")));
+  } finally { rmSync(temporary, { recursive: true, force: true }); }
+});
+
+test("only a short exhibition with a choice requests a sparse model rerank", async () => {
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-short-stage-choice-"));
+  const query = "想看两件作品";
+  const plan = { ...fallbackCurationIntent(catalog, query), artworkCount: 2 };
+  const deterministic = selectForCurationStages({ catalog, query, plan });
+  const last = plan.stages.length - 1;
+  assert.deepEqual(deterministic.assignments.map(item => item.stageIndex), [0, last]);
+  assert.deepEqual(deterministic.stagePools!.map(pool => pool.length > 0), plan.stages.map((_, index) => index === 0 || index === last));
+
+  try {
+    const run = async (visitorQuery: string, count: number, answer?: object) => {
+      let reranks = 0;
+      let prompt = "";
+      const result = await curateExhibition({ catalog, query: visitorQuery, rootDir: temporary, intentModel: "fixture",
+        stream: async function* (messages, options) {
+          if (!messages[0]!.content.includes("选画编辑")) { yield JSON.stringify({ ...plan, artworkCount: count }); return; }
+          reranks++;
+          prompt = messages[1]!.content;
+          assert.equal(options.maxTokens, 600);
+          yield JSON.stringify(answer);
+        },
+      });
+      return { result, reranks, prompt };
+    };
+    const good = { stages: deterministic.assignments.map(item => ({ stage: item.stageIndex, artworkIds: [item.artworkId] })).reverse() };
+    const chosen = await run(query, 2, good);
+    assert.equal(chosen.reranks, 1);
+    assert.deepEqual([...chosen.prompt.matchAll(/^stage (\d+) 选 (\d+) 件/gmu)].map(match => match.slice(1)), [["0", "1"], [String(last), "1"]]);
+    for (const stage of [0, last]) {
+      assert.ok(chosen.prompt.includes(`"role":"${plan.stages[stage]!.role}"`));
+      assert.ok(chosen.prompt.includes(`"transitionIntent":"${plan.stages[stage]!.transitionIntent}"`));
+    }
+    assert.deepEqual([...new Set([...chosen.prompt.matchAll(/^  候选 .*?"id":"([^"]+)"/gmu)].map(match => match[1]))].sort(),
+      [...new Set(deterministic.stagePools!.flat().map(item => item.artworkId))].sort());
+    assert.deepEqual(chosen.result.assignments.map(item => item.stageIndex), [0, last]);
+    assert.ok(chosen.result.assignments.every(item => item.evidence.includes("model:stage-fit")));
+    assert.equal(chosen.result.record.selectionVersion, 18);
+
+    const oldRecord = { ...chosen.result.record, selectionVersion: 17 as const };
+    const oldId = semanticFingerprint(JSON.stringify(oldRecord));
+    writeFileSync(path.join(curationDirectory(temporary), `${oldId}.json`), JSON.stringify(oldRecord));
+    assert.deepEqual(readSavedCuration(catalog, oldId, query, temporary).assignments, chosen.result.assignments);
+
+    const invalid = await run(`${query}。`, 2, { stages: [good.stages[0]] });
+    assert.equal(invalid.reranks, 1);
+    assert.deepEqual(invalid.result.assignments.map(item => item.stageIndex), [0, last]);
+    assert.ok(invalid.result.assignments.every(item => !item.evidence.includes("model:stage-fit")));
+
+    const singleQuery = "想看一件作品";
+    const single = await run(singleQuery, 1, { stages: [good.stages.find(stage => stage.stage === 0)] });
+    assert.equal(single.reranks, 1);
+    assert.match(single.prompt, /^stage 0 选 1 件/gmu);
+    assert.equal(single.result.assignments.length, 1);
+
+    const exactWork = catalog.artworkById.get(deterministic.assignments[0]!.artworkId)!;
+    const named = await run(exactWork.title, 1);
+    assert.equal(named.reranks, 0);
+    assert.deepEqual(named.result.assignments.map(item => item.artworkId), [exactWork.id]);
   } finally { rmSync(temporary, { recursive: true, force: true }); }
 });
 

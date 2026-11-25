@@ -14,14 +14,14 @@ import type { WebReleaseCatalog } from "./release-catalog";
 import { recordExperienceTiming } from "./experience-analytics";
 import { requestStageRerank } from "./stage-rerank";
 
-const SELECTION_VERSION = 17;
+const SELECTION_VERSION = 18;
 
 export interface CurationRecord {
   schemaVersion: 1; recipeVersion: typeof CURATION_RECIPE_VERSION;
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | typeof SELECTION_VERSION;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | typeof SELECTION_VERSION;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
