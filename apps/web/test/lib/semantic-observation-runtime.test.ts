@@ -57,11 +57,33 @@ test("the optional verified sidecar isolates query and archive identity and relo
     assert.equal(intents, 2);
     assert.deepEqual(readSavedCuration(catalog, paired.curationId, query, root).assignments, paired.assignments);
     writeFileSync(sidecar, JSON.stringify(output));
-    const hashFallback = await curateExhibition({ ...input, query: "想看一幅作品，慢一点", encoder: {
-      ...encoder, embedQueries: async () => { throw new Error("Local encoder fixture unavailable"); },
-    } });
+    const invalid = { ...input, query: "想看一幅作品，慢一点", stream: async function* (messages: Array<{ content: string }>) {
+      if (!messages[0]!.content.includes("选画编辑")) { intents++; yield JSON.stringify(plan); return; }
+      yield "{}";
+    } };
+    const degradedInput = { ...invalid, encoder: { ...encoder, embedQueries: async () => { throw new Error("Local encoder fixture unavailable"); } } };
+    const hashFallback = await curateExhibition(degradedInput);
     assert.equal(hashFallback.record.selectionVersion, 24);
     assert.equal(hashFallback.record.observationChecksum, undefined);
     assert.equal(hashFallback.record.retrievalModel, "local-hash-embedding-v1");
+    assert.deepEqual(hashFallback.record.degraded, ["semantic-unavailable", "stage-choice-invalid"]);
+    await curateExhibition(degradedInput);
+    assert.equal(intents, 4);
+    const observedFirst = await curateExhibition(invalid);
+    const observedSecond = await curateExhibition(invalid);
+    assert.equal(observedFirst.record.selectionVersion, 25);
+    assert.equal(observedSecond.record.observationChecksum, output.checksum);
+    assert.equal(intents, 6, "the two hash fallbacks did not cool down the observation key");
+    assert.equal((await curateExhibition(invalid)).curationId, observedSecond.curationId);
+    assert.equal(intents, 6);
+    rmSync(sidecar);
+    const museumFirst = await curateExhibition(invalid);
+    assert.equal(museumFirst.record.selectionVersion, 24);
+    const museumSecond = await curateExhibition(invalid);
+    assert.equal(intents, 8, "the museum query has its own cooldown");
+    assert.equal((await curateExhibition(invalid)).curationId, museumSecond.curationId);
+    writeFileSync(sidecar, JSON.stringify(output));
+    assert.equal((await curateExhibition(invalid)).curationId, observedSecond.curationId);
+    assert.equal(intents, 8);
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
