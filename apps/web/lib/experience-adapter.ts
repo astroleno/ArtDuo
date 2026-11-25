@@ -194,11 +194,16 @@ export function buildExperienceSnapshot(input: {
     const closingObservation = endingByArtwork.get(record.id);
     const displayCategory = inferDisplayCategory(result);
     const bridgeThemes = displayCategory === "wall-painting" ? sculptureBridgeThemes(result.artwork) : [];
+    const measuredAppearance = result.artwork.appearance;
+    const appearance = measuredAppearance && [measuredAppearance.meanLightness, measuredAppearance.chroma]
+      .every(value => Number.isFinite(value) && value >= 0 && value <= 1)
+      ? { meanLightness: measuredAppearance.meanLightness, chroma: measuredAppearance.chroma } : undefined;
 
     return [{
       exhibition,
       artwork: record,
       displayCredits: record.displayCredits,
+      ...(appearance ? { appearance } : {}),
       scene,
       stageId: stageForArtwork(record.id, stages, artworkIdsByStage),
       caption,

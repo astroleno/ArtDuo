@@ -25,14 +25,14 @@ export function stageTransitionProfile(input: {
   if (!from || !to || count < 3 || fromIndex < 0 || toIndex < 0 || toIndex >= count || Math.abs(fromIndex - toIndex) !== 1) return NEUTRAL;
   const direction = toIndex > fromIndex ? "forward" : "backward";
   if (direction === "forward" && count >= 4 && toIndex === count - 1 && to.role === "afterglow") {
-    return { kind: "settle", direction, artworkMs: 208, wallMs: 420, wallOffsetPx: 0 };
+    return { kind: "settle", direction, artworkMs: 208, wallMs: 560, wallOffsetPx: 0 };
   }
   if (from.id !== to.id) {
     const forwardArrival = direction === "forward" ? to : from;
     const shift = Math.max(...AFFECT_AXES.map(axis => Math.abs(to[axis] - from[axis])));
     if (from.role === "turn" || to.role === "turn" || forwardArrival.transitionIntent === "push"
       || forwardArrival.transitionIntent === "drift" && shift >= .20 - Number.EPSILON) {
-      return { kind: "turn", direction, artworkMs: 176, wallMs: 260, wallOffsetPx: direction === "forward" ? 4 : -4 };
+      return { kind: "turn", direction, artworkMs: 176, wallMs: 300, wallOffsetPx: direction === "forward" ? 4 : -4 };
     }
   }
   return { kind: "continue", direction, artworkMs: 128, wallMs: 0, wallOffsetPx: 0 };

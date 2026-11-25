@@ -12,7 +12,7 @@ import { AtmosphereLayer } from "./atmosphere-layer";
 import { Plaque } from "./plaque";
 import type { ViewingPace } from "./viewing-session";
 import { artworkAspectRatio } from "./scene-matching";
-import { roomFallbackShade, roomLightMood, roomLightProfile } from "./room-lighting";
+import { roomFallbackShade, roomLightMood, roomLightProfile, roomMobileSurroundAlpha } from "./room-lighting";
 import { RoomLightingLayer } from "./room-lighting-layer";
 import type { useRoomMotion } from "./room-motion";
 import { recordedArtistName, recordedArtworkCreditLines } from "./artwork-credits";
@@ -89,7 +89,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   const decoded = loadedArtwork?.seq === transitionSeq && loadedArtwork.source === previewSource ? loadedArtwork : null;
   const previewShown = Boolean(decoded && shownPreview === decoded);
   const artworkSize = decoded?.size ?? null;
-  const placeholderRgb = useMemo(() => artworkPlaceholderRgb(unit.artwork.metadata.colorTags), [unit.artwork.metadata.colorTags]);
+  const placeholderRgb = useMemo(() => artworkPlaceholderRgb(unit.artwork.metadata.colorTags, unit.appearance), [unit.artwork.metadata.colorTags, unit.appearance]);
   const plaqueMeasureWidth = Math.max(1, Math.min(156, viewport.width - 40));
   const plaqueSize = measuredPlaque?.id === unit.artwork.id && measuredPlaque.size.width === plaqueMeasureWidth
     ? measuredPlaque.size : { width: plaqueMeasureWidth, height: 90 };
@@ -292,7 +292,8 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     style={{ "--art-center-x": `${layout.frame.x + layout.frame.width / 2}px`, "--art-center-y": `${layout.frame.y + layout.frame.height / 2}px`,
       "--art-width": `${layout.frame.width}px`, "--art-height": `${layout.frame.height}px`, "--art-top": `${layout.frame.y}px`,
       "--room-light-x": String(motion.input.x), "--room-light-y": String(motion.input.y),
-      "--artwork-placeholder-rgb": placeholderRgb,
+      "--artwork-placeholder-rgb": previewShown ? undefined : placeholderRgb,
+      "--room-mobile-surround-alpha": roomMobileSurroundAlpha(lightingMood.exposure),
       "--room-fallback-shade-alpha": fallbackShade.alpha, "--room-fallback-shade-stop": `${fallbackShade.stop}%` } as CSSProperties}
     ref={roomRef}
     onPointerMove={(event) => {
@@ -330,7 +331,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
         hasPrevious={index > 0} hasNext={index < count - 1} onPrevious={onLightboxPrevious} onNext={onLightboxNext}
         onRestoreArtwork={onLightboxRestore}
         onExpandedArtworkReady={setDetailReadyId} previewSource={previewSource} previewLifecycleKey={`${transitionSeq}:${retryToken}`} unit={viewUnit} />
-      <DepthParallaxCanvas active={enhancementsReady && mouseMotion && !lightboxExpanded && !plaqueOpen && !mediaFailed && Boolean(unit.media.depthMapUrl)} depthMapUrl={unit.media.depthMapUrl ? experienceImageSource(unit.media.depthMapUrl) : undefined} imageUrl={experienceImageSource(unit.media.previewUrl)} pointer={pointer} reducedMotion={reducedMotion} />
+      <DepthParallaxCanvas active={enhancementsReady && decoded !== null && settledPreview === decoded && mouseMotion && !lightboxExpanded && !plaqueOpen && !mediaFailed && Boolean(unit.media.depthMapUrl)} depthMapUrl={unit.media.depthMapUrl ? experienceImageSource(unit.media.depthMapUrl) : undefined} imageUrl={previewSource} pointer={pointer} reducedMotion={reducedMotion} />
     </div>}
     <div className={`experience-plaque-position ${layout.mobilePlaque ? "is-mobile" : ""}`} data-placement={layout.plaquePlacement} style={{
       left: `${layout.plaque.x}px`, top: `${plaqueTop}px`, width: `${layout.plaque.width}px`,

@@ -44,6 +44,7 @@ export interface ExperienceUnit {
   exhibition: ExhibitionUnit;
   artwork: Pick<ArtworkRecord, "id" | "source" | "metadata" | "media" | "presentation">;
   displayCredits?: ArtworkDisplayCredits;
+  appearance?: { meanLightness: number; chroma: number };
   scene: BackgroundSceneRecord | null;
   stageId: string | null;
   caption: NarrativeBlock;

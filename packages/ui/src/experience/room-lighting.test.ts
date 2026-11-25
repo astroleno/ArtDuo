@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { boundedRoomLightInput, boundedRoomLightMood, NEUTRAL_ROOM_MOOD, roomFallbackShade, roomLightMood, roomLightProfile } from "./room-lighting";
+import { boundedRoomLightInput, boundedRoomLightMood, NEUTRAL_ROOM_MOOD, roomFallbackShade, roomLightMood, roomLightProfile, roomMobileSurroundAlpha } from "./room-lighting";
 
 test("photographed windows, cove lights and track fixtures use distinct soft distributions", () => {
   assert.equal(roomLightProfile("bg-004")?.shape, "window-wash");
@@ -48,4 +48,12 @@ test("the static shade clamps extremes and treats non-finite values as neutral",
   assert.deepEqual(roomFallbackShade({ exposure: -10, softness: 10 }), { alpha: .235, stop: 60 });
   assert.deepEqual(roomFallbackShade({ exposure: 10, softness: -10 }), { alpha: .13, stop: 53 });
   assert.deepEqual(roomFallbackShade({ exposure: NaN, softness: Infinity }), { alpha: .18, stop: 56 });
+});
+
+test("the small-screen surround increases local contrast within a bounded neutral range", () => {
+  assert.equal(roomMobileSurroundAlpha(1), .05);
+  assert.equal(roomMobileSurroundAlpha(NaN), .05);
+  assert.equal(roomMobileSurroundAlpha(1.08), 0);
+  assert.equal(roomMobileSurroundAlpha(.88), .125);
+  assert.ok(roomMobileSurroundAlpha(.9433) - roomMobileSurroundAlpha(1.043) > .1);
 });

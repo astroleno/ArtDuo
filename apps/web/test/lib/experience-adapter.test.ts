@@ -79,6 +79,16 @@ test("experience adapter binds records and versioned media, and keeps missing sc
   assert.equal(unit.exhibition.backgroundSceneId, "unavailable-scene");
 });
 
+test("experience adapter projects only finite measured lightness and chroma for the aperture", () => {
+  const input = fixture(2);
+  const appearance = { meanLightness: .068, chroma: .2, brightShare: .1, darkShare: .5, colorVariation: .2 };
+  input.search.results[0]!.artwork.appearance = appearance;
+  input.search.results[1]!.artwork.appearance = { ...appearance, chroma: Infinity };
+  const snapshot = buildExperienceSnapshot({ query: input.search.query, ...input });
+  assert.deepEqual(snapshot.units[0]!.appearance, { meanLightness: .068, chroma: .2 });
+  assert.equal(snapshot.units[1]!.appearance, undefined);
+});
+
 test("experience identity survives reranking and a resting intent keeps every stage gentle", () => {
   const input = fixture(5);
   const original = buildExperienceSnapshot({ query: "有点累，撑了很久", ...input });

@@ -27,12 +27,16 @@ test("stage profiles distinguish continuation, directional turning and the final
   }
 });
 
-test("placeholder uses the first known primary colour and returns the existing neutral fallback for old or unrecognized tags", () => {
-  assert.equal(artworkPlaceholderRgb(["red", "white"]), "211 181 169");
-  assert.equal(artworkPlaceholderRgb(["vivid", "white"]), "227 220 208");
-  assert.equal(artworkPlaceholderRgb(["#ff0000"]), "231 158 149");
-  assert.notEqual(artworkPlaceholderRgb(["red"]), artworkPlaceholderRgb(["pale blue"]));
-  assert.equal(artworkPlaceholderRgb(["muted", "contrast", "constructor"]), undefined);
+test("placeholder keeps measured luminance ordered and uses a muted hue only when available", () => {
+  const values = [.068, .45, .85].map(meanLightness => artworkPlaceholderRgb(["red", "white"], { meanLightness, chroma: .3 })!.split(" ").map(Number));
+  assert.ok(values[0]!.every((channel, index) => channel < values[1]![index]!));
+  assert.ok(values[1]!.every((channel, index) => channel < values[2]![index]!));
+  const noHue = { meanLightness: .45, chroma: .5 };
+  assert.equal(artworkPlaceholderRgb([], noHue), "116 116 116");
+  assert.equal(artworkPlaceholderRgb(["muted", "contrast", "constructor"], noHue), "116 116 116");
+  assert.notEqual(artworkPlaceholderRgb(["red"], noHue), artworkPlaceholderRgb(["pale blue"], noHue));
+  assert.equal(artworkPlaceholderRgb(["blue"], { meanLightness: Infinity, chroma: .5 }), undefined);
+  assert.equal(artworkPlaceholderRgb(["red"]), undefined);
   assert.equal(artworkPlaceholderRgb(), undefined);
 });
 

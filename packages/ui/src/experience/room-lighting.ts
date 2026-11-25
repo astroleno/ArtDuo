@@ -26,6 +26,11 @@ export function roomFallbackShade({ exposure, softness }: Pick<RoomLightMood, "e
   };
 }
 
+/** Extra small-screen contrast remains within the original wall's shade layer. */
+export function roomMobileSurroundAlpha(exposure: number) {
+  return finite(.05 + (1 - exposure) * 1.2, 0, .125, .05);
+}
+
 export interface RoomLightProfile {
   sceneId: string;
   shape: "window-wash" | "linear-wash" | "oval-spots";
