@@ -127,3 +127,37 @@ export function measureCurves(exhibitions: CurveExhibition[]) {
     exhibitions: exhibitions.map(exhibition => ({ id: exhibition.id, ...summarize([exhibition]) })),
   };
 }
+
+function pairedKeys<T>(left: T[], right: T[], key: (value: T) => string) {
+  const leftByKey = new Map(left.map(value => [key(value), value])), rightByKey = new Map(right.map(value => [key(value), value]));
+  return {
+    paired: left.flatMap(value => {
+      const match = rightByKey.get(key(value));
+      return match ? [[value, match] as const] : [];
+    }),
+    removed: left.filter(value => !rightByKey.has(key(value))),
+    added: right.filter(value => !leftByKey.has(key(value))),
+  };
+}
+
+/** Compare the same exhibition, route position and stage boundaries without joining disjoint slots. */
+export function compareCurvePositions(baseline: CurveExhibition[], candidate: CurveExhibition[]) {
+  const key = ({ position }: Pair) => JSON.stringify([position.exhibition, position.from, position.to, position.fromStage, position.toStage]);
+  const edges = pairedKeys(observationPairs(baseline, "arousal"), observationPairs(candidate, "arousal"), key);
+  const slots = (routes: CurveExhibition[]) => routes.flatMap(({ id, slots }) => slots.map((slot, index) =>
+    ({ exhibition: id, position: index + 1, stageIndex: slot.stageIndex, artworkId: slot.artworkId })));
+  const positions = pairedKeys(slots(baseline), slots(candidate), item => JSON.stringify([item.exhibition, item.position, item.stageIndex]));
+  return {
+    positions: { comparable: positions.paired.length, removed: positions.removed, added: positions.added },
+    adjacent: { comparable: edges.paired.length, removed: edges.removed.map(row => row.position), added: edges.added.map(row => row.position) },
+    axes: Object.fromEntries(CURVE_AXES.map(axis => [axis, Object.fromEntries(SOURCES.map(source => {
+      const compared = pairedKeys(observationPairs(baseline, axis, source), observationPairs(candidate, axis, source), key);
+      const comparable = compared.paired.filter(([left, right]) => left.delta !== undefined && right.delta !== undefined);
+      return [source, {
+        missing: { baseline: compared.paired.filter(([left]) => left.delta === undefined).length,
+          candidate: compared.paired.filter(([, right]) => right.delta === undefined).length, either: compared.paired.length - comparable.length },
+        baseline: splitChanges(comparable.map(([row]) => row)), candidate: splitChanges(comparable.map(([, row]) => row)),
+      }];
+    }))])),
+  };
+}

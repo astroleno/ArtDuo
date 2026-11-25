@@ -9,6 +9,7 @@ import { STAGE_RERANK_POOL_SIZE, type StageCandidate } from "./stage-rerank";
 import { isGalleryArtwork } from "./artwork-eligibility";
 import { selectBackgroundScene, type WebArtwork, type WebReleaseCatalog, type WebSearchResult } from "./release-catalog";
 import { depictsEvening, hasIntenseContent, matchesViewingIntent, mentionsMorning, parseViewingIntent, prefersRiverBank, reviewedLandscapeFocus, viewingIntentEvidence, viewingFocusEvidence, type ViewingIntentOptions } from "./viewing-intent";
+import { MUSEUM_VECTOR_WEIGHT, stageVectorContributions, type StageVectorExperiment } from "./stage-vector-experiment";
 import { requestedArtworkCount } from "../../api/src/services/curation/intent-planner";
 
 export interface StageAssignment { artworkId: string; stageIndex: number; vectorScore: number; score: number; evidence: string[] }
@@ -102,12 +103,16 @@ export function selectForCurationStages(input: {
   semantic?: { index: SemanticIndex; queries: number[][] };
   /** How many recent exhibitions showed each work; fresh but equally fitting works come first. */
   recentExposure?: ReadonlyMap<string, number>;
+  rankingExperiment?: StageVectorExperiment;
 }): SemanticSelection {
   const { query, plan } = input;
   const catalog = withCurationVisualCorrections(input.catalog);
   const options = { scopedRiverBank: true };
   const eligible = eligibleCurationArtworks(catalog, query, plan, options);
   const semanticRecords = new Map(input.semantic?.index.records.map((record) => [record.artworkId, record.vector]));
+  const experiment = input.semantic && input.rankingExperiment
+    && (input.rankingExperiment.variant === "bounded" || input.rankingExperiment.observationVectors?.size)
+    ? input.rankingExperiment : undefined;
   const hashRecords = new Map(catalog.embeddingRecords.map((record) => [record.id, record.vector]));
   const dimensions = input.semantic?.index.model.dimensions ?? catalog.embeddingRecords[0]?.dimensions ?? 256;
   const queries = input.semantic?.queries ?? plan.stages.map((stage) => embedText(stage.query, { dimensions }).vector);
@@ -133,10 +138,16 @@ export function selectForCurationStages(input: {
     const wantsStillLife = stageIntent.subjects.includes("stillLife");
     const wantsInterior = stageIntent.subjects.includes("interior");
     const warmStage = (wantsStillLife || wantsInterior) && hasWarmLight(stage.query);
-    return candidates.map(({ artwork, offering, riverFit, evening, forestFit }) => {
-    const vector = (input.semantic ? semanticRecords : hashRecords).get(artwork.id);
-    if (!vector || vector.length !== dimensions) throw new TypeError("Missing artwork vector in the selected semantic space");
-    const vectorScore = queries[stageIndex].reduce((sum, value, index) => sum + value * vector[index], 0);
+    const similarity = (artworkId: string) => {
+      const vector = (input.semantic ? semanticRecords : hashRecords).get(artworkId);
+      if (!vector || vector.length !== dimensions) throw new TypeError("Missing artwork vector in the selected semantic space");
+      return queries[stageIndex].reduce((sum, value, index) => sum + value * vector[index], 0);
+    };
+    const museum = experiment && candidates.map(({ artwork }) => ({ artworkId: artwork.id, museumCosine: similarity(artwork.id) }));
+    const emphasized = experiment && museum && stageVectorContributions(museum, queries[stageIndex], experiment);
+    return candidates.map(({ artwork, offering, riverFit, evening, forestFit }, index) => {
+    const vectorScore = museum ? museum[index]!.museumCosine : similarity(artwork.id);
+    const vectorContribution = emphasized ? emphasized[index]! : vectorScore * MUSEUM_VECTOR_WEIGHT;
     const affectFit = stageFit(offering, stage);
     const tags = new Set([...artwork.moodTags, ...artwork.emotionLabels, ...artwork.colorTags].map((value) => value.toLowerCase()));
     const matched = stage.signals.filter((signal) => tags.has(signal));
@@ -169,7 +180,7 @@ export function selectForCurationStages(input: {
     const named = exactName(artwork, query) || intent.artists.length > 0 || Boolean(intent.artworkTitles?.length);
     const shown = named ? 0 : input.recentExposure?.get(artwork.id) ?? 0;
     const exposurePenalty = Math.min(RECENT_PENALTY_CAP, shown * RECENT_PENALTY_STEP);
-    const score = vectorScore * 0.78 + affectFit * AFFECT_WEIGHT + Math.min(2, matched.length) * 0.04 + architectureFocus - (enclosedConflict ? 0.12 : 0)
+    const score = vectorContribution + affectFit * AFFECT_WEIGHT + Math.min(2, matched.length) * 0.04 + architectureFocus - (enclosedConflict ? 0.12 : 0)
       + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + (warmFit ? .24 : 0)
       + brightFit + (forestFit ? .10 : 0) + (evening ? -.12 : riverFit ? .24 : 0) - nightPenalty - heavyPenalty - exposurePenalty + (exactName(artwork, query) ? 2 : 0);
     return { artwork, vectorScore, score, affectFit, evidence: [...evidence, ...(architectureFocus ? ["focus:architecture"] : []), ...detailedFocus.map(focus => `focus:${focus.topic}`),

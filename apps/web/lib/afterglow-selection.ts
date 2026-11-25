@@ -13,6 +13,8 @@ const UNCONFIRMED_HAND = /匿名|佚名|无名|不详|未知|艺术家不明|传
 const EPSILON = 1e-9;
 const normalize = (text: string) => text.normalize("NFKC").trim().toLocaleLowerCase();
 
+export const hasExplicitArtworkOrder = (query: string) => PINNED_ORDER.test(query) || ORDERED_VIEWING.test(query) || SORTED_WORKS.test(query);
+
 function artistNameVariants(name: string): string[] {
   const inverted = /^([^,]+),\s*([^,]+)$/u.exec(name);
   return inverted ? [name, `${inverted[2]!.trim()} ${inverted[1]!.trim()}`] : [name];
@@ -35,7 +37,7 @@ function stageImageEvidence(candidate: StageCandidate): string {
 export function refineAfterglow(input: { catalog: Pick<WebReleaseCatalog, "artworkById">; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; pools: StageCandidate[][] }): StageAssignment[] | undefined {
   const { assignments, catalog, plan, pools, query } = input;
-  if (assignments.length < 4 || plan.artworkCount < 4 || PINNED_ORDER.test(query) || ORDERED_VIEWING.test(query) || SORTED_WORKS.test(query)) return undefined;
+  if (assignments.length < 4 || plan.artworkCount < 4 || hasExplicitArtworkOrder(query)) return undefined;
   const last = assignments.at(-1)!, previous = assignments.at(-2)!;
   const stage = plan.stages[last.stageIndex];
   if (stage?.role !== "afterglow" || previous.stageIndex !== last.stageIndex) return undefined;

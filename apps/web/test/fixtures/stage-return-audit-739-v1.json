@@ -1,0 +1,434 @@
+{
+  "items": [
+    {
+      "id": "R01",
+      "query": "六件木版画，想看画里的山。",
+      "artworkId": "met-45434",
+      "imagePath": "images/met-45434-preview.jpg",
+      "imageSha256": "sha256:0f0a0ad2ce94bd8a2efe154b89dbacfa00325fb17e8bf2098437f94acdb6808d",
+      "museumMedium": "Woodblock print; ink and color on paper",
+      "label": "positive",
+      "basis": "馆方记录为木版画，浪后的远景可见雪顶独立山峰。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:0f0a0ad2ce94bd8a2efe154b89dbacfa00325fb17e8bf2098437f94acdb6808d"
+      }
+    },
+    {
+      "id": "R02",
+      "query": "想看三幅开阔的画，画里有屋子和一大片天空。",
+      "artworkId": "smk-DEP708",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/w95052522_KMSdep708.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:4b457ba448f909485e8fbe7f50e6270cefceee4e3c1e376af6185bf140cfc420",
+      "museumMedium": "Charcoal",
+      "label": "unknown",
+      "basis": "平野和大片天空清楚，远处树丛边的微小轮廓无法确认是屋子。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:401d8390fcbed74bbcf20bbc39fcf7529d69ff00910ea315a1eccc7b9bc89cc5"
+      }
+    },
+    {
+      "id": "R03",
+      "query": "给六幅有人骑乘的画，不要战争，也不要死亡。",
+      "artworkId": "smk-KMSsp217",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/b5644v70d_kmssp217.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:a68e31856c2b9f61afdda2f1262c40937c3e08f5458ca6a4668d8e19b6d01b54",
+      "museumMedium": "Oil on panel",
+      "label": "negative",
+      "basis": "左下马匹在车前，人物多在屋前或水上，放大也见不到清楚的骑者。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:a68e31856c2b9f61afdda2f1262c40937c3e08f5458ca6a4668d8e19b6d01b54"
+      }
+    },
+    {
+      "id": "R04",
+      "query": "想在六幅画中沿开阔的地平线慢慢看，视线不要被围住。",
+      "artworkId": "rijksmuseum-200116893",
+      "imagePath": "https://iiif.micr.io/ohcYX/full/max/0/default.jpg",
+      "imageSha256": "sha256:fec6b642d975fa5bb05d9942fe6f56052f967c15ff356738d7abf9e5d00a2e5e",
+      "museumMedium": "paper; chalk",
+      "label": "unknown",
+      "basis": "远处有开敞的水边和村落，但近处坡体占右侧较大，地平线只在部分画面展开。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:4cdcaceca62b72cfbb80f7a2769d38390e1b44d3d0a05afdc6ab2d04f985d91a"
+      }
+    },
+    {
+      "id": "R05",
+      "query": "想看六幅有树木和水面倒影的画，媒材不限。",
+      "artworkId": "smk-KMSsp214",
+      "imagePath": "https://api.smk.dk/api/v1/download/W3siaW1nX3VybCI6Imh0dHBzOi8vaWlwLnNtay5kay9paWlmL2pwMi9jODIxZ3AwMHRfS01TS01Tc3AyMTQudGlmLnJlY29uc3RydWN0ZWQudGlmLmpwMi9mdWxsL2Z1bGwvMC9uYXRpdmUuanBnIiwicHVibGljX2RvbWFpbiI6dHJ1ZSwib2JqZWN0X251bWJlciI6IktNU3NwMjE0IiwibnVtIjoiIn1d/KMSsp214.jpg",
+      "imageSha256": "sha256:9ad016e544940eba08152e816c660450838f97c1cfce0df4452fcd686f6229b7",
+      "museumMedium": "Oil on panel; wood",
+      "label": "unknown",
+      "basis": "山谷内有蓝色带和近树，难以区分带内是河道、远处山影还是薄雾，无法确认水面倒影。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:3a2c6f8ff22ee36a81cc6d095a605bdf3dc56dfb3c81df55df624fbfaa7c8cc5"
+      }
+    },
+    {
+      "id": "R06",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "artworkId": "smk-KKSgb22233",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/9306t354d_kksgb22233.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:815d0e90fef68a49bc5250fdabc7ae4c17b231e3d56f714945bc30b7f362f403",
+      "museumMedium": "Copper engraving",
+      "label": "negative",
+      "basis": "馆方媒材为雕刻铜版。放大可见人物正处理篮中物件，肩上没有鹦鹉。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:5a57cea9e245747197aea7da61c96bb0371a7366029c1553c0603eecafc6099e"
+      }
+    },
+    {
+      "id": "R07",
+      "query": "六件木版画，想看画里的山。",
+      "artworkId": "smk-KKS13358d",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/t435gj38r_kks13358d.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:1daad7d2065832c37942f1b6a5da0c10ca6b192271747526bc4e09e45795a460",
+      "museumMedium": "Woodcut on thin Japanese paper; Japanese paper",
+      "label": "positive",
+      "basis": "馆方记录为木刻，人物后方左右都有连续升起的山坡和山脊。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:20447c4f35842008a34fc52627ed25c6a6653f815ab13231763a5f242dffcbbd"
+      }
+    },
+    {
+      "id": "R08",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "artworkId": "smithsonian_asian-fsg_F1901.195",
+      "imagePath": "https://ids.si.edu/ids/download?id=FS-5191_01.jpg",
+      "imageSha256": "sha256:f9da52935b5a85a89781c57fd5e53ecb4854c3c5fe9019016770efe7badb2e51",
+      "museumMedium": "Etching; ink on paper",
+      "label": "negative",
+      "basis": "画面是两艘靠泊船只和桅索，无可确认的人物或肩上鹦鹉。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:4f82b3d82b19bca28a9c90c9f4c7415279423249dbbbfba262e5bd613584ff5b"
+      }
+    },
+    {
+      "id": "R09",
+      "query": "挑六件可以留意拱门、拱形门洞或拱窗的画。",
+      "artworkId": "smk-KKSgb13036",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/7p88ck29x_kksgb13036.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:369b646e6ccf30daa8b36f7d5f62a1e75c5b9352ed91063185d2e99ed1749643",
+      "museumMedium": "Etching",
+      "label": "negative",
+      "basis": "桌前人后方是可见横竖格的方窗，未见拱窗、拱门或拱型门洞。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:444b09c20a06bc0414fe3d4fb1b67ee8cf76ecabcc19202e37cd750b997aa2cc"
+      }
+    },
+    {
+      "id": "R10",
+      "query": "找六件看得见桅杆或船帆的画。",
+      "artworkId": "rijksmuseum-200107761",
+      "imagePath": "https://iiif.micr.io/NxFOh/full/max/0/default.jpg",
+      "imageSha256": "sha256:f553d047872305f3c42bcf279902a013a843261d310b66d3823b79f592916877",
+      "museumMedium": "panel; oil paint (paint)",
+      "label": "negative",
+      "basis": "人在石拱旁、牲畜在坡底，画面里的竖线来自建筑和树，未见船桅或帆。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:d35c68444629b66e53c9ae5e4358a070d3299b71a5cca591d721f54d308a4244"
+      }
+    },
+    {
+      "id": "R11",
+      "query": "找六件看得见桅杆或船帆的画。",
+      "artworkId": "artic-16487",
+      "imagePath": "images/artic-16487-preview.jpg",
+      "imageSha256": "sha256:c7140ff4841d33dda853b3036bd8853e471cb08208698461614024081fd91dfc",
+      "museumMedium": "Oil on canvas",
+      "label": "negative",
+      "basis": "蓝色海湾前方的竖线是房屋烟囱，画面没有能辨认的船桅和帆。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:c7140ff4841d33dda853b3036bd8853e471cb08208698461614024081fd91dfc"
+      }
+    },
+    {
+      "id": "R12",
+      "query": "想看六幅有树木和水面倒影的画，媒材不限。",
+      "artworkId": "smk-KMS3940",
+      "imagePath": "https://api.smk.dk/api/v1/thumbnail/ec8a44e1-a077-45b6-9dfb-c8fa35928e0f.jpg",
+      "imageSha256": "sha256:9d5bf7d035726081a44c005fa844374d2d51ae937c381a967d6d7d580480832b",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "negative",
+      "basis": "田野树丛清楚，远方有薄亮色带，但看不到树木在水中的镜像。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:c844023ef38519a7c0d99f0a1b48b8c6f7efad2de1ec7ffa53b9934ee142f52e"
+      }
+    },
+    {
+      "id": "R13",
+      "query": "想在六幅画中沿开阔的地平线慢慢看，视线不要被围住。",
+      "artworkId": "smk-DEP708",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/w95052522_KMSdep708.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:4b457ba448f909485e8fbe7f50e6270cefceee4e3c1e376af6185bf140cfc420",
+      "museumMedium": "Charcoal",
+      "label": "positive",
+      "basis": "左侧的近树没有封住视线，大片平原延伸到清楚开敞的天际。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:401d8390fcbed74bbcf20bbc39fcf7529d69ff00910ea315a1eccc7b9bc89cc5"
+      }
+    },
+    {
+      "id": "R14",
+      "query": "想在六幅画中沿开阔的地平线慢慢看，视线不要被围住。",
+      "artworkId": "smk-KMSsp438",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/6395wc57x_kmssp438.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:2926d2769e3ab318607dc1c1a8cbcf1986006985e445d5dd88388938d3818549",
+      "museumMedium": "Oil on canvas",
+      "label": "negative",
+      "basis": "左右近树夹住河道与主要视线，只在中间留下较窄的远眺开口。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:2926d2769e3ab318607dc1c1a8cbcf1986006985e445d5dd88388938d3818549"
+      }
+    },
+    {
+      "id": "R15",
+      "query": "想看看风车怎样立在地面和天空之间，六幅。",
+      "artworkId": "artic-16682",
+      "imagePath": "images/artic-16682-full.jpg",
+      "imageSha256": "sha256:4b7c11eb620a1f4fad27de28a7d76caf3526c63a2290e753b32fe033e6ab5743",
+      "museumMedium": "Album leaf mounted as a hanging scroll; ink and light colors on silk",
+      "label": "negative",
+      "basis": "左侧远处是层檐传统高塔，右侧为近松和山石，未见风车或扇叶。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:4b7c11eb620a1f4fad27de28a7d76caf3526c63a2290e753b32fe033e6ab5743"
+      }
+    },
+    {
+      "id": "R16",
+      "query": "挑六件有牛群或牧牛人的画，我想看牛怎样分布。",
+      "artworkId": "smk-KKSgb22220",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/9593v0319_kksgb22220.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:57cb4ea7025ad7a3a89aa543c40cd478a8868d16e6cabf7b1b4bdf0020dd49da",
+      "museumMedium": "Copper engraving",
+      "label": "negative",
+      "basis": "前景的人在处理篮筐、食物和容器，远处是田里的人，未见能辨认的牛群或牧牛人。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:fd0ec174f3848bdfa8abe51e5c28b0279bcfd376a127abc9169b81abc4a999a9"
+      }
+    },
+    {
+      "id": "R17",
+      "query": "想看看风车怎样立在地面和天空之间，六幅。",
+      "artworkId": "met-845161",
+      "imagePath": "https://images.metmuseum.org/CRDImages/as/original/DP-26045-002.jpg",
+      "imageSha256": "sha256:fd7ed97162ecdab3c792b37f556308e4d9bee41e9ff7540606db48af5f466846",
+      "museumMedium": "Hanging scroll; ink and color on silk",
+      "label": "negative",
+      "basis": "河谷山间有成组的房舍和远山，看不到风车的轮轴或扇叶。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:fd7ed97162ecdab3c792b37f556308e4d9bee41e9ff7540606db48af5f466846"
+      }
+    },
+    {
+      "id": "R18",
+      "query": "想看六幅适合停下来细看的画，留意摆放的物件。",
+      "artworkId": "getty-10d29cd8-192d-4d4d-b2e9-3188b7f9ba50",
+      "imagePath": "https://media.getty.edu/iiif/image/e3a28970-f616-49a1-afb9-573ae2250f8c/full/max/0/default.jpg",
+      "imageSha256": "sha256:80c83e481d3a64f476f4ad11bda6a20630613975123c08f017e61993e12f5b2e",
+      "museumMedium": "Pen and brown ink and brush and red and blue wash",
+      "label": "unknown",
+      "basis": "游人、断枝和房屋可以慢慢看，画中没有明确的摆放动作，难以判断是否符合物件陈设。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:65faa838b7c9f9a1de581802014daadce0144f59d5db4ccc114afa011a71d404"
+      }
+    },
+    {
+      "id": "R19",
+      "query": "给六幅有人骑乘的画，不要战争，也不要死亡。",
+      "artworkId": "artic-181702",
+      "imagePath": "images/artic-181702-full.jpg",
+      "imageSha256": "sha256:67683cd298f181ba2a6861c46e86fd2a11b311b5c6f7c330a8571814d882f332",
+      "museumMedium": "Oil on panel",
+      "label": "negative",
+      "basis": "左下的人站在牛旁，其他牲畜伏卧或站立，没有人骑在它们身上。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:67683cd298f181ba2a6861c46e86fd2a11b311b5c6f7c330a8571814d882f332"
+      }
+    },
+    {
+      "id": "R20",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "artworkId": "smk-KKSgb22228",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/j96024530_kksgb22228.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:4147bc697194e4f5e1ea455b0365a560ac534268af10610aebf0438806b1c334",
+      "museumMedium": "Copper engraving",
+      "label": "negative",
+      "basis": "馆方媒材为雕刻铜版，树下人物肩上未见可辨的鹦鹉。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:5c9e54d102752b5a4496baa7efa8034b147933da41a2e7f43c916208f3be8fcb"
+      }
+    },
+    {
+      "id": "R21",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "artworkId": "smk-KKSgb11020",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/qv33s0667_kksgb11020.tif.reconstructed.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:5e76e829069f52c2bdf40a046794ce5e90a7fb776e50488f0fa91784d4dd2566",
+      "museumMedium": "Etching",
+      "label": "negative",
+      "basis": "页上描绘林地和远处小人，没有人物肩上可辨认的鹦鹉。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:db9632192e619530c30680c2782ed627f697803b2776c40bbc76737fdacd6926"
+      }
+    },
+    {
+      "id": "R22",
+      "query": "给我三幅有雪地或积雪的画，想看白色铺在哪里。",
+      "artworkId": "met-45070",
+      "imagePath": "https://images.metmuseum.org/CRDImages/as/original/DP-41805-002.jpg",
+      "imageSha256": "sha256:5425551e914e25474c3475ea0565fd70b7cf4688441c965b888ef9d4eff4b572",
+      "museumMedium": "Hanging scroll; ink on paper",
+      "label": "unknown",
+      "basis": "淡色山岭与浅灰雾带叠在一起，无法从图中区分雪地和水墨留白。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:6892cc122f30ba603cb87ea79a95a471e4e0b5f36ec13edfa32733e38973d98a"
+      }
+    },
+    {
+      "id": "R23",
+      "query": "想在六幅画中沿开阔的地平线慢慢看，视线不要被围住。",
+      "artworkId": "smk-KMS9216",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/zk51vn85b_kms9216.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:0c3472fc144de0a2e3b70b68302ecb2d00251af0622e66e08d4df5d0bcee9a6d",
+      "museumMedium": "Oil on canvas; canvas",
+      "label": "positive",
+      "basis": "近景只有一棵独立大树，旁边可以越过湖面看到向远处展开的开阔天际。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:3d7e2d1d1bd260a5e6632cd929ea44502ddb815d2a37026821243d962adb3a55"
+      }
+    },
+    {
+      "id": "R24",
+      "query": "六件木版画，想看画里的山。",
+      "artworkId": "smithsonian_asian-fsg_F1903.155",
+      "imagePath": "https://ids.si.edu/ids/download?id=FS-5215_06.jpg",
+      "imageSha256": "sha256:22c1117233ad6b343997385ac26c4d5f282f46acd4c15952160bc6164290adb8",
+      "museumMedium": "Etching; ink on paper",
+      "label": "negative",
+      "basis": "馆方媒材为蚀刻，画的是桅杆、旗帜和岸边小人，未见可辨山峰。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:29482a8921bbdaa0481fea612e749bfc5fac692d6a9d9cb7832cddc922f54a67"
+      }
+    },
+    {
+      "id": "R25",
+      "query": "给我三幅有雪地或积雪的画，想看白色铺在哪里。",
+      "artworkId": "rijksmuseum-200116942",
+      "imagePath": "https://iiif.micr.io/PFmHn/full/max/0/default.jpg",
+      "imageSha256": "sha256:fbb25dda00da1532f462c63f609a7b30e22a63dd37bd852bf4776798df4edad9",
+      "museumMedium": "paper; ink; watercolor (paint); graphite (mineral)",
+      "label": "unknown",
+      "basis": "秃树旁的人穿厚衣，路和岸边浅色仍可由纸面或灰褐洗染形成，未能确认积雪。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:5e7e8bd59148b9cdd017447482401de46428ce4bb007e8b6860392dc2f991b0a"
+      }
+    },
+    {
+      "id": "R26",
+      "query": "给我六幅纸上素描，纸上要能看见树木。",
+      "artworkId": "getty-10d29cd8-192d-4d4d-b2e9-3188b7f9ba50",
+      "imagePath": "https://media.getty.edu/iiif/image/e3a28970-f616-49a1-afb9-573ae2250f8c/full/max/0/default.jpg",
+      "imageSha256": "sha256:80c83e481d3a64f476f4ad11bda6a20630613975123c08f017e61993e12f5b2e",
+      "museumMedium": "Pen and brown ink and brush and red and blue wash",
+      "label": "positive",
+      "basis": "馆方记录为笔墨和淡彩，图中左侧有成组可辨的树干和枝叶，符合纸上素描要求。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:65faa838b7c9f9a1de581802014daadce0144f59d5db4ccc114afa011a71d404"
+      }
+    },
+    {
+      "id": "R27",
+      "query": "六件木版画，想看画里的山。",
+      "artworkId": "smk-KKSgb22233",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/9306t354d_kksgb22233.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:815d0e90fef68a49bc5250fdabc7ae4c17b231e3d56f714945bc30b7f362f403",
+      "museumMedium": "Copper engraving",
+      "label": "negative",
+      "basis": "馆方媒材为雕刻铜版，与请求的木版画不一致。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:5a57cea9e245747197aea7da61c96bb0371a7366029c1553c0603eecafc6099e"
+      }
+    },
+    {
+      "id": "R28",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "artworkId": "smk-KKSgb1403",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/3t945v88d_kksgb1403.tif.jp2/full/full/0/native.jpg",
+      "imageSha256": "sha256:04eb79da58f0bac64da3a3f78dd99ff8ceb79e300657ae104f2a9b5dafa24e2d",
+      "museumMedium": "Copper engraving",
+      "label": "negative",
+      "basis": "馆方媒材为雕刻铜版，人物手中是器具，肩上未见鹦鹉。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:e0fa9df28508252c81cf22c3c81acd926df3a41be564ff5b170518d234edbb7b"
+      }
+    },
+    {
+      "id": "R29",
+      "query": "挑六件可以留意拱门、拱形门洞或拱窗的画。",
+      "artworkId": "smk-KKSgb22233",
+      "imagePath": "https://iip.smk.dk/iiif/jp2/9306t354d_kksgb22233.tif.jp2/full/!4000,4000/0/native.jpg",
+      "imageSha256": "sha256:815d0e90fef68a49bc5250fdabc7ae4c17b231e3d56f714945bc30b7f362f403",
+      "museumMedium": "Copper engraving",
+      "label": "negative",
+      "basis": "可见桶的圆边与屋顶、方窗，未见可确认的拱形建筑开口。",
+      "reviewImage": {
+        "mode": "preview",
+        "sha256": "sha256:5a57cea9e245747197aea7da61c96bb0371a7366029c1553c0603eecafc6099e"
+      }
+    },
+    {
+      "id": "R30",
+      "query": "找六件看得见桅杆或船帆的画。",
+      "artworkId": "artic-14598",
+      "imagePath": "images/artic-14598-preview.jpg",
+      "imageSha256": "sha256:02371fe75726b1c46a1a01b137eea8940e15d049d3ea432d9b8b95ba3c6e7b8b",
+      "museumMedium": "Oil on canvas",
+      "label": "positive",
+      "basis": "近岸水面有数艘清楚可见的深红色三角船帆与桅杆。",
+      "reviewImage": {
+        "mode": "original",
+        "sha256": "sha256:02371fe75726b1c46a1a01b137eea8940e15d049d3ea432d9b8b95ba3c6e7b8b"
+      }
+    }
+  ],
+  "reviewerCategory": "independent visual review by Codex, blinded to the pool arm, candidate order, machine judgments and catalog observation",
+  "packetSha256": "e758b3295bcdfd0a67021a75461ff518ed2943c75bfc7d2814692d1c32b2dfbf",
+  "seed": "round2-return-audit-v1",
+  "explicitMuseumMediumConflicts": [
+    "R06",
+    "R20",
+    "R24",
+    "R27",
+    "R28"
+  ]
+}

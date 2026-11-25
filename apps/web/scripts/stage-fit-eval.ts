@@ -17,8 +17,11 @@ import { refineAfterglow } from "../lib/afterglow-selection";
 import { withCurationVisualCorrections } from "../lib/curation-visual-corrections";
 import { artworkOffering } from "../lib/artwork-offering";
 import { affectReadingPath } from "../lib/artwork-affect-reading";
-import { measureCurves, type CurveExhibition } from "./curve-metrics";
+import { compareCurvePositions, measureCurves, type CurveExhibition } from "./curve-metrics";
 import { readTrackedCurveFixture, sha256, TRACKED_REPLAY_LABEL } from "./stage-fit-curve-fixture";
+import { STAGE_VECTOR_PARAMETERS } from "../lib/stage-vector-experiment";
+import { rankingExperiment, type VectorEvaluationName } from "./stage-vector-evaluation";
+import { tryStageOrder } from "./stage-order-experiment";
 
 const rootDir = path.resolve(__dirname, "../../..");
 const label = process.argv[2] ?? "current";
@@ -30,6 +33,10 @@ const judgeFrom = option("judge-from");
 const rerankEnabled = process.argv.includes("--rerank");
 // Replays plans in order as successive visitors, so earlier exhibitions count as recent exposure.
 const recentEnabled = process.argv.includes("--recent");
+const requestedRanking = option("ranking");
+const observationIndex = option("observation-index");
+const orderExperiment = process.argv.includes("--stage-order-experiment");
+const compareFrom = option("compare-from");
 const outDir = path.join(rootDir, ".cache", "stage-fit-eval");
 const judgeCachePath = path.join(outDir, "judge-cache.json");
 
@@ -39,6 +46,7 @@ type ReplayWork = { artworkId: string; title: string; stage: number };
 interface ExhibitionResult {
   query: string; stages: string[]; works: ReplayWork[]; seedWorks?: ReplayWork[];
   selectionMode?: "rules" | "model"; rerank?: RerankRun; judged?: JudgedWork[];
+  ordering?: Omit<ReturnType<typeof tryStageOrder>, "assignments">;
 }
 
 function artworkBrief(artwork: WebArtwork): string {
@@ -109,9 +117,9 @@ function validateFrozenReplay(results: ExhibitionResult[], plans: Record<string,
   })) throw new Error("Frozen replay does not match the fixed exhibition plans");
 }
 
-function readFrozenReplay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>, fixtureSha256: string) {
-  if (!judgeFrom) return undefined;
-  const raw = readFileSync(path.join(outDir, `${judgeFrom}.json`));
+function readFrozenReplay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>, fixtureSha256: string, source = judgeFrom) {
+  if (!source) return undefined;
+  const raw = readFileSync(path.join(outDir, `${source}.json`));
   const { summary, results } = JSON.parse(raw.toString()) as { summary: { releaseVersion?: string; fixtureSha256?: string }; results: ExhibitionResult[] };
   if (summary.releaseVersion && summary.releaseVersion !== catalog.releaseVersion) throw new Error("Frozen replay belongs to a different release");
   if (summary.fixtureSha256 && summary.fixtureSha256 !== fixtureSha256) throw new Error("Frozen replay uses different stage fixtures");
@@ -120,14 +128,15 @@ function readFrozenReplay(catalog: ReturnType<typeof loadWebReleaseCatalog>, pla
     results: results.map(({ query, stages, works, seedWorks, selectionMode, rerank }) => ({ query, stages, works, seedWorks, selectionMode, rerank })) };
 }
 
-async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>): Promise<ExhibitionResult[]> {
+async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: Record<string, unknown>, rawCatalog = catalog) {
   const index = loadSemanticIndex({ manifestPath: catalog.manifestPath, manifest: catalog.manifest,
     artworks: catalog.artworkRecords.map((artwork) => ({ id: artwork.id, text: semanticArtworkText({ ...artwork.metadata, description: artwork.metadata.descriptionClean ?? artwork.metadata.storySnippet }) })) });
   if (!index) throw new Error("Semantic index unavailable");
   const config = rerankEnabled ? readCurationChatConfig(rootDir) : undefined;
   if (rerankEnabled && !config) throw new Error("Rerank provider unavailable");
   const stream = config && createCurationChatStream({ ...config, rootDir: undefined });
-  const encoder = createLocalSemanticEncoder({ rootDir });
+  const ranking = requestedRanking ? rankingExperiment(requestedRanking as VectorEvaluationName, observationIndex, rawCatalog, index) : undefined;
+  const encoder = createLocalSemanticEncoder({ rootDir, allowDownload: false });
   const results: ExhibitionResult[] = [];
   try {
     for (const [query, rawPlan] of Object.entries(plans)) {
@@ -135,7 +144,7 @@ async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: 
       const queries = await encoder.embedQueries(plan.stages.map((stage) => stage.query));
       const recentExposure = new Map<string, number>();
       if (recentEnabled) for (const earlier of results.slice(-40)) for (const work of earlier.works) recentExposure.set(work.artworkId, (recentExposure.get(work.artworkId) ?? 0) + 1);
-      const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, recentExposure });
+      const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, recentExposure, rankingExperiment: ranking?.experiment });
       let assignments = selection.assignments;
       let rerank: RerankRun | undefined;
       if (stream && selection.stagePools?.some((pool, stage) => pool.length > assignments.filter((item) => item.stageIndex === stage).length)) {
@@ -152,16 +161,31 @@ async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: 
         title: catalog.artworkById.get(item.artworkId)!.title, stage: item.stageIndex }));
       const seedWorks = toWorks(assignments);
       const ending = selection.stagePools && refineAfterglow({ catalog, query, plan, assignments, pools: selection.stagePools });
+      const finale = ending ?? assignments;
+      const order = orderExperiment && tryStageOrder({ query, plan, assignments: finale, modelOrdered: rerank?.status === "accepted",
+        ruleReading: id => { const artwork = catalog.artworkById.get(id); return artwork && artworkOffering(artwork); } });
+      const ordering = order ? { considered: order.considered, improved: order.improved,
+        protectedOrder: order.protectedOrder, swap: order.swap } : undefined;
       results.push({ query, stages: plan.stages.map((stage) => stage.label), rerank, seedWorks,
-        selectionMode: rerank?.status === "accepted" ? "model" : "rules", works: ending ? toWorks(ending) : seedWorks });
+        selectionMode: rerank?.status === "accepted" ? "model" : "rules", works: order ? toWorks(order.assignments) : ending ? toWorks(ending) : seedWorks, ordering });
     }
-    return results;
+    return { results, ranking: requestedRanking ? { requested: requestedRanking, effective: ranking?.experiment?.variant ?? "baseline",
+      fallback: ranking?.fallback, observation: ranking?.observation, parameters: STAGE_VECTOR_PARAMETERS } : undefined };
   } finally {
     await encoder.dispose();
   }
 }
 
 async function main(): Promise<void> {
+  if (requestedRanking && (!["baseline", "bounded", "observation"].includes(requestedRanking) || judgeEnabled || judgeFrom || rerankEnabled)) {
+    throw new Error("--ranking=baseline|bounded|observation is an offline live replay option and requires --no-judge without --rerank or --judge-from");
+  }
+  if (orderExperiment && (judgeEnabled || judgeFrom || rerankEnabled || requestedRanking && requestedRanking !== "baseline")) {
+    throw new Error("--stage-order-experiment requires an offline baseline live replay with --no-judge");
+  }
+  if (compareFrom && (!/^[a-z0-9_-]+$/iu.test(compareFrom) || compareFrom === label || judgeEnabled || judgeFrom || rerankEnabled)) {
+    throw new Error("--compare-from requires a different local replay label and --no-judge without --judge-from or --rerank");
+  }
   const outputPath = path.resolve(outDir, `${label}.json`);
   if (judgeFrom && outputPath === path.resolve(outDir, `${judgeFrom}.json`)) throw new Error("Use a new label for the frozen replay report");
   const fixture = readFileSync(path.join(__dirname, "../test/fixtures/stage-fit-plans.json"), "utf8");
@@ -169,12 +193,13 @@ async function main(): Promise<void> {
   const fixtureSha256 = sha256(fixture);
   const tracked = !judgeEnabled && judgeFrom === TRACKED_REPLAY_LABEL && !option("manifest")
     ? readTrackedCurveFixture(fixtureSha256, option("release")) : undefined;
-  const catalog = tracked ? undefined
-    : withCurationVisualCorrections(loadWebReleaseCatalog({ rootDir, releaseVersion: option("release"), manifestPath: option("manifest") }));
+  const rawCatalog = tracked ? undefined : loadWebReleaseCatalog({ rootDir, releaseVersion: option("release"), manifestPath: option("manifest") });
+  const catalog = rawCatalog && withCurationVisualCorrections(rawCatalog);
   const releaseVersion = tracked?.source.releaseVersion ?? catalog!.releaseVersion;
   mkdirSync(outDir, { recursive: true });
   const frozen = catalog && readFrozenReplay(catalog, plans, fixtureSha256);
   let results: ExhibitionResult[];
+  let ranking: Awaited<ReturnType<typeof replay>>["ranking"];
   if (tracked) {
     const queries = Object.keys(plans);
     if (tracked.routes.length !== queries.length) throw new Error("Frozen curve fixture does not match the plan count");
@@ -184,7 +209,8 @@ async function main(): Promise<void> {
     });
     validateFrozenReplay(results, plans, id => tracked.byId.has(id));
   } else {
-    results = frozen?.results ?? await replay(catalog!, plans);
+    if (frozen) results = frozen.results;
+    else ({ results, ranking } = await replay(catalog!, plans, rawCatalog));
   }
   if (judgeEnabled && catalog) {
     const cache: Record<string, JudgedWork[]> = existsSync(judgeCachePath) ? JSON.parse(readFileSync(judgeCachePath, "utf8")) : {};
@@ -202,7 +228,10 @@ async function main(): Promise<void> {
   const rerankMs = reranks.map((run) => run.ms).sort((a, b) => a - b);
   const titles = new Map(results.flatMap(result => result.works.map(work => [work.artworkId, catalog?.artworkById.get(work.artworkId)?.title ?? work.title] as const)));
   const summary = {
-    label, releaseVersion, fixtureSha256, judge: judgeEnabled ? JUDGE_MODEL : undefined, judgeFrom, exhibitions: results.length, works: total,
+    label, releaseVersion, fixtureSha256, judge: judgeEnabled ? JUDGE_MODEL : undefined, judgeFrom, exhibitions: results.length, works: total, ranking,
+    orderingExperiment: orderExperiment ? { examined: results.reduce((sum, row) => sum + (row.ordering?.considered ?? 0), 0),
+      improved: results.reduce((sum, row) => sum + (row.ordering?.improved ?? 0), 0),
+      applied: results.filter(row => row.ordering?.swap).length, protected: results.filter(row => row.ordering?.protectedOrder).length } : undefined,
     rerank: reranks.length ? { attempted: reranks.length, accepted: reranks.filter((run) => run.status === "accepted").length,
       rejected: reranks.filter((run) => run.status === "rejected").length, failed: reranks.filter((run) => run.status === "failed").length,
       medianMs: rerankMs[Math.floor(rerankMs.length / 2)], maxMs: rerankMs.at(-1) } : undefined,
@@ -213,7 +242,7 @@ async function main(): Promise<void> {
   };
   const ledger = affectReadingPath(rootDir, releaseVersion);
   const proxyModels = new Set<string>();
-  const curves: CurveExhibition[] = results.map((result, index) => {
+  const measuredRoutes = (replayed: ExhibitionResult[]): CurveExhibition[] => replayed.map((result, index) => {
     const plan = parseCurationIntentPlan(plans[result.query]);
     return { id: String(index + 1), requestedWorks: plan.artworkCount, slots: result.works.map(work => {
       const frozenWork = tracked?.byId.get(work.artworkId);
@@ -225,6 +254,10 @@ async function main(): Promise<void> {
           flash: frozenWork?.flash ?? (flash && ["deepseek-flash", "deepseek-v4-flash"].includes(flash.model) ? flash : undefined) } };
     }) };
   });
+  const curves = measuredRoutes(results);
+  const pairedSource = compareFrom && catalog ? readFrozenReplay(catalog, plans, fixtureSha256, compareFrom) : undefined;
+  const paired = pairedSource && { baseline: compareFrom, baselineSha256: pairedSource.sourceReplaySha256,
+    ...compareCurvePositions(measuredRoutes(pairedSource.results), curves) };
   const input = {
     mode: tracked ? "tracked-frozen" : frozen ? "cached-frozen" : "replay",
     selectionModes: [...new Set(results.map(result => result.selectionMode ?? "unknown"))],
@@ -238,7 +271,7 @@ async function main(): Promise<void> {
     excludedReadingModels: [...proxyModels].sort(),
     readings: { rules: "artworkOffering", flash: "DeepSeek Flash image readings; shares a model family with Flash judging" },
   };
-  const curve = { input, ...measureCurves(curves) };
+  const curve = { input, ...measureCurves(curves), paired };
   writeFileSync(outputPath, JSON.stringify({ summary, results, curve }, null, 1));
   console.log(JSON.stringify(summary, null, 1));
   for (const result of results) {

@@ -11,6 +11,8 @@ import { hash, HOLDOUT_FIXTURE, readHoldoutFixture } from "./stage-holdout-fixtu
 import { measureStageHoldout, type HoldoutStage } from "./stage-holdout-metrics";
 import type { Clause } from "./stage-holdout-design";
 import { createBlindPackets, freezeUniverse, measureUniverse, scoreBlindPackets } from "./stage-holdout-universe";
+import { STAGE_VECTOR_PARAMETERS } from "../lib/stage-vector-experiment";
+import { prepareStageVectors, rankingExperiment, timeStageVariants, type VectorEvaluationName } from "./stage-vector-evaluation";
 
 const rootDir = path.resolve(__dirname, "../../..");
 
@@ -32,8 +34,13 @@ async function main() {
   const universeReport = args[0] === "--universe";
   const blind = args[0] === "--blind-packets";
   const blindAnswers = args[0] === "--score-blind";
-  if (args.length && !((universeReport || blind) && args.length === 1 || blindAnswers && [2, 3].includes(args.length))) {
-    throw new Error("Usage: stage-holdout-eval.ts [--universe | --blind-packets | --score-blind answers.json [universe-report.json]]");
+  const ranking = args.find(arg => arg.startsWith("--ranking="))?.slice("--ranking=".length);
+  const sidecar = args.find(arg => arg.startsWith("--observation-index="))?.slice("--observation-index=".length);
+  const rankings = ["baseline", "bounded", "observation"] as const;
+  if (args.length && !(universeReport && args.slice(1).every(arg => arg.startsWith("--ranking=") || arg.startsWith("--observation-index="))
+    && (!ranking || [...rankings, "compare"].includes(ranking as VectorEvaluationName | "compare"))
+    || blind && args.length === 1 || blindAnswers && [2, 3].includes(args.length))) {
+    throw new Error("Usage: stage-holdout-eval.ts [--universe [--ranking=baseline|bounded|observation|compare] [--observation-index=FILE] | --blind-packets | --score-blind answers.json [universe-report.json]]");
   }
   const fixtureDirectory = path.join(__dirname, "../test/fixtures");
   const fixture = readHoldoutFixture(readFileSync(path.join(fixtureDirectory, HOLDOUT_FIXTURE)));
@@ -69,16 +76,26 @@ async function main() {
       text: semanticArtworkText({ ...artwork.metadata, description: artwork.metadata.descriptionClean ?? artwork.metadata.storySnippet }) })) });
   if (!index) throw new Error("The installed release lacks its local semantic vectors");
   const encoder = createLocalSemanticEncoder({ rootDir, allowDownload: false });
-  const stages: HoldoutStage[] = [];
-  const routes: Array<{ caseId: string; expectedLogicalConflict: boolean; eligibleWorks: number; requestedWorks: number; assignedWorks: number }> = [];
-  const hardViolations: Array<{ caseId: string; artworkId: string; source: "assignment" | "pool" }> = [];
-  const duplicateAssignments: string[] = [];
+  let prepared;
   try {
     if (!sameSemanticSpace(index.model, encoder.model)) throw new Error("Local encoder and release vectors are incompatible");
-    for (const entry of fixture.cases) {
+    prepared = await prepareStageVectors(fixture.cases, encoder);
+  } finally { await encoder.dispose(); }
+  const sortedNames = ranking === "compare" ? rankings : [ranking as VectorEvaluationName | undefined ?? "baseline"];
+  const variants = new Map(sortedNames.map(name => [name, rankingExperiment(name, sidecar, rawCatalog, index)]));
+  const selections = (name: VectorEvaluationName) => prepared.map(({ entry: { query, plan }, queries }) =>
+    selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, rankingExperiment: variants.get(name)?.experiment }));
+  const runs = ranking ? timeStageVariants(sortedNames, selections)
+    : new Map([["baseline", { result: selections("baseline"), warmMs: undefined, medianMs: undefined }]] as const);
+  const reports = [...runs].map(([name, run]) => {
+    const { result, warmMs, medianMs } = run;
+    const stages: HoldoutStage[] = [];
+    const routes: Array<{ caseId: string; expectedLogicalConflict: boolean; eligibleWorks: number; requestedWorks: number; assignedWorks: number }> = [];
+    const hardViolations: Array<{ caseId: string; artworkId: string; source: "assignment" | "pool" }> = [];
+    const duplicateAssignments: string[] = [];
+    fixture.cases.forEach((entry, caseIndex) => {
       const { id, query, plan, stratum } = entry;
-      const queries = await encoder.embedQueries(plan.stages.map(stage => stage.query));
-      const selection = selectForCurationStages({ catalog, query, plan, semantic: { index, queries } });
+      const selection = result[caseIndex]!;
       const allowed = new Set(eligibleCurationArtworks(catalog, query, plan, { scopedRiverBank: true }).map(artwork => artwork.id));
       if (universeReport) {
         if (new Set(selection.assignments.map(item => item.artworkId)).size !== selection.assignments.length) duplicateAssignments.push(id);
@@ -93,8 +110,7 @@ async function main() {
       plan.stages.forEach((_, stageIndex) => stages.push({ caseId: id, stratum, stageIndex, requested: active.has(stageIndex), allowed,
         reference: entry.samples.filter(sample => sample.stageIndexes.includes(stageIndex)),
         pool: selection.stagePools?.[stageIndex]?.map(work => work.artworkId) ?? [] }));
-    }
-  } finally { await encoder.dispose(); }
+    });
   const report = {
     schemaVersion: 1,
     input: { fixture: HOLDOUT_FIXTURE, fixtureSha256: fixture.sha256, ...provenance,
@@ -107,21 +123,25 @@ async function main() {
   };
   if (universe) {
     const { samplingUnit: _, ...input } = report.input;
-    const fullReport = {
+    const chosen = variants.get(name);
+    return [name, {
       schemaVersion: 1,
       input: { ...input, referenceVersion: "full-catalog-evidence-v1", referenceSha256: universe.sha256, universeSize: universe.artworks.length,
-        samplingUnit: "same image-bound evidence judgments across stages of each synthetic request; unknown is neither positive nor negative; no human judgments included" },
+        samplingUnit: "same image-bound evidence judgments across stages of each synthetic request; unknown is neither positive nor negative; no human judgments included",
+        ranking: ranking ? { requested: name, effective: chosen?.experiment?.variant ?? "baseline", fallback: chosen?.fallback,
+          parameters: STAGE_VECTOR_PARAMETERS, observation: chosen?.observation, warmMs, medianMs } : undefined },
       routes,
       safeguards: { hardViolations, duplicateAssignments, shortRoutes: routes.filter(row => row.assignedWorks < row.requestedWorks).length,
         requestedWorks: routes.reduce((sum, row) => sum + row.requestedWorks, 0),
         assignedWorks: routes.reduce((sum, row) => sum + row.assignedWorks, 0),
         logicalConflictRegressions: routes.filter(row => row.expectedLogicalConflict && (row.eligibleWorks || row.assignedWorks)) },
       ...measureUniverse(stages, universe.labels),
-    };
-    process.stdout.write(JSON.stringify(fullReport, null, 2) + "\n");
-    return;
+    }] as const;
   }
-  process.stdout.write(JSON.stringify({ ...report, ...measureStageHoldout(stages) }, null, 2) + "\n");
+  return [name, { ...report, ...measureStageHoldout(stages) }] as const;
+  });
+  const output = ranking === "compare" ? { variants: Object.fromEntries(reports) } : reports[0]![1];
+  process.stdout.write(JSON.stringify(output, null, 2) + "\n");
 }
 
 void main();
