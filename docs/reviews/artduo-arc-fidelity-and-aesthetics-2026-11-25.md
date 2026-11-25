@@ -199,6 +199,27 @@ pnpm --filter @artduo/web exec tsx --test test/lib/stage-holdout.test.ts
 
 展签及结语定向回归 9 项通过，UI 全套 142 项通过。运行 `pnpm --filter @artduo/ui exec tsx --test src/experience/plaque.test.tsx src/experience/closing-narrative.test.tsx` 可复核定向用例。浏览器记录位于 `.cache/artduo-arc-20261125/` 下的 `baseline-plaque.json`、`batch3-plaque.json` 和 `batch3-plaque-1440.json`。
 
+第四批对策展降级与等待时间分别验收。离线策展脚本使用已安装的发布版、本地查询编码器和隔离临时状态。浏览器探针需要本机 Ego、已准备媒体的本地正式构建、关闭远程服务提供方，并与该服务共用仅供本次合成测试的状态目录。启动探针前，该目录的 curations 须为空。将下列浏览器命令中的状态目录及输出路径替换为本机绝对路径。
+
+```sh
+pnpm --filter @artduo/web exec tsx scripts/local-curation-eval.ts --release=2026-11-19-open-gap-739 > /tmp/artduo-local-curation-check.json
+pnpm --filter @artduo/web exec tsx --test test/lib/experience-wait-probe.test.ts
+node apps/web/scripts/experience-wait-probe.mjs --url=http://127.0.0.1:4159/ArtDuo --state-dir=/absolute/path/to/synthetic-state --cache-state=prepared-local-media --output=/absolute/path/to/new-wait-report.json
+```
+
+两份独立策展报告内容一致。六次合成新策展使用相同请求，分别覆盖正常路径、意图不可用、缺检索编码器、检索超时、重排抛错和非法重排结果。每次均展出 6 件，满足战争、死亡及宗教的硬排除。凭 ID 恢复得到同一记录，新增意图、编码和重排调用均为零。六次中记录了意图降级 1 次、检索降级 2 次、重排降级 1 次；另一次非法重排结果被弃用，记录中没有相应原因。固定 25 场沿用冻结计划时，逐场路线与原回放一致，共 91 个展位、77 件不同作品，3 场未足额，其中 2 场为空。改用本地规则生成计划时，共 92 个展位、72 件不同作品，2 场未足额且均为空。这些计数描述计划来源对展出数量和覆盖的影响，作品匹配质量仍需独立评测。
+
+390px 浏览器视口下使用已准备的本地媒体。新策展和保存恢复各 3 次，均成功。前言就绪以标题可见且入场按钮可用为准，首画就绪以预期作品的 `artduo:artwork-ready` 为准。
+
+| 路径与计时区间 | 三次耗时（毫秒） | 中位数（毫秒） |
+| --- | --- | --- |
+| 新策展，提交至前言就绪 | 1057、776、372 | 776 |
+| 新策展，点击入场至首画就绪 | 1014、1181、1601 | 1181 |
+| 新策展，提交至首画就绪（自动点击入场） | 2155、2069、2076 | 2076 |
+| 保存恢复，点击入场至首画就绪 | 1067、80、808 | 808 |
+
+保存恢复直接打开已有展览，因此没有提交计时，也不计入新策展降级分母。2 项探针定向测试通过。正式结果见 `.cache/artduo-arc-20261125/curation-independent.json` 与同目录的 `final-wait.json`。每组 3 次本地计时仅描述本次运行；仓库默认分析接收器仅在进程内存保留事件，本轮没有可核实的生产汇总，线上 P90 和降级率仍未知。
+
 早期对照脚本放在仓库外的 `/tmp/artduo-review/`：
 
 - `affect-compare.ts`：全馆规则估计与单图读数的相关性和分歧最大的作品。
