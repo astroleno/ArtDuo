@@ -146,8 +146,7 @@
 .experience-exit { position: absolute; z-index: 20; top: max(16px, env(safe-area-inset-top)); left: max(18px, env(safe-area-inset-left)); min-height: 44px; display: inline-flex; align-items: center; color: rgba(238, 228, 211, .62); font: 10px/1.4 "IBM Plex Mono", monospace; text-decoration: none; }
 .experience-exit:hover { color: #fff; }
 
-.experience-walk { position: relative; min-height: 100svh; animation: experience-room-enter .28s ease both; }
-.experience-walk.is-transitioning { pointer-events: none; }
+.experience-walk { position: relative; min-height: 100svh; }
 .experience-sculpture-room { min-height: 320px; }
 .experience-sculpture-room .experience-room-backdrop { object-position: center bottom; }
 .experience-sculpture-room .experience-room-shade { z-index: 3; background: radial-gradient(ellipse at 50% 45%, transparent 25%, rgba(19,18,16,.17) 75%), linear-gradient(180deg, rgba(12,11,9,.48), transparent 19%, transparent 76%, rgba(12,11,9,.4)); }
@@ -173,22 +172,8 @@
 @media (max-height: 500px) and (min-width: 768px) {
   .experience-sculpture-plaque { left: calc(50% + 160px); top: 63%; width: 138px; }
 }
-@keyframes experience-room-enter { from { opacity: .7; } to { opacity: 1; } }
 .experience-room { position: relative; width: 100%; height: 100svh; min-height: 560px; overflow: hidden; isolation: isolate; background: #191714; }
-.experience-room.is-transitioning[data-transition-family="fade"] .experience-frame-shadow { animation: experience-room-fade-in .28s ease both; }
-.experience-room.is-transitioning[data-transition-family="dissolve"] .experience-frame-shadow { animation: experience-room-dissolve-in .32s ease both; }
-.experience-room.is-transitioning[data-transition-family="match-cut"] .experience-frame-shadow { animation: experience-room-match-in .24s ease both; }
-.experience-room.is-transitioning[data-transition-family="depth-push"] .experience-frame-shadow { animation: experience-room-depth-in .36s cubic-bezier(.2,.7,.2,1) both; }
-.experience-room.is-transitioning[data-transition-family="lateral-pan"] .experience-frame-shadow { animation: experience-room-pan-in .3s ease both; }
-.experience-room.is-transitioning[data-transition-family="light-swell"] .experience-frame-shadow { animation: experience-room-swell-in .34s ease both; }
-.experience-room.is-transitioning[data-transition-family="scale-focus"] .experience-frame-shadow { animation: experience-room-scale-in .3s ease both; }
 @keyframes experience-room-fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes experience-room-dissolve-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes experience-room-match-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes experience-room-depth-in { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
-@keyframes experience-room-pan-in { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes experience-room-swell-in { 0% { opacity: 0; } 52% { opacity: .86; } 100% { opacity: 1; } }
-@keyframes experience-room-scale-in { from { opacity: 0; transform: scale(.99); } to { opacity: 1; transform: scale(1); } }
 .experience-room-backdrop { position: fixed; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover;  }
 .experience-room-backdrop.is-loading-wall { opacity: 0; }
 .experience-room-lighting { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity .65s ease; }
@@ -198,8 +183,7 @@
 .experience-room-fallback { background: linear-gradient(180deg, #9e9b94 0%, #d0ccc3 16%, #d0ccc3 76%, #696762 76.2%, #55534f 100%); }
 .experience-room[data-wall-tone="warm"] .experience-room-fallback { background: linear-gradient(180deg, #79674f 0%, #d2bda0 16%, #d2bda0 76%, #a08f75 76.2%, #7d6f5c 100%); }
 .experience-room[data-wall-tone="neutral"] .experience-room-fallback { background: linear-gradient(180deg, #aaa49a 0%, #e1dace 16%, #e1dace 76%, #aaa194 76.2%, #7d756c 100%); }
-.experience-room-shade { position: absolute; z-index: -2; inset: 0; background: radial-gradient(ellipse calc(var(--art-width, 420px) * 1.5) calc(var(--art-height, 400px) * 1.3) at var(--art-center-x, 50%) var(--art-center-y, 42%), rgba(19,18,16,.025) 8%, rgba(19,18,16,var(--room-shade-alpha, var(--room-fallback-shade-alpha, .18))) var(--room-shade-stop, var(--room-fallback-shade-stop, 56%)), rgba(13,13,12,.54) 100%), linear-gradient(180deg, rgba(12,11,9,.5), transparent 22%, transparent 70%, rgba(12,11,9,.3)); pointer-events: none; }
-canvas.experience-room-lighting[data-lighting-state="ready"] + .experience-room-shade { --room-shade-alpha: .18; --room-shade-stop: 56%; }
+.experience-room-shade { position: absolute; z-index: -2; inset: 0; background: radial-gradient(ellipse calc(var(--art-width, 420px) * 1.5) calc(var(--art-height, 400px) * 1.3) at var(--art-center-x, 50%) var(--art-center-y, 42%), rgba(19,18,16,.025) 8%, rgba(19,18,16,var(--room-fallback-shade-alpha, .18)) var(--room-fallback-shade-stop, 56%), rgba(13,13,12,.54) 100%), linear-gradient(180deg, rgba(12,11,9,.5), transparent 22%, transparent 70%, rgba(12,11,9,.3)); pointer-events: none; }
 .experience-room-header { position: absolute; z-index: 5; inset: max(20px, env(safe-area-inset-top)) 84px auto 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 36px; color: #ddd3c1; font: 12px/1.5 "IBM Plex Mono", monospace; letter-spacing: .03em; }
 .experience-mark { color: #e5ddcf; text-decoration: none; white-space: nowrap; }
 .experience-mark span { margin-inline: 7px; color: #a64d3b; }
@@ -238,20 +222,19 @@ canvas.experience-room-lighting[data-lighting-state="ready"] + .experience-room-
 }
 .experience-room:not([data-wall-tone="warm"]) .experience-frame-shadow { --frame-inset: 5px; --frame-rim: #4e4b44; --frame-lit-rim: #8f8a7f; background: #34322d; }
 .experience-room[data-frame-material="paper"] .experience-frame-shadow { --frame-inset: clamp(12px, 2.4vw, 28px); --frame-rim: #514638; --frame-lit-rim: #827462; border-width: 4px; background: #eee9de; }
-.experience-room.is-transitioning[data-viewing-pace="steady"] .experience-frame-shadow { animation-duration: .18s; }
-.experience-room.is-transitioning[data-viewing-pace="quick"] .experience-frame-shadow { animation-duration: .14s; }
-/* A quieter pace changes the atmosphere without delaying navigation. */
-.experience-room.is-transitioning[data-viewing-pace="unhurried"] .experience-frame-shadow { animation-duration: .20s; }
 .experience-room[data-viewing-pace="unhurried"] .experience-atmosphere-dust { animation-play-state: paused; opacity: .1; }
 .experience-art-lightbox { display: block; width: 100%; height: 100%; margin: 0; min-width: 0; min-height: 0; background: #e5ded2; }
 .experience-art-lightbox::before { display: none; }
 .experience-art-lightbox .immersive-lightbox-trigger { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; padding: 0; }
 .experience-art-lightbox[data-aspect-ratio] .immersive-artwork-frame { display: block; width: 100%; height: 100%; max-width: 100%; min-width: 0; aspect-ratio: auto; overflow: hidden; padding: 0; border: 0; background: #ded6c9; box-shadow: none; }
 .experience-art-lightbox .immersive-preview-image { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
-/* A reused image keeps painting the previous work until the next one decodes.
-   In the walk the frame stays empty under the new label, then the work fades in. */
-.experience-art-lightbox .immersive-preview-image { transition: opacity .45s ease; }
-.experience-art-lightbox[data-image-state="loading"] .immersive-preview-image { opacity: 0; transition: none; }
+/* The new work's temporary colour stays inside the existing artwork aperture. */
+.experience-room[data-artwork-placeholder="on"] .experience-art-lightbox .immersive-artwork-frame {
+  background: rgb(var(--artwork-placeholder-rgb, 222 214 201));
+}
+.experience-art-lightbox .immersive-preview-image { transition: none; }
+.experience-room[data-artwork-placeholder="on"] .immersive-preview-image,
+.experience-art-lightbox[data-image-state="loading"] .immersive-preview-image { opacity: 0; }
 .experience-art-lightbox figcaption { display: none; }
 .experience-art-lightbox .immersive-enter-cue { opacity: 0; transition: opacity .18s ease; }
 .experience-art-lightbox:hover .immersive-enter-cue, .experience-art-lightbox:focus-within .immersive-enter-cue { opacity: 1; }

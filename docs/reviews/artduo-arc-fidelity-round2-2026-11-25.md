@@ -205,3 +205,19 @@ ARTDUO_OBSERVABILITY=1 ARTDUO_STATE_DIR=/absolute/path/to/private-synthetic-stat
 ```
 
 页面与跨重启证据位于 `.cache/artduo-arc-round2/` 下的 `b5-wait-390.json`、`b5-browser-1440.json`、`b5-browser-aggregates.json`、`b5-final-aggregates.json`。
+
+第六批终版已通过正式构建与 147 项 UI 测试。独立复算同一 v21 offer 保存展前两幅作品的往返记录，每种浏览器视口与动效设置各点击 10 次，基线及终版的 60 条记录均到达预期作品。以下为各组的中位数。对照使用本地已准备媒体，结果只描述该浏览器环境下的切换。
+
+| 视口与偏好 | 点击至预期画作 ready，基线→终版（ms） | 点击至完全可见，基线→终版（ms） |
+| --- | --- | --- |
+| 390×844，正常动态 | 591→232 | 671→254 |
+| 1440×900，正常动态 | 600→228 | 671→250 |
+| 390×844，系统减少动态 | 1007→990 | 1073→1070 |
+
+浏览器录得段内、转折、收束三种作品动画，时长分别为 128、176、208ms。转折的后景位移至多 4px，收束允许后景光延续；导航在此期间仍可使用。系统减少动态时未播放作品转场，手动开关及系统设置反切均未重播当前一幅。快速前进返回到达正确作品，长按箭头未额外跳幅。模拟延迟解码时，Holi 的作品区域以稀释红色 rgb(211,181,169) 占位、图像 opacity 为 0；解码后恢复原有底色 rgb(222,214,201)，图像 filter 为 none。原始记录位于 `.cache/artduo-arc-round2/` 的 `stable-baseline-transitions.json`、`stable-final-transitions.json`、`passage-browser.json`；指定浏览器视口不代表真机或真实观众的感知评价。
+
+第六批独立验收通过。最终墙光映射系数为 0.70，阴影透明度限制为 0.13–0.235。固定同画、同墙、同视口改变阶段明暗，390px 墙面样区平均绝对 RGB 差由 0.56 增至 1.00，1440px 由 2.20 增至 4.13；画框和展签几何均稳定。终版两种明暗阶段之间的画芯像素差均为 0。跨构建独立截图的画芯平均差分别为 1.92 和 1.75；HTTP 预览源摘要与发布清单匹配，图像 CSS filter 为 none。实测覆盖 WebGL 就绪、关闭、重开及真实上下文丢失后的静态后备。390px 的一次触摸只前进一步，放大后切到下一幅，经按钮关闭或浏览器返回均归位至该幅。减弱动态、色彩占位和快速往返的结论在最终构建重跑后仍成立。
+
+可运行 `pnpm --filter @artduo/ui test` 复核 UI；终版 147 项通过。墙面、画芯与交互的浏览器记录见 `.cache/artduo-arc-round2/{wall-candidate-room,b6-wall-comparison,b6-artwork-digest,b6-controls}.json`。列出的差值是指定样区与视口的实测，未做真机或观众主观偏好测试。
+
+主线程在同一终版确认全工作区测试 644/644 通过（contracts 48、API 81、UI 147、corpus 47、pipeline 80、Web 241），工作区类型检查与正式 Web 构建通过。

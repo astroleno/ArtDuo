@@ -20,8 +20,10 @@ import { ROOM_IMAGE_SIZES, roomImageSrcSet } from "./room-assets";
 import { experienceImageSource, experiencePrewarm } from "./media-prewarm";
 import { RoomBackdrop } from "./room-backdrop";
 import { roomParallaxInput } from "./room-parallax";
+import { artworkPlaceholderRgb } from "./artwork-placeholder";
+import { createStageMotionArrival, stageTransitionKeyframes, type StageTransitionProfile } from "./stage-transition";
 
-export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onSculptureInvitation, onLightboxNext, onLightboxPrevious, onLightboxRestore, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, pace = "steady" }: {
+export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onSculptureInvitation, onLightboxNext, onLightboxPrevious, onLightboxRestore, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, transition, transitionSeq, pace = "steady" }: {
   unit: ExperienceUnit;
   index: number;
   count: number;
@@ -48,6 +50,8 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   onRoomReady: (unitId: string) => void;
   mediaFailed: boolean;
   transitioning?: boolean;
+  transition: StageTransitionProfile;
+  transitionSeq: number;
   pace?: ViewingPace;
 }) {
   const [viewport, setViewport] = useState({ width: 1440, height: 900 });
@@ -68,11 +72,12 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   const lightingMood = useMemo(() => roomLightMood(stage), [stage]);
   const fallbackShade = useMemo(() => roomFallbackShade(lightingMood), [lightingMood]);
   const [lightingState, setLightingState] = useState<"loading" | "ready" | "fallback">("loading");
-  const [loadedArtwork, setLoadedArtwork] = useState<{ id: string; size: { width: number; height: number } } | null>(null);
-  const [paintedId, setPaintedId] = useState<string>();
-  const [enhancementId, setEnhancementId] = useState<string>();
+  const [loadedArtwork, setLoadedArtwork] = useState<{ seq: number; size: { width: number; height: number } } | null>(null);
+  const [paintedSeq, setPaintedSeq] = useState<number>();
+  const [enhancementSeq, setEnhancementSeq] = useState<number>();
   const [measuredPlaque, setMeasuredPlaque] = useState<{ id: string; size: RoomPlaqueSize } | null>(null);
-  const artworkSize = loadedArtwork?.id === unit.artwork.id ? loadedArtwork.size : null;
+  const artworkSize = loadedArtwork?.seq === transitionSeq ? loadedArtwork.size : null;
+  const placeholderRgb = useMemo(() => artworkPlaceholderRgb(unit.artwork.metadata.colorTags), [unit.artwork.metadata.colorTags]);
   const plaqueMeasureWidth = Math.max(1, Math.min(156, viewport.width - 40));
   const plaqueSize = measuredPlaque?.id === unit.artwork.id && measuredPlaque.size.width === plaqueMeasureWidth
     ? measuredPlaque.size : { width: plaqueMeasureWidth, height: 90 };
@@ -81,26 +86,59 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     if (essentialReady && !mediaFailed) onRoomReady(unit.exhibition.unitId);
   }, [essentialReady, mediaFailed, unit.exhibition.unitId, onRoomReady]);
   useEffect(() => {
-    if (paintedId !== unit.exhibition.unitId || !essentialReady || transitioning) return;
+    if (paintedSeq !== transitionSeq || !essentialReady || transitioning) return;
     // Upload enhancement textures after the settled artwork has painted. Doing
     // that work during a room transition delays its final frames on slower GPUs.
-    const timer = window.setTimeout(() => setEnhancementId(unit.exhibition.unitId), 120);
+    const timer = window.setTimeout(() => setEnhancementSeq(transitionSeq), 120);
     return () => window.clearTimeout(timer);
-  }, [paintedId, essentialReady, transitioning, unit.exhibition.unitId]);
-  const enhancementsReady = essentialReady && !transitioning && enhancementId === unit.exhibition.unitId;
-  const lightingActive = enhancementsReady && !reducedMotion && mouseMotion && !lightboxExpanded && !plaqueOpen && !backgroundFailed;
+  }, [paintedSeq, essentialReady, transitioning, transitionSeq]);
+  const enhancementsReady = essentialReady && !transitioning && enhancementSeq === transitionSeq;
+  const sameWallAlreadyLit = lightingState === "ready" && loadedScene?.url === unit.media.backgroundUrl;
+  const lightingActive = (enhancementsReady || sameWallAlreadyLit) && !reducedMotion && mouseMotion && !lightboxExpanded && !plaqueOpen && !backgroundFailed;
   const lightingImage = loadedScene && loadedScene.url === unit.media.backgroundUrl ? loadedScene.currentSrc : undefined;
   // A new wall or re-enabled canvas must paint before it can replace the fallback treatment.
   const lightingKey = useMemo(() => JSON.stringify([lightingActive, lightingImage, lightProfile?.sceneId, lightProfile?.depthUrl, lightProfile?.normalUrl]),
     [lightingActive, lightingImage, lightProfile]);
   const roomRef = useRef<HTMLElement>(null);
+  const currentSeq = useRef(transitionSeq);
+  currentSeq.current = transitionSeq;
+  const { kind, direction, artworkMs, wallMs, wallOffsetPx } = transition;
+  const motionAllowed = mouseMotion && !reducedMotion;
+  const [consumeArrival] = useState(createStageMotionArrival);
+  useEffect(() => {
+    const room = roomRef.current;
+    const canAnimate = motionAllowed && kind !== "neutral" && room && typeof room.animate === "function";
+    if (!canAnimate) { consumeArrival(transitionSeq, false); return; }
+    let cancelled = false;
+    const animations: Animation[] = [];
+    // Deferring lets React discard a development-mode effect rehearsal
+    // without consuming this arrival or briefly playing an animation twice.
+    queueMicrotask(() => {
+      if (cancelled || currentSeq.current !== transitionSeq || !consumeArrival(transitionSeq, true)) return;
+      const frames = stageTransitionKeyframes({ kind, direction, artworkMs, wallMs, wallOffsetPx });
+      const animate = (selector: string, keyframes: Keyframe[] | undefined, duration: number) => {
+        if (!keyframes) return;
+        for (const target of room.querySelectorAll(selector)) animations.push(target.animate(keyframes, { duration, easing: frames.easing }));
+      };
+      animate(".experience-frame-shadow", frames.artwork, artworkMs);
+      animate(".experience-room-shade", frames.shade, wallMs);
+      // Keep the matching static wall under the photograph during its 4px move.
+      animate(".experience-room-backdrop:not(.experience-room-fallback), .experience-room-lighting", frames.wall, wallMs);
+    });
+    return () => {
+      cancelled = true;
+      animations.forEach(animation => animation.cancel());
+    };
+  }, [transitionSeq, kind, direction, artworkMs, wallMs, wallOffsetPx, motionAllowed, consumeArrival]);
   useEffect(() => {
     const resize = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
     resize();
     window.addEventListener("resize", resize, { passive: true });
     return () => window.removeEventListener("resize", resize);
   }, []);
-  const imageReady = useCallback((size: { width: number; height: number }) => setLoadedArtwork({ id: unit.artwork.id, size }), [unit.artwork.id]);
+  const imageReady = useCallback((size: { width: number; height: number }) => {
+    if (currentSeq.current === transitionSeq) setLoadedArtwork({ seq: transitionSeq, size });
+  }, [transitionSeq]);
   const plaqueMeasured = useCallback((size: RoomPlaqueSize) => setMeasuredPlaque((previous) =>
     previous?.id === unit.artwork.id && previous.size.width === size.width && previous.size.height === size.height
       ? previous : { id: unit.artwork.id, size }), [unit.artwork.id]);
@@ -112,20 +150,13 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     if (!artworkSize || mediaFailed || transitioning || (lightboxExpanded && detailReadyId !== unit.artwork.id)) return;
     let cancelled = false;
     let frame = 0;
-    const reportAfterPaint = async () => {
+    const reportAfterPaint = () => {
       if (document.visibilityState !== "visible") return;
-      const walk = roomRef.current?.closest(".experience-walk");
-      const animations = walk?.getAnimations({ subtree: true }).filter((animation) => {
-        const target = (animation.effect as KeyframeEffect | null)?.target;
-        return animation.effect?.getTiming().iterations !== Infinity && target instanceof Element
-          && Boolean(target.closest(".experience-frame-shadow, .experience-room-backdrop"));
-      }) ?? [];
-      await Promise.all(animations.map((animation) => animation.finished.catch(() => {})));
       if (cancelled) return;
       frame = requestAnimationFrame(() => {
         frame = requestAnimationFrame(() => {
-          if (!cancelled && document.visibilityState === "visible") {
-            setPaintedId(unit.exhibition.unitId);
+          if (!cancelled && currentSeq.current === transitionSeq && document.visibilityState === "visible") {
+            setPaintedSeq(transitionSeq);
             onArtworkReady(unit.exhibition.unitId);
           }
         });
@@ -134,7 +165,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     void reportAfterPaint();
     document.addEventListener("visibilitychange", reportAfterPaint);
     return () => { cancelled = true; cancelAnimationFrame(frame); document.removeEventListener("visibilitychange", reportAfterPaint); };
-  }, [artworkSize, mediaFailed, transitioning, lightboxExpanded, detailReadyId, onArtworkReady, unit.exhibition.unitId, unit.artwork.id]);
+  }, [artworkSize, mediaFailed, transitioning, lightboxExpanded, detailReadyId, onArtworkReady, transitionSeq, unit.exhibition.unitId, unit.artwork.id]);
   const retryMedia = useCallback(() => {
     setRetryToken((value) => value + 1);
     setLoadedArtwork(null);
@@ -187,6 +218,11 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     className={`experience-room ${layout.staticFallback ? "is-static-fallback" : ""} ${reducedMotion ? "is-reduced-motion" : ""} ${transitioning ? "is-transitioning" : ""}`}
     data-display-mode={unit.displayCategory}
     data-transition-family={unit.transitionFamily}
+    data-stage-transition={kind}
+    data-navigation-direction={direction}
+    data-transition-seq={transitionSeq}
+    data-artwork-placeholder={!mediaFailed && !artworkSize ? "on" : "off"}
+    data-stage-motion={motionAllowed ? "on" : "off"}
     data-viewing-pace={pace}
     data-frame-material={paper ? "paper" : "canvas"}
     data-scene-id={unit.scene?.id ?? "neutral"}
@@ -204,6 +240,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     style={{ "--art-center-x": `${layout.frame.x + layout.frame.width / 2}px`, "--art-center-y": `${layout.frame.y + layout.frame.height / 2}px`,
       "--art-width": `${layout.frame.width}px`, "--art-height": `${layout.frame.height}px`, "--art-top": `${layout.frame.y}px`,
       "--room-light-x": String(motion.input.x), "--room-light-y": String(motion.input.y),
+      "--artwork-placeholder-rgb": placeholderRgb,
       "--room-fallback-shade-alpha": fallbackShade.alpha, "--room-fallback-shade-stop": `${fallbackShade.stop}%` } as CSSProperties}
     ref={roomRef}
     onPointerMove={(event) => {
@@ -215,14 +252,17 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   >
     {unit.media.backgroundUrl && !experiencePrewarm.ready(unit.media.backgroundUrl) ? <link rel="preload" as="image" crossOrigin="anonymous" href={unit.media.backgroundUrl} imageSrcSet={roomImageSrcSet(unit.media.backgroundUrl, unit.media.backgroundUrlSmall)} imageSizes={ROOM_IMAGE_SIZES} fetchPriority="high" /> : null}
     <div aria-hidden="true" className="experience-room-backdrop experience-room-fallback" />
-    {unit.media.backgroundUrl && !backgroundFailed ? <RoomBackdrop reducedMotion={reducedMotion} url={unit.media.backgroundUrl} smallUrl={unit.media.backgroundUrlSmall} onError={() => {
-      setFailedBackgroundUrl(unit.media.backgroundUrl);
+    {unit.media.backgroundUrl && !backgroundFailed ? <RoomBackdrop reducedMotion={!motionAllowed} url={unit.media.backgroundUrl} smallUrl={unit.media.backgroundUrlSmall} onError={sourceUrl => {
+      if (sourceUrl !== unit.media.backgroundUrl) return;
+      setFailedBackgroundUrl(sourceUrl);
       window.dispatchEvent(new CustomEvent("artduo:experience-degraded", { detail: { reason: "background-scene-unavailable", artworkId: unit.artwork.id } }));
-    }} onReady={(size) => setLoadedScene({ ...size, url: unit.media.backgroundUrl! })} /> : null}
+    }} onReady={(size, sourceUrl) => {
+      if (sourceUrl === unit.media.backgroundUrl) setLoadedScene({ ...size, url: sourceUrl });
+    }} /> : null}
     <RoomLightingLayer key={lightingKey} imageUrl={lightingImage} profile={lightProfile} input={motion.input} mood={lightingMood}
       active={lightingActive} onState={setLightingState} />
     <div aria-hidden="true" className="experience-room-shade" />
-    <AtmosphereLayer reducedMotion={reducedMotion} tone={unit.scene?.visual_profile.lighting[0] ?? "warm"} />
+    <AtmosphereLayer reducedMotion={!motionAllowed} tone={unit.scene?.visual_profile.lighting[0] ?? "warm"} />
     <header className="experience-room-header">
       <a aria-label="ArtDuo，返回入口" className="experience-mark" href={appPath(entryHref)}>ArtDuo</a>
       <div className="experience-room-meta"><span>{unit.scene?.asset.label_cn ?? "静光展厅"}</span><span>{String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}</span></div>
@@ -235,7 +275,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     } as CSSProperties}>
       <ImageLightbox key={retryToken} className="experience-art-lightbox" onExpandedChange={lightboxChanged} onImageReady={imageReady} onImageError={onMediaFailed}
         motionEnabled={mouseMotion && !reducedMotion}
-        hasPrevious={index > 0 && !transitioning} hasNext={index < count - 1 && !transitioning} onPrevious={onLightboxPrevious} onNext={onLightboxNext}
+        hasPrevious={index > 0} hasNext={index < count - 1} onPrevious={onLightboxPrevious} onNext={onLightboxNext}
         onRestoreArtwork={onLightboxRestore}
         onExpandedArtworkReady={setDetailReadyId} previewSource={experienceImageSource(unit.media.previewUrl)} unit={viewUnit} />
       <DepthParallaxCanvas active={enhancementsReady && mouseMotion && !lightboxExpanded && !plaqueOpen && !mediaFailed && Boolean(unit.media.depthMapUrl)} depthMapUrl={unit.media.depthMapUrl ? experienceImageSource(unit.media.depthMapUrl) : undefined} imageUrl={experienceImageSource(unit.media.previewUrl)} pointer={pointer} reducedMotion={reducedMotion} />

@@ -18,10 +18,10 @@ export function roomLightMood(stage?: Pick<ExperienceStage, "valence" | "arousal
     softness: 1.15 + (1 - a) * .35 - t * .35, motionScale: .45 + a * .45 + w * .15, audioGain: .62 + a * .25 + t * .05 });
 }
 
-/** Keep the fallback shade close to the photographed wall's neutral treatment. */
+/** Shade the photographed wall consistently before and after relighting is ready. */
 export function roomFallbackShade({ exposure, softness }: Pick<RoomLightMood, "exposure" | "softness">) {
   return {
-    alpha: finite(.18 + (1 - exposure) * .4, .145, .215, .18),
+    alpha: finite(.18 + (1 - exposure) * .70, .13, .235, .18),
     stop: finite(56 + (softness - 1) * 8, 53, 60, 56),
   };
 }

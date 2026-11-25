@@ -35,7 +35,8 @@ test("the static shade is neutral by default and follows exposure and softness i
   assert.deepEqual(roomFallbackShade(NEUTRAL_ROOM_MOOD), { alpha: .18, stop: 56 });
   const dim = roomFallbackShade({ exposure: .95, softness: 1 });
   const bright = roomFallbackShade({ exposure: 1.05, softness: 1 });
-  assert.ok(dim.alpha > .18 && bright.alpha < .18);
+  assert.ok(Math.abs(dim.alpha - .215) < 1e-9);
+  assert.ok(Math.abs(bright.alpha - .145) < 1e-9);
   assert.equal(dim.stop, bright.stop);
   const narrower = roomFallbackShade({ exposure: 1, softness: .9 });
   const broader = roomFallbackShade({ exposure: 1, softness: 1.2 });
@@ -44,7 +45,7 @@ test("the static shade is neutral by default and follows exposure and softness i
 });
 
 test("the static shade clamps extremes and treats non-finite values as neutral", () => {
-  assert.deepEqual(roomFallbackShade({ exposure: -10, softness: 10 }), { alpha: .215, stop: 60 });
-  assert.deepEqual(roomFallbackShade({ exposure: 10, softness: -10 }), { alpha: .145, stop: 53 });
+  assert.deepEqual(roomFallbackShade({ exposure: -10, softness: 10 }), { alpha: .235, stop: 60 });
+  assert.deepEqual(roomFallbackShade({ exposure: 10, softness: -10 }), { alpha: .13, stop: 53 });
   assert.deepEqual(roomFallbackShade({ exposure: NaN, softness: Infinity }), { alpha: .18, stop: 56 });
 });

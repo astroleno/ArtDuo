@@ -50,8 +50,7 @@ test("experience state covers skip, navigation boundaries, closing, revisit and 
   assert.equal(reduce(state, { type: "PREVIOUS" }, current), state);
   state = reduce(state, { type: "NEXT" }, current);
   assert.equal(state.transitioning, true);
-  assert.equal(reduce(state, { type: "NEXT" }, current), state);
-  state = reduce(state, { type: "RESTORE_TRANSITION" }, current);
+  state = reduce(state, { type: "RESTORE_TRANSITION", seq: state.transitionSeq }, current);
   state = reduce(state, { type: "NEXT" }, current);
   assert.deepEqual(positionOfExperienceState(state), { phase: "closing", lastUnitId: "u1" });
   state = reduce(state, { type: "REVISIT" }, current);
@@ -80,7 +79,7 @@ test("lightbox isolates navigation until it is closed", () => {
   assert.equal(reduce(state, { type: "NEXT" }, current).unitId, "u2");
 });
 
-test("close viewing navigates inside the same overlay, guards transitions and respects both ends", () => {
+test("close viewing navigates inside the same overlay and respects both ends", () => {
   const current = snapshot(3);
   let state = createExperienceState(current, { phase: "walk", unitId: "u0" });
   assert.equal(reduce(state, { type: "LIGHTBOX_NEXT" }, current), state);
@@ -91,14 +90,34 @@ test("close viewing navigates inside the same overlay, guards transitions and re
     assert.equal(state.unitId, unitId);
     assert.equal(state.overlay, "lightbox");
     assert.equal(state.transitioning, true);
-    assert.equal(reduce(state, { type: "LIGHTBOX_NEXT" }, current), state);
-    state = reduce(state, { type: "RESTORE_TRANSITION" }, current);
+    state = reduce(state, { type: "RESTORE_TRANSITION", seq: state.transitionSeq }, current);
   }
   assert.equal(reduce(state, { type: "LIGHTBOX_NEXT" }, current), state);
   assert.equal(state.act, "walk", "the end of close viewing must not unexpectedly close into the ending");
   state = reduce(state, { type: "LIGHTBOX_PREVIOUS" }, current);
   assert.equal(state.unitId, "u1");
-  state = reduce(state, { type: "RESTORE_TRANSITION" }, current);
+  state = reduce(state, { type: "RESTORE_TRANSITION", seq: state.transitionSeq }, current);
   state = reduce(state, { type: "CLOSE_OVERLAY" }, current);
   assert.deepEqual(positionOfExperienceState(state), { phase: "walk", unitId: "u1" });
+});
+
+test("each distinct navigation changes one work and an old completion cannot settle a new arrival", () => {
+  const current = snapshot(6);
+  let state = createExperienceState(current, { phase: "walk", unitId: "u0" });
+  state = reduce(state, { type: "NEXT" }, current);
+  const first = state.transitionSeq;
+  for (const [event, expected, from] of [["NEXT", "u2", "u1"], ["NEXT", "u3", "u2"], ["PREVIOUS", "u2", "u3"]] as const) {
+    const before = state.transitionSeq;
+    state = reduce(state, { type: event }, current);
+    assert.equal(state.unitId, expected);
+    assert.equal(state.transitionFromUnitId, from);
+    assert.equal(state.transitionSeq, before + 1);
+  }
+  assert.equal(reduce(state, { type: "RESTORE_TRANSITION", seq: first }, current), state);
+  state = reduce(state, { type: "RESTORE_TRANSITION", seq: state.transitionSeq }, current);
+  assert.equal(state.transitioning, false);
+  const restored = reduce(state, { type: "RESTORE_POSITION", position: { phase: "walk", unitId: "u5" } }, current);
+  assert.equal(restored.transitionFromUnitId, undefined);
+  assert.equal(restored.transitionSeq, state.transitionSeq + 1);
+  assert.equal(reduce(restored, { type: "RESTORE_TRANSITION", seq: state.transitionSeq }, current), restored);
 });

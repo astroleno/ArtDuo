@@ -199,11 +199,11 @@ export function ImmersiveDetailStage({
       } else if (event.key === "ArrowLeft") {
         event.preventDefault();
         event.stopPropagation();
-        if (hasPrevious && !pendingArtwork && phase === "open") onPrevious?.();
+        if (!event.repeat && hasPrevious && !pendingArtwork && phase === "open") onPrevious?.();
       } else if (event.key === "ArrowRight") {
         event.preventDefault();
         event.stopPropagation();
-        if (hasNext && !pendingArtwork && phase === "open") onNext?.();
+        if (!event.repeat && hasNext && !pendingArtwork && phase === "open") onNext?.();
       }
     }
 

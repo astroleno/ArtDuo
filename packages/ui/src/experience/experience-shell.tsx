@@ -107,31 +107,19 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     stateRef.current = next;
     setState(next);
   }, []);
-  const navigationLockedRef = useRef(false);
-  const queuedNavigationRef = useRef<ExperienceEvent | null>(null);
   const dispatch = useCallback((event: ExperienceEvent) => {
     const isLightboxNavigation = event.type === "LIGHTBOX_NEXT" || event.type === "LIGHTBOX_PREVIOUS";
     const isNavigation = isLightboxNavigation || event.type === "NEXT" || event.type === "PREVIOUS" || event.type === "SELECT_UNIT";
     const current = stateRef.current;
-    if (event.type === "LIGHTBOX_RESTORE") {
-      queuedNavigationRef.current = null;
-      navigationLockedRef.current = false;
-    }
+    if (event.type === "RESTORE_TRANSITION") { rawDispatch(event); return; }
     if (isNavigation && encounter.ref.current?.status === "active") return;
-    if (event.type === "OPEN_LIGHTBOX") queuedNavigationRef.current = null;
     if (isNavigation && (isLightboxNavigation ? current.overlay !== "lightbox" : current.overlay !== "none" || (readingOpen && event.type !== "SELECT_UNIT"))) return;
-    if (isNavigation && (navigationLockedRef.current || current.transitioning)) {
-      queuedNavigationRef.current = event;
-      return;
-    }
     flushObservation();
     const isForward = event.type === "NEXT" || event.type === "LIGHTBOX_NEXT";
     const anchorId = isForward ? snapshotRef.current.units.find(unit => unit.exhibition.unitId === current.unitId)?.artwork.id : undefined;
-    if (isForward && !current.transitioning) {
-      if (anchorId) {
-        const updated = viewing.commit((session) => applyPendingPreference(session, baseSnapshot, anchorId));
-        snapshotRef.current = snapshotForSession(baseSnapshot, updated);
-      }
+    if (anchorId) {
+      const updated = viewing.commit((session) => applyPendingPreference(session, baseSnapshot, anchorId));
+      snapshotRef.current = snapshotForSession(baseSnapshot, updated);
     }
     const next = experienceReducer(current, event, snapshotRef.current);
     if (isForward && next !== current) encounter.pass(anchorId);
@@ -140,18 +128,17 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     // close-view target synchronously so those props cannot restore the failed
     // work over the visible one after the overlay has closed.
     if (event.type === "LIGHTBOX_RESTORE" && next !== current) onPositionChange(positionOfExperienceState(next), snapshotRef.current);
-    if (next.transitioning) navigationLockedRef.current = true;
     setState(next);
-  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen, encounter.pass, onPositionChange]);
+  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen, encounter.pass, onPositionChange, rawDispatch]);
 
   const openSculptureEncounter = useCallback(() => {
     const current = stateRef.current;
-    if (current.act !== "walk" || current.overlay !== "none" || current.transitioning || navigationLockedRef.current
+    if (current.act !== "walk" || current.overlay !== "none" || current.transitioning
       || readingOpen || viewing.ref.current.pending) return;
     const anchorId = snapshotRef.current.units.find(unit => unit.exhibition.unitId === current.unitId)?.artwork.id;
     if (!anchorId) return;
     flushObservation();
-    if (encounter.begin(anchorId)) queuedNavigationRef.current = null;
+    encounter.begin(anchorId);
   }, [encounter.begin, flushObservation, readingOpen, viewing.ref]);
 
   const shell = useRef<HTMLElement>(null);
@@ -162,7 +149,6 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     const anchorId = snapshotRef.current.units.find(unit => unit.exhibition.unitId === current.unitId)?.artwork.id;
     const next = current.act === "walk" ? sculptureEncounterSuccessor(snapshotRef.current, active, anchorId) : undefined;
     encounter.finish();
-    queuedNavigationRef.current = null;
     setReadingOpen(false);
     setReadyUnitId(undefined);
     if (next) {
@@ -180,20 +166,6 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   useEffect(() => {
     if (encounter.value?.status === "active" && !encounterActive) encounter.finish();
   }, [encounter.value?.status, encounterActive, encounter.finish]);
-
-  useEffect(() => {
-    stateRef.current = state;
-    navigationLockedRef.current = state.transitioning;
-    if (state.transitioning || !queuedNavigationRef.current) return;
-    const queued = queuedNavigationRef.current;
-    queuedNavigationRef.current = null;
-    dispatch(queued);
-  }, [dispatch, state]);
-
-  useEffect(() => () => {
-    queuedNavigationRef.current = null;
-    navigationLockedRef.current = false;
-  }, []);
 
   const onArtworkReady = useCallback((unitId: string) => {
     const current = stateRef.current;
@@ -218,10 +190,6 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     const currentPositionKey = `${currentPosition.phase}:${currentPosition.phase === "walk" ? currentPosition.unitId : currentPosition.phase === "closing" ? currentPosition.lastUnitId ?? "" : ""}`;
     if (currentPositionKey !== incomingPositionKey) {
       restoringPositionKey.current = incomingPositionKey;
-      queuedNavigationRef.current = null;
-      navigationLockedRef.current = false;
-      const restored = createExperienceState(snapshot, initialPosition);
-      stateRef.current = restored;
       rawDispatch({ type: "RESTORE_POSITION", position: initialPosition });
     }
   }, [incomingPositionKey, initialPosition, rawDispatch, state]);
@@ -284,6 +252,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) return;
       if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
         event.preventDefault();
+        if (event.repeat) return;
         dispatch({ type: event.key === "ArrowRight" ? "NEXT" : "PREVIOUS" });
       }
     };

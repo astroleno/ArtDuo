@@ -11,6 +11,7 @@ import { adjacentWarmUrls, experiencePrewarm, type ConnectionHint } from "./medi
 import { useRoomMotion } from "./room-motion";
 import { roomImageCandidate } from "./room-assets";
 import { useOverlayHistory } from "./use-overlay-history";
+import { stageTransitionProfile } from "./stage-transition";
 
 export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, dispatch, onDetail, detailNavigation, onMediaRetry, onArtworkReady, reducedMotion, mouseMotion = true, onMouseMotionChange, audioControl, viewingSession, onPreference, onCancelPreference, onReadingChange, onTogglePace, onClearObservations, storageAvailable, pace, onSculptureInvitation }: {
   snapshot: ExhibitionSnapshot;
@@ -40,12 +41,18 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
   const unit = snapshot.units[index >= 0 ? index : 0];
   const previousUnit = snapshot.units[index - 1];
   const nextUnit = snapshot.units[index + 1];
+  const fromIndex = state.transitionFromUnitId ? snapshot.units.findIndex(candidate => candidate.exhibition.unitId === state.transitionFromUnitId) : -1;
+  const origin = snapshot.units[fromIndex];
+  const stage = snapshot.stages.find(candidate => candidate.id === unit?.stageId);
+  const transition = stageTransitionProfile({ from: snapshot.stages.find(candidate => candidate.id === origin?.stageId),
+    to: stage, fromIndex, toIndex: index, count: snapshot.units.length });
+  const motionEnabled = !reducedMotion && mouseMotion;
   useEffect(() => {
     experiencePrewarm.retain([previousUnit, unit, nextUnit].flatMap(candidate => candidate
       ? [candidate.media.previewUrl, candidate.media.depthMapUrl, candidate.media.backgroundUrl].filter((url): url is string => Boolean(url)) : []));
   }, [previousUnit?.artwork.id, unit?.artwork.id, nextUnit?.artwork.id]);
-  const [readyId, setReadyId] = useState<string>();
-  const [roomReadyId, setRoomReadyId] = useState<string>();
+  const [readySeq, setReadySeq] = useState<number>();
+  const [roomReadySeq, setRoomReadySeq] = useState<number>();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [exhibitionOpen, setExhibitionOpen] = useState(false);
   useEffect(() => { onPrefaceVisibilityChange(settingsOpen && exhibitionOpen); }, [settingsOpen, exhibitionOpen, onPrefaceVisibilityChange]);
@@ -64,36 +71,34 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
     if (settingsOpen && !dialog.open) { restoreSettingsFocus.current = true; dialog.showModal(); }
     else if (!settingsOpen && dialog.open) { dialog.close(); if (restoreSettingsFocus.current) settingsTrigger.current?.focus({ preventScroll: true }); }
   }, [settingsOpen]);
-  const arrival = useRef({ id: unit?.artwork.id, started: typeof performance === "undefined" ? 0 : performance.now() });
-  if (arrival.current.id !== unit?.artwork.id) arrival.current = { id: unit?.artwork.id, started: performance.now() };
+  const arrival = useRef({ seq: state.transitionSeq, started: typeof performance === "undefined" ? 0 : performance.now() });
+  if (arrival.current.seq !== state.transitionSeq) arrival.current = { seq: state.transitionSeq, started: performance.now() };
   const artworkReady = useCallback((id: string) => {
-    setReadyId(id);
+    if (arrival.current.seq !== state.transitionSeq) return;
+    setReadySeq(state.transitionSeq);
     onArtworkReady(id);
     if (unit && id === unit.exhibition.unitId) window.dispatchEvent(new CustomEvent("artduo:artwork-ready", { detail: {
       artworkId: unit.artwork.id, durationMs: performance.now() - arrival.current.started, prewarmed: experiencePrewarm.ready(unit.media.previewUrl),
     } }));
-  }, [unit?.artwork.id, unit?.exhibition.unitId, unit?.media.previewUrl, onArtworkReady]);
-  const walkRef = useRef<HTMLDivElement>(null);
+  }, [unit?.artwork.id, unit?.exhibition.unitId, unit?.media.previewUrl, onArtworkReady, state.transitionSeq]);
+  const roomReady = useCallback((id: string) => {
+    if (arrival.current.seq === state.transitionSeq && unit?.exhibition.unitId === id) setRoomReadySeq(state.transitionSeq);
+  }, [state.transitionSeq, unit?.exhibition.unitId]);
   useEffect(() => {
     if (!state.transitioning) return;
-    let cancelled = false;
-    const frame = requestAnimationFrame(() => {
-      const animations = walkRef.current?.getAnimations({ subtree: true }).filter((animation) => {
-        const target = (animation.effect as KeyframeEffect | null)?.target;
-        return animation.effect?.getTiming().iterations !== Infinity && target instanceof Element
-          && Boolean(target.closest(".experience-frame-shadow, .experience-room-backdrop"));
-      }) ?? [];
-      void Promise.all(animations.map((animation) => animation.finished.catch(() => {}))).then(() => {
-        if (!cancelled) dispatch({ type: "RESTORE_TRANSITION" });
-      });
-    });
-    return () => { cancelled = true; cancelAnimationFrame(frame); };
-  }, [state.transitioning, state.unitId, reducedMotion, dispatch]);
+    const complete = () => dispatch({ type: "RESTORE_TRANSITION", seq: state.transitionSeq });
+    if (motionEnabled && transition.artworkMs) {
+      const timer = window.setTimeout(complete, transition.artworkMs);
+      return () => window.clearTimeout(timer);
+    }
+    const frame = requestAnimationFrame(complete);
+    return () => cancelAnimationFrame(frame);
+  }, [state.transitioning, state.transitionSeq, motionEnabled, transition.artworkMs, dispatch]);
   const lightboxChanged = useCallback((expanded: boolean) => {
     dispatch({ type: expanded ? "OPEN_LIGHTBOX" : "CLOSE_OVERLAY" });
   }, [dispatch]);
   useEffect(() => {
-    if (!unit || readyId !== unit.exhibition.unitId || roomReadyId !== unit.exhibition.unitId || !navigator.onLine) return;
+    if (!unit || readySeq !== state.transitionSeq || roomReadySeq !== state.transitionSeq || !navigator.onLine) return;
     const urls = adjacentWarmUrls(nextUnit?.media, previousUnit?.media, {
       currentBackground: unit.media.backgroundUrl,
       connection: (navigator as Navigator & { connection?: ConnectionHint }).connection,
@@ -109,14 +114,13 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
       } }));
     });
     return () => controller.abort();
-  }, [readyId, roomReadyId, unit?.exhibition.unitId, unit?.media.backgroundUrl, previousUnit?.media.previewUrl, previousUnit?.media.depthMapUrl, previousUnit?.media.backgroundUrl, previousUnit?.media.backgroundUrlSmall, nextUnit?.media.previewUrl, nextUnit?.media.depthMapUrl, nextUnit?.media.backgroundUrl, nextUnit?.media.backgroundUrlSmall, reducedMotion, mouseMotion]);
+  }, [readySeq, roomReadySeq, state.transitionSeq, unit?.exhibition.unitId, unit?.media.backgroundUrl, previousUnit?.media.previewUrl, previousUnit?.media.depthMapUrl, previousUnit?.media.backgroundUrl, previousUnit?.media.backgroundUrlSmall, nextUnit?.media.previewUrl, nextUnit?.media.depthMapUrl, nextUnit?.media.backgroundUrl, nextUnit?.media.backgroundUrlSmall, reducedMotion, mouseMotion]);
   const markMediaFailed = useCallback(() => {
     window.dispatchEvent(new CustomEvent("artduo:experience-degraded", { detail: { reason: "artwork-media-unavailable", artworkId: unit.artwork.id } }));
     if (unit) dispatch({ type: "MEDIA_FAILED", artworkId: unit.artwork.id });
   }, [dispatch, unit?.artwork.id]);
   if (!unit) return null;
-  const stage = snapshot.stages.find((candidate) => candidate.id === unit.stageId);
-  return <div className={`experience-walk ${state.transitioning ? "is-transitioning" : ""}`} ref={walkRef}>
+  return <div className={`experience-walk ${state.transitioning ? "is-transitioning" : ""}`} data-stage-motion={motionEnabled ? "on" : "off"}>
     <button ref={settingsTrigger} className="experience-settings-trigger" aria-label="观展设置" aria-haspopup="dialog" aria-expanded={settingsOpen}
       onClick={() => { setSettingsOpen(true); onReadingChange(true); }} type="button"><span aria-hidden="true">•••</span></button>
     <dialog ref={settingsRef} className="experience-settings-panel" aria-label="观展设置" onCancel={event => { event.preventDefault(); closeSettings(); }}
@@ -152,7 +156,7 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
       onMediaFailed={markMediaFailed}
       onLightboxChange={lightboxChanged}
       onArtworkReady={artworkReady}
-      onRoomReady={setRoomReadyId}
+      onRoomReady={roomReady}
       onPrevious={() => dispatch({ type: "PREVIOUS" })}
       onRetryMedia={() => onMediaRetry(unit.artwork.id)}
       onTogglePlaque={() => dispatch({ type: state.overlay === "plaque" ? "CLOSE_OVERLAY" : "OPEN_PLAQUE" })}
@@ -163,6 +167,8 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
       stageLabel={stage?.label}
       stage={stage}
       transitioning={state.transitioning}
+      transition={transition}
+      transitionSeq={state.transitionSeq}
       unit={unit}
       pace={pace}
     />

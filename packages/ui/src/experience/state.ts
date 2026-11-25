@@ -9,6 +9,8 @@ export interface ExperienceState {
   lastUnitId?: string;
   overlay: ExperienceOverlay;
   transitioning: boolean;
+  transitionSeq: number;
+  transitionFromUnitId?: string;
   online: boolean;
   failedMediaIds: string[];
   shareState: "idle" | "generating" | "ready" | "failed";
@@ -21,7 +23,7 @@ export type ExperienceEvent =
   | { type: "LIGHTBOX_NEXT" | "LIGHTBOX_PREVIOUS" }
   | { type: "LIGHTBOX_RESTORE"; artworkId: string }
   | { type: "SELECT_UNIT"; unitId: string }
-  | { type: "RESTORE_TRANSITION" }
+  | { type: "RESTORE_TRANSITION"; seq: number }
   | { type: "RESTORE_POSITION"; position: ExperiencePosition }
   | { type: "OPEN_PLAQUE" | "OPEN_LIGHTBOX" | "CLOSE_OVERLAY" }
   | { type: "MEDIA_FAILED"; artworkId: string }
@@ -48,6 +50,7 @@ export function createExperienceState(snapshot: ExhibitionSnapshot, position: Ex
     lastUnitId,
     overlay: "none",
     transitioning: false,
+    transitionSeq: 0,
     online: true,
     failedMediaIds: [],
     shareState: "idle",
@@ -61,6 +64,12 @@ export function positionOfExperienceState(state: ExperienceState): ExperiencePos
   return { phase: "preface" };
 }
 
+function navigateTo(state: ExperienceState, unitId: string, overlay: ExperienceOverlay): ExperienceState {
+  if (unitId === state.unitId) return state;
+  return { ...state, unitId, overlay, transitioning: true, transitionSeq: state.transitionSeq + 1,
+    transitionFromUnitId: overlay === "lightbox" ? undefined : state.unitId };
+}
+
 export function experienceReducer(state: ExperienceState, event: ExperienceEvent, snapshot: ExhibitionSnapshot): ExperienceState {
   if (state.overlay === "lightbox" && (event.type === "NEXT" || event.type === "PREVIOUS" || event.type === "SELECT_UNIT")) return state;
   const currentIndex = indexOfUnit(snapshot, state.unitId);
@@ -68,40 +77,40 @@ export function experienceReducer(state: ExperienceState, event: ExperienceEvent
     case "LIGHTBOX_RESTORE": {
       const unit = snapshot.units.find(candidate => candidate.artwork.id === event.artworkId);
       return state.act === "walk" && state.overlay === "lightbox" && unit
-        ? { ...state, unitId: unit.exhibition.unitId, transitioning: false } : state;
+        ? { ...state, unitId: unit.exhibition.unitId, transitioning: false, transitionFromUnitId: undefined, transitionSeq: state.transitionSeq + 1 } : state;
     }
     case "LIGHTBOX_NEXT":
     case "LIGHTBOX_PREVIOUS": {
-      if (state.act !== "walk" || state.overlay !== "lightbox" || state.transitioning) return state;
+      if (state.act !== "walk" || state.overlay !== "lightbox") return state;
       const nextUnit = snapshot.units[currentIndex + (event.type === "LIGHTBOX_NEXT" ? 1 : -1)];
       return currentIndex >= 0 && nextUnit
-        ? { ...state, unitId: nextUnit.exhibition.unitId, transitioning: true }
+        ? navigateTo(state, nextUnit.exhibition.unitId, "lightbox")
         : state;
     }
     case "CONTINUE":
     case "SKIP":
       return state.act === "preface" && snapshot.units[0]
-        ? { ...state, act: "walk", unitId: snapshot.units[0].exhibition.unitId, transitioning: false }
+        ? { ...state, act: "walk", unitId: snapshot.units[0].exhibition.unitId, transitioning: false, transitionFromUnitId: undefined, transitionSeq: state.transitionSeq + 1 }
         : state;
     case "NEXT":
-      if (state.act !== "walk" || state.transitioning) return state;
-      if (currentIndex >= snapshot.units.length - 1) return { ...state, act: "closing", lastUnitId: state.unitId, transitioning: false };
+      if (state.act !== "walk" || currentIndex < 0) return state;
+      if (currentIndex >= snapshot.units.length - 1) return { ...state, act: "closing", lastUnitId: state.unitId, transitioning: false, transitionFromUnitId: undefined, transitionSeq: state.transitionSeq + 1 };
       return snapshot.units[currentIndex + 1]
-        ? { ...state, unitId: snapshot.units[currentIndex + 1]!.exhibition.unitId, transitioning: true, overlay: "none" }
+        ? navigateTo(state, snapshot.units[currentIndex + 1]!.exhibition.unitId, "none")
         : state;
     case "PREVIOUS":
-      if (state.act !== "walk" || state.transitioning || currentIndex <= 0) return state;
+      if (state.act !== "walk" || currentIndex <= 0) return state;
       return snapshot.units[currentIndex - 1]
-        ? { ...state, unitId: snapshot.units[currentIndex - 1]!.exhibition.unitId, transitioning: true, overlay: "none" }
+        ? navigateTo(state, snapshot.units[currentIndex - 1]!.exhibition.unitId, "none")
         : state;
     case "SELECT_UNIT":
-      return state.act === "walk" && !state.transitioning && snapshot.units.some((unit) => unit.exhibition.unitId === event.unitId)
-        ? { ...state, unitId: event.unitId, transitioning: event.unitId !== state.unitId, overlay: "none" }
+      return state.act === "walk" && snapshot.units.some((unit) => unit.exhibition.unitId === event.unitId)
+        ? navigateTo(state, event.unitId, "none")
         : state;
     case "RESTORE_TRANSITION":
-      return { ...state, transitioning: false };
+      return state.transitioning && event.seq === state.transitionSeq ? { ...state, transitioning: false } : state;
     case "RESTORE_POSITION":
-      return { ...createExperienceState(snapshot, event.position), online: state.online, failedMediaIds: state.failedMediaIds };
+      return { ...createExperienceState(snapshot, event.position), transitionSeq: state.transitionSeq + 1, online: state.online, failedMediaIds: state.failedMediaIds };
     case "OPEN_PLAQUE":
       return { ...state, overlay: "plaque" };
     case "OPEN_LIGHTBOX":
@@ -120,7 +129,7 @@ export function experienceReducer(state: ExperienceState, event: ExperienceEvent
       return { ...state, audioState: event.state };
     case "REVISIT":
       return snapshot.units.length > 0
-        ? { ...state, act: "walk", unitId: state.lastUnitId ?? snapshot.units.at(-1)?.exhibition.unitId, transitioning: false }
+        ? { ...state, act: "walk", unitId: state.lastUnitId ?? snapshot.units.at(-1)?.exhibition.unitId, transitioning: false, transitionFromUnitId: undefined, transitionSeq: state.transitionSeq + 1 }
         : state;
   }
 }
