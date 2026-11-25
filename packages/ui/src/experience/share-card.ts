@@ -33,6 +33,7 @@ function loadImage(url: string): Promise<HTMLImageElement> {
 
 export interface ShareCardOptions {
   imageUrl: string; artworkTitle: string; artistLine: string; sourceLabel: string; closingLine: string;
+  creditLines?: string[];
   handwritingLayer?: import("@artduo/contracts").HandwritingLayer;
   provenance?: { exhibitionId: string; artworkId: string; releaseVersion: string };
 }
@@ -57,7 +58,7 @@ export async function createShareCard(options: ShareCardOptions): Promise<Blob> 
     return wrapText(context, text, maxWidth);
   };
   const titleLines = measure(options.artworkTitle, fonts.title);
-  const artistLines = measure(options.artistLine, fonts.artist);
+  const artistLines = [options.artistLine, ...(options.creditLines ?? [])].flatMap(line => line.trim() ? measure(line, fonts.artist) : []);
   const sourceLines = measure(options.sourceLabel, fonts.source);
   const closingLines = measure(options.closingLine, fonts.closing);
   const titleBottom = 856 + titleLines.length * 48;

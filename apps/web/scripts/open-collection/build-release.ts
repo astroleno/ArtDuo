@@ -19,6 +19,7 @@ import { artworkToSemanticText } from "../../../pipeline/src/semantic-release";
 import type { Candidate, Gap } from "./discovery";
 import type { ImageReceipt } from "./acquire";
 import type { Screening } from "./screen";
+import { officialMuseumCulture } from "../../lib/museum-culture";
 
 const ROOT = path.resolve(__dirname, "../../../..");
 const BATCH = process.argv.includes("--batch") ? process.argv[process.argv.indexOf("--batch") + 1]! : "2026-11-16";
@@ -50,7 +51,7 @@ async function colourTags(image: Buffer): Promise<string[]> {
   return [name, delta > .35 ? "vivid" : delta < .15 ? "muted" : "balanced", ...(spread > .25 ? ["contrast"] : [])];
 }
 
-function sourceDetails(candidate: Candidate): { creditLine: string; department?: string; dimensions?: string; sourceApiUrl: string } {
+function sourceDetails(candidate: Candidate): { creditLine: string; department?: string; dimensions?: string; culture?: string; sourceApiUrl: string } {
   const raw = readJson<any>(path.join(ROOT, candidate.recordPath));
   if (candidate.source === "artic") {
     const data = raw.data;
@@ -59,11 +60,11 @@ function sourceDetails(candidate: Candidate): { creditLine: string; department?:
   }
   if (candidate.source === "cma") {
     return { creditLine: `The Cleveland Museum of Art — ${raw.creditline ?? "Open Access"}`, department: raw.department ?? undefined,
-      dimensions: raw.measurements ?? undefined, sourceApiUrl: `https://openaccess-api.clevelandart.org/api/artworks/${candidate.sourceArtworkId}` };
+      dimensions: raw.measurements ?? undefined, culture: officialMuseumCulture(raw.culture), sourceApiUrl: `https://openaccess-api.clevelandart.org/api/artworks/${candidate.sourceArtworkId}` };
   }
   if (candidate.source === "met") {
     return { creditLine: `The Metropolitan Museum of Art — ${raw.creditLine || "Public domain"}`, department: raw.department || undefined,
-      dimensions: raw.dimensions || undefined, sourceApiUrl: `https://collectionapi.metmuseum.org/public/collection/v1/objects/${candidate.sourceArtworkId}` };
+      dimensions: raw.dimensions || undefined, culture: officialMuseumCulture(raw.culture), sourceApiUrl: `https://collectionapi.metmuseum.org/public/collection/v1/objects/${candidate.sourceArtworkId}` };
   }
   return { creditLine: `${candidate.title}; ${candidate.artist ?? "Unknown"}; ${candidate.sourceArtworkId}; SMK – Statens Museum for Kunst`,
     sourceApiUrl: `https://api.smk.dk/api/v1/art?object_number=${candidate.sourceArtworkId}` };
@@ -121,7 +122,7 @@ async function main(): Promise<void> {
     const aspect = receipt.width! / receipt.height!;
     const record = parseArtworkRecord({
       id: candidate.candidateId, source: candidate.source === "artic" || candidate.source === "cma" ? "custom" : candidate.source, sourceArtworkId: candidate.sourceArtworkId, version: VERSION,
-      metadata: { title: candidate.title, artistDisplayName: candidate.artist, yearLabel: candidate.date, medium: candidate.medium, department: details.department,
+      metadata: { title: candidate.title, artistDisplayName: candidate.artist, yearLabel: candidate.date, medium: candidate.medium, department: details.department, culture: details.culture,
         dimensions: details.dimensions, creditLine: details.creditLine, objectUrl: candidate.objectUrl, sourceApiUrl: details.sourceApiUrl,
         descriptionClean: review.observation, storySnippet: review.observation, moodTags: review.moodTags, colorTags: await colourTags(bytes),
         subjectTags: ["Painting", ...subjects], compositionTags: [] },

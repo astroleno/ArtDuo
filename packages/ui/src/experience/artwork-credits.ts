@@ -11,6 +11,11 @@ export function recordedArtistName(unit: ArtworkCredit): string | undefined {
   return name?.trim() ? name : undefined;
 }
 
-export function experienceArtistName(unit: ArtworkCredit): string {
-  return artistCredit(unit) ?? "作者尚待核实";
+export function recordedArtworkCreditLines(unit: ArtworkCredit & { artwork: { metadata: Pick<ExperienceUnit["artwork"]["metadata"], "yearLabel" | "culture"> } }) {
+  const { yearLabel, culture } = unit.artwork.metadata;
+  const artistLine = [recordedArtistName(unit), yearLabel?.trim()].filter(Boolean).join(" · ");
+  const publishers = unit.displayCredits?.publishers.filter(name => name.trim()).join("; ");
+  const details = [publishers ? `出版：${publishers}` : undefined, culture?.trim() ? `馆方文化归属：${culture}` : undefined]
+    .filter((value): value is string => Boolean(value));
+  return { artistLine, details };
 }

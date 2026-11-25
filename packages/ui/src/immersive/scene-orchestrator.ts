@@ -16,6 +16,7 @@ export interface ImmersiveGalleryUnit {
   id: string;
   title: string;
   artistDisplayName?: string;
+  creditDetails?: string[];
   yearLabel?: string;
   imageUrl: string;
   imageUrlFull?: string;

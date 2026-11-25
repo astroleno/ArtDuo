@@ -525,6 +525,7 @@ export function ImmersiveDetailStage({
       <p className="immersive-detail-caption">
         <strong>{unit.title}</strong>
         {byline ? <span>{byline}</span> : null}
+        {unit.creditDetails?.map(line => <span key={line}>{line}</span>)}
       </p>
 
       <p className="immersive-detail-hint" aria-hidden="true">

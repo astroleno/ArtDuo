@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { renderToStaticMarkup } from "react-dom/server";
 import { Plaque } from "./plaque";
-import { experienceArtistName } from "./artwork-credits";
+import { recordedArtworkCreditLines } from "./artwork-credits";
 import type { ExperienceUnit } from "./types";
 
 test("the small label contains only title, artist and period while the reading layer retains the note", () => {
@@ -61,7 +61,7 @@ test("source roles keep publishers out of the label and leave the same artwork v
   assert.doesNotMatch(unknown.slice(0, unknown.indexOf("</button>")), /作者尚待核实|experience-plaque-artist|Alfred/u);
   assert.match(unknown, /<p class="experience-reading-byline">1896<\/p>/u);
   assert.match(unknown, /<dt>出版<\/dt><dd[^>]*>Alfred Jacobsens Forlag<\/dd>/u);
-  assert.equal(experienceArtistName(unit), "作者尚待核实", "the closing and card helper keeps its established fallback");
+  assert.deepEqual(recordedArtworkCreditLines(unit), { artistLine: "1896", details: ["出版：Alfred Jacobsens Forlag"] });
 });
 
 function renderLabel(metadata: Partial<ExperienceUnit["artwork"]["metadata"]>, artworkKind: "painting" | "sculpture" = "painting") {

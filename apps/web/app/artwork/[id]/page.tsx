@@ -95,11 +95,13 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
   const immersiveParams = new URLSearchParams({ query: query ?? artwork.title, releaseVersion: catalog.releaseVersion, view: "experience", recipeVersion: "experience-v1", phase: "walk", artworkId: artwork.id });
   const immersiveHref = experienceView ? returnTo : `/gallery/local/immersive?${immersiveParams.toString()}`;
   const stageImage = scene?.imageUrl ?? artworkImageUrl(artwork.id, "preview", catalog.releaseVersion);
-  const artistName = artwork.displayCredits ? artwork.displayCredits.artistDisplayName ?? "作者尚待核实" : artwork.artistDisplayName;
+  const artistCredit = artwork.displayCredits ? artwork.displayCredits.artistDisplayName : artwork.artistDisplayName;
+  const artistName = artistCredit?.trim() ? artistCredit : undefined;
   const fallbackMeta = [
     artistName,
     artwork.yearLabel,
   ].filter(Boolean).join(" · ");
+  const byline = [artistName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ");
   const readingCopy = buildArtworkReadingCopy({ curatorNote, storySnippet: artwork.storySnippet, description: artwork.description });
   const explanationPanel = <ArtworkExplanationPanel
     artworkId={artwork.id}
@@ -139,13 +141,13 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
             />
             {!experienceView ? <figcaption className="artwork-caption">
               <strong>{artwork.title}</strong>
-              <span>{[artistName, artwork.yearLabel].filter(Boolean).join(", ")}</span>
+              {fallbackMeta ? <span>{fallbackMeta}</span> : null}
             </figcaption> : null}
           </figure>
           <div className="detail-copy">
             {!experienceView ? <p className="eyebrow">作品</p> : null}
             <h1>{artwork.title}</h1>
-            <p className="detail-byline">{[artistName, artwork.yearLabel, artwork.medium].filter(Boolean).join(" · ")}</p>
+            {byline ? <p className="detail-byline">{byline}</p> : null}
             {readingCopy.primary ? <p className="detail-primary-note">{readingCopy.primary}</p> : null}
             {experienceView ? explanationPanel : null}
             {!experienceView ? <div className="detail-actions">
@@ -192,11 +194,12 @@ export default async function ArtworkPage({ params, searchParams }: ArtworkPageP
               <dt>展示方式</dt>
               <dd>按屏幕适配，完整显示图像；展厅中的大小不代表原作实际尺寸。</dd>
             </div>
-            <div className="fact">
+            {artistName ? <div className="fact">
               <dt>作者</dt>
-              <dd>{artistName ?? "作者资料尚待核实"}</dd>
-            </div>
+              <dd>{artistName}</dd>
+            </div> : null}
             {artwork.displayCredits?.publishers.length ? <div className="fact"><dt>出版</dt><dd>{artwork.displayCredits.publishers.join("; ")}</dd></div> : null}
+            {artwork.culture ? <div className="fact"><dt>馆方文化归属</dt><dd>{artwork.culture}</dd></div> : null}
             <div className="fact">
               <dt>时期</dt>
               <dd>{artwork.yearLabel ?? "年代尚待核实"}</dd>

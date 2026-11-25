@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { ARTWORK_SOURCE_LABELS, HANDWRITING_CARD_VERSION, keepsakeDraftIdentity, parseKeepsakeDraft,
   type CreateHandwritingJob, type ExhibitionKeepsakeDraft, type HandwritingJob, type HandwritingOptions } from "@artduo/contracts";
 import type { ExhibitionSnapshot, ExperienceUnit } from "./types";
-import { experienceArtistName } from "./artwork-credits";
+import { recordedArtworkCreditLines } from "./artwork-credits";
 import { displaySourceCredit } from "./reading-copy";
 import { createShareCard, downloadShareCard } from "./share-card";
 import { useOverlayHistory } from "./use-overlay-history";
@@ -111,8 +111,9 @@ export function useKeepsakeController(snapshot: ExhibitionSnapshot, lastUnit: Ex
     const stillCurrent = () => generation.current === version && identityRef.current === activeIdentity;
     setComposing(true); setError("");
     try {
+      const credits = recordedArtworkCreditLines(lastUnit);
       const blob = await createShareCard({ imageUrl: lastUnit.media.previewUrl, artworkTitle: lastUnit.artwork.metadata.title,
-        artistLine: [experienceArtistName(lastUnit), lastUnit.artwork.metadata.yearLabel].filter(Boolean).join(" · "),
+        artistLine: credits.artistLine, creditLines: credits.details,
         sourceLabel: displaySourceCredit(lastUnit.artwork.metadata.creditLine) ?? ARTWORK_SOURCE_LABELS[lastUnit.artwork.source], closingLine: form.closingText,
         handwritingLayer: job.layer, provenance: { exhibitionId: snapshot.exhibitionId, artworkId: lastUnit.artwork.id, releaseVersion: snapshot.releaseVersion } });
       if (stillCurrent()) setPreview({ blob, url: URL.createObjectURL(blob) });
@@ -195,11 +196,15 @@ export function useKeepsakeController(snapshot: ExhibitionSnapshot, lastUnit: Ex
     </button>
     {busy(job) ? <span role="status">{labels[job!.state]}</span> : null}
   </div> : null;
+  const credits = lastUnit && recordedArtworkCreditLines(lastUnit);
   const modal = provider ? <dialog className="experience-keepsake-dialog" aria-labelledby="keepsake-title" ref={dialog} onCancel={event => { event.preventDefault(); close(); }}>
     {open ? <div className="experience-keepsake-panel">
       <div className="experience-keepsake-heading"><div><p className="experience-eyebrow">把这一刻留下</p><h2 id="keepsake-title">手写寄语纪念卡</h2></div><button aria-label="关闭寄语卡制作" type="button" onClick={close}>×</button></div>
       <p className="experience-keepsake-notice">只将下方确认的寄语和个人落款发送给 Inko。作品图片、心情原句和观看记录不随之发送。</p>
-      {lastUnit ? <p className="experience-keepsake-work">本次作品：{lastUnit.artwork.metadata.title}<span>{experienceArtistName(lastUnit)}</span></p> : null}
+      {lastUnit && credits ? <p className="experience-keepsake-work">本次作品：{lastUnit.artwork.metadata.title}
+        {credits.artistLine ? <span>{credits.artistLine}</span> : null}
+        {credits.details.map(line => <span key={line}>{line}</span>)}
+      </p> : null}
       <label className="experience-keepsake-field">寄语 <span>{textLength} / 2000 字</span><textarea rows={4} aria-invalid={textLength > 2000} value={form.closingText} onChange={event => change("closingText", event.target.value)} /></label>
       <label className="experience-keepsake-field">个人落款 <span>可不填，与作品作者分别显示 · {signatureLength} / 40 字</span><input aria-invalid={signatureLength > 40} value={form.viewerSignature} onChange={event => change("viewerSignature", event.target.value)} placeholder="例如：观展人" /></label>
       {textLength > 2000 || signatureLength > 40 ? <p className="experience-keepsake-error" role="alert">{textLength > 2000 ? "寄语超过 2000 字" : "落款超过 40 字"}，原文已保留，请调整后制作。</p> : null}
@@ -222,7 +227,7 @@ export function useKeepsakeController(snapshot: ExhibitionSnapshot, lastUnit: Ex
         {job?.state === "ready" && !preview ? <button type="button" onClick={() => void compose()}>重试整理卡面</button> : null}
         <p>可以关闭面板，选择原有的“保存分享图”保存普通文字版本。</p>
       </div> : null}
-      {preview ? <figure className="experience-keepsake-result"><img alt="包含本次作品、完整署名与手写寄语的纪念卡" src={preview.url} />
+      {preview ? <figure className="experience-keepsake-result"><img alt="包含本次作品、馆藏来源与手写寄语的纪念卡" src={preview.url} />
         <figcaption>手写寄语由 AI 生成 · Inko。作品归属与个人落款分别保留。</figcaption>
         <button type="button" onClick={() => { downloadShareCard(preview.blob, `artduo-keepsake-${snapshot.exhibitionId}.png`); setSaved(true); }}>{saved ? "再次保存 PNG" : "保存手写寄语卡 PNG"}</button>
       </figure> : null}

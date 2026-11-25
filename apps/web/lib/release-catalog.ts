@@ -9,6 +9,7 @@ import { matchesViewingIntent, parseViewingIntent, viewingIntentEvidence } from 
 import { artworkHardConflict } from "./affective-negotiation";
 import { loadArtworkVisualEvidence, type ArtworkVisualEvidence } from "./artwork-visual-evidence";
 import { loadArtworkCredits } from "./artwork-credits";
+import { museumCultureForArtwork } from "./museum-culture";
 import { loadArtworkAppearance, type ArtworkAppearance } from "./artwork-appearance";
 import { affectReadingPath, loadAffectReadings, type AffectReading } from "./artwork-affect-reading";
 import type { ArtworkDisplayCredits } from "@artduo/ui";
@@ -56,6 +57,7 @@ export interface WebArtwork {
   displayCredits?: ArtworkDisplayCredits;
   yearLabel?: string;
   medium?: string;
+  culture?: string;
   dimensionsLabel?: string;
   department?: string;
   objectUrl?: string;
@@ -359,6 +361,7 @@ function toArtwork(record: ArtworkRecord, releaseVersion: string): WebArtwork {
     artistDisplayName: record.metadata.artistDisplayName,
     yearLabel: record.metadata.yearLabel,
     medium: record.metadata.medium,
+    culture: museumCultureForArtwork(record.id, record.metadata.culture, record.metadata.objectUrl),
     dimensionsLabel: record.metadata.dimensions,
     department: record.metadata.department,
     objectUrl: record.metadata.objectUrl,
@@ -521,7 +524,7 @@ function buildWebReleaseCatalog(options: ReleaseLoaderOptions, loaded: ReturnTyp
   const experienceArtworkRecords = artworkRecords.map(({ id, source, metadata, media, presentation }) => ({
     id,
     source,
-    metadata,
+    metadata: { ...metadata, culture: museumCultureForArtwork(id, metadata.culture, metadata.objectUrl) },
     media,
     presentation,
     displayCredits: credits.get(id),

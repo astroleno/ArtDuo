@@ -5,7 +5,7 @@ import { ARTWORK_SOURCE_LABELS } from "@artduo/contracts";
 
 import { createShareCard, downloadShareCard } from "./share-card";
 import type { ExperienceUnit, NarrativeBlock } from "./types";
-import { experienceArtistName } from "./artwork-credits";
+import { recordedArtworkCreditLines } from "./artwork-credits";
 import { displaySourceCredit } from "./reading-copy";
 import { observeClosingImage, type ClosingImageState } from "./closing-image";
 
@@ -35,8 +35,8 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
     return observeClosingImage(imageRef.current, value => setImage({ url: previewUrl, ...value }));
   }, [previewUrl]);
   const closingText = closing?.text ?? "";
-  const artistName = lastUnit ? experienceArtistName(lastUnit) : undefined;
-  const fallbackText = [lastUnit?.artwork.metadata.title, artistName, closingText].filter(Boolean).join(" · ");
+  const credits = lastUnit ? recordedArtworkCreditLines(lastUnit) : undefined;
+  const fallbackText = [lastUnit?.artwork.metadata.title, credits?.artistLine, ...(credits?.details ?? []), closingText].filter(Boolean).join(" · ");
   async function share() {
     if (!lastUnit || !closing || shareState === "generating") return;
     setShareState("generating");
@@ -44,7 +44,8 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
       const blob = await createShareCard({
         imageUrl: lastUnit.media.fullUrl,
         artworkTitle: lastUnit.artwork.metadata.title,
-        artistLine: [artistName, lastUnit.artwork.metadata.yearLabel].filter(Boolean).join(" · "),
+        artistLine: credits?.artistLine ?? "",
+        creditLines: credits?.details,
         sourceLabel: displaySourceCredit(lastUnit.artwork.metadata.creditLine) ?? ARTWORK_SOURCE_LABELS[lastUnit.artwork.source],
         closingLine: closingText,
       });
@@ -71,7 +72,10 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
         {previewUrl ? <img ref={imageRef} alt={lastUnit.artwork.metadata.title} src={previewUrl} /> : null}
         {imageState === "failed" ? <p role="status">作品图片暂时无法显示</p> : null}
       </div>
-      <figcaption>{lastUnit.artwork.metadata.title}<span>{artistName}</span></figcaption>
+      <figcaption>{lastUnit.artwork.metadata.title}
+        {credits?.artistLine ? <span>{credits.artistLine}</span> : null}
+        {credits?.details.map(line => <span key={line}>{line}</span>)}
+      </figcaption>
     </figure> : null}
     <div className="experience-closing-copy">
     <p className="experience-eyebrow">本次观展结束</p>

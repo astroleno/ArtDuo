@@ -183,3 +183,12 @@ pnpm --filter @artduo/web exec tsx --test test/lib/viewing-intent.test.ts test/l
 返回作品补核采用预注册种子 `round2-return-audit-v1` 和冻结报告 `/tmp/artduo-r2-b3-final-recall.json`（SHA-256 `e156fbf938371b3c450c9e48dd6c15969d077b1cfa9cdabf3f9e34c2a5534621`）。对 v22 与 B 的每条请求、相同实际段，取前六件的双向差集与交集。哈希函数对 UTF-8 的紧凑 JSON 数组 [种子, …各项] 求 SHA-256。两侧差集各按 [draw, 请求ID, 段序, 作品ID] 的哈希从小到大排序，按位配对；按 [pair, 请求ID, 段序, 基线作品ID, B作品ID] 的哈希在层内取前两对，避免重复请求×作品；每层再取 draw 哈希最小且未抽过的共同项。层按名称升序，统一用 [presentation-salt-v1, 请求ID, 段序, 作品ID] 的哈希重排并编号。盲包 SHA-256 为 `e758b3295bcdfd0a67021a75461ff518ed2943c75bfc7d2814692d1c32b2dfbf`，答案为 `5f48ff1545f458bc86d6a4ba1333b816d0f37ac0ae2d9d43ffed308a74d40086`。逐行比对了请求、作品ID、源图路径、指纹和馆方媒材；8 张原图、22 张有校验的无裁剪预览。Codex 独立核图，未展示变体、顺位、已有观察及机器判断。
 
 30 个单图判断为 6 正、18 负、6 未知。12 个异集配对中 9 对双方可判，覆盖六层，B 胜 2、平 7、负 0；另 3 对含未知，6 个共同项另列。明确媒材冲突有 5 个独立位置：B 独有 2 个，基线独有 2 个，共同 1 个。例如 B 向“木版画”返回蚀刻，向“铜版蚀刻”返回铜版雕刻。按 B 展示集合算共 3 个已知媒材错误，超过预注册的零硬错门槛。自动资格测试的零违例只验证了代码已有的过滤条件，未覆盖这些更细的馆方媒材约束。保留 v22，候选 B 仅作本地实验。此批没有部署或写入生产索引。
+
+第四批独立验收通过。Web 两项测试逐件核对 9 条 CMA、1 条 MET 的馆方来源、作品 URL 和原文；UI 的展签、结语及分享卡共 13 项通过。用本机正式构建打开 v21 合成 offer 保存展，以无署名的《Four-armed goddess, with hearts in margin》（cma-164466）作末画。在 390px 和 1440px 浏览器视口，末画、放大图和手写制作表单均显示作品标题、1900s 及馆方文化归属 Eastern India, Bihar, Mithila region。作品详情仍链接到馆方同一件藏品，结语与详情页面无横向溢出。两种视口的普通分享 PNG 均为 1,129,361 字节，手写 PNG 均为 1,109,325 字节。Canvas 绘制记录含作品名、年代、归属及馆藏来源；手写卡使用同源模拟笔迹，导出与 PNG 来源元数据走真实实现。模拟普通 PNG 保存失败后，实际复制文本保留标题、年代、馆方归属和结语，未出现作者占位。浏览器实测限上述一件藏品和指定视口，未调用 Inko。
+
+```sh
+pnpm --filter @artduo/web exec tsx --test test/lib/museum-culture.test.ts
+pnpm --filter @artduo/ui exec tsx --test src/experience/plaque.test.tsx src/experience/share-card.test.ts src/experience/closing-narrative.test.tsx
+```
+
+浏览器复现使用本地正式构建、同一合成保存展和 Ego 任务页，依次运行 `.cache/artduo-arc-round2/credit-probe.mjs` 中的两种视口流程；记录见同目录 `b4-browser.json`，其中 `painted` 为实际绘制字符串，`copied` 为失败回退后的复制文本。

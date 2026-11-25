@@ -15,7 +15,7 @@ import { artworkAspectRatio } from "./scene-matching";
 import { roomFallbackShade, roomLightMood, roomLightProfile } from "./room-lighting";
 import { RoomLightingLayer } from "./room-lighting-layer";
 import type { useRoomMotion } from "./room-motion";
-import { experienceArtistName } from "./artwork-credits";
+import { recordedArtistName, recordedArtworkCreditLines } from "./artwork-credits";
 import { ROOM_IMAGE_SIZES, roomImageSrcSet } from "./room-assets";
 import { experienceImageSource, experiencePrewarm } from "./media-prewarm";
 import { RoomBackdrop } from "./room-backdrop";
@@ -155,7 +155,8 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   const viewUnit: ImmersiveGalleryUnit = {
     id: unit.artwork.id,
     title: unit.artwork.metadata.title,
-    artistDisplayName: experienceArtistName(unit),
+    artistDisplayName: recordedArtistName(unit),
+    creditDetails: recordedArtworkCreditLines(unit).details,
     yearLabel: unit.artwork.metadata.yearLabel,
     imageUrl: unit.media.previewUrl,
     imageUrlFull: unit.media.fullUrl,

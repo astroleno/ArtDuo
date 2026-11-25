@@ -56,6 +56,17 @@ test("long titles, source credits and ordinary closing retain every character ab
   assert.ok(card.text.filter(row => row !== footer).every(row => row.y + 25 < footer.y));
 });
 
+test("unsigned cards use the source directly after the title and preserve separately recorded credit lines", async () => {
+  const input = { ...options, artworkTitle: "An unsigned work", sourceLabel: "Museum credit", closingLine: "A closing note", artistLine: "  " };
+  const unsigned = await traceCard(input);
+  assert.equal(unsigned.text.filter(row => row.font.includes("22px")).length, 0);
+  assert.equal(unsigned.text.find(row => row.text === input.sourceLabel)?.y, unsigned.text.find(row => row.text === input.artworkTitle)!.y + 52);
+  const attributed = await traceCard({ ...input, artistLine: "Attributed to Rembrandt · 1640", creditLines: ["出版：Museum Publisher", "馆方文化归属：Dutch"] });
+  const lines = attributed.text.filter(row => row.font.includes("22px"));
+  assert.deepEqual(lines.map(row => row.text), ["Attributed to Rembrandt · 1640", "出版：Museum Publisher", "馆方文化归属：Dutch"]);
+  assert.ok(attributed.text.find(row => row.text === input.sourceLabel)!.y > lines.at(-1)!.y);
+});
+
 test("a tall handwriting layer expands the card, preserves credits and stays clear of its footer", async () => {
   const card = await traceCard({ ...options, handwritingLayer: { url: "/handwriting.png", width: 720, height: 4800, label: "AI生成 · Inko", upstreamId: "fixture",
     aigc: { Label: "1", ContentProducer: "Inko", ProduceID: "fixture-p1", ContentPropagator: "inkotype.com", PropagateID: "fixture-p1" } },
