@@ -3,7 +3,7 @@ export const SERVER_EXPERIENCE_PHASES = ["release-load", "intent", "semantic-mod
 export const EXPERIENCE_PHASES = [...CLIENT_EXPERIENCE_PHASES, ...SERVER_EXPERIENCE_PHASES] as const;
 export const EXPERIENCE_OUTCOMES = ["lookup-hit", "lookup-damaged", "pending-join", "restore-success", "restore-failure",
   "fresh-started", "fresh-succeeded", "fresh-failed", "fresh-degraded", "fresh-empty", "rerank-skipped", "rerank-accepted", "rerank-accepted-original",
-  "rerank-accepted-changed", "rerank-rejected", "rerank-unavailable"] as const;
+  "rerank-accepted-changed", "rerank-rejected", "rerank-unavailable", "lookup-rerank-backoff", "rerank-suppressed"] as const;
 export const CURATION_DEGRADATIONS = ["intent-unavailable", "semantic-unavailable", "stage-choice-unavailable", "stage-choice-invalid"] as const;
 export const EXPERIENCE_BUCKETS_MS = [50, 100, 200, 350, 500, 750, 1000, 1500, 2000, 3000, 5000, 8000, 12000, 20000, 30000, 60000, 90000] as const;
 

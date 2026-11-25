@@ -9,9 +9,10 @@ import { artworkOffering, stageFit } from "../../lib/artwork-offering";
 import { curateExhibition, curationDirectory, readSavedCuration } from "../../lib/semantic-curator";
 import { loadWebReleaseCatalog, searchReleaseCatalog, type WebArtwork } from "../../lib/release-catalog";
 import { matchesViewingIntent, parseViewingIntent } from "../../lib/viewing-intent";
-import { exhibitionNarrativeInput } from "../../lib/exhibition-narrative-server";
+import { exhibitionNarrativeInput, getExhibitionNarrative } from "../../lib/exhibition-narrative-server";
 import { isGalleryArtwork } from "../../lib/artwork-eligibility";
 import { experienceObservability, experienceObservabilityDirectory, readExperienceObservability } from "../../lib/experience-observability";
+import { STAGE_RERANK_BACKOFF_MS } from "../../lib/stage-rerank-backoff";
 
 const rootDir = path.resolve(__dirname, "../../../..");
 const catalog = loadWebReleaseCatalog({ rootDir, releaseVersion: "2026-10-13-quality" });
@@ -139,7 +140,8 @@ test("739 museum print evidence checks the five audited errors and survives curr
     assert.ok(offered.length > 1 && offered.every(id => matchesViewingIntent(museum.artworkById.get(id)!, parseViewingIntent(query))));
     assert.deepEqual(fresh.record.degraded, ["stage-choice-invalid"]);
     assert.notEqual(fresh.assignments[0]?.artworkId, "met-336007");
-    const previous = { ...fresh.record, selectionVersion: 23 as const, degraded: [],
+    const { observationChecksum: _, ...historical } = fresh.record;
+    const previous = { ...historical, selectionVersion: 23 as const, degraded: [],
       assignments: [{ ...fresh.record.assignments[0]!, artworkId: "met-336007" }] };
     const oldId = semanticFingerprint(JSON.stringify(previous));
     writeFileSync(path.join(curationDirectory(temporary), `${oldId}.json`), JSON.stringify(previous));
@@ -450,6 +452,83 @@ test("invalid choices remain restorable, retry instead of caching, and count one
     assert.equal(totals.timings["stage-choice"]!.n, 3);
   } finally {
     release();
+    await experienceObservability(temporary)?.flush();
+    if (oldFlag === undefined) delete process.env.ARTDUO_OBSERVABILITY; else process.env.ARTDUO_OBSERVABILITY = oldFlag;
+    if (oldState === undefined) delete process.env.ARTDUO_STATE_DIR; else process.env.ARTDUO_STATE_DIR = oldState;
+    rmSync(temporary, { recursive: true, force: true });
+  }
+});
+
+test("two consecutive invalid reranks cool down only their exact request, without changing historical or narrative reuse", async () => {
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-rerank-backoff-"));
+  const oldFlag = process.env.ARTDUO_OBSERVABILITY, oldState = process.env.ARTDUO_STATE_DIR;
+  process.env.ARTDUO_OBSERVABILITY = "1";
+  process.env.ARTDUO_STATE_DIR = temporary;
+  const museum = loadWebReleaseCatalog({ rootDir, releaseVersion: "2026-10-14-semantic" });
+  const query = "想看一幅作品";
+  const plan = fallbackCurationIntent(museum, query);
+  const encoder = { model: LOCAL_SEMANTIC_MODEL, async warmup() {}, async dispose() {}, async embedDocuments() { return []; },
+    async embedQueries(texts: string[]) { return texts.map(() => [1, ...Array(383).fill(0)]); } };
+  let clock = Date.now(), response: "invalid" | "timeout" | "valid" = "invalid", intents = 0, choices = 0;
+  const input = { catalog: museum, rootDir: temporary, query, encoder, intentModel: "cooldown-fixture", now: () => clock,
+    stageChoiceTimeoutMs: 20,
+    stream: async function* (messages: Array<{ content: string }>, options: { signal?: AbortSignal }) {
+      if (!messages[0]!.content.includes("选画编辑")) { intents++; yield JSON.stringify(plan); return; }
+      choices++;
+      if (response === "timeout") await new Promise<void>(resolve => options.signal!.addEventListener("abort", () => resolve(), { once: true }));
+      else yield response === "invalid" ? "{}" : originalChoice(messages[1]!.content);
+    } };
+  try {
+    const first = await curateExhibition(input);
+    assert.deepEqual(first.record.degraded, ["stage-choice-invalid"]);
+    response = "timeout";
+    assert.deepEqual((await curateExhibition(input)).record.degraded, ["stage-choice-unavailable"]);
+    response = "invalid";
+    const [third, joined] = await Promise.all([curateExhibition(input), curateExhibition(input)]);
+    assert.equal(joined.curationId, third.curationId);
+    const fourth = await curateExhibition(input);
+    assert.equal(intents, 4, "a timeout breaks the invalid-response streak");
+    const directory = curationDirectory(temporary);
+    const cached = () => curateExhibition(input);
+    assert.equal((await cached()).curationId, fourth.curationId);
+    assert.equal((await curateExhibition({ ...input, curationId: first.curationId })).curationId, first.curationId);
+    assert.equal(intents, 4);
+    assert.equal(choices, 4);
+    assert.ok(!readdirSync(directory).some(name => name.startsWith("request-")));
+
+    const changed = await curateExhibition({ ...input, query: "想看一幅作品，慢慢看" });
+    assert.notEqual(changed.curationId, fourth.curationId);
+    await curateExhibition({ ...input, intentModel: "new-provider-id" });
+    assert.equal(intents, 6);
+    let narratives = 0;
+    const narrative = { now: () => clock, stream: async function* () { narratives++; throw new Error("synthetic narrative interruption"); } };
+    await getExhibitionNarrative(museum, fourth, narrative).complete;
+    await getExhibitionNarrative(museum, await cached(), narrative).complete;
+    assert.equal(narratives, 1, "the existing narrative cache is independent of the curation cooldown");
+    assert.equal(intents, 6);
+
+    const hints = path.join(directory, "rerank-backoff");
+    for (const name of readdirSync(hints)) writeFileSync(path.join(hints, name), "broken");
+    await cached();
+    await cached();
+    assert.equal(intents, 8, "a damaged entry starts a fresh invalid-only streak");
+    assert.ok(!(readdirSync(hints).some(name => name.endsWith(".tmp"))));
+    clock += STAGE_RERANK_BACKOFF_MS;
+    response = "valid";
+    const recovered = await cached();
+    assert.deepEqual(recovered.record.degraded, []);
+    assert.equal((await cached()).curationId, recovered.curationId);
+    assert.equal(intents, 9);
+    assert.equal(choices, 9);
+    await experienceObservability(temporary)!.flush();
+    const { totals } = await readExperienceObservability(experienceObservabilityDirectory(temporary)!);
+    assert.equal(totals.outcomes["fresh-started"], 9);
+    assert.equal(totals.outcomes["lookup-rerank-backoff"], 2);
+    assert.equal(totals.outcomes["rerank-suppressed"], 2);
+    assert.equal(totals.outcomes["pending-join"], 1);
+    assert.equal(totals.outcomes["lookup-hit"], 1);
+    assert.equal(totals.outcomes["restore-success"], 1);
+  } finally {
     await experienceObservability(temporary)?.flush();
     if (oldFlag === undefined) delete process.env.ARTDUO_OBSERVABILITY; else process.env.ARTDUO_OBSERVABILITY = oldFlag;
     if (oldState === undefined) delete process.env.ARTDUO_STATE_DIR; else process.env.ARTDUO_STATE_DIR = oldState;

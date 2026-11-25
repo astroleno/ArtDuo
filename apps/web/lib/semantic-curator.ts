@@ -13,6 +13,7 @@ import { fallbackCurationIntent, materializeCurationSelection, selectForCuration
 import type { WebReleaseCatalog } from "./release-catalog";
 import { experienceObservability, recordServerExperienceTiming } from "./experience-observability";
 import { requestStageRerank } from "./stage-rerank";
+import { forgetStageRerankBackoff, readStageRerankBackoff, rememberStageRerankBackoff } from "./stage-rerank-backoff";
 import { runtimeObservationIndex } from "./semantic-observation-release";
 import { withCurationVisualCorrections } from "./curation-visual-corrections";
 import { refineAfterglow } from "./afterglow-selection";
@@ -125,6 +126,7 @@ export async function curateExhibition(input: {
   /** Explicit test seams never change the production model identity. */
   stream?: ChatStream; intentModel?: string; encoder?: SemanticEncoder;
   retrievalTimeoutMs?: number; stageChoiceTimeoutMs?: number;
+  now?: () => number;
 }): Promise<CuratedExhibition> {
   const query = input.query.normalize("NFKC").trim();
   if (!query || query.length > 1000) throw new TypeError("Curation request must contain 1–1000 characters");
@@ -163,6 +165,25 @@ export async function curateExhibition(input: {
   if (previous) {
     observability?.outcome("pending-join");
     return previous;
+  }
+  const now = input.now ?? Date.now;
+  let backoff = readStageRerankBackoff(directory, key, now());
+  if (backoff) {
+    try {
+      const saved = readSavedCuration(input.catalog, backoff.curationId, query, rootDir);
+      const { record } = saved;
+      if (record.selectionVersion !== selectionVersion || record.observationChecksum !== observation?.checksum || record.intentModel !== intentModel || record.narrativeVersion !== NARRATIVE_RECIPE_VERSION
+        || record.visualEvidenceVersion !== catalog.visualEvidenceVersion || record.appearanceVersion !== catalog.appearanceVersion
+        || record.degraded.length !== 1 || record.degraded[0] !== "stage-choice-invalid") throw new TypeError("Invalid rerank backoff curation");
+      if (backoff.invalidCount === 2) {
+        observability?.outcome("lookup-rerank-backoff");
+        observability?.outcome("rerank-suppressed");
+        return saved;
+      }
+    } catch {
+      forgetStageRerankBackoff(directory, key);
+      backoff = undefined;
+    }
   }
   const degraded: string[] = [];
   const freshStartedAt = performance.now();
@@ -235,8 +256,12 @@ export async function curateExhibition(input: {
     try { writeFileSync(path.join(directory, `${curationId}.json`), JSON.stringify(record), { flag: "wx", mode: 0o600 }); }
     catch (error) { if ((error as NodeJS.ErrnoException).code !== "EEXIST") throw error; }
     // A transient failure must not poison future requests for the same feeling.
+    const saved = hydrate(catalog, curationId, record, query);
     if (!degraded.length) writeFileSync(lookup, JSON.stringify(curationId), { mode: 0o600 });
-    return hydrate(catalog, curationId, record, query);
+    if (degraded.length === 1 && degraded[0] === "stage-choice-invalid") {
+      rememberStageRerankBackoff(directory, key, curationId, now(), backoff);
+    } else if (backoff) forgetStageRerankBackoff(directory, key);
+    return saved;
   };
   const complete = (success: boolean, empty = false) => {
     observability?.finishFresh(success, degraded, empty);

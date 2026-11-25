@@ -167,14 +167,15 @@ test("v19 and newer restore the scoped forest evidence into narration while v18 
         yield "{}";
       } });
     assert.equal(reranks, 1);
-    assert.equal(result.record.selectionVersion, 24);
+    assert.equal(result.record.selectionVersion, result.record.observationChecksum ? 25 : 24);
     const saved = readSavedCuration(catalog, result.curationId, undefined, temporary);
     assert.deepEqual(saved.assignments, result.assignments);
     const input = exhibitionNarrativeInput(catalog, saved);
     assert.deepEqual(input.artworks.map(artwork => artwork.id), saved.assignments.map(assignment => assignment.artworkId));
     assert.ok(input.artworks.some(artwork => reviewedIds.includes(artwork.id) && artwork.visualObservation?.facts?.war === "absent"));
 
-    const prior = { ...saved.record, selectionVersion: 19 };
+    const { observationChecksum: _, ...historical } = saved.record;
+    const prior = { ...historical, selectionVersion: 19 };
     const priorId = semanticFingerprint(JSON.stringify(prior));
     writeFileSync(path.join(curationDirectory(temporary), `${priorId}.json`), JSON.stringify(prior));
     const priorRestored = readSavedCuration(catalog, priorId, undefined, temporary);
@@ -183,7 +184,7 @@ test("v19 and newer restore the scoped forest evidence into narration while v18 
 
     const legacyQuery = "想看三幅森林版画";
     const legacyAssignments = [reviewedIds[0]!].map(artworkId => ({ artworkId, stageIndex: 0, vectorScore: .8, score: .9, evidence: ["fixture"] }));
-    const old = { ...saved.record, query: legacyQuery, visualEvidenceVersion: catalog.visualEvidenceVersion,
+    const old = { ...historical, query: legacyQuery, visualEvidenceVersion: catalog.visualEvidenceVersion,
       assignments: legacyAssignments, selectionVersion: 18 };
     const legacyId = semanticFingerprint(JSON.stringify(old));
     writeFileSync(path.join(curationDirectory(temporary), `${legacyId}.json`), JSON.stringify(old));
