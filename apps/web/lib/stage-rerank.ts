@@ -71,12 +71,15 @@ function crowded(ids: string[], handFor: (artworkId: string) => string): number 
 }
 
 /** One bounded model call; any failure keeps the deterministic choice. */
+export type StageRerankResult = { status: "skip" | "rejected" | "unavailable" }
+  | { status: "accepted"; assignments: StageAssignment[] };
+
 export async function requestStageRerank(input: {
   catalog: Pick<WebReleaseCatalog, "artworkById">; plan: CurationIntentPlan; assignments: StageAssignment[];
   pools: StageCandidate[][]; stream: ChatStream; timeoutMs?: number;
-}): Promise<StageAssignment[] | undefined> {
+}): Promise<StageRerankResult> {
   const current = input.plan.stages.map((_, stageIndex) => input.assignments.filter((item) => item.stageIndex === stageIndex));
-  if (!current.some((stage, index) => stage.length > 0 && input.pools[index]!.length > stage.length)) return undefined;
+  if (!current.some((stage, index) => stage.length > 0 && input.pools[index]!.length > stage.length)) return { status: "skip" };
   const describe = (artworkId: string): StageRerankWork => {
     const artwork = input.catalog.artworkById.get(artworkId)!;
     return { artworkId, title: artwork.title, artist: artwork.artistDisplayName, observed: artwork.visualEvidence?.observation, moods: artwork.moodTags };
@@ -90,10 +93,30 @@ export async function requestStageRerank(input: {
         works: input.pools[index]!.map((item) => describe(item.artworkId)) }];
     }),
   });
-  let text = "";
-  for await (const chunk of input.stream(messages, { json: true, timeoutMs: input.timeoutMs ?? 20_000, maxTokens: 600 })) {
-    text += chunk;
-    if (text.length > 8_000) return undefined;
+  const timeoutMs = input.timeoutMs ?? 20_000;
+  const abort = new AbortController();
+  const choose = async (): Promise<StageRerankResult> => {
+    let text = "";
+    for await (const chunk of input.stream(messages, { json: true, signal: abort.signal, timeoutMs, maxTokens: 600 })) {
+      if (abort.signal.aborted) return { status: "unavailable" };
+      text += chunk;
+      if (text.length > 8_000) return { status: "rejected" };
+    }
+    const assignments = applyStageRerank(text, input.pools, current, artworkId => handOf(input.catalog.artworkById.get(artworkId)!));
+    return assignments ? { status: "accepted", assignments } : { status: "rejected" };
+  };
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const timeout = new Promise<StageRerankResult>(resolve => {
+      timer = setTimeout(() => {
+        abort.abort();
+        resolve({ status: "unavailable" });
+      }, timeoutMs);
+    });
+    return await Promise.race([choose(), timeout]);
+  } catch {
+    return { status: "unavailable" };
+  } finally {
+    clearTimeout(timer);
   }
-  return applyStageRerank(text, input.pools, current, (artworkId) => handOf(input.catalog.artworkById.get(artworkId)!));
 }

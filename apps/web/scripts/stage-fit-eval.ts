@@ -151,8 +151,8 @@ async function replay(catalog: ReturnType<typeof loadWebReleaseCatalog>, plans: 
         const started = Date.now();
         try {
           const choice = await requestStageRerank({ catalog, plan, assignments, pools: selection.stagePools, stream, timeoutMs: 10_000 });
-          rerank = { status: choice ? "accepted" : "rejected", ms: Date.now() - started };
-          assignments = choice ?? assignments;
+          if (choice.status !== "skip") rerank = { status: choice.status === "unavailable" ? "failed" : choice.status, ms: Date.now() - started };
+          if (choice.status === "accepted") assignments = choice.assignments;
         } catch {
           rerank = { status: "failed", ms: Date.now() - started };
         }

@@ -1,14 +1,9 @@
 import { defaultAnalyticsSink, trackAnalyticsEvent, type AnalyticsSink } from "./analytics";
+import { appPath } from "@artduo/contracts";
+import { experienceDurationBucket, type ClientExperiencePhase, type SERVER_EXPERIENCE_PHASES } from "./experience-observability-contract";
 
 export type ExperienceTimingPhase =
-  | "release-load"
-  | "intent"
-  | "semantic-model"
-  | "semantic-retrieval"
-  | "stage-choice"
-  | "retrieval"
-  | "scene-match"
-  | "snapshot-adapter"
+  | typeof SERVER_EXPERIENCE_PHASES[number]
   | "snapshot-ready"
   | "first-artwork-visible"
   | "first-artwork-actionable"
@@ -17,6 +12,7 @@ export type ExperienceTimingPhase =
   | "explanation";
 
 const SUBMIT_MARK = "artduo.experience.submit";
+const REAL_SUBMIT_MARK = "artduo.experience.real-submit";
 const PENDING_NAVIGATION = "artduo.experience.pending-navigation";
 
 function markName(phase: ExperienceTimingPhase): string {
@@ -56,7 +52,9 @@ export function beginExperienceTiming(query?: string): void {
     performance.clearMeasures(`artduo.experience.submit-to-${phase}`);
   }
   performance.clearMarks(SUBMIT_MARK);
+  performance.clearMarks(REAL_SUBMIT_MARK);
   performance.mark(SUBMIT_MARK);
+  performance.mark(REAL_SUBMIT_MARK);
   if (query && typeof sessionStorage !== "undefined") {
     try { sessionStorage.setItem(PENDING_NAVIGATION, JSON.stringify({ startedAt: performance.timeOrigin + performance.now(), query: query.normalize("NFKC").trim() })); } catch { /* Timing cannot block a submission. */ }
   }
@@ -98,10 +96,29 @@ export function beginExperienceTimingIfMissing(): void {
       const pending = raw ? JSON.parse(raw) : undefined;
       const query = new URL(window.location.href).searchParams.get("query")?.normalize("NFKC").trim();
       const elapsed = Date.now() - pending?.startedAt;
-      if (pending?.query === query && Number.isFinite(elapsed) && elapsed >= 0 && elapsed < 90_000) priorDocumentMs = Math.max(0, performance.timeOrigin - pending.startedAt);
+      if (pending?.query === query && Number.isFinite(elapsed) && elapsed >= 0 && elapsed < 90_000) {
+        priorDocumentMs = Math.max(0, performance.timeOrigin - pending.startedAt);
+        performance.mark(REAL_SUBMIT_MARK, { startTime: 0, detail: { priorDocumentMs } });
+      }
     } catch { /* Storage is optional and untrusted. */ }
   }
   performance.mark(SUBMIT_MARK, { startTime: priorDocumentMs || documentEntry ? 0 : performance.now(), detail: { priorDocumentMs } });
+}
+
+export function takeRealExperienceSubmissionMs(): number | undefined {
+  beginExperienceTimingIfMissing();
+  const mark = performance.getEntriesByName(REAL_SUBMIT_MARK, "mark").at(-1) as PerformanceMark | undefined;
+  if (!mark) return undefined;
+  performance.clearMarks(REAL_SUBMIT_MARK);
+  return performance.now() - mark.startTime + (Number(mark.detail?.priorDocumentMs) || 0);
+}
+
+export function sendAnonymousExperienceDuration(enabled: boolean, phase: ClientExperiencePhase, durationMs: number | undefined): void {
+  if (!enabled || typeof window === "undefined" || durationMs === undefined) return;
+  const bucket = experienceDurationBucket(durationMs);
+  if (bucket === undefined) return;
+  void fetch(appPath("/api/experience/metrics"), { method: "POST", mode: "same-origin", credentials: "omit", referrerPolicy: "no-referrer",
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify({ phase, bucket }), keepalive: true }).catch(() => undefined);
 }
 
 export function recordExperienceMilestone(phase: "snapshot-ready" | "first-artwork-visible" | "first-artwork-actionable" | "first-narrative" | "narrative-complete", releaseVersion: string): void {

@@ -53,7 +53,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   detailNavigation?: DetailNavigation;
   onRestart: () => void;
   restartHref?: string;
-  onMilestone?: (phase: "first-artwork-visible" | "first-artwork-actionable") => void;
+  onMilestone?: (phase: "preface-actionable" | "empty-actionable" | "enter-activated" | "first-artwork-visible" | "first-artwork-actionable") => void;
   handwritingProvider?: HandwritingProvider;
   sculptureWorks?: SculptureWork[];
   sculptureScenes?: SculptureRoomScene[];
@@ -203,6 +203,10 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     onMilestone("first-artwork-visible");
     onMilestone("first-artwork-actionable");
   }, [onMilestone]);
+  const onPrefaceActionable = useCallback(() => onMilestone?.("preface-actionable"), [onMilestone]);
+  useEffect(() => {
+    if (!snapshot.units.length && viewing.hydrated) onMilestone?.("empty-actionable");
+  }, [onMilestone, snapshot.units.length, viewing.hydrated]);
 
   const incomingPositionKey = `${initialPosition.phase}:${initialPosition.phase === "walk" ? initialPosition.unitId : initialPosition.phase === "closing" ? initialPosition.lastUnitId ?? "" : ""}`;
   const lastIncomingPosition = useRef(initialPosition);
@@ -321,7 +325,9 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     {state.act !== "walk" ? <div className="experience-global-controls"><AudioButton onToggle={() => void toggleAudio()} state={audio.state} /></div> : null}
     {!state.online ? <p className="experience-offline" role="status">离线浏览 · 作品讲解和未缓存媒体可能暂不可用</p> : null}
     <div aria-live="polite" className="sr-only">{statusMessage}</div>
-    {state.act === "preface" ? <Preface block={presentedPreface} query={snapshot.query} pending={Boolean(snapshot.narrativePending)} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} backdropSmallUrl={snapshot.units[0]?.media.backgroundUrlSmall} onContinue={() => dispatch({ type: "SKIP" })} reducedMotion={reducedMotion} ready={viewing.hydrated} selectionNotice={snapshot.selectionNotice} keepsake={keepsake.entry(true)} /> : null}
+    {state.act === "preface" ? <Preface block={presentedPreface} query={snapshot.query} pending={Boolean(snapshot.narrativePending)} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} backdropSmallUrl={snapshot.units[0]?.media.backgroundUrlSmall}
+      onActionable={onPrefaceActionable} onContinue={() => { onMilestone?.("enter-activated"); dispatch({ type: "SKIP" }); }}
+      reducedMotion={reducedMotion} ready={viewing.hydrated} selectionNotice={snapshot.selectionNotice} keepsake={keepsake.entry(true)} /> : null}
     {state.act === "walk" && encounterWork ? <SculptureBoundary onUnavailable={continueAfterEncounter}><Suspense fallback={<div className="experience-room experience-room-fallback" role="status">正在进入侧厅…</div>}>
       <EncounterRoom key={encounterWork.id} works={[encounterWork]} scenes={sculptureScenes} initialModel={encounterWork.id} initialScene={encounter.value!.roomId!}
         initialQuality="compact" query={snapshot.query} narrate={sculptureNarrator}

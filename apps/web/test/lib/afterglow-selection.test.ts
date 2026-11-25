@@ -90,7 +90,7 @@ test("a rule fallback and an accepted model each refine only the selected route 
         },
       });
       assert.equal(calls, 1);
-      assert.equal(result.record.selectionVersion, 22);
+      assert.equal(result.record.selectionVersion, 23);
       assert.deepEqual(result.assignments.map(item => item.artworkId), [...rows.flatMap(row => row.artworkIds).slice(0, -1), alternative]);
       assert.equal(result.assignments[0]!.evidence.includes("model:stage-fit"), mode === "model");
       assert.equal(result.assignments.filter(item => item.evidence.includes("rule:afterglow-fit")).length, 1);

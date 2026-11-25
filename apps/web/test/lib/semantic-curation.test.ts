@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
@@ -11,9 +11,17 @@ import { loadWebReleaseCatalog, searchReleaseCatalog, type WebArtwork } from "..
 import { matchesViewingIntent, parseViewingIntent } from "../../lib/viewing-intent";
 import { exhibitionNarrativeInput } from "../../lib/exhibition-narrative-server";
 import { isGalleryArtwork } from "../../lib/artwork-eligibility";
+import { experienceObservability, experienceObservabilityDirectory, readExperienceObservability } from "../../lib/experience-observability";
 
 const rootDir = path.resolve(__dirname, "../../../..");
 const catalog = loadWebReleaseCatalog({ rootDir, releaseVersion: "2026-10-13-quality" });
+
+function originalChoice(prompt: string) {
+  const stages = [...prompt.matchAll(/^stage (\d+) 选 (\d+) 件：[^\n]*\n((?:  候选 [^\n]*\n)+)/gmu)].map(([, stage, count, rows]) => ({
+    stage: Number(stage), artworkIds: [...rows!.matchAll(/^  候选 (.*)$/gmu)].slice(0, Number(count)).map(match => JSON.parse(match[1]!).id),
+  }));
+  return JSON.stringify({ stages });
+}
 
 test("casual defaults soften intense content while explicit titles remain eligible", () => {
   const base = { ...catalog.artworks[0]!, medium: "Oil on canvas" };
@@ -130,7 +138,7 @@ test("a no-people request excludes present and unknown from all pools, while ver
       } });
     assert.equal(reranks, 1);
     assert.doesNotMatch(choicePrompt, /with-person|uncertain-person/u);
-    assert.equal(fresh.record.selectionVersion, 22);
+    assert.equal(fresh.record.selectionVersion, 23);
     assert.equal(fresh.record.assignments.length, 1);
     assert.match(fresh.record.assignments[0]!.artworkId, /^empty-/u);
     assert.deepEqual(exhibitionNarrativeInput(fixture, fresh).requirements?.excludedSubjects, ["people"]);
@@ -156,7 +164,7 @@ test("a no-people request excludes present and unknown from all pools, while ver
     assert.deepEqual(legacyNarrative.artworks.map(artwork => artwork.id), ["with-person", "uncertain-person"]);
     const regenerated = await curateExhibition({ catalog: fixture, query: historicalQuery, rootDir: temporary, intentModel: oldRecord.intentModel,
       stream: async function* () { yield JSON.stringify(historicalPlan); } });
-    assert.equal(regenerated.record.selectionVersion, 22);
+    assert.equal(regenerated.record.selectionVersion, 23);
     assert.notEqual(regenerated.curationId, oldId);
     assert.deepEqual(new Set(regenerated.assignments.map(item => item.artworkId)), new Set(["empty-one", "empty-two"]));
 
@@ -267,7 +275,10 @@ test("intent finishes before stage retrieval and a stalled encoder has a bounded
     async embedQueries(texts: string[]) { retrievals++; return texts.map(() => [1, ...Array(383).fill(0)]); } };
   try {
     const pending = curateExhibition({ catalog: semanticCatalog, rootDir: temporary, query, encoder, intentModel: "fixture",
-      stream: async function* () { started(); await ready; yield JSON.stringify(plan); } });
+      stream: async function* (messages) {
+        if (messages[0]!.content.includes("选画编辑")) { yield originalChoice(messages[1]!.content); return; }
+        started(); await ready; yield JSON.stringify(plan);
+      } });
     await entered;
     assert.equal(retrievals, 0);
     releaseIntent();
@@ -275,7 +286,8 @@ test("intent finishes before stage retrieval and a stalled encoder has a bounded
     assert.equal(retrievals, 1);
     assert.deepEqual(result.record.degraded, []);
     const timeout = await curateExhibition({ catalog: semanticCatalog, rootDir: temporary, query: `${query}，慢一点`, retrievalTimeoutMs: 5,
-      stream: async function* () { yield JSON.stringify(plan); }, encoder: { ...encoder, warmup: () => new Promise<void>(() => {}) } });
+      stream: async function* (messages) { yield messages[0]!.content.includes("选画编辑") ? originalChoice(messages[1]!.content) : JSON.stringify(plan); },
+      encoder: { ...encoder, warmup: () => new Promise<void>(() => {}) } });
     assert.deepEqual(timeout.record.degraded, ["semantic-unavailable"]);
     assert.equal(timeout.record.retrievalModel, "local-hash-embedding-v1");
     assert.equal(retrievals, 1);
@@ -293,7 +305,7 @@ test("new visual evidence invalidates request reuse without replacing a saved se
   const input = { rootDir: temporary, query, encoder, intentModel: "fixture",
     stream: async function* (messages: Array<{ content: string }>) {
       // Stage choice is a separate call; this test counts intent planning only.
-      if (messages[0]!.content.includes("选画编辑")) { yield "{}"; return; }
+      if (messages[0]!.content.includes("选画编辑")) { yield originalChoice(messages[1]!.content); return; }
       calls++; yield JSON.stringify(plan);
     } };
   try {
@@ -312,6 +324,91 @@ test("new visual evidence invalidates request reuse without replacing a saved se
     assert.equal(saved.curationId, first.curationId);
     assert.deepEqual(saved.assignments, first.assignments);
   } finally { rmSync(temporary, { recursive: true, force: true }); }
+});
+
+test("invalid choices remain restorable, retry instead of caching, and count one fresh flight across joins", async () => {
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-anonymous-curation-"));
+  const oldFlag = process.env.ARTDUO_OBSERVABILITY, oldState = process.env.ARTDUO_STATE_DIR;
+  process.env.ARTDUO_OBSERVABILITY = "1";
+  process.env.ARTDUO_STATE_DIR = temporary;
+  const semanticCatalog = loadWebReleaseCatalog({ rootDir, releaseVersion: "2026-10-14-semantic" });
+  const query = "想看一幅作品";
+  const plan = fallbackCurationIntent(semanticCatalog, query);
+  const encoder = { model: LOCAL_SEMANTIC_MODEL, async warmup() {}, async dispose() {}, async embedDocuments() { return []; },
+    async embedQueries(texts: string[]) { return texts.map(() => [1, ...Array(383).fill(0)]); } };
+  let invalid = true, intents = 0, reranks = 0, release!: () => void;
+  const barrier = new Promise<void>(resolve => { release = resolve; });
+  const input = { catalog: semanticCatalog, rootDir: temporary, query, encoder, intentModel: "b5-fixture",
+    stream: async function* (messages: Array<{ content: string }>) {
+      if (messages[0]!.content.includes("选画编辑")) {
+        reranks++;
+        yield invalid ? "{}" : originalChoice(messages[1]!.content);
+      } else {
+        intents++;
+        await barrier;
+        yield JSON.stringify(plan);
+      }
+    } };
+  try {
+    const owner = curateExhibition(input);
+    const joined = curateExhibition(input);
+    release();
+    const [first, shared] = await Promise.all([owner, joined]);
+    assert.equal(first.curationId, shared.curationId);
+    assert.deepEqual(first.record.degraded, ["stage-choice-invalid"]);
+    assert.equal(intents, 1);
+    assert.equal(reranks, 1);
+    const directory = curationDirectory(temporary);
+    assert.ok(!readdirSync(directory).some(name => name.startsWith("request-")));
+    assert.equal((await curateExhibition({ ...input, curationId: first.curationId })).curationId, first.curationId);
+    const previous = { ...first.record, selectionVersion: 22 as const, degraded: [] };
+    const old = semanticFingerprint(JSON.stringify(previous));
+    writeFileSync(path.join(directory, `${old}.json`), JSON.stringify(previous));
+    assert.deepEqual((await curateExhibition({ ...input, curationId: old })).assignments, first.assignments);
+    await assert.rejects(curateExhibition({ ...input, curationId: "f".repeat(64) }));
+    invalid = false;
+    const successful = await curateExhibition(input);
+    assert.equal(intents, 2);
+    assert.equal(reranks, 2);
+    assert.equal(successful.record.selectionVersion, 23);
+    assert.deepEqual(successful.record.degraded, []);
+    assert.notEqual(successful.curationId, first.curationId);
+    assert.equal((await curateExhibition(input)).curationId, successful.curationId);
+    const lookup = readdirSync(directory).find(name => name.startsWith("request-"))!;
+    writeFileSync(path.join(directory, lookup), "broken");
+    assert.deepEqual((await curateExhibition(input)).record.degraded, []);
+    assert.equal(intents, 3);
+    assert.equal(reranks, 3);
+    const emptyQuery = "想看人物，不要有人。";
+    let emptyCalls = 0;
+    const empty = await curateExhibition({ ...input, query: emptyQuery, stream: async function* () {
+      emptyCalls++;
+      yield JSON.stringify(fallbackCurationIntent(semanticCatalog, emptyQuery));
+    } });
+    assert.equal(emptyCalls, 1);
+    assert.equal(empty.assignments.length, 0);
+    assert.equal((await curateExhibition({ ...input, query: emptyQuery, curationId: empty.curationId })).assignments.length, 0);
+    await experienceObservability(temporary)!.flush();
+    const { totals } = await readExperienceObservability(experienceObservabilityDirectory(temporary)!);
+    assert.deepEqual(totals.freshDegradation, { numerator: 1, denominator: 4, value: 1 / 4 });
+    assert.deepEqual(totals.reasons, { "stage-choice-invalid": 1 });
+    assert.equal(totals.outcomes["pending-join"], 1);
+    assert.equal(totals.outcomes["lookup-hit"], 1);
+    assert.equal(totals.outcomes["lookup-damaged"], 1);
+    assert.equal(totals.outcomes["restore-success"], 3);
+    assert.equal(totals.outcomes["restore-failure"], 1);
+    assert.equal(totals.outcomes["rerank-accepted-original"], 2);
+    assert.equal(totals.outcomes["rerank-rejected"], 1);
+    assert.equal(totals.outcomes["fresh-empty"], 1);
+    assert.equal(totals.outcomes["rerank-skipped"], 1);
+    assert.equal(totals.timings["stage-choice"]!.n, 3);
+  } finally {
+    release();
+    await experienceObservability(temporary)?.flush();
+    if (oldFlag === undefined) delete process.env.ARTDUO_OBSERVABILITY; else process.env.ARTDUO_OBSERVABILITY = oldFlag;
+    if (oldState === undefined) delete process.env.ARTDUO_STATE_DIR; else process.env.ARTDUO_STATE_DIR = oldState;
+    rmSync(temporary, { recursive: true, force: true });
+  }
 });
 
 test("figurative stage words do not become depicted subjects", () => {
@@ -435,7 +532,7 @@ test("only a short exhibition with a choice requests a sparse model rerank", asy
       [...new Set(deterministic.stagePools!.flat().map(item => item.artworkId))].sort());
     assert.deepEqual(chosen.result.assignments.map(item => item.stageIndex), [0, last]);
     assert.ok(chosen.result.assignments.every(item => item.evidence.includes("model:stage-fit")));
-    assert.equal(chosen.result.record.selectionVersion, 22);
+    assert.equal(chosen.result.record.selectionVersion, 23);
 
     const oldRecord = { ...chosen.result.record, selectionVersion: 17 as const };
     const oldId = semanticFingerprint(JSON.stringify(oldRecord));

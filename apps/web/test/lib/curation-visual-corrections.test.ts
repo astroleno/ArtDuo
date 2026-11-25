@@ -167,7 +167,7 @@ test("v19 and newer restore the scoped forest evidence into narration while v18 
         yield "{}";
       } });
     assert.equal(reranks, 1);
-    assert.equal(result.record.selectionVersion, 22);
+    assert.equal(result.record.selectionVersion, 23);
     const saved = readSavedCuration(catalog, result.curationId, undefined, temporary);
     assert.deepEqual(saved.assignments, result.assignments);
     const input = exhibitionNarrativeInput(catalog, saved);

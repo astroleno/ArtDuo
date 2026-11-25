@@ -46,6 +46,7 @@ function acceptedChoice(prompt: string) {
 
 async function main() {
   delete process.env.ARTDUO_TIMING_DIAGNOSTICS;
+  delete process.env.ARTDUO_OBSERVABILITY;
   process.env.ARTDUO_MEDIA_MODE = "local";
   globalThis.fetch = async () => { throw new Error("Network disabled for local synthetic diagnostics"); };
   const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-local-curation-eval-"));
@@ -121,7 +122,7 @@ async function main() {
         .map(phase => [phase, defaultAnalyticsSink.events.slice(startEvent).filter(event => event.name === "experience.performance" && event.properties.phase === phase).length]));
       const { record, assignments } = result;
       const measuredPlan = record.plan;
-      const expectedReason = ["intent-unavailable", "semantic-unavailable", "stage-choice-unavailable"].includes(name) ? [name]
+      const expectedReason = ["intent-unavailable", "semantic-unavailable", "stage-choice-unavailable", "stage-choice-invalid"].includes(name) ? [name]
         : name === "semantic-timeout" ? ["semantic-unavailable"] : [];
       assert.deepEqual(record.degraded, expectedReason);
       if (name === "semantic-timeout") assert.equal(counts.encoderQueryBatches, 1, "deadline must interrupt query retrieval, not initial model preparation");
@@ -182,7 +183,7 @@ async function main() {
         excludedArtists: exclusions.excludedArtists, excludedMedia: exclusions.excludedMedia, cases },
       ruleBaselines,
       limits: {
-        scenarioCounts: "injected synthetic cases; not a production fallback rate. Invalid model payloads can fall back without a recorded reason",
+        scenarioCounts: "injected synthetic cases; not a production fallback rate",
         production: "no authorized production timing distribution or degradation denominator",
         analytics: "the existing default sink is process-local memory; no production timing flag or persistent sink was enabled",
       },

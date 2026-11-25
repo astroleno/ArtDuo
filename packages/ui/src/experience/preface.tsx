@@ -6,7 +6,7 @@ import { ROOM_IMAGE_SIZES, roomImageSrcSet } from "./room-assets";
 /** A preface still being written never holds the visitor longer than this. */
 export const PREFACE_TEXT_GRACE_MS = 8_000;
 
-export function Preface({ block, onContinue, ready, backdropUrl, backdropSmallUrl, count, selectionNotice, keepsake, query = "", pending = false }: { block: NarrativeBlock | null; reducedMotion: boolean; onContinue: () => void; ready: boolean; backdropUrl?: string; backdropSmallUrl?: string; count?: number; selectionNotice?: string; keepsake?: ReactNode;
+export function Preface({ block, onContinue, onActionable, ready, backdropUrl, backdropSmallUrl, count, selectionNotice, keepsake, query = "", pending = false }: { block: NarrativeBlock | null; reducedMotion: boolean; onContinue: () => void; onActionable?: () => void; ready: boolean; backdropUrl?: string; backdropSmallUrl?: string; count?: number; selectionNotice?: string; keepsake?: ReactNode;
   /** The visitor's sentence: held in the heading position until the preface text arrives. */
   query?: string; pending?: boolean }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -19,8 +19,10 @@ export function Preface({ block, onContinue, ready, backdropUrl, backdropSmallUr
   }, [waitingForText]);
   const actionable = ready && !waitingForText;
   useEffect(() => {
-    if (actionable && document.activeElement === document.body) buttonRef.current?.focus();
-  }, [actionable]);
+    if (!actionable) return;
+    onActionable?.();
+    if (document.activeElement === document.body) buttonRef.current?.focus();
+  }, [actionable, onActionable]);
   const sentence = query.trim();
   return <section className="experience-preface" aria-labelledby="experience-preface-title">
     {backdropUrl ? <img alt="" aria-hidden="true" className="experience-preface-backdrop" crossOrigin="anonymous" sizes={ROOM_IMAGE_SIZES} srcSet={roomImageSrcSet(backdropUrl, backdropSmallUrl)} src={backdropUrl} fetchPriority="high" /> : null}

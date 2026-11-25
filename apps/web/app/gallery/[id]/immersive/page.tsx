@@ -14,7 +14,8 @@ import { DEFAULT_CURATION_PROMPT } from "../../../../lib/prompts";
 import { buildExperienceSnapshot } from "../../../../lib/experience-adapter";
 import { getExhibitionSculptures } from "../../../../lib/sculpture-catalog";
 import { buildExperienceEntryHref, buildExperienceHref, resolveExperiencePosition } from "../../../../lib/experience-navigation";
-import { recordExperienceDegradation, recordExperienceTiming } from "../../../../lib/experience-analytics";
+import { recordExperienceDegradation } from "../../../../lib/experience-analytics";
+import { experienceObservabilityDirectory, recordServerExperienceTiming } from "../../../../lib/experience-observability";
 import { loadWebReleaseCatalog, searchBackgroundScenes, searchReleaseCatalog } from "../../../../lib/release-catalog";
 
 interface ImmersivePageProps {
@@ -35,7 +36,7 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   let catalog;
   try {
     catalog = loadWebReleaseCatalog({ releaseVersion: requestedVersion });
-    recordExperienceTiming("release-load", performance.now() - releaseLoadStartedAt, catalog.releaseVersion);
+    recordServerExperienceTiming("release-load", performance.now() - releaseLoadStartedAt, catalog.releaseVersion);
   } catch {
     recordExperienceDegradation("release-unavailable", requestedVersion ?? "current");
     return <main className="artduo-experience experience-unavailable">
@@ -66,7 +67,7 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
       <p>原句已保留，可以重新选一组。</p>
       <a className="experience-primary" href={appPath(buildExperienceEntryHref(query))}>返回入口</a></main>;
   }
-  recordExperienceTiming("retrieval", performance.now() - searchStartedAt, catalog.releaseVersion);
+  recordServerExperienceTiming("retrieval", performance.now() - searchStartedAt, catalog.releaseVersion);
   if (curation?.assignments.length && !requestedCuration) getExhibitionNarrative(catalog, curation);
   const preparedNarrative = curation ? curationNarrativeView(catalog, curation) : undefined;
   let search = curation?.search ?? searchReleaseCatalog(catalog, query, { limit: 12 });
@@ -79,7 +80,7 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
     sceneResults: sceneSearch.results,
     growthForm: narrative.growthForm,
   });
-  recordExperienceTiming("scene-match", performance.now() - sceneMatchStartedAt, catalog.releaseVersion);
+  recordServerExperienceTiming("scene-match", performance.now() - sceneMatchStartedAt, catalog.releaseVersion);
   const adapterStartedAt = performance.now();
   const snapshot = buildExperienceSnapshot({ query, catalog, search, narrative, route,
     curationId: curation?.curationId, selectionVersion: curation?.record.selectionVersion,
@@ -88,7 +89,7 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   const requestedRoute = readSingle(queryParams, "route");
   const routeOrder = requestedRoute && requestedRoute.length < 4096 ? requestedRoute.split(",") : undefined;
   if (validRouteOrder(routeOrder, snapshot)) snapshot.routeOrder = routeOrder;
-  recordExperienceTiming("snapshot-adapter", performance.now() - adapterStartedAt, catalog.releaseVersion);
+  recordServerExperienceTiming("snapshot-adapter", performance.now() - adapterStartedAt, catalog.releaseVersion);
   if (snapshot.omittedUnitCount > 0) recordExperienceDegradation("release-records-omitted", catalog.releaseVersion);
   const { position, corrected } = resolveExperiencePosition(queryParams, snapshot);
   const needsCanonical = !requestedVersion || corrected || readSingle(queryParams, "view") !== "experience"
@@ -108,6 +109,7 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   if (canonicalHref && (requestedCuration || !curation)) redirect(canonicalHref);
   return <>
     {canonicalHref ? <noscript><meta httpEquiv="refresh" content={`0;url=${appPath(canonicalHref)}`} /></noscript> : null}
-    <ExperienceRouteClient key={snapshot.exhibitionId} initialPosition={position} snapshot={snapshot} sculptures={getExhibitionSculptures()} canonicalHref={canonicalHref} />
+    <ExperienceRouteClient key={snapshot.exhibitionId} initialPosition={position} snapshot={snapshot} sculptures={getExhibitionSculptures()} canonicalHref={canonicalHref}
+      observeExperience={Boolean(experienceObservabilityDirectory())} freshCuration={Boolean(curation && !requestedCuration)} />
   </>;
 }

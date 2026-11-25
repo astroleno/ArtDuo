@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { applyStageRerank, requestStageRerank, stageRerankMessages, type StageCandidate } from "../../lib/stage-rerank";
+import type { WebArtwork } from "../../lib/release-catalog";
 
 const candidate = (artworkId: string, score: number): StageCandidate => ({ artworkId, score, vectorScore: score, evidence: ["vector"] });
 const pools = [
@@ -77,10 +78,10 @@ test("a candidate in an unfilled stage cannot trigger a model call when the occu
   const plan = { schemaVersion: 1, currentFeeling: "安静", desiredExperience: "看展", wantsRelief: false, pace: "still", artworkCount: 2,
     stages: [first, { ...first, role: "mirror" }, { ...first, role: "afterglow" }] } satisfies Parameters<typeof requestStageRerank>[0]["plan"];
   let calls = 0;
-  assert.equal(await requestStageRerank({ plan, catalog: { artworkById: new Map() },
+  assert.deepEqual(await requestStageRerank({ plan, catalog: { artworkById: new Map() },
     assignments: current.flat().map(item => ({ ...item, stageIndex: item.stageIndex * 2 })),
     pools: [[pools[0]![0]!], pools[0]!, [pools[1]![0]!]],
-    stream: async function* () { calls++; yield "{}"; } }), undefined);
+    stream: async function* () { calls++; yield "{}"; } }), { status: "skip" });
   assert.equal(calls, 0);
 });
 
@@ -92,4 +93,32 @@ test("a model choice that crowds one department of unknown hands is rejected", (
   assert.equal(applyStageRerank(crowded, pools, current, hand), undefined);
   const fine = JSON.stringify({ stages: [{ stage: 0, artworkIds: ["m1"] }, { stage: 1, artworkIds: ["m2"] }, { stage: 2, artworkIds: ["o3"] }] });
   assert.equal(applyStageRerank(fine, pools, current, hand)?.length, 3);
+});
+
+test("a rerank distinguishes unchanged acceptance, malformed replies, interruptions and timeouts", async () => {
+  const stage = { label: "路径", role: "threshold", transitionIntent: "hold", query: "quiet room", signals: ["quiet"],
+    valence: .4, arousal: .15, tension: .1, wonder: .3, intimacy: .5 } as const;
+  const plan = { schemaVersion: 1, currentFeeling: "安静", desiredExperience: "看展", wantsRelief: false, pace: "still", artworkCount: 2,
+    stages: [{ ...stage, signals: [...stage.signals] }, { ...stage, role: "afterglow", signals: [...stage.signals] }] } satisfies Parameters<typeof requestStageRerank>[0]["plan"];
+  const artworkById = new Map(["a", "b", "c", "d", "e"].map(id => [id, { id, title: id, moodTags: [] } as unknown as WebArtwork]));
+  const input = { plan, catalog: { artworkById }, assignments: current.flat(), pools };
+  const valid = JSON.stringify({ stages: [{ stage: 0, artworkIds: ["a"] }, { stage: 1, artworkIds: ["b"] }] });
+  const accepted = await requestStageRerank({ ...input, stream: async function* () { yield valid; } });
+  assert.equal(accepted.status, "accepted");
+  assert.deepEqual(accepted.status === "accepted" && accepted.assignments.map(row => row.artworkId), ["a", "b"]);
+  for (const payload of ["", "not JSON", "x".repeat(8001), '{"stages":[]}', '{"stages":[{"stage":0,"artworkIds":["a"]},{"stage":1,"artworkIds":["a"]}]}']) {
+    const rejected = await requestStageRerank({ ...input, stream: async function* () { yield payload; } });
+    assert.deepEqual(rejected, { status: "rejected" }, payload.slice(0, 50));
+  }
+  for (const stream of [
+    async function* () { throw new Error("Synthetic unavailable"); },
+    async function* () { yield valid.slice(0, 3); throw new Error("Synthetic interruption"); },
+  ]) assert.deepEqual(await requestStageRerank({ ...input, stream }), { status: "unavailable" });
+  let aborted = false;
+  const timedOut = await requestStageRerank({ ...input, timeoutMs: 12, stream: async function* (_messages, options) {
+    await new Promise<void>(resolve => options.signal!.addEventListener("abort", () => { aborted = true; resolve(); }, { once: true }));
+    yield valid;
+  } });
+  assert.deepEqual(timedOut, { status: "unavailable" });
+  assert.ok(aborted);
 });

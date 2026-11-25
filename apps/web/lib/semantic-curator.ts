@@ -11,21 +11,21 @@ import { NARRATIVE_RECIPE_VERSION } from "../../api/src/services/curation/exhibi
 import { runtimeDirectories } from "../../api/src/runtime/environment";
 import { fallbackCurationIntent, materializeCurationSelection, selectForCurationStages, type SemanticSelection, type StageAssignment } from "./semantic-selection";
 import type { WebReleaseCatalog } from "./release-catalog";
-import { recordExperienceTiming } from "./experience-analytics";
+import { experienceObservability, recordServerExperienceTiming } from "./experience-observability";
 import { requestStageRerank } from "./stage-rerank";
 import { withCurationVisualCorrections } from "./curation-visual-corrections";
 import { refineAfterglow } from "./afterglow-selection";
 
 export const VISUAL_CORRECTION_SELECTION_VERSION = 19;
 export const PEOPLE_EXCLUSION_SELECTION_VERSION = 22;
-const SELECTION_VERSION = PEOPLE_EXCLUSION_SELECTION_VERSION;
+const SELECTION_VERSION = 23;
 
 export interface CurationRecord {
   schemaVersion: 1; recipeVersion: typeof CURATION_RECIPE_VERSION;
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof VISUAL_CORRECTION_SELECTION_VERSION | 20 | 21 | typeof SELECTION_VERSION;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof VISUAL_CORRECTION_SELECTION_VERSION | 20 | 21 | typeof PEOPLE_EXCLUSION_SELECTION_VERSION | typeof SELECTION_VERSION;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -122,7 +122,17 @@ export async function curateExhibition(input: {
   const query = input.query.normalize("NFKC").trim();
   if (!query || query.length > 1000) throw new TypeError("Curation request must contain 1–1000 characters");
   const rootDir = input.rootDir ?? curationRoot(input.catalog);
-  if (input.curationId) return readSavedCuration(input.catalog, input.curationId, query, rootDir);
+  const observability = experienceObservability(rootDir);
+  if (input.curationId) {
+    try {
+      const restored = readSavedCuration(input.catalog, input.curationId, query, rootDir);
+      observability?.outcome("restore-success");
+      return restored;
+    } catch (error) {
+      observability?.outcome("restore-failure");
+      throw error;
+    }
+  }
   const catalog = withCurationVisualCorrections(input.catalog);
   const config = input.stream ? undefined : readCurationChatConfig(rootDir);
   const stream = input.stream ?? (config && createCurationChatStream(config));
@@ -132,27 +142,37 @@ export async function curateExhibition(input: {
   const directory = curationDirectory(rootDir);
   const lookup = path.join(directory, `request-${key}.json`);
   if (existsSync(lookup)) {
-    try { return readSavedCuration(input.catalog, JSON.parse(readFileSync(lookup, "utf8")) as string, query, rootDir); } catch { /* Recompute a damaged lookup; existing URLs fail explicitly. */ }
+    try {
+      const found = readSavedCuration(input.catalog, JSON.parse(readFileSync(lookup, "utf8")) as string, query, rootDir);
+      if (found.record.selectionVersion !== SELECTION_VERSION || found.record.degraded.length) throw new TypeError("Invalid successful curation lookup");
+      observability?.outcome("lookup-hit");
+      return found;
+    } catch { observability?.outcome("lookup-damaged"); }
   }
   const pendingKey = `${rootDir}:${key}`;
   const previous = inFlight.get(pendingKey);
-  if (previous) return previous;
+  if (previous) {
+    observability?.outcome("pending-join");
+    return previous;
+  }
+  const degraded: string[] = [];
+  const freshStartedAt = performance.now();
+  observability?.outcome("fresh-started");
   const run = async (): Promise<CuratedExhibition> => {
-    const degraded: string[] = [];
     let encoder = input.encoder ?? encoders.get(rootDir);
     if (!encoder && indexChecksum !== "hash-only") { encoder = createLocalSemanticEncoder({ rootDir }); encoders.set(rootDir, encoder); }
     // Prepare model weights while intent is being understood; selection still
     // starts only after the validated plan has arrived.
     const modelStartedAt = performance.now();
     const warmed = (encoder ? input.encoder ? encoder.warmup?.() : prepareCurationRuntime(rootDir) : undefined)?.then(() => true, () => false)
-      .finally(() => recordExperienceTiming("semantic-model", performance.now() - modelStartedAt, catalog.releaseVersion));
+      .finally(() => recordServerExperienceTiming("semantic-model", performance.now() - modelStartedAt, catalog.releaseVersion, rootDir));
     const intentStartedAt = performance.now();
     let plan: CurationIntentPlan;
     try {
       if (!stream) throw new Error("Intent provider unavailable");
       plan = await generateCurationIntent(query, stream);
     } catch { plan = fallbackCurationIntent(catalog, query); degraded.push("intent-unavailable"); }
-    recordExperienceTiming("intent", performance.now() - intentStartedAt, catalog.releaseVersion);
+    recordServerExperienceTiming("intent", performance.now() - intentStartedAt, catalog.releaseVersion, rootDir);
     const retrievalStartedAt = performance.now();
     const recentExposure = recentArtworkExposure(rootDir, catalog.releaseVersion);
     let selection: SemanticSelection;
@@ -168,17 +188,27 @@ export async function curateExhibition(input: {
       return selectForCurationStages({ catalog, query, plan, semantic: { index, queries }, recentExposure });
       })(), input.retrievalTimeoutMs ?? 8_000);
     } catch { selection = selectForCurationStages({ catalog, query, plan, recentExposure }); degraded.push("semantic-unavailable"); }
-    recordExperienceTiming("semantic-retrieval", performance.now() - retrievalStartedAt, catalog.releaseVersion);
+    recordServerExperienceTiming("semantic-retrieval", performance.now() - retrievalStartedAt, catalog.releaseVersion, rootDir);
     const pools = selection.stagePools;
+    let rerankStatus: "skip" | "accepted" | "rejected" | "unavailable" = "skip";
     if (stream && pools && !degraded.includes("intent-unavailable")) {
       // The model reads observed image facts to choose within each stage's admitted pool.
       const choiceStartedAt = performance.now();
-      try {
-        const chosen = await requestStageRerank({ catalog, plan, assignments: selection.assignments, pools, stream, timeoutMs: input.stageChoiceTimeoutMs ?? 10_000 });
-        if (chosen) selection = materializeCurationSelection(catalog, query, plan, chosen, selection.search.model, selection.search.dimensions, { scopedRiverBank: true });
-      } catch { degraded.push("stage-choice-unavailable"); }
-      recordExperienceTiming("stage-choice", performance.now() - choiceStartedAt, catalog.releaseVersion);
+      const choice = await requestStageRerank({ catalog, plan, assignments: selection.assignments, pools, stream, timeoutMs: input.stageChoiceTimeoutMs ?? 10_000 });
+      rerankStatus = choice.status;
+      if (choice.status === "accepted") {
+        try {
+          const original = choice.assignments.every((item, index) => selection.assignments[index]?.artworkId === item.artworkId);
+          selection = materializeCurationSelection(catalog, query, plan, choice.assignments, selection.search.model, selection.search.dimensions, { scopedRiverBank: true });
+          observability?.outcome(original ? "rerank-accepted-original" : "rerank-accepted-changed");
+        }
+        catch { rerankStatus = "rejected"; }
+      }
+      if (rerankStatus !== "skip") recordServerExperienceTiming("stage-choice", performance.now() - choiceStartedAt, catalog.releaseVersion, rootDir);
     }
+    if (rerankStatus === "rejected") degraded.push("stage-choice-invalid");
+    if (rerankStatus === "unavailable") degraded.push("stage-choice-unavailable");
+    observability?.outcome(rerankStatus === "skip" ? "rerank-skipped" : `rerank-${rerankStatus}`);
     const ending = pools && refineAfterglow({ catalog, query, plan, assignments: selection.assignments, pools });
     if (ending) selection = materializeCurationSelection(catalog, query, plan, ending, selection.search.model, selection.search.dimensions, { scopedRiverBank: true });
     const record: CurationRecord = { schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion,
@@ -192,7 +222,12 @@ export async function curateExhibition(input: {
     if (!degraded.length) writeFileSync(lookup, JSON.stringify(curationId), { mode: 0o600 });
     return hydrate(catalog, curationId, record, query);
   };
-  const pending = run().finally(() => inFlight.delete(pendingKey));
+  const complete = (success: boolean, empty = false) => {
+    observability?.finishFresh(success, degraded, empty);
+    recordServerExperienceTiming("fresh-curation", performance.now() - freshStartedAt, catalog.releaseVersion, rootDir);
+  };
+  const pending = run().then(result => { complete(true, !result.assignments.length); return result; }, error => { complete(false); throw error; })
+    .finally(() => inFlight.delete(pendingKey));
   inFlight.set(pendingKey, pending);
   return pending;
 }

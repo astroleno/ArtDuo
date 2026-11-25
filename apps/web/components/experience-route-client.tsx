@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ComponentProps } from "react";
 import { useRouter } from "next/navigation";
 import { appPath } from "@artduo/contracts";
 
@@ -8,12 +8,12 @@ import { ExperienceShell, replaceExperienceHistory } from "@artduo/ui";
 import type { ExperiencePosition, ExhibitionSnapshot, SculptureRoomScene, SculptureWork } from "@artduo/ui";
 
 import { buildExperienceEntryHref, experienceHrefForPosition, restoreExperienceRoute } from "../lib/experience-navigation";
-import { beginExperienceTimingIfMissing, recordExperienceDegradation, recordExperienceMilestone } from "../lib/experience-analytics";
+import { beginExperienceTimingIfMissing, recordExperienceDegradation, recordExperienceMilestone, sendAnonymousExperienceDuration, takeRealExperienceSubmissionMs } from "../lib/experience-analytics";
 import { useCurationNarrative } from "./use-curation-narrative";
 import { useHandwrittenKeepsake } from "./use-handwritten-keepsake";
 import { requestSculptureNarrative } from "../lib/sculpture-narrative-client";
 
-export function ExperienceRouteClient({ snapshot, initialPosition, sculptures, canonicalHref }: { snapshot: ExhibitionSnapshot; initialPosition: ExperiencePosition; sculptures: { works: SculptureWork[]; scenes: SculptureRoomScene[] }; canonicalHref?: string }) {
+export function ExperienceRouteClient({ snapshot, initialPosition, sculptures, canonicalHref, observeExperience = false, freshCuration = false }: { snapshot: ExhibitionSnapshot; initialPosition: ExperiencePosition; sculptures: { works: SculptureWork[]; scenes: SculptureRoomScene[] }; canonicalHref?: string; observeExperience?: boolean; freshCuration?: boolean }) {
   const router = useRouter();
   const handwritingProvider = useHandwrittenKeepsake();
   const [restoredRoute] = useState(() => restoreExperienceRoute(snapshot, initialPosition, typeof window === "undefined" ? undefined : window.location.href));
@@ -95,9 +95,24 @@ export function ExperienceRouteClient({ snapshot, initialPosition, sculptures, c
     window.addEventListener("artduo:experience-degraded", onDegraded);
     return () => window.removeEventListener("artduo:experience-degraded", onDegraded);
   }, [snapshot.releaseVersion]);
-  const onMilestone = useCallback((phase: "first-artwork-visible" | "first-artwork-actionable") => {
+  const enteredAt = useRef<number | undefined>(undefined);
+  const onMilestone = useCallback<NonNullable<ComponentProps<typeof ExperienceShell>["onMilestone"]>>(phase => {
+    if (phase === "preface-actionable" || phase === "empty-actionable") {
+      if (observeExperience && freshCuration) {
+        sendAnonymousExperienceDuration(true, phase === "preface-actionable" ? "submit-to-preface-actionable" : "submit-to-empty-actionable", takeRealExperienceSubmissionMs());
+      }
+      return;
+    }
+    if (phase === "enter-activated") {
+      if (observeExperience) enteredAt.current ??= performance.now();
+      return;
+    }
     recordExperienceMilestone(phase, snapshot.releaseVersion);
-  }, [snapshot.releaseVersion]);
+    if (phase === "first-artwork-actionable" && enteredAt.current !== undefined) {
+      sendAnonymousExperienceDuration(observeExperience, "enter-to-first-artwork-actionable", performance.now() - enteredAt.current);
+      enteredAt.current = undefined;
+    }
+  }, [freshCuration, observeExperience, snapshot.releaseVersion]);
   return <ExperienceShell
     sculptureWorks={sculptures.works}
     sculptureScenes={sculptures.scenes}

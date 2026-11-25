@@ -192,3 +192,16 @@ pnpm --filter @artduo/ui exec tsx --test src/experience/plaque.test.tsx src/expe
 ```
 
 浏览器复现使用本地正式构建、同一合成保存展和 Ego 任务页，依次运行 `.cache/artduo-arc-round2/credit-probe.mjs` 中的两种视口流程；记录见同目录 `b4-browser.json`，其中 `painted` 为实际绘制字符串，`copied` 为失败回退后的复制文本。
+
+第五批独立验收通过。36 项重排、策展、客户端标记与匿名汇总定向测试通过。合成服务端集成测试中，4 次成功新策展有 1 次降级，原因仅计 1 次；并发复用、成功查询缓存、原始保存 ID 恢复分别计数。非法响应保留可恢复的确定路线，新请求立即重试。成功原序、改变顺序、跳过、响应无效与调用不可用分开记录。新成功记录使用 v23 隔离缓存，选画仍遵循 v22，历史保存 ID 可继续恢复。
+
+正式本地构建在 390px 的 3 次新建、3 次恢复全部成功；新建从提交到前言、入场到首画、提交到首画的中位数分别为 608、907、2002ms，恢复从入场到首画为 896ms。1440px 下新建、保存恢复、提交空展、停用四种路径产生的客户端样本依次为 2、1、1、0 个。重启并直接打开一个矛盾请求后，两份写入者快照合计新策展开始、成功、降级各 6 次（合成环境关闭模型），恢复成功 4 次，终版新增服务器空展计数 1。重启前后的客户端样本均为提交至前言 4、入场至首画 8、提交至空展 1；直接打开空展没有新增提交样本。终版的空展计数从该字段上线时开始，较早快照没有这个字段。
+
+两份私有快照权限均为 0600，其目录为 0700；字段仅含版本、UTC 日期、结果计数、原因计数和阶段耗时桶。关闭环境没有观察目录；实际同源端点对多余字段、跨站、错误内容类型及关闭状态分别返回 400、403、415、404。默认关闭，合成分母 6/6 只描述本次测试。百分位数输出为固定桶区间，线上等待与降级率仍无实测。
+
+```sh
+pnpm --filter @artduo/web exec tsx --test test/lib/experience-observability.test.ts test/lib/experience-analytics.test.ts test/lib/stage-rerank.test.ts test/lib/semantic-curation.test.ts
+ARTDUO_OBSERVABILITY=1 ARTDUO_STATE_DIR=/absolute/path/to/private-synthetic-state pnpm --filter @artduo/web exec tsx scripts/read-experience-observability.ts
+```
+
+页面与跨重启证据位于 `.cache/artduo-arc-round2/` 下的 `b5-wait-390.json`、`b5-browser-1440.json`、`b5-browser-aggregates.json`、`b5-final-aggregates.json`。
