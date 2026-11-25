@@ -9,6 +9,8 @@ import { artworkOffering, stageFit } from "../../lib/artwork-offering";
 import { curateExhibition, curationDirectory, readSavedCuration } from "../../lib/semantic-curator";
 import { loadWebReleaseCatalog, searchReleaseCatalog, type WebArtwork } from "../../lib/release-catalog";
 import { matchesViewingIntent, parseViewingIntent } from "../../lib/viewing-intent";
+import { exhibitionNarrativeInput } from "../../lib/exhibition-narrative-server";
+import { isGalleryArtwork } from "../../lib/artwork-eligibility";
 
 const rootDir = path.resolve(__dirname, "../../../..");
 const catalog = loadWebReleaseCatalog({ rootDir, releaseVersion: "2026-10-13-quality" });
@@ -91,6 +93,91 @@ test("hard exclusions, explicit authors and short results survive stage planning
   const plan = fallbackCurationIntent(catalog, "只看三幅安静的画");
   assert.equal(plan.artworkCount, 3);
   assert.equal(selectForCurationStages({ catalog, query: "只看三幅安静的画", plan }).search.results.length, 3);
+});
+
+test("a no-people request excludes present and unknown from all pools, while version 21 still restores its route", async () => {
+  const base = catalog.artworks.find(isGalleryArtwork)!;
+  const interior = (id: string, people: "absent" | "present" | "unknown"): WebArtwork => ({
+    ...base, id, title: "Interior " + id, visualEvidenceUnavailable: false,
+    visualEvidence: { ...base.visualEvidence!, artworkId: id, facts: { interior: "present", people } },
+  });
+  const works = [interior("with-person", "present"), interior("uncertain-person", "unknown"),
+    interior("empty-one", "absent"), interior("empty-two", "absent")];
+  const fixture = { ...catalog, artworks: works, artworkById: new Map(works.map(art => [art.id, art])),
+    embeddingRecords: works.map(artwork => ({ ...catalog.embeddingRecords[0]!, id: artwork.id })) };
+  const query = "想看一幅室内画，不要有人。";
+  const plan = fallbackCurationIntent(fixture, query);
+  const semantic = { index: { schemaVersion: 1 as const, releaseVersion: fixture.releaseVersion, sourceFingerprint: "fixture",
+    model: { ...LOCAL_SEMANTIC_MODEL, dimensions: 2 }, records: works.map((artwork, index) =>
+      ({ artworkId: artwork.id, textFingerprint: "fixture", vector: index < 2 ? [1, 0] : [0, 1] })) },
+  queries: plan.stages.map(() => [1, 0]) };
+  assert.deepEqual(eligibleCurationArtworks(fixture, query, plan).map(work => work.id), ["empty-one", "empty-two"]);
+  for (const vector of [undefined, semantic]) {
+    const selection = selectForCurationStages({ catalog: fixture, query, plan, semantic: vector });
+    assert.equal(selection.assignments.length, 1);
+    assert.deepEqual(new Set(selection.stagePools!.flat().map(work => work.artworkId)), new Set(["empty-one", "empty-two"]));
+  }
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-people-exclusion-"));
+  try {
+    let reranks = 0;
+    let choicePrompt = "";
+    const fresh = await curateExhibition({ catalog: fixture, query, rootDir: temporary, intentModel: "fixture",
+      stream: async function* (messages) {
+        if (!messages[0]!.content.includes("选画编辑")) { yield JSON.stringify(plan); return; }
+        reranks++;
+        choicePrompt = messages[1]!.content;
+        yield JSON.stringify({ stages: [{ stage: 0, artworkIds: ["with-person"] }] });
+      } });
+    assert.equal(reranks, 1);
+    assert.doesNotMatch(choicePrompt, /with-person|uncertain-person/u);
+    assert.equal(fresh.record.selectionVersion, 22);
+    assert.equal(fresh.record.assignments.length, 1);
+    assert.match(fresh.record.assignments[0]!.artworkId, /^empty-/u);
+    assert.deepEqual(exhibitionNarrativeInput(fixture, fresh).requirements?.excludedSubjects, ["people"]);
+    assert.deepEqual(readSavedCuration(fixture, fresh.curationId, fresh.record.query, temporary).assignments, fresh.assignments);
+
+    const historicalQuery = "想看两幅室内画，不要有人。".normalize("NFKC");
+    const historicalPlan = fallbackCurationIntent(fixture, historicalQuery);
+    const oldRecord = { ...fresh.record, selectionVersion: 21 as const, query: historicalQuery, plan: historicalPlan,
+      assignments: ["with-person", "uncertain-person"].map((artworkId, index) =>
+        ({ artworkId, stageIndex: index, score: .5, vectorScore: 0, evidence: ["fixture:legacy"] })) };
+    const oldId = semanticFingerprint(JSON.stringify(oldRecord));
+    writeFileSync(path.join(curationDirectory(temporary), `${oldId}.json`), JSON.stringify(oldRecord));
+    const oldKey = semanticFingerprint(JSON.stringify({ recipe: oldRecord.recipeVersion, selectionVersion: 21,
+      narrativeVersion: oldRecord.narrativeVersion, visualEvidenceVersion: oldRecord.visualEvidenceVersion,
+      appearanceVersion: oldRecord.appearanceVersion, release: oldRecord.releaseVersion, query: historicalQuery,
+      intentModel: oldRecord.intentModel, indexChecksum: oldRecord.indexChecksum }));
+    writeFileSync(path.join(curationDirectory(temporary), `request-${oldKey}.json`), JSON.stringify(oldId));
+    const restored = readSavedCuration(fixture, oldId, historicalQuery, temporary);
+    assert.equal(restored.curationId, oldId);
+    assert.deepEqual(restored.assignments, oldRecord.assignments);
+    const legacyNarrative = exhibitionNarrativeInput(fixture, restored);
+    assert.deepEqual(legacyNarrative.requirements?.excludedSubjects, []);
+    assert.deepEqual(legacyNarrative.artworks.map(artwork => artwork.id), ["with-person", "uncertain-person"]);
+    const regenerated = await curateExhibition({ catalog: fixture, query: historicalQuery, rootDir: temporary, intentModel: oldRecord.intentModel,
+      stream: async function* () { yield JSON.stringify(historicalPlan); } });
+    assert.equal(regenerated.record.selectionVersion, 22);
+    assert.notEqual(regenerated.curationId, oldId);
+    assert.deepEqual(new Set(regenerated.assignments.map(item => item.artworkId)), new Set(["empty-one", "empty-two"]));
+
+    const relabeled = { ...oldRecord, selectionVersion: 22 as const };
+    const newId = semanticFingerprint(JSON.stringify(relabeled));
+    writeFileSync(path.join(curationDirectory(temporary), `${newId}.json`), JSON.stringify(relabeled));
+    assert.throws(() => readSavedCuration(fixture, newId, historicalQuery, temporary), /disallowed assignments/u);
+
+    const limited = { ...fixture, artworks: works.slice(0, 2) };
+    for (const emptyQuery of [query, "想看人物，不要有人。"]) {
+      let calls = 0;
+      const empty = await curateExhibition({ catalog: limited, query: emptyQuery, rootDir: temporary, intentModel: "zero-fixture",
+        stream: async function* () {
+          calls++;
+          yield JSON.stringify(fallbackCurationIntent(limited, emptyQuery));
+        } });
+      assert.equal(calls, 1);
+      assert.deepEqual(empty.assignments, []);
+      assert.deepEqual(readSavedCuration(limited, empty.curationId, empty.record.query, temporary).assignments, []);
+    }
+  } finally { rmSync(temporary, { recursive: true, force: true }); }
 });
 
 test("a hand-focused portrait request ranks observed hands without relaxing any subject or medium", () => {
@@ -348,7 +435,7 @@ test("only a short exhibition with a choice requests a sparse model rerank", asy
       [...new Set(deterministic.stagePools!.flat().map(item => item.artworkId))].sort());
     assert.deepEqual(chosen.result.assignments.map(item => item.stageIndex), [0, last]);
     assert.ok(chosen.result.assignments.every(item => item.evidence.includes("model:stage-fit")));
-    assert.equal(chosen.result.record.selectionVersion, 21);
+    assert.equal(chosen.result.record.selectionVersion, 22);
 
     const oldRecord = { ...chosen.result.record, selectionVersion: 17 as const };
     const oldId = semanticFingerprint(JSON.stringify(oldRecord));

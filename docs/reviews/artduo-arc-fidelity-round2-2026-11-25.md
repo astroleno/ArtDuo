@@ -43,16 +43,16 @@
 
 **注意：** 标签取自视觉复核的观察文字，选画也读取同一批视觉事实，两者并不完全独立。它适合发现召不回的问题，不适合证明选得好。
 
-### 3.2 召回低的根因：向量分被压扁，图像观察没有进入检索
+### 3.2 召回的两个待检验因素：向量分差与观察文字的编入方式
 
-两个独立原因叠加，都可以直接验证：
+以下两项都可单独测量，其对最终召回的贡献须用配对实验确认。
 
 1. **向量分几乎没有区分度。** 本地 `multilingual-e5-small` 对「风车」阶段的余弦相似度，全馆第 1 名 0.841，第 20 名 0.821，中位数 0.797。全馆极差实测约 0.088，最高到中位约 0.042，后者乘以 0.78 约为 0.033。情感契合（权重 0.22）和各项 0.12–0.24 的加分都远大于它。
    - 纯向量排序时，「桅杆或船帆」第一名是《A Packet-Boat Sailing before the Wind》，判断正确。最终排序把它挤出前 6，换成《The Meeting of Jacob and Rachel》《The Bay of Marseille》《Spring View from a Thatched Pavilion》。
    - 「风车」请求的前三也是这三件。两个不相关的物象得到几乎相同的结果，说明语义已经不在决定排序。
-2. **核验过的图像观察没有被编入索引。** `semanticArtworkText` 只拼接馆藏元数据（标题、媒材、标签、馆方描述）。视觉复核里"石桥""桅杆""风车"这类中文观察从未进入向量。e5 是多语模型，本可以直接读这些文字。
+2. **观察文字的编入方式不统一。** 主线程以实际发布版的 `semanticArtworkText` 对读同图核验观察，603/739 件已逐字包含完整观察。开馆库导入的 `build-release.ts` 将观察写入 `descriptionClean`，随后同标题、媒材等一并编码。其余 136 件未逐字包含完整观察，可能仍包含部分文字。独立观察索引用于比较统一覆盖及减少馆藏文字干扰的效果。
 
-这也解释了为什么一直在逐题材加规则：森林、河岸、暖光都在用规则把视觉事实补回打分，因为检索本身看不到它们。
+这也解释了为什么一直在逐题材加规则：森林、河岸、暖光都在用规则把视觉事实补回打分，这些专项规则的边际作用应在统一输入后逐项衡量。
 
 **建议（两项都是一次性的通用改动）：**
 
@@ -121,7 +121,7 @@
 
 ### 4. 扩展署名清理
 
-沿 `artwork-credits.ts` 的可选署名，覆盖结语与复制、分享 PNG、手写卡、放大视图及作品独立页。复用馆方署名与角色校正，处理 10 件缺原始署名和另 2 件只有出版角色；出版者保留出版标识。可核实的馆方地域、流派、归属须保留独立字段及来源，缺少依据就省略。不可从画名、图像风格或国籍猜作者。用无署名、出版者、明确匿名、带归属限定及具名画家作对照；检查文本及实际导出 PNG、手写预览、末画换序与旧保存展。390/1440px 无空分隔符、空行或裁切，必要的作品和来源仍可识别。
+沿 `artwork-credits.ts` 的可选署名，覆盖结语与复制、分享 PNG、手写卡、放大视图及作品独立页。复用馆方署名与角色校正，处理 10 件缺原始署名和另 2 件只有出版角色；出版者保留出版标识。这 10 件已有匹配作品页的公开馆方收据，位于 `data/sources/open-collections/{2026-11-17,2026-11-18}/records`；其中 9 件 CMA 的 culture 为数组、1 件 MET 为字符串。仅在 metadata.culture 缺失且馆藏 ID、作品页 URL 同时吻合时补馆方原文，按原顺序处理数组，与作者及出版者分列。开馆库导入映射保留该来源字段；已发布 manifest 保持原样，当前显示补录限定到这 10 件，检验有值不覆盖、错 ID/URL 不套用。可核实的馆方地域、流派、归属须保留独立字段及来源，缺少依据就省略。不可从画名、图像风格或国籍猜作者。用无署名、出版者、明确匿名、带归属限定及具名画家作对照；检查文本及实际导出 PNG、手写预览、末画换序与旧保存展。390/1440px 无空分隔符、空行或裁切，必要的作品和来源仍可识别。
 
 ### 5. 降级类型、缓存与匿名观测
 
@@ -155,3 +155,13 @@ pnpm --filter @artduo/web exec tsx scripts/stage-holdout-eval.ts --blind-packets
 pnpm --filter @artduo/web exec tsx scripts/stage-holdout-eval.ts --score-blind test/fixtures/stage-holdout-blind-739-v1.json /tmp/artduo-universe-v1.json
 pnpm --filter @artduo/web exec tsx --test test/lib/stage-holdout.test.ts
 ```
+
+第二批固定样本复核。739 件同图核验记录中，149 件确证室内，其中 138 件有人、11 件人物未知，确证无人的室内为 0。独立重算全馆报告，只有“室内陈设，不要有人”的三个段池改变，删除原先 18 个确证负例；其余 84 个段池逐项一致。K=6 返回位置由 481 降至 463，确证负例由 31 降至 13，确证正例 58 和未知 392 均不变。旧 25 条的固定计划和本地规则计划两组与上轮逐路线一致。独立查看主线程正式构建的 390×844、1440×900 浏览器记录，两种零展原因分别新开、保存直达，共 8 次，提示能区分条件矛盾与证据不足，无横向溢出、无画作请求；主线程验证可用键盘返回重述入口并保留原句。记录见 `.cache/artduo-arc-round2/b2-browser.json`，浏览器脚本为同目录的 `empty-probe.mjs`。
+
+```sh
+pnpm --filter @artduo/web exec tsx scripts/stage-holdout-eval.ts --universe > /tmp/artduo-universe-people.json
+pnpm --filter @artduo/web exec tsx scripts/local-curation-eval.ts > /tmp/artduo-people-routes.json
+pnpm --filter @artduo/web exec tsx --test test/lib/viewing-intent.test.ts test/lib/semantic-curation.test.ts test/lib/afterglow-selection.test.ts test/lib/curation-visual-corrections.test.ts
+```
+
+第二批补修后独立验收通过。“不要有人的画”“希望画里没有人”“不想看有人的画”均进入人物硬排除；陪我看画、人物画的画框、并非禁止、不要只有人及不希望旁人打扰五个反例均未误触发。59 项定向测试通过，补修前后全馆报告逐字节一致，两组 25 场的每条路线均与旧基线一致。

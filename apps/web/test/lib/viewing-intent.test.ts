@@ -9,6 +9,46 @@ const without = (work: WebArtwork, subjects: VisualSubject[], open = false) => (
   facts: Object.fromEntries(subjects.map(subject => [subject, "absent"])), ...(open ? { spatialFraming: "open" } : {}),
 } }) as WebArtwork;
 
+test("explicit visual people exclusions recognize colloquial phrasing and preserve their scope", () => {
+  for (const query of [
+    "给我看六张室内画，但不要有人。",
+    "想看室内画，画面别出现人。",
+    "别有任何人入镜。",
+    "想看没有人的室内场景。",
+    "想看室内，不要有人的画。",
+    "希望画里没有人。",
+    "我想要画面里没有人出现。",
+    "不想看有人的画。",
+    "不要战争和有人出现。",
+    "避开船，不想看到有人。",
+    "不要有人、船只和花。",
+  ]) {
+    const intent = parseViewingIntent(query);
+    assert.ok(intent.excludedSubjects.includes("people"), query);
+    assert.ok(!intent.subjects.includes("people"), query);
+  }
+  for (const query of [
+    "想看有人在室内的画。",
+    "下午办公室没有人打扰我，想看静物。",
+    "不想有人催我，给我看一张室内画。",
+    "不要有人打扰我，想看森林。",
+    "不要有人陪我看画。",
+    "不要有人和我一起看画。",
+    "不要有人物画的画框。",
+    "我并不是希望画里没有人。",
+    "并不是不要有人。",
+    "我不是不要人物，想看室内画。",
+    "不是说画里不能有人。",
+    "不要只有人，想看人和室内环境的关系。",
+    "不要只有人物，想看人物跟室内环境的关系。",
+    "我想看看《不要有人》。",
+  ]) assert.ok(!parseViewingIntent(query).excludedSubjects.includes("people"), query);
+  assert.deepEqual(new Set(parseViewingIntent("想看室内画，不要有人、船只和花。").excludedSubjects), new Set(["people", "boats", "flowers"]));
+  assert.ok(parseViewingIntent("想看室内画，不要有人。").subjects.includes("interior"));
+  assert.deepEqual(parseViewingIntent("想看室内画，不要有人。", [], { scopedPeopleExclusions: false }).excludedSubjects, []);
+  assert.match(viewingIntentConflictMessage(parseViewingIntent("想看人物，不要有人。")) ?? "", /题材/u);
+});
+
 test("conflict feedback explains blocked requirements without rejecting remaining alternatives", () => {
   for (const [query, expected] of [
     ["只看莫奈，不要莫奈。", /同一位作者/u],

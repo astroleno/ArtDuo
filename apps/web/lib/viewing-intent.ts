@@ -73,6 +73,26 @@ const MORNING = /清晨|黎明|晨曦|拂晓|破晓|日出|\b(?:dawn|morning|day
 const EVENING = /傍晚|黄昏|暮色|日落|夜晚|夜景|夜色|\b(?:evening|dusk|sunset|night|nocturne|nightfall)\b/iu;
 const VIEW_REQUEST = /想看|希望看|想找|给我|要看|看看|看点|想欣赏|想观察|\b(?:show me|looking for|look at|(?:want|would like) to (?:see|view))\b/iu;
 const SHORT_RIVER_BANK = /^(?:(?:清晨|黎明|黄昏|傍晚|安静|开阔)(?:的)?\s*)*(?:河岸|河畔|河边|江岸|江畔|江边)(?:边)?(?:风景|景色|景观|画作)?$|^(?:(?:dawn|morning|quiet|evening)\s+)?(?:river[ -]?banks?|riverside)(?:\s+(?:landscapes?|paintings?|views?))?$/iu;
+const PEOPLE_PROHIBITION = /不要|别|不想(?:看见|看到|看)|不希望|不能|避开|排除/gu;
+const PEOPLE_PAUSE = /^\s*(?:(?:出现|入镜)|的(?:画(?:作)?|作品|室内|房间|风景|场景))?\s*(?:[、，,]|也不要|也别|(?:及|和|与|或者|或是)(?!\s*(?:我|你|他|她|谁|大家|朋友|家人))|[吧呀啊]?\s*$)/u;
+const PEOPLE_SCOPE_RESET = /但是|而是|不过|改看|只想看|只看|(?<!不)想看|希望看|\bbut\b/iu;
+const PEOPLE_NOT_AN_EXCLUSION = /(?:不是|并非|不是说|没说|并不是|不意味着|不表示)\s*(?:画里|画面中?)?\s*$|(?:不要|不想(?:看)?|别|不希望)\s*(?:只有|只是|仅有|仅仅有|全是|都是)\s*$/u;
+
+function excludesBarePeople(clause: string): boolean {
+  if (/(?:想看|希望看|给我|看看|只看)(?:一[幅件张])?\s*(?:没有|没)人的(?:画|作品|室内|房间|风景|场景)/u.test(clause)
+    && !NEGATION.test(clause.replace(/没有人/u, ""))) return true;
+  if (/^(?:\s*(?:我)?(?:希望|想要|要求)\s*)?(?:画里|画面(?:里|中)?|图中|作品里)\s*(?:没有|没)人\s*(?:出现|入镜)?\s*$/u.test(clause)) return true;
+  for (const match of clause.matchAll(PEOPLE_PROHIBITION)) {
+    const prefix = clause.slice(0, match.index);
+    if (PEOPLE_NOT_AN_EXCLUSION.test(prefix) || /(?:新闻|他说|她说|家里|办公室里).{0,8}$/u.test(prefix)) continue;
+    const rest = clause.slice(match.index + match[0].length);
+    const direct = rest.match(/^\s*(?:(?:画里|画面中?|作品中?|图中|里边|里面)\s*)?(?:(?:看到|看见|出现|放|包含)\s*)?(?:有\s*)?(?:任何\s*)?人/u);
+    if (direct && PEOPLE_PAUSE.test(rest.slice(direct[0].length))) return true;
+    // In a list this still needs its own visual presence phrase ("战争和有人出现").
+    if (/^(?:(?!有人|但是|而是|想看).)+(?:[、]|和|与|及)\s*(?:出现人|有人)(?=\s*(?:出现|入镜)?\s*$)/u.test(rest)) return true;
+  }
+  return false;
+}
 
 function isNegated(clause: string, index: number): boolean {
   // "not forest but sea" and "不要森林，想看海" have separate scopes.
@@ -153,7 +173,13 @@ const titleKey = (value: string) => value.normalize("NFKC").toLowerCase().replac
 
 const SITUATION = /(?:在|待在|呆在|困在|关在|坐在|窝在|闷在)[^，。；,;]{0,12}(?:里|中|内)|加班|上班|通勤|\b(?:stuck|trapped|cooped up|sitting|working)\s+(?:in|at)\b|\bbeen in\b/iu;
 
-export function parseViewingIntent(query: string, catalogArtists: readonly string[] = [], { scopedRiverBank = false } = {}): ViewingIntent {
+export interface ViewingIntentOptions {
+  scopedRiverBank?: boolean;
+  scopedPeopleExclusions?: boolean;
+}
+
+export function parseViewingIntent(query: string, catalogArtists: readonly string[] = [],
+  { scopedRiverBank = false, scopedPeopleExclusions = true }: ViewingIntentOptions = {}): ViewingIntent {
   const subjects = new Set<Subject>();
   const excluded = new Set<Subject>();
   const artists = new Set<string>();
@@ -172,6 +198,7 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
   const clauses = intentClauses(subjectQuery);
   const ignorePlaceName = scopedRiverBank && subjectQuery.includes("上海") && prefersRiverBank(subjectQuery);
   for (const clause of clauses) {
+    if (scopedPeopleExclusions && excludesBarePeople(clause)) excluded.add("people");
     const wish = /想看|希望看|给我|要看|看看|看点|\b(?:show|want|looking for|see)\b/iu.test(clause);
     // Where the visitor is stuck ("在小房间里加班") describes their day, not what they want to see.
     const situated = SITUATION.test(clause);
@@ -179,6 +206,11 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
     for (const [key, pattern] of Object.entries(SUBJECTS)) {
       const subjectClause = ignorePlaceName && key === "sea" ? clause.replace(/上海/gu, "  ") : clause;
       for (const match of subjectClause.matchAll(new RegExp(pattern.source, "giu"))) {
+        if (scopedPeopleExclusions && key === "people") {
+          const prefix = clause.slice(0, match.index).split(PEOPLE_SCOPE_RESET).at(-1) ?? "";
+          if (/^人物画的(?:画框|边框)/u.test(subjectClause.slice(match.index))) continue;
+          if (PEOPLE_NOT_AN_EXCLUSION.test(prefix) || /(?:不是|并非|没说|并不是)\s*(?:不要|不想(?:看)?|别|不希望|不能|不看).*$/u.test(prefix)) continue;
+        }
         if (isNegated(clause, match.index)) excluded.add(key as Subject);
         else if (!contextOnly) subjects.add(key as Subject);
       }

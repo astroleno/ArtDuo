@@ -4,7 +4,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { createCurationChatStream, readCurationChatConfig, type ChatStream } from "../../api/src/services/curation/chat-provider";
 import { fallbackExhibitionNarrative, generateExhibitionNarrative, narrativePieceKey, NARRATIVE_RECIPE_VERSION, validateExhibitionNarrativePiece,
   type DeliveredNarrativePiece, type ExhibitionNarrativeInput } from "../../api/src/services/curation/exhibition-narrative";
-import { curationDirectory, curationRoot, VISUAL_CORRECTION_SELECTION_VERSION, type CuratedExhibition } from "./semantic-curator";
+import { curationDirectory, curationRoot, PEOPLE_EXCLUSION_SELECTION_VERSION, VISUAL_CORRECTION_SELECTION_VERSION, type CuratedExhibition } from "./semantic-curator";
 import type { WebReleaseCatalog } from "./release-catalog";
 import type { CurationNarrative } from "./curation-narrative";
 import { parseViewingIntent, viewingIntentDecision, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
@@ -35,7 +35,9 @@ export function curationNarrativeView(catalog: WebReleaseCatalog, curation: Cura
 
 export function exhibitionNarrativeInput(catalog: WebReleaseCatalog, curation: CuratedExhibition): ExhibitionNarrativeInput {
   const scopeEvidence = (curation.record.selectionVersion ?? 0) >= VISUAL_CORRECTION_SELECTION_VERSION;
-  const intent = parseViewingIntent(curation.record.query, catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : []), { scopedRiverBank: scopeEvidence });
+  const intent = parseViewingIntent(curation.record.query, catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : []), {
+    scopedRiverBank: scopeEvidence, scopedPeopleExclusions: (curation.record.selectionVersion ?? 0) >= PEOPLE_EXCLUSION_SELECTION_VERSION,
+  });
   const artworks = scopeEvidence
     ? new Map(curation.search.results.map(({ artwork }) => [artwork.id, artwork])) : catalog.artworkById;
   return { query: curation.record.query, plan: curation.record.plan,

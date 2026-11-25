@@ -8,7 +8,7 @@ import { withCurationVisualCorrections } from "./curation-visual-corrections";
 import { STAGE_RERANK_POOL_SIZE, type StageCandidate } from "./stage-rerank";
 import { isGalleryArtwork } from "./artwork-eligibility";
 import { selectBackgroundScene, type WebArtwork, type WebReleaseCatalog, type WebSearchResult } from "./release-catalog";
-import { depictsEvening, hasIntenseContent, matchesViewingIntent, mentionsMorning, parseViewingIntent, prefersRiverBank, reviewedLandscapeFocus, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
+import { depictsEvening, hasIntenseContent, matchesViewingIntent, mentionsMorning, parseViewingIntent, prefersRiverBank, reviewedLandscapeFocus, viewingIntentEvidence, viewingFocusEvidence, type ViewingIntentOptions } from "./viewing-intent";
 import { requestedArtworkCount } from "../../api/src/services/curation/intent-planner";
 
 export interface StageAssignment { artworkId: string; stageIndex: number; vectorScore: number; score: number; evidence: string[] }
@@ -29,7 +29,7 @@ export function fallbackCurationIntent(catalog: WebReleaseCatalog, query: string
     stages: growth.stages.map((stage) => ({ ...stage, query: `${stage.signals.map((signal) => signal.value).join(" ")} ${intent.retrievalText}`.slice(0, 240), signals: stage.signals.map((signal) => signal.value) })),
   };
 }
-export function eligibleCurationArtworks(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan, options?: { scopedRiverBank: boolean }): WebArtwork[] {
+export function eligibleCurationArtworks(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan, options?: ViewingIntentOptions): WebArtwork[] {
   const intent = parseViewingIntent(query, catalog.artworks.flatMap((artwork) => artwork.artistDisplayName ? [artwork.artistDisplayName] : []), options);
   const normalizedName = query.trim().toLocaleLowerCase();
   const titled = catalog.artworks.filter((artwork) => artwork.title.toLocaleLowerCase() === normalizedName);
@@ -221,7 +221,7 @@ export function selectForCurationStages(input: {
 }
 
 export function materializeCurationSelection(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan, assignments: StageAssignment[], model: string, dimensions: number,
-  options?: { scopedRiverBank: boolean }): SemanticSelection {
+  options?: ViewingIntentOptions): SemanticSelection {
   const allowed = new Set(eligibleCurationArtworks(catalog, query, plan, options).map((artwork) => artwork.id));
   if (assignments.length > plan.artworkCount || new Set(assignments.map((item) => item.artworkId)).size !== assignments.length
     || assignments.some((item, index) => !allowed.has(item.artworkId) || !Number.isInteger(item.stageIndex) || !plan.stages[item.stageIndex]
