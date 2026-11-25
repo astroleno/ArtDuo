@@ -1,7 +1,7 @@
 "use client";
 
 import { appPath } from "@artduo/contracts";
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 import { ImageLightbox } from "../immersive/image-lightbox";
 import type { ImmersiveGalleryUnit } from "../immersive/scene-orchestrator";
@@ -21,7 +21,11 @@ import { experienceImageSource, experiencePrewarm } from "./media-prewarm";
 import { RoomBackdrop } from "./room-backdrop";
 import { roomParallaxInput } from "./room-parallax";
 import { artworkPlaceholderRgb } from "./artwork-placeholder";
-import { createStageMotionArrival, stageTransitionKeyframes, type StageTransitionProfile } from "./stage-transition";
+import { artworkRevealDuration, createStageMotionArrival, isLateNeutralReveal, LATE_NEUTRAL_REVEAL_MS, stageTransitionKeyframes, type StageTransitionProfile } from "./stage-transition";
+
+function isCurrentPreviewNode(image: HTMLImageElement, source: string) {
+  return image.isConnected && image.currentSrc === new URL(source, image.baseURI).href;
+}
 
 export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?view=experience", reducedMotion, motion, mouseMotion, plaqueOpen, onTogglePlaque, onDetail, detailNavigation, onPrevious, onNext, onSculptureInvitation, onLightboxNext, onLightboxPrevious, onLightboxRestore, onRetryMedia, onMediaFailed, onLightboxChange, onArtworkReady, onRoomReady, mediaFailed, transitioning = false, transition, transitionSeq, pace = "steady" }: {
   unit: ExperienceUnit;
@@ -46,7 +50,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   onRetryMedia: () => void;
   onMediaFailed: () => void;
   onLightboxChange: (expanded: boolean) => void;
-  onArtworkReady: (unitId: string) => void;
+  onArtworkReady: (unitId: string, timing: { rafMs: number }) => void;
   onRoomReady: (unitId: string) => void;
   mediaFailed: boolean;
   transitioning?: boolean;
@@ -72,11 +76,19 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   const lightingMood = useMemo(() => roomLightMood(stage), [stage]);
   const fallbackShade = useMemo(() => roomFallbackShade(lightingMood), [lightingMood]);
   const [lightingState, setLightingState] = useState<"loading" | "ready" | "fallback">("loading");
-  const [loadedArtwork, setLoadedArtwork] = useState<{ seq: number; size: { width: number; height: number } } | null>(null);
+  const previewSource = experienceImageSource(unit.media.previewUrl);
+  const [loadedArtwork, setLoadedArtwork] = useState<{ seq: number; source: string; image: HTMLImageElement; decodedAt: number; size: { width: number; height: number } } | null>(null);
+  const [shownPreview, setShownPreview] = useState<typeof loadedArtwork>(null);
+  const [settledPreview, setSettledPreview] = useState<typeof loadedArtwork>(null);
+  const [visible, setVisible] = useState(true);
+  const lastReady = useRef<typeof loadedArtwork>(null);
+  const lastSettledSeq = useRef<number | undefined>(undefined);
   const [paintedSeq, setPaintedSeq] = useState<number>();
   const [enhancementSeq, setEnhancementSeq] = useState<number>();
   const [measuredPlaque, setMeasuredPlaque] = useState<{ id: string; size: RoomPlaqueSize } | null>(null);
-  const artworkSize = loadedArtwork?.seq === transitionSeq ? loadedArtwork.size : null;
+  const decoded = loadedArtwork?.seq === transitionSeq && loadedArtwork.source === previewSource ? loadedArtwork : null;
+  const previewShown = Boolean(decoded && shownPreview === decoded);
+  const artworkSize = decoded?.size ?? null;
   const placeholderRgb = useMemo(() => artworkPlaceholderRgb(unit.artwork.metadata.colorTags), [unit.artwork.metadata.colorTags]);
   const plaqueMeasureWidth = Math.max(1, Math.min(156, viewport.width - 40));
   const plaqueSize = measuredPlaque?.id === unit.artwork.id && measuredPlaque.size.width === plaqueMeasureWidth
@@ -102,9 +114,12 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   const roomRef = useRef<HTMLElement>(null);
   const currentSeq = useRef(transitionSeq);
   currentSeq.current = transitionSeq;
+  const arrival = useRef({ seq: transitionSeq, startedAt: performance.now() });
+  if (arrival.current.seq !== transitionSeq) arrival.current = { seq: transitionSeq, startedAt: performance.now() };
   const { kind, direction, artworkMs, wallMs, wallOffsetPx } = transition;
   const motionAllowed = mouseMotion && !reducedMotion;
   const [consumeArrival] = useState(createStageMotionArrival);
+  const [consumeArtworkArrival] = useState(createStageMotionArrival);
   useEffect(() => {
     const room = roomRef.current;
     const canAnimate = motionAllowed && kind !== "neutral" && room && typeof room.animate === "function";
@@ -120,7 +135,6 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
         if (!keyframes) return;
         for (const target of room.querySelectorAll(selector)) animations.push(target.animate(keyframes, { duration, easing: frames.easing }));
       };
-      animate(".experience-frame-shadow", frames.artwork, artworkMs);
       animate(".experience-room-shade", frames.shade, wallMs);
       // Keep the matching static wall under the photograph during its 4px move.
       animate(".experience-room-backdrop:not(.experience-room-fallback), .experience-room-lighting", frames.wall, wallMs);
@@ -136,9 +150,36 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     window.addEventListener("resize", resize, { passive: true });
     return () => window.removeEventListener("resize", resize);
   }, []);
-  const imageReady = useCallback((size: { width: number; height: number }) => {
-    if (currentSeq.current === transitionSeq) setLoadedArtwork({ seq: transitionSeq, size });
-  }, [transitionSeq]);
+  const imageReady = useCallback((size: { width: number; height: number }, proof: { source: string; image: HTMLImageElement; decodedAt: number }) => {
+    if (currentSeq.current !== transitionSeq || proof.source !== previewSource) return;
+    setLoadedArtwork({ seq: transitionSeq, source: proof.source, image: proof.image, decodedAt: proof.decodedAt, size });
+    window.dispatchEvent(new CustomEvent("artduo:artwork-decoded", { detail: { artworkId: unit.artwork.id, seq: transitionSeq, decodedAt: proof.decodedAt } }));
+  }, [transitionSeq, previewSource, unit.artwork.id]);
+  useEffect(() => {
+    const updateVisibility = () => setVisible(document.visibilityState === "visible");
+    updateVisibility();
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => document.removeEventListener("visibilitychange", updateVisibility);
+  }, []);
+  useLayoutEffect(() => {
+    if (!motionAllowed) consumeArtworkArrival(transitionSeq, false);
+    if (!decoded || !isCurrentPreviewNode(decoded.image, decoded.source) || !visible || document.visibilityState !== "visible" || lightboxExpanded) return;
+    const frames = stageTransitionKeyframes({ kind, direction, artworkMs, wallMs, wallOffsetPx });
+    const neutralLate = isLateNeutralReveal(kind, decoded.decodedAt - arrival.current.startedAt);
+    const keyframes = frames.artwork ?? (neutralLate ? [{ opacity: .35 }, { opacity: 1 }] : undefined);
+    const play = Boolean(motionAllowed && keyframes && typeof decoded.image.animate === "function");
+    setShownPreview(decoded);
+    if (!consumeArtworkArrival(transitionSeq, play) || !keyframes) {
+      setSettledPreview(decoded);
+      return;
+    }
+    const duration = neutralLate ? LATE_NEUTRAL_REVEAL_MS : artworkRevealDuration(artworkMs, performance.now() - arrival.current.startedAt);
+    const animation = decoded.image.animate(keyframes, { duration, easing: frames.easing ?? "ease-out", fill: "backwards" });
+    void animation.finished.then(() => {
+      if (currentSeq.current === transitionSeq) setSettledPreview(decoded);
+    }, () => undefined);
+    return () => animation.cancel();
+  }, [decoded, transitionSeq, motionAllowed, kind, direction, artworkMs, wallMs, wallOffsetPx, consumeArtworkArrival, visible, lightboxExpanded]);
   const plaqueMeasured = useCallback((size: RoomPlaqueSize) => setMeasuredPlaque((previous) =>
     previous?.id === unit.artwork.id && previous.size.width === size.width && previous.size.height === size.height
       ? previous : { id: unit.artwork.id, size }), [unit.artwork.id]);
@@ -147,17 +188,21 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     onLightboxChange(expanded);
   }, [onLightboxChange]);
   useEffect(() => {
-    if (!artworkSize || mediaFailed || transitioning || (lightboxExpanded && detailReadyId !== unit.artwork.id)) return;
+    if (!decoded || lastReady.current?.seq === transitionSeq || mediaFailed
+      || (lightboxExpanded ? detailReadyId !== unit.artwork.id : !previewShown)) return;
     let cancelled = false;
     let frame = 0;
     const reportAfterPaint = () => {
       if (document.visibilityState !== "visible") return;
       if (cancelled) return;
+      const rafStartedAt = performance.now();
       frame = requestAnimationFrame(() => {
         frame = requestAnimationFrame(() => {
-          if (!cancelled && currentSeq.current === transitionSeq && document.visibilityState === "visible") {
+          if (!cancelled && lastReady.current?.seq !== transitionSeq && currentSeq.current === transitionSeq && document.visibilityState === "visible"
+            && isCurrentPreviewNode(decoded.image, decoded.source) && (lightboxExpanded || Number(getComputedStyle(decoded.image).opacity) > 0)) {
+            lastReady.current = decoded;
             setPaintedSeq(transitionSeq);
-            onArtworkReady(unit.exhibition.unitId);
+            onArtworkReady(unit.exhibition.unitId, { rafMs: performance.now() - rafStartedAt });
           }
         });
       });
@@ -165,7 +210,13 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     void reportAfterPaint();
     document.addEventListener("visibilitychange", reportAfterPaint);
     return () => { cancelled = true; cancelAnimationFrame(frame); document.removeEventListener("visibilitychange", reportAfterPaint); };
-  }, [artworkSize, mediaFailed, transitioning, lightboxExpanded, detailReadyId, onArtworkReady, transitionSeq, unit.exhibition.unitId, unit.artwork.id]);
+  }, [decoded, previewShown, mediaFailed, lightboxExpanded, detailReadyId, onArtworkReady, transitionSeq, unit.exhibition.unitId, unit.artwork.id]);
+  useEffect(() => {
+    if (decoded && settledPreview === decoded && paintedSeq === transitionSeq && lastSettledSeq.current !== transitionSeq) {
+      lastSettledSeq.current = transitionSeq;
+      window.dispatchEvent(new CustomEvent("artduo:artwork-settled", { detail: { artworkId: unit.artwork.id, seq: transitionSeq } }));
+    }
+  }, [decoded, settledPreview, paintedSeq, transitionSeq, unit.artwork.id]);
   const retryMedia = useCallback(() => {
     setRetryToken((value) => value + 1);
     setLoadedArtwork(null);
@@ -221,7 +272,8 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
     data-stage-transition={kind}
     data-navigation-direction={direction}
     data-transition-seq={transitionSeq}
-    data-artwork-placeholder={!mediaFailed && !artworkSize ? "on" : "off"}
+    data-artwork-placeholder={!mediaFailed && !previewShown ? "on" : "off"}
+    data-artwork-reveal={!previewShown ? "waiting" : settledPreview === decoded ? "settled" : "revealing"}
     data-stage-motion={motionAllowed ? "on" : "off"}
     data-viewing-pace={pace}
     data-frame-material={paper ? "paper" : "canvas"}
@@ -277,7 +329,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
         motionEnabled={mouseMotion && !reducedMotion}
         hasPrevious={index > 0} hasNext={index < count - 1} onPrevious={onLightboxPrevious} onNext={onLightboxNext}
         onRestoreArtwork={onLightboxRestore}
-        onExpandedArtworkReady={setDetailReadyId} previewSource={experienceImageSource(unit.media.previewUrl)} unit={viewUnit} />
+        onExpandedArtworkReady={setDetailReadyId} previewSource={previewSource} previewLifecycleKey={`${transitionSeq}:${retryToken}`} unit={viewUnit} />
       <DepthParallaxCanvas active={enhancementsReady && mouseMotion && !lightboxExpanded && !plaqueOpen && !mediaFailed && Boolean(unit.media.depthMapUrl)} depthMapUrl={unit.media.depthMapUrl ? experienceImageSource(unit.media.depthMapUrl) : undefined} imageUrl={experienceImageSource(unit.media.previewUrl)} pointer={pointer} reducedMotion={reducedMotion} />
     </div>}
     <div className={`experience-plaque-position ${layout.mobilePlaque ? "is-mobile" : ""}`} data-placement={layout.plaquePlacement} style={{

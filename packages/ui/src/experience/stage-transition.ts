@@ -64,3 +64,11 @@ export function createStageMotionArrival() {
     return motionEnabled;
   };
 }
+
+export function artworkRevealDuration(arrivalMs: number, elapsedMs: number): number {
+  const remaining = arrivalMs - elapsedMs;
+  return remaining >= 32 ? remaining : 180;
+}
+
+export const LATE_NEUTRAL_REVEAL_MS = 180;
+export const isLateNeutralReveal = (kind: StageTransitionKind, elapsedMs: number) => kind === "neutral" && elapsedMs >= LATE_NEUTRAL_REVEAL_MS;

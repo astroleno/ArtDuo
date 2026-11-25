@@ -73,12 +73,13 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
   }, [settingsOpen]);
   const arrival = useRef({ seq: state.transitionSeq, started: typeof performance === "undefined" ? 0 : performance.now() });
   if (arrival.current.seq !== state.transitionSeq) arrival.current = { seq: state.transitionSeq, started: performance.now() };
-  const artworkReady = useCallback((id: string) => {
+  const artworkReady = useCallback((id: string, timing: { rafMs: number }) => {
     if (arrival.current.seq !== state.transitionSeq) return;
     setReadySeq(state.transitionSeq);
     onArtworkReady(id);
     if (unit && id === unit.exhibition.unitId) window.dispatchEvent(new CustomEvent("artduo:artwork-ready", { detail: {
       artworkId: unit.artwork.id, durationMs: performance.now() - arrival.current.started, prewarmed: experiencePrewarm.ready(unit.media.previewUrl),
+      seq: state.transitionSeq, rafMs: timing.rafMs,
     } }));
   }, [unit?.artwork.id, unit?.exhibition.unitId, unit?.media.previewUrl, onArtworkReady, state.transitionSeq]);
   const roomReady = useCallback((id: string) => {
@@ -87,13 +88,9 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
   useEffect(() => {
     if (!state.transitioning) return;
     const complete = () => dispatch({ type: "RESTORE_TRANSITION", seq: state.transitionSeq });
-    if (motionEnabled && transition.artworkMs) {
-      const timer = window.setTimeout(complete, transition.artworkMs);
-      return () => window.clearTimeout(timer);
-    }
     const frame = requestAnimationFrame(complete);
     return () => cancelAnimationFrame(frame);
-  }, [state.transitioning, state.transitionSeq, motionEnabled, transition.artworkMs, dispatch]);
+  }, [state.transitioning, state.transitionSeq, dispatch]);
   const lightboxChanged = useCallback((expanded: boolean) => {
     dispatch({ type: expanded ? "OPEN_LIGHTBOX" : "CLOSE_OVERLAY" });
   }, [dispatch]);

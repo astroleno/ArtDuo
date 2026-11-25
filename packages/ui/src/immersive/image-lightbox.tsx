@@ -8,10 +8,12 @@ import { ImmersiveDetailStage, type ImmersiveDetailOrigin } from "./immersive-de
 import type { ImmersiveGalleryUnit } from "./scene-orchestrator";
 import { prepareReadingImage } from "../experience/reading-image";
 import { useOverlayHistory } from "../experience/use-overlay-history";
+import { decodePreview } from "./preview-decode";
 
 export interface ImageLightboxProps {
   unit: ImmersiveGalleryUnit;
   previewSource?: string;
+  previewLifecycleKey?: string;
   className?: string;
   motionEnabled?: boolean;
   hasPrevious?: boolean;
@@ -21,7 +23,7 @@ export interface ImageLightboxProps {
   onRestoreArtwork?: (artworkId: string) => void;
   onExpandedChange?: (isExpanded: boolean) => void;
   onExpandedArtworkReady?: (artworkId: string) => void;
-  onImageReady?: (size: { width: number; height: number }) => void;
+  onImageReady?: (size: { width: number; height: number }, preview: { source: string; image: HTMLImageElement; decodedAt: number }) => void;
   onImageError?: () => void;
 }
 
@@ -67,6 +69,7 @@ function cropFrameStyle(unit: ImmersiveGalleryUnit): CSSProperties | undefined {
 export function ImageLightbox({
   unit,
   previewSource,
+  previewLifecycleKey,
   className = "",
   motionEnabled = true,
   hasPrevious = false,
@@ -96,7 +99,11 @@ export function ImageLightbox({
   const [entryOrigin, setEntryOrigin] = useState<ImmersiveDetailOrigin | undefined>();
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const decodedSourceRef = useRef<string | null>(null);
+  const requestKey = JSON.stringify([unit.id, previewSrc, previewLifecycleKey]);
+  const requestedPreview = useRef(requestKey);
+  requestedPreview.current = requestKey;
+  const latestImageCallbacks = useRef({ onImageReady, onImageError });
+  latestImageCallbacks.current = { onImageReady, onImageError };
   const artworkFrameRef = useRef<HTMLSpanElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const restoreTriggerFocusRef = useRef(false);
@@ -116,8 +123,7 @@ export function ImageLightbox({
 
   useEffect(() => {
     setImageState("loading");
-    decodedSourceRef.current = null;
-  }, [previewSrc, unit.id]);
+  }, [requestKey]);
 
   useEffect(() => {
     setPortalRoot(document.body);
@@ -189,22 +195,25 @@ export function ImageLightbox({
 
   useEffect(() => {
     let cancelled = false;
+    let started = false;
+    const image = imageRef.current;
+    const isCurrent = () => !cancelled && requestedPreview.current === requestKey && image === imageRef.current;
     async function syncImageState() {
-      const image = imageRef.current;
-      if (!image?.complete || cancelled) {
-        return;
-      }
-      try {
-        await image.decode();
-        if (!cancelled) {
-          decodedSourceRef.current = previewSrc;
-          setImageState(image.naturalWidth > 0 ? "ready" : "error");
-        }
-      } catch {
-        if (!cancelled) setImageState("error");
+      if (!image?.complete || started || !isCurrent()) return;
+      const source = new URL(previewSrc, image.baseURI).href;
+      if (image.currentSrc && image.currentSrc !== source) return;
+      started = true;
+      const result = await decodePreview(image, source, isCurrent);
+      if (!isCurrent() || result.state === "stale") return;
+      if (result.state === "ready") {
+        setImageState("ready");
+        latestImageCallbacks.current.onImageReady?.({ width: result.width, height: result.height },
+          { source: previewSrc, image, decodedAt: performance.now() });
+      } else {
+        setImageState("error");
+        latestImageCallbacks.current.onImageError?.();
       }
     }
-    const image = imageRef.current;
     image?.addEventListener("load", syncImageState);
     image?.addEventListener("error", syncImageState);
     void syncImageState();
@@ -214,13 +223,7 @@ export function ImageLightbox({
       image?.removeEventListener("load", syncImageState);
       image?.removeEventListener("error", syncImageState);
     };
-  }, [previewSrc]);
-
-  useEffect(() => {
-    const image = imageRef.current;
-    if (imageState === "ready" && decodedSourceRef.current === previewSrc && image?.naturalWidth) onImageReady?.({ width: image.naturalWidth, height: image.naturalHeight });
-    if (imageState === "error") onImageError?.();
-  }, [imageState, previewSrc, onImageReady, onImageError]);
+  }, [requestKey, previewSrc]);
 
   function openImmersiveDetail() {
     const bounds = artworkFrameRef.current?.getBoundingClientRect();

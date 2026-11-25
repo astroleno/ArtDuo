@@ -169,8 +169,8 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
 
   const onArtworkReady = useCallback((unitId: string) => {
     const current = stateRef.current;
-    if (current.act === "walk" && current.unitId === unitId && !current.transitioning) setReadyUnitId(unitId);
-    if (current.act !== "walk" || current.unitId !== unitId || current.transitioning || current.overlay === "lightbox" || firstWalkMarkedRef.current || !onMilestone) return;
+    if (current.act === "walk" && current.unitId === unitId) setReadyUnitId(unitId);
+    if (current.act !== "walk" || current.unitId !== unitId || current.overlay === "lightbox" || firstWalkMarkedRef.current || !onMilestone) return;
     firstWalkMarkedRef.current = true;
     onMilestone("first-artwork-visible");
     onMilestone("first-artwork-actionable");

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { artworkPlaceholderRgb } from "./artwork-placeholder";
-import { createStageMotionArrival, stageTransitionKeyframes, stageTransitionProfile } from "./stage-transition";
+import { artworkRevealDuration, createStageMotionArrival, isLateNeutralReveal, stageTransitionKeyframes, stageTransitionProfile } from "./stage-transition";
 import type { ExperienceStage } from "./types";
 
 const stage = (id: string, role: ExperienceStage["role"], transitionIntent: ExperienceStage["transitionIntent"] = "fade",
@@ -47,4 +47,14 @@ test("an artwork arrival gets one animation opportunity, even when motion was di
   assert.equal(consumeArrival(2, true), false);
   assert.equal(consumeArrival(3, true), true);
   assert.equal(consumeArrival(2, true), false);
+});
+
+test("warm paint uses the remaining stage time, and late decode gets a complete short reveal", () => {
+  assert.equal(artworkRevealDuration(128, 18), 110);
+  assert.equal(artworkRevealDuration(208, 176), 32);
+  assert.equal(artworkRevealDuration(208, 177), 180);
+  assert.equal(artworkRevealDuration(176, 1200), 180);
+  assert.equal(isLateNeutralReveal("neutral", 16), false);
+  assert.equal(isLateNeutralReveal("neutral", 180), true);
+  assert.equal(isLateNeutralReveal("turn", 1200), false);
 });
