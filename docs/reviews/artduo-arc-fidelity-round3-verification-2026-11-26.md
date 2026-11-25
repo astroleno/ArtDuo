@@ -79,3 +79,17 @@ pnpm --filter @artduo/web exec tsx scripts/build-semantic-observation-index.ts 2
   install -m 0644 "$round3_index_file" data/releases/2026-11-19-open-gap-739/semantic-observation-index-v1.json
 pnpm --filter @artduo/web exec tsx --test test/lib/semantic-observation-runtime.test.ts
 ```
+
+### 批 F · 重复非法重排
+
+独立复跑 `pnpm --filter @artduo/web exec tsx --test test/lib/empty-exhibition-alternative.test.ts test/lib/semantic-curation.test.ts test/lib/semantic-observation-runtime.test.ts`，27/27 通过。仅连续两次以 `stage-choice-invalid` 为唯一降级原因的同版本请求进入复用。五分钟从第一次拒绝计时，命中后恢复校验过的保存 ID，同进程并发加入同一计算，合法查询缓存优先。临时降级、无效保存、窗口到期均可重新计算；v24 与 v25 及不同观察校验和各用独立请求键。合成测试中两次复用对应两次命中和两次抑制计数。验证覆盖单机与同进程并发。
+
+### 批 D · 空展替代确认复核
+
+终版通过。739 件发布库定向测试覆盖 3 个正例、24 个反例。无人静物有 9 件，进一步排花有 3 件，明确请求一幅时仍只建议一幅。此前误报的「画面中得有透明玻璃杯」及其余未知细节均已收起建议。
+
+独立复算 `.cache/artduo-arc-round3/empty-browser.json` 的 20 条本地正式构建记录。390px 和 1440px 各十场，其中两场分别提示有 9 件和 3 件可选，其余八场均收起入口。两个视口的 9 件用例均以键盘确认新展，返回和刷新后恢复原空展。20 个原空展页面的媒体请求、预加载和横向溢出均为零。
+
+### 全轮回归
+
+`.cache/artduo-arc-round3/offer-finish.json` 记录历史 offer 依序呈现六件绘画，末画《Spring in France》进入结语。同请求新展使用 v25、已核观察索引并选出六件；合成环境关闭远程意图服务，记录了 `intent-unavailable`。各包通过数合计 660（contracts 49、API 81、UI 151、corpus 47、pipeline 80、Web 252），零失败。全工作区类型检查、正式 Web 构建通过。浏览器验证使用本地视口，未测实体手机。

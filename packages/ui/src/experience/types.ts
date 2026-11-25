@@ -119,6 +119,7 @@ export interface ExhibitionSnapshot {
   omittedUnitCount: number;
   /** Request/count feedback, separate from the exhibition's generated prose. */
   selectionNotice?: string;
+  emptyAlternative?: { query: string; eligible: number; requested: number };
   /** Validated artwork order supplied by a URL; observations never enter URLs. */
   routeOrder?: string[];
   sceneCandidates?: ExperienceSceneCandidate[];

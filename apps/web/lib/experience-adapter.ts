@@ -13,6 +13,8 @@ import { PUBLIC_AUDIO_TRACKS } from "./public-media-manifest";
 import { sceneRouteStopForIndex, type GallerySceneRouteStop } from "./gallery-route";
 import type { ExperienceArtworkRecord, WebReleaseCatalog, WebSearchResult } from "./release-catalog";
 import { sculptureBridgeThemes } from "./sculpture-bridge-evidence";
+import { emptyExhibitionAlternative } from "./empty-exhibition-alternative";
+import { PRINT_DETAIL_SELECTION_VERSION } from "./semantic-curator";
 
 const INTENT_FAMILY: Record<TransitionIntent, TransitionFamily> = {
   fade: "fade",
@@ -268,5 +270,7 @@ export function buildExperienceSnapshot(input: {
     audioTracks: PUBLIC_AUDIO_TRACKS.map(track => publicStaticMediaUrl(`/ambient-audio/${encodeURIComponent(track)}`, catalog.releaseVersion)),
     omittedUnitCount,
     selectionNotice,
+    emptyAlternative: !units.length && !selectionNotice && input.curationId && (input.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION
+      ? emptyExhibitionAlternative(catalog, query) : undefined,
   };
 }
