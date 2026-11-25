@@ -3,7 +3,7 @@ import type { SemanticEncoder } from "@artduo/corpus/src/local-semantic-provider
 import type { StageVectorExperiment } from "../lib/stage-vector-experiment";
 import type { SemanticIndex } from "@artduo/contracts";
 import type { WebReleaseCatalog } from "../lib/release-catalog";
-import { loadObservationSidecar } from "./semantic-observation-release";
+import { loadObservationSidecar } from "../lib/semantic-observation-release";
 
 export const VECTOR_COMPARISON_ROUNDS = 3;
 export type VectorEvaluationName = "baseline" | StageVectorExperiment["variant"];

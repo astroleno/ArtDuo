@@ -37,3 +37,45 @@ python3 .cache/artduo-arc-round3/arrival-summary.py .cache/artduo-arc-round3/{ba
 pnpm --filter @artduo/web exec tsx scripts/stage-holdout-eval.ts --universe > /tmp/artduo-round3-print-universe.json
 pnpm --filter @artduo/web exec tsx --test test/lib/viewing-intent.test.ts test/lib/semantic-curation.test.ts
 ```
+
+## 批 B2 · 观察索引实验
+
+以 B1 提交 `30974e5` 为基线，自动门槛通过。独立重跑的 30 请求全部段池、候选 B 的 25 场逐项路线与曲线摘要均与冻结报告一致。K=6 截断命中从 56/338 至 89/338，确证负例从 13 至 6，题材命中从 3 至 15、画面细节从 1 至 9，未知位置从 362/431 至 336/431。两版的 25 场均为 91 个展位、3 场未足额，Flash 唤醒度 16 个可判变化由同/反/平 8/4/4 至 10/2/4，最大相邻差从 0.45 至 0.42。冻结实验三轮热选画中位为 335→321ms，独立复跑为 352→367ms（+4.3%），均满足 +10% 护栏。两组未支持稳定提速的结论。
+
+固定种子 `round3-return-audit-v1`、抽样工具指纹 `43f17a58a8bf1364ab46796bf662b24a7c26d9f55699f565325d53f14a14b380`、30 请求输入指纹 `34b68b227e7b1734f6dbcf7ddadd1aa7c0d28b241fdeab4f1a4509206c58ba05`。生成的匿名包 SHA-256 为 `fb85511d091fe19c44b98aa620dada54a791fd44ac65d8f5709c7c8d94cfc335`，共 30 项，其中 13 张原图、17 张经源图指纹及发布内容摘要双重校验的无裁剪预览。审图清单仅有图号、请求、馆方媒材，答案冻结前不解盲；实验启用待独立核图门槛判定。
+
+独立图像核验已解盲。答卷 SHA-256 为 `9b168aa4fa288602b4e44a421e71196d28c53cad55e24417e215d6257bb6a12a`。30 项共 10 正、14 负、6 未知。12 对差集中的 6 对双方可判，跨题材、画面细节、混合、唤醒和边界五层；候选 B 胜 2、平 4、负 0。其余 6 对含未知，6 个共同项为 3 正、3 负，均单列。按冻结标注，明确馆方媒材冲突或明确排除违例为 0。部分返回仍未完整满足题旨，样本恰好达到 6 个双可判配对下限。自动与独立核图两道门均通过，可实现已校验观察索引的默认接线；实际启用、故障回退和旧 ID 恢复仍须对最终代码验收。
+
+## 批 C · 后景节奏、画框附近墙光与占位
+
+已验静态与动作。独立检查相同 Holi 画、bg-015 墙面和冻结的画框外四个区域，390px 平均绝对 RGB 差由 9.08 增至 24.11，1440px 保持 9.18；画框与展签几何稳定。390px 的亮暗图可见差异主要在画框外的墙面。两个视口的画芯在同构建亮暗之间及此次跨构建对照间，平均和最大 RGB 差均为 0。已有预览源保持一致；WebGL 上下文丢失后进入静态后备。这些区域数值仅用于固定构图的对照。
+
+390px 和 1440px 的真实关键帧显示，段内延续仅作用在画作；转折和收束后景时长分别为 300ms 与 560ms。快速逆向换幅后，三个旧后景动画已取消，减少动态没有此类关键帧。暗、中、亮三件真实作品在两种视口均检查了载入与解码后的底色。明度 0.068 的暗画占位由 RGB(180,174,165) 改为 (31,31,31)，解码后恢复原有底色。适配器仅投影既有的已校验明度、色度；缺失或超出范围采用中性占位。10 项光照及转场定向测试通过。原始证据见 `.cache/artduo-arc-round3/{wall-comparison,wall-after-c-room,after-c-rhythm,before-c-palette,after-c-palette}.json`。全批放行仍待冷暖时延与媒体传输护栏。
+
+批 C 完整验收通过。独立核对 `.cache/artduo-arc-round3/after-c-arrival.json` 的 40 次实际访问（8 组各 5 次）全部成功。四组预热 ready 中位依次为 390px 正常 114.5→115.3ms、390px 减少动态 924.3→973.6ms、1440px 正常 79.9→80.9ms、1440px 减少动态 913.4→971.2ms，最大增量 57.8ms。20 次冷缓存各有一次目标实际传输 481,280 字节，暖目标均为 blob；其他前后画预热条目实际传输为 0 字节。正常动态十个冷样本均在解码后渐入 180ms，20 个减少动态样本没有作品关键帧。各组按钮触发至路由更新中位 2.5–3.6ms。证据限相同保存展、指定媒体和模拟浏览器条件。
+
+## 批 E · 匿名指标入口预算
+
+通过本地独立验收。入口沿用现有公开运行模式的受信代理配置；仓库示例中边缘代理覆盖来源头，源站代理仅放行允许的上游。只有显式公开模式、匹配受信头配置、合格环境密钥及有效来源地址同时成立时才使用进程内临时来源桶，其余条件共享一个保守桶。来源键按进程随机密钥计算，仅保留在内存。实际公网代理配置未经本轮核实，未开启公网采集。
+
+来源突发 20、持续每分钟 30；实例突发 60、持续每分钟 300。最多 512 个来源桶，闲置 120 秒可回收，日聚合没有新增身份字段。假时钟下每 6 秒一次正常观展、每次三个样本均获准。直接调用本地处理函数，21 个合成同源样本中前 20 个记入汇总，其余返回 429 与 Retry-After；独立关闭态检查返回 404，临时目录仍为空。三个定向测试通过。预算随单实例重启复位，多实例分别计数；未使用生产流量或在线压力测试。
+
+```sh
+pnpm --filter @artduo/web exec tsx --test test/lib/experience-metrics-limit.test.ts
+```
+
+批 A 绘制等待补充对照见 `.cache/artduo-arc-round3/raf-control.json`。同浏览器可见且聚焦的空白页各点 5 次，静态双 rAF 中位 42.9ms，轻量 WAAPI 对照中位 63.2ms，其中一次达 956.3ms。这组数据将展厅等待定位到绘制回调区间，尚不足以归因于预览下载、系统减少动态或设备，也没有真机修复结论。
+### B2 观察索引正式接线验收
+
+本地已安装发布物的索引与盲核使用的文件具有相同 SHA-256，运行时校验通过并载入 739 件作品。内容校验和为 `c1d7f0e2a360b6ff29a318ac91e4b36abe7da870f1c30e420fdd1a20ea6c4017`。相同文件再读复用同一对象，相关发布文件修订后重新校验。定向测试独立验证缺文件和损坏沿用 v24，合格索引进入 v25 并隔离查询缓存，旧展可按保存 ID 恢复；编码失败走 hash 时保存 v24。此次验收限于本地，其他发布目录须安装通过校验的同版索引才能启用。
+
+在仓库根目录用已缓存的本地模型生成，核验文件 SHA 后安装到指定发布目录：
+
+```sh
+round3_index_dir=$(mktemp -d)
+round3_index_file="$round3_index_dir/semantic-observation-index-v1.json"
+pnpm --filter @artduo/web exec tsx scripts/build-semantic-observation-index.ts 2026-11-19-open-gap-739 "$round3_index_file" &&
+  printf '%s  %s\n' 29138b3ddd6e4f78b4dbe6505aef28c28a5403b7c316c087c330ea731ebad578 "$round3_index_file" | shasum -a 256 -c - &&
+  install -m 0644 "$round3_index_file" data/releases/2026-11-19-open-gap-739/semantic-observation-index-v1.json
+pnpm --filter @artduo/web exec tsx --test test/lib/semantic-observation-runtime.test.ts
+```

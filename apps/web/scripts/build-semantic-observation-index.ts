@@ -1,4 +1,6 @@
 // cd apps/web && node --import tsx scripts/build-semantic-observation-index.ts RELEASE OUTPUT.json
+// After review, install the verified output as semantic-observation-index-v1.json
+// beside that release's manifest. Removing it restores the museum-only path.
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { createLocalSemanticEncoder } from "@artduo/corpus/src/local-semantic-provider";
@@ -6,7 +8,7 @@ import { semanticFingerprint } from "@artduo/corpus/src/semantic-index";
 import { loadSemanticIndex } from "@artduo/corpus/src/semantic-loader";
 import { buildSemanticObservationIndex } from "@artduo/corpus/src/semantic-observation-index";
 import { loadWebReleaseCatalog } from "../lib/release-catalog";
-import { museumSemanticDocuments, observationReleaseInput } from "./semantic-observation-release";
+import { museumSemanticDocuments, observationReleaseInput } from "../lib/semantic-observation-release";
 
 async function main() {
   const [releaseVersion, output, ...rest] = process.argv.slice(2);
