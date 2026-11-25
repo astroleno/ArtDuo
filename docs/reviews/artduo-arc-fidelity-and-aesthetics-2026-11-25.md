@@ -183,7 +183,19 @@ pnpm --filter @artduo/web exec tsx --test test/lib/curve-metrics.test.ts
 
 复跑得到 25 场、91 个展位、77 件不同作品，3 场少于请求数。Flash 唤醒度覆盖全部 68 对相邻展位，最大变化为 0.45。计划变化达到 0.10 的 16 对中，8 对同向、4 对反向、4 对持平。4 项定向测试通过，覆盖浮点边界、缺失读数、空场与单件场、固定基线。
 
-对照脚本放在仓库外的 `/tmp/artduo-review/`：
+第二批留出集已先冻结再评测。30 条合成请求各有 8 件参考作品，其中 83 条标注为正、68 条为负、89 条为未知。使用已安装的 739 件发布版和对应本地查询编码器，在仓库根目录运行：
+
+```sh
+pnpm --filter @artduo/web exec tsx scripts/freeze-stage-holdout.ts | shasum -a 256
+pnpm --filter @artduo/web exec tsx scripts/stage-holdout-eval.ts > /tmp/artduo-holdout-report.json
+pnpm --filter @artduo/web exec tsx --test test/lib/stage-holdout.test.ts
+```
+
+冻结输入 SHA-256 为 `ccd43dc2bc320ecefa8f18b84bff5bf0bf7edc9c74b98a9c3d5fae7a7ea77ac8`。独立复跑报告与实现方最终报告逐字节一致，2 项定向测试通过。评测读取实际生产选画函数的分段候选池，按已有池顺序截取前 K 件。使用本地语义向量，近期曝光为空，跳过模型重排和远程评审。
+
+90 个计划段中，短展有意留空 3 段，实际请求 87 段。两条条件互相矛盾的请求共 6 段空池；其余 81 段有候选，其中 69 段有参考正例。按请求段计数，245 个参考正例位置中，K=1、3、6 分别命中 4、10、16 个。K=6 的 481 个返回位置中，16 个有确定标注且均为正例，另有 6 个标为未知、459 个未列入参考。0/16 仅描述可判定位置，无法据此估计全部候选的误选率。每场各段复用同一可见题旨，计数也不代表独立观众或独立画作数。
+
+早期对照脚本放在仓库外的 `/tmp/artduo-review/`：
 
 - `affect-compare.ts`：全馆规则估计与单图读数的相关性和分歧最大的作品。
 - `curve.ts <label>`：冻结回放的计划曲线与读数曲线、拐点同向率、相邻落差。

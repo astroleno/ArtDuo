@@ -1,0 +1,4768 @@
+{
+  "schemaVersion": 1,
+  "releaseVersion": "2026-11-19-open-gap-739",
+  "seed": "artduo-stage-holdout-20261125-v1",
+  "releaseManifestSha256": "f8a100901e91fd9f112869e1323f71391d673b531c42e088d7a1f1b394c23e28",
+  "visualLedgerSha256": "68c996d45b534483cd6a690036ad5d8dbd27101b21bc5e7d95249b3cd21ec36e",
+  "visualEvidenceVersion": "visual-v1-0609660303c50d98af63",
+  "tunedPlansSha256": "f4cf53c11fe4464716b126fef0b3d602a655fee78a6557644180c886bad62ff3",
+  "maximumOldQueryBigramJaccard": 0.25,
+  "method": {
+    "requests": "代理独立编写 30 条合成请求；没有真实访客输入。先按主题、限制及边界案例设计，再以去标点双字组合 Jaccard 与旧 25 条比较；没有读取留出产出的排序。",
+    "sampling": "限发布版允许展出的本地核验图像。各请求对 seed、请求 ID 和作品 ID 作 SHA-256，按字符串排序后抽至多 4 个正例、2 个确证负例、2 个不确定；不足优先从未抽中的负例或不确定补满 8 件。此为按证据分层样本。",
+    "labels": "代理预先定义独立核验事实、馆藏媒材及同图观察规则，按条执行并审查观察措辞。没有明确依据归为不确定。同一场的三段固定保留同一具体画面要求，阶段构成及唤醒目标另设；标签没有为五维主观情绪另作人工评定。此批使用绑定实际源图的既有观察，没有重看原图或接触排序。",
+    "limits": "同图观察有限，标签不穷尽馆藏。明确的逻辑冲突与证据不足分别保留。不是真人盲评。"
+  },
+  "cases": [
+    {
+      "id": "subject-01",
+      "stratum": "subject",
+      "query": "想看有马车或牵马场景的画，两件。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "马车|牵马|拉车的马|驾马|马拉"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看有马车或牵马场景的画，两件。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 2,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "horse-drawn carts or horses being led; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "horse-drawn carts or horses being led; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "horse-drawn carts or horses being led; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMS7444",
+          "imageSha256": "sha256:480fe1827b4466816e0ea61359a96deebce8398af12c9d33fbc73a5b4011a8b4",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 马车|牵马|拉车的马|驾马|马拉"
+        },
+        {
+          "artworkId": "rijksmuseum-200117092",
+          "imageSha256": "sha256:e64f52bb580905043294bc960abb7b2c6b47dd5aca8c5bfc9dbf852d1c7e3234",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 马车|牵马|拉车的马|驾马|马拉"
+        },
+        {
+          "artworkId": "rijksmuseum-200109374",
+          "imageSha256": "sha256:ee2d691a0efb46b077400f72991531a311e19d5f566142d160d09a9e2bd12d25",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 马车|牵马|拉车的马|驾马|马拉"
+        },
+        {
+          "artworkId": "artic-185775",
+          "imageSha256": "sha256:2cce6538c10f2d5424c58d75713341063c1dedc6f41928ec7a6eca27e450711d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 马车|牵马|拉车的马|驾马|马拉"
+        },
+        {
+          "artworkId": "met-925165",
+          "imageSha256": "sha256:3f65871c74690d353f830bf852ba7b1b29db9d2d75b5eccd6ddbf33caf8bebba",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 马车|牵马|拉车的马|驾马|马拉"
+        },
+        {
+          "artworkId": "smk-KKSgb1402",
+          "imageSha256": "sha256:6695e9ed20b933fb5728b89fac919e6d8282430e1d8163f9bab671d29dab3b15",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 马车|牵马|拉车的马|驾马|马拉"
+        },
+        {
+          "artworkId": "met-437865",
+          "imageSha256": "sha256:b597c7fc13add3df5cbdd41cbe48d2947c957622c9036873f9b4c5c0b73b680b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「林间空地上一群男女围坐野餐，中央蓝衣黄裙女子醒目，左侧有马车与马匹，右侧人物斜卧，色调蓝绿暖黄」"
+        },
+        {
+          "artworkId": "smk-KMS7661",
+          "imageSha256": "sha256:149d740f7c55c4e8cbbde2eec4c90300b0156654b731df09fc07952b4b970c70",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「深色高树围出林间空地，中央秋千上有人荡起，右侧人群围桌闲坐，左侧有马车与马，远处天空泛橙粉色暮光」"
+        }
+      ]
+    },
+    {
+      "id": "subject-02",
+      "stratum": "subject",
+      "query": "挑六幅画，留意石桥或拱桥。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "石桥|拱桥|桥拱"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "挑六幅画，留意石桥或拱桥。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "stone bridges and arched crossings; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "stone bridges and arched crossings; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "stone bridges and arched crossings; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "artic-16370",
+          "imageSha256": "sha256:b65e57226e056538a2ca5d09a22cc7908424bb45d81dd91c908e314a0dab56d9",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 石桥|拱桥|桥拱"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1911.519",
+          "imageSha256": "sha256:05d24ab09f6dd978cd744612cd5afaecde9612f72a1759603d86120d8c6bd0de",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 石桥|拱桥|桥拱"
+        },
+        {
+          "artworkId": "smk-KMSsp251",
+          "imageSha256": "sha256:ae093dbbe2257ded64a1e4ca91b18fde1ce9cc8045a7fea8fa505e9069602a6a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 石桥|拱桥|桥拱"
+        },
+        {
+          "artworkId": "rijksmuseum-20015944",
+          "imageSha256": "sha256:b4ff1455bf61b76d7bf81ff6f9ce06d389d2745f5607bb00bab733bc8aa7824a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 石桥|拱桥|桥拱"
+        },
+        {
+          "artworkId": "met-845161",
+          "imageSha256": "sha256:fd7ed97162ecdab3c792b37f556308e4d9bee41e9ff7540606db48af5f466846",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「青绿山水立轴，远峰云雾，中景亭台瀑布，溪流蜿蜒，众多小人物沿岸列坐，下方拱桥，设色清雅」"
+        },
+        {
+          "artworkId": "smk-KMS3127",
+          "imageSha256": "sha256:f3ed51e225b33fbf8c94a8bf008723247d14e089dd2c3d5c9344cb5e5d9791ab",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「弧形石桥跨过暗色水面，树群与岩石包围两岸，小片月光从深色云层间露出，桥下倒影较亮」"
+        },
+        {
+          "artworkId": "smk-KMS3619",
+          "imageSha256": "sha256:2af9ac1a3b23477ac7b90ca011ceb721c4b1e0338e3c3b1d5ef6ab33ee5875ef",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「河流自左向右延伸，左岸树丛浓密，远处有石桥」"
+        },
+        {
+          "artworkId": "rijksmuseum-200106038",
+          "imageSha256": "sha256:6bdfe5a45d5b1d9d42926c86d272fa1c84d08664f81f5038a0be93b0ed66e650",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「暗云覆盖上方，较亮的树木立在石桥旁，桥洞下方与前方水面反射出少量光色」"
+        }
+      ]
+    },
+    {
+      "id": "subject-03",
+      "stratum": "subject",
+      "query": "想看看风车怎样立在地面和天空之间，六幅。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "风车"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看看风车怎样立在地面和天空之间，六幅。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "windmills set against land and sky; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "windmills set against land and sky; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "windmills set against land and sky; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-DEP15",
+          "imageSha256": "sha256:01684805f2e48c8e4434718c12ae0d39760ff6e5c0fdb7f1838f3588e8714f59",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 风车"
+        },
+        {
+          "artworkId": "met-436622",
+          "imageSha256": "sha256:9f28cc7ba2b547f0c20e8a38ff5915c4077693b762a6984bf3e110e6fcb7ce8d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 风车"
+        },
+        {
+          "artworkId": "met-437330",
+          "imageSha256": "sha256:1c071c5058f1661971d35abb5af2d0a528895c8d5aa6a4a57a10d58322dc1872",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 风车"
+        },
+        {
+          "artworkId": "met-396220",
+          "imageSha256": "sha256:cbaba0a0bfc4b8fb0b222bab55610b41f742db604b1120de8e65d7a933ae9bf1",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 风车"
+        },
+        {
+          "artworkId": "rijksmuseum-200116944",
+          "imageSha256": "sha256:66790c515e33ce716719adf31c93b91c2ab099569a8d5e9c798ce7351ad01f63",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「近处细小人物沿空地行走，房舍与风车分布在低矮地平线上，浅棕灰天空占据大部分纸面」"
+        },
+        {
+          "artworkId": "rijksmuseum-200100988",
+          "imageSha256": "sha256:b7e725e6c7d2e72df08b10be1d86e599e49d465a2032da480af1585ca53aff33",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「蓝灰天空下，浅黄与淡绿的色带向远处铺开，小型风车在右侧远方形成竖向轮廓」"
+        },
+        {
+          "artworkId": "artic-238272",
+          "imageSha256": "sha256:86ee741162ada0afb2a54622dfdcfd6decbd38c237baf91c0f7afa87794a3bc2",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「灰蓝阴云占据大半画面，左侧土坡大树与人物，中景河岸人群劳作，远处教堂塔楼、风车与帆船，色调柔和偏灰褐」"
+        },
+        {
+          "artworkId": "smk-KMS1023",
+          "imageSha256": "sha256:f1af19d4b9673de836e575617899cebfdba3712a95f1f6c504a71326199edf7a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「近处树干与水岸形成弧线，远方房屋、尖塔和右侧风车沿低矮地平线排列，天空与水面保持浅灰蓝色」"
+        }
+      ]
+    },
+    {
+      "id": "subject-04",
+      "stratum": "subject",
+      "query": "给我三幅有雪地或积雪的画，想看白色铺在哪里。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "雪地|积雪|覆雪|薄雪|白雪"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "给我三幅有雪地或积雪的画，想看白色铺在哪里。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 3,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "snow lying on the ground or on winter trees; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "snow lying on the ground or on winter trees; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "snow lying on the ground or on winter trees; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smithsonian_asian-fsg_F1911.309",
+          "imageSha256": "sha256:bb0b1e312796ebcd1c2e6f3852ab1aadcfccd27206d396d612479dd635a80117",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 雪地|积雪|覆雪|薄雪|白雪"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1902.159a-b",
+          "imageSha256": "sha256:84721604d62f4a69b242c606bc14ff072e65b3496f29af8195e56f337a2a1732",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 雪地|积雪|覆雪|薄雪|白雪"
+        },
+        {
+          "artworkId": "smk-KKS13358h",
+          "imageSha256": "sha256:f9fd41b9978cd508d570fb4707a70c9ecf5cb9e95176b7bf4caf5c24bb5d7c70",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 雪地|积雪|覆雪|薄雪|白雪"
+        },
+        {
+          "artworkId": "met-336007",
+          "imageSha256": "sha256:7ce504ae5f74ddf30d4551844380974394bc9bc17d9dea232221be18c6e3d909",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 雪地|积雪|覆雪|薄雪|白雪"
+        },
+        {
+          "artworkId": "smk-KKS13358d",
+          "imageSha256": "sha256:1daad7d2065832c37942f1b6a5da0c10ca6b192271747526bc4e09e45795a460",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「多个人物横向排列在起伏雪地与山形之间，黑白轮廓粗而简洁，图画四周留有浅色纸边」"
+        },
+        {
+          "artworkId": "rijksmuseum-200107782",
+          "imageSha256": "sha256:a999c825f74bfc612141955c7781529fb3a8d377312d5293a1c6854b0fee5c89",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「人群散布在结冰水道和浅色雪地上，高瘦裸树立于近处，远方建筑在灰蓝天空下逐渐变小」"
+        },
+        {
+          "artworkId": "rijksmuseum-200106078",
+          "imageSha256": "sha256:3b89dd61fdfcfad555c1db01c25afe6f76c32f40b0b7ef2a347bb497b1b953c5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「桥梁横跨结冰的水道，岸边房屋和远处高塔沿水平线展开，白雪与灰绿天空压低了整体对比」"
+        },
+        {
+          "artworkId": "getty-9a9cebf1-6d57-4153-aeac-3d5aa0ad9b2c",
+          "imageSha256": "sha256:db9f40bf8aa948ca46ced242d4fea0ee3663321c5ce7b00f0c78e0e28b712564",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「两座覆雪麦垛立在积雪田野，蓝紫色长影铺向右下方，粉橙天空与远方淡色树线相接」"
+        }
+      ]
+    },
+    {
+      "id": "subject-05",
+      "stratum": "subject",
+      "query": "挑六件有牛群或牧牛人的画，我想看牛怎样分布。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "牛群|水牛|牧牛|牛只|卧牛|群牛|奶牛"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "挑六件有牛群或牧牛人的画，我想看牛怎样分布。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "cattle and herders across the picture; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "cattle and herders across the picture; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "cattle and herders across the picture; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200106077",
+          "imageSha256": "sha256:93f5f2ba3aa0a0fead93a45a461249fd90635e92e9693b7f6720fb9be932b537",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 牛群|水牛|牧牛|牛只|卧牛|群牛|奶牛"
+        },
+        {
+          "artworkId": "smk-KMS1806",
+          "imageSha256": "sha256:6a5227493cdb6c51cb1639cbd02e381381d096aaf74a54cabfc9617cf0dfbaba",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 牛群|水牛|牧牛|牛只|卧牛|群牛|奶牛"
+        },
+        {
+          "artworkId": "smk-KKSgb22266",
+          "imageSha256": "sha256:776d9a0dd26c8963698ecab7e6b85bc8e65a915d960c3484b304dc27e5c04795",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 牛群|水牛|牧牛|牛只|卧牛|群牛|奶牛"
+        },
+        {
+          "artworkId": "met-361887",
+          "imageSha256": "sha256:246391f6aec03106c8c63d812b6ae7e126e77ef87c5d15c75b07ed4b7cca588c",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 牛群|水牛|牧牛|牛只|卧牛|群牛|奶牛"
+        },
+        {
+          "artworkId": "met-435907",
+          "imageSha256": "sha256:d5e37a679fe48d289b1f5a77b321c0d52d6643ef359c75ad235a2de14388f288",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「前景小人物和牛群沿水边活动，两株高树立于中部，远山与低天光延展」"
+        },
+        {
+          "artworkId": "smk-KMS4898",
+          "imageSha256": "sha256:716225d2e3db376dc3a4be3feeb73cabafa5139fdf65743c63207e11002c9ed6",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「左侧深色树林与圆形塔楼废墟，右侧大树框景，中景河面有小船，前景牧人与牛群，远处淡蓝山峦与云天」"
+        },
+        {
+          "artworkId": "cma-148378",
+          "imageSha256": "sha256:68f51f38c4a37a169f832d367e4230c6b0031cb2d35099cc1fa69f059700ecbc",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「黄色背景中，蓝肤男神与女神坐于红色秋千长椅，两侧女子与下方乐手击鼓起舞，上方有牛群与人物」"
+        },
+        {
+          "artworkId": "rijksmuseum-200117832",
+          "imageSha256": "sha256:9709cb541a1bb4956d0a74fe42e5fb2ecb8a4d2d047fc10207008c8a78cbf93b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「石桥横跨浅色河水，两侧断墙与门洞逐渐升高，人物、马匹和牛群沿近处水岸活动，大块天空留白」"
+        }
+      ]
+    },
+    {
+      "id": "media-01",
+      "stratum": "medium-exclusion",
+      "query": "只想看水彩里的花朵，一件，不要水墨。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "watercolor"
+        },
+        {
+          "kind": "medium",
+          "value": "ink",
+          "exclude": true
+        },
+        {
+          "kind": "fact",
+          "subject": "flowers",
+          "value": "present"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "只想看水彩里的花朵，一件，不要水墨。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 1,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "watercolour work with visible flowers; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "watercolour work with visible flowers; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "watercolour work with visible flowers; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KKS4458",
+          "imageSha256": "sha256:7bc82d9cd6d94c7ad25873d41b113121075320dd2c95beef4e74b2bcb42a8f06",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Engraving (silver). Imprint from silver medal；要求 watercolor"
+        },
+        {
+          "artworkId": "met-382741",
+          "imageSha256": "sha256:355f6371a9c9142daad33578c576408698bba7f8bb07f19740ca3b8c6defc320",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Mezzotint；要求 watercolor"
+        },
+        {
+          "artworkId": "rijksmuseum-200107777",
+          "imageSha256": "sha256:7800cef7868fd6298579418af06f3fd36fea8abd9722b7dc2aef18fc0d3d97b5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 canvas; oil paint (paint)；要求 watercolor"
+        },
+        {
+          "artworkId": "rijksmuseum-20015864",
+          "imageSha256": "sha256:18b6591fb260ff591a4e8d732a9e02ca0948d3e8a551df8fc9808db656e7f0fe",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 panel; oil paint (paint)；要求 watercolor"
+        },
+        {
+          "artworkId": "rijksmuseum-200116908",
+          "imageSha256": "sha256:d34691f8c9d16a39f61ed91b8e051f0229ef5dad029e4d56a39ec13a03980b74",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 paper; ink; watercolor (paint); graphite (mineral); chalk；排除 ink"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_S2018.1.39",
+          "imageSha256": "sha256:e62b86b2dd4c98a42917f3f04236f2135c70410c4c5debddcdfc73b42fb7b4ca",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 flowers=unknown；要求 present"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1902.159a-b",
+          "imageSha256": "sha256:84721604d62f4a69b242c606bc14ff072e65b3496f29af8195e56f337a2a1732",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 flowers=unknown；要求 present"
+        },
+        {
+          "artworkId": "rijksmuseum-200119006",
+          "imageSha256": "sha256:f11dbda6878517337ec80bc031bdc9a4845abad1a9b52a272508eb46d242d587",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 paper; watercolor (paint)；要求 watercolor；馆藏媒材 paper; watercolor (paint)；排除 ink；核验事实 flowers=present；要求 present"
+        }
+      ]
+    },
+    {
+      "id": "media-02",
+      "stratum": "medium-exclusion",
+      "query": "六幅油画，画里要看得到云层；不要水彩。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "oil"
+        },
+        {
+          "kind": "medium",
+          "value": "watercolor",
+          "exclude": true
+        },
+        {
+          "kind": "observation",
+          "pattern": "云层|多云|阴云|白云|厚云|乌云|云团"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "六幅油画，画里要看得到云层；不要水彩。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "oil paintings with visible clouds; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "oil paintings with visible clouds; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "oil paintings with visible clouds; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smithsonian_asian-fsg_F1902.20",
+          "imageSha256": "sha256:0203924bb0a9f5258d1299b2159cc2c28160ed394c2fb0bad2de7d9e1d1ccba9",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Ink, color, and gold on paper；要求 oil"
+        },
+        {
+          "artworkId": "rijksmuseum-200117161",
+          "imageSha256": "sha256:1f9036742bba84f46eb6e4639d867ee8b21e7705b5616969db0a612f948741b3",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 paper; ink; graphite (mineral)；要求 oil"
+        },
+        {
+          "artworkId": "smk-KMSsp496",
+          "imageSha256": "sha256:5f5a2364386acf9b0c91065efc37aec4543caa5f95be8a451daca34d86caad30",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 云层|多云|阴云|白云|厚云|乌云|云团"
+        },
+        {
+          "artworkId": "smk-KMS8007",
+          "imageSha256": "sha256:e68d2f1d3cd60ac9008ae9c410dc1c01cf1cf29eb379c4283d62ab90bb4fe1c4",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 云层|多云|阴云|白云|厚云|乌云|云团"
+        },
+        {
+          "artworkId": "smk-KMS9216",
+          "imageSha256": "sha256:0c3472fc144de0a2e3b70b68302ecb2d00251af0622e66e08d4df5d0bcee9a6d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Oil on canvas; canvas；要求 oil；馆藏媒材 Oil on canvas; canvas；排除 watercolor；同图观察「一棵弯曲裸树立在起伏草地上，前方散布深色岩石，远处浅色水域与低坡相接，灰色厚云覆盖上方」"
+        },
+        {
+          "artworkId": "smk-KMS6595",
+          "imageSha256": "sha256:bdd76ca8ab7bd54e442bda0410dd4a7976b68a2b085deb726f16b6d206a4ca96",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Oil on canvas, mounted on millboard; canvas; millboard；要求 oil；馆藏媒材 Oil on canvas, mounted on millboard; canvas; millboard；排除 watercolor；同图观察「绿色湖面前方平整开阔，后方低缓山丘由深绿与灰褐色块叠成，厚重浅绿云团在上方盘旋」"
+        },
+        {
+          "artworkId": "met-436535",
+          "imageSha256": "sha256:1214b671e18964597a55df8b900e9564d100833f0848c7a19314912b3723860d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Oil on canvas；要求 oil；馆藏媒材 Oil on canvas；排除 watercolor；同图观察「金黄色麦田占据下部，右侧深绿柏树向上伸展，左侧有低矮的橄榄树，远处是蓝色丘陵与大面积旋动的白云」"
+        },
+        {
+          "artworkId": "smk-KMS3503",
+          "imageSha256": "sha256:89e32670ad5305a33f52eee4fecbece69a87bd3d648cfbe4d3f1dad02e311eb8",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Oil on canvas; canvas；要求 oil；馆藏媒材 Oil on canvas; canvas；排除 watercolor；同图观察「广阔平原和水道向远方延伸，小型帆船、村屋和树群散落其间，厚重云层与远处微亮地平线相对照」"
+        }
+      ]
+    },
+    {
+      "id": "media-03",
+      "stratum": "medium-exclusion",
+      "query": "六件木版画，想看画里的山。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "print"
+        },
+        {
+          "kind": "medium-detail",
+          "pattern": "woodblock|woodcut|木版"
+        },
+        {
+          "kind": "fact",
+          "subject": "mountain",
+          "value": "present"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "六件木版画，想看画里的山。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "woodblock prints depicting mountains; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "woodblock prints depicting mountains; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "woodblock prints depicting mountains; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "met-337542",
+          "imageSha256": "sha256:fbf5ac65fccd99826c3cd94309f2178a6930a6ea1db6ccbb4d8443ec09d53996",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Pen and brown ink, brush and brown wash, over black chalk；要求 print"
+        },
+        {
+          "artworkId": "smk-DEP15",
+          "imageSha256": "sha256:01684805f2e48c8e4434718c12ae0d39760ff6e5c0fdb7f1838f3588e8714f59",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas; canvas；要求 print"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1903.24",
+          "imageSha256": "sha256:5ce3956d0a8ce6301daa1aac5f77197a1a616b28d841654ee009525489508878",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材未明确记载 woodblock|woodcut|木版"
+        },
+        {
+          "artworkId": "rijksmuseum-200106077",
+          "imageSha256": "sha256:93f5f2ba3aa0a0fead93a45a461249fd90635e92e9693b7f6720fb9be932b537",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 canvas; oil paint (paint)；要求 print"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1904.234",
+          "imageSha256": "sha256:b1cec8693b8bbbdcb9758605e319296e8351cea9556be7c6b5382d1ac8654772",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Ink on paper；要求 print"
+        },
+        {
+          "artworkId": "smk-KKS21313",
+          "imageSha256": "sha256:cae73b3b10f4b6fd5f6f7819083c41fbfeea0864a09784d046c7cb0decb85efd",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材未明确记载 woodblock|woodcut|木版"
+        },
+        {
+          "artworkId": "smk-KKS13358h",
+          "imageSha256": "sha256:f9fd41b9978cd508d570fb4707a70c9ecf5cb9e95176b7bf4caf5c24bb5d7c70",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Woodcut on thin Japanese paper; Japanese paper；要求 print；馆藏媒材明确记载 Woodcut on thin Japanese paper; Japanese paper；核验事实 mountain=present；要求 present"
+        },
+        {
+          "artworkId": "met-45434",
+          "imageSha256": "sha256:0f0a0ad2ce94bd8a2efe154b89dbacfa00325fb17e8bf2098437f94acdb6808d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Woodblock print; ink and color on paper；要求 print；馆藏媒材明确记载 Woodblock print; ink and color on paper；核验事实 mountain=present；要求 present"
+        }
+      ]
+    },
+    {
+      "id": "media-04",
+      "stratum": "medium-exclusion",
+      "query": "给我六幅纸上素描，纸上要能看见树木。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "drawing"
+        },
+        {
+          "kind": "medium-detail",
+          "pattern": "paper|纸"
+        },
+        {
+          "kind": "observation",
+          "pattern": "树干|树冠|树丛|树木|林木"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "给我六幅纸上素描，纸上要能看见树木。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "drawings on paper with visible trees; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "drawings on paper with visible trees; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "drawings on paper with visible trees; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200117127",
+          "imageSha256": "sha256:0ae8259435647e6290f47bd5a9e36c59721756e20372e37985c84f029f902f02",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 树干|树冠|树丛|树木|林木"
+        },
+        {
+          "artworkId": "smk-KKS21235",
+          "imageSha256": "sha256:900d89f3c85c4a90253ca734559b1cb716559786d3c4af27c74a81f3fa529347",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材未明确记载 paper|纸"
+        },
+        {
+          "artworkId": "artic-160032",
+          "imageSha256": "sha256:03999a4b7a211aae1111cfd63f75ad8cd8cd69d2fa84e18eb46f77c2ed698ecb",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas；要求 drawing"
+        },
+        {
+          "artworkId": "smk-KKS21313",
+          "imageSha256": "sha256:cae73b3b10f4b6fd5f6f7819083c41fbfeea0864a09784d046c7cb0decb85efd",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Lithograph；要求 drawing"
+        },
+        {
+          "artworkId": "rijksmuseum-200117153",
+          "imageSha256": "sha256:1ce2181f96a97feb5322c9a288e3cc3eb19e0a9e7042efba27e054fae8eea0f6",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 paper; ink; chalk；要求 drawing；馆藏媒材明确记载 paper; ink; chalk；同图观察「人物跪在树下靠近一头羊，手边放着圆篮，粗大树干斜伸向上，棕色墨洗与细线描出羊毛和衣褶」"
+        },
+        {
+          "artworkId": "rijksmuseum-200117873",
+          "imageSha256": "sha256:ce86dbbe807d348df1845ad72f798f2b04acc402c1b3f7080fd4d2dbb0ba8e83",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 paper; ink; chalk；要求 drawing；馆藏媒材明确记载 paper; ink; chalk；同图观察「两排高大树木围住园中道路，近处雕像与石台沿左侧排列，墨洗细线描出枝叶、树干和远方明亮空地」"
+        },
+        {
+          "artworkId": "rijksmuseum-200117163",
+          "imageSha256": "sha256:c30aa6630e59c9ca8d29c9d5f81d09ad89ed4e45cdc499a14dde9fc87c86f14a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 paper; ink; chalk；要求 drawing；馆藏媒材明确记载 paper; ink; chalk；同图观察「高大树木沿近处土坡弯曲生长，牛羊散落树荫间，小型人物在地面与枝干附近活动，远方低地较淡」"
+        },
+        {
+          "artworkId": "rijksmuseum-200105851",
+          "imageSha256": "sha256:1d5a4f25b3bb754393eaa20c7a02bd3104fe7337dd4e9a1900b43a3bb630802c",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 paper; ink; watercolor (paint); graphite (mineral); chalk；要求 drawing；馆藏媒材明确记载 paper; ink; watercolor (paint); graphite (mineral); chalk；同图观察「一座乡间建筑占据中景，前方田地里散布劳作的人物，浅淡树木与道路把视线引向房屋」"
+        }
+      ]
+    },
+    {
+      "id": "media-05",
+      "stratum": "medium-exclusion",
+      "query": "我想看画里的室内陈设，六件；不要有人。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "interior",
+          "value": "present"
+        },
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "absent"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "我想看画里的室内陈设，六件；不要有人。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "interior furnishings without people; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "interior furnishings without people; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "interior furnishings without people; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMS1808",
+          "imageSha256": "sha256:4c7e959a937a75512a0b9d22836441a1044774c5b48b810d89893ade16de8872",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "rijksmuseum-200107763",
+          "imageSha256": "sha256:4c67aa1af164c9cc2578951a0e8feb8cd30b476ec64907b77fd0d30567b3ba9e",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "smk-KMS6693",
+          "imageSha256": "sha256:43ff1136347af455fa36d0d44e7c2944817e7ac8931b0920c2ae1534c846a3da",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "rijksmuseum-200117796",
+          "imageSha256": "sha256:1ece74bdcdb1ec5b98c29ea758257aa4b20e92c604d889cdf11addd33f734dad",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1898.197",
+          "imageSha256": "sha256:bc6c8571a7948e4bf2239ff6c7e91a4bddc5fd600f22958573e90e6824a38cd5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "artic-73054",
+          "imageSha256": "sha256:762638a75806b9256996956f22ab61f4fcfd2b0e7f9c3cebdb85d3a648d2c8c0",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 interior=absent；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS6750",
+          "imageSha256": "sha256:f603526ff7dcf1268a2387d3da3103cdb4dbca16d422e6874edbccd2e0429812",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 interior=unknown；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS4011",
+          "imageSha256": "sha256:9c373f10114d5b02a21b73cd539e3b579922fb3a3e8e08e21c13ede915fed338",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 people=unknown；要求 absent"
+        }
+      ]
+    },
+    {
+      "id": "detail-01",
+      "stratum": "visual-detail",
+      "query": "找六件看得见桅杆或船帆的画。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "桅杆|船帆|帆布|张帆|白帆|扬帆"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "找六件看得见桅杆或船帆的画。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "visible masts or sails; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "visible masts or sails; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "visible masts or sails; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-20025686",
+          "imageSha256": "sha256:c1b4a009c237d98eb32ec55dc13d1c84264112f01ddb1d8a88b7e2ef99f562e6",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 桅杆|船帆|帆布|张帆|白帆|扬帆"
+        },
+        {
+          "artworkId": "smk-KMS6595",
+          "imageSha256": "sha256:bdd76ca8ab7bd54e442bda0410dd4a7976b68a2b085deb726f16b6d206a4ca96",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 桅杆|船帆|帆布|张帆|白帆|扬帆"
+        },
+        {
+          "artworkId": "getty-00805239-3b69-450d-9b6d-e6e2ad365fbf",
+          "imageSha256": "sha256:e031a65c90634b5deab6fe935979e94d1701338dd87e71e187055c0def5b7083",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 桅杆|船帆|帆布|张帆|白帆|扬帆"
+        },
+        {
+          "artworkId": "artic-16571",
+          "imageSha256": "sha256:71f218cf2887aa9c4d827ef9a3bd46125254a8e4c30572e4c75e544b9b86e9d7",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 桅杆|船帆|帆布|张帆|白帆|扬帆"
+        },
+        {
+          "artworkId": "rijksmuseum-200116937",
+          "imageSha256": "sha256:8e2ff70a93f0531cc1080e8128b7a1d37e51d6c0b150074c3c05873edcba7948",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「冬装人物围在载有器皿与篮筐的小雪橇旁，一人从前方牵引，后方冰面人群与桅杆渐次缩小」"
+        },
+        {
+          "artworkId": "rijksmuseum-200105889",
+          "imageSha256": "sha256:b5f9ab6f7ea500c192124c74f3331179b96c93a54246e7d367812f86e236f6de",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「近岸人物聚在几艘渔船旁，海浪横向掠过下部，船帆、桅杆与明暗云层相互交错」"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1893.80",
+          "imageSha256": "sha256:ac9e9e2a80b0b2a5ce68999dc42818d23e24c5bb5ffee312e83a376338ce2860",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「桥梁的粗重横梁与斜向缆线覆盖上部，远方桅杆透过结构之间的空隙显露，底部纸面较空」"
+        },
+        {
+          "artworkId": "rijksmuseum-200116907",
+          "imageSha256": "sha256:51e130754ee1c5ba4f83bc1c59dd84ad9cfa95498b711d22367f55c93d5ad9da",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「棕色纸面上，近处人物与船只沿河岸分布，桅杆伸向天空，远方低矮城镇和烟柱以细线连成地平线」"
+        }
+      ]
+    },
+    {
+      "id": "detail-02",
+      "stratum": "visual-detail",
+      "query": "想看看画里的楼梯和台阶，选六件。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "楼梯|阶梯|台阶|石阶"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看看画里的楼梯和台阶，选六件。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "visible stairways and steps; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "visible stairways and steps; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "visible stairways and steps; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMS3194",
+          "imageSha256": "sha256:5211bc840a70c5f65d4c28a54c735720ff758766651e252224f33b3cf3956bb7",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 楼梯|阶梯|台阶|石阶"
+        },
+        {
+          "artworkId": "smk-KKSgb22232",
+          "imageSha256": "sha256:d0b570d0ddb7d8da2880772bfa6bbf21712e7395332b6b25850c903487302ba2",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 楼梯|阶梯|台阶|石阶"
+        },
+        {
+          "artworkId": "smk-KMS740",
+          "imageSha256": "sha256:2aaf8f1436ed864b6ebe59c7443009de64a9b95054e37b51dc9928de369887dc",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 楼梯|阶梯|台阶|石阶"
+        },
+        {
+          "artworkId": "smk-KMS699",
+          "imageSha256": "sha256:99426046428c990080014fa482176f44990ad7b43bdf3ccf684e6ef16851598b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 楼梯|阶梯|台阶|石阶"
+        },
+        {
+          "artworkId": "smk-KMS3807",
+          "imageSha256": "sha256:6a35ad818a6490c2e3ad920ef0d32e910c120638f1a8a734d5be0e4615e615dc",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「石砌门洞前，蓝衣黄裙女子提花篮立于台阶，门内老妇、右侧小女孩与左侧男子剪影，色调明暖」"
+        },
+        {
+          "artworkId": "met-437330",
+          "imageSha256": "sha256:1c071c5058f1661971d35abb5af2d0a528895c8d5aa6a4a57a10d58322dc1872",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「披古典衣袍的人物聚在建筑台阶前，中央人物伸手靠近坐地男子」"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1888.35",
+          "imageSha256": "sha256:2600164eec9f7701a908c5afb1edab5c9fdd8858a7b98893e034b6ae2ff3524b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「岸边建筑紧挨停泊的船只，细密线条刻画屋顶、台阶和绳索，下部水面的线条较为疏散」"
+        },
+        {
+          "artworkId": "smk-KKSgb22226",
+          "imageSha256": "sha256:36f2bf45ff497f2b0b2a8e132e43f63ea9cc16ed13976ab8c878765a59679319",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「多人围坐在长桌后方，前方人物抬臂转身，台阶、立柱和墙面构成室内层次，杯具与菜盘散布桌面」"
+        }
+      ]
+    },
+    {
+      "id": "detail-03",
+      "stratum": "visual-detail",
+      "query": "请选六幅能看到衣服褶纹的画，看看褶皱怎么转。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "衣纹|衣褶|裙褶|袖褶|衣袍.{0,8}褶皱|织物.{0,8}褶皱"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "请选六幅能看到衣服褶纹的画，看看褶皱怎么转。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "visible garment folds and drapery; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "visible garment folds and drapery; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "visible garment folds and drapery; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200108608",
+          "imageSha256": "sha256:37942ab368f231713fe612cc3041f9e370a465851053e602d989769a845797d1",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 衣纹|衣褶|裙褶|袖褶|衣袍.{0,8}褶皱|织物.{0,8}褶皱"
+        },
+        {
+          "artworkId": "rijksmuseum-200107768",
+          "imageSha256": "sha256:e810303acdfe2a744a124ac469c5ca2f802a8a0646f52816f638892d09b9ccbf",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 衣纹|衣褶|裙褶|袖褶|衣袍.{0,8}褶皱|织物.{0,8}褶皱"
+        },
+        {
+          "artworkId": "rijksmuseum-200116948",
+          "imageSha256": "sha256:f86e1966f5a6e24d0e139bbdab3bb9a2b3cac806d5b0f4a09bc1a5900541267a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 衣纹|衣褶|裙褶|袖褶|衣袍.{0,8}褶皱|织物.{0,8}褶皱"
+        },
+        {
+          "artworkId": "rijksmuseum-200116942",
+          "imageSha256": "sha256:fbb25dda00da1532f462c63f609a7b30e22a63dd37bd852bf4776798df4edad9",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 衣纹|衣褶|裙褶|袖褶|衣袍.{0,8}褶皱|织物.{0,8}褶皱"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1915.31",
+          "imageSha256": "sha256:6d08e1f541a1b47f75926bf648836d02efacfa35ceea4f60e5d21321b82404e3",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「狭长挂轴中的人物垂首站立，双手与深色衣褶集中在胸前，褐色底面和外侧装裱完整保留」"
+        },
+        {
+          "artworkId": "smk-KKS1990-35",
+          "imageSha256": "sha256:2701b876694c58057d1cbd1a6c05ba47f894d01dd9778312e1f5139af4642809",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「年轻人物的头部与打结领巾由浅淡铅笔线勾出，肩部衣纹较疏，四周浅色纸面与下方题字保留」"
+        },
+        {
+          "artworkId": "smk-KKSgb22214",
+          "imageSha256": "sha256:af2478efed972720097e6321bd2519410183eb1c21db8b94b9de92169eb95d86",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「三个人物并立在浅色地面上，中央人物的头部带有光环，两侧人物伸手相接，细密衣褶与底部文字完整可见」"
+        },
+        {
+          "artworkId": "smk-KKSgb22229",
+          "imageSha256": "sha256:035a06252b5ae64f8ae356a94f39e68c71112ad1421f5f68dbbf47f8526716f5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「坐姿人物以一手靠近侧脸，工具和衣褶分布在身前，石柱占据后方，远处街道与地面线条较淡」"
+        }
+      ]
+    },
+    {
+      "id": "detail-04",
+      "stratum": "visual-detail",
+      "query": "想看六幅里头能辨认木桶或陶罐的画。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "木桶|陶罐"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看六幅里头能辨认木桶或陶罐的画。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "recognizable wooden barrels and ceramic jars; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "recognizable wooden barrels and ceramic jars; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "recognizable wooden barrels and ceramic jars; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200116894",
+          "imageSha256": "sha256:9d310551d12b224255734dfe3f2cfa12e8945869909842368e7fa95c74b47c7c",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 木桶|陶罐"
+        },
+        {
+          "artworkId": "smk-KMS8643",
+          "imageSha256": "sha256:33ebbdf8e48b754d50e80c2a0e65548a68fd9ba5b3b9109bd7fe1132ae5bc202",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 木桶|陶罐"
+        },
+        {
+          "artworkId": "met-459376",
+          "imageSha256": "sha256:8ba37f9bad759afe4befda8968fe34f5998215e3deb8254af2ed8b32a25f19a4",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 木桶|陶罐"
+        },
+        {
+          "artworkId": "rijksmuseum-200107781",
+          "imageSha256": "sha256:1ac0e1b6231c43992476f0144f1a31ba8187f1d978f8307c4b1d02103b19840e",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 木桶|陶罐"
+        },
+        {
+          "artworkId": "cma-146193",
+          "imageSha256": "sha256:a6bd318620666b068b03a98d54e23e0784a1b6cdc5ddef26edc88ed644c056da",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「庭院中多名女子穿彩色衣裙，击鼓、持喷水器互喷红水，地面有陶罐与红色水迹，上方两人在平台活动」"
+        },
+        {
+          "artworkId": "rijksmuseum-20012365",
+          "imageSha256": "sha256:2fd94e4f49d1047560a7496049a0c33784ece024b854c775ca26c8ca79f1ef3c",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「冬季冰面上布满人物、雪橇与马匹，近处木桶和枯树沿岸分布，远方城镇与塔楼位于层叠灰云下」"
+        },
+        {
+          "artworkId": "rijksmuseum-20025740",
+          "imageSha256": "sha256:3fc695e4128bfcc1a929acd274c5dde2a6c70a4ba5280c23c61af69de4374f3f",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「多人在昏暗木梁室内围桌交谈和活动，前方白衣人物转身，杯具、木桶与小型物件散布地面，后方楼梯隐在暗部」"
+        },
+        {
+          "artworkId": "rijksmuseum-200116913",
+          "imageSha256": "sha256:a708eae29488c08e984f5075dfef7c8877adfcda8ed846ff67625eb1474eb767",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「多个人物在浅色冰面上活动，近处有雪橇、木桶和长杆，后方教堂塔楼与屋舍位于淡黄粉色天空下」"
+        }
+      ]
+    },
+    {
+      "id": "detail-05",
+      "stratum": "visual-detail",
+      "query": "挑六件可以留意拱门、拱形门洞或拱窗的画。",
+      "criteria": [
+        {
+          "kind": "observation",
+          "pattern": "拱门|拱形门洞|拱窗|拱形窗"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "挑六件可以留意拱门、拱形门洞或拱窗的画。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "recognizable arched doors or windows; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "recognizable arched doors or windows; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "recognizable arched doors or windows; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMS1059",
+          "imageSha256": "sha256:68faa0fe6386205280f97277dedb215427bb6844fc1b9e02945580eacd5db4a9",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「暖褐色调园林场景，中央有装饰性拱门建筑，前景散布着穿华服的男女、马匹与狗，右侧有雕像和乐手」"
+        },
+        {
+          "artworkId": "rijksmuseum-20015873",
+          "imageSha256": "sha256:b4cb6130b8e3f18545160b579db8f8cecf234c59c81b7d59d2d82627e33b944e",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 拱门|拱形门洞|拱窗|拱形窗"
+        },
+        {
+          "artworkId": "rijksmuseum-200116946",
+          "imageSha256": "sha256:5b9090b8e5fbc4400032b4c103c5656001388d696ec35e950571647d6464f62a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 拱门|拱形门洞|拱窗|拱形窗"
+        },
+        {
+          "artworkId": "artic-16487",
+          "imageSha256": "sha256:c7140ff4841d33dda853b3036bd8853e471cb08208698461614024081fd91dfc",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 拱门|拱形门洞|拱窗|拱形窗"
+        },
+        {
+          "artworkId": "met-459093",
+          "imageSha256": "sha256:7a803b1dcefc53dfbf7c5656e639c8f1c9bf2ab34c45db96564f46ae4563c247",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 拱门|拱形门洞|拱窗|拱形窗"
+        },
+        {
+          "artworkId": "met-742689",
+          "imageSha256": "sha256:762305cf0367a66b755a508b57b8bb6b98b863eff566596f8c9fd27e4f2f446b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「背景为拱门和工作间」"
+        },
+        {
+          "artworkId": "met-436927",
+          "imageSha256": "sha256:89abe565d4e834e254d1336c062fc8f3185eb1f3c9cc2210a7a5729f0e545196",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「门洞深处，暖黄灯光在两扇拱窗之间聚成局部亮点」"
+        },
+        {
+          "artworkId": "smk-KKSgb10504",
+          "imageSha256": "sha256:c6b33c64d7590916ff00db4c8dde904dea7a88aef99ecb74b725f668311d00ed",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "同图观察「高大柱廊与尖拱向深处伸展，近处石块和小型人物位于暗部，明亮拱门在右侧露出，蚀刻纸边完整可见」"
+        }
+      ]
+    },
+    {
+      "id": "arousal-01",
+      "stratum": "arousal",
+      "query": "想在六幅画中沿开阔的地平线慢慢看，视线不要被围住。",
+      "criteria": [
+        {
+          "kind": "space",
+          "value": "open"
+        },
+        {
+          "kind": "observation",
+          "pattern": "地平线|水平远景"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想在六幅画中沿开阔的地平线慢慢看，视线不要被围住。",
+        "wantsRelief": false,
+        "pace": "slow",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "low-energy broad vistas with a visible horizon; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.25,
+            "tension": 0.14,
+            "wonder": 0.4,
+            "intimacy": 0.5
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "low-energy broad vistas with a visible horizon; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.3,
+            "tension": 0.13,
+            "wonder": 0.46,
+            "intimacy": 0.5
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "low-energy broad vistas with a visible horizon; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.56,
+            "arousal": 0.2,
+            "tension": 0.1,
+            "wonder": 0.4,
+            "intimacy": 0.55
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KKS9901",
+          "imageSha256": "sha256:7d3dabb8e939b1841631636b9ca343f298f06233f80a2e29f36a6705b04b6925",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验空间 not-applicable；要求 open"
+        },
+        {
+          "artworkId": "rijksmuseum-200107777",
+          "imageSha256": "sha256:7800cef7868fd6298579418af06f3fd36fea8abd9722b7dc2aef18fc0d3d97b5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验空间 framed；要求 open"
+        },
+        {
+          "artworkId": "rijksmuseum-200119006",
+          "imageSha256": "sha256:f11dbda6878517337ec80bc031bdc9a4845abad1a9b52a272508eb46d242d587",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验空间 not-applicable；要求 open"
+        },
+        {
+          "artworkId": "smk-KMS3879",
+          "imageSha256": "sha256:fc420f1ef87787b4501b92ee6db6e24bbfc9d351c04e10ec036826ed6006bb54",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验空间 enclosed；要求 open"
+        },
+        {
+          "artworkId": "rijksmuseum-200109371",
+          "imageSha256": "sha256:5f36617680e90d0f523bce9ee4d856af764f54a9c836d8530ff80bb9686dc208",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验空间 open；要求 open；同图观察「戴宽檐帽的骑马人物位于近处，黄色衣服与红色胸带对照，浅色马匹侧身站立，后方低缓地平线逐渐变淡」"
+        },
+        {
+          "artworkId": "smk-KMSsp33",
+          "imageSha256": "sha256:18e57f3dbccdb801eee56ae9e804aaa5edd0805f5e1f05e52bef58eae5acb6bb",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验空间 open；要求 open；同图观察「人物与牲畜沿近处山地停留，远方古典建筑立在树林间，浅蓝山谷和云层向地平线渐次变淡」"
+        },
+        {
+          "artworkId": "smk-KMS4021",
+          "imageSha256": "sha256:1f2e9489cb3b140aff1ec717239ca7dcfe86984c1a64e8674371f5bbd7796662",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验空间 open；要求 open；同图观察「明亮绿色田地与浅色农舍沿地平线分布，近处红墙、草垛和白色小鸟形成色块，天空深蓝并带浅黄色云团」"
+        },
+        {
+          "artworkId": "smk-KMS3194",
+          "imageSha256": "sha256:5211bc840a70c5f65d4c28a54c735720ff758766651e252224f33b3cf3956bb7",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验空间 open；要求 open；同图观察「低缓褐色坡地在前方展开，远处浅色地带向地平线延伸，大片蓝灰天空中散布明亮云块」"
+        }
+      ]
+    },
+    {
+      "id": "arousal-02",
+      "stratum": "arousal",
+      "query": "想把节奏放慢，看看画里歇着、坐着或躺卧的身影，六件。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "躺卧|睡卧|伏睡|休息|坐姿|围坐|端坐|坐着|坐在"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想把节奏放慢，看看画里歇着、坐着或躺卧的身影，六件。",
+        "wantsRelief": false,
+        "pace": "slow",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "figures visibly at rest, seated or reclining; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.25,
+            "tension": 0.14,
+            "wonder": 0.4,
+            "intimacy": 0.5
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "figures visibly at rest, seated or reclining; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.3,
+            "tension": 0.13,
+            "wonder": 0.46,
+            "intimacy": 0.5
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "figures visibly at rest, seated or reclining; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.56,
+            "arousal": 0.2,
+            "tension": 0.1,
+            "wonder": 0.4,
+            "intimacy": 0.55
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMS4471",
+          "imageSha256": "sha256:cdba5d14a1ee49805085a989fabef236d63c48af7b8e7e9b344e01c874864464",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 people=unknown；要求 present"
+        },
+        {
+          "artworkId": "rijksmuseum-200117091",
+          "imageSha256": "sha256:0a66b39c4cddb76662b541d449ee3f852878b360d00e5fc98f5eb0ea590349be",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 躺卧|睡卧|伏睡|休息|坐姿|围坐|端坐|坐着|坐在"
+        },
+        {
+          "artworkId": "rijksmuseum-200107776",
+          "imageSha256": "sha256:19f5ab2e736e5bd90d37e79e580648a9e383bb8d8a0dc85f948e0b256dca277a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「人物围坐在铺有花纹织物的桌边，后方可见壁炉、挂饰与器物，红色衣裙和暖色地毯在褐色室内显出」"
+        },
+        {
+          "artworkId": "smk-KKSgb12787",
+          "imageSha256": "sha256:54b1db7d36aa0e2ef5999dae362d7e76ba2a0dd0e92d7ae6fe7823c17a0c9958",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「坐姿人物的椭圆肖像外有装饰边框，手部与衣褶细节较密，下方整块铭文与四周纸边完整保留」"
+        },
+        {
+          "artworkId": "smk-KMS8578",
+          "imageSha256": "sha256:562031ed3c8fdf059e431ce5f5abcfdfcbeb140cb6150745d62917f8bc6ea131",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「坐姿人物戴黑色高帽，浅褐外衣的深色圆扣沿胸前排列，双手放于腿上，背景保持柔和灰色」"
+        },
+        {
+          "artworkId": "rijksmuseum-200119020",
+          "imageSha256": "sha256:8754554a952cf8c68d0b8889514cb3ed73e1ace1b72a38a80e760aafbc2f242c",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「戴软帽与宽领的人物正面坐着，书册与软垫位于膝上，灰黑粉笔线在浅黄纸面上描出双手、袖口与裙褶」"
+        },
+        {
+          "artworkId": "met-382737",
+          "imageSha256": "sha256:fdfea2cb780de7437ca8c30bf9631336f0a98bfbf63bad4d6ee3b95b6205af9a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=absent；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS6336",
+          "imageSha256": "sha256:04a76d1ee2a12c8cb6f3229c48cbdbb2fd1dd78ca7b743311c009c5191c75baf",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=absent；要求 present"
+        }
+      ]
+    },
+    {
+      "id": "arousal-03",
+      "stratum": "arousal",
+      "query": "想看动作幅度大的画，六件，画中有人在奔跑、扭转或舞动。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "奔跑|飞奔|扭转|舞动|起舞|疾驰|跳跃"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看动作幅度大的画，六件，画中有人在奔跑、扭转或舞动。",
+        "wantsRelief": false,
+        "pace": "active",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "large bodily movement, running, twisting or dancing; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.63,
+            "arousal": 0.62,
+            "tension": 0.32,
+            "wonder": 0.5,
+            "intimacy": 0.35
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "large bodily movement, running, twisting or dancing; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.65,
+            "arousal": 0.76,
+            "tension": 0.38,
+            "wonder": 0.6,
+            "intimacy": 0.35
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "large bodily movement, running, twisting or dancing; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.63,
+            "arousal": 0.58,
+            "tension": 0.28,
+            "wonder": 0.53,
+            "intimacy": 0.38
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smithsonian_asian-fsg_F1896.20",
+          "imageSha256": "sha256:8f30cf5a5f2c78ba6bfeac362d687a286db03dced3fe7869ef939ce6d9495923",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 奔跑|飞奔|扭转|舞动|起舞|疾驰|跳跃"
+        },
+        {
+          "artworkId": "artic-81535",
+          "imageSha256": "sha256:5eab90473487e67d9c9b782ab546cf06d3422ab18f04f9025d32b1b1ddbac1df",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 people=unknown；要求 present"
+        },
+        {
+          "artworkId": "met-45734",
+          "imageSha256": "sha256:8173e75438011b4c3833c5dd89ba40ec6a44046b4dbbd38a7d8a623f512cc817",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=absent；要求 present"
+        },
+        {
+          "artworkId": "artic-46455",
+          "imageSha256": "sha256:523fd3773820e7716ad621c2a5ec1c0a7b9e125f2fa1ce412713f975cd677266",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=absent；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS3318",
+          "imageSha256": "sha256:40bc51c5117f95a1905fb03d99022b8cdcac83fef1d5d78a230817df4b7edb72",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「女子戴白头巾，穿白衫、深色胸衣与红裙，举手鼓起舞」"
+        },
+        {
+          "artworkId": "met-437779",
+          "imageSha256": "sha256:b2d0877db823dc88c38fcccfeebbf88693f2ab13a93df5f6dd9b90113ad3dfa6",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「暖色天空下，村舍与大树前人群围聚起舞，前景有人席地饮酒，远处田野与教堂塔楼」"
+        },
+        {
+          "artworkId": "rijksmuseum-20015854",
+          "imageSha256": "sha256:dcfd95652520d87ace4fe7332b5a7016807113a218b10e5ba657ef36704734b8",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「多个人物在岩岸附近聚集，远处人物举臂奔跑，蓝天、淡山和近处深绿枝叶形成开阔层次」"
+        },
+        {
+          "artworkId": "met-437257",
+          "imageSha256": "sha256:bf210b146233fdf3a56c8159f10cfba094408b70a1e79abb975c2221bb537508",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；同图观察「蓝天白云下，大树与村舍间聚集众多人物，中央一对男女起舞，前景有人席地休息，色调以蓝绿与暖褐为主」"
+        }
+      ]
+    },
+    {
+      "id": "arousal-04",
+      "stratum": "arousal",
+      "query": "想看六幅波浪冲起来的画，看浪花和冲击感。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "water",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "浪花|巨浪|波涛|翻涌|汹涌|拍岸|翻卷"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看六幅波浪冲起来的画，看浪花和冲击感。",
+        "wantsRelief": false,
+        "pace": "active",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "active breaking waves and turbulent water; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.63,
+            "arousal": 0.62,
+            "tension": 0.32,
+            "wonder": 0.5,
+            "intimacy": 0.35
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "active breaking waves and turbulent water; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.65,
+            "arousal": 0.76,
+            "tension": 0.38,
+            "wonder": 0.6,
+            "intimacy": 0.35
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "active breaking waves and turbulent water; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.63,
+            "arousal": 0.58,
+            "tension": 0.28,
+            "wonder": 0.53,
+            "intimacy": 0.38
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMS9202",
+          "imageSha256": "sha256:9a813a03ede5268f2eb18daa6212c88cd514158d8a88a6c121055f97966e6cd5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 water=unknown；要求 present"
+        },
+        {
+          "artworkId": "rijksmuseum-200116950",
+          "imageSha256": "sha256:67c38b66c737eded9473ffd3d0959002932e5693d336f99a95e0831b625d7762",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 water=unknown；要求 present"
+        },
+        {
+          "artworkId": "met-376264",
+          "imageSha256": "sha256:3cee0e1ad5bb6160ac6fe8ac4d221afa248f05b008703d7f5a5e2f034a8ee3a7",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 water=absent；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS1059",
+          "imageSha256": "sha256:68faa0fe6386205280f97277dedb215427bb6844fc1b9e02945580eacd5db4a9",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 water=absent；要求 present"
+        },
+        {
+          "artworkId": "met-45434",
+          "imageSha256": "sha256:0f0a0ad2ce94bd8a2efe154b89dbacfa00325fb17e8bf2098437f94acdb6808d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 water=present；要求 present；同图观察「巨浪向细长船只卷起，船内可见伏低的小人物，远处富士山露在低低地平线上」"
+        },
+        {
+          "artworkId": "artic-66144",
+          "imageSha256": "sha256:0728537824eea2bb7e3eef251d0c70c9b01fbb2649e8bf6f02ae22c869816899",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 water=present；要求 present；同图观察「蓝绿海水拍岸，黄褐岩崖横贯背景，岸边散布白衣人物，笔触松散明快」"
+        },
+        {
+          "artworkId": "rijksmuseum-20025776",
+          "imageSha256": "sha256:8d222da90d0b44dd3f8fd5768a7ea8dad5c4147851484eb1512cde1ae910fb7e",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 water=present；要求 present；同图观察「近处帆船斜向右方行驶，深绿褐浪头翻卷，远方小船与浅色地平线相接，灰云间透出柔和暖光」"
+        },
+        {
+          "artworkId": "smk-KMS3983",
+          "imageSha256": "sha256:a447ecd7ee6941e4ebc24d7e0357976b10561f55da4951422aa29d9acf8f3c83",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 water=present；要求 present；同图观察「横向构图，上方大片淡蓝天空，中部深蓝海平线与小舟，前景多层白色浪花与浅色沙滩」"
+        }
+      ]
+    },
+    {
+      "id": "arousal-05",
+      "stratum": "arousal",
+      "query": "想看六幅适合停下来细看的画，留意摆放的物件。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "stillLife",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "摆放|摆着|放置|排列|静置|瓶器|桌面|并置|堆叠"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看六幅适合停下来细看的画，留意摆放的物件。",
+        "wantsRelief": false,
+        "pace": "slow",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "low-energy stationary objects and their arrangement; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.25,
+            "tension": 0.14,
+            "wonder": 0.4,
+            "intimacy": 0.5
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "low-energy stationary objects and their arrangement; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.3,
+            "tension": 0.13,
+            "wonder": 0.46,
+            "intimacy": 0.5
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "low-energy stationary objects and their arrangement; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.56,
+            "arousal": 0.2,
+            "tension": 0.1,
+            "wonder": 0.4,
+            "intimacy": 0.55
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMS6187",
+          "imageSha256": "sha256:2b5e3d1f3106da2f62e36c813915493633a1a18f041a89d42ab72bf1ec35e571",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 stillLife=unknown；要求 present"
+        },
+        {
+          "artworkId": "smk-KKS10933%2F11",
+          "imageSha256": "sha256:22cbb456d9c1dd3782b2d2462318fb6a1488e35903cb5695f91f8598513f90f0",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 stillLife=unknown；要求 present"
+        },
+        {
+          "artworkId": "met-337462",
+          "imageSha256": "sha256:7d522e6332807b77cc8c675bad60266dae195b75e0abb99a8ff2fa2c3123d898",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 stillLife=absent；要求 present"
+        },
+        {
+          "artworkId": "met-45697",
+          "imageSha256": "sha256:b3a5e042227917484a45c5522f9a0ca555006df3725b2d38c462583b0348b6c9",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 stillLife=absent；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS1260",
+          "imageSha256": "sha256:cd894eef644bd45a5ca4f7ddaf860fc21b7a7b0a7aded7d05c52d09e24a621cd",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 stillLife=present；要求 present；同图观察「粗壮树干斜贯画面，枝上悬挂紫红白花环，树下地面堆叠郁金香、牡丹等花束，背景为淡粉灰天空」"
+        },
+        {
+          "artworkId": "rijksmuseum-20025741",
+          "imageSha256": "sha256:60ddc44c37ab88849bfb4bc58c41b73e914c2ebd3ff5cedc5c327cf20c6fbbf0",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 stillLife=present；要求 present；同图观察「一家人围在餐桌前，右侧戴头巾的人物双手交握，碗碟、壶和面包位于桌面，暖褐光线从左侧照亮脸部」"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1907.176",
+          "imageSha256": "sha256:bdf0926937834dabd0d98de19c73fef27988220ac97428dbb06b244d51df6c6a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 stillLife=present；要求 present；同图观察「单个细长瓶器立在浅色纸面中央，瓶身遍布花卉与弧线纹样，右下方小型印记与宽阔纸边保留」"
+        },
+        {
+          "artworkId": "rijksmuseum-20015864",
+          "imageSha256": "sha256:18b6591fb260ff591a4e8d732a9e02ca0948d3e8a551df8fc9808db656e7f0fe",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 stillLife=present；要求 present；同图观察「人物围在摆放鱼类与篮筐的摊位前，深色木屋沿左侧排开，远方街道和塔楼位于棕灰天空下」"
+        }
+      ]
+    },
+    {
+      "id": "mixed-01",
+      "stratum": "mixed",
+      "query": "选六幅纸本版画，人物手里要看得到扇子或卷纸。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "print"
+        },
+        {
+          "kind": "medium-detail",
+          "pattern": "paper|纸"
+        },
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "手.{0,8}(?:扇|卷纸|纸卷)|持扇|执扇|持卷"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "选六幅纸本版画，人物手里要看得到扇子或卷纸。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "prints on paper with figures holding fans or sheets; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "prints on paper with figures holding fans or sheets; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "prints on paper with figures holding fans or sheets; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200118553",
+          "imageSha256": "sha256:9e415d0b62a6b83ca0f50828bfaec696b0d6e4e3c944a66f1a78cfd72fb84023",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 paper; ink；要求 print"
+        },
+        {
+          "artworkId": "rijksmuseum-200111838",
+          "imageSha256": "sha256:c0eb7453c8656a419afb4c4e70f8d311a74400273232107f722e5594fd567bc0",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 panel; oil paint (paint)；要求 print"
+        },
+        {
+          "artworkId": "smk-KMS3351",
+          "imageSha256": "sha256:792eebf51849f6d9053b29e3a6b0b1c1261b5dbc5b78ba96211b46594a336292",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas; canvas；要求 print"
+        },
+        {
+          "artworkId": "cma-314436",
+          "imageSha256": "sha256:fc89ceccc9ef5d5e74f20857dce43da5fbde5a54b8464be9cf00502bd06f3257",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 gum tempera, ink, and gold on paper；要求 print"
+        },
+        {
+          "artworkId": "smk-KKS5261",
+          "imageSha256": "sha256:fd472afdd422d1ff0b56268ff71c482797bb8a9315daf58e3b593beca7c6ad63",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材未明确记载 paper|纸"
+        },
+        {
+          "artworkId": "rijksmuseum-200109388",
+          "imageSha256": "sha256:c141d04fb642461cd1d4fa4bdf033656c3c2a7b73f042f35a19f33b691892e74",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 canvas; oil paint (paint)；要求 print"
+        },
+        {
+          "artworkId": "met-437393",
+          "imageSha256": "sha256:f075aaa05539cc8d1dabf2499c9bb7e036319e0b832cd1fcf6b13c9f5f35d1c1",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on wood；要求 print"
+        },
+        {
+          "artworkId": "met-391598",
+          "imageSha256": "sha256:2fe12a371f8760907a890357b07ecb1544efc7c1c87318d9aef942b6fabc4b7b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材未明确记载 paper|纸"
+        }
+      ]
+    },
+    {
+      "id": "mixed-02",
+      "stratum": "mixed",
+      "query": "想看三幅开阔的画，画里有屋子和一大片天空。",
+      "criteria": [
+        {
+          "kind": "space",
+          "value": "open"
+        },
+        {
+          "kind": "observation",
+          "pattern": "房屋|房舍|屋舍|农舍|屋顶|民居|小屋|村舍"
+        },
+        {
+          "kind": "observation",
+          "pattern": "天空.{0,5}(?:大半|大部|大片)|大片天空|宽阔天空|天空占"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看三幅开阔的画，画里有屋子和一大片天空。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 3,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "open views with houses and a broad sky; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "open views with houses and a broad sky; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "open views with houses and a broad sky; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-20015872",
+          "imageSha256": "sha256:d4df7a414b502fb43f588f2b6d6f5c7bea3b727f31b49065c65615633022ad32",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验空间 enclosed；要求 open"
+        },
+        {
+          "artworkId": "smk-KKS21151",
+          "imageSha256": "sha256:1993d5a3977ee105278906ac7e3c519d57dafcf8743e6539becab121e64f2290",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验空间 framed；要求 open"
+        },
+        {
+          "artworkId": "artic-16571",
+          "imageSha256": "sha256:71f218cf2887aa9c4d827ef9a3bd46125254a8e4c30572e4c75e544b9b86e9d7",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验空间 enclosed；要求 open"
+        },
+        {
+          "artworkId": "met-337462",
+          "imageSha256": "sha256:7d522e6332807b77cc8c675bad60266dae195b75e0abb99a8ff2fa2c3123d898",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验空间 enclosed；要求 open"
+        },
+        {
+          "artworkId": "smk-KMS4220",
+          "imageSha256": "sha256:32d33bfda952b0015af399b366b706f2dbb3e434f9f223dd83b6140d24da6c7a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 房屋|房舍|屋舍|农舍|屋顶|民居|小屋|村舍"
+        },
+        {
+          "artworkId": "smk-KMS6595",
+          "imageSha256": "sha256:bdd76ca8ab7bd54e442bda0410dd4a7976b68a2b085deb726f16b6d206a4ca96",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 房屋|房舍|屋舍|农舍|屋顶|民居|小屋|村舍"
+        },
+        {
+          "artworkId": "smk-DEP693",
+          "imageSha256": "sha256:f5805a69651f00b8628e292453c987de6eabbca1ba7c7ec9fc879001253bc603",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验空间 open；要求 open；同图观察「灰蓝天空占据大部，成排深色树木前是草岸和宽水面，树间可见浅色屋舍」；同图观察「灰蓝天空占据大部，成排深色树木前是草岸和宽水面，树间可见浅色屋舍」"
+        },
+        {
+          "artworkId": "rijksmuseum-200116944",
+          "imageSha256": "sha256:66790c515e33ce716719adf31c93b91c2ab099569a8d5e9c798ce7351ad01f63",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验空间 open；要求 open；同图观察「近处细小人物沿空地行走，房舍与风车分布在低矮地平线上，浅棕灰天空占据大部分纸面」；同图观察「近处细小人物沿空地行走，房舍与风车分布在低矮地平线上，浅棕灰天空占据大部分纸面」"
+        }
+      ]
+    },
+    {
+      "id": "mixed-03",
+      "stratum": "mixed",
+      "query": "六幅油画，想看有人在室内桌边坐着。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "oil"
+        },
+        {
+          "kind": "fact",
+          "subject": "interior",
+          "value": "present"
+        },
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "坐.{0,6}(?:桌边|桌旁|桌前|桌后)|围.{0,5}桌.{0,5}坐|桌.{0,5}(?:前|旁|边).{0,8}坐"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "六幅油画，想看有人在室内桌边坐着。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "oil interiors with a figure seated at a table; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "oil interiors with a figure seated at a table; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "oil interiors with a figure seated at a table; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-20015880",
+          "imageSha256": "sha256:d98e504c542a728a16f4d5f3d15325cf9cbd43758d1d5b4a661b77c44a589412",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 interior=unknown；要求 present"
+        },
+        {
+          "artworkId": "smk-DEP693",
+          "imageSha256": "sha256:f5805a69651f00b8628e292453c987de6eabbca1ba7c7ec9fc879001253bc603",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=absent；要求 present"
+        },
+        {
+          "artworkId": "rijksmuseum-200116913",
+          "imageSha256": "sha256:a708eae29488c08e984f5075dfef7c8877adfcda8ed846ff67625eb1474eb767",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 paper; deck paint; ink; watercolor (paint); graphite (mineral); chalk；要求 oil"
+        },
+        {
+          "artworkId": "smk-KMS3192",
+          "imageSha256": "sha256:ae93e98f8bccf31dccc5d502bb083fca1950eb1775ac632d0c4fc2498f97c97a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 interior=unknown；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS8654",
+          "imageSha256": "sha256:31017f747495da8808042e29e535d72226cbf9ce91b9d2cae24dc2b8347dc517",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Oil on canvas; canvas；要求 oil；核验事实 interior=present；要求 present；核验事实 people=present；要求 present；同图观察「人物低头坐在桌边，蓝色墙面的窗光色块与红橙色壁面相对，椅背、桌面和衣褶由暖色松动笔触铺开」"
+        },
+        {
+          "artworkId": "smk-KMS3840",
+          "imageSha256": "sha256:4a003c2aedf39cf78648f9975111b62799ca0e3cd7d73cde7445ae0f31493e91",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Oil on millboard; millboard；要求 oil；核验事实 interior=present；要求 present；核验事实 people=present；要求 present；同图观察「数个人物围着长桌坐在暗处，面部只以少量浅色笔触概括，桌边细长杯具较亮，纸板外缘仍可见」"
+        },
+        {
+          "artworkId": "rijksmuseum-20015873",
+          "imageSha256": "sha256:b4cb6130b8e3f18545160b579db8f8cecf234c59c81b7d59d2d82627e33b944e",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 panel; oil paint (paint)；要求 oil；核验事实 interior=present；要求 present；核验事实 people=present；要求 present；同图观察「五位戴高帽、穿白色褶领的人物坐在长桌后方，书册与手势集中在前景，后墙画作在暗部形成层次」"
+        },
+        {
+          "artworkId": "met-436927",
+          "imageSha256": "sha256:89abe565d4e834e254d1336c062fc8f3185eb1f3c9cc2210a7a5729f0e545196",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "馆藏媒材 Oil on canvas；要求 oil；核验事实 interior=present；要求 present；核验事实 people=present；要求 present；同图观察「前景宾客围桌而坐，左侧一对男女起舞，右侧棕榈盆栽，色彩明丽」"
+        }
+      ]
+    },
+    {
+      "id": "mixed-04",
+      "stratum": "mixed",
+      "query": "想看六幅有树木和水面倒影的画，媒材不限。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "water",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "树木|树干|树冠|树丛|高树|桦树|柏树|垂柳"
+        },
+        {
+          "kind": "observation",
+          "pattern": "(?:倒映|映出).{0,12}(?:树干|树影|树木|屋舍|建筑|桥|远山|山峰|帆船|人物|拱门)|(?:树影|树木|屋舍|山峰|建筑|拱门|船身)(?:的)?倒影|水中倒影"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "想看六幅有树木和水面倒影的画，媒材不限。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "trees and visible reflections in water; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "trees and visible reflections in water; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "trees and visible reflections in water; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200109374",
+          "imageSha256": "sha256:ee2d691a0efb46b077400f72991531a311e19d5f566142d160d09a9e2bd12d25",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 water=unknown；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS6658",
+          "imageSha256": "sha256:edec0f3c66b2488753904b8cd51a7ef6b09aab89760b286cca8681a3c9056e0c",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 water=unknown；要求 present"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1903.274",
+          "imageSha256": "sha256:6c4712979a3d1bbeeaf1a36b2a424cf33a83bd68d0a00d116bdb5f0b2f606152",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 water=unknown；要求 present"
+        },
+        {
+          "artworkId": "met-341487",
+          "imageSha256": "sha256:1a5c766ac27f49bf5eea042a9d8572326ffac12947ebb7f0a2f3f09b5d60f11c",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 water=absent；要求 present"
+        },
+        {
+          "artworkId": "artic-111436",
+          "imageSha256": "sha256:a347dbddbe2fda10b00c87b5c29c8ef493afc42cb39a0765b12d611ea730a49f",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 water=absent；要求 present"
+        },
+        {
+          "artworkId": "met-382737",
+          "imageSha256": "sha256:fdfea2cb780de7437ca8c30bf9631336f0a98bfbf63bad4d6ee3b95b6205af9a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 water=present；要求 present；同图观察「前景池塘映出细长树干，两岸灌木围出水边，左后方的田地和水平远景展开」；同图观察「前景池塘映出细长树干，两岸灌木围出水边，左后方的田地和水平远景展开」"
+        },
+        {
+          "artworkId": "smk-KMS912",
+          "imageSha256": "sha256:6ac189efcb8381e15a2ba658bbd38c90258dda9ddff2b7b9996fb04b529d14bb",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 water=present；要求 present；同图观察「左侧高树框景，中景湖面倒映白色庄园与远山，前景土路上有两人行走，色调柔和偏暖」；同图观察「左侧高树框景，中景湖面倒映白色庄园与远山，前景土路上有两人行走，色调柔和偏暖」"
+        },
+        {
+          "artworkId": "met-382544",
+          "imageSha256": "sha256:0713878370190041f037fa2a495e1741864f74f99a3ac87b11027c2faf6b68da",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 water=present；要求 present；同图观察「积水映出树干与拱门，树木环抱修道院残墙，水边立着十字架」；同图观察「积水映出树干与拱门，树木环抱修道院残墙，水边立着十字架」"
+        }
+      ]
+    },
+    {
+      "id": "mixed-05",
+      "stratum": "mixed",
+      "query": "请找六幅画，花朵和户外环境都得能看清。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "flowers",
+          "value": "present"
+        },
+        {
+          "kind": "fact",
+          "subject": "outdoors",
+          "value": "present"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "请找六幅画，花朵和户外环境都得能看清。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "flowers visibly depicted outdoors; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "flowers visibly depicted outdoors; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "flowers visibly depicted outdoors; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200109660",
+          "imageSha256": "sha256:92f324c5f5502e7c45fbe4724de8febc79324f0818daa8e94d4ff7f04a5f9759",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 flowers=unknown；要求 present"
+        },
+        {
+          "artworkId": "artic-64768",
+          "imageSha256": "sha256:f862d2400274ba80df71934ff4698b4501a991fec4e28c2eff4089c333a343e9",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 flowers=absent；要求 present"
+        },
+        {
+          "artworkId": "met-459435",
+          "imageSha256": "sha256:79d073477153a00c1c6e971f0f9ead0802b56ad03b7d6a7c85af31f9ae08022d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 flowers=unknown；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS740",
+          "imageSha256": "sha256:2aaf8f1436ed864b6ebe59c7443009de64a9b95054e37b51dc9928de369887dc",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 flowers=absent；要求 present"
+        },
+        {
+          "artworkId": "artic-14620",
+          "imageSha256": "sha256:384780d3ab1a90f5217ece56b5a9649a99240157be090b4a5cc6ed04300bcfdf",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 flowers=present；要求 present；核验事实 outdoors=present；要求 present"
+        },
+        {
+          "artworkId": "cma-146193",
+          "imageSha256": "sha256:a6bd318620666b068b03a98d54e23e0784a1b6cdc5ddef26edc88ed644c056da",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 flowers=present；要求 present；核验事实 outdoors=present；要求 present"
+        },
+        {
+          "artworkId": "met-336228",
+          "imageSha256": "sha256:c7c7e518106e1a9fde0fd522480e21cea1118de66b0d998afc317cdf2a53b2b1",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 flowers=present；要求 present；核验事实 outdoors=present；要求 present"
+        },
+        {
+          "artworkId": "artic-81566",
+          "imageSha256": "sha256:20b33f903861cd488f883483c128ee8405f27307e6975d98f345c066b7d129db",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 flowers=present；要求 present；核验事实 outdoors=present；要求 present"
+        }
+      ]
+    },
+    {
+      "id": "mixed-06",
+      "stratum": "mixed",
+      "query": "给六幅有人骑乘的画，不要战争，也不要死亡。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "present"
+        },
+        {
+          "kind": "fact",
+          "subject": "war",
+          "value": "absent"
+        },
+        {
+          "kind": "fact",
+          "subject": "death",
+          "value": "absent"
+        },
+        {
+          "kind": "observation",
+          "pattern": "骑乘|骑马|马背|骑手"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "给六幅有人骑乘的画，不要战争，也不要死亡。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "riders without war or death in the image; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "riders without war or death in the image; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "riders without war or death in the image; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KKS21148",
+          "imageSha256": "sha256:fc121d382d9b04d6d1ff153982e3adfe4e80520abe864d7be1703048cfea9138",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 people=unknown；要求 present"
+        },
+        {
+          "artworkId": "rijksmuseum-200109372",
+          "imageSha256": "sha256:3e03a52aaffe922a4413f4ff32f9727f97f178de4e9dcf0031a9aedd6f5f4d81",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 war=present；要求 absent"
+        },
+        {
+          "artworkId": "met-336228",
+          "imageSha256": "sha256:c7c7e518106e1a9fde0fd522480e21cea1118de66b0d998afc317cdf2a53b2b1",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 骑乘|骑马|马背|骑手"
+        },
+        {
+          "artworkId": "smk-KMS1675",
+          "imageSha256": "sha256:8c035286291c3d624e1c719592676c49d3648fdcb161ad52bb8ccb8ec0de4538",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 骑乘|骑马|马背|骑手"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1898.327",
+          "imageSha256": "sha256:82987fe104404faacf0f1a597f51e1bdb7291b80734272f6204498bc9a7c40ed",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 war=unknown；要求 absent"
+        },
+        {
+          "artworkId": "artic-71573",
+          "imageSha256": "sha256:ddaac37bb9423cc96ebc4ce8d085ace1e7dfae85a43a231bf571a8724cb1490a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 骑乘|骑马|马背|骑手"
+        },
+        {
+          "artworkId": "met-771388",
+          "imageSha256": "sha256:19f1d9d608fc93c015b78b0a65e18ffeadacc29d586fd2b32531c371aa5e7003",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 war=present；要求 absent"
+        },
+        {
+          "artworkId": "cma-170795",
+          "imageSha256": "sha256:c145f0bd94e76280e8fda60b9e2a29bef607e6c2321ff1251986ccccebb4496b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "positive",
+          "reason": "核验事实 people=present；要求 present；核验事实 war=absent；要求 absent；核验事实 death=absent；要求 absent；同图观察「下层帐幕前有骑马与骆驼人物，色彩以红、金、蓝为主」"
+        }
+      ]
+    },
+    {
+      "id": "edge-01",
+      "stratum": "boundary",
+      "query": "只看油画，但也不要任何油画，仍请保留这两个条件。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "oil"
+        },
+        {
+          "kind": "medium",
+          "value": "oil",
+          "exclude": true
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "只看油画，但也不要任何油画，仍请保留这两个条件。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "contradictory oil-only and no-oil constraints; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "contradictory oil-only and no-oil constraints; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "contradictory oil-only and no-oil constraints; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "cma-136759",
+          "imageSha256": "sha256:edbefbc60be9f1381a22f1c1f9a1fd2e33e64bf4c7d1280be15290e3da0b3cfc",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Album leaf; ink and color on silk；要求 oil"
+        },
+        {
+          "artworkId": "cma-108806",
+          "imageSha256": "sha256:83be90de0173337709a1d425e1a05afcd1e0a538ac1468399a50ffc4977380c1",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 oil on canvas；排除 oil"
+        },
+        {
+          "artworkId": "smk-KKSgb22261",
+          "imageSha256": "sha256:6e29e72962965157d6a455a3125d5c72e384918fc24a650d039cad0fb6515586",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Woodcut；要求 oil"
+        },
+        {
+          "artworkId": "artic-81535",
+          "imageSha256": "sha256:5eab90473487e67d9c9b782ab546cf06d3422ab18f04f9025d32b1b1ddbac1df",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas；排除 oil"
+        },
+        {
+          "artworkId": "rijksmuseum-200107768",
+          "imageSha256": "sha256:e810303acdfe2a744a124ac469c5ca2f802a8a0646f52816f638892d09b9ccbf",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 panel; oil paint (paint)；排除 oil"
+        },
+        {
+          "artworkId": "rijksmuseum-200108580",
+          "imageSha256": "sha256:ed40b4a61c20d217d1dfb3ce888fcc43a9ef00483bf006aee29cad75767d3676",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 canvas; oil paint (paint)；排除 oil"
+        },
+        {
+          "artworkId": "smithsonian_asian-fsg_F1904.191",
+          "imageSha256": "sha256:30edc378a2830f784a85f07d45e519acc59e145ef3811cf3a3ba56dc0af29c25",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材 Color on paper；要求 oil"
+        },
+        {
+          "artworkId": "smk-KMS3312",
+          "imageSha256": "sha256:e621ddbd8d8f9f6696888e06b21d30131c9937f91698ed1646e09e26adc63c9d",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材 未记录；要求 oil"
+        }
+      ]
+    },
+    {
+      "id": "edge-02",
+      "stratum": "boundary",
+      "query": "必须看得见行人，同时整幅画不要任何人物，两条都保留。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "present"
+        },
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "absent"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "必须看得见行人，同时整幅画不要任何人物，两条都保留。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "contradictory visible people and no people; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "contradictory visible people and no people; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "contradictory visible people and no people; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "rijksmuseum-200117066",
+          "imageSha256": "sha256:6bd35d8c923356aa8cff3153bbf44ca1b0b4ad0b643096765ad956cd5e7bb6de",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "smk-KKSgb4751",
+          "imageSha256": "sha256:f532f518355d00d1eddba5f55199372f3ad9da2afb604bff30c2ec4f125f2667",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "rijksmuseum-200116929",
+          "imageSha256": "sha256:985d433ceffcedc4c9e3d9e437b7d1fb643d189b32595c758b71b12d8bd61903",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "cma-152014",
+          "imageSha256": "sha256:ed1ca3e1cff91c18c996edb5a28af75a4153e61cde0bcef4f0ebaa2d68e2b932",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "smk-KMS497",
+          "imageSha256": "sha256:63e2c62b3f5b3d7256f21eccbd59ccc06ff3995821dd399c2e19c1492ad4f74f",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "rijksmuseum-20012998",
+          "imageSha256": "sha256:4dd259a93e951254bbce23782954c6ed44acf22ad4ee2efff60d7cfbeeae91e3",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 people=present；要求 absent"
+        },
+        {
+          "artworkId": "rijksmuseum-200117095",
+          "imageSha256": "sha256:83e20bf55629b70429ab916273d6f75347fb46c91c367c3738f2a25cdf6e68bc",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 people=unknown；要求 present"
+        },
+        {
+          "artworkId": "smk-KMS1223",
+          "imageSha256": "sha256:d0200ff91ee0c190429c12080f8714d68b8de41cf4ca6ffef1805020ea984a63",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 people=unknown；要求 present"
+        }
+      ]
+    },
+    {
+      "id": "edge-03",
+      "stratum": "boundary",
+      "query": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+      "criteria": [
+        {
+          "kind": "medium",
+          "value": "print"
+        },
+        {
+          "kind": "medium-detail",
+          "pattern": "etching|蚀刻"
+        },
+        {
+          "kind": "fact",
+          "subject": "people",
+          "value": "present"
+        },
+        {
+          "kind": "observation",
+          "pattern": "鹦鹉.{0,7}(?:肩|肩头)|(?:肩|肩头).{0,7}鹦鹉|parrot.{0,20}shoulder"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "六幅纸上的铜版蚀刻，人物肩上要确实站着一只鹦鹉。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "etchings with a clearly observed parrot perched on a shoulder; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "etchings with a clearly observed parrot perched on a shoulder; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "etchings with a clearly observed parrot perched on a shoulder; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "smk-KMSsp251",
+          "imageSha256": "sha256:ae093dbbe2257ded64a1e4ca91b18fde1ce9cc8045a7fea8fa505e9069602a6a",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas; canvas；要求 print"
+        },
+        {
+          "artworkId": "met-343218",
+          "imageSha256": "sha256:7eab3b6b6e7719e46e78a735d062ebe916002386fd066f28358676f6b42259b2",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Pen and brown ink, brush and brown wash, over leadpoint or black chalk, on paper washed light brown; squared for transfer；要求 print"
+        },
+        {
+          "artworkId": "met-438127",
+          "imageSha256": "sha256:db5c617b039da8b36f4d0cefe4cd2fb5a92494735610967c89573e5d088429c7",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas；要求 print"
+        },
+        {
+          "artworkId": "smk-KMS4224",
+          "imageSha256": "sha256:20ab04ca8f3ea280ba2a51b57095476760b76483714ab269f17a2b53dd6adef5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas; canvas；要求 print"
+        },
+        {
+          "artworkId": "rijksmuseum-20015971",
+          "imageSha256": "sha256:0762809284c33e04e331105e59cc18275a169411d28f39af09d0e6178e9c1566",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 canvas; oil paint (paint)；要求 print"
+        },
+        {
+          "artworkId": "met-10790",
+          "imageSha256": "sha256:7df5d2a564c7e4bd9196ff22f4790fd6fe9d646e8dbecb8ba1cb06ac67174d50",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "馆藏媒材 Oil on canvas；要求 print"
+        },
+        {
+          "artworkId": "smk-KKS13358h",
+          "imageSha256": "sha256:f9fd41b9978cd508d570fb4707a70c9ecf5cb9e95176b7bf4caf5c24bb5d7c70",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材未明确记载 etching|蚀刻"
+        },
+        {
+          "artworkId": "smk-KKSgb1402",
+          "imageSha256": "sha256:6695e9ed20b933fb5728b89fac919e6d8282430e1d8163f9bab671d29dab3b15",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "馆藏媒材未明确记载 etching|蚀刻"
+        }
+      ]
+    },
+    {
+      "id": "edge-04",
+      "stratum": "boundary",
+      "query": "给六幅画，要求画里能辨认用双手托着的透明玻璃杯，而且不要肖像。",
+      "criteria": [
+        {
+          "kind": "fact",
+          "subject": "portrait",
+          "value": "absent"
+        },
+        {
+          "kind": "observation",
+          "pattern": "双手.{0,10}(?:玻璃杯|透明杯)|玻璃杯.{0,10}(?:双手|两手)"
+        }
+      ],
+      "plan": {
+        "schemaVersion": 1,
+        "currentFeeling": "未陈述个人状态",
+        "desiredExperience": "给六幅画，要求画里能辨认用双手托着的透明玻璃杯，而且不要肖像。",
+        "wantsRelief": false,
+        "pace": "medium",
+        "artworkCount": 6,
+        "stages": [
+          {
+            "role": "threshold",
+            "label": "进入画面",
+            "transitionIntent": "fade",
+            "query": "both hands visibly holding a transparent glass, without portraits; introduce the motif clearly",
+            "signals": [
+              "opening"
+            ],
+            "valence": 0.55,
+            "arousal": 0.4,
+            "tension": 0.2,
+            "wonder": 0.46,
+            "intimacy": 0.45
+          },
+          {
+            "role": "mirror",
+            "label": "停看细节",
+            "transitionIntent": "drift",
+            "query": "both hands visibly holding a transparent glass, without portraits; observe the depicted details",
+            "signals": [
+              "detail"
+            ],
+            "valence": 0.58,
+            "arousal": 0.48,
+            "tension": 0.2,
+            "wonder": 0.52,
+            "intimacy": 0.46
+          },
+          {
+            "role": "afterglow",
+            "label": "再看一眼",
+            "transitionIntent": "return",
+            "query": "both hands visibly holding a transparent glass, without portraits; keep the motif clearly visible at the close",
+            "signals": [
+              "closing"
+            ],
+            "valence": 0.57,
+            "arousal": 0.38,
+            "tension": 0.18,
+            "wonder": 0.44,
+            "intimacy": 0.48
+          }
+        ]
+      },
+      "samples": [
+        {
+          "artworkId": "met-336540",
+          "imageSha256": "sha256:63083aef0756788e92e3521f267ba34e6cb270b51c47bd0ce2a48f7cee6f334e",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 双手.{0,10}(?:玻璃杯|透明杯)|玻璃杯.{0,10}(?:双手|两手)"
+        },
+        {
+          "artworkId": "smk-KMS340",
+          "imageSha256": "sha256:6dd8baa71aa8aa7c2b8ef2fabca0c1b111fb72bee2b494df7da8267678792977",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 portrait=unknown；要求 absent"
+        },
+        {
+          "artworkId": "rijksmuseum-200116888",
+          "imageSha256": "sha256:8734ad846d07064b2edd4dbbd94a0ce156aaea0c6ebca9ad70b0a483cf1a636b",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 portrait=unknown；要求 absent"
+        },
+        {
+          "artworkId": "smk-KKS21148",
+          "imageSha256": "sha256:fc121d382d9b04d6d1ff153982e3adfe4e80520abe864d7be1703048cfea9138",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "核验事实 portrait=unknown；要求 absent"
+        },
+        {
+          "artworkId": "smk-KMS8290",
+          "imageSha256": "sha256:1d31919a67feadf65bc018b6b9e49479a9ad029f86d59b1623bd5711d65c2a4e",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 portrait=present；要求 absent"
+        },
+        {
+          "artworkId": "rijksmuseum-200117087",
+          "imageSha256": "sha256:0c40bd7bcf2e0ab0dd9ab343908d20d01db45e8fa2738c197c07153dc9f0b457",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 portrait=present；要求 absent"
+        },
+        {
+          "artworkId": "smk-KMSsp217",
+          "imageSha256": "sha256:a68e31856c2b9f61afdda2f1262c40937c3e08f5458ca6a4668d8e19b6d01b54",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "unknown",
+          "reason": "同图观察未确认 双手.{0,10}(?:玻璃杯|透明杯)|玻璃杯.{0,10}(?:双手|两手)"
+        },
+        {
+          "artworkId": "rijksmuseum-20025763",
+          "imageSha256": "sha256:a847e2ee87b0b97ec8783cb80b72ef3f923ac402f5ef3a148b9b94f839b9e6c5",
+          "stageIndexes": [
+            0,
+            1,
+            2
+          ],
+          "label": "negative",
+          "reason": "核验事实 portrait=present；要求 absent"
+        }
+      ]
+    }
+  ]
+}
