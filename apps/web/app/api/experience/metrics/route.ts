@@ -1,6 +1,7 @@
 import { publicOrigins } from "../../../../../api/src/runtime/environment";
 import { experienceObservability } from "../../../../lib/experience-observability";
 import { parseClientExperienceSample } from "../../../../lib/experience-observability-contract";
+import { limitExperienceMetrics } from "../../../../lib/experience-metrics-limit";
 import { readBoundedRequestJson, RuntimeLimitError } from "../../../../lib/public-runtime";
 
 export const runtime = "nodejs";
@@ -25,6 +26,8 @@ export async function POST(request: Request) {
   if (!store) return respond(404);
   if (!sameOrigin(request)) return respond(403);
   if (request.headers.get("content-type")?.split(";")[0]?.trim().toLowerCase() !== "application/json") return respond(415);
+  const retryAfter = limitExperienceMetrics(request.headers);
+  if (retryAfter !== undefined) return new Response(null, { status: 429, headers: { "Cache-Control": "no-store", "Retry-After": String(retryAfter) } });
   try {
     const sample = parseClientExperienceSample(await readBoundedRequestJson(request, 128));
     if (!sample) return respond(400);
