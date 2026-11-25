@@ -49,6 +49,8 @@ export interface ExperienceUnit {
   rationale: NarrativeBlock;
   /** Frozen artwork-specific narrative, independent from adaptive route rationale. */
   curatorNote?: NarrativeBlock;
+  /** Exact-image observation that can close a reordered exhibition. */
+  closingObservation?: NarrativeBlock;
   media: {
     previewUrl: string;
     fullUrl: string;

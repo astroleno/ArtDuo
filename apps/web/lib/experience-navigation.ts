@@ -73,8 +73,14 @@ export function resolveExperiencePosition(
   const artworkId = read("artworkId") ?? legacyUnit;
 
   if (phase === "closing") {
-    const lastUnit = artworkId ? snapshot.units.find((unit) => unit.artwork.id === artworkId) : snapshot.units.at(-1);
-    return { position: { phase: "closing", lastUnitId: lastUnit?.exhibition.unitId }, corrected: Boolean(legacyUnit || artworkId && !lastUnit) };
+    const explicit = artworkId ? snapshot.units.find((unit) => unit.artwork.id === artworkId) : undefined;
+    const route = read("route");
+    const requestedOrder = route && route.length < 4096 ? route.split(",") : undefined;
+    const routeOrder = validRouteOrder(requestedOrder, snapshot) ? requestedOrder
+      : validRouteOrder(snapshot.routeOrder, snapshot) ? snapshot.routeOrder : undefined;
+    const routeLast = routeOrder?.at(-1);
+    const lastUnit = explicit ?? snapshot.units.find(unit => unit.artwork.id === routeLast) ?? snapshot.units.at(-1);
+    return { position: { phase: "closing", lastUnitId: lastUnit?.exhibition.unitId }, corrected: Boolean(legacyUnit || artworkId && !explicit) };
   }
   if (phase !== "preface") {
     const unit = artworkId ? snapshot.units.find((candidate) => candidate.artwork.id === artworkId) : snapshot.units[0];

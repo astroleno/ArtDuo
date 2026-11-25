@@ -8,13 +8,39 @@ import { fallbackExhibitionNarrative } from "../../../api/src/services/curation/
 import { curationDirectory, type CuratedExhibition } from "../../lib/semantic-curator";
 import { curationNarrativeView, exhibitionNarrativeInput, getExhibitionNarrative, readNarrativePieces } from "../../lib/exhibition-narrative-server";
 import { loadWebReleaseCatalog } from "../../lib/release-catalog";
-import { fallbackCurationIntent, selectForCurationStages } from "../../lib/semantic-selection";
+import { fallbackCurationIntent, materializeCurationSelection, selectForCurationStages } from "../../lib/semantic-selection";
 
 const bedroomGuide = () => [
   { kind: "preface", text: "木床、桌与两把椅子，把蓝色卧室分成几个紧凑的角落。", evidenceIds: ["artic-28560"] },
   { kind: "note", artworkId: "artic-28560", text: "蓝色卧室里，木床与两把椅子相邻。", evidenceIds: ["artic-28560"] },
   { kind: "closing", text: "回到床与椅子围出的近处空间。", evidenceIds: ["artic-28560"] },
 ];
+
+test("alternate endings for the ball and red room use only their own image review", () => {
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-ending-observation-"));
+  try {
+    const source = loadWebReleaseCatalog({ rootDir: path.resolve(__dirname, "../../../.."), releaseVersion: "2026-11-19-open-gap-739" });
+    const catalog = { ...source, releaseDir: path.join(temporary, "data/releases/2026-11-19-open-gap-739") };
+    const ids = ["met-436927", "smk-KMS8654"];
+    const query = "挑两件作品", plan = fallbackCurationIntent(catalog, query);
+    const assignments = ids.map((artworkId, stageIndex) => ({ artworkId, stageIndex, score: .8, vectorScore: .7, evidence: [] }));
+    const selection = materializeCurationSelection(catalog, query, plan, assignments, "fixture", 1);
+    const fixture: CuratedExhibition = { ...selection, curationId: "f".repeat(64), record: {
+      schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion, query, plan,
+      assignments, selectionVersion: 20, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
+      intentModel: "fixture", indexChecksum: "fixture", degraded: [],
+    } };
+    const observations = curationNarrativeView(catalog, fixture).closingObservations;
+    assert.deepEqual(observations.map(ending => ending.artworkId), ids);
+    for (const ending of observations) {
+      const reviewed = catalog.artworkById.get(ending.artworkId)!.visualEvidence!.observation;
+      assert.ok(reviewed.includes(ending.text.replace(/。$/u, "")));
+    }
+    const unavailable = { ...fixture, search: { ...fixture.search, results: fixture.search.results.map((result, index) => index ? result :
+      { ...result, artwork: { ...result.artwork, visualEvidence: undefined, description: "观察材料未核实。" } }) } };
+    assert.deepEqual(curationNarrativeView(catalog, unavailable).closingObservations.map(ending => ending.artworkId), [ids[1]]);
+  } finally { rmSync(temporary, { recursive: true, force: true }); }
+});
 
 test("temporary narrative failure keeps the fallback usable and permits later recovery", async () => {
   const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-narrative-recovery-"));

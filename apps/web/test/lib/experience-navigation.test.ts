@@ -72,8 +72,20 @@ test("experience navigation encodes query and restores a walk or closing positio
   assert.match(href, /artworkId=met-2/);
   assert.equal(resolveExperiencePosition({ phase: "walk", artworkId: "met-2" }, snapshot).position.phase, "walk");
   assert.deepEqual(resolveExperiencePosition({ phase: "closing", artworkId: "missing" }, snapshot), {
-    position: { phase: "closing", lastUnitId: undefined }, corrected: true,
+    position: { phase: "closing", lastUnitId: "u-2" }, corrected: true,
   });
+});
+
+test("a saved route supplies the closing artwork on direct entry and cached restoration when no explicit work is named", () => {
+  const order = ["met-2", "met-1"];
+  const expected = { phase: "closing", lastUnitId: "u-1" };
+  const exhibit = { ...snapshot, curationId: "a".repeat(64), routeOrder: order };
+  assert.deepEqual(resolveExperiencePosition({ phase: "closing", route: order.join(",") }, snapshot).position, expected);
+  assert.deepEqual(resolveExperiencePosition({ phase: "closing" }, exhibit).position, expected);
+  const href = experienceHrefForPosition(exhibit, { phase: "closing" });
+  assert.deepEqual(restoreExperienceRoute({ ...exhibit, routeOrder: undefined }, { phase: "preface" }, `https://tongye.me${href}`).position, expected);
+  assert.deepEqual(resolveExperiencePosition({ phase: "closing", route: order.join(","), artworkId: "met-2" }, exhibit).position, { phase: "closing", lastUnitId: "u-2" });
+  assert.deepEqual(resolveExperiencePosition({ phase: "closing", route: "met-1,met-1" }, snapshot).position, { phase: "closing", lastUnitId: "u-2" });
 });
 
 test("experience navigation normalizes invalid positions and only allows local gallery return paths", () => {

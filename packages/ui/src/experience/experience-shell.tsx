@@ -5,6 +5,7 @@ import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, use
 
 import { AudioButton, useAmbientAudio } from "./audio-controller";
 import { Closing } from "./closing";
+import { resolveClosingNarrative } from "./closing-narrative";
 import { Preface } from "./preface";
 import { Walk } from "./walk";
 import { createExperienceState, experienceReducer, positionOfExperienceState, type ExperienceEvent } from "./state";
@@ -19,6 +20,7 @@ import { useKeepsakeController, type HandwritingProvider } from "./handwritten-k
 import { useSculptureEncounter } from "./use-sculpture-encounter";
 import type { SculptureNarrator, SculptureRoomScene, SculptureWork } from "./sculpture-types";
 import { usePresentedPreface } from "./use-presented-preface";
+import { useStableNarrative } from "./use-stable-narrative";
 
 const EncounterRoom = lazy(() => import("./sculpture-room").then(module => ({ default: module.SculptureRoom })));
 const NO_SCULPTURES: SculptureWork[] = [], NO_SCULPTURE_SCENES: SculptureRoomScene[] = [];
@@ -69,7 +71,15 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const [showSettingsPreface, setShowSettingsPreface] = useState(false);
   const stageForLast = snapshot.units.find(unit => unit.exhibition.unitId === state.lastUnitId);
   const plannedLast = snapshot.units.find(unit => unit.artwork.id === viewing.session.order.at(-1)) ?? snapshot.units.at(-1);
-  const keepsake = useKeepsakeController(snapshot, state.act === "closing" ? stageForLast ?? plannedLast : plannedLast, handwritingProvider);
+  const isClosing = state.act === "closing";
+  const lastUnit = isClosing ? stageForLast ?? plannedLast : plannedLast;
+  const ending = resolveClosingNarrative(baseSnapshot, lastUnit);
+  const closingIdentity = JSON.stringify([snapshot.exhibitionId, lastUnit?.artwork.id]);
+  const presentedClosing = useStableNarrative(ending.block, ending.pending, closingIdentity, isClosing);
+  const keepsake = useKeepsakeController(snapshot, lastUnit, handwritingProvider, {
+    block: presentedClosing ?? ending.block,
+    pending: isClosing ? !presentedClosing : ending.pending,
+  });
   const presentedPreface = usePresentedPreface(snapshot, !keepsake.open && (state.act === "preface" || state.act === "walk" && !encounterActive && showSettingsPreface));
   const [readingOpen, setReadingOpen] = useState(false);
   const chromeVisible = useIdleChrome(state.act === "walk", readingOpen || state.overlay !== "none" || state.transitioning || !state.online || state.failedMediaIds.length > 0 || state.audioState === "loading");
@@ -332,12 +342,14 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       storageAvailable={viewing.storageAvailable}
       pace={pace}
     /> : null}
-    {state.act === "closing" ? <Closing
-      lastUnit={stageForLast ?? plannedLast}
+    {isClosing ? <Closing
+      key={closingIdentity}
+      lastUnit={lastUnit}
+      closing={presentedClosing}
       onRestart={restart}
       onRevisit={() => dispatch({ type: "REVISIT" })}
       reducedMotion={reducedMotion}
-      snapshot={snapshot}
+      omittedUnitCount={snapshot.omittedUnitCount}
       keepsake={keepsake.entry(false)}
     /> : null}
     {keepsake.modal}

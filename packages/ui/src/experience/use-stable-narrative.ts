@@ -3,15 +3,25 @@
 import { useEffect, useRef, useState } from "react";
 import type { NarrativeBlock } from "./types";
 
-/** Once prose is readable, keep it still for this visit. Navigation remounts it. */
-export function useStableNarrative(block: NarrativeBlock, pending = false): NarrativeBlock | null {
-  const [visible, setVisible] = useState<NarrativeBlock | null>(() => !pending || block.source === "grounded" ? block : null);
-  const deadline = useRef(Date.now() + 3000);
+/** Once prose is readable, keep it still for this visit and ending identity. */
+export function useStableNarrative(block: NarrativeBlock, pending: boolean, identity: string, active: boolean): NarrativeBlock | null {
+  const ready = !pending || block.source === "grounded";
+  const [presented, setPresented] = useState<{ identity: string; block: NarrativeBlock }>();
+  const visible = presented?.identity === identity ? presented.block : undefined;
+  const deadline = useRef<{ identity: string; at: number } | undefined>(undefined);
   useEffect(() => {
+    if (!active) {
+      deadline.current = undefined;
+      if (presented) setPresented(undefined);
+      return;
+    }
     if (visible) return;
-    if (!pending || block.source === "grounded") { setVisible(block); return; }
-    const timer = setTimeout(() => setVisible(block), Math.max(0, deadline.current - Date.now()));
+    const present = () => setPresented({ identity, block });
+    if (ready) { present(); return; }
+    if (presented) setPresented(undefined);
+    if (deadline.current?.identity !== identity) deadline.current = { identity, at: Date.now() + 3000 };
+    const timer = setTimeout(present, Math.max(0, deadline.current.at - Date.now()));
     return () => clearTimeout(timer);
-  }, [block, pending, visible]);
-  return visible;
+  }, [active, block, identity, presented, ready, visible]);
+  return active ? visible ?? (ready ? block : null) : null;
 }

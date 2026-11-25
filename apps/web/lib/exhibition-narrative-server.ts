@@ -10,8 +10,18 @@ import type { CurationNarrative } from "./curation-narrative";
 import { parseViewingIntent, viewingIntentDecision, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
 
 export function curationNarrativeView(catalog: WebReleaseCatalog, curation: CuratedExhibition) {
-  const saved = readNarrativeCache(catalog, curation);
-  const pieces = saved?.pieces ?? fallbackExhibitionNarrative(exhibitionNarrativeInput(catalog, curation));
+  const input = exhibitionNarrativeInput(catalog, curation);
+  const fallback = fallbackExhibitionNarrative(input);
+  const saved = readNarrativeCache(catalog, curation, input, fallback);
+  const pieces = saved?.pieces ?? fallback;
+  const observations = new Map(input.artworks.map(artwork => [artwork.id, artwork.visualObservation?.text]));
+  const closingObservations = fallback.flatMap(piece => {
+    if (piece.kind !== "note" || !piece.artworkId) return [];
+    const exactText = observations.get(piece.artworkId);
+    // The fallback footnote may use metadata when there is no usable observation.
+    // Only pass on text already present in this artwork's image review.
+    return exactText?.includes(piece.text.replace(/。$/u, "")) ? [{ artworkId: piece.artworkId, text: piece.text }] : [];
+  });
   const narrative: CurationNarrative = {
     title: `${curation.record.plan.stages[0].label}，再慢慢看`,
     preface: pieces.find((piece) => piece.kind === "preface")!.text,
@@ -20,7 +30,7 @@ export function curationNarrativeView(catalog: WebReleaseCatalog, curation: Cura
     intentSignals: [...new Set(curation.record.plan.stages.flatMap((stage) => stage.signals))],
     curve: curation.growthForm.stages.map((stage) => ({ label: stage.label, tone: stage.signals[0]?.value ?? "quiet", intensity: stage.intensity })),
   };
-  return { pieces, narrative, complete: Boolean(saved && (saved.retryAfter === 0 || saved.retryAfter > Date.now())) || curation.assignments.length === 0 };
+  return { pieces, closingObservations, narrative, complete: Boolean(saved && (saved.retryAfter === 0 || saved.retryAfter > Date.now())) || curation.assignments.length === 0 };
 }
 
 export function exhibitionNarrativeInput(catalog: WebReleaseCatalog, curation: CuratedExhibition): ExhibitionNarrativeInput {
@@ -71,9 +81,8 @@ function narrativeFilenames(catalog: WebReleaseCatalog, curation: CuratedExhibit
 
 interface NarrativeCache { schemaVersion: 1; recipe: string; pieces: DeliveredNarrativePiece[]; attempts: number; retryAfter: number; issues: Array<{ key: string; reason: string }> }
 
-function readNarrativeCache(catalog: WebReleaseCatalog, curation: CuratedExhibition): NarrativeCache | undefined {
-  const input = exhibitionNarrativeInput(catalog, curation);
-  const fallback = fallbackExhibitionNarrative(input);
+function readNarrativeCache(catalog: WebReleaseCatalog, curation: CuratedExhibition,
+  input = exhibitionNarrativeInput(catalog, curation), fallback = fallbackExhibitionNarrative(input)): NarrativeCache | undefined {
   const filenames = [...narrativeFilenames(catalog, curation, 5), ...(curation.record.narrativeVersion ? [] : narrativeFilenames(catalog, curation, 4))];
   for (const filename of filenames) {
     if (!existsSync(filename)) continue;

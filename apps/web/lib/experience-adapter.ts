@@ -110,6 +110,7 @@ export function buildExperienceSnapshot(input: {
   curationId?: string;
   selectionVersion?: number;
   narrativePieces?: Array<{ kind: "preface" | "note" | "closing"; artworkId?: string; text: string; source: "grounded" | "fallback" }>;
+  closingObservations?: Array<{ artworkId: string; text: string }>;
   narrativeComplete?: boolean;
 }): ExhibitionSnapshot {
   const { catalog, search, narrative, query } = input;
@@ -147,6 +148,7 @@ export function buildExperienceSnapshot(input: {
     transitionIntent: quietJourney ? "hold" : stage.transitionIntent,
   }));
   const artworkIdsByStage = new Map(narrative.growthForm.stages.map((stage) => [stage.id, stage.artworkIds]));
+  const endingByArtwork = new Map(input.closingObservations?.map(observation => [observation.artworkId, observation.text]));
   const unitIds = new Set<string>();
   const artworkIds = new Set<string>();
   let omittedUnitCount = 0;
@@ -188,6 +190,7 @@ export function buildExperienceSnapshot(input: {
     const media = record.media;
     const caption = buildCaption(record);
     const rationale = buildRationale(result.matchedTokens, scene?.asset.label_cn ?? stop?.scene.label);
+    const closingObservation = endingByArtwork.get(record.id);
 
     return [{
       exhibition,
@@ -198,6 +201,7 @@ export function buildExperienceSnapshot(input: {
       caption,
       rationale,
       curatorNote: input.narrativePieces?.find((piece) => piece.kind === "note" && piece.artworkId === record.id),
+      ...(closingObservation ? { closingObservation: { text: closingObservation, source: "fallback" as const } } : {}),
       media: {
         previewUrl: artworkImageUrl(record.id, "preview", catalog.releaseVersion),
         fullUrl: artworkImageUrl(record.id, "full", catalog.releaseVersion),

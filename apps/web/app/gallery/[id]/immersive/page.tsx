@@ -83,7 +83,8 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   const adapterStartedAt = performance.now();
   const snapshot = buildExperienceSnapshot({ query, catalog, search, narrative, route,
     curationId: curation?.curationId, selectionVersion: curation?.record.selectionVersion,
-    narrativePieces: preparedNarrative?.pieces, narrativeComplete: preparedNarrative?.complete });
+    narrativePieces: preparedNarrative?.pieces, closingObservations: preparedNarrative?.closingObservations,
+    narrativeComplete: preparedNarrative?.complete });
   const requestedRoute = readSingle(queryParams, "route");
   const routeOrder = requestedRoute && requestedRoute.length < 4096 ? requestedRoute.split(",") : undefined;
   if (validRouteOrder(routeOrder, snapshot)) snapshot.routeOrder = routeOrder;
