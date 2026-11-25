@@ -4,10 +4,11 @@ import { semanticFingerprint } from "@artduo/corpus/src/semantic-index";
 import { artworkHardConflict, buildAffectiveGrowthForm } from "./affective-negotiation";
 import { artworkOffering, stageFit } from "./artwork-offering";
 import { DEPARTMENT_HAND_CAP, handOf } from "./artwork-hand";
+import { withCurationVisualCorrections } from "./curation-visual-corrections";
 import { STAGE_RERANK_POOL_SIZE, type StageCandidate } from "./stage-rerank";
 import { isGalleryArtwork } from "./artwork-eligibility";
 import { selectBackgroundScene, type WebArtwork, type WebReleaseCatalog, type WebSearchResult } from "./release-catalog";
-import { hasIntenseContent, matchesViewingIntent, parseViewingIntent, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
+import { depictsEvening, hasIntenseContent, matchesViewingIntent, mentionsMorning, parseViewingIntent, prefersRiverBank, reviewedLandscapeFocus, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
 import { requestedArtworkCount } from "../../api/src/services/curation/intent-planner";
 
 export interface StageAssignment { artworkId: string; stageIndex: number; vectorScore: number; score: number; evidence: string[] }
@@ -21,15 +22,15 @@ function exactName(artwork: WebArtwork, query: string): boolean {
 }
 export function fallbackCurationIntent(catalog: WebReleaseCatalog, query: string): CurationIntentPlan {
   const growth = buildAffectiveGrowthForm({ query, results: [], backgroundScenes: catalog.backgroundScenes });
-  const intent = parseViewingIntent(query, catalog.artworks.flatMap((artwork) => artwork.artistDisplayName ? [artwork.artistDisplayName] : []));
+  const intent = parseViewingIntent(query, catalog.artworks.flatMap((artwork) => artwork.artistDisplayName ? [artwork.artistDisplayName] : []), { scopedRiverBank: true });
   return {
     schemaVersion: 1, currentFeeling: "按原句中的明确线索理解", desiredExperience: query.slice(0, 160),
     wantsRelief: intent.rest, pace: intent.rest ? "slow" : "medium", artworkCount: requestedArtworkCount(query) ?? 6,
     stages: growth.stages.map((stage) => ({ ...stage, query: `${stage.signals.map((signal) => signal.value).join(" ")} ${intent.retrievalText}`.slice(0, 240), signals: stage.signals.map((signal) => signal.value) })),
   };
 }
-export function eligibleCurationArtworks(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan): WebArtwork[] {
-  const intent = parseViewingIntent(query, catalog.artworks.flatMap((artwork) => artwork.artistDisplayName ? [artwork.artistDisplayName] : []));
+export function eligibleCurationArtworks(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan, options?: { scopedRiverBank: boolean }): WebArtwork[] {
+  const intent = parseViewingIntent(query, catalog.artworks.flatMap((artwork) => artwork.artistDisplayName ? [artwork.artistDisplayName] : []), options);
   const normalizedName = query.trim().toLocaleLowerCase();
   const titled = catalog.artworks.filter((artwork) => artwork.title.toLocaleLowerCase() === normalizedName);
   const authored = catalog.artworks.filter((artwork) => artwork.artistDisplayName?.toLocaleLowerCase() === normalizedName);
@@ -102,20 +103,27 @@ export function selectForCurationStages(input: {
   /** How many recent exhibitions showed each work; fresh but equally fitting works come first. */
   recentExposure?: ReadonlyMap<string, number>;
 }): SemanticSelection {
-  const { catalog, query, plan } = input;
-  const eligible = eligibleCurationArtworks(catalog, query, plan);
+  const { query, plan } = input;
+  const catalog = withCurationVisualCorrections(input.catalog);
+  const options = { scopedRiverBank: true };
+  const eligible = eligibleCurationArtworks(catalog, query, plan, options);
   const semanticRecords = new Map(input.semantic?.index.records.map((record) => [record.artworkId, record.vector]));
   const hashRecords = new Map(catalog.embeddingRecords.map((record) => [record.id, record.vector]));
   const dimensions = input.semantic?.index.model.dimensions ?? catalog.embeddingRecords[0]?.dimensions ?? 256;
   const queries = input.semantic?.queries ?? plan.stages.map((stage) => embedText(stage.query, { dimensions }).vector);
   if (queries.length !== plan.stages.length || queries.some((vector) => vector.length !== dimensions || vector.some((value) => !Number.isFinite(value)))) throw new TypeError("Stage query vectors do not match their index");
   if (!input.semantic && catalog.embeddingRecords.some((record) => record.model !== "local-hash-embedding-v1")) throw new TypeError("Hash fallback requires a separate hash index");
-  const intent = parseViewingIntent(query, catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : []));
+  const intent = parseViewingIntent(query, catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : []), options);
   const casual = !intent.allowIntense && !intent.rest && !intent.bright && !intent.spacious
     && !intent.subjects.length && !intent.artists.length && !intent.media?.length && !intent.focuses?.length
     && !intent.artworkTitles?.length && !eligible.some(artwork => exactName(artwork, query));
   const moodRequested = intent.rest || intent.bright;
-  const candidates = eligible.map((artwork) => ({ artwork, offering: artworkOffering(artwork) }));
+  const riverBank = prefersRiverBank(query) && !intent.subjects.includes("sea") && !intent.excludedSubjects.includes("water");
+  const morningRiverBank = riverBank && mentionsMorning(query);
+  const forest = intent.subjects.includes("forest") && !intent.alternativeSubjects;
+  const candidates = eligible.map((artwork) => ({ artwork, offering: artworkOffering(artwork),
+    riverFit: riverBank && reviewedLandscapeFocus(artwork, "riverbank"), evening: morningRiverBank && depictsEvening(artwork),
+    forestFit: forest && reviewedLandscapeFocus(artwork, "forest") }));
   const ranked = plan.stages.map((stage, stageIndex) => {
     const openStage = OPEN_STAGE.test(stage.query);
     const parsedStage = parseViewingIntent(stageSubjectText(stage.query));
@@ -125,7 +133,7 @@ export function selectForCurationStages(input: {
     const wantsStillLife = stageIntent.subjects.includes("stillLife");
     const wantsInterior = stageIntent.subjects.includes("interior");
     const warmStage = (wantsStillLife || wantsInterior) && hasWarmLight(stage.query);
-    return candidates.map(({ artwork, offering }) => {
+    return candidates.map(({ artwork, offering, riverFit, evening, forestFit }) => {
     const vector = (input.semantic ? semanticRecords : hashRecords).get(artwork.id);
     if (!vector || vector.length !== dimensions) throw new TypeError("Missing artwork vector in the selected semantic space");
     const vectorScore = queries[stageIndex].reduce((sum, value, index) => sum + value * vector[index], 0);
@@ -163,9 +171,9 @@ export function selectForCurationStages(input: {
     const exposurePenalty = Math.min(RECENT_PENALTY_CAP, shown * RECENT_PENALTY_STEP);
     const score = vectorScore * 0.78 + affectFit * AFFECT_WEIGHT + Math.min(2, matched.length) * 0.04 + architectureFocus - (enclosedConflict ? 0.12 : 0)
       + Math.min(0.16, detailedFocus.length * 0.1) + subjectFit * 0.12 + (openFit ? 0.12 : 0) + (warmFit ? .24 : 0)
-      + brightFit - nightPenalty - heavyPenalty - exposurePenalty + (exactName(artwork, query) ? 2 : 0);
+      + brightFit + (forestFit ? .10 : 0) + (evening ? -.12 : riverFit ? .24 : 0) - nightPenalty - heavyPenalty - exposurePenalty + (exactName(artwork, query) ? 2 : 0);
     return { artwork, vectorScore, score, affectFit, evidence: [...evidence, ...(architectureFocus ? ["focus:architecture"] : []), ...detailedFocus.map(focus => `focus:${focus.topic}`),
-      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(warmFit ? ["stage-light:warm"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...(exposurePenalty ? [`recent:${shown}`] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
+      ...stageSubjects.map(subject => `stage-${subject}`), ...(openFit ? ["stage-space:open"] : []), ...(enclosedConflict ? ["stage-space:enclosed-conflict"] : []), ...(warmFit ? ["stage-light:warm"] : []), ...(riverFit && !evening ? ["reviewed-focus:riverbank"] : []), ...(forestFit ? ["reviewed-focus:forest"] : []), ...(intent.bright && appearance ? ["pixels:brightness"] : []), ...(heavyPenalty ? ["default:gentle"] : []), ...(exposurePenalty ? [`recent:${shown}`] : []), ...matched.map((signal) => `stage:${signal}`), ...(exactName(artwork, query) ? ["catalog:name"] : [])] };
     // When the visitor asked for a mood, a work that contradicts its stage is
     // left out; a shorter exhibition beats a festival in a still closing. Subject
     // requests without a stated mood still fill their count. Named works stay.
@@ -209,11 +217,12 @@ export function selectForCurationStages(input: {
     const pool = [...rows.filter((row) => chosen.has(row.artwork.id)), ...rows.filter((row) => !chosen.has(row.artwork.id)).slice(0, STAGE_RERANK_POOL_SIZE)];
     return pool.slice(0, Math.max(STAGE_RERANK_POOL_SIZE, chosen.size)).map((row) => ({ artworkId: row.artwork.id, score: row.score, vectorScore: row.vectorScore, evidence: row.evidence }));
   });
-  return { ...materializeCurationSelection(catalog, query, plan, assignments, input.semantic?.index.model.id ?? "local-hash-embedding-v1", dimensions), stagePools };
+  return { ...materializeCurationSelection(catalog, query, plan, assignments, input.semantic?.index.model.id ?? "local-hash-embedding-v1", dimensions, options), stagePools };
 }
 
-export function materializeCurationSelection(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan, assignments: StageAssignment[], model: string, dimensions: number): SemanticSelection {
-  const allowed = new Set(eligibleCurationArtworks(catalog, query, plan).map((artwork) => artwork.id));
+export function materializeCurationSelection(catalog: WebReleaseCatalog, query: string, plan: CurationIntentPlan, assignments: StageAssignment[], model: string, dimensions: number,
+  options?: { scopedRiverBank: boolean }): SemanticSelection {
+  const allowed = new Set(eligibleCurationArtworks(catalog, query, plan, options).map((artwork) => artwork.id));
   if (assignments.length > plan.artworkCount || new Set(assignments.map((item) => item.artworkId)).size !== assignments.length
     || assignments.some((item, index) => !allowed.has(item.artworkId) || !Number.isInteger(item.stageIndex) || !plan.stages[item.stageIndex]
       || index > 0 && item.stageIndex < assignments[index - 1].stageIndex || !Array.isArray(item.evidence) || item.evidence.some((value) => typeof value !== "string")

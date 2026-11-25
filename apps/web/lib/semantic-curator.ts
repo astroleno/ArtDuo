@@ -13,15 +13,17 @@ import { fallbackCurationIntent, materializeCurationSelection, selectForCuration
 import type { WebReleaseCatalog } from "./release-catalog";
 import { recordExperienceTiming } from "./experience-analytics";
 import { requestStageRerank } from "./stage-rerank";
+import { withCurationVisualCorrections } from "./curation-visual-corrections";
 
-const SELECTION_VERSION = 18;
+export const VISUAL_CORRECTION_SELECTION_VERSION = 19;
+const SELECTION_VERSION = VISUAL_CORRECTION_SELECTION_VERSION;
 
 export interface CurationRecord {
   schemaVersion: 1; recipeVersion: typeof CURATION_RECIPE_VERSION;
   releaseVersion: string; query: string; plan: CurationIntentPlan;
   assignments: StageAssignment[]; retrievalModel: string; dimensions: number;
   intentModel: string; indexChecksum: string; degraded: string[];
-  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | typeof SELECTION_VERSION;
+  selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof SELECTION_VERSION;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -97,7 +99,9 @@ function hydrate(catalog: WebReleaseCatalog, curationId: string, value: unknown,
   const plan = parseCurationIntentPlan(record.plan);
   const requestedCount = requestedArtworkCount(record.query);
   if (requestedCount !== undefined && plan.artworkCount !== requestedCount) throw new TypeError("Saved curation count does not match the explicit request");
-  return { ...materializeCurationSelection(catalog, record.query, plan, record.assignments, record.retrievalModel, record.dimensions), curationId, record };
+  const scopeEvidence = (record.selectionVersion ?? 0) >= VISUAL_CORRECTION_SELECTION_VERSION;
+  const selectionCatalog = scopeEvidence ? withCurationVisualCorrections(catalog) : catalog;
+  return { ...materializeCurationSelection(selectionCatalog, record.query, plan, record.assignments, record.retrievalModel, record.dimensions, { scopedRiverBank: scopeEvidence }), curationId, record };
 }
 export function readSavedCuration(catalog: WebReleaseCatalog, curationId: string, query?: string, rootDir = curationRoot(catalog)): CuratedExhibition {
   if (!/^[a-f0-9]{64}$/u.test(curationId)) throw new TypeError("Invalid curation identity");
@@ -112,11 +116,11 @@ export async function curateExhibition(input: {
   stream?: ChatStream; intentModel?: string; encoder?: SemanticEncoder;
   retrievalTimeoutMs?: number; stageChoiceTimeoutMs?: number;
 }): Promise<CuratedExhibition> {
-  const { catalog } = input;
   const query = input.query.normalize("NFKC").trim();
   if (!query || query.length > 1000) throw new TypeError("Curation request must contain 1–1000 characters");
-  const rootDir = input.rootDir ?? curationRoot(catalog);
-  if (input.curationId) return readSavedCuration(catalog, input.curationId, query, rootDir);
+  const rootDir = input.rootDir ?? curationRoot(input.catalog);
+  if (input.curationId) return readSavedCuration(input.catalog, input.curationId, query, rootDir);
+  const catalog = withCurationVisualCorrections(input.catalog);
   const config = input.stream ? undefined : readCurationChatConfig(rootDir);
   const stream = input.stream ?? (config && createCurationChatStream(config));
   const intentModel = input.intentModel ?? config?.model ?? "local-rules-v1";
@@ -125,7 +129,7 @@ export async function curateExhibition(input: {
   const directory = curationDirectory(rootDir);
   const lookup = path.join(directory, `request-${key}.json`);
   if (existsSync(lookup)) {
-    try { return readSavedCuration(catalog, JSON.parse(readFileSync(lookup, "utf8")) as string, query, rootDir); } catch { /* Recompute a damaged lookup; existing URLs fail explicitly. */ }
+    try { return readSavedCuration(input.catalog, JSON.parse(readFileSync(lookup, "utf8")) as string, query, rootDir); } catch { /* Recompute a damaged lookup; existing URLs fail explicitly. */ }
   }
   const pendingKey = `${rootDir}:${key}`;
   const previous = inFlight.get(pendingKey);
@@ -167,7 +171,7 @@ export async function curateExhibition(input: {
       const choiceStartedAt = performance.now();
       try {
         const chosen = await requestStageRerank({ catalog, plan, assignments: selection.assignments, pools: selection.stagePools, stream, timeoutMs: input.stageChoiceTimeoutMs ?? 10_000 });
-        if (chosen) selection = materializeCurationSelection(catalog, query, plan, chosen, selection.search.model, selection.search.dimensions);
+        if (chosen) selection = materializeCurationSelection(catalog, query, plan, chosen, selection.search.model, selection.search.dimensions, { scopedRiverBank: true });
       } catch { degraded.push("stage-choice-unavailable"); }
       recordExperienceTiming("stage-choice", performance.now() - choiceStartedAt, catalog.releaseVersion);
     }

@@ -4,7 +4,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { createCurationChatStream, readCurationChatConfig, type ChatStream } from "../../api/src/services/curation/chat-provider";
 import { fallbackExhibitionNarrative, generateExhibitionNarrative, narrativePieceKey, NARRATIVE_RECIPE_VERSION, validateExhibitionNarrativePiece,
   type DeliveredNarrativePiece, type ExhibitionNarrativeInput } from "../../api/src/services/curation/exhibition-narrative";
-import { curationDirectory, curationRoot, type CuratedExhibition } from "./semantic-curator";
+import { curationDirectory, curationRoot, VISUAL_CORRECTION_SELECTION_VERSION, type CuratedExhibition } from "./semantic-curator";
 import type { WebReleaseCatalog } from "./release-catalog";
 import type { CurationNarrative } from "./curation-narrative";
 import { parseViewingIntent, viewingIntentDecision, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
@@ -24,13 +24,16 @@ export function curationNarrativeView(catalog: WebReleaseCatalog, curation: Cura
 }
 
 export function exhibitionNarrativeInput(catalog: WebReleaseCatalog, curation: CuratedExhibition): ExhibitionNarrativeInput {
-  const intent = parseViewingIntent(curation.record.query, catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : []));
+  const scopeEvidence = (curation.record.selectionVersion ?? 0) >= VISUAL_CORRECTION_SELECTION_VERSION;
+  const intent = parseViewingIntent(curation.record.query, catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : []), { scopedRiverBank: scopeEvidence });
+  const artworks = scopeEvidence
+    ? new Map(curation.search.results.map(({ artwork }) => [artwork.id, artwork])) : catalog.artworkById;
   return { query: curation.record.query, plan: curation.record.plan,
     requirements: { subjects: intent.subjects, excludedSubjects: intent.excludedSubjects, media: intent.media, excludedMedia: intent.excludedMedia, spacious: intent.spacious, artists: intent.artists, excludedArtists: intent.excludedArtists },
     viewingFocus: intent.focuses?.length ? intent.focuses.map(topic => ({ topic, label: topic === "hands" ? "手部与手势" : "道路",
-      evidenceIds: curation.assignments.filter(item => viewingFocusEvidence(catalog.artworkById.get(item.artworkId)!, intent).some(focus => focus.topic === topic)).map(item => item.artworkId) })) : undefined,
+      evidenceIds: curation.assignments.filter(item => viewingFocusEvidence(artworks.get(item.artworkId)!, intent).some(focus => focus.topic === topic)).map(item => item.artworkId) })) : undefined,
     artworks: curation.assignments.map((item) => {
-    const artwork = catalog.artworkById.get(item.artworkId)!;
+    const artwork = artworks.get(item.artworkId)!;
     if (!artwork || !viewingIntentDecision(artwork, intent).matches) throw new TypeError("Narrative selection no longer satisfies its explicit requirements");
     const description = curation.record.narrativeVersion === NARRATIVE_RECIPE_VERSION && artwork.visualEvidence
       ? undefined : artwork.description ?? artwork.storySnippet;

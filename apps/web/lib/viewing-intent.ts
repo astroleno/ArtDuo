@@ -63,6 +63,16 @@ const REST = /累|疲惫|疲劳|撑了|休息|安静|平静|宁静|缓和|放松
 const BRIGHT = /明亮|活力|欢快|喜悦|开心|\b(?:bright|joy|joyful|cheerful|energy|lively)\b/iu;
 const SPACIOUS = /开阔|辽阔|宽阔|空旷|\b(?:spacious|open\s+(?:views?|spaces?|vistas?)|wide\s+(?:views?|vistas?))\b/iu;
 const NEGATION = /不要|不用|不必|不需要|无需|不想|不看|不喜欢|避开|排除|别(?:给|有|来|放|出现|强行|强迫|催|让)|没有|不含|不带|无人物|\b(?:not|no|without|avoid|exclude|don['’]t(?: want)?)\b/iu;
+const RIVER_BANK = /河岸|河畔|河边|江岸|江畔|江边|\b(?:river[ -]?banks?|riverside)\b/iu;
+const OTHER_WATER = /湖|池塘|(?<!上)海(?:边|岸|面|洋|景)?|\b(?:lakes?|lakesides?|ponds?|sea|seas|ocean|seascapes?|coasts?|coastal|beach(?:es)?)\b/iu;
+const DEPICTED_RIVER = /河岸|河畔|河边|江岸|江畔|江边|河流|河面|河道|河水|沿河|\b(?:rivers?|river[ -]?banks?|riverside)\b/iu;
+const FOREST_VIEW = /树干|树木|树林|林地|林间|林缘|密林|森林|\b(?:woods|woodlands?|forests?|tree trunks?)\b/iu;
+const UNCERTAIN_SCENE = /未见|没有|看不见|无法确认|不能确认|不明|似乎|般的|疑似|可能|\b(?:no|without|unconfirmed|unclear|perhaps|possibly|appears? to be)\b/iu;
+const DISTANT_SCENE = /背景|远方|远处|远景|\b(?:background|distant|in the distance)\b/iu;
+const MORNING = /清晨|黎明|晨曦|拂晓|破晓|日出|\b(?:dawn|morning|daybreak|sunrise)\b/iu;
+const EVENING = /傍晚|黄昏|暮色|日落|夜晚|夜景|夜色|\b(?:evening|dusk|sunset|night|nocturne|nightfall)\b/iu;
+const VIEW_REQUEST = /想看|希望看|想找|给我|要看|看看|看点|想欣赏|想观察|\b(?:show me|looking for|look at|(?:want|would like) to (?:see|view))\b/iu;
+const SHORT_RIVER_BANK = /^(?:(?:清晨|黎明|黄昏|傍晚|安静|开阔)(?:的)?\s*)*(?:河岸|河畔|河边|江岸|江畔|江边)(?:边)?(?:风景|景色|景观|画作)?$|^(?:(?:dawn|morning|quiet|evening)\s+)?(?:river[ -]?banks?|riverside)(?:\s+(?:landscapes?|paintings?|views?))?$/iu;
 
 function isNegated(clause: string, index: number): boolean {
   // "not forest but sea" and "不要森林，想看海" have separate scopes.
@@ -91,11 +101,59 @@ function intentClauses(query: string): string[] {
     });
   });
 }
+
+/** A riverbank is a ranking preference, separate from saved subject constraints. */
+export function prefersRiverBank(query: string): boolean {
+  let affirmed = false;
+  const clauses = intentClauses(query.replace(/《[^》]+》/gu, ""));
+  for (const [index, clause] of clauses.entries()) {
+    for (const match of clause.matchAll(new RegExp(RIVER_BANK.source, "giu"))) {
+      const prefix = clause.slice(0, match.index);
+      if (isNegated(clause, match.index) || /(?:不在|不靠|非|不是|并非|别看|别选|别画|不想要|不愿看)\s*$/u.test(prefix)) return false;
+      const afterRiver = clause.slice(match.index + match[0].length);
+      if (/^一样|^般的/u.test(afterRiver)) continue;
+      const imaginedView = /想在|希望在/u.test(prefix)
+        && (/看(?:一|组|几|张|件|幅|些|两|三|四|五)/u.test(afterRiver)
+          || /^\s*看(?:一|组|几|张|件|幅|些|两|三|四|五)/u.test(clauses[index + 1] ?? ""));
+      if (VIEW_REQUEST.test(prefix) || imaginedView || SHORT_RIVER_BANK.test(query.trim().replace(/[。.!?！？]$/u, ""))) affirmed = true;
+    }
+    if ([...clause.matchAll(new RegExp(OTHER_WATER.source, "giu"))].some(match => !isNegated(clause, match.index))) return false;
+  }
+  return affirmed;
+}
+
+export function mentionsMorning(query: string): boolean {
+  const clauses = intentClauses(query.replace(/《[^》]+》/gu, ""));
+  return clauses.some(clause => hasAffirmedMood(clause, MORNING)) && !clauses.some(clause => hasAffirmedMood(clause, EVENING));
+}
+
+export function depictsEvening(artwork: WebArtwork): boolean {
+  if (EVENING.test(artwork.title)) return true;
+  return !artwork.visualEvidenceUnavailable && Boolean(artwork.visualEvidence?.observation.split(/[，。；,;.!?]/u)
+    .some(clause => EVENING.test(clause) && !UNCERTAIN_SCENE.test(clause)));
+}
+
+export function reviewedLandscapeFocus(artwork: WebArtwork, focus: "riverbank" | "forest"): boolean {
+  const review = artwork.visualEvidence;
+  if (!review || artwork.visualEvidenceUnavailable || review.facts[focus === "riverbank" ? "water" : "forest"] !== "present") return false;
+  const subject = focus === "riverbank" ? DEPICTED_RIVER : FOREST_VIEW;
+  const clauses = review.observation.split(/[，。；,;.!?]/u);
+  if (focus === "forest" && review.facts.people === "present") {
+    const opening = clauses[0]!;
+    const trees = opening.search(FOREST_VIEW), people = opening.search(SUBJECTS.people);
+    if (people >= 0 && (trees < 0 || people < trees)) return false;
+  }
+  return clauses.some(clause => {
+    const mention = clause.match(subject);
+    if (!mention || UNCERTAIN_SCENE.test(clause) || DISTANT_SCENE.test(clause.slice(0, mention.index))) return false;
+    return focus !== "forest" || !/映出|倒映|反射|\breflect\w*/iu.test(clause);
+  });
+}
 const titleKey = (value: string) => value.normalize("NFKC").toLowerCase().replace(/[\p{P}\p{Z}\s]/gu, "");
 
 const SITUATION = /(?:在|待在|呆在|困在|关在|坐在|窝在|闷在)[^，。；,;]{0,12}(?:里|中|内)|加班|上班|通勤|\b(?:stuck|trapped|cooped up|sitting|working)\s+(?:in|at)\b|\bbeen in\b/iu;
 
-export function parseViewingIntent(query: string, catalogArtists: readonly string[] = []): ViewingIntent {
+export function parseViewingIntent(query: string, catalogArtists: readonly string[] = [], { scopedRiverBank = false } = {}): ViewingIntent {
   const subjects = new Set<Subject>();
   const excluded = new Set<Subject>();
   const artists = new Set<string>();
@@ -112,13 +170,15 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
     return " ".repeat(full.length);
   });
   const clauses = intentClauses(subjectQuery);
+  const ignorePlaceName = scopedRiverBank && subjectQuery.includes("上海") && prefersRiverBank(subjectQuery);
   for (const clause of clauses) {
     const wish = /想看|希望看|给我|要看|看看|看点|\b(?:show|want|looking for|see)\b/iu.test(clause);
     // Where the visitor is stuck ("在小房间里加班") describes their day, not what they want to see.
     const situated = SITUATION.test(clause);
     const contextOnly = (/新闻|害怕|担心|\b(?:news|afraid|scared|saw|anxious)\b/iu.test(clause) || situated) && !wish;
     for (const [key, pattern] of Object.entries(SUBJECTS)) {
-      for (const match of clause.matchAll(new RegExp(pattern.source, "giu"))) {
+      const subjectClause = ignorePlaceName && key === "sea" ? clause.replace(/上海/gu, "  ") : clause;
+      for (const match of subjectClause.matchAll(new RegExp(pattern.source, "giu"))) {
         if (isNegated(clause, match.index)) excluded.add(key as Subject);
         else if (!contextOnly) subjects.add(key as Subject);
       }
