@@ -26,6 +26,19 @@ pnpm audit --prod --registry=https://registry.npmjs.org
 
 正式检查要求每件可展作品均有有效的持久预览，缺少任何一张都会失败。`--local` 只验证本机并报告缺口，不能代替正式检查；`--offline` 另要求原图都在本机，适用于完全离线交付。真实原图在用户近看时按需获取、核验，预览持续可见；上游不可用仍可能影响原图近看。
 
+### 验证观察索引生效
+
+若该次发布预期启用图证观察排序，将审核后的 `semantic-observation-index-v1.json` 安装在候选机当前默认发布目录，并保留相同版本的 manifest、馆方元数据/语义索引、视觉证据账本及已安装的 E5 模型。用该次验收记录中的 release、文件 SHA-256 和内容 checksum 执行：
+
+```sh
+pnpm release:check -- --expect-observation \
+  --expected-release 2026-11-19-open-gap-739 \
+  --expected-observation-sha256 29138b3ddd6e4f78b4dbe6505aef28c28a5403b7c316c087c330ea731ebad578 \
+  --expected-observation-checksum c1d7f0e2a360b6ff29a318ac91e4b36abe7da870f1c30e420fdd1a20ea6c4017
+```
+
+加 `--local` 可在本机演练，原有检查项仍适用。期望版本仅用于比对当前默认发布，系统会在临时私有目录中用本机模型和固定模拟输出创建一场新展，完成后清理目录。该探针无需下载模型或占用付费额度。输出中 `indexStatus: "loaded"` 表示工件通过验证，`retrieval: "observation"` 和 `actualSelectionVersion: 25` 表示新展实际采用了观察索引。工件缺失、不可读、损坏、身份或摘要不符，或实际查询回退、无作品，均退出 1 并给出固定原因。默认检查仍允许可选观察索引缺失，普通策展仍可回退馆方索引。
+
 先绑定 `127.0.0.1` 启动 Next.js，由 HTTPS 反向代理对外服务。代理必须覆盖而非追加 `x-real-ip`，并限制请求体和连接数；应用端口不能直接开放公网。必须由选定主机上的实际代理验证这个边界，不能仅凭传入一个可伪造请求头认定安全。
 
 下面是单层代理的通用示例。本次已确认的腾讯与阿里两层代理，应使用 [双域名部署](artduo-dual-domain.md) 中的配置，不能用本例覆盖现有站点：

@@ -3,7 +3,7 @@ import { lstatSync, readFileSync } from "node:fs";
 import path from "node:path";
 import type { SemanticIndex } from "@artduo/contracts";
 import { semanticArtworkText, semanticFingerprint } from "@artduo/corpus/src/semantic-index";
-import { validateSemanticObservationIndex } from "@artduo/corpus/src/semantic-observation-index";
+import { ObservationIndexIdentityError, validateSemanticObservationIndex } from "@artduo/corpus/src/semantic-observation-index";
 import { loadSemanticIndex } from "@artduo/corpus/src/semantic-loader";
 import { resolveShardPath } from "@artduo/corpus/src/release-loader";
 import type { WebReleaseCatalog } from "./release-catalog";
@@ -35,35 +35,62 @@ export function museumSemanticDocuments(catalog: WebReleaseCatalog) {
 }
 
 export function loadObservationSidecar(file: string, catalog: WebReleaseCatalog, museumIndex: SemanticIndex) {
-  return validateSemanticObservationIndex(JSON.parse(readFileSync(file, "utf8")), observationReleaseInput(catalog, museumIndex));
+  const bytes = readFileSync(file);
+  return { ...validateSemanticObservationIndex(JSON.parse(bytes.toString("utf8")), observationReleaseInput(catalog, museumIndex)),
+    fileSha256: semanticFingerprint(bytes) };
 }
 
 type RuntimeObservation = ReturnType<typeof loadObservationSidecar> & { museumIndex: SemanticIndex };
-const runtimeIndexes = new Map<string, { revision: string; value?: RuntimeObservation }>();
+type ObservationStatus = { status: "loaded"; value: RuntimeObservation }
+  | { status: "unavailable"; reason: "missing" | "unreadable" | "damaged" | "identity-mismatch" };
+const runtimeIndexes = new Map<string, { revision: string; result: ObservationStatus }>();
+const lastReportedStatus = new Map<string, "loaded" | Extract<ObservationStatus, { status: "unavailable" }>["reason"]>();
 
 export function runtimeObservationIndex(catalog: WebReleaseCatalog): RuntimeObservation | undefined {
+  const result = runtimeObservationStatus(catalog);
+  const releaseVersion = catalog.releaseVersion;
+  const state = result.status === "loaded" ? "loaded" : result.reason;
+  const previous = lastReportedStatus.get(releaseVersion);
+  lastReportedStatus.delete(releaseVersion);
+  lastReportedStatus.set(releaseVersion, state);
+  if (lastReportedStatus.size > 8) lastReportedStatus.delete(lastReportedStatus.keys().next().value!);
+  if (previous !== state) {
+    try {
+      console.warn(JSON.stringify({ event: "semantic-observation-index", releaseVersion, status: result.status,
+        ...(result.status === "unavailable" ? { reason: result.reason } : {}) }));
+    } catch { /* Diagnostics must never affect selection. */ }
+  }
+  return result.status === "loaded" ? result.value : undefined;
+}
+
+export function runtimeObservationStatus(catalog: WebReleaseCatalog): ObservationStatus {
   const filename = path.join(catalog.releaseDir, OBSERVATION_SIDECAR_NAME);
   try {
     const stat = lstatSync(filename);
-    if (!stat.isFile() || stat.size > 32 * 1024 * 1024) return undefined;
+    if (!stat.isFile() || stat.size > 32 * 1024 * 1024) return { status: "unavailable", reason: "damaged" };
     const shards = catalog.manifest.shards;
     const dependencies = [filename, catalog.manifestPath, path.join(catalog.releaseDir, "visual-reviews.json"),
       ...[...shards.metadata, ...shards.search, ...(shards.semanticEmbeddings ?? [])].map(shard => resolveShardPath(catalog.manifestPath, shard))];
     const revision = fileRevision(dependencies);
     const cached = runtimeIndexes.get(filename);
-    if (cached?.revision === revision) return cached.value;
-    let value: RuntimeObservation | undefined;
+    if (cached?.revision === revision) return cached.result;
+    let result: ObservationStatus = { status: "unavailable", reason: "damaged" };
     try {
       const museumIndex = loadSemanticIndex({ manifestPath: catalog.manifestPath, manifest: catalog.manifest, artworks: museumSemanticDocuments(catalog) });
       if (museumIndex) {
         const observation = loadObservationSidecar(filename, catalog, museumIndex);
-        if (observation.vectors.size) value = { ...observation, museumIndex };
+        if (observation.vectors.size) result = { status: "loaded", value: { ...observation, museumIndex } };
       }
-    } catch { /* A damaged optional index leaves the museum-only path available. */ }
-    if (fileRevision(dependencies) !== revision) return undefined;
+    } catch (error) {
+      result = { status: "unavailable", reason: error instanceof ObservationIndexIdentityError ? "identity-mismatch"
+        : (error as NodeJS.ErrnoException).code ? "unreadable" : "damaged" };
+    }
+    if (fileRevision(dependencies) !== revision) return { status: "unavailable", reason: "unreadable" };
     runtimeIndexes.delete(filename);
-    runtimeIndexes.set(filename, { revision, value });
+    runtimeIndexes.set(filename, { revision, result });
     while (runtimeIndexes.size > 2) runtimeIndexes.delete(runtimeIndexes.keys().next().value!);
-    return value;
-  } catch { return undefined; }
+    return result;
+  } catch (error) {
+    return { status: "unavailable", reason: (error as NodeJS.ErrnoException).code === "ENOENT" ? "missing" : "unreadable" };
+  }
 }

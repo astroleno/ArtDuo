@@ -3,16 +3,18 @@ import { copyFileSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "nod
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { LOCAL_SEMANTIC_MODEL } from "@artduo/corpus/src/semantic-index";
+import { LOCAL_SEMANTIC_MODEL, semanticFingerprint } from "@artduo/corpus/src/semantic-index";
 import { loadSemanticIndex } from "@artduo/corpus/src/semantic-loader";
 import { buildSemanticObservationIndex } from "@artduo/corpus/src/semantic-observation-index";
 import { loadWebReleaseCatalog } from "../../lib/release-catalog";
 import { curateExhibition, readSavedCuration } from "../../lib/semantic-curator";
 import { fallbackCurationIntent } from "../../lib/semantic-selection";
 import { museumSemanticDocuments, OBSERVATION_SIDECAR_NAME, observationReleaseInput, runtimeObservationIndex } from "../../lib/semantic-observation-release";
+import { checkReleaseObservation } from "../../../../scripts/check-release-observation";
 
-test("the optional verified sidecar isolates query and archive identity and reloads only on file changes", async () => {
+test("the optional verified sidecar isolates query and archive identity and reloads only on file changes", async (t) => {
   const root = mkdtempSync(path.join(os.tmpdir(), "artduo-observation-runtime-"));
+  const onStatus = t.mock.method(console, "warn", () => {});
   try {
     const original = loadWebReleaseCatalog({ releaseVersion: "2026-11-19-open-gap-739" });
     const releaseDir = path.join(root, "release");
@@ -36,6 +38,7 @@ test("the optional verified sidecar isolates query and archive identity and relo
         yield JSON.stringify({ stages: [{ stage: 0, artworkIds: [id] }] });
       } };
     assert.equal(runtimeObservationIndex(catalog), undefined);
+    assert.equal(runtimeObservationIndex(catalog), undefined);
     const baseline = await curateExhibition(input);
     assert.equal(baseline.record.selectionVersion, 24);
     assert.deepEqual(baseline.record.degraded, []);
@@ -57,6 +60,18 @@ test("the optional verified sidecar isolates query and archive identity and relo
     assert.equal(intents, 2);
     assert.deepEqual(readSavedCuration(catalog, paired.curationId, query, root).assignments, paired.assignments);
     writeFileSync(sidecar, JSON.stringify(output));
+    assert.equal(runtimeObservationIndex(catalog)?.checksum, output.checksum);
+    assert.equal(runtimeObservationIndex(catalog)?.checksum, output.checksum);
+    const log = (status: string, reason?: string) => ({ event: "semantic-observation-index", releaseVersion: catalog.releaseVersion, status, ...(reason ? { reason } : {}) });
+    assert.deepEqual(onStatus.mock.calls.map(call => JSON.parse(call.arguments[0] as string)), [
+      log("unavailable", "missing"), log("loaded"), log("unavailable", "damaged"), log("loaded"),
+    ]);
+    onStatus.mock.mockImplementation(() => { throw new Error("diagnostic log is unavailable"); });
+    writeFileSync(sidecar, "{");
+    assert.equal(runtimeObservationIndex(catalog), undefined);
+    writeFileSync(sidecar, JSON.stringify(output));
+    assert.equal(runtimeObservationIndex(catalog)?.checksum, output.checksum);
+    onStatus.mock.mockImplementation(() => {});
     const invalid = { ...input, query: "想看一幅作品，慢一点", stream: async function* (messages: Array<{ content: string }>) {
       if (!messages[0]!.content.includes("选画编辑")) { intents++; yield JSON.stringify(plan); return; }
       yield "{}";
@@ -85,5 +100,36 @@ test("the optional verified sidecar isolates query and archive identity and relo
     writeFileSync(sidecar, JSON.stringify(output));
     assert.equal((await curateExhibition(invalid)).curationId, observedSecond.curationId);
     assert.equal(intents, 8);
+
+    const bytes = JSON.stringify(output);
+    const expected = { releaseVersion: catalog.releaseVersion, fileSha256: semanticFingerprint(bytes), contentChecksum: output.checksum };
+    const check = async (expectedInput = expected, semanticEncoder = encoder) => {
+      const state = mkdtempSync(path.join(root, "probe-"));
+      const previous = process.env.ARTDUO_STATE_DIR;
+      process.env.ARTDUO_STATE_DIR = state;
+      try { return await checkReleaseObservation(root, state, expectedInput, { catalog, encoder: semanticEncoder }); }
+      finally {
+        if (previous === undefined) delete process.env.ARTDUO_STATE_DIR;
+        else process.env.ARTDUO_STATE_DIR = previous;
+        rmSync(state, { recursive: true, force: true });
+      }
+    };
+    assert.equal((await check()).reason, "verified");
+    assert.equal((await check({ ...expected, releaseVersion: "expected-other-active-release" })).reason, "release-mismatch");
+    assert.equal((await check({ ...expected, fileSha256: "a".repeat(64) })).reason, "file-sha-mismatch");
+    assert.equal((await check({ ...expected, contentChecksum: "a".repeat(64) })).reason, "content-checksum-mismatch");
+    const fallback = await check(expected, degradedInput.encoder);
+    assert.equal(fallback.reason, "retrieval-fallback");
+    assert.equal(fallback.actualSelectionVersion, 24);
+    assert.equal(fallback.retrieval, "hash");
+    rmSync(sidecar);
+    assert.equal((await check()).reason, "missing");
+    writeFileSync(sidecar, "{");
+    assert.equal((await check()).reason, "damaged");
+    const payload = { ...output.payload, provenance: { ...output.payload.provenance, releaseVersion: "other-sidecar-release" } };
+    writeFileSync(sidecar, JSON.stringify({ checksum: semanticFingerprint(JSON.stringify(payload)), payload }));
+    assert.equal((await check()).reason, "identity-mismatch");
+    writeFileSync(sidecar, bytes);
+    assert.equal((await check()).reason, "verified");
   } finally { rmSync(root, { recursive: true, force: true }); }
 });

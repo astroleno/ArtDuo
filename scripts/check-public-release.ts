@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, unlinkSync, writeFileSync } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { stripAppBasePath } from "../packages/contracts/src/public-path";
 import { createLocalSemanticEncoder } from "../packages/corpus/src/local-semantic-provider";
@@ -12,9 +13,39 @@ import { isGalleryArtwork } from "../apps/web/lib/artwork-eligibility";
 import { resolveReleaseAssetPath } from "../apps/web/lib/release-media-path";
 import { readArtworkPreview } from "../apps/web/lib/artwork-preview";
 import { verifyPublicMediaCoverage } from "../apps/web/lib/public-media";
+import { checkReleaseObservation, type ExpectedObservation } from "./check-release-observation";
+
+function expectedObservation(args: string[]): ExpectedObservation | undefined {
+  const fields = ["--expected-release", "--expected-observation-sha256", "--expected-observation-checksum"];
+  const enabled = args.includes("--expect-observation");
+  if (!enabled && fields.every(field => !args.includes(field))) return undefined;
+  const [releaseVersion, fileSha256, contentChecksum] = fields.map(field => {
+    const indices = args.flatMap((arg, index) => arg === field ? [index] : []);
+    return indices.length === 1 ? args[indices[0]! + 1] : undefined;
+  });
+  if (!enabled || !releaseVersion || !/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$/u.test(releaseVersion)
+    || !fileSha256 || !contentChecksum || ![fileSha256, contentChecksum].every(value => /^[a-f0-9]{64}$/u.test(value)))
+    throw new Error("Invalid expected observation arguments");
+  return { releaseVersion, fileSha256, contentChecksum };
+}
+
+async function isolatedObservationCheck(root: string, expected: ExpectedObservation) {
+  const state = mkdtempSync(path.join(os.tmpdir(), "artduo-release-observation-"));
+  const { ARTDUO_STATE_DIR, ARTDUO_OBSERVABILITY } = process.env;
+  process.env.ARTDUO_STATE_DIR = state;
+  process.env.ARTDUO_OBSERVABILITY = "0";
+  try { return await checkReleaseObservation(root, state, expected); }
+  catch { return { ok: false, reason: "probe-unavailable", indexStatus: "unchecked", retrieval: "not-run", actualSelectionVersion: null }; }
+  finally {
+    if (ARTDUO_STATE_DIR === undefined) delete process.env.ARTDUO_STATE_DIR; else process.env.ARTDUO_STATE_DIR = ARTDUO_STATE_DIR;
+    if (ARTDUO_OBSERVABILITY === undefined) delete process.env.ARTDUO_OBSERVABILITY; else process.env.ARTDUO_OBSERVABILITY = ARTDUO_OBSERVABILITY;
+    rmSync(state, { recursive: true, force: true });
+  }
+}
 
 async function main() {
   const root = process.cwd(), local = process.argv.includes("--local");
+  const expected = expectedObservation(process.argv.slice(2));
   const policy = runtimePolicy(root);
   if (!local && !policy.publicMode) throw new Error("Public release check requires ARTDUO_PUBLIC_MODE=1 and production configuration; --local checks this workstation only");
   mkdirSync(policy.state, { recursive: true, mode: 0o700 });
@@ -27,6 +58,12 @@ async function main() {
   const readiness = inspectReleaseReadiness(root);
   if (!readiness.ok) throw new Error(`Readiness failed: ${JSON.stringify(readiness.checks)}`);
   const catalog = loadWebReleaseCatalog({ rootDir: root });
+  const observation = expected && await isolatedObservationCheck(root, expected);
+  if (observation && !observation.ok) {
+    console.error(JSON.stringify({ ok: false, observation }));
+    process.exitCode = 1;
+    return;
+  }
   const mediaDelivery = verifyPublicMediaCoverage(catalog, { rootDir: root });
   for (const shard of [...catalog.manifest.shards.metadata, ...catalog.manifest.shards.search, ...(catalog.manifest.shards.semanticEmbeddings ?? [])]) readVerifiedSemanticArtifact(catalog.manifestPath, shard);
   let images = 0, depthMaps = 0, remoteImages = 0, preparedPreviews = 0;
@@ -73,7 +110,7 @@ async function main() {
   }
   console.log(JSON.stringify({ ...readiness, mode: local ? "local-only" : "production-configuration", images, depthMaps, remoteImages, preparedPreviews, mediaDelivery,
     delivery: remoteImages ? "Verified remote images are fetched and fingerprint-checked on first use; upstream availability is required" : "All eligible images are available locally",
-    semanticWarmupMs, quota: { concurrency: policy.concurrency, dailyRequests: policy.dailyRequests, dailyReservedTokens: policy.dailyTokens },
+    semanticWarmupMs, observation, quota: { concurrency: policy.concurrency, dailyRequests: policy.dailyRequests, dailyReservedTokens: policy.dailyTokens },
     stillRequires: ["TLS and proxy validation on the chosen host", "persistent-volume restart rehearsal on that host", "user approval before public release"] }, null, 2));
 }
 main().catch(error => { console.error(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : String(error) })); process.exitCode = 1; });
