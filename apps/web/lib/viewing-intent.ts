@@ -48,8 +48,8 @@ export interface ViewingIntent {
   spacious?: boolean;
   media?: ArtworkMedium[];
   excludedMedia?: ArtworkMedium[];
-  printDetailGroups?: Array<Array<ReadonlyArray<PrintDetail> | ArtworkMedium>>;
-  excludedPrintDetails?: ReadonlyArray<ReadonlyArray<PrintDetail>>;
+  printDetailGroups?: Array<Array<ReadonlyArray<PrintRequirement> | ArtworkMedium>>;
+  excludedPrintDetails?: ReadonlyArray<ReadonlyArray<PrintRequirement>>;
   artists: string[];
   excludedArtists: string[];
   allowIntense: boolean;
@@ -83,9 +83,20 @@ const PRINT_SUBJECT_MENTION = /描绘|画中(?:有|的)|画面(?:上有|中有)|
 const PRINT_OR = /^\s*(?:、\s*)?(?:或(?:者|是)?|\bor\b)\s*$/iu;
 const SCOPED_MOUNTAIN = /(?:画(?:里|中|面里|面中)(?:的|有|不要有|没有)|(?:想看|希望看|看看|给我看|不要看|不要|避开)(?:有)?)山(?:体|峦|脉)?(?=\s*(?:$|[,，、。；;!?]|和|与|及|的(?:画|作品|风景|场景)))/gu;
 
-function printTerm(value: string): PrintDetail[] {
+type PrintRequirement = PrintDetail | "plate-unrecorded";
+export const UNRECORDED_PLATE_ETCHING = "版材未注明的蚀刻";
+
+/** Admit only medium statements whose entire wording identifies etching and other named processes,
+ * impression states, ink or paper. Unrecognized qualifiers can describe the plate itself. */
+function unrecordedPlateEtching(medium: string | undefined) {
+  return Boolean(medium && artworkPrintDetails(medium).etching === "present" &&
+    /^(?:hand[- ]colored |colou?red )?(?:etching(?: (?:and|with) (?:engraving|drypoint)(?: and engraving)?)?|engraving and etching)(?:(?:;\s*(?:(?:first|second|third|fourth|fifth|sixth) state of (?:two|three|four|five|six)(?: \([\p{L} -]+\))?|(?:[\p{L}-]+ )?ink on (?:[\p{L}-]+ )*paper|(?:[\p{L}-]+ )?paper))|,\s*printed in (?:[\p{L}-]+ )?ink)?[.\s]*$/iu.test(medium.trim()));
+}
+
+function printTerm(value: string): PrintRequirement[] {
   const term = value.toLowerCase();
-  const details: PrintDetail[] = [];
+  const details: PrintRequirement[] = [];
+  if (term.startsWith(UNRECORDED_PLATE_ETCHING)) details.push("plate-unrecorded");
   if (/铜[版板]|copper/u.test(term)) details.push("copperplate");
   if (/木[版板刻]|wood/u.test(term)) details.push("woodblock");
   if (/蚀刻|etch/u.test(term)) details.push("etching");
@@ -94,12 +105,15 @@ function printTerm(value: string): PrintDetail[] {
   return details;
 }
 
-function scopedPrintClause(clause: string, permissive: boolean, required: boolean) {
+function scopedPrintClause(clause: string, permissive: boolean, required: boolean, scopedUnrecordedPlate: boolean) {
   const groups: NonNullable<ViewingIntent["printDetailGroups"]> = [];
-  const excluded: PrintDetail[][] = [];
-  const terms = [...clause.matchAll(PRINT_DETAIL_TERM)];
+  const excluded: PrintRequirement[][] = [];
+  const pattern = scopedUnrecordedPlate
+    ? new RegExp(UNRECORDED_PLATE_ETCHING + "(?:版画|画)?|" + PRINT_DETAIL_TERM.source, "giu")
+    : PRINT_DETAIL_TERM;
+  const terms = [...clause.matchAll(pattern)];
   if (!terms.length) return { groups, excluded, generic: clause };
-  const masked = clause.replace(PRINT_DETAIL_TERM, match => " ".repeat(match.length));
+  const masked = clause.replace(pattern, match => " ".repeat(match.length));
   const atoms = [
     ...terms.map(match => ({ index: match.index!, end: match.index! + match[0].length, item: printTerm(match[0]) })),
     ...ARTWORK_MEDIUM_REQUESTS.flatMap(([medium, pattern]) => [...masked.matchAll(new RegExp(pattern.source, "giu"))]
@@ -241,17 +255,18 @@ export interface ViewingIntentOptions {
   scopedRiverBank?: boolean;
   scopedPeopleExclusions?: boolean;
   scopedPrintDetails?: boolean;
+  scopedUnrecordedPlate?: boolean;
   scopedMountainSubject?: boolean;
 }
 
 export function parseViewingIntent(query: string, catalogArtists: readonly string[] = [],
-  { scopedRiverBank = false, scopedPeopleExclusions = true, scopedPrintDetails = true, scopedMountainSubject = true }: ViewingIntentOptions = {}): ViewingIntent {
+  { scopedRiverBank = false, scopedPeopleExclusions = true, scopedPrintDetails = true, scopedMountainSubject = true, scopedUnrecordedPlate = true }: ViewingIntentOptions = {}): ViewingIntent {
   const subjects = new Set<Subject>();
   const excluded = new Set<Subject>();
   const artists = new Set<string>();
   const excludedArtists = new Set<string>();
   const media = new Set<ArtworkMedium>(), excludedMedia = new Set<ArtworkMedium>();
-  const printDetailGroups: NonNullable<ViewingIntent["printDetailGroups"]> = [], excludedPrintDetails: PrintDetail[][] = [];
+  const printDetailGroups: NonNullable<ViewingIntent["printDetailGroups"]> = [], excludedPrintDetails: PrintRequirement[][] = [];
   let rest = false;
   let bright = false;
   let spacious = false;
@@ -301,7 +316,7 @@ export function parseViewingIntent(query: string, catalogArtists: readonly strin
     const sentence = subjectQuery.split(/[。；;.!?\n]/u).find(part => part.includes(clause.replace(/^不要 /u, ""))) ?? clause;
     const permissive = /也(?:可以|行|接受|能看)|(?:都|均)可(?:以)?|不限|媒材不限|\b(?:also|welcome|acceptable|allowed|fine|okay|can include|do not mind|don't mind)\b/iu.test(sentence);
     const required = /只(?:要|看|限|接受)|仅(?:限|要|看)|必须|\bonly\b/iu.test(clause);
-    const details = scopedPrintDetails ? scopedPrintClause(clause, permissive, required) : undefined;
+    const details = scopedPrintDetails ? scopedPrintClause(clause, permissive, required, scopedUnrecordedPlate) : undefined;
     if (details) {
       printDetailGroups.push(...details.groups);
       excludedPrintDetails.push(...details.excluded);
@@ -439,7 +454,7 @@ export function viewingIntentDecision(artwork: WebArtwork, intent: ViewingIntent
   if (intent.media?.length && !intent.media.some(medium => media.includes(medium))) reasons.push(media.length ? "different-medium" : "required-medium-unconfirmed");
   if (intent.excludedMedia?.length && (!media.length || intent.excludedMedia.some(medium => media.includes(medium)))) reasons.push(media.length ? "excluded-medium" : "excluded-medium-unconfirmed");
   if (intent.printDetailGroups?.length || intent.excludedPrintDetails?.length) {
-    const details = artworkPrintDetails(artwork.medium);
+    const details = { ...artworkPrintDetails(artwork.medium), "plate-unrecorded": unrecordedPlateEtching(artwork.medium) ? "present" : "unknown" };
     if (intent.printDetailGroups?.some(group => !group.some(item => typeof item === "string"
       ? media.includes(item) : item.every(detail => details[detail] === "present")))) reasons.push("required-print-detail");
     if (intent.excludedPrintDetails?.some(group => group.every(detail => details[detail] !== "absent"))) reasons.push("excluded-print-detail");

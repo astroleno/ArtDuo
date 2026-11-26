@@ -1,9 +1,10 @@
 import { withCurationVisualCorrections } from "./curation-visual-corrections";
 import type { WebReleaseCatalog } from "./release-catalog";
-import { eligibleCurationArtworks, fallbackCurationIntent } from "./semantic-selection";
-import { parseViewingIntent, viewingIntentConflictMessage, type ViewingIntent } from "./viewing-intent";
+import { eligibleCurationArtworks, fallbackCurationIntent, selectForCurationStages } from "./semantic-selection";
+import { parseViewingIntent, UNRECORDED_PLATE_ETCHING, viewingIntentConflictMessage, type ViewingIntent } from "./viewing-intent";
 
 const INTERIOR_WORDING = /室内(?:陈设|场景|画作|画)?(?=$|[\s，,。；;！？!?]|和|与|及|且|但|不要|油画|水彩|版画|静物|素描)/gu;
+const COPPER_ETCHING_WORDING = /铜[版板]蚀刻(?:版画|画)?/gu;
 const OPTIONS = { scopedRiverBank: true };
 
 function remainingRequirements(intent: ViewingIntent) {
@@ -70,25 +71,36 @@ function unrecognizedRestriction(query: string, artists: string[], start: number
 export function emptyExhibitionAlternative(catalog: WebReleaseCatalog, query: string) {
   const artists = catalog.artworks.flatMap(artwork => artwork.artistDisplayName ? [artwork.artistDisplayName] : []);
   const original = parseViewingIntent(query, artists, OPTIONS);
-  if (!original.subjects.includes("interior") || !original.excludedSubjects.includes("people") || original.alternativeSubjects
-    || original.artworkTitles?.length || viewingIntentConflictMessage(original)) return undefined;
-  const sites = [...query.matchAll(INTERIOR_WORDING)];
+  if (original.alternativeSubjects || original.artworkTitles?.length || viewingIntentConflictMessage(original)) return undefined;
+  const copperRequired = original.printDetailGroups?.some(group => group.length === 1
+    && Array.isArray(group[0]) && group[0].includes("copperplate") && group[0].includes("etching"));
+  const stillLife = original.subjects.includes("interior") && original.excludedSubjects.includes("people");
+  if (!copperRequired && !stillLife) return undefined;
+  const sites = [...query.matchAll(copperRequired ? COPPER_ETCHING_WORDING : INTERIOR_WORDING)];
   if (sites.length !== 1) return undefined;
   const match = sites[0]!, start = match.index!;
   if (unrecognizedRestriction(query, artists, start, start + match[0].length)) return undefined;
   const toClause = query.slice(0, start).split(CLAUSE_BOUNDARY).at(-1) ?? "";
-  if (!/^(?:\s*|.*(?:想看|希望看|只看|给我看|看看)[^，,。；;！？!?]*)$/u.test(toClause)
+  if (!(copperRequired || /^(?:\s*|.*(?:想看|希望看|只看|给我看|看看)[^，,。；;！？!?]*)$/u.test(toClause))
     || /环境|我在|在这里|装修|新闻|比如|我喜欢|以前/u.test(toClause)) return undefined;
-  const changed = query.slice(0, start) + "静物" + query.slice(start + match[0].length);
+  const changed = query.slice(0, start) + (copperRequired ? UNRECORDED_PLATE_ETCHING : "静物") + query.slice(start + match[0].length);
   const revised = parseViewingIntent(changed, artists, OPTIONS);
-  const expectedSubjects = [...new Set(original.subjects.map(subject => subject === "interior" ? "stillLife" : subject))].sort();
-  if (viewingIntentConflictMessage(revised) || remainingRequirements(original) !== remainingRequirements(revised)
-    || JSON.stringify([...revised.subjects].sort()) !== JSON.stringify(expectedSubjects)) return undefined;
+  const expected: ViewingIntent = copperRequired ? {
+    ...original,
+    printDetailGroups: original.printDetailGroups!.map(group => group.map(item => typeof item !== "string"
+      && item.includes("copperplate") && item.includes("etching")
+      ? ["plate-unrecorded", ...item.filter(detail => detail !== "copperplate")] : item)),
+  } : { ...original, subjects: [...new Set(original.subjects.map(subject => subject === "interior" ? "stillLife" : subject))] };
+  if (viewingIntentConflictMessage(revised) || remainingRequirements(expected) !== remainingRequirements(revised)
+    || JSON.stringify([...revised.subjects].sort()) !== JSON.stringify([...expected.subjects].sort())) return undefined;
   const visualCatalog = withCurationVisualCorrections(catalog);
   const originalPlan = fallbackCurationIntent(visualCatalog, query);
   if (eligibleCurationArtworks(visualCatalog, query, originalPlan, OPTIONS).length) return undefined;
   const plan = fallbackCurationIntent(visualCatalog, changed);
   const eligible = new Set(eligibleCurationArtworks(visualCatalog, changed, plan, OPTIONS).map(work => work.id)).size;
   if (!eligible || plan.artworkCount !== originalPlan.artworkCount) return undefined;
-  return { query: changed, eligible, requested: plan.artworkCount };
+  if (copperRequired && selectForCurationStages({ catalog: visualCatalog, query: changed, plan }).assignments.length
+    !== Math.min(eligible, plan.artworkCount)) return undefined;
+  return { kind: copperRequired ? "unrecorded-plate-etching" as const : "unoccupied-still-life" as const,
+    query: changed, eligible, requested: plan.artworkCount };
 }

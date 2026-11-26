@@ -17,6 +17,7 @@ import { forgetStageRerankBackoff, readStageRerankBackoff, rememberStageRerankBa
 import { runtimeObservationIndex } from "./semantic-observation-release";
 import { withCurationVisualCorrections } from "./curation-visual-corrections";
 import { refineAfterglow } from "./afterglow-selection";
+import { UNRECORDED_PLATE_ETCHING } from "./viewing-intent";
 
 export const VISUAL_CORRECTION_SELECTION_VERSION = 19;
 export const PEOPLE_EXCLUSION_SELECTION_VERSION = 22;
@@ -31,6 +32,7 @@ export interface CurationRecord {
   intentModel: string; indexChecksum: string; degraded: string[];
   selectionVersion?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | typeof VISUAL_CORRECTION_SELECTION_VERSION | 20 | 21 | typeof PEOPLE_EXCLUSION_SELECTION_VERSION | 23 | typeof SELECTION_VERSION | typeof OBSERVATION_SELECTION_VERSION;
   observationChecksum?: string;
+  unrecordedPlatePolicy?: true;
   visualEvidenceVersion?: string;
   appearanceVersion?: string;
   narrativeVersion?: "gallery-guide-v2" | "gallery-guide-v3" | typeof NARRATIVE_RECIPE_VERSION;
@@ -100,6 +102,7 @@ function hydrate(catalog: WebReleaseCatalog, curationId: string, value: unknown,
     || query !== undefined && record.query !== query || !Array.isArray(record.assignments) || record.assignments.length > 12
     || typeof record.retrievalModel !== "string" || !Number.isInteger(record.dimensions) || record.dimensions < 1 || record.dimensions > 8192
     || !Array.isArray(record.degraded) || record.degraded.some((item) => typeof item !== "string")
+    || (record.unrecordedPlatePolicy !== undefined && (record.unrecordedPlatePolicy !== true || !record.query.includes(UNRECORDED_PLATE_ETCHING)))
     || record.indexChecksum !== (catalog.manifest.shards.semanticEmbeddings?.[0]?.checksum ?? "hash-only")
     || (record.selectionVersion === OBSERVATION_SELECTION_VERSION ? !/^[a-f0-9]{64}$/u.test(record.observationChecksum ?? "") : record.observationChecksum !== undefined)
     || record.assignments.some((item) => !item || !Array.isArray(item.evidence) || item.evidence.some((entry) => typeof entry !== "string"))
@@ -111,7 +114,8 @@ function hydrate(catalog: WebReleaseCatalog, curationId: string, value: unknown,
   const selectionCatalog = scopeEvidence ? withCurationVisualCorrections(catalog) : catalog;
   const intentOptions = { scopedRiverBank: scopeEvidence, scopedPeopleExclusions: (record.selectionVersion ?? 0) >= PEOPLE_EXCLUSION_SELECTION_VERSION,
     scopedPrintDetails: (record.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION,
-    scopedMountainSubject: (record.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION };
+    scopedMountainSubject: (record.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION,
+    scopedUnrecordedPlate: record.unrecordedPlatePolicy === true };
   return { ...materializeCurationSelection(selectionCatalog, record.query, plan, record.assignments, record.retrievalModel, record.dimensions, intentOptions), curationId, record };
 }
 export function readSavedCuration(catalog: WebReleaseCatalog, curationId: string, query?: string, rootDir = curationRoot(catalog)): CuratedExhibition {
@@ -149,7 +153,8 @@ export async function curateExhibition(input: {
   const indexChecksum = catalog.manifest.shards.semanticEmbeddings?.[0]?.checksum ?? "hash-only";
   const observation = indexChecksum === "hash-only" ? undefined : runtimeObservationIndex(input.catalog);
   const selectionVersion = observation ? OBSERVATION_SELECTION_VERSION : SELECTION_VERSION;
-  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum, observationChecksum: observation?.checksum }));
+  const unrecordedPlatePolicy = query.includes(UNRECORDED_PLATE_ETCHING) ? true : undefined;
+  const key = semanticFingerprint(JSON.stringify({ recipe: CURATION_RECIPE_VERSION, selectionVersion, narrativeVersion: NARRATIVE_RECIPE_VERSION, visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, release: catalog.releaseVersion, query, intentModel, indexChecksum, observationChecksum: observation?.checksum, unrecordedPlatePolicy }));
   const directory = curationDirectory(rootDir);
   const lookup = path.join(directory, `request-${key}.json`);
   if (existsSync(lookup)) {
@@ -248,6 +253,7 @@ export async function curateExhibition(input: {
     if (ending) selection = materializeCurationSelection(catalog, query, plan, ending, selection.search.model, selection.search.dimensions, { scopedRiverBank: true });
     const record: CurationRecord = { schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion,
       query, plan, selectionVersion: observationApplied ? OBSERVATION_SELECTION_VERSION : SELECTION_VERSION,
+      ...(unrecordedPlatePolicy ? { unrecordedPlatePolicy } : {}),
       ...(observationApplied ? { observationChecksum: observation!.checksum } : {}), narrativeVersion: NARRATIVE_RECIPE_VERSION,
       visualEvidenceVersion: catalog.visualEvidenceVersion, appearanceVersion: catalog.appearanceVersion, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
       intentModel: degraded.includes("intent-unavailable") ? "local-rules-v1" : intentModel, indexChecksum, degraded };

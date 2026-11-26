@@ -39,6 +39,7 @@ export function exhibitionNarrativeInput(catalog: WebReleaseCatalog, curation: C
     scopedRiverBank: scopeEvidence, scopedPeopleExclusions: (curation.record.selectionVersion ?? 0) >= PEOPLE_EXCLUSION_SELECTION_VERSION,
     scopedPrintDetails: (curation.record.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION,
     scopedMountainSubject: (curation.record.selectionVersion ?? 0) >= PRINT_DETAIL_SELECTION_VERSION,
+    scopedUnrecordedPlate: curation.record.unrecordedPlatePolicy === true,
   });
   const artworks = scopeEvidence
     ? new Map(curation.search.results.map(({ artwork }) => [artwork.id, artwork])) : catalog.artworkById;

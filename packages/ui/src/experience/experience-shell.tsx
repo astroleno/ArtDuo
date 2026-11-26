@@ -283,11 +283,14 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       <p className="experience-empty-request">「{snapshot.query}」</p>
       <p>你的原句保留在这里，可以改写观看方向，或稍后再来。</p>
       {snapshot.emptyAlternative ? <div>
-        <p>馆藏中有 {snapshot.emptyAlternative.eligible} 件确证无人的静物。改看静物会移除室内条件，本次最多展出 {Math.min(snapshot.emptyAlternative.eligible, snapshot.emptyAlternative.requested)} 件。</p>
+        <p>{snapshot.emptyAlternative.kind === "unrecorded-plate-etching"
+          ? <>原条件要求铜版蚀刻。改看会保留蚀刻工艺，移除铜版要求。馆藏中有 {snapshot.emptyAlternative.eligible} 件版材未注明的蚀刻。</>
+          : <>馆藏中有 {snapshot.emptyAlternative.eligible} 件确证无人的静物。改看静物会移除室内条件。</>}
+          原请求 {snapshot.emptyAlternative.requested} 件，本次最多展出 {Math.min(snapshot.emptyAlternative.eligible, snapshot.emptyAlternative.requested)} 件。</p>
         <a className="experience-primary" href={appPath(`/gallery/local/immersive?${new URLSearchParams({
           query: snapshot.emptyAlternative.query, view: "experience", recipeVersion: "experience-v2", phase: "preface",
           releaseVersion: snapshot.releaseVersion,
-        })}`)}>改看确证无人的静物</a>
+        })}`)}>{snapshot.emptyAlternative.kind === "unrecorded-plate-etching" ? "改看版材未注明的蚀刻" : "改看确证无人的静物"}</a>
       </div> : null}
       {snapshot.omittedUnitCount ? <p>另有 {snapshot.omittedUnitCount} 件记录暂不可用。</p> : null}
       {restartHref ? <a className="experience-primary" href={appPath(restartHref)}>重新写一句</a>
