@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { artworkPlaceholderRgb } from "./artwork-placeholder";
-import { artworkRevealDuration, createStageMotionArrival, isLateNeutralReveal, stageTransitionKeyframes, stageTransitionProfile } from "./stage-transition";
+import { createStageMotionArrival, stageArtworkReveal, stageTransitionKeyframes, stageTransitionProfile, type StageTransitionProfile } from "./stage-transition";
 import type { ExperienceStage } from "./types";
 
 const stage = (id: string, role: ExperienceStage["role"], transitionIntent: ExperienceStage["transitionIntent"] = "fade",
@@ -54,11 +54,18 @@ test("an artwork arrival gets one animation opportunity, even when motion was di
 });
 
 test("warm paint uses the remaining stage time, and late decode gets a complete short reveal", () => {
-  assert.equal(artworkRevealDuration(128, 18), 110);
-  assert.equal(artworkRevealDuration(208, 176), 32);
-  assert.equal(artworkRevealDuration(208, 177), 180);
-  assert.equal(artworkRevealDuration(176, 1200), 180);
-  assert.equal(isLateNeutralReveal("neutral", 16), false);
-  assert.equal(isLateNeutralReveal("neutral", 180), true);
-  assert.equal(isLateNeutralReveal("turn", 1200), false);
+  const late = { keyframes: [{ opacity: .30 }, { opacity: 1 }], duration: 180, easing: "ease-out" };
+  for (const [kind, artworkMs, opacity] of [["continue", 128, .84], ["turn", 176, .72], ["settle", 208, .76]] as const) {
+    const profile: StageTransitionProfile = { kind, direction: "forward", artworkMs, wallMs: 0, wallOffsetPx: 0 };
+    const edge = artworkMs - 32;
+    const timely = stageArtworkReveal(profile, edge, edge);
+    assert.equal(timely?.duration, 32);
+    assert.equal(timely?.keyframes[0]?.opacity, opacity);
+    assert.deepEqual(timely?.keyframes, stageTransitionKeyframes(profile).artwork);
+    assert.deepEqual(stageArtworkReveal(profile, edge, edge + 1), late);
+    assert.deepEqual(stageArtworkReveal(profile, 1200, 1200), late);
+  }
+  const neutral: StageTransitionProfile = { kind: "neutral", direction: "none", artworkMs: 0, wallMs: 0, wallOffsetPx: 0 };
+  assert.equal(stageArtworkReveal(neutral, 179.9, 220), undefined);
+  assert.deepEqual(stageArtworkReveal(neutral, 180, 220), late);
 });

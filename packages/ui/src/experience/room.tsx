@@ -21,7 +21,7 @@ import { experienceImageSource, experiencePrewarm } from "./media-prewarm";
 import { RoomBackdrop } from "./room-backdrop";
 import { roomParallaxInput } from "./room-parallax";
 import { artworkPlaceholderRgb } from "./artwork-placeholder";
-import { artworkRevealDuration, createStageMotionArrival, isLateNeutralReveal, LATE_NEUTRAL_REVEAL_MS, stageTransitionKeyframes, type StageTransitionProfile } from "./stage-transition";
+import { createStageMotionArrival, stageArtworkReveal, stageTransitionKeyframes, type StageTransitionProfile } from "./stage-transition";
 
 function isCurrentPreviewNode(image: HTMLImageElement, source: string) {
   return image.isConnected && image.currentSrc === new URL(source, image.baseURI).href;
@@ -164,17 +164,17 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   useLayoutEffect(() => {
     if (!motionAllowed) consumeArtworkArrival(transitionSeq, false);
     if (!decoded || !isCurrentPreviewNode(decoded.image, decoded.source) || !visible || document.visibilityState !== "visible" || lightboxExpanded) return;
-    const frames = stageTransitionKeyframes({ kind, direction, artworkMs, wallMs, wallOffsetPx });
-    const neutralLate = isLateNeutralReveal(kind, decoded.decodedAt - arrival.current.startedAt);
-    const keyframes = frames.artwork ?? (neutralLate ? [{ opacity: .35 }, { opacity: 1 }] : undefined);
-    const play = Boolean(motionAllowed && keyframes && typeof decoded.image.animate === "function");
+    const startedAt = arrival.current.startedAt;
+    const reveal = stageArtworkReveal({ kind, direction, artworkMs, wallMs, wallOffsetPx },
+      decoded.decodedAt - startedAt, performance.now() - startedAt);
+    const play = Boolean(motionAllowed && reveal && typeof decoded.image.animate === "function");
     setShownPreview(decoded);
-    if (!consumeArtworkArrival(transitionSeq, play) || !keyframes) {
+    if (!consumeArtworkArrival(transitionSeq, play) || !reveal) {
       setSettledPreview(decoded);
       return;
     }
-    const duration = neutralLate ? LATE_NEUTRAL_REVEAL_MS : artworkRevealDuration(artworkMs, performance.now() - arrival.current.startedAt);
-    const animation = decoded.image.animate(keyframes, { duration, easing: frames.easing ?? "ease-out", fill: "backwards" });
+    const { keyframes, duration, easing } = reveal;
+    const animation = decoded.image.animate(keyframes, { duration, easing, fill: "backwards" });
     void animation.finished.then(() => {
       if (currentSeq.current === transitionSeq) setSettledPreview(decoded);
     }, () => undefined);

@@ -65,10 +65,12 @@ export function createStageMotionArrival() {
   };
 }
 
-export function artworkRevealDuration(arrivalMs: number, elapsedMs: number): number {
-  const remaining = arrivalMs - elapsedMs;
-  return remaining >= 32 ? remaining : 180;
-}
+const LATE_REVEAL_MS = 180;
 
-export const LATE_NEUTRAL_REVEAL_MS = 180;
-export const isLateNeutralReveal = (kind: StageTransitionKind, elapsedMs: number) => kind === "neutral" && elapsedMs >= LATE_NEUTRAL_REVEAL_MS;
+export function stageArtworkReveal(profile: StageTransitionProfile, decodedElapsedMs: number, visibleElapsedMs: number) {
+  const remaining = profile.artworkMs - visibleElapsedMs;
+  const late = profile.kind === "neutral" ? decodedElapsedMs >= LATE_REVEAL_MS : remaining < 32;
+  if (late) return { keyframes: [{ opacity: .30 }, { opacity: 1 }], duration: LATE_REVEAL_MS, easing: "ease-out" };
+  const { artwork, easing } = stageTransitionKeyframes(profile);
+  return artwork ? { keyframes: artwork, duration: remaining, easing } : undefined;
+}
