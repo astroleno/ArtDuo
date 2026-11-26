@@ -5,7 +5,7 @@ import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, use
 
 import { AudioButton, useAmbientAudio } from "./audio-controller";
 import { Closing } from "./closing";
-import { resolveClosingNarrative } from "./closing-narrative";
+import { closingLookbackForExit, resolveClosingNarrative, restoreClosingLookback } from "./closing-narrative";
 import { Preface } from "./preface";
 import { Walk } from "./walk";
 import { createExperienceState, experienceReducer, positionOfExperienceState, type ExperienceEvent } from "./state";
@@ -77,9 +77,10 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const plannedLast = snapshot.units.find(unit => unit.artwork.id === viewing.session.order.at(-1)) ?? snapshot.units.at(-1);
   const isClosing = state.act === "closing";
   const lastUnit = isClosing ? stageForLast ?? plannedLast : plannedLast;
-  const ending = resolveClosingNarrative(baseSnapshot, lastUnit);
-  const closingIdentity = JSON.stringify([snapshot.exhibitionId, lastUnit?.artwork.id]);
-  const presentedClosing = useStableNarrative(ending.block, ending.pending, closingIdentity, isClosing);
+  const lookback = isClosing && viewing.hydrated ? restoreClosingLookback(snapshot, viewing.session, lastUnit) : undefined;
+  const ending = resolveClosingNarrative(baseSnapshot, lastUnit, lookback);
+  const closingIdentity = JSON.stringify([snapshot.exhibitionId, lastUnit?.artwork.id, lookback?.earlierId]);
+  const presentedClosing = useStableNarrative(ending.block, ending.pending, closingIdentity, isClosing && viewing.hydrated);
   const keepsake = useKeepsakeController(snapshot, lastUnit, handwritingProvider, {
     block: presentedClosing ?? ending.block,
     pending: isClosing ? !presentedClosing : ending.pending,
@@ -103,7 +104,9 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const [statusMessage, setStatusMessage] = useState("");
   const stateRef = useRef(state);
   const rawDispatch = useCallback((event: ExperienceEvent) => {
-    const next = experienceReducer(stateRef.current, event, snapshotRef.current);
+    const current = stateRef.current;
+    const next = experienceReducer(current, event, snapshotRef.current);
+    if (next.unitId !== current.unitId || next.transitionSeq !== current.transitionSeq) setReadyUnitId(undefined);
     stateRef.current = next;
     setState(next);
   }, []);
@@ -122,6 +125,11 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       snapshotRef.current = snapshotForSession(baseSnapshot, updated);
     }
     const next = experienceReducer(current, event, snapshotRef.current);
+    if (event.type === "NEXT" && current.act === "walk" && next.act === "closing" && anchorId && viewing.hydrated) {
+      viewing.commit(session => ({ ...session, closingLookback: closingLookbackForExit(snapshotRef.current, session, anchorId,
+        readyUnitId === current.unitId && !current.failedMediaIds.includes(anchorId)) }));
+    }
+    if (next.unitId !== current.unitId || next.transitionSeq !== current.transitionSeq) setReadyUnitId(undefined);
     if (isForward && next !== current) encounter.pass(anchorId);
     stateRef.current = next;
     // Browser Back also restores route props in this event. Publish a cancelled
@@ -129,7 +137,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     // work over the visible one after the overlay has closed.
     if (event.type === "LIGHTBOX_RESTORE" && next !== current) onPositionChange(positionOfExperienceState(next), snapshotRef.current);
     setState(next);
-  }, [baseSnapshot, viewing.commit, flushObservation, readingOpen, encounter.pass, onPositionChange, rawDispatch]);
+  }, [baseSnapshot, viewing.commit, viewing.hydrated, flushObservation, readyUnitId, readingOpen, encounter.pass, onPositionChange, rawDispatch]);
 
   const openSculptureEncounter = useCallback(() => {
     const current = stateRef.current;
@@ -345,6 +353,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       key={closingIdentity}
       lastUnit={lastUnit}
       closing={presentedClosing}
+      noScriptText={viewing.hydrated ? undefined : ending.block.text}
       onRestart={restart}
       onRevisit={() => dispatch({ type: "REVISIT" })}
       reducedMotion={reducedMotion}

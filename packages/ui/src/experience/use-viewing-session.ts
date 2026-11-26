@@ -32,7 +32,7 @@ export function useViewingSession(base: ExhibitionSnapshot) {
     setHydrated(true);
   }, [base.exhibitionId, base.routeOrder?.join(",")]);
   const clear = useCallback(() => {
-    const next = { ...ref.current, observations: [], revisions: [], pending: undefined, message: "观看记录已清除，当前作品与路线保持不变。" };
+    const next = { ...ref.current, observations: [], revisions: [], pending: undefined, closingLookback: undefined, message: "观看记录已清除，当前作品与路线保持不变。" };
     commit(next);
   }, [commit]);
   return { session, ref, commit, hydrated, storageAvailable, clear };

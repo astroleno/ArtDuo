@@ -30,6 +30,7 @@ export interface ViewingSession {
   observations: ViewerObservation[];
   revisions: RouteRevision[];
   pending?: { preference: ViewingPreference; anchorId: string };
+  closingLookback?: { earlierId: string; lastId: string; order: string[] };
   paceEnabled: boolean;
   message: string;
 }
@@ -143,7 +144,7 @@ export function applyPendingPreference(session: ViewingSession, snapshot: Exhibi
   if (order.every((id, index) => id === session.order[index])) return { ...session, pending: undefined, message: "保留当前顺序。" };
   const revision: RouteRevision = { id: (session.revisions.at(-1)?.id ?? 0) + 1, preference, anchorId,
     frozenThrough: session.frontier, before: session.order, after: order, reason: PREFERENCE_LABELS[preference] };
-  return { ...session, order, pending: undefined, revisions: [...session.revisions, revision].slice(-20), message: "剩余顺序已调整。" };
+  return { ...session, order, pending: undefined, closingLookback: undefined, revisions: [...session.revisions, revision].slice(-20), message: "剩余顺序已调整。" };
 }
 
 export function snapshotForSession(base: ExhibitionSnapshot, session: Pick<ViewingSession, "order">): ExhibitionSnapshot {

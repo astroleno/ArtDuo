@@ -9,7 +9,7 @@ import { recordedArtworkCreditLines } from "./artwork-credits";
 import { displaySourceCredit } from "./reading-copy";
 import { observeClosingImage, type ClosingImageState } from "./closing-image";
 
-export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, onRevisit, onRestart, keepsake }: {
+export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, onRevisit, onRestart, keepsake, noScriptText }: {
   closing: NarrativeBlock | null;
   omittedUnitCount: number;
   lastUnit?: ExperienceUnit;
@@ -17,6 +17,7 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
   onRevisit: () => void;
   onRestart: () => void;
   keepsake?: ReactNode;
+  noScriptText?: string;
 }) {
   const [shareState, setShareState] = useState<"idle" | "generating" | "ready" | "failed">("idle");
   const [copied, setCopied] = useState(false);
@@ -79,7 +80,12 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
     </figure> : null}
     <div className="experience-closing-copy">
     <p className="experience-eyebrow">本次观展结束</p>
-    {closing ? <h1 id="experience-closing-title">{closingText}</h1> : <p id="experience-closing-title" className="experience-narrative-pending" role="status">正在收拢这段观看。</p>}
+    {closing ? <h1 id="experience-closing-title">{closingText}</h1> : noScriptText
+      ? <div id="experience-closing-title">
+        <p className="experience-narrative-pending" role="status">正在收拢这段观看。</p>
+        <noscript><style>{`#experience-closing-title > .experience-narrative-pending { display: none; }`}</style><h1>{noScriptText}</h1></noscript>
+      </div>
+      : <p id="experience-closing-title" className="experience-narrative-pending" role="status">正在收拢这段观看。</p>}
     <p className="experience-closing-meta">可以回看，也可以把最后一件作品保存下来。</p>
     <div className="experience-closing-actions">
       <button onClick={onRevisit} type="button">回看最后一件</button>
