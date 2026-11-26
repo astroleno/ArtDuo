@@ -57,12 +57,13 @@ test("warm paint uses the remaining stage time, and late decode gets a complete 
   const late = { keyframes: [{ opacity: .30 }, { opacity: 1 }], duration: 180, easing: "ease-out" };
   for (const [kind, artworkMs, opacity] of [["continue", 128, .84], ["turn", 176, .72], ["settle", 208, .76]] as const) {
     const profile: StageTransitionProfile = { kind, direction: "forward", artworkMs, wallMs: 0, wallOffsetPx: 0 };
-    const edge = artworkMs - 32;
+    const edge = artworkMs - 64;
     const timely = stageArtworkReveal(profile, edge, edge);
-    assert.equal(timely?.duration, 32);
+    assert.equal(timely?.duration, 64);
     assert.equal(timely?.keyframes[0]?.opacity, opacity);
     assert.deepEqual(timely?.keyframes, stageTransitionKeyframes(profile).artwork);
-    assert.deepEqual(stageArtworkReveal(profile, edge, edge + 1), late);
+    assert.deepEqual(stageArtworkReveal(profile, artworkMs - 63, artworkMs - 63), late);
+    assert.deepEqual(stageArtworkReveal(profile, artworkMs - 38, artworkMs - 38), late);
     assert.deepEqual(stageArtworkReveal(profile, 1200, 1200), late);
   }
   const neutral: StageTransitionProfile = { kind: "neutral", direction: "none", artworkMs: 0, wallMs: 0, wallOffsetPx: 0 };

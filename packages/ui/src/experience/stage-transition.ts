@@ -69,7 +69,7 @@ const LATE_REVEAL_MS = 180;
 
 export function stageArtworkReveal(profile: StageTransitionProfile, decodedElapsedMs: number, visibleElapsedMs: number) {
   const remaining = profile.artworkMs - visibleElapsedMs;
-  const late = profile.kind === "neutral" ? decodedElapsedMs >= LATE_REVEAL_MS : remaining < 32;
+  const late = profile.kind === "neutral" ? decodedElapsedMs >= LATE_REVEAL_MS : remaining < 64;
   if (late) return { keyframes: [{ opacity: .30 }, { opacity: 1 }], duration: LATE_REVEAL_MS, easing: "ease-out" };
   const { artwork, easing } = stageTransitionKeyframes(profile);
   return artwork ? { keyframes: artwork, duration: remaining, easing } : undefined;
