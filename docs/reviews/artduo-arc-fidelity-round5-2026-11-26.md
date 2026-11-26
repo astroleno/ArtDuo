@@ -72,3 +72,13 @@
 从 `apps/web/lib/semantic-curator.ts` 导出现有 `OBSERVATION_SELECTION_VERSION`，在 `scripts/check-release-observation.ts` 引用同一常量（基线为 25）。检查仍须验证隔离目录、新建一次、非空、实际保存版本与内容校验和。缺件、身份不符、编码回退继续退出失败；既有 v24/v25 的历史断言保留其固定证据意义。复跑观察运行时测试和部署指南的 `pnpm release:check --local --expect-observation`，带上已冻结的 release、文件 SHA 和内容 checksum；记录实际版本、检索路径与退出状态。只演练本机，不执行线上部署。
 
 通用放宽条件、末画收束及真人盲看、减少动态慢因、实体手机和公网 P90 留待后续。
+
+## 五、实施验收
+
+**A 通过。** 基线和候选正式构建各 22 个样本。每版 10 个同图预热、受控中间延迟样本，基线从 .72 起步，持续 38.0–54.7ms，候选均从 .30 起步，持续 180ms。点击至首显中位数为 142.1→138.5ms，至 ready 为 158.2→157.5ms，至完全显示为 191.5→320.8ms。每版四个减少动态对照均无画作入场动画。另测隐藏、快退、重试等七个边界用例全部通过。证据位于 `.cache/artduo-arc-round5/{baseline-arrival,candidate-arrival,arrival-summary,candidate-edges}.json`。体验观感和真实网络仍需实测。
+
+**B 通过。** 本地正式构建 390px、1440px 各六个案例。蚀刻显示 58 幅中看 6 幅或 1 幅。静物显示 9 幅中看 6 幅，排除花卉后只说可看 3 幅。拒绝未知版材及肩上鹦鹉两种请求均无入口。十二个原空展的图像请求、预加载和横向溢出均为零。两次分别用键盘和鼠标主动确认，各自的 v25 保存展均经过等待标题、六幅画、结语，返回和刷新成功。旧前言会话缓存恢复时改用观众措辞，保留了原文“明亮拱门在右侧露出”。浏览器证据见 `.cache/artduo-arc-round5/copy-browser.json`。生成提示、补写、共享注脚与服务端旧缓存用确定性模拟流验证。前言、注脚、结语分别遵守 60、35、50 字上限。Web 和 UI 定向测试 13/13，通过正常请求与保存兼容检查。
+
+**C 通过。** 本机发布检查使用策展器实际版本常量，正确发布与索引摘要得到 `verified / observation / v25`。错误内容校验和在检索前返回 `content-checksum-mismatch` 并退出 1。证据位于 `.cache/artduo-arc-round5/{gate-pass,gate-fail}.log`。目标主机仍需现场验收。
+
+全仓测试 666/666、工作区类型检查与 Web 正式构建通过。
