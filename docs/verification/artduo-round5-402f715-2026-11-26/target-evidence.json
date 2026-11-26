@@ -91,12 +91,12 @@
   },
   "rollout": {
     "commit": "402f7158cbc5301246a6fd9edede305ea1cccc9a",
-    "base": "/opt/artduo/releases/20261119-open-gap-739",
-    "current": "/opt/artduo/releases/20261126-round5-402f715",
+    "base": "旧发布目录",
+    "current": "当前发布目录",
     "activeAt": "2026-11-26T14:14:42.100129+00:00",
     "buildId": "ezqOG8rji_-HCAQZ7cdHy",
     "backup": {
-      "path": "/var/backups/artduo/20261126-round5-402f715",
+      "path": "受限备份目录",
       "bytes": 422061281,
       "sha256": "266ac7fe665247f5f86f7fbaa0cf67379cc587d7101a4bdcfa3455626ffa08c8",
       "verifiedAt": "2026-11-26T14:14:34.611262+00:00"
@@ -168,7 +168,7 @@
     }
   },
   "cleanup": {
-    "current": "/opt/artduo/releases/20261126-round5-402f715",
+    "current": "当前发布目录",
     "candidateStopped": true,
     "candidateStateRemoved": true,
     "candidateEnvironmentRemoved": true,
