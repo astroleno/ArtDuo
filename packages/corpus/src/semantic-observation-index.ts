@@ -87,12 +87,14 @@ export function validateSemanticObservationIndex(value: unknown, input: Observat
 } {
   const { checksum, payload } = (value ?? {}) as Partial<ObservationFile>;
   if (!payload || !payload.model || !Array.isArray(payload.records)
-    || (!checksum || checksum !== semanticFingerprint(JSON.stringify(payload)))) throw new TypeError("Invalid observation index content");
+    || (!checksum || checksum !== semanticFingerprint(JSON.stringify(payload)))) throw new TypeError("Invalid observation index checksum or identity");
   if (payload.schemaVersion !== 1 || payload.textVersion !== SEMANTIC_OBSERVATION_TEXT_VERSION
-    || !sameSemanticSpace(payload.model, input.museumIndex.model)
-    || !payload.provenance || input.museumIndex.releaseVersion !== input.provenance.releaseVersion
+    || !sameSemanticSpace(payload.model, input.museumIndex.model)) {
+    throw new ObservationIndexIdentityError("Invalid observation index checksum or identity");
+  }
+  if (!payload.provenance || input.museumIndex.releaseVersion !== input.provenance.releaseVersion
     || (Object.keys(input.provenance) as (keyof SemanticObservationProvenance)[]).some(key => payload.provenance[key] !== input.provenance[key])) {
-    throw new ObservationIndexIdentityError("Observation index is from another model, release, or evidence version");
+    throw new ObservationIndexIdentityError("Observation index is from another release or evidence version");
   }
   const source = fingerprintRows(input.sources, input.museumIndex);
   if (source.length !== payload.records.length) throw new TypeError("Observation index coverage mismatch");
