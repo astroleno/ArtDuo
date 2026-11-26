@@ -21,6 +21,7 @@ const ball = unit("met-436927", "Masquerade Ball", "门洞深处，暖黄灯光�
 const red = unit("smk-KMS8654", "The Artist's Mother in the Red Room");
 const snapshot = {
   units: [opening, ball, red],
+  stages: [],
   closing: { text: "红室里的色调在这里收住。", source: "fallback" },
   narrativePending: true,
 } as ExhibitionSnapshot;
@@ -80,18 +81,23 @@ test("the earlier and actual last work earn a view-based closing, even across a 
   const vase = unit("met-436293", "Still life", "高脚花瓶插着浅色与紫色花朵。");
   const offer = { ...snapshot, exhibitionId: "offer", units: [flowers, ball, vase, red], routeOrder: [ball.artwork.id, flowers.artwork.id, red.artwork.id, vase.artwork.id] };
   const session = { ...createViewingSession(offer), observations: [
-    { artworkId: ball.artwork.id, viewingMs: 2000, readingMs: 0, zoomMs: 0, visits: 1, returns: 0, zooms: 0, completedVisits: 1 },
-    { artworkId: flowers.artwork.id, viewingMs: 1000, readingMs: 0, zoomMs: 0, visits: 2, returns: 1, zooms: 0, completedVisits: 1 },
+    { artworkId: ball.artwork.id, viewingMs: 4000, readingMs: 0, zoomMs: 0, visits: 1, returns: 0, zooms: 0, completedVisits: 1 },
+    { artworkId: flowers.artwork.id, viewingMs: 3000, readingMs: 0, zoomMs: 0, visits: 2, returns: 1, zooms: 0, completedVisits: 1 },
     { artworkId: vase.artwork.id, viewingMs: 200, readingMs: 9000, zoomMs: 9000, visits: 1, returns: 0, zooms: 2, completedVisits: 0 },
   ] };
   assert.equal(selectClosingLookback(offer, session, vase.artwork.id), undefined, "reading and zoom alone do not earn the close");
   assert.equal(restoreClosingLookback(offer, session, vase), undefined, "direct links cannot turn accrued times into a lookback");
-  const settled = settleViewingClock(session, { artworkId: vase.artwork.id, mode: "viewing", since: 200 }, 1000);
+  const clock = { artworkId: vase.artwork.id, mode: "viewing" as const, since: 200 };
+  assert.equal(selectClosingLookback(offer, settleViewingClock(session, clock, 2900), vase.artwork.id), undefined);
+  const settled = settleViewingClock(session, clock, 3000);
+  const earlierShort = { ...settled, observations: settled.observations.map(item => item.artworkId === flowers.artwork.id ? { ...item, viewingMs: 2900 } : item) };
+  assert.equal(selectClosingLookback(offer, earlierShort, vase.artwork.id), undefined);
+  assert.equal(selectClosingLookback(offer, settled, vase.artwork.id, () => false), undefined);
   const selected = selectClosingLookback(offer, settled, vase.artwork.id);
   assert.deepEqual(selected, { earlierId: flowers.artwork.id, lastId: vase.artwork.id, order: offer.routeOrder });
   const cache = restoreViewingSession(JSON.stringify({ ...settled, closingLookback: selected }), offer)!;
   const lookback = restoreClosingLookback(offer, cache, vase);
-  assert.equal(lookback?.block.text, "先前那幅，红色大花、蓝紫小花与黄色花朵插在小瓶中。最后这幅，高脚花瓶插着浅色与紫色花朵。");
+  assert.equal(lookback?.block.text, "从这幅到末幅，花朵再次入画。");
   assert.deepEqual(closingLookbackForExit(offer, cache, vase.artwork.id, false), selected, "a quick revisit retains the proven pair");
   assert.equal(closingLookbackForExit(offer, settled, vase.artwork.id, false), undefined, "an unready exit cannot establish a pair");
   assert.equal(resolveClosingNarrative(offer, vase, lookback).block, lookback?.block);
@@ -101,6 +107,22 @@ test("the earlier and actual last work earn a view-based closing, even across a 
   assert.equal(restoreClosingLookback(offer, cache, ball), undefined);
   assert.equal(restoreClosingLookback({ ...offer, units: [opening, ball, vase, red] }, cache, vase), undefined);
   const unrelated = selectClosingLookback(offer, { ...settled, observations: settled.observations.filter(item => item.artworkId !== flowers.artwork.id) }, vase.artwork.id);
-  assert.equal(unrelated?.earlierId, ball.artwork.id);
-  assert.match(restoreClosingLookback(offer, { ...settled, closingLookback: unrelated }, vase)?.block.text ?? "", /^先前那幅，门洞深处.+最后这幅，高脚花瓶/u);
+  assert.equal(unrelated, undefined);
+  const negated = { ...flowers, closingObservation: { text: "麦穗不能当作花朵。", source: "fallback" as const } };
+  assert.equal(selectClosingLookback({ ...offer, units: [negated, ball, vase, red] }, settled, vase.artwork.id), undefined);
+});
+
+test("only a significant planned contrast of the first and last stages can substitute for a visual link", () => {
+  const first = { ...ball, stageId: "first" }, last = { ...unit("last", "Last", "蓝色水面出现细密的波纹。"), stageId: "last" };
+  const stage = { id: "first", role: "threshold" as const, label: "", tension: .75, arousal: .5,
+    valence: .5, intimacy: .5, wonder: .5, intensity: .5, transitionIntent: "fade" as const };
+  const route = { ...snapshot, exhibitionId: "contrast", units: [first, last],
+    stages: [stage, { ...stage, id: "last", role: "afterglow" as const, tension: .5 }] };
+  const observed = { ...createViewingSession(route), observations: [first, last].map(({ artwork }) =>
+    ({ artworkId: artwork.id, viewingMs: 3000, readingMs: 0, zoomMs: 0, visits: 1, returns: 0, zooms: 0, completedVisits: 0 })) };
+  const picked = selectClosingLookback(route, observed, last.artwork.id);
+  const restored = restoreClosingLookback(route, { ...observed, closingLookback: picked }, last);
+  assert.equal(restored?.block.text, "这组画从紧凑的开场，走到舒缓的末段。");
+  assert.equal(selectClosingLookback({ ...route, stages: [stage, { ...route.stages[1]!, tension: .501 }] }, observed, last.artwork.id), undefined);
+  assert.equal(selectClosingLookback({ ...route, units: [{ ...first, stageId: "middle" }, last] }, observed, last.artwork.id), undefined);
 });

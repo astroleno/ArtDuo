@@ -22,7 +22,7 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
   onDetail: (artworkId: string) => void;
   detailNavigation?: DetailNavigation;
   onMediaRetry: (artworkId: string) => void;
-  onArtworkReady: (unitId: string) => void;
+  onArtworkReady: (unitId: string, preview: { image: HTMLImageElement; source: string }) => void;
   onSculptureInvitation?: () => void;
   reducedMotion: boolean;
   mouseMotion?: boolean;
@@ -73,10 +73,10 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
   }, [settingsOpen]);
   const arrival = useRef({ seq: state.transitionSeq, started: typeof performance === "undefined" ? 0 : performance.now() });
   if (arrival.current.seq !== state.transitionSeq) arrival.current = { seq: state.transitionSeq, started: performance.now() };
-  const artworkReady = useCallback((id: string, timing: { rafMs: number }) => {
+  const artworkReady = useCallback((id: string, timing: { rafMs: number; image: HTMLImageElement; source: string }) => {
     if (arrival.current.seq !== state.transitionSeq) return;
     setReadySeq(state.transitionSeq);
-    onArtworkReady(id);
+    onArtworkReady(id, timing);
     if (unit && id === unit.exhibition.unitId) window.dispatchEvent(new CustomEvent("artduo:artwork-ready", { detail: {
       artworkId: unit.artwork.id, durationMs: performance.now() - arrival.current.started, prewarmed: experiencePrewarm.ready(unit.media.previewUrl),
       seq: state.transitionSeq, rafMs: timing.rafMs,

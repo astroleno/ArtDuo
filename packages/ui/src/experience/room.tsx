@@ -50,7 +50,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
   onRetryMedia: () => void;
   onMediaFailed: () => void;
   onLightboxChange: (expanded: boolean) => void;
-  onArtworkReady: (unitId: string, timing: { rafMs: number }) => void;
+  onArtworkReady: (unitId: string, timing: { rafMs: number; image: HTMLImageElement; source: string }) => void;
   onRoomReady: (unitId: string) => void;
   mediaFailed: boolean;
   transitioning?: boolean;
@@ -202,7 +202,7 @@ export function Room({ unit, index, count, stage, stageLabel, entryHref = "/?vie
             && isCurrentPreviewNode(decoded.image, decoded.source) && (lightboxExpanded || Number(getComputedStyle(decoded.image).opacity) > 0)) {
             lastReady.current = decoded;
             setPaintedSeq(transitionSeq);
-            onArtworkReady(unit.exhibition.unitId, { rafMs: performance.now() - rafStartedAt });
+            onArtworkReady(unit.exhibition.unitId, { rafMs: performance.now() - rafStartedAt, image: decoded.image, source: decoded.source });
           }
         });
       });

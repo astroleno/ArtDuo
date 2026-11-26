@@ -409,8 +409,8 @@
 .experience-settings-panel :is(.experience-pending button, .experience-observation-notes .experience-text-button) { color: #745a37; }
 .experience-settings-panel :focus-visible { outline-color: #8f704e; }
 
-.experience-closing { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 460px); align-items: center; justify-content: center; gap: clamp(40px, 8vw, 120px); padding: 100px max(28px, 8vw); overflow-y: auto; text-align: left; background: #1c1e19; }
-.experience-closing-artwork { --closing-max-height: min(50dvh, 420px); width: min(100%, calc(var(--closing-max-height) * var(--closing-aspect, 1))); min-width: 0; margin: 0; }
+.experience-closing { --closing-max-height: min(50dvh, 420px); --closing-width-cap: 420px; --closing-image-width: min(var(--closing-width-cap), calc(var(--closing-max-height) * var(--closing-aspect, 1))); display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 460px); align-items: center; justify-content: center; gap: clamp(40px, 8vw, 120px); padding: 100px max(28px, 8vw); overflow-y: auto; text-align: left; background: #1c1e19; }
+.experience-closing-artwork { width: min(100%, var(--closing-image-width)); min-width: 0; margin: 0; }
 .experience-closing-image { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: var(--closing-aspect, 1); }
 .experience-closing-image[data-image-state="loading"] { background: rgba(211,213,194,.045); }
 .experience-closing-image[data-image-state="failed"] img { visibility: hidden; }
@@ -420,6 +420,15 @@
 .experience-closing-artwork figcaption { margin-top: 18px; max-width: 36em; color: #c4c5b8; font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
 .experience-closing-artwork figcaption span { display: block; margin-top: 6px; color: #999d8e; font-size: 12px; }
 .experience-closing-copy { min-width: 0; }
+.experience-closing-lookback { display: inline-flex; align-items: center; gap: 14px; max-width: 100%; padding: 0; margin: 20px 0 6px; text-align: left; color: #ded4c4; background: transparent; border: 0; cursor: zoom-in; animation: experience-lookback-in 240ms ease-out 600ms both; }
+.experience-closing-lookback img { display: block; flex-shrink: 0; width: calc(var(--closing-image-width) * .25); max-height: calc(var(--closing-max-height) * .25); object-fit: contain; }
+.experience-closing-lookback span { min-width: 0; overflow-wrap: anywhere; line-height: 1.5; font-size: .875rem; }
+.experience-closing-lookback-dialog { max-width: min(900px, calc(100vw - 36px)); max-height: calc(100dvh - 36px); padding: 18px; border: 1px solid #6a6657; color: #eee7dc; background: #20221e; }
+.experience-closing-lookback-dialog::backdrop { background: #0b0c0be0; }
+.experience-closing-lookback-dialog img { display: block; max-width: 100%; max-height: 70dvh; margin: 12px auto; object-fit: contain; }
+.experience-closing-lookback-dialog button { min-height: 44px; }
+@keyframes experience-lookback-in { from { opacity: 0; visibility: hidden; } 1% { visibility: visible; } to { opacity: 1; visibility: visible; } }
+@media (prefers-reduced-motion: reduce) { .experience-closing-lookback { animation: none; } }
 .experience-closing-route { margin: 18px 0; }
 .experience-closing-route summary { display: inline-flex; min-height: 44px; align-items: center; gap: 18px; color: #b8bcae; font-size: 12px; cursor: pointer; list-style: none; }
 .experience-closing-route summary::after { content: "+"; }
@@ -524,8 +533,8 @@
   .experience-entry-header { top: max(14px, env(safe-area-inset-top)); font-size: 21px; }
   .experience-entry-theme { top: max(14px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); }
   .experience-intent-form input:not([type="hidden"]) { font-size: 16px; }
-  .experience-closing { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 90px 24px 48px; }
-  .experience-closing-artwork { --closing-max-height: 32dvh; justify-self: center; }
+  .experience-closing { --closing-max-height: 32dvh; --closing-width-cap: calc(100vw - 48px); grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 90px 24px 48px; }
+  .experience-closing-artwork { justify-self: center; }
   .experience-closing-curve { margin-bottom: 20px; }
   .experience-closing-curve svg { height: 110px; }
   .experience-closing h1 { font-size: 1.3rem; line-height: 1.85; }

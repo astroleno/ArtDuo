@@ -5,7 +5,8 @@ import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, use
 
 import { AudioButton, useAmbientAudio } from "./audio-controller";
 import { Closing } from "./closing";
-import { closingLookbackForExit, resolveClosingNarrative, restoreClosingLookback } from "./closing-narrative";
+import { closingLookbackForExit, resolveClosingNarrative, restoreClosingLookback, viewedForLookback } from "./closing-narrative";
+import { captureClosingPreview, readClosingPreview, saveClosingPreview, type ClosingPreview } from "./closing-preview";
 import { Preface } from "./preface";
 import { Walk } from "./walk";
 import { createExperienceState, experienceReducer, positionOfExperienceState, type ExperienceEvent } from "./state";
@@ -78,10 +79,24 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const plannedLast = snapshot.units.find(unit => unit.artwork.id === viewing.session.order.at(-1)) ?? snapshot.units.at(-1);
   const isClosing = state.act === "closing";
   const lastUnit = isClosing ? stageForLast ?? plannedLast : plannedLast;
-  const lookback = isClosing && viewing.hydrated ? restoreClosingLookback(snapshot, viewing.session, lastUnit) : undefined;
+  const [closingMedia, setClosingMedia] = useState<{ exhibitionId: string; preview?: ClosingPreview }>();
+  useEffect(() => {
+    if (!isClosing || closingMedia?.exhibitionId === snapshot.exhibitionId) return;
+    let current = true;
+    void readClosingPreview(snapshot.exhibitionId).then(preview => {
+      if (current) setClosingMedia({ exhibitionId: snapshot.exhibitionId, preview });
+    });
+    return () => { current = false; };
+  }, [closingMedia?.exhibitionId, isClosing, snapshot.exhibitionId]);
+  const association = isClosing && viewing.hydrated ? restoreClosingLookback(snapshot, viewing.session, lastUnit) : undefined;
+  const earlier = snapshot.units.find(unit => unit.artwork.id === association?.earlierId);
+  const preview = closingMedia?.preview;
+  const lookback = earlier && preview?.exhibitionId === snapshot.exhibitionId && preview.artworkId === earlier.artwork.id
+    && preview.previewUrl === earlier.media.previewUrl ? association : undefined;
   const ending = resolveClosingNarrative(baseSnapshot, lastUnit, lookback);
   const closingIdentity = JSON.stringify([snapshot.exhibitionId, lastUnit?.artwork.id, lookback?.earlierId]);
-  const presentedClosing = useStableNarrative(ending.block, ending.pending, closingIdentity, isClosing && viewing.hydrated);
+  const presentedClosing = useStableNarrative(ending.block, ending.pending, closingIdentity,
+    isClosing && viewing.hydrated && closingMedia?.exhibitionId === snapshot.exhibitionId);
   const keepsake = useKeepsakeController(snapshot, lastUnit, handwritingProvider, {
     block: presentedClosing ?? ending.block,
     pending: isClosing ? !presentedClosing : ending.pending,
@@ -91,7 +106,10 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const sculptureInvitation = state.act === "walk" && state.overlay === "none" && !state.transitioning && !readingOpen && !viewing.session.pending
     && canOfferSculptureEncounter(snapshot, encounter.value, sculptureWorks, currentArtworkId);
   const chromeVisible = useIdleChrome(state.act === "walk", readingOpen || state.overlay !== "none" || state.transitioning || !state.online || state.failedMediaIds.length > 0 || state.audioState === "loading");
-  const [readyUnitId, setReadyUnitId] = useState<string>();
+  const [arrival, setArrival] = useState<{ unitId: string; seq: number }>();
+  const readyUnitId = arrival?.seq === state.transitionSeq ? arrival.unitId : undefined;
+  const readyImage = useRef<{ unitId: string; seq: number; image: HTMLImageElement; source: string } | undefined>(undefined);
+  const captured = useRef(new Map<string, ClosingPreview>());
   const activeUnit = snapshot.units.find((unit) => unit.exhibition.unitId === (state.unitId ?? state.lastUnitId)) ?? snapshot.units[0];
   const activeMood = roomLightMood(snapshot.stages.find((stage) => stage.id === activeUnit?.stageId));
   const audio = useAmbientAudio(readingOpen || state.overlay === "plaque", activeMood.audioGain, snapshot.audioTracks, isClosing);
@@ -108,7 +126,6 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     const current = stateRef.current;
     const next = experienceReducer(current, event, snapshotRef.current);
     if (event.type === "RESTORE_POSITION") audio.navigate(false);
-    if (next.unitId !== current.unitId || next.transitionSeq !== current.transitionSeq) setReadyUnitId(undefined);
     stateRef.current = next;
     setState(next);
   }, [audio.navigate]);
@@ -127,6 +144,21 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       snapshotRef.current = snapshotForSession(baseSnapshot, updated);
     }
     const next = experienceReducer(current, event, snapshotRef.current);
+    const proof = readyImage.current;
+    if (current.act === "walk" && next.act === "walk" && next.unitId !== current.unitId
+      && proof && proof.unitId === current.unitId && proof.seq === current.transitionSeq) {
+      const route = snapshotRef.current;
+      const unit = route.units.find(item => item.exhibition.unitId === proof.unitId);
+      if (unit?.closingObservation && !captured.current.has(unit.artwork.id) && !current.failedMediaIds.includes(unit.artwork.id)
+        && viewedForLookback(viewing.ref.current, unit.artwork.id)
+        && proof.image.currentSrc === new URL(proof.source, location.href).href) {
+        const data = captureClosingPreview(proof.image);
+        if (data) {
+          captured.current.set(unit.artwork.id, { exhibitionId: route.exhibitionId, artworkId: unit.artwork.id, previewUrl: unit.media.previewUrl, data });
+          if (captured.current.size > 12) captured.current.delete(captured.current.keys().next().value!);
+        }
+      }
+    }
     if (next.unitId !== current.unitId && current.act === "walk" && next.act === "walk") {
       const route = snapshotRef.current;
       const fromIndex = route.units.findIndex(unit => unit.exhibition.unitId === current.unitId);
@@ -138,10 +170,19 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       audio.navigate(event.type === "NEXT" && !reducedMotion && profile.kind === "turn");
     }
     if (event.type === "NEXT" && current.act === "walk" && next.act === "closing" && anchorId && viewing.hydrated) {
-      viewing.commit(session => ({ ...session, closingLookback: closingLookbackForExit(snapshotRef.current, session, anchorId,
-        readyUnitId === current.unitId && !current.failedMediaIds.includes(anchorId)) }));
+      const route = snapshotRef.current;
+      const available = (id: string) => {
+        const image = captured.current.get(id) ?? closingMedia?.preview;
+        return image?.artworkId === id && image.exhibitionId === route.exhibitionId
+          && image.previewUrl === route.units.find(unit => unit.artwork.id === id)?.media.previewUrl ? image : undefined;
+      };
+      const closingLookback = closingLookbackForExit(route, viewing.ref.current, anchorId,
+        readyUnitId === current.unitId && !current.failedMediaIds.includes(anchorId), id => Boolean(available(id)));
+      const selected = closingLookback && available(closingLookback.earlierId);
+      viewing.commit(session => ({ ...session, closingLookback }));
+      setClosingMedia({ exhibitionId: route.exhibitionId, preview: selected });
+      saveClosingPreview(selected);
     }
-    if (next.unitId !== current.unitId || next.transitionSeq !== current.transitionSeq) setReadyUnitId(undefined);
     if (isForward && next !== current) encounter.pass(anchorId);
     stateRef.current = next;
     // Browser Back also restores route props in this event. Publish a cancelled
@@ -149,7 +190,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     // work over the visible one after the overlay has closed.
     if (event.type === "LIGHTBOX_RESTORE" && next !== current) onPositionChange(positionOfExperienceState(next), snapshotRef.current);
     setState(next);
-  }, [audio.navigate, baseSnapshot, viewing.commit, viewing.hydrated, flushObservation, readyUnitId, readingOpen, reducedMotion, encounter.pass, onPositionChange, rawDispatch]);
+  }, [audio.navigate, baseSnapshot, closingMedia?.preview, viewing.commit, viewing.hydrated, viewing.ref, flushObservation, readyUnitId, readingOpen, reducedMotion, encounter.pass, onPositionChange, rawDispatch]);
 
   const openSculptureEncounter = useCallback(() => {
     const current = stateRef.current;
@@ -171,7 +212,6 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     const next = current.act === "walk" ? sculptureEncounterSuccessor(snapshotRef.current, active, anchorId) : undefined;
     encounter.finish();
     setReadingOpen(false);
-    setReadyUnitId(undefined);
     if (next) {
       focusAfterEncounter.current = next.exhibition.unitId;
       rawDispatch({ type: "SELECT_UNIT", unitId: next.exhibition.unitId });
@@ -188,9 +228,13 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     if (encounter.value?.status === "active" && !encounterActive) encounter.finish();
   }, [encounter.value?.status, encounterActive, encounter.finish]);
 
-  const onArtworkReady = useCallback((unitId: string) => {
+  const onArtworkReady = useCallback((unitId: string, preview: { image: HTMLImageElement; source: string }) => {
     const current = stateRef.current;
-    if (current.act === "walk" && current.unitId === unitId) setReadyUnitId(unitId);
+    if (current.act === "walk" && current.unitId === unitId) {
+      const proof = { unitId, seq: current.transitionSeq };
+      readyImage.current = { ...proof, ...preview };
+      setArrival(proof);
+    }
     if (current.act !== "walk" || current.unitId !== unitId || current.overlay === "lightbox" || firstWalkMarkedRef.current || !onMilestone) return;
     firstWalkMarkedRef.current = true;
     onMilestone("first-artwork-visible");
@@ -342,7 +386,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       dispatch={dispatch}
       onDetail={(artworkId) => { flushObservation(); onDetail(artworkId, positionOfExperienceState(state), snapshot); }}
       detailNavigation={detailNavigation}
-      onMediaRetry={(artworkId) => { setReadyUnitId(undefined); rawDispatch({ type: "MEDIA_RETRIED", artworkId }); }}
+      onMediaRetry={(artworkId) => { setArrival(undefined); readyImage.current = undefined; rawDispatch({ type: "MEDIA_RETRIED", artworkId }); }}
       onArtworkReady={onArtworkReady}
       reducedMotion={reducedMotion}
       mouseMotion={interaction.mouseMotion}
@@ -355,7 +399,8 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       onCancelPreference={() => viewing.commit((session) => ({ ...session, pending: undefined, message: "待应用的调整已取消。" }))}
       onReadingChange={setReadingOpen}
       onTogglePace={() => viewing.commit((session) => ({ ...session, paceEnabled: !session.paceEnabled }))}
-      onClearObservations={() => { flushObservation(); viewing.clear(); }}
+      onClearObservations={() => { flushObservation(); viewing.clear(); captured.current.clear(); saveClosingPreview(undefined);
+        setClosingMedia({ exhibitionId: snapshot.exhibitionId }); }}
       storageAvailable={viewing.storageAvailable}
       pace={pace}
     /> : null}
@@ -364,6 +409,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       lastUnit={lastUnit}
       closing={presentedClosing}
       noScriptText={viewing.hydrated ? undefined : ending.block.text}
+      lookback={lookback && earlier && preview ? { title: earlier.artwork.metadata.title, src: preview.data } : undefined}
       onRestart={restart}
       onRevisit={() => dispatch({ type: "REVISIT" })}
       reducedMotion={reducedMotion}

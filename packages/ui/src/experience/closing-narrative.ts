@@ -1,35 +1,52 @@
 import type { ExhibitionSnapshot, ExperienceUnit } from "./types";
 import type { ViewingSession } from "./viewing-session";
 
-const MINIMUM_VIEWING_MS = 1000;
-const SHARED_DETAILS = ["花朵", "花瓶", "帆船", "窗框", "拱门", "屋顶", "树干", "倒影"] as const;
+const MINIMUM_VIEWING_MS = 3000;
+const DETAILS = [
+  { labels: ["花朵", "花瓶", "绿叶", "树干", "芦苇", "柳枝", "麦穗"], line: (detail: string) => "从这幅到末幅，" + detail + "再次入画。" },
+  { labels: ["窗框", "拱门", "屋顶", "石桥", "木门", "柱廊", "楼梯"], line: (detail: string) => detail + "贯穿两幅画，可以回看它在各自画中的位置。" },
+  { labels: ["帆船", "倒影", "小舟", "马车", "条纹", "衣褶", "果篮", "烛光"], line: (detail: string) => "这幅的" + detail + "，在末幅中也有呼应。" },
+] as const;
+const CONTRAST = {
+  tension: ["舒缓", "紧凑"], arousal: ["安静", "活跃"], valence: ["低沉", "明朗"],
+  wonder: ["平实", "富于惊奇"], intimacy: ["疏朗", "亲近"],
+} as const;
 
 function observation(unit: ExperienceUnit | undefined) {
   const text = unit?.closingObservation?.text.trim();
   if (!text || Array.from(text).length > 36 || !/^[^。！？]+。$/u.test(text)
-    || /未见|没有|看不|可能|疑似|不确定|难以|无法|似乎/u.test(text)) return undefined;
+    || /未见|未画|无明显|没有|看不|可能|疑似|难以|无法|似乎|不(?:是|属|能|可|应|要|像|存在|足|清|见|辨|似|确定)|并非/u.test(text)) return undefined;
   return text;
 }
 
-function pairText(earlier: ExperienceUnit | undefined, last: ExperienceUnit | undefined) {
+function pairText(snapshot: ExhibitionSnapshot, earlier: ExperienceUnit | undefined, last: ExperienceUnit | undefined) {
   const before = observation(earlier), after = observation(last);
-  if (!before || !after || before === after) return undefined;
-  const shared = SHARED_DETAILS.find(detail => before.includes(detail) && after.includes(detail));
-  const text = "先前那幅，" + before + "最后这幅，" + after;
-  return Array.from(text).length <= 60 ? { text, shared } : undefined;
+  if (!before || !after) return undefined;
+  for (const group of DETAILS) {
+    const shared = group.labels.find(detail => before.includes(detail) && after.includes(detail));
+    if (shared) return { text: group.line(shared), shared };
+  }
+  const start = snapshot.stages[0], end = snapshot.stages.at(-1);
+  if (!start || !end || start.id === end.id || earlier?.stageId !== start.id || last?.stageId !== end.id) return undefined;
+  const axes = Object.keys(CONTRAST) as Array<keyof typeof CONTRAST>;
+  const axis = axes.reduce((strongest, name) => Math.abs(end[name] - start[name]) > Math.abs(end[strongest] - start[strongest]) ? name : strongest);
+  const change = end[axis] - start[axis];
+  if (!Number.isFinite(change) || Math.abs(change) + Number.EPSILON < .25) return undefined;
+  const [low, high] = CONTRAST[axis];
+  return { text: "这组画从" + (change > 0 ? low : high) + "的开场，走到" + (change > 0 ? high : low) + "的末段。" };
 }
 
-function viewed(session: ViewingSession, id: string) {
+export function viewedForLookback(session: ViewingSession, id: string) {
   return session.observations.some(item => item.artworkId === id && item.viewingMs >= MINIMUM_VIEWING_MS);
 }
 
-export function selectClosingLookback(snapshot: ExhibitionSnapshot, session: ViewingSession, lastId: string): ViewingSession["closingLookback"] {
+export function selectClosingLookback(snapshot: ExhibitionSnapshot, session: ViewingSession, lastId: string, hasPreview = (_id: string) => true): ViewingSession["closingLookback"] {
   if (snapshot.exhibitionId !== session.exhibitionId || session.order.length < 2
-    || session.order.at(-1) !== lastId || !viewed(session, lastId)) return undefined;
+    || session.order.at(-1) !== lastId || !viewedForLookback(session, lastId)) return undefined;
   const last = snapshot.units.find(unit => unit.artwork.id === lastId);
   const candidates = session.order.slice(0, -1).flatMap(id => {
-    if (!viewed(session, id)) return [];
-    const pair = pairText(snapshot.units.find(unit => unit.artwork.id === id), last);
+    if (!viewedForLookback(session, id) || !hasPreview(id)) return [];
+    const pair = pairText(snapshot, snapshot.units.find(unit => unit.artwork.id === id), last);
     return pair ? [{ id, shared: pair.shared }] : [];
   });
   const earlier = candidates.find(candidate => candidate.shared) ?? candidates[0];
@@ -42,15 +59,16 @@ export function restoreClosingLookback(snapshot: ExhibitionSnapshot, session: Vi
     || session.order.at(-1) !== saved.lastId || !Array.isArray(saved.order)
     || saved.order.length !== session.order.length || saved.order.some((id, index) => id !== session.order[index])
     || !session.order.slice(0, -1).includes(saved.earlierId)
-    || !viewed(session, saved.earlierId) || !viewed(session, saved.lastId)) return undefined;
-  const pair = pairText(snapshot.units.find(unit => unit.artwork.id === saved.earlierId), last);
+    || !viewedForLookback(session, saved.earlierId) || !viewedForLookback(session, saved.lastId)) return undefined;
+  const pair = pairText(snapshot, snapshot.units.find(unit => unit.artwork.id === saved.earlierId), last);
   return pair ? { earlierId: saved.earlierId, block: { text: pair.text, source: "grounded" as const } } : undefined;
 }
 
-export function closingLookbackForExit(snapshot: ExhibitionSnapshot, session: ViewingSession, lastId: string, ready: boolean) {
+export function closingLookbackForExit(snapshot: ExhibitionSnapshot, session: ViewingSession, lastId: string, ready: boolean, hasPreview = (_id: string) => true) {
   const last = snapshot.units.find(unit => unit.artwork.id === lastId);
-  if (restoreClosingLookback(snapshot, session, last)) return session.closingLookback;
-  return ready ? selectClosingLookback(snapshot, session, lastId) : undefined;
+  const existing = restoreClosingLookback(snapshot, session, last);
+  if (existing && hasPreview(existing.earlierId)) return session.closingLookback;
+  return ready ? selectClosingLookback(snapshot, session, lastId, hasPreview) : undefined;
 }
 
 export function resolveClosingNarrative(base: ExhibitionSnapshot, lastUnit: ExperienceUnit | undefined,

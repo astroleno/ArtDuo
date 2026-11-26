@@ -9,7 +9,7 @@ import { recordedArtworkCreditLines } from "./artwork-credits";
 import { displaySourceCredit } from "./reading-copy";
 import { observeClosingImage, type ClosingImageState } from "./closing-image";
 
-export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, onRevisit, onRestart, keepsake, noScriptText }: {
+export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, onRevisit, onRestart, keepsake, noScriptText, lookback }: {
   closing: NarrativeBlock | null;
   omittedUnitCount: number;
   lastUnit?: ExperienceUnit;
@@ -18,9 +18,17 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
   onRestart: () => void;
   keepsake?: ReactNode;
   noScriptText?: string;
+  lookback?: { title: string; src: string };
 }) {
   const [shareState, setShareState] = useState<"idle" | "generating" | "ready" | "failed">("idle");
   const [copied, setCopied] = useState(false);
+  const [enlarged, setEnlarged] = useState(false);
+  const lookbackButton = useRef<HTMLButtonElement>(null);
+  const lookbackDialog = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    const dialog = lookbackDialog.current;
+    if (enlarged && dialog && !dialog.open) dialog.showModal();
+  }, [enlarged]);
   const current = useRef(true);
   useEffect(() => { current.current = true; return () => { current.current = false; }; }, []);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -67,8 +75,8 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
       setShareState("failed");
     }
   }
-  return <section className="experience-closing" aria-labelledby="experience-closing-title">
-    {lastUnit ? <figure className="experience-closing-artwork" style={imageRatio ? { "--closing-aspect": imageRatio } as CSSProperties : undefined}>
+  return <section className="experience-closing" aria-labelledby="experience-closing-title" style={imageRatio ? { "--closing-aspect": imageRatio } as CSSProperties : undefined}>
+    {lastUnit ? <figure className="experience-closing-artwork">
       <div className="experience-closing-image" data-image-state={imageState}>
         {previewUrl ? <img ref={imageRef} alt={lastUnit.artwork.metadata.title} src={previewUrl} /> : null}
         {imageState === "failed" ? <p role="status">作品图片暂时无法显示</p> : null}
@@ -86,6 +94,19 @@ export function Closing({ closing, omittedUnitCount, lastUnit, reducedMotion, on
         <noscript><style>{`#experience-closing-title > .experience-narrative-pending { display: none; }`}</style><h1>{noScriptText}</h1></noscript>
       </div>
       : <p id="experience-closing-title" className="experience-narrative-pending" role="status">正在收拢这段观看。</p>}
+    {closing && lookback ? <>
+      <button type="button" className="experience-closing-lookback" aria-haspopup="dialog" ref={lookbackButton}
+        onClick={() => setEnlarged(true)}>
+        <img src={lookback.src} alt="" />
+        <span>{lookback.title}</span>
+      </button>
+      {enlarged ? <dialog ref={lookbackDialog} className="experience-closing-lookback-dialog" aria-labelledby="experience-lookback-title"
+        onClose={() => { setEnlarged(false); lookbackButton.current?.focus({ preventScroll: true }); }}>
+        <button type="button" autoFocus onClick={() => lookbackDialog.current?.close()}>关闭放大图</button>
+        <img src={lookback.src} alt="" />
+        <p id="experience-lookback-title">{lookback.title}</p>
+      </dialog> : null}
+    </> : null}
     <p className="experience-closing-meta">可以回看，也可以把最后一件作品保存下来。</p>
     <div className="experience-closing-actions">
       <button onClick={onRevisit} type="button">回看最后一件</button>
