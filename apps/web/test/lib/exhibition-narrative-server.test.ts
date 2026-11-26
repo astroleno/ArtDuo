@@ -3,9 +3,11 @@ import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSyn
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
-import { CURATION_RECIPE_VERSION } from "@artduo/contracts";
+import { CURATION_RECIPE_VERSION, NARRATIVE_TEXT_LIMITS } from "@artduo/contracts";
 import { fallbackExhibitionNarrative } from "../../../api/src/services/curation/exhibition-narrative";
-import { curationDirectory, type CuratedExhibition } from "../../lib/semantic-curator";
+import { curationDirectory, readSavedCuration, type CuratedExhibition, type CurationRecord } from "../../lib/semantic-curator";
+import { semanticFingerprint } from "@artduo/corpus/src/semantic-index";
+import { buildExperienceSnapshot } from "../../lib/experience-adapter";
 import { curationNarrativeView, exhibitionNarrativeInput, getExhibitionNarrative, readNarrativePieces } from "../../lib/exhibition-narrative-server";
 import { loadWebReleaseCatalog } from "../../lib/release-catalog";
 import { fallbackCurationIntent, materializeCurationSelection, selectForCurationStages } from "../../lib/semantic-selection";
@@ -15,6 +17,98 @@ const bedroomGuide = () => [
   { kind: "note", artworkId: "artic-28560", text: "蓝色卧室里，木床与两把椅子相邻。", evidenceIds: ["artic-28560"] },
   { kind: "closing", text: "回到床与椅子围出的近处空间。", evidenceIds: ["artic-28560"] },
 ];
+
+test("a saved opt-in etching guide changes audience wording in both prompts and all delivered pieces", async () => {
+  const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-etching-guide-"));
+  try {
+    const source = loadWebReleaseCatalog({ releaseVersion: "2026-11-19-open-gap-739" });
+    const catalog = { ...source, releaseDir: path.join(temporary, "data/releases/2026-11-19-open-gap-739") };
+    const query = "我想看六幅版材未注明的蚀刻";
+    const publicWording = "馆方没有注明印版材质的蚀刻版画";
+    const compactWording = "印版未注明的蚀刻";
+    const internalWording = "版材未注明的蚀刻";
+    const plan = fallbackCurationIntent(catalog, query);
+    plan.desiredExperience = `比较${internalWording}`;
+    plan.stages[0] = { ...plan.stages[0]!, query: `${internalWording}的线条`, signals: [internalWording] };
+    const selection = selectForCurationStages({ catalog, query, plan });
+    assert.equal(selection.assignments.length, 6);
+    const record: CurationRecord = { schemaVersion: 1, recipeVersion: CURATION_RECIPE_VERSION, releaseVersion: catalog.releaseVersion,
+      query, plan, assignments: selection.assignments, retrievalModel: selection.search.model, dimensions: selection.search.dimensions,
+      selectionVersion: 24, unrecordedPlatePolicy: true, intentModel: "fixture",
+      indexChecksum: catalog.manifest.shards.semanticEmbeddings?.[0]?.checksum ?? "hash-only", degraded: [] };
+    const id = semanticFingerprint(JSON.stringify(record)), state = curationDirectory(temporary);
+    mkdirSync(state, { recursive: true });
+    const recordPath = path.join(state, `${id}.json`);
+    writeFileSync(recordPath, JSON.stringify(record));
+    const saved = readSavedCuration(catalog, id, query, temporary);
+    assert.equal(exhibitionNarrativeInput(catalog, saved).query, query);
+    assert.deepEqual(saved.record.assignments, record.assignments);
+    const view = curationNarrativeView(catalog, saved);
+    const snapshotInputs = { query, catalog, search: saved.search, narrative: view.narrative, route: [], curationId: id,
+      selectionVersion: record.selectionVersion, narrativePieces: view.pieces, closingObservations: view.closingObservations };
+    const snapshot = buildExperienceSnapshot({ ...snapshotInputs, unrecordedPlatePolicy: saved.record.unrecordedPlatePolicy });
+    assert.equal(snapshot.query, query);
+    assert.equal(snapshot.presentationQuery, `我想看六幅${publicWording}`);
+    assert.equal(snapshot.exhibitionId, buildExperienceSnapshot(snapshotInputs).exhibitionId);
+    assert.equal(buildExperienceSnapshot(snapshotInputs).presentationQuery, undefined);
+    const visibleQuery = `我想看６幅${internalWording}，不要有人`;
+    const snapshotWithOriginal = buildExperienceSnapshot({ ...snapshotInputs, query: visibleQuery, unrecordedPlatePolicy: true });
+    assert.equal(snapshotWithOriginal.query, visibleQuery);
+    assert.equal(snapshotWithOriginal.presentationQuery, `我想看６幅${publicWording}，不要有人`);
+    assert.equal(snapshotWithOriginal.exhibitionId, snapshot.exhibitionId);
+    assert.deepEqual(snapshot.units.map(unit => unit.artwork.id), record.assignments.map(item => item.artworkId));
+    const ids = saved.assignments.map(item => item.artworkId);
+    const outputs = [{ kind: "preface" as const, text: `从${internalWording}里看线条。`, evidenceIds: [ids[0]] },
+      ...ids.map(artworkId => ({ kind: "note" as const, artworkId, text: `细看${internalWording}。`, evidenceIds: [artworkId] })),
+      { kind: "closing" as const, text: `回到${internalWording}的线条。`, evidenceIds: [ids.at(-1)] }];
+    const atLimit = new Set([0, 2, outputs.length - 1]);
+    for (const index of atLimit) {
+      const output = outputs[index]!;
+      output.text = output.text.replace("。", "，" + "墨".repeat(NARRATIVE_TEXT_LIMITS[output.kind] - Array.from(output.text).length - 1) + "。");
+    }
+    const intendedTexts = outputs.map((output, index) => output.text.replace(internalWording, atLimit.has(index) ? compactWording : publicWording));
+    const prompts: string[] = [];
+    let now = Date.now();
+    const first = getExhibitionNarrative(catalog, saved, { now: () => now, stream: async function* (messages) {
+      prompts.push(messages[1]!.content);
+      const invalid = { ...outputs[1], text: "你已经痊愈了。 " };
+      yield [outputs[0], invalid, ...outputs.slice(2)].map(output => JSON.stringify(output)).join("\n");
+    } });
+    await first.complete;
+    assert.equal(first.pieces[1]!.source, "fallback");
+    assert.equal(first.pieces.filter(piece => piece.source === "grounded").length, 7);
+    now += 60_001;
+    const repair = getExhibitionNarrative(catalog, saved, { now: () => now, stream: async function* (messages) {
+      prompts.push(messages[1]!.content);
+      yield JSON.stringify(outputs[1]);
+    } });
+    await repair.complete;
+    assert.equal(prompts.length, 2);
+    for (const prompt of prompts) {
+      assert.ok(prompt.includes(`user_request="我想看六幅${publicWording}"`));
+      assert.ok(prompt.includes(`"desiredExperience":"比较${publicWording}"`));
+      assert.ok(prompt.includes(`${publicWording}的线条`));
+      assert.doesNotMatch(prompt, /版材未注明的蚀刻/u);
+      assert.ok(ids.every(artworkId => prompt.includes(artworkId)));
+    }
+    assert.match(prompts[1]!, /prior_rejections=/u);
+    assert.deepEqual(repair.pieces.map(piece => piece.evidenceIds), outputs.map(piece => piece.evidenceIds));
+    assert.ok(repair.pieces.every(piece => piece.source === "grounded" && Array.from(piece.text).length <= NARRATIVE_TEXT_LIMITS[piece.kind]));
+    assert.deepEqual(repair.pieces.map(piece => piece.text), intendedTexts);
+    const cachePath = path.join(state, readdirSync(state).find(name => name.includes(".narrative-v5-"))!);
+    const cleanCache = readFileSync(cachePath, "utf8");
+    for (const old of [false, true]) {
+      if (old) writeFileSync(cachePath, cleanCache.replaceAll(publicWording, internalWording).replaceAll(compactWording, internalWording));
+      const cached = getExhibitionNarrative(catalog, saved, { stream: async function* () { assert.fail("a complete guide cannot call the provider"); } });
+      await cached.complete;
+      assert.ok(cached.pieces.every(piece => piece.source === "grounded"));
+      assert.deepEqual(cached.pieces.map(piece => piece.text), intendedTexts);
+      assert.deepEqual(readNarrativePieces(catalog, saved)?.map(piece => piece.text), intendedTexts);
+      assert.equal(curationNarrativeView(catalog, saved).narrative.closing, intendedTexts.at(-1));
+    }
+    assert.equal(readFileSync(recordPath, "utf8"), JSON.stringify(record));
+  } finally { rmSync(temporary, { recursive: true, force: true }); }
+});
 
 test("alternate endings for the ball and red room use only their own image review", () => {
   const temporary = mkdtempSync(path.join(os.tmpdir(), "artduo-ending-observation-"));

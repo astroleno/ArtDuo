@@ -111,6 +111,8 @@ export interface ExhibitionSnapshot {
   releaseVersion: string;
   exhibitionId: string;
   query: string;
+  /** Audience wording for confirmed etching; links and identifiers still use the saved query. */
+  presentationQuery?: string;
   title: string;
   preface: NarrativeBlock;
   closing: NarrativeBlock;

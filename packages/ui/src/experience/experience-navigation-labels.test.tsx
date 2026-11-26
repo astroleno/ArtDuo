@@ -43,3 +43,38 @@ test("visible action text remains the native name and reader labels retain artwo
     assert.doesNotMatch(reader, /aria-label="收起完整展签"/u);
   }
 });
+
+test("empty alternatives show the viewable count once where possible and retain the confirmation query", () => {
+  const query = "六幅版材未注明的蚀刻";
+  for (const [kind, eligible, requested, expected, suffix] of [
+    ["unrecorded-plate-etching", 58, 6, "这 58 幅都是蚀刻版画。馆方没有注明用了哪种印版。", "这次可以从中看 6 幅。"],
+    ["unoccupied-still-life", 9, 6, "馆里有 9 幅没有人物的静物画", "这次可以从中看 6 幅。"],
+    ["unoccupied-still-life", 3, 6, "目前能看 3 幅没有人物的静物画", ""],
+    ["unoccupied-still-life", 1, 1, "目前能看 1 幅没有人物的静物画", ""],
+    ["unrecorded-plate-etching", 58, 1, "馆方没有注明用了哪种印版。", "这次可以从中看 1 幅。"],
+  ] as const) {
+    const empty = { ...snapshot, query: "原句", units: [], emptyAlternative: { kind, eligible, requested, query } };
+    const html = renderToStaticMarkup(<ExperienceShell snapshot={empty} initialPosition={{ phase: "preface" }}
+      onPositionChange={() => {}} onDetail={() => {}} onRestart={() => {}} />);
+    const link = html.match(/<a[^>]+href="([^"]+)"[^>]*>看看这些(?:蚀刻|静物)<\/a>/u)?.[1];
+    assert.ok(link);
+    assert.equal(new URL(link.replaceAll("&amp;", "&"), "https://example.test").searchParams.get("query"), query);
+    assert.ok(html.includes(expected));
+    if (suffix) assert.ok(html.includes(suffix));
+    else assert.doesNotMatch(html, /这次可以从中看/u);
+    assert.match(html, /原句.*重新写一句/u);
+    assert.doesNotMatch(html, /rel="preload"/u);
+  }
+});
+
+test("the waiting heading uses display wording while the exit preserves the saved query", () => {
+  const pending = { ...snapshot, narrativePending: true, query: "六幅版材未注明的蚀刻，不要有人",
+    presentationQuery: "六幅馆方没有注明印版材质的蚀刻版画，不要有人" };
+  const html = renderToStaticMarkup(<ExperienceShell snapshot={pending} initialPosition={{ phase: "preface" }}
+    onPositionChange={() => {}} onDetail={() => {}} onRestart={() => {}} />);
+  assert.match(html, /aria-busy="true"[^>]*>“六幅馆方没有注明印版材质的蚀刻版画，不要有人”<\/h1>/u);
+  const link = html.match(/<a[^>]*class="experience-exit"[^>]*>/u)?.[0];
+  const href = link?.match(/href="([^"]+)"/u)?.[1];
+  assert.ok(href);
+  assert.equal(new URL(href.replaceAll("&amp;", "&"), "https://example.test").searchParams.get("query"), pending.query);
+});

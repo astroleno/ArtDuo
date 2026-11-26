@@ -276,21 +276,25 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   };
 
   if (snapshot.units.length === 0) {
+    const alternative = snapshot.emptyAlternative;
+    const etching = alternative?.kind === "unrecorded-plate-etching";
+    const available = alternative ? Math.min(alternative.eligible, alternative.requested) : 0;
+    const moreInCollection = alternative ? alternative.eligible > available : false;
     return <main className="artduo-experience experience-empty" data-testid="experience-empty">
       <p className="experience-eyebrow">这次没有展出作品</p>
       <h1>暂未找到符合条件的作品</h1>
       <p>{snapshot.selectionNotice ?? "当前馆藏中，没有能同时确认符合这些条件的作品。"}</p>
-      <p className="experience-empty-request">「{snapshot.query}」</p>
+      <p className="experience-empty-request">「{snapshot.presentationQuery ?? snapshot.query}」</p>
       <p>你的原句保留在这里，可以改写观看方向，或稍后再来。</p>
-      {snapshot.emptyAlternative ? <div>
-        <p>{snapshot.emptyAlternative.kind === "unrecorded-plate-etching"
-          ? <>原条件要求铜版蚀刻。改看会保留蚀刻工艺，移除铜版要求。馆藏中有 {snapshot.emptyAlternative.eligible} 件版材未注明的蚀刻。</>
-          : <>馆藏中有 {snapshot.emptyAlternative.eligible} 件确证无人的静物。改看静物会移除室内条件。</>}
-          原请求 {snapshot.emptyAlternative.requested} 件，本次最多展出 {Math.min(snapshot.emptyAlternative.eligible, snapshot.emptyAlternative.requested)} 件。</p>
+      {alternative ? <div>
+        <p>{etching
+          ? <>{moreInCollection ? `这 ${alternative.eligible} 幅都是蚀刻版画。` : `目前可以看 ${available} 幅蚀刻版画。`}馆方没有注明用了哪种印版。</>
+          : <>{moreInCollection ? `馆里有 ${alternative.eligible} 幅没有人物的静物画` : `目前能看 ${available} 幅没有人物的静物画`}，画的地方可能在室内，也可能在别处。</>}
+        {moreInCollection ? `这次可以从中看 ${available} 幅。` : null}</p>
         <a className="experience-primary" href={appPath(`/gallery/local/immersive?${new URLSearchParams({
-          query: snapshot.emptyAlternative.query, view: "experience", recipeVersion: "experience-v2", phase: "preface",
+          query: alternative.query, view: "experience", recipeVersion: "experience-v2", phase: "preface",
           releaseVersion: snapshot.releaseVersion,
-        })}`)}>{snapshot.emptyAlternative.kind === "unrecorded-plate-etching" ? "改看版材未注明的蚀刻" : "改看确证无人的静物"}</a>
+        })}`)}>{etching ? "看看这些蚀刻" : "看看这些静物"}</a>
       </div> : null}
       {snapshot.omittedUnitCount ? <p>另有 {snapshot.omittedUnitCount} 件记录暂不可用。</p> : null}
       {restartHref ? <a className="experience-primary" href={appPath(restartHref)}>重新写一句</a>
@@ -304,7 +308,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     {state.act !== "walk" ? <div className="experience-global-controls"><AudioButton onToggle={() => void toggleAudio()} state={audio.state} /></div> : null}
     {!state.online ? <p className="experience-offline" role="status">离线浏览 · 作品讲解和未缓存媒体可能暂不可用</p> : null}
     <div aria-live="polite" className="sr-only">{statusMessage}</div>
-    {state.act === "preface" ? <Preface block={presentedPreface} query={snapshot.query} pending={Boolean(snapshot.narrativePending)} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} backdropSmallUrl={snapshot.units[0]?.media.backgroundUrlSmall}
+    {state.act === "preface" ? <Preface block={presentedPreface} query={snapshot.presentationQuery ?? snapshot.query} pending={Boolean(snapshot.narrativePending)} count={snapshot.units.length} backdropUrl={snapshot.units[0]?.media.backgroundUrl} backdropSmallUrl={snapshot.units[0]?.media.backgroundUrlSmall}
       onActionable={onPrefaceActionable} onContinue={() => { onMilestone?.("enter-activated"); dispatch({ type: "SKIP" }); }}
       reducedMotion={reducedMotion} ready={viewing.hydrated} selectionNotice={snapshot.selectionNotice} keepsake={keepsake.entry(true)} /> : null}
     {state.act === "walk" && encounterWork ? <SculptureBoundary onUnavailable={continueAfterEncounter}><Suspense fallback={<div className="experience-room experience-room-fallback" role="status">正在进入侧厅…</div>}>

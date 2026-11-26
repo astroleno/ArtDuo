@@ -84,6 +84,7 @@ export default async function ImmersivePage({ searchParams }: ImmersivePageProps
   const adapterStartedAt = performance.now();
   const snapshot = buildExperienceSnapshot({ query, catalog, search, narrative, route,
     curationId: curation?.curationId, selectionVersion: curation?.record.selectionVersion,
+    unrecordedPlatePolicy: curation?.record.unrecordedPlatePolicy,
     narrativePieces: preparedNarrative?.pieces, closingObservations: preparedNarrative?.closingObservations,
     narrativeComplete: preparedNarrative?.complete });
   const requestedRoute = readSingle(queryParams, "route");

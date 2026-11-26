@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
+import { NARRATIVE_TEXT_LIMITS, presentConfirmedEtching } from "@artduo/contracts";
 import { createCurationChatStream, readCurationChatConfig, type ChatStream } from "../../api/src/services/curation/chat-provider";
 import { fallbackExhibitionNarrative, generateExhibitionNarrative, narrativePieceKey, NARRATIVE_RECIPE_VERSION, validateExhibitionNarrativePiece,
   type DeliveredNarrativePiece, type ExhibitionNarrativeInput } from "../../api/src/services/curation/exhibition-narrative";
@@ -9,21 +10,35 @@ import type { WebReleaseCatalog } from "./release-catalog";
 import type { CurationNarrative } from "./curation-narrative";
 import { parseViewingIntent, viewingIntentDecision, viewingIntentEvidence, viewingFocusEvidence } from "./viewing-intent";
 
+function narrativePresentationInput(input: ExhibitionNarrativeInput, presentText?: (text: string) => string): ExhibitionNarrativeInput {
+  if (!presentText) return input;
+  return { ...input, query: presentText(input.query), plan: { ...input.plan,
+    currentFeeling: presentText(input.plan.currentFeeling), desiredExperience: presentText(input.plan.desiredExperience),
+    stages: input.plan.stages.map(stage => ({ ...stage, query: presentText(stage.query), label: presentText(stage.label),
+      signals: stage.signals.map(signal => presentText(signal)) })),
+  } };
+}
+
+function narrativePresentation(piece: DeliveredNarrativePiece, presentText?: typeof presentConfirmedEtching): DeliveredNarrativePiece {
+  return presentText ? { ...piece, text: presentText(piece.text, NARRATIVE_TEXT_LIMITS[piece.kind]) } : piece;
+}
+
 export function curationNarrativeView(catalog: WebReleaseCatalog, curation: CuratedExhibition) {
   const input = exhibitionNarrativeInput(catalog, curation);
+  const presentText = curation.record.unrecordedPlatePolicy ? presentConfirmedEtching : undefined;
   const fallback = fallbackExhibitionNarrative(input);
   const saved = readNarrativeCache(catalog, curation, input, fallback);
-  const pieces = saved?.pieces ?? fallback;
+  const pieces = saved?.pieces ?? fallback.map(piece => narrativePresentation(piece, presentText));
   const observations = new Map(input.artworks.map(artwork => [artwork.id, artwork.visualObservation?.text]));
   const closingObservations = fallback.flatMap(piece => {
     if (piece.kind !== "note" || !piece.artworkId) return [];
     const exactText = observations.get(piece.artworkId);
     // The fallback footnote may use metadata when there is no usable observation.
     // Only pass on text already present in this artwork's image review.
-    return exactText?.includes(piece.text.replace(/。$/u, "")) ? [{ artworkId: piece.artworkId, text: piece.text }] : [];
+    return exactText?.includes(piece.text.replace(/。$/u, "")) ? [{ artworkId: piece.artworkId, text: narrativePresentation(piece, presentText).text }] : [];
   });
   const narrative: CurationNarrative = {
-    title: `${curation.record.plan.stages[0].label}，再慢慢看`,
+    title: `${presentText?.(curation.record.plan.stages[0].label) ?? curation.record.plan.stages[0].label}，再慢慢看`,
     preface: pieces.find((piece) => piece.kind === "preface")!.text,
     closing: pieces.find((piece) => piece.kind === "closing")!.text,
     growthForm: curation.growthForm,
@@ -88,6 +103,8 @@ interface NarrativeCache { schemaVersion: 1; recipe: string; pieces: DeliveredNa
 
 function readNarrativeCache(catalog: WebReleaseCatalog, curation: CuratedExhibition,
   input = exhibitionNarrativeInput(catalog, curation), fallback = fallbackExhibitionNarrative(input)): NarrativeCache | undefined {
+  const presentText = curation.record.unrecordedPlatePolicy ? presentConfirmedEtching : undefined;
+  const presentationInput = narrativePresentationInput(input, presentText);
   const filenames = [...narrativeFilenames(catalog, curation, 5), ...(curation.record.narrativeVersion ? [] : narrativeFilenames(catalog, curation, 4))];
   for (const filename of filenames) {
     if (!existsSync(filename)) continue;
@@ -105,11 +122,12 @@ function readNarrativeCache(catalog: WebReleaseCatalog, curation: CuratedExhibit
       if (item?.source === "fallback" && value.recipe !== "legacy-v4") {
         if (narrativePieceKey(item) !== narrativePieceKey(fallback[index]!)) throw new TypeError("Invalid saved fallback");
         // Regenerate failure copy from current facts; never display stored text.
-        return fallback[index]!;
+        return narrativePresentation(fallback[index]!, presentText);
       }
       if (item?.source !== "grounded" || narrativePieceKey(item) !== narrativePieceKey(fallback[index]!)) throw new TypeError("Invalid saved narrative");
-      try { return { ...validateExhibitionNarrativePiece(item, input), source: "grounded" }; }
-      catch { invalidPiece = true; return fallback[index]!; }
+      try {
+        return { ...validateExhibitionNarrativePiece(item, presentationInput, presentText), source: "grounded" };
+      } catch { invalidPiece = true; return narrativePresentation(fallback[index]!, presentText); }
     });
     if (!invalidPiece && pieces.some(piece => piece.source === "fallback") && value.retryAfter === 0) continue;
     return { ...value, pieces, retryAfter: invalidPiece ? 1 : value.retryAfter, issues: Array.isArray(value.issues) ? value.issues.slice(0, 20) : [] };
@@ -140,7 +158,9 @@ export function getExhibitionNarrative(catalog: WebReleaseCatalog, curation: Cur
   runs.set(key, run);
   run.complete = Promise.resolve().then(async () => {
     const input = exhibitionNarrativeInput(catalog, curation);
-    const fallback = fallbackExhibitionNarrative(input);
+    const presentText = curation.record.unrecordedPlatePolicy ? presentConfirmedEtching : undefined;
+    const presentationInput = narrativePresentationInput(input, presentText);
+    const fallback = fallbackExhibitionNarrative(input).map(piece => narrativePresentation(piece, presentText));
     const available = new Map(saved?.pieces.filter(piece => piece.source === "grounded").map(piece => [narrativePieceKey(piece), piece]));
     const expected = fallback.map(narrativePieceKey);
     let cursor = 0;
@@ -152,8 +172,9 @@ export function getExhibitionNarrative(catalog: WebReleaseCatalog, curation: Cur
       const stream = deps.stream ?? (config && createCurationChatStream(config));
       if (!stream) throw new Error("Narrative provider unavailable");
       const missing = expected.filter(key => !available.has(key));
-      for await (const piece of generateExhibitionNarrative(input, stream, undefined, (key, reason) => run.issues.push({ key, reason }), saved ? missing : undefined, saved?.issues)) {
-        available.set(narrativePieceKey(piece), { ...piece, source: piece.source ?? "grounded" }); drain();
+      const repairIssues = presentText ? saved?.issues.map(issue => ({ ...issue, reason: presentText(issue.reason) })) : saved?.issues;
+      for await (const piece of generateExhibitionNarrative(presentationInput, stream, undefined, (key, reason) => run.issues.push({ key, reason }), saved ? missing : undefined, repairIssues, presentText)) {
+        available.set(narrativePieceKey(piece), narrativePresentation({ ...piece, source: piece.source ?? "grounded" }, presentText)); drain();
       }
     } catch (error) { run.issues.push({ key: "transport", reason: error instanceof Error ? error.message : "Narrative interrupted" }); }
     for (const piece of fallback) if (!available.has(narrativePieceKey(piece))) available.set(narrativePieceKey(piece), piece);

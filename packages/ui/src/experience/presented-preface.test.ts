@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createPresentedPrefaceStore, prefaceIdentity, PRESENTED_PREFACE_KEY, readyPreface } from "./presented-preface";
+import { createPresentedPrefaceStore, prefaceForDisplay, prefaceIdentity, PRESENTED_PREFACE_KEY, readyPreface } from "./presented-preface";
 import type { NarrativeBlock } from "./types";
 
 const fallback: NarrativeBlock = { text: "赭黄屋顶在前景叠置。", source: "fallback" };
@@ -52,4 +52,19 @@ test("blocked storage keeps current-document prose stable and the bounded record
   const restored = createPresentedPrefaceStore();
   assert.equal(restored.restore("0", saved), undefined);
   assert.deepEqual(restored.restore("24", saved), grounded);
+});
+
+test("a restored etching preface is projected for display without changing its locked session copy", () => {
+  const style = { presentationQuery: "想看六幅馆方没有注明印版材质的蚀刻版画" };
+  const identity = "unchanged-exhibition";
+  const raw = { text: "先看版材未注明的蚀刻。", source: "grounded" as const };
+  const saved = storage(JSON.stringify({ schemaVersion: 1, entries: [{ identity, block: raw }] }));
+  const restored = createPresentedPrefaceStore().restore(identity, saved)!;
+  assert.deepEqual(prefaceForDisplay(restored, style), { ...restored, text: "先看馆方没有注明印版材质的蚀刻版画。" });
+  const atLimit = { ...raw, text: "墨".repeat(60 - Array.from(raw.text).length) + raw.text };
+  assert.equal(prefaceForDisplay(atLimit, style)?.text, atLimit.text.replace("版材", "印版"));
+  assert.equal(prefaceForDisplay(restored, {}), restored);
+  assert.equal(prefaceForDisplay(grounded, style), grounded);
+  assert.equal(prefaceForDisplay(null, style), null);
+  assert.equal(saved.getItem(PRESENTED_PREFACE_KEY), JSON.stringify({ schemaVersion: 1, entries: [{ identity, block: raw }] }));
 });

@@ -1,4 +1,4 @@
-import { ARTWORK_MEDIUM_LABELS, artworkMediumKinds, parseCurationNarrativePiece, type ArtworkMedium, type SpatialFraming, type VisualFacts, type VisualSubject, type CurationIntentPlan, type CurationNarrativePiece } from "@artduo/contracts";
+import { ARTWORK_MEDIUM_LABELS, artworkMediumKinds, NARRATIVE_TEXT_LIMITS, parseCurationNarrativePiece, type ArtworkMedium, type SpatialFraming, type VisualFacts, type VisualSubject, type CurationIntentPlan, type CurationNarrativePiece } from "@artduo/contracts";
 import type { ChatMessage, ChatStream } from "./chat-provider";
 
 export interface NarrativeArtwork {
@@ -187,8 +187,11 @@ function removeUnsupportedAttribution(text: string, query: string): string {
   return text.replaceAll("档案中这一阶段", "这次展览");
 }
 
-export function validateExhibitionNarrativePiece(value: unknown, input: ExhibitionNarrativeInput): CurationNarrativePiece {
-  const piece = parseCurationNarrativePiece(value);
+type NarrativeTextPresentation = (text: string, maxLength: number) => string;
+
+export function validateExhibitionNarrativePiece(value: unknown, input: ExhibitionNarrativeInput, presentText?: NarrativeTextPresentation): CurationNarrativePiece {
+  const parsed = parseCurationNarrativePiece(value);
+  const piece = presentText ? { ...parsed, text: presentText(parsed.text, NARRATIVE_TEXT_LIMITS[parsed.kind]) } : parsed;
   const ids = new Set(input.artworks.map((artwork) => artwork.id));
   if (piece.evidenceIds.some((id) => !ids.has(id)) || piece.kind === "note" && (!ids.has(piece.artworkId!) || piece.evidenceIds.length !== 1 || piece.evidenceIds[0] !== piece.artworkId)) {
     throw new TypeError("Narrative references an artwork outside the frozen exhibition");
@@ -301,7 +304,7 @@ export function exhibitionNarrativeMessages(input: ExhibitionNarrativeInput, req
   ];
 }
 
-export async function* generateExhibitionNarrative(input: ExhibitionNarrativeInput, stream: ChatStream, signal?: AbortSignal, onRejected?: (key: string, reason: string) => void, requestedKeys?: string[], repairIssues?: NarrativeRepairIssue[]): AsyncGenerator<CurationNarrativePiece & { source?: "grounded" | "fallback" }> {
+export async function* generateExhibitionNarrative(input: ExhibitionNarrativeInput, stream: ChatStream, signal?: AbortSignal, onRejected?: (key: string, reason: string) => void, requestedKeys?: string[], repairIssues?: NarrativeRepairIssue[], presentText?: NarrativeTextPresentation): AsyncGenerator<CurationNarrativePiece & { source?: "grounded" | "fallback" }> {
   let pending = "";
   let total = 0;
   const allKeys = ["preface", ...input.artworks.map((artwork) => `note:${artwork.id}`), "closing"];
@@ -314,8 +317,8 @@ export async function* generateExhibitionNarrative(input: ExhibitionNarrativeInp
     // exact known keys instead of losing valid missing notes later in the stream.
     if (requestedKeys && allKeys.includes(narrativePieceKey(raw)) && !expected.includes(narrativePieceKey(raw))) return undefined;
     try {
-      const piece = validateExhibitionNarrativePiece(raw, input);
-      const limit = piece.kind === "preface" ? 60 : piece.kind === "note" ? 35 : 50;
+      const piece = validateExhibitionNarrativePiece(raw, input, presentText);
+      const limit = NARRATIVE_TEXT_LIMITS[piece.kind];
       if (Array.from(piece.text).length > limit) throw new NarrativeContentError("Narrative exceeds its concise guide length");
       if (narrativePieceKey(piece) !== expected[cursor]) throw new TypeError("Narrative changed the frozen exhibition order");
       cursor++; return piece;

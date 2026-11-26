@@ -1,6 +1,7 @@
 import type { WebArtwork } from "./release-catalog";
 import type { VisualState, VisualSubject } from "./artwork-visual-evidence";
-import { ARTWORK_MEDIUM_REQUESTS, artworkMediumKinds, artworkPrintDetails, type ArtworkMedium, type PrintDetail } from "@artduo/contracts";
+import { ARTWORK_MEDIUM_REQUESTS, artworkMediumKinds, artworkPrintDetails, UNRECORDED_PLATE_ETCHING, type ArtworkMedium, type PrintDetail } from "@artduo/contracts";
+export { UNRECORDED_PLATE_ETCHING } from "@artduo/contracts";
 
 // Concrete subject evidence never uses the emotional aliases in the embedding
 // tokenizer. A quiet title is not evidence that a work depicts a quiet scene.
@@ -84,7 +85,6 @@ const PRINT_OR = /^\s*(?:、\s*)?(?:或(?:者|是)?|\bor\b)\s*$/iu;
 const SCOPED_MOUNTAIN = /(?:画(?:里|中|面里|面中)(?:的|有|不要有|没有)|(?:想看|希望看|看看|给我看|不要看|不要|避开)(?:有)?)山(?:体|峦|脉)?(?=\s*(?:$|[,，、。；;!?]|和|与|及|的(?:画|作品|风景|场景)))/gu;
 
 type PrintRequirement = PrintDetail | "plate-unrecorded";
-export const UNRECORDED_PLATE_ETCHING = "版材未注明的蚀刻";
 
 /** Admit only medium statements whose entire wording identifies etching and other named processes,
  * impression states, ink or paper. Unrecognized qualifiers can describe the plate itself. */

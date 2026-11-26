@@ -1,3 +1,4 @@
+import { NARRATIVE_TEXT_LIMITS, presentConfirmedEtching } from "@artduo/contracts";
 import type { ExhibitionSnapshot, NarrativeBlock } from "./types";
 
 export const PRESENTED_PREFACE_KEY = "artduo.presented-preface.v1";
@@ -54,4 +55,10 @@ export function createPresentedPrefaceStore() {
 
 export function readyPreface(block: NarrativeBlock, pending: boolean, deadline: number, now: number): NarrativeBlock | null {
   return !pending || block.source === "grounded" || now >= deadline ? block : null;
+}
+
+export function prefaceForDisplay(block: NarrativeBlock | null, snapshot: Pick<ExhibitionSnapshot, "presentationQuery">): NarrativeBlock | null {
+  if (!block || snapshot.presentationQuery === undefined) return block;
+  const text = presentConfirmedEtching(block.text, NARRATIVE_TEXT_LIMITS.preface);
+  return text === block.text ? block : { ...block, text };
 }

@@ -2,6 +2,15 @@ import { GROWTH_STAGE_ROLES, TRANSITION_INTENTS, type AffectState, type GrowthSt
 import { expectObject, parseArray, readBoolean, readLiteral, readNumber, readString, readStringArray } from "./internal/validation";
 
 export const CURATION_RECIPE_VERSION = "curator-v1" as const;
+export const UNRECORDED_PLATE_ETCHING = "版材未注明的蚀刻";
+export const NARRATIVE_TEXT_LIMITS = { preface: 60, note: 35, closing: 50 } as const;
+const UNRECORDED_PLATE_WORDING = new RegExp(`${UNRECORDED_PLATE_ETCHING}(?:版画|画)?`, "gu");
+
+export function presentConfirmedEtching(text: string, maxLength = Infinity): string {
+  const natural = text.replace(UNRECORDED_PLATE_WORDING, "馆方没有注明印版材质的蚀刻版画");
+  return natural === text || Array.from(natural).length <= maxLength
+    ? natural : text.replace(UNRECORDED_PLATE_WORDING, "印版未注明的蚀刻");
+}
 export interface CurationIntentStage extends AffectState {
   label: string;
   role: GrowthStageRole;

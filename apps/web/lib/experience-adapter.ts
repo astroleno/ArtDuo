@@ -1,5 +1,5 @@
 import type { ExhibitionUnit, TransitionFamily, TransitionIntent } from "@artduo/contracts";
-import { appPath } from "@artduo/contracts";
+import { appPath, presentConfirmedEtching } from "@artduo/contracts";
 import type { ExhibitionSnapshot, ExperienceStage, ExperienceUnit, NarrativeBlock } from "@artduo/ui";
 import { matchArtworkScenes, sequenceExhibition, type ExperienceSceneCandidate } from "@artduo/ui";
 import { parseViewingIntent, viewingIntentConflictMessage } from "./viewing-intent";
@@ -111,12 +111,14 @@ export function buildExperienceSnapshot(input: {
   narrative: CurationNarrative;
   route: GallerySceneRouteStop[];
   curationId?: string;
+  unrecordedPlatePolicy?: true;
   selectionVersion?: number;
   narrativePieces?: Array<{ kind: "preface" | "note" | "closing"; artworkId?: string; text: string; source: "grounded" | "fallback" }>;
   closingObservations?: Array<{ artworkId: string; text: string }>;
   narrativeComplete?: boolean;
 }): ExhibitionSnapshot {
   const { catalog, search, narrative, query } = input;
+  const presentText = input.unrecordedPlatePolicy ? presentConfirmedEtching : undefined;
   const continueChapters = Boolean(input.curationId) && (input.selectionVersion ?? 0) >= CONTINUED_CHAPTER_SELECTION_VERSION;
   // Tone is read from each room photograph: overall light, colour temperature and window view.
   const roomProfiles: Array<Pick<ExperienceSceneCandidate, "paletteFamilies" | "lightDirection" | "tone"> & { id: string }> = [
@@ -141,7 +143,7 @@ export function buildExperienceSnapshot(input: {
   const stages: ExperienceStage[] = narrative.growthForm.stages.map((stage) => ({
     id: stage.id,
     role: stage.role,
-    label: input.curationId ? stage.label : quietJourney ? (stage.role === "threshold" ? "入场" : stage.role === "afterglow" ? "余韵" : "停留") : stageLabel(stage.label, stage.role),
+    label: input.curationId ? (presentText?.(stage.label) ?? stage.label) : quietJourney ? (stage.role === "threshold" ? "入场" : stage.role === "afterglow" ? "余韵" : "停留") : stageLabel(stage.label, stage.role),
     valence: stage.valence,
     arousal: stage.arousal,
     tension: stage.tension,
@@ -260,6 +262,7 @@ export function buildExperienceSnapshot(input: {
     releaseVersion: catalog.releaseVersion,
     exhibitionId: `ex-${stableHash(snapshotKey)}`,
     query,
+    ...(presentText ? { presentationQuery: presentText(query) } : {}),
     title: narrative.title,
     preface: input.narrativePieces?.find((piece) => piece.kind === "preface") ?? preface,
     closing: input.narrativePieces?.find((piece) => piece.kind === "closing") ?? closing,

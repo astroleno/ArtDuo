@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { createPresentedPrefaceStore, prefaceIdentity, readyPreface } from "./presented-preface";
+import { createPresentedPrefaceStore, prefaceForDisplay, prefaceIdentity, readyPreface } from "./presented-preface";
 import type { ExhibitionSnapshot, NarrativeBlock } from "./types";
 
 const runtime = globalThis as typeof globalThis & { __artduoPresentedPrefaces?: ReturnType<typeof createPresentedPrefaceStore> };
@@ -35,5 +35,5 @@ export function usePresentedPreface(snapshot: ExhibitionSnapshot, active: boolea
     const timer = setTimeout(show, Math.max(0, until - Date.now()));
     return () => clearTimeout(timer);
   }, [identity, active, visible, presented, snapshot.preface, snapshot.narrativePending]);
-  return presented?.identity === identity ? presented.block : null;
+  return presented?.identity === identity ? prefaceForDisplay(presented.block, snapshot) : null;
 }
