@@ -128,7 +128,9 @@ export function Walk({ snapshot, preface, onPrefaceVisibilityChange, state, disp
       <header><h2>观展设置</h2><button autoFocus aria-label="关闭观展设置" onClick={closeSettings} type="button">×</button></header>
       <label className="experience-motion-choice"><span>画面轻动<small>{reducedMotion ? "已遵循系统的减少动态效果设置" : "轻移画面，感受前后层次"}</small></span>
         <input type="checkbox" checked={mouseMotion && !reducedMotion} disabled={reducedMotion} onChange={event => onMouseMotionChange?.(event.target.checked)} /></label>
-      <div className="experience-settings-audio">{audioControl}</div>
+      {audioControl ? <div className="experience-settings-audio">{audioControl}
+        <small>切到后台会关闭环境音，返回后可手动开启。</small>
+      </div> : null}
       {motion.available ? <button aria-pressed={motion.enabled} className="experience-settings-motion" disabled={!mouseMotion || motion.state === "requesting"}
         onClick={() => void motion.toggle()} type="button">{!mouseMotion ? "先开启画面轻动" : motion.state === "requesting" ? "正在开启感应" : motion.enabled ? "关闭手机感应" : "开启手机感应"}</button> : null}
       {motion.message ? <p role="status">{motion.message}</p> : null}

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { appPath } from "@artduo/contracts";
 import type { ExperienceState } from "./state";
 
-const TRACKS = ["Awakening.mp3", "Felt Letter.mp3", "First Words.mp3"] as const;
 const LOOP_VOLUME = 0.16;
 const START_TIMEOUT_MS = 20_000;
 const TURN_FLOOR = .65;
@@ -14,13 +13,41 @@ const CLOSING_FADE_MS = 1200;
 const LEVEL_RAMP_MS = 300;
 type AudioState = ExperienceState["audioState"];
 
+interface AmbientGain {
+  read: () => number;
+  write: (value: number) => void;
+  resume: () => Promise<void>;
+  close: () => void;
+}
+
 interface AmbientPlaybackOptions {
   createAudio: () => HTMLAudioElement;
+  connectGain?: (audio: HTMLAudioElement) => AmbientGain | undefined;
   now: () => number;
   frame: (callback: FrameRequestCallback) => number;
   cancelFrame: (id: number) => void;
   onState: (state: AudioState) => void;
   isVisible: () => boolean;
+}
+
+function connectWebAudio(audio: HTMLAudioElement): AmbientGain | undefined {
+  if (typeof AudioContext !== "function") return undefined;
+  const context = new AudioContext();
+  try {
+    const level = context.createGain();
+    level.gain.value = 0;
+    context.createMediaElementSource(audio).connect(level);
+    level.connect(context.destination);
+    return {
+      read: () => level.gain.value,
+      write: value => { level.gain.value = value; },
+      resume: () => context.state === "running" ? Promise.resolve() : context.resume(),
+      close: () => { if (context.state !== "closed") void context.close().catch(() => undefined); },
+    };
+  } catch (error) {
+    void context.close().catch(() => undefined);
+    throw error;
+  }
 }
 
 function releaseAudio(audio: HTMLAudioElement) {
@@ -32,6 +59,8 @@ function releaseAudio(audio: HTMLAudioElement) {
 
 export function createAmbientPlayback(options: AmbientPlaybackOptions) {
   let audio: HTMLAudioElement | undefined;
+  let gain: AmbientGain | undefined;
+  let useNativeVolume = false;
   let state: AudioState = "off";
   let authorized = false, closing = false, endingQuiet = false, volumeLocked = false;
   let base = LOOP_VOLUME;
@@ -59,11 +88,13 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
   const writeVolume = (value: number) => {
     if (!audio || volumeLocked) return;
     const next = Math.min(1, Math.max(0, value));
+    if (gain) { gain.write(next); return; }
     try {
       audio.volume = next;
       volumeLocked = Math.abs(audio.volume - next) > .002;
     } catch { volumeLocked = true; }
   };
+  const readVolume = (media: HTMLAudioElement) => gain?.read() ?? media.volume;
   const pause = () => {
     invalidatePlay();
     audio?.pause();
@@ -75,6 +106,8 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
     cancelAnimation();
     if (audio) releaseAudio(audio);
     audio = undefined;
+    gain?.close();
+    gain = undefined;
     setState("off");
     return state;
   };
@@ -90,7 +123,7 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
     if (fade) {
       const elapsed = Math.max(0, now - fade.at);
       if (elapsed >= CLOSING_FADE_MS) { finishClosing(); return; }
-      writeVolume(Math.min(audio.volume, base, fade.from * (1 - elapsed / CLOSING_FADE_MS)));
+      writeVolume(Math.min(readVolume(audio), base, fade.from * (1 - elapsed / CLOSING_FADE_MS)));
     } else if (turn) {
       const elapsed = Math.max(0, now - turn.at);
       if (elapsed < TURN_DOWN_MS) writeVolume(Math.min(base, turn.from + (base * TURN_FLOOR - turn.from) * elapsed / TURN_DOWN_MS));
@@ -106,7 +139,7 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
   const schedule = () => { if (frame === undefined) frame = options.frame(tick); };
   const rampToBase = () => {
     if (!audio || volumeLocked || state !== "on" || endingQuiet) return;
-    level = { at: options.now(), from: audio.volume };
+    level = { at: options.now(), from: readVolume(audio) };
     schedule();
   };
   const fail = (media: HTMLAudioElement) => {
@@ -121,7 +154,13 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
     setState("loading");
     startTimer = setTimeout(() => { if (ticket === playbackSeq) fail(media); }, START_TIMEOUT_MS);
     try {
-      await media.play();
+      const contextReady = gain?.resume().catch(error => {
+        if (ticket === playbackSeq) useNativeVolume = true;
+        throw error;
+      });
+      const mediaReady = media.play();
+      if (contextReady) await Promise.all([contextReady, mediaReady]);
+      else await mediaReady;
       if (ticket !== playbackSeq) {
         if (audio !== media || !authorized || !base || endingQuiet || !options.isVisible()) media.pause();
         return state;
@@ -134,22 +173,29 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
     } catch {
       if (ticket !== playbackSeq) return state;
       if (resume) {
-        authorized = false;
-        pause();
+        stop();
       } else fail(media);
       return state;
     }
   };
 
-  const toggle = (trackUrls?: readonly string[]): Promise<AudioState> => {
+  const toggle = (trackUrl = appPath("/ambient-audio/Awakening.mp3")): Promise<AudioState> => {
     if (state === "on" || state === "loading") return Promise.resolve(stop());
     if (!base || !options.isVisible()) return Promise.resolve(state);
-    const urls = trackUrls?.length ? trackUrls : TRACKS.map(track => appPath("/ambient-audio/" + encodeURIComponent(track)));
     const create = !audio;
     audio ??= options.createAudio();
     if (create) {
+      // Connect before assigning src, so a failed setup can use a fresh native element without a second download.
+      if (!useNativeVolume) {
+        try { gain = options.connectGain?.(audio); }
+        catch { audio = options.createAudio(); useNativeVolume = true; }
+      }
       volumeLocked = false;
-      try { volumeLocked = audio.matches(":volume-locked"); } catch { /* Detect by reading back the first volume write. */ }
+      if (gain) audio.crossOrigin = "anonymous";
+      // Some browsers only report the lock after the first native volume write.
+      else {
+        try { volumeLocked = audio.matches(":volume-locked"); } catch { /* Checked in writeVolume. */ }
+      }
       audio.loop = true;
       audio.preload = "none";
       const media = audio;
@@ -158,7 +204,7 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
     authorized = true;
     endingQuiet = false;
     writeVolume(base);
-    if (create) audio.src = urls[Math.floor(Math.random() * urls.length)]!;
+    if (create) audio.src = trackUrl;
     return start(false);
   };
 
@@ -180,7 +226,7 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
       cancelAnimation();
       if (state === "loading") { finishClosing(); return; }
       if (state === "on") {
-        fade = { at: options.now(), from: audio.volume };
+        fade = { at: options.now(), from: readVolume(audio) };
         schedule();
       }
     } else if (!closing && wasClosing) {
@@ -200,7 +246,7 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
     if (!isTurn && !turn) return;
     cancelAnimation();
     if (isTurn) {
-      turn = { at: options.now(), from: audio.volume };
+      turn = { at: options.now(), from: readVolume(audio) };
       schedule();
     } else rampToBase();
   };
@@ -208,11 +254,12 @@ export function createAmbientPlayback(options: AmbientPlaybackOptions) {
   return { stop, toggle, setScene, navigate };
 }
 
-export function useAmbientAudio(reading = false, atmosphereGain = 1, trackUrls?: readonly string[], closing = false) {
+export function useAmbientAudio(reading = false, atmosphereGain = 1, trackUrl?: string, closing = false) {
   const [state, setState] = useState<AudioState>("off");
   const [volume, setVolume] = useState(LOOP_VOLUME);
   const [player] = useState(() => createAmbientPlayback({
     createAudio: () => new Audio(),
+    connectGain: connectWebAudio,
     now: () => performance.now(),
     frame: request => requestAnimationFrame(request),
     cancelFrame: id => cancelAnimationFrame(id),
@@ -229,7 +276,7 @@ export function useAmbientAudio(reading = false, atmosphereGain = 1, trackUrls?:
     return () => { document.removeEventListener("visibilitychange", onVisibilityChange); player.stop(); };
   }, [player]);
 
-  return { state, volume, setVolume, toggle: () => player.toggle(trackUrls), navigate: player.navigate };
+  return { state, volume, setVolume, toggle: () => player.toggle(trackUrl), navigate: player.navigate };
 }
 
 export function AudioButton({ state, onToggle }: { state: AudioState; onToggle: () => void }) {

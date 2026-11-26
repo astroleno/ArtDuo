@@ -390,7 +390,7 @@
 .experience-settings-panel h2 { margin: 0; font-size: 16px; font-weight: 500; }
 .experience-settings-panel > header button { width: 44px; height: 44px; margin: -8px -12px -8px 0; padding: 0; border: 0; color: #5e574b; background: none; cursor: pointer; font-size: 24px; }
 .experience-motion-choice { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; border-block: 1px solid #ded8cb; font-size: 14px; cursor: pointer; }
-.experience-motion-choice small { display: block; margin-top: 7px; color: #777062; font-size: 11px; line-height: 1.65; }
+.experience-motion-choice small, .experience-settings-audio small { display: block; margin-top: 7px; color: #777062; font-size: 11px; line-height: 1.65; }
 .experience-motion-choice input, .experience-settings-panel input { flex: none; width: 17px; height: 17px; accent-color: #76664b; }
 .experience-settings-audio { padding: 8px 0; }
 .experience-settings-audio .experience-audio-button { width: 100%; justify-content: flex-start; padding-inline: 0; color: #504a3f; }

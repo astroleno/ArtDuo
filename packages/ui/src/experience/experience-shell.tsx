@@ -4,6 +4,7 @@ import { appPath } from "@artduo/contracts";
 import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import { AudioButton, useAmbientAudio } from "./audio-controller";
+import { ambientTrack } from "./ambient-track";
 import { Closing } from "./closing";
 import { closingLookbackForExit, resolveClosingNarrative, restoreClosingLookback, viewedForLookback } from "./closing-narrative";
 import { captureClosingPreview, readClosingPreview, saveClosingPreview, type ClosingPreview } from "./closing-preview";
@@ -112,7 +113,8 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const captured = useRef(new Map<string, ClosingPreview>());
   const activeUnit = snapshot.units.find((unit) => unit.exhibition.unitId === (state.unitId ?? state.lastUnitId)) ?? snapshot.units[0];
   const activeMood = roomLightMood(snapshot.stages.find((stage) => stage.id === activeUnit?.stageId));
-  const audio = useAmbientAudio(readingOpen || state.overlay === "plaque", activeMood.audioGain, snapshot.audioTracks, isClosing);
+  const trackUrl = ambientTrack(baseSnapshot.exhibitionId, baseSnapshot.stages, baseSnapshot.audioTracks);
+  const audio = useAmbientAudio(readingOpen || state.overlay === "plaque", activeMood.audioGain, trackUrl, isClosing);
   const flushObservation = useViewingObservation({ controller: viewing, state, snapshot, readyUnitId, readingOpen,
     paused: encounterActive || sculptureWorks.length > 0 && !encounter.value });
   const pace = observedPace(viewing.session);

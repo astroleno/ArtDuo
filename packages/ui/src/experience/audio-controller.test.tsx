@@ -3,6 +3,7 @@ import { test } from "node:test";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { AudioButton, createAmbientPlayback } from "./audio-controller";
+import { ambientTrack } from "./ambient-track";
 
 test("pending audio offers cancellation and a readable status without claiming playback", () => {
   const markup = renderToStaticMarkup(<AudioButton state="loading" onToggle={() => {}} />);
@@ -16,20 +17,20 @@ test("pending audio offers cancellation and a readable status without claiming p
   assert.match(failure, /环境音暂时无法播放，可以重试/);
 });
 
-function fixture(locked = false) {
+function fixture(locked = false, connectGain?: Parameters<typeof createAmbientPlayback>[0]["connectGain"]) {
   let time = 0, animationId = 0, visible = true, created = 0, volume = 1;
   const states: string[] = [], frames = new Map<number, FrameRequestCallback>();
   const calls: Array<{ resolve: () => void; reject: () => void }> = [];
   let writes = 0;
   const element = {
-    paused: true, currentTime: 12, src: "", onerror: null, preload: "", loop: false,
+    paused: true, currentTime: 12, src: "", onerror: null, preload: "", loop: false, crossOrigin: null as string | null,
     get volume() { return volume; },
     set volume(value) { writes++; if (!locked) volume = value; },
     matches() { throw new Error("unknown selector"); },
     play() { return new Promise<void>((resolve, reject) => calls.push({ resolve: () => { element.paused = false; resolve(); }, reject: () => reject() })); },
     pause() { element.paused = true; }, removeAttribute() { element.src = ""; }, load() {},
   };
-  const player = createAmbientPlayback({ createAudio: () => { created++; return element as unknown as HTMLAudioElement; },
+  const player = createAmbientPlayback({ createAudio: () => { created++; return element as unknown as HTMLAudioElement; }, connectGain,
     now: () => time, frame: cb => { frames.set(++animationId, cb); return animationId; },
     cancelFrame: id => { frames.delete(id); }, onState: state => states.push(state), isVisible: () => visible });
   const step = (elapsed: number) => {
@@ -46,7 +47,7 @@ test("one enabled track dips only at a turn, ducks for reading and fades monoton
   const f = fixture();
   f.player.navigate(true);
   assert.equal(f.created(), 0);
-  const start = f.player.toggle(["/chosen.mp3"]);
+  const start = f.player.toggle("/chosen.mp3");
   f.calls[0]!.resolve(); assert.equal(await start, "on");
   f.player.navigate(false);
   assert.equal(f.frames.size, 0);
@@ -119,4 +120,55 @@ test("a delayed play cannot sound in the close; explicit closing listen and volu
   f.player.setScene(0, false);
   assert.equal(await f.player.toggle(), "off");
   f.player.stop();
+});
+
+test("one graph uses gain for turns, reading and the full closing fade even with locked media volume", async () => {
+  let level = 0, connections = 0, closed = 0;
+  const f = fixture(true, media => {
+    connections++;
+    assert.equal(media.src, "", "nothing is fetched before the graph is configured");
+    return { read: () => level, write: value => { level = value; }, resume: async () => {}, close: () => { closed++; } };
+  });
+  f.player.navigate(true);
+  assert.equal(connections, 0);
+  const start = f.player.toggle("https://media.example/selected.mp3");
+  assert.equal(f.element.crossOrigin, "anonymous");
+  f.calls[0]!.resolve(); assert.equal(await start, "on");
+  f.player.navigate(true);
+  f.step(200); assert.equal(level, .16 * .65);
+  f.step(400); assert.equal(level, .16);
+  f.player.setScene(.064, false);
+  f.step(300); assert.equal(level, .064);
+  f.player.setScene(.064, true);
+  const closing = Array.from({ length: 6 }, () => { f.step(200); return level; });
+  assert.ok(closing.every((value, index) => !index || value < closing[index - 1]!));
+  assert.equal(closing.at(-1), 0);
+  assert.equal(f.element.paused, true);
+  assert.equal(f.writes(), 0);
+  f.player.stop();
+  assert.equal(connections, 1);
+  assert.equal(closed, 1);
+});
+
+test("a failed graph setup falls back before loading the selected file", async () => {
+  const f = fixture(false, () => { throw new Error("Web Audio unavailable"); });
+  const start = f.player.toggle("/selected.mp3");
+  f.calls[0]!.resolve(); assert.equal(await start, "on");
+  assert.equal(f.created(), 2);
+  assert.equal(f.calls.length, 1);
+  assert.equal(f.element.src, "/selected.mp3");
+  assert.equal(f.element.volume, .16);
+  assert.equal(f.element.crossOrigin, null);
+  f.player.stop();
+});
+
+test("the same exhibition plan and asset map select the same track by mean arousal", () => {
+  const urls = ["https://media.example/awakening.mp3", "https://media.example/felt.mp3", "https://media.example/first.mp3"];
+  const stages = (values: number[]) => values.map(arousal => ({ arousal }));
+  assert.equal(ambientTrack("exhibit", stages([.2, .6]), urls), urls[1]);
+  assert.equal(ambientTrack("exhibit", stages([.42]), urls), urls[0]);
+  assert.equal(ambientTrack("exhibit", stages([.63]), urls), urls[2]);
+  assert.equal(ambientTrack("exhibit", stages([.7, .4]), urls), ambientTrack("exhibit", stages([.4, .7]), urls));
+  assert.match(ambientTrack("exhibit", stages([.3])), /\/ambient-audio\/Felt%20Letter\.mp3$/u);
+  assert.equal(ambientTrack("legacy", stages([NaN]), urls), ambientTrack("legacy", [], urls));
 });
