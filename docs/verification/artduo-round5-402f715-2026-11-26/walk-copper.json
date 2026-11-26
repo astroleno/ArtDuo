@@ -1,0 +1,106 @@
+{
+  "name": "copper",
+  "origin": "https://tongye.me",
+  "width": 390,
+  "query": "我想看六幅铜版蚀刻。",
+  "release": "2026-11-19-open-gap-739",
+  "buildId": "ezqOG8rji_-HCAQZ7cdHy",
+  "frames": {
+    "choice": "copper-choice.png",
+    "preface": "copper-preface.png",
+    "first-work": "copper-first-work.png",
+    "closing": "copper-closing.png"
+  },
+  "works": [
+    {
+      "artworkId": "smithsonian_asian-fsg_F1903.155",
+      "title": "《Bunting》",
+      "width": 1132,
+      "height": 1600,
+      "transition": "neutral"
+    },
+    {
+      "artworkId": "smk-KKS9147",
+      "title": "《Edouard Manet. Bust-Lenght Portrait》",
+      "width": 1283,
+      "height": 1600,
+      "transition": "continue"
+    },
+    {
+      "artworkId": "smithsonian_asian-fsg_F1893.22",
+      "title": "《The Little Venice》",
+      "width": 1600,
+      "height": 1157,
+      "transition": "turn"
+    },
+    {
+      "artworkId": "smk-KKS675",
+      "title": "《Skrænten ved Havet》",
+      "width": 1600,
+      "height": 991,
+      "transition": "continue"
+    },
+    {
+      "artworkId": "smk-KKS21148",
+      "title": "《Høje, unge træer i gruppe》",
+      "width": 1600,
+      "height": 1193,
+      "transition": "turn"
+    },
+    {
+      "artworkId": "smk-KKSgb13036",
+      "title": "《Interiør med gammel mand》",
+      "width": 1600,
+      "height": 1279,
+      "transition": "settle"
+    }
+  ],
+  "sideRooms": 0,
+  "empty": {
+    "text": "这 58 幅都是蚀刻版画。馆方没有注明用了哪种印版。这次可以从中看 6 幅。",
+    "button": "看看这些蚀刻",
+    "original": "「我想看六幅铜版蚀刻。」",
+    "route": "/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E7%9C%8B%E5%85%AD%E5%B9%85%E7%89%88%E6%9D%90%E6%9C%AA%E6%B3%A8%E6%98%8E%E7%9A%84%E8%9A%80%E5%88%BB%E3%80%82&view=experience&recipeVersion=experience-v2&phase=preface&releaseVersion=2026-11-19-open-gap-739",
+    "count": 0
+  },
+  "id": "5e1d508652130918b839810f4ad269e241379c4dd4355bac9eccdc99f6b9852b",
+  "preface": {
+    "url": "https://tongye.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E7%9C%8B%E5%85%AD%E5%B9%85%E7%89%88%E6%9D%90%E6%9C%AA%E6%B3%A8%E6%98%8E%E7%9A%84%E8%9A%80%E5%88%BB%E3%80%82&view=experience&releaseVersion=2026-11-19-open-gap-739&recipeVersion=experience-v2&phase=preface&curationId=5e1d508652130918b839810f4ad269e241379c4dd4355bac9eccdc99f6b9852b",
+    "copy": "先从街边细线看起：建筑、竖杆与连串旗帜向远处变淡，纸面大片留亮。",
+    "eyebrow": "关于这次展览 · 6 件作品",
+    "disabled": false,
+    "observed": {
+      "text": [
+        {
+          "kind": "preface-pending",
+          "text": "“我想看六幅馆方没有注明印版材质的蚀刻版画。”",
+          "y": 0,
+          "t": 5186,
+          "busy": "true"
+        }
+      ],
+      "preface": [
+        {
+          "text": "“我想看六幅馆方没有注明印版材质的蚀刻版画。”",
+          "waiting": true,
+          "busy": "true"
+        },
+        {
+          "text": "先从街边细线看起：建筑、竖杆与连串旗帜向远处变淡，纸面大片留亮。",
+          "waiting": false,
+          "busy": null
+        }
+      ]
+    }
+  },
+  "confirmedQuery": "我想看六幅版材未注明的蚀刻。",
+  "prefaceMs": 11337,
+  "closing": {
+    "url": "https://tongye.me/ArtDuo/gallery/local/immersive?query=%E6%88%91%E6%83%B3%E7%9C%8B%E5%85%AD%E5%B9%85%E7%89%88%E6%9D%90%E6%9C%AA%E6%B3%A8%E6%98%8E%E7%9A%84%E8%9A%80%E5%88%BB%E3%80%82&view=experience&releaseVersion=2026-11-19-open-gap-739&recipeVersion=experience-v2&phase=closing&artworkId=smk-KKSgb13036&curationId=5e1d508652130918b839810f4ad269e241379c4dd4355bac9eccdc99f6b9852b&route=smithsonian_asian-fsg_F1903.155%2Csmk-KKS9147%2Csmithsonian_asian-fsg_F1893.22%2Csmk-KKS675%2Csmk-KKS21148%2Csmk-KKSgb13036",
+    "origin": "https://tongye.me",
+    "id": "5e1d508652130918b839810f4ad269e241379c4dd4355bac9eccdc99f6b9852b",
+    "artworkId": "smk-KKSgb13036",
+    "title": "末幅的亮光从后墙划到地面，暗部里的椅与窗框仍留着轮廓。",
+    "imageState": "ready"
+  }
+}

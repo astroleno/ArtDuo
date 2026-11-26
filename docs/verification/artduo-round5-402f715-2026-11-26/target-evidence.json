@@ -1,0 +1,183 @@
+{
+  "validation": {
+    "commit": "402f7158cbc5301246a6fd9edede305ea1cccc9a",
+    "buildId": "ezqOG8rji_-HCAQZ7cdHy",
+    "checkedAt": "2026-11-26T14:13:11.577272+00:00",
+    "pass": 666,
+    "tests": {
+      "packages/contracts": 49,
+      "apps/api": 81,
+      "packages/corpus": 47,
+      "packages/ui": 154,
+      "apps/pipeline": 80,
+      "apps/web": 255
+    },
+    "typecheck": "passed",
+    "loopback": {
+      "status": 200,
+      "buildId": "ezqOG8rji_-HCAQZ7cdHy",
+      "ok": true,
+      "releaseVersion": "2026-11-19-open-gap-739",
+      "checks": {
+        "corpus": true,
+        "localModel": true,
+        "persistentState": true,
+        "modelConfiguration": true
+      }
+    },
+    "savedReplays": [
+      {
+        "release": "2026-11-18-open-gap-739",
+        "works": 6
+      },
+      {
+        "release": "2026-11-17-open-gap-714",
+        "works": 5
+      }
+    ],
+    "observation": {
+      "checkedAt": "2026-11-26T14:13:04.260254+00:00",
+      "releaseVersion": "2026-11-19-open-gap-739",
+      "indexStatus": "loaded",
+      "fileSha256": "29138b3ddd6e4f78b4dbe6505aef28c28a5403b7c316c087c330ea731ebad578",
+      "contentChecksum": "c1d7f0e2a360b6ff29a318ac91e4b36abe7da870f1c30e420fdd1a20ea6c4017",
+      "ok": true,
+      "actualSelectionVersion": 25,
+      "retrieval": "observation",
+      "reason": "verified",
+      "images": 739,
+      "depthMaps": 739,
+      "preparedPreviews": 739,
+      "mode": "production-configuration"
+    },
+    "sources": 831,
+    "dataFiles": 964
+  },
+  "quota": {
+    "policyDay": "2026-11-26",
+    "dailyRequests": 200,
+    "dailyReservedTokens": 1000000,
+    "concurrency": 3,
+    "remaining": {
+      "requests": 200,
+      "reservedTokens": 1000000
+    },
+    "maxNewExhibitionsByRemainingRequestCount": 66
+  },
+  "fixture": {
+    "bundleSha256": "1df0baf7bd5a243b46ae600400282babb9bd9320437c4a7822ba1eaed9c15840",
+    "supplementSha256": "ebecbce381f1903bffc8e331cc8ade3ce27d80463f09dbac4e74dd42c7ead155",
+    "ledgerBundleSha256": "c9c5eb60f374e20ed640c8d5fc844c79b4730d427803fee0fc61fc00a726ef9e",
+    "files": 2468,
+    "temporaryFilesAdded": 2468,
+    "reusedByVerifiedDigest": 543,
+    "removedBeforeReadiness": true,
+    "testSourcesUnchanged": true
+  },
+  "observation-pre-switch": {
+    "checkedAt": "2026-11-26T14:14:42.091335+00:00",
+    "releaseVersion": "2026-11-19-open-gap-739",
+    "indexStatus": "loaded",
+    "fileSha256": "29138b3ddd6e4f78b4dbe6505aef28c28a5403b7c316c087c330ea731ebad578",
+    "contentChecksum": "c1d7f0e2a360b6ff29a318ac91e4b36abe7da870f1c30e420fdd1a20ea6c4017",
+    "ok": true,
+    "actualSelectionVersion": 25,
+    "retrieval": "observation",
+    "reason": "verified",
+    "images": 739,
+    "depthMaps": 739,
+    "preparedPreviews": 739,
+    "mode": "production-configuration"
+  },
+  "rollout": {
+    "commit": "402f7158cbc5301246a6fd9edede305ea1cccc9a",
+    "base": "/opt/artduo/releases/20261119-open-gap-739",
+    "current": "/opt/artduo/releases/20261126-round5-402f715",
+    "activeAt": "2026-11-26T14:14:42.100129+00:00",
+    "buildId": "ezqOG8rji_-HCAQZ7cdHy",
+    "backup": {
+      "path": "/var/backups/artduo/20261126-round5-402f715",
+      "bytes": 422061281,
+      "sha256": "266ac7fe665247f5f86f7fbaa0cf67379cc587d7101a4bdcfa3455626ffa08c8",
+      "verifiedAt": "2026-11-26T14:14:34.611262+00:00"
+    },
+    "observation": {
+      "checkedAt": "2026-11-26T14:14:42.091335+00:00",
+      "releaseVersion": "2026-11-19-open-gap-739",
+      "indexStatus": "loaded",
+      "fileSha256": "29138b3ddd6e4f78b4dbe6505aef28c28a5403b7c316c087c330ea731ebad578",
+      "contentChecksum": "c1d7f0e2a360b6ff29a318ac91e4b36abe7da870f1c30e420fdd1a20ea6c4017",
+      "ok": true,
+      "actualSelectionVersion": 25,
+      "retrieval": "observation",
+      "reason": "verified",
+      "images": 739,
+      "depthMaps": 739,
+      "preparedPreviews": 739,
+      "mode": "production-configuration"
+    },
+    "health": {
+      "status": 200,
+      "buildId": "ezqOG8rji_-HCAQZ7cdHy",
+      "ok": true,
+      "releaseVersion": "2026-11-19-open-gap-739",
+      "checks": {
+        "corpus": true,
+        "localModel": true,
+        "persistentState": true,
+        "modelConfiguration": true
+      }
+    },
+    "services": {
+      "artduo-web.service": "active",
+      "artduo-handwriting.service": "active"
+    },
+    "environmentUnchanged": true,
+    "savedRecordsUnchanged": true
+  },
+  "live-synthetic": {
+    "offer": {
+      "curationId": "03464fc5c135611401f39959969c7005108256ca573a404560fe687eda29fe25",
+      "selectionVersion": 25,
+      "degraded": [],
+      "works": [
+        "cma-314236",
+        "cma-148378",
+        "smk-DEP297",
+        "artic-107862",
+        "rijksmuseum-200119006",
+        "met-436293"
+      ],
+      "release": "2026-11-19-open-gap-739",
+      "indexMatches": true
+    },
+    "confirmedEtching": {
+      "curationId": "5e1d508652130918b839810f4ad269e241379c4dd4355bac9eccdc99f6b9852b",
+      "selectionVersion": 25,
+      "degraded": [],
+      "works": [
+        "smithsonian_asian-fsg_F1903.155",
+        "smk-KKS9147",
+        "smithsonian_asian-fsg_F1893.22",
+        "smk-KKS675",
+        "smk-KKS21148",
+        "smk-KKSgb13036"
+      ],
+      "release": "2026-11-19-open-gap-739",
+      "indexMatches": true
+    }
+  },
+  "cleanup": {
+    "current": "/opt/artduo/releases/20261126-round5-402f715",
+    "candidateStopped": true,
+    "candidateStateRemoved": true,
+    "candidateEnvironmentRemoved": true,
+    "transferPackageRemoved": true,
+    "backupKept": true,
+    "rollbackReleaseKept": true,
+    "tempUploadsRemoved": true,
+    "tempDirectoryRemoved": true
+  },
+  "sourceManifestSha256": "3367ea9e2b87d6603a1ce7eb536aee20bd6c35c9e3eaeec8a97a3311f0a0c48f",
+  "dataManifestSha256": "05e0f3925334cb89b358da4064d73a89f21834c178723c44b94c1011eb96742e"
+}
