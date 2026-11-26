@@ -2,7 +2,7 @@ import { readdirSync } from "node:fs";
 import { createLocalSemanticEncoder, type SemanticEncoder } from "../packages/corpus/src/local-semantic-provider";
 import { runtimeDirectories } from "../apps/api/src/runtime/environment";
 import { loadWebReleaseCatalog, type WebReleaseCatalog } from "../apps/web/lib/release-catalog";
-import { curateExhibition } from "../apps/web/lib/semantic-curator";
+import { curateExhibition, OBSERVATION_SELECTION_VERSION } from "../apps/web/lib/semantic-curator";
 import { fallbackCurationIntent } from "../apps/web/lib/semantic-selection";
 import { runtimeObservationStatus } from "../apps/web/lib/semantic-observation-release";
 
@@ -40,7 +40,7 @@ export async function checkReleaseObservation(rootDir: string, stateDir: string,
         const id = /^  候选 .*?"id":"([^"]+)"/mu.exec(messages[1]?.content ?? "")?.[1];
         if (id) yield JSON.stringify({ stages: [{ stage: 0, artworkIds: [id] }] });
       } });
-    const observed = result.record.selectionVersion === 25 && result.record.observationChecksum === expected.contentChecksum;
+    const observed = result.record.selectionVersion === OBSERVATION_SELECTION_VERSION && result.record.observationChecksum === expected.contentChecksum;
     const reason = intentCalls !== 1 ? "not-fresh" : !observed ? "retrieval-fallback"
       : result.assignments.length === 0 ? "empty-selection" : result.record.degraded.length ? "curation-degraded" : "verified";
     return { ...base, ok: reason === "verified", actualSelectionVersion: result.record.selectionVersion ?? null,
