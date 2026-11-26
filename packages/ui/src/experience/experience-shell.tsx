@@ -22,6 +22,7 @@ import { canOfferSculptureEncounter, sculptureEncounterSuccessor } from "./sculp
 import type { SculptureNarrator, SculptureRoomScene, SculptureWork } from "./sculpture-types";
 import { usePresentedPreface } from "./use-presented-preface";
 import { useStableNarrative } from "./use-stable-narrative";
+import { stageTransitionProfile } from "./stage-transition";
 
 const EncounterRoom = lazy(() => import("./sculpture-room").then(module => ({ default: module.SculptureRoom })));
 const NO_SCULPTURES: SculptureWork[] = [], NO_SCULPTURE_SCENES: SculptureRoomScene[] = [];
@@ -93,7 +94,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const [readyUnitId, setReadyUnitId] = useState<string>();
   const activeUnit = snapshot.units.find((unit) => unit.exhibition.unitId === (state.unitId ?? state.lastUnitId)) ?? snapshot.units[0];
   const activeMood = roomLightMood(snapshot.stages.find((stage) => stage.id === activeUnit?.stageId));
-  const audio = useAmbientAudio(readingOpen || state.overlay === "plaque", activeMood.audioGain, snapshot.audioTracks);
+  const audio = useAmbientAudio(readingOpen || state.overlay === "plaque", activeMood.audioGain, snapshot.audioTracks, isClosing);
   const flushObservation = useViewingObservation({ controller: viewing, state, snapshot, readyUnitId, readingOpen,
     paused: encounterActive || sculptureWorks.length > 0 && !encounter.value });
   const pace = observedPace(viewing.session);
@@ -106,10 +107,11 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
   const rawDispatch = useCallback((event: ExperienceEvent) => {
     const current = stateRef.current;
     const next = experienceReducer(current, event, snapshotRef.current);
+    if (event.type === "RESTORE_POSITION") audio.navigate(false);
     if (next.unitId !== current.unitId || next.transitionSeq !== current.transitionSeq) setReadyUnitId(undefined);
     stateRef.current = next;
     setState(next);
-  }, []);
+  }, [audio.navigate]);
   const dispatch = useCallback((event: ExperienceEvent) => {
     const isLightboxNavigation = event.type === "LIGHTBOX_NEXT" || event.type === "LIGHTBOX_PREVIOUS";
     const isNavigation = isLightboxNavigation || event.type === "NEXT" || event.type === "PREVIOUS" || event.type === "SELECT_UNIT";
@@ -125,6 +127,16 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
       snapshotRef.current = snapshotForSession(baseSnapshot, updated);
     }
     const next = experienceReducer(current, event, snapshotRef.current);
+    if (next.unitId !== current.unitId && current.act === "walk" && next.act === "walk") {
+      const route = snapshotRef.current;
+      const fromIndex = route.units.findIndex(unit => unit.exhibition.unitId === current.unitId);
+      const toIndex = route.units.findIndex(unit => unit.exhibition.unitId === next.unitId);
+      const profile = stageTransitionProfile({ fromIndex, toIndex, count: route.units.length,
+        from: route.stages.find(stage => stage.id === route.units[fromIndex]?.stageId),
+        to: route.stages.find(stage => stage.id === route.units[toIndex]?.stageId),
+      });
+      audio.navigate(event.type === "NEXT" && !reducedMotion && profile.kind === "turn");
+    }
     if (event.type === "NEXT" && current.act === "walk" && next.act === "closing" && anchorId && viewing.hydrated) {
       viewing.commit(session => ({ ...session, closingLookback: closingLookbackForExit(snapshotRef.current, session, anchorId,
         readyUnitId === current.unitId && !current.failedMediaIds.includes(anchorId)) }));
@@ -137,7 +149,7 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     // work over the visible one after the overlay has closed.
     if (event.type === "LIGHTBOX_RESTORE" && next !== current) onPositionChange(positionOfExperienceState(next), snapshotRef.current);
     setState(next);
-  }, [baseSnapshot, viewing.commit, viewing.hydrated, flushObservation, readyUnitId, readingOpen, encounter.pass, onPositionChange, rawDispatch]);
+  }, [audio.navigate, baseSnapshot, viewing.commit, viewing.hydrated, flushObservation, readyUnitId, readingOpen, reducedMotion, encounter.pass, onPositionChange, rawDispatch]);
 
   const openSculptureEncounter = useCallback(() => {
     const current = stateRef.current;
@@ -146,8 +158,9 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
     const anchorId = snapshotRef.current.units.find(unit => unit.exhibition.unitId === current.unitId)?.artwork.id;
     if (!anchorId) return;
     flushObservation();
+    audio.navigate(false);
     encounter.begin(anchorId);
-  }, [encounter.begin, flushObservation, readingOpen, viewing.ref]);
+  }, [audio.navigate, encounter.begin, flushObservation, readingOpen, viewing.ref]);
 
   const shell = useRef<HTMLElement>(null);
   const focusAfterEncounter = useRef<string | undefined>(undefined);
@@ -231,18 +244,15 @@ export function ExperienceShell({ snapshot: baseSnapshot, initialPosition, onPos
 
   useEffect(() => {
     if (previousUnitRef.current !== state.unitId) {
-      if (previousUnitRef.current && state.unitId) audio.dip(600);
       previousUnitRef.current = state.unitId;
       if (state.unitId) {
         const unit = snapshot.units.find((candidate) => candidate.exhibition.unitId === state.unitId);
         if (unit) setStatusMessage(`已准备作品：${unit.artwork.metadata.title}`);
       }
     }
-  }, [audio.dip, snapshot.units, state.unitId]);
+  }, [snapshot.units, state.unitId]);
 
-  useEffect(() => {
-    if (state.act === "closing") audio.dip(1200);
-  }, [audio.dip, state.act]);
+  useEffect(() => { if (reducedMotion) audio.navigate(false); }, [audio.navigate, reducedMotion]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
