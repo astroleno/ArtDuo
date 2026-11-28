@@ -1,0 +1,283 @@
+{
+  "applicationCommit": "7e0ad9d2a0de32b317d0e3bd639ca1f95742920e",
+  "buildId": "Bo6k2-qIEeBNyPRvFv5J3",
+  "catalogRelease": "2026-11-19-open-gap-739",
+  "rollbackCommit": "402f7158cbc5301246a6fd9edede305ea1cccc9a",
+  "sourceDelta": {
+    "files": 15,
+    "verifiedSourceFiles": 833,
+    "dataFiles": 964,
+    "objectsReused": 1555,
+    "sha256": "a77f97ff062489061513fb06e77f61e91d24438b0e39fed1b37d24caba1f6145"
+  },
+  "origin": {
+    "backupVerifiedAt": "2026-11-29T00:05:59+08:00",
+    "backupBytes": 422075933,
+    "preSwitchIndexVerifiedAt": "2026-11-29T00:06:06+08:00",
+    "selectionVersion": 25,
+    "retrieval": "observation",
+    "indexVerified": true,
+    "previews": 739,
+    "depthMaps": 739,
+    "activatedAt": "2026-11-29T00:06:06+08:00",
+    "readyAt": "2026-11-29T00:06:10+08:00",
+    "build": "passed",
+    "typecheck": "passed",
+    "uiTestsPassed": 162,
+    "localRegressionTestsPassed": 674,
+    "servicesActive": true,
+    "anonymousObservationEnabled": true,
+    "candidateAndTransfersCleaned": true
+  },
+  "publicCheckedAt": "2026-11-28T16:07:51.361885+00:00",
+  "domains": {
+    "aitoshuu.me": {
+      "entryStatus": 200,
+      "health": {
+        "ok": true,
+        "releaseVersion": "2026-11-19-open-gap-739",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        }
+      },
+      "aliases": {
+        "/artduo": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO/gallery/local/immersive": {
+          "status": 308,
+          "location": "https://aitoshuu.me/ArtDuo/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        }
+      },
+      "assets": {
+        "js": {
+          "path": "/ArtDuo/_next/static/chunks/webpack-9b63a78e6f2c6cb4.js",
+          "status": 200,
+          "type": "application/javascript"
+        },
+        "css": {
+          "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+          "status": 200,
+          "type": "text/css"
+        }
+      },
+      "missingAsset": 404,
+      "mediaVariants": {
+        "preview": {
+          "status": 200,
+          "type": "image/webp",
+          "bytes": 359960,
+          "sha256": "aaec86d4abeb85639ea9b9565236ffc31a7d3f86259cd8958a3a359256098d83"
+        },
+        "depth": {
+          "status": 200,
+          "type": "image/png",
+          "bytes": 272120,
+          "sha256": "55fed661b03fe7ea55aff8ae5c5ddcd5bc9515dcfd18029d7fbf3eb851881c0e"
+        },
+        "full": {
+          "status": 200,
+          "type": "image/jpeg",
+          "bytes": 4976429,
+          "sha256": "89abe565d4e834e254d1336c062fc8f3185eb1f3c9cc2210a7a5729f0e545196"
+        }
+      },
+      "previousSavedExhibitionsChecked": 2,
+      "neighborRoutes": {
+        "/": {
+          "status": 200,
+          "path": "/"
+        },
+        "/SonoScope": {
+          "status": 200,
+          "path": "/SonoScope"
+        },
+        "/FamilyTree": {
+          "status": 200,
+          "path": "/FamilyTree"
+        },
+        "/Focuence": {
+          "status": 200,
+          "path": "/Focuence"
+        },
+        "/OutSet": {
+          "status": 200,
+          "path": "/OutSet/"
+        },
+        "/CordIndex": {
+          "status": 200,
+          "path": "/CordIndex/"
+        },
+        "/CoScroll": {
+          "status": 200,
+          "path": "/CoScroll/"
+        },
+        "/LuBirth": {
+          "status": 200,
+          "path": "/LuBirth/"
+        },
+        "/InfiDao": {
+          "status": 200,
+          "path": "/InfiDao"
+        }
+      }
+    },
+    "tongye.me": {
+      "entryStatus": 200,
+      "health": {
+        "ok": true,
+        "releaseVersion": "2026-11-19-open-gap-739",
+        "checks": {
+          "corpus": true,
+          "localModel": true,
+          "persistentState": true,
+          "modelConfiguration": true
+        }
+      },
+      "aliases": {
+        "/artduo": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        },
+        "/aRtDuO/gallery/local/immersive": {
+          "status": 308,
+          "location": "https://tongye.me/ArtDuo/gallery/local/immersive?view=experience&check=a%2Fb%20c&check=%E5%85%89"
+        }
+      },
+      "assets": {
+        "js": {
+          "path": "/ArtDuo/_next/static/chunks/webpack-9b63a78e6f2c6cb4.js",
+          "status": 200,
+          "type": "application/javascript"
+        },
+        "css": {
+          "path": "/ArtDuo/_next/static/css/e3237e54f5462297.css",
+          "status": 200,
+          "type": "text/css"
+        }
+      },
+      "missingAsset": 404,
+      "mediaVariants": {
+        "preview": {
+          "status": 200,
+          "type": "image/webp",
+          "bytes": 359960,
+          "sha256": "aaec86d4abeb85639ea9b9565236ffc31a7d3f86259cd8958a3a359256098d83"
+        },
+        "depth": {
+          "status": 200,
+          "type": "image/png",
+          "bytes": 272120,
+          "sha256": "55fed661b03fe7ea55aff8ae5c5ddcd5bc9515dcfd18029d7fbf3eb851881c0e"
+        },
+        "full": {
+          "status": 200,
+          "type": "image/jpeg",
+          "bytes": 4976429,
+          "sha256": "89abe565d4e834e254d1336c062fc8f3185eb1f3c9cc2210a7a5729f0e545196"
+        }
+      },
+      "previousSavedExhibitionsChecked": 2,
+      "neighborRoutes": {
+        "/": {
+          "status": 200,
+          "path": "/"
+        },
+        "/SonoScope": {
+          "status": 200,
+          "path": "/SonoScope"
+        },
+        "/FamilyTree": {
+          "status": 200,
+          "path": "/FamilyTree"
+        },
+        "/Focuence": {
+          "status": 200,
+          "path": "/Focuence"
+        },
+        "/OutSet": {
+          "status": 200,
+          "path": "/OutSet/"
+        },
+        "/CordIndex": {
+          "status": 200,
+          "path": "/CordIndex/"
+        },
+        "/CoScroll": {
+          "status": 200,
+          "path": "/CoScroll/"
+        },
+        "/LuBirth": {
+          "status": 200,
+          "path": "/LuBirth/"
+        },
+        "/InfiDao": {
+          "status": 200,
+          "path": "/InfiDao"
+        }
+      }
+    }
+  },
+  "walks": {
+    "offer": {
+      "width": 1440,
+      "origin": "https://aitoshuu.me",
+      "replayedPriorExhibition": true,
+      "works": [
+        "cma-314236",
+        "cma-148378",
+        "smk-DEP297",
+        "artic-107862",
+        "rijksmuseum-200119006",
+        "met-436293"
+      ],
+      "selectionVersion": 25,
+      "degraded": [],
+      "closingReady": true,
+      "lookback": {
+        "title": "Bloemen in een fles",
+        "imageReady": true,
+        "reusedPreview": true
+      },
+      "replayedOnBothDomains": true,
+      "audio": {
+        "track": "First%20Words.mp3",
+        "pcmPeak": 0.0005867730942554772,
+        "startedAt": 0.516529,
+        "fromGain": 0.05215999856591225,
+        "closingFadeEnded": true
+      }
+    },
+    "copper": {
+      "width": 390,
+      "origin": "https://tongye.me",
+      "replayedPriorExhibition": true,
+      "works": [
+        "smithsonian_asian-fsg_F1903.155",
+        "smk-KKS9147",
+        "smithsonian_asian-fsg_F1893.22",
+        "smk-KKS675",
+        "smk-KKS21148",
+        "smk-KKSgb13036"
+      ],
+      "selectionVersion": 25,
+      "degraded": [],
+      "closingReady": true,
+      "lookback": null,
+      "replayedOnBothDomains": true,
+      "confirmationButton": "看看这些蚀刻"
+    }
+  }
+}
